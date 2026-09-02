@@ -1,0 +1,96 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_library(
+    name = "fixtures",
+    srcs = ["fixtures.py"],
+    imports = ["../../.."],
+    deps = ["@pypi//pandas"],
+)
+
+py_pytest(
+    name = "test_candle",
+    srcs = ["test_candle.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_calendar",
+    srcs = ["test_calendar.py"],
+    deps = ["//python/stock_picker/features"],
+)
+
+py_pytest(
+    name = "test_cross_sectional",
+    srcs = ["test_cross_sectional.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_distributional",
+    srcs = ["test_distributional.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_momentum",
+    srcs = ["test_momentum.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_volatility",
+    srcs = ["test_volatility.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_pipeline",
+    srcs = ["test_pipeline.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_trend",
+    srcs = ["test_trend.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_oscillators",
+    srcs = ["test_oscillators.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
+    name = "test_volume",
+    srcs = ["test_volume.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)

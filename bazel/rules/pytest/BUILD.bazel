@@ -1,0 +1,8 @@
+"""
+Build rules for custom pytest integration.
+"""
+
+exports_files([
+    "defs.bzl",
+    "pytest_shim.py",
+])

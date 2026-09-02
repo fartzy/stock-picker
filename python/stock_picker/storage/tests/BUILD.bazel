@@ -1,0 +1,19 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_feature_store",
+    srcs = ["test_feature_store.py"],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
+    name = "test_price_store",
+    srcs = ["test_price_store.py"],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
+    name = "test_universe_store",
+    srcs = ["test_universe_store.py"],
+    deps = ["//python/stock_picker/storage"],
+)

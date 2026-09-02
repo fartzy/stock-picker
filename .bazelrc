@@ -1,0 +1,8 @@
+# Bazel configuration for stock-picker
+
+build --incompatible_enable_cc_toolchain_resolution
+
+test --test_output=errors
+
+# Load user-specific overrides if present
+try-import %workspace%/.bazelrc.user

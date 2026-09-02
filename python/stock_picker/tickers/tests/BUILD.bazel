@@ -1,0 +1,7 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_universe",
+    srcs = ["test_universe.py"],
+    deps = ["//python/stock_picker/tickers"],
+)
