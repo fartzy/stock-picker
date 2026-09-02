@@ -1,0 +1,15 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "tickers",
+    srcs = [
+        "manual_additions.py",
+        "universe.py",
+    ],
+    imports = ["../.."],
+    deps = [
+        "@pypi//lxml",
+        "@pypi//pandas",
+    ],
+    visibility = ["//visibility:public"],
+)
