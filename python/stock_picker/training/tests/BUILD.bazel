@@ -1,0 +1,37 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_dataset",
+    srcs = ["test_dataset.py"],
+    deps = ["//python/stock_picker/training"],
+)
+
+py_pytest(
+    name = "test_splits",
+    srcs = ["test_splits.py"],
+    deps = ["//python/stock_picker/training"],
+)
+
+py_pytest(
+    name = "test_model",
+    srcs = ["test_model.py"],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+    ],
+)
+
+py_pytest(
+    name = "test_train",
+    srcs = ["test_train.py"],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+    ],
+)
+
+py_pytest(
+    name = "test_inference",
+    srcs = ["test_inference.py"],
+    deps = ["//python/stock_picker/training"],
+)

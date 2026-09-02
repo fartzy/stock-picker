@@ -5,4 +5,5 @@ compile_pip_requirements(
     src = "requirements.in",
     requirements_txt = "requirements.txt",
     generate_hashes = True,
+    timeout = "moderate",
 )

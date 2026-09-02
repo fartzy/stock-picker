@@ -4,11 +4,13 @@ py_library(
     name = "storage",
     srcs = [
         "feature_store.py",
+        "model_store.py",
         "price_store.py",
         "universe_store.py",
     ],
     imports = ["../.."],
     deps = [
+        "@pypi//lightgbm",
         "@pypi//pandas",
         "@pypi//pyarrow",
     ],

@@ -1,0 +1,30 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_library(
+    name = "training",
+    srcs = [
+        "dataset.py",
+        "inference.py",
+        "model.py",
+        "splits.py",
+        "train.py",
+    ],
+    imports = ["../.."],
+    deps = [
+        "@pypi//lightgbm",
+        "@pypi//mlflow",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    imports = ["../.."],
+    deps = [
+        ":training",
+        "//python/stock_picker/storage",
+    ],
+)
