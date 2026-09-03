@@ -20,7 +20,8 @@ flowchart TB
     FS[("storage/FeatureStore<br/>data/features/*.parquet")]
     MS[("storage/ModelStore<br/>data/models/*.txt")]
 
-    FEATPIPE["features/pipeline.py<br/>~80 cols: momentum, volatility, trend,<br/>oscillators, volume, candle, distributional,<br/>cross-sectional, calendar"]
+    FEATPIPE["features/pipeline.py<br/>~84 cols: momentum, volatility, trend,<br/>oscillators, volume, candle, distributional,<br/>cross-sectional, calendar"]
+    CATALOG["features/catalog_main.py<br/>bazel run ...features:catalog"]
 
     DATASET["training/dataset.py<br/>lookahead-safe labeling<br/>(day-session return)"]
     SPLITS["training/splits.py<br/>walk-forward by date"]
@@ -43,6 +44,7 @@ flowchart TB
     TRAIN -.-> MLFLOW
     MS --> INFER
     MS --> BACKTEST
+    FS --> CATALOG
 
     TOP500["Scale beyond top-100<br/>(today: 100 real top-market-cap<br/>tickers, 1y history)"]
     SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
@@ -71,10 +73,11 @@ python/
     ├── ingestion/   # yfinance pull -> raw OHLCV
     ├── storage/     # Parquet/LightGBM persistence (Repository pattern):
     │                 #   PriceStore, UniverseStore, FeatureStore, ModelStore
-    ├── features/    # ~80-column feature pipeline (the "F" in FTI):
+    ├── features/    # ~84-column feature pipeline (the "F" in FTI):
     │                 #   momentum, volatility, trend, oscillators, volume,
     │                 #   candle/gap shape, distributional, cross-sectional,
-    │                 #   calendar -- see pipeline.py for the orchestrator
+    │                 #   calendar -- see pipeline.py for the orchestrator,
+    │                 #   catalog.py/catalog_main.py to browse what exists
     └── training/    # the "T"/"I" in FTI: LightGBM on the day-session
                       # (open->close) return, walk-forward validated,
                       # tracked in MLflow -- see dataset.py for the
@@ -89,15 +92,20 @@ bazel build //...
 bazel test //...
 bazel run //python/stock_picker/ingestion:main
 bazel run //python/stock_picker/features:main
+bazel run //python/stock_picker/features:catalog
 bazel run //python/stock_picker/training:main
 ```
 
 Price history is written to `data/prices/<TICKER>.parquet` (gitignored).
 Computed features are written to `data/features/<TICKER>.parquet` (gitignored),
-one row per date, ~80 columns (see `python/stock_picker/features/pipeline.py`).
-Features needing more trailing history than is available (e.g. a 120-day
-return early in the series) are left `NaN`, not dropped or filled --
-trimming/imputation is a training-time decision.
+one row per date, ~84 columns (see `python/stock_picker/features/pipeline.py`).
+Run `bazel run //python/stock_picker/features:catalog` to list every feature by
+category and see a non-null-coverage report across the current universe --
+useful for spotting a formula bug (an unexpectedly all-NaN column) or just
+seeing what a too-long window costs you in valid rows (the 120-day features
+are ~52% covered with 1 year of history; the 60-day ones ~76%). Features
+needing more trailing history than is available are left `NaN`, not dropped
+or filled -- trimming/imputation is a training-time decision.
 
 The cross-sectional `sector_relative_return` feature is defined but currently
 always omitted: it needs a per-ticker sector label we don't persist yet
@@ -154,9 +162,8 @@ watch as the universe grows, not a conclusion.
   (fetching market cap for the ~500-constituent candidate pool) doesn't shrink with a
   smaller final N, only the downstream ingestion/feature work does.
 - Persist sector labels to unlock `sector_relative_return`.
-- Feature ideas from a reference notebook, not yet built: consecutive up/down-day
-  streak length, momentum-spread/acceleration (e.g. `return_5d - return_20d`), and
-  true calendar seasonality (historical average return by day-of-week/month).
+- Month-level calendar seasonality -- skipped for now, ~21 same-month observations
+  per ticker with 1 year of history isn't enough to be meaningful yet.
 - Feature pruning once there's a real feature-importance signal to prune by --
   `momentum.py`'s simple/log return pairs and the three volatility estimator families
   are the likely-redundant candidates.
