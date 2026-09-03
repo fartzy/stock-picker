@@ -7,6 +7,16 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_model_store",
+    srcs = ["test_model_store.py"],
+    deps = [
+        "//python/stock_picker/storage",
+        "@pypi//lightgbm",
+        "@pypi//numpy",
+    ],
+)
+
+py_pytest(
     name = "test_price_store",
     srcs = ["test_price_store.py"],
     deps = ["//python/stock_picker/storage"],
