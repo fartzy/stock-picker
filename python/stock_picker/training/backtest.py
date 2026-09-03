@@ -1,0 +1,38 @@
+"""Simulates the long-only, threshold-gated day-session strategy: buy at the open on
+any day the model's predicted return exceeds `threshold`, sell at the close, sit out
+otherwise.
+
+No "pick the best threshold" function on purpose: with a handful of holdout tickers over
+a few months, any single threshold a sweep highlights is easily a small-sample fluke.
+`sweep_thresholds` reports `n_trades` alongside every metric so the tradeoff and the
+sample size stay visible together -- read this as illustrating the mechanism, not as a
+trading recommendation, until the universe and history are much larger.
+"""
+
+from __future__ import annotations
+
+import pandas as pd
+
+DEFAULT_THRESHOLDS = [0.0, 0.005, 0.01, 0.02, 0.03]
+
+
+def simulate_trades(predicted: pd.Series, actual: pd.Series, threshold: float) -> dict:
+    """P&L if we'd bought whenever predicted > threshold, sold at the close same day."""
+    taken = predicted > threshold
+    trade_returns = actual[taken]
+    has_trades = len(trade_returns) > 0
+
+    return {
+        "threshold": threshold,
+        "n_trades": int(taken.sum()),
+        "hit_rate": float((trade_returns > 0).mean()) if has_trades else float("nan"),
+        "total_return": float(trade_returns.sum()) if has_trades else float("nan"),
+        "avg_return": float(trade_returns.mean()) if has_trades else float("nan"),
+        "return_std": float(trade_returns.std()) if len(trade_returns) > 1 else float("nan"),
+    }
+
+
+def sweep_thresholds(
+    predicted: pd.Series, actual: pd.Series, thresholds: list[float] = DEFAULT_THRESHOLDS
+) -> pd.DataFrame:
+    return pd.DataFrame([simulate_trades(predicted, actual, t) for t in thresholds])

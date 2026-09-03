@@ -26,6 +26,7 @@ flowchart TB
     SPLITS["training/splits.py<br/>walk-forward by date"]
     TRAIN["training/train.py + model.py<br/>LightGBM"]
     INFER["training/inference.py<br/>live 'this morning' scoring"]
+    BACKTEST["training/backtest.py<br/>threshold sweep on held-out tickers"]
     MLFLOW[("MLflow<br/>data/mlruns/mlflow.db<br/>tracking only, not a registry")]
 
     WIKI --> BUILDUNIV
@@ -41,8 +42,9 @@ flowchart TB
     TRAIN --> MS
     TRAIN -.-> MLFLOW
     MS --> INFER
+    MS --> BACKTEST
 
-    TOP500["Real top-500 ingestion<br/>(today: 3 tickers, 6mo)"]
+    TOP500["Real top-500 ingestion<br/>(today: 13 tickers, 6mo)"]
     SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
     FEAST["Feast feature store<br/>(local mode) once multiple<br/>models share features"]
     DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
@@ -113,7 +115,7 @@ has ever qualified, it stays tracked even if it later falls out of the top
 ## Training
 
 The model predicts the day-session (open->close) return -- buy at today's open, sell
-at today's close. Trained pooled across all tracked tickers (no per-ticker models, no
+at today's close. Trained pooled across tracked tickers (no per-ticker models, no
 ticker-identity feature, to avoid memorizing per-ticker quirks with so little data),
 validated with date-based walk-forward splits (never a random shuffle -- see
 `training/splits.py`).
@@ -127,18 +129,27 @@ Trained models persist via `ModelStore` (`data/models/<name>.txt`, LightGBM's na
 format) -- that's what `inference.py` reads from. MLflow (`data/mlruns/mlflow.db`,
 local SQLite backend, no server) is experiment tracking only, not the model registry.
 
-With only 3 tickers and 128 days of history, walk-forward directional accuracy is
-currently noise-level (~45-65%) -- expected at this data scale. This milestone is
-about the pipeline being mechanically correct end-to-end, not about having a model
-with real signal yet.
+`training/main.py` also holds a few tickers (`HOLDOUT_TICKERS`) out of training
+entirely -- walk-forward only proves the model generalizes across *time* for tickers
+it has already seen; the holdout set tests whether it generalizes to stocks it has
+never seen. `training/backtest.py` then simulates the actual strategy against the
+holdout set: buy whenever the predicted return clears a threshold, sell at the close,
+sweep several thresholds to see the number-of-trades/hit-rate/return tradeoff.
+
+With 13 tickers and 6 months of history, walk-forward directional accuracy is ~50-58%
+and holdout-ticker directional accuracy is ~47% -- both noise-level, as expected. The
+threshold sweep is illustrative of the mechanism, not a trading conclusion: at higher
+thresholds the holdout set has too few trades (sometimes 2, sometimes 0) for a hit
+rate to mean anything. This is still a pipeline-correctness milestone, not a search
+for alpha -- that requires far more tickers and history than we have yet.
 
 ## Roadmap
 
-- Expand ingestion to the real top-500 universe -- current results are a 3-ticker,
-  6-month pipeline smoke test, not a meaningful backtest.
+- Expand ingestion beyond 13 tickers toward the real top-500 universe -- still a
+  pipeline smoke test at this scale, not a meaningful backtest.
 - Persist sector labels to unlock `sector_relative_return`.
 - Feature selection / importance analysis once there's enough data for it to be
-  meaningful (currently ~79 features over ~380 pooled rows).
+  meaningful (currently ~79 features over ~1.4k pooled rows).
 - A real feature store (Feast, local mode) once more than one model consumes the
   same features -- not needed yet at this scale.
 - DuckDB for ad hoc SQL over the Parquet lake, if/when querying by hand outgrows
