@@ -17,9 +17,7 @@ def main() -> None:
     price_store = PriceStore()
     histories = {ticker: price_store.read(ticker) for ticker in tickers}
 
-    benchmark_history = download_price_history([BENCHMARK_TICKER], period="6mo")[
-        BENCHMARK_TICKER
-    ]
+    benchmark_history = download_price_history([BENCHMARK_TICKER])[BENCHMARK_TICKER]
 
     features_by_ticker = build_features_for_universe(
         histories, benchmark_history=benchmark_history

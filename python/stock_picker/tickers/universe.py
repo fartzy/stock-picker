@@ -9,14 +9,26 @@ to the top N.
 
 from __future__ import annotations
 
+from io import StringIO
+
 import pandas as pd
+import requests
 
 WIKIPEDIA_SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+
+# Wikipedia returns 403 Forbidden for urllib's default (header-less) request, which is
+# what pd.read_html uses if given a bare URL -- fetch the page ourselves with a normal
+# browser-like User-Agent first.
+_REQUEST_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; stock-picker/1.0)"}
 
 
 def fetch_sp500_constituents(source_url: str = WIKIPEDIA_SP500_URL) -> list[str]:
     """Return the current S&P 500 ticker symbols, used as the starting universe."""
-    tables = pd.read_html(source_url)
+    response = requests.get(source_url, headers=_REQUEST_HEADERS, timeout=30)
+    response.raise_for_status()
+    # StringIO, not the raw string -- newer pandas treats a bare string ambiguously
+    # (path vs. literal HTML) and can try to open it as a file.
+    tables = pd.read_html(StringIO(response.text))
     constituents = tables[0]
     return constituents["Symbol"].str.replace(".", "-", regex=False).tolist()
 

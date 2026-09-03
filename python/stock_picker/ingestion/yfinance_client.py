@@ -8,7 +8,7 @@ import yfinance as yf
 
 def download_price_history(
     tickers: list[str],
-    period: str = "6mo",
+    period: str = "1y",
     interval: str = "1d",
 ) -> dict[str, pd.DataFrame]:
     """Download OHLCV history for a batch of tickers.

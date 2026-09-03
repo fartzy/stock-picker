@@ -44,7 +44,7 @@ flowchart TB
     MS --> INFER
     MS --> BACKTEST
 
-    TOP500["Real top-500 ingestion<br/>(today: 13 tickers, 6mo)"]
+    TOP500["Scale beyond top-100<br/>(today: 100 real top-market-cap<br/>tickers, 1y history)"]
     SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
     FEAST["Feast feature store<br/>(local mode) once multiple<br/>models share features"]
     DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
@@ -129,27 +129,37 @@ Trained models persist via `ModelStore` (`data/models/<name>.txt`, LightGBM's na
 format) -- that's what `inference.py` reads from. MLflow (`data/mlruns/mlflow.db`,
 local SQLite backend, no server) is experiment tracking only, not the model registry.
 
-`training/main.py` also holds a few tickers (`HOLDOUT_TICKERS`) out of training
-entirely -- walk-forward only proves the model generalizes across *time* for tickers
-it has already seen; the holdout set tests whether it generalizes to stocks it has
-never seen. `training/backtest.py` then simulates the actual strategy against the
-holdout set: buy whenever the predicted return clears a threshold, sell at the close,
-sweep several thresholds to see the number-of-trades/hit-rate/return tradeoff.
+`training/splits.py::select_holdout_tickers` deterministically holds out ~10% of the
+active universe entirely (seeded random sample, not a hardcoded name list, so it stays
+meaningful as the universe grows) -- walk-forward only proves the model generalizes
+across *time* for tickers it has already seen; the holdout set tests whether it
+generalizes to stocks it has never seen. `training/backtest.py` then simulates the
+actual strategy against the holdout set: buy whenever the predicted return clears a
+threshold, sell at the close, sweep several thresholds to see the
+number-of-trades/hit-rate/return tradeoff.
 
-With 13 tickers and 6 months of history, walk-forward directional accuracy is ~50-58%
-and holdout-ticker directional accuracy is ~47% -- both noise-level, as expected. The
-threshold sweep is illustrative of the mechanism, not a trading conclusion: at higher
-thresholds the holdout set has too few trades (sometimes 2, sometimes 0) for a hit
-rate to mean anything. This is still a pipeline-correctness milestone, not a search
-for alpha -- that requires far more tickers and history than we have yet.
+With the real top-100-by-market-cap universe and a full year of history (~4,500 rows
+per walk-forward fold, ~2,500 holdout rows across 10 unseen tickers), walk-forward and
+holdout directional accuracy are both ~46-52% -- still coin-flip, as expected for a
+first-pass model on an efficient market at this timescale. The threshold sweep shows a
+real pattern worth watching rather than dismissing: hit rate rises with the threshold
+(52% at 0%, 71% at 1%, based on 14 trades) -- more suggestive than the earlier 13-ticker
+run's 2-trade fluke, but 14 trades is still not enough to call it a real edge (a fair
+coin lands 10/14 or better about 9% of the time by chance alone). Read as a lead to
+watch as the universe grows, not a conclusion.
 
 ## Roadmap
 
-- Expand ingestion beyond 13 tickers toward the real top-500 universe -- still a
-  pipeline smoke test at this scale, not a meaningful backtest.
+- Scale beyond the top-100 universe toward the full top-500 -- note that ranking cost
+  (fetching market cap for the ~500-constituent candidate pool) doesn't shrink with a
+  smaller final N, only the downstream ingestion/feature work does.
 - Persist sector labels to unlock `sector_relative_return`.
-- Feature selection / importance analysis once there's enough data for it to be
-  meaningful (currently ~79 features over ~1.4k pooled rows).
+- Feature ideas from a reference notebook, not yet built: consecutive up/down-day
+  streak length, momentum-spread/acceleration (e.g. `return_5d - return_20d`), and
+  true calendar seasonality (historical average return by day-of-week/month).
+- Feature pruning once there's a real feature-importance signal to prune by --
+  `momentum.py`'s simple/log return pairs and the three volatility estimator families
+  are the likely-redundant candidates.
 - A real feature store (Feast, local mode) once more than one model consumes the
   same features -- not needed yet at this scale.
 - DuckDB for ad hoc SQL over the Parquet lake, if/when querying by hand outgrows

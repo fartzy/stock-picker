@@ -35,3 +35,15 @@ def test_download_price_history_slices_multiindex_for_a_single_ticker():
 
     assert set(result.keys()) == {"SPY"}
     assert list(result["SPY"].columns) == ["Open", "Close"]
+
+
+def test_download_price_history_defaults_to_one_year():
+    columns = pd.MultiIndex.from_product([["AAPL"], ["Open", "Close"]])
+    raw = pd.DataFrame([[1.0, 2.0]], index=pd.date_range("2026-01-01", periods=1), columns=columns)
+
+    with patch(
+        "stock_picker.ingestion.yfinance_client.yf.download", return_value=raw
+    ) as mock_download:
+        download_price_history(["AAPL"])
+
+    assert mock_download.call_args.kwargs["period"] == "1y"

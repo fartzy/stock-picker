@@ -1,4 +1,33 @@
-from stock_picker.tickers.universe import build_universe, top_n_by_market_cap
+from unittest.mock import MagicMock, patch
+
+from stock_picker.tickers.universe import (
+    build_universe,
+    fetch_sp500_constituents,
+    top_n_by_market_cap,
+)
+
+
+def test_fetch_sp500_constituents_sends_a_user_agent_and_parses_tickers():
+    # Wikipedia 403s a header-less request -- this locks in that fetch_sp500_constituents
+    # sends a User-Agent, and that "." in a symbol (e.g. BRK.B) becomes "-" for yfinance.
+    fake_html = """
+    <table>
+      <tr><th>Symbol</th><th>Security</th></tr>
+      <tr><td>AAPL</td><td>Apple Inc.</td></tr>
+      <tr><td>BRK.B</td><td>Berkshire Hathaway</td></tr>
+    </table>
+    """
+    mock_response = MagicMock()
+    mock_response.text = fake_html
+    mock_response.raise_for_status.return_value = None
+
+    with patch(
+        "stock_picker.tickers.universe.requests.get", return_value=mock_response
+    ) as mock_get:
+        tickers = fetch_sp500_constituents()
+
+    assert tickers == ["AAPL", "BRK-B"]
+    assert "User-Agent" in mock_get.call_args.kwargs["headers"]
 
 
 def test_top_n_by_market_cap_orders_descending():

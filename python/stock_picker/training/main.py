@@ -14,13 +14,10 @@ from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.model import evaluate, feature_columns
+from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
 
 MODEL_NAME = "day_session_return"
-
-# Held out of training entirely -- tests whether the pooled model's signal
-# generalizes to stocks it has never seen, not just future dates for tickers it has.
-HOLDOUT_TICKERS = {"JNJ", "XOM", "WMT"}
 
 
 def _load_pooled_dataset(
@@ -33,8 +30,9 @@ def _load_pooled_dataset(
 
 def main() -> None:
     tickers = UniverseStore().active_tickers()
-    train_tickers = [t for t in tickers if t not in HOLDOUT_TICKERS]
-    holdout_tickers = [t for t in tickers if t in HOLDOUT_TICKERS]
+    holdout_ticker_set = select_holdout_tickers(tickers)
+    train_tickers = [t for t in tickers if t not in holdout_ticker_set]
+    holdout_tickers = [t for t in tickers if t in holdout_ticker_set]
 
     price_store = PriceStore()
     feature_store = FeatureStore()
