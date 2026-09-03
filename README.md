@@ -3,6 +3,63 @@
 Builds a universe of the top 500 US companies by market cap and pulls daily
 OHLCV price history for each via `yfinance`.
 
+## Architecture
+
+Solid boxes are built and tested; dashed boxes are things we've discussed but not
+built yet.
+
+```mermaid
+flowchart TB
+    WIKI["Wikipedia S&amp;P 500 scrape"]
+    MANUAL["tickers/manual_additions.py"]
+    BUILDUNIV["tickers/universe.py<br/>build_universe()"]
+    YF["ingestion/yfinance_client.py<br/>download_price_history()"]
+
+    US[("storage/UniverseStore<br/>data/universe/registry.parquet")]
+    PS[("storage/PriceStore<br/>data/prices/*.parquet")]
+    FS[("storage/FeatureStore<br/>data/features/*.parquet")]
+    MS[("storage/ModelStore<br/>data/models/*.txt")]
+
+    FEATPIPE["features/pipeline.py<br/>~80 cols: momentum, volatility, trend,<br/>oscillators, volume, candle, distributional,<br/>cross-sectional, calendar"]
+
+    DATASET["training/dataset.py<br/>lookahead-safe labeling<br/>(day-session return)"]
+    SPLITS["training/splits.py<br/>walk-forward by date"]
+    TRAIN["training/train.py + model.py<br/>LightGBM"]
+    INFER["training/inference.py<br/>live 'this morning' scoring"]
+    MLFLOW[("MLflow<br/>data/mlruns/mlflow.db<br/>tracking only, not a registry")]
+
+    WIKI --> BUILDUNIV
+    MANUAL --> BUILDUNIV
+    BUILDUNIV --> US
+    US --> YF
+    YF --> PS
+    PS --> FEATPIPE
+    FEATPIPE --> FS
+    PS --> DATASET
+    FS --> DATASET
+    DATASET --> SPLITS --> TRAIN
+    TRAIN --> MS
+    TRAIN -.-> MLFLOW
+    MS --> INFER
+
+    TOP500["Real top-500 ingestion<br/>(today: 3 tickers, 6mo)"]
+    SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
+    FEAST["Feast feature store<br/>(local mode) once multiple<br/>models share features"]
+    DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
+    LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
+    MULTI["Other prediction domains<br/>(e.g. betting) on the same<br/>FTI core, stocks-first"]
+
+    US -.-> TOP500
+    US -.-> SECTOR
+    FS -.-> FEAST
+    PS -.-> DUCKDB
+    INFER -.-> LIVE
+    TRAIN -.-> MULTI
+
+    classDef planned stroke-dasharray: 5 5,fill:#f5f5f5,stroke:#999,color:#555;
+    class TOP500,SECTOR,FEAST,DUCKDB,LIVE,MULTI planned;
+```
+
 ## Structure
 
 ```
@@ -82,3 +139,13 @@ with real signal yet.
 - Persist sector labels to unlock `sector_relative_return`.
 - Feature selection / importance analysis once there's enough data for it to be
   meaningful (currently ~79 features over ~380 pooled rows).
+- A real feature store (Feast, local mode) once more than one model consumes the
+  same features -- not needed yet at this scale.
+- DuckDB for ad hoc SQL over the Parquet lake, if/when querying by hand outgrows
+  reading individual Parquet files.
+- A scheduled live scoring loop: fetch this morning's open, run `inference.py`,
+  decide buy/hold/sell -- currently `inference.py` exists as a library, not a
+  runnable service.
+- Possible expansion beyond stocks (e.g. other prediction domains) on the same
+  FTI core -- deliberately not generalized yet; extracting shared abstractions
+  before there's a second real domain tends to guess wrong.
