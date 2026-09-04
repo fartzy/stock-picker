@@ -43,3 +43,18 @@ export function themeRgb(key: ThemeKey): RGB {
 export function themeColor(key: ThemeKey): string {
   return `rgb(${themeRgb(key).join(",")})`;
 }
+
+// Shared coverage gradient (bad -> good) used anywhere a non-null-% needs a
+// color -- FeatureCatalog and CoverageChart both display the same underlying
+// metric and must render it identically, not as two different color schemes.
+export const COVERAGE_GRADIENT_MIN_MAX: [number, number] = [0.4, 1.0];
+
+export function coverageColor(pct: number | undefined): string {
+  if (pct === undefined) return themeColor("neutral");
+  const [gradientMin, gradientMax] = COVERAGE_GRADIENT_MIN_MAX;
+  const t = Math.max(0, Math.min(1, (pct - gradientMin) / (gradientMax - gradientMin)));
+  const bad = themeRgb("bad");
+  const good = themeRgb("good");
+  const rgb = bad.map((c, i) => Math.round(c + (good[i] - c) * t));
+  return `rgb(${rgb.join(",")})`;
+}

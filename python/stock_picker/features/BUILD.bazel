@@ -13,7 +13,10 @@ py_library(
         "momentum.py",
         "oscillators.py",
         "pipeline.py",
+        "pruning.py",
+        "quotes.py",
         "registry.py",
+        "trades.py",
         "trend.py",
         "volatility.py",
         "volume.py",
@@ -22,6 +25,7 @@ py_library(
     deps = [
         "@pypi//numpy",
         "@pypi//pandas",
+        "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
     ],
     visibility = ["//visibility:public"],
@@ -42,6 +46,16 @@ py_binary(
     name = "catalog",
     srcs = ["catalog_main.py"],
     main = "catalog_main.py",
+    imports = ["../.."],
+    deps = [
+        ":features",
+    ],
+)
+
+py_binary(
+    name = "log_trade",
+    srcs = ["log_trade_main.py"],
+    main = "log_trade_main.py",
     imports = ["../.."],
     deps = [
         ":features",

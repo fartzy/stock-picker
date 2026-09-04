@@ -27,3 +27,11 @@ def test_feature_columns_excludes_metadata_and_label():
     frame = pd.DataFrame({"ticker": ["A"], "date": [1], "signal": [0.1], LABEL_COLUMN: [0.01]})
 
     assert feature_columns(frame) == ["signal"]
+
+
+def test_feature_columns_also_excludes_pruned_features():
+    frame = pd.DataFrame(
+        {"ticker": ["A"], "date": [1], "signal": [0.1], "noise_feature": [0.2], LABEL_COLUMN: [0.01]}
+    )
+
+    assert feature_columns(frame, excluded_features={"noise_feature"}) == ["signal"]

@@ -9,6 +9,7 @@ py_library(
     imports = ["../.."],
     deps = [
         "@pypi//fastapi",
+        "@pypi//pydantic",
         "//python/stock_picker/features",
     ],
     visibility = ["//visibility:public"],
