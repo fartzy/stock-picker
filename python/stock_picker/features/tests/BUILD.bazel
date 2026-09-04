@@ -1,3 +1,4 @@
+# gazelle:python_generation_mode file
 load("@rules_python//python:defs.bzl", "py_library")
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
@@ -5,31 +6,36 @@ py_library(
     name = "fixtures",
     srcs = ["fixtures.py"],
     imports = ["../../.."],
-    deps = ["@pypi//pandas"],
     visibility = ["//visibility:public"],
+    deps = ["@pypi//pandas"],
 )
 
 py_pytest(
     name = "test_candle",
     srcs = ["test_candle.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_catalog",
     srcs = ["test_catalog.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_descriptions",
     srcs = ["test_descriptions.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
@@ -39,6 +45,7 @@ py_pytest(
 py_pytest(
     name = "test_registry",
     srcs = ["test_registry.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
@@ -48,48 +55,61 @@ py_pytest(
 py_pytest(
     name = "test_calendar",
     srcs = ["test_calendar.py"],
-    deps = ["//python/stock_picker/features"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_cross_sectional",
     srcs = ["test_cross_sectional.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_distributional",
     srcs = ["test_distributional.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_momentum",
     srcs = ["test_momentum.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_volatility",
     srcs = ["test_volatility.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_pipeline",
     srcs = ["test_pipeline.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
@@ -99,38 +119,49 @@ py_pytest(
 py_pytest(
     name = "test_trend",
     srcs = ["test_trend.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_oscillators",
     srcs = ["test_oscillators.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_quotes",
     srcs = ["test_quotes.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/features"],
 )
 
 py_pytest(
     name = "test_trades",
     srcs = ["test_trades.py"],
-    deps = ["//python/stock_picker/features"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_volume",
     srcs = ["test_volume.py"],
+    imports = ["../../.."],
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//pandas",
     ],
 )

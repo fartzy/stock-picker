@@ -1,7 +1,9 @@
+# gazelle:python_generation_mode file
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
     name = "test_universe",
     srcs = ["test_universe.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/tickers"],
 )

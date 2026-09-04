@@ -3,6 +3,8 @@ module(name = "stock_picker", version = "0.1.0")
 bazel_dep(name = "rules_python", version = "1.7.0")
 bazel_dep(name = "aspect_rules_js", version = "3.4.1")
 bazel_dep(name = "aspect_rules_ts", version = "3.10.1")
+bazel_dep(name = "gazelle", version = "0.47.0", repo_name = "bazel_gazelle")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "2.3.2")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.12")

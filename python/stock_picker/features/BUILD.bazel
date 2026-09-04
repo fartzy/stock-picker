@@ -7,9 +7,12 @@ py_library(
         "candle.py",
         "catalog.py",
         "catalog_loader.py",
+        "catalog_main.py",
         "cross_sectional.py",
         "descriptions.py",
         "distributional.py",
+        "log_trade_main.py",
+        "main.py",
         "momentum.py",
         "oscillators.py",
         "pipeline.py",
@@ -22,19 +25,20 @@ py_library(
         "volume.py",
     ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
-        "@pypi//numpy",
-        "@pypi//pandas",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
     ],
-    visibility = ["//visibility:public"],
 )
 
 py_binary(
     name = "main",
     srcs = ["main.py"],
     imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
     deps = [
         ":features",
         "//python/stock_picker/ingestion",
@@ -45,8 +49,9 @@ py_binary(
 py_binary(
     name = "catalog",
     srcs = ["catalog_main.py"],
-    main = "catalog_main.py",
     imports = ["../.."],
+    main = "catalog_main.py",
+    visibility = ["//python:__subpackages__"],
     deps = [
         ":features",
     ],
@@ -55,9 +60,10 @@ py_binary(
 py_binary(
     name = "log_trade",
     srcs = ["log_trade_main.py"],
-    main = "log_trade_main.py",
     imports = ["../.."],
+    main = "log_trade_main.py",
+    visibility = ["//python:__subpackages__"],
     deps = [
-        ":features",
+        "//python/stock_picker/storage",
     ],
 )

@@ -4,24 +4,27 @@ py_library(
     name = "api",
     srcs = [
         "app.py",
+        "main.py",
         "routes.py",
     ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
         "@pypi//fastapi",
         "@pypi//pydantic",
-        "//python/stock_picker/features",
+        "@pypi//uvicorn",
     ],
-    visibility = ["//visibility:public"],
 )
 
 py_binary(
     name = "main",
     srcs = ["main.py"],
     imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
     deps = [
         ":api",
-        "@pypi//fastapi",
         "@pypi//uvicorn",
     ],
 )

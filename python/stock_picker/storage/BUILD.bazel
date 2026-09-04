@@ -12,10 +12,10 @@ py_library(
         "universe_store.py",
     ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
         "@pypi//lightgbm",
         "@pypi//pandas",
-        "@pypi//pyarrow",
+        "@pypi//pyarrow",  # keep: implicit pandas parquet backend, no direct import
     ],
-    visibility = ["//visibility:public"],
 )

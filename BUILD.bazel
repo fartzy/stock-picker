@@ -1,9 +1,46 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@pypi//:requirements.bzl", "all_whl_requirements")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
+load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
 compile_pip_requirements(
     name = "requirements",
-    src = "requirements.in",
-    requirements_txt = "requirements.txt",
-    generate_hashes = True,
     timeout = "moderate",
+    src = "requirements.in",
+    generate_hashes = True,
+    requirements_txt = "requirements.txt",
+)
+
+# Production code bundles each directory's .py files into one py_library
+# (see e.g. python/stock_picker/features/BUILD.bazel) -- package mode (the
+# default) matches that. Test directories override to file mode below, since
+# each test file gets its own py_pytest target.
+# gazelle:map_kind py_test py_pytest //bazel/rules/pytest:defs.bzl
+# gazelle:exclude .venv
+
+# py_pytest always injects @pypi//pytest itself (see bazel/rules/pytest/defs.bzl) --
+# don't let gazelle add it again as a resolved dep, or it duplicates the label.
+# gazelle:python_ignore_dependencies pytest
+
+# Maps Python import statements to the pip wheel that provides them, so
+# gazelle can resolve e.g. `import pandas` -> `@pypi//pandas` in deps.
+modules_mapping(
+    name = "modules_map",
+    wheels = all_whl_requirements,
+)
+
+# `bazel run //:gazelle_python_manifest.update` regenerates gazelle_python.yaml
+# whenever requirements.txt changes.
+gazelle_python_manifest(
+    name = "gazelle_python_manifest",
+    modules_mapping = ":modules_map",
+    pip_repository_name = "pypi",
+    requirements = "//:requirements.txt",
+    tags = ["exclusive"],
+)
+
+gazelle(
+    name = "gazelle",
+    gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
 )

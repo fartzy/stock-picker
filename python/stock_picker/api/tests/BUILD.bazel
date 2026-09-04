@@ -1,12 +1,15 @@
+# gazelle:python_generation_mode file
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
     name = "test_routes",
     srcs = ["test_routes.py"],
+    imports = ["../../.."],
     deps = [
         "//python/stock_picker/api",
         "//python/stock_picker/features/tests:fixtures",
         "@pypi//fastapi",
-        "@pypi//httpx",
+        "@pypi//httpx",  # keep: FastAPI's TestClient needs httpx as its transport, no direct import
+        "@pypi//pandas",
     ],
 )

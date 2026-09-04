@@ -1,7 +1,12 @@
+# gazelle:python_generation_mode file
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
     name = "test_yfinance_client",
     srcs = ["test_yfinance_client.py"],
-    deps = ["//python/stock_picker/ingestion"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/ingestion",
+        "@pypi//pandas",
+    ],
 )

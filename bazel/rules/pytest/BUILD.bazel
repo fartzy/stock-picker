@@ -2,6 +2,11 @@
 Build rules for custom pytest integration.
 """
 
+# pytest_shim.py is consumed as a raw file label (see defs.bzl's py_pytest
+# macro), never imported as a module -- skip gazelle's py_library/py_binary
+# generation for it.
+# gazelle:python_ignore_files pytest_shim.py
+
 exports_files([
     "defs.bzl",
     "pytest_shim.py",

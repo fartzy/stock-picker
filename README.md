@@ -102,6 +102,11 @@ bazel run //typescript:dev                  # Vite dev server on :5173, proxies 
 bazel run //python/stock_picker/features:log_trade -- --ticker AAPL --side buy --shares 10 --price 230.00
 ```
 
+Python BUILD.bazel files are gazelle-managed -- after adding/removing an import, run
+`bazel run //:gazelle` to regenerate `srcs`/`deps` rather than hand-editing them. A few
+deps that pandas/FastAPI need as implicit backends (no direct `import`) are marked
+`# keep` so gazelle won't prune them; see the comment next to each for why.
+
 Price/feature data lives in `data/{prices,features,universe,models}/` (all
 gitignored). `bazel run //python/stock_picker/features:catalog` lists every
 feature with a plain-English description and non-null coverage across the

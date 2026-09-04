@@ -1,20 +1,27 @@
+# gazelle:python_generation_mode file
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
     name = "test_feature_exclusion_store",
     srcs = ["test_feature_exclusion_store.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
 
 py_pytest(
     name = "test_feature_store",
     srcs = ["test_feature_store.py"],
-    deps = ["//python/stock_picker/storage"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_model_store",
     srcs = ["test_model_store.py"],
+    imports = ["../../.."],
     deps = [
         "//python/stock_picker/storage",
         "@pypi//lightgbm",
@@ -25,23 +32,30 @@ py_pytest(
 py_pytest(
     name = "test_paths",
     srcs = ["test_paths.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
 
 py_pytest(
     name = "test_price_store",
     srcs = ["test_price_store.py"],
-    deps = ["//python/stock_picker/storage"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_trade_store",
     srcs = ["test_trade_store.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
 
 py_pytest(
     name = "test_universe_store",
     srcs = ["test_universe_store.py"],
+    imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
