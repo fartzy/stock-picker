@@ -87,6 +87,10 @@ typescript/      # React + Vite + TS frontend (Trading / Feature Store tabs)
 
 ## Quickstart
 
+Bazel version is pinned in `.bazelversion` (9.0.1) -- install
+[bazelisk](https://github.com/bazelbuild/bazelisk) (`brew install bazelisk`) rather than
+plain `bazel` so it's picked up automatically.
+
 ```
 bazel build //...
 bazel test //...
