@@ -5,8 +5,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-WINDOWS = [1, 3, 5, 10, 20, 60, 120]
-SPREAD_WINDOW_PAIRS = [(5, 20), (10, 60), (20, 120)]
+WINDOWS = [1, 2, 3, 4, 5, 10, 20, 60, 120]
+SPREAD_WINDOW_PAIRS = [(1, 3), (2, 4), (3, 5), (5, 20), (10, 60), (20, 120)]
 
 
 def simple_return(close: pd.Series, window: int) -> pd.Series:

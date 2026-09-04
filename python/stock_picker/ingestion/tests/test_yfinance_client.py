@@ -37,6 +37,23 @@ def test_download_price_history_slices_multiindex_for_a_single_ticker():
     assert list(result["SPY"].columns) == ["Open", "Close"]
 
 
+def test_download_price_history_excludes_a_failed_ticker():
+    # a ticker yfinance couldn't fetch (delisted, transient failure) comes back as
+    # an all-NaN slice -- it must be excluded, not stored as an empty DataFrame.
+    columns = pd.MultiIndex.from_product([["AAPL", "OMC"], ["Open", "Close"]])
+    index = pd.date_range("2026-01-01", periods=2)
+    raw = pd.DataFrame(
+        [[1.0, 2.0, None, None], [1.1, 2.1, None, None]],
+        index=index,
+        columns=columns,
+    )
+
+    with patch("stock_picker.ingestion.yfinance_client.yf.download", return_value=raw):
+        result = download_price_history(["AAPL", "OMC"], period="6mo")
+
+    assert set(result.keys()) == {"AAPL"}
+
+
 def test_download_price_history_defaults_to_one_year():
     columns = pd.MultiIndex.from_product([["AAPL"], ["Open", "Close"]])
     raw = pd.DataFrame([[1.0, 2.0]], index=pd.date_range("2026-01-01", periods=1), columns=columns)

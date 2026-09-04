@@ -15,7 +15,15 @@ def main() -> None:
     tickers = UniverseStore().active_tickers()
 
     price_store = PriceStore()
-    histories = {ticker: price_store.read(ticker) for ticker in tickers}
+    histories = {}
+    for ticker in tickers:
+        try:
+            histories[ticker] = price_store.read(ticker)
+        except FileNotFoundError:
+            # Active in UniverseStore doesn't guarantee ingestion succeeded for it
+            # (e.g. a transient yfinance failure) -- skip rather than crash the
+            # whole run over one ticker.
+            print(f"skipping {ticker}: no price data found")
 
     benchmark_history = download_price_history([BENCHMARK_TICKER])[BENCHMARK_TICKER]
 

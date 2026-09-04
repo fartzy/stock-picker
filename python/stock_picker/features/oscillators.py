@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-RSI_WINDOWS = [14, 28]
-STOCHASTIC_WINDOW = 14
+RSI_WINDOWS = [2, 14, 28]  # RSI-2 is a well-known short-term mean-reversion variant
+STOCHASTIC_WINDOWS = [5, 14]
 STOCHASTIC_SIGNAL_WINDOW = 3
 BOLLINGER_WINDOW = 20
 BOLLINGER_NUM_STD = 2
@@ -25,7 +25,7 @@ def rsi(close: pd.Series, window: int) -> pd.Series:
 
 def stochastic_oscillator(
     history: pd.DataFrame,
-    window: int = STOCHASTIC_WINDOW,
+    window: int,
     signal_window: int = STOCHASTIC_SIGNAL_WINDOW,
 ) -> tuple[pd.Series, pd.Series]:
     lowest_low = history["Low"].rolling(window).min()
@@ -70,9 +70,10 @@ def build_oscillator_features(history: pd.DataFrame) -> pd.DataFrame:
     features = {}
     for n in RSI_WINDOWS:
         features[f"rsi_{n}"] = rsi(close, n)
-    percent_k, percent_d = stochastic_oscillator(history)
-    features["stochastic_k"] = percent_k
-    features["stochastic_d"] = percent_d
+    for n in STOCHASTIC_WINDOWS:
+        percent_k, percent_d = stochastic_oscillator(history, window=n)
+        features[f"stochastic_k_{n}d"] = percent_k
+        features[f"stochastic_d_{n}d"] = percent_d
     percent_b, bandwidth = bollinger_bands(close)
     features["bollinger_pct_b"] = percent_b
     features["bollinger_bandwidth"] = bandwidth

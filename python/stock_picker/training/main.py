@@ -23,8 +23,18 @@ MODEL_NAME = "day_session_return"
 def _load_pooled_dataset(
     tickers: list[str], price_store: PriceStore, feature_store: FeatureStore
 ) -> pd.DataFrame:
-    histories = {ticker: price_store.read(ticker) for ticker in tickers}
-    features_by_ticker = {ticker: feature_store.read(ticker) for ticker in tickers}
+    histories = {}
+    features_by_ticker = {}
+    for ticker in tickers:
+        try:
+            histories[ticker] = price_store.read(ticker)
+            features_by_ticker[ticker] = feature_store.read(ticker)
+        except FileNotFoundError:
+            # Active in UniverseStore doesn't guarantee price/feature data exists
+            # for it (e.g. a transient ingestion failure) -- skip rather than
+            # crash the whole run over one ticker.
+            print(f"skipping {ticker}: missing price or feature data")
+            histories.pop(ticker, None)
     return build_pooled_dataset(histories, features_by_ticker)
 
 

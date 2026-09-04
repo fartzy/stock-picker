@@ -19,6 +19,7 @@ from stock_picker.features import (
     volatility,
     volume,
 )
+from stock_picker.features.descriptions import describe_feature
 
 _SINGLE_TICKER_BUILDERS = {
     "momentum": momentum.build_momentum_features,
@@ -56,6 +57,16 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     }
     columns["cross_sectional"] = _cross_sectional_columns(sample_history)
     return columns
+
+
+def describe_all(sample_history: pd.DataFrame) -> dict[str, str]:
+    """Feature name -> plain-English description, for every real column."""
+    catalog = list_feature_columns(sample_history)
+    return {
+        column: describe_feature(column)
+        for columns in catalog.values()
+        for column in columns
+    }
 
 
 def coverage_report(feature_tables: dict[str, pd.DataFrame]) -> pd.DataFrame:

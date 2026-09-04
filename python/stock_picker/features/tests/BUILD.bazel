@@ -27,6 +27,15 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_descriptions",
+    srcs = ["test_descriptions.py"],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
+
+py_pytest(
     name = "test_calendar",
     srcs = ["test_calendar.py"],
     deps = ["//python/stock_picker/features"],
