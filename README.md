@@ -22,6 +22,7 @@ flowchart TB
 
     FEATPIPE["features/pipeline.py<br/>~95 cols: momentum, volatility, trend,<br/>oscillators, volume, candle, distributional,<br/>cross-sectional, calendar"]
     CATALOG["features/catalog_main.py + descriptions.py<br/>bazel run ...features:catalog"]
+    REGISTRY["features/registry.py<br/>Feast-style Entity/FeatureView/FeatureService<br/>metadata over the same pipeline"]
 
     DATASET["training/dataset.py<br/>lookahead-safe labeling<br/>(day-session return)"]
     SPLITS["training/splits.py<br/>walk-forward by date"]
@@ -45,10 +46,11 @@ flowchart TB
     MS --> INFER
     MS --> BACKTEST
     FS --> CATALOG
+    FEATPIPE --> REGISTRY
 
     SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
     VALSET["Validation slice + early stopping<br/>within each walk-forward fold"]
-    FEAST["Feast feature store<br/>(local mode) once multiple<br/>models share features"]
+    TTLCHECK["Wire registry.check_freshness into<br/>inference.py's live path"]
     DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
     LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
     WEBUI["javascript/ + FastAPI backend<br/>real browsable app (not this diagram's<br/>one-off dashboard)"]
@@ -56,14 +58,14 @@ flowchart TB
 
     US -.-> SECTOR
     TRAIN -.-> VALSET
-    FS -.-> FEAST
+    REGISTRY -.-> TTLCHECK
     PS -.-> DUCKDB
     INFER -.-> LIVE
     MS -.-> WEBUI
     TRAIN -.-> MULTI
 
     classDef planned stroke-dasharray: 5 5,fill:#f5f5f5,stroke:#999,color:#555;
-    class SECTOR,VALSET,FEAST,DUCKDB,LIVE,WEBUI,MULTI planned;
+    class SECTOR,VALSET,TTLCHECK,DUCKDB,LIVE,WEBUI,MULTI planned;
 ```
 
 ## Structure
@@ -80,7 +82,8 @@ python/
     │                 #   candle/gap shape, distributional, cross-sectional,
     │                 #   calendar -- see pipeline.py for the orchestrator,
     │                 #   catalog.py/catalog_main.py to browse what exists,
-    │                 #   descriptions.py for plain-English explanations
+    │                 #   descriptions.py for plain-English explanations,
+    │                 #   registry.py for Feast-style metadata (see Registry below)
     └── training/    # the "T"/"I" in FTI: LightGBM on the day-session
                       # (open->close) return, walk-forward validated,
                       # tracked in MLflow -- see dataset.py for the
@@ -134,6 +137,52 @@ occasionally failing (delisting, a transient yfinance hiccup) -- `PriceStore`
 just won't have that ticker for the run, and `features`/`training` skip it with
 a warning rather than crashing the whole pipeline.
 
+## Registry
+
+`features/registry.py` describes the pipeline the way a real feature store's
+registry would, modeled on [Feast's object vocabulary](https://docs.feast.dev/getting-started/components/registry)
+(Entity / FeatureView / FeatureService) -- deliberately as metadata over the
+*existing* pipeline rather than a new storage backend or a Feast dependency,
+since we still only have one model consuming these features. `FeatureStore`
+remains the actual values store; the registry just names and describes it:
+
+- One **Entity** (`ticker`) -- the join key every feature view is keyed on.
+- One **FeatureView** per category (`momentum`, `volatility`, ... -- derived
+  from `catalog.list_feature_columns`, not hand-maintained), each with a
+  `source`, `ttl_days`, `tags`, and `owner`.
+- One **FeatureService** (`day_session_return_model`) naming which views today's
+  one model consumes -- where a second model would plug in without restructuring.
+- `check_freshness()`: is a feature snapshot within its view's `ttl_days` as of a
+  given date. Not just structure -- see the live-inference lessons below for why
+  this exists.
+
+Browse it in the dashboard's Registry section alongside the existing feature
+catalog.
+
+## Live-inference lessons (2026-09-04)
+
+Running real live inference for the first time (fetch today's open, score every
+tracked ticker, rank by predicted return) surfaced three real data-integrity bugs
+in one session, all now understood and worth remembering when touching this path:
+
+1. **A finalized-yesterday assumption can be wrong.** Yahoo sometimes hasn't
+   finalized the prior trading day's close yet when you pull -- the row exists
+   with `NaN` Close. Re-pulling a day later fixed it, but a live tool can't
+   assume "the last row is complete."
+2. **"Today" can already be in the pulled data.** A same-day pull can include
+   today's own in-progress row. Blindly taking `.iloc[-1]` as "yesterday" uses
+   today's still-forming data mislabeled as the prior day -- a real off-by-one
+   that would corrupt every lagged feature and the overnight gap.
+3. **Stock splits desync historical vs. live data.** A ticker that splits
+   between your last ingestion and "now" shows an enormous fake overnight gap
+   (historical close pre-split vs. live quote post-split) that looks like a
+   legitimate signal to the model. Caught by sanity-checking an implausible gap
+   magnitude, not by any structural safeguard.
+
+None of these are handled structurally yet -- `registry.check_freshness()` is
+built to address (1) and (2) once wired into `training/inference.py`'s live path
+(see Roadmap); (3) still needs a sanity bound or split-detection check.
+
 ## Training
 
 The model predicts the day-session (open->close) return -- buy at today's open, sell
@@ -167,17 +216,20 @@ Holdout (unseen-ticker generalization) is **56.0% on 12,500 rows**, the first re
 at a large enough sample to take seriously rather than dismiss as noise. The
 threshold sweep is the more interesting piece: at a 0.5% predicted-return threshold,
 186 trades clear it with a **73.1% hit rate** (vs. 56.8% at threshold 0, where every
-day is traded). That's a real sample, not a 2-trade or 14-trade fluke like earlier
-runs at smaller scale -- but it hasn't yet been checked for concentration in a
-handful of tickers the way an earlier 13-ticker run turned out to be dominated by
-one name's volatile stretch. Read as the first result worth digging into, not yet a
-conclusion; that concentration check is the natural next step before trusting it.
+day is traded).
+
+**Concentration check (done)**: at 0.5%, 40 of the 50 holdout tickers contribute,
+the top ticker is only 10% of trades, and excluding the top 5 tickers entirely
+(40% of all trades) the hit rate *rises* to 78.6% -- broad-based, not propped up by
+a few names. At the stricter 1% threshold (only 14 trades), the earlier problem
+reappears: half the trades are one ticker, clustered into a few episodes. Trust the
+0.5% number, not the flashier 1% one, at this data scale.
 
 ## Roadmap
 
-- Check whether the 500-ticker threshold-sweep result (73% hit rate at 186 trades) is
-  broad-based or concentrated in a handful of tickers -- the natural next step before
-  treating it as a real signal.
+- Wire `registry.check_freshness()` into `training/inference.py`'s live path, and
+  add a sanity bound (or split-detection check) on the overnight gap -- the three
+  live-inference lessons above, made structural instead of caught by eye.
 - A validation slice within each walk-forward fold's training period (a trailing
   chronological chunk, not a flat % split) for LightGBM early stopping -- `model.py`'s
   `num_boost_round=100` is currently a fixed guess, not tuned against anything.
@@ -187,8 +239,6 @@ conclusion; that concentration check is the natural next step before trusting it
 - Feature pruning using the correlation data already gathered -- `stochastic_k_14d`/
   `williams_r` are an exact affine duplicate (`%K = %R + 100`), and the return/
   log_return and Parkinson/Garman-Klass volatility pairs are ~99% correlated.
-- A real feature store (Feast, local mode) once more than one model consumes the
-  same features -- not needed yet at this scale.
 - DuckDB for ad hoc SQL over the Parquet lake, if/when querying by hand outgrows
   reading individual Parquet files.
 - A scheduled live scoring loop: fetch this morning's open, run `inference.py`,
