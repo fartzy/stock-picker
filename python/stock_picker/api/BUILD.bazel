@@ -1,21 +1,15 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 py_library(
-    name = "training",
+    name = "api",
     srcs = [
-        "backtest.py",
-        "dataset.py",
-        "inference.py",
-        "model.py",
-        "splits.py",
-        "train.py",
+        "app.py",
+        "routes.py",
     ],
     imports = ["../.."],
     deps = [
-        "@pypi//lightgbm",
-        "@pypi//mlflow",
-        "@pypi//numpy",
-        "@pypi//pandas",
+        "@pypi//fastapi",
+        "//python/stock_picker/features",
         "//python/stock_picker/storage",
     ],
     visibility = ["//visibility:public"],
@@ -26,7 +20,8 @@ py_binary(
     srcs = ["main.py"],
     imports = ["../.."],
     deps = [
-        ":training",
-        "//python/stock_picker/storage",
+        ":api",
+        "@pypi//fastapi",
+        "@pypi//uvicorn",
     ],
 )

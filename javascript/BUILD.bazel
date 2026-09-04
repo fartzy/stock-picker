@@ -1,0 +1,43 @@
+load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//javascript:vite/package_json.bzl", vite_bin = "bin")
+
+npm_link_all_packages()
+
+ts_project(
+    name = "typecheck",
+    srcs = glob(["src/**/*.ts", "src/**/*.tsx"]),
+    tsconfig = "tsconfig.json",
+    declaration = False,
+    no_emit = True,
+    deps = [
+        ":node_modules/@types/react",
+        ":node_modules/@types/react-dom",
+        ":node_modules/react",
+        ":node_modules/react-dom",
+    ],
+)
+
+vite_bin.vite_binary(
+    name = "vite",
+)
+
+js_run_devserver(
+    name = "dev",
+    args = ["dev"],
+    chdir = package_name(),
+    data = [
+        "index.html",
+        "tsconfig.json",
+        "vite.config.ts",
+        ":node_modules/@types/react",
+        ":node_modules/@types/react-dom",
+        ":node_modules/@vitejs/plugin-react",
+        ":node_modules/react",
+        ":node_modules/react-dom",
+        ":node_modules/typescript",
+        ":node_modules/vite",
+    ] + glob(["src/**"]),
+    tool = ":vite",
+)

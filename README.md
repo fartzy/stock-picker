@@ -31,6 +31,9 @@ flowchart TB
     BACKTEST["training/backtest.py<br/>threshold sweep on held-out tickers"]
     MLFLOW[("MLflow<br/>data/mlruns/mlflow.db<br/>tracking only, not a registry")]
 
+    API["api/routes.py<br/>FastAPI JSON layer over<br/>features/ + storage/, no new logic"]
+    WEB["javascript/<br/>React + Vite + TS<br/>catalog/coverage/correlation/registry views"]
+
     WIKI --> BUILDUNIV
     MANUAL --> BUILDUNIV
     BUILDUNIV --> US
@@ -47,13 +50,17 @@ flowchart TB
     MS --> BACKTEST
     FS --> CATALOG
     FEATPIPE --> REGISTRY
+    FS --> API
+    REGISTRY --> API
+    US --> API
+    API --> WEB
 
     SECTOR["Sector labels in UniverseStore<br/>unlocks sector_relative_return"]
     VALSET["Validation slice + early stopping<br/>within each walk-forward fold"]
     TTLCHECK["Wire registry.check_freshness into<br/>inference.py's live path"]
     DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
     LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
-    WEBUI["javascript/ + FastAPI backend<br/>real browsable app (not this diagram's<br/>one-off dashboard)"]
+    PICKS["Live buy/sell picks view in javascript/<br/>blocked on hardening the live-inference path"]
     MULTI["Other prediction domains<br/>(e.g. betting) on the same<br/>FTI core, stocks-first"]
 
     US -.-> SECTOR
@@ -61,11 +68,11 @@ flowchart TB
     REGISTRY -.-> TTLCHECK
     PS -.-> DUCKDB
     INFER -.-> LIVE
-    MS -.-> WEBUI
+    LIVE -.-> PICKS
     TRAIN -.-> MULTI
 
     classDef planned stroke-dasharray: 5 5,fill:#f5f5f5,stroke:#999,color:#555;
-    class SECTOR,VALSET,TTLCHECK,DUCKDB,LIVE,WEBUI,MULTI planned;
+    class SECTOR,VALSET,TTLCHECK,DUCKDB,LIVE,PICKS,MULTI planned;
 ```
 
 ## Structure
@@ -84,11 +91,17 @@ python/
     │                 #   catalog.py/catalog_main.py to browse what exists,
     │                 #   descriptions.py for plain-English explanations,
     │                 #   registry.py for Feast-style metadata (see Registry below)
-    └── training/    # the "T"/"I" in FTI: LightGBM on the day-session
-                      # (open->close) return, walk-forward validated,
-                      # tracked in MLflow -- see dataset.py for the
-                      # lookahead-bias fix, the single most important
-                      # correctness property of this module
+    ├── training/    # the "T"/"I" in FTI: LightGBM on the day-session
+    │                 # (open->close) return, walk-forward validated,
+    │                 # tracked in MLflow -- see dataset.py for the
+    │                 # lookahead-bias fix, the single most important
+    │                 # correctness property of this module
+    └── api/         # FastAPI JSON layer over features/ + storage/ -- every
+                      # endpoint wraps an already-tested pure function, no new
+                      # business logic (see Web app below)
+
+javascript/          # React + Vite + TS frontend, sibling to python/ under the
+                      # same language-first root layout (see Web app below)
 ```
 
 ## Build / test / run
@@ -100,6 +113,8 @@ bazel run //python/stock_picker/ingestion:main
 bazel run //python/stock_picker/features:main
 bazel run //python/stock_picker/features:catalog
 bazel run //python/stock_picker/training:main
+bazel run //python/stock_picker/api:main    # FastAPI backend on :8000
+bazel run //javascript:dev                  # Vite dev server on :5173, proxies /api -> :8000
 ```
 
 Price history is written to `data/prices/<TICKER>.parquet` (gitignored).
@@ -156,8 +171,27 @@ remains the actual values store; the registry just names and describes it:
   given date. Not just structure -- see the live-inference lessons below for why
   this exists.
 
-Browse it in the dashboard's Registry section alongside the existing feature
-catalog.
+Browse it in the web app's Registry view alongside the feature catalog.
+
+## Web app
+
+`python/stock_picker/api/` + `javascript/` replace the earlier one-off Artifact
+dashboard with a real, owned app: a FastAPI backend and a React+Vite+TS frontend,
+both integrated into Bazel so `bazel test //...` covers the whole stack.
+
+- **Backend** (`api/routes.py`) is a thin JSON serving layer -- every endpoint
+  wraps an already-tested pure function from `features/`, no new business logic:
+  `GET /api/catalog`, `/api/coverage`, `/api/correlation`, `/api/registry`.
+- **Frontend** (`javascript/src/`) ports the dashboard's four views (feature
+  catalog, coverage, correlation heatmap, registry) to live-queried React
+  components instead of baked-in JSON, sharing the same dark theme.
+- `storage/paths.py::data_root()` makes both work identically under `bazel run`
+  and plain `uv run`/pytest: Bazel's runfiles sandbox changes the process's
+  working directory, so `data_root()` prefers `BUILD_WORKING_DIRECTORY` (which
+  Bazel sets to the directory you actually ran `bazel run` from) and falls back
+  to `Path.cwd()` otherwise.
+- Not yet done: production `vite build` wiring (dev server only for now),
+  frontend tests, and the live buy/sell picks view (see Roadmap).
 
 ## Live-inference lessons (2026-09-04)
 
@@ -243,10 +277,10 @@ reappears: half the trades are one ticker, clustered into a few episodes. Trust 
   reading individual Parquet files.
 - A scheduled live scoring loop: fetch this morning's open, run `inference.py`,
   decide buy/hold/sell.
-- A real browsable app (React frontend + FastAPI backend exposing `storage/` as
-  JSON) in a new top-level `javascript/` directory, alongside `python/` -- the root
-  was organized by language from the start specifically to make this a sibling
-  directory, not a restructure.
+- ~~A real browsable app (React frontend + FastAPI backend exposing `storage/` as
+  JSON)~~ -- done, see Web app above. Follow-ups: production `vite build` wiring,
+  frontend tests (vitest/RTL), and a live buy/sell picks view (blocked on
+  hardening the live-inference path first, per the lessons above).
 - Possible expansion beyond stocks (e.g. other prediction domains) on the same
   FTI core -- deliberately not generalized yet; extracting shared abstractions
   before there's a second real domain tends to guess wrong.

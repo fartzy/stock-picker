@@ -6,7 +6,9 @@ from pathlib import Path
 
 import lightgbm as lgb
 
-DEFAULT_DATA_DIR = Path("data/models")
+from stock_picker.storage.paths import data_root
+
+DEFAULT_DATA_DIR = data_root() / "models"
 
 
 class ModelStore:

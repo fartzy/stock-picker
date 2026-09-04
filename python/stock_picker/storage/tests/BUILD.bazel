@@ -17,6 +17,12 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_paths",
+    srcs = ["test_paths.py"],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
     name = "test_price_store",
     srcs = ["test_price_store.py"],
     deps = ["//python/stock_picker/storage"],

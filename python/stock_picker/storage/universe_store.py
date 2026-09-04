@@ -16,7 +16,9 @@ from pathlib import Path
 
 import pandas as pd
 
-DEFAULT_DATA_DIR = Path("data/universe")
+from stock_picker.storage.paths import data_root
+
+DEFAULT_DATA_DIR = data_root() / "universe"
 
 _COLUMNS = ["source", "first_seen", "last_seen", "active"]
 

@@ -1,6 +1,8 @@
 module(name = "stock_picker", version = "0.1.0")
 
 bazel_dep(name = "rules_python", version = "1.7.0")
+bazel_dep(name = "aspect_rules_js", version = "3.4.1")
+bazel_dep(name = "aspect_rules_ts", version = "3.10.1")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.12")
@@ -12,3 +14,20 @@ pip.parse(
     requirements_lock = "//:requirements.txt",
 )
 use_repo(pip, "pypi")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+pnpm.pnpm(name = "pnpm")
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//javascript:.npmrc",
+    pnpm_lock = "//javascript:pnpm-lock.yaml",
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "npm")
+
+typescript = use_extension("@aspect_rules_ts//ts:extensions.bzl", "typescript", dev_dependency = True)
+typescript.deps(version_from = "//javascript:package.json")
+use_repo(typescript, "npm_typescript")

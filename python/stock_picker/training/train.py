@@ -12,10 +12,11 @@ from pathlib import Path
 import mlflow
 import pandas as pd
 
+from stock_picker.storage.paths import data_root
 from stock_picker.training.model import DEFAULT_PARAMS, evaluate, train_lightgbm
 from stock_picker.training.splits import walk_forward_splits
 
-DEFAULT_TRACKING_DIR = Path("data/mlruns")
+DEFAULT_TRACKING_DIR = data_root() / "mlruns"
 
 
 def _configure_mlflow(tracking_dir: Path) -> None:
