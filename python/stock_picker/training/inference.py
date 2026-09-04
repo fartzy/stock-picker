@@ -32,7 +32,15 @@ def build_inference_row(
     return row.to_frame().T
 
 
-def predict_signal(model: lgb.Booster, inference_row: pd.DataFrame) -> float:
-    """Predicted day-session return for a single inference row."""
-    columns = feature_columns(inference_row)
+def predict_signal(
+    model: lgb.Booster, inference_row: pd.DataFrame, excluded_features: set[str] | None = None
+) -> float:
+    """Predicted day-session return for a single inference row.
+
+    `excluded_features` must match whatever the model was actually trained
+    with (see training.main.main) -- this store only tracks current live
+    state, not a per-model history, so a stale/mismatched set here would
+    misalign columns against what the model expects.
+    """
+    columns = feature_columns(inference_row, excluded_features=excluded_features)
     return float(model.predict(inference_row[columns])[0])

@@ -34,6 +34,7 @@ def run_walk_forward(
     n_splits: int = 4,
     params: dict | None = None,
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
+    excluded_features: set[str] | None = None,
 ) -> list[dict]:
     """Train+evaluate across `n_splits` walk-forward folds, logging each to MLflow.
 
@@ -52,8 +53,8 @@ def run_walk_forward(
             train_frame = pooled_dataset[train_mask]
             test_frame = pooled_dataset[test_mask]
 
-            model = train_lightgbm(train_frame, params=params)
-            metrics = evaluate(model, test_frame)
+            model = train_lightgbm(train_frame, params=params, excluded_features=excluded_features)
+            metrics = evaluate(model, test_frame, excluded_features=excluded_features)
 
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):
                 mlflow.log_param("fold", fold)

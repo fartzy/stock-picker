@@ -25,24 +25,26 @@ DEFAULT_PARAMS = {
 DEFAULT_NUM_BOOST_ROUND = 100
 
 
-def feature_columns(frame: pd.DataFrame) -> list[str]:
-    return [c for c in frame.columns if c not in NON_FEATURE_COLUMNS]
+def feature_columns(frame: pd.DataFrame, excluded_features: set[str] | None = None) -> list[str]:
+    excluded = excluded_features or set()
+    return [c for c in frame.columns if c not in NON_FEATURE_COLUMNS and c not in excluded]
 
 
 def train_lightgbm(
     train_frame: pd.DataFrame,
     params: dict | None = None,
     num_boost_round: int = DEFAULT_NUM_BOOST_ROUND,
+    excluded_features: set[str] | None = None,
 ) -> lgb.Booster:
-    columns = feature_columns(train_frame)
+    columns = feature_columns(train_frame, excluded_features=excluded_features)
     dataset = lgb.Dataset(train_frame[columns], label=train_frame[LABEL_COLUMN])
     return lgb.train(
         {**DEFAULT_PARAMS, **(params or {})}, dataset, num_boost_round=num_boost_round
     )
 
 
-def evaluate(model: lgb.Booster, test_frame: pd.DataFrame) -> dict:
-    columns = feature_columns(test_frame)
+def evaluate(model: lgb.Booster, test_frame: pd.DataFrame, excluded_features: set[str] | None = None) -> dict:
+    columns = feature_columns(test_frame, excluded_features=excluded_features)
     predictions = model.predict(test_frame[columns])
     actual = test_frame[LABEL_COLUMN].to_numpy()
 

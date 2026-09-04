@@ -1,10 +1,42 @@
-import { useEffect, useRef } from "react";
-import { fetchCorrelation, type CorrelationResponse } from "../api";
+import { useEffect, useRef, useState } from "react";
+import {
+  fetchCorrelation,
+  fetchPrunedFeatures,
+  pruneFeature,
+  unpruneFeature,
+  type CorrelationResponse,
+  type PrunedFeaturesResponse,
+} from "../api";
 import { themeColor, themeRgb } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 const CELL_SIZE_PX = 7;
 const VISIBLE_PAIR_COUNT = 15;
+// The heatmap's natural size (columns * CELL_SIZE_PX) can run much taller
+// than the fixed-length pairs list next to it -- cap it and let it scroll
+// internally instead of dictating a mostly-empty panel height.
+const MAX_HEATMAP_HEIGHT_PX = 480;
+
+function FeatureLabel({
+  name,
+  pruned,
+  onToggle,
+  muted,
+}: {
+  name: string;
+  pruned: boolean;
+  onToggle: () => void;
+  muted?: boolean;
+}) {
+  return (
+    <span className={muted ? "muted" : undefined}>
+      <span className={pruned ? "pruned-feature" : undefined}>{name}</span>{" "}
+      <button className="prune-toggle" onClick={onToggle}>
+        {pruned ? "restore" : "prune"}
+      </button>
+    </span>
+  );
+}
 
 function corrColor(v: number | null): string {
   if (v === null) return themeColor("surfaceRaised");
@@ -28,7 +60,22 @@ function corrColor(v: number | null): string {
 
 export default function CorrelationHeatmap() {
   const { data, error } = useFetchData<CorrelationResponse>(fetchCorrelation);
+  const { data: prunedData } = useFetchData<PrunedFeaturesResponse>(fetchPrunedFeatures);
+  const [prunedOverride, setPrunedOverride] = useState<Set<string> | null>(null);
+  const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  async function togglePrune(feature: string) {
+    const next = new Set(pruned);
+    if (next.has(feature)) {
+      next.delete(feature);
+      await unpruneFeature(feature);
+    } else {
+      next.add(feature);
+      await pruneFeature(feature);
+    }
+    setPrunedOverride(next);
+  }
 
   useEffect(() => {
     if (!data || !canvasRef.current) return;
@@ -54,20 +101,20 @@ export default function CorrelationHeatmap() {
   if (!data) return <p className="muted">Loading correlation...</p>;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 20 }}>
-      <div style={{ overflowX: "auto" }}>
+    <div>
+      <div style={{ overflow: "auto", maxHeight: MAX_HEATMAP_HEIGHT_PX, marginBottom: "var(--space-4)" }}>
         <canvas ref={canvasRef} />
       </div>
-      <div>
-        <div className="muted" style={{ marginBottom: 8 }}>
-          Top correlated pairs (pruning candidates)
-        </div>
+      <div className="muted" style={{ marginBottom: 8 }}>
+        Top correlated pairs (pruning candidates)
+      </div>
+      <div className="pair-grid">
         {data.top_pairs.slice(0, VISIBLE_PAIR_COUNT).map((pair) => (
           <div className="pair-row" key={`${pair.a}-${pair.b}`}>
             <span>
-              {pair.a}
+              <FeatureLabel name={pair.a} pruned={pruned.has(pair.a)} onToggle={() => togglePrune(pair.a)} />
               <br />
-              <span className="muted">{pair.b}</span>
+              <FeatureLabel name={pair.b} pruned={pruned.has(pair.b)} onToggle={() => togglePrune(pair.b)} muted />
             </span>
             <span style={{ color: pair.correlation >= 0 ? "var(--accent)" : "var(--corr-negative)" }}>
               {pair.correlation >= 0 ? "+" : ""}

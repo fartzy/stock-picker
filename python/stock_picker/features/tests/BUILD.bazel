@@ -115,6 +115,18 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_quotes",
+    srcs = ["test_quotes.py"],
+    deps = ["//python/stock_picker/features"],
+)
+
+py_pytest(
+    name = "test_trades",
+    srcs = ["test_trades.py"],
+    deps = ["//python/stock_picker/features"],
+)
+
+py_pytest(
     name = "test_volume",
     srcs = ["test_volume.py"],
     deps = [

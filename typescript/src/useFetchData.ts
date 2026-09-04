@@ -5,20 +5,46 @@ interface FetchState<T> {
   error: string | null;
 }
 
-export function useFetchData<T>(fetcher: () => Promise<T>): FetchState<T> {
+interface UseFetchDataOptions {
+  // Re-run the fetch when any of these change, in addition to on mount --
+  // e.g. a `refreshCount` bumped after a mutation, or a derived value like a
+  // ticker list that isn't known until an earlier fetch resolves.
+  deps?: unknown[];
+  // Also re-run on a timer while mounted (for "live-ish" data via polling
+  // instead of a websocket -- see components/CorrelationHeatmap.tsx's
+  // fetchPrunedFeatures for a non-polled deps-only example).
+  intervalMs?: number;
+}
+
+export function useFetchData<T>(fetcher: () => Promise<T>, options?: UseFetchDataOptions): FetchState<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const deps = options?.deps ?? [];
+  const intervalMs = options?.intervalMs;
 
   useEffect(() => {
-    fetcher()
-      .then(setData)
-      .catch((err) => setError(String(err)));
-    // Runs once on mount by design -- fetcher must be a referentially-stable,
-    // zero-arg reference (as all current call sites are). A fetcher that closes
-    // over changing props/state won't re-run here; give this hook a `deps`
-    // array instead of adding one at a parameterized call site.
+    let cancelled = false;
+
+    function run() {
+      fetcher()
+        .then((result) => {
+          if (!cancelled) setData(result);
+        })
+        .catch((err) => {
+          if (!cancelled) setError(String(err));
+        });
+    }
+
+    run();
+    const intervalId = intervalMs ? setInterval(run, intervalMs) : undefined;
+
+    return () => {
+      cancelled = true;
+      if (intervalId) clearInterval(intervalId);
+    };
+    // `deps` is caller-supplied by design -- see UseFetchDataOptions above.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, deps);
 
   return { data, error };
 }

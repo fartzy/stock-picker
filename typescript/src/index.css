@@ -1,16 +1,39 @@
 :root {
-  --ink: #0b0e14;
-  --surface: #141924;
-  --surface-raised: #1b2230;
-  --line: #262e3d;
-  --accent: #d9a441;
-  --text: #ede7da;
-  --text-muted: #8b8f9c;
+  /* Blue/violet dark theme. --good/--bad stay green/red -- that's a near-
+     universal buy/sell convention in financial UI and changing it would hurt
+     scannability rather than help it, so the "pop more" color pass is
+     everything else: background undertone, accent, muted text. */
+  --ink: #0a0d1c;
+  --surface: #121736;
+  --surface-raised: #1b2350;
+  --line: #2f3a68;
+  --accent: #9b8cff;
+  --text: #e8e6f7;
+  --text-muted: #a8adde;
   --good: #5fae8c;
-  --bad: #c1615a;
-  --neutral: #555b6b;
-  --corr-negative: #5b7fbf;
-  --corr-neutral: #2a3242;
+  --bad: #d9647a;
+  --neutral: #6b70a0;
+  --corr-negative: #6ea8ff;
+  --corr-neutral: #232d5c;
+
+  /* Spacing scale -- covers every detail-level gap/padding/margin in the app.
+     Page-level macro layout (.page) is intentionally its own thing below. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Type scale -- role-based, not literal-size-based. Dashboards lean on
+     body/label/caption; skip "display" sizes entirely. */
+  --text-heading-lg: 30px;
+  --text-heading-sm: 20px;
+  --text-body: 16px;
+  --text-label: 15px;
+  --text-caption: 14px;
+  --text-micro: 13px;
   --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -24,14 +47,14 @@ body {
   background: var(--ink);
   color: var(--text);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: var(--text-body);
   line-height: 1.55;
 }
 
 .page {
-  max-width: 1180px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 40px 28px 80px;
+  padding: 40px 40px 80px;
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -40,22 +63,54 @@ body {
 h1 {
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 26px;
+  font-size: var(--text-heading-lg);
   margin: 0;
+}
+
+.tab-bar {
+  display: flex;
+  gap: var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-2) var(--space-1) var(--space-3);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: var(--text-heading-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.tab-button:hover {
+  color: var(--text);
+}
+
+.tab-button.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
 }
 
 h2 {
   font-family: var(--sans);
   font-weight: 700;
-  font-size: 17px;
-  margin: 0 0 12px;
+  font-size: var(--text-heading-sm);
+  margin: 0 0 var(--space-3);
+}
+
+section + section {
+  margin-top: var(--space-8);
 }
 
 .panel {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 18px;
+  padding: var(--space-4);
 }
 
 .error {
@@ -66,29 +121,16 @@ h2 {
   color: var(--text-muted);
 }
 
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 12px;
-}
-
-details.category {
-  background: var(--surface-raised);
-  border-radius: 6px;
-  padding: 10px 14px;
-}
-
-details.category summary {
-  cursor: pointer;
-  font-family: var(--sans);
-  font-weight: 600;
-  color: var(--accent);
+.summary-line {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
 }
 
 .feature-row {
-  padding: 4px 0;
+  padding: var(--space-1) 0;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: var(--text-label);
 }
 
 .feature-row:last-child {
@@ -102,17 +144,17 @@ details.category summary {
 .feature-desc {
   font-family: var(--sans);
   color: var(--text-muted);
-  font-size: 11px;
-  margin-top: 2px;
+  font-size: var(--text-label);
+  margin-top: var(--space-1);
 }
 
 .cov-row {
   display: grid;
   grid-template-columns: 220px 1fr 48px;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  margin-bottom: 6px;
+  gap: var(--space-3);
+  font-size: var(--text-label);
+  margin-bottom: var(--space-2);
 }
 
 .cov-track {
@@ -126,26 +168,251 @@ details.category summary {
   height: 100%;
 }
 
+.pair-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-2);
+}
+
 .pair-row {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 10px;
-  padding: 6px 10px;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   background: var(--surface-raised);
   border-radius: 5px;
-  margin-bottom: 6px;
-  font-size: 12px;
+  font-size: var(--text-label);
 }
 
 .view-card {
   background: var(--surface-raised);
   border-radius: 6px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .view-meta {
-  font-size: 11px;
+  font-size: var(--text-caption);
   color: var(--text-muted);
   font-family: var(--sans);
+}
+
+.view-features {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.meta-label {
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chip {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  font-size: var(--text-caption);
+  color: var(--text);
+}
+
+details.view-card,
+.pair-row {
+  border: 1px solid transparent;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+details.view-card:hover,
+details.view-card:focus-within,
+.pair-row:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+details.view-card summary {
+  cursor: pointer;
+}
+
+/* Themed scrollbars for the app's few internally-scrollable containers
+   (CoverageChart's list, CorrelationHeatmap's canvas) -- native scrollbars
+   default to a light OS chrome that clashes hard with this dark theme. */
+.panel *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.panel *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel *::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+  border: 2px solid var(--surface);
+}
+
+.panel *::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral);
+}
+
+.trade-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-label);
+}
+
+.trade-table th,
+.trade-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.trade-table th {
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.trade-table tbody tr {
+  transition: background 120ms ease;
+}
+
+.trade-table tbody tr:hover {
+  background: var(--surface-raised);
+}
+
+.trade-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.trade-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.trade-time {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trade-ticker {
+  font-weight: 600;
+}
+
+.side-pill {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  font-size: var(--text-caption);
+  font-family: var(--sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pruned-feature {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.prune-toggle {
+  font-size: var(--text-micro);
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.prune-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.side-buy {
+  background: color-mix(in srgb, var(--good) 16%, transparent);
+  color: var(--good);
+}
+
+.side-sell {
+  background: color-mix(in srgb, var(--bad) 16%, transparent);
+  color: var(--bad);
+}
+
+.quote-diff-up {
+  color: var(--good);
+}
+
+.quote-diff-down {
+  color: var(--bad);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.form-input,
+.form-select {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: var(--space-1) var(--space-2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  border-radius: 4px;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--text-label);
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

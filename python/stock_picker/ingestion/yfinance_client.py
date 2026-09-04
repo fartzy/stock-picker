@@ -38,3 +38,20 @@ def download_price_history(
         if not history.empty:
             result[ticker] = history
     return result
+
+
+def fetch_quotes(tickers: list[str]) -> dict[str, dict]:
+    """Today's open + latest price, plus the prior session's close, per ticker.
+
+    period="2d" so there's a previous-close row to compute the overnight gap
+    from, in addition to today's open/latest -- period="1d" only ever
+    returns today's single row.
+    """
+    history = download_price_history(tickers, period="2d", interval="1d")
+    quotes = {}
+    for ticker, df in history.items():
+        quote = {"open": float(df["Open"].iloc[-1]), "last": float(df["Close"].iloc[-1])}
+        if len(df) > 1:
+            quote["prev_close"] = float(df["Close"].iloc[-2])
+        quotes[ticker] = quote
+    return quotes

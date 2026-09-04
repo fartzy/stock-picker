@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from stock_picker.features.pruning import pruned_features
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -46,10 +47,11 @@ def main() -> None:
 
     price_store = PriceStore()
     feature_store = FeatureStore()
+    excluded_features = pruned_features()
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
-    fold_results = run_walk_forward(train_dataset)
+    fold_results = run_walk_forward(train_dataset, excluded_features=excluded_features)
     for result in fold_results:
         print(f"fold {result['fold']}: {result['metrics']}")
 
@@ -60,10 +62,10 @@ def main() -> None:
         return
 
     holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
-    holdout_metrics = evaluate(final_model, holdout_dataset)
+    holdout_metrics = evaluate(final_model, holdout_dataset, excluded_features=excluded_features)
     print(f"holdout tickers {holdout_tickers}: {holdout_metrics}")
 
-    columns = feature_columns(holdout_dataset)
+    columns = feature_columns(holdout_dataset, excluded_features=excluded_features)
     predicted = pd.Series(
         final_model.predict(holdout_dataset[columns]), index=holdout_dataset.index
     )

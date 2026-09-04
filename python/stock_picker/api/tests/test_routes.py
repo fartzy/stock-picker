@@ -7,20 +7,65 @@ from fastapi.testclient import TestClient
 from stock_picker.api.app import app
 from stock_picker.features.tests.fixtures import synthetic_history
 
+# Prune/unprune mutate a real store instance rather than returning canned
+# values, so a stateful fake (shared across both import sites routes.py
+# uses) is simpler and more accurate than mock return_value plumbing.
+_pruned_state: set[str] = set()
+
+
+class _FakePrunedFeatureStore:
+    def read(self):
+        return set(_pruned_state)
+
+    def prune(self, feature):
+        _pruned_state.add(feature)
+
+    def unprune(self, feature):
+        _pruned_state.discard(feature)
+
 
 @pytest.fixture
 def client():
     history = synthetic_history(n=140)
     tables = {"AAA": history.assign(x=1.0), "BBB": history.assign(x=2.0)}
 
+    # Stateful (not a fixed return_value) so test_create_trade can verify the
+    # posted trade round-trips through a subsequent GET, same reasoning as
+    # the pruned-feature fake above.
+    trades_state = [
+        {"ticker": "AAA", "side": "buy", "shares": 10, "price": 2.0, "executed_at": "2026-01-01T09:30:00-05:00"},
+        {"ticker": "BBB", "side": "buy", "shares": 5, "price": 4.0, "executed_at": "2026-01-02T09:30:00-05:00"},
+    ]
+
+    def _append_trade(trade):
+        trades_state.append(
+            {
+                "ticker": trade.ticker,
+                "side": trade.side,
+                "shares": trade.shares,
+                "price": trade.price,
+                "executed_at": trade.executed_at,
+            }
+        )
+
+    _pruned_state.clear()
+
     with (
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
         patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
         patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
+        patch("stock_picker.features.trades.TradeStore") as mock_trade_store,
+        patch("stock_picker.api.routes.TradeStore", mock_trade_store),
+        patch("stock_picker.features.pruning.PrunedFeatureStore", _FakePrunedFeatureStore),
+        patch("stock_picker.api.routes.PrunedFeatureStore", _FakePrunedFeatureStore),
+        patch("stock_picker.features.quotes.fetch_quotes") as mock_fetch_quotes,
     ):
         mock_universe_store.return_value.active_tickers.return_value = ["AAA", "BBB"]
         mock_price_store.return_value.read.return_value = history
         mock_feature_store.return_value.read.side_effect = lambda t: tables[t]
+        mock_trade_store.return_value.read.side_effect = lambda: pd.DataFrame(trades_state)
+        mock_trade_store.return_value.append.side_effect = _append_trade
+        mock_fetch_quotes.return_value = {"AAA": {"open": 100.0, "last": 105.0}}
         yield TestClient(app)
 
 
@@ -48,6 +93,79 @@ def test_get_correlation(client):
     assert "columns" in body
     assert "matrix" in body
     assert "top_pairs" in body
+
+
+def test_get_trades(client):
+    response = client.get("/api/trades")
+
+    assert response.status_code == 200
+    trades = response.json()["trades"]
+    assert len(trades) == 2
+    assert trades[0]["ticker"] == "BBB"  # newest first
+    assert trades[0]["notional"] == 20.0
+    assert trades[1]["ticker"] == "AAA"
+
+
+def test_get_pruned_features_starts_empty(client):
+    response = client.get("/api/pruned-features")
+
+    assert response.status_code == 200
+    assert response.json()["pruned_features"] == []
+
+
+def test_prune_then_unprune_feature(client):
+    prune_response = client.post("/api/features/return_1d/prune")
+    assert prune_response.status_code == 200
+    assert prune_response.json()["pruned_features"] == ["return_1d"]
+
+    get_response = client.get("/api/pruned-features")
+    assert get_response.json()["pruned_features"] == ["return_1d"]
+
+    unprune_response = client.delete("/api/features/return_1d/prune")
+    assert unprune_response.status_code == 200
+    assert unprune_response.json()["pruned_features"] == []
+
+
+def test_create_trade(client):
+    response = client.post("/api/trades", json={"ticker": "CCC", "side": "buy", "shares": 3, "price": 10.0})
+
+    assert response.status_code == 200
+    trades = response.json()["trades"]
+    assert len(trades) == 3
+    assert trades[0]["ticker"] == "CCC"  # newest first
+    assert trades[0]["notional"] == 30.0
+
+
+def test_get_quotes(client):
+    response = client.get("/api/quotes", params={"tickers": "AAA"})
+
+    assert response.status_code == 200
+    quotes = response.json()["quotes"]
+    assert quotes == [
+        {
+            "ticker": "AAA",
+            "open": 100.0,
+            "last": 105.0,
+            "diff": 5.0,
+            "diff_pct": 0.05,
+            "prev_close": None,
+            "gap": None,
+            "gap_pct": None,
+        }
+    ]
+
+
+def test_get_positions(client):
+    response = client.get("/api/positions")
+
+    assert response.status_code == 200
+    positions = {p["ticker"]: p for p in response.json()["positions"]}
+    assert positions["AAA"]["closed"] is False
+    assert positions["AAA"]["day_open"] == 100.0
+    assert positions["AAA"]["pnl"] == round((105.0 - 2.0) * 10, 2)
+    # BBB has no matching quote in the fixture -- graceful nulls, not a crash.
+    assert positions["BBB"]["current_price"] is None
+    assert positions["BBB"]["pnl"] is None
 
 
 def test_get_registry(client):

@@ -1,6 +1,12 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_feature_exclusion_store",
+    srcs = ["test_feature_exclusion_store.py"],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
     name = "test_feature_store",
     srcs = ["test_feature_store.py"],
     deps = ["//python/stock_picker/storage"],
@@ -25,6 +31,12 @@ py_pytest(
 py_pytest(
     name = "test_price_store",
     srcs = ["test_price_store.py"],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
+    name = "test_trade_store",
+    srcs = ["test_trade_store.py"],
     deps = ["//python/stock_picker/storage"],
 )
 

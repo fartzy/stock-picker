@@ -1,8 +1,8 @@
 import { fetchCoverage, type CoverageResponse } from "../api";
+import { coverageColor } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 const MAX_LIST_HEIGHT_PX = 420;
-const COVERAGE_GOOD_THRESHOLD = 0.7;
 
 export default function CoverageChart() {
   const { data, error } = useFetchData<CoverageResponse>(fetchCoverage);
@@ -22,7 +22,7 @@ export default function CoverageChart() {
               className="cov-fill"
               style={{
                 width: `${Math.round(pct * 100)}%`,
-                background: pct > COVERAGE_GOOD_THRESHOLD ? "var(--good)" : "var(--bad)",
+                background: coverageColor(pct),
               }}
             />
           </div>
