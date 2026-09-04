@@ -1,6 +1,12 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_backtest",
+    srcs = ["test_backtest.py"],
+    deps = ["//python/stock_picker/training"],
+)
+
+py_pytest(
     name = "test_dataset",
     srcs = ["test_dataset.py"],
     deps = ["//python/stock_picker/training"],

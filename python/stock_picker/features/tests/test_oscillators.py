@@ -3,6 +3,7 @@ import pytest
 
 from stock_picker.features.oscillators import (
     RSI_WINDOWS,
+    STOCHASTIC_WINDOWS,
     bollinger_bands,
     build_oscillator_features,
     rsi,
@@ -60,9 +61,10 @@ def test_build_oscillator_features_has_expected_columns():
 
     for n in RSI_WINDOWS:
         assert f"rsi_{n}" in features.columns
+    for n in STOCHASTIC_WINDOWS:
+        assert f"stochastic_k_{n}d" in features.columns
+        assert f"stochastic_d_{n}d" in features.columns
     assert {
-        "stochastic_k",
-        "stochastic_d",
         "bollinger_pct_b",
         "bollinger_bandwidth",
         "williams_r",

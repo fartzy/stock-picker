@@ -5,11 +5,14 @@ py_library(
     srcs = [
         "calendar.py",
         "candle.py",
+        "catalog.py",
         "cross_sectional.py",
+        "descriptions.py",
         "distributional.py",
         "momentum.py",
         "oscillators.py",
         "pipeline.py",
+        "registry.py",
         "trend.py",
         "volatility.py",
         "volume.py",
@@ -29,6 +32,17 @@ py_binary(
     deps = [
         ":features",
         "//python/stock_picker/ingestion",
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "catalog",
+    srcs = ["catalog_main.py"],
+    main = "catalog_main.py",
+    imports = ["../.."],
+    deps = [
+        ":features",
         "//python/stock_picker/storage",
     ],
 )

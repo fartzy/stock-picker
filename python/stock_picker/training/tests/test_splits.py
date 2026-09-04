@@ -1,6 +1,39 @@
 import pandas as pd
 
-from stock_picker.training.splits import walk_forward_splits
+from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
+
+
+def test_select_holdout_tickers_is_deterministic():
+    tickers = [f"T{i}" for i in range(50)]
+
+    first = select_holdout_tickers(tickers, fraction=0.1, seed=42)
+    second = select_holdout_tickers(tickers, fraction=0.1, seed=42)
+
+    assert first == second
+
+
+def test_select_holdout_tickers_returns_approximately_the_requested_fraction():
+    tickers = [f"T{i}" for i in range(100)]
+
+    holdout = select_holdout_tickers(tickers, fraction=0.1)
+
+    assert len(holdout) == 10
+
+
+def test_select_holdout_tickers_only_returns_input_tickers():
+    tickers = [f"T{i}" for i in range(20)]
+
+    holdout = select_holdout_tickers(tickers, fraction=0.25)
+
+    assert holdout <= set(tickers)
+
+
+def test_select_holdout_tickers_returns_at_least_one_for_a_small_universe():
+    tickers = ["A", "B", "C"]
+
+    holdout = select_holdout_tickers(tickers, fraction=0.1)
+
+    assert len(holdout) >= 1
 
 
 def test_folds_train_dates_precede_test_dates():

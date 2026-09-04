@@ -27,7 +27,7 @@ def main() -> None:
 
     UniverseStore().sync(universe)
 
-    price_history = download_price_history(list(universe), period="6mo")
+    price_history = download_price_history(list(universe))
 
     price_store = PriceStore()
     for ticker, history in price_history.items():
