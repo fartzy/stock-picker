@@ -10,7 +10,6 @@ py_library(
     deps = [
         "@pypi//fastapi",
         "//python/stock_picker/features",
-        "//python/stock_picker/storage",
     ],
     visibility = ["//visibility:public"],
 )

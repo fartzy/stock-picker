@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
 import { fetchRegistry, type RegistryResponse } from "../api";
+import { useFetchData } from "../useFetchData";
 
 export default function Registry() {
-  const [data, setData] = useState<RegistryResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchRegistry().then(setData).catch((err) => setError(String(err)));
-  }, []);
+  const { data, error } = useFetchData<RegistryResponse>(fetchRegistry);
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading registry...</p>;

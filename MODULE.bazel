@@ -22,12 +22,12 @@ use_repo(pnpm, "pnpm")
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "npm",
-    npmrc = "//javascript:.npmrc",
-    pnpm_lock = "//javascript:pnpm-lock.yaml",
+    npmrc = "//typescript:.npmrc",
+    pnpm_lock = "//typescript:pnpm-lock.yaml",
     verify_node_modules_ignored = "//:.bazelignore",
 )
 use_repo(npm, "npm")
 
 typescript = use_extension("@aspect_rules_ts//ts:extensions.bzl", "typescript", dev_dependency = True)
-typescript.deps(version_from = "//javascript:package.json")
+typescript.deps(version_from = "//typescript:package.json")
 use_repo(typescript, "npm_typescript")

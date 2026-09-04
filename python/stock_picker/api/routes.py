@@ -15,47 +15,30 @@ from stock_picker.features.catalog import (
     list_feature_columns,
     top_correlated_pairs,
 )
+from stock_picker.features.catalog_loader import feature_tables, sample_history
 from stock_picker.features.registry import build_registry
-from stock_picker.storage.feature_store import FeatureStore
-from stock_picker.storage.price_store import PriceStore
-from stock_picker.storage.universe_store import UniverseStore
 
 router = APIRouter(prefix="/api")
 
 
-def _active_tickers() -> list[str]:
-    return UniverseStore().active_tickers()
-
-
-def _sample_history():
-    tickers = _active_tickers()
-    return PriceStore().read(tickers[0])
-
-
-def _feature_tables() -> dict:
-    tickers = _active_tickers()
-    feature_store = FeatureStore()
-    return {ticker: feature_store.read(ticker) for ticker in tickers}
-
-
 @router.get("/catalog")
 def get_catalog() -> dict:
-    sample_history = _sample_history()
+    history = sample_history()
     return {
-        "catalog": list_feature_columns(sample_history),
-        "descriptions": describe_all(sample_history),
+        "catalog": list_feature_columns(history),
+        "descriptions": describe_all(history),
     }
 
 
 @router.get("/coverage")
 def get_coverage() -> dict:
-    report = coverage_report(_feature_tables())
+    report = coverage_report(feature_tables())
     return {"coverage": report["non_null_pct"].to_dict()}
 
 
 @router.get("/correlation")
 def get_correlation() -> dict:
-    corr = correlation_matrix(_feature_tables())
+    corr = correlation_matrix(feature_tables())
     return {
         "columns": list(corr.columns),
         "matrix": corr.where(corr.notna(), None).values.tolist(),
@@ -65,7 +48,7 @@ def get_correlation() -> dict:
 
 @router.get("/registry")
 def get_registry() -> dict:
-    feature_views, feature_services = build_registry(_sample_history())
+    feature_views, feature_services = build_registry(sample_history())
     return {
         "entities": [
             {

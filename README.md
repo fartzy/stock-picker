@@ -32,7 +32,7 @@ flowchart TB
     MLFLOW[("MLflow<br/>data/mlruns/mlflow.db<br/>tracking only, not a registry")]
 
     API["api/routes.py<br/>FastAPI JSON layer over<br/>features/ + storage/, no new logic"]
-    WEB["javascript/<br/>React + Vite + TS<br/>catalog/coverage/correlation/registry views"]
+    WEB["typescript/<br/>React + Vite + TS<br/>catalog/coverage/correlation/registry views"]
 
     WIKI --> BUILDUNIV
     MANUAL --> BUILDUNIV
@@ -60,7 +60,7 @@ flowchart TB
     TTLCHECK["Wire registry.check_freshness into<br/>inference.py's live path"]
     DUCKDB["DuckDB<br/>SQL over the Parquet lake"]
     LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
-    PICKS["Live buy/sell picks view in javascript/<br/>blocked on hardening the live-inference path"]
+    PICKS["Live buy/sell picks view in typescript/<br/>blocked on hardening the live-inference path"]
     MULTI["Other prediction domains<br/>(e.g. betting) on the same<br/>FTI core, stocks-first"]
 
     US -.-> SECTOR
@@ -100,7 +100,7 @@ python/
                       # endpoint wraps an already-tested pure function, no new
                       # business logic (see Web app below)
 
-javascript/          # React + Vite + TS frontend, sibling to python/ under the
+typescript/          # React + Vite + TS frontend, sibling to python/ under the
                       # same language-first root layout (see Web app below)
 ```
 
@@ -114,7 +114,7 @@ bazel run //python/stock_picker/features:main
 bazel run //python/stock_picker/features:catalog
 bazel run //python/stock_picker/training:main
 bazel run //python/stock_picker/api:main    # FastAPI backend on :8000
-bazel run //javascript:dev                  # Vite dev server on :5173, proxies /api -> :8000
+bazel run //typescript:dev                  # Vite dev server on :5173, proxies /api -> :8000
 ```
 
 Price history is written to `data/prices/<TICKER>.parquet` (gitignored).
@@ -175,14 +175,14 @@ Browse it in the web app's Registry view alongside the feature catalog.
 
 ## Web app
 
-`python/stock_picker/api/` + `javascript/` replace the earlier one-off Artifact
+`python/stock_picker/api/` + `typescript/` replace the earlier one-off Artifact
 dashboard with a real, owned app: a FastAPI backend and a React+Vite+TS frontend,
 both integrated into Bazel so `bazel test //...` covers the whole stack.
 
 - **Backend** (`api/routes.py`) is a thin JSON serving layer -- every endpoint
   wraps an already-tested pure function from `features/`, no new business logic:
   `GET /api/catalog`, `/api/coverage`, `/api/correlation`, `/api/registry`.
-- **Frontend** (`javascript/src/`) ports the dashboard's four views (feature
+- **Frontend** (`typescript/src/`) ports the dashboard's four views (feature
   catalog, coverage, correlation heatmap, registry) to live-queried React
   components instead of baked-in JSON, sharing the same dark theme.
 - `storage/paths.py::data_root()` makes both work identically under `bazel run`

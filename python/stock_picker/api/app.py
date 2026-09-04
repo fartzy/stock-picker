@@ -8,11 +8,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from stock_picker.api.routes import router
 
+DEV_ORIGIN = "http://localhost:5173"  # the Vite dev server
+
 app = FastAPI(title="stock-picker API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # the Vite dev server
+    allow_origins=[DEV_ORIGIN],
     allow_methods=["GET"],
     allow_headers=["*"],
 )

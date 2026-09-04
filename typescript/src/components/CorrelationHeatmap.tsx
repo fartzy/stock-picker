@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { fetchCorrelation, type CorrelationResponse } from "../api";
+import { themeColor, themeRgb } from "../theme";
+import { useFetchData } from "../useFetchData";
+
+const CELL_SIZE_PX = 7;
+const VISIBLE_PAIR_COUNT = 15;
 
 function corrColor(v: number | null): string {
-  if (v === null) return "#1b2230";
+  if (v === null) return themeColor("surfaceRaised");
   const t = (v + 1) / 2;
-  const neg = [91, 127, 191];
-  const mid = [42, 50, 66];
-  const pos = [217, 164, 65];
+  const neg = themeRgb("corrNegative");
+  const mid = themeRgb("corrNeutral");
+  const pos = themeRgb("accent");
   let c1: number[], c2: number[], tt: number;
   if (t < 0.5) {
     c1 = neg;
@@ -22,17 +27,12 @@ function corrColor(v: number | null): string {
 }
 
 export default function CorrelationHeatmap() {
-  const [data, setData] = useState<CorrelationResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error } = useFetchData<CorrelationResponse>(fetchCorrelation);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    fetchCorrelation().then(setData).catch((err) => setError(String(err)));
-  }, []);
-
-  useEffect(() => {
     if (!data || !canvasRef.current) return;
-    const cell = 7;
+    const cell = CELL_SIZE_PX;
     const n = data.columns.length;
     const canvas = canvasRef.current;
     const dpr = window.devicePixelRatio || 1;
@@ -62,14 +62,14 @@ export default function CorrelationHeatmap() {
         <div className="muted" style={{ marginBottom: 8 }}>
           Top correlated pairs (pruning candidates)
         </div>
-        {data.top_pairs.slice(0, 15).map((pair) => (
+        {data.top_pairs.slice(0, VISIBLE_PAIR_COUNT).map((pair) => (
           <div className="pair-row" key={`${pair.a}-${pair.b}`}>
             <span>
               {pair.a}
               <br />
               <span className="muted">{pair.b}</span>
             </span>
-            <span style={{ color: pair.correlation >= 0 ? "var(--accent)" : "#5b7fbf" }}>
+            <span style={{ color: pair.correlation >= 0 ? "var(--accent)" : "var(--corr-negative)" }}>
               {pair.correlation >= 0 ? "+" : ""}
               {pair.correlation.toFixed(3)}
             </span>

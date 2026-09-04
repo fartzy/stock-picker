@@ -14,10 +14,11 @@ def client():
     tables = {"AAA": history.assign(x=1.0), "BBB": history.assign(x=2.0)}
 
     with (
-        patch("stock_picker.api.routes._active_tickers", return_value=["AAA", "BBB"]),
-        patch("stock_picker.api.routes.PriceStore") as mock_price_store,
-        patch("stock_picker.api.routes.FeatureStore") as mock_feature_store,
+        patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
+        patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
+        patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
     ):
+        mock_universe_store.return_value.active_tickers.return_value = ["AAA", "BBB"]
         mock_price_store.return_value.read.return_value = history
         mock_feature_store.return_value.read.side_effect = lambda t: tables[t]
         yield TestClient(app)

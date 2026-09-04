@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
 import { fetchCatalog, fetchCoverage, type CatalogResponse, type CoverageResponse } from "../api";
+import { themeColor, themeRgb } from "../theme";
+import { useFetchData } from "../useFetchData";
+
+const COVERAGE_GRADIENT_MIN_MAX: [number, number] = [0.4, 1.0];
 
 function coverageColor(pct: number | undefined): string {
-  if (pct === undefined) return "#555b6b";
-  const t = Math.max(0, Math.min(1, (pct - 0.4) / 0.6));
-  const bad = [193, 97, 90];
-  const good = [95, 174, 140];
+  if (pct === undefined) return themeColor("neutral");
+  const [gradientMin, gradientMax] = COVERAGE_GRADIENT_MIN_MAX;
+  const t = Math.max(0, Math.min(1, (pct - gradientMin) / (gradientMax - gradientMin)));
+  const bad = themeRgb("bad");
+  const good = themeRgb("good");
   const rgb = bad.map((c, i) => Math.round(c + (good[i] - c) * t));
   return `rgb(${rgb.join(",")})`;
 }
 
 export default function FeatureCatalog() {
-  const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
-  const [coverage, setCoverage] = useState<CoverageResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    Promise.all([fetchCatalog(), fetchCoverage()])
-      .then(([catalogData, coverageData]) => {
-        setCatalog(catalogData);
-        setCoverage(coverageData);
-      })
-      .catch((err) => setError(String(err)));
-  }, []);
+  const { data: catalog, error: catalogError } = useFetchData<CatalogResponse>(fetchCatalog);
+  const { data: coverage, error: coverageError } = useFetchData<CoverageResponse>(fetchCoverage);
+  const error =
+    catalogError && coverageError ? `${catalogError}; ${coverageError}` : (catalogError ?? coverageError);
 
   if (error) return <p className="error">{error}</p>;
   if (!catalog || !coverage) return <p className="muted">Loading catalog...</p>;

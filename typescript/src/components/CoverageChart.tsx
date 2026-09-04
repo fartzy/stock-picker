@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
 import { fetchCoverage, type CoverageResponse } from "../api";
+import { useFetchData } from "../useFetchData";
+
+const MAX_LIST_HEIGHT_PX = 420;
+const COVERAGE_GOOD_THRESHOLD = 0.7;
 
 export default function CoverageChart() {
-  const [data, setData] = useState<CoverageResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchCoverage().then(setData).catch((err) => setError(String(err)));
-  }, []);
+  const { data, error } = useFetchData<CoverageResponse>(fetchCoverage);
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading coverage...</p>;
@@ -15,14 +13,17 @@ export default function CoverageChart() {
   const rows = Object.entries(data.coverage).sort((a, b) => a[1] - b[1]);
 
   return (
-    <div style={{ maxHeight: 420, overflowY: "auto" }}>
+    <div style={{ maxHeight: MAX_LIST_HEIGHT_PX, overflowY: "auto" }}>
       {rows.map(([name, pct]) => (
         <div className="cov-row" key={name}>
           <span>{name}</span>
           <div className="cov-track">
             <div
               className="cov-fill"
-              style={{ width: `${Math.round(pct * 100)}%`, background: pct > 0.7 ? "var(--good)" : "var(--bad)" }}
+              style={{
+                width: `${Math.round(pct * 100)}%`,
+                background: pct > COVERAGE_GOOD_THRESHOLD ? "var(--good)" : "var(--bad)",
+              }}
             />
           </div>
           <span className="muted">{Math.round(pct * 100)}%</span>
