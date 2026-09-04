@@ -78,3 +78,23 @@ def coverage_report(feature_tables: dict[str, pd.DataFrame]) -> pd.DataFrame:
         [table.notna().mean() for table in feature_tables.values()], axis=1
     ).mean(axis=1)
     return non_null_pct.sort_values().rename("non_null_pct").to_frame()
+
+
+def correlation_matrix(feature_tables: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Pairwise correlation across every ticker's rows pooled together."""
+    pooled = pd.concat(feature_tables.values(), ignore_index=True)
+    return pooled.corr()
+
+
+def top_correlated_pairs(corr: pd.DataFrame, n: int = 30) -> list[dict]:
+    """The `n` column pairs with the largest |correlation|, descending -- the
+    redundancy candidates for feature pruning."""
+    columns = list(corr.columns)
+    pairs = []
+    for i, col_a in enumerate(columns):
+        for col_b in columns[i + 1 :]:
+            value = corr.loc[col_a, col_b]
+            if pd.notna(value):
+                pairs.append({"a": col_a, "b": col_b, "correlation": float(value)})
+    pairs.sort(key=lambda pair: abs(pair["correlation"]), reverse=True)
+    return pairs[:n]

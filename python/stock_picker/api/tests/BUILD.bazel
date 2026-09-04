@@ -1,0 +1,12 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_routes",
+    srcs = ["test_routes.py"],
+    deps = [
+        "//python/stock_picker/api",
+        "//python/stock_picker/features/tests:fixtures",
+        "@pypi//fastapi",
+        "@pypi//httpx",
+    ],
+)

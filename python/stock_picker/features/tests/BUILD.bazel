@@ -6,6 +6,7 @@ py_library(
     srcs = ["fixtures.py"],
     imports = ["../../.."],
     deps = ["@pypi//pandas"],
+    visibility = ["//visibility:public"],
 )
 
 py_pytest(

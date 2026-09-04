@@ -6,6 +6,7 @@ py_library(
         "calendar.py",
         "candle.py",
         "catalog.py",
+        "catalog_loader.py",
         "cross_sectional.py",
         "descriptions.py",
         "distributional.py",
@@ -21,6 +22,7 @@ py_library(
     deps = [
         "@pypi//numpy",
         "@pypi//pandas",
+        "//python/stock_picker/storage",
     ],
     visibility = ["//visibility:public"],
 )
@@ -43,6 +45,5 @@ py_binary(
     imports = ["../.."],
     deps = [
         ":features",
-        "//python/stock_picker/storage",
     ],
 )

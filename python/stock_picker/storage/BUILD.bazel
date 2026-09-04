@@ -5,6 +5,7 @@ py_library(
     srcs = [
         "feature_store.py",
         "model_store.py",
+        "paths.py",
         "price_store.py",
         "universe_store.py",
     ],

@@ -6,7 +6,9 @@ from pathlib import Path
 
 import pandas as pd
 
-DEFAULT_DATA_DIR = Path("data/features")
+from stock_picker.storage.paths import data_root
+
+DEFAULT_DATA_DIR = data_root() / "features"
 
 
 class FeatureStore:

@@ -1,0 +1,26 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_library(
+    name = "api",
+    srcs = [
+        "app.py",
+        "routes.py",
+    ],
+    imports = ["../.."],
+    deps = [
+        "@pypi//fastapi",
+        "//python/stock_picker/features",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    imports = ["../.."],
+    deps = [
+        ":api",
+        "@pypi//fastapi",
+        "@pypi//uvicorn",
+    ],
+)

@@ -16,6 +16,7 @@ py_library(
         "@pypi//mlflow",
         "@pypi//numpy",
         "@pypi//pandas",
+        "//python/stock_picker/storage",
     ],
     visibility = ["//visibility:public"],
 )
