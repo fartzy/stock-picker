@@ -1,43 +1,64 @@
+# gazelle:python_generation_mode file
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
     name = "test_backtest",
     srcs = ["test_backtest.py"],
-    deps = ["//python/stock_picker/training"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_dataset",
     srcs = ["test_dataset.py"],
-    deps = ["//python/stock_picker/training"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_splits",
     srcs = ["test_splits.py"],
-    deps = ["//python/stock_picker/training"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
 )
 
 py_pytest(
     name = "test_model",
     srcs = ["test_model.py"],
+    imports = ["../../.."],
     deps = [
         "//python/stock_picker/training",
         "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_train",
     srcs = ["test_train.py"],
+    imports = ["../../.."],
     deps = [
         "//python/stock_picker/training",
         "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 
 py_pytest(
     name = "test_inference",
     srcs = ["test_inference.py"],
-    deps = ["//python/stock_picker/training"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
 )

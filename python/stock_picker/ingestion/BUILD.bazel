@@ -2,19 +2,25 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 py_library(
     name = "ingestion",
-    srcs = ["yfinance_client.py"],
+    srcs = [
+        "main.py",
+        "yfinance_client.py",
+    ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker/storage",
+        "//python/stock_picker/tickers",
         "@pypi//pandas",
         "@pypi//yfinance",
     ],
-    visibility = ["//visibility:public"],
 )
 
 py_binary(
     name = "main",
     srcs = ["main.py"],
     imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
     deps = [
         ":ingestion",
         "//python/stock_picker/storage",

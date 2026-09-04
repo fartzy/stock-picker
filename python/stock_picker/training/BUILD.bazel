@@ -1,33 +1,42 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
+# mlflow 3.x splits the mlflow/ namespace across several wheels; the modules_mapping
+# resolver picks mlflow-tracing, but train.py's classic tracking API
+# (start_run/log_params/log_metrics) lives in the full mlflow wheel.
+# gazelle:resolve py mlflow @pypi//mlflow
+
 py_library(
     name = "training",
     srcs = [
         "backtest.py",
         "dataset.py",
         "inference.py",
+        "main.py",
         "model.py",
         "splits.py",
         "train.py",
     ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
         "@pypi//lightgbm",
         "@pypi//mlflow",
         "@pypi//numpy",
         "@pypi//pandas",
-        "//python/stock_picker/storage",
     ],
-    visibility = ["//visibility:public"],
 )
 
 py_binary(
     name = "main",
     srcs = ["main.py"],
     imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
     deps = [
         ":training",
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
+        "@pypi//pandas",
     ],
 )

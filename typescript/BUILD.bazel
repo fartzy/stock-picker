@@ -7,10 +7,13 @@ npm_link_all_packages()
 
 ts_project(
     name = "typecheck",
-    srcs = glob(["src/**/*.ts", "src/**/*.tsx"]),
-    tsconfig = "tsconfig.json",
+    srcs = glob([
+        "src/**/*.ts",
+        "src/**/*.tsx",
+    ]),
     declaration = False,
     no_emit = True,
+    tsconfig = "tsconfig.json",
     deps = [
         ":node_modules/@types/react",
         ":node_modules/@types/react-dom",

@@ -7,10 +7,10 @@ py_library(
         "universe.py",
     ],
     imports = ["../.."],
+    visibility = ["//visibility:public"],
     deps = [
-        "@pypi//lxml",
+        "@pypi//lxml",  # keep: implicit pandas.read_html backend, no direct import
         "@pypi//pandas",
         "@pypi//requests",
     ],
-    visibility = ["//visibility:public"],
 )
