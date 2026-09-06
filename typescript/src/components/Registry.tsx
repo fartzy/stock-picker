@@ -88,16 +88,6 @@ function formatImportanceBreakdown(
   return parts.length > 0 ? parts.join(" · ") : "Share of the trained ensemble's blended importance";
 }
 
-// Service/entity names are snake_case identifiers (e.g. "day_session_return_model")
-// -- fine as a technical name, messy sitting next to a Title Case section label.
-// Display-only: the raw name is still what's used as the React key.
-function humanize(identifier: string): string {
-  return identifier
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
 function MetaGrid({ view }: { view: FeatureView }) {
   return (
     <div className="view-metagrid">
@@ -260,22 +250,6 @@ export default function Registry() {
   return (
     <div>
       <div className="meta-row">
-        <span className="meta-label">Entities</span>
-        {registry.entities.map((e) => (
-          <span className="chip" key={e.name}>
-            {humanize(e.name)}
-          </span>
-        ))}
-      </div>
-      <div className="meta-row">
-        <span className="meta-label">Feature services</span>
-        {registry.feature_services.map((s) => (
-          <span className="chip" key={s.name} title={s.name}>
-            {humanize(s.name)}
-          </span>
-        ))}
-      </div>
-      <div className="meta-row">
         <span className="meta-label">Sort features by</span>
         <div className="interval-toggle">
           {SORT_MODES.map((m) => (
@@ -391,7 +365,11 @@ export default function Registry() {
                         style={{ color: importanceColor(imp) }}
                         title={formatImportanceBreakdown(feature, importance.by_model_type)}
                       >
-                        {imp !== undefined ? `${imp.toFixed(1)}% importance` : "--"}
+                        {imp !== undefined
+                          ? `${imp.toFixed(1)}% importance`
+                          : isPruned
+                            ? "excluded"
+                            : "not trained"}
                       </span>
                     </span>
                   </div>
