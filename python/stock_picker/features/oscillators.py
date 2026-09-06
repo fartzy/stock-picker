@@ -11,6 +11,10 @@ BOLLINGER_WINDOW = 20
 BOLLINGER_NUM_STD = 2
 WILLIAMS_R_WINDOW = 14
 CCI_WINDOW = 20
+# Lambert's original 1980 CCI scaling constant -- fixed across every standard
+# CCI implementation (same role as BOLLINGER_NUM_STD above: a named part of
+# the formula's own definition, not something to tune per-call).
+CCI_SCALING_CONSTANT = 0.015
 
 
 def rsi(close: pd.Series, window: int) -> pd.Series:
@@ -62,7 +66,7 @@ def commodity_channel_index(history: pd.DataFrame, window: int = CCI_WINDOW) -> 
     mean_deviation = typical_price.rolling(window).apply(
         lambda x: abs(x - x.mean()).mean(), raw=True
     )
-    return (typical_price - sma_tp) / (0.015 * mean_deviation)
+    return (typical_price - sma_tp) / (CCI_SCALING_CONSTANT * mean_deviation)
 
 
 def build_oscillator_features(history: pd.DataFrame) -> pd.DataFrame:

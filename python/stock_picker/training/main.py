@@ -71,9 +71,9 @@ def main() -> None:
 
     fold_results = run_walk_forward(train_dataset, specs=specs)
     for result in fold_results:
-        print(f"fold {result['fold']}: {result['metrics']}")
+        print(f"fold {result.fold}: {result.metrics}")
 
-    final_ensemble = fold_results[-1]["model"]
+    final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
 
     if not holdout_tickers:

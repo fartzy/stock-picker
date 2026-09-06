@@ -32,9 +32,9 @@ def test_run_walk_forward_returns_one_result_per_fold(tmp_path):
     )
 
     assert len(results) == 3
-    assert results[-1]["train_rows"] > results[0]["train_rows"]
+    assert results[-1].train_rows > results[0].train_rows
     for result in results:
-        assert "directional_accuracy" in result["metrics"]
+        assert isinstance(result.metrics.directional_accuracy, float)
 
 
 def test_run_walk_forward_trains_a_multi_member_ensemble(tmp_path):
@@ -51,5 +51,5 @@ def test_run_walk_forward_trains_a_multi_member_ensemble(tmp_path):
     )
 
     for result in results:
-        assert len(result["model"].members) == 2
-        assert {m.model_type for m in result["model"].members} == {"lightgbm", "random_forest"}
+        assert len(result.model.members) == 2
+        assert {m.model_type for m in result.model.members} == {"lightgbm", "random_forest"}

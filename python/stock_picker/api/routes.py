@@ -9,8 +9,22 @@ from datetime import datetime
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
 
+from stock_picker.api.models import (
+    CatalogResponse,
+    CorrelationResponse,
+    CoverageResponse,
+    Entity,
+    ImportanceResponse,
+    PositionsResponse,
+    PriceHistoryResponse,
+    PruneRequest,
+    PrunedFeaturesResponse,
+    QuotesResponse,
+    RegistryResponse,
+    TradeCreate,
+    TradesResponse,
+)
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -36,50 +50,39 @@ from stock_picker.training.importance import model_importance
 router = APIRouter(prefix="/api")
 
 
-class TradeCreate(BaseModel):
-    ticker: str
-    side: Literal["buy", "sell"]
-    shares: float
-    price: float
-
-
-class PruneRequest(BaseModel):
-    reason: str | None = None
-
-
 @router.get("/catalog")
-def get_catalog() -> dict:
+def get_catalog() -> CatalogResponse:
     history = sample_history()
-    return {
-        "catalog": list_feature_columns(history),
-        "descriptions": describe_all(history),
-        "formulas": compute_formulas_all(history),
-    }
+    return CatalogResponse(
+        catalog=list_feature_columns(history),
+        descriptions=describe_all(history),
+        formulas=compute_formulas_all(history),
+    )
 
 
 @router.get("/coverage")
-def get_coverage() -> dict:
+def get_coverage() -> CoverageResponse:
     report = coverage_report(feature_tables())
-    return {"coverage": report["non_null_pct"].to_dict()}
+    return CoverageResponse(coverage=report["non_null_pct"].to_dict())
 
 
 @router.get("/correlation")
-def get_correlation() -> dict:
+def get_correlation() -> CorrelationResponse:
     corr = correlation_matrix(feature_tables())
-    return {
-        "columns": list(corr.columns),
-        "matrix": corr.where(corr.notna(), None).values.tolist(),
-        "top_pairs": top_correlated_pairs(corr),
-    }
+    return CorrelationResponse(
+        columns=list(corr.columns),
+        matrix=corr.where(corr.notna(), None).values.tolist(),
+        top_pairs=top_correlated_pairs(corr),
+    )
 
 
 @router.get("/trades")
-def get_trades() -> dict:
-    return {"trades": trade_history(trade_log())}
+def get_trades() -> TradesResponse:
+    return TradesResponse(trades=trade_history(trade_log()))
 
 
 @router.post("/trades")
-def create_trade(trade: TradeCreate) -> dict:
+def create_trade(trade: TradeCreate) -> TradesResponse:
     TradeStore().append(
         Trade(
             ticker=trade.ticker,
@@ -89,77 +92,77 @@ def create_trade(trade: TradeCreate) -> dict:
             executed_at=datetime.now().astimezone().isoformat(),
         )
     )
-    return {"trades": trade_history(trade_log())}
+    return TradesResponse(trades=trade_history(trade_log()))
 
 
 @router.get("/quotes")
-def get_quotes(tickers: str) -> dict:
-    return {"quotes": quote_summaries(fetch_ticker_quotes(tickers.split(",")))}
+def get_quotes(tickers: str) -> QuotesResponse:
+    return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
 
 
 @router.get("/positions")
-def get_positions() -> dict:
+def get_positions() -> PositionsResponse:
     trades = trade_log()
     tickers = sorted(trades["ticker"].unique()) if not trades.empty else []
     quotes = fetch_ticker_quotes(tickers) if tickers else {}
-    return {"positions": position_summaries(trades, quotes)}
+    return PositionsResponse(positions=position_summaries(trades, quotes))
 
 
 @router.get("/pruned-features")
-def get_pruned_features() -> dict:
-    return {
-        "pruned_features": sorted(pruned_features()),
-        "archive": PrunedFeatureStore().read_all(),
-    }
+def get_pruned_features() -> PrunedFeaturesResponse:
+    return PrunedFeaturesResponse(
+        pruned_features=sorted(pruned_features()),
+        archive=PrunedFeatureStore().read_all(),
+    )
 
 
 @router.post("/features/{feature}/prune")
-def prune_feature(feature: str, body: PruneRequest | None = None) -> dict:
+def prune_feature(feature: str, body: PruneRequest | None = None) -> PrunedFeaturesResponse:
     reason = (body.reason if body else None) or DEFAULT_REASON
     PrunedFeatureStore().prune(feature, reason=reason)
-    return {
-        "pruned_features": sorted(pruned_features()),
-        "archive": PrunedFeatureStore().read_all(),
-    }
+    return PrunedFeaturesResponse(
+        pruned_features=sorted(pruned_features()),
+        archive=PrunedFeatureStore().read_all(),
+    )
 
 
 @router.delete("/features/{feature}/prune")
-def unprune_feature(feature: str) -> dict:
+def unprune_feature(feature: str) -> PrunedFeaturesResponse:
     PrunedFeatureStore().unprune(feature)
-    return {
-        "pruned_features": sorted(pruned_features()),
-        "archive": PrunedFeatureStore().read_all(),
-    }
+    return PrunedFeaturesResponse(
+        pruned_features=sorted(pruned_features()),
+        archive=PrunedFeatureStore().read_all(),
+    )
 
 
 @router.get("/feature-importance")
-def get_feature_importance() -> dict:
+def get_feature_importance() -> ImportanceResponse:
     importance = model_importance()
-    return {"importance": importance["blended"], "by_model_type": importance["by_model_type"]}
+    return ImportanceResponse(importance=importance["blended"], by_model_type=importance["by_model_type"])
 
 
 @router.get("/prices/{ticker}")
-def get_price_history(ticker: str, interval: str = "daily") -> dict:
+def get_price_history(ticker: str, interval: Literal["daily", "hourly"] = "daily") -> PriceHistoryResponse:
     try:
         history = intraday_price_history(ticker) if interval == "hourly" else daily_price_history(ticker)
     except (FileNotFoundError, ValueError):
         raise HTTPException(status_code=404, detail=f"no {interval} price history for {ticker}")
-    return {"ticker": ticker, "interval": interval, "prices": price_series(history)}
+    return PriceHistoryResponse(ticker=ticker, interval=interval, prices=price_series(history))
 
 
 @router.get("/registry")
-def get_registry() -> dict:
+def get_registry() -> RegistryResponse:
     feature_views, feature_services = build_registry(sample_history())
-    return {
-        "entities": [
-            {
-                "name": "ticker",
-                "description": (
+    return RegistryResponse(
+        entities=[
+            Entity(
+                name="ticker",
+                description=(
                     "A single publicly traded stock ticker (e.g. AAPL) -- the join "
                     "key every feature view is keyed on."
                 ),
-            }
+            )
         ],
-        "feature_views": [asdict(view) for view in feature_views],
-        "feature_services": [asdict(service) for service in feature_services],
-    }
+        feature_views=[asdict(view) for view in feature_views],
+        feature_services=[asdict(service) for service in feature_services],
+    )

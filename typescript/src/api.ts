@@ -52,6 +52,8 @@ export interface Trade {
   price: number;
   notional: number;
   executed_at: string;
+  // null for a "buy" row -- only a closing "sell" has a realized P&L.
+  realized_pnl: number | null;
 }
 
 export interface TradesResponse {
@@ -63,8 +65,8 @@ export interface Position {
   day: string;
   shares: number;
   invested: number;
-  buy_time: string;
-  buy_price: number;
+  buy_time: string | null;
+  buy_price: number | null;
   day_open: number | null;
   prev_close: number | null;
   gap: number | null;
@@ -119,6 +121,9 @@ export interface QuoteSummary {
   last: number;
   diff: number;
   diff_pct: number;
+  prev_close: number | null;
+  gap: number | null;
+  gap_pct: number | null;
 }
 
 export interface QuotesResponse {
