@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   clearFeatureSelection,
   fetchCatalog,
@@ -117,7 +117,13 @@ function MetaGrid({ view }: { view: FeatureView }) {
   );
 }
 
-export default function Registry() {
+export default function Registry({
+  pendingFeature,
+  onFeatureFocused,
+}: {
+  pendingFeature?: string | null;
+  onFeatureFocused?: () => void;
+} = {}) {
   const { data: registry, error: registryError } = useFetchData<RegistryResponse>(fetchRegistry);
   const { data: catalog, error: catalogError } = useFetchData<CatalogResponse>(fetchCatalog);
   const { data: coverage, error: coverageError } = useFetchData<CoverageResponse>(fetchCoverage);
@@ -137,6 +143,58 @@ export default function Registry() {
   // undefined = not yet initialized from the fetch; null = no selection
   // (every feature included); Set = an explicit selection.
   const [included, setIncluded] = useState<Set<string> | null | undefined>(undefined);
+  const [highlightedFeature, setHighlightedFeature] = useState<string | null>(null);
+  const detailsRefs = useRef(new Map<string, HTMLDetailsElement>());
+  const rowRefs = useRef(new Map<string, HTMLDivElement>());
+
+  // One-shot handoff from the Data tab (see App.tsx's pendingFeature): open
+  // that feature's category, scroll to its row, and briefly highlight it.
+  // Deliberately doesn't call onFeatureFocused() on the "registry not loaded
+  // yet" branch below -- a click made before Registry's own fetch resolves
+  // should still work once it does, not silently get dropped.
+  useEffect(() => {
+    // Matches the same loading gate the render below bails out on ("Loading
+    // registry...") -- the feature-row/details refs this effect needs don't
+    // exist in the DOM until every one of these has resolved, not just
+    // `registry` alone (registry often resolves first, before the ref maps
+    // below are populated).
+    if (
+      !pendingFeature ||
+      !registry ||
+      !catalog ||
+      !coverage ||
+      !importance ||
+      !prunedData ||
+      !correlationData ||
+      included === undefined
+    ) {
+      return;
+    }
+    const view = registry.feature_views.find((v) => v.features.includes(pendingFeature));
+    if (!view) {
+      onFeatureFocused?.();
+      return;
+    }
+    const details = detailsRefs.current.get(view.name);
+    if (details) details.open = true;
+    requestAnimationFrame(() => {
+      rowRefs.current.get(pendingFeature)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setHighlightedFeature(pendingFeature);
+      onFeatureFocused?.();
+      setTimeout(() => setHighlightedFeature((f) => (f === pendingFeature ? null : f)), 2000);
+    });
+  }, [
+    pendingFeature,
+    registry,
+    catalog,
+    coverage,
+    importance,
+    prunedData,
+    correlationData,
+    included,
+    onFeatureFocused,
+  ]);
+
   const error =
     [registryError, catalogError, coverageError, importanceError, prunedError, selectionError, correlationError]
       .filter(Boolean)
@@ -283,7 +341,13 @@ export default function Registry() {
         )}
       </div>
       {registry.feature_views.map((view) => (
-        <details className="view-card" key={view.name}>
+        <details
+          className="view-card"
+          key={view.name}
+          ref={(el) => {
+            if (el) detailsRefs.current.set(view.name, el);
+          }}
+        >
           <summary>
             <strong style={{ color: "var(--accent)" }}>{view.name}</strong>
             <MetaGrid view={view} />
@@ -298,7 +362,13 @@ export default function Registry() {
               const correlation = !isPruned ? bestCorrelationByFeature[feature] : undefined;
               const isSelected = included === null || included.has(feature);
               return (
-                <div className="feature-row" key={feature}>
+                <div
+                  className={`feature-row${feature === highlightedFeature ? " feature-row-highlight" : ""}`}
+                  key={feature}
+                  ref={(el) => {
+                    if (el) rowRefs.current.set(feature, el);
+                  }}
+                >
                   <div className="feature-row-header">
                     <span>
                       <input

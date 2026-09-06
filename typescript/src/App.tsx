@@ -14,6 +14,9 @@ const TABS: { id: Tab; label: string }[] = [
 
 export default function App() {
   const [tab, setTab] = useState<Tab>("trading");
+  // One-shot handoff from the Data tab's feature columns to Registry: set,
+  // switched to, then cleared once Registry has scrolled to/highlighted it.
+  const [pendingFeature, setPendingFeature] = useState<string | null>(null);
 
   return (
     <div className="page">
@@ -61,7 +64,7 @@ export default function App() {
               actually excluded from training, not just hidden here.
             </p>
             <div className="panel">
-              <Registry />
+              <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)} />
             </div>
           </section>
         </>
@@ -71,7 +74,12 @@ export default function App() {
         <section>
           <h2>Ticker Data</h2>
           <div className="panel">
-            <PriceHistory />
+            <PriceHistory
+              onNavigateToFeature={(feature) => {
+                setPendingFeature(feature);
+                setTab("features");
+              }}
+            />
           </div>
         </section>
       )}
