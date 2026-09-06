@@ -19,9 +19,11 @@ def test_build_features_combines_every_category():
     ]:
         assert column in features.columns
 
-    # cross-sectional columns are omitted when no benchmark/peer data is supplied
+    # cross-sectional columns are omitted when no benchmark/peer data is supplied,
+    # same for pooled_setup_seasonality when no universe-wide input is supplied
     assert "beta_60d" not in features.columns
     assert "return_rank_5d" not in features.columns
+    assert "pooled_setup_seasonality" not in features.columns
 
 
 def test_build_features_for_universe_adds_return_rank_and_beta_columns():
@@ -39,6 +41,7 @@ def test_build_features_for_universe_adds_return_rank_and_beta_columns():
     for features in features_by_ticker.values():
         assert "return_rank_5d" in features.columns
         assert "beta_60d" in features.columns
+        assert "pooled_setup_seasonality" in features.columns
 
 
 def test_build_features_for_universe_ranks_are_valid_percentiles():
