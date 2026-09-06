@@ -26,6 +26,7 @@ def test_list_feature_columns_has_all_categories():
         "calendar",
         "conditional_seasonality",
         "cross_sectional",
+        "pattern_seasonality",
     }
     assert set(catalog) == expected_categories
     for columns in catalog.values():

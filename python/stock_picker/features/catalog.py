@@ -16,6 +16,7 @@ from stock_picker.features import (
     distributional,
     momentum,
     oscillators,
+    pattern_seasonality,
     trend,
     volatility,
     volume,
@@ -32,6 +33,7 @@ _SINGLE_TICKER_BUILDERS = {
     "candle": candle.build_candle_features,
     "distributional": distributional.build_distributional_features,
     "calendar": calendar.build_calendar_features,
+    "pattern_seasonality": pattern_seasonality.build_pattern_features,
 }
 
 
