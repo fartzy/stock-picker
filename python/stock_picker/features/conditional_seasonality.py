@@ -75,6 +75,19 @@ def setup_bucket(gap: pd.Series, prior_return: pd.Series) -> pd.Series:
     return key
 
 
+def ticker_setup_bucket(history: pd.DataFrame) -> pd.Series:
+    """Gap + prior-day-return setup bucket computed directly from a single ticker's
+    OHLCV history -- shared by `setup_seasonality` (per-ticker average) and
+    `pipeline.build_features_for_universe` (assembling `pooled_setup_seasonality`'s
+    per-ticker bucket inputs), so the bucket definition can't drift between the two
+    call sites.
+    """
+    close = history["Close"]
+    gap = (history["Open"] - close.shift(1)) / close.shift(1)
+    prior_return = close.pct_change().shift(1)
+    return setup_bucket(gap, prior_return)
+
+
 def setup_seasonality(history: pd.DataFrame) -> pd.Series:
     """Expanding mean same-day return for every prior (and current) occurrence of
     today's (gap, prior-day-return) setup bucket -- "other times this ticker opened
@@ -82,13 +95,8 @@ def setup_seasonality(history: pd.DataFrame) -> pd.Series:
     it move that day, on average?" Per-ticker only; see module docstring for the
     pooled-across-universe alternative and the sparsity tradeoff.
     """
-    close = history["Close"]
-    open_ = history["Open"]
-    daily_return = close.pct_change()
-    gap = (open_ - close.shift(1)) / close.shift(1)
-    prior_return = daily_return.shift(1)
-
-    bucket = setup_bucket(gap, prior_return)
+    daily_return = history["Close"].pct_change()
+    bucket = ticker_setup_bucket(history)
     return daily_return.groupby(bucket).transform(lambda s: s.expanding().mean())
 
 
@@ -115,8 +123,9 @@ def pooled_setup_seasonality(
     once per date and taking a strictly-lagged cumulative sum/count, so every
     ticker's date-t value depends only on dates < t.
 
-    Rough first pass, not yet wired into build_features_for_universe -- see README
-    Roadmap.
+    Wired into pipeline.build_features_for_universe as the `pooled_setup_seasonality`
+    column -- unlike setup_seasonality, this one is only ever populated for pooled
+    (universe-wide) runs, never for a single ticker in isolation.
     """
     long_frame = pd.concat(
         {
@@ -151,8 +160,15 @@ def pooled_setup_seasonality(
     return result
 
 
-def build_conditional_seasonality_features(history: pd.DataFrame) -> pd.DataFrame:
-    return pd.DataFrame(
-        {"setup_seasonality": setup_seasonality(history)},
-        index=history.index,
-    )
+def build_conditional_seasonality_features(
+    history: pd.DataFrame, pooled_seasonality: pd.Series | None = None
+) -> pd.DataFrame:
+    """`pooled_seasonality` is optional, same convention as cross_sectional.py's
+    peer/benchmark inputs -- omitted rather than NaN-filled when not supplied (a
+    single ticker in isolation has no universe to pool against; see
+    pipeline.build_features_for_universe for how it's assembled).
+    """
+    features: dict[str, pd.Series] = {"setup_seasonality": setup_seasonality(history)}
+    if pooled_seasonality is not None:
+        features["pooled_setup_seasonality"] = pooled_seasonality
+    return pd.DataFrame(features, index=history.index)

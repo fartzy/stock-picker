@@ -209,6 +209,15 @@ _pattern(
     ),
 )
 _pattern(
+    r"^pooled_setup_seasonality$",
+    lambda m: (
+        "Same as setup_seasonality, but averaged over prior occurrences of that "
+        "setup across every tracked ticker, not just this one -- denser and "
+        "available sooner for younger tickers, at the cost of mixing in other "
+        "names' idiosyncratic behavior."
+    ),
+)
+_pattern(
     r"^return_rank_(\d+)d$",
     lambda m: f"This ticker's percentile rank (0-1) for {m[1]}-day return among all tracked tickers on this date.",
 )

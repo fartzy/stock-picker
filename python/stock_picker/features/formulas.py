@@ -126,6 +126,13 @@ _pattern(
     ),
 )
 _pattern(
+    r"^pooled_setup_seasonality$",
+    lambda m: (
+        "per (date, bucket): pooled_returns.groupby(['date', 'bucket']).sum()/count(); "
+        "cumsum per bucket, shift(1) by date so date t only sees dates < t"
+    ),
+)
+_pattern(
     r"^return_rank_(\d+)d$",
     lambda m: f"universe_returns_{m[1]}d.rank(axis=1, pct=True)[this_ticker]",
 )

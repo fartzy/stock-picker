@@ -32,7 +32,8 @@ def test_list_feature_columns_has_all_categories():
         assert len(columns) > 0
 
     total_columns = sum(len(columns) for columns in catalog.values())
-    assert total_columns >= 90  # 95 before this pass + 1 new (setup_seasonality), some slack
+    # 95 pre-pass + setup_seasonality + pooled_setup_seasonality, some slack
+    assert total_columns >= 90
 
 
 def test_coverage_report_flags_an_all_nan_column():

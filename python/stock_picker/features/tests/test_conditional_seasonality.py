@@ -7,6 +7,7 @@ from stock_picker.features.conditional_seasonality import (
     pooled_setup_seasonality,
     setup_bucket,
     setup_seasonality,
+    ticker_setup_bucket,
 )
 from stock_picker.features.tests.fixtures import synthetic_history
 
@@ -44,6 +45,29 @@ def test_build_conditional_seasonality_features_has_setup_seasonality_column():
     # first two rows have no gap/prior-return (need two prior closes), rest fill in
     assert features["setup_seasonality"].iloc[:2].isna().all()
     assert features["setup_seasonality"].iloc[2:].notna().any()
+
+
+def test_build_conditional_seasonality_features_includes_pooled_column_when_supplied():
+    history = synthetic_history(n=60)
+    dummy_pooled = history["Close"].pct_change()
+
+    features = build_conditional_seasonality_features(history, pooled_seasonality=dummy_pooled)
+
+    assert list(features.columns) == ["setup_seasonality", "pooled_setup_seasonality"]
+    pd.testing.assert_series_equal(
+        features["pooled_setup_seasonality"], dummy_pooled, check_names=False
+    )
+
+
+def test_ticker_setup_bucket_matches_setup_bucket_on_the_same_gap_and_prior_return():
+    history = synthetic_history(n=60)
+    close = history["Close"]
+    gap = (history["Open"] - close.shift(1)) / close.shift(1)
+    prior_return = close.pct_change().shift(1)
+
+    bucket = ticker_setup_bucket(history)
+
+    pd.testing.assert_series_equal(bucket, setup_bucket(gap, prior_return), check_names=False)
 
 
 def test_setup_seasonality_matches_hand_computed_expanding_mean_within_a_bucket():

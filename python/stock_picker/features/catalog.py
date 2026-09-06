@@ -32,8 +32,18 @@ _SINGLE_TICKER_BUILDERS = {
     "candle": candle.build_candle_features,
     "distributional": distributional.build_distributional_features,
     "calendar": calendar.build_calendar_features,
-    "conditional_seasonality": conditional_seasonality.build_conditional_seasonality_features,
 }
+
+
+def _conditional_seasonality_columns(sample_history: pd.DataFrame) -> list[str]:
+    """Force pooled_setup_seasonality to materialize with a dummy input, same
+    reasoning as _cross_sectional_columns below -- it's real code but needs a
+    universe-wide input this single-ticker sample can't supply on its own."""
+    dummy_pooled = sample_history["Close"].pct_change()
+    features = conditional_seasonality.build_conditional_seasonality_features(
+        sample_history, pooled_seasonality=dummy_pooled
+    )
+    return list(features.columns)
 
 
 def _cross_sectional_columns(sample_history: pd.DataFrame) -> list[str]:
@@ -58,6 +68,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
         category: list(builder(sample_history).columns)
         for category, builder in _SINGLE_TICKER_BUILDERS.items()
     }
+    columns["conditional_seasonality"] = _conditional_seasonality_columns(sample_history)
     columns["cross_sectional"] = _cross_sectional_columns(sample_history)
     return columns
 
