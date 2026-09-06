@@ -1,10 +1,11 @@
 # stock-picker
 
-Builds a universe of the top 500 US companies by market cap, pulls daily OHLCV
-via `yfinance`, engineers ~95 features, trains an ensemble of models
-(LightGBM + random forest) predicting day-session return, and serves the
-whole thing through a FastAPI + React web app -- including a real trading log
-with live P&L.
+- **Universe**: top 500 US companies by market cap
+- **Data**: daily OHLCV via `yfinance`
+- **Features**: ~100 engineered columns across 11 categories
+- **Model**: LightGBM + random-forest ensemble predicting day-session
+  (open->close) return
+- **App**: FastAPI + React, including a real trading log with live P&L
 
 ## Architecture
 
@@ -12,30 +13,42 @@ Solid boxes are built and tested; dashed boxes are planned but not built yet.
 
 ```mermaid
 flowchart TB
-    WIKI["Wikipedia S&amp;P 500 scrape"]
-    MANUAL["tickers/manual_additions.py"]
-    BUILDUNIV["tickers/universe.py<br/>build_universe()"]
-    YF["ingestion/yfinance_client.py<br/>daily + intraday download, live quotes"]
+    subgraph Ingestion
+        WIKI["Wikipedia S&amp;P 500 scrape"]
+        MANUAL["tickers/manual_additions.py"]
+        BUILDUNIV["tickers/universe.py<br/>build_universe()"]
+        YF["ingestion/yfinance_client.py<br/>daily + intraday download, live quotes"]
+    end
 
-    US[("UniverseStore<br/>registry.parquet")]
-    PS[("PriceStore<br/>prices/*.parquet")]
-    FS[("FeatureStore<br/>features/*.parquet")]
-    MS[("ModelStore<br/>models/*.pkl")]
-    TS[("TradeStore<br/>trades/trades.parquet")]
-    PFS[("PrunedFeatureStore<br/>pruned_features/pruned.parquet")]
-    TRS[("TrainingRunStore<br/>training_runs/runs.json")]
+    subgraph Storage
+        US[("UniverseStore<br/>registry.parquet")]
+        PS[("PriceStore<br/>prices/*.parquet")]
+        FS[("FeatureStore<br/>features/*.parquet")]
+        MS[("ModelStore<br/>models/*.pkl")]
+        TS[("TradeStore<br/>trades/trades.parquet")]
+        PFS[("PrunedFeatureStore<br/>pruned_features/pruned.parquet")]
+        TRS[("TrainingRunStore<br/>training_runs/runs.json")]
+    end
 
-    FEATPIPE["features/pipeline.py<br/>~95 cols across 9 categories"]
-    REGISTRY["features/registry.py<br/>Feast-style metadata over the pipeline"]
+    subgraph Features
+        FEATPIPE["features/pipeline.py<br/>~100 cols across 11 categories"]
+        REGISTRY["features/registry.py<br/>Feast-style metadata over the pipeline"]
+        PRICEHIST["features/price_history.py<br/>daily (PriceStore) + intraday (live yfinance)"]
+    end
 
-    DATASET["training/dataset.py<br/>lookahead-safe labeling"]
-    TRAIN["training/train.py + model.py/ensemble.py<br/>LightGBM + random forest ensemble, walk-forward validated"]
-    INFER["training/inference.py<br/>live scoring"]
-    MLFLOW[("MLflow<br/>tracking only")]
+    subgraph Training
+        DATASET["training/dataset.py<br/>lookahead-safe labeling"]
+        TRAIN["training/train.py + model.py/ensemble.py<br/>LightGBM + random forest ensemble, walk-forward validated"]
+        INFER["training/inference.py<br/>live scoring"]
+        MLFLOW[("MLflow<br/>tracking only")]
+    end
 
-    API["api/routes.py<br/>FastAPI JSON layer, no new business logic"]
-    WEB["typescript/<br/>Trading / Feature Store / Models / Prices tabs"]
-    PRICEHIST["features/price_history.py<br/>daily (PriceStore) + intraday (live yfinance)"]
+    subgraph Serving
+        API["api/routes.py<br/>FastAPI JSON layer, no new business logic"]
+        WEB["typescript/<br/>Trading / Feature Store / Models / Prices tabs"]
+    end
+
+    LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
 
     WIKI --> BUILDUNIV
     MANUAL --> BUILDUNIV
@@ -64,9 +77,6 @@ flowchart TB
     YF --> PRICEHIST
     PRICEHIST --> API
     API --> WEB
-
-    LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
-
     INFER -.-> LIVE
 
     classDef planned stroke-dasharray: 5 5,fill:#f5f5f5,stroke:#999,color:#555;
@@ -80,13 +90,14 @@ python/stock_picker/
 ├── tickers/     # top-500-by-market-cap universe
 ├── ingestion/   # yfinance: daily history, intraday bars, live quotes
 ├── storage/     # Parquet/pickle persistence (Repository pattern)
-├── features/    # ~95-column pipeline, feature catalog, Feast-style registry,
+├── features/    # ~100-column pipeline, feature catalog, Feast-style registry,
 │                #   trade log + P&L, feature pruning
 ├── training/    # LightGBM + random forest ensemble, walk-forward validated
 └── api/         # FastAPI JSON layer -- every endpoint wraps a tested
                  #   pure function from features/, no new logic
 
-typescript/      # React + Vite + TS frontend (Trading / Feature Store / Models tabs)
+typescript/      # React + Vite + TS frontend (Trading / Feature Store /
+                 #   Models / Prices tabs)
 ```
 
 ## Quickstart
@@ -158,35 +169,38 @@ line chart. `GET /api/prices/{ticker}?interval=daily|hourly`.
 
 ## Training
 
-Predicts the day-session (open->close) return, pooled across tickers (no
-per-ticker models), validated with date-based walk-forward splits plus a
-held-out set of entire tickers never seen in training. See
-`training/dataset.py` before touching anything else in this module -- it's
-what prevents day t's own close from leaking into day t's features.
-
-**Current results** (450 train tickers, 50 held out, 1 year of history), now
-from the 2-member LightGBM + random-forest ensemble: walk-forward directional
-accuracy is ~48-53% (coin-flip, expected at this timescale); holdout accuracy
-is **56.0% on 12,600 rows**. At a 0.5% predicted-return threshold, 100 trades
-clear it with an **80.0% hit rate** (avg return 1.7% per trade); at 1.0%, only
-3 trades clear it, too few to draw a conclusion from.
+- Predicts the day-session (open->close) return, pooled across tickers (no
+  per-ticker models).
+- Validated with date-based walk-forward splits, plus a held-out set of
+  entire tickers never seen in training.
+- See `training/dataset.py` before touching anything else in this module --
+  it's what prevents day t's own close from leaking into day t's features.
+- **Setup**: 450 train tickers, 50 held out, 1 year of history, 2-member
+  LightGBM + random-forest ensemble.
+- **Walk-forward directional accuracy**: ~48-53% (coin-flip, expected at
+  this timescale).
+- **Holdout accuracy**: 56.0% on 12,600 rows.
+- **At a 0.5% predicted-return threshold**: 100 trades clear it, 80.0% hit
+  rate, avg return 1.7% per trade.
+- **At a 1.0% threshold**: only 3 trades clear it -- too few to draw a
+  conclusion from.
 
 ## Known issues
 
 Real live inference (fetch today's open, score every ticker) surfaces
-data-integrity gotchas. `training/inference.py`'s `build_inference_row()`
-structurally guards two of them, raising rather than silently scoring on
-data that's more likely wrong than right:
+data-integrity gotchas.
 
-- A stale feature snapshot -- guarded via `registry.check_freshness()`,
-  raises `StaleFeatureSnapshotError`.
+**Guarded** -- `training/inference.py`'s `build_inference_row()` raises
+rather than silently scoring on data that's more likely wrong than right:
+
+- A stale feature snapshot -- `registry.check_freshness()` raises
+  `StaleFeatureSnapshotError`.
 - A stock split between ingestion and "now" producing a fake overnight gap
-  that looks like a real signal -- guarded via `MAX_PLAUSIBLE_GAP`, raises
+  that looks like a real signal -- `MAX_PLAUSIBLE_GAP` raises
   `ImplausibleGapError`.
 
-Still open, and inherent to however a live caller ends up sourcing its
-inputs (no live caller exists yet -- see Roadmap's scheduled live scoring
-loop):
+**Still open** -- inherent to however a live caller ends up sourcing its
+inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):
 
 - Yahoo sometimes hasn't finalized yesterday's close when you pull (`NaN`
   row) -- can't assume "the last row is complete."
@@ -198,15 +212,10 @@ loop):
 - [ ] Wire `check_freshness()` into live inference (staleness/overnight-gap
       checks)
 - [ ] Registry: inline coverage/importance + sort control, revisit polish
-- [ ] Registry visual polish -- raised repeatedly, still not resolved. Header
-      wordmark got a small pass but the page as a whole (Registry included)
-      still reads plain -- a real design pass is needed, not another small
+- [ ] Registry visual polish -- needs a real design pass, not another small
       tweak
-- [ ] Descriptive copy across the app (header tagline, section descriptions
-      like Registry's) needs a real editorial pass, not just spot-fixes when
-      one goes stale -- tagline was factually out of date (missed Trading/
-      Prices tabs) until just fixed; unclear whether the remaining copy
-      reads well, just that it's at least accurate right now
+- [ ] Descriptive copy across the app needs a real editorial pass, not just
+      spot-fixes when one goes stale
 - [ ] Prune UX: fold pruned status into Registry per-feature instead of a
       separate archive
 - [ ] Modular model layer: LightGBM + random forest ensemble -- revisit
@@ -216,40 +225,26 @@ loop):
       gain, RF impurity)
 - [ ] Flag near-zero-importance features + one-click prune from Registry
 - [ ] Pick which features feed a training run from the UI
-- [ ] Fold Correlation & Redundancy into Registry entirely (asked for this
-      more than once now) -- what a feature correlates to (top N and/or over
-      a threshold) becomes a per-row attribute, same as coverage/importance/
-      pruned today. Per-row would actually cover *more* pairs than today's
-      top-15 global list (a feature's own worst match doesn't have to crack
-      the global top 15 to matter for that feature). Still confirm the
-      canvas heatmap matrix's whole-universe cluster view isn't needed
-      before dropping it, not just the ranked pairs list
-- [ ] Training run drill-down -- decided in favor of a self-contained run
-      manifest over extending MLflow (MLflow stays as-is, per-fold-only,
-      still not linked from the app): `storage/training_run_store.py`
-      persists tickers/date-range/resolved-features/model-specs/metrics per
-      run, surfaced via `/api/training/runs` and the Models tab's Run
-      History. Still open: no archived model binary per historical run --
-      `ModelStore` only ever holds the latest ensemble, so a past run's
-      metadata is inspectable but its exact artifact isn't re-loadable
+- [ ] Fold Correlation & Redundancy into Registry entirely -- per-feature,
+      not just a global top-N list
+- [ ] Training run drill-down: `storage/training_run_store.py` persists
+      tickers/dates/features/metrics per run (Models tab's Run History);
+      still no archived model binary per historical run, only the latest
 - [ ] Real training-code integration for non-regression model families
-      (neural nets, clustering) -- `training/model_registry.py`'s metadata
-      (version/source/package) is already extensible, a new model type is
-      just a new entry, but `Ensemble`/`TrainedModel` still assume a
-      continuous-return regression blend end to end; clustering especially
-      doesn't fit that shape at all and would need its own training/
-      inference path, not just a registry entry
-- [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
+      (neural nets, clustering) -- `model_registry.py` metadata is
+      extensible, but `Ensemble`/`TrainedModel` still assume a continuous-
+      return regression blend end to end
 - [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
       thresholds, validate against real (not just synthetic) data
+- [ ] Recency-conditioned pattern features (day-session streaks, exact
+      sequences, weekday-lag) -- validate against real data, only
+      synthetic-tested so far
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
 - [ ] Validation slice within each walk-forward fold for early stopping
 - [ ] Persist sector labels to unlock `sector_relative_return`
 - [ ] DuckDB for ad hoc SQL over the Parquet lake
 - [ ] Scheduled live scoring loop (fetch open -> infer -> buy/hold/sell)
-- [x] ~~Web app (React + FastAPI)~~ -- done
-- [x] ~~Feature pruning using correlation data~~ -- done
 - [ ] Production `vite build` + frontend tests
 - [ ] Expansion beyond stocks on the same FTI core -- deliberately not
       generalized until there's a second real domain
