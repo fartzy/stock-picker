@@ -129,7 +129,15 @@ function useFeatureToGroup(): Record<string, string> {
   }, [registry]);
 }
 
-function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: Interval }) {
+function FeatureValuesTable({
+  ticker,
+  interval,
+  onNavigateToFeature,
+}: {
+  ticker: string;
+  interval: Interval;
+  onNavigateToFeature: (feature: string) => void;
+}) {
   const [filter, setFilter] = useState("");
   // Feature tables are computed from daily price history only -- there's no
   // hourly path (see pipeline.py's build_features), so this doesn't depend
@@ -219,8 +227,14 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
             <tr>
               <th>Date</th>
               {columnsWithGroups.map(({ name, isGroupStart }) => (
-                <th key={name} className={isGroupStart ? "col-group-start" : undefined} title={featureToGroup[name]}>
-                  {name}
+                <th
+                  key={name}
+                  className={isGroupStart ? "col-group-start" : undefined}
+                  title={`${featureToGroup[name] ?? ""}: view in Feature Store`}
+                >
+                  <button type="button" className="feature-header-link" onClick={() => onNavigateToFeature(name)}>
+                    {name}
+                  </button>
                 </th>
               ))}
             </tr>
@@ -252,7 +266,11 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
   );
 }
 
-export default function PriceHistory() {
+export default function PriceHistory({
+  onNavigateToFeature,
+}: {
+  onNavigateToFeature: (feature: string) => void;
+}) {
   const [inputValue, setInputValue] = useState(DEFAULT_TICKER);
   const [ticker, setTicker] = useState(DEFAULT_TICKER);
   const [interval, setInterval_] = useState<Interval>("daily");
@@ -376,7 +394,7 @@ export default function PriceHistory() {
             </div>
           </div>
 
-          <FeatureValuesTable ticker={data.ticker} interval={interval} />
+          <FeatureValuesTable ticker={data.ticker} interval={interval} onNavigateToFeature={onNavigateToFeature} />
         </>
       )}
     </div>
