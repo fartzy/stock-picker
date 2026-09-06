@@ -30,8 +30,12 @@ MODEL_NAME = "day_session_return"
 DIAGNOSTIC_MODEL_NAME = f"{MODEL_NAME}_logistic_diagnostic"
 # The default ensemble composition when no UI selection has been made (see
 # ensemble.py's selected_model_specs()) -- a developer can still edit this
-# directly to change the out-of-the-box defaults.
-DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm"), ModelSpec("random_forest")]
+# directly to change the out-of-the-box defaults. RandomForest was tried
+# alongside LightGBM here (see training/tune_experiment.py) and dropped: a
+# weight search over solo-vs-blended configurations picked solo LightGBM
+# outright across every blend tried, so it never earned a place -- the UI's
+# composable model picker can still add it back in for experimentation.
+DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm")]
 
 
 @dataclass
