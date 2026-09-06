@@ -3,6 +3,7 @@ import {
   fetchTrainingStatus,
   runTraining,
   type ModelInfoResponse,
+  type ThresholdSweepRow,
   type TrainingResult,
   type TrainingStatusResponse,
 } from "../api";
@@ -51,9 +52,32 @@ function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | nul
   );
 }
 
+// The highlighted threshold row should be the most selective (highest
+// threshold) one whose sample is still large enough to trust -- picking
+// literally the last populated row could highlight something like "1 trade,
+// 100% hit rate," which is noise, not a result. 30 is a common rule-of-thumb
+// floor for a binomial rate to mean anything at a glance; this is a headline
+// callout, not a rigorous estimate, so it doesn't need to be more precise
+// than that.
+const HIGHLIGHT_MIN_TRADES = 30;
+
+function pickHighlightRow(sweep: ThresholdSweepRow[]): ThresholdSweepRow | undefined {
+  const gated = sweep.filter((row) => row.threshold > 0);
+  const qualifying = gated.filter((row) => row.n_trades >= HIGHLIGHT_MIN_TRADES);
+  if (qualifying.length > 0) return qualifying[qualifying.length - 1];
+  // Nothing cleared the bar (e.g. a small holdout) -- fall back to whichever
+  // confidence-gated row has the most trades, still better than the
+  // highest-threshold row which could be a sample of one.
+  return gated.reduce<ThresholdSweepRow | undefined>(
+    (best, row) => (!best || row.n_trades > best.n_trades ? row : best),
+    undefined,
+  );
+}
+
 function TrainingResultSummary({ result }: { result: TrainingResult }) {
   const holdout = result.holdout_metrics;
   const sweep = result.threshold_sweep;
+  const highlight = sweep ? pickHighlightRow(sweep) : undefined;
   return (
     <div className="training-result">
       {holdout && (
@@ -62,18 +86,12 @@ function TrainingResultSummary({ result }: { result: TrainingResult }) {
           {holdout.n_test_rows.toLocaleString()} rows.
         </span>
       )}
-      {sweep && sweep.length > 0 && (
+      {highlight && (
         <span className="muted">
-          {sweep
-            .filter((row) => row.n_trades > 0)
-            .slice(-1)
-            .map((row) => (
-              <span key={row.threshold}>
-                {" "}
-                At {(row.threshold * 100).toFixed(1)}% threshold: {row.n_trades} trades,{" "}
-                {(row.hit_rate * 100).toFixed(1)}% hit rate.
-              </span>
-            ))}
+          {" "}
+          At {(highlight.threshold * 100).toFixed(1)}% threshold: {highlight.n_trades} trades
+          {highlight.avg_picks_per_day != null && ` (~${highlight.avg_picks_per_day.toFixed(1)}/day)`},{" "}
+          {(highlight.hit_rate * 100).toFixed(1)}% hit rate.
         </span>
       )}
     </div>

@@ -175,6 +175,11 @@ export interface FoldMetrics {
 export interface ThresholdSweepRow {
   threshold: number;
   n_trades: number;
+  // Total n_trades across the whole evaluation window (e.g. a year of
+  // holdout tickers) divided by the number of distinct trading days it
+  // covers -- "how many stocks would this flag on a given day," not just
+  // "how many trades total."
+  avg_picks_per_day: number | null;
   hit_rate: number;
   total_return: number;
   avg_return: number;

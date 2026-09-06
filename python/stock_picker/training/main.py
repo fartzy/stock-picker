@@ -181,7 +181,7 @@ def run_training(
 
     predicted = pd.Series(predict_ensemble(final_ensemble, holdout_dataset), index=holdout_dataset.index)
     actual = holdout_dataset[LABEL_COLUMN]
-    sweep = sweep_thresholds(predicted, actual)
+    sweep = sweep_thresholds(predicted, actual, n_days=holdout_dataset["date"].nunique())
     print(sweep.to_string(index=False))
 
     # DataFrame.to_dict() leaves numpy scalar types in place (not JSON-
