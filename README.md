@@ -166,18 +166,25 @@ clear it with an **80.0% hit rate** (avg return 1.7% per trade); at 1.0%, only
 
 ## Known issues
 
-Real live inference (fetch today's open, score every ticker) surfaced three
-data-integrity gotchas, none yet handled structurally:
+Real live inference (fetch today's open, score every ticker) surfaces
+data-integrity gotchas. `training/inference.py`'s `build_inference_row()`
+structurally guards two of them, raising rather than silently scoring on
+data that's more likely wrong than right:
+
+- A stale feature snapshot -- guarded via `registry.check_freshness()`,
+  raises `StaleFeatureSnapshotError`.
+- A stock split between ingestion and "now" producing a fake overnight gap
+  that looks like a real signal -- guarded via `MAX_PLAUSIBLE_GAP`, raises
+  `ImplausibleGapError`.
+
+Still open, and inherent to however a live caller ends up sourcing its
+inputs (no live caller exists yet -- see Roadmap's scheduled live scoring
+loop):
 
 - Yahoo sometimes hasn't finalized yesterday's close when you pull (`NaN`
   row) -- can't assume "the last row is complete."
 - A same-day pull can include today's own in-progress row, silently
   mislabeling it as "yesterday" via `.iloc[-1]`.
-- A stock split between ingestion and "now" produces a fake overnight gap
-  that looks like a real signal.
-
-`registry.check_freshness()` exists to address the first two once wired into
-`inference.py`'s live path (see Roadmap).
 
 ## Roadmap
 

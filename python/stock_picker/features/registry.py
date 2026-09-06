@@ -102,10 +102,14 @@ def build_registry(sample_history: pd.DataFrame) -> tuple[list[FeatureView], lis
     return feature_views, feature_services
 
 
-def check_freshness(
-    feature_view: FeatureView, snapshot_date: date, as_of_date: date
-) -> FreshnessResult:
+def check_freshness(ttl_days: int, snapshot_date: date, as_of_date: date) -> FreshnessResult:
     """Is `snapshot_date` (the date a feature snapshot is from) fresh enough to use
-    for inference as of `as_of_date`, given the view's ttl_days?"""
+    for inference as of `as_of_date`, given `ttl_days`?
+
+    Takes a bare `ttl_days` rather than a whole `FeatureView` -- freshness only ever
+    depends on that one field, and every view uses the same `DEFAULT_TTL_DAYS` today
+    anyway (inference.py's row spans every category at once, so there's no single
+    "the" view to hand this function regardless).
+    """
     age_days = (as_of_date - snapshot_date).days
-    return FreshnessResult(ok=age_days <= feature_view.ttl_days, age_days=age_days, ttl_days=feature_view.ttl_days)
+    return FreshnessResult(ok=age_days <= ttl_days, age_days=age_days, ttl_days=ttl_days)
