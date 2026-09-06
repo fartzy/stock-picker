@@ -5,7 +5,7 @@ import pytest
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.importance import ensemble_importance, model_type_importance
-from stock_picker.training.model import train_lightgbm, train_random_forest
+from stock_picker.training.model import train_lightgbm, train_logistic_regression, train_random_forest
 
 
 def _make_learnable_frame(n, seed):
@@ -27,6 +27,11 @@ def _trained_random_forest():
     return train_random_forest(train_frame, params={"n_estimators": 50})
 
 
+def _trained_logistic_regression():
+    train_frame = _make_learnable_frame(400, seed=1)
+    return train_logistic_regression(train_frame)
+
+
 def test_lightgbm_importance_sums_to_roughly_100():
     importance = model_type_importance(_trained_lightgbm())
 
@@ -45,6 +50,27 @@ def test_random_forest_importance_sums_to_roughly_100_and_ranks_signal_first():
 
     assert sum(importance.values()) == pytest.approx(100, abs=1.0)
     assert importance["signal"] > importance["noise_feature"]
+
+
+def test_logistic_regression_importance_sums_to_roughly_100_and_ranks_signal_first():
+    importance = model_type_importance(_trained_logistic_regression())
+
+    assert sum(importance.values()) == pytest.approx(100, abs=1.0)
+    assert importance["signal"] > importance["noise_feature"]
+
+
+def test_ensemble_importance_ignores_zero_weight_members():
+    # logistic_regression is used in production as a diagnostic-only member
+    # (weight=0.0, see training/main.py's DIAGNOSTIC_MODEL_TYPES) -- its
+    # importance must not leak into the blended value at all, even though
+    # its own model_type_importance() is real and nonzero.
+    lgb_model = _trained_lightgbm()
+    logreg_model = _trained_logistic_regression()
+    ensemble = Ensemble(members=[lgb_model, logreg_model], weights=[1.0, 0.0])
+
+    blended = ensemble_importance(ensemble)
+
+    assert blended == model_type_importance(lgb_model)
 
 
 def test_ensemble_importance_is_the_weighted_average_of_its_members():

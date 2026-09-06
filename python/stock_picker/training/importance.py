@@ -21,6 +21,12 @@ def model_type_importance(trained: TrainedModel) -> dict[str, float]:
     elif trained.model_type == "random_forest":
         names = trained.feature_names
         gains = list(trained.estimator.feature_importances_)
+    elif trained.model_type == "logistic_regression":
+        # trained.estimator is a Pipeline (impute -> classify), see
+        # model.py's train_logistic_regression for why.
+        names = trained.feature_names
+        classifier = trained.estimator.named_steps["classify"]
+        gains = [abs(coefficient) for coefficient in classifier.coef_[0]]
     else:
         raise ValueError(f"unknown model_type: {trained.model_type!r}")
 
@@ -43,10 +49,20 @@ def ensemble_importance(ensemble: Ensemble) -> dict[str, float]:
     return combined
 
 
-def model_importance() -> dict[str, float]:
-    """Wiring: loads the persisted production ensemble and returns its
-    aggregated importance, or an empty dict if no model has been trained yet."""
+def model_importance() -> dict:
+    """Wiring: loads the persisted production ensemble and returns both its
+    blended importance and a per-model-type breakdown, or empty dicts if no
+    model has been trained yet. The breakdown matters because a weight=0
+    diagnostic member (e.g. logistic_regression, see ensemble.py's default
+    spec) always contributes zero to the blend by construction -- its own
+    importance is only visible here, not in `blended`."""
     store = ModelStore()
     if not store.exists(MODEL_NAME):
-        return {}
-    return ensemble_importance(store.read(MODEL_NAME))
+        return {"blended": {}, "by_model_type": {}}
+    ensemble = store.read(MODEL_NAME)
+    return {
+        "blended": ensemble_importance(ensemble),
+        "by_model_type": {
+            member.model_type: model_type_importance(member) for member in ensemble.members
+        },
+    }

@@ -134,7 +134,8 @@ def unprune_feature(feature: str) -> dict:
 
 @router.get("/feature-importance")
 def get_feature_importance() -> dict:
-    return {"importance": model_importance()}
+    importance = model_importance()
+    return {"importance": importance["blended"], "by_model_type": importance["by_model_type"]}
 
 
 @router.get("/prices/{ticker}")

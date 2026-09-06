@@ -163,7 +163,7 @@ def test_get_feature_importance_returns_empty_dict_without_a_trained_model(clien
     response = client.get("/api/feature-importance")
 
     assert response.status_code == 200
-    assert response.json() == {"importance": {}}
+    assert response.json() == {"importance": {}, "by_model_type": {}}
 
 
 def test_create_trade(client):

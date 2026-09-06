@@ -24,6 +24,13 @@ MODEL_NAME = "day_session_return"
 # pruned set) is applied to each member when built in main(), since it's only
 # known at runtime.
 DEFAULT_MODEL_TYPES = ["lightgbm", "random_forest"]
+# Diagnostic-only: weight=0.0 means it never affects the blended prediction
+# (ensemble.predict_ensemble's weighted average) or the blended importance --
+# it exists purely so its own coefficient-based importance is visible via
+# importance.model_importance()'s by_model_type breakdown, a genuinely
+# different lens (linear/monotonic effect size) than the tree-based
+# gain/impurity measures the other two model types produce.
+DIAGNOSTIC_MODEL_TYPES = ["logistic_regression"]
 
 
 def _load_pooled_dataset(
@@ -53,7 +60,12 @@ def main() -> None:
     price_store = PriceStore()
     feature_store = FeatureStore()
     excluded_features = pruned_features()
-    specs = [ModelSpec(model_type, excluded_features=excluded_features) for model_type in DEFAULT_MODEL_TYPES]
+    specs = [
+        ModelSpec(model_type, excluded_features=excluded_features) for model_type in DEFAULT_MODEL_TYPES
+    ] + [
+        ModelSpec(model_type, excluded_features=excluded_features, weight=0.0)
+        for model_type in DIAGNOSTIC_MODEL_TYPES
+    ]
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
