@@ -1,5 +1,4 @@
 import { useState } from "react";
-import CoverageChart from "./components/CoverageChart";
 import CorrelationHeatmap from "./components/CorrelationHeatmap";
 import PriceHistory from "./components/PriceHistory";
 import PruneArchive from "./components/PruneArchive";
@@ -49,16 +48,9 @@ export default function App() {
         <>
           <section>
             <h2>Registry</h2>
+            <p className="muted">Coverage and importance are per-feature attributes below, not a separate view. Sort by either to scan for problems.</p>
             <div className="panel">
               <Registry />
-            </div>
-          </section>
-
-          <section>
-            <h2>Feature Coverage</h2>
-            <p className="summary-line">Non-null % per feature, worst first. Lower is expected for longer-lookback windows.</p>
-            <div className="panel">
-              <CoverageChart />
             </div>
           </section>
 

@@ -130,9 +130,9 @@ FastAPI backend + React/Vite/TS frontend, both Bazel-integrated (`bazel test
 - **Trading tab**: log buy/sell trades, live open/current prices via
   `yfinance`, and position-level P&L (average-cost basis; realized once
   closed, "if sold now" while open) grouped by day.
-- **Feature Store tab**: registry, coverage, and a correlation heatmap with
-  inline feature pruning -- pruned features are actually excluded from
-  training, not just hidden in the UI.
+- **Feature Store tab**: registry (sortable by coverage/importance per
+  feature) and a correlation heatmap with inline feature pruning -- pruned
+  features are actually excluded from training, not just hidden in the UI.
 - **Prices tab**: any ticker's OHLCV history, daily or hourly, as a line chart.
 - Not yet done: production `vite build` wiring, frontend tests.
 
@@ -182,11 +182,11 @@ data-integrity gotchas, none yet handled structurally:
 
 - [ ] Wire `check_freshness()` into `inference.py`'s live path + a sanity
       bound on the overnight gap
-- [ ] Registry polish: header, per-feature formula/importance display, and
-      whether Feature Coverage should fold into Registry (sort-by-coverage)
-      instead of staying a separate section -- in progress, not settled
-- [ ] Prune UX: archive + reason shipped, but the flow needs more thought --
-      not done
+- [x] ~~Fold Feature Coverage into Registry~~ -- done. Coverage/importance are
+      per-feature attributes shown inline; a sort-by-coverage/importance
+      control replaces the old standalone worst-first section
+- [ ] Prune UX: archive + reason shipped, but the flow needs more thought.
+      Not done
 - [ ] Modular, composable model layer: `training/model.py` is hardcoded to
       LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
       model types (random forest, etc.) behind a common interface, plus
