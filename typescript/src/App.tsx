@@ -21,7 +21,7 @@ export default function App() {
     <div className="page">
       <header>
         <h1>stock-picker</h1>
-        <p className="muted">Feature catalog, coverage, correlation, and registry -- served live from the FastAPI backend.</p>
+        <p className="muted">Feature catalog, coverage, correlation, and registry, served live from the FastAPI backend.</p>
       </header>
 
       <div className="tab-bar">
@@ -56,7 +56,7 @@ export default function App() {
 
           <section>
             <h2>Feature Coverage</h2>
-            <p className="summary-line">Non-null % per feature, worst first -- expected to be lower for longer-lookback windows.</p>
+            <p className="summary-line">Non-null % per feature, worst first. Lower is expected for longer-lookback windows.</p>
             <div className="panel">
               <CoverageChart />
             </div>

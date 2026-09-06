@@ -163,8 +163,8 @@ export default function PriceHistory() {
 
       {isNotFound && (
         <p className="muted">
-          No {interval} price history for {ticker}
-          {interval === "daily" ? " -- not in the tracked universe." : "."}
+          No {interval} price history for {ticker}.{" "}
+          {interval === "daily" && "Not in the tracked universe."}
         </p>
       )}
       {error && !isNotFound && <p className="error">{error}</p>}
@@ -190,8 +190,9 @@ export default function PriceHistory() {
           <div className="view-card">
             <canvas ref={canvasRef} style={{ width: "100%", display: "block" }} />
             <p className="muted" style={{ marginTop: "var(--space-2)" }}>
-              {data.prices.length} {interval === "daily" ? "days" : "hours"} --{" "}
-              {data.prices[0].date.slice(0, 10)} to {data.prices[data.prices.length - 1].date.slice(0, 10)}
+              {data.prices.length} {interval === "daily" ? "days" : "hours"} &middot;{" "}
+              {formatRowDate(data.prices[0].date, interval)} to{" "}
+              {formatRowDate(data.prices[data.prices.length - 1].date, interval)}
             </p>
           </div>
 
