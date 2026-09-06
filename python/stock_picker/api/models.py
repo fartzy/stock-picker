@@ -34,6 +34,15 @@ class FeatureSelectionRequest(BaseModel):
     included_features: list[str]
 
 
+class ModelChoice(BaseModel):
+    model_type: str
+    weight: float = 1.0
+
+
+class ModelSelectionRequest(BaseModel):
+    model_choices: list[ModelChoice]
+
+
 # ---- responses ----
 
 
@@ -125,6 +134,16 @@ class PrunedFeaturesResponse(BaseModel):
 class FeatureSelectionResponse(BaseModel):
     # None = no explicit selection -- every feature, subject to pruning only.
     included_features: list[str] | None
+
+
+class ModelSelectionResponse(BaseModel):
+    # None = no explicit choice -- training/main.py's own DEFAULT_MODEL_SPECS.
+    model_choices: list[ModelChoice] | None
+    # Which model types the composable picker offers. logistic_regression is
+    # deliberately excluded -- it's fit as a standalone diagnostic (see
+    # training/main.py), never an ensemble member (see model.py's
+    # PREDICTIVE_MODEL_TYPES).
+    available_model_types: list[str]
 
 
 class ImportanceResponse(BaseModel):

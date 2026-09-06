@@ -31,18 +31,28 @@ class _FakePrunedFeatureStore:
 
 # Same reasoning as _pruned_state above: mutated by the routes under test, so
 # a stateful fake beats mock return_value plumbing.
-_selection_state: dict[str, set | None] = {"value": None}
+_training_config_state: dict[str, object] = {"included_features": None, "model_choices": None}
 
 
-class _FakeFeatureSelectionStore:
+class _FakeTrainingConfig:
+    def __init__(self, included_features, model_choices):
+        self.included_features = included_features
+        self.model_choices = model_choices
+
+
+class _FakeTrainingConfigStore:
     def read(self):
-        return _selection_state["value"]
+        return _FakeTrainingConfig(
+            _training_config_state["included_features"], _training_config_state["model_choices"]
+        )
 
-    def write(self, included_features):
-        _selection_state["value"] = included_features
+    def write_included_features(self, included_features):
+        _training_config_state["included_features"] = (
+            sorted(included_features) if included_features is not None else None
+        )
 
-    def clear(self):
-        _selection_state["value"] = None
+    def write_model_choices(self, model_choices):
+        _training_config_state["model_choices"] = model_choices
 
 
 class _FakeTrainingJob:
@@ -60,11 +70,13 @@ class _FakeTrainingJob:
             "error": None,
         }
         self.last_included_features = "not called"
+        self.last_model_specs = "not called"
 
-    def start(self, included_features=None):
+    def start(self, included_features=None, model_specs=None):
         if self.status_value["status"] == "running":
             return False
         self.last_included_features = included_features
+        self.last_model_specs = model_specs
         self.status_value = {**self.status_value, "status": "running", "started_at": "2026-01-01T00:00:00-05:00"}
         return True
 
@@ -108,7 +120,8 @@ def client():
         return history
 
     _pruned_state.clear()
-    _selection_state["value"] = None
+    _training_config_state["included_features"] = None
+    _training_config_state["model_choices"] = None
     global _fake_training_job
     _fake_training_job = _FakeTrainingJob()
 
@@ -122,8 +135,9 @@ def client():
         patch("stock_picker.api.routes.TradeStore", mock_trade_store),
         patch("stock_picker.features.pruning.PrunedFeatureStore", _FakePrunedFeatureStore),
         patch("stock_picker.api.routes.PrunedFeatureStore", _FakePrunedFeatureStore),
-        patch("stock_picker.features.selection.FeatureSelectionStore", _FakeFeatureSelectionStore),
-        patch("stock_picker.api.routes.FeatureSelectionStore", _FakeFeatureSelectionStore),
+        patch("stock_picker.features.selection.TrainingConfigStore", _FakeTrainingConfigStore),
+        patch("stock_picker.api.routes.TrainingConfigStore", _FakeTrainingConfigStore),
+        patch("stock_picker.training.ensemble.TrainingConfigStore", _FakeTrainingConfigStore),
         patch("stock_picker.api.routes.training_job", _fake_training_job),
         patch("stock_picker.features.quotes.fetch_quotes") as mock_fetch_quotes,
     ):
@@ -256,14 +270,47 @@ def test_clear_feature_selection_resets_to_no_selection(client):
     assert client.get("/api/feature-selection").json() == {"included_features": None}
 
 
+def test_get_model_selection_starts_as_no_selection(client):
+    response = client.get("/api/model-selection")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "model_choices": None,
+        "available_model_types": ["lightgbm", "random_forest"],
+    }
+
+
+def test_set_then_get_model_selection(client):
+    post_response = client.post(
+        "/api/model-selection", json={"model_choices": [{"model_type": "lightgbm", "weight": 1.0}]}
+    )
+    assert post_response.status_code == 200
+    assert post_response.json()["model_choices"] == [{"model_type": "lightgbm", "weight": 1.0}]
+
+    get_response = client.get("/api/model-selection")
+    assert get_response.json()["model_choices"] == [{"model_type": "lightgbm", "weight": 1.0}]
+
+
+def test_clear_model_selection_resets_to_no_selection(client):
+    client.post("/api/model-selection", json={"model_choices": [{"model_type": "lightgbm"}]})
+
+    response = client.delete("/api/model-selection")
+
+    assert response.status_code == 200
+    assert response.json()["model_choices"] is None
+    assert client.get("/api/model-selection").json()["model_choices"] is None
+
+
 def test_start_training_run_reports_running_and_forwards_the_selection(client):
     client.post("/api/feature-selection", json={"included_features": ["return_1d"]})
+    client.post("/api/model-selection", json={"model_choices": [{"model_type": "lightgbm", "weight": 2.0}]})
 
     response = client.post("/api/training/run")
 
     assert response.status_code == 200
     assert response.json()["status"] == "running"
     assert _fake_training_job.last_included_features == {"return_1d"}
+    assert [(s.model_type, s.weight) for s in _fake_training_job.last_model_specs] == [("lightgbm", 2.0)]
 
 
 def test_start_training_run_conflicts_while_already_running(client):

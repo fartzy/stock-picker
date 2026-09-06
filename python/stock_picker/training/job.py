@@ -15,6 +15,7 @@ from dataclasses import dataclass, replace
 from datetime import datetime
 from typing import Literal
 
+from stock_picker.training.ensemble import ModelSpec
 from stock_picker.training.main import TrainingSummary, run_training
 
 Status = Literal["idle", "running", "completed", "failed"]
@@ -39,7 +40,9 @@ class TrainingJob:
         with self._lock:
             return replace(self._state)
 
-    def start(self, included_features: set[str] | None = None) -> bool:
+    def start(
+        self, included_features: set[str] | None = None, model_specs: list[ModelSpec] | None = None
+    ) -> bool:
         """Starts a training run on a background thread. Returns False (and
         starts nothing) if a run is already in progress."""
         with self._lock:
@@ -49,7 +52,7 @@ class TrainingJob:
 
         def _run() -> None:
             try:
-                result = self._train_fn(included_features=included_features)
+                result = self._train_fn(included_features=included_features, model_specs=model_specs)
                 with self._lock:
                     self._state = replace(self._state, status="completed", completed_at=_now(), result=result)
             except Exception as exc:  # noqa: BLE001 -- surfaced via /api/training/status, not swallowed
@@ -71,5 +74,5 @@ def status() -> JobStatus:
     return _default_job.status()
 
 
-def start(included_features: set[str] | None = None) -> bool:
-    return _default_job.start(included_features)
+def start(included_features: set[str] | None = None, model_specs: list[ModelSpec] | None = None) -> bool:
+    return _default_job.start(included_features, model_specs)

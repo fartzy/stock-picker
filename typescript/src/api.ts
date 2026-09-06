@@ -7,17 +7,15 @@ export interface CatalogResponse {
 export interface ImportanceResponse {
   importance: Record<string, number>;
   // Per-model-type breakdown (e.g. lightgbm/random_forest/logistic_regression),
-  // each its own feature -> percent-of-total map. logistic_regression is a
-  // diagnostic-only ensemble member (weight 0) -- it never contributes to
-  // `importance` above, so this is the only place its coefficient-based
-  // importance is visible.
+  // each its own feature -> percent-of-total map. logistic_regression is fit
+  // as a standalone diagnostic model, not an ensemble member -- it never
+  // contributes to `importance` above, so this is the only place its
+  // coefficient-based importance is visible.
   by_model_type?: Record<string, Record<string, number>>;
 }
 
 export interface EnsembleMemberInfo {
   model_type: string;
-  // 0 = diagnostic-only (e.g. logistic_regression) -- never blended into
-  // the actual prediction, see ImportanceResponse's by_model_type comment.
   weight: number;
   feature_count: number;
 }
@@ -127,6 +125,20 @@ export interface FeatureSelectionResponse {
   included_features: string[] | null;
 }
 
+export interface ModelChoice {
+  model_type: string;
+  weight: number;
+}
+
+export interface ModelSelectionResponse {
+  // null = no explicit choice -- the backend's own default composition.
+  model_choices: ModelChoice[] | null;
+  // Which model types the composable picker offers. logistic_regression is
+  // deliberately absent -- it's fit as a standalone diagnostic, never an
+  // ensemble member (see ImportanceResponse's by_model_type comment).
+  available_model_types: string[];
+}
+
 export type TrainingStatus = "idle" | "running" | "completed" | "failed";
 
 export interface FoldMetrics {
@@ -232,6 +244,11 @@ export const setFeatureSelection = (includedFeatures: string[]) =>
   });
 export const clearFeatureSelection = () =>
   mutate<FeatureSelectionResponse>("DELETE", "/api/feature-selection");
+export const fetchModelSelection = () => getJson<ModelSelectionResponse>("/api/model-selection");
+export const setModelSelection = (modelChoices: ModelChoice[]) =>
+  mutate<ModelSelectionResponse>("POST", "/api/model-selection", { model_choices: modelChoices });
+export const clearModelSelection = () =>
+  mutate<ModelSelectionResponse>("DELETE", "/api/model-selection");
 export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
 export const fetchQuotes = (tickers: string[]) =>

@@ -79,6 +79,7 @@ py_pytest(
     srcs = ["test_ensemble.py"],
     imports = ["../../.."],
     deps = [
+        "//python/stock_picker/storage",
         "//python/stock_picker/training",
         "@pypi//numpy",
         "@pypi//pandas",

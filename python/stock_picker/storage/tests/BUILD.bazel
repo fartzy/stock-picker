@@ -62,8 +62,8 @@ py_pytest(
 )
 
 py_pytest(
-    name = "test_feature_selection_store",
-    srcs = ["test_feature_selection_store.py"],
+    name = "test_training_config_store",
+    srcs = ["test_training_config_store.py"],
     imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )

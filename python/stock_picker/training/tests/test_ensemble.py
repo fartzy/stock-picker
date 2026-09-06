@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 
+from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import (
     ModelSpec,
     ensemble_composition,
     evaluate_ensemble,
     predict_ensemble,
+    selected_model_specs,
     train_ensemble,
 )
 from stock_picker.training.model import EvaluationMetrics
@@ -82,13 +84,32 @@ def test_ensemble_composition_reports_each_members_type_weight_and_feature_count
     train_frame = _make_learnable_frame(400, seed=1)
     specs = [
         ModelSpec("lightgbm", params={"min_data_in_leaf": 10}, weight=1.0),
-        ModelSpec("logistic_regression", weight=0.0),
+        ModelSpec("random_forest", params={"n_estimators": 50}, weight=0.5),
     ]
     ensemble = train_ensemble(train_frame, specs)
 
     composition = ensemble_composition(ensemble)
 
-    assert [m.model_type for m in composition] == ["lightgbm", "logistic_regression"]
-    assert [m.weight for m in composition] == [1.0, 0.0]
+    assert [m.model_type for m in composition] == ["lightgbm", "random_forest"]
+    assert [m.weight for m in composition] == [1.0, 0.5]
     # Both members see the same two feature columns here -- signal/momentum.
     assert all(m.feature_count == 2 for m in composition)
+
+
+def test_selected_model_specs_returns_none_when_nothing_persisted(monkeypatch, tmp_path):
+    monkeypatch.setattr(
+        "stock_picker.training.ensemble.TrainingConfigStore",
+        lambda: TrainingConfigStore(data_dir=tmp_path),
+    )
+
+    assert selected_model_specs() is None
+
+
+def test_selected_model_specs_reflects_persisted_choices(monkeypatch, tmp_path):
+    store = TrainingConfigStore(data_dir=tmp_path)
+    store.write_model_choices([ModelChoice("lightgbm", weight=2.0)])
+    monkeypatch.setattr("stock_picker.training.ensemble.TrainingConfigStore", lambda: store)
+
+    specs = selected_model_specs()
+
+    assert [(s.model_type, s.weight) for s in specs] == [("lightgbm", 2.0)]
