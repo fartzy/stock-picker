@@ -277,6 +277,38 @@ section + section {
   white-space: pre;
 }
 
+.model-type-row {
+  padding: var(--space-2);
+  margin: 0 calc(var(--space-2) * -1);
+  border-bottom: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: var(--text-label);
+  transition: background-color 120ms ease;
+}
+
+.model-type-row:hover {
+  background: var(--surface-raised);
+}
+
+.model-type-row:last-child {
+  border-bottom: none;
+}
+
+.model-type-caption {
+  font-family: var(--sans);
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  margin-top: var(--space-1);
+}
+
+.model-type-caption a {
+  color: var(--text-muted);
+}
+
+.model-type-caption a:hover {
+  color: var(--accent);
+}
+
 .feature-row-header {
   display: flex;
   align-items: center;

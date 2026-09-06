@@ -1,14 +1,17 @@
 import { useState } from "react";
+import ModelPicker from "./components/ModelPicker";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
+import RunHistory from "./components/RunHistory";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 
-type Tab = "trading" | "features" | "data";
+type Tab = "trading" | "features" | "models" | "data";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "trading", label: "Trading" },
   { id: "features", label: "Feature Store" },
+  { id: "models", label: "Models" },
   { id: "data", label: "Data" },
 ];
 
@@ -24,7 +27,9 @@ export default function App() {
         <h1>
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
-        <p className="muted">Live P&amp;L trading, a feature store, and price history.</p>
+        <p className="muted">
+          Live P&amp;L trading, a feature store, a choosable model ensemble, and price history.
+        </p>
       </header>
 
       <div className="tab-bar">
@@ -49,22 +54,33 @@ export default function App() {
       )}
 
       {tab === "features" && (
+        <section>
+          <h2>Registry</h2>
+          <p className="muted">
+            Coverage, importance, correlation, and pruning are per-feature attributes below, not
+            separate views. Sort by coverage or importance to scan for problems. Pruned/excluded
+            features are actually excluded from training, not just hidden here.
+          </p>
+          <div className="panel">
+            <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)} />
+          </div>
+        </section>
+      )}
+
+      {tab === "models" && (
         <>
           <section>
             <h2>Training</h2>
             <div className="panel">
+              <ModelPicker />
               <TrainingPanel />
             </div>
           </section>
 
           <section>
-            <h2>Registry</h2>
-            <p className="muted">
-              Per-feature coverage, importance, correlation, and pruning. Excluded features are
-              actually excluded from training, not just hidden here.
-            </p>
+            <h2>Run History</h2>
             <div className="panel">
-              <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)} />
+              <RunHistory />
             </div>
           </section>
         </>

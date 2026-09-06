@@ -37,11 +37,28 @@ DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm"), ModelSpec("random_forest")]
 @dataclass
 class TrainingSummary:
     """What run_training() below actually produces -- shared by the CLI
-    entrypoint and, via training/job.py, the /api/training/run endpoint."""
+    entrypoint and, via training/job.py, the /api/training/run endpoint.
+
+    train_tickers/holdout_tickers/date_range/resolved_features/model_specs
+    are this run's provenance -- what storage/training_run_store.py persists
+    so a past run can be inspected later, not just today's job status.
+    date_range covers train_dataset (what was actually fit on), not the
+    holdout set, which is eval data rather than "fed to" training.
+    """
 
     fold_metrics: list[EvaluationMetrics]
     holdout_metrics: EvaluationMetrics | None
     threshold_sweep: list[dict] | None
+    train_tickers: list[str]
+    holdout_tickers: list[str]
+    date_range: tuple[str, str]
+    resolved_features: list[str]
+    model_specs: list[dict]
+
+
+def _date_range(frame: pd.DataFrame) -> tuple[str, str]:
+    dates = pd.to_datetime(frame["date"])
+    return (str(dates.min().date()), str(dates.max().date()))
 
 
 def _load_pooled_dataset(
@@ -104,6 +121,12 @@ def run_training(
         )
         for spec in base_specs
     ]
+    resolved_specs = [{"model_type": s.model_type, "weight": s.weight, "params": s.params} for s in specs]
+    # Surfaced here, before the walk-forward/fit calls that can raise, so a
+    # failed run still leaves this provenance in the server log even though
+    # storage/training_run_store.py can't record it for a run that never
+    # reaches a TrainingSummary (see training/job.py).
+    print(f"training on {len(train_tickers)} tickers, holding out {len(holdout_tickers)}: {resolved_specs}")
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
@@ -113,6 +136,16 @@ def run_training(
 
     final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
+
+    # Every member trains against the same train_dataset with the same
+    # excluded_features/included_features (applied uniformly above), so
+    # today they always resolve to the same feature_names -- an emergent
+    # property of that uniform filtering, not an enforced invariant. This
+    # assertion is the tripwire: per-model feature subsets are flagged as
+    # deferred future work in this function's own docstring above, and
+    # would break it.
+    resolved_features = final_ensemble.members[0].feature_names
+    assert all(member.feature_names == resolved_features for member in final_ensemble.members)
 
     # Standalone diagnostic fit, not an Ensemble member: logistic regression
     # predicts binary direction, a unit incompatible with the continuous
@@ -127,7 +160,16 @@ def run_training(
     fold_metrics = [result.metrics for result in fold_results]
 
     if not holdout_tickers:
-        return TrainingSummary(fold_metrics=fold_metrics, holdout_metrics=None, threshold_sweep=None)
+        return TrainingSummary(
+            fold_metrics=fold_metrics,
+            holdout_metrics=None,
+            threshold_sweep=None,
+            train_tickers=train_tickers,
+            holdout_tickers=holdout_tickers,
+            date_range=_date_range(train_dataset),
+            resolved_features=resolved_features,
+            model_specs=resolved_specs,
+        )
 
     holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
     holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
@@ -143,7 +185,14 @@ def run_training(
     # is pandas' own well-tested path for native Python types instead.
     threshold_sweep = json.loads(sweep.to_json(orient="records"))
     return TrainingSummary(
-        fold_metrics=fold_metrics, holdout_metrics=holdout_metrics, threshold_sweep=threshold_sweep
+        fold_metrics=fold_metrics,
+        holdout_metrics=holdout_metrics,
+        threshold_sweep=threshold_sweep,
+        train_tickers=train_tickers,
+        holdout_tickers=holdout_tickers,
+        date_range=_date_range(train_dataset),
+        resolved_features=resolved_features,
+        model_specs=resolved_specs,
     )
 
 

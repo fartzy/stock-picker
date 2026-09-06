@@ -1,16 +1,12 @@
 import {
-  clearModelSelection,
   fetchModelInfo,
-  fetchModelSelection,
   fetchTrainingStatus,
   runTraining,
-  setModelSelection,
   type ModelInfoResponse,
-  type ModelSelectionResponse,
   type TrainingResult,
   type TrainingStatusResponse,
 } from "../api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFetchData } from "../useFetchData";
 
 // Training runs take minutes, not seconds -- poll rather than push, same
@@ -33,39 +29,20 @@ function formatTimestamp(isoString: string | null): string {
   });
 }
 
+// What's actually loaded for live inference right now -- distinct from
+// ModelPicker's "what's chosen for the *next* run" and RunHistory's "what
+// past runs looked like."
 function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | null }) {
   if (!modelInfo || modelInfo.models.length === 0) return null;
   return (
     <div className="muted" style={{ fontSize: "var(--text-caption)" }}>
-      Ensemble:{" "}
+      Currently live:{" "}
       {modelInfo.models
         .map((m) => {
           const label = MODEL_TYPE_LABELS[m.model_type] ?? m.model_type;
           return `${label} (weight ${m.weight}, ${m.feature_count} features)`;
         })
         .join(" + ")}
-    </div>
-  );
-}
-
-function ModelPicker({
-  selection,
-  chosen,
-  onToggle,
-}: {
-  selection: ModelSelectionResponse;
-  chosen: Set<string>;
-  onToggle: (modelType: string) => void;
-}) {
-  return (
-    <div className="meta-row">
-      <span className="meta-label">Ensemble models</span>
-      {selection.available_model_types.map((modelType) => (
-        <label key={modelType} className="chip">
-          <input type="checkbox" checked={chosen.has(modelType)} onChange={() => onToggle(modelType)} />{" "}
-          {MODEL_TYPE_LABELS[modelType] ?? modelType}
-        </label>
-      ))}
     </div>
   );
 }
@@ -109,22 +86,8 @@ export default function TrainingPanel() {
   const { data: modelInfo } = useFetchData<ModelInfoResponse>(fetchModelInfo, {
     intervalMs: POLL_INTERVAL_MS,
   });
-  const { data: modelSelection } = useFetchData<ModelSelectionResponse>(fetchModelSelection);
-  // undefined = not yet initialized from the fetch; null = no explicit
-  // choice (every available model type included); Set = an explicit choice.
-  // Nothing else in the app mutates this concurrently, so (like Registry's
-  // feature selection) it's seeded once and then owned locally.
-  const [chosenModelTypes, setChosenModelTypes] = useState<Set<string> | null | undefined>(undefined);
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (chosenModelTypes === undefined && modelSelection) {
-      setChosenModelTypes(
-        modelSelection.model_choices ? new Set(modelSelection.model_choices.map((c) => c.model_type)) : null,
-      );
-    }
-  }, [modelSelection, chosenModelTypes]);
 
   async function handleRun() {
     setStarting(true);
@@ -141,43 +104,20 @@ export default function TrainingPanel() {
     }
   }
 
-  async function toggleModelType(modelType: string) {
-    if (!modelSelection) return;
-    const next = new Set(chosenModelTypes ?? modelSelection.available_model_types);
-    if (next.has(modelType)) {
-      // Always leave at least one model type selected -- an empty ensemble
-      // has nothing to blend and nothing to train.
-      if (next.size === 1) return;
-      next.delete(modelType);
-    } else {
-      next.add(modelType);
-    }
-    if (next.size === modelSelection.available_model_types.length) {
-      setChosenModelTypes(null);
-      await clearModelSelection();
-    } else {
-      setChosenModelTypes(next);
-      await setModelSelection([...next].map((type) => ({ model_type: type, weight: 1.0 })));
-    }
-  }
-
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading training status...</p>;
 
   const isRunning = data.status === "running" || starting;
-  const chosen = modelSelection ? (chosenModelTypes ?? new Set(modelSelection.available_model_types)) : null;
 
   return (
     <div>
-      {modelSelection && chosen && (
-        <ModelPicker selection={modelSelection} chosen={chosen} onToggle={toggleModelType} />
-      )}
       <div className="training-controls">
         <button className="btn-primary" onClick={handleRun} disabled={isRunning}>
           {isRunning ? "Training..." : "Run training"}
         </button>
+        {/* Idle carries no status text of its own -- Run History below is
+            the record of what's happened, this session or any other. */}
         <span className="muted">
-          {data.status === "idle" && "No run yet this session."}
           {data.status === "running" && `Running since ${formatTimestamp(data.started_at)}`}
           {data.status === "completed" && `Last completed ${formatTimestamp(data.completed_at)}`}
           {data.status === "failed" && `Last run failed: ${data.error}`}

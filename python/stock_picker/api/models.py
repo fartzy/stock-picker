@@ -155,6 +155,49 @@ class ModelInfoResponse(BaseModel):
     models: list[EnsembleMemberInfo]
 
 
+class ModelTypeInfo(BaseModel):
+    model_type: str
+    display_name: str
+    category: str
+    package: str
+    package_version: str
+    source_file: str
+    source_line: int
+    # None if the origin remote can't be resolved -- the UI falls back to
+    # showing source_file:source_line as plain, non-linked text.
+    github_url: str | None
+    description: str
+
+
+class ModelTypesResponse(BaseModel):
+    model_types: list[ModelTypeInfo]
+
+
+class TrainingRunRecord(BaseModel):
+    run_id: str
+    status: Literal["completed", "failed"]
+    started_at: str
+    completed_at: str
+    duration_seconds: float
+    git_commit: str | None = None
+    # None on a run that failed before this provenance was known -- see
+    # training/main.py's run_training().
+    train_tickers: list[str] | None = None
+    holdout_tickers: list[str] | None = None
+    date_range: tuple[str, str] | None = None
+    resolved_features: list[str] | None = None
+    model_specs: list[dict] | None = None
+    fold_metrics: list[dict] | None = None
+    holdout_metrics: dict | None = None
+    threshold_sweep: list[dict] | None = None
+    error: str | None = None
+
+
+class TrainingRunsResponse(BaseModel):
+    # Newest first -- see storage/training_run_store.py's read_all().
+    runs: list[TrainingRunRecord]
+
+
 class PricePoint(BaseModel):
     date: str
     open: float
