@@ -11,6 +11,7 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException
 
 from stock_picker.api.models import (
+    BuySignalResponse,
     CatalogResponse,
     CorrelationResponse,
     CoverageResponse,
@@ -62,6 +63,7 @@ from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training import job as training_job
+from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
@@ -120,6 +122,19 @@ def create_trade(trade: TradeCreate) -> TradesResponse:
 @router.get("/quotes")
 def get_quotes(tickers: str) -> QuotesResponse:
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
+
+
+@router.get("/buy-signal")
+def get_buy_signal(threshold: float = DEFAULT_THRESHOLD) -> BuySignalResponse:
+    result = compute_buy_signals(threshold=threshold)
+    return BuySignalResponse(
+        as_of=result.as_of,
+        threshold=result.threshold,
+        signals=[asdict(signal) for signal in result.signals],
+        scored_count=result.scored_count,
+        skipped=result.skipped,
+        top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
+    )
 
 
 @router.get("/positions")

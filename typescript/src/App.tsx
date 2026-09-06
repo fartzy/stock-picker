@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BuySignal from "./components/BuySignal";
 import ModelPicker from "./components/ModelPicker";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
@@ -45,12 +46,21 @@ export default function App() {
       </div>
 
       {tab === "trading" && (
-        <section>
-          <h2>Trade History</h2>
-          <div className="panel">
-            <TradeHistory />
-          </div>
-        </section>
+        <>
+          <section>
+            <h2>Buy Signal</h2>
+            <div className="panel">
+              <BuySignal />
+            </div>
+          </section>
+
+          <section>
+            <h2>Trade History</h2>
+            <div className="panel">
+              <TradeHistory />
+            </div>
+          </section>
+        </>
       )}
 
       {tab === "features" && (

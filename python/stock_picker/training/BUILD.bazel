@@ -9,6 +9,7 @@ py_library(
     name = "training",
     srcs = [
         "backtest.py",
+        "buy_signal.py",
         "dataset.py",
         "ensemble.py",
         "importance.py",
