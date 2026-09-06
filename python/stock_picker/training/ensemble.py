@@ -14,6 +14,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.model import EvaluationMetrics, TrainedModel, predict, train_model
 
@@ -77,10 +78,18 @@ def ensemble_composition(ensemble: Ensemble) -> list[EnsembleMemberInfo]:
     """Which model types make up this ensemble, their blend weights, and how
     many features each was trained on -- the "what's actually in here" view
     that `/api/feature-importance` doesn't answer on its own (it shows each
-    feature's *impact*, not the ensemble's *composition*). A weight of 0.0
-    means diagnostic-only (see model.py's train_logistic_regression) -- it
-    never affects the blended prediction."""
+    feature's *impact*, not the ensemble's *composition*)."""
     return [
         EnsembleMemberInfo(model_type=member.model_type, weight=weight, feature_count=len(member.feature_names))
         for member, weight in zip(ensemble.members, ensemble.weights)
     ]
+
+
+def selected_model_specs() -> list[ModelSpec] | None:
+    """Wiring: reads the persisted composable model-type choices (see
+    `storage/training_config_store.py`), or None if nothing's been chosen
+    yet -- meaning "use training/main.py's own default composition"."""
+    choices = TrainingConfigStore().read().model_choices
+    if choices is None:
+        return None
+    return [ModelSpec(choice.model_type, weight=choice.weight) for choice in choices]

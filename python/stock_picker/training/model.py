@@ -134,9 +134,10 @@ def train_logistic_regression(
     """Fits on the *binarized* direction (up/down) of the label, not the
     continuous return the other two model types predict -- its coefficients
     are a genuinely different importance lens (linear/monotonic effect size
-    vs. tree-based split-gain), not another return predictor. See
-    `ensemble.py`'s default spec: this model type is used as a diagnostic-only
-    ensemble member (weight=0.0), never blended into the actual prediction.
+    vs. tree-based split-gain), not another return predictor. Its binary
+    output isn't compatible with `Ensemble`'s weighted-average blending of
+    continuous predictions, so it's fit and persisted standalone (see
+    `training/main.py`'s `run_training`) rather than as an ensemble member.
 
     Wrapped in a `Pipeline` with a median imputer, then a standard scaler:
     unlike LightGBM (handles missing values natively) and this codebase's
@@ -172,6 +173,14 @@ MODEL_TRAINERS = {
     "random_forest": train_random_forest,
     "logistic_regression": train_logistic_regression,
 }
+
+# The model types that predict the continuous day-session return and can
+# therefore be blended into an Ensemble. logistic_regression predicts a
+# binary direction instead -- a different unit that can't be weighted-
+# averaged with these, so it's fit standalone (see training/main.py) and
+# deliberately excluded from this list, which is what the composable
+# model-type picker in the UI offers.
+PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest"]
 
 
 def train_model(model_type: str, train_frame: pd.DataFrame, **kwargs) -> TrainedModel:

@@ -60,10 +60,10 @@ def test_logistic_regression_importance_sums_to_roughly_100_and_ranks_signal_fir
 
 
 def test_ensemble_importance_ignores_zero_weight_members():
-    # logistic_regression is used in production as a diagnostic-only member
-    # (weight=0.0, see training/main.py's DIAGNOSTIC_MODEL_TYPES) -- its
-    # importance must not leak into the blended value at all, even though
-    # its own model_type_importance() is real and nonzero.
+    # A zero-weight ensemble member's importance must not leak into the
+    # blended value at all, even though its own model_type_importance() is
+    # real and nonzero -- weights of 0 are still a legal (if unusual) ensemble
+    # composition, e.g. from a weight sweep in the composable model picker.
     lgb_model = _trained_lightgbm()
     logreg_model = _trained_logistic_regression()
     ensemble = Ensemble(members=[lgb_model, logreg_model], weights=[1.0, 0.0])

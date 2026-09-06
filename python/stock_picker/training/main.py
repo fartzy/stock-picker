@@ -18,24 +18,20 @@ from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
-from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble
-from stock_picker.training.model import EvaluationMetrics
+from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, selected_model_specs
+from stock_picker.training.model import EvaluationMetrics, train_logistic_regression
 from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
 
 MODEL_NAME = "day_session_return"
-# The default ensemble composition -- a developer edits this directly to
-# experiment (add a model type, change a weight). `excluded_features` (the
-# pruned set) is applied to each member when built in main(), since it's only
-# known at runtime.
-DEFAULT_MODEL_TYPES = ["lightgbm", "random_forest"]
-# Diagnostic-only: weight=0.0 means it never affects the blended prediction
-# (ensemble.predict_ensemble's weighted average) or the blended importance --
-# it exists purely so its own coefficient-based importance is visible via
-# importance.model_importance()'s by_model_type breakdown, a genuinely
-# different lens (linear/monotonic effect size) than the tree-based
-# gain/impurity measures the other two model types produce.
-DIAGNOSTIC_MODEL_TYPES = ["logistic_regression"]
+# Persisted separately from MODEL_NAME's ensemble -- see the diagnostic-fit
+# note in run_training() below for why logistic regression isn't a member of
+# the Ensemble itself.
+DIAGNOSTIC_MODEL_NAME = f"{MODEL_NAME}_logistic_diagnostic"
+# The default ensemble composition when no UI selection has been made (see
+# ensemble.py's selected_model_specs()) -- a developer can still edit this
+# directly to change the out-of-the-box defaults.
+DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm"), ModelSpec("random_forest")]
 
 
 @dataclass
@@ -66,16 +62,28 @@ def _load_pooled_dataset(
     return build_pooled_dataset(histories, features_by_ticker)
 
 
-def run_training(included_features: set[str] | None = None) -> TrainingSummary:
+def run_training(
+    included_features: set[str] | None = None,
+    model_specs: list[ModelSpec] | None = None,
+) -> TrainingSummary:
     """Runs one full walk-forward + holdout + threshold-sweep pass and persists
     the final ensemble, returning a plain-JSON-serializable summary. Shared by
     the CLI entrypoint (`main()` below) and `api/routes.py`'s `/api/training/run`
     endpoint, so there's exactly one training path regardless of who triggers it.
 
-    `included_features`, if given, restricts every ensemble member to that
-    exact set (still always minus the pruned set -- see `feature_columns()`'s
-    precedence). `None` means "every feature, subject to pruning only," same
-    as before this parameter existed.
+    `included_features`, if given, restricts every ensemble member (and the
+    standalone diagnostic fit below) to that exact set (still always minus
+    the pruned set -- see `feature_columns()`'s precedence). `None` means
+    "every feature, subject to pruning only," same as before this parameter
+    existed.
+
+    `model_specs`, if given, is the composable ensemble composition chosen via
+    the UI (see `ensemble.py`'s `selected_model_specs()`); `None` falls back
+    to `DEFAULT_MODEL_SPECS`. Each spec's own `excluded_features`/
+    `included_features` are overwritten here with the current pruned/selected
+    sets, since specs coming from persisted UI config only carry
+    `model_type`/`weight` -- feature selection is applied uniformly to every
+    model in the ensemble (per-model feature subsets are deferred).
     """
     tickers = UniverseStore().active_tickers()
     holdout_ticker_set = select_holdout_tickers(tickers)
@@ -85,17 +93,16 @@ def run_training(included_features: set[str] | None = None) -> TrainingSummary:
     price_store = PriceStore()
     feature_store = FeatureStore()
     excluded_features = pruned_features()
+    base_specs = model_specs if model_specs is not None else DEFAULT_MODEL_SPECS
     specs = [
-        ModelSpec(model_type, excluded_features=excluded_features, included_features=included_features)
-        for model_type in DEFAULT_MODEL_TYPES
-    ] + [
         ModelSpec(
-            model_type,
+            spec.model_type,
+            params=spec.params,
+            weight=spec.weight,
             excluded_features=excluded_features,
             included_features=included_features,
-            weight=0.0,
         )
-        for model_type in DIAGNOSTIC_MODEL_TYPES
+        for spec in base_specs
     ]
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
@@ -106,6 +113,16 @@ def run_training(included_features: set[str] | None = None) -> TrainingSummary:
 
     final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
+
+    # Standalone diagnostic fit, not an Ensemble member: logistic regression
+    # predicts binary direction, a unit incompatible with the continuous
+    # return the ensemble blends, so it can't be weighted-averaged in. Fit on
+    # the full pooled training set (not just the last fold) since it's purely
+    # for its own coefficient-based importance view, not for prediction.
+    diagnostic_model = train_logistic_regression(
+        train_dataset, excluded_features=excluded_features, included_features=included_features
+    )
+    ModelStore().write(DIAGNOSTIC_MODEL_NAME, diagnostic_model)
 
     fold_metrics = [result.metrics for result in fold_results]
 
@@ -131,7 +148,7 @@ def run_training(included_features: set[str] | None = None) -> TrainingSummary:
 
 
 def main() -> None:
-    run_training(included_features=selected_features())
+    run_training(included_features=selected_features(), model_specs=selected_model_specs())
 
 
 if __name__ == "__main__":

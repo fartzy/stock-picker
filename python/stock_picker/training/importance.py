@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.ensemble import Ensemble
-from stock_picker.training.main import MODEL_NAME
+from stock_picker.training.main import DIAGNOSTIC_MODEL_NAME, MODEL_NAME
 from stock_picker.training.model import TrainedModel
 
 
@@ -50,19 +50,20 @@ def ensemble_importance(ensemble: Ensemble) -> dict[str, float]:
 
 
 def model_importance() -> dict:
-    """Wiring: loads the persisted production ensemble and returns both its
-    blended importance and a per-model-type breakdown, or empty dicts if no
-    model has been trained yet. The breakdown matters because a weight=0
-    diagnostic member (e.g. logistic_regression, see ensemble.py's default
-    spec) always contributes zero to the blend by construction -- its own
-    importance is only visible here, not in `blended`."""
+    """Wiring: loads the persisted production ensemble and the standalone
+    logistic-regression diagnostic model (see training/main.py's
+    run_training), returning the ensemble's blended importance plus a
+    per-model-type breakdown that includes the diagnostic model's own
+    coefficient-based view -- a genuinely different lens (linear/monotonic
+    effect size) than the tree-based gain/impurity measures the ensemble
+    members produce. Empty/missing pieces just contribute empty dicts."""
     store = ModelStore()
-    if not store.exists(MODEL_NAME):
-        return {"blended": {}, "by_model_type": {}}
-    ensemble = store.read(MODEL_NAME)
-    return {
-        "blended": ensemble_importance(ensemble),
-        "by_model_type": {
-            member.model_type: model_type_importance(member) for member in ensemble.members
-        },
-    }
+    blended: dict[str, float] = {}
+    by_model_type: dict[str, dict[str, float]] = {}
+    if store.exists(MODEL_NAME):
+        ensemble = store.read(MODEL_NAME)
+        blended = ensemble_importance(ensemble)
+        by_model_type = {member.model_type: model_type_importance(member) for member in ensemble.members}
+    if store.exists(DIAGNOSTIC_MODEL_NAME):
+        by_model_type["logistic_regression"] = model_type_importance(store.read(DIAGNOSTIC_MODEL_NAME))
+    return {"blended": blended, "by_model_type": by_model_type}

@@ -18,6 +18,8 @@ from stock_picker.api.models import (
     FeatureSelectionResponse,
     ImportanceResponse,
     ModelInfoResponse,
+    ModelSelectionRequest,
+    ModelSelectionResponse,
     PositionsResponse,
     PriceHistoryResponse,
     PruneRequest,
@@ -27,6 +29,7 @@ from stock_picker.api.models import (
     TradeCreate,
     TradesResponse,
 )
+from stock_picker.api.models import ModelChoice as ModelChoiceModel
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -47,14 +50,15 @@ from stock_picker.features.registry import TICKER_ENTITY, build_registry
 from stock_picker.features.selection import selected_features
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
-from stock_picker.storage.feature_selection_store import FeatureSelectionStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.trade_store import Trade, TradeStore
+from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.training import job as training_job
-from stock_picker.training.ensemble import ensemble_composition
+from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
 from stock_picker.training.main import MODEL_NAME
+from stock_picker.training.model import PREDICTIVE_MODEL_TYPES
 
 router = APIRouter(prefix="/api")
 
@@ -166,19 +170,48 @@ def get_feature_selection() -> FeatureSelectionResponse:
 
 @router.post("/feature-selection")
 def set_feature_selection(body: FeatureSelectionRequest) -> FeatureSelectionResponse:
-    FeatureSelectionStore().write(set(body.included_features))
+    TrainingConfigStore().write_included_features(set(body.included_features))
     return FeatureSelectionResponse(included_features=sorted(body.included_features))
 
 
 @router.delete("/feature-selection")
 def clear_feature_selection() -> FeatureSelectionResponse:
-    FeatureSelectionStore().clear()
+    TrainingConfigStore().write_included_features(None)
     return FeatureSelectionResponse(included_features=None)
+
+
+@router.get("/model-selection")
+def get_model_selection() -> ModelSelectionResponse:
+    choices = TrainingConfigStore().read().model_choices
+    return ModelSelectionResponse(
+        model_choices=(
+            [ModelChoiceModel(model_type=c.model_type, weight=c.weight) for c in choices]
+            if choices is not None
+            else None
+        ),
+        available_model_types=PREDICTIVE_MODEL_TYPES,
+    )
+
+
+@router.post("/model-selection")
+def set_model_selection(body: ModelSelectionRequest) -> ModelSelectionResponse:
+    choices = [ModelChoice(model_type=c.model_type, weight=c.weight) for c in body.model_choices]
+    TrainingConfigStore().write_model_choices(choices)
+    return ModelSelectionResponse(
+        model_choices=[ModelChoiceModel(model_type=c.model_type, weight=c.weight) for c in choices],
+        available_model_types=PREDICTIVE_MODEL_TYPES,
+    )
+
+
+@router.delete("/model-selection")
+def clear_model_selection() -> ModelSelectionResponse:
+    TrainingConfigStore().write_model_choices(None)
+    return ModelSelectionResponse(model_choices=None, available_model_types=PREDICTIVE_MODEL_TYPES)
 
 
 @router.post("/training/run")
 def start_training_run() -> JobStatus:
-    started = training_job.start(included_features=selected_features())
+    started = training_job.start(included_features=selected_features(), model_specs=selected_model_specs())
     if not started:
         raise HTTPException(status_code=409, detail="a training run is already in progress")
     return training_job.status()

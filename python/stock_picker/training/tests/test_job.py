@@ -16,13 +16,13 @@ def _wait_until(predicate, timeout=2.0):
 
 
 def test_status_starts_idle():
-    job = TrainingJob(train_fn=lambda included_features: None)
+    job = TrainingJob(train_fn=lambda included_features, model_specs: None)
 
     assert job.status().status == "idle"
 
 
 def test_start_runs_train_fn_and_reports_completed():
-    job = TrainingJob(train_fn=lambda included_features: "fake summary")
+    job = TrainingJob(train_fn=lambda included_features, model_specs: "fake summary")
 
     started = job.start()
 
@@ -38,7 +38,7 @@ def test_start_runs_train_fn_and_reports_completed():
 def test_start_passes_included_features_through_to_train_fn():
     received = {}
 
-    def fake_train(included_features):
+    def fake_train(included_features, model_specs):
         received["included_features"] = included_features
         return None
 
@@ -49,9 +49,23 @@ def test_start_passes_included_features_through_to_train_fn():
     assert received["included_features"] == {"return_1d"}
 
 
+def test_start_passes_model_specs_through_to_train_fn():
+    received = {}
+
+    def fake_train(included_features, model_specs):
+        received["model_specs"] = model_specs
+        return None
+
+    job = TrainingJob(train_fn=fake_train)
+    job.start(model_specs=["fake spec"])
+
+    _wait_until(lambda: job.status().status == "completed")
+    assert received["model_specs"] == ["fake spec"]
+
+
 def test_start_returns_false_while_a_run_is_already_in_progress():
     release = threading.Event()
-    job = TrainingJob(train_fn=lambda included_features: release.wait(timeout=2.0))
+    job = TrainingJob(train_fn=lambda included_features, model_specs: release.wait(timeout=2.0))
 
     first_started = job.start()
     _wait_until(lambda: job.status().status == "running")
@@ -65,7 +79,7 @@ def test_start_returns_false_while_a_run_is_already_in_progress():
 
 
 def test_a_train_fn_exception_reports_failed_with_the_error_message():
-    def failing_train(included_features):
+    def failing_train(included_features, model_specs):
         raise ValueError("boom")
 
     job = TrainingJob(train_fn=failing_train)
