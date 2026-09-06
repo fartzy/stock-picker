@@ -31,18 +31,22 @@ function formatTimestamp(isoString: string | null): string {
 
 // What's actually loaded for live inference right now -- distinct from
 // ModelPicker's "what's chosen for the *next* run" and RunHistory's "what
-// past runs looked like."
+// past runs looked like." Styled as a labeled meta row (not a trailing
+// caption) so it reads as its own fact, not an afterthought glued to the
+// run controls above it.
 function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | null }) {
   if (!modelInfo || modelInfo.models.length === 0) return null;
   return (
-    <div className="muted" style={{ fontSize: "var(--text-caption)" }}>
-      Currently live:{" "}
-      {modelInfo.models
-        .map((m) => {
-          const label = MODEL_TYPE_LABELS[m.model_type] ?? m.model_type;
-          return `${label} (weight ${m.weight}, ${m.feature_count} features)`;
-        })
-        .join(" + ")}
+    <div className="live-model">
+      <span className="meta-label">Live model</span>
+      <span className="muted">
+        {modelInfo.models
+          .map((m) => {
+            const label = MODEL_TYPE_LABELS[m.model_type] ?? m.model_type;
+            return `${label} (weight ${m.weight}, ${m.feature_count} features)`;
+          })
+          .join(" + ")}
+      </span>
     </div>
   );
 }
@@ -110,7 +114,7 @@ export default function TrainingPanel() {
   const isRunning = data.status === "running" || starting;
 
   return (
-    <div>
+    <div className="training-run-panel">
       <div className="training-controls">
         <button className="btn-primary" onClick={handleRun} disabled={isRunning}>
           {isRunning ? "Training..." : "Run training"}
