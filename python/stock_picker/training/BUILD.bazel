@@ -17,8 +17,10 @@ py_library(
         "main.py",
         "model.py",
         "model_registry.py",
+        "recent_picks_demo.py",
         "splits.py",
         "train.py",
+        "tune_experiment.py",
     ],
     imports = ["../.."],
     visibility = ["//visibility:public"],
@@ -43,5 +45,30 @@ py_binary(
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
         "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "tune_experiment",
+    srcs = ["tune_experiment.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "recent_picks_demo",
+    srcs = ["recent_picks_demo.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/storage",
     ],
 )

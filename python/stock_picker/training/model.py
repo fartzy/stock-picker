@@ -7,6 +7,7 @@ each one. See `training/ensemble.py` for combining multiple of these.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -32,11 +33,19 @@ MIN_LEAF_SAMPLES = 20
 LIGHTGBM_DEFAULT_PARAMS = {
     "objective": "regression",
     "metric": "mae",
-    "num_leaves": 7,
-    "max_depth": 3,
-    "min_data_in_leaf": MIN_LEAF_SAMPLES,
+    # Tuned against 4-fold walk-forward validation accuracy over the full
+    # 500-ticker universe (see training/tune_experiment.py) -- deeper than
+    # the original conservative defaults, which were sized for a dataset a
+    # few hundred rows across 3 tickers, not this one's ~113k rows.
+    "num_leaves": 15,
+    "max_depth": 4,
+    "min_data_in_leaf": 30,
     "learning_rate": 0.05,
     "verbosity": -1,
+    # LightGBM's "0 means default OpenMP thread count" hasn't been reliably
+    # detecting all cores in practice -- pin it explicitly instead, same
+    # reasoning as RandomForestRegressor's n_jobs below.
+    "num_threads": os.cpu_count() or 4,
 }
 DEFAULT_NUM_BOOST_ROUND = 100
 
@@ -45,6 +54,10 @@ RANDOM_FOREST_DEFAULT_PARAMS = {
     "max_depth": 4,
     "min_samples_leaf": MIN_LEAF_SAMPLES,
     "random_state": 0,
+    # sklearn defaults to a single core; this dataset is large enough now
+    # (500-ticker universe) that leaving 13 of 14 cores idle noticeably
+    # slows every training run for no reason.
+    "n_jobs": -1,
 }
 # Strong L2 regularization (low C) given ~95 candidate features over a few
 # hundred rows -- a weakly-regularized logistic regression at this
