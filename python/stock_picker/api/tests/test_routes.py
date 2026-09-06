@@ -29,6 +29,55 @@ class _FakePrunedFeatureStore:
         _pruned_state.pop(feature, None)
 
 
+# Same reasoning as _pruned_state above: mutated by the routes under test, so
+# a stateful fake beats mock return_value plumbing.
+_selection_state: dict[str, set | None] = {"value": None}
+
+
+class _FakeFeatureSelectionStore:
+    def read(self):
+        return _selection_state["value"]
+
+    def write(self, included_features):
+        _selection_state["value"] = included_features
+
+    def clear(self):
+        _selection_state["value"] = None
+
+
+class _FakeTrainingJob:
+    """Stands in for training.job's module-level start()/status() -- never
+    touches real walk-forward training (no background thread at all; `start`
+    just records what it was called with). `complete()` lets a test move the
+    fake straight to a finished state to check the status endpoint's shape."""
+
+    def __init__(self):
+        self.status_value = {
+            "status": "idle",
+            "started_at": None,
+            "completed_at": None,
+            "result": None,
+            "error": None,
+        }
+        self.last_included_features = "not called"
+
+    def start(self, included_features=None):
+        if self.status_value["status"] == "running":
+            return False
+        self.last_included_features = included_features
+        self.status_value = {**self.status_value, "status": "running", "started_at": "2026-01-01T00:00:00-05:00"}
+        return True
+
+    def complete(self, result):
+        self.status_value = {**self.status_value, "status": "completed", "result": result}
+
+    def status(self):
+        return self.status_value
+
+
+_fake_training_job: _FakeTrainingJob | None = None
+
+
 @pytest.fixture
 def client():
     history = synthetic_history(n=140)
@@ -59,6 +108,9 @@ def client():
         return history
 
     _pruned_state.clear()
+    _selection_state["value"] = None
+    global _fake_training_job
+    _fake_training_job = _FakeTrainingJob()
 
     with (
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
@@ -70,6 +122,9 @@ def client():
         patch("stock_picker.api.routes.TradeStore", mock_trade_store),
         patch("stock_picker.features.pruning.PrunedFeatureStore", _FakePrunedFeatureStore),
         patch("stock_picker.api.routes.PrunedFeatureStore", _FakePrunedFeatureStore),
+        patch("stock_picker.features.selection.FeatureSelectionStore", _FakeFeatureSelectionStore),
+        patch("stock_picker.api.routes.FeatureSelectionStore", _FakeFeatureSelectionStore),
+        patch("stock_picker.api.routes.training_job", _fake_training_job),
         patch("stock_picker.features.quotes.fetch_quotes") as mock_fetch_quotes,
     ):
         mock_universe_store.return_value.active_tickers.return_value = ["AAA", "BBB"]
@@ -164,6 +219,69 @@ def test_get_feature_importance_returns_empty_dict_without_a_trained_model(clien
 
     assert response.status_code == 200
     assert response.json() == {"importance": {}, "by_model_type": {}}
+
+
+def test_get_feature_selection_starts_as_no_selection(client):
+    response = client.get("/api/feature-selection")
+
+    assert response.status_code == 200
+    assert response.json() == {"included_features": None}
+
+
+def test_set_then_get_feature_selection(client):
+    post_response = client.post(
+        "/api/feature-selection", json={"included_features": ["return_1d", "return_2d"]}
+    )
+    assert post_response.status_code == 200
+    assert post_response.json() == {"included_features": ["return_1d", "return_2d"]}
+
+    get_response = client.get("/api/feature-selection")
+    assert get_response.json() == {"included_features": ["return_1d", "return_2d"]}
+
+
+def test_clear_feature_selection_resets_to_no_selection(client):
+    client.post("/api/feature-selection", json={"included_features": ["return_1d"]})
+
+    response = client.delete("/api/feature-selection")
+
+    assert response.status_code == 200
+    assert response.json() == {"included_features": None}
+    assert client.get("/api/feature-selection").json() == {"included_features": None}
+
+
+def test_start_training_run_reports_running_and_forwards_the_selection(client):
+    client.post("/api/feature-selection", json={"included_features": ["return_1d"]})
+
+    response = client.post("/api/training/run")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "running"
+    assert _fake_training_job.last_included_features == {"return_1d"}
+
+
+def test_start_training_run_conflicts_while_already_running(client):
+    client.post("/api/training/run")
+
+    response = client.post("/api/training/run")
+
+    assert response.status_code == 409
+
+
+def test_get_training_status_reflects_a_completed_run(client):
+    _fake_training_job.complete(
+        {
+            "fold_metrics": [{"mae": 0.01, "directional_accuracy": 0.5, "n_test_rows": 100}],
+            "holdout_metrics": {"mae": 0.01, "directional_accuracy": 0.55, "n_test_rows": 200},
+            "threshold_sweep": None,
+        }
+    )
+
+    response = client.get("/api/training/status")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "completed"
+    assert body["result"]["holdout_metrics"]["mae"] == 0.01
 
 
 def test_create_trade(client):

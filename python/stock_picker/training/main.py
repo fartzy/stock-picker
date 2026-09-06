@@ -5,9 +5,13 @@ future dates for tickers it has already seen (that's what walk-forward validates
 
 from __future__ import annotations
 
+import json
+from dataclasses import dataclass
+
 import pandas as pd
 
 from stock_picker.features.pruning import pruned_features
+from stock_picker.features.selection import selected_features
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -15,6 +19,7 @@ from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble
+from stock_picker.training.model import EvaluationMetrics
 from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
 
@@ -31,6 +36,16 @@ DEFAULT_MODEL_TYPES = ["lightgbm", "random_forest"]
 # different lens (linear/monotonic effect size) than the tree-based
 # gain/impurity measures the other two model types produce.
 DIAGNOSTIC_MODEL_TYPES = ["logistic_regression"]
+
+
+@dataclass
+class TrainingSummary:
+    """What run_training() below actually produces -- shared by the CLI
+    entrypoint and, via training/job.py, the /api/training/run endpoint."""
+
+    fold_metrics: list[EvaluationMetrics]
+    holdout_metrics: EvaluationMetrics | None
+    threshold_sweep: list[dict] | None
 
 
 def _load_pooled_dataset(
@@ -51,7 +66,17 @@ def _load_pooled_dataset(
     return build_pooled_dataset(histories, features_by_ticker)
 
 
-def main() -> None:
+def run_training(included_features: set[str] | None = None) -> TrainingSummary:
+    """Runs one full walk-forward + holdout + threshold-sweep pass and persists
+    the final ensemble, returning a plain-JSON-serializable summary. Shared by
+    the CLI entrypoint (`main()` below) and `api/routes.py`'s `/api/training/run`
+    endpoint, so there's exactly one training path regardless of who triggers it.
+
+    `included_features`, if given, restricts every ensemble member to that
+    exact set (still always minus the pruned set -- see `feature_columns()`'s
+    precedence). `None` means "every feature, subject to pruning only," same
+    as before this parameter existed.
+    """
     tickers = UniverseStore().active_tickers()
     holdout_ticker_set = select_holdout_tickers(tickers)
     train_tickers = [t for t in tickers if t not in holdout_ticker_set]
@@ -61,9 +86,15 @@ def main() -> None:
     feature_store = FeatureStore()
     excluded_features = pruned_features()
     specs = [
-        ModelSpec(model_type, excluded_features=excluded_features) for model_type in DEFAULT_MODEL_TYPES
+        ModelSpec(model_type, excluded_features=excluded_features, included_features=included_features)
+        for model_type in DEFAULT_MODEL_TYPES
     ] + [
-        ModelSpec(model_type, excluded_features=excluded_features, weight=0.0)
+        ModelSpec(
+            model_type,
+            excluded_features=excluded_features,
+            included_features=included_features,
+            weight=0.0,
+        )
         for model_type in DIAGNOSTIC_MODEL_TYPES
     ]
 
@@ -76,8 +107,10 @@ def main() -> None:
     final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
 
+    fold_metrics = [result.metrics for result in fold_results]
+
     if not holdout_tickers:
-        return
+        return TrainingSummary(fold_metrics=fold_metrics, holdout_metrics=None, threshold_sweep=None)
 
     holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
     holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
@@ -87,6 +120,18 @@ def main() -> None:
     actual = holdout_dataset[LABEL_COLUMN]
     sweep = sweep_thresholds(predicted, actual)
     print(sweep.to_string(index=False))
+
+    # DataFrame.to_dict() leaves numpy scalar types in place (not JSON-
+    # serializable as-is) -- round-tripping through to_json()/json.loads()
+    # is pandas' own well-tested path for native Python types instead.
+    threshold_sweep = json.loads(sweep.to_json(orient="records"))
+    return TrainingSummary(
+        fold_metrics=fold_metrics, holdout_metrics=holdout_metrics, threshold_sweep=threshold_sweep
+    )
+
+
+def main() -> None:
+    run_training(included_features=selected_features())
 
 
 if __name__ == "__main__":

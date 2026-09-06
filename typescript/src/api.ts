@@ -110,6 +110,42 @@ export interface PrunedFeatureEntry {
   pruned_at: string;
 }
 
+export interface FeatureSelectionResponse {
+  // null = no explicit selection -- every feature, subject to pruning only.
+  included_features: string[] | null;
+}
+
+export type TrainingStatus = "idle" | "running" | "completed" | "failed";
+
+export interface FoldMetrics {
+  mae: number;
+  directional_accuracy: number;
+  n_test_rows: number;
+}
+
+export interface ThresholdSweepRow {
+  threshold: number;
+  n_trades: number;
+  hit_rate: number;
+  total_return: number;
+  avg_return: number;
+  return_std: number;
+}
+
+export interface TrainingResult {
+  fold_metrics: FoldMetrics[];
+  holdout_metrics: FoldMetrics | null;
+  threshold_sweep: ThresholdSweepRow[] | null;
+}
+
+export interface TrainingStatusResponse {
+  status: TrainingStatus;
+  started_at: string | null;
+  completed_at: string | null;
+  result: TrainingResult | null;
+  error: string | null;
+}
+
 export interface PrunedFeaturesResponse {
   pruned_features: string[];
   archive: PrunedFeatureEntry[];
@@ -175,6 +211,16 @@ export const pruneFeature = (feature: string, reason?: string) =>
   );
 export const unpruneFeature = (feature: string) =>
   mutate<PrunedFeaturesResponse>("DELETE", `/api/features/${encodeURIComponent(feature)}/prune`);
+export const fetchFeatureSelection = () =>
+  getJson<FeatureSelectionResponse>("/api/feature-selection");
+export const setFeatureSelection = (includedFeatures: string[]) =>
+  mutate<FeatureSelectionResponse>("POST", "/api/feature-selection", {
+    included_features: includedFeatures,
+  });
+export const clearFeatureSelection = () =>
+  mutate<FeatureSelectionResponse>("DELETE", "/api/feature-selection");
+export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
+export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);

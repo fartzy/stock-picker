@@ -84,3 +84,10 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_job",
+    srcs = ["test_job.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training"],
+)
