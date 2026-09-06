@@ -181,56 +181,22 @@ data-integrity gotchas, none yet handled structurally:
 
 ## Roadmap
 
-- [ ] Wire `check_freshness()` into `inference.py`'s live path + a sanity
-      bound on the overnight gap
-- [x] ~~Fold Feature Coverage into Registry~~ -- done. Coverage/importance are
-      per-feature attributes shown inline; a sort-by-coverage/importance
-      control replaces the old standalone worst-first section
-- [ ] Registry still reads as plain unstyled text (no visual hierarchy,
-      spacing, or card treatment) -- needs actual visual design work, not
-      just content reorganization -- not done
-- [ ] Prune UX: redesign away from a separate archive section -- fold
-      "pruned" into Registry as a per-feature attribute (a pruned badge +
-      reason directly on that feature's row), browsable while scrolling
-      Registry instead of a second list to jump to -- not done
-- [ ] Modular, composable model layer: `training/model.py` no longer
-      hardcodes LightGBM -- `TrainedModel`/`ModelSpec`/`Ensemble` support
-      swapping in other model types (LightGBM + random forest today) behind a
-      common interface, plus ensembling. Leaving unchecked pending real
-      end-to-end confirmation the ensembled predictions actually behave as
-      intended, not just that tests pass
-- [ ] Once the ensemble mechanism exists: no API endpoint or frontend UI
-      shows which models/weights are in the ensemble, or which features feed
-      each individual member (vs. the pooled set) -- both still need a
-      model-metadata endpoint + Registry/UI surface
-- [x] ~~Logistic-regression-based feature importance~~ -- done: a
-      diagnostic-only ensemble member (weight 0.0, never affects blended
-      predictions) fits the binarized up/down direction and exposes
-      |coefficient|-based importance via `/api/feature-importance`'s
-      `by_model_type` breakdown, a genuinely different lens (linear effect
-      size) than the tree-based gain/impurity measures -- confirmed via a
-      real end-to-end run that its top features (stochastic oscillators)
-      differ meaningfully from LightGBM/RF's (calendar features)
-- [ ] A feature with ~zero importance across every ensemble member is a
-      pruning candidate today only if a human happens to notice it in the
-      Registry's importance sort -- surface an explicit "not moving the
-      model" flag/suggestion per feature instead of relying on someone
-      scanning the sorted list, feeding into the Prune UX redesign above
-      rather than replacing today's correlation-driven pruning
-- [ ] New/experimental features (e.g. the setup-seasonality additions) have
-      no way to be selectively included or excluded per training run from the
-      UI -- `training/model.py`'s `included_features`/`excluded_features`
-      params already support this on the backend, but there's no Registry/UI
-      control to pick which features a given run actually uses
+- [ ] Wire `check_freshness()` into live inference (staleness/overnight-gap
+      checks)
+- [ ] Registry: inline coverage/importance + sort control, revisit polish
+- [ ] Registry visual polish -- still reads plain
+- [ ] Prune UX: fold pruned status into Registry per-feature instead of a
+      separate archive
+- [ ] Modular model layer: LightGBM + random forest ensemble -- revisit
+- [ ] Model-metadata endpoint/UI: show which models/features are in the
+      ensemble
+- [ ] Logistic-regression importance as a third lens (alongside LightGBM
+      gain, RF impurity)
+- [ ] Flag near-zero-importance features + one-click prune from Registry
+- [ ] Pick which features feed a training run from the UI
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
-- [x] ~~Gap-then-continuation as a *historically conditioned* feature~~ --
-      done: `setup_seasonality` (per-ticker) + `pooled_setup_seasonality`
-      (across the universe, for younger tickers' sparser history) bucket
-      each day by (gap direction/size x prior-day-return direction/size) and
-      average historical same-day return for prior occurrences of that
-      setup. Real-market validation (so far only checked against synthetic
-      data with an injected effect) and a bucket-threshold A/B (fixed
-      +/-0.5% dead zone vs. per-ticker quantiles) are still open
+- [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
+      thresholds, validate against real (not just synthetic) data
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
 - [ ] Validation slice within each walk-forward fold for early stopping
