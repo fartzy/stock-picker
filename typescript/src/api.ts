@@ -43,6 +43,13 @@ export interface PriceHistoryResponse {
   prices: PricePoint[];
 }
 
+export interface FeatureValuesResponse {
+  ticker: string;
+  columns: string[];
+  // Each row: { date: "...", <column>: value | null, ... }.
+  rows: Record<string, number | string | null>[];
+}
+
 export interface CorrelationPair {
   a: string;
   b: string;
@@ -223,6 +230,8 @@ export const fetchModelInfo = () => getJson<ModelInfoResponse>("/api/model-info"
 export const fetchCoverage = () => getJson<CoverageResponse>("/api/coverage");
 export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") =>
   getJson<PriceHistoryResponse>(`/api/prices/${encodeURIComponent(ticker)}?interval=${interval}`);
+export const fetchFeatureValues = (ticker: string) =>
+  getJson<FeatureValuesResponse>(`/api/features/${encodeURIComponent(ticker)}`);
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");

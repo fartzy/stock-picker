@@ -16,6 +16,7 @@ from stock_picker.api.models import (
     CoverageResponse,
     FeatureSelectionRequest,
     FeatureSelectionResponse,
+    FeatureValuesResponse,
     ImportanceResponse,
     ModelInfoResponse,
     ModelSelectionRequest,
@@ -41,6 +42,7 @@ from stock_picker.features.catalog import (
 from stock_picker.features.catalog_loader import feature_tables, sample_history
 from stock_picker.features.price_history import (
     daily_price_history,
+    feature_value_rows,
     intraday_price_history,
     price_series,
 )
@@ -50,6 +52,7 @@ from stock_picker.features.registry import TICKER_ENTITY, build_registry
 from stock_picker.features.selection import selected_features
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
+from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
@@ -229,6 +232,17 @@ def get_price_history(ticker: str, interval: Literal["daily", "hourly"] = "daily
     except (FileNotFoundError, ValueError):
         raise HTTPException(status_code=404, detail=f"no {interval} price history for {ticker}")
     return PriceHistoryResponse(ticker=ticker, interval=interval, prices=price_series(history))
+
+
+@router.get("/features/{ticker}")
+def get_feature_values(ticker: str) -> FeatureValuesResponse:
+    try:
+        features = FeatureStore().read(ticker)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail=f"no feature data for {ticker}")
+    return FeatureValuesResponse(
+        ticker=ticker, columns=list(features.columns), rows=feature_value_rows(features)
+    )
 
 
 @router.get("/registry")
