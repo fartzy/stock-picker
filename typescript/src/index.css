@@ -128,13 +128,51 @@ section + section {
 }
 
 .feature-row {
-  padding: var(--space-1) 0;
+  padding: var(--space-1) var(--space-2);
+  margin: 0 calc(var(--space-2) * -1);
   border-bottom: 1px solid var(--line);
+  border-radius: 4px;
   font-size: var(--text-label);
+  transition: background-color 120ms ease;
+}
+
+.feature-row:hover {
+  background: var(--surface-raised);
 }
 
 .feature-row:last-child {
   border-bottom: none;
+}
+
+/* Small pill flags on a feature row -- distinct from .chip (which labels
+   static metadata like entities/services): these are actionable, so they
+   render as buttons and get a hover state, not just a label. */
+.feature-badge {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 1px var(--space-1);
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.feature-badge:hover {
+  opacity: 0.8;
+}
+
+.feature-badge-pruned {
+  background: color-mix(in srgb, var(--bad) 18%, transparent);
+  color: var(--bad);
+}
+
+.feature-badge-negligible {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
 }
 
 .feature-name {
@@ -244,26 +282,6 @@ section + section {
   border-radius: 6px;
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-3);
-}
-
-.archive-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.archive-row:last-child {
-  border-bottom: none;
-}
-
-.archive-row-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-shrink: 0;
 }
 
 .view-meta {
