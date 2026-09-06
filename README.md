@@ -195,7 +195,21 @@ data-integrity gotchas, none yet handled structurally:
 - [ ] Flag near-zero-importance features + one-click prune from Registry
 - [ ] Pick which features feed a training run from the UI
 - [ ] Show what a feature is correlated to directly on its Registry row (top
-      N and/or over a threshold), not only in the separate Correlation tab
+      N and/or over a threshold). Per-row correlations would actually cover
+      *more* pairs than today's top-15 global list (a feature's own worst
+      match doesn't have to crack the global top 15 to matter for that
+      feature). Once that's in, revisit whether the separate Correlation tab
+      is still pulling weight, or whether the canvas heatmap matrix
+      specifically (not the ranked pairs list, which is the actually
+      actionable part) can go -- the matrix mainly helps spot whole-universe
+      correlation clusters at a glance, which per-row browsing doesn't
+      replace, so don't drop it without confirming that's not needed
+- [ ] Training run drill-down: which tickers and date range fed a given run,
+      not just the holdout summary line. MLflow already logs per-fold
+      metrics/params but not ticker/date provenance, and isn't surfaced in
+      the app UI at all today (a separate `mlflow ui` process against
+      `data/mlruns/mlflow.db`) -- decide whether to extend MLflow logging or
+      just have the Training panel surface a run manifest directly
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
       thresholds, validate against real (not just synthetic) data
