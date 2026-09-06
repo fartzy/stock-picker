@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchPriceHistory, type PriceHistoryResponse } from "../api";
+import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import { themeRgb } from "../theme";
 import { useFetchData } from "../useFetchData";
@@ -170,36 +171,57 @@ export default function PriceHistory() {
       {!data && !error && <p className="muted">Loading...</p>}
       {data && data.prices.length > 0 && (
         <>
-          <canvas ref={canvasRef} style={{ width: "100%", display: "block" }} />
-          <p className="muted" style={{ marginTop: "var(--space-2)" }}>
-            {data.ticker} close price, {data.prices.length} {interval === "daily" ? "days" : "hours"} --{" "}
-            {data.prices[0].date.slice(0, 10)} to {data.prices[data.prices.length - 1].date.slice(0, 10)}
-          </p>
-          <div style={{ overflowY: "auto", maxHeight: TABLE_MAX_HEIGHT_PX, marginTop: "var(--space-3)" }}>
-            <table className="trade-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Open</th>
-                  <th>High</th>
-                  <th>Low</th>
-                  <th>Close</th>
-                  <th>Volume</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...data.prices].reverse().map((p) => (
-                  <tr key={p.date}>
-                    <td>{formatRowDate(p.date, interval)}</td>
-                    <td className="trade-num">{formatUsd(p.open)}</td>
-                    <td className="trade-num">{formatUsd(p.high)}</td>
-                    <td className="trade-num">{formatUsd(p.low)}</td>
-                    <td className="trade-num">{formatUsd(p.close)}</td>
-                    <td className="trade-num">{Math.round(p.volume).toLocaleString()}</td>
+          {(() => {
+            const latest = data.prices[data.prices.length - 1];
+            const previous = data.prices[data.prices.length - 2];
+            return (
+              <div className="view-card price-hero">
+                <div>
+                  <div className="price-hero-ticker">{data.ticker}</div>
+                  <div className="price-hero-value">{formatUsd(latest.close)}</div>
+                </div>
+                {previous && (
+                  <Diff value={latest.close - previous.close} pct={(latest.close - previous.close) / previous.close} />
+                )}
+              </div>
+            );
+          })()}
+
+          <div className="view-card">
+            <canvas ref={canvasRef} style={{ width: "100%", display: "block" }} />
+            <p className="muted" style={{ marginTop: "var(--space-2)" }}>
+              {data.prices.length} {interval === "daily" ? "days" : "hours"} --{" "}
+              {data.prices[0].date.slice(0, 10)} to {data.prices[data.prices.length - 1].date.slice(0, 10)}
+            </p>
+          </div>
+
+          <div className="view-card">
+            <div style={{ overflowY: "auto", maxHeight: TABLE_MAX_HEIGHT_PX }}>
+              <table className="trade-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[...data.prices].reverse().map((p) => (
+                    <tr key={p.date}>
+                      <td>{formatRowDate(p.date, interval)}</td>
+                      <td className="trade-num">{formatUsd(p.open)}</td>
+                      <td className="trade-num">{formatUsd(p.high)}</td>
+                      <td className="trade-num">{formatUsd(p.low)}</td>
+                      <td className="trade-num">{formatUsd(p.close)}</td>
+                      <td className="trade-num">{Math.round(p.volume).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </>
       )}
