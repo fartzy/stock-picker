@@ -203,12 +203,14 @@ data-integrity gotchas, none yet handled structurally:
       shows which models/weights are in the ensemble, or which features feed
       each individual member (vs. the pooled set) -- both still need a
       model-metadata endpoint + Registry/UI surface
-- [ ] Feature importance today is per-model-type (LightGBM gain, random
-      forest impurity-based) -- add a logistic-regression-based importance
-      too (e.g. standardized |coefficient|, on the binary up/down framing of
-      the label), a genuinely different lens (linear/monotonic effect size
-      vs. tree-based split-gain) rather than another flavor of the same
-      tree-ensemble signal
+- [x] ~~Logistic-regression-based feature importance~~ -- done: a
+      diagnostic-only ensemble member (weight 0.0, never affects blended
+      predictions) fits the binarized up/down direction and exposes
+      |coefficient|-based importance via `/api/feature-importance`'s
+      `by_model_type` breakdown, a genuinely different lens (linear effect
+      size) than the tree-based gain/impurity measures -- confirmed via a
+      real end-to-end run that its top features (stochastic oscillators)
+      differ meaningfully from LightGBM/RF's (calendar features)
 - [ ] A feature with ~zero importance across every ensemble member is a
       pruning candidate today only if a human happens to notice it in the
       Registry's importance sort -- surface an explicit "not moving the
