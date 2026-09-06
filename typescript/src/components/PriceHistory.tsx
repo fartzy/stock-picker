@@ -1,0 +1,126 @@
+import { useEffect, useRef, useState } from "react";
+import { fetchPriceHistory, type PriceHistoryResponse } from "../api";
+import { themeRgb } from "../theme";
+import { useFetchData } from "../useFetchData";
+
+const CHART_HEIGHT_PX = 320;
+const CHART_PADDING_PX = 24;
+const DEFAULT_TICKER = "AAPL";
+
+type Interval = "daily" | "hourly";
+
+function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["prices"]) {
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth;
+  const height = CHART_HEIGHT_PX;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  canvas.style.height = `${height}px`;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, width, height);
+
+  if (prices.length === 0) return;
+
+  const closes = prices.map((p) => p.close);
+  const min = Math.min(...closes);
+  const max = Math.max(...closes);
+  const range = max - min || 1;
+  const plotWidth = width - CHART_PADDING_PX * 2;
+  const plotHeight = height - CHART_PADDING_PX * 2;
+
+  const xFor = (i: number) => CHART_PADDING_PX + (i / (closes.length - 1 || 1)) * plotWidth;
+  const yFor = (v: number) => CHART_PADDING_PX + plotHeight - ((v - min) / range) * plotHeight;
+
+  const [r, g, b] = themeRgb("accent");
+  ctx.strokeStyle = `rgb(${r},${g},${b})`;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  closes.forEach((close, i) => {
+    const x = xFor(i);
+    const y = yFor(close);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+}
+
+export default function PriceHistory() {
+  const [inputValue, setInputValue] = useState(DEFAULT_TICKER);
+  const [ticker, setTicker] = useState(DEFAULT_TICKER);
+  const [interval, setInterval_] = useState<Interval>("daily");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const requestKey = `${ticker}:${interval}`;
+  const { data: fetched, error: rawError } = useFetchData<PriceHistoryResponse>(
+    // useFetchData doesn't clear stale data/error on a new fetch -- tag the
+    // rejection with the request it belongs to so a stale error from a
+    // previous ticker/interval doesn't linger after this one resolves.
+    () => fetchPriceHistory(ticker, interval).catch((err) => {
+      throw new Error(`${requestKey}::${err.message}`);
+    }),
+    { deps: [ticker, interval] },
+  );
+  const data = fetched && fetched.ticker === ticker && fetched.interval === interval ? fetched : null;
+  const error = rawError?.startsWith(`Error: ${requestKey}::`) ? rawError : null;
+
+  // getJson's error string is "<path> failed: <status>" -- a 404 here just
+  // means "not a tracked ticker for this interval," an expected everyday
+  // case, not a real error worth an error banner.
+  const isNotFound = error?.includes("404") ?? false;
+
+  useEffect(() => {
+    if (data && canvasRef.current) drawLineChart(canvasRef.current, data.prices);
+  }, [data]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setTicker(inputValue.trim().toUpperCase());
+  }
+
+  return (
+    <div>
+      <form className="price-history-controls" onSubmit={handleSubmit}>
+        <input
+          className="form-input"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Ticker"
+        />
+        <button className="btn-primary" type="submit">
+          Load
+        </button>
+        <div className="interval-toggle" style={{ marginLeft: "var(--space-3)" }}>
+          {(["daily", "hourly"] as const).map((i) => (
+            <button
+              key={i}
+              type="button"
+              className={interval === i ? "active" : ""}
+              onClick={() => setInterval_(i)}
+            >
+              {i === "daily" ? "Daily" : "Hourly"}
+            </button>
+          ))}
+        </div>
+      </form>
+
+      {isNotFound && (
+        <p className="muted">
+          No {interval} price history for {ticker}
+          {interval === "daily" ? " -- not in the tracked universe." : "."}
+        </p>
+      )}
+      {error && !isNotFound && <p className="error">{error}</p>}
+      {!data && !error && <p className="muted">Loading...</p>}
+      {data && data.prices.length > 0 && (
+        <>
+          <canvas ref={canvasRef} style={{ width: "100%", display: "block" }} />
+          <p className="muted" style={{ marginTop: "var(--space-2)" }}>
+            {data.ticker} close price, {data.prices.length} {interval === "daily" ? "days" : "hours"} --{" "}
+            {data.prices[0].date.slice(0, 10)} to {data.prices[data.prices.length - 1].date.slice(0, 10)}
+          </p>
+        </>
+      )}
+    </div>
+  );
+}

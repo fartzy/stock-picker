@@ -1,15 +1,17 @@
 import { useState } from "react";
 import CoverageChart from "./components/CoverageChart";
 import CorrelationHeatmap from "./components/CorrelationHeatmap";
+import PriceHistory from "./components/PriceHistory";
 import PruneArchive from "./components/PruneArchive";
 import Registry from "./components/Registry";
 import TradeHistory from "./components/TradeHistory";
 
-type Tab = "trading" | "features";
+type Tab = "trading" | "features" | "prices";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "trading", label: "Trading" },
   { id: "features", label: "Feature Store" },
+  { id: "prices", label: "Prices" },
 ];
 
 export default function App() {
@@ -73,6 +75,15 @@ export default function App() {
             <PruneArchive />
           </section>
         </>
+      )}
+
+      {tab === "prices" && (
+        <section>
+          <h2>Price History</h2>
+          <div className="panel">
+            <PriceHistory />
+          </div>
+        </section>
       )}
     </div>
   );

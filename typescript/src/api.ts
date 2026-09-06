@@ -12,6 +12,21 @@ export interface CoverageResponse {
   coverage: Record<string, number>;
 }
 
+export interface PricePoint {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface PriceHistoryResponse {
+  ticker: string;
+  interval: "daily" | "hourly";
+  prices: PricePoint[];
+}
+
 export interface CorrelationPair {
   a: string;
   b: string;
@@ -134,6 +149,8 @@ async function mutate<T = void>(method: "POST" | "DELETE", path: string, body?: 
 export const fetchCatalog = () => getJson<CatalogResponse>("/api/catalog");
 export const fetchFeatureImportance = () => getJson<ImportanceResponse>("/api/feature-importance");
 export const fetchCoverage = () => getJson<CoverageResponse>("/api/coverage");
+export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") =>
+  getJson<PriceHistoryResponse>(`/api/prices/${encodeURIComponent(ticker)}?interval=${interval}`);
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");

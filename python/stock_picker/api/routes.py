@@ -8,7 +8,7 @@ from dataclasses import asdict
 from datetime import datetime
 from typing import Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from stock_picker.features.catalog import (
@@ -20,6 +20,11 @@ from stock_picker.features.catalog import (
     top_correlated_pairs,
 )
 from stock_picker.features.catalog_loader import feature_tables, sample_history
+from stock_picker.features.price_history import (
+    daily_price_history,
+    intraday_price_history,
+    price_series,
+)
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import build_registry
@@ -130,6 +135,15 @@ def unprune_feature(feature: str) -> dict:
 @router.get("/feature-importance")
 def get_feature_importance() -> dict:
     return {"importance": model_importance()}
+
+
+@router.get("/prices/{ticker}")
+def get_price_history(ticker: str, interval: str = "daily") -> dict:
+    try:
+        history = intraday_price_history(ticker) if interval == "hourly" else daily_price_history(ticker)
+    except (FileNotFoundError, ValueError):
+        raise HTTPException(status_code=404, detail=f"no {interval} price history for {ticker}")
+    return {"ticker": ticker, "interval": interval, "prices": price_series(history)}
 
 
 @router.get("/registry")

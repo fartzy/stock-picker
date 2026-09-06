@@ -326,6 +326,31 @@ section + section {
   color: var(--text);
 }
 
+/* A small segmented control -- distinct from .tab-bar/.tab-button, which are
+   reserved for the page's top-level tabs, so a nested toggle (e.g. daily vs.
+   hourly) doesn't read as a second, confusing tab bar. */
+.interval-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.interval-toggle button {
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.interval-toggle button.active {
+  background: var(--accent);
+  color: var(--ink);
+}
+
 details.view-card,
 .pair-row {
   border: 1px solid transparent;
@@ -491,6 +516,13 @@ details.view-card summary {
 .form-select:focus {
   outline: none;
   border-color: var(--accent);
+}
+
+.price-history-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .btn-primary {
