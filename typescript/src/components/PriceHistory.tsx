@@ -1,8 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { fetchFeatureValues, fetchPriceHistory, type FeatureValuesResponse, type PriceHistoryResponse } from "../api";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  fetchFeatureValues,
+  fetchPriceHistory,
+  fetchRegistry,
+  type FeatureValuesResponse,
+  type PriceHistoryResponse,
+  type RegistryResponse,
+} from "../api";
 import { Diff } from "./Diff";
 import { formatUsd } from "../format";
-import { themeRgb } from "../theme";
+import { signedMagnitudeColor, themeRgb } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 const CHART_HEIGHT_PX = 320;
@@ -104,8 +111,22 @@ function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["
 
 function formatFeatureValue(value: number | string | null): string {
   if (value === null) return "--";
-  if (typeof value === "number") return value.toFixed(4);
-  return value;
+  if (typeof value !== "number") return value;
+  // Returns/spreads dominate the ~94 columns and live well under 1 -- 4
+  // decimals there; RSI/stochastic-scale features run 0-100, where the same
+  // 4 decimals is just noise, so 2 is enough to still show real precision.
+  return Math.abs(value) < 1 ? value.toFixed(4) : value.toFixed(2);
+}
+
+function useFeatureToGroup(): Record<string, string> {
+  const { data: registry } = useFetchData<RegistryResponse>(fetchRegistry);
+  return useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const view of registry?.feature_views ?? []) {
+      for (const feature of view.features) map[feature] = view.name;
+    }
+    return map;
+  }, [registry]);
 }
 
 function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: Interval }) {
@@ -123,6 +144,24 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
   const data = fetched && fetched.ticker === ticker ? fetched : null;
   const error = rawError?.startsWith(`Error: ${ticker}::`) ? rawError : null;
   const isNotFound = error?.includes("404") ?? false;
+  const featureToGroup = useFeatureToGroup();
+
+  // Each column's own |max| -- shading is column-relative (RSI's 0-100 range
+  // and a return's ~0.02 range aren't comparable on one shared scale), and
+  // this data is already fully loaded client-side, so a single pass over it
+  // when it arrives is cheap (~250 rows x ~94 columns).
+  const columnMaxAbs = useMemo(() => {
+    const maxAbs: Record<string, number> = {};
+    for (const row of data?.rows ?? []) {
+      for (const col of data?.columns ?? []) {
+        const value = row[col];
+        if (typeof value === "number") {
+          maxAbs[col] = Math.max(maxAbs[col] ?? 0, Math.abs(value));
+        }
+      }
+    }
+    return maxAbs;
+  }, [data]);
 
   if (interval === "hourly") {
     return (
@@ -145,6 +184,18 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
   if (!data) return <p className="muted">Loading derived features...</p>;
 
   const columns = data.columns.filter((c) => c.toLowerCase().includes(filter.toLowerCase()));
+  // build_features() (pipeline.py) concatenates one feature-category
+  // DataFrame at a time in the same order Registry names its feature views,
+  // so `columns` already arrives grouped -- no reordering needed, just a
+  // boundary flag wherever the group changes from the previous *visible*
+  // column, so a text-filtered-out column doesn't leave a phantom divider.
+  let previousGroup: string | undefined;
+  const columnsWithGroups = columns.map((c) => {
+    const group = featureToGroup[c];
+    const isGroupStart = group !== undefined && group !== previousGroup;
+    previousGroup = group;
+    return { name: c, isGroupStart };
+  });
 
   return (
     <div className="view-card">
@@ -159,14 +210,18 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
       {/* Horizontal scroll is deliberate, not a layout bug -- with ~90+
           computed columns, a container that visibly scrolls both ways is the
           signal that this table holds a lot of derived data, same spirit as
-          the filter box above it. */}
+          the filter box above it. The Date column and header row stay
+          pinned via .trade-table-wide's sticky rules so scrolling never
+          loses the row you're looking at. */}
       <div style={{ overflow: "auto", maxHeight: TABLE_MAX_HEIGHT_PX }}>
         <table className="trade-table trade-table-wide">
           <thead>
             <tr>
               <th>Date</th>
-              {columns.map((c) => (
-                <th key={c}>{c}</th>
+              {columnsWithGroups.map(({ name, isGroupStart }) => (
+                <th key={name} className={isGroupStart ? "col-group-start" : undefined} title={featureToGroup[name]}>
+                  {name}
+                </th>
               ))}
             </tr>
           </thead>
@@ -174,11 +229,20 @@ function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: In
             {[...data.rows].reverse().map((row) => (
               <tr key={row.date as string}>
                 <td>{formatRowDate(row.date as string, "daily")}</td>
-                {columns.map((c) => (
-                  <td className="trade-num" key={c}>
-                    {formatFeatureValue(row[c])}
-                  </td>
-                ))}
+                {columnsWithGroups.map(({ name, isGroupStart }) => {
+                  const value = row[name];
+                  const background =
+                    typeof value === "number" ? signedMagnitudeColor(value, columnMaxAbs[name] ?? 0) : undefined;
+                  return (
+                    <td
+                      className={`trade-num${isGroupStart ? " col-group-start" : ""}`}
+                      key={name}
+                      style={{ background }}
+                    >
+                      {formatFeatureValue(value)}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
