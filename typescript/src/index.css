@@ -690,6 +690,15 @@ details.view-card summary {
   border-bottom: 1px solid var(--line);
 }
 
+/* Separates ModelPicker's "which models" list above from the run
+   controls/status below -- two distinct concerns sharing one panel, same
+   divider treatment as .view-features. */
+.training-run-panel {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
 .training-controls {
   display: flex;
   align-items: center;
@@ -700,6 +709,17 @@ details.view-card summary {
   margin-top: var(--space-2);
   font-size: var(--text-caption);
   color: var(--text-muted);
+}
+
+/* What's live for inference right now -- given its own margin so it never
+   reads as a trailing afterthought glued to the controls/result above it. */
+.live-model {
+  margin-top: var(--space-3);
+  font-size: var(--text-caption);
+}
+
+.live-model .meta-label {
+  margin-right: var(--space-2);
 }
 
 .price-hero {
