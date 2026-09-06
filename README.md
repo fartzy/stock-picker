@@ -186,18 +186,20 @@ data-integrity gotchas, none yet handled structurally:
 - [x] ~~Fold Feature Coverage into Registry~~ -- done. Coverage/importance are
       per-feature attributes shown inline; a sort-by-coverage/importance
       control replaces the old standalone worst-first section
-- [ ] Prune UX: archive + reason shipped, but the flow needs more thought.
-      Not done
-- [ ] Modular, composable model layer: `training/model.py` is hardcoded to
-      LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
-      model types (random forest, etc.) behind a common interface, plus
-      ensembling. Combine multiple models' predictions, possibly each
-      trained on a different feature subset, to capture different models'
-      complementary strengths rather than betting everything on one model
-      family. Once the training-side mechanism exists: no API endpoint or
-      frontend UI shows which models/weights are in the ensemble yet
-      (`routes.py` has no model-metadata endpoint today) -- separate,
-      additive follow-up, not blocking the mechanism itself
+- [ ] Prune UX: redesign away from a separate archive section -- fold
+      "pruned" into Registry as a per-feature attribute (a pruned badge +
+      reason directly on that feature's row), browsable while scrolling
+      Registry instead of a second list to jump to -- not done
+- [ ] Modular, composable model layer: `training/model.py` no longer
+      hardcodes LightGBM -- `TrainedModel`/`ModelSpec`/`Ensemble` support
+      swapping in other model types (LightGBM + random forest today) behind a
+      common interface, plus ensembling. Leaving unchecked pending real
+      end-to-end confirmation the ensembled predictions actually behave as
+      intended, not just that tests pass
+- [ ] Once the ensemble mechanism exists: no API endpoint or frontend UI
+      shows which models/weights are in the ensemble, or which features feed
+      each individual member (vs. the pooled set) -- both still need a
+      model-metadata endpoint + Registry/UI surface
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
