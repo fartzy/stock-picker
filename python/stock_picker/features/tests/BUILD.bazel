@@ -175,3 +175,13 @@ py_pytest(
         "//python/stock_picker/features",
     ],
 )
+
+py_pytest(
+    name = "test_price_history",
+    srcs = ["test_price_history.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
+)

@@ -32,7 +32,8 @@ flowchart TB
     MLFLOW[("MLflow<br/>tracking only")]
 
     API["api/routes.py<br/>FastAPI JSON layer, no new business logic"]
-    WEB["typescript/<br/>Trading tab (trades + live P&amp;L)<br/>Feature Store tab (catalog/coverage/correlation/registry)"]
+    WEB["typescript/<br/>Trading / Feature Store / Prices tabs"]
+    PRICEHIST["features/price_history.py<br/>daily (PriceStore) + intraday (live yfinance)"]
 
     WIKI --> BUILDUNIV
     MANUAL --> BUILDUNIV
@@ -54,19 +55,18 @@ flowchart TB
     TS --> API
     PFS --> API
     YF --> API
+    MS --> API
+    PS --> PRICEHIST
+    YF --> PRICEHIST
+    PRICEHIST --> API
     API --> WEB
 
-    PRICEHIST["Price history view<br/>(daily, all tickers) + intraday"]
     LIVE["Scheduled live loop:<br/>fetch open -> infer -> buy/sell at close"]
-    IMPORTANCE["Real feature importance<br/>(LightGBM gain), not just coverage"]
 
-    PS -.-> PRICEHIST
-    YF -.-> PRICEHIST
     INFER -.-> LIVE
-    TRAIN -.-> IMPORTANCE
 
     classDef planned stroke-dasharray: 5 5,fill:#f5f5f5,stroke:#999,color:#555;
-    class PRICEHIST,LIVE,IMPORTANCE planned;
+    class LIVE planned;
 ```
 
 ## Structure
@@ -133,15 +133,20 @@ FastAPI backend + React/Vite/TS frontend, both Bazel-integrated (`bazel test
 - **Feature Store tab**: registry, coverage, and a correlation heatmap with
   inline feature pruning -- pruned features are actually excluded from
   training, not just hidden in the UI.
+- **Prices tab**: any ticker's OHLCV history, daily or hourly, as a line chart.
 - Not yet done: production `vite build` wiring, frontend tests.
 
-## Price history *(in progress)*
+## Price history
 
-- All tracked tickers' full daily price history, browsable by ticker.
-- Intraday (hourly) granularity for recent sessions -- `yfinance` retains
-  hourly bars for ~730 days vs. ~7 for minute bars, so hourly is the
-  practical default; not persisted (cheap to refetch, unlike the daily
-  history features are trained on).
+Web app's Prices tab: type any ticker, toggle daily/hourly, see a close-price
+line chart. `GET /api/prices/{ticker}?interval=daily|hourly`.
+
+- Daily reads the already-ingested `PriceStore` -- only tickers in the
+  tracked universe (a 404 for anything else).
+- Hourly fetches live from `yfinance` for any real ticker, not persisted --
+  `yfinance` retains hourly bars for ~730 days vs. ~7 for minute bars, so
+  hourly is the practical default, and it's cheap to refetch on demand
+  unlike the daily history features are trained on.
 
 ## Training
 
@@ -189,10 +194,13 @@ data-integrity gotchas, none yet handled structurally:
       trained on a different feature subset, to capture different models'
       complementary strengths rather than betting everything on one model
       family
-- [ ] Price history view: daily (all tickers) + intraday
+- [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
-      over-week/vs-10-days-ago), gap-then-continuation (does a gap up/down
-      tend to continue or reverse intraday)
+      over-week/vs-10-days-ago); gap-then-continuation, specifically as a
+      *historically conditioned* feature -- given today's gap direction/size
+      (or the last few days' pattern), what's the empirical historical
+      tendency for that setup to continue vs. reverse intraday, not just a
+      single yes/no
 - [ ] Validation slice within each walk-forward fold for early stopping
 - [ ] Persist sector labels to unlock `sector_relative_return`
 - [ ] DuckDB for ad hoc SQL over the Parquet lake

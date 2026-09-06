@@ -53,12 +53,19 @@ def client():
             }
         )
 
+    def _read_or_missing(ticker):
+        if ticker not in tables:
+            raise FileNotFoundError(ticker)
+        return history
+
     _pruned_state.clear()
 
     with (
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
         patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
         patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
+        patch("stock_picker.features.price_history.PriceStore") as mock_price_history_store,
+        patch("stock_picker.features.price_history.download_price_history") as mock_download_history,
         patch("stock_picker.features.trades.TradeStore") as mock_trade_store,
         patch("stock_picker.api.routes.TradeStore", mock_trade_store),
         patch("stock_picker.features.pruning.PrunedFeatureStore", _FakePrunedFeatureStore),
@@ -68,6 +75,10 @@ def client():
         mock_universe_store.return_value.active_tickers.return_value = ["AAA", "BBB"]
         mock_price_store.return_value.read.return_value = history
         mock_feature_store.return_value.read.side_effect = lambda t: tables[t]
+        mock_price_history_store.return_value.read.side_effect = _read_or_missing
+        mock_download_history.side_effect = lambda tickers, **kw: (
+            {tickers[0]: history} if tickers[0] in tables else {}
+        )
         mock_trade_store.return_value.read.side_effect = lambda: pd.DataFrame(trades_state)
         mock_trade_store.return_value.append.side_effect = _append_trade
         mock_fetch_quotes.return_value = {"AAA": {"open": 100.0, "last": 105.0}}
@@ -195,6 +206,32 @@ def test_get_positions(client):
     # BBB has no matching quote in the fixture -- graceful nulls, not a crash.
     assert positions["BBB"]["current_price"] is None
     assert positions["BBB"]["pnl"] is None
+
+
+def test_get_price_history_daily(client):
+    response = client.get("/api/prices/AAA")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["ticker"] == "AAA"
+    assert body["interval"] == "daily"
+    assert len(body["prices"]) == 140
+    assert set(body["prices"][0]) == {"date", "open", "high", "low", "close", "volume"}
+
+
+def test_get_price_history_hourly(client):
+    response = client.get("/api/prices/AAA?interval=hourly")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["interval"] == "hourly"
+    assert len(body["prices"]) == 140
+
+
+def test_get_price_history_404_for_untracked_ticker(client):
+    response = client.get("/api/prices/NOT_A_TICKER")
+
+    assert response.status_code == 404
 
 
 def test_get_registry(client):

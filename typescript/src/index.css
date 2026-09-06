@@ -326,6 +326,31 @@ section + section {
   color: var(--text);
 }
 
+/* A small segmented control -- distinct from .tab-bar/.tab-button, which are
+   reserved for the page's top-level tabs, so a nested toggle (e.g. daily vs.
+   hourly) doesn't read as a second, confusing tab bar. */
+.interval-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.interval-toggle button {
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.interval-toggle button.active {
+  background: var(--accent);
+  color: var(--ink);
+}
+
 details.view-card,
 .pair-row {
   border: 1px solid transparent;
@@ -491,6 +516,37 @@ details.view-card summary {
 .form-select:focus {
   outline: none;
   border-color: var(--accent);
+}
+
+.price-history-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.price-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-heading-sm);
+}
+
+.price-hero-ticker {
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price-hero-value {
+  font-family: var(--mono);
+  font-size: var(--text-heading-lg);
+  font-weight: 700;
 }
 
 .btn-primary {

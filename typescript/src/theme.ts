@@ -8,6 +8,8 @@ const CSS_VAR_NAMES = {
   neutral: "--neutral",
   corrNegative: "--corr-negative",
   corrNeutral: "--corr-neutral",
+  line: "--line",
+  textMuted: "--text-muted",
 } as const;
 
 type ThemeKey = keyof typeof CSS_VAR_NAMES;

@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { fetchPositions, type Position, type PositionsResponse } from "../api";
 import AddTradeForm from "./AddTradeForm";
+import { Diff } from "./Diff";
+import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
-const CURRENCY_DECIMALS = 2;
 const POSITIONS_POLL_INTERVAL_MS = 60_000;
 
 function formatTime(executedAt: string): string {
@@ -22,14 +23,6 @@ function formatDay(day: string): string {
     month: "short",
     day: "numeric",
   });
-}
-
-function formatUsd(value: number): string {
-  const sign = value < 0 ? "-" : "";
-  return `${sign}$${Math.abs(value).toLocaleString("en-US", {
-    minimumFractionDigits: CURRENCY_DECIMALS,
-    maximumFractionDigits: CURRENCY_DECIMALS,
-  })}`;
 }
 
 interface PositionsSummary {
@@ -50,16 +43,6 @@ function summarizePositions(positions: Position[]): PositionsSummary {
 
 // One component for every "X vs Y" diff shown in this table (the gap, and
 // P&L) -- same arrow/color/format logic each time, just different values.
-function Diff({ value, pct }: { value: number; pct: number | null }) {
-  const isUp = value >= 0;
-  return (
-    <span className={isUp ? "quote-diff-up" : "quote-diff-down"}>
-      {isUp ? "▲" : "▼"} {formatUsd(Math.abs(value))}
-      {pct !== null ? ` (${(pct * 100).toFixed(2)}%)` : ""}
-    </span>
-  );
-}
-
 function SummaryLine({ label, summary }: { label: string; summary: PositionsSummary }) {
   const { invested, pnl, hasUnknownPnl } = summary;
   return (
