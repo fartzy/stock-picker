@@ -46,9 +46,9 @@ export function themeColor(key: ThemeKey): string {
   return `rgb(${themeRgb(key).join(",")})`;
 }
 
-// Shared coverage gradient (bad -> good) used anywhere a non-null-% needs a
-// color -- FeatureCatalog and CoverageChart both display the same underlying
-// metric and must render it identically, not as two different color schemes.
+// Coverage gradient (bad -> good), interpolated below rather than a hard
+// red/green split -- 0.4-1.0 because a well-formed feature is rarely below
+// 40% covered even at a long lookback window, so that's the meaningful range.
 export const COVERAGE_GRADIENT_MIN_MAX: [number, number] = [0.4, 1.0];
 
 export function coverageColor(pct: number | undefined): string {
