@@ -58,3 +58,18 @@ export function coverageColor(pct: number | undefined): string {
   const rgb = bad.map((c, i) => Math.round(c + (good[i] - c) * t));
   return `rgb(${rgb.join(",")})`;
 }
+
+// Feature importance is percent-of-total-gain across ~95 features -- most land
+// well under 10%, so a fixed 0-15% gradient (rather than coverage's 0.4-1.0) is
+// what actually spreads the colors out; a feature above ~15% is already a clear
+// standout in a model this wide.
+export const IMPORTANCE_GRADIENT_MAX_PCT = 15;
+
+export function importanceColor(pct: number | undefined): string {
+  if (pct === undefined || pct === 0) return themeColor("neutral");
+  const t = Math.max(0, Math.min(1, pct / IMPORTANCE_GRADIENT_MAX_PCT));
+  const neutral = themeRgb("neutral");
+  const accent = themeRgb("accent");
+  const rgb = neutral.map((c, i) => Math.round(c + (accent[i] - c) * t));
+  return `rgb(${rgb.join(",")})`;
+}

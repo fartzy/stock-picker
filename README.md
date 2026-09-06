@@ -177,23 +177,18 @@ data-integrity gotchas, none yet handled structurally:
 
 - [ ] Wire `check_freshness()` into `inference.py`'s live path + a sanity
       bound on the overnight gap
-- [ ] Real feature-importance metric before pruning, instead of coverage
-      alone -- LightGBM gain and/or a simpler correlation-to-label score;
-      show it next to each feature, and surface it in the prune UI too
-- [ ] Clean up `Registry.tsx`'s feature-view header (`source: X · ttl: Yd ·
-      owner: Z · N features`) -- reads as one messy inline string, want
-      something more scannable (badges/chips)
-- [ ] Show each feature's actual computation next to its description in the
-      catalog -- code/SQL/plain-English formula, not just prose. The
-      computation already lives in `features/*.py`; surface it rather than
-      re-describing it
-- [ ] Prune UX overhaul (`CorrelationHeatmap.tsx`'s "Top correlated pairs"
-      cards): nicer styling, and a real destination for pruned features --
-      an archive/pruned section showing *why* each was pruned (assume
-      "high correlation to X" for anything pruned from the Correlation
-      view). Extend `PrunedFeatureStore` (`storage/feature_exclusion_store.py`)
-      with a `reason` field; switch it from Parquet to a plain JSON file --
-      simplest thing that works for data this small, no sqlite/duckdb needed
+- [ ] Registry polish: header, per-feature formula/importance display, and
+      whether Feature Coverage should fold into Registry (sort-by-coverage)
+      instead of staying a separate section -- in progress, not settled
+- [ ] Prune UX: archive + reason shipped, but the flow needs more thought --
+      not done
+- [ ] Modular, composable model layer: `training/model.py` is hardcoded to
+      LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
+      model types (random forest, etc.) behind a common interface, plus
+      ensembling -- combine multiple models' predictions, possibly each
+      trained on a different feature subset, to capture different models'
+      complementary strengths rather than betting everything on one model
+      family
 - [ ] Price history view: daily (all tickers) + intraday
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago), gap-then-continuation (does a gap up/down

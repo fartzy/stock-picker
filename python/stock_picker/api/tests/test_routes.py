@@ -10,18 +10,23 @@ from stock_picker.features.tests.fixtures import synthetic_history
 # Prune/unprune mutate a real store instance rather than returning canned
 # values, so a stateful fake (shared across both import sites routes.py
 # uses) is simpler and more accurate than mock return_value plumbing.
-_pruned_state: set[str] = set()
+_pruned_state: dict[str, dict] = {}
 
 
 class _FakePrunedFeatureStore:
     def read(self):
         return set(_pruned_state)
 
-    def prune(self, feature):
-        _pruned_state.add(feature)
+    def read_all(self):
+        return list(_pruned_state.values())
+
+    def prune(self, feature, reason="manually pruned"):
+        _pruned_state.setdefault(
+            feature, {"feature": feature, "reason": reason, "pruned_at": "2026-01-01T00:00:00-05:00"}
+        )
 
     def unprune(self, feature):
-        _pruned_state.discard(feature)
+        _pruned_state.pop(feature, None)
 
 
 @pytest.fixture
@@ -76,6 +81,7 @@ def test_get_catalog(client):
     body = response.json()
     assert "momentum" in body["catalog"]
     assert "return_1d" in body["descriptions"]
+    assert "return_1d" in body["formulas"]
 
 
 def test_get_coverage(client):
@@ -110,13 +116,18 @@ def test_get_pruned_features_starts_empty(client):
     response = client.get("/api/pruned-features")
 
     assert response.status_code == 200
-    assert response.json()["pruned_features"] == []
+    body = response.json()
+    assert body["pruned_features"] == []
+    assert body["archive"] == []
 
 
 def test_prune_then_unprune_feature(client):
     prune_response = client.post("/api/features/return_1d/prune")
     assert prune_response.status_code == 200
-    assert prune_response.json()["pruned_features"] == ["return_1d"]
+    prune_body = prune_response.json()
+    assert prune_body["pruned_features"] == ["return_1d"]
+    assert prune_body["archive"][0]["feature"] == "return_1d"
+    assert prune_body["archive"][0]["reason"] == "manually pruned"
 
     get_response = client.get("/api/pruned-features")
     assert get_response.json()["pruned_features"] == ["return_1d"]
@@ -124,6 +135,24 @@ def test_prune_then_unprune_feature(client):
     unprune_response = client.delete("/api/features/return_1d/prune")
     assert unprune_response.status_code == 200
     assert unprune_response.json()["pruned_features"] == []
+    assert unprune_response.json()["archive"] == []
+
+
+def test_prune_feature_with_a_given_reason(client):
+    response = client.post(
+        "/api/features/return_2d/prune", json={"reason": "high correlation to return_3d (r=0.996)"}
+    )
+
+    assert response.status_code == 200
+    [entry] = response.json()["archive"]
+    assert entry["reason"] == "high correlation to return_3d (r=0.996)"
+
+
+def test_get_feature_importance_returns_empty_dict_without_a_trained_model(client):
+    response = client.get("/api/feature-importance")
+
+    assert response.status_code == 200
+    assert response.json() == {"importance": {}}
 
 
 def test_create_trade(client):

@@ -20,6 +20,7 @@ from stock_picker.features import (
     volume,
 )
 from stock_picker.features.descriptions import describe_feature
+from stock_picker.features.formulas import describe_computation
 
 _SINGLE_TICKER_BUILDERS = {
     "momentum": momentum.build_momentum_features,
@@ -64,6 +65,17 @@ def describe_all(sample_history: pd.DataFrame) -> dict[str, str]:
     catalog = list_feature_columns(sample_history)
     return {
         column: describe_feature(column)
+        for columns in catalog.values()
+        for column in columns
+    }
+
+
+def compute_formulas_all(sample_history: pd.DataFrame) -> dict[str, str]:
+    """Feature name -> its actual computation as a short pandas expression,
+    for every real column."""
+    catalog = list_feature_columns(sample_history)
+    return {
+        column: describe_computation(column)
         for columns in catalog.values()
         for column in columns
     }

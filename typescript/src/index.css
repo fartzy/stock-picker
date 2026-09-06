@@ -148,6 +148,61 @@ section + section {
   margin-top: var(--space-1);
 }
 
+.feature-formula {
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  background: var(--surface);
+  border-radius: 4px;
+  padding: var(--space-1) var(--space-2);
+  margin-top: var(--space-1);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.feature-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.feature-stats {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.view-metagrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-1);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-key {
+  font-family: var(--sans);
+  font-size: var(--text-micro);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meta-value {
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  color: var(--text);
+}
+
 .cov-row {
   display: grid;
   grid-template-columns: 220px 1fr 48px;
@@ -177,6 +232,7 @@ section + section {
 .pair-row {
   display: grid;
   grid-template-columns: 1fr auto;
+  align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
   background: var(--surface-raised);
@@ -184,11 +240,50 @@ section + section {
   font-size: var(--text-label);
 }
 
+.pair-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.pair-feature-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.pair-corr {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .view-card {
   background: var(--surface-raised);
   border-radius: 6px;
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-3);
+}
+
+.archive-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.archive-row:last-child {
+  border-bottom: none;
+}
+
+.archive-row-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
 }
 
 .view-meta {
@@ -335,21 +430,24 @@ details.view-card summary {
   opacity: 0.55;
 }
 
+/* Plain text-link style, not a bordered pill -- this repeats twice per
+   correlation card (30+ on screen at once), so a boxed button reads as
+   visual noise at that density. Still clearly clickable via color + underline
+   on hover. */
 .prune-toggle {
   font-size: var(--text-micro);
-  padding: var(--space-1) var(--space-2);
-  border-radius: 999px;
-  border: 1px solid var(--line);
+  padding: 0;
+  border: none;
   background: transparent;
   color: var(--text-muted);
   font-family: var(--sans);
   cursor: pointer;
-  transition: border-color 120ms ease, color 120ms ease;
+  transition: color 120ms ease;
 }
 
 .prune-toggle:hover {
-  border-color: var(--accent);
   color: var(--accent);
+  text-decoration: underline;
 }
 
 .side-buy {

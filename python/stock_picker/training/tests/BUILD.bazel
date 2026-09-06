@@ -62,3 +62,14 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_importance",
+    srcs = ["test_importance.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)

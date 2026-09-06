@@ -1,6 +1,11 @@
 export interface CatalogResponse {
   catalog: Record<string, string[]>;
   descriptions: Record<string, string>;
+  formulas: Record<string, string>;
+}
+
+export interface ImportanceResponse {
+  importance: Record<string, number>;
 }
 
 export interface CoverageResponse {
@@ -76,8 +81,15 @@ export interface RegistryResponse {
   feature_services: FeatureService[];
 }
 
+export interface PrunedFeatureEntry {
+  feature: string;
+  reason: string;
+  pruned_at: string;
+}
+
 export interface PrunedFeaturesResponse {
   pruned_features: string[];
+  archive: PrunedFeatureEntry[];
 }
 
 export interface QuoteSummary {
@@ -120,15 +132,21 @@ async function mutate<T = void>(method: "POST" | "DELETE", path: string, body?: 
 }
 
 export const fetchCatalog = () => getJson<CatalogResponse>("/api/catalog");
+export const fetchFeatureImportance = () => getJson<ImportanceResponse>("/api/feature-importance");
 export const fetchCoverage = () => getJson<CoverageResponse>("/api/coverage");
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
 export const fetchPrunedFeatures = () => getJson<PrunedFeaturesResponse>("/api/pruned-features");
-export const pruneFeature = (feature: string) => mutate("POST", `/api/features/${encodeURIComponent(feature)}/prune`);
+export const pruneFeature = (feature: string, reason?: string) =>
+  mutate<PrunedFeaturesResponse>(
+    "POST",
+    `/api/features/${encodeURIComponent(feature)}/prune`,
+    reason ? { reason } : undefined,
+  );
 export const unpruneFeature = (feature: string) =>
-  mutate("DELETE", `/api/features/${encodeURIComponent(feature)}/prune`);
+  mutate<PrunedFeaturesResponse>("DELETE", `/api/features/${encodeURIComponent(feature)}/prune`);
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
