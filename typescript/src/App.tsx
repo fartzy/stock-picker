@@ -56,11 +56,7 @@ export default function App() {
       {tab === "features" && (
         <section>
           <h2>Registry</h2>
-          <p className="muted">
-            Coverage, importance, correlation, and pruning are per-feature attributes below, not
-            separate views. Sort by coverage or importance to scan for problems. Pruned/excluded
-            features are actually excluded from training, not just hidden here.
-          </p>
+          <p className="muted">Pruned features are excluded from training, not just hidden here.</p>
           <div className="panel">
             <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)} />
           </div>
