@@ -14,6 +14,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from stock_picker.training.ensemble import EnsembleMemberInfo
+
 # ---- requests ----
 
 
@@ -128,6 +130,10 @@ class FeatureSelectionResponse(BaseModel):
 class ImportanceResponse(BaseModel):
     importance: dict[str, float]
     by_model_type: dict[str, dict[str, float]]
+
+
+class ModelInfoResponse(BaseModel):
+    models: list[EnsembleMemberInfo]
 
 
 class PricePoint(BaseModel):

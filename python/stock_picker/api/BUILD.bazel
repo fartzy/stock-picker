@@ -1,5 +1,11 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
+# main.py is both a source in the :training library and its own py_binary
+# target (bazel run //python/stock_picker/training:main) -- gazelle can't
+# tell which one provides "stock_picker.training.main" for an import
+# crossing into this package, so it's told explicitly.
+# gazelle:resolve py stock_picker.training.main //python/stock_picker/training
+
 py_library(
     name = "api",
     srcs = [

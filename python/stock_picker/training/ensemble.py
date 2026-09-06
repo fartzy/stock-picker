@@ -64,3 +64,23 @@ def evaluate_ensemble(ensemble: Ensemble, test_frame: pd.DataFrame) -> Evaluatio
         directional_accuracy=float(np.mean(np.sign(predictions) == np.sign(actual))),
         n_test_rows=len(test_frame),
     )
+
+
+@dataclass
+class EnsembleMemberInfo:
+    model_type: str
+    weight: float
+    feature_count: int
+
+
+def ensemble_composition(ensemble: Ensemble) -> list[EnsembleMemberInfo]:
+    """Which model types make up this ensemble, their blend weights, and how
+    many features each was trained on -- the "what's actually in here" view
+    that `/api/feature-importance` doesn't answer on its own (it shows each
+    feature's *impact*, not the ensemble's *composition*). A weight of 0.0
+    means diagnostic-only (see model.py's train_logistic_regression) -- it
+    never affects the blended prediction."""
+    return [
+        EnsembleMemberInfo(model_type=member.model_type, weight=weight, feature_count=len(member.feature_names))
+        for member, weight in zip(ensemble.members, ensemble.weights)
+    ]

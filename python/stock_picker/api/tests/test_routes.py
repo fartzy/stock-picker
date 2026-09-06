@@ -221,6 +221,13 @@ def test_get_feature_importance_returns_empty_dict_without_a_trained_model(clien
     assert response.json() == {"importance": {}, "by_model_type": {}}
 
 
+def test_get_model_info_returns_empty_list_without_a_trained_model(client):
+    response = client.get("/api/model-info")
+
+    assert response.status_code == 200
+    assert response.json() == {"models": []}
+
+
 def test_get_feature_selection_starts_as_no_selection(client):
     response = client.get("/api/feature-selection")
 
