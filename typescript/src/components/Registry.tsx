@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   clearFeatureSelection,
   fetchCatalog,
+  fetchCorrelation,
   fetchCoverage,
   fetchFeatureImportance,
   fetchFeatureSelection,
@@ -11,6 +12,7 @@ import {
   setFeatureSelection,
   unpruneFeature,
   type CatalogResponse,
+  type CorrelationResponse,
   type CoverageResponse,
   type FeatureSelectionResponse,
   type FeatureView,
@@ -137,20 +139,38 @@ export default function Registry() {
   );
   const { data: selectionData, error: selectionError } =
     useFetchData<FeatureSelectionResponse>(fetchFeatureSelection);
+  const { data: correlationData, error: correlationError } =
+    useFetchData<CorrelationResponse>(fetchCorrelation);
   const [sortMode, setSortMode] = useState<SortMode>("pipeline");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [prunedOverride, setPrunedOverride] = useState<Set<string> | null>(null);
   // undefined = not yet initialized from the fetch; null = no selection
   // (every feature included); Set = an explicit selection.
   const [included, setIncluded] = useState<Set<string> | null | undefined>(undefined);
-  const error = [registryError, catalogError, coverageError, importanceError, prunedError, selectionError]
-    .filter(Boolean)
-    .join("; ") || null;
+  const error =
+    [registryError, catalogError, coverageError, importanceError, prunedError, selectionError, correlationError]
+      .filter(Boolean)
+      .join("; ") || null;
 
   const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
   const reasonByFeature = Object.fromEntries(
     (prunedData?.archive ?? []).map((entry) => [entry.feature, entry.reason]),
   );
+  // Each feature's single strongest partner from the correlation top-pairs
+  // list (a global top-30, not per-feature -- most features won't appear in
+  // it at all, which is fine, they just get no badge).
+  const bestCorrelationByFeature: Record<string, { partner: string; correlation: number }> = {};
+  for (const pair of correlationData?.top_pairs ?? []) {
+    for (const [feature, partner] of [
+      [pair.a, pair.b],
+      [pair.b, pair.a],
+    ] as const) {
+      const existing = bestCorrelationByFeature[feature];
+      if (!existing || Math.abs(existing.correlation) < Math.abs(pair.correlation)) {
+        bestCorrelationByFeature[feature] = { partner, correlation: pair.correlation };
+      }
+    }
+  }
   const allFeatureNames = new Set(
     (registry?.feature_views ?? []).flatMap((view) => view.features),
   );
@@ -176,7 +196,15 @@ export default function Registry() {
   }, [selectionData, included]);
 
   if (error) return <p className="error">{error}</p>;
-  if (!registry || !catalog || !coverage || !importance || !prunedData || included === undefined)
+  if (
+    !registry ||
+    !catalog ||
+    !coverage ||
+    !importance ||
+    !prunedData ||
+    !correlationData ||
+    included === undefined
+  )
     return <p className="muted">Loading registry...</p>;
 
   // Clicking the already-active mode flips direction (like a sortable table
@@ -293,6 +321,7 @@ export default function Registry() {
               const isPruned = pruned.has(feature);
               const isNegligible =
                 !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
+              const correlation = !isPruned ? bestCorrelationByFeature[feature] : undefined;
               const isSelected = included === null || included.has(feature);
               return (
                 <div className="feature-row" key={feature}>
@@ -328,7 +357,23 @@ export default function Registry() {
                           negligible
                         </button>
                       )}
-                      {!isPruned && !isNegligible && (
+                      {correlation && (
+                        <button
+                          type="button"
+                          className="feature-badge feature-badge-correlated"
+                          onClick={() =>
+                            togglePrune(
+                              feature,
+                              `high correlation to ${correlation.partner} (r=${correlation.correlation.toFixed(3)})`,
+                            )
+                          }
+                          title={`Correlated with ${correlation.partner} (r=${correlation.correlation.toFixed(3)}). Click to prune.`}
+                        >
+                          corr {correlation.correlation >= 0 ? "+" : ""}
+                          {correlation.correlation.toFixed(2)}
+                        </button>
+                      )}
+                      {!isPruned && !isNegligible && !correlation && (
                         <button
                           type="button"
                           className="prune-toggle"

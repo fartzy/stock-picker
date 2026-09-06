@@ -119,6 +119,11 @@ def client():
             raise FileNotFoundError(ticker)
         return history
 
+    def _feature_read_or_missing(ticker):
+        if ticker not in tables:
+            raise FileNotFoundError(ticker)
+        return tables[ticker]
+
     _pruned_state.clear()
     _training_config_state["included_features"] = None
     _training_config_state["model_choices"] = None
@@ -129,6 +134,7 @@ def client():
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
         patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
         patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
+        patch("stock_picker.api.routes.FeatureStore", mock_feature_store),
         patch("stock_picker.features.price_history.PriceStore") as mock_price_history_store,
         patch("stock_picker.features.price_history.download_price_history") as mock_download_history,
         patch("stock_picker.features.trades.TradeStore") as mock_trade_store,
@@ -143,7 +149,7 @@ def client():
     ):
         mock_universe_store.return_value.active_tickers.return_value = ["AAA", "BBB"]
         mock_price_store.return_value.read.return_value = history
-        mock_feature_store.return_value.read.side_effect = lambda t: tables[t]
+        mock_feature_store.return_value.read.side_effect = _feature_read_or_missing
         mock_price_history_store.return_value.read.side_effect = _read_or_missing
         mock_download_history.side_effect = lambda tickers, **kw: (
             {tickers[0]: history} if tickers[0] in tables else {}
@@ -402,6 +408,23 @@ def test_get_price_history_hourly(client):
 
 def test_get_price_history_404_for_untracked_ticker(client):
     response = client.get("/api/prices/NOT_A_TICKER")
+
+    assert response.status_code == 404
+
+
+def test_get_feature_values(client):
+    response = client.get("/api/features/AAA")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["ticker"] == "AAA"
+    assert "x" in body["columns"]
+    assert len(body["rows"]) == 140
+    assert set(body["rows"][0]) == {"date", *body["columns"]}
+
+
+def test_get_feature_values_404_for_untracked_ticker(client):
+    response = client.get("/api/features/NOT_A_TICKER")
 
     assert response.status_code == 404
 

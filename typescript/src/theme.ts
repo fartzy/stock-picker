@@ -6,8 +6,6 @@ const CSS_VAR_NAMES = {
   good: "--good",
   bad: "--bad",
   neutral: "--neutral",
-  corrNegative: "--corr-negative",
-  corrNeutral: "--corr-neutral",
   line: "--line",
   textMuted: "--text-muted",
 } as const;

@@ -1,16 +1,15 @@
 import { useState } from "react";
-import CorrelationHeatmap from "./components/CorrelationHeatmap";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 
-type Tab = "trading" | "features" | "prices";
+type Tab = "trading" | "features" | "data";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "trading", label: "Trading" },
   { id: "features", label: "Feature Store" },
-  { id: "prices", label: "Prices" },
+  { id: "data", label: "Data" },
 ];
 
 export default function App() {
@@ -61,27 +60,20 @@ export default function App() {
           <section>
             <h2>Registry</h2>
             <p className="muted">
-              Coverage, importance, and pruning are per-feature attributes below, not separate views.
-              Sort by either to scan for problems. Pruned/excluded features are actually excluded from
-              training, not just hidden here.
+              Coverage, importance, correlation, and pruning are per-feature attributes below, not
+              separate views. Sort by coverage or importance to scan for problems. Pruned/excluded
+              features are actually excluded from training, not just hidden here.
             </p>
             <div className="panel">
               <Registry />
             </div>
           </section>
-
-          <section>
-            <h2>Correlation &amp; Redundancy</h2>
-            <div className="panel">
-              <CorrelationHeatmap />
-            </div>
-          </section>
         </>
       )}
 
-      {tab === "prices" && (
+      {tab === "data" && (
         <section>
-          <h2>Price History</h2>
+          <h2>Ticker Data</h2>
           <div className="panel">
             <PriceHistory />
           </div>

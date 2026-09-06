@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { fetchPriceHistory, type PriceHistoryResponse } from "../api";
+import { fetchFeatureValues, fetchPriceHistory, type FeatureValuesResponse, type PriceHistoryResponse } from "../api";
 import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import { themeRgb } from "../theme";
@@ -102,6 +102,92 @@ function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["
   ctx.stroke();
 }
 
+function formatFeatureValue(value: number | string | null): string {
+  if (value === null) return "--";
+  if (typeof value === "number") return value.toFixed(4);
+  return value;
+}
+
+function FeatureValuesTable({ ticker, interval }: { ticker: string; interval: Interval }) {
+  const [filter, setFilter] = useState("");
+  // Feature tables are computed from daily price history only -- there's no
+  // hourly path (see pipeline.py's build_features), so this doesn't depend
+  // on the OHLCV table's interval toggle at all.
+  const { data: fetched, error: rawError } = useFetchData<FeatureValuesResponse>(
+    () =>
+      fetchFeatureValues(ticker).catch((err) => {
+        throw new Error(`${ticker}::${err.message}`);
+      }),
+    { deps: [ticker] },
+  );
+  const data = fetched && fetched.ticker === ticker ? fetched : null;
+  const error = rawError?.startsWith(`Error: ${ticker}::`) ? rawError : null;
+  const isNotFound = error?.includes("404") ?? false;
+
+  if (interval === "hourly") {
+    return (
+      <div className="view-card">
+        <h3>Derived features</h3>
+        <p className="muted">Derived features are computed from daily history only.</p>
+      </div>
+    );
+  }
+
+  if (isNotFound) {
+    return (
+      <div className="view-card">
+        <h3>Derived features</h3>
+        <p className="muted">No derived features for {ticker}.</p>
+      </div>
+    );
+  }
+  if (error) return <p className="error">{error}</p>;
+  if (!data) return <p className="muted">Loading derived features...</p>;
+
+  const columns = data.columns.filter((c) => c.toLowerCase().includes(filter.toLowerCase()));
+
+  return (
+    <div className="view-card">
+      <h3>Derived features ({data.columns.length})</h3>
+      <input
+        className="form-input"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        placeholder={`Filter ${data.columns.length} columns (e.g. "rsi")`}
+        style={{ marginBottom: "var(--space-3)", width: "100%" }}
+      />
+      {/* Horizontal scroll is deliberate, not a layout bug -- with ~90+
+          computed columns, a container that visibly scrolls both ways is the
+          signal that this table holds a lot of derived data, same spirit as
+          the filter box above it. */}
+      <div style={{ overflow: "auto", maxHeight: TABLE_MAX_HEIGHT_PX }}>
+        <table className="trade-table trade-table-wide">
+          <thead>
+            <tr>
+              <th>Date</th>
+              {columns.map((c) => (
+                <th key={c}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[...data.rows].reverse().map((row) => (
+              <tr key={row.date as string}>
+                <td>{formatRowDate(row.date as string, "daily")}</td>
+                {columns.map((c) => (
+                  <td className="trade-num" key={c}>
+                    {formatFeatureValue(row[c])}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export default function PriceHistory() {
   const [inputValue, setInputValue] = useState(DEFAULT_TICKER);
   const [ticker, setTicker] = useState(DEFAULT_TICKER);
@@ -171,6 +257,7 @@ export default function PriceHistory() {
       {!data && !error && <p className="muted">Loading...</p>}
       {data && data.prices.length > 0 && (
         <>
+          <h3>Price history (source data)</h3>
           {(() => {
             const latest = data.prices[data.prices.length - 1];
             const previous = data.prices[data.prices.length - 2];
@@ -224,6 +311,8 @@ export default function PriceHistory() {
               </table>
             </div>
           </div>
+
+          <FeatureValuesTable ticker={data.ticker} interval={interval} />
         </>
       )}
     </div>

@@ -13,8 +13,6 @@
   --good: #5fae8c;
   --bad: #d9647a;
   --neutral: #6b70a0;
-  --corr-negative: #6ea8ff;
-  --corr-neutral: #232d5c;
 
   /* Spacing scale -- covers every detail-level gap/padding/margin in the app.
      Page-level macro layout (.page) is intentionally its own thing below. */
@@ -102,6 +100,17 @@ h2 {
   margin: 0 0 var(--space-3);
 }
 
+/* A sub-heading splitting one tab's content into distinct parts (e.g. a
+   ticker's raw price history vs. its derived feature values) -- smaller and
+   muted relative to h2's per-tab section titles. */
+h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: var(--text-label);
+  color: var(--text-muted);
+  margin: 0 0 var(--space-2);
+}
+
 section + section {
   margin-top: var(--space-8);
 }
@@ -175,6 +184,11 @@ section + section {
   color: var(--accent);
 }
 
+.feature-badge-correlated {
+  background: color-mix(in srgb, var(--neutral) 25%, transparent);
+  color: var(--text);
+}
+
 .feature-name {
   color: var(--text);
 }
@@ -239,42 +253,6 @@ section + section {
   font-family: var(--sans);
   font-size: var(--text-label);
   color: var(--text);
-}
-
-.pair-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-2);
-}
-
-.pair-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  background: var(--surface-raised);
-  border-radius: 5px;
-  font-size: var(--text-label);
-}
-
-.pair-features {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  min-width: 0;
-}
-
-.pair-feature-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.pair-corr {
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
 }
 
 .view-card {
@@ -358,15 +336,13 @@ section + section {
   font-weight: 700;
 }
 
-details.view-card,
-.pair-row {
+details.view-card {
   border: 1px solid transparent;
   transition: border-color 120ms ease, transform 120ms ease;
 }
 
 details.view-card:hover,
-details.view-card:focus-within,
-.pair-row:hover {
+details.view-card:focus-within {
   border-color: var(--accent);
   transform: translateY(-1px);
 }
@@ -401,6 +377,20 @@ details.view-card summary {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--text-label);
+}
+
+/* The derived-features table can have 90+ columns -- `width: 100%` would
+   force the browser to squeeze/wrap every cell to fit the viewport instead
+   of letting the table (and its scroll container) grow wider than the
+   panel, which is the whole point of the horizontal scroll. */
+.trade-table-wide {
+  width: max-content;
+  min-width: 100%;
+}
+
+.trade-table-wide td,
+.trade-table-wide th {
+  white-space: nowrap;
 }
 
 .trade-table th,

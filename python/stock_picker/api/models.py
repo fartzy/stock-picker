@@ -170,6 +170,15 @@ class PriceHistoryResponse(BaseModel):
     prices: list[PricePoint]
 
 
+class FeatureValuesResponse(BaseModel):
+    ticker: str
+    columns: list[str]
+    # Each row: {"date": iso string, <feature>: value | null, ...} -- flat
+    # rather than a nested per-row dict, since the frontend just indexes a
+    # row by column name the same way regardless of which key it's reading.
+    rows: list[dict[str, float | str | None]]
+
+
 class Entity(BaseModel):
     name: str
     description: str

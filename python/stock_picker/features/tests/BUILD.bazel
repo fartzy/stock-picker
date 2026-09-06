@@ -182,6 +182,7 @@ py_pytest(
     imports = ["../../.."],
     deps = [
         "//python/stock_picker/features",
+        "@pypi//numpy",
         "@pypi//pandas",
     ],
 )

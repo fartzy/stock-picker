@@ -40,3 +40,19 @@ def price_series(history: pd.DataFrame) -> list[dict]:
         }
         for index, row in sorted_history.iterrows()
     ]
+
+
+def feature_value_rows(features: pd.DataFrame) -> list[dict]:
+    """Ascending-by-date derived-feature rows, JSON-serializable -- the same
+    per-ticker table `FeatureStore`/training reads, just flattened for
+    display. NaN becomes None: most rolling-window features are NaN for a
+    ticker's earliest dates (see README's coverage note), and that's a real,
+    displayable "not yet available" value, not an error."""
+    sorted_features = features.sort_index()
+    return [
+        {
+            "date": index.isoformat(),
+            **{col: (None if pd.isna(value) else float(value)) for col, value in row.items()},
+        }
+        for index, row in sorted_features.iterrows()
+    ]
