@@ -21,10 +21,7 @@ export default function App() {
         <h1>
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
-        <p className="muted">
-          Trading with live P&amp;L, a feature store (registry, coverage, correlation, pruning), and
-          price history, served live from the FastAPI backend.
-        </p>
+        <p className="muted">Live P&amp;L trading, a feature store, and price history.</p>
       </header>
 
       <div className="tab-bar">
@@ -60,9 +57,8 @@ export default function App() {
           <section>
             <h2>Registry</h2>
             <p className="muted">
-              Coverage, importance, correlation, and pruning are per-feature attributes below, not
-              separate views. Sort by coverage or importance to scan for problems. Pruned/excluded
-              features are actually excluded from training, not just hidden here.
+              Per-feature coverage, importance, correlation, and pruning. Excluded features are
+              actually excluded from training, not just hidden here.
             </p>
             <div className="panel">
               <Registry />
