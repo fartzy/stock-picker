@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchPriceHistory, type PriceHistoryResponse } from "../api";
+import { formatUsd } from "../format";
 import { themeRgb } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 const CHART_HEIGHT_PX = 320;
+const TABLE_MAX_HEIGHT_PX = 400;
 const MARGIN = { top: 16, right: 16, bottom: 28, left: 64 };
 const Y_AXIS_TICKS = 5;
 const X_AXIS_TICKS = 6;
@@ -16,6 +18,19 @@ function formatAxisDate(isoString: string, interval: Interval): string {
   return interval === "daily"
     ? d.toLocaleDateString(undefined, { month: "short", day: "numeric" })
     : d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" });
+}
+
+function formatRowDate(isoString: string, interval: Interval): string {
+  const d = new Date(isoString);
+  return interval === "daily"
+    ? d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
+    : d.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      });
 }
 
 function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["prices"], interval: Interval) {
@@ -160,6 +175,32 @@ export default function PriceHistory() {
             {data.ticker} close price, {data.prices.length} {interval === "daily" ? "days" : "hours"} --{" "}
             {data.prices[0].date.slice(0, 10)} to {data.prices[data.prices.length - 1].date.slice(0, 10)}
           </p>
+          <div style={{ overflowY: "auto", maxHeight: TABLE_MAX_HEIGHT_PX, marginTop: "var(--space-3)" }}>
+            <table className="trade-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Open</th>
+                  <th>High</th>
+                  <th>Low</th>
+                  <th>Close</th>
+                  <th>Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...data.prices].reverse().map((p) => (
+                  <tr key={p.date}>
+                    <td>{formatRowDate(p.date, interval)}</td>
+                    <td className="trade-num">{formatUsd(p.open)}</td>
+                    <td className="trade-num">{formatUsd(p.high)}</td>
+                    <td className="trade-num">{formatUsd(p.low)}</td>
+                    <td className="trade-num">{formatUsd(p.close)}</td>
+                    <td className="trade-num">{Math.round(p.volume).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </div>

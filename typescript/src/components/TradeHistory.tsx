@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { fetchPositions, type Position, type PositionsResponse } from "../api";
 import AddTradeForm from "./AddTradeForm";
+import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
-const CURRENCY_DECIMALS = 2;
 const POSITIONS_POLL_INTERVAL_MS = 60_000;
 
 function formatTime(executedAt: string): string {
@@ -22,14 +22,6 @@ function formatDay(day: string): string {
     month: "short",
     day: "numeric",
   });
-}
-
-function formatUsd(value: number): string {
-  const sign = value < 0 ? "-" : "";
-  return `${sign}$${Math.abs(value).toLocaleString("en-US", {
-    minimumFractionDigits: CURRENCY_DECIMALS,
-    maximumFractionDigits: CURRENCY_DECIMALS,
-  })}`;
 }
 
 interface PositionsSummary {
