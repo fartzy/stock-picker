@@ -186,33 +186,51 @@ data-integrity gotchas, none yet handled structurally:
 - [x] ~~Fold Feature Coverage into Registry~~ -- done. Coverage/importance are
       per-feature attributes shown inline; a sort-by-coverage/importance
       control replaces the old standalone worst-first section
-- [ ] Prune UX: archive + reason shipped, but the flow needs more thought.
-      Not done
-- [ ] Modular, composable model layer: `training/model.py` is hardcoded to
-      LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
-      model types (random forest, etc.) behind a common interface, plus
-      ensembling. Combine multiple models' predictions, possibly each
-      trained on a different feature subset, to capture different models'
-      complementary strengths rather than betting everything on one model
-      family. Once the training-side mechanism exists: no API endpoint or
-      frontend UI shows which models/weights are in the ensemble yet
-      (`routes.py` has no model-metadata endpoint today) -- separate,
-      additive follow-up, not blocking the mechanism itself
+- [ ] Registry still reads as plain unstyled text (no visual hierarchy,
+      spacing, or card treatment) -- needs actual visual design work, not
+      just content reorganization -- not done
+- [ ] Prune UX: redesign away from a separate archive section -- fold
+      "pruned" into Registry as a per-feature attribute (a pruned badge +
+      reason directly on that feature's row), browsable while scrolling
+      Registry instead of a second list to jump to -- not done
+- [ ] Modular, composable model layer: `training/model.py` no longer
+      hardcodes LightGBM -- `TrainedModel`/`ModelSpec`/`Ensemble` support
+      swapping in other model types (LightGBM + random forest today) behind a
+      common interface, plus ensembling. Leaving unchecked pending real
+      end-to-end confirmation the ensembled predictions actually behave as
+      intended, not just that tests pass
+- [ ] Once the ensemble mechanism exists: no API endpoint or frontend UI
+      shows which models/weights are in the ensemble, or which features feed
+      each individual member (vs. the pooled set) -- both still need a
+      model-metadata endpoint + Registry/UI surface
+- [ ] Feature importance today is per-model-type (LightGBM gain, random
+      forest impurity-based) -- add a logistic-regression-based importance
+      too (e.g. standardized |coefficient|, on the binary up/down framing of
+      the label), a genuinely different lens (linear/monotonic effect size
+      vs. tree-based split-gain) rather than another flavor of the same
+      tree-ensemble signal
+- [ ] A feature with ~zero importance across every ensemble member is a
+      pruning candidate today only if a human happens to notice it in the
+      Registry's importance sort -- surface an explicit "not moving the
+      model" flag/suggestion per feature instead of relying on someone
+      scanning the sorted list, feeding into the Prune UX redesign above
+      rather than replacing today's correlation-driven pruning
+- [ ] New/experimental features (e.g. the setup-seasonality additions) have
+      no way to be selectively included or excluded per training run from the
+      UI -- `training/model.py`'s `included_features`/`excluded_features`
+      params already support this on the backend, but there's no Registry/UI
+      control to pick which features a given run actually uses
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
+- [x] ~~Gap-then-continuation as a *historically conditioned* feature~~ --
+      done: `setup_seasonality` (per-ticker) + `pooled_setup_seasonality`
+      (across the universe, for younger tickers' sparser history) bucket
+      each day by (gap direction/size x prior-day-return direction/size) and
+      average historical same-day return for prior occurrences of that
+      setup. Real-market validation (so far only checked against synthetic
+      data with an injected effect) and a bucket-threshold A/B (fixed
+      +/-0.5% dead zone vs. per-ticker quantiles) are still open
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
-- [ ] Gap-then-continuation as a *historically conditioned* feature -- given
-      today's gap direction/size and the prior day's own return direction/size,
-      what's the empirical historical tendency for that setup, on average?
-      First pass in progress on `feature/feature-store-ux` (not yet on `main`):
-      `features/conditional_seasonality.py`'s `setup_seasonality`, a per-ticker
-      expanding-mean bucketed average (3x3 gap x prior-return buckets),
-      mirroring `calendar.py`'s `day_of_week_seasonality` mechanism and its
-      lookahead-safety discipline. Tested and wired into the pipeline/catalog/
-      Registry UI automatically. Still rough: fixed +/-0.5% bucket thresholds
-      (not ticker-adaptive), and a pooled-across-universe variant
-      (`pooled_setup_seasonality`, for sparser young-ticker histories) exists
-      but isn't wired into `build_features_for_universe` yet
 - [ ] Validation slice within each walk-forward fold for early stopping
 - [ ] Persist sector labels to unlock `sector_relative_return`
 - [ ] DuckDB for ad hoc SQL over the Parquet lake
