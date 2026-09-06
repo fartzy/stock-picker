@@ -12,7 +12,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 
-UNKNOWN_DESCRIPTION = "No description available for '{name}' -- add a pattern to descriptions.py."
+UNKNOWN_DESCRIPTION = "No description available for '{name}'. Add a pattern to descriptions.py."
 
 _PATTERNS: list[tuple[re.Pattern, Callable[[re.Match], str]]] = []
 
@@ -36,7 +36,7 @@ _pattern(
 _pattern(
     r"^momentum_spread_(\d+)_(\d+)d$",
     lambda m: (
-        f"{m[1]}-day return minus {m[2]}-day return -- positive means the trend is "
+        f"{m[1]}-day return minus {m[2]}-day return. Positive means the trend is "
         f"accelerating relative to its {m[2]}-day pace, negative means it's decelerating."
     ),
 )
@@ -51,12 +51,12 @@ _pattern(
     r"^volatility_(\d+)d$",
     lambda m: (
         f"Annualized standard deviation of daily returns over the trailing {m[1]} "
-        "days -- a realized-volatility estimate."
+        "days, a realized-volatility estimate."
     ),
 )
 _pattern(
     r"^atr_14$",
-    lambda m: "Average True Range (14-day) -- typical daily price range, accounting for gaps.",
+    lambda m: "Average True Range (14-day), typical daily price range, accounting for gaps.",
 )
 _pattern(
     r"^parkinson_vol_(\d+)d$",
@@ -76,20 +76,20 @@ _pattern(
 )
 _pattern(
     r"^macd_line$",
-    lambda m: "MACD line: 12-day EMA minus 26-day EMA -- a trend-following momentum indicator.",
+    lambda m: "MACD line: 12-day EMA minus 26-day EMA, a trend-following momentum indicator.",
 )
 _pattern(
     r"^macd_signal$",
-    lambda m: "9-day EMA of the MACD line -- the signal line used to spot MACD crossovers.",
+    lambda m: "9-day EMA of the MACD line, the signal line used to spot MACD crossovers.",
 )
 _pattern(
     r"^macd_hist$",
-    lambda m: "MACD line minus its signal line -- shows momentum shifts before a crossover.",
+    lambda m: "MACD line minus its signal line, showing momentum shifts before a crossover.",
 )
 _pattern(
     r"^rsi_(\d+)$",
     lambda m: (
-        f"Relative Strength Index over {m[1]} days -- above 70 is typically "
+        f"Relative Strength Index over {m[1]} days. Above 70 is typically "
         "overbought, below 30 oversold."
         + (" A short-term mean-reversion variant." if int(m[1]) <= 2 else "")
     ),
@@ -97,13 +97,13 @@ _pattern(
 _pattern(
     r"^stochastic_k_(\d+)d$",
     lambda m: (
-        f"Stochastic %K over {m[1]} days -- where today's close sits within the "
-        "recent high-low range (0-100)."
+        f"Stochastic %K over {m[1]} days, showing where today's close sits within "
+        "the recent high-low range (0-100)."
     ),
 )
 _pattern(
     r"^stochastic_d_(\d+)d$",
-    lambda m: f"3-day moving average of the {m[1]}-day stochastic %K -- the signal line for crossovers.",
+    lambda m: f"3-day moving average of the {m[1]}-day stochastic %K, the signal line for crossovers.",
 )
 _pattern(
     r"^bollinger_pct_b$",
@@ -112,33 +112,33 @@ _pattern(
 _pattern(
     r"^bollinger_bandwidth$",
     lambda m: (
-        "Width of the 20-day Bollinger Bands relative to the moving average -- "
-        "widens when volatility expands."
+        "Width of the 20-day Bollinger Bands relative to the moving average, "
+        "widening when volatility expands."
     ),
 )
 _pattern(
     r"^williams_r$",
-    lambda m: "Williams %R (14-day) -- similar to stochastic %K, inverted and offset; -100 to 0 scale.",
+    lambda m: "Williams %R (14-day), similar to stochastic %K, inverted and offset; -100 to 0 scale.",
 )
 _pattern(
     r"^cci$",
-    lambda m: "Commodity Channel Index (20-day) -- how far price has strayed from its statistical average.",
+    lambda m: "Commodity Channel Index (20-day), how far price has strayed from its statistical average.",
 )
 _pattern(
     r"^volume_ratio_(\d+)d$",
-    lambda m: f"Today's volume divided by its {m[1]}-day average -- above 1 means higher-than-usual activity.",
+    lambda m: f"Today's volume divided by its {m[1]}-day average. Above 1 means higher-than-usual activity.",
 )
 _pattern(
     r"^dollar_volume$",
-    lambda m: "Price times volume -- the dollar amount traded that day, a liquidity measure.",
+    lambda m: "Price times volume, the dollar amount traded that day, a liquidity measure.",
 )
 _pattern(
     r"^obv$",
-    lambda m: "On-Balance Volume -- a running total that adds volume on up days and subtracts it on down days.",
+    lambda m: "On-Balance Volume, a running total that adds volume on up days and subtracts it on down days.",
 )
 _pattern(
     r"^obv_change_(\d+)d$",
-    lambda m: f"Change in On-Balance Volume over the trailing {m[1]} days -- is buying/selling pressure accelerating.",
+    lambda m: f"Change in On-Balance Volume over the trailing {m[1]} days, showing whether buying/selling pressure is accelerating.",
 )
 _pattern(
     r"^volume_zscore_(\d+)d$",
@@ -147,7 +147,7 @@ _pattern(
 _pattern(
     r"^overnight_gap$",
     lambda m: (
-        "Percent change from yesterday's close to today's open -- the one feature "
+        "Percent change from yesterday's close to today's open, the one feature "
         "legitimately known before the market opens."
     ),
 )
@@ -167,11 +167,11 @@ _pattern(
 )
 _pattern(
     r"^skew_(\d+)d$",
-    lambda m: f"Skewness of daily returns over the trailing {m[1]} days -- asymmetry of the return distribution.",
+    lambda m: f"Skewness of daily returns over the trailing {m[1]} days, asymmetry of the return distribution.",
 )
 _pattern(
     r"^kurtosis_(\d+)d$",
-    lambda m: f"Kurtosis of daily returns over the trailing {m[1]} days -- how fat-tailed/prone to extreme moves.",
+    lambda m: f"Kurtosis of daily returns over the trailing {m[1]} days, how fat-tailed/prone to extreme moves.",
 )
 _pattern(
     r"^max_drawdown_(\d+)d$",
@@ -181,7 +181,7 @@ _pattern(
     r"^return_autocorr_(\d+)d$",
     lambda m: (
         f"Correlation between consecutive daily returns over the trailing {m[1]} "
-        "days -- positive means trending, negative means mean-reverting."
+        "days. Positive means trending, negative means mean-reverting."
     ),
 )
 _pattern(
@@ -190,7 +190,7 @@ _pattern(
 )
 _pattern(
     r"^var_5pct_(\d+)d$",
-    lambda m: f"5th-percentile daily return over the trailing {m[1]} days -- a historical Value-at-Risk estimate.",
+    lambda m: f"5th-percentile daily return over the trailing {m[1]} days, a historical Value-at-Risk estimate.",
 )
 _pattern(r"^day_of_week$", lambda m: "Day of the week (0=Monday .. 4=Friday).")
 _pattern(r"^day_of_month$", lambda m: "Calendar day of the month.")
@@ -212,7 +212,7 @@ _pattern(
     r"^pooled_setup_seasonality$",
     lambda m: (
         "Same as setup_seasonality, but averaged over prior occurrences of that "
-        "setup across every tracked ticker, not just this one -- denser and "
+        "setup across every tracked ticker, not just this one. Denser and "
         "available sooner for younger tickers, at the cost of mixing in other "
         "names' idiosyncratic behavior."
     ),
@@ -223,7 +223,7 @@ _pattern(
 )
 _pattern(
     r"^beta_60d$",
-    lambda m: "60-day rolling beta vs. the SPY benchmark -- sensitivity to overall market moves.",
+    lambda m: "60-day rolling beta vs. the SPY benchmark, sensitivity to overall market moves.",
 )
 _pattern(r"^correlation_60d$", lambda m: "60-day rolling correlation of daily returns vs. the SPY benchmark.")
 _pattern(
@@ -234,7 +234,7 @@ _pattern(
     r"^sector_relative_return$",
     lambda m: (
         "Return relative to the average return of same-sector peers "
-        "(not yet populated -- sector labels aren't persisted)."
+        "(not yet populated; sector labels aren't persisted)."
     ),
 )
 

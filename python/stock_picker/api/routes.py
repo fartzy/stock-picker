@@ -14,7 +14,6 @@ from stock_picker.api.models import (
     CatalogResponse,
     CorrelationResponse,
     CoverageResponse,
-    Entity,
     ImportanceResponse,
     PositionsResponse,
     PriceHistoryResponse,
@@ -41,7 +40,7 @@ from stock_picker.features.price_history import (
 )
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
-from stock_picker.features.registry import build_registry
+from stock_picker.features.registry import TICKER_ENTITY, build_registry
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.trade_store import Trade, TradeStore
@@ -154,15 +153,7 @@ def get_price_history(ticker: str, interval: Literal["daily", "hourly"] = "daily
 def get_registry() -> RegistryResponse:
     feature_views, feature_services = build_registry(sample_history())
     return RegistryResponse(
-        entities=[
-            Entity(
-                name="ticker",
-                description=(
-                    "A single publicly traded stock ticker (e.g. AAPL) -- the join "
-                    "key every feature view is keyed on."
-                ),
-            )
-        ],
+        entities=[asdict(TICKER_ENTITY)],
         feature_views=[asdict(view) for view in feature_views],
         feature_services=[asdict(service) for service in feature_services],
     )

@@ -69,7 +69,7 @@ class FreshnessResult:
 
 TICKER_ENTITY = Entity(
     name=TICKER_ENTITY_NAME,
-    description="A single publicly traded stock ticker (e.g. AAPL) -- the join key every feature view is keyed on.",
+    description="A single publicly traded stock ticker (e.g. AAPL), the join key every feature view is keyed on.",
 )
 
 

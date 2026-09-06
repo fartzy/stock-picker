@@ -191,7 +191,10 @@ loop):
 - [ ] Wire `check_freshness()` into live inference (staleness/overnight-gap
       checks)
 - [ ] Registry: inline coverage/importance + sort control, revisit polish
-- [ ] Registry visual polish -- still reads plain
+- [ ] Registry visual polish -- raised repeatedly, still not resolved. Header
+      wordmark got a small pass but the page as a whole (Registry included)
+      still reads plain -- a real design pass is needed, not another small
+      tweak
 - [ ] Prune UX: fold pruned status into Registry per-feature instead of a
       separate archive
 - [ ] Modular model layer: LightGBM + random forest ensemble -- revisit
@@ -201,16 +204,14 @@ loop):
       gain, RF impurity)
 - [ ] Flag near-zero-importance features + one-click prune from Registry
 - [ ] Pick which features feed a training run from the UI
-- [ ] Show what a feature is correlated to directly on its Registry row (top
-      N and/or over a threshold). Per-row correlations would actually cover
-      *more* pairs than today's top-15 global list (a feature's own worst
-      match doesn't have to crack the global top 15 to matter for that
-      feature). Once that's in, revisit whether the separate Correlation tab
-      is still pulling weight, or whether the canvas heatmap matrix
-      specifically (not the ranked pairs list, which is the actually
-      actionable part) can go -- the matrix mainly helps spot whole-universe
-      correlation clusters at a glance, which per-row browsing doesn't
-      replace, so don't drop it without confirming that's not needed
+- [ ] Fold Correlation & Redundancy into Registry entirely (asked for this
+      more than once now) -- what a feature correlates to (top N and/or over
+      a threshold) becomes a per-row attribute, same as coverage/importance/
+      pruned today. Per-row would actually cover *more* pairs than today's
+      top-15 global list (a feature's own worst match doesn't have to crack
+      the global top 15 to matter for that feature). Still confirm the
+      canvas heatmap matrix's whole-universe cluster view isn't needed
+      before dropping it, not just the ranked pairs list
 - [ ] Training run drill-down: which tickers and date range fed a given run,
       not just the holdout summary line. MLflow already logs per-fold
       metrics/params but not ticker/date provenance, and isn't surfaced in
