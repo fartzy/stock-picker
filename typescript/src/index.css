@@ -322,13 +322,22 @@ section + section {
   padding: var(--space-1) var(--space-3);
   font-family: var(--sans);
   font-size: var(--text-label);
+  font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
 }
 
+.interval-toggle button:not(.active):hover {
+  color: var(--text);
+}
+
+/* Not just a color swap -- active state also gets bold weight, so it reads
+   clearly even at a glance or under poor color rendering. */
 .interval-toggle button.active {
   background: var(--accent);
   color: var(--ink);
+  font-weight: 700;
 }
 
 details.view-card,

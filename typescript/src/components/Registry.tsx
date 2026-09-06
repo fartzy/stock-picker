@@ -14,6 +14,8 @@ import { coverageColor, importanceColor } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 type SortMode = "pipeline" | "coverage" | "importance";
+type SortDirection = "asc" | "desc";
+
 const SORT_MODES: { id: SortMode; label: string }[] = [
   { id: "pipeline", label: "Pipeline order" },
   { id: "coverage", label: "Coverage" },
@@ -23,20 +25,23 @@ const SORT_MODES: { id: SortMode; label: string }[] = [
 // Coverage/importance are attributes of a feature, not a separate view -- this
 // sorts each category's own feature list rather than adding a whole standalone
 // "worst first" screen duplicating what's already shown per-feature below.
+// Missing values (e.g. design-only cross-sectional columns with no coverage
+// entry) always sort to the end, regardless of direction -- they aren't a
+// "worst" or "best" case, just not applicable.
 function sortFeatures(
   features: string[],
   mode: SortMode,
+  direction: SortDirection,
   coverage: Record<string, number>,
   importance: Record<string, number>,
 ): string[] {
   if (mode === "pipeline") return features;
-  const worstFirst = mode === "coverage";
   const values = mode === "coverage" ? coverage : importance;
-  const missingValue = worstFirst ? 1 : -1; // missing coverage sorts as "best" (design-only, not broken); missing importance sorts last
+  const missingValue = direction === "asc" ? Infinity : -Infinity;
   return [...features].sort((a, b) => {
     const va = values[a] ?? missingValue;
     const vb = values[b] ?? missingValue;
-    return worstFirst ? va - vb : vb - va;
+    return direction === "asc" ? va - vb : vb - va;
   });
 }
 
@@ -86,11 +91,24 @@ export default function Registry() {
   const { data: importance, error: importanceError } =
     useFetchData<ImportanceResponse>(fetchFeatureImportance);
   const [sortMode, setSortMode] = useState<SortMode>("pipeline");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const error =
     [registryError, catalogError, coverageError, importanceError].filter(Boolean).join("; ") || null;
 
   if (error) return <p className="error">{error}</p>;
   if (!registry || !catalog || !coverage || !importance) return <p className="muted">Loading registry...</p>;
+
+  // Clicking the already-active mode flips direction (like a sortable table
+  // header); clicking a different mode switches to it at a sensible default
+  // (worst-first for coverage, best-first for importance).
+  function handleSortClick(mode: SortMode) {
+    if (mode === sortMode) {
+      setSortDirection((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortMode(mode);
+      setSortDirection(mode === "importance" ? "desc" : "asc");
+    }
+  }
 
   return (
     <div>
@@ -118,12 +136,19 @@ export default function Registry() {
               key={m.id}
               type="button"
               className={sortMode === m.id ? "active" : ""}
-              onClick={() => setSortMode(m.id)}
+              onClick={() => handleSortClick(m.id)}
             >
               {m.label}
+              {sortMode === m.id && m.id !== "pipeline" && (sortDirection === "asc" ? " ▲" : " ▼")}
             </button>
           ))}
         </div>
+        {sortMode !== "pipeline" && (
+          <span className="muted" style={{ fontSize: "var(--text-caption)" }}>
+            {sortMode === "coverage" ? "Coverage" : "Importance"},{" "}
+            {sortDirection === "asc" ? "lowest first" : "highest first"}. Click again to flip.
+          </span>
+        )}
       </div>
       {registry.feature_views.map((view) => (
         <details className="view-card" key={view.name}>
@@ -132,7 +157,7 @@ export default function Registry() {
             <MetaGrid view={view} />
           </summary>
           <div className="view-features">
-            {sortFeatures(view.features, sortMode, coverage.coverage, importance.importance).map((feature) => {
+            {sortFeatures(view.features, sortMode, sortDirection, coverage.coverage, importance.importance).map((feature) => {
               const pct = coverage.coverage[feature];
               const imp = importance.importance[feature];
               return (
