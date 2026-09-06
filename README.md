@@ -222,7 +222,10 @@ loop):
       metrics/params but not ticker/date provenance, and isn't surfaced in
       the app UI at all today (a separate `mlflow ui` process against
       `data/mlruns/mlflow.db`) -- decide whether to extend MLflow logging or
-      just have the Training panel surface a run manifest directly
+      just have the Training panel surface a run manifest directly. If
+      MLflow stays the source of truth for this, the Training panel should
+      at minimum link out to the local `mlflow ui` -- right now there's no
+      link anywhere, so nobody would know to run that separate process
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
       thresholds, validate against real (not just synthetic) data
