@@ -185,3 +185,14 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_conditional_seasonality",
+    srcs = ["test_conditional_seasonality.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
+)

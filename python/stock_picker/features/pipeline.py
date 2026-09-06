@@ -6,6 +6,9 @@ import pandas as pd
 
 from stock_picker.features.calendar import build_calendar_features
 from stock_picker.features.candle import build_candle_features
+from stock_picker.features.conditional_seasonality import (
+    build_conditional_seasonality_features,
+)
 from stock_picker.features.cross_sectional import (
     RETURN_RANK_WINDOWS,
     build_cross_sectional_features,
@@ -39,6 +42,7 @@ def build_features(
         build_candle_features(history),
         build_distributional_features(history),
         build_calendar_features(history),
+        build_conditional_seasonality_features(history),
         build_cross_sectional_features(
             history,
             benchmark_history=benchmark_history,

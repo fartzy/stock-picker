@@ -196,11 +196,19 @@ data-integrity gotchas, none yet handled structurally:
       family
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
-      over-week/vs-10-days-ago); gap-then-continuation, specifically as a
-      *historically conditioned* feature -- given today's gap direction/size
-      (or the last few days' pattern), what's the empirical historical
-      tendency for that setup to continue vs. reverse intraday, not just a
-      single yes/no
+      over-week/vs-10-days-ago)
+- [ ] Gap-then-continuation as a *historically conditioned* feature -- given
+      today's gap direction/size and the prior day's own return direction/size,
+      what's the empirical historical tendency for that setup, on average?
+      First pass in progress on `feature/feature-store-ux` (not yet on `main`):
+      `features/conditional_seasonality.py`'s `setup_seasonality`, a per-ticker
+      expanding-mean bucketed average (3x3 gap x prior-return buckets),
+      mirroring `calendar.py`'s `day_of_week_seasonality` mechanism and its
+      lookahead-safety discipline. Tested and wired into the pipeline/catalog/
+      Registry UI automatically. Still rough: fixed +/-0.5% bucket thresholds
+      (not ticker-adaptive), and a pooled-across-universe variant
+      (`pooled_setup_seasonality`, for sparser young-ticker histories) exists
+      but isn't wired into `build_features_for_universe` yet
 - [ ] Validation slice within each walk-forward fold for early stopping
 - [ ] Persist sector labels to unlock `sector_relative_return`
 - [ ] DuckDB for ad hoc SQL over the Parquet lake

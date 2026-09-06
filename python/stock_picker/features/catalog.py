@@ -11,6 +11,7 @@ import pandas as pd
 from stock_picker.features import (
     calendar,
     candle,
+    conditional_seasonality,
     cross_sectional,
     distributional,
     momentum,
@@ -31,6 +32,7 @@ _SINGLE_TICKER_BUILDERS = {
     "candle": candle.build_candle_features,
     "distributional": distributional.build_distributional_features,
     "calendar": calendar.build_calendar_features,
+    "conditional_seasonality": conditional_seasonality.build_conditional_seasonality_features,
 }
 
 
