@@ -4,12 +4,21 @@ import { themeRgb } from "../theme";
 import { useFetchData } from "../useFetchData";
 
 const CHART_HEIGHT_PX = 320;
-const CHART_PADDING_PX = 24;
+const MARGIN = { top: 16, right: 16, bottom: 28, left: 64 };
+const Y_AXIS_TICKS = 5;
+const X_AXIS_TICKS = 6;
 const DEFAULT_TICKER = "AAPL";
 
 type Interval = "daily" | "hourly";
 
-function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["prices"]) {
+function formatAxisDate(isoString: string, interval: Interval): string {
+  const d = new Date(isoString);
+  return interval === "daily"
+    ? d.toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    : d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" });
+}
+
+function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["prices"], interval: Interval) {
   const dpr = window.devicePixelRatio || 1;
   const width = canvas.clientWidth;
   const height = CHART_HEIGHT_PX;
@@ -26,11 +35,43 @@ function drawLineChart(canvas: HTMLCanvasElement, prices: PriceHistoryResponse["
   const min = Math.min(...closes);
   const max = Math.max(...closes);
   const range = max - min || 1;
-  const plotWidth = width - CHART_PADDING_PX * 2;
-  const plotHeight = height - CHART_PADDING_PX * 2;
+  const plotWidth = width - MARGIN.left - MARGIN.right;
+  const plotHeight = height - MARGIN.top - MARGIN.bottom;
 
-  const xFor = (i: number) => CHART_PADDING_PX + (i / (closes.length - 1 || 1)) * plotWidth;
-  const yFor = (v: number) => CHART_PADDING_PX + plotHeight - ((v - min) / range) * plotHeight;
+  const xFor = (i: number) => MARGIN.left + (i / (closes.length - 1 || 1)) * plotWidth;
+  const yFor = (v: number) => MARGIN.top + plotHeight - ((v - min) / range) * plotHeight;
+
+  const [lineR, lineG, lineB] = themeRgb("line");
+  const [mutedR, mutedG, mutedB] = themeRgb("textMuted");
+  const gridColor = `rgb(${lineR},${lineG},${lineB})`;
+  const labelColor = `rgb(${mutedR},${mutedG},${mutedB})`;
+  ctx.font = "11px ui-monospace, monospace";
+  ctx.strokeStyle = gridColor;
+  ctx.fillStyle = labelColor;
+  ctx.lineWidth = 1;
+
+  // Y-axis: price gridlines + labels.
+  for (let i = 0; i < Y_AXIS_TICKS; i++) {
+    const value = min + (range * i) / (Y_AXIS_TICKS - 1);
+    const y = yFor(value);
+    ctx.beginPath();
+    ctx.moveTo(MARGIN.left, y);
+    ctx.lineTo(width - MARGIN.right, y);
+    ctx.stroke();
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(`$${value.toFixed(2)}`, MARGIN.left - 8, y);
+  }
+
+  // X-axis: date labels. First/last are edge-aligned so they don't clip off
+  // the canvas; everything in between is centered on its tick.
+  ctx.textBaseline = "top";
+  for (let i = 0; i < X_AXIS_TICKS; i++) {
+    const index = Math.round((i / (X_AXIS_TICKS - 1)) * (prices.length - 1));
+    const x = xFor(index);
+    ctx.textAlign = i === 0 ? "left" : i === X_AXIS_TICKS - 1 ? "right" : "center";
+    ctx.fillText(formatAxisDate(prices[index].date, interval), x, height - MARGIN.bottom + 8);
+  }
 
   const [r, g, b] = themeRgb("accent");
   ctx.strokeStyle = `rgb(${r},${g},${b})`;
@@ -70,7 +111,7 @@ export default function PriceHistory() {
   const isNotFound = error?.includes("404") ?? false;
 
   useEffect(() => {
-    if (data && canvasRef.current) drawLineChart(canvasRef.current, data.prices);
+    if (data && canvasRef.current) drawLineChart(canvasRef.current, data.prices, data.interval);
   }, [data]);
 
   function handleSubmit(e: React.FormEvent) {
