@@ -194,6 +194,8 @@ data-integrity gotchas, none yet handled structurally:
       gain, RF impurity)
 - [ ] Flag near-zero-importance features + one-click prune from Registry
 - [ ] Pick which features feed a training run from the UI
+- [ ] Show what a feature is correlated to directly on its Registry row (top
+      N and/or over a threshold), not only in the separate Correlation tab
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
       thresholds, validate against real (not just synthetic) data
