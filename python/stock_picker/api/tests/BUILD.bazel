@@ -9,8 +9,10 @@ py_pytest(
         "//python/stock_picker/api",
         "//python/stock_picker/features/tests:fixtures",
         "//python/stock_picker/storage",
+        "//python/stock_picker/training",
         "@pypi//fastapi",
         "@pypi//httpx",  # keep: FastAPI's TestClient needs httpx as its transport, no direct import
+        "@pypi//numpy",
         "@pypi//pandas",
     ],
 )

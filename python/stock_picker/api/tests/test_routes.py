@@ -1,5 +1,7 @@
+from datetime import date, timedelta
 from unittest.mock import patch
 
+import numpy as np
 import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
@@ -7,6 +9,9 @@ from fastapi.testclient import TestClient
 from stock_picker.api.app import app
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.training_run_store import TrainingRunStore
+from stock_picker.training.dataset import LABEL_COLUMN
+from stock_picker.training.ensemble import Ensemble
+from stock_picker.training.model import train_lightgbm
 
 # Prune/unprune mutate a real store instance rather than returning canned
 # values, so a stateful fake (shared across both import sites routes.py
@@ -499,3 +504,54 @@ def test_get_registry(client):
     assert body["entities"][0]["name"] == "ticker"
     assert len(body["feature_views"]) == 11
     assert body["feature_services"][0]["name"] == "day_session_return_model"
+
+
+def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):
+    with patch("stock_picker.training.buy_signal.ModelStore") as mock_model_store:
+        mock_model_store.return_value.exists.return_value = False
+
+        response = client.get("/api/buy-signal")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["signals"] == []
+    assert body["skipped"] == [{"ticker": "", "reason": "no trained model persisted yet"}]
+
+
+def test_get_buy_signal_scores_active_tickers_and_serializes_the_full_shape(client):
+    # buy_signal.py resolves its own stores independently of the `client`
+    # fixture's route-scoped patches (see api/routes.py's imports) -- so this
+    # endpoint's own store references are patched directly here, same as the
+    # module-level fixture already does for `stock_picker.features.quotes`.
+    rng = np.random.default_rng(0)
+    signal = rng.normal(size=200)
+    train_frame = pd.DataFrame({"signal": signal, LABEL_COLUMN: 0.02 * np.sign(signal)})
+    model = train_lightgbm(train_frame, params={"min_data_in_leaf": 5}, num_boost_round=20)
+    ensemble = Ensemble(members=[model], weights=[1.0])
+    snapshot_date = date.today() - timedelta(days=1)
+    feature_frame = pd.DataFrame({"signal": [5.0]}, index=pd.DatetimeIndex([snapshot_date], name="date"))
+
+    with (
+        patch("stock_picker.training.buy_signal.ModelStore") as mock_model_store,
+        patch("stock_picker.training.buy_signal.UniverseStore") as mock_universe_store,
+        patch("stock_picker.training.buy_signal.FeatureStore") as mock_feature_store,
+        patch("stock_picker.features.quotes.fetch_quotes") as mock_fetch_quotes,
+    ):
+        mock_model_store.return_value.exists.return_value = True
+        mock_model_store.return_value.read.return_value = ensemble
+        mock_universe_store.return_value.active_tickers.return_value = ["ZZZ"]
+        mock_feature_store.return_value.read.return_value = feature_frame
+        mock_fetch_quotes.return_value = {"ZZZ": {"open": 101.0, "last": 102.0, "prev_close": 100.0}}
+
+        response = client.get("/api/buy-signal", params={"threshold": 0.005})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["threshold"] == 0.005
+    assert body["scored_count"] == 1
+    assert body["skipped"] == []
+    [signal_row] = body["signals"]
+    assert signal_row["ticker"] == "ZZZ"
+    assert signal_row["predicted_return"] > 0.005
+    assert signal_row["open_price"] == 101.0
+    assert body["top_drivers"][0]["feature"] == "signal"

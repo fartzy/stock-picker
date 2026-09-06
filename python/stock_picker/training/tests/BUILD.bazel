@@ -110,3 +110,15 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_buy_signal",
+    srcs = ["test_buy_signal.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)

@@ -250,6 +250,36 @@ export interface QuotesResponse {
   quotes: QuoteSummary[];
 }
 
+export interface BuySignalRow {
+  ticker: string;
+  predicted_return: number;
+  open_price: number;
+  snapshot_date: string;
+}
+
+export interface SkippedTicker {
+  ticker: string;
+  reason: string;
+}
+
+export interface TopDriver {
+  feature: string;
+  importance: number;
+}
+
+export interface BuySignalResponse {
+  as_of: string;
+  threshold: number;
+  // Sorted by predicted_return descending.
+  signals: BuySignalRow[];
+  scored_count: number;
+  // Never a silent drop -- every ticker that didn't get scored is listed
+  // here with why (no quote, stale snapshot, implausible gap, ...). A
+  // single entry with ticker "ALL" means no model is trained yet at all.
+  skipped: SkippedTicker[];
+  top_drivers: TopDriver[];
+}
+
 export interface TradeCreate {
   ticker: string;
   side: "buy" | "sell";
@@ -318,3 +348,5 @@ export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/train
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
+export const fetchBuySignal = (threshold: number) =>
+  getJson<BuySignalResponse>(`/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}`);

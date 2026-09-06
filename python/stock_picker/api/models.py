@@ -247,3 +247,29 @@ class RegistryResponse(BaseModel):
     entities: list[Entity]
     feature_views: list[FeatureView]
     feature_services: list[FeatureService]
+
+
+class BuySignalRow(BaseModel):
+    ticker: str
+    predicted_return: float
+    open_price: float
+    snapshot_date: str
+
+
+class SkippedTicker(BaseModel):
+    ticker: str
+    reason: str
+
+
+class TopDriver(BaseModel):
+    feature: str
+    importance: float
+
+
+class BuySignalResponse(BaseModel):
+    as_of: str
+    threshold: float
+    signals: list[BuySignalRow]
+    scored_count: int
+    skipped: list[SkippedTicker]
+    top_drivers: list[TopDriver]
