@@ -393,6 +393,39 @@ details.view-card summary {
   white-space: nowrap;
 }
 
+/* Frozen Date column + sticky header, so scrolling 90+ columns right never
+   loses the row/column context. Sticky cells need their own opaque
+   background (matching .view-card's) or the scrolled-under content shows
+   through underneath them. */
+.trade-table-wide thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface-raised);
+}
+
+.trade-table-wide td:first-child,
+.trade-table-wide th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface-raised);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* The one cell sticky in both directions has to win the stacking order at
+   the corner, above both the sticky header row and the sticky first column. */
+.trade-table-wide thead th:first-child {
+  z-index: 3;
+}
+
+/* Marks where one feature-category (Registry's own grouping) ends and the
+   next begins, so scrolling through 90+ undifferentiated-looking columns
+   still shows where you are. */
+.trade-table-wide .col-group-start {
+  border-left: 2px solid var(--line);
+}
+
 .trade-table th,
 .trade-table td {
   padding: var(--space-2) var(--space-3);

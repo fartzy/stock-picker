@@ -74,6 +74,28 @@ export function importanceColor(pct: number | undefined): string {
   return `rgb(${rgb.join(",")})`;
 }
 
+// The strongest tint a shaded cell can reach, at the column's own extreme
+// value -- kept well under 1 so the number underneath always stays legible,
+// per the same "color alongside the number, not instead of it" reasoning
+// coverageColor/importanceColor already follow with a bounded gradient range.
+export const MAGNITUDE_SHADE_MAX_ALPHA = 0.35;
+
+// A diverging tint for a signed numeric cell (e.g. a derived feature's raw
+// value), reusing --good/--bad exactly as Diff.tsx already does for price
+// moves -- no new color concept, just applied per-cell instead of per-quote.
+// Unlike coverageColor/importanceColor (one-directional 0..1 gradients),
+// this scales alpha with |value| relative to that column's own max -- a
+// column-relative scale, since features span wildly different raw ranges
+// (RSI 0-100 vs. returns ~0.02) and a shared absolute scale would wash out
+// everything but the widest-range columns.
+export function signedMagnitudeColor(value: number, maxAbs: number): string {
+  if (maxAbs === 0) return "transparent";
+  const t = Math.max(-1, Math.min(1, value / maxAbs));
+  const base = themeRgb(t >= 0 ? "good" : "bad");
+  const alpha = Math.abs(t) * MAGNITUDE_SHADE_MAX_ALPHA;
+  return `rgba(${base.join(",")}, ${alpha.toFixed(2)})`;
+}
+
 // A feature below this contributes almost nothing to the trained ensemble --
 // with ~95 features, a uniform split would average ~1.05% each, so anything
 // under half that is a real standout-low, not just "below average." Below
