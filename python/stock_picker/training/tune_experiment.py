@@ -19,6 +19,7 @@ run directly via `bazel run //python/stock_picker/training:tune_experiment`.
 from __future__ import annotations
 
 import functools
+import os
 import time
 
 import numpy as np
@@ -129,23 +130,42 @@ def prune_low_value_features(pooled_train, excluded):
 # count (~100k+) both scale noticeably with depth/tree count. RandomForest in
 # particular never goes past a few hundred shallow-ish trees here: unlimited
 # depth on this many rows is the single slowest thing this script could do.
-import os
-
+#
 # Neither library parallelizes by default in this environment (confirmed by
 # a run whose cumulative CPU time tracked wall-clock time 1:1 -- i.e. one
 # core, the whole time, on a 14-core machine). Both get explicit thread
 # counts below rather than trusting an auto-detect that clearly isn't firing.
 N_CORES = os.cpu_count() or 4
 
+# Round 1 (depth/leaves/min-data only) picked num_leaves=15/max_depth=4/
+# min_data_in_leaf=30 as the winner (see git history for the full round-1
+# grid) -- round 2 holds that shape fixed and varies the regularization
+# knobs round 1 never touched (feature/bagging fraction, L2), plus a couple
+# of RF configs with meaningfully more trees now that n_jobs actually works.
 LGBM_CANDIDATES = [
-    {"num_leaves": 7, "max_depth": 3, "min_data_in_leaf": 20, "learning_rate": 0.05, "num_threads": N_CORES},
     {"num_leaves": 15, "max_depth": 4, "min_data_in_leaf": 30, "learning_rate": 0.05, "num_threads": N_CORES},
-    {"num_leaves": 31, "max_depth": 5, "min_data_in_leaf": 50, "learning_rate": 0.05, "num_threads": N_CORES},
+    {
+        "num_leaves": 15, "max_depth": 4, "min_data_in_leaf": 30, "learning_rate": 0.05,
+        "feature_fraction": 0.8, "num_threads": N_CORES,
+    },
+    {
+        "num_leaves": 15, "max_depth": 4, "min_data_in_leaf": 30, "learning_rate": 0.05,
+        "bagging_fraction": 0.8, "bagging_freq": 5, "num_threads": N_CORES,
+    },
+    {
+        "num_leaves": 15, "max_depth": 4, "min_data_in_leaf": 30, "learning_rate": 0.05,
+        "feature_fraction": 0.8, "bagging_fraction": 0.8, "bagging_freq": 5, "lambda_l2": 1.0,
+        "num_threads": N_CORES,
+    },
+    {
+        "num_leaves": 31, "max_depth": 5, "min_data_in_leaf": 30, "learning_rate": 0.03,
+        "feature_fraction": 0.8, "bagging_fraction": 0.8, "bagging_freq": 5, "num_threads": N_CORES,
+    },
 ]
 RF_CANDIDATES = [
     {"n_estimators": 200, "max_depth": 4, "min_samples_leaf": 20, "n_jobs": -1},
-    {"n_estimators": 200, "max_depth": 6, "min_samples_leaf": 30, "n_jobs": -1},
-    {"n_estimators": 300, "max_depth": 8, "min_samples_leaf": 50, "n_jobs": -1},
+    {"n_estimators": 500, "max_depth": 4, "min_samples_leaf": 20, "n_jobs": -1},
+    {"n_estimators": 500, "max_depth": 6, "min_samples_leaf": 30, "max_features": 0.5, "n_jobs": -1},
 ]
 
 

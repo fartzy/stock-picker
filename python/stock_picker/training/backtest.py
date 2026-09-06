@@ -16,15 +16,25 @@ import pandas as pd
 DEFAULT_THRESHOLDS = [0.0, 0.005, 0.01, 0.02, 0.03]
 
 
-def simulate_trades(predicted: pd.Series, actual: pd.Series, threshold: float) -> dict:
-    """P&L if we'd bought whenever predicted > threshold, sold at the close same day."""
+def simulate_trades(predicted: pd.Series, actual: pd.Series, threshold: float, n_days: int | None = None) -> dict:
+    """P&L if we'd bought whenever predicted > threshold, sold at the close same day.
+
+    `n_days` (the number of distinct trading days the sweep covers, across
+    however many tickers), when given, adds `avg_picks_per_day` -- `n_trades`
+    alone is a total across the whole evaluation window (e.g. a year of
+    holdout tickers), which answers "how many trades total" but not "how many
+    stocks would this actually flag on any given day," the more intuitive
+    question for someone deciding whether to check the screen today.
+    """
     taken = predicted > threshold
+    n_trades = int(taken.sum())
     trade_returns = actual[taken]
     has_trades = len(trade_returns) > 0
 
     return {
         "threshold": threshold,
-        "n_trades": int(taken.sum()),
+        "n_trades": n_trades,
+        "avg_picks_per_day": (n_trades / n_days) if n_days else None,
         "hit_rate": float((trade_returns > 0).mean()) if has_trades else float("nan"),
         "total_return": float(trade_returns.sum()) if has_trades else float("nan"),
         "avg_return": float(trade_returns.mean()) if has_trades else float("nan"),
@@ -33,6 +43,9 @@ def simulate_trades(predicted: pd.Series, actual: pd.Series, threshold: float) -
 
 
 def sweep_thresholds(
-    predicted: pd.Series, actual: pd.Series, thresholds: list[float] = DEFAULT_THRESHOLDS
+    predicted: pd.Series,
+    actual: pd.Series,
+    thresholds: list[float] = DEFAULT_THRESHOLDS,
+    n_days: int | None = None,
 ) -> pd.DataFrame:
-    return pd.DataFrame([simulate_trades(predicted, actual, t) for t in thresholds])
+    return pd.DataFrame([simulate_trades(predicted, actual, t, n_days=n_days) for t in thresholds])

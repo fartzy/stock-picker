@@ -284,6 +284,13 @@ export default function Registry({
       next.delete(feature);
       await unpruneFeature(feature);
     } else {
+      // Every prune badge (negligible/correlated/plain) triggers pruning
+      // directly on click -- someone clicking to see *why* a badge is there
+      // (e.g. "correlated to what?") shouldn't silently prune the feature
+      // as a side effect of looking.
+      if (!window.confirm(`Prune "${feature}" from training?\n\nReason: ${reason ?? "manually pruned"}`)) {
+        return;
+      }
       next.add(feature);
       await pruneFeature(feature, reason);
     }
@@ -465,7 +472,7 @@ export default function Registry({
                           title={`Correlated with ${correlation.partner} (r=${correlation.correlation.toFixed(3)}). Click to prune.`}
                         >
                           corr {correlation.correlation >= 0 ? "+" : ""}
-                          {correlation.correlation.toFixed(2)}
+                          {correlation.correlation.toFixed(2)} vs {correlation.partner}
                         </button>
                       )}
                       {!isPruned && !isNegligible && !correlation && (
