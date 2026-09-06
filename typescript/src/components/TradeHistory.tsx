@@ -74,7 +74,7 @@ function SummaryLine({ label, summary }: { label: string; summary: PositionsSumm
 function DayOpenCell({ position }: { position: Position }) {
   return (
     <td className="trade-num">
-      {position.day_open !== null ? formatUsd(position.day_open) : "--"}
+      <div>{position.day_open !== null ? formatUsd(position.day_open) : "--"}</div>
       {position.gap !== null && (
         <div className="muted">
           vs close <Diff value={position.gap} pct={position.gap_pct} />
@@ -104,11 +104,13 @@ function ExitCell({ position }: { position: Position }) {
 function PnlCell({ position }: { position: Position }) {
   return (
     <td className="trade-num">
-      {position.pnl !== null ? (
-        <Diff value={position.pnl} pct={position.invested ? position.pnl / position.invested : null} />
-      ) : (
-        "--"
-      )}
+      <div>
+        {position.pnl !== null ? (
+          <Diff value={position.pnl} pct={position.invested ? position.pnl / position.invested : null} />
+        ) : (
+          "--"
+        )}
+      </div>
       <div className="muted">{position.closed ? "realized" : "if sold now"}</div>
     </td>
   );

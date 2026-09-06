@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CoverageChart from "./components/CoverageChart";
 import CorrelationHeatmap from "./components/CorrelationHeatmap";
+import PruneArchive from "./components/PruneArchive";
 import Registry from "./components/Registry";
 import TradeHistory from "./components/TradeHistory";
 
@@ -53,21 +54,23 @@ export default function App() {
 
           <section>
             <h2>Feature Coverage</h2>
-            <p className="summary-line">
-              % of rows with a real (non-null) value for that feature, sorted lowest first -- naturally lower
-              for longer-lookback features (a 120-day window can't populate until day 120), not a data-quality
-              problem.
-            </p>
+            <p className="summary-line">Non-null % per feature, worst first -- expected to be lower for longer-lookback windows.</p>
             <div className="panel">
               <CoverageChart />
             </div>
           </section>
 
           <section>
-            <h2>Correlation &amp; redundancy</h2>
+            <h2>Correlation &amp; Redundancy</h2>
             <div className="panel">
               <CorrelationHeatmap />
             </div>
+          </section>
+
+          <section>
+            <h2>Pruned features</h2>
+            <p className="muted">Excluded from training, not just hidden here.</p>
+            <PruneArchive />
           </section>
         </>
       )}

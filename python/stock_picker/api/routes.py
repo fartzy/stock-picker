@@ -12,6 +12,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from stock_picker.features.catalog import (
+    compute_formulas_all,
     correlation_matrix,
     coverage_report,
     describe_all,
@@ -23,8 +24,9 @@ from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import build_registry
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
-from stock_picker.storage.feature_exclusion_store import PrunedFeatureStore
+from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.trade_store import Trade, TradeStore
+from stock_picker.training.importance import model_importance
 
 router = APIRouter(prefix="/api")
 
@@ -36,12 +38,17 @@ class TradeCreate(BaseModel):
     price: float
 
 
+class PruneRequest(BaseModel):
+    reason: str | None = None
+
+
 @router.get("/catalog")
 def get_catalog() -> dict:
     history = sample_history()
     return {
         "catalog": list_feature_columns(history),
         "descriptions": describe_all(history),
+        "formulas": compute_formulas_all(history),
     }
 
 
@@ -95,19 +102,34 @@ def get_positions() -> dict:
 
 @router.get("/pruned-features")
 def get_pruned_features() -> dict:
-    return {"pruned_features": sorted(pruned_features())}
+    return {
+        "pruned_features": sorted(pruned_features()),
+        "archive": PrunedFeatureStore().read_all(),
+    }
 
 
 @router.post("/features/{feature}/prune")
-def prune_feature(feature: str) -> dict:
-    PrunedFeatureStore().prune(feature)
-    return {"pruned_features": sorted(pruned_features())}
+def prune_feature(feature: str, body: PruneRequest | None = None) -> dict:
+    reason = (body.reason if body else None) or DEFAULT_REASON
+    PrunedFeatureStore().prune(feature, reason=reason)
+    return {
+        "pruned_features": sorted(pruned_features()),
+        "archive": PrunedFeatureStore().read_all(),
+    }
 
 
 @router.delete("/features/{feature}/prune")
 def unprune_feature(feature: str) -> dict:
     PrunedFeatureStore().unprune(feature)
-    return {"pruned_features": sorted(pruned_features())}
+    return {
+        "pruned_features": sorted(pruned_features()),
+        "archive": PrunedFeatureStore().read_all(),
+    }
+
+
+@router.get("/feature-importance")
+def get_feature_importance() -> dict:
+    return {"importance": model_importance()}
 
 
 @router.get("/registry")

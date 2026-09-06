@@ -21,20 +21,18 @@ function FeatureLabel({
   name,
   pruned,
   onToggle,
-  muted,
 }: {
   name: string;
   pruned: boolean;
   onToggle: () => void;
-  muted?: boolean;
 }) {
   return (
-    <span className={muted ? "muted" : undefined}>
-      <span className={pruned ? "pruned-feature" : undefined}>{name}</span>{" "}
+    <div className="pair-feature-row">
+      <span className={pruned ? "pruned-feature" : undefined}>{name}</span>
       <button className="prune-toggle" onClick={onToggle}>
         {pruned ? "restore" : "prune"}
       </button>
-    </span>
+    </div>
   );
 }
 
@@ -65,14 +63,16 @@ export default function CorrelationHeatmap() {
   const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  async function togglePrune(feature: string) {
+  // Pruned from this view -- the reason is exactly the fact already on screen,
+  // no extra prompt needed: this feature is one half of a highly-correlated pair.
+  async function togglePrune(feature: string, pairedWith: string, correlation: number) {
     const next = new Set(pruned);
     if (next.has(feature)) {
       next.delete(feature);
       await unpruneFeature(feature);
     } else {
       next.add(feature);
-      await pruneFeature(feature);
+      await pruneFeature(feature, `high correlation to ${pairedWith} (r=${correlation.toFixed(3)})`);
     }
     setPrunedOverride(next);
   }
@@ -111,12 +111,22 @@ export default function CorrelationHeatmap() {
       <div className="pair-grid">
         {data.top_pairs.slice(0, VISIBLE_PAIR_COUNT).map((pair) => (
           <div className="pair-row" key={`${pair.a}-${pair.b}`}>
-            <span>
-              <FeatureLabel name={pair.a} pruned={pruned.has(pair.a)} onToggle={() => togglePrune(pair.a)} />
-              <br />
-              <FeatureLabel name={pair.b} pruned={pruned.has(pair.b)} onToggle={() => togglePrune(pair.b)} muted />
-            </span>
-            <span style={{ color: pair.correlation >= 0 ? "var(--accent)" : "var(--corr-negative)" }}>
+            <div className="pair-features">
+              <FeatureLabel
+                name={pair.a}
+                pruned={pruned.has(pair.a)}
+                onToggle={() => togglePrune(pair.a, pair.b, pair.correlation)}
+              />
+              <FeatureLabel
+                name={pair.b}
+                pruned={pruned.has(pair.b)}
+                onToggle={() => togglePrune(pair.b, pair.a, pair.correlation)}
+              />
+            </div>
+            <span
+              className="pair-corr"
+              style={{ color: pair.correlation >= 0 ? "var(--accent)" : "var(--corr-negative)" }}
+            >
               {pair.correlation >= 0 ? "+" : ""}
               {pair.correlation.toFixed(3)}
             </span>
