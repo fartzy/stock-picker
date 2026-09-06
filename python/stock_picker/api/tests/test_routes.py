@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.tests.fixtures import synthetic_history
+from stock_picker.storage.training_run_store import TrainingRunStore
 
 # Prune/unprune mutate a real store instance rather than returning canned
 # values, so a stateful fake (shared across both import sites routes.py
@@ -88,10 +89,15 @@ class _FakeTrainingJob:
 
 
 _fake_training_job: _FakeTrainingJob | None = None
+# A real TrainingRunStore against a per-test tmp_path -- unlike the fakes
+# above, this store has no external dependencies worth faking (just local
+# file I/O), so the fixture points the real class at a scratch directory
+# rather than adding another stateful fake class.
+_training_run_store: TrainingRunStore | None = None
 
 
 @pytest.fixture
-def client():
+def client(tmp_path):
     history = synthetic_history(n=140)
     tables = {"AAA": history.assign(x=1.0), "BBB": history.assign(x=2.0)}
 
@@ -129,8 +135,11 @@ def client():
     _training_config_state["model_choices"] = None
     global _fake_training_job
     _fake_training_job = _FakeTrainingJob()
+    global _training_run_store
+    _training_run_store = TrainingRunStore(data_dir=tmp_path / "training_runs")
 
     with (
+        patch("stock_picker.api.routes.TrainingRunStore", lambda: _training_run_store),
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
         patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
         patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
@@ -248,6 +257,54 @@ def test_get_model_info_returns_empty_list_without_a_trained_model(client):
     assert response.json() == {"models": []}
 
 
+def test_get_model_types_describes_every_known_model_type(client):
+    response = client.get("/api/model-types")
+
+    assert response.status_code == 200
+    model_types = {m["model_type"] for m in response.json()["model_types"]}
+    assert model_types == {"lightgbm", "random_forest", "logistic_regression"}
+    for info in response.json()["model_types"]:
+        assert info["package"]
+        assert info["source_file"].endswith("model.py")
+
+
+def test_get_training_runs_starts_empty(client):
+    response = client.get("/api/training/runs")
+
+    assert response.status_code == 200
+    assert response.json() == {"runs": []}
+
+
+def test_get_training_runs_returns_an_appended_record_newest_first(client):
+    from stock_picker.storage.training_run_store import TrainingRunRecord
+
+    _training_run_store.append(
+        TrainingRunRecord(
+            run_id="run-1",
+            status="completed",
+            started_at="2026-01-01T09:00:00-05:00",
+            completed_at="2026-01-01T09:05:00-05:00",
+            duration_seconds=300.0,
+            train_tickers=["AAPL"],
+            holdout_tickers=["MSFT"],
+            date_range=("2026-01-01", "2026-01-31"),
+            resolved_features=["return_1d"],
+            model_specs=[{"model_type": "lightgbm", "weight": 1.0, "params": None}],
+            fold_metrics=[{"mae": 0.01, "directional_accuracy": 0.5, "n_test_rows": 100}],
+            holdout_metrics={"mae": 0.01, "directional_accuracy": 0.5, "n_test_rows": 50},
+            threshold_sweep=[{"threshold": 0.005, "n_trades": 10, "hit_rate": 0.6}],
+        )
+    )
+
+    response = client.get("/api/training/runs")
+
+    assert response.status_code == 200
+    [run] = response.json()["runs"]
+    assert run["run_id"] == "run-1"
+    assert run["train_tickers"] == ["AAPL"]
+    assert run["date_range"] == ["2026-01-01", "2026-01-31"]
+
+
 def test_get_feature_selection_starts_as_no_selection(client):
     response = client.get("/api/feature-selection")
 
@@ -333,6 +390,11 @@ def test_get_training_status_reflects_a_completed_run(client):
             "fold_metrics": [{"mae": 0.01, "directional_accuracy": 0.5, "n_test_rows": 100}],
             "holdout_metrics": {"mae": 0.01, "directional_accuracy": 0.55, "n_test_rows": 200},
             "threshold_sweep": None,
+            "train_tickers": ["AAPL"],
+            "holdout_tickers": ["MSFT"],
+            "date_range": ["2026-01-01", "2026-01-31"],
+            "resolved_features": ["return_1d"],
+            "model_specs": [{"model_type": "lightgbm", "weight": 1.0, "params": None}],
         }
     )
 

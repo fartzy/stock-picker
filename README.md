@@ -23,6 +23,7 @@ flowchart TB
     MS[("ModelStore<br/>models/*.pkl")]
     TS[("TradeStore<br/>trades/trades.parquet")]
     PFS[("PrunedFeatureStore<br/>pruned_features/pruned.parquet")]
+    TRS[("TrainingRunStore<br/>training_runs/runs.json")]
 
     FEATPIPE["features/pipeline.py<br/>~95 cols across 9 categories"]
     REGISTRY["features/registry.py<br/>Feast-style metadata over the pipeline"]
@@ -33,7 +34,7 @@ flowchart TB
     MLFLOW[("MLflow<br/>tracking only")]
 
     API["api/routes.py<br/>FastAPI JSON layer, no new business logic"]
-    WEB["typescript/<br/>Trading / Feature Store / Prices tabs"]
+    WEB["typescript/<br/>Trading / Feature Store / Models / Prices tabs"]
     PRICEHIST["features/price_history.py<br/>daily (PriceStore) + intraday (live yfinance)"]
 
     WIKI --> BUILDUNIV
@@ -47,6 +48,7 @@ flowchart TB
     FS --> DATASET
     DATASET --> TRAIN
     TRAIN --> MS
+    TRAIN --> TRS
     TRAIN -.-> MLFLOW
     MS --> INFER
     PFS -.-> TRAIN
@@ -57,6 +59,7 @@ flowchart TB
     PFS --> API
     YF --> API
     MS --> API
+    TRS --> API
     PS --> PRICEHIST
     YF --> PRICEHIST
     PRICEHIST --> API
@@ -83,7 +86,7 @@ python/stock_picker/
 └── api/         # FastAPI JSON layer -- every endpoint wraps a tested
                  #   pure function from features/, no new logic
 
-typescript/      # React + Vite + TS frontend (Trading / Feature Store tabs)
+typescript/      # React + Vite + TS frontend (Trading / Feature Store / Models tabs)
 ```
 
 ## Quickstart
@@ -134,6 +137,10 @@ FastAPI backend + React/Vite/TS frontend, both Bazel-integrated (`bazel test
 - **Feature Store tab**: registry (sortable by coverage/importance per
   feature) and a correlation heatmap with inline feature pruning -- pruned
   features are actually excluded from training, not just hidden in the UI.
+- **Models tab**: a choosable ensemble (each model type shown with its
+  package/version and a source link, via `training/model_registry.py`), a
+  run-training control, and persisted Run History -- past runs' tickers,
+  date range, features, and metrics, via `storage/training_run_store.py`.
 - **Prices tab**: any ticker's OHLCV history, daily or hourly, as a line chart.
 - Not yet done: production `vite build` wiring, frontend tests.
 
@@ -217,15 +224,21 @@ loop):
       the global top 15 to matter for that feature). Still confirm the
       canvas heatmap matrix's whole-universe cluster view isn't needed
       before dropping it, not just the ranked pairs list
-- [ ] Training run drill-down: which tickers and date range fed a given run,
-      not just the holdout summary line. MLflow already logs per-fold
-      metrics/params but not ticker/date provenance, and isn't surfaced in
-      the app UI at all today (a separate `mlflow ui` process against
-      `data/mlruns/mlflow.db`) -- decide whether to extend MLflow logging or
-      just have the Training panel surface a run manifest directly. If
-      MLflow stays the source of truth for this, the Training panel should
-      at minimum link out to the local `mlflow ui` -- right now there's no
-      link anywhere, so nobody would know to run that separate process
+- [ ] Training run drill-down -- decided in favor of a self-contained run
+      manifest over extending MLflow (MLflow stays as-is, per-fold-only,
+      still not linked from the app): `storage/training_run_store.py`
+      persists tickers/date-range/resolved-features/model-specs/metrics per
+      run, surfaced via `/api/training/runs` and the Models tab's Run
+      History. Still open: no archived model binary per historical run --
+      `ModelStore` only ever holds the latest ensemble, so a past run's
+      metadata is inspectable but its exact artifact isn't re-loadable
+- [ ] Real training-code integration for non-regression model families
+      (neural nets, clustering) -- `training/model_registry.py`'s metadata
+      (version/source/package) is already extensible, a new model type is
+      just a new entry, but `Ensemble`/`TrainedModel` still assume a
+      continuous-return regression blend end to end; clustering especially
+      doesn't fit that shape at all and would need its own training/
+      inference path, not just a registry entry
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
       thresholds, validate against real (not just synthetic) data

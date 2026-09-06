@@ -1,4 +1,9 @@
 # gazelle:python_generation_mode file
+# main.py is both a source in the :training library and its own py_binary
+# target -- gazelle can't tell which one provides "stock_picker.training.main"
+# for test_job.py/test_main.py's imports of it, so it's told explicitly (same
+# directive api/BUILD.bazel already carries for the same reason).
+# gazelle:resolve py stock_picker.training.main //python/stock_picker/training
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
@@ -90,5 +95,18 @@ py_pytest(
     name = "test_job",
     srcs = ["test_job.py"],
     imports = ["../../.."],
-    deps = ["//python/stock_picker/training"],
+    deps = [
+        "//python/stock_picker/storage",
+        "//python/stock_picker/training",
+    ],
+)
+
+py_pytest(
+    name = "test_main",
+    srcs = ["test_main.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
 )

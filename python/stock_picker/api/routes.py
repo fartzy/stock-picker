@@ -21,6 +21,7 @@ from stock_picker.api.models import (
     ModelInfoResponse,
     ModelSelectionRequest,
     ModelSelectionResponse,
+    ModelTypesResponse,
     PositionsResponse,
     PriceHistoryResponse,
     PruneRequest,
@@ -29,8 +30,11 @@ from stock_picker.api.models import (
     RegistryResponse,
     TradeCreate,
     TradesResponse,
+    TrainingRunsResponse,
 )
 from stock_picker.api.models import ModelChoice as ModelChoiceModel
+from stock_picker.api.models import ModelTypeInfo as ModelTypeInfoModel
+from stock_picker.api.models import TrainingRunRecord as TrainingRunRecordModel
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -56,12 +60,14 @@ from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
+from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training import job as training_job
 from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import PREDICTIVE_MODEL_TYPES
+from stock_picker.training.model_registry import describe_model_types
 
 router = APIRouter(prefix="/api")
 
@@ -165,6 +171,11 @@ def get_model_info() -> ModelInfoResponse:
     return ModelInfoResponse(models=ensemble_composition(store.read(MODEL_NAME)))
 
 
+@router.get("/model-types")
+def get_model_types() -> ModelTypesResponse:
+    return ModelTypesResponse(model_types=[ModelTypeInfoModel(**asdict(info)) for info in describe_model_types()])
+
+
 @router.get("/feature-selection")
 def get_feature_selection() -> FeatureSelectionResponse:
     features = selected_features()
@@ -223,6 +234,13 @@ def start_training_run() -> JobStatus:
 @router.get("/training/status")
 def get_training_status() -> JobStatus:
     return training_job.status()
+
+
+@router.get("/training/runs")
+def get_training_runs() -> TrainingRunsResponse:
+    return TrainingRunsResponse(
+        runs=[TrainingRunRecordModel(**asdict(record)) for record in TrainingRunStore().read_all()]
+    )
 
 
 @router.get("/prices/{ticker}")

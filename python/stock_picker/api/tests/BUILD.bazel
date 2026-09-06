@@ -8,6 +8,7 @@ py_pytest(
     deps = [
         "//python/stock_picker/api",
         "//python/stock_picker/features/tests:fixtures",
+        "//python/stock_picker/storage",
         "@pypi//fastapi",
         "@pypi//httpx",  # keep: FastAPI's TestClient needs httpx as its transport, no direct import
         "@pypi//pandas",

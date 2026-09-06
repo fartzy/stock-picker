@@ -67,3 +67,10 @@ py_pytest(
     imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
+
+py_pytest(
+    name = "test_training_run_store",
+    srcs = ["test_training_run_store.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/storage"],
+)

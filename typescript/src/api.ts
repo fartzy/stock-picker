@@ -24,6 +24,24 @@ export interface ModelInfoResponse {
   models: EnsembleMemberInfo[];
 }
 
+export interface ModelTypeInfo {
+  model_type: string;
+  display_name: string;
+  category: string;
+  package: string;
+  package_version: string;
+  source_file: string;
+  source_line: number;
+  // null if the origin remote couldn't be resolved -- fall back to plain
+  // source_file:source_line text rather than a link.
+  github_url: string | null;
+  description: string;
+}
+
+export interface ModelTypesResponse {
+  model_types: ModelTypeInfo[];
+}
+
 export interface CoverageResponse {
   coverage: Record<string, number>;
 }
@@ -177,6 +195,36 @@ export interface TrainingStatusResponse {
   error: string | null;
 }
 
+export interface RunModelSpec {
+  model_type: string;
+  weight: number;
+  params: Record<string, unknown> | null;
+}
+
+export interface TrainingRunRecord {
+  run_id: string;
+  status: "completed" | "failed";
+  started_at: string;
+  completed_at: string;
+  duration_seconds: number;
+  git_commit: string | null;
+  // null on a run that failed before this provenance was known.
+  train_tickers: string[] | null;
+  holdout_tickers: string[] | null;
+  date_range: [string, string] | null;
+  resolved_features: string[] | null;
+  model_specs: RunModelSpec[] | null;
+  fold_metrics: FoldMetrics[] | null;
+  holdout_metrics: FoldMetrics | null;
+  threshold_sweep: ThresholdSweepRow[] | null;
+  error: string | null;
+}
+
+export interface TrainingRunsResponse {
+  // Newest first.
+  runs: TrainingRunRecord[];
+}
+
 export interface PrunedFeaturesResponse {
   pruned_features: string[];
   archive: PrunedFeatureEntry[];
@@ -227,6 +275,7 @@ async function mutate<T = void>(method: "POST" | "DELETE", path: string, body?: 
 export const fetchCatalog = () => getJson<CatalogResponse>("/api/catalog");
 export const fetchFeatureImportance = () => getJson<ImportanceResponse>("/api/feature-importance");
 export const fetchModelInfo = () => getJson<ModelInfoResponse>("/api/model-info");
+export const fetchModelTypes = () => getJson<ModelTypesResponse>("/api/model-types");
 export const fetchCoverage = () => getJson<CoverageResponse>("/api/coverage");
 export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") =>
   getJson<PriceHistoryResponse>(`/api/prices/${encodeURIComponent(ticker)}?interval=${interval}`);
@@ -260,6 +309,7 @@ export const clearModelSelection = () =>
   mutate<ModelSelectionResponse>("DELETE", "/api/model-selection");
 export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
+export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/training/runs");
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
