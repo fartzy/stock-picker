@@ -37,13 +37,7 @@ def test_cross_sectional_view_is_tagged_cross_ticker():
 
 
 def test_check_freshness_ok_within_ttl():
-    history = synthetic_history(n=140)
-    feature_views, _ = build_registry(history)
-    momentum_view = next(v for v in feature_views if v.name == "momentum")
-
-    result = check_freshness(
-        momentum_view, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 2)
-    )
+    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 2))
 
     assert result.ok
     assert result.age_days == 1
@@ -51,13 +45,7 @@ def test_check_freshness_ok_within_ttl():
 
 
 def test_check_freshness_stale_beyond_ttl():
-    history = synthetic_history(n=140)
-    feature_views, _ = build_registry(history)
-    momentum_view = next(v for v in feature_views if v.name == "momentum")
-
-    result = check_freshness(
-        momentum_view, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 5)
-    )
+    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 5))
 
     assert not result.ok
     assert result.age_days == 4

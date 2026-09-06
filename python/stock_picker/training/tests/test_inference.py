@@ -1,14 +1,23 @@
+from datetime import date
+
 import pandas as pd
 import pytest
 
 from stock_picker.training.dataset import GAP_COLUMN, LABEL_COLUMN, build_training_frame
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.inference import (
+    ImplausibleGapError,
+    StaleFeatureSnapshotError,
     build_inference_row,
     compute_overnight_gap,
     predict_signal,
 )
 from stock_picker.training.model import train_lightgbm
+
+# Arbitrary but fixed dates a day apart, so "fresh" is the default across every
+# test unless a test is specifically about staleness.
+SNAPSHOT_DATE = date(2026, 1, 1)
+AS_OF_DATE = date(2026, 1, 2)
 
 
 def _make_history_and_features(n=15):
@@ -45,7 +54,9 @@ def test_build_inference_row_matches_what_dataset_would_have_produced():
     today_open = history["Open"].iloc[-1]
     yesterday_close = history["Close"].iloc[-2]
 
-    inference_row = build_inference_row(prior_day_features, today_open, yesterday_close)
+    inference_row = build_inference_row(
+        prior_day_features, today_open, yesterday_close, SNAPSHOT_DATE, AS_OF_DATE
+    )
 
     # only the feature values need to match -- build_inference_row's row is labeled
     # by the input snapshot's date, not the date being predicted for
@@ -57,6 +68,28 @@ def test_build_inference_row_matches_what_dataset_would_have_produced():
     )
 
 
+def test_build_inference_row_raises_when_snapshot_is_stale():
+    history, features = _make_history_and_features()
+    prior_day_features = features.iloc[-2]
+    today_open = history["Open"].iloc[-1]
+    yesterday_close = history["Close"].iloc[-2]
+    stale_as_of = date(2026, 1, 10)  # well beyond the snapshot's 1-day ttl
+
+    with pytest.raises(StaleFeatureSnapshotError):
+        build_inference_row(prior_day_features, today_open, yesterday_close, SNAPSHOT_DATE, stale_as_of)
+
+
+def test_build_inference_row_raises_on_an_implausible_gap():
+    history, features = _make_history_and_features()
+    prior_day_features = features.iloc[-2]
+    yesterday_close = history["Close"].iloc[-2]
+    # A 50% overnight "gap" -- e.g. a 2-for-1 stock split misread as a real move.
+    split_like_open = yesterday_close * 1.5
+
+    with pytest.raises(ImplausibleGapError):
+        build_inference_row(prior_day_features, split_like_open, yesterday_close, SNAPSHOT_DATE, AS_OF_DATE)
+
+
 def test_predict_signal_returns_a_float_using_a_trained_model():
     history, features = _make_history_and_features(n=30)
     frame = build_training_frame(history, features)
@@ -66,7 +99,9 @@ def test_predict_signal_returns_a_float_using_a_trained_model():
     prior_day_features = features.iloc[-2]
     today_open = history["Open"].iloc[-1]
     yesterday_close = history["Close"].iloc[-2]
-    inference_row = build_inference_row(prior_day_features, today_open, yesterday_close)
+    inference_row = build_inference_row(
+        prior_day_features, today_open, yesterday_close, SNAPSHOT_DATE, AS_OF_DATE
+    )
 
     signal = predict_signal(ensemble, inference_row)
 
