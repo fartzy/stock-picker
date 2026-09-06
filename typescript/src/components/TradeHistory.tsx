@@ -104,8 +104,12 @@ function PositionRow({ position }: { position: Position }) {
     <tr>
       <td className="trade-ticker">{position.ticker}</td>
       <td className="trade-num">{position.shares}</td>
-      <td className="trade-time">{formatTime(position.buy_time)} ET</td>
-      <td className="trade-num">{formatUsd(position.buy_price)}</td>
+      <td className="trade-time">
+        {position.buy_time !== null ? `${formatTime(position.buy_time)} ET` : "--"}
+      </td>
+      <td className="trade-num">
+        {position.buy_price !== null ? formatUsd(position.buy_price) : "--"}
+      </td>
       <DayOpenCell position={position} />
       <ExitCell position={position} />
       <PnlCell position={position} />

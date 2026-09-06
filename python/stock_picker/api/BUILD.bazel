@@ -5,6 +5,7 @@ py_library(
     srcs = [
         "app.py",
         "main.py",
+        "models.py",
         "routes.py",
     ],
     imports = ["../.."],

@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
-from stock_picker.training.model import TrainedModel, predict, train_model
+from stock_picker.training.model import EvaluationMetrics, TrainedModel, predict, train_model
 
 
 @dataclass
@@ -55,12 +55,12 @@ def predict_ensemble(ensemble: Ensemble, frame: pd.DataFrame) -> np.ndarray:
     return np.asarray(blended) / total_weight
 
 
-def evaluate_ensemble(ensemble: Ensemble, test_frame: pd.DataFrame) -> dict:
+def evaluate_ensemble(ensemble: Ensemble, test_frame: pd.DataFrame) -> EvaluationMetrics:
     predictions = predict_ensemble(ensemble, test_frame)
     actual = test_frame[LABEL_COLUMN].to_numpy()
 
-    return {
-        "mae": float(np.mean(np.abs(predictions - actual))),
-        "directional_accuracy": float(np.mean(np.sign(predictions) == np.sign(actual))),
-        "n_test_rows": len(test_frame),
-    }
+    return EvaluationMetrics(
+        mae=float(np.mean(np.abs(predictions - actual))),
+        directional_accuracy=float(np.mean(np.sign(predictions) == np.sign(actual))),
+        n_test_rows=len(test_frame),
+    )

@@ -23,15 +23,17 @@ from stock_picker.training.dataset import LABEL_COLUMN
 NON_FEATURE_COLUMNS = {"ticker", "date", LABEL_COLUMN}
 
 # Deliberately conservative: our current dataset is a few hundred rows across 3
-# tickers with ~78 candidate features -- shallow trees and a high min_data_in_leaf
-# guard against a model that just memorizes noise. Same reasoning applies to the
-# random forest params below (few, shallow trees; a high per-leaf sample floor).
+# tickers with ~78 candidate features -- shallow trees and a high per-leaf sample
+# floor guard against a model that just memorizes noise. Shared by both tree-based
+# model types below so "same reasoning applies" is enforced by code, not just prose.
+MIN_LEAF_SAMPLES = 20
+
 LIGHTGBM_DEFAULT_PARAMS = {
     "objective": "regression",
     "metric": "mae",
     "num_leaves": 7,
     "max_depth": 3,
-    "min_data_in_leaf": 20,
+    "min_data_in_leaf": MIN_LEAF_SAMPLES,
     "learning_rate": 0.05,
     "verbosity": -1,
 }
@@ -40,7 +42,7 @@ DEFAULT_NUM_BOOST_ROUND = 100
 RANDOM_FOREST_DEFAULT_PARAMS = {
     "n_estimators": 200,
     "max_depth": 4,
-    "min_samples_leaf": 20,
+    "min_samples_leaf": MIN_LEAF_SAMPLES,
     "random_state": 0,
 }
 # Strong L2 regularization (low C) given ~95 candidate features over a few
@@ -63,6 +65,17 @@ class TrainedModel:
     model_type: str  # "lightgbm" | "random_forest" | "logistic_regression"
     estimator: Any  # lgb.Booster or a fitted scikit-learn estimator
     feature_names: list[str] = field(default_factory=list)
+
+
+@dataclass
+class EvaluationMetrics:
+    """Shared shape for both a single model's evaluate() and an ensemble's
+    evaluate_ensemble() -- same three numbers either way, since the ensemble
+    case just evaluates the blended prediction instead of one model's."""
+
+    mae: float
+    directional_accuracy: float
+    n_test_rows: int
 
 
 def feature_columns(
@@ -161,12 +174,12 @@ def predict(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
     return np.asarray(trained.estimator.predict(frame[trained.feature_names]))
 
 
-def evaluate(trained: TrainedModel, test_frame: pd.DataFrame) -> dict:
+def evaluate(trained: TrainedModel, test_frame: pd.DataFrame) -> EvaluationMetrics:
     predictions = predict(trained, test_frame)
     actual = test_frame[LABEL_COLUMN].to_numpy()
 
-    return {
-        "mae": float(np.mean(np.abs(predictions - actual))),
-        "directional_accuracy": float(np.mean(np.sign(predictions) == np.sign(actual))),
-        "n_test_rows": len(test_frame),
-    }
+    return EvaluationMetrics(
+        mae=float(np.mean(np.abs(predictions - actual))),
+        directional_accuracy=float(np.mean(np.sign(predictions) == np.sign(actual))),
+        n_test_rows=len(test_frame),
+    )

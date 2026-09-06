@@ -27,7 +27,7 @@ def test_train_lightgbm_learns_a_clear_signal():
     metrics = evaluate(model, test_frame)
 
     assert model.model_type == "lightgbm"
-    assert metrics["directional_accuracy"] > 0.9
+    assert metrics.directional_accuracy > 0.9
 
 
 def test_train_random_forest_learns_a_clear_signal():
@@ -38,7 +38,7 @@ def test_train_random_forest_learns_a_clear_signal():
     metrics = evaluate(model, test_frame)
 
     assert model.model_type == "random_forest"
-    assert metrics["directional_accuracy"] > 0.9
+    assert metrics.directional_accuracy > 0.9
 
 
 def test_train_logistic_regression_learns_a_clear_signal():

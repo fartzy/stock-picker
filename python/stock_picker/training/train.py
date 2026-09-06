@@ -7,13 +7,15 @@ via `storage.model_store.ModelStore`, so inference never depends on an MLflow se
 
 from __future__ import annotations
 
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import mlflow
 import pandas as pd
 
 from stock_picker.storage.paths import data_root
-from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, train_ensemble
+from stock_picker.training.ensemble import Ensemble, ModelSpec, evaluate_ensemble, train_ensemble
+from stock_picker.training.model import EvaluationMetrics
 from stock_picker.training.splits import walk_forward_splits
 
 DEFAULT_TRACKING_DIR = data_root() / "mlruns"
@@ -21,6 +23,18 @@ DEFAULT_TRACKING_DIR = data_root() / "mlruns"
 # run_walk_forward's existing single-model behavior for callers that don't
 # care about ensembling.
 DEFAULT_SPECS: list[ModelSpec] = [ModelSpec("lightgbm")]
+
+
+@dataclass
+class FoldResult:
+    """One walk-forward fold's outcome. Chronological order; the last entry
+    is trained on the most history, and is the one main.py persists as the
+    production model."""
+
+    fold: int
+    model: Ensemble
+    metrics: EvaluationMetrics
+    train_rows: int
 
 
 def _configure_mlflow(tracking_dir: Path) -> None:
@@ -48,15 +62,9 @@ def run_walk_forward(
     n_splits: int = 4,
     specs: list[ModelSpec] | None = None,
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
-) -> list[dict]:
+) -> list[FoldResult]:
     """Train+evaluate an ensemble across `n_splits` walk-forward folds, logging
-    each to MLflow.
-
-    Returns fold results in chronological order: [{"fold", "model", "metrics",
-    "train_rows"}, ...] ("model" is an `Ensemble`). The last entry is trained
-    on the most history, and is the one `main.py` persists as the production
-    model.
-    """
+    each to MLflow. Returns `FoldResult`s in chronological order."""
     specs = specs if specs is not None else DEFAULT_SPECS
     _configure_mlflow(tracking_dir)
     splits = walk_forward_splits(pooled_dataset["date"], n_splits=n_splits)
@@ -75,15 +83,10 @@ def run_walk_forward(
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):
                 mlflow.log_param("fold", fold)
                 mlflow.log_param("train_rows", len(train_frame))
-                mlflow.log_metrics(metrics)
+                mlflow.log_metrics(asdict(metrics))
 
             fold_results.append(
-                {
-                    "fold": fold,
-                    "model": ensemble,
-                    "metrics": metrics,
-                    "train_rows": len(train_frame),
-                }
+                FoldResult(fold=fold, model=ensemble, metrics=metrics, train_rows=len(train_frame))
             )
 
     return fold_results

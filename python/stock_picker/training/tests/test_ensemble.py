@@ -3,6 +3,7 @@ import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble
+from stock_picker.training.model import EvaluationMetrics
 
 
 def _make_learnable_frame(n, seed):
@@ -27,7 +28,7 @@ def test_train_ensemble_with_two_differently_typed_members_predicts_sanely():
     assert len(ensemble.members) == 2
     assert predictions.shape == (len(test_frame),)
     metrics = evaluate_ensemble(ensemble, test_frame)
-    assert metrics["directional_accuracy"] > 0.9
+    assert metrics.directional_accuracy > 0.9
 
 
 def test_a_member_with_included_features_only_sees_those_columns():
@@ -67,5 +68,5 @@ def test_evaluate_ensemble_returns_the_same_metric_shape_as_a_single_model():
 
     metrics = evaluate_ensemble(ensemble, test_frame)
 
-    assert set(metrics) == {"mae", "directional_accuracy", "n_test_rows"}
-    assert metrics["n_test_rows"] == len(test_frame)
+    assert isinstance(metrics, EvaluationMetrics)
+    assert metrics.n_test_rows == len(test_frame)
