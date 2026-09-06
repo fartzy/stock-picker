@@ -14,6 +14,18 @@ export interface ImportanceResponse {
   by_model_type?: Record<string, Record<string, number>>;
 }
 
+export interface EnsembleMemberInfo {
+  model_type: string;
+  // 0 = diagnostic-only (e.g. logistic_regression) -- never blended into
+  // the actual prediction, see ImportanceResponse's by_model_type comment.
+  weight: number;
+  feature_count: number;
+}
+
+export interface ModelInfoResponse {
+  models: EnsembleMemberInfo[];
+}
+
 export interface CoverageResponse {
   coverage: Record<string, number>;
 }
@@ -195,6 +207,7 @@ async function mutate<T = void>(method: "POST" | "DELETE", path: string, body?: 
 
 export const fetchCatalog = () => getJson<CatalogResponse>("/api/catalog");
 export const fetchFeatureImportance = () => getJson<ImportanceResponse>("/api/feature-importance");
+export const fetchModelInfo = () => getJson<ModelInfoResponse>("/api/model-info");
 export const fetchCoverage = () => getJson<CoverageResponse>("/api/coverage");
 export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") =>
   getJson<PriceHistoryResponse>(`/api/prices/${encodeURIComponent(ticker)}?interval=${interval}`);

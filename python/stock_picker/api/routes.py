@@ -17,6 +17,7 @@ from stock_picker.api.models import (
     FeatureSelectionRequest,
     FeatureSelectionResponse,
     ImportanceResponse,
+    ModelInfoResponse,
     PositionsResponse,
     PriceHistoryResponse,
     PruneRequest,
@@ -47,10 +48,13 @@ from stock_picker.features.selection import selected_features
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_selection_store import FeatureSelectionStore
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.training import job as training_job
+from stock_picker.training.ensemble import ensemble_composition
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
+from stock_picker.training.main import MODEL_NAME
 
 router = APIRouter(prefix="/api")
 
@@ -144,6 +148,14 @@ def unprune_feature(feature: str) -> PrunedFeaturesResponse:
 def get_feature_importance() -> ImportanceResponse:
     importance = model_importance()
     return ImportanceResponse(importance=importance["blended"], by_model_type=importance["by_model_type"])
+
+
+@router.get("/model-info")
+def get_model_info() -> ModelInfoResponse:
+    store = ModelStore()
+    if not store.exists(MODEL_NAME):
+        return ModelInfoResponse(models=[])
+    return ModelInfoResponse(models=ensemble_composition(store.read(MODEL_NAME)))
 
 
 @router.get("/feature-selection")

@@ -2,7 +2,13 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
-from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble
+from stock_picker.training.ensemble import (
+    ModelSpec,
+    ensemble_composition,
+    evaluate_ensemble,
+    predict_ensemble,
+    train_ensemble,
+)
 from stock_picker.training.model import EvaluationMetrics
 
 
@@ -70,3 +76,19 @@ def test_evaluate_ensemble_returns_the_same_metric_shape_as_a_single_model():
 
     assert isinstance(metrics, EvaluationMetrics)
     assert metrics.n_test_rows == len(test_frame)
+
+
+def test_ensemble_composition_reports_each_members_type_weight_and_feature_count():
+    train_frame = _make_learnable_frame(400, seed=1)
+    specs = [
+        ModelSpec("lightgbm", params={"min_data_in_leaf": 10}, weight=1.0),
+        ModelSpec("logistic_regression", weight=0.0),
+    ]
+    ensemble = train_ensemble(train_frame, specs)
+
+    composition = ensemble_composition(ensemble)
+
+    assert [m.model_type for m in composition] == ["lightgbm", "logistic_regression"]
+    assert [m.weight for m in composition] == [1.0, 0.0]
+    # Both members see the same two feature columns here -- signal/momentum.
+    assert all(m.feature_count == 2 for m in composition)

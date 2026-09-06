@@ -1,15 +1,23 @@
-import { useState } from "react";
 import {
+  fetchModelInfo,
   fetchTrainingStatus,
   runTraining,
+  type ModelInfoResponse,
   type TrainingResult,
   type TrainingStatusResponse,
 } from "../api";
+import { useState } from "react";
 import { useFetchData } from "../useFetchData";
 
 // Training runs take minutes, not seconds -- poll rather than push, same
 // "live-ish via polling" convention the rest of the Feature Store tab uses.
 const POLL_INTERVAL_MS = 4000;
+
+const MODEL_TYPE_LABELS: Record<string, string> = {
+  lightgbm: "LightGBM",
+  random_forest: "Random Forest",
+  logistic_regression: "Logistic Regression",
+};
 
 function formatTimestamp(isoString: string | null): string {
   if (!isoString) return "";
@@ -21,6 +29,22 @@ function formatTimestamp(isoString: string | null): string {
   });
 }
 
+function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | null }) {
+  if (!modelInfo || modelInfo.models.length === 0) return null;
+  return (
+    <div className="muted" style={{ fontSize: "var(--text-caption)" }}>
+      Ensemble:{" "}
+      {modelInfo.models
+        .map((m) => {
+          const label = MODEL_TYPE_LABELS[m.model_type] ?? m.model_type;
+          const role = m.weight === 0 ? "diagnostic only" : `weight ${m.weight}`;
+          return `${label} (${role}, ${m.feature_count} features)`;
+        })
+        .join(" + ")}
+    </div>
+  );
+}
+
 function TrainingResultSummary({ result }: { result: TrainingResult }) {
   const holdout = result.holdout_metrics;
   const sweep = result.threshold_sweep;
@@ -29,7 +53,7 @@ function TrainingResultSummary({ result }: { result: TrainingResult }) {
       {holdout && (
         <span>
           Holdout: {(holdout.directional_accuracy * 100).toFixed(1)}% accuracy on{" "}
-          {holdout.n_test_rows.toLocaleString()} rows
+          {holdout.n_test_rows.toLocaleString()} rows.
         </span>
       )}
       {sweep && sweep.length > 0 && (
@@ -40,8 +64,8 @@ function TrainingResultSummary({ result }: { result: TrainingResult }) {
             .map((row) => (
               <span key={row.threshold}>
                 {" "}
-                -- at {(row.threshold * 100).toFixed(1)}% threshold: {row.n_trades} trades,{" "}
-                {(row.hit_rate * 100).toFixed(1)}% hit rate
+                At {(row.threshold * 100).toFixed(1)}% threshold: {row.n_trades} trades,{" "}
+                {(row.hit_rate * 100).toFixed(1)}% hit rate.
               </span>
             ))}
         </span>
@@ -52,6 +76,12 @@ function TrainingResultSummary({ result }: { result: TrainingResult }) {
 
 export default function TrainingPanel() {
   const { data, error } = useFetchData<TrainingStatusResponse>(fetchTrainingStatus, {
+    intervalMs: POLL_INTERVAL_MS,
+  });
+  // Composition only actually changes once a run completes, but polling this
+  // alongside status is cheap (a single small pickle read) and keeps it in
+  // sync without a separate "did status just change" effect.
+  const { data: modelInfo } = useFetchData<ModelInfoResponse>(fetchModelInfo, {
     intervalMs: POLL_INTERVAL_MS,
   });
   const [starting, setStarting] = useState(false);
@@ -92,6 +122,7 @@ export default function TrainingPanel() {
       </div>
       {startError && <p className="error">{startError}</p>}
       {data.status === "completed" && data.result && <TrainingResultSummary result={data.result} />}
+      <EnsembleComposition modelInfo={modelInfo} />
     </div>
   );
 }
