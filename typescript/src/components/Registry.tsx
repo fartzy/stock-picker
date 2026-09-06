@@ -20,7 +20,12 @@ import {
   type PrunedFeaturesResponse,
   type RegistryResponse,
 } from "../api";
-import { coverageColor, importanceColor, NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD } from "../theme";
+import {
+  coverageColor,
+  importanceColor,
+  IMPORTANCE_GRADIENT_MAX_PCT,
+  NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD,
+} from "../theme";
 import { useFetchData } from "../useFetchData";
 
 // Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
@@ -144,6 +149,9 @@ export default function Registry({
   // (every feature included); Set = an explicit selection.
   const [included, setIncluded] = useState<Set<string> | null | undefined>(undefined);
   const [highlightedFeature, setHighlightedFeature] = useState<string | null>(null);
+  // Which rows show their description/formula -- collapsed by default so
+  // scanning ~97 rows doesn't mean scrolling past that much text for each one.
+  const [expandedFeatures, setExpandedFeatures] = useState<Set<string>>(new Set());
   const detailsRefs = useRef(new Map<string, HTMLDetailsElement>());
   const rowRefs = useRef(new Map<string, HTMLDivElement>());
 
@@ -180,6 +188,9 @@ export default function Registry({
     requestAnimationFrame(() => {
       rowRefs.current.get(pendingFeature)?.scrollIntoView({ behavior: "smooth", block: "center" });
       setHighlightedFeature(pendingFeature);
+      // Whatever sent you here (e.g. a Data-tab column link) almost
+      // certainly wants the description/formula, not just the row location.
+      setExpandedFeatures((prev) => new Set(prev).add(pendingFeature));
       onFeatureFocused?.();
       setTimeout(() => setHighlightedFeature((f) => (f === pendingFeature ? null : f)), 2000);
     });
@@ -303,6 +314,15 @@ export default function Registry({
     await clearFeatureSelection();
   }
 
+  function toggleExpanded(feature: string) {
+    setExpandedFeatures((prev) => {
+      const next = new Set(prev);
+      if (next.has(feature)) next.delete(feature);
+      else next.add(feature);
+      return next;
+    });
+  }
+
   const selectedCount = included?.size ?? allFeatureNames.size;
 
   return (
@@ -340,9 +360,18 @@ export default function Registry({
           </button>
         )}
       </div>
-      {registry.feature_views.map((view) => (
+      {registry.feature_views.map((view) => {
+        // A signal before expanding anything -- with ~10 categories and ~97
+        // rows total, "what needs attention" shouldn't require opening every
+        // one to find out.
+        const viewPrunedCount = view.features.filter((f) => pruned.has(f)).length;
+        const viewNegligibleCount = view.features.filter((f) => {
+          const imp = importance.importance[f];
+          return !pruned.has(f) && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
+        }).length;
+        return (
         <details
-          className="view-card"
+          className="view-card registry-category"
           key={view.name}
           ref={(el) => {
             if (el) detailsRefs.current.set(view.name, el);
@@ -350,6 +379,14 @@ export default function Registry({
         >
           <summary>
             <strong style={{ color: "var(--accent)" }}>{view.name}</strong>
+            {viewPrunedCount > 0 && (
+              <span className="category-tally category-tally-pruned">{viewPrunedCount} pruned</span>
+            )}
+            {viewNegligibleCount > 0 && (
+              <span className="category-tally category-tally-negligible">
+                {viewNegligibleCount} negligible
+              </span>
+            )}
             <MetaGrid view={view} />
           </summary>
           <div className="view-features">
@@ -361,6 +398,7 @@ export default function Registry({
                 !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
               const correlation = !isPruned ? bestCorrelationByFeature[feature] : undefined;
               const isSelected = included === null || included.has(feature);
+              const isExpanded = expandedFeatures.has(feature);
               return (
                 <div
                   className={`feature-row${feature === highlightedFeature ? " feature-row-highlight" : ""}`}
@@ -377,8 +415,21 @@ export default function Registry({
                         onChange={() => toggleSelected(feature)}
                         title="Include this feature in the next training run"
                       />{" "}
+                      <button
+                        type="button"
+                        className="feature-row-toggle"
+                        onClick={() => toggleExpanded(feature)}
+                        title={isExpanded ? "Hide description and formula" : "Show description and formula"}
+                      >
+                        {isExpanded ? "▾" : "▸"}
+                      </button>{" "}
                       <span style={{ color: coverageColor(pct) }}>&#9679;</span>{" "}
-                      <span className={isPruned ? "pruned-feature feature-name" : "feature-name"}>
+                      <span
+                        className={isPruned ? "pruned-feature feature-name" : "feature-name"}
+                        onClick={() => toggleExpanded(feature)}
+                        role="button"
+                        tabIndex={0}
+                      >
                         {feature}
                       </span>{" "}
                       {isPruned && (
@@ -441,16 +492,32 @@ export default function Registry({
                             ? "excluded"
                             : "not trained"}
                       </span>
+                      {imp !== undefined && (
+                        <span className="importance-bar" title={`${imp.toFixed(1)}% importance`}>
+                          <span
+                            className="importance-bar-fill"
+                            style={{
+                              width: `${Math.min(100, (imp / IMPORTANCE_GRADIENT_MAX_PCT) * 100)}%`,
+                              background: importanceColor(imp),
+                            }}
+                          />
+                        </span>
+                      )}
                     </span>
                   </div>
-                  <div className="feature-desc">{catalog.descriptions[feature]}</div>
-                  <code className="feature-formula">{catalog.formulas[feature]}</code>
+                  {isExpanded && (
+                    <>
+                      <div className="feature-desc">{catalog.descriptions[feature]}</div>
+                      <code className="feature-formula">{catalog.formulas[feature]}</code>
+                    </>
+                  )}
                 </div>
               );
             })}
           </div>
         </details>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -191,6 +191,70 @@ section + section {
 
 .feature-name {
   color: var(--text);
+  cursor: pointer;
+}
+
+.feature-name:hover {
+  text-decoration: underline;
+}
+
+/* Plain-text disclosure chevron toggling a row's description/formula --
+   same "no button chrome, ~97 of these on screen" reasoning as .prune-toggle. */
+.feature-row-toggle {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  cursor: pointer;
+}
+
+.feature-row-toggle:hover {
+  color: var(--text);
+}
+
+/* Thin proportional bar alongside the importance percentage -- a second,
+   faster-to-scan visual channel (length) on top of importanceColor's
+   existing color channel, not a replacement for the number. */
+.importance-bar {
+  display: inline-block;
+  width: 40px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface);
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.importance-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+/* A category's collapsed-state signal that something in it needs attention,
+   without expanding it first -- informational, not an action, so no button
+   chrome/hover unlike .feature-badge's per-row prune actions. */
+.category-tally {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 1px var(--space-2);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.category-tally-pruned {
+  background: color-mix(in srgb, var(--bad) 18%, transparent);
+  color: var(--bad);
+}
+
+.category-tally-negligible {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
 }
 
 .feature-desc {
@@ -351,8 +415,16 @@ details.view-card summary {
   cursor: pointer;
 }
 
+/* Registry's ~10 categories are structural groupings of many features each
+   -- a heavier left-border accent (vs. plain .view-card, used elsewhere for
+   single stat cards like the price hero) is what actually signals "this is
+   a container," not just another card among many identical-looking ones. */
+.registry-category {
+  border-left: 3px solid var(--accent);
+}
+
 /* Themed scrollbars for the app's few internally-scrollable containers
-   (e.g. CorrelationHeatmap's canvas) -- native scrollbars default to a
+   (e.g. the derived-features table) -- native scrollbars default to a
    light OS chrome that clashes hard with this dark theme. */
 .panel *::-webkit-scrollbar {
   width: 10px;
