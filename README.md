@@ -190,10 +190,13 @@ data-integrity gotchas, none yet handled structurally:
 - [ ] Modular, composable model layer: `training/model.py` is hardcoded to
       LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
       model types (random forest, etc.) behind a common interface, plus
-      ensembling -- combine multiple models' predictions, possibly each
+      ensembling. Combine multiple models' predictions, possibly each
       trained on a different feature subset, to capture different models'
       complementary strengths rather than betting everything on one model
-      family
+      family. Once the training-side mechanism exists: no API endpoint or
+      frontend UI shows which models/weights are in the ensemble yet
+      (`routes.py` has no model-metadata endpoint today) -- separate,
+      additive follow-up, not blocking the mechanism itself
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago); gap-then-continuation, specifically as a
