@@ -45,6 +45,33 @@ function sortFeatures(
   });
 }
 
+const MODEL_TYPE_LABELS: Record<string, string> = {
+  lightgbm: "LightGBM",
+  random_forest: "RF",
+  logistic_regression: "LogReg",
+};
+
+// The blended `importance` number is a weighted average across ensemble
+// members -- useful as a single sortable number, but it hides how each model
+// type actually sees a feature (e.g. logistic_regression's coefficient-based
+// view is a diagnostic-only member with zero weight in the blend, so its
+// value never shows up there at all). This tooltip surfaces the breakdown.
+function formatImportanceBreakdown(
+  feature: string,
+  byModelType: Record<string, Record<string, number>> | undefined,
+): string {
+  if (!byModelType) return "Share of the trained ensemble's blended importance";
+  const parts = Object.entries(byModelType)
+    .map(([modelType, values]) => {
+      const value = values[feature];
+      if (value === undefined) return null;
+      const label = MODEL_TYPE_LABELS[modelType] ?? modelType;
+      return `${label}: ${value.toFixed(1)}%`;
+    })
+    .filter((part): part is string => part !== null);
+  return parts.length > 0 ? parts.join(" · ") : "Share of the trained ensemble's blended importance";
+}
+
 // Service/entity names are snake_case identifiers (e.g. "day_session_return_model")
 // -- fine as a technical name, messy sitting next to a Title Case section label.
 // Display-only: the raw name is still what's used as the React key.
@@ -173,7 +200,7 @@ export default function Registry() {
                       </span>
                       <span
                         style={{ color: importanceColor(imp) }}
-                        title="Share of the trained model's total LightGBM gain"
+                        title={formatImportanceBreakdown(feature, importance.by_model_type)}
                       >
                         {imp !== undefined ? `${imp.toFixed(1)}% importance` : "--"}
                       </span>

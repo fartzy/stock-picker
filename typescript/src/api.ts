@@ -6,6 +6,12 @@ export interface CatalogResponse {
 
 export interface ImportanceResponse {
   importance: Record<string, number>;
+  // Per-model-type breakdown (e.g. lightgbm/random_forest/logistic_regression),
+  // each its own feature -> percent-of-total map. logistic_regression is a
+  // diagnostic-only ensemble member (weight 0) -- it never contributes to
+  // `importance` above, so this is the only place its coefficient-based
+  // importance is visible.
+  by_model_type?: Record<string, Record<string, number>>;
 }
 
 export interface CoverageResponse {

@@ -14,6 +14,9 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
 
 from stock_picker.training.dataset import LABEL_COLUMN
 
@@ -40,6 +43,16 @@ RANDOM_FOREST_DEFAULT_PARAMS = {
     "min_samples_leaf": 20,
     "random_state": 0,
 }
+# Strong L2 regularization (low C) given ~95 candidate features over a few
+# hundred rows -- a weakly-regularized logistic regression at this
+# feature-to-sample ratio tends toward perfect separation on noise.
+# max_iter raised well above sklearn's default (100), which often doesn't
+# converge with this many features.
+LOGISTIC_REGRESSION_DEFAULT_PARAMS = {
+    "C": 0.1,
+    "max_iter": 2000,
+    "random_state": 0,
+}
 
 
 @dataclass
@@ -47,7 +60,7 @@ class TrainedModel:
     """One fitted model, regardless of underlying library -- what `ensemble.py`
     combines several of."""
 
-    model_type: str  # "lightgbm" | "random_forest"
+    model_type: str  # "lightgbm" | "random_forest" | "logistic_regression"
     estimator: Any  # lgb.Booster or a fitted scikit-learn estimator
     feature_names: list[str] = field(default_factory=list)
 
@@ -98,9 +111,45 @@ def train_random_forest(
     return TrainedModel(model_type="random_forest", estimator=forest, feature_names=columns)
 
 
+def train_logistic_regression(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """Fits on the *binarized* direction (up/down) of the label, not the
+    continuous return the other two model types predict -- its coefficients
+    are a genuinely different importance lens (linear/monotonic effect size
+    vs. tree-based split-gain), not another return predictor. See
+    `ensemble.py`'s default spec: this model type is used as a diagnostic-only
+    ensemble member (weight=0.0), never blended into the actual prediction.
+
+    Wrapped in a `Pipeline` with a median imputer: unlike LightGBM (handles
+    missing values natively) and this codebase's RandomForestRegressor
+    (scikit-learn added native missing-value support for tree ensembles in
+    1.4), LogisticRegression has no missing-value support at all and raises
+    on any NaN -- and real feature data here is NaN by construction wherever
+    a rolling window hasn't filled yet (see README's coverage note). The
+    Pipeline fits the imputer's per-column medians on the training fold only
+    and reapplies them at predict time, so no separate bookkeeping is needed
+    to keep fit/predict consistent.
+    """
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    direction = (train_frame[LABEL_COLUMN] > 0).astype(int)
+    classifier = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("classify", LogisticRegression(**{**LOGISTIC_REGRESSION_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    classifier.fit(train_frame[columns], direction)
+    return TrainedModel(model_type="logistic_regression", estimator=classifier, feature_names=columns)
+
+
 MODEL_TRAINERS = {
     "lightgbm": train_lightgbm,
     "random_forest": train_random_forest,
+    "logistic_regression": train_logistic_regression,
 }
 
 
