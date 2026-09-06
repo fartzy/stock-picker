@@ -365,7 +365,11 @@ export default function Registry() {
                         style={{ color: importanceColor(imp) }}
                         title={formatImportanceBreakdown(feature, importance.by_model_type)}
                       >
-                        {imp !== undefined ? `${imp.toFixed(1)}% importance` : "--"}
+                        {imp !== undefined
+                          ? `${imp.toFixed(1)}% importance`
+                          : isPruned
+                            ? "excluded"
+                            : "not trained"}
                       </span>
                     </span>
                   </div>
