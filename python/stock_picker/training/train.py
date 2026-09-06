@@ -13,10 +13,14 @@ import mlflow
 import pandas as pd
 
 from stock_picker.storage.paths import data_root
-from stock_picker.training.model import DEFAULT_PARAMS, evaluate, train_lightgbm
+from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, train_ensemble
 from stock_picker.training.splits import walk_forward_splits
 
 DEFAULT_TRACKING_DIR = data_root() / "mlruns"
+# A single LightGBM model is just a one-member ensemble -- this default keeps
+# run_walk_forward's existing single-model behavior for callers that don't
+# care about ensembling.
+DEFAULT_SPECS: list[ModelSpec] = [ModelSpec("lightgbm")]
 
 
 def _configure_mlflow(tracking_dir: Path) -> None:
@@ -29,32 +33,44 @@ def _configure_mlflow(tracking_dir: Path) -> None:
     mlflow.set_experiment("day_session_return")
 
 
+def _log_specs(specs: list[ModelSpec], n_splits: int) -> None:
+    params = {"n_splits": n_splits, "ensemble_size": len(specs)}
+    for i, spec in enumerate(specs):
+        params[f"model_{i}_type"] = spec.model_type
+        params[f"model_{i}_weight"] = spec.weight
+        for key, value in (spec.params or {}).items():
+            params[f"model_{i}_{key}"] = value
+    mlflow.log_params(params)
+
+
 def run_walk_forward(
     pooled_dataset: pd.DataFrame,
     n_splits: int = 4,
-    params: dict | None = None,
+    specs: list[ModelSpec] | None = None,
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
-    excluded_features: set[str] | None = None,
 ) -> list[dict]:
-    """Train+evaluate across `n_splits` walk-forward folds, logging each to MLflow.
+    """Train+evaluate an ensemble across `n_splits` walk-forward folds, logging
+    each to MLflow.
 
     Returns fold results in chronological order: [{"fold", "model", "metrics",
-    "train_rows"}, ...]. The last entry is trained on the most history, and is the
-    one `main.py` persists as the production model.
+    "train_rows"}, ...] ("model" is an `Ensemble`). The last entry is trained
+    on the most history, and is the one `main.py` persists as the production
+    model.
     """
+    specs = specs if specs is not None else DEFAULT_SPECS
     _configure_mlflow(tracking_dir)
     splits = walk_forward_splits(pooled_dataset["date"], n_splits=n_splits)
 
     fold_results = []
     with mlflow.start_run(run_name="walk_forward"):
-        mlflow.log_params({**DEFAULT_PARAMS, **(params or {}), "n_splits": n_splits})
+        _log_specs(specs, n_splits)
 
         for fold, (train_mask, test_mask) in enumerate(splits):
             train_frame = pooled_dataset[train_mask]
             test_frame = pooled_dataset[test_mask]
 
-            model = train_lightgbm(train_frame, params=params, excluded_features=excluded_features)
-            metrics = evaluate(model, test_frame, excluded_features=excluded_features)
+            ensemble = train_ensemble(train_frame, specs)
+            metrics = evaluate_ensemble(ensemble, test_frame)
 
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):
                 mlflow.log_param("fold", fold)
@@ -64,7 +80,7 @@ def run_walk_forward(
             fold_results.append(
                 {
                     "fold": fold,
-                    "model": model,
+                    "model": ensemble,
                     "metrics": metrics,
                     "train_rows": len(train_frame),
                 }

@@ -14,7 +14,6 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
-        "@pypi//lightgbm",
         "@pypi//pandas",
         "@pypi//pyarrow",  # keep: implicit pandas parquet backend, no direct import
     ],

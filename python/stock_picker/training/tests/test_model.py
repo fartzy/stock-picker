@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
-from stock_picker.training.model import evaluate, feature_columns, train_lightgbm
+from stock_picker.training.model import evaluate, feature_columns, train_lightgbm, train_random_forest
 
 
 def _make_learnable_frame(n, seed):
@@ -20,6 +20,18 @@ def test_train_lightgbm_learns_a_clear_signal():
     model = train_lightgbm(train_frame, params={"min_data_in_leaf": 10}, num_boost_round=50)
     metrics = evaluate(model, test_frame)
 
+    assert model.model_type == "lightgbm"
+    assert metrics["directional_accuracy"] > 0.9
+
+
+def test_train_random_forest_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_random_forest(train_frame, params={"n_estimators": 50})
+    metrics = evaluate(model, test_frame)
+
+    assert model.model_type == "random_forest"
     assert metrics["directional_accuracy"] > 0.9
 
 
@@ -35,3 +47,17 @@ def test_feature_columns_also_excludes_pruned_features():
     )
 
     assert feature_columns(frame, excluded_features={"noise_feature"}) == ["signal"]
+
+
+def test_feature_columns_included_features_is_a_positive_selection():
+    frame = pd.DataFrame(
+        {"ticker": ["A"], "date": [1], "signal": [0.1], "other": [0.2], LABEL_COLUMN: [0.01]}
+    )
+
+    assert feature_columns(frame, included_features={"signal"}) == ["signal"]
+
+
+def test_feature_columns_included_features_still_respects_exclusions():
+    frame = pd.DataFrame({"signal": [0.1], "other": [0.2]})
+
+    assert feature_columns(frame, excluded_features={"signal"}, included_features={"signal", "other"}) == ["other"]
