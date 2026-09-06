@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import {
+  clearFeatureSelection,
   fetchCatalog,
   fetchCoverage,
   fetchFeatureImportance,
+  fetchFeatureSelection,
   fetchPrunedFeatures,
   fetchRegistry,
   pruneFeature,
+  setFeatureSelection,
   unpruneFeature,
   type CatalogResponse,
   type CoverageResponse,
+  type FeatureSelectionResponse,
   type FeatureView,
   type ImportanceResponse,
   type PrunedFeaturesResponse,
@@ -131,16 +135,24 @@ export default function Registry() {
     fetchPrunedFeatures,
     { intervalMs: PRUNE_POLL_INTERVAL_MS },
   );
+  const { data: selectionData, error: selectionError } =
+    useFetchData<FeatureSelectionResponse>(fetchFeatureSelection);
   const [sortMode, setSortMode] = useState<SortMode>("pipeline");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [prunedOverride, setPrunedOverride] = useState<Set<string> | null>(null);
-  const error = [registryError, catalogError, coverageError, importanceError, prunedError]
+  // undefined = not yet initialized from the fetch; null = no selection
+  // (every feature included); Set = an explicit selection.
+  const [included, setIncluded] = useState<Set<string> | null | undefined>(undefined);
+  const error = [registryError, catalogError, coverageError, importanceError, prunedError, selectionError]
     .filter(Boolean)
     .join("; ") || null;
 
   const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
   const reasonByFeature = Object.fromEntries(
     (prunedData?.archive ?? []).map((entry) => [entry.feature, entry.reason]),
+  );
+  const allFeatureNames = new Set(
+    (registry?.feature_views ?? []).flatMap((view) => view.features),
   );
 
   // Once the poll confirms the override matches the server, drop it and
@@ -154,8 +166,17 @@ export default function Registry() {
     if (matches) setPrunedOverride(null);
   }, [prunedData, prunedOverride]);
 
+  // Local selection state is seeded once from the initial fetch, then owned
+  // locally -- unlike pruning, nothing else in the app mutates the selection
+  // concurrently, so there's no need to poll or reconcile against the server.
+  useEffect(() => {
+    if (included === undefined && selectionData) {
+      setIncluded(selectionData.included_features ? new Set(selectionData.included_features) : null);
+    }
+  }, [selectionData, included]);
+
   if (error) return <p className="error">{error}</p>;
-  if (!registry || !catalog || !coverage || !importance || !prunedData)
+  if (!registry || !catalog || !coverage || !importance || !prunedData || included === undefined)
     return <p className="muted">Loading registry...</p>;
 
   // Clicking the already-active mode flips direction (like a sortable table
@@ -181,6 +202,32 @@ export default function Registry() {
     }
     setPrunedOverride(next);
   }
+
+  async function toggleSelected(feature: string) {
+    // `included === null` means "everything," so the first toggle away from
+    // the default has to materialize the full set before removing one name
+    // from it -- otherwise there'd be nothing to toggle against.
+    const next = new Set(included ?? allFeatureNames);
+    if (next.has(feature)) {
+      next.delete(feature);
+    } else {
+      next.add(feature);
+    }
+    if (next.size === allFeatureNames.size) {
+      setIncluded(null);
+      await clearFeatureSelection();
+    } else {
+      setIncluded(next);
+      await setFeatureSelection([...next]);
+    }
+  }
+
+  async function resetSelection() {
+    setIncluded(null);
+    await clearFeatureSelection();
+  }
+
+  const selectedCount = included?.size ?? allFeatureNames.size;
 
   return (
     <div>
@@ -222,6 +269,17 @@ export default function Registry() {
           </span>
         )}
       </div>
+      <div className="meta-row">
+        <span className="meta-label">Selected for training</span>
+        <span className="muted" style={{ fontSize: "var(--text-caption)" }}>
+          {selectedCount} / {allFeatureNames.size}
+        </span>
+        {included !== null && (
+          <button type="button" className="prune-toggle" onClick={resetSelection}>
+            reset to all
+          </button>
+        )}
+      </div>
       {registry.feature_views.map((view) => (
         <details className="view-card" key={view.name}>
           <summary>
@@ -235,10 +293,17 @@ export default function Registry() {
               const isPruned = pruned.has(feature);
               const isNegligible =
                 !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
+              const isSelected = included === null || included.has(feature);
               return (
                 <div className="feature-row" key={feature}>
                   <div className="feature-row-header">
                     <span>
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelected(feature)}
+                        title="Include this feature in the next training run"
+                      />{" "}
                       <span style={{ color: coverageColor(pct) }}>&#9679;</span>{" "}
                       <span className={isPruned ? "pruned-feature feature-name" : "feature-name"}>
                         {feature}

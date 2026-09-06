@@ -14,6 +14,8 @@ from stock_picker.api.models import (
     CatalogResponse,
     CorrelationResponse,
     CoverageResponse,
+    FeatureSelectionRequest,
+    FeatureSelectionResponse,
     ImportanceResponse,
     PositionsResponse,
     PriceHistoryResponse,
@@ -41,10 +43,14 @@ from stock_picker.features.price_history import (
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import TICKER_ENTITY, build_registry
+from stock_picker.features.selection import selected_features
 from stock_picker.features.trades import position_summaries, trade_history, trade_log
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
+from stock_picker.storage.feature_selection_store import FeatureSelectionStore
 from stock_picker.storage.trade_store import Trade, TradeStore
+from stock_picker.training import job as training_job
 from stock_picker.training.importance import model_importance
+from stock_picker.training.job import JobStatus
 
 router = APIRouter(prefix="/api")
 
@@ -138,6 +144,37 @@ def unprune_feature(feature: str) -> PrunedFeaturesResponse:
 def get_feature_importance() -> ImportanceResponse:
     importance = model_importance()
     return ImportanceResponse(importance=importance["blended"], by_model_type=importance["by_model_type"])
+
+
+@router.get("/feature-selection")
+def get_feature_selection() -> FeatureSelectionResponse:
+    features = selected_features()
+    return FeatureSelectionResponse(included_features=sorted(features) if features is not None else None)
+
+
+@router.post("/feature-selection")
+def set_feature_selection(body: FeatureSelectionRequest) -> FeatureSelectionResponse:
+    FeatureSelectionStore().write(set(body.included_features))
+    return FeatureSelectionResponse(included_features=sorted(body.included_features))
+
+
+@router.delete("/feature-selection")
+def clear_feature_selection() -> FeatureSelectionResponse:
+    FeatureSelectionStore().clear()
+    return FeatureSelectionResponse(included_features=None)
+
+
+@router.post("/training/run")
+def start_training_run() -> JobStatus:
+    started = training_job.start(included_features=selected_features())
+    if not started:
+        raise HTTPException(status_code=409, detail="a training run is already in progress")
+    return training_job.status()
+
+
+@router.get("/training/status")
+def get_training_status() -> JobStatus:
+    return training_job.status()
 
 
 @router.get("/prices/{ticker}")

@@ -3,6 +3,7 @@ import CorrelationHeatmap from "./components/CorrelationHeatmap";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
 import TradeHistory from "./components/TradeHistory";
+import TrainingPanel from "./components/TrainingPanel";
 
 type Tab = "trading" | "features" | "prices";
 
@@ -50,6 +51,13 @@ export default function App() {
 
       {tab === "features" && (
         <>
+          <section>
+            <h2>Training</h2>
+            <div className="panel">
+              <TrainingPanel />
+            </div>
+          </section>
+
           <section>
             <h2>Registry</h2>
             <p className="muted">

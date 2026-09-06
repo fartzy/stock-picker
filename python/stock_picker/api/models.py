@@ -28,6 +28,10 @@ class PruneRequest(BaseModel):
     reason: str | None = None
 
 
+class FeatureSelectionRequest(BaseModel):
+    included_features: list[str]
+
+
 # ---- responses ----
 
 
@@ -114,6 +118,11 @@ class PrunedFeatureEntry(BaseModel):
 class PrunedFeaturesResponse(BaseModel):
     pruned_features: list[str]
     archive: list[PrunedFeatureEntry]
+
+
+class FeatureSelectionResponse(BaseModel):
+    # None = no explicit selection -- every feature, subject to pruning only.
+    included_features: list[str] | None
 
 
 class ImportanceResponse(BaseModel):

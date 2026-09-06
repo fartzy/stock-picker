@@ -4,6 +4,7 @@ py_library(
     name = "storage",
     srcs = [
         "feature_exclusion_store.py",
+        "feature_selection_store.py",
         "feature_store.py",
         "model_store.py",
         "paths.py",
