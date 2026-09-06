@@ -17,6 +17,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from stock_picker.training.dataset import LABEL_COLUMN
 
@@ -137,21 +138,28 @@ def train_logistic_regression(
     `ensemble.py`'s default spec: this model type is used as a diagnostic-only
     ensemble member (weight=0.0), never blended into the actual prediction.
 
-    Wrapped in a `Pipeline` with a median imputer: unlike LightGBM (handles
-    missing values natively) and this codebase's RandomForestRegressor
-    (scikit-learn added native missing-value support for tree ensembles in
-    1.4), LogisticRegression has no missing-value support at all and raises
-    on any NaN -- and real feature data here is NaN by construction wherever
-    a rolling window hasn't filled yet (see README's coverage note). The
-    Pipeline fits the imputer's per-column medians on the training fold only
-    and reapplies them at predict time, so no separate bookkeeping is needed
-    to keep fit/predict consistent.
+    Wrapped in a `Pipeline` with a median imputer, then a standard scaler:
+    unlike LightGBM (handles missing values natively) and this codebase's
+    RandomForestRegressor (scikit-learn added native missing-value support
+    for tree ensembles in 1.4), LogisticRegression has no missing-value
+    support at all and raises on any NaN -- and real feature data here is
+    NaN by construction wherever a rolling window hasn't filled yet (see
+    README's coverage note). Standardizing (zero mean, unit variance) before
+    fitting is what makes `|coef_|` a valid cross-feature importance measure
+    at all -- features here span wildly different raw scales (RSI runs
+    0-100, most returns run a few percent), and an unstandardized
+    coefficient's magnitude reflects that raw scale as much as it reflects
+    genuine predictive effect size. The Pipeline fits the imputer's medians
+    and the scaler's mean/std on the training fold only and reapplies both
+    at predict time, so no separate bookkeeping is needed to keep
+    fit/predict consistent.
     """
     columns = feature_columns(train_frame, excluded_features, included_features)
     direction = (train_frame[LABEL_COLUMN] > 0).astype(int)
     classifier = Pipeline(
         [
             ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
             ("classify", LogisticRegression(**{**LOGISTIC_REGRESSION_DEFAULT_PARAMS, **(params or {})})),
         ]
     )
