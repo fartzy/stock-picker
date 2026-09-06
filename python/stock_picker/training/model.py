@@ -17,6 +17,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -69,6 +70,23 @@ LOGISTIC_REGRESSION_DEFAULT_PARAMS = {
     "max_iter": 2000,
     "random_state": 0,
 }
+# Small architecture and strong L2 (alpha) for the same reason as the other
+# trainers' conservative defaults: day-session return is dominated by noise
+# at this feature set, so a wide/deep net just memorizes it. early_stopping
+# holds out its own internal validation slice and halts once that stops
+# improving, rather than always running to max_iter regardless of overfit.
+NEURAL_NET_DEFAULT_PARAMS = {
+    "hidden_layer_sizes": (32, 16),
+    "activation": "relu",
+    "solver": "adam",
+    "alpha": 1e-2,
+    "learning_rate_init": 1e-3,
+    "max_iter": 500,
+    "early_stopping": True,
+    "validation_fraction": 0.1,
+    "n_iter_no_change": 15,
+    "random_state": 0,
+}
 
 
 @dataclass
@@ -76,7 +94,7 @@ class TrainedModel:
     """One fitted model, regardless of underlying library -- what `ensemble.py`
     combines several of."""
 
-    model_type: str  # "lightgbm" | "random_forest" | "logistic_regression"
+    model_type: str  # "lightgbm" | "random_forest" | "logistic_regression" | "neural_net"
     estimator: Any  # lgb.Booster or a fitted scikit-learn estimator
     feature_names: list[str] = field(default_factory=list)
 
@@ -181,10 +199,41 @@ def train_logistic_regression(
     return TrainedModel(model_type="logistic_regression", estimator=classifier, feature_names=columns)
 
 
+def train_neural_net(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """Predicts the same continuous day-session return LightGBM/RandomForest
+    do (unlike train_logistic_regression's binarized direction), so it fits
+    Ensemble's weighted-average blend natively -- no standalone-fit
+    workaround needed.
+
+    Wrapped in the same impute+scale Pipeline as train_logistic_regression,
+    for the same reason: MLPRegressor has no missing-value support (raises
+    on any NaN, and real feature data here is NaN by construction wherever a
+    rolling window hasn't filled yet) and gradient-based training on
+    unscaled inputs spanning wildly different raw ranges (RSI 0-100 vs.
+    returns ~0-5%) converges poorly or not at all.
+    """
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    regressor = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+            ("regress", MLPRegressor(**{**NEURAL_NET_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
+    return TrainedModel(model_type="neural_net", estimator=regressor, feature_names=columns)
+
+
 MODEL_TRAINERS = {
     "lightgbm": train_lightgbm,
     "random_forest": train_random_forest,
     "logistic_regression": train_logistic_regression,
+    "neural_net": train_neural_net,
 }
 
 # The model types that predict the continuous day-session return and can
@@ -193,7 +242,7 @@ MODEL_TRAINERS = {
 # averaged with these, so it's fit standalone (see training/main.py) and
 # deliberately excluded from this list, which is what the composable
 # model-type picker in the UI offers.
-PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest"]
+PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest", "neural_net"]
 
 
 def train_model(model_type: str, train_frame: pd.DataFrame, **kwargs) -> TrainedModel:

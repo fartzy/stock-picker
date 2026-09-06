@@ -6,6 +6,8 @@ decisions.
 
 from __future__ import annotations
 
+import numpy as np
+
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.main import DIAGNOSTIC_MODEL_NAME, MODEL_NAME
@@ -27,6 +29,21 @@ def model_type_importance(trained: TrainedModel) -> dict[str, float]:
         names = trained.feature_names
         classifier = trained.estimator.named_steps["classify"]
         gains = [abs(coefficient) for coefficient in classifier.coef_[0]]
+    elif trained.model_type == "neural_net":
+        # No native feature importance for an MLP. Olden's connection-weight
+        # method: chain-multiply the weight matrices from the input through
+        # every hidden layer to the output, so a hidden unit's own
+        # downstream influence on the prediction is accounted for -- summing
+        # only the first layer's weights (a simpler, tempting shortcut)
+        # overweights hidden units that barely affect the final output at
+        # all, and was empirically unreliable (ranked pure noise above a
+        # clear synthetic signal in this module's own tests).
+        names = trained.feature_names
+        regressor = trained.estimator.named_steps["regress"]
+        weight_product = regressor.coefs_[0]
+        for layer_weights in regressor.coefs_[1:]:
+            weight_product = weight_product @ layer_weights
+        gains = list(np.abs(weight_product).flatten())
     else:
         raise ValueError(f"unknown model_type: {trained.model_type!r}")
 

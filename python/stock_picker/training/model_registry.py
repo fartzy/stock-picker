@@ -50,12 +50,14 @@ _DISPLAY_NAMES = {
     "lightgbm": "LightGBM",
     "random_forest": "Random Forest",
     "logistic_regression": "Logistic Regression",
+    "neural_net": "Neural Net",
 }
 
 _CATEGORIES = {
     "lightgbm": "gradient_boosted_trees",
     "random_forest": "tree_ensemble",
     "logistic_regression": "linear_diagnostic",
+    "neural_net": "neural_network",
 }
 
 # PyPI distribution name, not the import name -- lightgbm's import (`lightgbm`)
@@ -64,6 +66,7 @@ _PACKAGES = {
     "lightgbm": "lightgbm",
     "random_forest": "scikit-learn",
     "logistic_regression": "scikit-learn",
+    "neural_net": "scikit-learn",
 }
 
 _DESCRIPTIONS = {
@@ -72,6 +75,9 @@ _DESCRIPTIONS = {
     "logistic_regression": (
         "Predicts the binarized direction (up/down), not the continuous return -- fit and persisted "
         "standalone as a diagnostic importance lens, never an ensemble member."
+    ),
+    "neural_net": (
+        "Small multi-layer perceptron predicting the continuous day-session return. Ensemble member."
     ),
 }
 
@@ -87,8 +93,8 @@ def _repo_relative(source_file: str) -> str:
 
 
 def _source_location(trainer) -> tuple[str, int]:
-    # All three trainers today are plain, undecorated module-level functions
-    # in model.py, so inspect resolves their real location reliably -- this
+    # Every trainer today is a plain, undecorated module-level function in
+    # model.py, so inspect resolves their real location reliably -- this
     # would need re-checking if a future trainer is ever wrapped.
     source_file = inspect.getsourcefile(trainer) or inspect.getfile(trainer)
     _, source_line = inspect.getsourcelines(trainer)

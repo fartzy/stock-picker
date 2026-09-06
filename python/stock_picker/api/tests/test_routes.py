@@ -262,7 +262,7 @@ def test_get_model_types_describes_every_known_model_type(client):
 
     assert response.status_code == 200
     model_types = {m["model_type"] for m in response.json()["model_types"]}
-    assert model_types == {"lightgbm", "random_forest", "logistic_regression"}
+    assert model_types == {"lightgbm", "random_forest", "logistic_regression", "neural_net"}
     for info in response.json()["model_types"]:
         assert info["package"]
         assert info["source_file"].endswith("model.py")
@@ -339,7 +339,7 @@ def test_get_model_selection_starts_as_no_selection(client):
     assert response.status_code == 200
     assert response.json() == {
         "model_choices": None,
-        "available_model_types": ["lightgbm", "random_forest"],
+        "available_model_types": ["lightgbm", "random_forest", "neural_net"],
     }
 
 
