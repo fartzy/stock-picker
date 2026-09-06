@@ -133,6 +133,35 @@ _pattern(
     ),
 )
 _pattern(
+    r"^day_session_streak$",
+    lambda m: (
+        "running signed, capped(+/-3) count of consecutive up/down "
+        "(close-open)/open days; resets to 0 on NaN"
+    ),
+)
+_pattern(
+    r"^day_session_streak_seasonality$",
+    lambda m: (
+        "day_session_return.groupby(day_session_streak)"
+        ".transform(lambda s: s.rolling(10, min_periods=1).mean())"
+    ),
+)
+_pattern(
+    r"^pattern_sequence_seasonality_3d$",
+    lambda m: (
+        "day_session_return.groupby(sign(day_session_return).rolling(3)->'UDU' key)"
+        ".transform(lambda s: s.rolling(10, min_periods=1).mean())"
+    ),
+)
+_pattern(r"^weekday_lag_return$", lambda m: "day_session_return.shift(5)")
+_pattern(
+    r"^weekday_lag_seasonality$",
+    lambda m: (
+        "day_session_return.groupby(date.dayofweek + '_' + bucket3(weekday_lag_return))"
+        ".transform(lambda s: s.rolling(10, min_periods=1).mean())"
+    ),
+)
+_pattern(
     r"^return_rank_(\d+)d$",
     lambda m: f"universe_returns_{m[1]}d.rank(axis=1, pct=True)[this_ticker]",
 )

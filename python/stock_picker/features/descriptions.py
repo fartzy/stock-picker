@@ -218,6 +218,41 @@ _pattern(
     ),
 )
 _pattern(
+    r"^day_session_streak$",
+    lambda m: (
+        "Signed, capped count of consecutive up/down open-to-close (day-session) "
+        "days -- e.g. +2 = two straight day-session gains."
+    ),
+)
+_pattern(
+    r"^day_session_streak_seasonality$",
+    lambda m: (
+        "Average day-session return following the last 10 prior times this ticker "
+        "was on this same streak length/direction, using only the most recent 10 "
+        "occurrences (not an all-time average, so it tracks the current regime)."
+    ),
+)
+_pattern(
+    r"^pattern_sequence_seasonality_3d$",
+    lambda m: (
+        "Average day-session return following the last 10 prior times this ticker "
+        "had this exact 3-day up/down sequence (order matters, not just streak "
+        "length), using only the most recent 10 occurrences."
+    ),
+)
+_pattern(
+    r"^weekday_lag_return$",
+    lambda m: "This ticker's day-session return on this same weekday one calendar week ago.",
+)
+_pattern(
+    r"^weekday_lag_seasonality$",
+    lambda m: (
+        "Average day-session return following the last 10 prior times this "
+        "weekday had this same direction/size of move on the same weekday the "
+        "week before, using only the most recent 10 occurrences."
+    ),
+)
+_pattern(
     r"^return_rank_(\d+)d$",
     lambda m: f"This ticker's percentile rank (0-1) for {m[1]}-day return among all tracked tickers on this date.",
 )

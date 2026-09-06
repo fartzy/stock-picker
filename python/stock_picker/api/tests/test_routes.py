@@ -435,5 +435,5 @@ def test_get_registry(client):
     assert response.status_code == 200
     body = response.json()
     assert body["entities"][0]["name"] == "ticker"
-    assert len(body["feature_views"]) == 10
+    assert len(body["feature_views"]) == 11
     assert body["feature_services"][0]["name"] == "day_session_return_model"
