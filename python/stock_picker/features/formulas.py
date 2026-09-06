@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 
-UNKNOWN_FORMULA = "No formula available for '{name}' -- add a pattern to formulas.py."
+UNKNOWN_FORMULA = "No formula available for '{name}'. Add a pattern to formulas.py."
 
 _PATTERNS: list[tuple[re.Pattern, Callable[[re.Match], str]]] = []
 

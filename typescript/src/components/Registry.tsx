@@ -258,7 +258,7 @@ export default function Registry() {
                           type="button"
                           className="feature-badge feature-badge-negligible"
                           onClick={() => togglePrune(feature, `negligible importance (${imp.toFixed(2)}%)`)}
-                          title="Not moving the model -- click to prune"
+                          title="Not moving the model. Click to prune."
                         >
                           negligible
                         </button>
