@@ -7,6 +7,7 @@ from stock_picker.training.model import (
     feature_columns,
     train_lightgbm,
     train_logistic_regression,
+    train_neural_net,
     train_random_forest,
 )
 
@@ -39,6 +40,44 @@ def test_train_random_forest_learns_a_clear_signal():
 
     assert model.model_type == "random_forest"
     assert metrics.directional_accuracy > 0.9
+
+
+_NEURAL_NET_TEST_PARAMS = {
+    "hidden_layer_sizes": (4,),
+    "alpha": 1e-3,
+    "early_stopping": False,
+    "max_iter": 3000,
+}
+
+
+def test_train_neural_net_learns_a_clear_signal():
+    # More rows than the other trainers' equivalent test -- a small MLP
+    # needs more data than a shallow tree/linear model to reliably converge
+    # on a solution dominated by the real signal rather than noise.
+    train_frame = _make_learnable_frame(1600, seed=1)
+    test_frame = _make_learnable_frame(800, seed=2)
+
+    model = train_neural_net(train_frame, params=_NEURAL_NET_TEST_PARAMS)
+    metrics = evaluate(model, test_frame)
+
+    assert model.model_type == "neural_net"
+    # Lower bar than the tree/linear trainers' equivalent test (> 0.9) --
+    # gradient-based training on a tiny network is a noisier fit than a
+    # shallow tree or closed-form-ish linear solve, even on a clean signal.
+    assert metrics.directional_accuracy > 0.7
+
+
+def test_train_neural_net_handles_missing_values():
+    # MLPRegressor has no native NaN support (raises on any missing value),
+    # so this only passes if the Pipeline's impute step is actually wired in
+    # -- real feature data is NaN by construction wherever a rolling window
+    # hasn't filled yet.
+    train_frame = _make_learnable_frame(1600, seed=1)
+    train_frame.loc[train_frame.index[:20], "signal"] = None
+
+    model = train_neural_net(train_frame, params=_NEURAL_NET_TEST_PARAMS)
+
+    assert model.model_type == "neural_net"
 
 
 def test_train_logistic_regression_learns_a_clear_signal():

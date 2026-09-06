@@ -5,7 +5,12 @@ import pytest
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.importance import ensemble_importance, model_type_importance
-from stock_picker.training.model import train_lightgbm, train_logistic_regression, train_random_forest
+from stock_picker.training.model import (
+    train_lightgbm,
+    train_logistic_regression,
+    train_neural_net,
+    train_random_forest,
+)
 
 
 def _make_learnable_frame(n, seed):
@@ -32,6 +37,11 @@ def _trained_logistic_regression():
     return train_logistic_regression(train_frame)
 
 
+def _trained_neural_net():
+    train_frame = _make_learnable_frame(1600, seed=1)
+    return train_neural_net(train_frame, params={"hidden_layer_sizes": (4,), "alpha": 1e-3, "early_stopping": False, "max_iter": 3000})
+
+
 def test_lightgbm_importance_sums_to_roughly_100():
     importance = model_type_importance(_trained_lightgbm())
 
@@ -54,6 +64,13 @@ def test_random_forest_importance_sums_to_roughly_100_and_ranks_signal_first():
 
 def test_logistic_regression_importance_sums_to_roughly_100_and_ranks_signal_first():
     importance = model_type_importance(_trained_logistic_regression())
+
+    assert sum(importance.values()) == pytest.approx(100, abs=1.0)
+    assert importance["signal"] > importance["noise_feature"]
+
+
+def test_neural_net_importance_sums_to_roughly_100_and_ranks_signal_first():
+    importance = model_type_importance(_trained_neural_net())
 
     assert sum(importance.values()) == pytest.approx(100, abs=1.0)
     assert importance["signal"] > importance["noise_feature"]
