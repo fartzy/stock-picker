@@ -75,3 +75,10 @@ export function importanceColor(pct: number | undefined): string {
   const rgb = neutral.map((c, i) => Math.round(c + (accent[i] - c) * t));
   return `rgb(${rgb.join(",")})`;
 }
+
+// A feature below this contributes almost nothing to the trained ensemble --
+// with ~95 features, a uniform split would average ~1.05% each, so anything
+// under half that is a real standout-low, not just "below average." Below
+// this AND not already pruned, Registry flags it as a one-click pruning
+// candidate (see Registry.tsx).
+export const NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD = 0.5;

@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchCatalog,
   fetchCoverage,
   fetchFeatureImportance,
+  fetchPrunedFeatures,
   fetchRegistry,
+  pruneFeature,
+  unpruneFeature,
   type CatalogResponse,
   type CoverageResponse,
   type FeatureView,
   type ImportanceResponse,
+  type PrunedFeaturesResponse,
   type RegistryResponse,
 } from "../api";
-import { coverageColor, importanceColor } from "../theme";
+import { coverageColor, importanceColor, NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD } from "../theme";
 import { useFetchData } from "../useFetchData";
+
+// Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
+// poll rather than fetch-once so a prune made there shows up here too, same
+// "live-ish via polling" convention PruneArchive used before folding into
+// Registry.
+const PRUNE_POLL_INTERVAL_MS = 4000;
 
 type SortMode = "pipeline" | "coverage" | "importance";
 type SortDirection = "asc" | "desc";
@@ -117,13 +127,36 @@ export default function Registry() {
   const { data: coverage, error: coverageError } = useFetchData<CoverageResponse>(fetchCoverage);
   const { data: importance, error: importanceError } =
     useFetchData<ImportanceResponse>(fetchFeatureImportance);
+  const { data: prunedData, error: prunedError } = useFetchData<PrunedFeaturesResponse>(
+    fetchPrunedFeatures,
+    { intervalMs: PRUNE_POLL_INTERVAL_MS },
+  );
   const [sortMode, setSortMode] = useState<SortMode>("pipeline");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
-  const error =
-    [registryError, catalogError, coverageError, importanceError].filter(Boolean).join("; ") || null;
+  const [prunedOverride, setPrunedOverride] = useState<Set<string> | null>(null);
+  const error = [registryError, catalogError, coverageError, importanceError, prunedError]
+    .filter(Boolean)
+    .join("; ") || null;
+
+  const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
+  const reasonByFeature = Object.fromEntries(
+    (prunedData?.archive ?? []).map((entry) => [entry.feature, entry.reason]),
+  );
+
+  // Once the poll confirms the override matches the server, drop it and
+  // trust the poll again -- otherwise a prune made elsewhere (e.g. the
+  // Correlation tab) would never show up here once any local toggle happened.
+  useEffect(() => {
+    if (!prunedOverride || !prunedData) return;
+    const serverSet = new Set(prunedData.pruned_features);
+    const matches =
+      prunedOverride.size === serverSet.size && [...prunedOverride].every((f) => serverSet.has(f));
+    if (matches) setPrunedOverride(null);
+  }, [prunedData, prunedOverride]);
 
   if (error) return <p className="error">{error}</p>;
-  if (!registry || !catalog || !coverage || !importance) return <p className="muted">Loading registry...</p>;
+  if (!registry || !catalog || !coverage || !importance || !prunedData)
+    return <p className="muted">Loading registry...</p>;
 
   // Clicking the already-active mode flips direction (like a sortable table
   // header); clicking a different mode switches to it at a sensible default
@@ -135,6 +168,18 @@ export default function Registry() {
       setSortMode(mode);
       setSortDirection(mode === "importance" ? "desc" : "asc");
     }
+  }
+
+  async function togglePrune(feature: string, reason?: string) {
+    const next = new Set(pruned);
+    if (next.has(feature)) {
+      next.delete(feature);
+      await unpruneFeature(feature);
+    } else {
+      next.add(feature);
+      await pruneFeature(feature, reason);
+    }
+    setPrunedOverride(next);
   }
 
   return (
@@ -187,12 +232,46 @@ export default function Registry() {
             {sortFeatures(view.features, sortMode, sortDirection, coverage.coverage, importance.importance).map((feature) => {
               const pct = coverage.coverage[feature];
               const imp = importance.importance[feature];
+              const isPruned = pruned.has(feature);
+              const isNegligible =
+                !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
               return (
                 <div className="feature-row" key={feature}>
                   <div className="feature-row-header">
                     <span>
                       <span style={{ color: coverageColor(pct) }}>&#9679;</span>{" "}
-                      <span className="feature-name">{feature}</span>
+                      <span className={isPruned ? "pruned-feature feature-name" : "feature-name"}>
+                        {feature}
+                      </span>{" "}
+                      {isPruned && (
+                        <button
+                          type="button"
+                          className="feature-badge feature-badge-pruned"
+                          onClick={() => togglePrune(feature)}
+                          title={reasonByFeature[feature] ?? "manually pruned"}
+                        >
+                          pruned
+                        </button>
+                      )}
+                      {isNegligible && (
+                        <button
+                          type="button"
+                          className="feature-badge feature-badge-negligible"
+                          onClick={() => togglePrune(feature, `negligible importance (${imp.toFixed(2)}%)`)}
+                          title="Not moving the model -- click to prune"
+                        >
+                          negligible
+                        </button>
+                      )}
+                      {!isPruned && !isNegligible && (
+                        <button
+                          type="button"
+                          className="prune-toggle"
+                          onClick={() => togglePrune(feature, "manually pruned from Registry")}
+                        >
+                          prune
+                        </button>
+                      )}
                     </span>
                     <span className="feature-stats">
                       <span title="Non-null coverage across the universe">

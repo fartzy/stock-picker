@@ -1,7 +1,6 @@
 import { useState } from "react";
 import CorrelationHeatmap from "./components/CorrelationHeatmap";
 import PriceHistory from "./components/PriceHistory";
-import PruneArchive from "./components/PruneArchive";
 import Registry from "./components/Registry";
 import TradeHistory from "./components/TradeHistory";
 
@@ -48,7 +47,11 @@ export default function App() {
         <>
           <section>
             <h2>Registry</h2>
-            <p className="muted">Coverage and importance are per-feature attributes below, not a separate view. Sort by either to scan for problems.</p>
+            <p className="muted">
+              Coverage, importance, and pruning are per-feature attributes below, not separate views.
+              Sort by either to scan for problems -- pruned/excluded features are actually excluded from
+              training, not just hidden here.
+            </p>
             <div className="panel">
               <Registry />
             </div>
@@ -59,12 +62,6 @@ export default function App() {
             <div className="panel">
               <CorrelationHeatmap />
             </div>
-          </section>
-
-          <section>
-            <h2>Pruned features</h2>
-            <p className="muted">Excluded from training, not just hidden here.</p>
-            <PruneArchive />
           </section>
         </>
       )}
