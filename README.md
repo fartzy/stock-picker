@@ -1,9 +1,10 @@
 # stock-picker
 
 Builds a universe of the top 500 US companies by market cap, pulls daily OHLCV
-via `yfinance`, engineers ~95 features, trains a LightGBM day-session-return
-model, and serves the whole thing through a FastAPI + React web app --
-including a real trading log with live P&L.
+via `yfinance`, engineers ~95 features, trains an ensemble of models
+(LightGBM + random forest) predicting day-session return, and serves the
+whole thing through a FastAPI + React web app -- including a real trading log
+with live P&L.
 
 ## Architecture
 
@@ -19,7 +20,7 @@ flowchart TB
     US[("UniverseStore<br/>registry.parquet")]
     PS[("PriceStore<br/>prices/*.parquet")]
     FS[("FeatureStore<br/>features/*.parquet")]
-    MS[("ModelStore<br/>models/*.txt")]
+    MS[("ModelStore<br/>models/*.pkl")]
     TS[("TradeStore<br/>trades/trades.parquet")]
     PFS[("PrunedFeatureStore<br/>pruned_features/pruned.parquet")]
 
@@ -27,7 +28,7 @@ flowchart TB
     REGISTRY["features/registry.py<br/>Feast-style metadata over the pipeline"]
 
     DATASET["training/dataset.py<br/>lookahead-safe labeling"]
-    TRAIN["training/train.py + model.py<br/>LightGBM, walk-forward validated"]
+    TRAIN["training/train.py + model.py/ensemble.py<br/>LightGBM + random forest ensemble, walk-forward validated"]
     INFER["training/inference.py<br/>live scoring"]
     MLFLOW[("MLflow<br/>tracking only")]
 
@@ -75,10 +76,10 @@ flowchart TB
 python/stock_picker/
 ├── tickers/     # top-500-by-market-cap universe
 ├── ingestion/   # yfinance: daily history, intraday bars, live quotes
-├── storage/     # Parquet/LightGBM persistence (Repository pattern)
+├── storage/     # Parquet/pickle persistence (Repository pattern)
 ├── features/    # ~95-column pipeline, feature catalog, Feast-style registry,
 │                #   trade log + P&L, feature pruning
-├── training/    # LightGBM day-session model, walk-forward validated
+├── training/    # LightGBM + random forest ensemble, walk-forward validated
 └── api/         # FastAPI JSON layer -- every endpoint wraps a tested
                  #   pure function from features/, no new logic
 
@@ -156,12 +157,12 @@ held-out set of entire tickers never seen in training. See
 `training/dataset.py` before touching anything else in this module -- it's
 what prevents day t's own close from leaking into day t's features.
 
-**Current results** (450 train tickers, 50 held out, 1 year of history):
-walk-forward directional accuracy is ~49-52% (coin-flip, expected at this
-timescale); holdout accuracy is **56.0% on 12,500 rows**. At a 0.5%
-predicted-return threshold, 186 trades clear it with a **73.1% hit rate**,
-broad-based across 40 of the 50 holdout tickers (not propped up by a few
-names -- excluding the top 5 tickers, hit rate *rises* to 78.6%).
+**Current results** (450 train tickers, 50 held out, 1 year of history), now
+from the 2-member LightGBM + random-forest ensemble: walk-forward directional
+accuracy is ~48-53% (coin-flip, expected at this timescale); holdout accuracy
+is **56.0% on 12,600 rows**. At a 0.5% predicted-return threshold, 100 trades
+clear it with an **80.0% hit rate** (avg return 1.7% per trade); at 1.0%, only
+3 trades clear it, too few to draw a conclusion from.
 
 ## Known issues
 
@@ -190,10 +191,13 @@ data-integrity gotchas, none yet handled structurally:
 - [ ] Modular, composable model layer: `training/model.py` is hardcoded to
       LightGBM today (`train_lightgbm`/`evaluate`). Support swapping in other
       model types (random forest, etc.) behind a common interface, plus
-      ensembling -- combine multiple models' predictions, possibly each
+      ensembling. Combine multiple models' predictions, possibly each
       trained on a different feature subset, to capture different models'
       complementary strengths rather than betting everything on one model
-      family
+      family. Once the training-side mechanism exists: no API endpoint or
+      frontend UI shows which models/weights are in the ensemble yet
+      (`routes.py` has no model-metadata endpoint today) -- separate,
+      additive follow-up, not blocking the mechanism itself
 - [x] ~~Price history view: daily (any tracked ticker) + intraday~~ -- done
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)

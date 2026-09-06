@@ -24,8 +24,9 @@ py_pytest(
     imports = ["../../.."],
     deps = [
         "//python/stock_picker/storage",
-        "@pypi//lightgbm",
+        "//python/stock_picker/training",
         "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 

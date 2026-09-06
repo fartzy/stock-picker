@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from stock_picker.training.dataset import GAP_COLUMN, LABEL_COLUMN, build_training_frame
+from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.inference import (
     build_inference_row,
     compute_overnight_gap,
@@ -60,12 +61,13 @@ def test_predict_signal_returns_a_float_using_a_trained_model():
     history, features = _make_history_and_features(n=30)
     frame = build_training_frame(history, features)
     model = train_lightgbm(frame, params={"min_data_in_leaf": 2}, num_boost_round=5)
+    ensemble = Ensemble(members=[model], weights=[1.0])
 
     prior_day_features = features.iloc[-2]
     today_open = history["Open"].iloc[-1]
     yesterday_close = history["Close"].iloc[-2]
     inference_row = build_inference_row(prior_day_features, today_open, yesterday_close)
 
-    signal = predict_signal(model, inference_row)
+    signal = predict_signal(ensemble, inference_row)
 
     assert isinstance(signal, float)

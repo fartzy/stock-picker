@@ -14,11 +14,16 @@ from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
-from stock_picker.training.model import evaluate, feature_columns
+from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble
 from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
 
 MODEL_NAME = "day_session_return"
+# The default ensemble composition -- a developer edits this directly to
+# experiment (add a model type, change a weight). `excluded_features` (the
+# pruned set) is applied to each member when built in main(), since it's only
+# known at runtime.
+DEFAULT_MODEL_TYPES = ["lightgbm", "random_forest"]
 
 
 def _load_pooled_dataset(
@@ -48,27 +53,25 @@ def main() -> None:
     price_store = PriceStore()
     feature_store = FeatureStore()
     excluded_features = pruned_features()
+    specs = [ModelSpec(model_type, excluded_features=excluded_features) for model_type in DEFAULT_MODEL_TYPES]
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
-    fold_results = run_walk_forward(train_dataset, excluded_features=excluded_features)
+    fold_results = run_walk_forward(train_dataset, specs=specs)
     for result in fold_results:
         print(f"fold {result['fold']}: {result['metrics']}")
 
-    final_model = fold_results[-1]["model"]
-    ModelStore().write(MODEL_NAME, final_model)
+    final_ensemble = fold_results[-1]["model"]
+    ModelStore().write(MODEL_NAME, final_ensemble)
 
     if not holdout_tickers:
         return
 
     holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
-    holdout_metrics = evaluate(final_model, holdout_dataset, excluded_features=excluded_features)
+    holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
     print(f"holdout tickers {holdout_tickers}: {holdout_metrics}")
 
-    columns = feature_columns(holdout_dataset, excluded_features=excluded_features)
-    predicted = pd.Series(
-        final_model.predict(holdout_dataset[columns]), index=holdout_dataset.index
-    )
+    predicted = pd.Series(predict_ensemble(final_ensemble, holdout_dataset), index=holdout_dataset.index)
     actual = holdout_dataset[LABEL_COLUMN]
     sweep = sweep_thresholds(predicted, actual)
     print(sweep.to_string(index=False))

@@ -9,11 +9,10 @@ silently drift apart.
 
 from __future__ import annotations
 
-import lightgbm as lgb
 import pandas as pd
 
 from stock_picker.training.dataset import GAP_COLUMN
-from stock_picker.training.model import feature_columns
+from stock_picker.training.ensemble import Ensemble, predict_ensemble
 
 
 def compute_overnight_gap(today_open: float, yesterday_close: float) -> float:
@@ -26,21 +25,17 @@ def build_inference_row(
     today_open: float,
     yesterday_close: float,
 ) -> pd.DataFrame:
-    """A single-row DataFrame ready to feed to a trained model's `.predict()`."""
+    """A single-row DataFrame ready to feed to a trained ensemble's `predict_ensemble`."""
     row = prior_day_features.copy()
     row[GAP_COLUMN] = compute_overnight_gap(today_open, yesterday_close)
     return row.to_frame().T
 
 
-def predict_signal(
-    model: lgb.Booster, inference_row: pd.DataFrame, excluded_features: set[str] | None = None
-) -> float:
+def predict_signal(ensemble: Ensemble, inference_row: pd.DataFrame) -> float:
     """Predicted day-session return for a single inference row.
 
-    `excluded_features` must match whatever the model was actually trained
-    with (see training.main.main) -- this store only tracks current live
-    state, not a per-model history, so a stale/mismatched set here would
-    misalign columns against what the model expects.
+    Each member of `ensemble` already remembers the exact feature columns it
+    was trained with (`TrainedModel.feature_names`), so there's no separate
+    excluded-features set to keep in sync here.
     """
-    columns = feature_columns(inference_row, excluded_features=excluded_features)
-    return float(model.predict(inference_row[columns])[0])
+    return float(predict_ensemble(ensemble, inference_row)[0])
