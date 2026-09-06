@@ -21,7 +21,10 @@ export default function App() {
         <h1>
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
-        <p className="muted">Feature catalog, coverage, correlation, and registry, served live from the FastAPI backend.</p>
+        <p className="muted">
+          Trading with live P&amp;L, a feature store (registry, coverage, correlation, pruning), and
+          price history, served live from the FastAPI backend.
+        </p>
       </header>
 
       <div className="tab-bar">

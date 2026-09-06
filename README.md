@@ -195,6 +195,11 @@ loop):
       wordmark got a small pass but the page as a whole (Registry included)
       still reads plain -- a real design pass is needed, not another small
       tweak
+- [ ] Descriptive copy across the app (header tagline, section descriptions
+      like Registry's) needs a real editorial pass, not just spot-fixes when
+      one goes stale -- tagline was factually out of date (missed Trading/
+      Prices tabs) until just fixed; unclear whether the remaining copy
+      reads well, just that it's at least accurate right now
 - [ ] Prune UX: fold pruned status into Registry per-feature instead of a
       separate archive
 - [ ] Modular model layer: LightGBM + random forest ensemble -- revisit
