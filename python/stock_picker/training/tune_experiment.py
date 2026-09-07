@@ -22,6 +22,7 @@ import functools
 import os
 import time
 
+import lightgbm as lgb
 import numpy as np
 import pandas as pd
 
@@ -32,13 +33,15 @@ from stock_picker.storage.feature_exclusion_store import PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
-from stock_picker.training.backtest import sweep_thresholds
+from stock_picker.training.backtest import rank_ic, sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble
 from stock_picker.training.importance import model_type_importance
 from stock_picker.training.model import (
+    DEFAULT_NUM_BOOST_ROUND,
     NEURAL_NET_DEFAULT_PARAMS,
     RIDGE_DEFAULT_PARAMS,
+    feature_columns,
     predict,
     train_lightgbm,
     train_neural_net,
@@ -201,7 +204,65 @@ def tune_hyperparams(pooled_train, excluded):
     return best_lgbm, best_rf
 
 
-# 3-way (lightgbm, random_forest, neural_net). Includes every solo/pairwise
+# LightGBM's NDCG gain table (used by both the lambdarank objective and the
+# ndcg metric) only covers relevance grades 0-30 by default -- far fewer than
+# a day's ~450 tickers, so relevance has to be a small number of quantile
+# buckets, not a full per-ticker rank.
+RELEVANCE_GRADES = 10
+
+
+def evaluate_ranking_objective(pooled_train, excluded, lgbm_params, n_splits=N_SPLITS):
+    """Diagnostic-only: does grouping LightGBM's objective by trading day
+    (lambdarank -- ranking each day's ~500 tickers against their same-day
+    peers) produce a better cross-sectional Rank IC than the plain
+    regression objective already in production? Motivated by research
+    arguing cross-sectional stock prediction is closer to a ranking problem
+    than magnitude regression.
+
+    Deliberately measurement-only -- doesn't touch model.py/Ensemble. A
+    ranking model's raw output is a same-day RELATIVE score, not a
+    calibrated return prediction, so it can't just be dropped into the
+    existing fixed-percentage-threshold trading-strategy layer
+    (backtest.py's simulate_trades) without a separate redesign (e.g.
+    "trade the top-K ranked names" instead of "trade whenever predicted
+    return clears 0.5%"). This function only answers the prior, narrower
+    question: is there something here worth that redesign at all?
+    """
+    print("\n=== Ranking objective (lambdarank, grouped by day) vs regression: Rank IC ===")
+    splits = walk_forward_splits(pooled_train["date"], n_splits=n_splits)
+    regression_ics, ranking_ics = [], []
+    for train_mask, test_mask in splits:
+        train_frame = pooled_train[train_mask]
+        test_frame = pooled_train[test_mask]
+        columns = feature_columns(train_frame, excluded)
+
+        regression_model = train_lightgbm(train_frame, params=lgbm_params, excluded_features=excluded)
+        regression_pred = pd.Series(predict(regression_model, test_frame), index=test_frame.index)
+        regression_ics.append(rank_ic(regression_pred, test_frame[LABEL_COLUMN], test_frame["date"]))
+
+        # lambdarank needs its rows contiguous by group (day) and a small
+        # non-negative relevance grade -- LightGBM's NDCG gain table only
+        # covers labels 0-30 by default, so a full within-day dense rank
+        # (up to ~450 tickers/day) overflows it; bucket into RELEVANCE_GRADES
+        # quantile groups within each day instead of ranking every ticker
+        # individually.
+        train_sorted = train_frame.sort_values("date")
+        rank_label = train_sorted.groupby("date")[LABEL_COLUMN].transform(
+            lambda day: pd.qcut(day, RELEVANCE_GRADES, labels=False, duplicates="drop")
+        )
+        group_sizes = train_sorted.groupby("date").size().to_numpy()
+        ranking_dataset = lgb.Dataset(train_sorted[columns], label=rank_label, group=group_sizes)
+        ranking_params = {**lgbm_params, "objective": "lambdarank", "metric": "ndcg"}
+        ranking_booster = lgb.train(ranking_params, ranking_dataset, num_boost_round=DEFAULT_NUM_BOOST_ROUND)
+        ranking_pred = pd.Series(ranking_booster.predict(test_frame[columns]), index=test_frame.index)
+        ranking_ics.append(rank_ic(ranking_pred, test_frame[LABEL_COLUMN], test_frame["date"]))
+
+    print(f"  Regression LightGBM Rank IC per fold: {[round(v, 4) for v in regression_ics]}")
+    print(f"  Ranking LightGBM (lambdarank) Rank IC per fold: {[round(v, 4) for v in ranking_ics]}")
+    print(f"\n  Regression mean Rank IC: {np.mean(regression_ics):.4f}")
+    print(f"  Ranking mean Rank IC:    {np.mean(ranking_ics):.4f}")
+
+
 # 4-way (lightgbm, random_forest, neural_net, ridge). Includes every solo --
 # most importantly (1,0,0,0) -- so the search can never recommend a blend
 # worse than the best solo model already in production; that's how
@@ -324,6 +385,11 @@ def main() -> None:
     print(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
 
     lgbm_params, rf_params = tune_hyperparams(pooled_train, excluded)
+
+    # Diagnostic-only, per the deep-research pass on improving this model --
+    # doesn't affect the weight search or final_specs below either way.
+    evaluate_ranking_objective(pooled_train, excluded, lgbm_params)
+
     # Neither re-tuned here -- both NEURAL_NET_DEFAULT_PARAMS and
     # RIDGE_DEFAULT_PARAMS were already chosen conservatively against this
     # same feature-to-sample ratio when each was first added (see model.py);
