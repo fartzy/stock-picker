@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DEFAULT_BUY_THRESHOLD,
   fetchBuySignal,
@@ -19,16 +19,39 @@ const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
 // actual ticker symbol).
 const NO_MODEL_SENTINEL = "";
 
+// The real request is one round trip (live quotes -> score -> rank), not
+// discrete steps -- these cycle purely to make a several-second wait feel
+// alive and give a rough sense of what's happening, not to report genuine
+// backend progress.
+const LOADING_PHRASES = ["Fetching this morning's quotes...", "Scoring tickers...", "Ranking picks..."];
+const LOADING_PHRASE_INTERVAL_MS = 900;
+
+function formatToday(): string {
+  return new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+}
+
 export default function BuySignal() {
   const [thresholdPct, setThresholdPct] = useState(DEFAULT_THRESHOLD_PCT);
   const [data, setData] = useState<BuySignalResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
   // Cheap (a parquet read, no live quotes) so this shows up front, before
   // the user ever clicks -- otherwise the scan's actual breadth (every
   // ticker ever tracked, not some smaller subset) stays invisible until
   // after a full live run reveals it via scored_count/skipped.
   const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
+
+  useEffect(() => {
+    if (!loading) {
+      setLoadingPhraseIndex(0);
+      return;
+    }
+    const intervalId = setInterval(() => {
+      setLoadingPhraseIndex((i) => (i + 1) % LOADING_PHRASES.length);
+    }, LOADING_PHRASE_INTERVAL_MS);
+    return () => clearInterval(intervalId);
+  }, [loading]);
 
   async function handleCheck() {
     setLoading(true);
@@ -48,7 +71,7 @@ export default function BuySignal() {
     <div>
       {universe && (
         <p className="muted" style={{ marginBottom: 8 }}>
-          Scanning all {universe.active_ticker_count.toLocaleString()} tracked tickers.
+          {formatToday()} · Sell by close · {universe.active_ticker_count.toLocaleString()} tickers scanned.
         </p>
       )}
       <div className="form-row">
@@ -66,7 +89,7 @@ export default function BuySignal() {
           %
         </label>
         <button className="btn-hero" onClick={handleCheck} disabled={loading}>
-          {loading ? "Checking..." : "Check this morning's prices"}
+          {loading ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
         </button>
       </div>
 
