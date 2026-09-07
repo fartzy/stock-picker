@@ -58,6 +58,7 @@ py_binary(
         ":training",
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
+        "@pypi//lightgbm",
         "@pypi//numpy",
         "@pypi//pandas",
     ],

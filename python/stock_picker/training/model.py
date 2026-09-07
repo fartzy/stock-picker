@@ -37,11 +37,17 @@ LIGHTGBM_DEFAULT_PARAMS = {
     # Tuned against 4-fold walk-forward validation accuracy over the full
     # 500-ticker universe (see training/tune_experiment.py) -- deeper than
     # the original conservative defaults, which were sized for a dataset a
-    # few hundred rows across 3 tickers, not this one's ~113k rows.
-    "num_leaves": 15,
-    "max_depth": 4,
+    # few hundred rows across 3 tickers, not this one's ~113k rows. Retuned
+    # after adding the overnight-gap interaction features (gap_volume_
+    # interaction, gap_streak): 58.2% holdout accuracy and 79.2% hit rate at
+    # the 0.5% threshold, both up from the prior config's 57.7%/77.3%.
+    "num_leaves": 31,
+    "max_depth": 5,
     "min_data_in_leaf": 30,
-    "learning_rate": 0.05,
+    "learning_rate": 0.03,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 5,
     "verbosity": -1,
     # LightGBM's "0 means default OpenMP thread count" hasn't been reliably
     # detecting all cores in practice -- pin it explicitly instead, same
