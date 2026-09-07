@@ -74,8 +74,8 @@ export default function BuySignal() {
           {formatToday()} · Sell by close · {universe.active_ticker_count.toLocaleString()} tickers scanned.
         </p>
       )}
-      <div className="form-row">
-        <label className="muted" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+      <div className="form-row" style={{ alignItems: "center" }}>
+        <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
           Threshold
           <input
             className="form-input"
@@ -84,9 +84,9 @@ export default function BuySignal() {
             min="0"
             value={thresholdPct}
             onChange={(e) => setThresholdPct(Number(e.target.value))}
-            style={{ width: 70 }}
+            style={{ width: 70, padding: "10px 8px", fontSize: "var(--text-body)" }}
           />
-          %
+          <span>%</span>
         </label>
         <button className="btn-hero" onClick={handleCheck} disabled={loading}>
           {loading ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
