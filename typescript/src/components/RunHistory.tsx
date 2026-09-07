@@ -1,4 +1,5 @@
 import {
+  DEFAULT_BUY_THRESHOLD,
   fetchTrainingRuns,
   type FoldMetrics,
   type RunModelSpec,
@@ -7,6 +8,11 @@ import {
   type TrainingRunsResponse,
 } from "../api";
 import { useFetchData } from "../useFetchData";
+
+// Row equality tolerance for a value that traveled through JSON as a float --
+// exact match would work today, but this is cheap insurance against a
+// backend rounding change silently breaking the highlight.
+const THRESHOLD_MATCH_EPSILON = 1e-9;
 
 const MODEL_TYPE_LABELS: Record<string, string> = {
   lightgbm: "LightGBM",
@@ -63,15 +69,38 @@ function MetricsTable({ rows }: { rows: (FoldMetrics | ThresholdSweepRow)[] }) {
           // generically here rather than typed per-column, since this table
           // renders both fold metrics and threshold-sweep rows.
           const values = row as unknown as Record<string, number | string>;
+          // Only threshold-sweep rows have a "threshold" column at all, so
+          // this is naturally a no-op for fold-metrics rows -- the row a
+          // user actually bets on (see BuySignal's own default), not just a
+          // sample among many in the sweep.
+          const isDefaultThresholdRow =
+            typeof values.threshold === "number" &&
+            Math.abs(values.threshold - DEFAULT_BUY_THRESHOLD) < THRESHOLD_MATCH_EPSILON;
           return (
-            <tr key={i}>
-              {columns.map((c) => (
-                <td className="trade-num" key={c}>
-                  {typeof values[c] === "number"
-                    ? values[c].toLocaleString(undefined, { maximumFractionDigits: 4 })
-                    : values[c]}
-                </td>
-              ))}
+            <tr key={i} className={isDefaultThresholdRow ? "metrics-row-highlight" : undefined}>
+              {columns.map((c) => {
+                const value = values[c];
+                // hit_rate answers "if I take a trade at this threshold, how
+                // often am I supposed to make money" -- the one number here
+                // a user actually acts on, so it's shown as a percentage
+                // (not a raw 0-1 fraction) and given visual weight, not
+                // buried as just another column.
+                if (c === "hit_rate" && typeof value === "number") {
+                  return (
+                    <td className="trade-num" key={c} style={{ color: "var(--accent)", fontWeight: 700 }}>
+                      {(value * 100).toFixed(1)}%
+                      {isDefaultThresholdRow && <span className="threshold-highlight-badge">bet</span>}
+                    </td>
+                  );
+                }
+                return (
+                  <td className="trade-num" key={c}>
+                    {typeof value === "number"
+                      ? value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+                      : value}
+                  </td>
+                );
+              })}
             </tr>
           );
         })}

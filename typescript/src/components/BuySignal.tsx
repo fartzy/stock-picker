@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { fetchBuySignal, type BuySignalResponse } from "../api";
+import { DEFAULT_BUY_THRESHOLD, fetchBuySignal, type BuySignalResponse } from "../api";
 import { formatUsd } from "../format";
 
-// Percent, not fraction -- shown as a plain "%" input; the backend's own
-// default (0.005) matches this same 0.5% the Models tab's threshold sweep
-// already defaults to.
-const DEFAULT_THRESHOLD_PCT = 0.5;
+// Percent, not fraction -- shown as a plain "%" input.
+const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
 
 // Sentinel the backend uses for skipped[] when no model is trained yet at
 // all, rather than "nothing cleared the bar today" -- see buy_signal.py.
