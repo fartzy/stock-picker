@@ -44,6 +44,14 @@ def model_type_importance(trained: TrainedModel) -> dict[str, float]:
         for layer_weights in regressor.coefs_[1:]:
             weight_product = weight_product @ layer_weights
         gains = list(np.abs(weight_product).flatten())
+    elif trained.model_type == "ridge":
+        # trained.estimator is a Pipeline (impute -> scale -> regress), same
+        # reason as train_ridge's own docstring: coefficients are only a
+        # valid cross-feature importance measure once every feature has been
+        # standardized to the same scale first.
+        names = trained.feature_names
+        regressor = trained.estimator.named_steps["regress"]
+        gains = [abs(coefficient) for coefficient in regressor.coef_]
     else:
         raise ValueError(f"unknown model_type: {trained.model_type!r}")
 

@@ -10,6 +10,7 @@ from stock_picker.training.model import (
     train_logistic_regression,
     train_neural_net,
     train_random_forest,
+    train_ridge,
 )
 
 
@@ -42,6 +43,11 @@ def _trained_neural_net():
     return train_neural_net(train_frame, params={"hidden_layer_sizes": (4,), "alpha": 1e-3, "early_stopping": False, "max_iter": 3000})
 
 
+def _trained_ridge():
+    train_frame = _make_learnable_frame(400, seed=1)
+    return train_ridge(train_frame)
+
+
 def test_lightgbm_importance_sums_to_roughly_100():
     importance = model_type_importance(_trained_lightgbm())
 
@@ -71,6 +77,13 @@ def test_logistic_regression_importance_sums_to_roughly_100_and_ranks_signal_fir
 
 def test_neural_net_importance_sums_to_roughly_100_and_ranks_signal_first():
     importance = model_type_importance(_trained_neural_net())
+
+    assert sum(importance.values()) == pytest.approx(100, abs=1.0)
+    assert importance["signal"] > importance["noise_feature"]
+
+
+def test_ridge_importance_sums_to_roughly_100_and_ranks_signal_first():
+    importance = model_type_importance(_trained_ridge())
 
     assert sum(importance.values()) == pytest.approx(100, abs=1.0)
     assert importance["signal"] > importance["noise_feature"]

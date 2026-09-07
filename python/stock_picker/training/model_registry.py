@@ -51,6 +51,7 @@ _DISPLAY_NAMES = {
     "random_forest": "Random Forest",
     "logistic_regression": "Logistic Regression",
     "neural_net": "Neural Net",
+    "ridge": "Ridge Regression",
 }
 
 _CATEGORIES = {
@@ -58,6 +59,7 @@ _CATEGORIES = {
     "random_forest": "tree_ensemble",
     "logistic_regression": "linear_diagnostic",
     "neural_net": "neural_network",
+    "ridge": "linear_regression",
 }
 
 # PyPI distribution name, not the import name -- lightgbm's import (`lightgbm`)
@@ -67,6 +69,7 @@ _PACKAGES = {
     "random_forest": "scikit-learn",
     "logistic_regression": "scikit-learn",
     "neural_net": "scikit-learn",
+    "ridge": "scikit-learn",
 }
 
 _DESCRIPTIONS = {
@@ -78,6 +81,10 @@ _DESCRIPTIONS = {
     ),
     "neural_net": (
         "Small multi-layer perceptron predicting the continuous day-session return. Ensemble member."
+    ),
+    "ridge": (
+        "L2-regularized linear regression predicting the continuous day-session return -- a "
+        "structurally different (linear, not tree/gradient-based) lens. Ensemble member."
     ),
 }
 
