@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { DEFAULT_BUY_THRESHOLD, fetchBuySignal, type BuySignalResponse } from "../api";
+import {
+  DEFAULT_BUY_THRESHOLD,
+  fetchBuySignal,
+  fetchUniverse,
+  type BuySignalResponse,
+  type UniverseResponse,
+} from "../api";
 import { formatUsd } from "../format";
+import { useFetchData } from "../useFetchData";
 
 // Percent, not fraction -- shown as a plain "%" input.
 const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
@@ -17,6 +24,11 @@ export default function BuySignal() {
   const [data, setData] = useState<BuySignalResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Cheap (a parquet read, no live quotes) so this shows up front, before
+  // the user ever clicks -- otherwise the scan's actual breadth (every
+  // ticker ever tracked, not some smaller subset) stays invisible until
+  // after a full live run reveals it via scored_count/skipped.
+  const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
 
   async function handleCheck() {
     setLoading(true);
@@ -34,6 +46,12 @@ export default function BuySignal() {
 
   return (
     <div>
+      {universe && (
+        <p className="muted" style={{ marginBottom: 8 }}>
+          Scanning {universe.active_ticker_count.toLocaleString()} tracked tickers -- every stock
+          we've ever followed, not a subset.
+        </p>
+      )}
       <div className="form-row">
         <label className="muted" style={{ display: "flex", alignItems: "center", gap: 6 }}>
           Threshold
