@@ -2,9 +2,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   fetchFeatureValues,
   fetchPriceHistory,
+  fetchPrunedFeatures,
   fetchRegistry,
   type FeatureValuesResponse,
   type PriceHistoryResponse,
+  type PrunedFeaturesResponse,
   type RegistryResponse,
 } from "../api";
 import { Diff } from "./Diff";
@@ -153,6 +155,8 @@ function FeatureValuesTable({
   const error = rawError?.startsWith(`Error: ${ticker}::`) ? rawError : null;
   const isNotFound = error?.includes("404") ?? false;
   const featureToGroup = useFeatureToGroup();
+  const { data: prunedData } = useFetchData<PrunedFeaturesResponse>(fetchPrunedFeatures);
+  const prunedSet = useMemo(() => new Set(prunedData?.pruned_features ?? []), [prunedData]);
 
   // Each column's own |max| -- shading is column-relative (RSI's 0-100 range
   // and a return's ~0.02 range aren't comparable on one shared scale), and
@@ -207,7 +211,15 @@ function FeatureValuesTable({
 
   return (
     <div className="view-card">
-      <h3>Derived features ({data.columns.length})</h3>
+      <h3>
+        Derived features ({data.columns.length})
+        {prunedData && (
+          <span className="muted" style={{ fontWeight: "normal" }}>
+            {" "}
+            · {data.columns.length - prunedSet.size} used in training, {prunedSet.size} pruned
+          </span>
+        )}
+      </h3>
       <input
         className="form-input"
         value={filter}
@@ -226,17 +238,28 @@ function FeatureValuesTable({
           <thead>
             <tr>
               <th>Date</th>
-              {columnsWithGroups.map(({ name, isGroupStart }) => (
-                <th
-                  key={name}
-                  className={isGroupStart ? "col-group-start" : undefined}
-                  title={`${featureToGroup[name] ?? ""}: view in Feature Store`}
-                >
-                  <button type="button" className="feature-header-link" onClick={() => onNavigateToFeature(name)}>
-                    {name}
-                  </button>
-                </th>
-              ))}
+              {columnsWithGroups.map(({ name, isGroupStart }) => {
+                const pruned = prunedSet.has(name);
+                return (
+                  <th
+                    key={name}
+                    className={isGroupStart ? "col-group-start" : undefined}
+                    title={
+                      pruned
+                        ? `${featureToGroup[name] ?? ""}: pruned, excluded from training`
+                        : `${featureToGroup[name] ?? ""}: view in Feature Store`
+                    }
+                  >
+                    <button
+                      type="button"
+                      className={pruned ? "feature-header-link pruned-feature" : "feature-header-link"}
+                      onClick={() => onNavigateToFeature(name)}
+                    >
+                      {name}
+                    </button>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
