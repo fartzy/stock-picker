@@ -41,6 +41,7 @@ from stock_picker.features.catalog import (
     correlation_matrix,
     coverage_report,
     describe_all,
+    examples_all,
     list_feature_columns,
     top_correlated_pairs,
 )
@@ -81,6 +82,7 @@ def get_catalog() -> CatalogResponse:
         catalog=list_feature_columns(history),
         descriptions=describe_all(history),
         formulas=compute_formulas_all(history),
+        examples=examples_all(history),
     )
 
 

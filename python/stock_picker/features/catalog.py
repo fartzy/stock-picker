@@ -22,6 +22,7 @@ from stock_picker.features import (
     volume,
 )
 from stock_picker.features.descriptions import describe_feature
+from stock_picker.features.examples import feature_example
 from stock_picker.features.formulas import describe_computation
 
 _SINGLE_TICKER_BUILDERS = {
@@ -91,6 +92,16 @@ def compute_formulas_all(sample_history: pd.DataFrame) -> dict[str, str]:
     catalog = list_feature_columns(sample_history)
     return {
         column: describe_computation(column)
+        for columns in catalog.values()
+        for column in columns
+    }
+
+
+def examples_all(sample_history: pd.DataFrame) -> dict[str, str]:
+    """Feature name -> a short worked numeric example, for every real column."""
+    catalog = list_feature_columns(sample_history)
+    return {
+        column: feature_example(column)
         for columns in catalog.values()
         for column in columns
     }

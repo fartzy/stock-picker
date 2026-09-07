@@ -208,3 +208,13 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_examples",
+    srcs = ["test_examples.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+    ],
+)
