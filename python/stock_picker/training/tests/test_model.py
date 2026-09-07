@@ -32,6 +32,23 @@ def test_train_lightgbm_learns_a_clear_signal():
     assert metrics.directional_accuracy > 0.9
 
 
+def test_train_lightgbm_is_reproducible_across_runs():
+    # feature_fraction/bagging_fraction in LIGHTGBM_DEFAULT_PARAMS draw a
+    # random subsample every training run -- without a fixed seed, two
+    # trains on identical data produce different models (and therefore
+    # different holdout numbers), which reads as a real config/feature
+    # improvement or regression when it's actually just RNG noise.
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    first = train_lightgbm(train_frame, params={"min_data_in_leaf": 10}, num_boost_round=50)
+    second = train_lightgbm(train_frame, params={"min_data_in_leaf": 10}, num_boost_round=50)
+
+    first_predictions = first.estimator.predict(test_frame[feature_columns(test_frame)])
+    second_predictions = second.estimator.predict(test_frame[feature_columns(test_frame)])
+    assert np.array_equal(first_predictions, second_predictions)
+
+
 def test_train_random_forest_learns_a_clear_signal():
     train_frame = _make_learnable_frame(400, seed=1)
     test_frame = _make_learnable_frame(200, seed=2)

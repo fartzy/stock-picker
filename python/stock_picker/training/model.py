@@ -48,6 +48,12 @@ LIGHTGBM_DEFAULT_PARAMS = {
     "feature_fraction": 0.8,
     "bagging_fraction": 0.8,
     "bagging_freq": 5,
+    # feature_fraction/bagging_fraction draw a random subsample every run --
+    # without a fixed seed here, every training run (and every holdout
+    # comparison across runs) carries real, unquantified variance from RNG
+    # alone, not just from genuine config/feature changes. Matches the
+    # random_state=0 convention already used by the other three model types.
+    "seed": 0,
     "verbosity": -1,
     # LightGBM's "0 means default OpenMP thread count" hasn't been reliably
     # detecting all cores in practice -- pin it explicitly instead, same
