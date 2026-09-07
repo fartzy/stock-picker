@@ -455,6 +455,29 @@ details.view-card summary {
   border-left: 3px solid var(--accent);
 }
 
+/* The one threshold-sweep row that matches the app's actual operational
+   default (see api.ts's DEFAULT_BUY_THRESHOLD) -- a background tint alone
+   fails color-blind/grayscale users, so it's paired with the "bet" badge
+   below rather than relying on color as the only signal. */
+.metrics-row-highlight {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-left: 3px solid var(--accent);
+}
+
+.threshold-highlight-badge {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 1px var(--space-2);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+}
+
 /* Themed scrollbars for the app's few internally-scrollable containers
    (e.g. the derived-features table) -- native scrollbars default to a
    light OS chrome that clashes hard with this dark theme. */

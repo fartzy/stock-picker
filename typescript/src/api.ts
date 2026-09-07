@@ -1,3 +1,9 @@
+// The app's operational confidence threshold -- matches buy_signal.py's own
+// DEFAULT_THRESHOLD. Shared here so BuySignal's input default and
+// RunHistory's "this is the threshold we actually bet on" row highlight
+// can never drift apart into two different numbers.
+export const DEFAULT_BUY_THRESHOLD = 0.005;
+
 export interface CatalogResponse {
   catalog: Record<string, string[]>;
   descriptions: Record<string, string>;
