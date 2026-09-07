@@ -48,8 +48,7 @@ export default function BuySignal() {
     <div>
       {universe && (
         <p className="muted" style={{ marginBottom: 8 }}>
-          Scanning {universe.active_ticker_count.toLocaleString()} tracked tickers -- every stock
-          we've ever followed, not a subset.
+          Scanning all {universe.active_ticker_count.toLocaleString()} tracked tickers.
         </p>
       )}
       <div className="form-row">
@@ -66,7 +65,7 @@ export default function BuySignal() {
           />
           %
         </label>
-        <button className="btn-primary" onClick={handleCheck} disabled={loading}>
+        <button className="btn-hero" onClick={handleCheck} disabled={loading}>
           {loading ? "Checking..." : "Check this morning's prices"}
         </button>
       </div>
@@ -79,7 +78,7 @@ export default function BuySignal() {
 
       {data && !error && noModel && (
         <p className="muted" style={{ marginTop: 12 }}>
-          No trained model yet -- train one on the Models tab first.
+          No trained model yet. Train one on the Models tab first.
         </p>
       )}
 

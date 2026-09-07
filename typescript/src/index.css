@@ -806,3 +806,45 @@ details.view-card summary {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Reserved for the single most important action in the app -- the "what
+   should I buy this morning" button -- so scaling this up doesn't compete
+   with every other .btn-primary (Run training, Add trade, ...) for
+   attention. Same color language, just bigger. */
+.btn-hero {
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--text-body);
+  cursor: pointer;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition:
+    opacity 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.btn-hero:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.btn-hero:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* The one panel in the app whose whole point is "click this" -- an accent
+   border (not just the standard .panel line) says "this one's different"
+   without introducing a new color or icon language. */
+.panel-hero {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: var(--space-4);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 12%, transparent);
+}
