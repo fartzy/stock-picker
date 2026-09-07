@@ -32,6 +32,7 @@ from stock_picker.api.models import (
     TradeCreate,
     TradesResponse,
     TrainingRunsResponse,
+    UniverseResponse,
 )
 from stock_picker.api.models import ModelChoice as ModelChoiceModel
 from stock_picker.api.models import ModelTypeInfo as ModelTypeInfoModel
@@ -63,6 +64,7 @@ from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.storage.training_run_store import TrainingRunStore
+from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training import job as training_job
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
@@ -137,6 +139,15 @@ def get_buy_signal(threshold: float = DEFAULT_THRESHOLD) -> BuySignalResponse:
         skipped=result.skipped,
         top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
     )
+
+
+@router.get("/universe")
+def get_universe() -> UniverseResponse:
+    # Deliberately cheap (just a parquet read, no live quotes) so the UI can
+    # show "scanning N tickers" up front, before the user ever clicks
+    # "check this morning's prices" -- compute_buy_signals itself only
+    # reveals this count as a side effect of the full, slower live scan.
+    return UniverseResponse(active_ticker_count=len(UniverseStore().active_tickers()))
 
 
 @router.get("/positions")

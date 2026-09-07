@@ -274,3 +274,7 @@ class BuySignalResponse(BaseModel):
     scored_count: int
     skipped: list[SkippedTicker]
     top_drivers: list[TopDriver]
+
+
+class UniverseResponse(BaseModel):
+    active_ticker_count: int

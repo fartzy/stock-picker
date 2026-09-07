@@ -282,9 +282,16 @@ export interface BuySignalResponse {
   scored_count: number;
   // Never a silent drop -- every ticker that didn't get scored is listed
   // here with why (no quote, stale snapshot, implausible gap, ...). A
-  // single entry with ticker "ALL" means no model is trained yet at all.
+  // single entry with an empty ticker means no model is trained yet at all
+  // -- deliberately not a valid ticker shape, so it can't collide with a
+  // real skipped ticker (an earlier "ALL" sentinel collided with Allstate's
+  // actual ticker symbol).
   skipped: SkippedTicker[];
   top_drivers: TopDriver[];
+}
+
+export interface UniverseResponse {
+  active_ticker_count: number;
 }
 
 export interface TradeCreate {
@@ -357,3 +364,4 @@ export const fetchQuotes = (tickers: string[]) =>
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
 export const fetchBuySignal = (threshold: number) =>
   getJson<BuySignalResponse>(`/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}`);
+export const fetchUniverse = () => getJson<UniverseResponse>("/api/universe");
