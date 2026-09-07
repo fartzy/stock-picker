@@ -52,6 +52,13 @@ _pattern(
     ),
 )
 _pattern(
+    r"^volatility_delta_(\d+)d$",
+    lambda m: (
+        f"volatility_20d was 0.18 (18%) {m[1]} {_day_plural(int(m[1]))} ago, now 0.24 → "
+        "volatility_delta ≈ +0.06 (getting choppier)."
+    ),
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Daily ranges (including gaps) have averaged $2.30 on a $100 stock → atr_14 ≈ 2.30.",
 )

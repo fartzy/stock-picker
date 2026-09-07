@@ -55,6 +55,13 @@ _pattern(
     ),
 )
 _pattern(
+    r"^volatility_delta_(\d+)d$",
+    lambda m: (
+        f"Change in volatility_20d over the trailing {m[1]} {_day_plural(int(m[1]))} -- "
+        "is realized volatility currently expanding or contracting, not just its level."
+    ),
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Average True Range (14-day), typical daily price range, accounting for gaps.",
 )
