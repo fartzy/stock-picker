@@ -49,3 +49,29 @@ def sweep_thresholds(
     n_days: int | None = None,
 ) -> pd.DataFrame:
     return pd.DataFrame([simulate_trades(predicted, actual, t, n_days=n_days) for t in thresholds])
+
+
+def rank_ic(predicted: pd.Series, actual: pd.Series, dates: pd.Series) -> float:
+    """Mean daily cross-sectional Spearman rank correlation (Rank IC) between
+    predicted and actual returns -- the standard quant metric for "does this
+    model rank tickers well against each other on a given day," a genuinely
+    different question from directional_accuracy's per-row sign check, which
+    has no notion of "relative to that day's other tickers." Averaging each
+    day's own correlation, rather than one correlation over every pooled row,
+    is what makes this a cross-sectional metric instead of a pooled one --
+    the exact way `predicted`/`actual`/`dates` mix ticker-days together
+    otherwise.
+
+    A day with only one ticker (correlation undefined) contributes NaN, which
+    pandas' mean() silently skips -- expected for the sparsely-covered
+    beginning of a held-out-ticker window, not a bug.
+    """
+    frame = pd.DataFrame({"predicted": predicted, "actual": actual, "date": dates})
+
+    def _daily_ic(day: pd.DataFrame) -> float:
+        if len(day) < 2:
+            return float("nan")
+        return day["predicted"].corr(day["actual"], method="spearman")
+
+    daily_ic = frame.groupby("date").apply(_daily_ic, include_groups=False)
+    return float(daily_ic.mean())

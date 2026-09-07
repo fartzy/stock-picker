@@ -146,6 +146,14 @@ _pattern(
     r"^overnight_gap$",
     lambda m: "Closed at $100 yesterday, opens at $102 today → overnight_gap = +0.02.",
 )
+_pattern(
+    r"^gap_volume_interaction$",
+    lambda m: "A +2% gap on volume 3 standard deviations above normal → +0.02 * 3.0 = +0.06.",
+)
+_pattern(
+    r"^gap_streak$",
+    lambda m: "Three straight gap-up mornings → +3. Two straight gap-down mornings → -2.",
+)
 _pattern(r"^day_range_pct$", lambda m: "High $102, low $98, close $100 → day_range_pct = 0.04.")
 _pattern(r"^body_pct$", lambda m: "Opened at $100, closed at $103 → body_pct = +0.03.")
 _pattern(

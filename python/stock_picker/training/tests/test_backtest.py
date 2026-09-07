@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from stock_picker.training.backtest import simulate_trades, sweep_thresholds
+from stock_picker.training.backtest import rank_ic, simulate_trades, sweep_thresholds
 
 
 def test_simulate_trades_hit_rate_and_total_return_above_threshold():
@@ -69,3 +69,38 @@ def test_simulate_trades_with_n_days_reports_average_picks_per_day():
 
     assert result["n_trades"] == 2
     assert result["avg_picks_per_day"] == pytest.approx(0.4)
+
+
+def test_rank_ic_is_one_for_perfect_same_day_ranking():
+    predicted = pd.Series([0.03, 0.02, 0.01])
+    actual = pd.Series([0.05, 0.03, 0.01])
+    dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-01"])
+
+    assert rank_ic(predicted, actual, dates) == pytest.approx(1.0)
+
+
+def test_rank_ic_is_negative_one_for_perfectly_inverted_same_day_ranking():
+    predicted = pd.Series([0.03, 0.02, 0.01])
+    actual = pd.Series([0.01, 0.02, 0.03])
+    dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-01"])
+
+    assert rank_ic(predicted, actual, dates) == pytest.approx(-1.0)
+
+
+def test_rank_ic_averages_across_multiple_days():
+    # Day 1's ranking is perfect, day 2's is perfectly inverted -- averages to zero.
+    predicted = pd.Series([0.03, 0.02, 0.01, 0.03, 0.02, 0.01])
+    actual = pd.Series([0.05, 0.03, 0.01, 0.01, 0.02, 0.03])
+    dates = pd.Series(["2026-01-01"] * 3 + ["2026-01-02"] * 3)
+
+    assert rank_ic(predicted, actual, dates) == pytest.approx(0.0)
+
+
+def test_rank_ic_ignores_single_ticker_days():
+    # A lone ticker has no peer to rank against that day -- undefined
+    # correlation must not drag the average toward zero.
+    predicted = pd.Series([0.03, 0.02, 0.01])
+    actual = pd.Series([0.05, 0.03, 0.01])
+    dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-02"])
+
+    assert rank_ic(predicted, actual, dates) == pytest.approx(1.0)
