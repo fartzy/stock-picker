@@ -175,15 +175,41 @@ line chart. `GET /api/prices/{ticker}?interval=daily|hourly`.
   entire tickers never seen in training.
 - See `training/dataset.py` before touching anything else in this module --
   it's what prevents day t's own close from leaking into day t's features.
-- **Setup**: 450 train tickers, 50 held out, 1 year of history, 2-member
-  LightGBM + random-forest ensemble.
-- **Walk-forward directional accuracy**: ~48-53% (coin-flip, expected at
-  this timescale).
-- **Holdout accuracy**: 56.0% on 12,600 rows.
-- **At a 0.5% predicted-return threshold**: 100 trades clear it, 80.0% hit
-  rate, avg return 1.7% per trade.
-- **At a 1.0% threshold**: only 3 trades clear it -- too few to draw a
-  conclusion from.
+- **Setup**: 450 train tickers, 50 held out, 1 year of history, solo LightGBM
+  (RandomForest, a small neural net, and Ridge regression were all tried as
+  ensemble candidates via an empirical weight search -- see
+  `training/tune_experiment.py` -- and none earned any weight blended with
+  LightGBM; adding a model family isn't assumed to help, it's measured).
+- **Base rate**: 50.17% of day-sessions close up with no model at all --
+  near a coin flip, since the open->close return specifically (unlike
+  multi-day returns) doesn't carry the market's long-run upward drift.
+- **Walk-forward directional accuracy**: ~48-53% (a modest edge over the
+  base rate, expected at this timescale).
+- **Holdout accuracy**: 58.2% on 12,600 rows.
+- **Threshold sweep on holdout** (gate on the model's *predicted* return,
+  not a fixed dollar amount -- see `training/backtest.py`):
+
+  | threshold | trades/year | hit rate | avg return |
+  |---|---|---|---|
+  | 0% (unfiltered) | 5,682 | 58.9% | +0.33% |
+  | 0.05% | 4,048 | 60.6% | +0.43% |
+  | 0.1% | 2,890 | 63.6% | +0.56% |
+  | 0.5% | 427 | 79.2% | +1.48% |
+  | 1.0% | 49 | 79.6% | +2.26% |
+
+  Higher thresholds trade fewer, higher-conviction picks for a better hit
+  rate -- not a free lunch, the tradeoff curve. 1.0%'s 49 trades/year is a
+  small enough sample that any single number there is noisy; 0.05%-0.1% is
+  a more statistically stable operating point if higher trade volume matters
+  more than the highest hit rate.
+- **Open, not-yet-adopted finding**: a ranking-objective LightGBM variant
+  (rank each day's tickers against their same-day peers instead of
+  predicting raw return magnitude) scores meaningfully better on Rank IC
+  (0.0138 vs. 0.0034 for the regression objective) -- but its output is a
+  same-day relative score, not a calibrated return, so using it would mean
+  redesigning the trading-strategy layer from "trade when predicted return
+  clears X%" to "trade the top-K ranked names." See
+  `evaluate_ranking_objective()` in `tune_experiment.py`.
 
 ## Known issues
 
@@ -211,36 +237,34 @@ inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):
 
 - [ ] Wire `check_freshness()` into live inference (staleness/overnight-gap
       checks)
-- [ ] Registry: inline coverage/importance + sort control, revisit polish
-- [ ] Registry visual polish -- needs a real design pass, not another small
-      tweak
 - [ ] Descriptive copy across the app needs a real editorial pass, not just
       spot-fixes when one goes stale
-- [ ] Prune UX: fold pruned status into Registry per-feature instead of a
-      separate archive
-- [ ] Modular model layer: LightGBM + random forest ensemble -- revisit
-- [ ] Model-metadata endpoint/UI: show which models/features are in the
-      ensemble
-- [ ] Logistic-regression importance as a third lens (alongside LightGBM
-      gain, RF impurity)
-- [ ] Flag near-zero-importance features + one-click prune from Registry
-- [ ] Pick which features feed a training run from the UI
-- [ ] Fold Correlation & Redundancy into Registry entirely -- per-feature,
-      not just a global top-N list
-- [ ] Training run drill-down: `storage/training_run_store.py` persists
-      tickers/dates/features/metrics per run (Models tab's Run History);
-      still no archived model binary per historical run, only the latest
-- [ ] Real training-code integration for non-regression model families
-      (neural nets, clustering) -- `model_registry.py` metadata is
-      extensible, but `Ensemble`/`TrainedModel` still assume a continuous-
-      return regression blend end to end
-- [ ] Gap-then-continuation historically-conditioned feature -- tune bucket
-      thresholds, validate against real (not just synthetic) data
+- [ ] No archived model binary per historical training run, only the latest
+      (run metadata/metrics are all preserved -- `storage/training_run_store.py`)
+- [ ] Clustering/unsupervised model families -- `model_registry.py` metadata
+      is extensible, but `Ensemble`/`TrainedModel` still assume a continuous-
+      return regression blend end to end (LightGBM, RandomForest, a small
+      neural net, and Ridge are all wired in as real ensemble candidates)
 - [ ] Recency-conditioned pattern features (day-session streaks, exact
       sequences, weekday-lag) -- validate against real data, only
       synthetic-tested so far
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
+- [ ] Ranking-objective LightGBM (rank each day's tickers against their
+      same-day peers) scores meaningfully better on Rank IC than the
+      regression objective in production -- adopting it for real would mean
+      redesigning the trading-strategy layer from a fixed-return threshold
+      to a top-K-ranked selection (see `evaluate_ranking_objective()` in
+      `tune_experiment.py`)
+- [ ] Volatility-normalized (ATR-/realized-vol-scaled) confidence threshold
+      instead of a fixed percentage -- the current 0.5%/1.0% gate's
+      selectivity drifts with the market's volatility regime, so the
+      77-85% hit rates may partly reflect when volatility happened to be
+      high or low during the test window, not stable skill
+- [ ] Track how many feature/hyperparameter configurations have been tried
+      against the same walk-forward split -- hold-out validation alone
+      doesn't control for this, and with enough trials a backtest can look
+      skilled while having none
 - [ ] Validation slice within each walk-forward fold for early stopping
 - [ ] Persist sector labels to unlock `sector_relative_return`
 - [ ] DuckDB for ad hoc SQL over the Parquet lake
