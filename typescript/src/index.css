@@ -705,6 +705,16 @@ details.view-card summary {
   flex-wrap: wrap;
 }
 
+/* Visually separates "log a trade" from the table above it -- previously a
+   bare row of inputs with no label, sitting flush against the last day
+   group as if it were part of the table instead of a distinct action. */
+.add-trade-form {
+  display: block;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
 .form-input,
 .form-select {
   background: var(--surface-raised);
@@ -846,5 +856,4 @@ details.view-card summary {
   border: 1px solid var(--accent);
   border-radius: 6px;
   padding: var(--space-4);
-  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 12%, transparent);
 }

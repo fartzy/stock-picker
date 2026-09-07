@@ -78,6 +78,11 @@ export default function ModelPicker() {
   return (
     <div>
       <h3>Ensemble models</h3>
+      {chosenModelTypes === null && (
+        <p className="muted" style={{ marginTop: 0 }}>
+          All checked = no override, trains whichever blend of these actually wins.
+        </p>
+      )}
       {pickable.map((info) => (
         <div className="model-type-row" key={info.model_type}>
           <label>

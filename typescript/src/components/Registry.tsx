@@ -264,7 +264,7 @@ export default function Registry({
     !correlationData ||
     included === undefined
   )
-    return <p className="muted">Loading registry...</p>;
+    return <p className="muted">Loading registry... hang tight, this takes a bit.</p>;
 
   // Clicking the already-active mode flips direction (like a sortable table
   // header); clicking a different mode switches to it at a sensible default
