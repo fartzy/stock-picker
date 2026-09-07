@@ -1,4 +1,9 @@
-data/
+# Bulky, regeneratable local caches (prices/features/models) stay untracked --
+# but training_runs/ is small, human-readable, append-only history (every
+# past run's tickers/metrics/threshold-sweep) that should never live only on
+# one machine's disk. See storage/training_run_store.py.
+data/*
+!data/training_runs/
 bazel-*
 .claude/
 __pycache__/
