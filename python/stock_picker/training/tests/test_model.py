@@ -9,6 +9,7 @@ from stock_picker.training.model import (
     train_logistic_regression,
     train_neural_net,
     train_random_forest,
+    train_ridge,
 )
 
 
@@ -95,6 +96,30 @@ def test_train_logistic_regression_learns_a_clear_signal():
 
     assert model.model_type == "logistic_regression"
     assert (predicted_direction == actual_direction).mean() > 0.9
+
+
+def test_train_ridge_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_ridge(train_frame)
+    metrics = evaluate(model, test_frame)
+
+    assert model.model_type == "ridge"
+    assert metrics.directional_accuracy > 0.9
+
+
+def test_train_ridge_handles_missing_values():
+    # Ridge has no native NaN support (raises on any missing value), so this
+    # only passes if the Pipeline's impute step is actually wired in -- real
+    # feature data is NaN by construction wherever a rolling window hasn't
+    # filled yet.
+    train_frame = _make_learnable_frame(400, seed=1)
+    train_frame.loc[train_frame.index[:20], "signal"] = None
+
+    model = train_ridge(train_frame)
+
+    assert model.model_type == "ridge"
 
 
 def test_feature_columns_excludes_metadata_and_label():

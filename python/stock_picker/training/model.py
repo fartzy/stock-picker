@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -87,6 +87,15 @@ NEURAL_NET_DEFAULT_PARAMS = {
     "n_iter_no_change": 15,
     "random_state": 0,
 }
+# alpha=1.0 is sklearn's own default -- a reasonable starting point given
+# production's feature-to-sample ratio is far more favorable here (~90
+# features over ~113k rows) than logistic_regression's original few-hundred-
+# row concern above; the label is still noisy day-session return, so some
+# regularization stays warranted, just not as aggressive.
+RIDGE_DEFAULT_PARAMS = {
+    "alpha": 1.0,
+    "random_state": 0,
+}
 
 
 @dataclass
@@ -94,7 +103,7 @@ class TrainedModel:
     """One fitted model, regardless of underlying library -- what `ensemble.py`
     combines several of."""
 
-    model_type: str  # "lightgbm" | "random_forest" | "logistic_regression" | "neural_net"
+    model_type: str  # "lightgbm" | "random_forest" | "logistic_regression" | "neural_net" | "ridge"
     estimator: Any  # lgb.Booster or a fitted scikit-learn estimator
     feature_names: list[str] = field(default_factory=list)
 
@@ -229,11 +238,43 @@ def train_neural_net(
     return TrainedModel(model_type="neural_net", estimator=regressor, feature_names=columns)
 
 
+def train_ridge(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """Predicts the same continuous day-session return the other predictive
+    trainers do, so it fits Ensemble's weighted-average blend natively. A
+    linear model is a structurally different lens than the tree-based
+    (LightGBM/RandomForest) and gradient-based (neural_net) trainers above --
+    worth testing empirically as its own ensemble candidate, same as each of
+    those was (see training/tune_experiment.py).
+
+    Wrapped in the same impute+scale Pipeline as train_neural_net, for the
+    same two reasons: Ridge has no native missing-value support, and L2
+    regularization penalizes every coefficient's magnitude uniformly --
+    meaningless unless every feature is on the same scale first (RSI runs
+    0-100, most returns run a few percent).
+    """
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    regressor = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+            ("regress", Ridge(**{**RIDGE_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
+    return TrainedModel(model_type="ridge", estimator=regressor, feature_names=columns)
+
+
 MODEL_TRAINERS = {
     "lightgbm": train_lightgbm,
     "random_forest": train_random_forest,
     "logistic_regression": train_logistic_regression,
     "neural_net": train_neural_net,
+    "ridge": train_ridge,
 }
 
 # The model types that predict the continuous day-session return and can
@@ -242,7 +283,7 @@ MODEL_TRAINERS = {
 # averaged with these, so it's fit standalone (see training/main.py) and
 # deliberately excluded from this list, which is what the composable
 # model-type picker in the UI offers.
-PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest", "neural_net"]
+PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest", "neural_net", "ridge"]
 
 
 def train_model(model_type: str, train_frame: pd.DataFrame, **kwargs) -> TrainedModel:
