@@ -8,6 +8,7 @@ export interface CatalogResponse {
   catalog: Record<string, string[]>;
   descriptions: Record<string, string>;
   formulas: Record<string, string>;
+  examples: Record<string, string>;
 }
 
 export interface ImportanceResponse {

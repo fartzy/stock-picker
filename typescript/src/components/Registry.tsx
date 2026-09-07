@@ -515,6 +515,9 @@ export default function Registry({
                   {isExpanded && (
                     <>
                       <div className="feature-desc">{catalog.descriptions[feature]}</div>
+                      <div className="feature-example">
+                        <span className="feature-example-label">e.g.</span> {catalog.examples[feature]}
+                      </div>
                       <code className="feature-formula">{catalog.formulas[feature]}</code>
                     </>
                   )}

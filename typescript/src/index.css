@@ -264,6 +264,24 @@ section + section {
   margin-top: var(--space-1);
 }
 
+/* A concrete "if the data looked like this, here's the value" example --
+   deliberately one line, not prose, so it's a quick scan next to the plain-
+   English description rather than a second paragraph to read. */
+.feature-example {
+  font-family: var(--sans);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  margin-top: var(--space-1);
+}
+
+.feature-example-label {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent);
+  margin-right: var(--space-1);
+}
+
 .feature-formula {
   display: block;
   font-family: var(--mono);

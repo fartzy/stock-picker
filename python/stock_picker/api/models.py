@@ -50,6 +50,7 @@ class CatalogResponse(BaseModel):
     catalog: dict[str, list[str]]
     descriptions: dict[str, str]
     formulas: dict[str, str]
+    examples: dict[str, str]
 
 
 class CoverageResponse(BaseModel):
