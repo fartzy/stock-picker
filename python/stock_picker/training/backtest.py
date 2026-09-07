@@ -51,6 +51,59 @@ def sweep_thresholds(
     return pd.DataFrame([simulate_trades(predicted, actual, t, n_days=n_days) for t in thresholds])
 
 
+DEFAULT_Z_THRESHOLDS = [0.0, 0.1, 0.25, 0.5, 1.0]
+
+
+def simulate_trades_vol_normalized(
+    predicted: pd.Series,
+    actual: pd.Series,
+    daily_volatility: pd.Series,
+    z_threshold: float,
+    n_days: int | None = None,
+) -> dict:
+    """Same P&L mechanism as simulate_trades, but the confidence gate is the
+    predicted return expressed in units of that ticker's own recent daily
+    volatility (a z-score-like measure) instead of a fixed percentage -- a
+    0.5% predicted move means something different for a low-vol utility
+    stock than a high-vol momentum stock, and a fixed threshold's own
+    selectivity drifts with the market's overall volatility regime (see
+    README's Roadmap). `daily_volatility` must already be de-annualized
+    (features/volatility.py's volatility_Nd is annualized -- divide by
+    sqrt(TRADING_DAYS_PER_YEAR) first) so both sides of the ratio are
+    genuinely daily-return units.
+    """
+    confidence = predicted / daily_volatility
+    taken = confidence > z_threshold
+    n_trades = int(taken.sum())
+    trade_returns = actual[taken]
+    has_trades = len(trade_returns) > 0
+
+    return {
+        "z_threshold": z_threshold,
+        "n_trades": n_trades,
+        "avg_picks_per_day": (n_trades / n_days) if n_days else None,
+        "hit_rate": float((trade_returns > 0).mean()) if has_trades else float("nan"),
+        "total_return": float(trade_returns.sum()) if has_trades else float("nan"),
+        "avg_return": float(trade_returns.mean()) if has_trades else float("nan"),
+        "return_std": float(trade_returns.std()) if len(trade_returns) > 1 else float("nan"),
+    }
+
+
+def sweep_vol_normalized_thresholds(
+    predicted: pd.Series,
+    actual: pd.Series,
+    daily_volatility: pd.Series,
+    z_thresholds: list[float] = DEFAULT_Z_THRESHOLDS,
+    n_days: int | None = None,
+) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            simulate_trades_vol_normalized(predicted, actual, daily_volatility, z, n_days=n_days)
+            for z in z_thresholds
+        ]
+    )
+
+
 def rank_ic(predicted: pd.Series, actual: pd.Series, dates: pd.Series) -> float:
     """Mean daily cross-sectional Spearman rank correlation (Rank IC) between
     predicted and actual returns -- the standard quant metric for "does this
