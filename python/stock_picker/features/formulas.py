@@ -34,6 +34,7 @@ _pattern(
     r"^volatility_(\d+)d$",
     lambda m: f"close.pct_change().rolling({m[1]}).std() * sqrt(252)",
 )
+_pattern(r"^volatility_delta_(\d+)d$", lambda m: f"volatility_20d.diff({m[1]})")
 _pattern(
     r"^atr_14$",
     lambda m: "max(high-low, |high-prior_close|, |low-prior_close|).rolling(14).mean()",

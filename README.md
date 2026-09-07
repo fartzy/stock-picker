@@ -235,8 +235,6 @@ inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):
 
 ## Roadmap
 
-- [ ] Wire `check_freshness()` into live inference (staleness/overnight-gap
-      checks)
 - [ ] Descriptive copy across the app needs a real editorial pass, not just
       spot-fixes when one goes stale
 - [ ] No archived model binary per historical training run, only the latest
@@ -245,22 +243,21 @@ inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):
       is extensible, but `Ensemble`/`TrainedModel` still assume a continuous-
       return regression blend end to end (LightGBM, RandomForest, a small
       neural net, and Ridge are all wired in as real ensemble candidates)
-- [ ] Recency-conditioned pattern features (day-session streaks, exact
-      sequences, weekday-lag) -- validate against real data, only
-      synthetic-tested so far
 - [ ] Additional ML features: multi-window volatility deltas (1d/3d/week-
       over-week/vs-10-days-ago)
 - [ ] Ranking-objective LightGBM (rank each day's tickers against their
       same-day peers) scores meaningfully better on Rank IC than the
-      regression objective in production -- adopting it for real would mean
-      redesigning the trading-strategy layer from a fixed-return threshold
-      to a top-K-ranked selection (see `evaluate_ranking_objective()` in
-      `tune_experiment.py`)
+      regression objective -- built and measured (see
+      `evaluate_ranking_objective()` in `tune_experiment.py`), not yet
+      adopted: its output is a same-day relative score, not a calibrated
+      return, so using it for real means redesigning the trading-strategy
+      layer from a fixed-return threshold to a top-K-ranked selection
 - [ ] Volatility-normalized (ATR-/realized-vol-scaled) confidence threshold
-      instead of a fixed percentage -- the current 0.5%/1.0% gate's
-      selectivity drifts with the market's volatility regime, so the
-      77-85% hit rates may partly reflect when volatility happened to be
-      high or low during the test window, not stable skill
+      instead of a fixed percentage -- built and measured (see
+      `simulate_trades_vol_normalized()`/`evaluate_volatility_normalized_
+      stability()`), showed a smaller hit-rate swing across the holdout
+      window than the fixed threshold at a matched trade count, but not
+      yet adopted as Buy Signal's actual gate
 - [ ] Track how many feature/hyperparameter configurations have been tried
       against the same walk-forward split -- hold-out validation alone
       doesn't control for this, and with enough trials a backtest can look
