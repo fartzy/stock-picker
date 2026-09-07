@@ -29,11 +29,18 @@ import pandas as pd
 from stock_picker.features.catalog import correlation_matrix, top_correlated_pairs
 from stock_picker.features.catalog_loader import feature_tables
 from stock_picker.features.pruning import pruned_features
+from stock_picker.features.volatility import TRADING_DAYS_PER_YEAR
 from stock_picker.storage.feature_exclusion_store import PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
-from stock_picker.training.backtest import rank_ic, sweep_thresholds
+from stock_picker.training.backtest import (
+    rank_ic,
+    simulate_trades,
+    simulate_trades_vol_normalized,
+    sweep_thresholds,
+    sweep_vol_normalized_thresholds,
+)
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble
 from stock_picker.training.importance import model_type_importance
@@ -343,6 +350,63 @@ def tune_weights(pooled_train, excluded, lgbm_params, rf_params, nn_params, ridg
     return best_weights
 
 
+# Which volatility feature to normalize by -- 20d is a reasonable middle
+# ground between reacting to yesterday's single move (too noisy) and being
+# slow to reflect a genuine regime change (60d/120d).
+VOLATILITY_COLUMN = "volatility_20d"
+
+
+def evaluate_volatility_normalized_stability(holdout_dataset, predicted, actual):
+    """Diagnostic: does gating on the predicted return relative to each row's
+    own recent daily volatility (a z-score-like confidence measure) hold up
+    more consistently across different parts of the holdout window than a
+    fixed percentage threshold? A threshold whose selectivity is really just
+    an artifact of which volatility regime happened to dominate one half of
+    the test window should show a bigger swing between halves than one
+    that's genuinely normalized (see README's Roadmap).
+
+    Splits the (chronologically ordered) holdout in half by date -- not a
+    rigorous regime classifier, just a cheap first look at whether this is
+    worth pursuing further before building anything more elaborate.
+    """
+    print("\n=== Volatility-normalized vs fixed threshold: stability across the holdout window ===")
+    daily_volatility = holdout_dataset[VOLATILITY_COLUMN] / np.sqrt(TRADING_DAYS_PER_YEAR)
+
+    # First, see where z actually produces trades at all -- predicted returns
+    # from this model are modest, so a "full standard deviation" bar (z=1.0)
+    # may be far too aggressive to clear even once; don't assume a sensible
+    # default, look at the real curve.
+    z_sweep = sweep_vol_normalized_thresholds(
+        predicted, actual, daily_volatility, z_thresholds=[0.0, 0.02, 0.05, 0.1, 0.25, 0.5, 1.0]
+    )
+    print("\nFull-holdout z-threshold sweep (to find a usable range):")
+    print(z_sweep.to_string(index=False))
+
+    baseline_n_trades = int((predicted > 0.005).sum())
+    tradeable = z_sweep[z_sweep["n_trades"] > 0]
+    if tradeable.empty:
+        print("\nNo z-threshold in the sweep produced any trades -- skipping the stability comparison.")
+        return
+    matched_z = float(tradeable.iloc[(tradeable["n_trades"] - baseline_n_trades).abs().argsort().iloc[0]]["z_threshold"])
+    print(f"\nUsing z={matched_z} (closest trade count to the 0.5% fixed threshold's {baseline_n_trades}) for the stability comparison below.")
+
+    dates = holdout_dataset["date"]
+    median_date = dates.median()
+    halves = {"first half": dates <= median_date, "second half": dates > median_date}
+
+    print("\nFixed threshold (0.5%):")
+    for half_name, mask in halves.items():
+        result = simulate_trades(predicted[mask], actual[mask], threshold=0.005)
+        print(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
+
+    print(f"\nVolatility-normalized threshold (z={matched_z}, using {VOLATILITY_COLUMN}):")
+    for half_name, mask in halves.items():
+        result = simulate_trades_vol_normalized(
+            predicted[mask], actual[mask], daily_volatility[mask], z_threshold=matched_z
+        )
+        print(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
+
+
 def main() -> None:
     t0 = time.time()
     tickers = UniverseStore().active_tickers()
@@ -424,6 +488,8 @@ def main() -> None:
     sweep = sweep_thresholds(predicted, actual)
     print("\nThreshold sweep on holdout:")
     print(sweep.to_string(index=False))
+
+    evaluate_volatility_normalized_stability(pooled_holdout, predicted, actual)
 
     print(f"\nTotal elapsed: {time.time() - t0:.1f}s")
     print(f"\nFinal config -- lightgbm params={lgbm_params} weight={weights[0]}")

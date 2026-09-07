@@ -1,7 +1,13 @@
 import pandas as pd
 import pytest
 
-from stock_picker.training.backtest import rank_ic, simulate_trades, sweep_thresholds
+from stock_picker.training.backtest import (
+    rank_ic,
+    simulate_trades,
+    simulate_trades_vol_normalized,
+    sweep_thresholds,
+    sweep_vol_normalized_thresholds,
+)
 
 
 def test_simulate_trades_hit_rate_and_total_return_above_threshold():
@@ -104,3 +110,29 @@ def test_rank_ic_ignores_single_ticker_days():
     dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-02"])
 
     assert rank_ic(predicted, actual, dates) == pytest.approx(1.0)
+
+
+def test_simulate_trades_vol_normalized_gates_on_return_relative_to_volatility():
+    # Both tickers predict the same 1% return, but ticker A's daily
+    # volatility is only 0.5% (so 1% is a strong 2-sigma-ish move) while
+    # ticker B's is 4% (so 1% is unremarkable noise for that stock) -- a
+    # fixed threshold can't distinguish them, this gate should.
+    predicted = pd.Series([0.01, 0.01])
+    actual = pd.Series([0.02, 0.02])
+    daily_volatility = pd.Series([0.005, 0.04])
+
+    result = simulate_trades_vol_normalized(predicted, actual, daily_volatility, z_threshold=1.0)
+
+    assert result["n_trades"] == 1
+    assert result["avg_return"] == pytest.approx(0.02)
+
+
+def test_sweep_vol_normalized_thresholds_returns_one_row_per_threshold():
+    predicted = pd.Series([0.03, 0.02, 0.01, -0.01, 0.0])
+    actual = pd.Series([0.05, 0.04, -0.02, 0.01, -0.01])
+    daily_volatility = pd.Series([0.01] * 5)
+
+    sweep = sweep_vol_normalized_thresholds(predicted, actual, daily_volatility, z_thresholds=[0.0, 1.0, 2.0])
+
+    assert list(sweep["z_threshold"]) == [0.0, 1.0, 2.0]
+    assert len(sweep) == 3
