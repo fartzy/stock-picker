@@ -179,29 +179,34 @@ line chart. `GET /api/prices/{ticker}?interval=daily|hourly`.
   (RandomForest, a small neural net, and Ridge regression were all tried as
   ensemble candidates via an empirical weight search -- see
   `training/tune_experiment.py` -- and none earned any weight blended with
-  LightGBM; adding a model family isn't assumed to help, it's measured).
+  LightGBM; adding a model family isn't assumed to help, it's measured. The
+  one time the weight search did pick a blend other than solo LightGBM, the
+  resulting holdout accuracy dropped -- a validation-fold margin that didn't
+  generalize, exactly the failure mode solo-LightGBM-as-floor guards against).
+- **Reproducibility**: `LIGHTGBM_DEFAULT_PARAMS` enables random row/column
+  subsampling (`feature_fraction`/`bagging_fraction`) -- without a fixed
+  `seed`, two training runs on identical data produced holdout accuracy
+  that differed by nearly a point, noise indistinguishable from a real
+  config change. Fixed with `seed=0`; verified two runs now produce
+  bit-identical predictions.
 - **Base rate**: 50.17% of day-sessions close up with no model at all --
   near a coin flip, since the open->close return specifically (unlike
   multi-day returns) doesn't carry the market's long-run upward drift.
-- **Walk-forward directional accuracy**: ~48-53% (a modest edge over the
+- **Walk-forward directional accuracy**: ~49-53% (a modest edge over the
   base rate, expected at this timescale).
-- **Holdout accuracy**: 58.2% on 12,600 rows.
+- **Holdout accuracy**: 57.9% on 12,600 rows, reproducible run to run.
 - **Threshold sweep on holdout** (gate on the model's *predicted* return,
   not a fixed dollar amount -- see `training/backtest.py`):
 
   | threshold | trades/year | hit rate | avg return |
   |---|---|---|---|
-  | 0% (unfiltered) | 5,682 | 58.9% | +0.33% |
-  | 0.05% | 4,048 | 60.6% | +0.43% |
-  | 0.1% | 2,890 | 63.6% | +0.56% |
-  | 0.5% | 427 | 79.2% | +1.48% |
-  | 1.0% | 49 | 79.6% | +2.26% |
+  | 0% (unfiltered) | 5,752 | 58.5% | +0.33% |
+  | 0.5% | 399 | 81.2% | +1.48% |
+  | 1.0% | 43 | 86.0% | +2.52% |
 
   Higher thresholds trade fewer, higher-conviction picks for a better hit
-  rate -- not a free lunch, the tradeoff curve. 1.0%'s 49 trades/year is a
-  small enough sample that any single number there is noisy; 0.05%-0.1% is
-  a more statistically stable operating point if higher trade volume matters
-  more than the highest hit rate.
+  rate -- not a free lunch, the tradeoff curve. 1.0%'s 43 trades/year is a
+  small enough sample that any single number there is noisy.
 - **Open, not-yet-adopted finding**: a ranking-objective LightGBM variant
   (rank each day's tickers against their same-day peers instead of
   predicting raw return magnitude) scores meaningfully better on Rank IC
