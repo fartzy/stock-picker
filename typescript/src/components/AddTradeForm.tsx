@@ -41,7 +41,8 @@ export default function AddTradeForm({ onAdded }: { onAdded: () => void }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-trade-form">
+      <span className="meta-label">Log a trade</span>
       <div className="form-row">
         <input
           className="form-input"
