@@ -36,7 +36,13 @@ from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble
 from stock_picker.training.importance import model_type_importance
-from stock_picker.training.model import predict, train_lightgbm, train_random_forest
+from stock_picker.training.model import (
+    NEURAL_NET_DEFAULT_PARAMS,
+    predict,
+    train_lightgbm,
+    train_neural_net,
+    train_random_forest,
+)
 from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
 from stock_picker.training.train import run_walk_forward
 
@@ -193,12 +199,29 @@ def tune_hyperparams(pooled_train, excluded):
     return best_lgbm, best_rf
 
 
-WEIGHT_CANDIDATES = [(1, 1), (2, 1), (1, 2), (3, 1), (1, 3), (1, 0), (0, 1)]
+# 3-way (lightgbm, random_forest, neural_net). Includes every solo/pairwise
+# combo -- most importantly the solos (1,0,0)/(0,1,0)/(0,0,1) -- so the
+# search can never recommend a blend worse than the best solo model already
+# in production; that's how random_forest's exclusion from DEFAULT_MODEL_SPECS
+# was decided empirically rather than assumed, and this decides neural_net's
+# fate the same way.
+WEIGHT_CANDIDATES = [
+    (1, 0, 0),
+    (0, 1, 0),
+    (0, 0, 1),
+    (1, 1, 0),
+    (1, 0, 1),
+    (0, 1, 1),
+    (1, 1, 1),
+    (2, 1, 1),
+    (1, 2, 1),
+    (1, 1, 2),
+]
 
 
-def tune_weights(pooled_train, excluded, lgbm_params, rf_params, n_splits=N_SPLITS):
-    """Fits each model ONCE per fold, caches both models' raw predictions and
-    the fold's actual labels, then scores every weight candidate as pure
+def tune_weights(pooled_train, excluded, lgbm_params, rf_params, nn_params, n_splits=N_SPLITS):
+    """Fits each model ONCE per fold, caches all three models' raw predictions
+    and the fold's actual labels, then scores every weight candidate as pure
     arithmetic over those cached arrays -- no retraining per weight."""
     print("\n=== Tuning ensemble weights (reusing cached per-fold predictions) ===")
     splits = walk_forward_splits(pooled_train["date"], n_splits=n_splits)
@@ -208,30 +231,37 @@ def tune_weights(pooled_train, excluded, lgbm_params, rf_params, n_splits=N_SPLI
         test_frame = pooled_train[test_mask]
         lgbm = train_lightgbm(train_frame, params=lgbm_params, excluded_features=excluded)
         rf = train_random_forest(train_frame, params=rf_params, excluded_features=excluded)
+        nn = train_neural_net(train_frame, params=nn_params, excluded_features=excluded)
         fold_cache.append(
             {
                 "actual": test_frame[LABEL_COLUMN].to_numpy(),
                 "lgbm_pred": predict(lgbm, test_frame),
                 "rf_pred": predict(rf, test_frame),
+                "nn_pred": predict(nn, test_frame),
             }
         )
 
     best_weights, best_acc = None, -1
-    for w_lgbm, w_rf in WEIGHT_CANDIDATES:
-        total = w_lgbm + w_rf
+    for w_lgbm, w_rf, w_nn in WEIGHT_CANDIDATES:
+        total = w_lgbm + w_rf + w_nn
         maes, accs = [], []
         for fold in fold_cache:
             if total == 0:
                 continue
-            blended = (fold["lgbm_pred"] * w_lgbm + fold["rf_pred"] * w_rf) / total
+            blended = (
+                fold["lgbm_pred"] * w_lgbm + fold["rf_pred"] * w_rf + fold["nn_pred"] * w_nn
+            ) / total
             actual = fold["actual"]
             maes.append(float(np.mean(np.abs(blended - actual))))
             accs.append(float(np.mean(np.sign(blended) == np.sign(actual))))
         mae, acc = sum(maes) / len(maes), sum(accs) / len(accs)
-        print(f"  weights lightgbm={w_lgbm} random_forest={w_rf} -> MAE={mae:.5f} acc={acc:.4f}")
+        print(f"  weights lightgbm={w_lgbm} random_forest={w_rf} neural_net={w_nn} -> MAE={mae:.5f} acc={acc:.4f}")
         if acc > best_acc:
-            best_weights, best_acc = (w_lgbm, w_rf), acc
-    print(f"\nBest weights: lightgbm={best_weights[0]} random_forest={best_weights[1]} (acc={best_acc:.4f})")
+            best_weights, best_acc = (w_lgbm, w_rf, w_nn), acc
+    print(
+        f"\nBest weights: lightgbm={best_weights[0]} random_forest={best_weights[1]} "
+        f"neural_net={best_weights[2]} (acc={best_acc:.4f})"
+    )
     return best_weights
 
 
@@ -256,6 +286,7 @@ def main() -> None:
     baseline_specs = [
         ModelSpec("lightgbm", excluded_features=excluded),
         ModelSpec("random_forest", excluded_features=excluded),
+        ModelSpec("neural_net", excluded_features=excluded),
     ]
     mae, acc, _ = evaluate_specs(pooled_train, baseline_specs)
     print("\n=== BASELINE (current pruned set, equal weight, default params) ===")
@@ -264,17 +295,28 @@ def main() -> None:
     excluded = prune_low_value_features(pooled_train, excluded)
     mae, acc, _ = evaluate_specs(
         pooled_train,
-        [ModelSpec("lightgbm", excluded_features=excluded), ModelSpec("random_forest", excluded_features=excluded)],
+        [
+            ModelSpec("lightgbm", excluded_features=excluded),
+            ModelSpec("random_forest", excluded_features=excluded),
+            ModelSpec("neural_net", excluded_features=excluded),
+        ],
     )
     print(f"\n=== AFTER PRUNING ({len(excluded)} excluded) ===")
     print(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
 
     lgbm_params, rf_params = tune_hyperparams(pooled_train, excluded)
-    weights = tune_weights(pooled_train, excluded, lgbm_params, rf_params)
+    # Not re-tuned here -- NEURAL_NET_DEFAULT_PARAMS was already chosen
+    # conservatively (small architecture, strong L2) against this same
+    # feature-to-sample ratio when neural_net was first added (see model.py);
+    # this run's job is only to decide *whether* it earns ensemble weight,
+    # the same question already settled for random_forest.
+    nn_params = NEURAL_NET_DEFAULT_PARAMS
+    weights = tune_weights(pooled_train, excluded, lgbm_params, rf_params, nn_params)
 
     final_specs = [
         ModelSpec("lightgbm", params=lgbm_params, excluded_features=excluded, weight=weights[0]),
         ModelSpec("random_forest", params=rf_params, excluded_features=excluded, weight=weights[1]),
+        ModelSpec("neural_net", params=nn_params, excluded_features=excluded, weight=weights[2]),
     ]
     mae, acc, _ = evaluate_specs(pooled_train, final_specs)
     print("\n=== FINAL TUNED CONFIG (validation folds only) ===")
