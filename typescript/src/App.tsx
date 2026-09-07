@@ -48,8 +48,8 @@ export default function App() {
       {tab === "trading" && (
         <>
           <section>
-            <h2>Buy Signal</h2>
-            <div className="panel">
+            <h2>What should I buy this morning?</h2>
+            <div className="panel-hero">
               <BuySignal />
             </div>
           </section>

@@ -1,5 +1,6 @@
 import {
   DEFAULT_BUY_THRESHOLD,
+  MODEL_TYPE_LABELS,
   fetchTrainingRuns,
   type FoldMetrics,
   type RunModelSpec,
@@ -14,11 +15,12 @@ import { useFetchData } from "../useFetchData";
 // backend rounding change silently breaking the highlight.
 const THRESHOLD_MATCH_EPSILON = 1e-9;
 
-const MODEL_TYPE_LABELS: Record<string, string> = {
-  lightgbm: "LightGBM",
-  random_forest: "Random Forest",
-  logistic_regression: "Logistic Regression",
-};
+// Raw column keys are snake_case Python identifiers (n_test_rows,
+// avg_picks_per_day, ...) -- humanized here for display rather than at the
+// source, so the API/backend naming stays exactly what the data really is.
+function humanizeColumn(key: string): string {
+  return key.replace(/_/g, " ").toUpperCase();
+}
 
 function formatTimestamp(isoString: string): string {
   return new Date(isoString).toLocaleString(undefined, {
@@ -51,15 +53,25 @@ function CountWithTooltip({ items, label }: { items: string[]; label: string }) 
   );
 }
 
-function MetricsTable({ rows }: { rows: (FoldMetrics | ThresholdSweepRow)[] }) {
+function MetricsTable({
+  rows,
+  indexLabel,
+}: {
+  rows: (FoldMetrics | ThresholdSweepRow)[];
+  // fold_metrics rows have no natural index column of their own (unlike
+  // threshold_sweep's own "threshold" column) -- pass e.g. "fold" so each
+  // row reads as "fold 0," "fold 1," ... instead of an unlabeled sequence.
+  indexLabel?: string;
+}) {
   if (rows.length === 0) return null;
   const columns = Object.keys(rows[0]);
   return (
     <table className="trade-table">
       <thead>
         <tr>
+          {indexLabel && <th>{humanizeColumn(indexLabel)}</th>}
           {columns.map((c) => (
-            <th key={c}>{c}</th>
+            <th key={c}>{humanizeColumn(c)}</th>
           ))}
         </tr>
       </thead>
@@ -78,6 +90,7 @@ function MetricsTable({ rows }: { rows: (FoldMetrics | ThresholdSweepRow)[] }) {
             Math.abs(values.threshold - DEFAULT_BUY_THRESHOLD) < THRESHOLD_MATCH_EPSILON;
           return (
             <tr key={i} className={isDefaultThresholdRow ? "metrics-row-highlight" : undefined}>
+              {indexLabel && <td className="trade-num">{i}</td>}
               {columns.map((c) => {
                 const value = values[c];
                 // hit_rate answers "if I take a trade at this threshold, how
@@ -179,7 +192,7 @@ function RunCard({ run }: { run: TrainingRunRecord }) {
             </div>
           )}
         </div>
-        {run.fold_metrics && <MetricsTable rows={run.fold_metrics} />}
+        {run.fold_metrics && <MetricsTable rows={run.fold_metrics} indexLabel="fold" />}
         {run.threshold_sweep && <MetricsTable rows={run.threshold_sweep} />}
       </div>
     </details>

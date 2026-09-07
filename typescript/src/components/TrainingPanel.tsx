@@ -1,9 +1,10 @@
 import {
+  DEFAULT_BUY_THRESHOLD,
+  MODEL_TYPE_LABELS,
   fetchModelInfo,
   fetchTrainingStatus,
   runTraining,
   type ModelInfoResponse,
-  type ThresholdSweepRow,
   type TrainingResult,
   type TrainingStatusResponse,
 } from "../api";
@@ -14,11 +15,10 @@ import { useFetchData } from "../useFetchData";
 // "live-ish via polling" convention the rest of the Feature Store tab uses.
 const POLL_INTERVAL_MS = 4000;
 
-const MODEL_TYPE_LABELS: Record<string, string> = {
-  lightgbm: "LightGBM",
-  random_forest: "Random Forest",
-  logistic_regression: "Logistic Regression",
-};
+// Same tolerance RunHistory uses to match a sweep row to the app's actual
+// operational threshold -- kept in sync so the headline number here and the
+// "bet" row highlighted in Run History are always the same threshold.
+const THRESHOLD_MATCH_EPSILON = 1e-9;
 
 function formatTimestamp(isoString: string | null): string {
   if (!isoString) return "";
@@ -91,32 +91,16 @@ function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | nul
   );
 }
 
-// The highlighted threshold row should be the most selective (highest
-// threshold) one whose sample is still large enough to trust -- picking
-// literally the last populated row could highlight something like "1 trade,
-// 100% hit rate," which is noise, not a result. 30 is a common rule-of-thumb
-// floor for a binomial rate to mean anything at a glance; this is a headline
-// callout, not a rigorous estimate, so it doesn't need to be more precise
-// than that.
-const HIGHLIGHT_MIN_TRADES = 30;
-
-function pickHighlightRow(sweep: ThresholdSweepRow[]): ThresholdSweepRow | undefined {
-  const gated = sweep.filter((row) => row.threshold > 0);
-  const qualifying = gated.filter((row) => row.n_trades >= HIGHLIGHT_MIN_TRADES);
-  if (qualifying.length > 0) return qualifying[qualifying.length - 1];
-  // Nothing cleared the bar (e.g. a small holdout) -- fall back to whichever
-  // confidence-gated row has the most trades, still better than the
-  // highest-threshold row which could be a sample of one.
-  return gated.reduce<ThresholdSweepRow | undefined>(
-    (best, row) => (!best || row.n_trades > best.n_trades ? row : best),
-    undefined,
-  );
-}
-
 function TrainingResultSummary({ result }: { result: TrainingResult }) {
   const holdout = result.holdout_metrics;
   const sweep = result.threshold_sweep;
-  const highlight = sweep ? pickHighlightRow(sweep) : undefined;
+  // The same row RunHistory's "bet" badge highlights -- the threshold the
+  // app actually operates at (BuySignal's own default), not a separately
+  // computed "most selective well-sampled row" that could quote a different
+  // number here than what's highlighted just below in Run History.
+  const highlight = sweep?.find(
+    (row) => Math.abs(row.threshold - DEFAULT_BUY_THRESHOLD) < THRESHOLD_MATCH_EPSILON,
+  );
   return (
     <div className="training-result">
       {holdout && (

@@ -4,6 +4,17 @@
 // can never drift apart into two different numbers.
 export const DEFAULT_BUY_THRESHOLD = 0.005;
 
+// Shared so TrainingPanel's ensemble-composition breakdown and RunHistory's
+// past-run cards can never drift out of sync the way they did before --
+// each had its own copy of this map, and both were missing neural_net/ridge.
+export const MODEL_TYPE_LABELS: Record<string, string> = {
+  lightgbm: "LightGBM",
+  random_forest: "Random Forest",
+  logistic_regression: "Logistic Regression",
+  neural_net: "Neural Net",
+  ridge: "Ridge Regression",
+};
+
 export interface CatalogResponse {
   catalog: Record<string, string[]>;
   descriptions: Record<string, string>;
