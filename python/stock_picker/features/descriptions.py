@@ -151,6 +151,21 @@ _pattern(
         "legitimately known before the market opens."
     ),
 )
+_pattern(
+    r"^gap_volume_interaction$",
+    lambda m: (
+        "Overnight gap scaled by how unusual today's volume is -- a gap on unusually "
+        "high volume reads as 'confirmed' by real participation, a same-size gap on "
+        "quiet volume reads as less trustworthy."
+    ),
+)
+_pattern(
+    r"^gap_streak$",
+    lambda m: (
+        "Signed count of consecutive same-direction overnight gaps -- a gap-direction "
+        "analog to consecutive_day_streak, resets to 0 on a flat/no-gap day."
+    ),
+)
 _pattern(r"^day_range_pct$", lambda m: "Today's high-low range as a percent of the closing price.")
 _pattern(r"^body_pct$", lambda m: "Percent change from today's open to today's close (the candle 'body').")
 _pattern(

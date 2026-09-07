@@ -91,6 +91,11 @@ _pattern(
     lambda m: f"(volume - volume.rolling({m[1]}).mean()) / volume.rolling({m[1]}).std()",
 )
 _pattern(r"^overnight_gap$", lambda m: "(open - close.shift(1)) / close.shift(1)")
+_pattern(
+    r"^gap_volume_interaction$",
+    lambda m: "overnight_gap * ((volume - volume.rolling(20).mean()) / volume.rolling(20).std())",
+)
+_pattern(r"^gap_streak$", lambda m: "signed running count of consecutive same-direction overnight gaps")
 _pattern(r"^day_range_pct$", lambda m: "(high - low) / close")
 _pattern(r"^body_pct$", lambda m: "(close - open) / open")
 _pattern(r"^upper_wick_pct$", lambda m: "(high - max(open, close)) / open")
