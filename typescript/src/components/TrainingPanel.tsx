@@ -35,19 +35,58 @@ function formatTimestamp(isoString: string | null): string {
 // past runs looked like." Styled as a labeled meta row (not a trailing
 // caption) so it reads as its own fact, not an afterthought glued to the
 // run controls above it.
+//
+// Collapsed by default to a plain "X% ModelA + Y% ModelB" summary -- a
+// percentage of the blend reads more intuitively than a raw weight number,
+// especially once there's more than one member. The full breakdown (feature
+// count per member) is one click away, not shown by default, so this stays
+// exactly as glanceable for someone who never clicks it.
 function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | null }) {
+  const [expanded, setExpanded] = useState(false);
   if (!modelInfo || modelInfo.models.length === 0) return null;
+
+  const totalWeight = modelInfo.models.reduce((sum, m) => sum + m.weight, 0);
+  const withPct = modelInfo.models.map((m) => ({
+    ...m,
+    pct: totalWeight > 0 ? (m.weight / totalWeight) * 100 : 0,
+  }));
+
   return (
     <div className="live-model">
+      <button
+        type="button"
+        className="feature-row-toggle"
+        onClick={() => setExpanded((e) => !e)}
+        title={expanded ? "Hide blend breakdown" : "Show blend breakdown"}
+      >
+        {expanded ? "▾" : "▸"}
+      </button>{" "}
       <span className="meta-label">Live model</span>
       <span className="muted">
-        {modelInfo.models
-          .map((m) => {
-            const label = MODEL_TYPE_LABELS[m.model_type] ?? m.model_type;
-            return `${label} (weight ${m.weight}, ${m.feature_count} features)`;
-          })
+        {withPct
+          .map((m) => `${m.pct.toFixed(0)}% ${MODEL_TYPE_LABELS[m.model_type] ?? m.model_type}`)
           .join(" + ")}
       </span>
+      {expanded && (
+        <table className="trade-table" style={{ marginTop: "var(--space-2)" }}>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th className="trade-num">% of blend</th>
+              <th className="trade-num">Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            {withPct.map((m) => (
+              <tr key={m.model_type}>
+                <td>{MODEL_TYPE_LABELS[m.model_type] ?? m.model_type}</td>
+                <td className="trade-num">{m.pct.toFixed(1)}%</td>
+                <td className="trade-num">{m.feature_count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
