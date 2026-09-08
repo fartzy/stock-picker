@@ -7,3 +7,10 @@ py_pytest(
     imports = ["../../.."],
     deps = ["//python/stock_picker/tickers"],
 )
+
+py_pytest(
+    name = "test_nasdaq_directory",
+    srcs = ["test_nasdaq_directory.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/tickers"],
+)

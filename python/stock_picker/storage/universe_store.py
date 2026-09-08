@@ -3,7 +3,7 @@
 Membership is monotonic: once a ticker has ever qualified for the tracked
 universe (top-N by market cap, or manually added), it's synced in as active
 and stays that way -- being absent from a later sync (e.g. falling out of
-the top-N ranking) does not remove or deactivate it. The 500 cutoff is
+the top-N ranking) does not remove or deactivate it. The 2000 cutoff is
 just today's entry criterion, not a cap on what we keep tracking. `active`
 is retained as a field for possible future explicit/manual removal (e.g. a
 delisting), which isn't implemented yet.

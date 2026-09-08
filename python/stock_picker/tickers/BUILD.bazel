@@ -4,6 +4,7 @@ py_library(
     name = "tickers",
     srcs = [
         "manual_additions.py",
+        "nasdaq_directory.py",
         "universe.py",
     ],
     imports = ["../.."],

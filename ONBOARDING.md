@@ -24,7 +24,7 @@ committed. If you want current prices/predictions rather than whatever
 snapshot shipped with the clone, refresh the pipeline yourself, in order:
 
 ```
-bazelisk run //python/stock_picker/ingestion:main   # pulls the 500-ticker universe + latest 6mo price history (network-bound, a few minutes)
+bazelisk run //python/stock_picker/ingestion:main   # pulls the 2000-ticker universe + latest 6mo price history (network-bound, several minutes)
 bazelisk run //python/stock_picker/features:main    # recomputes ~107 engineered features per ticker from that history
 bazelisk run //python/stock_picker/training:main    # retrains the ensemble, persists it, records a new run
 ```

@@ -1,10 +1,12 @@
-"""Ticker universe: top-500-by-market-cap constituents.
+"""Ticker universe: top-N-by-market-cap constituents.
 
 There is no single free data source that cleanly exposes "all US tickers
-ranked by market cap." As a starting universe we use the S&P 500
-constituents (already the ~500 largest US companies) scraped from
-Wikipedia, then re-rank by live market cap pulled via `yfinance` and trim
-to the top N.
+ranked by market cap." The functions here are source-agnostic -- they rank
+and combine whatever candidate ticker list they're given -- so they work
+against either `fetch_sp500_constituents` below (a smaller, S&P-500-only
+starting pool) or `nasdaq_directory.fetch_candidate_tickers` (the broader
+~13,000-symbol NASDAQ+NYSE pool the live app uses today, filtered down to
+real common stock and re-ranked by live market cap pulled via `yfinance`).
 """
 
 from __future__ import annotations
@@ -33,7 +35,7 @@ def fetch_sp500_constituents(source_url: str = WIKIPEDIA_SP500_URL) -> list[str]
     return constituents["Symbol"].str.replace(".", "-", regex=False).tolist()
 
 
-def top_n_by_market_cap(market_caps: dict[str, float], n: int = 500) -> list[str]:
+def top_n_by_market_cap(market_caps: dict[str, float], n: int = 2000) -> list[str]:
     """Rank tickers by market cap (descending) and return the top `n` symbols."""
     ranked = sorted(market_caps.items(), key=lambda item: item[1], reverse=True)
     return [ticker for ticker, _ in ranked[:n]]
@@ -41,7 +43,7 @@ def top_n_by_market_cap(market_caps: dict[str, float], n: int = 500) -> list[str
 
 def build_universe(
     market_caps: dict[str, float],
-    n: int = 500,
+    n: int = 2000,
     manual_additions: list[str] | None = None,
 ) -> dict[str, str]:
     """Combine the top-N-by-market-cap ranking with manually curated tickers.
