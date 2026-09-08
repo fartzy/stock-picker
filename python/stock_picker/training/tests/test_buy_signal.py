@@ -12,9 +12,9 @@ from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import train_lightgbm
 
-_AS_OF = date(2026, 9, 5)
-_FRESH_SNAPSHOT_DATE = date(2026, 9, 4)  # 1 day old -- within DEFAULT_TTL_DAYS
-_STALE_SNAPSHOT_DATE = date(2026, 9, 2)  # 3 days old -- past DEFAULT_TTL_DAYS
+_AS_OF = date(2026, 9, 9)  # a Wednesday
+_FRESH_SNAPSHOT_DATE = date(2026, 9, 8)  # Tuesday, 1 trading day old -- within DEFAULT_TTL_DAYS
+_STALE_SNAPSHOT_DATE = date(2026, 9, 1)  # Tuesday, 6 trading days old -- past DEFAULT_TTL_DAYS
 
 
 def _trained_ensemble():

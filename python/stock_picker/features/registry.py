@@ -10,7 +10,7 @@ descriptions.describe_feature), not a hand-maintained object list that can drift
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, timedelta
 
 import pandas as pd
 
@@ -18,11 +18,15 @@ from stock_picker.features.catalog import list_feature_columns
 
 TICKER_ENTITY_NAME = "ticker"
 
-# How many days old a feature snapshot can be before it's untrustworthy for
-# inference -- every view here depends on the prior trading day's close, so a
-# snapshot older than that is stale. This is the concept the pipeline was missing
-# when a live inference run nearly used an in-progress row as a finalized one.
-DEFAULT_TTL_DAYS = 1
+# How many trading days old a feature snapshot can be before it's untrustworthy
+# for inference -- every view here depends on the prior trading day's close, so
+# a snapshot older than that is stale. This is the concept the pipeline was
+# missing when a live inference run nearly used an in-progress row as a
+# finalized one. 2, not 1: a Friday snapshot is exactly 1 trading day old on
+# the following Monday, and 2 on a Tuesday after a Monday market holiday --
+# both are the most recent close available and shouldn't be flagged, only
+# something actually stale (the pipeline having failed to run for real) should.
+DEFAULT_TTL_DAYS = 2
 
 _SOURCES = {
     "cross_sectional": "PriceStore + SPY benchmark + universe peer returns",
@@ -102,6 +106,25 @@ def build_registry(sample_history: pd.DataFrame) -> tuple[list[FeatureView], lis
     return feature_views, feature_services
 
 
+def _weekdays_elapsed(start: date, end: date) -> int:
+    """Count Mon-Fri days strictly after `start` up to and including `end`.
+
+    Raw calendar-day age treats every weekend as 2-3 days of staleness, so a
+    perfectly current Friday snapshot reads as stale on the very next trading
+    day (Monday). Markets are closed weekends (and the occasional holiday,
+    which this doesn't special-case, but DEFAULT_TTL_DAYS leaves a day of
+    slack for that) -- no new data could possibly exist yet, so those days
+    shouldn't count against freshness.
+    """
+    elapsed = 0
+    current = start
+    while current < end:
+        current += timedelta(days=1)
+        if current.weekday() < 5:
+            elapsed += 1
+    return elapsed
+
+
 def check_freshness(ttl_days: int, snapshot_date: date, as_of_date: date) -> FreshnessResult:
     """Is `snapshot_date` (the date a feature snapshot is from) fresh enough to use
     for inference as of `as_of_date`, given `ttl_days`?
@@ -111,5 +134,5 @@ def check_freshness(ttl_days: int, snapshot_date: date, as_of_date: date) -> Fre
     anyway (inference.py's row spans every category at once, so there's no single
     "the" view to hand this function regardless).
     """
-    age_days = (as_of_date - snapshot_date).days
+    age_days = _weekdays_elapsed(snapshot_date, as_of_date)
     return FreshnessResult(ok=age_days <= ttl_days, age_days=age_days, ttl_days=ttl_days)
