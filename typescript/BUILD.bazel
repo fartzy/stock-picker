@@ -41,6 +41,9 @@ js_run_devserver(
         ":node_modules/react-dom",
         ":node_modules/typescript",
         ":node_modules/vite",
-    ] + glob(["src/**", "public/**"]),
+    ] + glob([
+        "src/**",
+        "public/**",
+    ]),
     tool = ":vite",
 )

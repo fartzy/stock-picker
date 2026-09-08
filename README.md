@@ -1,6 +1,6 @@
 # stock-picker
 
-- **Universe**: top 500 US companies by market cap
+- **Universe**: top 2000 US companies by market cap
 - **Data**: daily OHLCV via `yfinance`
 - **Features**: ~100 engineered columns across 11 categories
 - **Model**: LightGBM + random-forest ensemble predicting day-session
@@ -14,7 +14,7 @@ Solid boxes are built and tested; dashed boxes are planned but not built yet.
 ```mermaid
 flowchart TB
     subgraph Ingestion
-        WIKI["Wikipedia S&amp;P 500 scrape"]
+        WIKI["NASDAQ + NYSE symbol directories"]
         MANUAL["tickers/manual_additions.py"]
         BUILDUNIV["tickers/universe.py<br/>build_universe()"]
         YF["ingestion/yfinance_client.py<br/>daily + intraday download, live quotes"]
@@ -87,7 +87,7 @@ flowchart TB
 
 ```
 python/stock_picker/
-├── tickers/     # top-500-by-market-cap universe
+├── tickers/     # top-2000-by-market-cap universe
 ├── ingestion/   # yfinance: daily history, intraday bars, live quotes
 ├── storage/     # Parquet/pickle persistence (Repository pattern)
 ├── features/    # ~100-column pipeline, feature catalog, Feast-style registry,

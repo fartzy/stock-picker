@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A stock-picker web app: ~500-ticker universe, ~100 engineered features across
+A stock-picker web app: ~2000-ticker universe, ~100 engineered features across
 11 categories, a composable LightGBM/RandomForest/NeuralNet/Ridge ensemble
 predicting day-session (open->close) return, a live confidence-gated "buy
 signal" feature, and a real trading log with live P&L. FastAPI backend +
