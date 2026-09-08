@@ -92,6 +92,7 @@ def _load_pooled_dataset(
 def run_training(
     included_features: set[str] | None = None,
     model_specs: list[ModelSpec] | None = None,
+    run_id: str | None = None,
 ) -> TrainingSummary:
     """Runs one full walk-forward + holdout + threshold-sweep pass and persists
     the final ensemble, returning a plain-JSON-serializable summary. Shared by
@@ -111,6 +112,14 @@ def run_training(
     sets, since specs coming from persisted UI config only carry
     `model_type`/`weight` -- feature selection is applied uniformly to every
     model in the ensemble (per-model feature subsets are deferred).
+
+    `run_id`, if given, also archives this run's ensemble under its own name
+    (in addition to the plain overwrite below, which stays "whatever's
+    latest") -- the caller already generates this same id for its
+    `TrainingRunRecord`, so the archived model and its Run History entry
+    share one identifier. See `storage/training_config_store.py`'s
+    `selected_run_id` and `training/buy_signal.py` for how a past run gets
+    picked back up for live inference.
     """
     tickers = UniverseStore().active_tickers()
     holdout_ticker_set = select_holdout_tickers(tickers)
@@ -146,6 +155,8 @@ def run_training(
 
     final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
+    if run_id:
+        ModelStore().write(f"{MODEL_NAME}_{run_id}", final_ensemble)
 
     # Every member trains against the same train_dataset with the same
     # excluded_features/included_features (applied uniformly above), so
@@ -240,7 +251,9 @@ def main() -> None:
     started_at = _now()
     run_id = uuid.uuid4().hex
     try:
-        result = run_training(included_features=selected_features(), model_specs=selected_model_specs())
+        result = run_training(
+            included_features=selected_features(), model_specs=selected_model_specs(), run_id=run_id
+        )
     except Exception as exc:  # noqa: BLE001 -- recorded, then re-raised so the CLI still exits non-zero
         completed_at = _now()
         run_store.append(

@@ -20,6 +20,7 @@ from typing import Callable
 from stock_picker.features.quotes import fetch_ticker_quotes
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.importance import ensemble_importance
 from stock_picker.training.inference import (
@@ -71,21 +72,39 @@ def compute_buy_signals(
     universe_store: UniverseStore | None = None,
     feature_store: FeatureStore | None = None,
     model_store: ModelStore | None = None,
+    config_store: TrainingConfigStore | None = None,
     quote_fetcher: Callable[[list[str]], dict[str, dict]] = fetch_ticker_quotes,
 ) -> BuySignalResult:
     as_of = as_of or date.today()
     universe_store = universe_store or UniverseStore()
     feature_store = feature_store or FeatureStore()
     model_store = model_store or ModelStore()
+    config_store = config_store or TrainingConfigStore()
 
-    if not model_store.exists(MODEL_NAME):
+    # None (the default) means "no explicit choice, use whatever's latest" --
+    # that name always gets overwritten by every run regardless of run_id.
+    # A selected_run_id instead picks up that specific run's archived copy
+    # (see training/main.py's run_training()). /api/live-model validates a
+    # selection actually has an archive before it can be set, so this should
+    # never need a runtime fallback -- but if a selection somehow predates
+    # the archival feature, err toward "no model" rather than silently
+    # substituting a different model than the one explicitly chosen.
+    selected_run_id = config_store.read().selected_run_id
+    model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+
+    if not model_store.exists(model_name):
+        reason = (
+            "no trained model persisted yet"
+            if not selected_run_id
+            else f"selected run {selected_run_id} has no archived model"
+        )
         return BuySignalResult(
             as_of=as_of.isoformat(),
             threshold=threshold,
-            skipped=[{"ticker": NO_MODEL_SENTINEL, "reason": "no trained model persisted yet"}],
+            skipped=[{"ticker": NO_MODEL_SENTINEL, "reason": reason}],
         )
 
-    ensemble = model_store.read(MODEL_NAME)
+    ensemble = model_store.read(model_name)
     tickers = universe_store.active_tickers()
     quotes = quote_fetcher(tickers)
 

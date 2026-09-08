@@ -8,9 +8,11 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.tests.fixtures import synthetic_history
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
+from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import train_lightgbm
 
 # Prune/unprune mutate a real store instance rather than returning canned
@@ -37,19 +39,26 @@ class _FakePrunedFeatureStore:
 
 # Same reasoning as _pruned_state above: mutated by the routes under test, so
 # a stateful fake beats mock return_value plumbing.
-_training_config_state: dict[str, object] = {"included_features": None, "model_choices": None}
+_training_config_state: dict[str, object] = {
+    "included_features": None,
+    "model_choices": None,
+    "selected_run_id": None,
+}
 
 
 class _FakeTrainingConfig:
-    def __init__(self, included_features, model_choices):
+    def __init__(self, included_features, model_choices, selected_run_id=None):
         self.included_features = included_features
         self.model_choices = model_choices
+        self.selected_run_id = selected_run_id
 
 
 class _FakeTrainingConfigStore:
     def read(self):
         return _FakeTrainingConfig(
-            _training_config_state["included_features"], _training_config_state["model_choices"]
+            _training_config_state["included_features"],
+            _training_config_state["model_choices"],
+            _training_config_state["selected_run_id"],
         )
 
     def write_included_features(self, included_features):
@@ -59,6 +68,9 @@ class _FakeTrainingConfigStore:
 
     def write_model_choices(self, model_choices):
         _training_config_state["model_choices"] = model_choices
+
+    def write_selected_run_id(self, run_id):
+        _training_config_state["selected_run_id"] = run_id
 
 
 class _FakeTrainingJob:
@@ -138,13 +150,17 @@ def client(tmp_path):
     _pruned_state.clear()
     _training_config_state["included_features"] = None
     _training_config_state["model_choices"] = None
+    _training_config_state["selected_run_id"] = None
     global _fake_training_job
     _fake_training_job = _FakeTrainingJob()
     global _training_run_store
     _training_run_store = TrainingRunStore(data_dir=tmp_path / "training_runs")
+    global _model_store
+    _model_store = ModelStore(data_dir=tmp_path / "models")
 
     with (
         patch("stock_picker.api.routes.TrainingRunStore", lambda: _training_run_store),
+        patch("stock_picker.api.routes.ModelStore", lambda: _model_store),
         patch("stock_picker.features.catalog_loader.UniverseStore") as mock_universe_store,
         patch("stock_picker.features.catalog_loader.PriceStore") as mock_price_store,
         patch("stock_picker.features.catalog_loader.FeatureStore") as mock_feature_store,
@@ -308,6 +324,73 @@ def test_get_training_runs_returns_an_appended_record_newest_first(client):
     assert run["run_id"] == "run-1"
     assert run["train_tickers"] == ["AAPL"]
     assert run["date_range"] == ["2026-01-01", "2026-01-31"]
+    assert run["has_archived_model"] is False
+
+
+def test_get_training_runs_reports_has_archived_model_when_one_exists(client):
+    from stock_picker.storage.training_run_store import TrainingRunRecord
+
+    _training_run_store.append(
+        TrainingRunRecord(run_id="run-1", status="completed", started_at="", completed_at="", duration_seconds=0.0)
+    )
+    _model_store.write(f"{MODEL_NAME}_run-1", Ensemble(members=[], weights=[]))
+
+    response = client.get("/api/training/runs")
+
+    [run] = response.json()["runs"]
+    assert run["has_archived_model"] is True
+
+
+def test_get_live_model_defaults_to_no_selection_and_no_runs(client):
+    response = client.get("/api/live-model")
+
+    assert response.status_code == 200
+    assert response.json() == {"selected_run_id": None, "live_run_id": None}
+
+
+def test_get_live_model_resolves_to_the_newest_completed_run_when_unselected(client):
+    from stock_picker.storage.training_run_store import TrainingRunRecord
+
+    _training_run_store.append(
+        TrainingRunRecord(
+            run_id="older",
+            status="completed",
+            started_at="2026-01-01T00:00:00",
+            completed_at="",
+            duration_seconds=0.0,
+        )
+    )
+    _training_run_store.append(
+        TrainingRunRecord(
+            run_id="newer",
+            status="completed",
+            started_at="2026-01-02T00:00:00",
+            completed_at="",
+            duration_seconds=0.0,
+        )
+    )
+
+    response = client.get("/api/live-model")
+
+    assert response.json() == {"selected_run_id": None, "live_run_id": "newer"}
+
+
+def test_post_live_model_with_no_archived_model_is_rejected(client):
+    response = client.post("/api/live-model", json={"run_id": "never-archived"})
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "run never-archived has no archived model to select"
+    assert client.get("/api/live-model").json()["selected_run_id"] is None
+
+
+def test_post_then_delete_live_model_selects_and_resets(client):
+    _model_store.write(f"{MODEL_NAME}_run-1", Ensemble(members=[], weights=[]))
+
+    post_response = client.post("/api/live-model", json={"run_id": "run-1"})
+    assert post_response.json() == {"selected_run_id": "run-1", "live_run_id": "run-1"}
+
+    delete_response = client.delete("/api/live-model")
+    assert delete_response.json()["selected_run_id"] is None
 
 
 def test_get_feature_selection_starts_as_no_selection(client):

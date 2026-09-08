@@ -1,8 +1,13 @@
+import { useState } from "react";
 import {
   DEFAULT_BUY_THRESHOLD,
   MODEL_TYPE_LABELS,
+  fetchLiveModel,
   fetchTrainingRuns,
+  resetLiveModel,
+  setLiveModel,
   type FoldMetrics,
+  type LiveModelResponse,
   type RunModelSpec,
   type ThresholdSweepRow,
   type TrainingRunRecord,
@@ -122,7 +127,30 @@ function MetricsTable({
   );
 }
 
-function RunCard({ run }: { run: TrainingRunRecord }) {
+function RunCard({
+  run,
+  isLive,
+  isExplicitSelection,
+  onSelect,
+  onReset,
+}: {
+  run: TrainingRunRecord;
+  isLive: boolean;
+  isExplicitSelection: boolean;
+  onSelect: () => void;
+  onReset: () => void;
+}) {
+  // Buttons live inside <summary> for at-a-glance access without expanding
+  // the card -- stop the click from also toggling the native <details>
+  // disclosure.
+  function stopAndRun(action: () => void) {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      action();
+    };
+  }
+
   if (run.status === "failed") {
     return (
       <details className="view-card">
@@ -147,6 +175,17 @@ function RunCard({ run }: { run: TrainingRunRecord }) {
         {" · "}
         {formatDuration(run.duration_seconds)}
         {holdout && ` · ${(holdout.directional_accuracy * 100).toFixed(1)}% holdout accuracy`}
+        {isLive && <span className="threshold-highlight-badge">Live</span>}
+        {isExplicitSelection && (
+          <button type="button" className="btn-primary" style={{ marginLeft: 8 }} onClick={stopAndRun(onReset)}>
+            Reset to latest
+          </button>
+        )}
+        {!isLive && run.has_archived_model && (
+          <button type="button" className="btn-primary" style={{ marginLeft: 8 }} onClick={stopAndRun(onSelect)}>
+            Use this model
+          </button>
+        )}
         {run.model_specs && (
           <div className="view-meta">{formatComposition(run.model_specs)}</div>
         )}
@@ -203,6 +242,18 @@ export default function RunHistory() {
   // Fetched once, not polled -- unlike current job status, a past run never
   // changes once recorded, so there's nothing to keep re-fetching for.
   const { data, error } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
+  const [refreshCount, setRefreshCount] = useState(0);
+  const { data: liveModel } = useFetchData<LiveModelResponse>(fetchLiveModel, { deps: [refreshCount] });
+
+  async function handleSelect(runId: string) {
+    await setLiveModel(runId);
+    setRefreshCount((c) => c + 1);
+  }
+
+  async function handleReset() {
+    await resetLiveModel();
+    setRefreshCount((c) => c + 1);
+  }
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading run history...</p>;
@@ -211,7 +262,14 @@ export default function RunHistory() {
   return (
     <div>
       {data.runs.map((run) => (
-        <RunCard run={run} key={run.run_id} />
+        <RunCard
+          run={run}
+          isLive={liveModel?.live_run_id === run.run_id}
+          isExplicitSelection={liveModel?.selected_run_id === run.run_id}
+          onSelect={() => handleSelect(run.run_id)}
+          onReset={handleReset}
+          key={run.run_id}
+        />
       ))}
     </div>
   );

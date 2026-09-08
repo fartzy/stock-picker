@@ -43,6 +43,10 @@ class ModelSelectionRequest(BaseModel):
     model_choices: list[ModelChoice]
 
 
+class SetLiveModelRequest(BaseModel):
+    run_id: str
+
+
 # ---- responses ----
 
 
@@ -192,11 +196,25 @@ class TrainingRunRecord(BaseModel):
     holdout_metrics: dict | None = None
     threshold_sweep: list[dict] | None = None
     error: str | None = None
+    # Computed, not persisted on the storage-layer record -- whether this
+    # run's model was archived under its own run_id (see training/main.py's
+    # run_training()). False for every run before that archival feature
+    # existed, and for any run whose model_specs archival failed for some
+    # other reason.
+    has_archived_model: bool = False
 
 
 class TrainingRunsResponse(BaseModel):
     # Newest first -- see storage/training_run_store.py's read_all().
     runs: list[TrainingRunRecord]
+
+
+class LiveModelResponse(BaseModel):
+    # None = no explicit choice, "latest" is live.
+    selected_run_id: str | None
+    # The resolved answer -- selected_run_id if set, else the most recent
+    # completed run's id. None only if there's no completed run at all yet.
+    live_run_id: str | None
 
 
 class PricePoint(BaseModel):

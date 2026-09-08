@@ -36,6 +36,10 @@ class ModelChoice:
 class TrainingConfig:
     included_features: list[str] | None = None
     model_choices: list[ModelChoice] | None = None
+    # None = "use whatever the latest run trained" (today's existing
+    # behavior). Set = "use this specific historical run's archived model
+    # for live inference instead" -- see training/buy_signal.py.
+    selected_run_id: str | None = None
 
 
 class TrainingConfigStore:
@@ -58,6 +62,7 @@ class TrainingConfigStore:
             model_choices=(
                 [ModelChoice(**choice) for choice in model_choices] if model_choices is not None else None
             ),
+            selected_run_id=raw.get("selected_run_id"),
         )
 
     def write_included_features(self, included_features: set[str] | None) -> None:
@@ -70,6 +75,11 @@ class TrainingConfigStore:
         config.model_choices = model_choices
         self._save(config)
 
+    def write_selected_run_id(self, run_id: str | None) -> None:
+        config = self.read()
+        config.selected_run_id = run_id
+        self._save(config)
+
     def _save(self, config: TrainingConfig) -> None:
         self._path.write_text(
             json.dumps(
@@ -80,6 +90,7 @@ class TrainingConfigStore:
                         if config.model_choices is not None
                         else None
                     ),
+                    "selected_run_id": config.selected_run_id,
                 },
                 indent=2,
             )
