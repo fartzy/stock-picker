@@ -13,18 +13,26 @@ from stock_picker.tickers.manual_additions import MANUAL_ADDITIONS
 from stock_picker.tickers.nasdaq_directory import fetch_candidate_tickers
 from stock_picker.tickers.universe import build_universe
 
-# Conservative starting point against Yahoo's undocumented rate limits on the
-# .info endpoint -- tune down if 429-driven None results start showing up.
-_DEFAULT_MAX_WORKERS = 20
+# Empirically found too high: 20 workers hitting the full .info endpoint
+# triggered widespread "Invalid Crumb" 401s and then outright 429 rate-limits
+# from Yahoo's undocumented API, corrupting most of the fetch (silently
+# returning None for the majority of candidates). 5 is a much more
+# conservative starting point -- tune down further if 429s still show up.
+_DEFAULT_MAX_WORKERS = 5
 
 
 def _fetch_one_market_cap(ticker: str) -> tuple[str, float | None]:
     try:
-        return ticker, yf.Ticker(ticker).info.get("marketCap")
+        # fast_info is a lighter-weight endpoint than .info (which pulls
+        # financials/holders/recommendations/etc. this doesn't need) --
+        # fewer, smaller requests per ticker means less exposure to the
+        # rate-limit/crumb-invalidation behavior above.
+        return ticker, yf.Ticker(ticker).fast_info.market_cap
     except Exception:
-        # yfinance's failure modes for delisted/renamed/unrecognized tickers
-        # aren't a stable contract -- broad catch so one bad ticker (of
-        # thousands, at this universe size) can never abort the whole run.
+        # yfinance's failure modes for delisted/renamed/unrecognized tickers,
+        # and now also rate-limiting, aren't a stable contract -- broad catch
+        # so one bad ticker (of thousands, at this universe size) can never
+        # abort the whole run.
         return ticker, None
 
 
