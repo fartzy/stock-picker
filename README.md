@@ -240,6 +240,11 @@ inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):
 
 ## Roadmap
 
+- [ ] Holdout validation currently holds out entire tickers (never seen in
+      training at all) -- consider a partial scheme for some tickers
+      (fold in part of their history, hold out the rest) instead of an
+      all-or-nothing split, to get more training signal without losing
+      the "does this generalize to unseen stocks" check entirely
 - [ ] Descriptive copy across the app needs a real editorial pass, not just
       spot-fixes when one goes stale
 - [ ] No archived model binary per historical training run, only the latest
