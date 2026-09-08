@@ -6,7 +6,12 @@ future dates for tickers it has already seen (that's what walk-forward validates
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+import os
+import subprocess
+import uuid
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from pathlib import Path
 
 import pandas as pd
 
@@ -15,6 +20,7 @@ from stock_picker.features.selection import selected_features
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
+from stock_picker.storage.training_run_store import TrainingRunRecord, TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
@@ -200,8 +206,74 @@ def run_training(
     )
 
 
+def _now() -> str:
+    return datetime.now().astimezone().isoformat()
+
+
+def _duration_seconds(started_at: str, completed_at: str) -> float:
+    return (datetime.fromisoformat(completed_at) - datetime.fromisoformat(started_at)).total_seconds()
+
+
+def _git_commit() -> str | None:
+    # cwd mirrors storage/paths.py's data_root() reasoning: `bazel run` sandboxes
+    # the process's actual cwd to a runfiles dir with no `.git` in it, but sets
+    # BUILD_WORKING_DIRECTORY to the directory the user invoked bazel from.
+    cwd = os.environ.get("BUILD_WORKING_DIRECTORY", Path.cwd())
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=cwd, capture_output=True, text=True, timeout=5, check=True
+        )
+        return result.stdout.strip()
+    except Exception:  # noqa: BLE001 -- provenance is best-effort, never fatal
+        return None
+
+
 def main() -> None:
-    run_training(included_features=selected_features(), model_specs=selected_model_specs())
+    # Mirrors training/job.py's TrainingJob._run() recording -- the API's
+    # "Run training" button goes through job.py, but this CLI entrypoint
+    # (bazel run //python/stock_picker/training:main, also what ONBOARDING.md
+    # tells a fresh clone to run) previously trained and persisted a model
+    # without ever appending a TrainingRunRecord, so a run triggered this way
+    # silently never showed up in Run History even though it really did
+    # retrain and overwrite the live model.
+    run_store = TrainingRunStore()
+    started_at = _now()
+    run_id = uuid.uuid4().hex
+    try:
+        result = run_training(included_features=selected_features(), model_specs=selected_model_specs())
+    except Exception as exc:  # noqa: BLE001 -- recorded, then re-raised so the CLI still exits non-zero
+        completed_at = _now()
+        run_store.append(
+            TrainingRunRecord(
+                run_id=run_id,
+                status="failed",
+                started_at=started_at,
+                completed_at=completed_at,
+                duration_seconds=_duration_seconds(started_at, completed_at),
+                git_commit=_git_commit(),
+                error=str(exc),
+            )
+        )
+        raise
+    completed_at = _now()
+    run_store.append(
+        TrainingRunRecord(
+            run_id=run_id,
+            status="completed",
+            started_at=started_at,
+            completed_at=completed_at,
+            duration_seconds=_duration_seconds(started_at, completed_at),
+            git_commit=_git_commit(),
+            train_tickers=result.train_tickers,
+            holdout_tickers=result.holdout_tickers,
+            date_range=result.date_range,
+            resolved_features=result.resolved_features,
+            model_specs=result.model_specs,
+            fold_metrics=[asdict(m) for m in result.fold_metrics],
+            holdout_metrics=asdict(result.holdout_metrics) if result.holdout_metrics is not None else None,
+            threshold_sweep=result.threshold_sweep,
+        )
+    )
 
 
 if __name__ == "__main__":
