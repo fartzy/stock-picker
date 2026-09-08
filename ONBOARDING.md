@@ -16,8 +16,9 @@ never plain `bazel`.
 
 Nothing ships with pretrained data -- `data/` is entirely gitignored except
 `data/training_runs/` (historical run metadata, kept so you can see prior
-results even before you've trained anything yourself). Run these three, in
-order, once:
+results even before you've trained anything yourself) and `data/trades/`
+(the actual trade log, if the person who last committed had any logged).
+Run these three, in order, once:
 
 ```
 bazelisk run //python/stock_picker/ingestion:main   # pulls the 500-ticker universe + 6mo price history (network-bound, a few minutes)

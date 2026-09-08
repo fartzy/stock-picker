@@ -1,9 +1,10 @@
 # Bulky, regeneratable local caches (prices/features/models) stay untracked --
-# but training_runs/ is small, human-readable, append-only history (every
-# past run's tickers/metrics/threshold-sweep) that should never live only on
-# one machine's disk. See storage/training_run_store.py.
+# but training_runs/ and trades/ are small, human-readable records (past
+# run metrics, the actual buy/sell log) that should never live only on one
+# machine's disk. See storage/training_run_store.py, storage/trade_store.py.
 data/*
 !data/training_runs/
+!data/trades/
 bazel-*
 .claude/
 __pycache__/
