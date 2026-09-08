@@ -278,3 +278,10 @@ class BuySignalResponse(BaseModel):
 
 class UniverseResponse(BaseModel):
     active_ticker_count: int
+
+
+class BenchmarkReturnsResponse(BaseModel):
+    # date (ISO "YYYY-MM-DD") -> SPY's day-session return -- a date with no
+    # matching trading day (weekend/holiday/outside the fetch window) is
+    # simply absent, not zero.
+    returns: dict[str, float]

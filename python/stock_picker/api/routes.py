@@ -11,6 +11,7 @@ from typing import Literal
 from fastapi import APIRouter, HTTPException
 
 from stock_picker.api.models import (
+    BenchmarkReturnsResponse,
     BuySignalResponse,
     CatalogResponse,
     CorrelationResponse,
@@ -37,6 +38,7 @@ from stock_picker.api.models import (
 from stock_picker.api.models import ModelChoice as ModelChoiceModel
 from stock_picker.api.models import ModelTypeInfo as ModelTypeInfoModel
 from stock_picker.api.models import TrainingRunRecord as TrainingRunRecordModel
+from stock_picker.features.benchmark import fetch_benchmark_returns
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -148,6 +150,11 @@ def get_universe() -> UniverseResponse:
     # "check this morning's prices" -- compute_buy_signals itself only
     # reveals this count as a side effect of the full, slower live scan.
     return UniverseResponse(active_ticker_count=len(UniverseStore().active_tickers()))
+
+
+@router.get("/benchmark-returns")
+def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
+    return BenchmarkReturnsResponse(returns=fetch_benchmark_returns(dates.split(",")))
 
 
 @router.get("/positions")

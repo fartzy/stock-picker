@@ -3,6 +3,7 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "features",
     srcs = [
+        "benchmark.py",
         "calendar.py",
         "candle.py",
         "catalog.py",
