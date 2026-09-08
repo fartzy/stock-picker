@@ -36,12 +36,16 @@ _EXCLUDE_NAME_PATTERN = re.compile(
 def _fetch_directory(source_url: str) -> pd.DataFrame:
     response = requests.get(source_url, headers=_REQUEST_HEADERS, timeout=30)
     response.raise_for_status()
-    # StringIO, not the raw string -- same reasoning as fetch_sp500_constituents.
-    df = pd.read_csv(StringIO(response.text), sep="|")
-    # Last line is a "File Creation Time: ..." footer, not a data row -- it has
-    # a value in the first column but NaN everywhere else, so dropping on a
-    # column every real row always has (Test Issue) removes exactly that line.
-    return df.dropna(subset=["Test Issue"])
+    # keep_default_na=False: pandas' default NA-value list includes the bare
+    # string "NA" -- which is a real, valid NASDAQ ticker (Nano Labs Ltd), and
+    # would otherwise silently become a float NaN, poisoning any later sort()
+    # of the symbol column with a str/float comparison. StringIO, not the raw
+    # string, for the same reasoning as fetch_sp500_constituents.
+    df = pd.read_csv(StringIO(response.text), sep="|", keep_default_na=False)
+    # Last line is a "File Creation Time: ..." footer, not a data row -- every
+    # field except the first is empty there, so filtering on a column every
+    # real row always has a value for (Test Issue) removes exactly that line.
+    return df[df["Test Issue"] != ""]
 
 
 def _is_common_stock(security_name: str) -> bool:

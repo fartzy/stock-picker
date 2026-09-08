@@ -12,6 +12,7 @@ QQQ|Invesco QQQ Trust|G|N|N|100|Y|N
 ZBZZT|NASDAQ TEST STOCK|G|Y|N|100|N|N
 ABCW|ABC Corp Warrants|Q|N|N|100|N|N
 BRK.B|Berkshire Hathaway Inc. - Preferred Stock|Q|N|N|100|N|N
+NA|Nano Labs Ltd - Class A Ordinary Shares|S|N|N|100|N|N
 File Creation Time: 0908202610:01|||||||
 """
 
@@ -37,7 +38,10 @@ def test_fetch_nasdaq_listed_symbols_filters_etfs_test_issues_warrants_and_prefe
     ):
         tickers = fetch_nasdaq_listed_symbols()
 
-    assert tickers == ["AAPL"]
+    # "NA" is a real ticker (Nano Labs Ltd) that must survive -- pandas'
+    # default NA-value handling would otherwise silently turn it into a
+    # float NaN and crash the later sort() with a str/float comparison.
+    assert tickers == ["AAPL", "NA"]
 
 
 def test_fetch_other_listed_symbols_filters_etfs_and_spac_units():
@@ -57,4 +61,4 @@ def test_fetch_candidate_tickers_combines_and_dedupes_both_directories():
     ):
         tickers = fetch_candidate_tickers()
 
-    assert tickers == ["AAPL", "XYZ"]
+    assert tickers == ["AAPL", "NA", "XYZ"]
