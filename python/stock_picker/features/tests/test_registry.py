@@ -37,6 +37,7 @@ def test_cross_sectional_view_is_tagged_cross_ticker():
 
 
 def test_check_freshness_ok_within_ttl():
+    # Thursday -> Friday.
     result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 2))
 
     assert result.ok
@@ -44,8 +45,29 @@ def test_check_freshness_ok_within_ttl():
     assert result.ttl_days == DEFAULT_TTL_DAYS
 
 
+def test_check_freshness_weekend_gap_is_not_stale():
+    # Friday's snapshot is the most recent trading day's data on the
+    # following Monday -- no new close could exist yet, so the weekend
+    # itself shouldn't count as staleness.
+    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 2), as_of_date=date(2026, 1, 5))
+
+    assert result.ok
+    assert result.age_days == 1
+
+
+def test_check_freshness_holiday_monday_gap_is_not_stale():
+    # Friday -> Tuesday, spanning a Monday market holiday: still just the
+    # most recent trading day's data, one weekday later than the plain
+    # weekend case above -- exactly at DEFAULT_TTL_DAYS, not beyond it.
+    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 2), as_of_date=date(2026, 1, 6))
+
+    assert result.ok
+    assert result.age_days == 2
+
+
 def test_check_freshness_stale_beyond_ttl():
-    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 5))
+    # A full week later -- genuinely stale, not just a weekend/holiday gap.
+    result = check_freshness(DEFAULT_TTL_DAYS, snapshot_date=date(2026, 1, 1), as_of_date=date(2026, 1, 8))
 
     assert not result.ok
-    assert result.age_days == 4
+    assert result.age_days == 5
