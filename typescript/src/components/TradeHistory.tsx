@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { fetchPositions, type Position, type PositionsResponse } from "../api";
+import {
+  fetchBenchmarkReturns,
+  fetchPositions,
+  type BenchmarkReturnsResponse,
+  type Position,
+  type PositionsResponse,
+} from "../api";
 import AddTradeForm from "./AddTradeForm";
 import { Diff } from "./Diff";
 import { formatUsd } from "../format";
@@ -120,7 +126,31 @@ function PositionRow({ position }: { position: Position }) {
 
 const POSITION_TABLE_COLUMNS = ["Ticker", "Shares", "Bought At", "Buy Price", "Day Open", "Exit", "P&L", "Invested"];
 
-function DayGroup({ day, positions }: { day: string; positions: Position[] }) {
+// A quick eyeball gut-check against the market -- a good-looking day's P&L%
+// means less if SPY was up just as much (or more) that same day.
+function BenchmarkNote({ benchmarkReturn }: { benchmarkReturn: number | undefined }) {
+  if (benchmarkReturn === undefined) return null;
+  const isUp = benchmarkReturn >= 0;
+  return (
+    <>
+      {" "}
+      &middot; vs S&amp;P{" "}
+      <span className={isUp ? "quote-diff-up" : "quote-diff-down"}>
+        {isUp ? "▲" : "▼"} {(Math.abs(benchmarkReturn) * 100).toFixed(2)}%
+      </span>
+    </>
+  );
+}
+
+function DayGroup({
+  day,
+  positions,
+  benchmarkReturn,
+}: {
+  day: string;
+  positions: Position[];
+  benchmarkReturn: number | undefined;
+}) {
   const summary = summarizePositions(positions);
 
   return (
@@ -129,6 +159,7 @@ function DayGroup({ day, positions }: { day: string; positions: Position[] }) {
         <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>{" "}
         <span className="view-meta">
           <SummaryLine label={`${positions.length} position${positions.length === 1 ? "" : "s"}`} summary={summary} />
+          <BenchmarkNote benchmarkReturn={benchmarkReturn} />
         </span>
       </summary>
       <div style={{ overflowX: "auto", marginTop: "var(--space-3)" }}>
@@ -171,6 +202,11 @@ export default function TradeHistory() {
   });
 
   const dayGroups = useMemo(() => groupByDay(data?.positions ?? []), [data]);
+  const days = useMemo(() => dayGroups.map(([day]) => day), [dayGroups]);
+  const { data: benchmarkData } = useFetchData<BenchmarkReturnsResponse>(
+    () => (days.length > 0 ? fetchBenchmarkReturns(days) : Promise.resolve({ returns: {} })),
+    { deps: [days.join(",")] },
+  );
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading trade history...</p>;
@@ -188,7 +224,9 @@ export default function TradeHistory() {
       {positions.length === 0 ? (
         <p className="muted">No trades logged yet.</p>
       ) : (
-        dayGroups.map(([day, dayPositions]) => <DayGroup day={day} positions={dayPositions} key={day} />)
+        dayGroups.map(([day, dayPositions]) => (
+          <DayGroup day={day} positions={dayPositions} benchmarkReturn={benchmarkData?.returns[day]} key={day} />
+        ))
       )}
       <AddTradeForm onAdded={() => setRefreshCount((c) => c + 1)} />
     </div>

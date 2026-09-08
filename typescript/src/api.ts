@@ -135,6 +135,12 @@ export interface PositionsResponse {
   positions: Position[];
 }
 
+export interface BenchmarkReturnsResponse {
+  // date (ISO "YYYY-MM-DD") -> SPY's day-session return. A date with no
+  // matching trading day is simply absent, not zero.
+  returns: Record<string, number>;
+}
+
 export interface FeatureView {
   name: string;
   entities: string[];
@@ -345,6 +351,8 @@ export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correla
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
+export const fetchBenchmarkReturns = (dates: string[]) =>
+  getJson<BenchmarkReturnsResponse>(`/api/benchmark-returns?dates=${dates.map(encodeURIComponent).join(",")}`);
 export const fetchPrunedFeatures = () => getJson<PrunedFeaturesResponse>("/api/pruned-features");
 export const pruneFeature = (feature: string, reason?: string) =>
   mutate<PrunedFeaturesResponse>(

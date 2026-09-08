@@ -440,6 +440,23 @@ def test_get_quotes(client):
     ]
 
 
+def test_get_benchmark_returns(client):
+    spy_history = pd.DataFrame(
+        {"Open": [500.0], "Close": [505.0]},
+        index=pd.to_datetime(["2026-01-01"]),
+    )
+
+    with patch(
+        "stock_picker.features.benchmark.download_price_history",
+        return_value={"SPY": spy_history},
+    ):
+        response = client.get("/api/benchmark-returns", params={"dates": "2026-01-01,2026-01-02"})
+
+    assert response.status_code == 200
+    # 2026-01-02 has no matching row in the fixture -- omitted, not erred on.
+    assert response.json()["returns"] == {"2026-01-01": (505.0 - 500.0) / 500.0}
+
+
 def test_get_positions(client):
     response = client.get("/api/positions")
 
