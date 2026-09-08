@@ -68,7 +68,9 @@ class TrainingJob:
             # "completed"/"failed" a moment before the history reflects it.
             run_id = uuid.uuid4().hex
             try:
-                result = self._train_fn(included_features=included_features, model_specs=model_specs)
+                result = self._train_fn(
+                    included_features=included_features, model_specs=model_specs, run_id=run_id
+                )
                 completed_at = _now()
                 self._run_store.append(
                     TrainingRunRecord(

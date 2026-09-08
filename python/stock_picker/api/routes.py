@@ -20,6 +20,7 @@ from stock_picker.api.models import (
     FeatureSelectionResponse,
     FeatureValuesResponse,
     ImportanceResponse,
+    LiveModelResponse,
     ModelInfoResponse,
     ModelSelectionRequest,
     ModelSelectionResponse,
@@ -30,6 +31,7 @@ from stock_picker.api.models import (
     PrunedFeaturesResponse,
     QuotesResponse,
     RegistryResponse,
+    SetLiveModelRequest,
     TradeCreate,
     TradesResponse,
     TrainingRunsResponse,
@@ -273,9 +275,40 @@ def get_training_status() -> JobStatus:
 
 @router.get("/training/runs")
 def get_training_runs() -> TrainingRunsResponse:
+    model_store = ModelStore()
     return TrainingRunsResponse(
-        runs=[TrainingRunRecordModel(**asdict(record)) for record in TrainingRunStore().read_all()]
+        runs=[
+            TrainingRunRecordModel(
+                **asdict(record), has_archived_model=model_store.exists(f"{MODEL_NAME}_{record.run_id}")
+            )
+            for record in TrainingRunStore().read_all()
+        ]
     )
+
+
+@router.get("/live-model")
+def get_live_model() -> LiveModelResponse:
+    selected_run_id = TrainingConfigStore().read().selected_run_id
+    live_run_id = selected_run_id
+    if live_run_id is None:
+        completed = [r for r in TrainingRunStore().read_all() if r.status == "completed"]
+        if completed:
+            live_run_id = completed[0].run_id  # newest first, see read_all()
+    return LiveModelResponse(selected_run_id=selected_run_id, live_run_id=live_run_id)
+
+
+@router.post("/live-model")
+def set_live_model(body: SetLiveModelRequest) -> LiveModelResponse:
+    if not ModelStore().exists(f"{MODEL_NAME}_{body.run_id}"):
+        raise HTTPException(status_code=400, detail=f"run {body.run_id} has no archived model to select")
+    TrainingConfigStore().write_selected_run_id(body.run_id)
+    return get_live_model()
+
+
+@router.delete("/live-model")
+def clear_live_model() -> LiveModelResponse:
+    TrainingConfigStore().write_selected_run_id(None)
+    return get_live_model()
 
 
 @router.get("/prices/{ticker}")

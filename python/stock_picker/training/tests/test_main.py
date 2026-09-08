@@ -42,7 +42,7 @@ def test_main_appends_a_training_run_record_on_success(tmp_path):
 def test_main_appends_a_failed_training_run_record_and_reraises(tmp_path):
     run_store = TrainingRunStore(data_dir=tmp_path)
 
-    def failing_train(included_features, model_specs):
+    def failing_train(included_features, model_specs, run_id=None):
         raise RuntimeError("boom")
 
     with (

@@ -106,6 +106,7 @@ py_pytest(
     srcs = ["test_main.py"],
     imports = ["../../.."],
     deps = [
+        "//python/stock_picker/storage",
         "//python/stock_picker/training",
         "@pypi//pandas",
     ],

@@ -33,7 +33,7 @@ def _fake_summary():
 
 def test_status_starts_idle(tmp_path):
     job = TrainingJob(
-        train_fn=lambda included_features, model_specs: None, run_store=TrainingRunStore(data_dir=tmp_path)
+        train_fn=lambda included_features, model_specs, run_id=None: None, run_store=TrainingRunStore(data_dir=tmp_path)
     )
 
     assert job.status().status == "idle"
@@ -42,7 +42,7 @@ def test_status_starts_idle(tmp_path):
 def test_start_runs_train_fn_and_reports_completed(tmp_path):
     summary = _fake_summary()
     job = TrainingJob(
-        train_fn=lambda included_features, model_specs: summary,
+        train_fn=lambda included_features, model_specs, run_id=None: summary,
         run_store=TrainingRunStore(data_dir=tmp_path),
     )
 
@@ -60,7 +60,7 @@ def test_start_runs_train_fn_and_reports_completed(tmp_path):
 def test_start_passes_included_features_through_to_train_fn(tmp_path):
     received = {}
 
-    def fake_train(included_features, model_specs):
+    def fake_train(included_features, model_specs, run_id=None):
         received["included_features"] = included_features
         return _fake_summary()
 
@@ -71,10 +71,30 @@ def test_start_passes_included_features_through_to_train_fn(tmp_path):
     assert received["included_features"] == {"return_1d"}
 
 
+def test_start_passes_a_run_id_through_to_train_fn(tmp_path):
+    # So the archived model file (training/main.py's run_training) and this
+    # run's TrainingRunRecord share one identifier -- see storage/
+    # training_config_store.py's selected_run_id.
+    received = {}
+    run_store = TrainingRunStore(data_dir=tmp_path)
+
+    def fake_train(included_features, model_specs, run_id=None):
+        received["run_id"] = run_id
+        return _fake_summary()
+
+    job = TrainingJob(train_fn=fake_train, run_store=run_store)
+    job.start()
+
+    _wait_until(lambda: job.status().status == "completed")
+    [record] = run_store.read_all()
+    assert received["run_id"] is not None
+    assert received["run_id"] == record.run_id
+
+
 def test_start_passes_model_specs_through_to_train_fn(tmp_path):
     received = {}
 
-    def fake_train(included_features, model_specs):
+    def fake_train(included_features, model_specs, run_id=None):
         received["model_specs"] = model_specs
         return _fake_summary()
 
@@ -88,7 +108,7 @@ def test_start_passes_model_specs_through_to_train_fn(tmp_path):
 def test_start_returns_false_while_a_run_is_already_in_progress(tmp_path):
     release = threading.Event()
 
-    def fake_train(included_features, model_specs):
+    def fake_train(included_features, model_specs, run_id=None):
         release.wait(timeout=2.0)
         return _fake_summary()
 
@@ -106,7 +126,7 @@ def test_start_returns_false_while_a_run_is_already_in_progress(tmp_path):
 
 
 def test_a_train_fn_exception_reports_failed_with_the_error_message(tmp_path):
-    def failing_train(included_features, model_specs):
+    def failing_train(included_features, model_specs, run_id=None):
         raise ValueError("boom")
 
     job = TrainingJob(train_fn=failing_train, run_store=TrainingRunStore(data_dir=tmp_path))
@@ -120,7 +140,7 @@ def test_a_train_fn_exception_reports_failed_with_the_error_message(tmp_path):
 
 def test_a_completed_run_appends_a_training_run_record_with_full_provenance(tmp_path):
     run_store = TrainingRunStore(data_dir=tmp_path)
-    job = TrainingJob(train_fn=lambda included_features, model_specs: _fake_summary(), run_store=run_store)
+    job = TrainingJob(train_fn=lambda included_features, model_specs, run_id=None: _fake_summary(), run_store=run_store)
 
     job.start()
 
@@ -141,7 +161,7 @@ def test_a_completed_run_appends_a_training_run_record_with_full_provenance(tmp_
 def test_a_failed_run_appends_a_minimal_training_run_record(tmp_path):
     run_store = TrainingRunStore(data_dir=tmp_path)
 
-    def failing_train(included_features, model_specs):
+    def failing_train(included_features, model_specs, run_id=None):
         raise ValueError("boom")
 
     job = TrainingJob(train_fn=failing_train, run_store=run_store)

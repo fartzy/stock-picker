@@ -247,11 +247,22 @@ export interface TrainingRunRecord {
   holdout_metrics: FoldMetrics | null;
   threshold_sweep: ThresholdSweepRow[] | null;
   error: string | null;
+  // False for every run before model archival existed, or if archiving
+  // this run's model failed for some other reason.
+  has_archived_model: boolean;
 }
 
 export interface TrainingRunsResponse {
   // Newest first.
   runs: TrainingRunRecord[];
+}
+
+export interface LiveModelResponse {
+  // null = no explicit choice, "latest" is live.
+  selected_run_id: string | null;
+  // The resolved answer -- selected_run_id if set, else the most recent
+  // completed run's id. null only if there's no completed run at all yet.
+  live_run_id: string | null;
 }
 
 export interface PrunedFeaturesResponse {
@@ -378,6 +389,10 @@ export const clearModelSelection = () =>
 export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
 export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/training/runs");
+export const fetchLiveModel = () => getJson<LiveModelResponse>("/api/live-model");
+export const setLiveModel = (runId: string) =>
+  mutate<LiveModelResponse>("POST", "/api/live-model", { run_id: runId });
+export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/live-model");
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
