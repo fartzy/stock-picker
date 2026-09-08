@@ -1,0 +1,337 @@
+[
+  {
+    "feature": "stochastic_k_14d",
+    "reason": "high correlation to williams_r (r=1.000)",
+    "pruned_at": "2026-09-06T15:25:33.546086-05:00"
+  },
+  {
+    "feature": "garman_klass_vol_60d",
+    "reason": "high correlation to parkinson_vol_60d (r=0.997)",
+    "pruned_at": "2026-09-06T15:25:33.546535-05:00"
+  },
+  {
+    "feature": "log_return_2d",
+    "reason": "high correlation to return_2d (r=0.996)",
+    "pruned_at": "2026-09-06T15:25:33.546818-05:00"
+  },
+  {
+    "feature": "log_return_3d",
+    "reason": "high correlation to return_3d (r=0.996)",
+    "pruned_at": "2026-09-06T15:25:33.547082-05:00"
+  },
+  {
+    "feature": "log_return_4d",
+    "reason": "high correlation to return_4d (r=0.996)",
+    "pruned_at": "2026-09-06T15:25:33.547316-05:00"
+  },
+  {
+    "feature": "log_return_5d",
+    "reason": "high correlation to return_5d (r=0.995)",
+    "pruned_at": "2026-09-06T15:25:33.547549-05:00"
+  },
+  {
+    "feature": "log_return_1d",
+    "reason": "high correlation to return_1d (r=0.995)",
+    "pruned_at": "2026-09-06T15:25:33.547769-05:00"
+  },
+  {
+    "feature": "log_return_10d",
+    "reason": "high correlation to return_10d (r=0.994)",
+    "pruned_at": "2026-09-06T15:25:33.547987-05:00"
+  },
+  {
+    "feature": "garman_klass_vol_20d",
+    "reason": "high correlation to parkinson_vol_20d (r=0.992)",
+    "pruned_at": "2026-09-06T15:25:33.548219-05:00"
+  },
+  {
+    "feature": "log_return_20d",
+    "reason": "high correlation to return_20d (r=0.990)",
+    "pruned_at": "2026-09-06T15:25:33.548566-05:00"
+  },
+  {
+    "feature": "price_vs_ema_100d",
+    "reason": "high correlation to price_vs_sma_100d (r=0.987)",
+    "pruned_at": "2026-09-06T15:25:33.548883-05:00"
+  },
+  {
+    "feature": "garman_klass_vol_10d",
+    "reason": "high correlation to parkinson_vol_10d (r=0.987)",
+    "pruned_at": "2026-09-06T15:25:33.549151-05:00"
+  },
+  {
+    "feature": "price_vs_sma_50d",
+    "reason": "high correlation to price_vs_ema_50d (r=0.985)",
+    "pruned_at": "2026-09-06T15:25:33.549404-05:00"
+  },
+  {
+    "feature": "bollinger_pct_b",
+    "reason": "high correlation to cci (r=0.982)",
+    "pruned_at": "2026-09-06T15:25:33.549648-05:00"
+  },
+  {
+    "feature": "return_60d",
+    "reason": "high correlation to log_return_60d (r=0.974)",
+    "pruned_at": "2026-09-06T15:25:33.549885-05:00"
+  },
+  {
+    "feature": "price_vs_sma_10d",
+    "reason": "high correlation to price_vs_ema_12d (r=0.970)",
+    "pruned_at": "2026-09-06T15:25:33.550099-05:00"
+  },
+  {
+    "feature": "consecutive_day_streak",
+    "reason": "negligible importance (0.00%)",
+    "pruned_at": "2026-09-06T15:25:33.550347-05:00"
+  },
+  {
+    "feature": "sharpe_20d",
+    "reason": "negligible importance (0.00%)",
+    "pruned_at": "2026-09-06T15:25:33.550583-05:00"
+  },
+  {
+    "feature": "kurtosis_60d",
+    "reason": "negligible importance (0.02%)",
+    "pruned_at": "2026-09-06T15:25:33.550812-05:00"
+  },
+  {
+    "feature": "max_drawdown_60d",
+    "reason": "negligible importance (0.03%)",
+    "pruned_at": "2026-09-06T15:25:33.551104-05:00"
+  },
+  {
+    "feature": "cci",
+    "reason": "negligible importance (0.04%)",
+    "pruned_at": "2026-09-06T15:25:33.551328-05:00"
+  },
+  {
+    "feature": "williams_r",
+    "reason": "negligible importance (0.06%)",
+    "pruned_at": "2026-09-06T15:25:33.551564-05:00"
+  },
+  {
+    "feature": "stochastic_d_14d",
+    "reason": "negligible importance (0.06%)",
+    "pruned_at": "2026-09-06T15:25:33.551865-05:00"
+  },
+  {
+    "feature": "return_rank_5d",
+    "reason": "negligible importance (0.06%)",
+    "pruned_at": "2026-09-06T15:25:33.552100-05:00"
+  },
+  {
+    "feature": "max_drawdown_20d",
+    "reason": "negligible importance (0.08%)",
+    "pruned_at": "2026-09-06T15:25:33.552340-05:00"
+  },
+  {
+    "feature": "kurtosis_20d",
+    "reason": "negligible importance (0.08%)",
+    "pruned_at": "2026-09-06T15:25:33.552614-05:00"
+  },
+  {
+    "feature": "correlation_60d",
+    "reason": "negligible importance (0.09%)",
+    "pruned_at": "2026-09-06T15:25:33.552857-05:00"
+  },
+  {
+    "feature": "rsi_14",
+    "reason": "negligible importance (0.09%)",
+    "pruned_at": "2026-09-06T15:25:33.553091-05:00"
+  },
+  {
+    "feature": "log_return_60d",
+    "reason": "negligible importance (0.09%)",
+    "pruned_at": "2026-09-06T15:25:33.553359-05:00"
+  },
+  {
+    "feature": "skew_20d",
+    "reason": "negligible importance (0.09%)",
+    "pruned_at": "2026-09-06T15:25:33.553629-05:00"
+  },
+  {
+    "feature": "volume_ratio_60d",
+    "reason": "negligible importance (0.10%)",
+    "pruned_at": "2026-09-06T15:25:33.553883-05:00"
+  },
+  {
+    "feature": "macd_hist",
+    "reason": "negligible importance (0.11%)",
+    "pruned_at": "2026-09-06T15:25:33.554150-05:00"
+  },
+  {
+    "feature": "volume_zscore_20d",
+    "reason": "negligible importance (0.11%)",
+    "pruned_at": "2026-09-06T15:25:33.554401-05:00"
+  },
+  {
+    "feature": "log_return_120d",
+    "reason": "negligible importance (0.12%)",
+    "pruned_at": "2026-09-06T15:25:33.554666-05:00"
+  },
+  {
+    "feature": "atr_14",
+    "reason": "negligible importance (0.12%)",
+    "pruned_at": "2026-09-06T15:25:33.555101-05:00"
+  },
+  {
+    "feature": "obv_change_20d",
+    "reason": "negligible importance (0.12%)",
+    "pruned_at": "2026-09-06T15:25:33.555362-05:00"
+  },
+  {
+    "feature": "volume_ratio_20d",
+    "reason": "negligible importance (0.12%)",
+    "pruned_at": "2026-09-06T15:25:33.555614-05:00"
+  },
+  {
+    "feature": "sharpe_60d",
+    "reason": "negligible importance (0.13%)",
+    "pruned_at": "2026-09-06T15:25:33.555869-05:00"
+  },
+  {
+    "feature": "obv",
+    "reason": "negligible importance (0.15%)",
+    "pruned_at": "2026-09-06T15:25:33.556120-05:00"
+  },
+  {
+    "feature": "return_rank_20d",
+    "reason": "negligible importance (0.15%)",
+    "pruned_at": "2026-09-06T15:25:33.556378-05:00"
+  },
+  {
+    "feature": "bollinger_bandwidth",
+    "reason": "negligible importance (0.16%)",
+    "pruned_at": "2026-09-06T15:25:33.556635-05:00"
+  },
+  {
+    "feature": "skew_60d",
+    "reason": "negligible importance (0.17%)",
+    "pruned_at": "2026-09-06T15:25:33.556900-05:00"
+  },
+  {
+    "feature": "return_3d",
+    "reason": "negligible importance (0.17%)",
+    "pruned_at": "2026-09-06T15:25:33.557166-05:00"
+  },
+  {
+    "feature": "return_autocorr_20d",
+    "reason": "negligible importance (0.18%)",
+    "pruned_at": "2026-09-06T15:25:33.557439-05:00"
+  },
+  {
+    "feature": "return_autocorr_60d",
+    "reason": "negligible importance (0.18%)",
+    "pruned_at": "2026-09-06T15:25:33.557702-05:00"
+  },
+  {
+    "feature": "return_20d",
+    "reason": "negligible importance (0.21%)",
+    "pruned_at": "2026-09-06T15:25:33.558007-05:00"
+  },
+  {
+    "feature": "return_10d",
+    "reason": "negligible importance (0.21%)",
+    "pruned_at": "2026-09-06T15:25:33.558270-05:00"
+  },
+  {
+    "feature": "return_4d",
+    "reason": "negligible importance (0.23%)",
+    "pruned_at": "2026-09-06T15:25:33.558531-05:00"
+  },
+  {
+    "feature": "stochastic_d_5d",
+    "reason": "negligible importance (0.23%)",
+    "pruned_at": "2026-09-06T15:25:33.558823-05:00"
+  },
+  {
+    "feature": "stochastic_k_5d",
+    "reason": "negligible importance (0.24%)",
+    "pruned_at": "2026-09-06T15:25:33.559092-05:00"
+  },
+  {
+    "feature": "macd_signal",
+    "reason": "negligible importance (0.27%)",
+    "pruned_at": "2026-09-06T15:25:33.559364-05:00"
+  },
+  {
+    "feature": "volatility_20d",
+    "reason": "negligible importance (0.28%)",
+    "pruned_at": "2026-09-06T15:25:33.559635-05:00"
+  },
+  {
+    "feature": "return_5d",
+    "reason": "negligible importance (0.28%)",
+    "pruned_at": "2026-09-06T15:25:33.559914-05:00"
+  },
+  {
+    "feature": "return_120d",
+    "reason": "negligible importance (0.32%)",
+    "pruned_at": "2026-09-06T15:25:33.560203-05:00"
+  },
+  {
+    "feature": "rsi_2",
+    "reason": "negligible importance (0.32%)",
+    "pruned_at": "2026-09-06T15:25:33.560504-05:00"
+  },
+  {
+    "feature": "price_vs_sma_20d",
+    "reason": "negligible importance (0.32%)",
+    "pruned_at": "2026-09-06T15:25:33.560787-05:00"
+  },
+  {
+    "feature": "momentum_spread_2_4d",
+    "reason": "negligible importance (0.32%)",
+    "pruned_at": "2026-09-06T15:25:33.561083-05:00"
+  },
+  {
+    "feature": "dollar_volume",
+    "reason": "negligible importance (0.33%)",
+    "pruned_at": "2026-09-06T15:25:33.561383-05:00"
+  },
+  {
+    "feature": "volatility_10d",
+    "reason": "negligible importance (0.37%)",
+    "pruned_at": "2026-09-06T15:25:33.561676-05:00"
+  },
+  {
+    "feature": "volume_ratio_10d",
+    "reason": "negligible importance (0.40%)",
+    "pruned_at": "2026-09-06T15:25:33.561961-05:00"
+  },
+  {
+    "feature": "parkinson_vol_10d",
+    "reason": "negligible importance (0.40%)",
+    "pruned_at": "2026-09-06T15:25:33.562250-05:00"
+  },
+  {
+    "feature": "price_vs_ema_12d",
+    "reason": "negligible importance (0.44%)",
+    "pruned_at": "2026-09-06T15:25:33.562535-05:00"
+  },
+  {
+    "feature": "price_vs_ema_50d",
+    "reason": "negligible importance (0.49%)",
+    "pruned_at": "2026-09-06T15:25:33.562823-05:00"
+  },
+  {
+    "feature": "day_session_streak_seasonality",
+    "reason": "high correlation to pattern_sequence_seasonality_3d (r=0.980)",
+    "pruned_at": "2026-09-06T20:50:08.622689-05:00"
+  },
+  {
+    "feature": "day_session_streak",
+    "reason": "negligible importance (0.13%)",
+    "pruned_at": "2026-09-06T20:50:08.623181-05:00"
+  },
+  {
+    "feature": "weekday_lag_seasonality",
+    "reason": "negligible importance (0.27%)",
+    "pruned_at": "2026-09-06T20:50:08.623529-05:00"
+  },
+  {
+    "feature": "gap_streak",
+    "reason": "negligible importance (0.48%)",
+    "pruned_at": "2026-09-06T20:50:08.623827-05:00"
+  }
+]

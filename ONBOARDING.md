@@ -12,24 +12,27 @@ brew install bazelisk
 Bazel's version is pinned in `.bazelversion` -- always invoke `bazelisk`,
 never plain `bazel`.
 
-## 2. Bootstrap the data pipeline (first time only)
+## 2. Data is already there -- skip straight to step 3
 
-Nothing ships with pretrained data -- `data/` is entirely gitignored except
-`data/training_runs/` (historical run metadata, kept so you can see prior
-results even before you've trained anything yourself) and `data/trades/`
-(the actual trade log, if the person who last committed had any logged).
-Run these three, in order, once:
+`data/` (universe, prices, features, the trained model, trade log, run
+history) is committed to git, not gitignored -- a fresh clone already has
+a working, already-trained app. You do not need to run anything before
+step 3.
+
+The tradeoff: this data is only as fresh as whenever it was last
+committed. If you want current prices/predictions rather than whatever
+snapshot shipped with the clone, refresh the pipeline yourself, in order:
 
 ```
-bazelisk run //python/stock_picker/ingestion:main   # pulls the 500-ticker universe + 6mo price history (network-bound, a few minutes)
-bazelisk run //python/stock_picker/features:main    # computes ~107 engineered features per ticker from that history
-bazelisk run //python/stock_picker/training:main    # trains the ensemble, persists it, records a run
+bazelisk run //python/stock_picker/ingestion:main   # pulls the 500-ticker universe + latest 6mo price history (network-bound, a few minutes)
+bazelisk run //python/stock_picker/features:main    # recomputes ~107 engineered features per ticker from that history
+bazelisk run //python/stock_picker/training:main    # retrains the ensemble, persists it, records a new run
 ```
 
 Each step reads the previous step's output from disk
 (`data/{universe,prices,features,models}/`), so they have to run in this
-order the first time. After that, re-running any step just refreshes its
-own data.
+order. Re-running any of them just refreshes its own data -- and since
+that data is tracked, refreshing it shows up as a real diff to commit.
 
 ## 3. Run the app
 
