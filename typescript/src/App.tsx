@@ -84,7 +84,7 @@ export default function App() {
           </section>
 
           <section>
-            <h2>Run History</h2>
+            <h2>Training History</h2>
             <div className="panel">
               <RunHistory />
             </div>

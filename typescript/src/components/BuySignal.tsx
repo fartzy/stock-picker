@@ -2,12 +2,32 @@ import { useEffect, useState } from "react";
 import {
   DEFAULT_BUY_THRESHOLD,
   fetchBuySignal,
+  fetchLiveModel,
+  fetchTrainingRuns,
   fetchUniverse,
+  resetLiveModel,
+  setLiveModel,
   type BuySignalResponse,
+  type LiveModelResponse,
+  type TrainingRunsResponse,
   type UniverseResponse,
 } from "../api";
 import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
+
+// "Latest" isn't a real run_id -- this <option>'s value means "clear the
+// explicit selection," resolved via resetLiveModel() rather than setLiveModel().
+const LATEST_OPTION_VALUE = "";
+
+function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
+  const when = new Date(startedAt).toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  return holdoutAccuracy === null ? when : `${when} · ${(holdoutAccuracy * 100).toFixed(1)}% holdout`;
+}
 
 // Percent, not fraction -- shown as a plain "%" input.
 const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
@@ -41,6 +61,18 @@ export default function BuySignal() {
   // ticker ever tracked, not some smaller subset) stays invisible until
   // after a full live run reveals it via scored_count/skipped.
   const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
+  const { data: trainingRuns } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
+  const [modelRefreshCount, setModelRefreshCount] = useState(0);
+  const { data: liveModel } = useFetchData<LiveModelResponse>(fetchLiveModel, { deps: [modelRefreshCount] });
+
+  async function handleModelChange(runId: string) {
+    if (runId === LATEST_OPTION_VALUE) {
+      await resetLiveModel();
+    } else {
+      await setLiveModel(runId);
+    }
+    setModelRefreshCount((c) => c + 1);
+  }
 
   useEffect(() => {
     if (!loading) {
@@ -73,6 +105,27 @@ export default function BuySignal() {
         <p className="muted" style={{ marginBottom: 8 }}>
           {formatToday()} · Sell by close · {universe.active_ticker_count.toLocaleString()} tickers scanned.
         </p>
+      )}
+      {trainingRuns && liveModel && (
+        <div className="form-row" style={{ alignItems: "center", marginTop: 0 }}>
+          <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            Model
+            <select
+              className="form-select"
+              value={liveModel.selected_run_id ?? LATEST_OPTION_VALUE}
+              onChange={(e) => handleModelChange(e.target.value)}
+            >
+              <option value={LATEST_OPTION_VALUE}>Latest</option>
+              {trainingRuns.runs
+                .filter((run) => run.has_archived_model)
+                .map((run) => (
+                  <option key={run.run_id} value={run.run_id}>
+                    {formatRunLabel(run.started_at, run.holdout_metrics?.directional_accuracy ?? null)}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </div>
       )}
       <div className="form-row" style={{ alignItems: "center" }}>
         <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>

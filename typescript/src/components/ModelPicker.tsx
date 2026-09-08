@@ -77,7 +77,7 @@ export default function ModelPicker() {
 
   return (
     <div>
-      <h3>Ensemble models</h3>
+      <h3>Model families for training</h3>
       {chosenModelTypes === null && (
         <p className="muted" style={{ marginTop: 0 }}>
           All checked = no override, trains whichever blend of these actually wins.
