@@ -45,8 +45,10 @@ a comment explaining why (see `training/tune_experiment.py`,
 `training/recent_picks_demo.py`).
 
 Price/feature/model data lives in `data/{prices,features,universe,models}/`
-(gitignored) -- nothing in the app ships with pretrained data; run the
-ingestion -> features -> training pipeline once to populate it.
+and is tracked in git (not gitignored) -- a fresh clone already has a
+working, already-trained app. Refresh it by running the
+ingestion -> features -> training pipeline, in that order; each step reads
+the previous step's output from disk.
 
 ## Architecture
 
