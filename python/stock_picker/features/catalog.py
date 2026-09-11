@@ -15,6 +15,7 @@ from stock_picker.features import (
     cross_sectional,
     distributional,
     momentum,
+    open_pattern_seasonality,
     oscillators,
     pattern_seasonality,
     trend,
@@ -35,6 +36,7 @@ _SINGLE_TICKER_BUILDERS = {
     "distributional": distributional.build_distributional_features,
     "calendar": calendar.build_calendar_features,
     "pattern_seasonality": pattern_seasonality.build_pattern_features,
+    "open_pattern_seasonality": open_pattern_seasonality.build_open_pattern_features,
 }
 
 

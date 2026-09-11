@@ -3,7 +3,11 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "ingestion",
     srcs = [
+        "finnhub_client.py",
         "main.py",
+        "polygon_client.py",
+        "refresh_prices.py",
+        "session.py",
         "yfinance_client.py",
     ],
     imports = ["../.."],
@@ -12,6 +16,19 @@ py_library(
         "//python/stock_picker/storage",
         "//python/stock_picker/tickers",
         "@pypi//pandas",
+        "@pypi//requests",
+        "@pypi//yfinance",
+    ],
+)
+
+py_binary(
+    name = "refresh_prices",
+    srcs = ["refresh_prices.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":ingestion",
+        "//python/stock_picker/storage",
         "@pypi//yfinance",
     ],
 )

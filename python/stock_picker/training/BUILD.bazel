@@ -12,11 +12,16 @@ py_library(
         "buy_signal.py",
         "dataset.py",
         "ensemble.py",
+        "freshness.py",
+        "grid_search.py",
+        "hour_search.py",
         "importance.py",
         "inference.py",
         "job.py",
         "main.py",
         "model.py",
+        "morning.py",
+        "nightly.py",
         "model_registry.py",
         "recent_picks_demo.py",
         "splits.py",
@@ -50,6 +55,34 @@ py_binary(
 )
 
 py_binary(
+    name = "grid_search",
+    srcs = ["grid_search.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "hour_search",
+    srcs = ["hour_search.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_binary(
     name = "tune_experiment",
     srcs = ["tune_experiment.py"],
     imports = ["../.."],
@@ -61,6 +94,31 @@ py_binary(
         "@pypi//lightgbm",
         "@pypi//numpy",
         "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "morning",
+    srcs = ["morning.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "nightly",
+    srcs = ["nightly.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/storage",
     ],
 )
 

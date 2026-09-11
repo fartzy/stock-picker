@@ -13,11 +13,14 @@ py_library(
         "cross_sectional.py",
         "descriptions.py",
         "distributional.py",
+        "earnings.py",
         "examples.py",
         "formulas.py",
+        "log_broker_fills.py",
         "log_trade_main.py",
         "main.py",
         "momentum.py",
+        "open_pattern_seasonality.py",
         "oscillators.py",
         "pattern_seasonality.py",
         "pipeline.py",
@@ -61,6 +64,16 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":features",
+    ],
+)
+
+py_binary(
+    name = "log_broker_fills",
+    srcs = ["log_broker_fills.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        "//python/stock_picker/storage",
     ],
 )
 

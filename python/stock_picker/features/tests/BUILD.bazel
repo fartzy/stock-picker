@@ -210,6 +210,17 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_open_pattern_seasonality",
+    srcs = ["test_open_pattern_seasonality.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_examples",
     srcs = ["test_examples.py"],
     imports = ["../../.."],

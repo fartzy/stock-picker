@@ -18,6 +18,7 @@ from stock_picker.features.cross_sectional import (
 )
 from stock_picker.features.distributional import build_distributional_features
 from stock_picker.features.momentum import build_momentum_features
+from stock_picker.features.open_pattern_seasonality import build_open_pattern_features
 from stock_picker.features.oscillators import build_oscillator_features
 from stock_picker.features.pattern_seasonality import build_pattern_features
 from stock_picker.features.trend import build_trend_features
@@ -48,6 +49,7 @@ def build_features(
         build_distributional_features(history),
         build_calendar_features(history),
         build_pattern_features(history),
+        build_open_pattern_features(history),
         build_conditional_seasonality_features(history, pooled_seasonality=pooled_seasonality),
         build_cross_sectional_features(
             history,

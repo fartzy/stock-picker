@@ -16,6 +16,7 @@ def test_build_features_combines_every_category():
         "overnight_gap",
         "skew_20d",
         "day_of_week",
+        "seq3_open3_seasonality",
     ]:
         assert column in features.columns
 

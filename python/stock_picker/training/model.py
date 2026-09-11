@@ -159,9 +159,9 @@ def train_lightgbm(
 ) -> TrainedModel:
     columns = feature_columns(train_frame, excluded_features, included_features)
     dataset = lgb.Dataset(train_frame[columns], label=train_frame[LABEL_COLUMN])
-    booster = lgb.train(
-        {**LIGHTGBM_DEFAULT_PARAMS, **(params or {})}, dataset, num_boost_round=num_boost_round
-    )
+    merged = {**LIGHTGBM_DEFAULT_PARAMS, **(params or {})}
+    rounds = int(merged.pop("num_boost_round", num_boost_round))
+    booster = lgb.train(merged, dataset, num_boost_round=rounds)
     return TrainedModel(model_type="lightgbm", estimator=booster, feature_names=columns)
 
 

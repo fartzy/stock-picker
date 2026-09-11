@@ -265,6 +265,20 @@ export interface LiveModelResponse {
   live_run_id: string | null;
 }
 
+export interface PipelineFreshnessResponse {
+  as_of: string;
+  last_completed_session: string;
+  feature_snapshot_date: string | null;
+  features_ok: boolean;
+  feature_age_weekdays: number | null;
+  model_trained_through: string | null;
+  model_ok: boolean;
+  model_age_weekdays: number | null;
+  ready_for_inference: boolean;
+  live_run_id: string | null;
+  detail: string;
+}
+
 export interface PrunedFeaturesResponse {
   pruned_features: string[];
   archive: PrunedFeatureEntry[];
@@ -316,6 +330,7 @@ export interface BuySignalResponse {
   // actual ticker symbol).
   skipped: SkippedTicker[];
   top_drivers: TopDriver[];
+  cached?: boolean;
 }
 
 export interface UniverseResponse {
@@ -327,6 +342,7 @@ export interface TradeCreate {
   side: "buy" | "sell";
   shares: number;
   price: number;
+  executed_at?: string;
 }
 
 async function getJson<T>(path: string): Promise<T> {
@@ -390,6 +406,7 @@ export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/t
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
 export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/training/runs");
 export const fetchLiveModel = () => getJson<LiveModelResponse>("/api/live-model");
+export const fetchPipelineFreshness = () => getJson<PipelineFreshnessResponse>("/api/pipeline-freshness");
 export const setLiveModel = (runId: string) =>
   mutate<LiveModelResponse>("POST", "/api/live-model", { run_id: runId });
 export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/live-model");
@@ -398,4 +415,10 @@ export const fetchQuotes = (tickers: string[]) =>
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
 export const fetchBuySignal = (threshold: number) =>
   getJson<BuySignalResponse>(`/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}`);
+export async function fetchCachedBuySignal(): Promise<BuySignalResponse | null> {
+  const response = await fetch("/api/buy-signal?cached=true");
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`/api/buy-signal?cached=true failed: ${response.status}`);
+  return response.json();
+}
 export const fetchUniverse = () => getJson<UniverseResponse>("/api/universe");

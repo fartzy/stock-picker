@@ -1,7 +1,9 @@
 # stock-picker
 
 - **Universe**: top 2000 US companies by market cap
-- **Data**: daily OHLCV via `yfinance`
+- **Data**: daily OHLCV via `yfinance`; this-morning opens via Yahoo quote
+  snapshot (today's open, dated), then 1-minute bars, then Finnhub leftovers.
+  Polygon snapshot is used when the key is entitled (Starter/free is not).
 - **Features**: ~100 engineered columns across 11 categories
 - **Model**: LightGBM + random-forest ensemble predicting day-session
   (open->close) return
@@ -17,7 +19,8 @@ flowchart TB
         WIKI["NASDAQ + NYSE symbol directories"]
         MANUAL["tickers/manual_additions.py"]
         BUILDUNIV["tickers/universe.py<br/>build_universe()"]
-        YF["ingestion/yfinance_client.py<br/>daily + intraday download, live quotes"]
+        YF["ingestion/yfinance_client.py<br/>daily history + quote fallback"]
+        POLY["ingestion/polygon_client.py<br/>this-morning opens, one snapshot"]
     end
 
     subgraph Storage
@@ -54,6 +57,8 @@ flowchart TB
     MANUAL --> BUILDUNIV
     BUILDUNIV --> US
     US --> YF
+    US --> POLY
+    POLY --> INFER
     YF --> PS
     PS --> FEATPIPE
     FEATPIPE --> FS
@@ -222,13 +227,11 @@ Real live inference (fetch today's open, score every ticker) surfaces
 data-integrity gotchas.
 
 **Guarded** -- `training/inference.py`'s `build_inference_row()` raises
-rather than silently scoring on data that's more likely wrong than right:
-
-- A stale feature snapshot -- `registry.check_freshness()` raises
-  `StaleFeatureSnapshotError`.
-- A stock split between ingestion and "now" producing a fake overnight gap
-  that looks like a real signal -- `MAX_PLAUSIBLE_GAP` raises
-  `ImplausibleGapError`.
+rather than silently scoring on a stale feature snapshot
+(`registry.check_freshness()` / `StaleFeatureSnapshotError`). Live opens
+are accepted when their own date is today (quote snapshot, then 1-minute
+bars, then the daily chart) -- a large overnight move is a real print, not
+a reason to skip the ticker.
 
 **Still open** -- inherent to however a live caller ends up sourcing its
 inputs (no live caller exists yet, see Roadmap's scheduled live scoring loop):

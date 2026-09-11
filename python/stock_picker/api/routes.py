@@ -22,6 +22,7 @@ from stock_picker.api.models import (
     ImportanceResponse,
     LiveModelResponse,
     ModelInfoResponse,
+    PipelineFreshnessResponse,
     ModelSelectionRequest,
     ModelSelectionResponse,
     ModelTypesResponse,
@@ -70,7 +71,10 @@ from stock_picker.storage.training_config_store import ModelChoice, TrainingConf
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training import job as training_job
+from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
+from stock_picker.training.freshness import pipeline_freshness
+from stock_picker.training.morning import load_cached_signals
 from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
@@ -113,6 +117,18 @@ def get_trades() -> TradesResponse:
     return TradesResponse(trades=trade_history(trade_log()))
 
 
+def _executed_at(value: str | None) -> str:
+    if not value:
+        return datetime.now().astimezone().isoformat()
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="executed_at must be ISO 8601") from exc
+    if parsed.tzinfo is None:
+        parsed = parsed.astimezone()
+    return parsed.isoformat()
+
+
 @router.post("/trades")
 def create_trade(trade: TradeCreate) -> TradesResponse:
     TradeStore().append(
@@ -121,7 +137,7 @@ def create_trade(trade: TradeCreate) -> TradesResponse:
             side=trade.side,
             shares=trade.shares,
             price=trade.price,
-            executed_at=datetime.now().astimezone().isoformat(),
+            executed_at=_executed_at(trade.executed_at),
         )
     )
     return TradesResponse(trades=trade_history(trade_log()))
@@ -133,8 +149,23 @@ def get_quotes(tickers: str) -> QuotesResponse:
 
 
 @router.get("/buy-signal")
-def get_buy_signal(threshold: float = DEFAULT_THRESHOLD) -> BuySignalResponse:
-    result = compute_buy_signals(threshold=threshold)
+def get_buy_signal(threshold: float = DEFAULT_THRESHOLD, cached: bool = False) -> BuySignalResponse:
+    if cached:
+        payload = load_cached_signals()
+        if payload is None:
+            raise HTTPException(status_code=404, detail="no morning scan on disk yet")
+        return BuySignalResponse(
+            as_of=payload["as_of"],
+            threshold=payload.get("threshold", threshold),
+            signals=payload.get("signals") or [],
+            scored_count=payload.get("scored_count", 0),
+            skipped=payload.get("skipped") or [],
+            top_drivers=payload.get("top_drivers") or [],
+            cached=True,
+        )
+    result = compute_buy_signals(
+        threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
+    )
     return BuySignalResponse(
         as_of=result.as_of,
         threshold=result.threshold,
@@ -142,6 +173,7 @@ def get_buy_signal(threshold: float = DEFAULT_THRESHOLD) -> BuySignalResponse:
         scored_count=result.scored_count,
         skipped=result.skipped,
         top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
+        cached=False,
     )
 
 
@@ -309,6 +341,11 @@ def set_live_model(body: SetLiveModelRequest) -> LiveModelResponse:
 def clear_live_model() -> LiveModelResponse:
     TrainingConfigStore().write_selected_run_id(None)
     return get_live_model()
+
+
+@router.get("/pipeline-freshness")
+def get_pipeline_freshness() -> PipelineFreshnessResponse:
+    return PipelineFreshnessResponse(**asdict(pipeline_freshness()))
 
 
 @router.get("/prices/{ticker}")

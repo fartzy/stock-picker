@@ -60,6 +60,18 @@ def test_overnight_gap_is_not_shifted():
         assert row["overnight_gap"] == features.loc[date, "overnight_gap"]
 
 
+def test_open_known_recency_columns_are_not_shifted():
+    history, features = _make_history_and_features()
+    features["seq3_open3_seasonality"] = [float(i) for i in range(len(history))]
+    features["open_in_yday_range_seasonality"] = [float(i) + 0.5 for i in range(len(history))]
+
+    frame = build_training_frame(history, features)
+
+    for date, row in frame.iterrows():
+        assert row["seq3_open3_seasonality"] == features.loc[date, "seq3_open3_seasonality"]
+        assert row["open_in_yday_range_seasonality"] == features.loc[date, "open_in_yday_range_seasonality"]
+
+
 def test_first_row_is_dropped():
     history, features = _make_history_and_features()
 

@@ -10,6 +10,7 @@ import {
 } from "../api";
 import { useState } from "react";
 import { useFetchData } from "../useFetchData";
+import FreshnessBadge from "./FreshnessBadge";
 
 // Training runs take minutes, not seconds -- poll rather than push, same
 // "live-ish via polling" convention the rest of the Feature Store tab uses.
@@ -170,6 +171,7 @@ export default function TrainingPanel() {
       </div>
       {startError && <p className="error">{startError}</p>}
       {data.status === "completed" && data.result && <TrainingResultSummary result={data.result} />}
+      <FreshnessBadge />
       <EnsembleComposition modelInfo={modelInfo} />
     </div>
   );

@@ -20,11 +20,11 @@ from typing import Callable
 from stock_picker.features.quotes import fetch_ticker_quotes
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.importance import ensemble_importance
 from stock_picker.training.inference import (
-    ImplausibleGapError,
     StaleFeatureSnapshotError,
     build_inference_row,
     predict_signal,
@@ -73,13 +73,16 @@ def compute_buy_signals(
     feature_store: FeatureStore | None = None,
     model_store: ModelStore | None = None,
     config_store: TrainingConfigStore | None = None,
+    price_store: PriceStore | None = None,
     quote_fetcher: Callable[[list[str]], dict[str, dict]] = fetch_ticker_quotes,
+    earnings_fetcher: Callable[[list[str], date], set[str]] | None = None,
 ) -> BuySignalResult:
     as_of = as_of or date.today()
     universe_store = universe_store or UniverseStore()
     feature_store = feature_store or FeatureStore()
     model_store = model_store or ModelStore()
     config_store = config_store or TrainingConfigStore()
+    price_store = price_store or PriceStore()
 
     # None (the default) means "no explicit choice, use whatever's latest" --
     # that name always gets overwritten by every run regardless of run_id.
@@ -106,12 +109,30 @@ def compute_buy_signals(
 
     ensemble = model_store.read(model_name)
     tickers = universe_store.active_tickers()
-    quotes = quote_fetcher(tickers)
+    try:
+        quotes = quote_fetcher(tickers, as_of=as_of)
+    except TypeError:
+        quotes = quote_fetcher(tickers)
+
+    earnings: set[str] = set()
+    if earnings_fetcher is not None:
+        try:
+            earnings = earnings_fetcher(tickers, as_of) or set()
+        except TypeError:
+            earnings = set()
 
     signals: list[BuySignal] = []
     skipped: list[dict] = []
     scored_count = 0
     for ticker in tickers:
+        if ticker in earnings:
+            skipped.append(
+                {
+                    "ticker": ticker,
+                    "reason": "earnings on or since the prior session -- news day, not a pattern day",
+                }
+            )
+            continue
         quote = quotes.get(ticker)
         if quote is None:
             skipped.append({"ticker": ticker, "reason": "no live quote available"})
@@ -129,14 +150,23 @@ def compute_buy_signals(
 
         snapshot_date = prior_features.index[-1].date()
         try:
+            prior_history = price_store.read(ticker)
+        except FileNotFoundError:
+            prior_history = None
+        if prior_history is not None and not prior_history.empty:
+            prior_history = prior_history[prior_history.index.date < as_of]
+            if prior_history.empty:
+                prior_history = None
+        try:
             row = build_inference_row(
                 prior_day_features=prior_features.iloc[-1],
                 today_open=quote["open"],
                 yesterday_close=prev_close,
                 snapshot_date=snapshot_date,
                 as_of_date=as_of,
+                prior_history=prior_history,
             )
-        except (StaleFeatureSnapshotError, ImplausibleGapError) as exc:
+        except StaleFeatureSnapshotError as exc:
             skipped.append({"ticker": ticker, "reason": str(exc)})
             continue
 

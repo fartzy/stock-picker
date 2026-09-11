@@ -6,14 +6,16 @@ unit-testable with a plain dict, no yfinance/network mocking needed.
 
 from __future__ import annotations
 
+from datetime import date
+
 from stock_picker.ingestion.yfinance_client import fetch_quotes
 
 DIFF_DECIMAL_PLACES = 2
 PCT_DECIMAL_PLACES = 4
 
 
-def fetch_ticker_quotes(tickers: list[str]) -> dict[str, dict]:
-    return fetch_quotes(tickers)
+def fetch_ticker_quotes(tickers: list[str], as_of: date | None = None) -> dict[str, dict]:
+    return fetch_quotes(tickers, as_of=as_of)
 
 
 def quote_summaries(raw_quotes: dict[str, dict]) -> list[dict]:

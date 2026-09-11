@@ -3,16 +3,22 @@
 The label for day t is the same-day open->close ("day session") return. Predicting it
 using day t's own feature row would leak the label -- most feature columns are computed
 from day t's full OHLCV, including Close_t, which is exactly what we're predicting. The
-fix: use features computed through day t-1 (features.shift(1)), except overnight_gap,
-which is legitimately knowable at day t's open and must NOT be shifted.
+fix: use features computed through day t-1 (features.shift(1)), except the
+open-known columns (overnight_gap plus the recency-pattern seasonality
+family), which are legitimately knowable at day t's open and must NOT be
+shifted. Those columns never use Close_t -- they key off completed days
+plus Open_t -- so leaving them unshifted is not a leak.
 """
 
 from __future__ import annotations
 
 import pandas as pd
 
+from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
+
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
+OPEN_KNOWN_FEATURE_COLUMNS = frozenset({GAP_COLUMN, *OPEN_KNOWN_COLUMNS})
 
 
 def day_session_return(history: pd.DataFrame) -> pd.Series:
@@ -30,7 +36,8 @@ def build_training_frame(history: pd.DataFrame, features: pd.DataFrame) -> pd.Da
     label = day_session_return(history)
 
     shifted = features.shift(1)
-    shifted[GAP_COLUMN] = features[GAP_COLUMN]
+    present = [column for column in OPEN_KNOWN_FEATURE_COLUMNS if column in features.columns]
+    shifted[present] = features[present]
     shifted[LABEL_COLUMN] = label
 
     frame = shifted.iloc[1:]

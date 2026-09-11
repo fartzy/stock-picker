@@ -59,8 +59,7 @@ def test_position_summaries_merges_closed_position_into_one_row():
     assert pos["sell_time"] == "2026-09-04T15:57:30-04:00"
     assert pos["invested"] == round(30 * 320.73, 2)
     assert pos["pnl"] == round((320.93 - 320.73) * 30, 2)
-    assert pos["day_open"] == 321.67
-    assert pos["prev_close"] == 322.0
+    assert pos["day"] == "2026-09-04"
 
 
 def test_position_summaries_computes_unrealized_pnl_for_open_position():
@@ -78,3 +77,39 @@ def test_position_summaries_computes_unrealized_pnl_for_open_position():
 
 def test_position_summaries_handles_empty_input():
     assert position_summaries(pd.DataFrame(), {}) == []
+
+
+def test_overnight_buy_sold_next_day_is_closed_not_an_empty_open():
+    trades = pd.DataFrame(
+        [
+            {"ticker": "TBBK", "side": "buy", "shares": 200, "price": 51.24, "executed_at": "2026-09-09T10:00:00-05:00"},
+            {"ticker": "TBBK", "side": "sell", "shares": 200, "price": 50.32, "executed_at": "2026-09-10T10:00:00-05:00"},
+            {"ticker": "NVTS", "side": "buy", "shares": 900, "price": 11.78, "executed_at": "2026-09-11T09:40:00-05:00"},
+        ]
+    )
+    quotes = {"NVTS": {"open": 11.29, "last": 11.50, "prev_close": 11.00}}
+
+    positions = position_summaries(trades, quotes)
+    by_ticker = {row["ticker"]: row for row in positions}
+
+    assert by_ticker["TBBK"]["closed"] is True
+    assert by_ticker["TBBK"]["shares"] == 200
+    assert by_ticker["TBBK"]["day"] == "2026-09-10"
+    assert by_ticker["NVTS"]["closed"] is False
+    assert by_ticker["NVTS"]["shares"] == 900
+    assert by_ticker["NVTS"]["day"] == "2026-09-11"
+
+
+def test_position_summaries_accepts_mixed_utc_offsets():
+    trades = pd.DataFrame(
+        [
+            {"ticker": "HOOD", "side": "buy", "shares": 50, "price": 121.88, "executed_at": "2026-09-04T10:08:10-04:00"},
+            {"ticker": "FLY", "side": "buy", "shares": 500, "price": 21.36, "executed_at": "2026-09-11T09:40:00-05:00"},
+        ]
+    )
+
+    positions = position_summaries(trades, {})
+
+    days = {row["ticker"]: row["day"] for row in positions}
+    assert days["HOOD"] == "2026-09-04"
+    assert days["FLY"] == "2026-09-11"
