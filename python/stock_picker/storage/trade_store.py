@@ -1,8 +1,9 @@
 """Repository for logged trade executions.
 
 Mirrors universe_store.py's pattern: an append-only log, read-modify-write
-against a single Parquet file (trade volume here is a handful of rows per
-day, so a full rewrite per append is fine).
+against a Parquet file (trade volume here is a handful of rows per day, so
+a full rewrite per append is fine). Also writes trades.csv next to it --
+same columns, human-readable, always in sync.
 """
 
 from __future__ import annotations
@@ -35,17 +36,22 @@ class TradeStore:
         self._data_dir = Path(data_dir)
         self._data_dir.mkdir(parents=True, exist_ok=True)
         self._path = self._data_dir / "trades.parquet"
+        self._csv_path = self._data_dir / "trades.csv"
 
     def _load(self) -> pd.DataFrame:
         if self._path.exists():
             return pd.read_parquet(self._path)
         return pd.DataFrame(columns=_COLUMNS)
 
+    def _write(self, trades: pd.DataFrame) -> None:
+        trades.to_parquet(self._path, index=False)
+        trades.to_csv(self._csv_path, index=False)
+
     def append(self, trade: Trade) -> None:
         trades = self._load()
         new_row = pd.DataFrame([asdict(trade)])
         trades = new_row if trades.empty else pd.concat([trades, new_row], ignore_index=True)
-        trades.to_parquet(self._path, index=False)
+        self._write(trades)
 
     def read(self) -> pd.DataFrame:
         return self._load()
