@@ -170,10 +170,8 @@ export default function Registry({
       !pendingFeature ||
       !registry ||
       !catalog ||
-      !coverage ||
       !importance ||
       !prunedData ||
-      !correlationData ||
       included === undefined
     ) {
       return;
@@ -198,18 +196,15 @@ export default function Registry({
     pendingFeature,
     registry,
     catalog,
-    coverage,
     importance,
     prunedData,
-    correlationData,
     included,
     onFeatureFocused,
   ]);
 
   const error =
-    [registryError, catalogError, coverageError, importanceError, prunedError, selectionError, correlationError]
-      .filter(Boolean)
-      .join("; ") || null;
+    [registryError, catalogError, importanceError, prunedError, selectionError].filter(Boolean).join("; ") ||
+    null;
 
   const pruned = prunedOverride ?? new Set(prunedData?.pruned_features ?? []);
   const reasonByFeature = Object.fromEntries(
@@ -255,16 +250,10 @@ export default function Registry({
   }, [selectionData, included]);
 
   if (error) return <p className="error">{error}</p>;
-  if (
-    !registry ||
-    !catalog ||
-    !coverage ||
-    !importance ||
-    !prunedData ||
-    !correlationData ||
-    included === undefined
-  )
-    return <p className="muted">Loading registry... hang tight, this takes a bit.</p>;
+  if (!registry || !catalog || !importance || !prunedData || included === undefined)
+    return <p className="muted">Loading registry...</p>;
+
+  const coverageByFeature = coverage?.coverage ?? {};
 
   // Clicking the already-active mode flips direction (like a sortable table
   // header); clicking a different mode switches to it at a sensible default
@@ -397,8 +386,8 @@ export default function Registry({
             <MetaGrid view={view} />
           </summary>
           <div className="view-features">
-            {sortFeatures(view.features, sortMode, sortDirection, coverage.coverage, importance.importance).map((feature) => {
-              const pct = coverage.coverage[feature];
+            {sortFeatures(view.features, sortMode, sortDirection, coverageByFeature, importance.importance).map((feature) => {
+              const pct = coverageByFeature[feature];
               const imp = importance.importance[feature];
               const isPruned = pruned.has(feature);
               const isNegligible =

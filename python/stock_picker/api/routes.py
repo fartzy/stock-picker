@@ -51,7 +51,7 @@ from stock_picker.features.catalog import (
     list_feature_columns,
     top_correlated_pairs,
 )
-from stock_picker.features.catalog_loader import feature_tables, sample_history
+from stock_picker.features.catalog_loader import STATS_SAMPLE_SIZE, feature_tables, sample_history
 from stock_picker.features.price_history import (
     daily_price_history,
     feature_value_rows,
@@ -98,13 +98,13 @@ def get_catalog() -> CatalogResponse:
 
 @router.get("/coverage")
 def get_coverage() -> CoverageResponse:
-    report = coverage_report(feature_tables())
+    report = coverage_report(feature_tables(limit=STATS_SAMPLE_SIZE))
     return CoverageResponse(coverage=report["non_null_pct"].to_dict())
 
 
 @router.get("/correlation")
 def get_correlation() -> CorrelationResponse:
-    corr = correlation_matrix(feature_tables())
+    corr = correlation_matrix(feature_tables(limit=STATS_SAMPLE_SIZE))
     return CorrelationResponse(
         columns=list(corr.columns),
         matrix=corr.where(corr.notna(), None).values.tolist(),

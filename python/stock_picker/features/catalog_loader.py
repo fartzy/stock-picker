@@ -18,7 +18,21 @@ def sample_history(tickers: list[str] | None = None):
     return PriceStore().read(tickers[0])
 
 
-def feature_tables(tickers: list[str] | None = None) -> dict:
+# Coverage/correlation don't need every ticker -- a slice of the universe is
+# enough for "% non-null" and pairwise corr, and reading all ~2000 parquets
+# is what made the Feature Store tab hang on "Loading registry...".
+STATS_SAMPLE_SIZE = 80
+
+
+def feature_tables(tickers: list[str] | None = None, limit: int | None = None) -> dict:
     tickers = tickers if tickers is not None else active_tickers()
+    if limit is not None:
+        tickers = tickers[:limit]
     feature_store = FeatureStore()
-    return {ticker: feature_store.read(ticker) for ticker in tickers}
+    tables = {}
+    for ticker in tickers:
+        try:
+            tables[ticker] = feature_store.read(ticker)
+        except FileNotFoundError:
+            continue
+    return tables
