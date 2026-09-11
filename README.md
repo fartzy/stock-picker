@@ -9,7 +9,7 @@ solo LightGBM by default, FastAPI + React, a real trade log with P&L.
   bars, then the daily chart. Polygon is first if the key is entitled
   (the free/Starter snapshot is not). Finnhub fills a small leftover set
   and supplies the earnings calendar skip.
-- **Features**: ~130 columns across 12 categories, including 28 open-known
+- **Features**: ~135 columns across 12 categories, including 28 open-known
   recency patterns (last few completed days + this morning’s open)
 - **Model**: LightGBM predicting day-session return. RandomForest, Ridge,
   and a small neural net are in the UI picker; none beat solo LightGBM on
@@ -191,19 +191,46 @@ The Mac has to be on. Logs: `~/Library/Logs/stock-picker/`.
 
 ## Known issues
 
-- Thin names may not have an official open at 8:32; the morning job retries
-  once a minute later if many quotes are missing.
-- Yahoo can still ship an unfinished daily bar during the session.
-  Feature rebuild drops bars after the last completed close
-  (`ingestion/session.py`).
-- `sector_relative_return` is in the catalog but not populated — no sector
-  labels on disk.
+These are still true. The old README’s “no live caller exists yet” and
+“same-day bar silently treated as yesterday” are **not** — live scoring
+runs at 8:32 CT, and `ingestion/session.py` drops bars after the last
+completed close before features/training see them.
+
+**Still true**
+
+- Thin names may not have an official open at 8:32. The morning job retries
+  once a minute later if many quotes are missing; leftover names are skipped,
+  not invented from last trade.
+- Yahoo can still ship an unfinished daily bar *during* the session. The
+  3:30 CT job runs after settle; a manual `features:main` at 10am would
+  otherwise have included today’s in-progress candle (that’s what
+  `completed_sessions()` is for).
+- Yahoo can leave yesterday’s close as `NaN` if you pull before the daily
+  bar is finalized. Nightly at 3:30 CT is usually past that; a too-early
+  pull is still a vendor risk, not a silent `.iloc[-1]` bug.
+- Polygon’s Default/Starter key 403s on the live snapshot — Yahoo is the
+  real bulk open path until the key is entitled.
+- `sector_relative_return` is in the catalog but empty — no sector labels
+  on disk.
+
+**Guarded (do not treat as open bugs)**
+
+- Stale feature snapshot → `StaleFeatureSnapshotError` / freshness badge.
+- Live open not dated today → ticker omitted from quotes.
+- Large overnight gap → kept (a real print, not a 30% plausibility filter).
 
 ## Roadmap
 
+Already shipped (do not re-open): nightly/morning jobs, leftover-share
+lots, dated opens, open-known recency columns, `trades.csv`, per-run
+archived pickles (`day_session_return_{run_id}.pkl`), volatility-delta
+features.
+
 - [ ] Ranking-objective LightGBM (better Rank IC; would mean top-K picks
       instead of a 0.5% return gate) — measured in `tune_experiment.py`
-- [ ] Volatility-normalized confidence threshold — measured, not the live gate
+- [ ] Volatility-normalized confidence threshold — measured in
+      `backtest.py`, not the live 0.5% gate
 - [ ] Persist sector labels for `sector_relative_return`
-- [ ] Production `vite build` + frontend tests
-- [ ] Archived model binary per historical run (metadata is already kept)
+- [ ] Bazel-wired production `vite build` + frontend tests (`package.json`
+      has a build script; `typescript/BUILD.bazel` only runs `dev` /
+      typecheck)
