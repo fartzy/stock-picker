@@ -32,6 +32,9 @@
   --text-label: 15px;
   --text-caption: 14px;
   --text-micro: 13px;
+  /* Log-a-trade (and other compact data-entry rows). Bump this, not
+     --text-label, so Feature Store / Models selects stay put. */
+  --text-form: 16px;
   --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -713,6 +716,13 @@ details.view-card summary {
   margin-top: var(--space-6);
   padding-top: var(--space-4);
   border-top: 1px solid var(--line);
+}
+
+.add-trade-form .form-input,
+.add-trade-form .form-select,
+.add-trade-form .btn-primary {
+  font-size: var(--text-form);
+  padding: var(--space-2) var(--space-3);
 }
 
 .form-input,
