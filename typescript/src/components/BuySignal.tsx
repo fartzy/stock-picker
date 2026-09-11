@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   DEFAULT_BUY_THRESHOLD,
   fetchBuySignal,
-  fetchCachedBuySignal,
   fetchLiveModel,
   fetchTrainingRuns,
   fetchUniverse,
@@ -66,7 +65,6 @@ export default function BuySignal() {
   const { data: trainingRuns } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
   const [modelRefreshCount, setModelRefreshCount] = useState(0);
   const { data: liveModel } = useFetchData<LiveModelResponse>(fetchLiveModel, { deps: [modelRefreshCount] });
-  const { data: cachedScan } = useFetchData<BuySignalResponse | null>(fetchCachedBuySignal);
 
   async function handleModelChange(runId: string) {
     if (runId === LATEST_OPTION_VALUE) {
@@ -100,8 +98,8 @@ export default function BuySignal() {
     }
   }
 
-  const displayed = data ?? cachedScan;
-  const showingCache = data === null && cachedScan !== null && cachedScan !== undefined;
+  const displayed = data;
+  const showingCache = Boolean(displayed?.cached);
   const noModel = displayed?.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL) ?? false;
 
   return (
@@ -159,7 +157,7 @@ export default function BuySignal() {
       )}
       {showingCache && displayed && (
         <p className="muted" style={{ marginTop: 8 }}>
-          Morning job results from {displayed.as_of} — already scored. Click the button only to rescan live.
+          Loaded this morning's saved scan ({displayed.as_of}).
         </p>
       )}
 

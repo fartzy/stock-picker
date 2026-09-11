@@ -148,21 +148,30 @@ def get_quotes(tickers: str) -> QuotesResponse:
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
 
 
+def _cached_buy_signal(threshold: float) -> BuySignalResponse | None:
+    payload = load_cached_signals()
+    if payload is None:
+        return None
+    return BuySignalResponse(
+        as_of=payload["as_of"],
+        threshold=payload.get("threshold", threshold),
+        signals=payload.get("signals") or [],
+        scored_count=payload.get("scored_count", 0),
+        skipped=payload.get("skipped") or [],
+        top_drivers=payload.get("top_drivers") or [],
+        cached=True,
+    )
+
+
 @router.get("/buy-signal")
-def get_buy_signal(threshold: float = DEFAULT_THRESHOLD, cached: bool = False) -> BuySignalResponse:
-    if cached:
-        payload = load_cached_signals()
-        if payload is None:
-            raise HTTPException(status_code=404, detail="no morning scan on disk yet")
-        return BuySignalResponse(
-            as_of=payload["as_of"],
-            threshold=payload.get("threshold", threshold),
-            signals=payload.get("signals") or [],
-            scored_count=payload.get("scored_count", 0),
-            skipped=payload.get("skipped") or [],
-            top_drivers=payload.get("top_drivers") or [],
-            cached=True,
-        )
+def get_buy_signal(
+    threshold: float = DEFAULT_THRESHOLD, live: bool = False
+) -> BuySignalResponse:
+    """Prefer this morning's saved scan. `live=true` forces a full rescore."""
+    if not live:
+        cached = _cached_buy_signal(threshold)
+        if cached is not None:
+            return cached
     result = compute_buy_signals(
         threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
     )

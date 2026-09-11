@@ -10,7 +10,7 @@ from __future__ import annotations
 import functools
 import json
 import time
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -33,15 +33,24 @@ MISSING_QUOTE_RETRY_MIN = 20
 
 def load_cached_signals(as_of: str | None = None, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> dict | None:
     """Today's morning-job payload if it already finished -- a parquet-free
-    JSON read so 8:37 is a click, not a 2-minute live scan."""
-    path = signal_dir / (f"{as_of}.json" if as_of else "latest.json")
+    JSON read so a click at 8:37 is instant. Only returns a file whose
+    as_of is this calendar day; yesterday's latest.json is not reused."""
+    day = as_of or date.today().isoformat()
+    path = signal_dir / f"{day}.json"
+    if not path.is_file():
+        latest = signal_dir / "latest.json"
+        path = latest if latest.is_file() else path
     if not path.is_file():
         return None
     try:
         payload = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError):
         return None
-    return payload if isinstance(payload, dict) else None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("as_of") != day:
+        return None
+    return payload
 
 
 def _write_signals(payload: dict, as_of: str, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> Path:

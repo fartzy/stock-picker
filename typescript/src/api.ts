@@ -413,12 +413,8 @@ export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/li
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
-export const fetchBuySignal = (threshold: number) =>
-  getJson<BuySignalResponse>(`/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}`);
-export async function fetchCachedBuySignal(): Promise<BuySignalResponse | null> {
-  const response = await fetch("/api/buy-signal?cached=true");
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error(`/api/buy-signal?cached=true failed: ${response.status}`);
-  return response.json();
-}
+export const fetchBuySignal = (threshold: number, live = false) =>
+  getJson<BuySignalResponse>(
+    `/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}${live ? "&live=true" : ""}`,
+  );
 export const fetchUniverse = () => getJson<UniverseResponse>("/api/universe");
