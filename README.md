@@ -28,7 +28,7 @@ flowchart TB
         PS[("PriceStore<br/>prices/*.parquet")]
         FS[("FeatureStore<br/>features/*.parquet")]
         MS[("ModelStore<br/>models/*.pkl")]
-        TS[("TradeStore<br/>trades/trades.parquet")]
+        TS[("TradeStore<br/>trades/trades.parquet + trades.csv")]
         PFS[("PrunedFeatureStore<br/>pruned_features/pruned.parquet")]
         TRS[("TrainingRunStore<br/>training_runs/runs.json")]
     end

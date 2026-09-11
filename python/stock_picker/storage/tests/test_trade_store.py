@@ -33,3 +33,17 @@ def test_append_accumulates_across_calls(tmp_path):
     trades = store.read()
 
     assert list(trades["ticker"]) == ["HOOD", "CIEN"]
+
+
+def test_append_also_writes_a_readable_csv(tmp_path):
+    store = TradeStore(data_dir=tmp_path)
+
+    store.append(Trade(ticker="HOOD", side="buy", shares=50, price=121.88, executed_at="2026-09-04T10:08:10-04:00"))
+
+    csv_path = tmp_path / "trades.csv"
+    assert csv_path.is_file()
+    text = csv_path.read_text()
+    assert "ticker,side,shares,price,executed_at" in text
+    assert "HOOD,buy," in text
+    assert "121.88" in text
+    assert "2026-09-04T10:08:10-04:00" in text
