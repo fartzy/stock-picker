@@ -14,6 +14,7 @@ import {
 } from "../api";
 import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
+import FreshnessBadge from "./FreshnessBadge";
 
 // "Latest" isn't a real run_id -- this <option>'s value means "clear the
 // explicit selection," resolved via resetLiveModel() rather than setLiveModel().
@@ -97,7 +98,9 @@ export default function BuySignal() {
     }
   }
 
-  const noModel = data?.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL) ?? false;
+  const displayed = data;
+  const showingCache = Boolean(displayed?.cached);
+  const noModel = displayed?.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL) ?? false;
 
   return (
     <div>
@@ -106,6 +109,7 @@ export default function BuySignal() {
           {formatToday()} · Sell by close · {universe.active_ticker_count.toLocaleString()} tickers scanned.
         </p>
       )}
+      <FreshnessBadge />
       {trainingRuns && liveModel && (
         <div className="form-row" style={{ alignItems: "center", marginTop: 0 }}>
           <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -151,21 +155,26 @@ export default function BuySignal() {
           {error}
         </p>
       )}
+      {showingCache && displayed && (
+        <p className="muted" style={{ marginTop: 8 }}>
+          Loaded this morning's saved scan ({displayed.as_of}).
+        </p>
+      )}
 
-      {data && !error && noModel && (
+      {displayed && !error && noModel && (
         <p className="muted" style={{ marginTop: 12 }}>
           No trained model yet. Train one on the Models tab first.
         </p>
       )}
 
-      {data && !error && !noModel && (
+      {displayed && !error && !noModel && (
         <div style={{ marginTop: 12 }}>
-          {data.top_drivers.length > 0 && (
+          {displayed.top_drivers.length > 0 && (
             <p className="muted">
-              Top drivers: {data.top_drivers.map((d) => `${d.feature} (${d.importance.toFixed(1)}%)`).join(", ")}
+              Top drivers: {displayed.top_drivers.map((d) => `${d.feature} (${d.importance.toFixed(1)}%)`).join(", ")}
             </p>
           )}
-          {data.signals.length === 0 ? (
+          {displayed.signals.length === 0 ? (
             <p className="muted">No tickers cleared the {thresholdPct}% threshold this morning.</p>
           ) : (
             <table className="trade-table">
@@ -177,7 +186,7 @@ export default function BuySignal() {
                 </tr>
               </thead>
               <tbody>
-                {data.signals.map((signal) => (
+                {displayed.signals.map((signal) => (
                   <tr key={signal.ticker}>
                     <td className="trade-ticker">{signal.ticker}</td>
                     <td className="trade-num">{(signal.predicted_return * 100).toFixed(2)}%</td>
@@ -188,9 +197,9 @@ export default function BuySignal() {
             </table>
           )}
           <p className="muted" style={{ marginTop: 8 }}>
-            Scored {data.scored_count} of {data.scored_count + data.skipped.length} tickers ·{" "}
-            <span title={data.skipped.map((s) => `${s.ticker}: ${s.reason}`).join("\n")}>
-              {data.skipped.length} skipped
+            Scored {displayed.scored_count} of {displayed.scored_count + displayed.skipped.length} tickers ·{" "}
+            <span title={displayed.skipped.map((s) => `${s.ticker}: ${s.reason}`).join("\n")}>
+              {displayed.skipped.length} skipped
             </span>
           </p>
         </div>

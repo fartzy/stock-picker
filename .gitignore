@@ -9,6 +9,9 @@ bazel-*
 __pycache__/
 *.pyc
 .bazelrc.user
+.env
+data/buy_signals/*
+!data/buy_signals/.gitkeep
 .idea/
 typescript/node_modules/
 typescript/dist/

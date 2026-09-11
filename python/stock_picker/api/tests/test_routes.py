@@ -504,6 +504,23 @@ def test_create_trade(client):
     assert trades[0]["notional"] == 30.0
 
 
+def test_create_trade_uses_the_supplied_executed_at(client):
+    response = client.post(
+        "/api/trades",
+        json={
+            "ticker": "FLY",
+            "side": "buy",
+            "shares": 500,
+            "price": 21.36,
+            "executed_at": "2026-09-11T09:40:00-05:00",
+        },
+    )
+
+    assert response.status_code == 200
+    fly = next(t for t in response.json()["trades"] if t["ticker"] == "FLY")
+    assert fly["executed_at"].startswith("2026-09-11T09:40:00")
+
+
 def test_get_quotes(client):
     response = client.get("/api/quotes", params={"tickers": "AAA"})
 
@@ -602,7 +619,7 @@ def test_get_registry(client):
     assert response.status_code == 200
     body = response.json()
     assert body["entities"][0]["name"] == "ticker"
-    assert len(body["feature_views"]) == 11
+    assert len(body["feature_views"]) == 12
     assert body["feature_services"][0]["name"] == "day_session_return_model"
 
 

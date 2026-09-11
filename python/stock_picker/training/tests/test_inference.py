@@ -3,10 +3,11 @@ from datetime import date
 import pandas as pd
 import pytest
 
+from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS, build_open_pattern_features
+from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.training.dataset import GAP_COLUMN, LABEL_COLUMN, build_training_frame
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.inference import (
-    ImplausibleGapError,
     StaleFeatureSnapshotError,
     build_inference_row,
     compute_overnight_gap,
@@ -79,15 +80,17 @@ def test_build_inference_row_raises_when_snapshot_is_stale():
         build_inference_row(prior_day_features, today_open, yesterday_close, SNAPSHOT_DATE, stale_as_of)
 
 
-def test_build_inference_row_raises_on_an_implausible_gap():
+def test_build_inference_row_keeps_a_large_overnight_gap():
     history, features = _make_history_and_features()
     prior_day_features = features.iloc[-2]
     yesterday_close = history["Close"].iloc[-2]
-    # A 50% overnight "gap" -- e.g. a 2-for-1 stock split misread as a real move.
-    split_like_open = yesterday_close * 1.5
+    # A 50% overnight move is a real open (earnings, crash) -- the quote
+    # fetcher already required it to be dated today, so scoring it is correct.
+    large_open = yesterday_close * 1.5
 
-    with pytest.raises(ImplausibleGapError):
-        build_inference_row(prior_day_features, split_like_open, yesterday_close, SNAPSHOT_DATE, AS_OF_DATE)
+    row = build_inference_row(prior_day_features, large_open, yesterday_close, SNAPSHOT_DATE, AS_OF_DATE)
+
+    assert row.iloc[0][GAP_COLUMN] == pytest.approx(0.5)
 
 
 def test_predict_signal_returns_a_float_using_a_trained_model():
@@ -106,3 +109,30 @@ def test_predict_signal_returns_a_float_using_a_trained_model():
     signal = predict_signal(ensemble, inference_row)
 
     assert isinstance(signal, float)
+
+
+def test_build_inference_row_recomputes_open_known_columns_from_today_open():
+    history = synthetic_history(n=80)
+    features = build_open_pattern_features(history)
+    features[GAP_COLUMN] = (history["Open"] - history["Close"].shift(1)) / history["Close"].shift(1)
+    prior_history = history.iloc[:-1]
+    today_open = float(history["Open"].iloc[-1])
+    yesterday_close = float(history["Close"].iloc[-2])
+
+    row = build_inference_row(
+        prior_day_features=features.iloc[-2],
+        today_open=today_open,
+        yesterday_close=yesterday_close,
+        snapshot_date=SNAPSHOT_DATE,
+        as_of_date=AS_OF_DATE,
+        prior_history=prior_history,
+    )
+
+    expected = features.iloc[-1]
+    for column in OPEN_KNOWN_COLUMNS:
+        actual = row.iloc[0][column]
+        target = expected[column]
+        if pd.isna(target):
+            assert pd.isna(actual)
+        else:
+            assert actual == pytest.approx(target)

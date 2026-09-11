@@ -24,6 +24,8 @@ class TradeCreate(BaseModel):
     side: Literal["buy", "sell"]
     shares: float
     price: float
+    # ISO 8601 with offset. None = stamp as now (the old form behavior).
+    executed_at: str | None = None
 
 
 class PruneRequest(BaseModel):
@@ -217,6 +219,20 @@ class LiveModelResponse(BaseModel):
     live_run_id: str | None
 
 
+class PipelineFreshnessResponse(BaseModel):
+    as_of: str
+    last_completed_session: str
+    feature_snapshot_date: str | None
+    features_ok: bool
+    feature_age_weekdays: int | None
+    model_trained_through: str | None
+    model_ok: bool
+    model_age_weekdays: int | None
+    ready_for_inference: bool
+    live_run_id: str | None
+    detail: str
+
+
 class PricePoint(BaseModel):
     date: str
     open: float
@@ -292,6 +308,8 @@ class BuySignalResponse(BaseModel):
     scored_count: int
     skipped: list[SkippedTicker]
     top_drivers: list[TopDriver]
+    # True when this is the 8:32 job's saved scan, not a live rescore.
+    cached: bool = False
 
 
 class UniverseResponse(BaseModel):

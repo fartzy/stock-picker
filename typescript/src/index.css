@@ -773,6 +773,20 @@ details.view-card summary {
   margin-right: var(--space-2);
 }
 
+.freshness-ok,
+.freshness-stale {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-caption);
+}
+
+.freshness-ok {
+  color: var(--good);
+}
+
+.freshness-stale {
+  color: var(--bad);
+}
+
 .price-hero {
   display: flex;
   align-items: center;

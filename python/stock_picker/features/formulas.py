@@ -184,6 +184,160 @@ _pattern(
     r"^sector_relative_return$",
     lambda m: "daily_return - sector_avg_return",
 )
+_pattern(
+    r"^seq(\d+)_open(\d+)_seasonality$",
+    lambda m: (
+        f"bucket = U/D path of session.shift(1..{m[1]}) + gap_bucket{m[2]}(open); "
+        "session.groupby(bucket).transform(lambda s: s.expanding().mean().shift(1))"
+    ),
+)
+_pattern(
+    r"^streak_open(\d+)_seasonality$",
+    lambda m: (
+        f"bucket = streak.shift(1) + gap_bucket{m[1]}(open); "
+        "session.groupby(bucket).transform(lambda s: s.expanding().mean().shift(1))"
+    ),
+)
+_pattern(
+    r"^flips_(\d+)d_open3_seasonality$",
+    lambda m: (
+        f"bucket = flip_count(session.shift(1..{m[1]})) + last_dir + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^late_reversal_open3_seasonality$",
+    lambda m: (
+        "bucket = (yday opposite 3d majority?) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^continuation_open3_seasonality$",
+    lambda m: (
+        "bucket = (last 3 all same dir?) + last_dir + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^yday_swing_open5_seasonality$",
+    lambda m: (
+        "bucket = size/dir of session.shift(1) vs vol_20d + gap5(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^two_day_swing_open3_seasonality$",
+    lambda m: (
+        "bucket = large?(session.shift(2)) + large?(session.shift(1)) + last_dir + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^big_down_run_open3_seasonality$",
+    lambda m: (
+        "bucket = consecutive large-down completed days (0/1/2+) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^net3_swing_open3_seasonality$",
+    lambda m: (
+        "bucket = bucket3(sum(session.shift(1..3))) + quiet/normal/wild + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^wildest_3d_open3_seasonality$",
+    lambda m: (
+        "bucket = max(|session.shift(1..3)|)/vol_20d as quiet/normal/wild + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^vol_path_open(\d+)_seasonality$",
+    lambda m: (
+        f"bucket = (vol_20d.shift(1)-vol_20d.shift(4) sign) + (yday vol delta sign) "
+        f"+ gap{m[1]}(open); session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^yday_range_open3_seasonality$",
+    lambda m: (
+        "bucket = (high-low).shift(1)/atr_14 as narrow/normal/wide + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^vol_regime_open3_seasonality$",
+    lambda m: (
+        "bucket = vol_20d vs 60d median as low/mid/high + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^seq3_volpath_open3_seasonality$",
+    lambda m: (
+        "bucket = sign(sum(session.shift(1..3))) + vol_path + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^swing_volpath_open3_seasonality$",
+    lambda m: (
+        "bucket = (|session.shift(1)| > vol_20d?) + vol_path + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^streak_vol_open3_seasonality$",
+    lambda m: (
+        "bucket = sign(streak.shift(1)) + 3d vol expanding/contracting + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^open_in_yday_range_seasonality$",
+    lambda m: (
+        "bucket = open vs yesterday high/low (below/low/mid/high/above); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^seq3_openloc_seasonality$",
+    lambda m: (
+        "bucket = U/D path of session.shift(1..3) + open in yday range (low/mid/high); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^gap_seq3_open3_seasonality$",
+    lambda m: (
+        "bucket = gap3(gap.shift(2)) + gap3(gap.shift(1)) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^gap_trap_open_seasonality$",
+    lambda m: (
+        "bucket = sign(gap.shift(1)) + sign(session.shift(1)) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^streak_crash_open_seasonality$",
+    lambda m: (
+        "bucket = streak.shift(2) as up3/down3/other + (session.shift(1) < -2 ATR) "
+        "+ gap3(open); session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^multi_crash_bounce_open_seasonality$",
+    lambda m: (
+        "bucket = (last 4 sessions all down?) + (|session.shift(1)| > 2.5 ATR) "
+        "+ gap5(open); session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
 
 
 def describe_computation(name: str) -> str:

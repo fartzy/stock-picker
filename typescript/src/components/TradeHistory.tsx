@@ -19,7 +19,6 @@ function formatTime(executedAt: string): string {
     timeZone: TRADE_TIMEZONE,
     hour: "numeric",
     minute: "2-digit",
-    second: "2-digit",
   });
 }
 
@@ -31,14 +30,27 @@ function formatDay(day: string): string {
   });
 }
 
+function sessionDay(executedAt: string): string {
+  return new Date(executedAt).toLocaleDateString("en-CA", { timeZone: TRADE_TIMEZONE });
+}
+
+function formatStamp(executedAt: string, relativeToDay?: string): string {
+  const time = `${formatTime(executedAt)} ET`;
+  if (!relativeToDay || sessionDay(executedAt) === relativeToDay) return time;
+  const when = new Date(executedAt).toLocaleDateString("en-US", {
+    timeZone: TRADE_TIMEZONE,
+    month: "short",
+    day: "numeric",
+  });
+  return `${when} ${time}`;
+}
+
 interface PositionsSummary {
   invested: number;
   pnl: number;
   hasUnknownPnl: boolean;
 }
 
-// Shared by the grand total and each day-group total -- same aggregation,
-// different slice of positions.
 function summarizePositions(positions: Position[]): PositionsSummary {
   return {
     invested: positions.reduce((sum, p) => sum + p.invested, 0),
@@ -47,8 +59,6 @@ function summarizePositions(positions: Position[]): PositionsSummary {
   };
 }
 
-// One component for every "X vs Y" diff shown in this table (the gap, and
-// P&L) -- same arrow/color/format logic each time, just different values.
 function SummaryLine({ label, summary }: { label: string; summary: PositionsSummary }) {
   const { invested, pnl, hasUnknownPnl } = summary;
   return (
@@ -60,37 +70,7 @@ function SummaryLine({ label, summary }: { label: string; summary: PositionsSumm
   );
 }
 
-function DayOpenCell({ position }: { position: Position }) {
-  return (
-    <td className="trade-num">
-      <div>{position.day_open !== null ? formatUsd(position.day_open) : "--"}</div>
-      {position.gap !== null && (
-        <div className="muted">
-          vs close <Diff value={position.gap} pct={position.gap_pct} />
-        </div>
-      )}
-    </td>
-  );
-}
-
-function ExitCell({ position }: { position: Position }) {
-  if (position.closed) {
-    return (
-      <td>
-        <div>Sold {formatTime(position.sell_time!)} ET</div>
-        <div className="trade-num">{formatUsd(position.sell_price!)}</div>
-      </td>
-    );
-  }
-  return (
-    <td>
-      <div className="muted">Open position</div>
-      <div className="trade-num">{position.current_price !== null ? formatUsd(position.current_price) : "--"}</div>
-    </td>
-  );
-}
-
-function PnlCell({ position }: { position: Position }) {
+function PnlCell({ position, caption }: { position: Position; caption: string }) {
   return (
     <td className="trade-num">
       <div>
@@ -100,34 +80,47 @@ function PnlCell({ position }: { position: Position }) {
           "--"
         )}
       </div>
-      <div className="muted">{position.closed ? "realized" : "if sold now"}</div>
+      <div className="muted">{caption}</div>
     </td>
   );
 }
 
-function PositionRow({ position }: { position: Position }) {
+function OpenRow({ position }: { position: Position }) {
   return (
     <tr>
       <td className="trade-ticker">{position.ticker}</td>
       <td className="trade-num">{position.shares}</td>
-      <td className="trade-time">
-        {position.buy_time !== null ? `${formatTime(position.buy_time)} ET` : "--"}
-      </td>
-      <td className="trade-num">
-        {position.buy_price !== null ? formatUsd(position.buy_price) : "--"}
-      </td>
-      <DayOpenCell position={position} />
-      <ExitCell position={position} />
-      <PnlCell position={position} />
+      <td className="trade-time">{position.buy_time ? `${formatTime(position.buy_time)} ET` : "--"}</td>
+      <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
+      <td className="trade-num">{position.current_price !== null ? formatUsd(position.current_price) : "--"}</td>
+      <PnlCell position={position} caption="unrealized" />
       <td className="trade-num">{formatUsd(position.invested)}</td>
     </tr>
   );
 }
 
-const POSITION_TABLE_COLUMNS = ["Ticker", "Shares", "Bought At", "Buy Price", "Day Open", "Exit", "P&L", "Invested"];
+function ClosedRow({ position }: { position: Position }) {
+  return (
+    <tr>
+      <td className="trade-ticker">{position.ticker}</td>
+      <td className="trade-num">{position.shares}</td>
+      <td className="trade-time">{position.buy_time ? formatStamp(position.buy_time, position.day) : "--"}</td>
+      <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
+      <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
+      <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
+      <PnlCell position={position} caption="realized" />
+      <td className="trade-num">{formatUsd(position.invested)}</td>
+    </tr>
+  );
+}
 
-// A quick eyeball gut-check against the market -- a good-looking day's P&L%
-// means less if SPY was up just as much (or more) that same day.
+const OPEN_COLUMNS = ["Ticker", "Shares", "Bought", "Buy Price", "Last", "P&L", "Invested"];
+const CLOSED_COLUMNS = ["Ticker", "Shares", "Bought", "Buy Price", "Sold", "Sell Price", "P&L", "Invested"];
+
+function columnClass(column: string): string | undefined {
+  return column === "Ticker" || column === "Bought" || column === "Sold" ? undefined : "trade-num";
+}
+
 function BenchmarkNote({ benchmarkReturn }: { benchmarkReturn: number | undefined }) {
   if (benchmarkReturn === undefined) return null;
   const isUp = benchmarkReturn >= 0;
@@ -142,23 +135,35 @@ function BenchmarkNote({ benchmarkReturn }: { benchmarkReturn: number | undefine
   );
 }
 
-function DayGroup({
+function ClosedDayGroup({
   day,
   positions,
   benchmarkReturn,
+  expanded,
+  onToggle,
 }: {
   day: string;
   positions: Position[];
   benchmarkReturn: number | undefined;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
   const summary = summarizePositions(positions);
-
   return (
-    <details className="view-card" open>
+    <details
+      className="view-card"
+      open={expanded}
+      onToggle={(event) => {
+        if ((event.currentTarget as HTMLDetailsElement).open !== expanded) onToggle();
+      }}
+    >
       <summary>
         <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>{" "}
         <span className="view-meta">
-          <SummaryLine label={`${positions.length} position${positions.length === 1 ? "" : "s"}`} summary={summary} />
+          <SummaryLine
+            label={`${positions.length} closed lot${positions.length === 1 ? "" : "s"}`}
+            summary={summary}
+          />
           <BenchmarkNote benchmarkReturn={benchmarkReturn} />
         </span>
       </summary>
@@ -166,16 +171,16 @@ function DayGroup({
         <table className="trade-table">
           <thead>
             <tr>
-              {POSITION_TABLE_COLUMNS.map((column) => (
-                <th key={column} className={column === "Ticker" || column === "Bought At" || column === "Exit" ? undefined : "trade-num"}>
+              {CLOSED_COLUMNS.map((column) => (
+                <th key={column} className={columnClass(column)}>
                   {column}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {positions.map((position) => (
-              <PositionRow position={position} key={`${position.ticker}-${position.day}`} />
+            {positions.map((position, index) => (
+              <ClosedRow position={position} key={`${position.ticker}-${position.day}-${index}`} />
             ))}
           </tbody>
         </table>
@@ -184,7 +189,7 @@ function DayGroup({
   );
 }
 
-function groupByDay(positions: Position[]): [string, Position[]][] {
+function groupClosedByDay(positions: Position[]): [string, Position[]][] {
   const byDay = new Map<string, Position[]>();
   for (const position of positions) {
     const group = byDay.get(position.day) ?? [];
@@ -194,14 +199,32 @@ function groupByDay(positions: Position[]): [string, Position[]][] {
   return [...byDay.entries()].sort(([a], [b]) => (a < b ? 1 : -1));
 }
 
+function isUnmatchedSell(position: Position): boolean {
+  return position.closed && position.shares === 0 && position.buy_price === null;
+}
+
 export default function TradeHistory() {
   const [refreshCount, setRefreshCount] = useState(0);
+  const [openNowExpanded, setOpenNowExpanded] = useState(true);
+  const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
     intervalMs: POSITIONS_POLL_INTERVAL_MS,
   });
 
-  const dayGroups = useMemo(() => groupByDay(data?.positions ?? []), [data]);
+  const openPositions = useMemo(
+    () => (data?.positions ?? []).filter((position) => !position.closed && position.shares > 0),
+    [data],
+  );
+  const closedLots = useMemo(
+    () => (data?.positions ?? []).filter((position) => position.closed && !isUnmatchedSell(position)),
+    [data],
+  );
+  const unmatchedSells = useMemo(
+    () => (data?.positions ?? []).filter(isUnmatchedSell),
+    [data],
+  );
+  const dayGroups = useMemo(() => groupClosedByDay(closedLots), [closedLots]);
   const days = useMemo(() => dayGroups.map(([day]) => day), [dayGroups]);
   const { data: benchmarkData } = useFetchData<BenchmarkReturnsResponse>(
     () => (days.length > 0 ? fetchBenchmarkReturns(days) : Promise.resolve({ returns: {} })),
@@ -211,22 +234,92 @@ export default function TradeHistory() {
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading trade history...</p>;
 
-  const positions = data.positions;
-  const showGrandTotal = dayGroups.length > 1; // a single day's total would just repeat that day-group's own total
+  const nothing = openPositions.length === 0 && closedLots.length === 0 && unmatchedSells.length === 0;
 
   return (
     <div>
-      {positions.length > 0 && showGrandTotal && (
-        <div className="summary-line">
-          <SummaryLine label={`${positions.length} positions`} summary={summarizePositions(positions)} />
-        </div>
-      )}
-      {positions.length === 0 ? (
+      {nothing ? (
         <p className="muted">No trades logged yet.</p>
       ) : (
-        dayGroups.map(([day, dayPositions]) => (
-          <DayGroup day={day} positions={dayPositions} benchmarkReturn={benchmarkData?.returns[day]} key={day} />
-        ))
+        <>
+          <details
+            className="view-card"
+            open={openNowExpanded}
+            onToggle={(event) => {
+              setOpenNowExpanded((event.currentTarget as HTMLDetailsElement).open);
+            }}
+          >
+            <summary>
+              <strong style={{ color: "var(--accent)" }}>Open now</strong>{" "}
+              <span className="view-meta">
+                {openPositions.length === 0 ? (
+                  "No open lots"
+                ) : (
+                  <SummaryLine
+                    label={`${openPositions.length} lot${openPositions.length === 1 ? "" : "s"}`}
+                    summary={summarizePositions(openPositions)}
+                  />
+                )}
+              </span>
+            </summary>
+            {openPositions.length === 0 ? (
+              <p className="muted" style={{ marginTop: "var(--space-3)" }}>
+                Nothing left open.
+              </p>
+            ) : (
+              <div style={{ overflowX: "auto", marginTop: "var(--space-3)" }}>
+                <table className="trade-table">
+                  <thead>
+                    <tr>
+                      {OPEN_COLUMNS.map((column) => (
+                        <th key={column} className={columnClass(column)}>
+                          {column}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {openPositions.map((position) => (
+                      <OpenRow position={position} key={`${position.ticker}-open`} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </details>
+
+          {dayGroups.map(([day, dayPositions]) => (
+            <ClosedDayGroup
+              day={day}
+              positions={dayPositions}
+              benchmarkReturn={benchmarkData?.returns[day]}
+              expanded={expandedDays.has(day)}
+              onToggle={() =>
+                setExpandedDays((current) => {
+                  const next = new Set(current);
+                  if (next.has(day)) next.delete(day);
+                  else next.add(day);
+                  return next;
+                })
+              }
+              key={day}
+            />
+          ))}
+
+          {unmatchedSells.length > 0 && (
+            <p className="muted" style={{ marginTop: "var(--space-3)" }}>
+              Sells with no matching buy in the log:{" "}
+              {unmatchedSells
+                .map((position) =>
+                  position.sell_price !== null
+                    ? `${position.ticker} @ ${formatUsd(position.sell_price)}`
+                    : position.ticker,
+                )
+                .join(", ")}
+              .
+            </p>
+          )}
+        </>
       )}
       <AddTradeForm onAdded={() => setRefreshCount((c) => c + 1)} />
     </div>

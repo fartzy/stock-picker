@@ -63,68 +63,138 @@ def trade_history(trades: pd.DataFrame) -> list[dict]:
 
 
 def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[dict]:
-    """One row per (ticker, day): that day's buy(s) and sell(s) for the
-    ticker merged into a single round-trip view, instead of one row per raw
-    transaction.
+    """One row per closed lot plus leftover open shares, walking the log in
+    time so a buy on Monday sold Tuesday is closed -- not an empty "open"
+    row on the sell day.
 
-    day_open/prev_close/current_price come from live quotes, which only ever
-    reflect *today's* session -- correct for same-day positions (the only
-    kind that exist so far); a position dated on a prior day would need a
-    historical lookup (features/price_history.py) instead, not built here
-    since there's no multi-day trade history yet to need it.
+    Open leftover shares are dated on the last buy that added to them.
+    Live quotes only apply to leftover open lots (today's mark); closed lots
+    use fill prices.
     """
     if trades.empty:
         return []
     trades = trades.copy()
-    trades["executed_dt"] = pd.to_datetime(trades["executed_at"])
-    trades["day"] = trades["executed_dt"].dt.date
+    # utc=True is required when the log mixes offsets (EDT -04:00 and CDT
+    # -05:00): naive to_datetime then yields object dtype and .dt blows up.
+    trades["executed_dt"] = pd.to_datetime(trades["executed_at"], utc=True)
+    chronological = trades.sort_values("executed_dt", ascending=True)
 
-    rows = []
-    for (ticker, day), group in trades.groupby(["ticker", "day"]):
-        buys = group[group["side"] == "buy"].sort_values("executed_dt")
-        sells = group[group["side"] == "sell"].sort_values("executed_dt")
+    open_lots: dict[str, dict] = {}
+    rows: list[dict] = []
 
-        buy_shares = float(buys["shares"].sum())
-        buy_cost = float((buys["shares"] * buys["price"]).sum())
-        avg_buy_price = buy_cost / buy_shares if buy_shares else None
+    def _ny_day(timestamp: pd.Timestamp) -> str:
+        return timestamp.tz_convert("America/New_York").date().isoformat()
 
-        sell_shares = float(sells["shares"].sum())
-        sell_proceeds = float((sells["shares"] * sells["price"]).sum())
-        avg_sell_price = sell_proceeds / sell_shares if sell_shares else None
-
+    def _quote_fields(ticker: str) -> dict:
         quote = quotes.get(ticker, {})
-        current_price = quote.get("last")
         day_open = quote.get("open")
         prev_close = quote.get("prev_close")
-        gap = round(day_open - prev_close, NOTIONAL_DECIMAL_PLACES) if day_open is not None and prev_close else None
-        gap_pct = round(gap / prev_close, 4) if gap is not None else None
-        is_closed = buy_shares > 0 and sell_shares >= buy_shares
+        gap = (
+            round(day_open - prev_close, NOTIONAL_DECIMAL_PLACES)
+            if day_open is not None and prev_close
+            else None
+        )
+        return {
+            "day_open": day_open,
+            "prev_close": prev_close,
+            "gap": gap,
+            "gap_pct": round(gap / prev_close, 4) if gap is not None else None,
+            "current_price": quote.get("last"),
+        }
 
-        if is_closed:
-            pnl = round(sell_proceeds - buy_cost, NOTIONAL_DECIMAL_PLACES)
-        elif current_price is not None and buy_shares:
-            pnl = round((current_price - avg_buy_price) * buy_shares, NOTIONAL_DECIMAL_PLACES)
-        else:
-            pnl = None
+    for row in chronological.itertuples():
+        ticker = row.ticker
+        if row.side == "buy":
+            lot = open_lots.get(ticker)
+            if lot is None:
+                open_lots[ticker] = {
+                    "shares": float(row.shares),
+                    "cost": float(row.shares) * float(row.price),
+                    "buy_time": row.executed_at,
+                    "buy_dt": row.executed_dt,
+                }
+            else:
+                lot["shares"] += float(row.shares)
+                lot["cost"] += float(row.shares) * float(row.price)
+                lot["buy_time"] = row.executed_at
+                lot["buy_dt"] = row.executed_dt
+            continue
 
+        lot = open_lots.get(ticker)
+        sell_shares = float(row.shares)
+        if lot is None or lot["shares"] <= 0:
+            quotes_for = _quote_fields(ticker)
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "day": _ny_day(row.executed_dt),
+                    "shares": 0.0,
+                    "invested": 0.0,
+                    "buy_time": None,
+                    "buy_price": None,
+                    **quotes_for,
+                    "sell_time": row.executed_at,
+                    "sell_price": round(float(row.price), NOTIONAL_DECIMAL_PLACES),
+                    "closed": True,
+                    "pnl": None,
+                }
+            )
+            continue
+
+        avg_cost = lot["cost"] / lot["shares"]
+        matched = min(sell_shares, lot["shares"])
+        invested = avg_cost * matched
+        pnl = round((float(row.price) - avg_cost) * matched, NOTIONAL_DECIMAL_PLACES)
         rows.append(
             {
                 "ticker": ticker,
-                "day": day.isoformat(),
-                "shares": buy_shares,
-                "invested": round(buy_cost, NOTIONAL_DECIMAL_PLACES),
-                "buy_time": buys["executed_at"].iloc[0] if not buys.empty else None,
-                "buy_price": round(avg_buy_price, NOTIONAL_DECIMAL_PLACES) if avg_buy_price is not None else None,
-                "day_open": day_open,
-                "prev_close": prev_close,
-                "gap": gap,
-                "gap_pct": gap_pct,
-                "sell_time": sells["executed_at"].iloc[-1] if not sells.empty else None,
-                "sell_price": round(avg_sell_price, NOTIONAL_DECIMAL_PLACES) if avg_sell_price is not None else None,
-                "current_price": current_price,
-                "closed": is_closed,
+                "day": _ny_day(row.executed_dt),
+                "shares": matched,
+                "invested": round(invested, NOTIONAL_DECIMAL_PLACES),
+                "buy_time": lot["buy_time"],
+                "buy_price": round(avg_cost, NOTIONAL_DECIMAL_PLACES),
+                "day_open": None,
+                "prev_close": None,
+                "gap": None,
+                "gap_pct": None,
+                "sell_time": row.executed_at,
+                "sell_price": round(float(row.price), NOTIONAL_DECIMAL_PLACES),
+                "current_price": None,
+                "closed": True,
                 "pnl": pnl,
             }
         )
+        lot["shares"] -= matched
+        lot["cost"] -= invested
+        if lot["shares"] <= 1e-9:
+            open_lots.pop(ticker, None)
+
+    for ticker, lot in open_lots.items():
+        if lot["shares"] <= 1e-9:
+            continue
+        avg_buy = lot["cost"] / lot["shares"]
+        quotes_for = _quote_fields(ticker)
+        current = quotes_for["current_price"]
+        pnl = (
+            round((current - avg_buy) * lot["shares"], NOTIONAL_DECIMAL_PLACES)
+            if current is not None
+            else None
+        )
+        rows.append(
+            {
+                "ticker": ticker,
+                "day": _ny_day(lot["buy_dt"]),
+                "shares": lot["shares"],
+                "invested": round(lot["cost"], NOTIONAL_DECIMAL_PLACES),
+                "buy_time": lot["buy_time"],
+                "buy_price": round(avg_buy, NOTIONAL_DECIMAL_PLACES),
+                **quotes_for,
+                "sell_time": None,
+                "sell_price": None,
+                "closed": False,
+                "pnl": pnl,
+            }
+        )
+
     rows.sort(key=lambda r: (r["day"], r["ticker"]), reverse=True)
     return rows

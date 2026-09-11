@@ -294,6 +294,181 @@ _pattern(
         "(not yet populated; sector labels aren't persisted)."
     ),
 )
+_pattern(
+    r"^seq(\d+)_open(\d+)_seasonality$",
+    lambda m: (
+        f"Average historical day-session return for prior times this ticker had this "
+        f"exact {m[1]}-day up/down path of completed sessions and this morning's "
+        f"{m[2]}-way overnight-gap bucket (known at the open)."
+    ),
+)
+_pattern(
+    r"^streak_open(\d+)_seasonality$",
+    lambda m: (
+        f"Average historical day-session return for prior times this ticker was on "
+        f"this capped day-session streak and this morning's {m[1]}-way overnight-gap "
+        "bucket (known at the open)."
+    ),
+)
+_pattern(
+    r"^flips_(\d+)d_open3_seasonality$",
+    lambda m: (
+        f"Average historical day-session return for prior times this ticker had this "
+        f"count of direction changes over the last {m[1]} completed days, this last-day "
+        "direction, and this morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^late_reversal_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times yesterday reversed the "
+        "3-day majority direction (or didn't) and this morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^continuation_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the last 3 completed "
+        "sessions were all the same direction (or mixed), plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^yday_swing_open5_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times yesterday's session was "
+        "big-down/down/up/big-up vs this ticker's own 20d vol, plus this morning's 5-way "
+        "gap including way-low/way-high (known at the open)."
+    ),
+)
+_pattern(
+    r"^two_day_swing_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times t-2 and t-1 were each "
+        "small or large vs own vol, plus yesterday's direction and this morning's 3-way "
+        "gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^big_down_run_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times this ticker had 0/1/2+ "
+        "consecutive large down completed days, plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^net3_swing_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the 3-day net move was "
+        "down/flat/up, that window was quiet/normal/wild vs own vol, and this morning's "
+        "3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^wildest_3d_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the biggest |day| in the "
+        "last 3 completed sessions was quiet/normal/wild vs own 20d vol, plus this "
+        "morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^vol_path_open(\d+)_seasonality$",
+    lambda m: (
+        f"Average historical day-session return for prior times 3d realized vol was "
+        f"expanding or contracting, yesterday's vol was expanding or contracting, and "
+        f"this morning's {m[1]}-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^yday_range_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times yesterday's high-low "
+        "range was narrow/normal/wide vs ATR, plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^vol_regime_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times 20d realized vol was "
+        "low/mid/high vs its own 60d median, plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^seq3_volpath_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the last 3 completed "
+        "sessions' net direction, the 3d/yesterday vol path, and this morning's 3-way "
+        "gap all matched (known at the open)."
+    ),
+)
+_pattern(
+    r"^swing_volpath_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times yesterday was a big "
+        "swing vs own vol (or not), combined with the 3d/yesterday vol path and this "
+        "morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^streak_vol_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the completed-day "
+        "streak sign, 3d vol expanding/contracting, and this morning's 3-way gap "
+        "all matched (known at the open)."
+    ),
+)
+_pattern(
+    r"^open_in_yday_range_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times today's open sat in "
+        "the same place vs yesterday's high/low (below / lower third / mid / upper "
+        "third / above), known at the open."
+    ),
+)
+_pattern(
+    r"^seq3_openloc_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times this ticker had this "
+        "exact 3-day up/down path of completed sessions and today's open in the "
+        "low/mid/high of yesterday's range (known at the open)."
+    ),
+)
+_pattern(
+    r"^gap_seq3_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the overnight-gap "
+        "directions of t-2, t-1, and this morning all matched this 3-way path "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^gap_trap_open_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times yesterday gapped "
+        "up or down, then closed the opposite way or the same way, and this morning "
+        "gapped down/flat/up (known at the open)."
+    ),
+)
+_pattern(
+    r"^streak_crash_open_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times a 3-day session "
+        "streak led into yesterday, yesterday was or wasn't a >2 ATR crash, and "
+        "this morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^multi_crash_bounce_open_seasonality$",
+    lambda m: (
+        "Average historical day-session return for prior times the last 4 completed "
+        "sessions were all down (or not), yesterday was or wasn't a >2.5 ATR move, "
+        "and this morning's 5-way gap (known at the open)."
+    ),
+)
 
 
 def describe_feature(name: str) -> str:

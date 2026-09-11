@@ -269,6 +269,161 @@ _pattern(
     r"^sector_relative_return$",
     lambda m: "Not yet populated -- sector labels aren't persisted, so there's no peer group to compare against yet.",
 )
+_pattern(
+    r"^seq(\d+)_open(\d+)_seasonality$",
+    lambda m: (
+        f"Last {m[1]} completed days were down-down-up, this morning gapped down: "
+        "other times that path + gap happened, the session averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^streak_open(\d+)_seasonality$",
+    lambda m: (
+        "On a -3 day-session streak and this morning gapped down: other times that "
+        "streak + gap happened, the session averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^flips_(\d+)d_open3_seasonality$",
+    lambda m: (
+        f"Two direction changes in the last {m[1]} completed days, yesterday down, "
+        "this morning gapped up: other times that shape + gap happened, averaged +0.2% → ≈ 0.002."
+    ),
+)
+_pattern(
+    r"^late_reversal_open3_seasonality$",
+    lambda m: (
+        "Yesterday reversed a 3-day up run and this morning gapped down: other times "
+        "that reversal + gap happened, averaged +0.5% → ≈ 0.005."
+    ),
+)
+_pattern(
+    r"^continuation_open3_seasonality$",
+    lambda m: (
+        "Three straight up completed days and this morning gapped up: other times "
+        "that continuation + gap happened, averaged -0.2% → ≈ -0.002."
+    ),
+)
+_pattern(
+    r"^yday_swing_open5_seasonality$",
+    lambda m: (
+        "Yesterday was a big down day vs own vol and this morning opened way low: "
+        "other times that swing + gap happened, averaged +0.6% → ≈ 0.006."
+    ),
+)
+_pattern(
+    r"^two_day_swing_open3_seasonality$",
+    lambda m: (
+        "t-2 was a small day, yesterday a large down day, this morning gapped down: "
+        "other times that pair + gap happened, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^big_down_run_open3_seasonality$",
+    lambda m: (
+        "Two consecutive large down days then this morning gapped down: other times "
+        "that run + gap happened, averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^net3_swing_open3_seasonality$",
+    lambda m: (
+        "Last 3 days net down and wild vs own vol, this morning gapped down: other "
+        "times that net + wildness + gap happened, averaged +0.5% → ≈ 0.005."
+    ),
+)
+_pattern(
+    r"^wildest_3d_open3_seasonality$",
+    lambda m: (
+        "The wildest of the last 3 completed days was 2x own vol, this morning "
+        "gapped down: other times that wildness + gap happened, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^vol_path_open(\d+)_seasonality$",
+    lambda m: (
+        "Vol expanded over 3 days, contracted yesterday, this morning gapped down: "
+        "other times that vol path + gap happened, averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^yday_range_open3_seasonality$",
+    lambda m: (
+        "Yesterday's range was wide vs ATR and this morning gapped down: other times "
+        "that range + gap happened, averaged +0.2% → ≈ 0.002."
+    ),
+)
+_pattern(
+    r"^vol_regime_open3_seasonality$",
+    lambda m: (
+        "20d vol is high vs its own 60d median and this morning gapped down: other "
+        "times that regime + gap happened, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^seq3_volpath_open3_seasonality$",
+    lambda m: (
+        "Last 3 days net down, vol expanding then quieter yesterday, this morning "
+        "gapped down: other times that mix happened, averaged +0.5% → ≈ 0.005."
+    ),
+)
+_pattern(
+    r"^swing_volpath_open3_seasonality$",
+    lambda m: (
+        "Yesterday was a big swing, vol expanding then quieter yesterday, this "
+        "morning gapped down: other times that mix happened, averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^streak_vol_open3_seasonality$",
+    lambda m: (
+        "On a down streak, 3d vol expanding, this morning gapped down: other times "
+        "that mix happened, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^open_in_yday_range_seasonality$",
+    lambda m: (
+        "Opened below yesterday's low: other times this ticker opened there, the "
+        "session averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^seq3_openloc_seasonality$",
+    lambda m: (
+        "Last 3 completed days were down-down-up and today's open is in the lower "
+        "third of yesterday's range: other times that path + location happened, "
+        "averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^gap_seq3_open3_seasonality$",
+    lambda m: (
+        "Gapped up two mornings ago, up yesterday, down this morning: other times "
+        "that gap path happened, the session averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^gap_trap_open_seasonality$",
+    lambda m: (
+        "Yesterday gapped up then closed down, this morning gapped down: other times "
+        "that trap + gap happened, averaged +0.5% → ≈ 0.005."
+    ),
+)
+_pattern(
+    r"^streak_crash_open_seasonality$",
+    lambda m: (
+        "Three up sessions into yesterday, yesterday crashed >2 ATR, this morning "
+        "gapped up: other times that streak + crash + gap happened, averaged +0.6% → ≈ 0.006."
+    ),
+)
+_pattern(
+    r"^multi_crash_bounce_open_seasonality$",
+    lambda m: (
+        "Four down sessions, yesterday an extreme ATR move, this morning gapped up: "
+        "other times that path + bounce happened, averaged +0.5% → ≈ 0.005."
+    ),
+)
 
 
 def feature_example(name: str) -> str:

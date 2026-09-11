@@ -17,6 +17,26 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_morning_cache",
+    srcs = ["test_morning_cache.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+    ],
+)
+
+py_pytest(
+    name = "test_freshness",
+    srcs = ["test_freshness.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_dataset",
     srcs = ["test_dataset.py"],
     imports = ["../../.."],
@@ -63,6 +83,8 @@ py_pytest(
     srcs = ["test_inference.py"],
     imports = ["../../.."],
     deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/features/tests:fixtures",
         "//python/stock_picker/training",
         "@pypi//pandas",
     ],
