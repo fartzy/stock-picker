@@ -10,6 +10,7 @@ LOG="$LOG_DIR/nightly.log"
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 cd "$ROOT"
+export BUILD_WORKING_DIRECTORY="$ROOT"
 
 {
   echo "===== $(date '+%Y-%m-%d %H:%M:%S %Z') ====="

@@ -21,6 +21,9 @@ from stock_picker.training.freshness import pipeline_freshness
 
 print = functools.partial(print, flush=True)
 
+# Same data_root() as prices/features/models -- repo/data/buy_signals, not a
+# bazel sandbox and not /tmp. morning.sh cds to the repo and bazel run sets
+# BUILD_WORKING_DIRECTORY to that checkout.
 DEFAULT_SIGNAL_DIR = data_root() / "buy_signals"
 # 8:32 CT is 9:32 ET -- liquid names usually have an official open. One
 # retry a minute later fills names that hadn't printed yet (NYSE auction lag).
