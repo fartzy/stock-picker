@@ -17,7 +17,9 @@ solo LightGBM by default, FastAPI + React, a real trade log with P&L.
 - **Jobs** (Mac must be awake): **3:30 PM Chicago** weekdays refresh
   prices, rebuild features through the last completed session, and fully
   retrain. **8:32 AM Chicago** weekdays score today’s opens into
-  `data/buy_signals/`. The Trading tab loads that file on click.
+  `data/buy_signals/` and emails the top 20 if
+  `~/.config/api/notify-email.txt` (or `STOCK_PICKER_NOTIFY_EMAIL`) is set.
+  The Trading tab loads that file on click.
 
 Price, feature, and model data is **tracked in git** so a fresh clone
 already runs. Regenerating it rewrites large parquet blobs.
@@ -185,7 +187,7 @@ as `com.stockpicker.nightly` and `com.stockpicker.morning`.
 | When | What |
 |---|---|
 | Weekdays 3:30 PM Chicago | Prices → features through last completed session → full retrain |
-| Weekdays 8:32 AM Chicago | Score today’s dated opens → `data/buy_signals/{date}.json` and `latest.json` |
+| Weekdays 8:32 AM Chicago | Score today’s dated opens → `data/buy_signals/{date}.json` and `latest.json`; email top 20 |
 
 The Mac has to be on. Logs: `~/Library/Logs/stock-picker/`.
 

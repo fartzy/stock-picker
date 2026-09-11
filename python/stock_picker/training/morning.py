@@ -18,6 +18,7 @@ from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.storage.paths import data_root
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.freshness import pipeline_freshness
+from stock_picker.training.notify import format_not_ready_email, format_picks_email, send_email
 
 print = functools.partial(print, flush=True)
 
@@ -99,6 +100,8 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
     print(freshness.detail)
     if not freshness.ready_for_inference:
         print("skipping score -- pipeline not current enough")
+        subject, body = format_not_ready_email(freshness.as_of, freshness.detail)
+        print(f"emailed={send_email(subject, body)}")
         return 1
     result = compute_buy_signals(
         threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
@@ -112,7 +115,9 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
         )
     payload = _payload_from(result, freshness)
     path = _write_signals(payload, result.as_of)
-    print(f"scored={result.scored_count} picks={len(result.signals)} wrote {path}")
+    subject, body = format_picks_email(payload)
+    mailed = send_email(subject, body)
+    print(f"scored={result.scored_count} picks={len(result.signals)} wrote {path} emailed={mailed}")
     print(f"morning done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
     return 0
 

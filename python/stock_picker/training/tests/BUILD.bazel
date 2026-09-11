@@ -17,6 +17,15 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_notify",
+    srcs = ["test_notify.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+    ],
+)
+
+py_pytest(
     name = "test_morning_cache",
     srcs = ["test_morning_cache.py"],
     imports = ["../../.."],
