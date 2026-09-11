@@ -1,4 +1,9 @@
-from stock_picker.training.notify import format_not_ready_email, format_picks_email, notify_address
+from stock_picker.training.notify import (
+    format_not_ready_email,
+    format_picks_email,
+    notify_address,
+    write_picks_files,
+)
 
 
 def test_notify_address_reads_a_bare_email_file(tmp_path, monkeypatch):
@@ -41,3 +46,12 @@ def test_format_not_ready_email():
 
     assert "not ready" in subject
     assert "model trained through Monday" in body
+
+
+def test_write_picks_files_partitions_by_date_and_updates_latest(tmp_path):
+    body = "FLY  1.82%\n"
+    dated = write_picks_files("2026-09-11", body, root=tmp_path)
+
+    assert dated == tmp_path / "picks" / "2026" / "09" / "11.txt"
+    assert dated.read_text() == body
+    assert (tmp_path / "picks" / "latest.txt").read_text() == body

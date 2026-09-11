@@ -1,9 +1,8 @@
-"""Email this morning's pick list (or a not-ready warning).
+"""Publish this morning's pick list where we can actually reach it.
 
-Recipient, first hit wins: STOCK_PICKER_NOTIFY_EMAIL, then
-~/.config/api/notify-email.txt (one address, not in git). Sends via
-/usr/bin/mail; if that isn't configured, Mail.app via osascript.
-A missing address is a no-op -- the JSON cache still writes.
+Primary: a plain-text file under picks/YYYY/MM/DD.txt plus picks/latest.txt,
+committed and pushed so it opens in the GitHub app. Email is optional and
+often stuck in local postfix -- do not rely on it.
 """
 
 from __future__ import annotations
@@ -15,6 +14,7 @@ from pathlib import Path
 NOTIFY_EMAIL_ENV = "STOCK_PICKER_NOTIFY_EMAIL"
 NOTIFY_EMAIL_FILE = Path.home() / ".config" / "api" / "notify-email.txt"
 TOP_N = 20
+PICKS_DIR_NAME = "picks"
 
 
 def notify_address(key_file: Path | None = None) -> str | None:
@@ -59,6 +59,67 @@ def format_picks_email(payload: dict) -> tuple[str, str]:
         f"stockpicker {as_of}: {len(signals)} picks" if signals else f"stockpicker {as_of}: no picks"
     )
     return subject, "\n".join(lines).strip() + "\n"
+
+
+def repo_root() -> Path:
+    return Path(os.environ.get("BUILD_WORKING_DIRECTORY", Path.cwd()))
+
+
+def picks_paths(as_of: str, root: Path | None = None) -> tuple[Path, Path]:
+    """Partitioned file plus a one-tap latest.txt for the GitHub app."""
+    base = (root or repo_root()) / PICKS_DIR_NAME
+    year, month, day = as_of.split("-", 2)
+    return base / year / month / f"{day}.txt", base / "latest.txt"
+
+
+def write_picks_files(as_of: str, body: str, root: Path | None = None) -> Path:
+    dated, latest = picks_paths(as_of, root)
+    dated.parent.mkdir(parents=True, exist_ok=True)
+    dated.write_text(body)
+    latest.write_text(body)
+    return dated
+
+
+def publish_picks(as_of: str, body: str, root: Path | None = None) -> bool:
+    """Write picks/ and push only that path. Other dirty files stay unstaged."""
+    checkout = root or repo_root()
+    dated = write_picks_files(as_of, body, checkout)
+    picks = checkout / PICKS_DIR_NAME
+    add = subprocess.run(
+        ["git", "-C", str(checkout), "add", "--", "picks"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    if add.returncode != 0:
+        return False
+    status = subprocess.run(
+        ["git", "-C", str(checkout), "status", "--porcelain", "--", str(picks)],
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=False,
+    )
+    if not status.stdout.strip():
+        return True
+    commit = subprocess.run(
+        ["git", "-C", str(checkout), "commit", "-m", f"Morning picks {as_of}"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    if commit.returncode != 0:
+        return False
+    pushed = subprocess.run(
+        ["git", "-C", str(checkout), "push", "origin", "HEAD"],
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    return pushed.returncode == 0
 
 
 def format_not_ready_email(as_of: str, detail: str) -> tuple[str, str]:
