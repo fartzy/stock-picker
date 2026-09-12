@@ -18,7 +18,7 @@ from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
-OPEN_KNOWN_FEATURE_COLUMNS = frozenset({GAP_COLUMN, *OPEN_KNOWN_COLUMNS})
+OPEN_KNOWN_FEATURE_COLUMNS = frozenset({GAP_COLUMN, "spy_overnight_gap", *OPEN_KNOWN_COLUMNS})
 
 
 def day_session_return(history: pd.DataFrame) -> pd.Series:

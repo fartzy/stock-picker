@@ -27,11 +27,16 @@ def run_nightly() -> int:
     cutoff = last_completed_session_date()
     print(f"nightly start {started.isoformat()} last_completed_session={cutoff}")
     try:
-        print("=== 1/3 refresh prices ===")
+        print("=== 1/4 refresh prices ===")
         refresh_prices()
-        print("=== 2/3 rebuild features ===")
+        print("=== 2/4 fill missing sectors (capped Yahoo profile pull) ===")
+        from stock_picker.ingestion.fundamentals import refresh_missing_sectors
+
+        n_sectors = refresh_missing_sectors()
+        print(f"wrote sectors for {n_sectors} tickers")
+        print("=== 3/4 rebuild features ===")
         rebuild_features()
-        print("=== 3/3 retrain ===")
+        print("=== 4/4 retrain ===")
         summary = run_training()
         print(f"holdout={summary.holdout_metrics}")
         if summary.threshold_sweep:

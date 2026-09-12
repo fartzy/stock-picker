@@ -267,7 +267,15 @@ _pattern(
 )
 _pattern(
     r"^sector_relative_return$",
-    lambda m: "Not yet populated -- sector labels aren't persisted, so there's no peer group to compare against yet.",
+    lambda m: "Tech names averaged +0.4% while this ticker returned +1.2% → sector_relative_return ≈ +0.008.",
+)
+_pattern(
+    r"^spy_overnight_gap$",
+    lambda m: "SPY closed 500, opened 505 → spy_overnight_gap = 0.01.",
+)
+_pattern(
+    r"^vix_close$",
+    lambda m: "VIX settled at 18.4 yesterday → vix_close ≈ 18.4 on every name.",
 )
 _pattern(
     r"^seq(\d+)_open(\d+)_seasonality$",

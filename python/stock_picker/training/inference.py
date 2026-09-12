@@ -41,6 +41,8 @@ def build_inference_row(
     snapshot_date: date,
     as_of_date: date,
     prior_history: pd.DataFrame | None = None,
+    spy_open: float | None = None,
+    spy_prev_close: float | None = None,
 ) -> pd.DataFrame:
     """A single-row DataFrame ready to feed to a trained ensemble's `predict_ensemble`.
 
@@ -59,6 +61,8 @@ def build_inference_row(
     gap = compute_overnight_gap(today_open, yesterday_close)
     row = prior_day_features.copy()
     row[GAP_COLUMN] = gap
+    if spy_open is not None and spy_prev_close and spy_prev_close > 0 and "spy_overnight_gap" in row.index:
+        row["spy_overnight_gap"] = (spy_open - spy_prev_close) / spy_prev_close
     if prior_history is not None and not prior_history.empty:
         open_known = open_known_feature_row(prior_history, today_open)
         for column in OPEN_KNOWN_COLUMNS:

@@ -291,8 +291,19 @@ _pattern(
     r"^sector_relative_return$",
     lambda m: (
         "Return relative to the average return of same-sector peers "
-        "(not yet populated; sector labels aren't persisted)."
+        "(Yahoo sector label on UniverseStore; empty until fundamentals refresh)."
     ),
+)
+_pattern(
+    r"^spy_overnight_gap$",
+    lambda m: (
+        "SPY's overnight gap this morning (today's open vs yesterday's close). "
+        "Same value on every ticker; known at the cash open."
+    ),
+)
+_pattern(
+    r"^vix_close$",
+    lambda m: "Prior-session VIX close, broadcast onto every ticker as a fear/regime level.",
 )
 _pattern(
     r"^seq(\d+)_open(\d+)_seasonality$",

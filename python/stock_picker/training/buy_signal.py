@@ -113,6 +113,15 @@ def compute_buy_signals(
         quotes = quote_fetcher(tickers, as_of=as_of)
     except TypeError:
         quotes = quote_fetcher(tickers)
+    spy_quote = quotes.get("SPY")
+    if spy_quote is None:
+        try:
+            spy_only = quote_fetcher(["SPY"], as_of=as_of)
+        except TypeError:
+            spy_only = quote_fetcher(["SPY"])
+        spy_quote = spy_only.get("SPY")
+    spy_open = spy_quote.get("open") if spy_quote else None
+    spy_prev_close = spy_quote.get("prev_close") if spy_quote else None
 
     earnings: set[str] = set()
     if earnings_fetcher is not None:
@@ -165,6 +174,8 @@ def compute_buy_signals(
                 snapshot_date=snapshot_date,
                 as_of_date=as_of,
                 prior_history=prior_history,
+                spy_open=spy_open,
+                spy_prev_close=spy_prev_close,
             )
         except StaleFeatureSnapshotError as exc:
             skipped.append({"ticker": ticker, "reason": str(exc)})

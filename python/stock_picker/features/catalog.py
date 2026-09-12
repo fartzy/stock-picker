@@ -18,6 +18,7 @@ from stock_picker.features import (
     open_pattern_seasonality,
     oscillators,
     pattern_seasonality,
+    regime,
     trend,
     volatility,
     volume,
@@ -38,6 +39,13 @@ _SINGLE_TICKER_BUILDERS = {
     "pattern_seasonality": pattern_seasonality.build_pattern_features,
     "open_pattern_seasonality": open_pattern_seasonality.build_open_pattern_features,
 }
+
+
+def _regime_columns(sample_history: pd.DataFrame) -> list[str]:
+    features = regime.build_regime_features(
+        sample_history.index, spy_history=sample_history, vix_history=sample_history
+    )
+    return list(features.columns)
 
 
 def _conditional_seasonality_columns(sample_history: pd.DataFrame) -> list[str]:
@@ -75,6 +83,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     }
     columns["conditional_seasonality"] = _conditional_seasonality_columns(sample_history)
     columns["cross_sectional"] = _cross_sectional_columns(sample_history)
+    columns["regime"] = _regime_columns(sample_history)
     return columns
 
 
