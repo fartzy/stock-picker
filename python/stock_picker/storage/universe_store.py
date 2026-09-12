@@ -20,7 +20,7 @@ from stock_picker.storage.paths import data_root
 
 DEFAULT_DATA_DIR = data_root() / "universe"
 
-_COLUMNS = ["source", "first_seen", "last_seen", "active"]
+_COLUMNS = ["source", "first_seen", "last_seen", "active", "sector"]
 
 
 class UniverseStore:
@@ -47,12 +47,14 @@ class UniverseStore:
         """
         today = (as_of or date.today()).isoformat()
         registry = self._load()
+        if "sector" not in registry.columns:
+            registry["sector"] = pd.NA
 
         for ticker, source in current_tickers.items():
             if ticker in registry.index:
                 registry.loc[ticker, ["last_seen", "active"]] = [today, True]
             else:
-                registry.loc[ticker] = [source, today, today, True]
+                registry.loc[ticker] = [source, today, today, True, pd.NA]
 
         registry.to_parquet(self._path, index=True)
         return registry.reset_index(names="ticker")
@@ -65,3 +67,23 @@ class UniverseStore:
 
     def all_tickers(self) -> pd.DataFrame:
         return self._load().reset_index(names="ticker")
+
+    def sector_by_ticker(self) -> dict[str, str]:
+        """Active names with a persisted sector label. Empty until
+        ingestion/fundamentals.py has filled the registry."""
+        registry = self._load()
+        if registry.empty or "sector" not in registry.columns:
+            return {}
+        active = registry[registry["active"]]
+        labeled = active["sector"].dropna()
+        labeled = labeled[labeled.astype(str).str.len() > 0]
+        return labeled.astype(str).to_dict()
+
+    def write_sectors(self, sectors: dict[str, str]) -> None:
+        registry = self._load()
+        if "sector" not in registry.columns:
+            registry["sector"] = pd.NA
+        for ticker, sector in sectors.items():
+            if ticker in registry.index and sector:
+                registry.loc[ticker, "sector"] = sector
+        registry.to_parquet(self._path, index=True)

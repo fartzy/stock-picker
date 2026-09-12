@@ -63,6 +63,17 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_regime",
+    srcs = ["test_regime.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_cross_sectional",
     srcs = ["test_cross_sectional.py"],
     imports = ["../../.."],

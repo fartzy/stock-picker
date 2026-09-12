@@ -213,8 +213,9 @@ completed close before features/training see them.
   pull is still a vendor risk, not a silent `.iloc[-1]` bug.
 - Polygon’s Default/Starter key 403s on the live snapshot — Yahoo is the
   real bulk open path until the key is entitled.
-- `sector_relative_return` is in the catalog but empty — no sector labels
-  on disk.
+- `sector_relative_return` fills once Yahoo sectors are on UniverseStore
+  (`bazelisk run //python/stock_picker/ingestion:fundamentals`; nightly
+  fills a capped batch of missing names).
 
 **Guarded (do not treat as open bugs)**
 

@@ -21,6 +21,15 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_fundamentals",
+    srcs = ["test_fundamentals.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/ingestion",
+    ],
+)
+
+py_pytest(
     name = "test_session",
     srcs = ["test_session.py"],
     imports = ["../../.."],

@@ -55,3 +55,12 @@ def test_all_tickers_includes_full_history(tmp_path):
 
     all_tickers = set(store.all_tickers()["ticker"])
     assert all_tickers == {"AAPL", "MSFT"}
+
+
+def test_write_sectors_and_sector_by_ticker(tmp_path):
+    store = UniverseStore(data_dir=tmp_path)
+    store.sync({"AAPL": "market_cap", "MSFT": "market_cap"}, as_of=date(2026, 1, 1))
+
+    store.write_sectors({"AAPL": "Technology"})
+
+    assert store.sector_by_ticker() == {"AAPL": "Technology"}

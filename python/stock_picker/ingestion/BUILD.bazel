@@ -4,6 +4,7 @@ py_library(
     name = "ingestion",
     srcs = [
         "finnhub_client.py",
+        "fundamentals.py",
         "main.py",
         "polygon_client.py",
         "refresh_prices.py",
@@ -17,6 +18,18 @@ py_library(
         "//python/stock_picker/tickers",
         "@pypi//pandas",
         "@pypi//requests",
+        "@pypi//yfinance",
+    ],
+)
+
+py_binary(
+    name = "fundamentals",
+    srcs = ["fundamentals.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":ingestion",
+        "//python/stock_picker/storage",
         "@pypi//yfinance",
     ],
 )

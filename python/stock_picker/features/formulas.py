@@ -184,6 +184,8 @@ _pattern(
     r"^sector_relative_return$",
     lambda m: "daily_return - sector_avg_return",
 )
+_pattern(r"^spy_overnight_gap$", lambda m: "(spy_open - spy_close.shift(1)) / spy_close.shift(1)")
+_pattern(r"^vix_close$", lambda m: "vix['Close']")
 _pattern(
     r"^seq(\d+)_open(\d+)_seasonality$",
     lambda m: (

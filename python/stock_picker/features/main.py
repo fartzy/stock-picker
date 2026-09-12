@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import pandas as pd
+
 from stock_picker.features.pipeline import build_features_for_universe
+from stock_picker.features.regime import VIX_TICKER
 from stock_picker.ingestion.session import completed_sessions, last_completed_session_date
 from stock_picker.ingestion.yfinance_client import download_price_history
 from stock_picker.storage.feature_store import FeatureStore
@@ -34,10 +37,18 @@ def main() -> None:
             continue
         histories[ticker] = history
 
-    benchmark_history = completed_sessions(download_price_history([BENCHMARK_TICKER])[BENCHMARK_TICKER])
+    downloaded = download_price_history([BENCHMARK_TICKER, VIX_TICKER])
+    benchmark_history = completed_sessions(downloaded[BENCHMARK_TICKER])
+    vix_history = completed_sessions(downloaded.get(VIX_TICKER, pd.DataFrame()))
+    universe_store = UniverseStore()
+    sector_by_ticker = universe_store.sector_by_ticker()
 
     features_by_ticker = build_features_for_universe(
-        histories, benchmark_history=benchmark_history
+        histories,
+        benchmark_history=benchmark_history,
+        sector_by_ticker=sector_by_ticker or None,
+        spy_history=benchmark_history,
+        vix_history=vix_history if not vix_history.empty else None,
     )
 
     feature_store = FeatureStore()
