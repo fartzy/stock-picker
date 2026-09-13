@@ -1,5 +1,6 @@
 #!/bin/zsh
-# Weekday morning scoring at 8:32 CT. Writes
+# Weekday morning scoring at 9:32 ET (8:32 CT) -- launchd hours are the
+# Mac's local timezone (this machine is America/New_York). Writes
 # $ROOT/data/buy_signals/{today}.json and latest.json -- the Trading tab
 # reads that cache so 8:37 is instant. Skips if last night's pipeline is stale.
 set -euo pipefail
