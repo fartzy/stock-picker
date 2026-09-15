@@ -111,13 +111,6 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
     result = compute_buy_signals(
         threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
     )
-    missing = _missing_quotes(result.skipped)
-    if missing >= MISSING_QUOTE_RETRY_MIN:
-        print(f"{missing} names had no live quote -- retrying in {MISSING_QUOTE_RETRY_SECONDS}s")
-        time.sleep(MISSING_QUOTE_RETRY_SECONDS)
-        result = compute_buy_signals(
-            threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
-        )
     payload = _payload_from(result, freshness)
     path = _write_signals(payload, result.as_of)
     subject, body = format_picks_email(payload)

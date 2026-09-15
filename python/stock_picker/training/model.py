@@ -303,7 +303,11 @@ def train_model(model_type: str, train_frame: pd.DataFrame, **kwargs) -> Trained
 
 
 def predict(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
-    return np.asarray(trained.estimator.predict(frame[trained.feature_names]))
+    # Live rows can miss a column the model was trained on (e.g. sector_relative
+    # only fills for names with a sector label). Align and leave gaps as NaN --
+    # LightGBM splits on missing; crashing the whole morning scan is worse.
+    aligned = frame.reindex(columns=trained.feature_names)
+    return np.asarray(trained.estimator.predict(aligned))
 
 
 def evaluate(trained: TrainedModel, test_frame: pd.DataFrame) -> EvaluationMetrics:
