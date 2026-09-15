@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 from stock_picker.features.main import main as rebuild_features
 from stock_picker.ingestion.refresh_prices import main as refresh_prices
 from stock_picker.ingestion.session import last_completed_session_date
-from stock_picker.training.main import run_training
+from stock_picker.training.main import main as persist_training
 
 print = functools.partial(print, flush=True)
 
@@ -37,12 +37,10 @@ def run_nightly() -> int:
         print("=== 3/4 rebuild features ===")
         rebuild_features()
         print("=== 4/4 retrain ===")
-        summary = run_training()
-        print(f"holdout={summary.holdout_metrics}")
-        if summary.threshold_sweep:
-            row = next((r for r in summary.threshold_sweep if abs(r.get("threshold", -1) - 0.005) < 1e-9), None)
-            if row:
-                print(f"0.5% hit={row.get('hit_rate')} n={row.get('n_trades')}")
+        # main() persists the pickle *and* appends TrainingRunStore --
+        # run_training() alone overwrites latest without a run record, so
+        # pipeline_freshness still thinks the model is days behind.
+        persist_training()
         print(f"nightly done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
         return 0
     except Exception:

@@ -20124,5 +20124,45 @@
       }
     ],
     "error": null
+  },
+  {
+    "run_id": "932c7eb293714059a9bdb76a497553d2",
+    "status": "completed",
+    "started_at": "2026-09-14T16:04:00.000000-05:00",
+    "completed_at": "2026-09-14T16:51:16.306423-05:00",
+    "duration_seconds": 2836.0,
+    "git_commit": null,
+    "train_tickers": null,
+    "holdout_tickers": null,
+    "date_range": [
+      "2025-09-15",
+      "2026-09-14"
+    ],
+    "resolved_features": null,
+    "model_specs": [
+      {
+        "model_type": "lightgbm",
+        "weight": 1.0,
+        "params": null
+      }
+    ],
+    "fold_metrics": null,
+    "holdout_metrics": {
+      "mae": 0.016511883514358394,
+      "directional_accuracy": 0.5919965734565257,
+      "n_test_rows": 49029
+    },
+    "threshold_sweep": [
+      {
+        "threshold": 0.005,
+        "n_trades": 3313,
+        "avg_picks_per_day": 13.199203,
+        "hit_rate": 0.7648656807,
+        "total_return": 57.457214,
+        "avg_return": 0.017343,
+        "return_std": 0.029769
+      }
+    ],
+    "error": null
   }
 ]
