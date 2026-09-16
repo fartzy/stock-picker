@@ -61,6 +61,9 @@ LIGHTGBM_DEFAULT_PARAMS = {
     "num_threads": os.cpu_count() or 4,
 }
 DEFAULT_NUM_BOOST_ROUND = 100
+# lambdarank NDCG only covers grades 0-30; a day has ~2000 names so we
+# bucket within-day returns into this many relevance levels.
+LIGHTGBM_RANK_GRADES = 10
 
 RANDOM_FOREST_DEFAULT_PARAMS = {
     "n_estimators": 200,
@@ -163,6 +166,45 @@ def train_lightgbm(
     rounds = int(merged.pop("num_boost_round", num_boost_round))
     booster = lgb.train(merged, dataset, num_boost_round=rounds)
     return TrainedModel(model_type="lightgbm", estimator=booster, feature_names=columns)
+
+
+def train_lightgbm_rank(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    num_boost_round: int = DEFAULT_NUM_BOOST_ROUND,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+    relevance_grades: int = LIGHTGBM_RANK_GRADES,
+) -> TrainedModel:
+    """Order tickers within each day -- does not fit the return percent.
+
+    Label is a 0..grades-1 relevance bucket from that day's return quantiles.
+    predict() is a same-day relative score, not a percent. Do not blend with
+    regression members or gate at 0.5%; use Rank IC / top-K.
+    """
+    if "date" not in train_frame.columns:
+        raise ValueError("lambdarank needs a date column to group same-day peers")
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    sorted_frame = train_frame.sort_values("date")
+
+    def _grades(day: pd.Series) -> pd.Series:
+        ranked = day.rank(method="first")
+        n = min(relevance_grades, max(2, int(ranked.nunique())))
+        return pd.qcut(ranked, n, labels=False, duplicates="drop")
+
+    relevance = sorted_frame.groupby("date")[LABEL_COLUMN].transform(_grades)
+    relevance = relevance.fillna(0).astype(int)
+    group_sizes = sorted_frame.groupby("date").size().to_numpy()
+    dataset = lgb.Dataset(sorted_frame[columns], label=relevance, group=group_sizes)
+    merged = {
+        **LIGHTGBM_DEFAULT_PARAMS,
+        **(params or {}),
+        "objective": "lambdarank",
+        "metric": "ndcg",
+    }
+    rounds = int(merged.pop("num_boost_round", num_boost_round))
+    booster = lgb.train(merged, dataset, num_boost_round=rounds)
+    return TrainedModel(model_type="lightgbm_rank", estimator=booster, feature_names=columns)
 
 
 def train_random_forest(
@@ -283,6 +325,7 @@ def train_ridge(
 
 MODEL_TRAINERS = {
     "lightgbm": train_lightgbm,
+    "lightgbm_rank": train_lightgbm_rank,
     "random_forest": train_random_forest,
     "logistic_regression": train_logistic_regression,
     "neural_net": train_neural_net,

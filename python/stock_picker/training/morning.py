@@ -16,14 +16,17 @@ from zoneinfo import ZoneInfo
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.storage.paths import data_root
-from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
+from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals, compute_rank_signals
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.notify import (
     format_not_ready_email,
     format_picks_email,
+    format_rank_picks,
     publish_picks,
     send_email,
+    write_picks_files,
 )
+from stock_picker.training.rank_model import RANK_TOP_K
 
 print = functools.partial(print, flush=True)
 
@@ -114,11 +117,18 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
     payload = _payload_from(result, freshness)
     path = _write_signals(payload, result.as_of)
     subject, body = format_picks_email(payload)
+    rank_result = compute_rank_signals(
+        top_k=RANK_TOP_K, earnings_fetcher=fetch_recent_earnings_tickers
+    )
+    if rank_result.signals:
+        rank_payload = _payload_from(rank_result, freshness)
+        body = body + "\n" + format_rank_picks(rank_payload, k=RANK_TOP_K)
+        write_picks_files(f"{result.as_of}-rank", format_rank_picks(rank_payload, k=RANK_TOP_K))
     published = publish_picks(result.as_of, body)
     mailed = send_email(subject, body)
     print(
         f"scored={result.scored_count} picks={len(result.signals)} "
-        f"wrote {path} published={published} emailed={mailed}"
+        f"rank_top={len(rank_result.signals)} wrote {path} published={published} emailed={mailed}"
     )
     print(f"morning done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
     return 0

@@ -24,6 +24,7 @@ py_library(
         "nightly.py",
         "notify.py",
         "model_registry.py",
+        "rank_model.py",
         "recent_picks_demo.py",
         "splits.py",
         "train.py",
@@ -95,6 +96,18 @@ py_binary(
         "@pypi//lightgbm",
         "@pypi//numpy",
         "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "rank_model",
+    srcs = ["rank_model.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
     ],
 )
 

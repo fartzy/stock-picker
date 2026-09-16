@@ -41,6 +41,10 @@ def run_nightly() -> int:
         # run_training() alone overwrites latest without a run record, so
         # pipeline_freshness still thinks the model is days behind.
         persist_training()
+        print("=== 5/5 train lambdarank (parallel pickle, does not replace latest) ===")
+        from stock_picker.training.rank_model import train_and_persist_rank_model
+
+        train_and_persist_rank_model()
         print(f"nightly done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
         return 0
     except Exception:
