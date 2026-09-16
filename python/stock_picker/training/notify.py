@@ -61,6 +61,24 @@ def format_picks_email(payload: dict) -> tuple[str, str]:
     return subject, "\n".join(lines).strip() + "\n"
 
 
+def format_rank_picks(payload: dict, k: int = 20) -> str:
+    as_of = payload.get("as_of", "")
+    signals = payload.get("signals") or []
+    lines = [
+        f"stockpicker RANKING top {k} for {as_of}",
+        "Relative scores (not percents). Not the 0.5% gate.",
+        "",
+        f"{'#':>2}  {'ticker':8}  {'score':>10}  {'open':>10}",
+    ]
+    for i, row in enumerate(signals[:k], start=1):
+        lines.append(
+            f"{i:2}  {row['ticker']:8}  {float(row['predicted_return']):10.4f}  {float(row['open_price']):10.2f}"
+        )
+    if not signals:
+        lines.append("(no lambdarank model, or no names scored)")
+    return "\n".join(lines).strip() + "\n"
+
+
 def repo_root() -> Path:
     return Path(os.environ.get("BUILD_WORKING_DIRECTORY", Path.cwd()))
 

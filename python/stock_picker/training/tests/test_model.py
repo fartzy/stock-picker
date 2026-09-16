@@ -6,6 +6,7 @@ from stock_picker.training.model import (
     evaluate,
     feature_columns,
     train_lightgbm,
+    train_lightgbm_rank,
     train_logistic_regression,
     train_neural_net,
     train_random_forest,
@@ -47,6 +48,28 @@ def test_train_lightgbm_is_reproducible_across_runs():
     first_predictions = first.estimator.predict(test_frame[feature_columns(test_frame)])
     second_predictions = second.estimator.predict(test_frame[feature_columns(test_frame)])
     assert np.array_equal(first_predictions, second_predictions)
+
+
+def test_train_lightgbm_rank_orders_same_day_names():
+    dates = pd.to_datetime(["2026-01-02"] * 40 + ["2026-01-03"] * 40)
+    rng = np.random.default_rng(0)
+    signal = rng.normal(size=80)
+    frame = pd.DataFrame(
+        {
+            "signal": signal,
+            "date": dates,
+            LABEL_COLUMN: 0.04 * signal + rng.normal(scale=0.002, size=80),
+        }
+    )
+    train = frame.iloc[:60]
+    test = frame.iloc[60:]
+
+    model = train_lightgbm_rank(train, params={"min_data_in_leaf": 5}, num_boost_round=40)
+    pred = pd.Series(model.estimator.predict(test[feature_columns(test)]), index=test.index)
+    ic = pred.corr(test[LABEL_COLUMN], method="spearman")
+
+    assert model.model_type == "lightgbm_rank"
+    assert ic > 0.5
 
 
 def test_train_random_forest_learns_a_clear_signal():

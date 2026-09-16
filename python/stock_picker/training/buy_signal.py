@@ -30,6 +30,7 @@ from stock_picker.training.inference import (
     predict_signal,
 )
 from stock_picker.training.main import MODEL_NAME
+from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_TOP_K
 
 # Matches the Models tab's own established default threshold (see
 # training/backtest.py's sweep_thresholds and TrainingPanel.tsx).
@@ -76,6 +77,8 @@ def compute_buy_signals(
     price_store: PriceStore | None = None,
     quote_fetcher: Callable[[list[str]], dict[str, dict]] = fetch_ticker_quotes,
     earnings_fetcher: Callable[[list[str], date], set[str]] | None = None,
+    model_name: str | None = None,
+    top_k: int | None = None,
 ) -> BuySignalResult:
     as_of = as_of or date.today()
     universe_store = universe_store or UniverseStore()
@@ -92,8 +95,10 @@ def compute_buy_signals(
     # never need a runtime fallback -- but if a selection somehow predates
     # the archival feature, err toward "no model" rather than silently
     # substituting a different model than the one explicitly chosen.
-    selected_run_id = config_store.read().selected_run_id
-    model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+    selected_run_id = None
+    if model_name is None:
+        selected_run_id = config_store.read().selected_run_id
+        model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
 
     if not model_store.exists(model_name):
         reason = (
@@ -194,6 +199,8 @@ def compute_buy_signals(
             )
 
     signals.sort(key=lambda signal: signal.predicted_return, reverse=True)
+    if top_k is not None:
+        signals = signals[:top_k]
     blended_importance = sorted(ensemble_importance(ensemble).items(), key=lambda item: item[1], reverse=True)
     top_drivers = blended_importance[:TOP_DRIVER_COUNT]
 
@@ -204,4 +211,27 @@ def compute_buy_signals(
         scored_count=scored_count,
         skipped=skipped,
         top_drivers=top_drivers,
+    )
+
+
+def compute_rank_signals(
+    top_k: int = RANK_TOP_K,
+    as_of: date | None = None,
+    **kwargs,
+) -> BuySignalResult:
+    """Lambdarank top-K. Score is relative rank, not a percent."""
+    model_store = kwargs.get("model_store") or ModelStore()
+    as_of = as_of or date.today()
+    if not model_store.exists(RANK_MODEL_NAME):
+        return BuySignalResult(
+            as_of=as_of.isoformat(),
+            threshold=0.0,
+            skipped=[{"ticker": NO_MODEL_SENTINEL, "reason": "no lambdarank model persisted yet"}],
+        )
+    return compute_buy_signals(
+        threshold=float("-inf"),
+        as_of=as_of,
+        model_name=RANK_MODEL_NAME,
+        top_k=top_k,
+        **kwargs,
     )
