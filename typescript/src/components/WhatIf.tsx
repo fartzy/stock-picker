@@ -162,33 +162,37 @@ export default function WhatIf() {
   return (
     <div>
       <div className="meta-row" style={{ marginBottom: "var(--space-3)" }}>
-        {(["both", "fit", "rank"] as Kind[]).map((option) => (
-          <button
-            key={option}
-            type="button"
-            className={kind === option ? "primary-button" : ""}
-            onClick={() => setKind(option)}
-          >
-            {option === "both" ? "Fit + Rank" : option === "fit" ? "Fit" : "Rank"}
-          </button>
-        ))}
-        <label>
-          Top{" "}
-          <select
-            value={topK ?? "all"}
-            onChange={(event) => {
-              const value = event.target.value;
-              setTopK(value === "all" ? undefined : Number(value));
-            }}
-          >
-            <option value="all">all</option>
-            {[5, 10, 20, 50].map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
+        <div className="list-toggle" role="group" aria-label="List">
+          {(["both", "fit", "rank"] as Kind[]).map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={kind === option ? "active" : ""}
+              onClick={() => setKind(option)}
+            >
+              {option === "both" ? "Fit + Rank" : option === "fit" ? "Fit" : "Rank"}
+            </button>
+          ))}
+        </div>
+        <label className="meta-label" htmlFor="whatif-topk">
+          Top
         </label>
+        <select
+          id="whatif-topk"
+          className="form-select"
+          value={topK ?? "all"}
+          onChange={(event) => {
+            const value = event.target.value;
+            setTopK(value === "all" ? undefined : Number(value));
+          }}
+        >
+          <option value="all">all</option>
+          {[5, 10, 20, 50].map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
       </div>
       {data.days.length === 0 ? (
         <p className="muted">No morning lists yet.</p>

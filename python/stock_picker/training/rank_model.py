@@ -20,6 +20,8 @@ from stock_picker.training.splits import select_holdout_tickers
 
 RANK_MODEL_NAME = "day_session_return_rank"
 RANK_TOP_K = 20
+# News / sentiment only on this many Rank names so 8:36 isn't waiting on 20 Finnhub calls.
+RANK_NEWS_TOP_K = 10
 
 
 def train_and_persist_rank_model(

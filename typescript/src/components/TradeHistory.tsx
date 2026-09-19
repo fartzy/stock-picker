@@ -12,7 +12,7 @@ import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
-const POSITIONS_POLL_INTERVAL_MS = 60_000;
+
 
 function formatTime(executedAt: string): string {
   return new Date(executedAt).toLocaleTimeString("en-US", {
@@ -453,7 +453,6 @@ export default function TradeHistory() {
   const [weekOpen, setWeekOpen] = useState<Record<string, boolean>>({});
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
-    intervalMs: POSITIONS_POLL_INTERVAL_MS,
   });
 
   const openPositions = useMemo(

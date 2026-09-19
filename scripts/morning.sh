@@ -1,8 +1,5 @@
 #!/bin/zsh
-# Weekday morning scoring at 9:32 ET (8:32 CT) -- launchd hours are the
-# Mac's local timezone (this machine is America/New_York). Writes
-# $ROOT/data/buy_signals/{today}.json and latest.json -- the Trading tab
-# reads that cache so 8:37 is instant. Skips if last night's pipeline is stale.
+# Weekday morning scoring at 8:32 CT. Skip if morning_job_enabled is false.
 set -euo pipefail
 
 ROOT="${STOCK_PICKER_ROOT:-/Users/michael.artz/dev/stock-picker}"
@@ -12,7 +9,6 @@ LOG="$LOG_DIR/morning.log"
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
 cd "$ROOT"
-# Pin data_root() to this checkout even if bazel run's cwd is a sandbox.
 export BUILD_WORKING_DIRECTORY="$ROOT"
 
 {

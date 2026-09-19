@@ -24,6 +24,8 @@ from stock_picker.api.models import (
     LiveModelResponse,
     MorningCheckRequest,
     MorningCheckResponse,
+    MorningJobSettings,
+    MorningScanStatus,
     ModelInfoResponse,
     PipelineFreshnessResponse,
     ModelSelectionRequest,
@@ -87,6 +89,7 @@ from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training import job as training_job
 from stock_picker.training import morning_check as morning_check_job
+from stock_picker.training import morning_job as morning_scan_job
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.training.news_day_judge import fetch_recent_news_flags
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
@@ -264,9 +267,14 @@ def get_paper_book(kind: str = "both", top_k: int | None = None) -> PaperBookRes
 @router.get("/positions")
 def get_positions() -> PositionsResponse:
     trades = trade_log()
-    tickers = sorted(trades["ticker"].unique()) if not trades.empty else []
-    quotes = fetch_ticker_quotes(tickers) if tickers else {}
-    positions = apply_hold_to_close(position_summaries(trades, quotes))
+    summaries = position_summaries(trades, {})
+    open_tickers = sorted(
+        {row["ticker"] for row in summaries if not row["closed"] and row["shares"] > 0}
+    )
+    quotes = fetch_ticker_quotes(open_tickers) if open_tickers else {}
+    positions = apply_hold_to_close(
+        summaries if not quotes else position_summaries(trades, quotes)
+    )
     return PositionsResponse(
         positions=positions,
         peak_working=time_weighted_working_by_day(trades),
@@ -381,6 +389,44 @@ def start_morning_check(body: MorningCheckRequest | None = None) -> MorningCheck
 @router.get("/morning-check")
 def get_morning_check() -> MorningCheckResponse:
     return MorningCheckResponse(**asdict(morning_check_job.status()))
+
+
+@router.get("/morning-job")
+def get_morning_job() -> MorningJobSettings:
+    return MorningJobSettings(enabled=TrainingConfigStore().read().morning_job_enabled)
+
+
+@router.put("/morning-job")
+def set_morning_job(body: MorningJobSettings) -> MorningJobSettings:
+    TrainingConfigStore().write_morning_job_enabled(body.enabled)
+    return MorningJobSettings(enabled=body.enabled)
+
+
+@router.post("/morning-scan")
+def start_morning_scan() -> MorningScanStatus:
+    started = morning_scan_job.start()
+    if not started:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="a morning scan is already in progress"
+        )
+    state = morning_scan_job.status()
+    return MorningScanStatus(
+        status=state.status,
+        started_at=state.started_at,
+        completed_at=state.completed_at,
+        error=state.error,
+    )
+
+
+@router.get("/morning-scan")
+def get_morning_scan() -> MorningScanStatus:
+    state = morning_scan_job.status()
+    return MorningScanStatus(
+        status=state.status,
+        started_at=state.started_at,
+        completed_at=state.completed_at,
+        error=state.error,
+    )
 
 
 @router.post("/training/run")

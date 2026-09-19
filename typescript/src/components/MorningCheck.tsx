@@ -78,18 +78,20 @@ export default function MorningCheck() {
         same time when you press Both.
       </p>
       <div className="meta-row" style={{ marginTop: "var(--space-2)" }}>
-        {(["rank", "fit", "both"] as const).map((option) => (
-          <button
-            key={option}
-            type="button"
-            className={which === option ? "primary-button" : ""}
-            onClick={() => setWhich(option)}
-            disabled={running || busy}
-          >
-            {option === "both" ? "Both (parallel)" : option === "rank" ? "Rank" : "Fit"}
-          </button>
-        ))}
-        <button type="button" className="primary-button" onClick={start} disabled={running || busy}>
+        <div className="list-toggle" role="group" aria-label="Which models">
+          {(["rank", "fit", "both"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={which === option ? "active" : ""}
+              onClick={() => setWhich(option)}
+              disabled={running || busy}
+            >
+              {option === "both" ? "Both" : option === "rank" ? "Rank" : "Fit"}
+            </button>
+          ))}
+        </div>
+        <button type="button" className="btn-primary" onClick={start} disabled={running || busy}>
           {running ? "Running..." : "Run morning check"}
         </button>
       </div>

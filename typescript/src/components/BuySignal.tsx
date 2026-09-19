@@ -3,10 +3,14 @@ import {
   DEFAULT_BUY_THRESHOLD,
   fetchBuySignal,
   fetchLiveModel,
+  fetchMorningJob,
+  fetchMorningScan,
   fetchTrainingRuns,
   fetchUniverse,
   resetLiveModel,
+  runMorningScan,
   setLiveModel,
+  setMorningJob,
   type BuySignalResponse,
   type LiveModelResponse,
   type TrainingRunsResponse,
@@ -172,6 +176,7 @@ export default function BuySignal() {
           {loading ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
         </button>
       </div>
+      <MorningTrigger onDone={() => setData(null)} />
 
       {error && (
         <p className="error" style={{ marginTop: 8 }}>
@@ -235,6 +240,76 @@ export default function BuySignal() {
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+
+function MorningTrigger({ onDone }: { onDone: () => void }) {
+  const { data: job, error: jobError } = useFetchData(fetchMorningJob);
+  const [scanTick, setScanTick] = useState(0);
+  const [scan, setScan] = useState<import("../api").MorningScanStatus | null>(null);
+  const [busy, setBusy] = useState(false);
+  const running = scan?.status === "running";
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchMorningScan()
+      .then((result) => {
+        if (!cancelled) setScan(result);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [scanTick]);
+
+  useEffect(() => {
+    if (!running) return undefined;
+    const id = setInterval(() => {
+      fetchMorningScan()
+        .then(setScan)
+        .catch(() => undefined);
+    }, 2000);
+    return () => clearInterval(id);
+  }, [running]);
+
+  async function toggleJob(enabled: boolean) {
+    await setMorningJob(enabled);
+    setScanTick((n) => n + 1);
+  }
+
+  async function runNow() {
+    setBusy(true);
+    try {
+      await runMorningScan();
+      setScanTick((n) => n + 1);
+      onDone();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="meta-row" style={{ marginTop: "var(--space-3)" }}>
+      <label className="muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <input
+          type="checkbox"
+          checked={job?.enabled !== false}
+          onChange={(event) => toggleJob(event.target.checked)}
+        />
+        8:32 job
+      </label>
+      <button type="button" className="btn-primary" onClick={runNow} disabled={busy || running}>
+        {running ? "Running Rank + Fit..." : "Run Rank + Fit now"}
+      </button>
+      {scan && scan.status !== "idle" && (
+        <span className="view-meta">
+          {scan.status}
+          {scan.error ? ` · ${scan.error}` : ""}
+        </span>
+      )}
+      {jobError && <span className="error">{jobError}</span>}
     </div>
   );
 }
