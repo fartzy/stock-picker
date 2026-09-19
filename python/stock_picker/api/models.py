@@ -407,6 +407,17 @@ class MorningCheckRequest(BaseModel):
     which: Literal["rank", "fit", "both"] = "both"
 
 
+class MorningJobSettings(BaseModel):
+    enabled: bool
+
+
+class MorningScanStatus(BaseModel):
+    status: str
+    started_at: str | None = None
+    completed_at: str | None = None
+    error: str | None = None
+
+
 class BenchmarkReturnsResponse(BaseModel):
     # date -> SPY open->close (intraday / cash session). Missing dates omitted.
     returns: dict[str, float]

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -259,13 +260,15 @@ def fetch_news_articles(
     names = tickers[:MAX_NEWS_TICKERS]
     start = from_date or as_of
     out: dict[str, list[dict]] = {}
-    session = requests.Session()
-    for index, ticker in enumerate(names):
-        if index and sleep_seconds > 0:
-            time.sleep(sleep_seconds)
-        articles = fetch_company_news(ticker, start, as_of, api_key=key, session=session)
-        if articles:
-            out[ticker] = articles
+    workers = min(8, max(1, len(names)))
+
+    def _one(ticker: str) -> tuple[str, list[dict]]:
+        return ticker, fetch_company_news(ticker, start, as_of, api_key=key)
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for ticker, articles in pool.map(_one, names):
+            if articles:
+                out[ticker] = articles
     return out
 
 

@@ -503,6 +503,23 @@ export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/tr
 export const fetchMorningCheck = () => getJson<MorningCheckResponse>("/api/morning-check");
 export const runMorningCheck = (which: "rank" | "fit" | "both" = "both") =>
   mutate<MorningCheckResponse>("POST", "/api/morning-check", { which });
+
+export interface MorningJobSettings {
+  enabled: boolean;
+}
+
+export interface MorningScanStatus {
+  status: string;
+  started_at: string | null;
+  completed_at: string | null;
+  error: string | null;
+}
+
+export const fetchMorningJob = () => getJson<MorningJobSettings>("/api/morning-job");
+export const setMorningJob = (enabled: boolean) =>
+  mutate<MorningJobSettings>("PUT", "/api/morning-job", { enabled });
+export const fetchMorningScan = () => getJson<MorningScanStatus>("/api/morning-scan");
+export const runMorningScan = () => mutate<MorningScanStatus>("POST", "/api/morning-scan");
 export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/training/runs");
 export const fetchLiveModel = () => getJson<LiveModelResponse>("/api/live-model");
 export const fetchPipelineFreshness = () => getJson<PipelineFreshnessResponse>("/api/pipeline-freshness");

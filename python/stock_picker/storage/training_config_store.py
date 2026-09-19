@@ -40,6 +40,8 @@ class TrainingConfig:
     # behavior). Set = "use this specific historical run's archived model
     # for live inference instead" -- see training/buy_signal.py.
     selected_run_id: str | None = None
+    # False = skip the 8:32 launchd job; trigger Rank+Fit from the UI instead.
+    morning_job_enabled: bool = True
 
 
 class TrainingConfigStore:
@@ -63,6 +65,7 @@ class TrainingConfigStore:
                 [ModelChoice(**choice) for choice in model_choices] if model_choices is not None else None
             ),
             selected_run_id=raw.get("selected_run_id"),
+            morning_job_enabled=raw.get("morning_job_enabled", True),
         )
 
     def write_included_features(self, included_features: set[str] | None) -> None:
@@ -80,6 +83,11 @@ class TrainingConfigStore:
         config.selected_run_id = run_id
         self._save(config)
 
+    def write_morning_job_enabled(self, enabled: bool) -> None:
+        config = self.read()
+        config.morning_job_enabled = enabled
+        self._save(config)
+
     def _save(self, config: TrainingConfig) -> None:
         self._path.write_text(
             json.dumps(
@@ -91,6 +99,7 @@ class TrainingConfigStore:
                         else None
                     ),
                     "selected_run_id": config.selected_run_id,
+                    "morning_job_enabled": config.morning_job_enabled,
                 },
                 indent=2,
             )
