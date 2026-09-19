@@ -9,6 +9,7 @@ export const DEFAULT_BUY_THRESHOLD = 0.005;
 // each had its own copy of this map, and both were missing neural_net/ridge.
 export const MODEL_TYPE_LABELS: Record<string, string> = {
   lightgbm: "LightGBM",
+  lightgbm_rank: "LightGBM Rank",
   random_forest: "Random Forest",
   logistic_regression: "Logistic Regression",
   neural_net: "Neural Net",
@@ -129,16 +130,73 @@ export interface Position {
   current_price: number | null;
   closed: boolean;
   pnl: number | null;
+  hold_open_price?: number | null;
+  hold_close_price: number | null;
+  hold_close_pnl: number | null;
 }
 
 export interface PositionsResponse {
   positions: Position[];
+  peak_working?: Record<string, number>;
+}
+
+export interface PaperPickRow {
+  rank: number;
+  ticker: string;
+  predicted: number | null;
+  open_price: number | null;
+  close_price: number | null;
+  session_return: number | null;
+  news_flag?: string | null;
+}
+
+export interface PaperListStats {
+  n: number;
+  n_scored: number;
+  wins: number;
+  losses: number;
+  flats: number;
+  hit_rate: number | null;
+  avg: number | null;
+  n_avoid?: number;
+  avg_ex_news?: number | null;
+}
+
+export interface PaperBookDay {
+  as_of: string;
+  fit: PaperPickRow[];
+  rank: PaperPickRow[];
+  fit_avg: number | null;
+  rank_avg: number | null;
+  fit_stats?: PaperListStats;
+  rank_stats?: PaperListStats;
+}
+
+export interface PaperBookResponse {
+  days: PaperBookDay[];
+  fit_compound: number | null;
+  rank_compound: number | null;
+  fit_days: number;
+  rank_days: number;
+  fit_stats?: PaperListStats;
+  rank_stats?: PaperListStats;
+  kind: string;
+  top_k: number | null;
+  n_picks: number;
+}
+
+export interface BenchmarkHold {
+  start: string;
+  end: string;
+  pct: number;
 }
 
 export interface BenchmarkReturnsResponse {
-  // date (ISO "YYYY-MM-DD") -> SPY's day-session return. A date with no
-  // matching trading day is simply absent, not zero.
+  // date -> SPY open->close (intraday). Missing dates omitted.
   returns: Record<string, number>;
+  // date -> SPY prior close->this close (held overnight, did not sell).
+  overnight?: Record<string, number>;
+  hold?: BenchmarkHold | null;
 }
 
 export interface FeatureView {
@@ -304,6 +362,7 @@ export interface BuySignalRow {
   predicted_return: number;
   open_price: number;
   snapshot_date: string;
+  news_flag?: string | null;
 }
 
 export interface SkippedTicker {
@@ -378,6 +437,11 @@ export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correla
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
+export const fetchPaperBook = (kind: "fit" | "rank" | "both" = "both", topK?: number) => {
+  const params = new URLSearchParams({ kind });
+  if (topK !== undefined) params.set("top_k", String(topK));
+  return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
+};
 export const fetchBenchmarkReturns = (dates: string[]) =>
   getJson<BenchmarkReturnsResponse>(`/api/benchmark-returns?dates=${dates.map(encodeURIComponent).join(",")}`);
 export const fetchPrunedFeatures = () => getJson<PrunedFeaturesResponse>("/api/pruned-features");
@@ -402,8 +466,43 @@ export const setModelSelection = (modelChoices: ModelChoice[]) =>
   mutate<ModelSelectionResponse>("POST", "/api/model-selection", { model_choices: modelChoices });
 export const clearModelSelection = () =>
   mutate<ModelSelectionResponse>("DELETE", "/api/model-selection");
+export interface FakeQuote {
+  ticker: string;
+  fake_open: number;
+  last_close: number;
+}
+
+export interface TimedPass {
+  which: string;
+  seconds: number;
+  scored_count: number;
+  n_picks: number;
+  picks: Array<{
+    ticker: string;
+    predicted_return: number;
+    open_price: number;
+    snapshot_date: string;
+  }>;
+  skipped_count: number;
+}
+
+export interface MorningCheckResponse {
+  status: string;
+  which: string | null;
+  started_at: string | null;
+  completed_at: string | null;
+  error: string | null;
+  n_quotes: number;
+  quote_seconds: number | null;
+  quotes: FakeQuote[];
+  passes: TimedPass[];
+}
+
 export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
+export const fetchMorningCheck = () => getJson<MorningCheckResponse>("/api/morning-check");
+export const runMorningCheck = (which: "rank" | "fit" | "both" = "both") =>
+  mutate<MorningCheckResponse>("POST", "/api/morning-check", { which });
 export const fetchTrainingRuns = () => getJson<TrainingRunsResponse>("/api/training/runs");
 export const fetchLiveModel = () => getJson<LiveModelResponse>("/api/live-model");
 export const fetchPipelineFreshness = () => getJson<PipelineFreshnessResponse>("/api/pipeline-freshness");
@@ -413,8 +512,8 @@ export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/li
 export const fetchQuotes = (tickers: string[]) =>
   getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
-export const fetchBuySignal = (threshold: number, live = false) =>
+export const fetchBuySignal = (threshold: number, live = false, kind: "fit" | "rank" = "fit") =>
   getJson<BuySignalResponse>(
-    `/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}${live ? "&live=true" : ""}`,
+    `/api/buy-signal?threshold=${encodeURIComponent(threshold.toString())}${live ? "&live=true" : ""}&kind=${kind}`,
   );
 export const fetchUniverse = () => getJson<UniverseResponse>("/api/universe");

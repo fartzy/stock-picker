@@ -27,9 +27,20 @@ def test_load_cached_signals_is_none_when_the_job_has_not_run(tmp_path):
 def test_write_signals_lands_under_the_app_data_dir(tmp_path):
     from stock_picker.training.morning import _write_signals
 
-    payload = {"as_of": "2026-09-11", "signals": []}
+    payload = {"as_of": "2026-09-11", "kind": "fit", "signals": []}
     dated = _write_signals(payload, "2026-09-11", signal_dir=tmp_path)
 
     assert dated == tmp_path / "2026-09-11.json"
     assert (tmp_path / "latest.json").is_file()
     assert json.loads((tmp_path / "latest.json").read_text())["as_of"] == "2026-09-11"
+
+
+def test_write_rank_signals_uses_the_rank_filename(tmp_path):
+    from stock_picker.training.morning import _write_signals
+
+    payload = {"as_of": "2026-09-11", "kind": "rank", "signals": []}
+    dated = _write_signals(payload, "2026-09-11", signal_dir=tmp_path)
+
+    assert dated == tmp_path / "2026-09-11-rank.json"
+    loaded = load_cached_signals(as_of="2026-09-11", signal_dir=tmp_path, kind="rank")
+    assert loaded["kind"] == "rank"

@@ -39,6 +39,40 @@ def test_trade_history_handles_empty_input():
     assert trade_history(pd.DataFrame()) == []
 
 
+def test_peak_working_does_not_double_count_recycled_cash():
+    from stock_picker.features.trades import peak_working_by_day
+
+    trades = pd.DataFrame(
+        [
+            {"ticker": "TTAN", "side": "buy", "shares": 465, "price": 58.465, "executed_at": "2026-09-16T10:02:00-04:00"},
+            {"ticker": "TTAN", "side": "sell", "shares": 930, "price": 58.465, "executed_at": "2026-09-16T10:02:00-04:00"},
+            {"ticker": "XNDU", "side": "buy", "shares": 1300, "price": 7.81, "executed_at": "2026-09-16T10:01:00-04:00"},
+            {"ticker": "XNDU", "side": "buy", "shares": 1350, "price": 7.65, "executed_at": "2026-09-16T11:00:00-04:00"},
+        ]
+    )
+
+    peaks = peak_working_by_day(trades)
+
+    # XNDU 10k then TTAN 27k then sell TTAN -- peak is ~37k, not 10k+27k+10k.
+    assert peaks["2026-09-16"] < 40000
+    assert peaks["2026-09-16"] > 25000
+
+
+def test_time_weighted_working_is_less_than_a_lunch_spike():
+    from stock_picker.features.trades import time_weighted_working_by_day
+
+    trades = pd.DataFrame(
+        [
+            {"ticker": "XNDU", "side": "buy", "shares": 1300, "price": 10.0, "executed_at": "2026-09-16T09:31:00-04:00"},
+            {"ticker": "XNDU", "side": "sell", "shares": 1300, "price": 10.0, "executed_at": "2026-09-16T09:41:00-04:00"},
+        ]
+    )
+    averages = time_weighted_working_by_day(trades)
+    # 10 minutes of $13k in a 6.5h session is far below the $13k peak.
+    assert averages["2026-09-16"] < 1000
+    assert averages["2026-09-16"] > 200
+
+
 def test_position_summaries_merges_closed_position_into_one_row():
     trades = pd.DataFrame(
         [
@@ -77,6 +111,23 @@ def test_position_summaries_computes_unrealized_pnl_for_open_position():
 
 def test_position_summaries_handles_empty_input():
     assert position_summaries(pd.DataFrame(), {}) == []
+
+
+def test_same_timestamp_buy_then_sell_closes_the_full_position():
+    trades = pd.DataFrame(
+        [
+            {"ticker": "TTAN", "side": "buy", "shares": 465, "price": 56.80, "executed_at": "2026-09-11T10:30:00-05:00"},
+            {"ticker": "TTAN", "side": "sell", "shares": 930, "price": 58.465, "executed_at": "2026-09-16T10:02:00-04:00"},
+            {"ticker": "TTAN", "side": "buy", "shares": 465, "price": 58.465, "executed_at": "2026-09-16T10:02:00-04:00"},
+        ]
+    )
+
+    positions = position_summaries(trades, {})
+
+    assert len(positions) == 1
+    assert positions[0]["closed"] is True
+    assert positions[0]["shares"] == 930
+    assert positions[0]["ticker"] == "TTAN"
 
 
 def test_overnight_buy_sold_next_day_is_closed_not_an_empty_open():

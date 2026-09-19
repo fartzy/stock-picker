@@ -1,16 +1,20 @@
 import { useState } from "react";
 import BuySignal from "./components/BuySignal";
+import MorningCheck from "./components/MorningCheck";
 import ModelPicker from "./components/ModelPicker";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
 import RunHistory from "./components/RunHistory";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
+import WhatIf from "./components/WhatIf";
 
-type Tab = "trading" | "features" | "models" | "data";
+type Tab = "trading" | "whatif" | "testrun" | "features" | "models" | "data";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "trading", label: "Trading" },
+  { id: "whatif", label: "What if" },
+  { id: "testrun", label: "Test run" },
   { id: "features", label: "Feature Store" },
   { id: "models", label: "Models" },
   { id: "data", label: "Data" },
@@ -61,6 +65,29 @@ export default function App() {
             </div>
           </section>
         </>
+      )}
+
+      {tab === "whatif" && (
+        <section>
+          <h2>What if</h2>
+          <p className="muted">Morning picks held Open→Close. Not your Fidelity fills.</p>
+          <div className="panel">
+            <WhatIf />
+          </div>
+        </section>
+      )}
+
+      {tab === "testrun" && (
+        <section>
+          <h2>Test run</h2>
+          <p className="muted">
+            Fake last-close opens for the whole universe. Times Rank, Fit, and both.
+            Not a live scan — no Yahoo, no news.
+          </p>
+          <div className="panel">
+            <MorningCheck />
+          </div>
+        </section>
       )}
 
       {tab === "features" && (

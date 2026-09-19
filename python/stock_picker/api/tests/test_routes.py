@@ -4,6 +4,7 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 import pytest
+from fastapi import status
 from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
@@ -193,7 +194,7 @@ def client(tmp_path):
 def test_get_catalog(client):
     response = client.get("/api/catalog")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert "momentum" in body["catalog"]
     assert "return_1d" in body["descriptions"]
@@ -203,14 +204,14 @@ def test_get_catalog(client):
 def test_get_coverage(client):
     response = client.get("/api/coverage")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert isinstance(response.json()["coverage"], dict)
 
 
 def test_get_correlation(client):
     response = client.get("/api/correlation")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert "columns" in body
     assert "matrix" in body
@@ -220,7 +221,7 @@ def test_get_correlation(client):
 def test_get_trades(client):
     response = client.get("/api/trades")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     trades = response.json()["trades"]
     assert len(trades) == 2
     assert trades[0]["ticker"] == "BBB"  # newest first
@@ -231,7 +232,7 @@ def test_get_trades(client):
 def test_get_pruned_features_starts_empty(client):
     response = client.get("/api/pruned-features")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["pruned_features"] == []
     assert body["archive"] == []
@@ -239,7 +240,7 @@ def test_get_pruned_features_starts_empty(client):
 
 def test_prune_then_unprune_feature(client):
     prune_response = client.post("/api/features/return_1d/prune")
-    assert prune_response.status_code == 200
+    assert prune_response.status_code == status.HTTP_200_OK
     prune_body = prune_response.json()
     assert prune_body["pruned_features"] == ["return_1d"]
     assert prune_body["archive"][0]["feature"] == "return_1d"
@@ -249,7 +250,7 @@ def test_prune_then_unprune_feature(client):
     assert get_response.json()["pruned_features"] == ["return_1d"]
 
     unprune_response = client.delete("/api/features/return_1d/prune")
-    assert unprune_response.status_code == 200
+    assert unprune_response.status_code == status.HTTP_200_OK
     assert unprune_response.json()["pruned_features"] == []
     assert unprune_response.json()["archive"] == []
 
@@ -259,7 +260,7 @@ def test_prune_feature_with_a_given_reason(client):
         "/api/features/return_2d/prune", json={"reason": "high correlation to return_3d (r=0.996)"}
     )
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     [entry] = response.json()["archive"]
     assert entry["reason"] == "high correlation to return_3d (r=0.996)"
 
@@ -267,23 +268,30 @@ def test_prune_feature_with_a_given_reason(client):
 def test_get_feature_importance_returns_empty_dict_without_a_trained_model(client):
     response = client.get("/api/feature-importance")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"importance": {}, "by_model_type": {}}
 
 
 def test_get_model_info_returns_empty_list_without_a_trained_model(client):
     response = client.get("/api/model-info")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"models": []}
 
 
 def test_get_model_types_describes_every_known_model_type(client):
     response = client.get("/api/model-types")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     model_types = {m["model_type"] for m in response.json()["model_types"]}
-    assert model_types == {"lightgbm", "random_forest", "logistic_regression", "neural_net", "ridge"}
+    assert model_types == {
+        "lightgbm",
+        "lightgbm_rank",
+        "random_forest",
+        "logistic_regression",
+        "neural_net",
+        "ridge",
+    }
     for info in response.json()["model_types"]:
         assert info["package"]
         assert info["source_file"].endswith("model.py")
@@ -292,7 +300,7 @@ def test_get_model_types_describes_every_known_model_type(client):
 def test_get_training_runs_starts_empty(client):
     response = client.get("/api/training/runs")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"runs": []}
 
 
@@ -319,7 +327,7 @@ def test_get_training_runs_returns_an_appended_record_newest_first(client):
 
     response = client.get("/api/training/runs")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     [run] = response.json()["runs"]
     assert run["run_id"] == "run-1"
     assert run["train_tickers"] == ["AAPL"]
@@ -344,7 +352,7 @@ def test_get_training_runs_reports_has_archived_model_when_one_exists(client):
 def test_get_live_model_defaults_to_no_selection_and_no_runs(client):
     response = client.get("/api/live-model")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"selected_run_id": None, "live_run_id": None}
 
 
@@ -378,7 +386,7 @@ def test_get_live_model_resolves_to_the_newest_completed_run_when_unselected(cli
 def test_post_live_model_with_no_archived_model_is_rejected(client):
     response = client.post("/api/live-model", json={"run_id": "never-archived"})
 
-    assert response.status_code == 400
+    assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json()["detail"] == "run never-archived has no archived model to select"
     assert client.get("/api/live-model").json()["selected_run_id"] is None
 
@@ -396,7 +404,7 @@ def test_post_then_delete_live_model_selects_and_resets(client):
 def test_get_feature_selection_starts_as_no_selection(client):
     response = client.get("/api/feature-selection")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"included_features": None}
 
 
@@ -404,7 +412,7 @@ def test_set_then_get_feature_selection(client):
     post_response = client.post(
         "/api/feature-selection", json={"included_features": ["return_1d", "return_2d"]}
     )
-    assert post_response.status_code == 200
+    assert post_response.status_code == status.HTTP_200_OK
     assert post_response.json() == {"included_features": ["return_1d", "return_2d"]}
 
     get_response = client.get("/api/feature-selection")
@@ -416,7 +424,7 @@ def test_clear_feature_selection_resets_to_no_selection(client):
 
     response = client.delete("/api/feature-selection")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"included_features": None}
     assert client.get("/api/feature-selection").json() == {"included_features": None}
 
@@ -424,10 +432,16 @@ def test_clear_feature_selection_resets_to_no_selection(client):
 def test_get_model_selection_starts_as_no_selection(client):
     response = client.get("/api/model-selection")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {
         "model_choices": None,
-        "available_model_types": ["lightgbm", "random_forest", "neural_net", "ridge"],
+        "available_model_types": [
+            "lightgbm",
+            "random_forest",
+            "neural_net",
+            "ridge",
+            "lightgbm_rank",
+        ],
     }
 
 
@@ -435,7 +449,7 @@ def test_set_then_get_model_selection(client):
     post_response = client.post(
         "/api/model-selection", json={"model_choices": [{"model_type": "lightgbm", "weight": 1.0}]}
     )
-    assert post_response.status_code == 200
+    assert post_response.status_code == status.HTTP_200_OK
     assert post_response.json()["model_choices"] == [{"model_type": "lightgbm", "weight": 1.0}]
 
     get_response = client.get("/api/model-selection")
@@ -447,7 +461,7 @@ def test_clear_model_selection_resets_to_no_selection(client):
 
     response = client.delete("/api/model-selection")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json()["model_choices"] is None
     assert client.get("/api/model-selection").json()["model_choices"] is None
 
@@ -458,7 +472,7 @@ def test_start_training_run_reports_running_and_forwards_the_selection(client):
 
     response = client.post("/api/training/run")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json()["status"] == "running"
     assert _fake_training_job.last_included_features == {"return_1d"}
     assert [(s.model_type, s.weight) for s in _fake_training_job.last_model_specs] == [("lightgbm", 2.0)]
@@ -469,7 +483,7 @@ def test_start_training_run_conflicts_while_already_running(client):
 
     response = client.post("/api/training/run")
 
-    assert response.status_code == 409
+    assert response.status_code == status.HTTP_409_CONFLICT
 
 
 def test_get_training_status_reflects_a_completed_run(client):
@@ -488,7 +502,7 @@ def test_get_training_status_reflects_a_completed_run(client):
 
     response = client.get("/api/training/status")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["status"] == "completed"
     assert body["result"]["holdout_metrics"]["mae"] == 0.01
@@ -497,7 +511,7 @@ def test_get_training_status_reflects_a_completed_run(client):
 def test_create_trade(client):
     response = client.post("/api/trades", json={"ticker": "CCC", "side": "buy", "shares": 3, "price": 10.0})
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     trades = response.json()["trades"]
     assert len(trades) == 3
     assert trades[0]["ticker"] == "CCC"  # newest first
@@ -516,7 +530,7 @@ def test_create_trade_uses_the_supplied_executed_at(client):
         },
     )
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     fly = next(t for t in response.json()["trades"] if t["ticker"] == "FLY")
     assert fly["executed_at"].startswith("2026-09-11T09:40:00")
 
@@ -524,7 +538,7 @@ def test_create_trade_uses_the_supplied_executed_at(client):
 def test_get_quotes(client):
     response = client.get("/api/quotes", params={"tickers": "AAA"})
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     quotes = response.json()["quotes"]
     assert quotes == [
         {
@@ -552,15 +566,16 @@ def test_get_benchmark_returns(client):
     ):
         response = client.get("/api/benchmark-returns", params={"dates": "2026-01-01,2026-01-02"})
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     # 2026-01-02 has no matching row in the fixture -- omitted, not erred on.
     assert response.json()["returns"] == {"2026-01-01": (505.0 - 500.0) / 500.0}
+    assert response.json()["hold"] is None or "pct" in response.json()["hold"]
 
 
 def test_get_positions(client):
     response = client.get("/api/positions")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     positions = {p["ticker"]: p for p in response.json()["positions"]}
     assert positions["AAA"]["closed"] is False
     assert positions["AAA"]["day_open"] == 100.0
@@ -573,7 +588,7 @@ def test_get_positions(client):
 def test_get_price_history_daily(client):
     response = client.get("/api/prices/AAA")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["ticker"] == "AAA"
     assert body["interval"] == "daily"
@@ -584,7 +599,7 @@ def test_get_price_history_daily(client):
 def test_get_price_history_hourly(client):
     response = client.get("/api/prices/AAA?interval=hourly")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["interval"] == "hourly"
     assert len(body["prices"]) == 140
@@ -593,13 +608,13 @@ def test_get_price_history_hourly(client):
 def test_get_price_history_404_for_untracked_ticker(client):
     response = client.get("/api/prices/NOT_A_TICKER")
 
-    assert response.status_code == 404
+    assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 def test_get_feature_values(client):
     response = client.get("/api/features/AAA")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["ticker"] == "AAA"
     assert "x" in body["columns"]
@@ -610,13 +625,13 @@ def test_get_feature_values(client):
 def test_get_feature_values_404_for_untracked_ticker(client):
     response = client.get("/api/features/NOT_A_TICKER")
 
-    assert response.status_code == 404
+    assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 def test_get_registry(client):
     response = client.get("/api/registry")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["entities"][0]["name"] == "ticker"
     assert len(body["feature_views"]) == 12
@@ -629,7 +644,7 @@ def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):
 
         response = client.get("/api/buy-signal")
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["signals"] == []
     assert body["skipped"] == [{"ticker": "", "reason": "no trained model persisted yet"}]
@@ -662,7 +677,7 @@ def test_get_buy_signal_scores_active_tickers_and_serializes_the_full_shape(clie
 
         response = client.get("/api/buy-signal", params={"threshold": 0.005})
 
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["threshold"] == 0.005
     assert body["scored_count"] == 1

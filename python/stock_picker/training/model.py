@@ -176,11 +176,24 @@ def train_lightgbm_rank(
     included_features: set[str] | None = None,
     relevance_grades: int = LIGHTGBM_RANK_GRADES,
 ) -> TrainedModel:
-    """Order tickers within each day -- does not fit the return percent.
+    """Learning-to-rank (lambdarank): relative order within a day, not the %.
 
-    Label is a 0..grades-1 relevance bucket from that day's return quantiles.
-    predict() is a same-day relative score, not a percent. Do not blend with
-    regression members or gate at 0.5%; use Rank IC / top-K.
+    Regression (MSE/MAE) punishes |actual − predicted|. If A returned +10%
+    and B +5% and the model scores A > B but as 2% vs 1%, regression still
+    takes a large loss. Portfolio construction only needs A above B that
+    morning -- see e.g. Poh, Lim, Zohren, Roberts, "Building Cross-Sectional
+    Systematic Strategies by Learning to Rank" (JFDS).
+
+    This trainer:
+    - Groups strictly by `date` so pairs/lists are same-session only.
+    - Down/flat sessions are relevance 0 (not a winner). Ups are 1..N by
+      size vs other ups that day. Predicting 0.03% on a +1.8% winner that
+      is still near the top is not a miss; ranking a down name above an up
+      name is.
+    - Objective lambdarank / metric NDCG@5 and @20 (the live top-K cuts).
+    - predict() is a relative score, not a percent. Do not blend with
+      regression members or gate at 0.5%. Evaluate Rank IC (mean
+      within-day Spearman) and top-K hit / mean session return.
     """
     if "date" not in train_frame.columns:
         raise ValueError("lambdarank needs a date column to group same-day peers")
@@ -188,9 +201,14 @@ def train_lightgbm_rank(
     sorted_frame = train_frame.sort_values("date")
 
     def _grades(day: pd.Series) -> pd.Series:
-        ranked = day.rank(method="first")
-        n = min(relevance_grades, max(2, int(ranked.nunique())))
-        return pd.qcut(ranked, n, labels=False, duplicates="drop")
+        grades = pd.Series(0, index=day.index, dtype=int)
+        ups = day[day > 0]
+        if ups.empty:
+            return grades
+        n = min(relevance_grades, max(2, int(ups.nunique())))
+        buckets = pd.qcut(ups.rank(method="first"), n, labels=False, duplicates="drop")
+        grades.loc[ups.index] = buckets.astype(int) + 1
+        return grades
 
     relevance = sorted_frame.groupby("date")[LABEL_COLUMN].transform(_grades)
     relevance = relevance.fillna(0).astype(int)
@@ -201,6 +219,7 @@ def train_lightgbm_rank(
         **(params or {}),
         "objective": "lambdarank",
         "metric": "ndcg",
+        "eval_at": [5, 20],
     }
     rounds = int(merged.pop("num_boost_round", num_boost_round))
     booster = lgb.train(merged, dataset, num_boost_round=rounds)
@@ -335,10 +354,13 @@ MODEL_TRAINERS = {
 # The model types that predict the continuous day-session return and can
 # therefore be blended into an Ensemble. logistic_regression predicts a
 # binary direction instead -- a different unit that can't be weighted-
-# averaged with these, so it's fit standalone (see training/main.py) and
-# deliberately excluded from this list, which is what the composable
-# model-type picker in the UI offers.
+# averaged with these, so it's fit standalone (see training/main.py).
+# lightgbm_rank is also a different unit (within-day order, not percent) --
+# it's on the Models picker (TRAINABLE_MODEL_TYPES) but peeled out of the
+# blender in run_training and persisted as day_session_return_rank.pkl.
 PREDICTIVE_MODEL_TYPES = ["lightgbm", "random_forest", "neural_net", "ridge"]
+RANK_MODEL_TYPE = "lightgbm_rank"
+TRAINABLE_MODEL_TYPES = [*PREDICTIVE_MODEL_TYPES, RANK_MODEL_TYPE]
 
 
 def train_model(model_type: str, train_frame: pd.DataFrame, **kwargs) -> TrainedModel:

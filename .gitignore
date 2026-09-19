@@ -13,6 +13,9 @@ __pycache__/
 data/buy_signals/*
 !data/buy_signals/.gitkeep
 .idea/
+# SQLite WAL sidecar -- the .db is the source of truth (trades, later scans).
+*.db-wal
+*.db-shm
 typescript/node_modules/
 typescript/dist/
 typescript/*.tsbuildinfo

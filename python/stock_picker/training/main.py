@@ -24,7 +24,13 @@ from stock_picker.storage.training_run_store import TrainingRunRecord, TrainingR
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
-from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble, selected_model_specs
+from stock_picker.training.ensemble import (
+    ModelSpec,
+    evaluate_ensemble,
+    partition_model_specs,
+    predict_ensemble,
+    selected_model_specs,
+)
 from stock_picker.training.model import EvaluationMetrics, train_logistic_regression
 from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
@@ -105,13 +111,16 @@ def run_training(
     "every feature, subject to pruning only," same as before this parameter
     existed.
 
-    `model_specs`, if given, is the composable ensemble composition chosen via
-    the UI (see `ensemble.py`'s `selected_model_specs()`); `None` falls back
-    to `DEFAULT_MODEL_SPECS`. Each spec's own `excluded_features`/
-    `included_features` are overwritten here with the current pruned/selected
-    sets, since specs coming from persisted UI config only carry
-    `model_type`/`weight` -- feature selection is applied uniformly to every
-    model in the ensemble (per-model feature subsets are deferred).
+    `model_specs`, if given, is the composable composition chosen via the UI
+    (see `ensemble.py`'s `selected_model_specs()`); `None` falls back to
+    `DEFAULT_MODEL_SPECS` and also trains lambdarank. `lightgbm_rank` is
+    peeled out of the return blender (see `partition_model_specs`) and
+    written to `day_session_return_rank.pkl`. Each spec's own
+    `excluded_features`/`included_features` are overwritten here with the
+    current pruned/selected sets, since specs coming from persisted UI
+    config only carry `model_type`/`weight` -- feature selection is applied
+    uniformly to every model in the ensemble (per-model feature subsets are
+    deferred).
 
     `run_id`, if given, also archives this run's ensemble under its own name
     (in addition to the plain overwrite below, which stays "whatever's
@@ -129,7 +138,8 @@ def run_training(
     price_store = PriceStore()
     feature_store = FeatureStore()
     excluded_features = pruned_features()
-    base_specs = model_specs if model_specs is not None else DEFAULT_MODEL_SPECS
+    predictive_specs, wants_rank = partition_model_specs(model_specs)
+    base_specs = predictive_specs if predictive_specs is not None else DEFAULT_MODEL_SPECS
     specs = [
         ModelSpec(
             spec.model_type,
@@ -141,6 +151,8 @@ def run_training(
         for spec in base_specs
     ]
     resolved_specs = [{"model_type": s.model_type, "weight": s.weight, "params": s.params} for s in specs]
+    if wants_rank:
+        resolved_specs.append({"model_type": "lightgbm_rank", "weight": 1.0, "params": None})
     # Surfaced here, before the walk-forward/fit calls that can raise, so a
     # failed run still leaves this provenance in the server log even though
     # storage/training_run_store.py can't record it for a run that never
@@ -177,6 +189,12 @@ def run_training(
         train_dataset, excluded_features=excluded_features, included_features=included_features
     )
     ModelStore().write(DIAGNOSTIC_MODEL_NAME, diagnostic_model)
+
+    if wants_rank:
+        from stock_picker.training.rank_model import train_and_persist_rank_model
+
+        print("training lambdarank (parallel pickle, not blended into the return ensemble)")
+        train_and_persist_rank_model(included_features=included_features)
 
     fold_metrics = [result.metrics for result in fold_results]
 

@@ -7,15 +7,130 @@ store and one read, mirroring price_store.py's single-purpose simplicity.
 
 from __future__ import annotations
 
+from datetime import datetime, time, timedelta
+from zoneinfo import ZoneInfo
+
 import pandas as pd
 
 from stock_picker.storage.trade_store import TradeStore
 
+_NY = ZoneInfo("America/New_York")
+_RTH_OPEN = time(9, 30)
+_RTH_CLOSE = time(16, 0)
+
 NOTIONAL_DECIMAL_PLACES = 2
+
+
+def _fills_in_time_order(trades: pd.DataFrame) -> pd.DataFrame:
+    """Chronological fills; at the same timestamp, buys before sells.
+
+    TTAN's 465 buy and 930 sell share 10:02 — if the sell is applied first
+    the earlier 465 leftover looks open even though the day was flat.
+    """
+    frame = trades.copy()
+    frame["executed_dt"] = pd.to_datetime(frame["executed_at"], utc=True, format="ISO8601")
+    frame["_side_order"] = (frame["side"] != "buy").astype(int)
+    frame["_row"] = range(len(frame))
+    return frame.sort_values(["executed_dt", "_side_order", "_row"], kind="mergesort")
 
 
 def trade_log() -> pd.DataFrame:
     return TradeStore().read()
+
+
+def peak_working_by_day(trades: pd.DataFrame) -> dict[str, float]:
+    """Max cost basis actually out during each NY session.
+
+    Walks the whole log so overnight inventory carries in. Sells reduce by
+    average cost of the shares sold -- not sell proceeds -- so taking TTAN
+    off does not wipe XNDU that is still on until later that day.
+    """
+    if trades.empty:
+        return {}
+    frame = _fills_in_time_order(trades)
+    shares: dict[str, float] = {}
+    cost: dict[str, float] = {}
+    peaks: dict[str, float] = {}
+    for row in frame.itertuples():
+        ticker = row.ticker
+        qty = float(row.shares)
+        notional = qty * float(row.price)
+        if row.side == "buy":
+            shares[ticker] = shares.get(ticker, 0.0) + qty
+            cost[ticker] = cost.get(ticker, 0.0) + notional
+        else:
+            held = shares.get(ticker, 0.0)
+            avg = (cost.get(ticker, 0.0) / held) if held else 0.0
+            sold = min(qty, held) if held else 0.0
+            cost[ticker] = cost.get(ticker, 0.0) - avg * sold
+            shares[ticker] = held - sold
+        working = sum(value for value in cost.values() if value > 0)
+        day = row.executed_dt.tz_convert("America/New_York").date().isoformat()
+        peaks[day] = round(max(peaks.get(day, 0.0), working), NOTIONAL_DECIMAL_PLACES)
+    return peaks
+
+
+def _apply_fill(shares: dict[str, float], cost: dict[str, float], row) -> float:
+    ticker = row.ticker
+    qty = float(row.shares)
+    notional = qty * float(row.price)
+    if row.side == "buy":
+        shares[ticker] = shares.get(ticker, 0.0) + qty
+        cost[ticker] = cost.get(ticker, 0.0) + notional
+    else:
+        held = shares.get(ticker, 0.0)
+        avg = (cost.get(ticker, 0.0) / held) if held else 0.0
+        sold = min(qty, held) if held else 0.0
+        cost[ticker] = cost.get(ticker, 0.0) - avg * sold
+        shares[ticker] = held - sold
+    return sum(value for value in cost.values() if value > 0)
+
+
+def time_weighted_working_by_day(trades: pd.DataFrame) -> dict[str, float]:
+    """Average dollars on the book during 9:30–16:00 ET, weighted by time.
+
+    Peak of the day is not the average -- 20 minutes at $60k then flat is
+    not a $60k day. Overnight inventory is on the book at 9:30 until sold.
+    """
+    if trades.empty:
+        return {}
+    frame = _fills_in_time_order(trades)
+    frame["executed_dt"] = frame["executed_dt"].dt.tz_convert(_NY)
+    shares: dict[str, float] = {}
+    cost: dict[str, float] = {}
+    averages: dict[str, float] = {}
+    first_day = frame["executed_dt"].iloc[0].date()
+    last_day = frame["executed_dt"].iloc[-1].date()
+    fills = list(frame.itertuples())
+    fill_i = 0
+    day = first_day
+    while day <= last_day:
+        if day.weekday() < 5:
+            session_open = datetime.combine(day, _RTH_OPEN, tzinfo=_NY)
+            session_close = datetime.combine(day, _RTH_CLOSE, tzinfo=_NY)
+            while fill_i < len(fills) and fills[fill_i].executed_dt < session_open:
+                _apply_fill(shares, cost, fills[fill_i])
+                fill_i += 1
+            working = sum(value for value in cost.values() if value > 0)
+            last_t = session_open
+            integral = 0.0
+            cursor = fill_i
+            while cursor < len(fills) and fills[cursor].executed_dt <= session_close:
+                fill = fills[cursor]
+                dt = (fill.executed_dt - last_t).total_seconds()
+                if dt > 0:
+                    integral += working * dt
+                working = _apply_fill(shares, cost, fill)
+                last_t = fill.executed_dt
+                cursor += 1
+            dt = (session_close - last_t).total_seconds()
+            if dt > 0:
+                integral += working * dt
+            duration = (session_close - session_open).total_seconds()
+            averages[day.isoformat()] = round(integral / duration, NOTIONAL_DECIMAL_PLACES) if duration else 0.0
+            fill_i = cursor
+        day += timedelta(days=1)
+    return averages
 
 
 def trade_history(trades: pd.DataFrame) -> list[dict]:
@@ -29,7 +144,7 @@ def trade_history(trades: pd.DataFrame) -> list[dict]:
     """
     if trades.empty:
         return []
-    chronological = trades.sort_values("executed_at", ascending=True)
+    chronological = _fills_in_time_order(trades)
 
     position_shares: dict[str, float] = {}
     position_cost: dict[str, float] = {}
@@ -73,11 +188,9 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
     """
     if trades.empty:
         return []
-    trades = trades.copy()
     # utc=True is required when the log mixes offsets (EDT -04:00 and CDT
     # -05:00): naive to_datetime then yields object dtype and .dt blows up.
-    trades["executed_dt"] = pd.to_datetime(trades["executed_at"], utc=True)
-    chronological = trades.sort_values("executed_dt", ascending=True)
+    chronological = _fills_in_time_order(trades)
 
     open_lots: dict[str, dict] = {}
     rows: list[dict] = []

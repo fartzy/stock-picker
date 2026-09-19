@@ -1,4 +1,4 @@
-from stock_picker.storage.trade_store import Trade, TradeStore
+from stock_picker.storage.trade_store import ParquetTradeLog, Trade, TradeStore
 
 
 def test_read_returns_empty_frame_with_columns_before_any_append(tmp_path):
@@ -47,3 +47,33 @@ def test_append_also_writes_a_readable_csv(tmp_path):
     assert "HOOD,buy," in text
     assert "121.88" in text
     assert "2026-09-04T10:08:10-04:00" in text
+
+
+def test_duplicate_append_is_ignored(tmp_path):
+    store = TradeStore(data_dir=tmp_path)
+    trade = Trade(ticker="HOOD", side="buy", shares=50, price=121.88, executed_at="2026-09-04T10:08:10-04:00")
+
+    store.append(trade)
+    store.append(trade)
+
+    assert len(store.read()) == 1
+
+
+def test_sqlite_imports_existing_parquet_once(tmp_path):
+    parquet = ParquetTradeLog(tmp_path)
+    parquet.append(Trade(ticker="HOOD", side="buy", shares=50, price=121.88, executed_at="2026-09-04T10:08:10-04:00"))
+
+    store = TradeStore(data_dir=tmp_path)
+
+    trades = store.read()
+    assert len(trades) == 1
+    assert trades.iloc[0]["ticker"] == "HOOD"
+
+
+def test_parquet_backend_still_round_trips_when_injected(tmp_path):
+    store = TradeStore(data_dir=tmp_path, backend=ParquetTradeLog(tmp_path))
+
+    store.append(Trade(ticker="HOOD", side="buy", shares=50, price=121.88, executed_at="2026-09-04T10:08:10-04:00"))
+
+    assert (tmp_path / "trades.parquet").is_file()
+    assert store.read().iloc[0]["ticker"] == "HOOD"

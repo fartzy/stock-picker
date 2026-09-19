@@ -1,0 +1,16 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "paper",
+    srcs = [
+        "__init__.py",
+        "book.py",
+    ],
+    imports = ["../.."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)

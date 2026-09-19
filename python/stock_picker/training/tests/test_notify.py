@@ -41,6 +41,26 @@ def test_format_picks_email_includes_top_rows_and_earnings_skip():
     assert "Skipped earnings: ORCL" in body
 
 
+def test_format_picks_email_appends_a_news_flag():
+    payload = {
+        "as_of": "2026-09-18",
+        "scored_count": 4,
+        "signals": [
+            {
+                "ticker": "XENE",
+                "predicted_return": 0.01,
+                "open_price": 44.0,
+                "news_flag": "Xenon pauses Phase 3 clinical trial",
+            }
+        ],
+        "skipped": [],
+    }
+
+    _, body = format_picks_email(payload)
+
+    assert "NEWS Xenon pauses Phase 3 clinical trial" in body
+
+
 def test_format_not_ready_email():
     subject, body = format_not_ready_email("2026-09-11", "model trained through Monday")
 

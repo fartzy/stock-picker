@@ -16,7 +16,7 @@ py_library(
         "earnings.py",
         "examples.py",
         "formulas.py",
-        "log_broker_fills.py",
+        "hold_to_close.py",
         "log_trade_main.py",
         "main.py",
         "momentum.py",
@@ -65,16 +65,6 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":features",
-    ],
-)
-
-py_binary(
-    name = "log_broker_fills",
-    srcs = ["log_broker_fills.py"],
-    imports = ["../.."],
-    visibility = ["//python:__subpackages__"],
-    deps = [
-        "//python/stock_picker/storage",
     ],
 )
 

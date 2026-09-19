@@ -16,7 +16,13 @@ import pandas as pd
 
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
-from stock_picker.training.model import EvaluationMetrics, TrainedModel, predict, train_model
+from stock_picker.training.model import (
+    RANK_MODEL_TYPE,
+    EvaluationMetrics,
+    TrainedModel,
+    predict,
+    train_model,
+)
 
 
 @dataclass
@@ -93,3 +99,18 @@ def selected_model_specs() -> list[ModelSpec] | None:
     if choices is None:
         return None
     return [ModelSpec(choice.model_type, weight=choice.weight) for choice in choices]
+
+
+def partition_model_specs(specs: list[ModelSpec] | None) -> tuple[list[ModelSpec] | None, bool]:
+    """Split UI/CLI specs into return-ensemble members vs lambdarank.
+
+    Rank scores are not percents -- they cannot be weight-averaged with
+    LightGBM/Ridge. None specs = default return composition *and* train rank.
+    Rank-only choices still train the default return ensemble so the 0.5%
+    list is never left empty.
+    """
+    if specs is None:
+        return None, True
+    predictive = [spec for spec in specs if spec.model_type != RANK_MODEL_TYPE]
+    wants_rank = any(spec.model_type == RANK_MODEL_TYPE for spec in specs)
+    return (predictive or None, wants_rank)

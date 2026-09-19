@@ -58,10 +58,13 @@ Five layers, each only talking to the one below it:
 ingestion/  -> storage/  -> features/  -> training/  -> api/ -> typescript/
 ```
 
-- **`storage/`**: Repository pattern over Parquet/pickle files (`UniverseStore`,
+- **`storage/`**: Repository pattern (`UniverseStore`,
   `PriceStore`, `FeatureStore`, `ModelStore`, `TradeStore`,
-  `PrunedFeatureStore`, `TrainingRunStore`, `TrainingConfigStore`). Every
-  store constructor takes an optional `data_dir` for test isolation
+  `ScanStore`, `PaperBookStore`,
+  `PrunedFeatureStore`, `TrainingRunStore`, `TrainingConfigStore`).
+  Prices/features stay parquet; trades, morning scans, and the paper book
+  are SQLite. `paper/` scores morning lists Open->Close -- not ML columns.
+  Every store constructor takes an optional `data_dir` for test isolation
   (`Store(data_dir=tmp_path)`) -- this is the established DI pattern for
   testing anything that touches persistence.
 - **`features/`**: the ~100-column pipeline (`features/pipeline.py`), plus

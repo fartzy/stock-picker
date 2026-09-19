@@ -11,15 +11,16 @@
   </array>
   <key>WorkingDirectory</key>
   <string>/Users/michael.artz/dev/stock-picker</string>
-  <!-- Hours are the Mac's local timezone. This machine is America/New_York,
-       so 9:32 = 8:32 CT, two minutes after the cash open. -->
+  <!-- Hours are the Mac's local timezone (this box is America/Chicago).
+       8:32 CT = two minutes after the cash open; Rank's ~3 min test run
+       lands around 8:35 CT. -->
   <key>StartCalendarInterval</key>
   <array>
     <dict>
       <key>Weekday</key>
       <integer>1</integer>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
       <key>Minute</key>
       <integer>32</integer>
     </dict>
@@ -27,7 +28,7 @@
       <key>Weekday</key>
       <integer>2</integer>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
       <key>Minute</key>
       <integer>32</integer>
     </dict>
@@ -35,7 +36,7 @@
       <key>Weekday</key>
       <integer>3</integer>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
       <key>Minute</key>
       <integer>32</integer>
     </dict>
@@ -43,7 +44,7 @@
       <key>Weekday</key>
       <integer>4</integer>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
       <key>Minute</key>
       <integer>32</integer>
     </dict>
@@ -51,7 +52,7 @@
       <key>Weekday</key>
       <integer>5</integer>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
       <key>Minute</key>
       <integer>32</integer>
     </dict>

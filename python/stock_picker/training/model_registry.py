@@ -48,6 +48,7 @@ class ModelTypeInfo:
 
 _DISPLAY_NAMES = {
     "lightgbm": "LightGBM",
+    "lightgbm_rank": "LightGBM Rank",
     "random_forest": "Random Forest",
     "logistic_regression": "Logistic Regression",
     "neural_net": "Neural Net",
@@ -56,6 +57,7 @@ _DISPLAY_NAMES = {
 
 _CATEGORIES = {
     "lightgbm": "gradient_boosted_trees",
+    "lightgbm_rank": "learning_to_rank",
     "random_forest": "tree_ensemble",
     "logistic_regression": "linear_diagnostic",
     "neural_net": "neural_network",
@@ -66,6 +68,7 @@ _CATEGORIES = {
 # and dist name happen to match, scikit-learn's (`sklearn`) doesn't.
 _PACKAGES = {
     "lightgbm": "lightgbm",
+    "lightgbm_rank": "lightgbm",
     "random_forest": "scikit-learn",
     "logistic_regression": "scikit-learn",
     "neural_net": "scikit-learn",
@@ -74,6 +77,10 @@ _PACKAGES = {
 
 _DESCRIPTIONS = {
     "lightgbm": "Gradient-boosted trees predicting the continuous day-session return. Ensemble member.",
+    "lightgbm_rank": (
+        "LightGBM lambdarank: orders names within a day (NDCG), not predicted percent. "
+        "Served as a parallel top-K list -- not an ensemble member with the return models."
+    ),
     "random_forest": "Bagged regression trees predicting the continuous day-session return. Ensemble member.",
     "logistic_regression": (
         "Predicts the binarized direction (up/down), not the continuous return -- fit and persisted "
@@ -142,12 +149,15 @@ def _github_base_url() -> str | None:
 
 def describe_model_types() -> list[ModelTypeInfo]:
     """Every model type MODEL_TRAINERS knows how to fit -- including
-    logistic_regression, even though it's excluded from the composable
-    ensemble picker (PREDICTIVE_MODEL_TYPES): the user wants to see what
-    exists, not just what's currently pickable as an ensemble member."""
+    logistic_regression (diagnostic, not on the picker) and lightgbm_rank
+    (on the picker, trained as a parallel pickle)."""
     base_url = _github_base_url()
     infos = []
     for model_type, trainer in MODEL_TRAINERS.items():
+        if model_type not in _PACKAGES:
+            # A new trainer with no catalog row must not 500 /api/model-types
+            # (that's how lightgbm_rank took down the Models tab).
+            continue
         source_file, source_line = _source_location(trainer)
         package = _PACKAGES[model_type]
         infos.append(

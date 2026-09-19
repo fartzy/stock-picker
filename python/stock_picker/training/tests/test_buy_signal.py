@@ -362,3 +362,32 @@ def test_earnings_ticker_is_skipped_and_not_scored(tmp_path):
     assert result.scored_count == 1
     assert result.signals[0].ticker == "MSFT"
     assert any(skip["ticker"] == "AAPL" and "earnings" in skip["reason"] for skip in result.skipped)
+
+
+def test_news_flag_attaches_only_to_recommended_names(tmp_path):
+    universe_store, feature_store, model_store, config_store, price_store = _stores(tmp_path)
+    model_store.write(MODEL_NAME, _trained_ensemble())
+    _seed_ticker(feature_store, universe_store, "XENE", _FRESH_SNAPSHOT_DATE, signal_value=5.0)
+    _seed_ticker(feature_store, universe_store, "MSFT", _FRESH_SNAPSHOT_DATE, signal_value=5.0)
+
+    seen: list[list[str]] = []
+
+    def news_fetcher(tickers, as_of):
+        seen.append(list(tickers))
+        return {"XENE": "Xenon pauses Phase 3 clinical trial"}
+
+    result = compute_buy_signals(
+        as_of=_AS_OF,
+        universe_store=universe_store,
+        feature_store=feature_store,
+        model_store=model_store,
+        config_store=config_store,
+        price_store=price_store,
+        quote_fetcher=lambda tickers: {"XENE": _quote(), "MSFT": _quote()},
+        news_fetcher=news_fetcher,
+    )
+
+    assert seen and set(seen[0]) <= {"XENE", "MSFT"}
+    by_ticker = {signal.ticker: signal for signal in result.signals}
+    assert by_ticker["XENE"].news_flag == "Xenon pauses Phase 3 clinical trial"
+    assert by_ticker["MSFT"].news_flag is None

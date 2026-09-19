@@ -55,6 +55,7 @@ class BuySignal:
     predicted_return: float
     open_price: float
     snapshot_date: str
+    news_flag: str | None = None
 
 
 @dataclass
@@ -77,6 +78,7 @@ def compute_buy_signals(
     price_store: PriceStore | None = None,
     quote_fetcher: Callable[[list[str]], dict[str, dict]] = fetch_ticker_quotes,
     earnings_fetcher: Callable[[list[str], date], set[str]] | None = None,
+    news_fetcher: Callable[[list[str], date], dict[str, str]] | None = None,
     model_name: str | None = None,
     top_k: int | None = None,
 ) -> BuySignalResult:
@@ -201,6 +203,15 @@ def compute_buy_signals(
     signals.sort(key=lambda signal: signal.predicted_return, reverse=True)
     if top_k is not None:
         signals = signals[:top_k]
+    # Tests pass news_fetcher=None (no network). Morning / live API pass
+    # Finnhub so only the recommended names get a company-news lookup.
+    if news_fetcher is not None and signals:
+        try:
+            flags = news_fetcher([signal.ticker for signal in signals], as_of) or {}
+        except TypeError:
+            flags = {}
+        for signal in signals:
+            signal.news_flag = flags.get(signal.ticker)
     blended_importance = sorted(ensemble_importance(ensemble).items(), key=lambda item: item[1], reverse=True)
     top_drivers = blended_importance[:TOP_DRIVER_COUNT]
 

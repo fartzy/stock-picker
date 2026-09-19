@@ -67,10 +67,9 @@ export default function ModelPicker() {
   }
 
   const chosen = chosenModelTypes ?? new Set(modelSelection.available_model_types);
-  // model-types describes every model type this codebase knows how to fit
-  // (including logistic_regression, a diagnostic-only fit -- see
-  // model_registry.py's own docstring); the ensemble picker itself only
-  // offers what's actually pickable as an ensemble member.
+  // model-types describes every trainer (including logistic_regression, a
+  // diagnostic-only fit). The picker offers TRAINABLE_MODEL_TYPES -- return
+  // models plus lambdarank. Rank is trained as its own pickle, not blended.
   const pickable = modelTypes.model_types.filter((info) =>
     modelSelection.available_model_types.includes(info.model_type),
   );
@@ -80,7 +79,8 @@ export default function ModelPicker() {
       <h3>Model families for training</h3>
       {chosenModelTypes === null && (
         <p className="muted" style={{ marginTop: 0 }}>
-          All checked = no override, trains whichever blend of these actually wins.
+          All checked = no override (solo LightGBM + lambdarank pickle). Rank is
+          never averaged into the 0.5% return blend.
         </p>
       )}
       {pickable.map((info) => (

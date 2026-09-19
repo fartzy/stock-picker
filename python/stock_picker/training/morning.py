@@ -1,21 +1,23 @@
 """Weekday morning scoring: today's opens through last night's model.
 
-Runs at 8:32 CT (9:32 ET) so liquid names usually have an official open.
-Writes JSON the Trading tab loads instantly -- sit down at 8:37, see the
-list, click only to rescan live.
+Runs at 8:32 CT. Rank and Fit score in parallel on one quote pull.
+Rank is published as soon as Rank finishes (target ~8:35 CT).
 """
 
 from __future__ import annotations
 
 import functools
-import json
-import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
+from stock_picker.features.quotes import fetch_ticker_quotes
+from stock_picker.storage.universe_store import UniverseStore
+from stock_picker.training.news_day_judge import fetch_recent_news_flags
 from stock_picker.storage.paths import data_root
+from stock_picker.storage.scan_store import ScanStore
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals, compute_rank_signals
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.notify import (
@@ -30,60 +32,41 @@ from stock_picker.training.rank_model import RANK_TOP_K
 
 print = functools.partial(print, flush=True)
 
-# Same data_root() as prices/features/models -- repo/data/buy_signals, not a
-# bazel sandbox and not /tmp. morning.sh cds to the repo and bazel run sets
-# BUILD_WORKING_DIRECTORY to that checkout.
 DEFAULT_SIGNAL_DIR = data_root() / "buy_signals"
-# 8:32 CT is 9:32 ET -- liquid names usually have an official open. One
-# retry a minute later fills names that hadn't printed yet (NYSE auction lag).
-MISSING_QUOTE_RETRY_SECONDS = 60
-MISSING_QUOTE_RETRY_MIN = 20
 
 
-def load_cached_signals(as_of: str | None = None, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> dict | None:
-    """Today's morning-job payload if it already finished -- a parquet-free
-    JSON read so a click at 8:37 is instant. Only returns a file whose
-    as_of is this calendar day; yesterday's latest.json is not reused."""
+def load_cached_signals(
+    as_of: str | None = None,
+    signal_dir: Path = DEFAULT_SIGNAL_DIR,
+    kind: str = "fit",
+) -> dict | None:
     day = as_of or date.today().isoformat()
-    path = signal_dir / f"{day}.json"
-    if not path.is_file():
-        latest = signal_dir / "latest.json"
-        path = latest if latest.is_file() else path
-    if not path.is_file():
-        return None
-    try:
-        payload = json.loads(path.read_text())
-    except (OSError, json.JSONDecodeError):
-        return None
-    if not isinstance(payload, dict):
-        return None
-    if payload.get("as_of") != day:
-        return None
-    return payload
+    return ScanStore(data_dir=signal_dir).read(day, kind)
 
 
 def _write_signals(payload: dict, as_of: str, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> Path:
-    signal_dir.mkdir(parents=True, exist_ok=True)
-    path = signal_dir / f"{as_of}.json"
-    path.write_text(json.dumps(payload, indent=2))
-    (signal_dir / "latest.json").write_text(json.dumps(payload, indent=2))
-    return path
+    kind = payload.get("kind") or ("rank" if as_of.endswith("-rank") else "fit")
+    day = payload.get("as_of") or as_of.removesuffix("-rank")
+    ScanStore(data_dir=signal_dir).write(day, kind, payload)
+    name = f"{day}-rank.json" if kind == "rank" else f"{day}.json"
+    return signal_dir / name
 
 
 def _payload_from(result, freshness) -> dict:
     return {
         "as_of": result.as_of,
         "threshold": result.threshold,
-        "scored_count": result.scored_count,
         "signals": [
             {
                 "ticker": signal.ticker,
                 "predicted_return": signal.predicted_return,
                 "open_price": signal.open_price,
                 "snapshot_date": signal.snapshot_date,
+                "news_flag": signal.news_flag,
             }
             for signal in result.signals
         ],
+        "scored_count": result.scored_count,
         "skipped": result.skipped,
         "top_drivers": [
             {"feature": name, "importance": value} for name, value in result.top_drivers
@@ -97,10 +80,6 @@ def _payload_from(result, freshness) -> dict:
     }
 
 
-def _missing_quotes(skipped: list[dict]) -> int:
-    return sum(1 for row in skipped if "no live quote" in (row.get("reason") or ""))
-
-
 def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
     started = datetime.now(ZoneInfo("America/Chicago"))
     print(f"morning start {started.isoformat()}")
@@ -111,24 +90,56 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD) -> int:
         subject, body = format_not_ready_email(freshness.as_of, freshness.detail)
         print(f"published={publish_picks(freshness.as_of, body)} emailed={send_email(subject, body)}")
         return 1
-    result = compute_buy_signals(
-        threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
-    )
+    rank_n = 0
+    rank_text = ""
+    quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
+
+    def quote_fetcher(tickers, as_of=None):
+        return quotes
+
+    def _rank():
+        return compute_rank_signals(
+            top_k=RANK_TOP_K,
+            quote_fetcher=quote_fetcher,
+            earnings_fetcher=fetch_recent_earnings_tickers,
+            news_fetcher=fetch_recent_news_flags,
+        )
+
+    def _fit():
+        return compute_buy_signals(
+            threshold=threshold,
+            quote_fetcher=quote_fetcher,
+            earnings_fetcher=fetch_recent_earnings_tickers,
+            news_fetcher=fetch_recent_news_flags,
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        rank_future = pool.submit(_rank)
+        fit_future = pool.submit(_fit)
+        try:
+            rank_result = rank_future.result()
+            if rank_result.signals:
+                rank_payload = _payload_from(rank_result, freshness)
+                rank_payload["kind"] = "rank"
+                _write_signals(rank_payload, rank_result.as_of)
+                rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+                write_picks_files(rank_result.as_of, rank_text)
+                publish_picks(rank_result.as_of, rank_text)
+                rank_n = len(rank_result.signals)
+                print(f"rank_top={rank_n} published first")
+        except Exception as exc:
+            print(f"ranking skipped: {exc}")
+        result = fit_future.result()
     payload = _payload_from(result, freshness)
     path = _write_signals(payload, result.as_of)
     subject, body = format_picks_email(payload)
-    rank_result = compute_rank_signals(
-        top_k=RANK_TOP_K, earnings_fetcher=fetch_recent_earnings_tickers
-    )
-    if rank_result.signals:
-        rank_payload = _payload_from(rank_result, freshness)
-        body = body + "\n" + format_rank_picks(rank_payload, k=RANK_TOP_K)
-        write_picks_files(f"{result.as_of}-rank", format_rank_picks(rank_payload, k=RANK_TOP_K))
+    if rank_text:
+        body = rank_text + "\n" + body
     published = publish_picks(result.as_of, body)
     mailed = send_email(subject, body)
     print(
         f"scored={result.scored_count} picks={len(result.signals)} "
-        f"rank_top={len(rank_result.signals)} wrote {path} published={published} emailed={mailed}"
+        f"rank_top={rank_n} wrote {path} published={published} emailed={mailed}"
     )
     print(f"morning done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
     return 0
