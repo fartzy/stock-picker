@@ -68,6 +68,7 @@ function sortFeatures(
 
 const MODEL_TYPE_LABELS: Record<string, string> = {
   lightgbm: "LightGBM",
+  lightgbm_rank: "LightGBM Rank",
   random_forest: "RF",
   logistic_regression: "LogReg",
 };

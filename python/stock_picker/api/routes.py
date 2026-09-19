@@ -8,9 +8,10 @@ from dataclasses import asdict
 from datetime import datetime
 from typing import Literal
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 
 from stock_picker.api.models import (
+    BenchmarkHold,
     BenchmarkReturnsResponse,
     BuySignalResponse,
     CatalogResponse,
@@ -21,11 +22,14 @@ from stock_picker.api.models import (
     FeatureValuesResponse,
     ImportanceResponse,
     LiveModelResponse,
+    MorningCheckRequest,
+    MorningCheckResponse,
     ModelInfoResponse,
     PipelineFreshnessResponse,
     ModelSelectionRequest,
     ModelSelectionResponse,
     ModelTypesResponse,
+    PaperBookResponse,
     PositionsResponse,
     PriceHistoryResponse,
     PruneRequest,
@@ -41,7 +45,13 @@ from stock_picker.api.models import (
 from stock_picker.api.models import ModelChoice as ModelChoiceModel
 from stock_picker.api.models import ModelTypeInfo as ModelTypeInfoModel
 from stock_picker.api.models import TrainingRunRecord as TrainingRunRecordModel
-from stock_picker.features.benchmark import fetch_benchmark_returns
+from stock_picker.features.benchmark import (
+    fetch_benchmark_hold,
+    fetch_benchmark_overnight,
+    fetch_benchmark_returns,
+)
+from stock_picker.features.hold_to_close import apply_hold_to_close
+from stock_picker.paper.book import load_or_rebuild, paper_book_view, rebuild_paper_book
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -62,7 +72,12 @@ from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import TICKER_ENTITY, build_registry
 from stock_picker.features.selection import selected_features
-from stock_picker.features.trades import position_summaries, trade_history, trade_log
+from stock_picker.features.trades import (
+    position_summaries,
+    time_weighted_working_by_day,
+    trade_history,
+    trade_log,
+)
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
@@ -71,7 +86,9 @@ from stock_picker.storage.training_config_store import ModelChoice, TrainingConf
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training import job as training_job
+from stock_picker.training import morning_check as morning_check_job
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
+from stock_picker.training.news_day_judge import fetch_recent_news_flags
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.morning import load_cached_signals
@@ -79,7 +96,7 @@ from stock_picker.training.ensemble import ensemble_composition, selected_model_
 from stock_picker.training.importance import model_importance
 from stock_picker.training.job import JobStatus
 from stock_picker.training.main import MODEL_NAME
-from stock_picker.training.model import PREDICTIVE_MODEL_TYPES
+from stock_picker.training.model import TRAINABLE_MODEL_TYPES
 from stock_picker.training.model_registry import describe_model_types
 
 router = APIRouter(prefix="/api")
@@ -123,7 +140,9 @@ def _executed_at(value: str | None) -> str:
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail="executed_at must be ISO 8601") from exc
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="executed_at must be ISO 8601"
+        ) from exc
     if parsed.tzinfo is None:
         parsed = parsed.astimezone()
     return parsed.isoformat()
@@ -148,8 +167,8 @@ def get_quotes(tickers: str) -> QuotesResponse:
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
 
 
-def _cached_buy_signal(threshold: float) -> BuySignalResponse | None:
-    payload = load_cached_signals()
+def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse | None:
+    payload = load_cached_signals(kind=kind)
     if payload is None:
         return None
     return BuySignalResponse(
@@ -165,15 +184,36 @@ def _cached_buy_signal(threshold: float) -> BuySignalResponse | None:
 
 @router.get("/buy-signal")
 def get_buy_signal(
-    threshold: float = DEFAULT_THRESHOLD, live: bool = False
+    threshold: float = DEFAULT_THRESHOLD, live: bool = False, kind: str = "fit"
 ) -> BuySignalResponse:
-    """Prefer this morning's saved scan. `live=true` forces a full rescore."""
+    """Prefer this morning's saved scan. `live=true` forces a full rescore.
+    kind=rank loads lambdarank top-K (scores are not percents)."""
     if not live:
-        cached = _cached_buy_signal(threshold)
+        cached = _cached_buy_signal(threshold, kind=kind)
         if cached is not None:
             return cached
+    if kind == "rank":
+        from stock_picker.training.buy_signal import compute_rank_signals
+        from stock_picker.training.rank_model import RANK_TOP_K
+
+        result = compute_rank_signals(
+            top_k=RANK_TOP_K,
+            earnings_fetcher=fetch_recent_earnings_tickers,
+            news_fetcher=fetch_recent_news_flags,
+        )
+        return BuySignalResponse(
+            as_of=result.as_of,
+            threshold=result.threshold,
+            signals=[asdict(signal) for signal in result.signals],
+            scored_count=result.scored_count,
+            skipped=result.skipped,
+            top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
+            cached=False,
+        )
     result = compute_buy_signals(
-        threshold=threshold, earnings_fetcher=fetch_recent_earnings_tickers
+        threshold=threshold,
+        earnings_fetcher=fetch_recent_earnings_tickers,
+        news_fetcher=fetch_recent_news_flags,
     )
     return BuySignalResponse(
         as_of=result.as_of,
@@ -197,7 +237,28 @@ def get_universe() -> UniverseResponse:
 
 @router.get("/benchmark-returns")
 def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
-    return BenchmarkReturnsResponse(returns=fetch_benchmark_returns(dates.split(",")))
+    requested = [d for d in dates.split(",") if d]
+    hold_raw = fetch_benchmark_hold(min(requested), max(requested)) if requested else None
+    hold = (
+        BenchmarkHold(start=hold_raw["from"], end=hold_raw["to"], pct=hold_raw["return"])
+        if hold_raw
+        else None
+    )
+    return BenchmarkReturnsResponse(
+        returns=fetch_benchmark_returns(requested),
+        overnight=fetch_benchmark_overnight(requested),
+        hold=hold,
+    )
+
+
+@router.get("/paper-book")
+def get_paper_book(kind: str = "both", top_k: int | None = None) -> PaperBookResponse:
+    if kind not in ("fit", "rank", "both"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="kind must be fit, rank, or both"
+        )
+    picks = load_or_rebuild()
+    return PaperBookResponse(**paper_book_view(picks, kind=kind, top_k=top_k))
 
 
 @router.get("/positions")
@@ -205,7 +266,11 @@ def get_positions() -> PositionsResponse:
     trades = trade_log()
     tickers = sorted(trades["ticker"].unique()) if not trades.empty else []
     quotes = fetch_ticker_quotes(tickers) if tickers else {}
-    return PositionsResponse(positions=position_summaries(trades, quotes))
+    positions = apply_hold_to_close(position_summaries(trades, quotes))
+    return PositionsResponse(
+        positions=positions,
+        peak_working=time_weighted_working_by_day(trades),
+    )
 
 
 @router.get("/pruned-features")
@@ -281,7 +346,7 @@ def get_model_selection() -> ModelSelectionResponse:
             if choices is not None
             else None
         ),
-        available_model_types=PREDICTIVE_MODEL_TYPES,
+        available_model_types=TRAINABLE_MODEL_TYPES,
     )
 
 
@@ -291,21 +356,40 @@ def set_model_selection(body: ModelSelectionRequest) -> ModelSelectionResponse:
     TrainingConfigStore().write_model_choices(choices)
     return ModelSelectionResponse(
         model_choices=[ModelChoiceModel(model_type=c.model_type, weight=c.weight) for c in choices],
-        available_model_types=PREDICTIVE_MODEL_TYPES,
+        available_model_types=TRAINABLE_MODEL_TYPES,
     )
 
 
 @router.delete("/model-selection")
 def clear_model_selection() -> ModelSelectionResponse:
     TrainingConfigStore().write_model_choices(None)
-    return ModelSelectionResponse(model_choices=None, available_model_types=PREDICTIVE_MODEL_TYPES)
+    return ModelSelectionResponse(model_choices=None, available_model_types=TRAINABLE_MODEL_TYPES)
+
+
+@router.post("/morning-check")
+def start_morning_check(body: MorningCheckRequest | None = None) -> MorningCheckResponse:
+    which = (body.which if body is not None else "both")
+    started = morning_check_job.start(which=which)
+    if not started:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="a morning check is already in progress"
+        )
+    state = morning_check_job.status()
+    return MorningCheckResponse(**asdict(state))
+
+
+@router.get("/morning-check")
+def get_morning_check() -> MorningCheckResponse:
+    return MorningCheckResponse(**asdict(morning_check_job.status()))
 
 
 @router.post("/training/run")
 def start_training_run() -> JobStatus:
     started = training_job.start(included_features=selected_features(), model_specs=selected_model_specs())
     if not started:
-        raise HTTPException(status_code=409, detail="a training run is already in progress")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="a training run is already in progress"
+        )
     return training_job.status()
 
 
@@ -341,7 +425,10 @@ def get_live_model() -> LiveModelResponse:
 @router.post("/live-model")
 def set_live_model(body: SetLiveModelRequest) -> LiveModelResponse:
     if not ModelStore().exists(f"{MODEL_NAME}_{body.run_id}"):
-        raise HTTPException(status_code=400, detail=f"run {body.run_id} has no archived model to select")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"run {body.run_id} has no archived model to select",
+        )
     TrainingConfigStore().write_selected_run_id(body.run_id)
     return get_live_model()
 
@@ -362,7 +449,10 @@ def get_price_history(ticker: str, interval: Literal["daily", "hourly"] = "daily
     try:
         history = intraday_price_history(ticker) if interval == "hourly" else daily_price_history(ticker)
     except (FileNotFoundError, ValueError):
-        raise HTTPException(status_code=404, detail=f"no {interval} price history for {ticker}")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"no {interval} price history for {ticker}",
+        )
     return PriceHistoryResponse(ticker=ticker, interval=interval, prices=price_series(history))
 
 
@@ -371,7 +461,9 @@ def get_feature_values(ticker: str) -> FeatureValuesResponse:
     try:
         features = FeatureStore().read(ticker)
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail=f"no feature data for {ticker}")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"no feature data for {ticker}"
+        )
     return FeatureValuesResponse(
         ticker=ticker, columns=list(features.columns), rows=feature_value_rows(features)
     )

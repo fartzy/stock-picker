@@ -43,7 +43,7 @@ flowchart TB
         PS[("PriceStore")]
         FS[("FeatureStore")]
         MS[("ModelStore")]
-        TS[("TradeStore<br/>trades.parquet + trades.csv")]
+        TS[("TradeStore<br/>SQLite + trades.csv dump")]
         PFS[("PrunedFeatureStore")]
         TRS[("TrainingRunStore")]
     end
@@ -154,8 +154,8 @@ hot-reloads on its own.
 
 - **Trading**: this-morning picks (saved 8:32 scan first; live rescore only
   if that file is missing), trade log with leftover-share lots, log-a-trade
-  with date/time. Open lots vs closed lots by sell day. Fills also land in
-  `data/trades/trades.csv`.
+  with date/time. Open lots vs closed lots by sell day. Fills live in
+  `data/trades/stockpicker.db` (unique fill); `trades.csv` is a dump.
 - **Feature Store**: registry, catalog, coverage/correlation (sampled),
   prune (actually excluded from training).
 - **Models**: ensemble picker, run training, run history. Freshness on this
@@ -171,7 +171,9 @@ on dates (never k-fold) plus a held-out set of entire tickers. Read
 `shift(1)`’d; overnight gap and the open-known recency family are not,
 because they use `Open_t` and never `Close_t`.
 
-Default ensemble is solo LightGBM (`training/main.py`). Adding a family is
+Default ensemble is solo LightGBM (`training/main.py`). Lambdarank is on the
+Models picker and trains a parallel pickle (`day_session_return_rank.pkl`);
+it is not weight-averaged with the return models. Adding a return family is
 measured in `training/tune_experiment.py`, not assumed. LightGBM is fully
 retrained after the close; it is not incrementally patched with two new days.
 

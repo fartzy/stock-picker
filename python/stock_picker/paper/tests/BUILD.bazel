@@ -1,0 +1,12 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_book",
+    srcs = ["test_book.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/paper",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)

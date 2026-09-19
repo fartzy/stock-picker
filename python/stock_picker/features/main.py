@@ -38,8 +38,17 @@ def main() -> None:
         histories[ticker] = history
 
     downloaded = download_price_history([BENCHMARK_TICKER, VIX_TICKER])
-    benchmark_history = completed_sessions(downloaded[BENCHMARK_TICKER])
-    vix_history = completed_sessions(downloaded.get(VIX_TICKER, pd.DataFrame()))
+    spy = downloaded.get(BENCHMARK_TICKER)
+    if spy is None or spy.empty:
+        try:
+            spy = price_store.read(BENCHMARK_TICKER)
+            print(f"SPY download missed -- using stored {BENCHMARK_TICKER}", flush=True)
+        except FileNotFoundError:
+            spy = pd.DataFrame()
+            print("SPY missing -- regime columns empty", flush=True)
+    benchmark_history = completed_sessions(spy) if not spy.empty else pd.DataFrame()
+    vix_raw = downloaded.get(VIX_TICKER, pd.DataFrame())
+    vix_history = completed_sessions(vix_raw) if not vix_raw.empty else pd.DataFrame()
     universe_store = UniverseStore()
     sector_by_ticker = universe_store.sector_by_ticker()
 

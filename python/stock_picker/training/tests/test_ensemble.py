@@ -7,6 +7,7 @@ from stock_picker.training.ensemble import (
     ModelSpec,
     ensemble_composition,
     evaluate_ensemble,
+    partition_model_specs,
     predict_ensemble,
     selected_model_specs,
     train_ensemble,
@@ -94,6 +95,29 @@ def test_ensemble_composition_reports_each_members_type_weight_and_feature_count
     assert [m.weight for m in composition] == [1.0, 0.5]
     # Both members see the same two feature columns here -- signal/momentum.
     assert all(m.feature_count == 2 for m in composition)
+
+
+def test_partition_model_specs_none_means_default_return_and_rank():
+    predictive, wants_rank = partition_model_specs(None)
+
+    assert predictive is None
+    assert wants_rank is True
+
+
+def test_partition_model_specs_peels_rank_out_of_the_return_blend():
+    specs = [ModelSpec("lightgbm", weight=1.0), ModelSpec("lightgbm_rank", weight=1.0)]
+
+    predictive, wants_rank = partition_model_specs(specs)
+
+    assert [(s.model_type, s.weight) for s in predictive] == [("lightgbm", 1.0)]
+    assert wants_rank is True
+
+
+def test_partition_model_specs_rank_only_still_trains_default_return():
+    predictive, wants_rank = partition_model_specs([ModelSpec("lightgbm_rank")])
+
+    assert predictive is None
+    assert wants_rank is True
 
 
 def test_selected_model_specs_returns_none_when_nothing_persisted(monkeypatch, tmp_path):

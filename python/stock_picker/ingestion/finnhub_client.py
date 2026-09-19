@@ -24,6 +24,7 @@ import requests
 
 FINNHUB_QUOTE_URL = "https://finnhub.io/api/v1/quote"
 FINNHUB_EARNINGS_CALENDAR_URL = "https://finnhub.io/api/v1/calendar/earnings"
+FINNHUB_COMPANY_NEWS_URL = "https://finnhub.io/api/v1/company-news"
 FINNHUB_API_KEY_ENV = "FINNHUB_API_KEY"
 FINNHUB_KEY_FILE = Path.home() / ".config" / "api" / "finnhub.txt"
 QUOTE_TIMEOUT_SECONDS = 10
@@ -207,3 +208,91 @@ def fetch_earnings_tickers(
         hits |= earnings_tickers_from_calendar(payload, wanted, day)
         day += timedelta(days=1)
     return hits
+
+
+# Only the names we already recommended -- not the 2000-name universe.
+MAX_NEWS_TICKERS = 40
+
+
+def fetch_company_news(
+    ticker: str,
+    from_date: date,
+    to_date: date,
+    api_key: str | None = None,
+    session: requests.Session | None = None,
+) -> list[dict]:
+    key = api_key if api_key is not None else finnhub_api_key()
+    if not key:
+        return []
+    client = session or requests.Session()
+    try:
+        response = client.get(
+            FINNHUB_COMPANY_NEWS_URL,
+            params={
+                "symbol": finnhub_symbol(ticker),
+                "from": from_date.isoformat(),
+                "to": to_date.isoformat(),
+                "token": key,
+            },
+            timeout=QUOTE_TIMEOUT_SECONDS,
+        )
+        response.raise_for_status()
+        payload = response.json()
+    except (requests.RequestException, ValueError):
+        return []
+    if not isinstance(payload, list):
+        return []
+    return [row for row in payload if isinstance(row, dict)]
+
+
+def fetch_news_articles(
+    tickers: list[str],
+    as_of: date,
+    from_date: date | None = None,
+    api_key: str | None = None,
+    sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
+) -> dict[str, list[dict]]:
+    """Recommended names only. ticker -> raw Finnhub articles. No classifier here."""
+    key = api_key if api_key is not None else finnhub_api_key()
+    if not key or not tickers:
+        return {}
+    names = tickers[:MAX_NEWS_TICKERS]
+    start = from_date or as_of
+    out: dict[str, list[dict]] = {}
+    session = requests.Session()
+    for index, ticker in enumerate(names):
+        if index and sleep_seconds > 0:
+            time.sleep(sleep_seconds)
+        articles = fetch_company_news(ticker, start, as_of, api_key=key, session=session)
+        if articles:
+            out[ticker] = articles
+    return out
+
+
+def fetch_news_flags(
+    tickers: list[str],
+    as_of: date,
+    from_date: date | None = None,
+    api_key: str | None = None,
+    sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
+) -> dict[str, str]:
+    """ticker -> flagged headline via the trained classifier."""
+    from stock_picker.training.headline_sentiment import news_flag_from_articles as classify
+
+    articles_by_ticker = fetch_news_articles(
+        tickers, as_of, from_date=from_date, api_key=api_key, sleep_seconds=sleep_seconds
+    )
+    flags: dict[str, str] = {}
+    for ticker, articles in articles_by_ticker.items():
+        headline = classify(articles)
+        if headline:
+            flags[ticker] = headline
+    return flags
+
+
+def fetch_recent_news_flags(tickers: list[str], as_of: date) -> dict[str, str]:
+    """Prior session through `as_of` -- same window as the earnings skip."""
+    start = as_of - timedelta(days=1)
+    while start.weekday() >= 5:
+        start -= timedelta(days=1)
+    return fetch_news_flags(tickers, as_of, from_date=start)

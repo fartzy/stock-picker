@@ -378,5 +378,30 @@
     "feature": "volatility_60d",
     "reason": "negligible importance (0.50%)",
     "pruned_at": "2026-09-08T17:15:29.967459-05:00"
+  },
+  {
+    "feature": "vix_close",
+    "reason": "market-wide (identical on every ticker) -- collapsed 0.5% gate onto same cheap high-vol names (TDTH/XNDU)",
+    "pruned_at": "2026-09-17T09:45:13.866386-04:00"
+  },
+  {
+    "feature": "day_of_month",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "pruned_at": "2026-09-18T09:09:42.228907-05:00"
+  },
+  {
+    "feature": "day_of_week",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "pruned_at": "2026-09-18T09:09:42.230510-05:00"
+  },
+  {
+    "feature": "month",
+    "reason": "identical on every ticker this morning -- same as day_of_month",
+    "pruned_at": "2026-09-18T09:09:54.232999-05:00"
+  },
+  {
+    "feature": "spy_overnight_gap",
+    "reason": "manually pruned from Registry",
+    "pruned_at": "2026-09-18T21:53:08.931960-05:00"
   }
 ]

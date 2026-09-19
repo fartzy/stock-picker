@@ -50,7 +50,9 @@ def format_picks_email(payload: dict) -> tuple[str, str]:
         lines.append(f"{'ticker':8}  {'pred%':>7}  {'open':>10}")
         for row in top:
             pred = float(row["predicted_return"]) * 100
-            lines.append(f"{row['ticker']:8}  {pred:6.2f}%  {float(row['open_price']):10.2f}")
+            flag = row.get("news_flag")
+            extra = f"  NEWS {flag}" if flag else ""
+            lines.append(f"{row['ticker']:8}  {pred:6.2f}%  {float(row['open_price']):10.2f}{extra}")
     earnings = [s.get("ticker") for s in skipped if "earnings" in (s.get("reason") or "")]
     earnings = [t for t in earnings if t]
     if earnings:
@@ -71,8 +73,10 @@ def format_rank_picks(payload: dict, k: int = 20) -> str:
         f"{'#':>2}  {'ticker':8}  {'score':>10}  {'open':>10}",
     ]
     for i, row in enumerate(signals[:k], start=1):
+        flag = row.get("news_flag")
+        extra = f"  NEWS {flag}" if flag else ""
         lines.append(
-            f"{i:2}  {row['ticker']:8}  {float(row['predicted_return']):10.4f}  {float(row['open_price']):10.2f}"
+            f"{i:2}  {row['ticker']:8}  {float(row['predicted_return']):10.4f}  {float(row['open_price']):10.2f}{extra}"
         )
     if not signals:
         lines.append("(no lambdarank model, or no names scored)")

@@ -106,10 +106,17 @@ class Position(BaseModel):
     current_price: float | None
     closed: bool
     pnl: float | None
+    # 8:40 AM CT Open -> 2:55 PM CT Close on the buy's session. None if
+    # the session is still in progress or PriceStore has no bar that day.
+    hold_open_price: float | None = None
+    hold_close_price: float | None = None
+    hold_close_pnl: float | None = None
 
 
 class PositionsResponse(BaseModel):
     positions: list[Position]
+    # NY session date -> time-weighted dollars on the book 9:30-16:00 ET.
+    peak_working: dict[str, float] = {}
 
 
 class QuoteSummary(BaseModel):
@@ -146,10 +153,9 @@ class FeatureSelectionResponse(BaseModel):
 class ModelSelectionResponse(BaseModel):
     # None = no explicit choice -- training/main.py's own DEFAULT_MODEL_SPECS.
     model_choices: list[ModelChoice] | None
-    # Which model types the composable picker offers. logistic_regression is
-    # deliberately excluded -- it's fit as a standalone diagnostic (see
-    # training/main.py), never an ensemble member (see model.py's
-    # PREDICTIVE_MODEL_TYPES).
+    # Which model types the Models picker offers (TRAINABLE_MODEL_TYPES).
+    # logistic_regression is excluded (diagnostic). lightgbm_rank is included
+    # but trained as a parallel pickle, not blended with the return models.
     available_model_types: list[str]
 
 
@@ -289,6 +295,9 @@ class BuySignalRow(BaseModel):
     predicted_return: float
     open_price: float
     snapshot_date: str
+    # Headline from Finnhub company-news on this name only, if it looks
+    # like a trial hold / FDA / dilution day. None = no flag.
+    news_flag: str | None = None
 
 
 class SkippedTicker(BaseModel):
@@ -316,8 +325,93 @@ class UniverseResponse(BaseModel):
     active_ticker_count: int
 
 
+class BenchmarkHold(BaseModel):
+    start: str
+    end: str
+    pct: float
+
+
+class PaperPickRow(BaseModel):
+    rank: int
+    ticker: str
+    predicted: float | None = None
+    open_price: float | None = None
+    close_price: float | None = None
+    session_return: float | None = None
+    news_flag: str | None = None
+
+
+class PaperListStats(BaseModel):
+    n: int = 0
+    n_scored: int = 0
+    wins: int = 0
+    losses: int = 0
+    flats: int = 0
+    hit_rate: float | None = None
+    avg: float | None = None
+    n_avoid: int = 0
+    avg_ex_news: float | None = None
+
+
+class PaperBookDay(BaseModel):
+    as_of: str
+    fit: list[PaperPickRow] = []
+    rank: list[PaperPickRow] = []
+    fit_avg: float | None = None
+    rank_avg: float | None = None
+    fit_stats: PaperListStats = PaperListStats()
+    rank_stats: PaperListStats = PaperListStats()
+
+
+class PaperBookResponse(BaseModel):
+    days: list[PaperBookDay]
+    fit_compound: float | None = None
+    rank_compound: float | None = None
+    fit_days: int = 0
+    rank_days: int = 0
+    fit_stats: PaperListStats = PaperListStats()
+    rank_stats: PaperListStats = PaperListStats()
+    kind: str = "both"
+    top_k: int | None = None
+    n_picks: int = 0
+
+
+class FakeQuote(BaseModel):
+    ticker: str
+    fake_open: float
+    last_close: float
+
+
+class TimedPass(BaseModel):
+    which: str
+    seconds: float
+    scored_count: int
+    n_picks: int
+    picks: list[dict] = []
+    skipped_count: int = 0
+
+
+class MorningCheckResponse(BaseModel):
+    status: str
+    which: str | None = None
+    started_at: str | None = None
+    completed_at: str | None = None
+    error: str | None = None
+    n_quotes: int = 0
+    quote_seconds: float | None = None
+    quotes: list[FakeQuote] = []
+    passes: list[TimedPass] = []
+
+
+class MorningCheckRequest(BaseModel):
+    which: Literal["rank", "fit", "both"] = "both"
+
+
 class BenchmarkReturnsResponse(BaseModel):
-    # date (ISO "YYYY-MM-DD") -> SPY's day-session return -- a date with no
-    # matching trading day (weekend/holiday/outside the fetch window) is
-    # simply absent, not zero.
+    # date -> SPY open->close (intraday / cash session). Missing dates omitted.
     returns: dict[str, float]
+    # date -> SPY prior close->this close (held overnight, did not sell).
+    overnight: dict[str, float] = {}
+    # Close-to-close if parked in SPY from the earliest requested date
+    # through the latest (not an average of session days).
+    hold: BenchmarkHold | None = None

@@ -157,6 +157,17 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_hold_to_close",
+    srcs = ["test_hold_to_close.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_trades",
     srcs = ["test_trades.py"],
     imports = ["../../.."],

@@ -57,6 +57,7 @@ export default function BuySignal() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
+  const [listKind, setListKind] = useState<"rank" | "fit">("rank");
   // Cheap (a parquet read, no live quotes) so this shows up front, before
   // the user ever clicks -- otherwise the scan's actual breadth (every
   // ticker ever tracked, not some smaller subset) stays invisible until
@@ -90,7 +91,7 @@ export default function BuySignal() {
     setLoading(true);
     setError(null);
     try {
-      setData(await fetchBuySignal(thresholdPct / 100));
+      setData(await fetchBuySignal(thresholdPct / 100, false, listKind));
     } catch (err) {
       setError(String(err));
     } finally {
@@ -110,6 +111,28 @@ export default function BuySignal() {
         </p>
       )}
       <FreshnessBadge />
+      <div className="list-toggle" role="group" aria-label="Pick list">
+        <button
+          type="button"
+          className={listKind === "rank" ? "active" : ""}
+          onClick={() => {
+            setListKind("rank");
+            setData(null);
+          }}
+        >
+          Rank
+        </button>
+        <button
+          type="button"
+          className={listKind === "fit" ? "active" : ""}
+          onClick={() => {
+            setListKind("fit");
+            setData(null);
+          }}
+        >
+          Fit 0.5%
+        </button>
+      </div>
       {trainingRuns && liveModel && (
         <div className="form-row" style={{ alignItems: "center", marginTop: 0 }}>
           <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -181,16 +204,24 @@ export default function BuySignal() {
               <thead>
                 <tr>
                   <th>Ticker</th>
-                  <th className="trade-num">Predicted return</th>
+                  <th className="trade-num">{listKind === "rank" ? "Rank score" : "Predicted return"}</th>
                   <th className="trade-num">Open price</th>
+                  <th>News</th>
                 </tr>
               </thead>
               <tbody>
                 {displayed.signals.map((signal) => (
                   <tr key={signal.ticker}>
                     <td className="trade-ticker">{signal.ticker}</td>
-                    <td className="trade-num">{(signal.predicted_return * 100).toFixed(2)}%</td>
+                    <td className="trade-num">
+                      {listKind === "rank"
+                        ? signal.predicted_return.toFixed(4)
+                        : `${(signal.predicted_return * 100).toFixed(2)}%`}
+                    </td>
                     <td className="trade-num">{formatUsd(signal.open_price)}</td>
+                    <td className={signal.news_flag ? "quote-diff-down" : "muted"}>
+                      {signal.news_flag ?? "—"}
+                    </td>
                   </tr>
                 ))}
               </tbody>

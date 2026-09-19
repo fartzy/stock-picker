@@ -17,7 +17,7 @@ from stock_picker.training.model import TrainedModel
 def model_type_importance(trained: TrainedModel) -> dict[str, float]:
     """Percent of total importance per feature (sums to ~100), normalized the
     same way regardless of which library actually produced the raw numbers."""
-    if trained.model_type == "lightgbm":
+    if trained.model_type in ("lightgbm", "lightgbm_rank"):
         names = trained.estimator.feature_name()
         gains = list(trained.estimator.feature_importance(importance_type="gain"))
     elif trained.model_type == "random_forest":
