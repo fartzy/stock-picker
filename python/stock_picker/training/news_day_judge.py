@@ -1,8 +1,9 @@
-"""After Rank/Fit pick names, ask a small LLM: news day or trust the tape?
+"""After Rank/Fit pick names: AVOID only on BIG news, good or bad.
 
-Finnhub fetches headlines for those tickers only. Grok (if XAI_API_KEY or
-~/.config/api/xai.txt) answers a yes/no. No key / timeout -> sklearn
-classifier. Test run does not call this.
+Trial blow-up, FDA reject/approval, dilution, bankruptcy, takeover,
+halt-pending-news -- skip the name. Analyst initiate, modest beat,
+pre-market roundup -- trust the tape. Grok if keyed; else a Tfidf +
+event-phrase logistic model. Not "any headline".
 """
 
 from __future__ import annotations
@@ -16,7 +17,8 @@ from pathlib import Path
 import requests
 
 from stock_picker.ingestion.finnhub_client import fetch_news_articles
-from stock_picker.training.headline_sentiment import news_flag_from_articles as sklearn_flag
+from stock_picker.training.headline_sentiment import news_flag_from_articles as material_flag
+from stock_picker.training.langfuse_local import trace_news_judge
 
 XAI_API_KEY_ENV = "XAI_API_KEY"
 XAI_KEY_FILE = Path.home() / ".config" / "api" / "xai.txt"
@@ -27,11 +29,13 @@ MAX_HEADLINES = 5
 
 _SYSTEM = (
     "We day-trade open-to-close using a price-pattern model. "
-    "Your only job: for this ticker, is this morning a NEWS day "
-    "(trial hold, FDA, offering, bankruptcy, unexpected company event) "
-    "so we should AVOID and not trust the model's price variation, "
-    "or is the news routine (earnings beat, analyst note, CEO thanking staff) "
-    "so we can TRUST the tape? "
+    "AVOID only if this is BIG company news that will dominate the session "
+    "-- crash OR mania: trial hold/fail, FDA reject or approval, dilution/"
+    "offering, bankruptcy, takeover/buyout, trading halt pending news, "
+    "CEO ouster, guidance collapse. "
+    "TRUST the tape for routine items: analyst initiate/upgrade, modest "
+    "earnings beat, conference, index add, pre-market roundup that merely "
+    "mentions the ticker. "
     "Reply with JSON only: {\"avoid\": true or false, \"reason\": \"short phrase\"}."
 )
 
@@ -91,7 +95,7 @@ def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) ->
     user = (
         f"Ticker: {ticker}\n"
         f"This morning's headlines:\n{numbered}\n"
-        "Is there too much news this morning, or can we trust the price variation?"
+        "Is this BIG news we should not fade, or can we trust the price variation?"
     )
     try:
         response = requests.post(
@@ -115,12 +119,18 @@ def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) ->
 
 
 def flag_from_articles(ticker: str, articles: list[dict]) -> str | None:
+    """BIG news only. Grok if keyed; else the material-news classifier."""
     headlines = _headlines(articles)
+    if not headlines:
+        return None
     judged = grok_judge(ticker, headlines)
     if judged is not None:
         avoid, reason = judged
+        trace_news_judge(ticker, headlines, "grok", avoid, reason or None)
         return reason if avoid else None
-    return sklearn_flag(articles)
+    flagged = material_flag(articles)
+    trace_news_judge(ticker, headlines, "tfidf", flagged is not None, flagged)
+    return flagged
 
 
 def fetch_recent_news_flags(tickers: list[str], as_of: date) -> dict[str, str]:

@@ -279,7 +279,7 @@ def fetch_news_flags(
     api_key: str | None = None,
     sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
 ) -> dict[str, str]:
-    """ticker -> flagged headline via the trained classifier."""
+    """ticker -> material headline if the classifier flags it."""
     from stock_picker.training.headline_sentiment import news_flag_from_articles as classify
 
     articles_by_ticker = fetch_news_articles(

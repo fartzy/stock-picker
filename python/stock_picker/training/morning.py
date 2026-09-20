@@ -10,7 +10,7 @@ import functools
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from stock_picker.ingestion.session import CHICAGO_TIMEZONE
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.features.quotes import fetch_ticker_quotes
@@ -81,24 +81,19 @@ def _payload_from(result, freshness) -> dict:
     }
 
 
-def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = False) -> int:
-    started = datetime.now(ZoneInfo("America/Chicago"))
-    print(f"morning start {started.isoformat()}")
-    freshness = pipeline_freshness()
-    print(freshness.detail)
-    if not freshness.ready_for_inference:
-        print("skipping score -- pipeline not current enough")
-        subject, body = format_not_ready_email(freshness.as_of, freshness.detail)
-        print(f"published={publish_picks(freshness.as_of, body)} emailed={send_email(subject, body)}")
-        return 1
-    if not ignore_disabled and not TrainingConfigStore().read().morning_job_enabled:
-        print("morning job disabled -- skipping scheduled run")
-        return 0
+def score_from_quotes(
+    quotes: dict[str, dict],
+    threshold: float = DEFAULT_THRESHOLD,
+    persist: bool = True,
+    news_fetcher=fetch_recent_news_flags,
+    earnings_fetcher=fetch_recent_earnings_tickers,
+):
+    """Rank + Fit in parallel on a quote map, then news on Fit + Rank top 10.
 
-    rank_n = 0
-    rank_text = ""
-    quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
-    print(f"quotes={len(quotes)}")
+    Same path the 8:32 job and Test run use. persist=False skips cache/git/email
+    so a test run does not overwrite Monday's files.
+    """
+    freshness = pipeline_freshness()
 
     def quote_fetcher(tickers, as_of=None):
         return quotes
@@ -107,7 +102,7 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         return compute_rank_signals(
             top_k=RANK_TOP_K,
             quote_fetcher=quote_fetcher,
-            earnings_fetcher=fetch_recent_earnings_tickers,
+            earnings_fetcher=earnings_fetcher,
             news_fetcher=None,
         )
 
@@ -115,17 +110,19 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         return compute_buy_signals(
             threshold=threshold,
             quote_fetcher=quote_fetcher,
-            earnings_fetcher=fetch_recent_earnings_tickers,
+            earnings_fetcher=earnings_fetcher,
             news_fetcher=None,
         )
 
     rank_result = None
+    rank_n = 0
+    rank_text = ""
     with ThreadPoolExecutor(max_workers=2) as pool:
         rank_future = pool.submit(_rank)
         fit_future = pool.submit(_fit)
         try:
             rank_result = rank_future.result()
-            if rank_result.signals:
+            if persist and rank_result.signals:
                 rank_payload = _payload_from(rank_result, freshness)
                 rank_payload["kind"] = "rank"
                 _write_signals(rank_payload, rank_result.as_of)
@@ -141,20 +138,44 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
     news_tickers = [s.ticker for s in result.signals]
     if rank_result is not None:
         news_tickers.extend(s.ticker for s in rank_result.signals[:RANK_NEWS_TOP_K])
+        if not persist:
+            rank_n = len(rank_result.signals)
     unique_news = list(dict.fromkeys(news_tickers))
-    if unique_news:
+    if unique_news and news_fetcher is not None:
         print(f"news check {len(unique_news)} names (fit + rank top {RANK_NEWS_TOP_K})")
-        flags = fetch_recent_news_flags(unique_news, date.fromisoformat(result.as_of)) or {}
+        flags = news_fetcher(unique_news, date.fromisoformat(result.as_of)) or {}
         for signal in result.signals:
             signal.news_flag = flags.get(signal.ticker)
         if rank_result is not None:
             for signal in rank_result.signals:
                 signal.news_flag = flags.get(signal.ticker)
-            if rank_result.signals:
+            if persist and rank_result.signals:
                 rank_payload = _payload_from(rank_result, freshness)
                 rank_payload["kind"] = "rank"
                 _write_signals(rank_payload, rank_result.as_of)
                 rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+    return freshness, rank_result, result, rank_n, rank_text
+
+
+def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = False) -> int:
+    started = datetime.now(CHICAGO_TIMEZONE)
+    print(f"morning start {started.isoformat()}")
+    freshness = pipeline_freshness()
+    print(freshness.detail)
+    if not freshness.ready_for_inference:
+        print("skipping score -- pipeline not current enough")
+        subject, body = format_not_ready_email(freshness.as_of, freshness.detail)
+        print(f"published={publish_picks(freshness.as_of, body)} emailed={send_email(subject, body)}")
+        return 1
+    if not ignore_disabled and not TrainingConfigStore().read().morning_job_enabled:
+        print("morning job disabled -- skipping scheduled run")
+        return 0
+
+    quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
+    print(f"quotes={len(quotes)}")
+    freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
+        quotes, threshold=threshold, persist=True
+    )
     payload = _payload_from(result, freshness)
     path = _write_signals(payload, result.as_of)
     subject, body = format_picks_email(payload)
@@ -166,7 +187,7 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         f"scored={result.scored_count} picks={len(result.signals)} "
         f"rank_top={rank_n} wrote {path} published={published} emailed={mailed}"
     )
-    print(f"morning done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
+    print(f"morning done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
     return 0
 
 

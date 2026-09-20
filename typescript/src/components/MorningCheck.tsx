@@ -29,6 +29,7 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
               <th>Ticker</th>
               <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
               <th className="trade-num">Fake open</th>
+              <th>News</th>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +42,9 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
                     : `${(pick.predicted_return * 100).toFixed(2)}%`}
                 </td>
                 <td className="trade-num">{formatUsd(pick.open_price)}</td>
+                <td className={pick.news_flag ? "quote-diff-down" : "muted"}>
+                  {pick.news_flag ? `avoid · ${pick.news_flag}` : "—"}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -74,8 +78,9 @@ export default function MorningCheck() {
   return (
     <div>
       <p className="muted">
-        Fake opens = last Close for every name. No Yahoo. Rank and Fit run at the
-        same time when you press Both.
+        Only the opens are fake (last Close ±3%). Rank, Fit, earnings skip, and
+        news on Fit + Rank top 10 are the real Monday path. Does not overwrite
+        the live cache.
       </p>
       <div className="meta-row" style={{ marginTop: "var(--space-2)" }}>
         <div className="list-toggle" role="group" aria-label="Which models">

@@ -482,6 +482,7 @@ export interface TimedPass {
     predicted_return: number;
     open_price: number;
     snapshot_date: string;
+    news_flag?: string | null;
   }>;
   skipped_count: number;
 }

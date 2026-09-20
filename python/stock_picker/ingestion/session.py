@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 US_EASTERN = ZoneInfo("America/New_York")
+CHICAGO_TIMEZONE = ZoneInfo("America/Chicago")
 # Regular session ends 16:00 ET / 15:00 CT. Yahoo's official daily Close
 # usually exists within a few minutes. The 3:30 CT nightly job is 30 minutes
 # after the bell -- well past this settle.
