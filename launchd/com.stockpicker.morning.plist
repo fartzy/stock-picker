@@ -11,6 +11,13 @@
   </array>
   <key>WorkingDirectory</key>
   <string>/Users/michael.artz/dev/stock-picker</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/michael.artz</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
   <!-- Hours are the Mac's local timezone (this box is America/Chicago).
        8:32 CT = two minutes after the cash open; Rank's ~3 min test run
        lands around 8:35 CT. -->
