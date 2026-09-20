@@ -12,18 +12,18 @@ import functools
 import sys
 import traceback
 from datetime import datetime
-from zoneinfo import ZoneInfo
+from stock_picker.ingestion.session import CHICAGO_TIMEZONE, last_completed_session_date
 
 from stock_picker.features.main import main as rebuild_features
 from stock_picker.ingestion.refresh_prices import main as refresh_prices
-from stock_picker.ingestion.session import last_completed_session_date
+
 from stock_picker.training.main import main as persist_training
 
 print = functools.partial(print, flush=True)
 
 
 def run_nightly() -> int:
-    started = datetime.now(ZoneInfo("America/Chicago"))
+    started = datetime.now(CHICAGO_TIMEZONE)
     cutoff = last_completed_session_date()
     print(f"nightly start {started.isoformat()} last_completed_session={cutoff}")
     try:
@@ -41,11 +41,11 @@ def run_nightly() -> int:
         # run_training() alone overwrites latest without a run record, so
         # pipeline_freshness still thinks the model is days behind.
         persist_training()
-        print(f"nightly done {datetime.now(ZoneInfo('America/Chicago')).isoformat()}")
+        print(f"nightly done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
         return 0
     except Exception:
         traceback.print_exc()
-        print(f"nightly failed {datetime.now(ZoneInfo('America/Chicago')).isoformat()}", file=sys.stderr)
+        print(f"nightly failed {datetime.now(CHICAGO_TIMEZONE).isoformat()}", file=sys.stderr)
         return 1
 
 

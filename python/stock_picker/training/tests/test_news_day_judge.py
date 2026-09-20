@@ -27,15 +27,21 @@ def test_flag_from_articles_uses_grok_when_it_returns_avoid(monkeypatch):
     )
     assert flag == "Phase 3 trial pause"
 
-
-def test_flag_from_articles_falls_back_to_sklearn_when_grok_is_none(monkeypatch):
+def test_flag_from_articles_skips_analyst_initiate_when_grok_is_none(monkeypatch):
     monkeypatch.setattr(
         "stock_picker.training.news_day_judge.grok_judge",
         lambda ticker, headlines, api_key=None: None,
     )
     flag = flag_from_articles(
-        "XENE",
-        [{"headline": "Xenon pauses Phase 3 clinical trial after safety review"}],
+        "HUT",
+        [{"headline": "Wells Fargo Initiates Coverage On Hut 8"}],
     )
-    assert flag is not None
-    assert "trial" in flag.lower()
+    assert flag is None
+
+
+def test_flag_from_articles_empty_is_trust(monkeypatch):
+    monkeypatch.setattr(
+        "stock_picker.training.news_day_judge.grok_judge",
+        lambda ticker, headlines, api_key=None: None,
+    )
+    assert flag_from_articles("BVC", []) is None

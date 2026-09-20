@@ -16,6 +16,7 @@ data/buy_signals/*
 # SQLite WAL sidecar -- the .db is the source of truth (trades, later scans).
 *.db-wal
 *.db-shm
+langfuse/.env
 typescript/node_modules/
 typescript/dist/
 typescript/*.tsbuildinfo
