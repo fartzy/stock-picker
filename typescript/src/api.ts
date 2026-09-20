@@ -412,7 +412,7 @@ async function getJson<T>(path: string): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-async function mutate<T = void>(method: "POST" | "DELETE", path: string, body?: unknown): Promise<T> {
+async function mutate<T = void>(method: "POST" | "PUT" | "DELETE", path: string, body?: unknown): Promise<T> {
   const response = await fetch(path, {
     method,
     headers: body ? { "Content-Type": "application/json" } : undefined,

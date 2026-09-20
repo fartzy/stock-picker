@@ -6,10 +6,12 @@ Rank is published as soon as Rank finishes (target ~8:35 CT).
 
 from __future__ import annotations
 
+import fcntl
 import functools
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
+
 from stock_picker.ingestion.session import CHICAGO_TIMEZONE
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
@@ -34,6 +36,23 @@ from stock_picker.training.rank_model import RANK_NEWS_TOP_K, RANK_TOP_K
 print = functools.partial(print, flush=True)
 
 DEFAULT_SIGNAL_DIR = data_root() / "buy_signals"
+_LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
+
+
+def _try_lock_morning():
+    """Non-blocking lock so 8:32 cannot start a second scan.
+
+    Returns an open file that must stay open until scoring finishes, or
+    None if another process already holds the lock.
+    """
+    _LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    handle = open(_LOCK_PATH, "a")
+    try:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        handle.close()
+        return None
+    return handle
 
 
 def load_cached_signals(
@@ -171,24 +190,33 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         print("morning job disabled -- skipping scheduled run")
         return 0
 
-    quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
-    print(f"quotes={len(quotes)}")
-    freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
-        quotes, threshold=threshold, persist=True
-    )
-    payload = _payload_from(result, freshness)
-    path = _write_signals(payload, result.as_of)
-    subject, body = format_picks_email(payload)
-    if rank_text:
-        body = rank_text + "\n" + body
-    published = publish_picks(result.as_of, body)
-    mailed = send_email(subject, body)
-    print(
-        f"scored={result.scored_count} picks={len(result.signals)} "
-        f"rank_top={rank_n} wrote {path} published={published} emailed={mailed}"
-    )
-    print(f"morning done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
-    return 0
+    lock = _try_lock_morning()
+    if lock is None:
+        print("morning already running -- skipping")
+        return 0
+
+    try:
+        quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
+        print(f"quotes={len(quotes)}")
+        freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
+            quotes, threshold=threshold, persist=True
+        )
+        payload = _payload_from(result, freshness)
+        path = _write_signals(payload, result.as_of)
+        subject, body = format_picks_email(payload)
+        if rank_text:
+            body = rank_text + "\n" + body
+        published = publish_picks(result.as_of, body)
+        mailed = send_email(subject, body)
+        print(
+            f"scored={result.scored_count} picks={len(result.signals)} "
+            f"rank_top={rank_n} wrote {path} published={published} emailed={mailed}"
+        )
+        print(f"morning done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
+        return 0
+    finally:
+        lock.close()
+
 
 
 def main() -> None:

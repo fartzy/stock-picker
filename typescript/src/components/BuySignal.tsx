@@ -8,7 +8,6 @@ import {
   fetchTrainingRuns,
   fetchUniverse,
   resetLiveModel,
-  runMorningScan,
   setLiveModel,
   setMorningJob,
   type BuySignalResponse,
@@ -62,6 +61,8 @@ export default function BuySignal() {
   const [error, setError] = useState<string | null>(null);
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
   const [listKind, setListKind] = useState<"rank" | "fit">("rank");
+  const [jobTick, setJobTick] = useState(0);
+  const [autoRunOff, setAutoRunOff] = useState(false);
   // Cheap (a parquet read, no live quotes) so this shows up front, before
   // the user ever clicks -- otherwise the scan's actual breadth (every
   // ticker ever tracked, not some smaller subset) stays invisible until
@@ -91,11 +92,44 @@ export default function BuySignal() {
     return () => clearInterval(intervalId);
   }, [loading]);
 
+  async function waitForScan(): Promise<void> {
+    const deadline = Date.now() + 8 * 60 * 1000;
+    while (Date.now() < deadline) {
+      const scan = await fetchMorningScan();
+      if (scan.status === "completed") return;
+      if (scan.status === "failed") {
+        throw new Error(scan.error || "morning scan failed");
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+    throw new Error("morning scan is still running");
+  }
+
   async function handleCheck() {
     setLoading(true);
     setError(null);
     try {
+      const existing = await fetchMorningScan();
+      if (existing.status === "running") {
+        setError("Job already running — getting this morning's prices.");
+        await waitForScan();
+      } else {
+        setAutoRunOff(true);
+        await setMorningJob(false);
+        setJobTick((n) => n + 1);
+        try {
+          await runMorningScan();
+        } catch (err) {
+          const message = String(err);
+          if (!message.includes("409") && !/already/i.test(message)) {
+            throw err;
+          }
+          setError("Job already running — getting this morning's prices.");
+        }
+        await waitForScan();
+      }
       setData(await fetchBuySignal(thresholdPct / 100, false, listKind));
+      setError(null);
     } catch (err) {
       setError(String(err));
     } finally {
@@ -176,7 +210,7 @@ export default function BuySignal() {
           {loading ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
         </button>
       </div>
-      <MorningTrigger onDone={() => setData(null)} />
+      <MorningTrigger jobNonce={jobTick} forceOff={autoRunOff} />
 
       {error && (
         <p className="error" style={{ marginTop: 8 }}>
@@ -245,11 +279,17 @@ export default function BuySignal() {
 }
 
 
-function MorningTrigger({ onDone }: { onDone: () => void }) {
-  const { data: job, error: jobError } = useFetchData(fetchMorningJob);
+function MorningTrigger({
+  jobNonce = 0,
+  forceOff = false,
+}: {
+  onDone?: () => void;
+  jobNonce?: number;
+  forceOff?: boolean;
+}) {
+  const { data: job, error: jobError } = useFetchData(fetchMorningJob, { deps: [jobNonce] });
   const [scanTick, setScanTick] = useState(0);
   const [scan, setScan] = useState<import("../api").MorningScanStatus | null>(null);
-  const [busy, setBusy] = useState(false);
   const running = scan?.status === "running";
 
   useEffect(() => {
@@ -279,35 +319,19 @@ function MorningTrigger({ onDone }: { onDone: () => void }) {
     setScanTick((n) => n + 1);
   }
 
-  async function runNow() {
-    setBusy(true);
-    try {
-      await runMorningScan();
-      setScanTick((n) => n + 1);
-      onDone();
-    } finally {
-      setBusy(false);
-    }
-  }
-
   return (
     <div className="meta-row" style={{ marginTop: "var(--space-3)" }}>
       <label className="muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <input
           type="checkbox"
-          checked={job?.enabled !== false}
+          checked={!forceOff && job?.enabled !== false}
           onChange={(event) => toggleJob(event.target.checked)}
         />
-        8:32 job
+        If I don't click, start at 8:32 anyway
       </label>
-      <button type="button" className="btn-primary" onClick={runNow} disabled={busy || running}>
-        {running ? "Running Rank + Fit..." : "Run Rank + Fit now"}
-      </button>
-      {scan && scan.status !== "idle" && (
-        <span className="view-meta">
-          {scan.status}
-          {scan.error ? ` · ${scan.error}` : ""}
-        </span>
+      {running && <span className="view-meta">Getting this morning's prices…</span>}
+      {scan?.status === "failed" && (
+        <span className="error">{scan.error || "Couldn't get this morning's prices"}</span>
       )}
       {jobError && <span className="error">{jobError}</span>}
     </div>

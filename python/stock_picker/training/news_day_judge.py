@@ -23,7 +23,10 @@ from stock_picker.training.langfuse_local import trace_news_judge
 XAI_API_KEY_ENV = "XAI_API_KEY"
 XAI_KEY_FILE = Path.home() / ".config" / "api" / "xai.txt"
 XAI_CHAT_URL = "https://api.x.ai/v1/chat/completions"
-XAI_MODEL = os.environ.get("XAI_NEWS_MODEL", "grok-4-fast-non-reasoning")
+LLM_PROXY_BASE_URL_ENV = "LLM_PROXY_BASE_URL"
+LLM_PROXY_API_KEY_ENV = "LLM_PROXY_API_KEY"
+GROK_CONFIG = Path.home() / ".grok" / "config.toml"
+DEFAULT_PROXY_MODEL = "grok-4-fast-non-reasoning"
 JUDGE_TIMEOUT_SECONDS = 20
 MAX_HEADLINES = 5
 
@@ -38,6 +41,64 @@ _SYSTEM = (
     "mentions the ticker. "
     "Reply with JSON only: {\"avoid\": true or false, \"reason\": \"short phrase\"}."
 )
+
+
+def _grok_config_model() -> dict:
+    """First matching block in ~/.grok/config.toml. Empty if missing/unreadable."""
+    if not GROK_CONFIG.is_file():
+        return {}
+    try:
+        import tomllib
+    except ImportError:
+        return {}
+    try:
+        raw = tomllib.loads(GROK_CONFIG.read_text())
+    except (OSError, tomllib.TOMLDecodeError):
+        return {}
+    models = raw.get("model") or {}
+    if not isinstance(models, dict):
+        return {}
+    preferred = os.environ.get("LLM_NEWS_MODEL", "").strip()
+    if preferred in models and isinstance(models[preferred], dict):
+        return models[preferred]
+    for _name, block in models.items():
+        if isinstance(block, dict) and block.get("base_url"):
+            return block
+    return {}
+
+
+def llm_chat_url() -> str:
+    """OpenAI-compatible chat completions URL. Proxy if LLM_PROXY_BASE_URL is set."""
+    base = os.environ.get(LLM_PROXY_BASE_URL_ENV, "").strip().rstrip("/")
+    if not base:
+        cfg = _grok_config_model()
+        base = str(cfg.get("base_url") or "").strip().rstrip("/")
+    if base:
+        return f"{base}/chat/completions"
+    return XAI_CHAT_URL
+
+
+def llm_model() -> str:
+    override = os.environ.get("XAI_NEWS_MODEL") or os.environ.get("LLM_NEWS_MODEL")
+    if override:
+        return override
+    cfg = _grok_config_model()
+    if os.environ.get(LLM_PROXY_BASE_URL_ENV, "").strip() or cfg:
+        return str(cfg.get("model") or DEFAULT_PROXY_MODEL)
+    return "grok-4-fast-non-reasoning"
+
+
+def llm_api_key(key_file: Path = XAI_KEY_FILE) -> str | None:
+    proxy = os.environ.get(LLM_PROXY_API_KEY_ENV, "").strip()
+    if proxy:
+        return proxy
+    cfg = _grok_config_model()
+    env_name = str(cfg.get("env_key") or "").strip()
+    if env_name:
+        from_env = os.environ.get(env_name, "").strip()
+        if from_env:
+            return from_env
+    return xai_api_key(key_file=key_file)
 
 
 def xai_api_key(key_file: Path = XAI_KEY_FILE) -> str | None:
@@ -88,7 +149,7 @@ def _parse_judge(text: str) -> tuple[bool, str] | None:
 
 def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) -> tuple[bool, str] | None:
     """None = could not judge (no key, HTTP error, bad JSON)."""
-    key = api_key if api_key is not None else xai_api_key()
+    key = api_key if api_key is not None else llm_api_key()
     if not key or not headlines:
         return None
     numbered = "\n".join(f"- {h}" for h in headlines)
@@ -99,10 +160,10 @@ def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) ->
     )
     try:
         response = requests.post(
-            XAI_CHAT_URL,
+            llm_chat_url(),
             headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
             json={
-                "model": XAI_MODEL,
+                "model": llm_model(),
                 "temperature": 0,
                 "messages": [
                     {"role": "system", "content": _SYSTEM},

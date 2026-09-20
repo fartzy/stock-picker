@@ -1,4 +1,17 @@
-from stock_picker.training.news_day_judge import _parse_judge, flag_from_articles, grok_judge
+from stock_picker.training.news_day_judge import (
+    _parse_judge,
+    flag_from_articles,
+    grok_judge,
+    llm_chat_url,
+    llm_model,
+)
+
+
+def test_llm_chat_url_uses_proxy_env(monkeypatch):
+    monkeypatch.setenv("LLM_PROXY_BASE_URL", "http://127.0.0.1:4000/v1")
+    monkeypatch.setenv("LLM_NEWS_MODEL", "local-test-model")
+    assert llm_chat_url() == "http://127.0.0.1:4000/v1/chat/completions"
+    assert llm_model() == "local-test-model"
 
 
 def test_parse_judge_avoid_true():
