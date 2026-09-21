@@ -8,6 +8,7 @@ import {
   fetchTrainingRuns,
   fetchUniverse,
   resetLiveModel,
+  runMorningScan,
   setLiveModel,
   setMorningJob,
   type BuySignalResponse,

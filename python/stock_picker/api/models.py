@@ -115,7 +115,8 @@ class Position(BaseModel):
 
 class PositionsResponse(BaseModel):
     positions: list[Position]
-    # NY session date -> time-weighted dollars on the book 9:30-16:00 ET.
+    # NY session date -> dollars on the book while anything is on (not peak,
+    # not a 6.5h smear of the empty afternoon).
     peak_working: dict[str, float] = {}
 
 
