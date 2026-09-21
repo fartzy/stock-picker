@@ -33,7 +33,7 @@ export default function App() {
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
         <p className="muted">
-          Live P&amp;L trading, a feature store, a choosable model ensemble, and price history.
+          Morning picks and trade history.
         </p>
       </header>
 
