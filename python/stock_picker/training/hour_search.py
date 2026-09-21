@@ -13,7 +13,6 @@ run_training() so ModelStore / run history / live scoring all see it.
 
 from __future__ import annotations
 
-import functools
 import os
 import time
 
@@ -21,6 +20,7 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.features.pruning import pruned_features
+from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
@@ -38,7 +38,7 @@ from stock_picker.training.model import (
 )
 from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
 
-print = functools.partial(print, flush=True)
+logger = get_logger(__name__)
 
 N_SPLITS = 4
 N_CORES = os.cpu_count() or 4
@@ -114,28 +114,28 @@ def main() -> None:
     price_store = PriceStore()
     feature_store = FeatureStore()
 
-    print(f"loading train pool ({len(train_tickers)} tickers, {len(excluded)} pruned)...")
+    logger.info(f"loading train pool ({len(train_tickers)} tickers, {len(excluded)} pruned)...")
     pooled_train = _load_pooled_dataset(train_tickers, price_store, feature_store)
     n_open = sum(1 for c in pooled_train.columns if c.endswith("_seasonality") and "open" in c)
-    print(
+    logger.info(
         f"train rows={len(pooled_train)} cols={pooled_train.shape[1]} "
         f"open-known seasonality cols present={n_open} ({time.time() - t0:.1f}s)"
     )
 
-    print("\n=== LightGBM hyperparams (walk-forward, train tickers only) ===")
+    logger.info("\n=== LightGBM hyperparams (walk-forward, train tickers only) ===")
     best_lgbm, best_lgbm_acc, best_lgbm_mae = None, -1.0, 1.0
     for params in LGBM_CANDIDATES:
         started = time.time()
         mae, acc = evaluate_specs(
             pooled_train, [ModelSpec("lightgbm", params=params, excluded_features=excluded)]
         )
-        print(f"  leaves={params['num_leaves']} depth={params['max_depth']} lr={params['learning_rate']} "
+        logger.info(f"  leaves={params['num_leaves']} depth={params['max_depth']} lr={params['learning_rate']} "
               f"l2={params.get('lambda_l2', 0)} -> MAE={mae:.5f} acc={acc:.4f} ({time.time() - started:.1f}s)")
         if acc > best_lgbm_acc or (acc == best_lgbm_acc and mae < best_lgbm_mae):
             best_lgbm, best_lgbm_acc, best_lgbm_mae = params, acc, mae
-    print(f"Best LightGBM acc={best_lgbm_acc:.4f} MAE={best_lgbm_mae:.5f}")
+    logger.info(f"Best LightGBM acc={best_lgbm_acc:.4f} MAE={best_lgbm_mae:.5f}")
 
-    print("\n=== Cache per-fold LGBM / RF / Ridge predictions ===")
+    logger.info("\n=== Cache per-fold LGBM / RF / Ridge predictions ===")
     splits = walk_forward_splits(pooled_train["date"], n_splits=N_SPLITS)
     fold_cache = []
     for i, (train_mask, test_mask) in enumerate(splits, start=1):
@@ -153,9 +153,9 @@ def main() -> None:
                 "ridge": predict(ridge, test_frame),
             }
         )
-        print(f"  fold {i} cached ({time.time() - started:.1f}s)")
+        logger.info(f"  fold {i} cached ({time.time() - started:.1f}s)")
 
-    print("\n=== Ensemble weights ===")
+    logger.info("\n=== Ensemble weights ===")
     best_weights, best_acc, best_mae = None, -1.0, 1.0
     for w_lgbm, w_rf, w_ridge in WEIGHT_CANDIDATES:
         total = w_lgbm + w_rf + w_ridge
@@ -166,10 +166,10 @@ def main() -> None:
             maes.append(mae)
             accs.append(acc)
         mae, acc = sum(maes) / len(maes), sum(accs) / len(accs)
-        print(f"  lgbm={w_lgbm} rf={w_rf} ridge={w_ridge} -> MAE={mae:.5f} acc={acc:.4f}")
+        logger.info(f"  lgbm={w_lgbm} rf={w_rf} ridge={w_ridge} -> MAE={mae:.5f} acc={acc:.4f}")
         if acc > best_acc or (acc == best_acc and mae < best_mae):
             best_weights, best_acc, best_mae = (w_lgbm, w_rf, w_ridge), acc, mae
-    print(f"Best weights {best_weights} acc={best_acc:.4f} MAE={best_mae:.5f}")
+    logger.info(f"Best weights {best_weights} acc={best_acc:.4f} MAE={best_mae:.5f}")
 
     winner_specs = []
     names = ("lightgbm", "random_forest", "ridge")
@@ -180,18 +180,18 @@ def main() -> None:
         winner_specs.append(
             ModelSpec(name, params=params_by_name[name], excluded_features=excluded, weight=float(weight))
         )
-    print("\nWinner specs:")
+    logger.info("\nWinner specs:")
     for spec in winner_specs:
-        print(f"  {spec.model_type} weight={spec.weight} params={spec.params}")
+        logger.info(f"  {spec.model_type} weight={spec.weight} params={spec.params}")
 
-    print("\n=== Persist via run_training (holdout scored there too) ===")
+    logger.info("\n=== Persist via run_training (holdout scored there too) ===")
     summary = run_training(model_specs=winner_specs)
-    print(f"holdout: {summary.holdout_metrics}")
+    logger.info(f"holdout: {summary.holdout_metrics}")
     if summary.threshold_sweep:
         sweep = pd.DataFrame(summary.threshold_sweep)
-        print("threshold sweep:")
-        print(sweep.to_string(index=False))
-    print(f"\nTotal elapsed: {time.time() - t0:.1f}s")
+        logger.info("threshold sweep:")
+        logger.info(sweep.to_string(index=False))
+    logger.info(f"\nTotal elapsed: {time.time() - t0:.1f}s")
 
 
 if __name__ == "__main__":

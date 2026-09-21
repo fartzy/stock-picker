@@ -13,6 +13,7 @@ directly via `bazel run //python/stock_picker/training:recent_picks_demo`.
 
 from __future__ import annotations
 
+from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -27,6 +28,8 @@ from stock_picker.training.splits import select_holdout_tickers
 MODEL_NAME = "day_session_return"
 THRESHOLD = 0.005
 LOOKBACK_TRADING_DAYS = 10  # ~2 trading weeks
+
+logger = get_logger(__name__)
 
 
 def main() -> None:
@@ -49,29 +52,29 @@ def main() -> None:
     ensemble = ModelStore().read(MODEL_NAME)
     recent["predicted"] = predict_ensemble(ensemble, recent)
 
-    print(
+    logger.info(
         f"Over the last {len(recent_dates)} trading days "
         f"({recent_dates[0].date()} to {recent_dates[-1].date()}) across "
         f"{len(holdout_tickers)} tickers this model has never been trained on:\n"
     )
 
     picks = recent[recent["predicted"] > THRESHOLD].sort_values("date")
-    print(f"{len(picks)} of {len(recent)} (ticker, day) rows cleared the {THRESHOLD:.1%} confidence gate:\n")
-    print(f"{'DATE':<12}{'TICKER':<8}{'PREDICTED':>12}{'ACTUAL':>12}  RESULT")
+    logger.info(f"{len(picks)} of {len(recent)} (ticker, day) rows cleared the {THRESHOLD:.1%} confidence gate:\n")
+    logger.info(f"{'DATE':<12}{'TICKER':<8}{'PREDICTED':>12}{'ACTUAL':>12}  RESULT")
     hits = 0
     for _, row in picks.iterrows():
         actual = row[LABEL_COLUMN]
         hit = actual > 0
         hits += hit
         mark = "hit" if hit else "miss"
-        print(f"{row['date'].date()!s:<12}{row['ticker']:<8}{row['predicted'] * 100:>+11.2f}%{actual * 100:>+11.2f}%  {mark}")
+        logger.info(f"{row['date'].date()!s:<12}{row['ticker']:<8}{row['predicted'] * 100:>+11.2f}%{actual * 100:>+11.2f}%  {mark}")
 
     if len(picks):
-        print(f"\nHit rate: {hits}/{len(picks)} = {hits / len(picks) * 100:.1f}%")
+        logger.info(f"\nHit rate: {hits}/{len(picks)} = {hits / len(picks) * 100:.1f}%")
         total_return = picks[LABEL_COLUMN].sum()
-        print(f"Sum of realized returns across all picks: {total_return * 100:+.2f}% (equal-weighted, no compounding)")
+        logger.info(f"Sum of realized returns across all picks: {total_return * 100:+.2f}% (equal-weighted, no compounding)")
     else:
-        print("\nNo picks cleared the threshold in this window.")
+        logger.info("\nNo picks cleared the threshold in this window.")
 
 
 if __name__ == "__main__":

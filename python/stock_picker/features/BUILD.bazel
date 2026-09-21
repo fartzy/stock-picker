@@ -38,6 +38,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker:log",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
         "@pypi//numpy",
@@ -75,6 +76,7 @@ py_binary(
     main = "log_trade_main.py",
     visibility = ["//python:__subpackages__"],
     deps = [
+        "//python/stock_picker:log",
         "//python/stock_picker/storage",
     ],
 )

@@ -18,7 +18,6 @@ run directly via `bazel run //python/stock_picker/training:tune_experiment`.
 
 from __future__ import annotations
 
-import functools
 import os
 import time
 
@@ -27,6 +26,7 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.features.catalog import correlation_matrix, top_correlated_pairs
+from stock_picker.log import get_logger
 from stock_picker.features.catalog_loader import feature_tables
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.volatility import TRADING_DAYS_PER_YEAR
@@ -58,9 +58,7 @@ from stock_picker.training.model import (
 from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
 from stock_picker.training.train import run_walk_forward
 
-# bazel run's stdout is fully buffered (not a TTY) -- flush every print so
-# progress is visible live instead of arriving in one lump at process exit.
-print = functools.partial(print, flush=True)
+logger = get_logger(__name__)
 
 N_SPLITS = 4
 NEGLIGIBLE_PCT = 0.5
@@ -96,7 +94,7 @@ def prune_low_value_features(pooled_train, excluded):
     importance, cross-references Registry's own correlation view for
     redundant pairs, and actually prunes through PrunedFeatureStore --
     same mechanism/records the UI's prune button produces."""
-    print("\n=== Fitting diagnostic models on full train set for importance ranking ===")
+    logger.info("\n=== Fitting diagnostic models on full train set for importance ranking ===")
     lgbm = train_lightgbm(pooled_train, excluded_features=excluded)
     rf = train_random_forest(pooled_train, excluded_features=excluded)
     lgbm_imp = model_type_importance(lgbm)
@@ -137,9 +135,9 @@ def prune_low_value_features(pooled_train, excluded):
             already_pruned.add(feature)
             newly_pruned.append((feature, reason))
 
-    print(f"Pruned {len(newly_pruned)} additional features:")
+    logger.info(f"Pruned {len(newly_pruned)} additional features:")
     for feature, reason in newly_pruned:
-        print(f"  - {feature}: {reason}")
+        logger.info(f"  - {feature}: {reason}")
     return pruned_features()
 
 
@@ -188,26 +186,26 @@ RF_CANDIDATES = [
 
 
 def tune_hyperparams(pooled_train, excluded):
-    print("\n=== Tuning LightGBM ===")
+    logger.info("\n=== Tuning LightGBM ===")
     best_lgbm, best_lgbm_acc = None, -1
     for params in LGBM_CANDIDATES:
         t0 = time.time()
         mae, acc, _ = evaluate_specs(pooled_train, [ModelSpec("lightgbm", params=params, excluded_features=excluded)])
-        print(f"  {params} -> MAE={mae:.5f} acc={acc:.4f} ({time.time() - t0:.1f}s)")
+        logger.info(f"  {params} -> MAE={mae:.5f} acc={acc:.4f} ({time.time() - t0:.1f}s)")
         if acc > best_lgbm_acc:
             best_lgbm, best_lgbm_acc = params, acc
 
-    print("\n=== Tuning Random Forest ===")
+    logger.info("\n=== Tuning Random Forest ===")
     best_rf, best_rf_acc = None, -1
     for params in RF_CANDIDATES:
         t0 = time.time()
         mae, acc, _ = evaluate_specs(pooled_train, [ModelSpec("random_forest", params=params, excluded_features=excluded)])
-        print(f"  {params} -> MAE={mae:.5f} acc={acc:.4f} ({time.time() - t0:.1f}s)")
+        logger.info(f"  {params} -> MAE={mae:.5f} acc={acc:.4f} ({time.time() - t0:.1f}s)")
         if acc > best_rf_acc:
             best_rf, best_rf_acc = params, acc
 
-    print(f"\nBest LightGBM: {best_lgbm} (acc={best_lgbm_acc:.4f})")
-    print(f"Best RandomForest: {best_rf} (acc={best_rf_acc:.4f})")
+    logger.info(f"\nBest LightGBM: {best_lgbm} (acc={best_lgbm_acc:.4f})")
+    logger.info(f"Best RandomForest: {best_rf} (acc={best_rf_acc:.4f})")
     return best_lgbm, best_rf
 
 
@@ -235,7 +233,7 @@ def evaluate_ranking_objective(pooled_train, excluded, lgbm_params, n_splits=N_S
     return clears 0.5%"). This function only answers the prior, narrower
     question: is there something here worth that redesign at all?
     """
-    print("\n=== Ranking objective (lambdarank, grouped by day) vs regression: Rank IC ===")
+    logger.info("\n=== Ranking objective (lambdarank, grouped by day) vs regression: Rank IC ===")
     splits = walk_forward_splits(pooled_train["date"], n_splits=n_splits)
     regression_ics, ranking_ics = [], []
     for train_mask, test_mask in splits:
@@ -264,10 +262,10 @@ def evaluate_ranking_objective(pooled_train, excluded, lgbm_params, n_splits=N_S
         ranking_pred = pd.Series(ranking_booster.predict(test_frame[columns]), index=test_frame.index)
         ranking_ics.append(rank_ic(ranking_pred, test_frame[LABEL_COLUMN], test_frame["date"]))
 
-    print(f"  Regression LightGBM Rank IC per fold: {[round(v, 4) for v in regression_ics]}")
-    print(f"  Ranking LightGBM (lambdarank) Rank IC per fold: {[round(v, 4) for v in ranking_ics]}")
-    print(f"\n  Regression mean Rank IC: {np.mean(regression_ics):.4f}")
-    print(f"  Ranking mean Rank IC:    {np.mean(ranking_ics):.4f}")
+    logger.info(f"  Regression LightGBM Rank IC per fold: {[round(v, 4) for v in regression_ics]}")
+    logger.info(f"  Ranking LightGBM (lambdarank) Rank IC per fold: {[round(v, 4) for v in ranking_ics]}")
+    logger.info(f"\n  Regression mean Rank IC: {np.mean(regression_ics):.4f}")
+    logger.info(f"  Ranking mean Rank IC:    {np.mean(ranking_ics):.4f}")
 
 
 # 4-way (lightgbm, random_forest, neural_net, ridge). Includes every solo --
@@ -300,7 +298,7 @@ def tune_weights(pooled_train, excluded, lgbm_params, rf_params, nn_params, ridg
     """Fits each model ONCE per fold, caches all four models' raw predictions
     and the fold's actual labels, then scores every weight candidate as pure
     arithmetic over those cached arrays -- no retraining per weight."""
-    print("\n=== Tuning ensemble weights (reusing cached per-fold predictions) ===")
+    logger.info("\n=== Tuning ensemble weights (reusing cached per-fold predictions) ===")
     splits = walk_forward_splits(pooled_train["date"], n_splits=n_splits)
     fold_cache = []
     for train_mask, test_mask in splits:
@@ -337,13 +335,13 @@ def tune_weights(pooled_train, excluded, lgbm_params, rf_params, nn_params, ridg
             maes.append(float(np.mean(np.abs(blended - actual))))
             accs.append(float(np.mean(np.sign(blended) == np.sign(actual))))
         mae, acc = sum(maes) / len(maes), sum(accs) / len(accs)
-        print(
+        logger.info(
             f"  weights lightgbm={w_lgbm} random_forest={w_rf} neural_net={w_nn} ridge={w_ridge} "
             f"-> MAE={mae:.5f} acc={acc:.4f}"
         )
         if acc > best_acc:
             best_weights, best_acc = (w_lgbm, w_rf, w_nn, w_ridge), acc
-    print(
+    logger.info(
         f"\nBest weights: lightgbm={best_weights[0]} random_forest={best_weights[1]} "
         f"neural_net={best_weights[2]} ridge={best_weights[3]} (acc={best_acc:.4f})"
     )
@@ -369,7 +367,7 @@ def evaluate_volatility_normalized_stability(holdout_dataset, predicted, actual)
     rigorous regime classifier, just a cheap first look at whether this is
     worth pursuing further before building anything more elaborate.
     """
-    print("\n=== Volatility-normalized vs fixed threshold: stability across the holdout window ===")
+    logger.info("\n=== Volatility-normalized vs fixed threshold: stability across the holdout window ===")
     daily_volatility = holdout_dataset[VOLATILITY_COLUMN] / np.sqrt(TRADING_DAYS_PER_YEAR)
 
     # First, see where z actually produces trades at all -- predicted returns
@@ -379,32 +377,32 @@ def evaluate_volatility_normalized_stability(holdout_dataset, predicted, actual)
     z_sweep = sweep_vol_normalized_thresholds(
         predicted, actual, daily_volatility, z_thresholds=[0.0, 0.02, 0.05, 0.1, 0.25, 0.5, 1.0]
     )
-    print("\nFull-holdout z-threshold sweep (to find a usable range):")
-    print(z_sweep.to_string(index=False))
+    logger.info("\nFull-holdout z-threshold sweep (to find a usable range):")
+    logger.info(z_sweep.to_string(index=False))
 
     baseline_n_trades = int((predicted > 0.005).sum())
     tradeable = z_sweep[z_sweep["n_trades"] > 0]
     if tradeable.empty:
-        print("\nNo z-threshold in the sweep produced any trades -- skipping the stability comparison.")
+        logger.info("\nNo z-threshold in the sweep produced any trades -- skipping the stability comparison.")
         return
     matched_z = float(tradeable.iloc[(tradeable["n_trades"] - baseline_n_trades).abs().argsort().iloc[0]]["z_threshold"])
-    print(f"\nUsing z={matched_z} (closest trade count to the 0.5% fixed threshold's {baseline_n_trades}) for the stability comparison below.")
+    logger.info(f"\nUsing z={matched_z} (closest trade count to the 0.5% fixed threshold's {baseline_n_trades}) for the stability comparison below.")
 
     dates = holdout_dataset["date"]
     median_date = dates.median()
     halves = {"first half": dates <= median_date, "second half": dates > median_date}
 
-    print("\nFixed threshold (0.5%):")
+    logger.info("\nFixed threshold (0.5%):")
     for half_name, mask in halves.items():
         result = simulate_trades(predicted[mask], actual[mask], threshold=0.005)
-        print(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
+        logger.info(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
 
-    print(f"\nVolatility-normalized threshold (z={matched_z}, using {VOLATILITY_COLUMN}):")
+    logger.info(f"\nVolatility-normalized threshold (z={matched_z}, using {VOLATILITY_COLUMN}):")
     for half_name, mask in halves.items():
         result = simulate_trades_vol_normalized(
             predicted[mask], actual[mask], daily_volatility[mask], z_threshold=matched_z
         )
-        print(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
+        logger.info(f"  {half_name}: n_trades={result['n_trades']} hit_rate={result['hit_rate']:.4f}")
 
 
 def main() -> None:
@@ -413,17 +411,17 @@ def main() -> None:
     holdout_ticker_set = select_holdout_tickers(tickers)
     train_tickers = [t for t in tickers if t not in holdout_ticker_set]
     holdout_tickers = [t for t in tickers if t in holdout_ticker_set]
-    print(f"universe: {len(tickers)} tickers -- {len(train_tickers)} train / {len(holdout_tickers)} holdout")
+    logger.info(f"universe: {len(tickers)} tickers -- {len(train_tickers)} train / {len(holdout_tickers)} holdout")
 
     price_store = PriceStore()
     feature_store = FeatureStore()
 
-    print("loading pooled train dataset...")
+    logger.info("loading pooled train dataset...")
     pooled_train = load_pooled(train_tickers, price_store, feature_store)
-    print(f"pooled train rows: {len(pooled_train)} ({time.time() - t0:.1f}s elapsed)")
+    logger.info(f"pooled train rows: {len(pooled_train)} ({time.time() - t0:.1f}s elapsed)")
 
     excluded = pruned_features()
-    print(f"currently pruned ({len(excluded)}): {sorted(excluded)}")
+    logger.info(f"currently pruned ({len(excluded)}): {sorted(excluded)}")
 
     baseline_specs = [
         ModelSpec("lightgbm", excluded_features=excluded),
@@ -432,8 +430,8 @@ def main() -> None:
         ModelSpec("ridge", excluded_features=excluded),
     ]
     mae, acc, _ = evaluate_specs(pooled_train, baseline_specs)
-    print("\n=== BASELINE (current pruned set, equal weight, default params) ===")
-    print(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
+    logger.info("\n=== BASELINE (current pruned set, equal weight, default params) ===")
+    logger.info(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
 
     excluded = prune_low_value_features(pooled_train, excluded)
     mae, acc, _ = evaluate_specs(
@@ -445,8 +443,8 @@ def main() -> None:
             ModelSpec("ridge", excluded_features=excluded),
         ],
     )
-    print(f"\n=== AFTER PRUNING ({len(excluded)} excluded) ===")
-    print(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
+    logger.info(f"\n=== AFTER PRUNING ({len(excluded)} excluded) ===")
+    logger.info(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
 
     lgbm_params, rf_params = tune_hyperparams(pooled_train, excluded)
 
@@ -470,33 +468,33 @@ def main() -> None:
         ModelSpec("ridge", params=ridge_params, excluded_features=excluded, weight=weights[3]),
     ]
     mae, acc, _ = evaluate_specs(pooled_train, final_specs)
-    print("\n=== FINAL TUNED CONFIG (validation folds only) ===")
-    print(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
+    logger.info("\n=== FINAL TUNED CONFIG (validation folds only) ===")
+    logger.info(f"avg fold MAE={mae:.5f} avg directional accuracy={acc:.4f}")
 
-    print("\n=== Final walk-forward run (with MLflow logging) + genuine holdout check ===")
+    logger.info("\n=== Final walk-forward run (with MLflow logging) + genuine holdout check ===")
     fold_results = run_walk_forward(pooled_train, specs=final_specs)
     for r in fold_results:
-        print(f"  fold {r.fold}: {r.metrics}")
+        logger.info(f"  fold {r.fold}: {r.metrics}")
     final_ensemble = fold_results[-1].model
 
     pooled_holdout = load_pooled(holdout_tickers, price_store, feature_store)
     holdout_metrics = evaluate_ensemble(final_ensemble, pooled_holdout)
-    print(f"\nHOLDOUT (never-seen tickers, {len(holdout_tickers)} tickers): {holdout_metrics}")
+    logger.info(f"\nHOLDOUT (never-seen tickers, {len(holdout_tickers)} tickers): {holdout_metrics}")
 
     predicted = pd.Series(predict_ensemble(final_ensemble, pooled_holdout), index=pooled_holdout.index)
     actual = pooled_holdout[LABEL_COLUMN]
     sweep = sweep_thresholds(predicted, actual)
-    print("\nThreshold sweep on holdout:")
-    print(sweep.to_string(index=False))
+    logger.info("\nThreshold sweep on holdout:")
+    logger.info(sweep.to_string(index=False))
 
     evaluate_volatility_normalized_stability(pooled_holdout, predicted, actual)
 
-    print(f"\nTotal elapsed: {time.time() - t0:.1f}s")
-    print(f"\nFinal config -- lightgbm params={lgbm_params} weight={weights[0]}")
-    print(f"Final config -- random_forest params={rf_params} weight={weights[1]}")
-    print(f"Final config -- neural_net params={nn_params} weight={weights[2]}")
-    print(f"Final config -- ridge params={ridge_params} weight={weights[3]}")
-    print(f"Final pruned set ({len(excluded)}): {sorted(excluded)}")
+    logger.info(f"\nTotal elapsed: {time.time() - t0:.1f}s")
+    logger.info(f"\nFinal config -- lightgbm params={lgbm_params} weight={weights[0]}")
+    logger.info(f"Final config -- random_forest params={rf_params} weight={weights[1]}")
+    logger.info(f"Final config -- neural_net params={nn_params} weight={weights[2]}")
+    logger.info(f"Final config -- ridge params={ridge_params} weight={weights[3]}")
+    logger.info(f"Final pruned set ({len(excluded)}): {sorted(excluded)}")
 
 
 if __name__ == "__main__":

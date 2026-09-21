@@ -10,6 +10,7 @@ not a 0.5% gate. See train_lightgbm_rank in model.py.
 from __future__ import annotations
 
 from stock_picker.features.pruning import pruned_features
+from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -22,6 +23,8 @@ RANK_MODEL_NAME = "day_session_return_rank"
 RANK_TOP_K = 20
 # News / sentiment only on this many Rank names so 8:36 isn't waiting on 20 Finnhub calls.
 RANK_NEWS_TOP_K = 10
+
+logger = get_logger(__name__)
 
 
 def train_and_persist_rank_model(
@@ -49,7 +52,7 @@ def train_and_persist_rank_model(
 
 def main() -> None:
     train_and_persist_rank_model()
-    print(f"wrote {RANK_MODEL_NAME}.pkl", flush=True)
+    logger.info("wrote %s.pkl", RANK_MODEL_NAME)
 
 
 if __name__ == "__main__":

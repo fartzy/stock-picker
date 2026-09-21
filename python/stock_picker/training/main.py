@@ -17,6 +17,7 @@ import pandas as pd
 
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.selection import selected_features
+from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -48,6 +49,8 @@ DIAGNOSTIC_MODEL_NAME = f"{MODEL_NAME}_logistic_diagnostic"
 # outright across every blend tried, so it never earned a place -- the UI's
 # composable model picker can still add it back in for experimentation.
 DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm")]
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -90,7 +93,7 @@ def _load_pooled_dataset(
             # Active in UniverseStore doesn't guarantee price/feature data exists
             # for it (e.g. a transient ingestion failure) -- skip rather than
             # crash the whole run over one ticker.
-            print(f"skipping {ticker}: missing price or feature data")
+            logger.warning("skipping %s: missing price or feature data", ticker)
             histories.pop(ticker, None)
     return build_pooled_dataset(histories, features_by_ticker)
 
@@ -157,13 +160,18 @@ def run_training(
     # failed run still leaves this provenance in the server log even though
     # storage/training_run_store.py can't record it for a run that never
     # reaches a TrainingSummary (see training/job.py).
-    print(f"training on {len(train_tickers)} tickers, holding out {len(holdout_tickers)}: {resolved_specs}")
+    logger.info(
+        "training on %s tickers, holding out %s: %s",
+        len(train_tickers),
+        len(holdout_tickers),
+        resolved_specs,
+    )
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
     fold_results = run_walk_forward(train_dataset, specs=specs)
     for result in fold_results:
-        print(f"fold {result.fold}: {result.metrics}")
+        logger.info("fold %s: %s", result.fold, result.metrics)
 
     final_ensemble = fold_results[-1].model
     ModelStore().write(MODEL_NAME, final_ensemble)
@@ -193,7 +201,7 @@ def run_training(
     if wants_rank:
         from stock_picker.training.rank_model import train_and_persist_rank_model
 
-        print("training lambdarank (parallel pickle, not blended into the return ensemble)")
+        logger.info("training lambdarank (parallel pickle, not blended into the return ensemble)")
         train_and_persist_rank_model(included_features=included_features)
 
     fold_metrics = [result.metrics for result in fold_results]
@@ -212,12 +220,12 @@ def run_training(
 
     holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
     holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
-    print(f"holdout tickers {holdout_tickers}: {holdout_metrics}")
+    logger.info("holdout tickers %s: %s", holdout_tickers, holdout_metrics)
 
     predicted = pd.Series(predict_ensemble(final_ensemble, holdout_dataset), index=holdout_dataset.index)
     actual = holdout_dataset[LABEL_COLUMN]
     sweep = sweep_thresholds(predicted, actual, n_days=holdout_dataset["date"].nunique())
-    print(sweep.to_string(index=False))
+    logger.info("%s", sweep.to_string(index=False))
 
     # DataFrame.to_dict() leaves numpy scalar types in place (not JSON-
     # serializable as-is) -- round-tripping through to_json()/json.loads()
