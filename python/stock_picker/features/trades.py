@@ -87,10 +87,12 @@ def _apply_fill(shares: dict[str, float], cost: dict[str, float], row) -> float:
 
 
 def time_weighted_working_by_day(trades: pd.DataFrame) -> dict[str, float]:
-    """Average dollars on the book during 9:30–16:00 ET, weighted by time.
+    """Average dollars on the book while anything is on.
 
-    Peak of the day is not the average -- 20 minutes at $60k then flat is
-    not a $60k day. Overnight inventory is on the book at 9:30 until sold.
+    Empty stretches (before the first fill, after going flat) do not count.
+    Peak of the day is not this number -- 5 minutes at $52k then 5 hours
+    flat is ~$40k on, not $52k and not a $5k smear across 9:30–16:00.
+    Overnight inventory is on from 9:30 until sold.
     """
     if trades.empty:
         return {}
@@ -114,20 +116,24 @@ def time_weighted_working_by_day(trades: pd.DataFrame) -> dict[str, float]:
             working = sum(value for value in cost.values() if value > 0)
             last_t = session_open
             integral = 0.0
+            in_market = 0.0
             cursor = fill_i
             while cursor < len(fills) and fills[cursor].executed_dt <= session_close:
                 fill = fills[cursor]
                 dt = (fill.executed_dt - last_t).total_seconds()
-                if dt > 0:
+                if dt > 0 and working > 0:
                     integral += working * dt
+                    in_market += dt
                 working = _apply_fill(shares, cost, fill)
                 last_t = fill.executed_dt
                 cursor += 1
             dt = (session_close - last_t).total_seconds()
-            if dt > 0:
+            if dt > 0 and working > 0:
                 integral += working * dt
-            duration = (session_close - session_open).total_seconds()
-            averages[day.isoformat()] = round(integral / duration, NOTIONAL_DECIMAL_PLACES) if duration else 0.0
+                in_market += dt
+            averages[day.isoformat()] = (
+                round(integral / in_market, NOTIONAL_DECIMAL_PLACES) if in_market else 0.0
+            )
             fill_i = cursor
         day += timedelta(days=1)
     return averages

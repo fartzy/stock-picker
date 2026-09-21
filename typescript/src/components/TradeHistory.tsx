@@ -405,7 +405,7 @@ function PeriodLine({
   return (
     <>
       <strong>{label}</strong>
-      {` · ${formatUsd(summary.typicalWorking)} avg · ${summary.sessions}d · `}
+      {` · ${formatUsd(summary.typicalWorking)} on · ${summary.sessions}d · `}
       <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />
       {" · intraday S&P "}
       <Diff

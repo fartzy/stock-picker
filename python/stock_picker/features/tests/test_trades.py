@@ -68,9 +68,10 @@ def test_time_weighted_working_is_less_than_a_lunch_spike():
         ]
     )
     averages = time_weighted_working_by_day(trades)
-    # 10 minutes of $13k in a 6.5h session is far below the $13k peak.
-    assert averages["2026-09-16"] < 1000
-    assert averages["2026-09-16"] > 200
+    # 10 minutes of $13k then flat: in-market average is the $13k, not a
+    # 6.5h smear and not diluted by the empty afternoon.
+    assert averages["2026-09-16"] > 12000
+    assert averages["2026-09-16"] < 14000
 
 
 def test_position_summaries_merges_closed_position_into_one_row():
