@@ -8,44 +8,42 @@ new ensemble -- retrains the current DEFAULT / UI-selected composition.
 
 from __future__ import annotations
 
-import functools
-import sys
-import traceback
 from datetime import datetime
+
 from stock_picker.ingestion.session import CHICAGO_TIMEZONE, last_completed_session_date
+from stock_picker.log import get_logger
 
 from stock_picker.features.main import main as rebuild_features
 from stock_picker.ingestion.refresh_prices import main as refresh_prices
 
 from stock_picker.training.main import main as persist_training
 
-print = functools.partial(print, flush=True)
+logger = get_logger(__name__)
 
 
 def run_nightly() -> int:
     started = datetime.now(CHICAGO_TIMEZONE)
     cutoff = last_completed_session_date()
-    print(f"nightly start {started.isoformat()} last_completed_session={cutoff}")
+    logger.info("nightly start %s last_completed_session=%s", started.isoformat(), cutoff)
     try:
-        print("=== 1/4 refresh prices ===")
+        logger.info("=== 1/4 refresh prices ===")
         refresh_prices()
-        print("=== 2/4 fill missing sectors (capped Yahoo profile pull) ===")
+        logger.info("=== 2/4 fill missing sectors (capped Yahoo profile pull) ===")
         from stock_picker.ingestion.fundamentals import refresh_missing_sectors
 
         n_sectors = refresh_missing_sectors()
-        print(f"wrote sectors for {n_sectors} tickers")
-        print("=== 3/4 rebuild features ===")
+        logger.info("wrote sectors for %s tickers", n_sectors)
+        logger.info("=== 3/4 rebuild features ===")
         rebuild_features()
-        print("=== 4/4 retrain (return ensemble + lambdarank if selected) ===")
+        logger.info("=== 4/4 retrain (return ensemble + lambdarank if selected) ===")
         # main() persists the pickle *and* appends TrainingRunStore --
         # run_training() alone overwrites latest without a run record, so
         # pipeline_freshness still thinks the model is days behind.
         persist_training()
-        print(f"nightly done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
+        logger.info("nightly done %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
         return 0
     except Exception:
-        traceback.print_exc()
-        print(f"nightly failed {datetime.now(CHICAGO_TIMEZONE).isoformat()}", file=sys.stderr)
+        logger.exception("nightly failed %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
         return 1
 
 

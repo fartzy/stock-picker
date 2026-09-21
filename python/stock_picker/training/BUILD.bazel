@@ -38,6 +38,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker:log",
         "//python/stock_picker/features",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",

@@ -7,7 +7,10 @@ on UniverseStore.
 
 from __future__ import annotations
 
+from stock_picker.log import get_logger
 from stock_picker.storage.universe_store import UniverseStore
+
+logger = get_logger(__name__)
 
 try:
     import yfinance as yf
@@ -53,7 +56,7 @@ def refresh_missing_sectors(universe_store: UniverseStore | None = None, limit: 
 
 def main() -> None:
     n = refresh_missing_sectors()
-    print(f"wrote sectors for {n} tickers", flush=True)
+    logger.info("wrote sectors for %s tickers", n)
 
 
 if __name__ == "__main__":

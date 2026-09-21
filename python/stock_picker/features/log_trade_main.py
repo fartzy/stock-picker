@@ -10,7 +10,10 @@ from __future__ import annotations
 import argparse
 from datetime import datetime
 
+from stock_picker.log import get_logger
 from stock_picker.storage.trade_store import Trade, TradeStore
+
+logger = get_logger(__name__)
 
 
 def main() -> None:
@@ -37,7 +40,14 @@ def main() -> None:
             executed_at=executed_at,
         )
     )
-    print(f"Logged {args.side} {args.shares} {args.ticker} @ {args.price} at {executed_at}")
+    logger.info(
+        "Logged %s %s %s @ %s at %s",
+        args.side,
+        args.shares,
+        args.ticker,
+        args.price,
+        executed_at,
+    )
 
 
 if __name__ == "__main__":

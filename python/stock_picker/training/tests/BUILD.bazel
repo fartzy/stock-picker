@@ -51,6 +51,13 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_morning_run",
+    srcs = ["test_morning_run.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training"],
+)
+
+py_pytest(
     name = "test_morning_cache",
     srcs = ["test_morning_cache.py"],
     imports = ["../../.."],

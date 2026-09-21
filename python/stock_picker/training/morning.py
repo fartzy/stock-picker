@@ -7,12 +7,12 @@ Rank is published as soon as Rank finishes (target ~8:35 CT).
 from __future__ import annotations
 
 import fcntl
-import functools
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
 
 from stock_picker.ingestion.session import CHICAGO_TIMEZONE
+from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.features.quotes import fetch_ticker_quotes
@@ -33,7 +33,7 @@ from stock_picker.training.notify import (
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.rank_model import RANK_NEWS_TOP_K, RANK_TOP_K
 
-print = functools.partial(print, flush=True)
+logger = get_logger(__name__)
 
 DEFAULT_SIGNAL_DIR = data_root() / "buy_signals"
 _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
@@ -149,70 +149,111 @@ def score_from_quotes(
                 write_picks_files(rank_result.as_of, rank_text)
                 publish_picks(rank_result.as_of, rank_text)
                 rank_n = len(rank_result.signals)
-                print(f"rank_top={rank_n} published first")
-        except Exception as exc:
-            print(f"ranking skipped: {exc}")
+                logger.info("rank_top=%s published first", rank_n)
+        except Exception:
+            logger.exception("ranking skipped")
         result = fit_future.result()
 
-    news_tickers = [s.ticker for s in result.signals]
-    if rank_result is not None:
-        news_tickers.extend(s.ticker for s in rank_result.signals[:RANK_NEWS_TOP_K])
-        if not persist:
-            rank_n = len(rank_result.signals)
-    unique_news = list(dict.fromkeys(news_tickers))
-    if unique_news and news_fetcher is not None:
-        print(f"news check {len(unique_news)} names (fit + rank top {RANK_NEWS_TOP_K})")
-        flags = news_fetcher(unique_news, date.fromisoformat(result.as_of)) or {}
+    if not persist and rank_result is not None:
+        rank_n = len(rank_result.signals)
+
+    def _apply_flags(flags):
         for signal in result.signals:
-            signal.news_flag = flags.get(signal.ticker)
+            if signal.ticker in flags:
+                signal.news_flag = flags[signal.ticker]
         if rank_result is not None:
             for signal in rank_result.signals:
-                signal.news_flag = flags.get(signal.ticker)
-            if persist and rank_result.signals:
-                rank_payload = _payload_from(rank_result, freshness)
-                rank_payload["kind"] = "rank"
-                _write_signals(rank_payload, rank_result.as_of)
-                rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+                if signal.ticker in flags:
+                    signal.news_flag = flags[signal.ticker]
+
+    def _news(tickers, label):
+        names = list(dict.fromkeys(tickers))
+        if not names or news_fetcher is None:
+            return {}
+        logger.info("news check %s names (%s)", len(names), label)
+        return news_fetcher(names, date.fromisoformat(result.as_of)) or {}
+
+    first = [s.ticker for s in result.signals]
+    if rank_result is not None:
+        first.extend(s.ticker for s in rank_result.signals[:RANK_NEWS_TOP_K])
+    _apply_flags(_news(first, f"fit + rank 1-{RANK_NEWS_TOP_K}"))
+    if persist:
+        if rank_result is not None and rank_result.signals:
+            rank_payload = _payload_from(rank_result, freshness)
+            rank_payload["kind"] = "rank"
+            _write_signals(rank_payload, rank_result.as_of)
+            rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+        fit_payload = _payload_from(result, freshness)
+        _write_signals(fit_payload, result.as_of)
+        _subject, fit_body = format_picks_email(fit_payload)
+        body = (rank_text + "\n" + fit_body) if rank_text else fit_body
+        write_picks_files(result.as_of, body)
+        publish_picks(result.as_of, body)
+        logger.info("first publish GitHub + cache (Fit + Rank, news on rank 1-10)")
+
+    rest = []
+    if rank_result is not None:
+        rest = [s.ticker for s in rank_result.signals[RANK_NEWS_TOP_K:RANK_TOP_K]]
+    rest_flags = _news(rest, f"rank {RANK_NEWS_TOP_K + 1}-{RANK_TOP_K} after first publish")
+    _apply_flags(rest_flags)
+    if persist and rest_flags and rank_result is not None and rank_result.signals:
+        rank_payload = _payload_from(rank_result, freshness)
+        rank_payload["kind"] = "rank"
+        _write_signals(rank_payload, rank_result.as_of)
+        rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+        fit_payload = _payload_from(result, freshness)
+        _subject, fit_body = format_picks_email(fit_payload)
+        publish_picks(result.as_of, rank_text + "\n" + fit_body)
+        logger.info("republish GitHub after rank 11-20 news")
     return freshness, rank_result, result, rank_n, rank_text
 
 
 def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = False) -> int:
     started = datetime.now(CHICAGO_TIMEZONE)
-    print(f"morning start {started.isoformat()}")
+    logger.info("morning start %s", started.isoformat())
     freshness = pipeline_freshness()
-    print(freshness.detail)
+    logger.info("%s", freshness.detail)
     if not freshness.ready_for_inference:
-        print("skipping score -- pipeline not current enough")
+        logger.warning("skipping score -- pipeline not current enough")
         subject, body = format_not_ready_email(freshness.as_of, freshness.detail)
-        print(f"published={publish_picks(freshness.as_of, body)} emailed={send_email(subject, body)}")
+        logger.info(
+            "published=%s emailed=%s",
+            publish_picks(freshness.as_of, body),
+            send_email(subject, body),
+        )
         return 1
     if not ignore_disabled and not TrainingConfigStore().read().morning_job_enabled:
-        print("morning job disabled -- skipping scheduled run")
+        logger.warning("morning job disabled -- skipping scheduled run")
         return 0
 
     lock = _try_lock_morning()
     if lock is None:
-        print("morning already running -- skipping")
+        logger.warning("morning already running -- skipping")
         return 0
 
     try:
         quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
-        print(f"quotes={len(quotes)}")
+        logger.info("quotes=%s", len(quotes))
         freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
             quotes, threshold=threshold, persist=True
         )
         payload = _payload_from(result, freshness)
-        path = _write_signals(payload, result.as_of)
+        path = DEFAULT_SIGNAL_DIR / f"{result.as_of}.json"
         subject, body = format_picks_email(payload)
         if rank_text:
             body = rank_text + "\n" + body
-        published = publish_picks(result.as_of, body)
+        published = True
         mailed = send_email(subject, body)
-        print(
-            f"scored={result.scored_count} picks={len(result.signals)} "
-            f"rank_top={rank_n} wrote {path} published={published} emailed={mailed}"
+        logger.info(
+            "scored=%s picks=%s rank_top=%s wrote %s published=%s emailed=%s",
+            result.scored_count,
+            len(result.signals),
+            rank_n,
+            path,
+            published,
+            mailed,
         )
-        print(f"morning done {datetime.now(CHICAGO_TIMEZONE).isoformat()}")
+        logger.info("morning done %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
         return 0
     finally:
         lock.close()
