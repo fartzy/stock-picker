@@ -1,29 +1,49 @@
 # stock-picker
 
-Day-session (open→close) stock picker: ~2,000 US names, engineered features,
-solo LightGBM by default, FastAPI + React, a real trade log with P&L.
+Morning picks and trade history. ~2,000 US names, open→close (day session),
+FastAPI + React.
+
+Two lists every morning:
+
+- **Rank** — LightGBM lambdarank, top 20, relative scores (not percents)
+- **Fit** — LightGBM return model, names that clear a 0.5% predicted-return
+  gate
+
+Nightly writes yesterday’s features through the close. Morning plugs today’s
+open into the ~30 open-known columns and scores. Rank publishes first, then
+Fit, then news on the short list.
 
 - **Universe**: top 2,000 US companies by market cap
-- **History**: daily OHLCV via yfinance, stored under `data/prices/`
+- **History**: daily OHLCV via yfinance under `data/prices/`
 - **This-morning opens**: Yahoo quote snapshot dated today, then 1-minute
-  bars, then the daily chart. Polygon is first if the key is entitled
-  (the free/Starter snapshot is not). Finnhub fills a small leftover set
-  and supplies the earnings calendar skip.
-- **Features**: ~135 columns across 12 categories, including 28 open-known
-  recency patterns (last few completed days + this morning’s open)
-- **Model**: LightGBM predicting day-session return. RandomForest, Ridge,
-  and a small neural net are in the UI picker; none beat solo LightGBM on
-  holdout in the last searches, so they are not in the default ensemble.
-- **Jobs** (Mac must be awake): **3:30 PM Chicago** weekdays refresh
-  prices, rebuild features through the last completed session, and fully
-  retrain. **8:32 AM Chicago** weekdays score today’s opens into
-  `data/buy_signals/`, writes `picks/YYYY/MM/DD.txt` + `picks/latest.txt`,
-  and pushes that folder so it opens in the GitHub app. Email is optional
-  and often stuck in local postfix. The Trading tab loads the JSON cache
-  on click.
+  bars, then the daily chart. Polygon is first only if the key is entitled
+  (Default/Starter 403s on the full-market snapshot; $199 real-time still
+  does not guarantee 2,000 official opens at T+5s or T+30s). Finnhub fills
+  a small leftover set and supplies the earnings calendar skip.
+- **Features**: ~135 columns across 13 categories, including 28 open-known
+  recency patterns (last few completed days + this morning’s open). Those
+  columns are recomputed at the open; everything else stays last night’s
+  snapshot.
+- **Models**: default return ensemble is solo LightGBM. RandomForest, Ridge,
+  and a small neural net are on the Models picker; none beat solo LightGBM
+  on holdout, so they are not in the default blend. Lambdarank is a
+  **parallel pickle** (`day_session_return_rank.pkl`), never averaged into
+  the return blend.
+- **Jobs** (Mac must be awake, `America/Chicago`): **3:30 PM** weekdays
+  refresh prices, rebuild features, retrain. **8:32 AM** weekdays is the
+  backup score. Prefer **Check this morning's prices** on Trading around
+  8:31 — that click disables 8:32 for the day and takes a file lock so
+  launchd cannot double-run.
+- **News**: after Rank/Fit, Finnhub company-news on Fit + Rank 1–10, then
+  Rank 11–20 and a second GitHub publish. Avoid only on big news (crash or
+  mania), not any headline. Grok if a key is in the environment; otherwise
+  TF-IDF + event phrases. Optional local Langfuse on `127.0.0.1:3100`.
+- **Logs**: `print()` is gone. Jobs use `stock_picker.log.get_logger`.
 
 Price, feature, and model data is **tracked in git** so a fresh clone
-already runs. Regenerating it rewrites large parquet blobs.
+already runs. Regenerating it rewrites large parquet blobs. Trades, morning
+scans, and the paper book are **SQLite** (`data/trades/stockpicker.db`,
+`data/buy_signals/scans.db`, `data/paper_book/paper_book.db`).
 
 ## Architecture
 
@@ -35,15 +55,17 @@ flowchart TB
         BUILDUNIV["tickers/universe.py"]
         YF["ingestion/yfinance_client.py<br/>history + dated quote snapshot"]
         POLY["ingestion/polygon_client.py<br/>full-market snapshot if entitled"]
-        FH["ingestion/finnhub_client.py<br/>leftover quotes + earnings calendar"]
+        FH["ingestion/finnhub_client.py<br/>leftover quotes + earnings + news"]
     end
 
     subgraph Storage
         US[("UniverseStore")]
-        PS[("PriceStore")]
-        FS[("FeatureStore")]
-        MS[("ModelStore")]
-        TS[("TradeStore<br/>SQLite + trades.csv dump")]
+        PS[("PriceStore parquet")]
+        FS[("FeatureStore parquet")]
+        MS[("ModelStore pickle")]
+        TS[("TradeStore SQLite")]
+        SS[("ScanStore SQLite")]
+        PB[("PaperBookStore SQLite")]
         PFS[("PrunedFeatureStore")]
         TRS[("TrainingRunStore")]
     end
@@ -56,15 +78,16 @@ flowchart TB
 
     subgraph Training
         DATASET["training/dataset.py"]
-        TRAIN["training/main.py<br/>solo LightGBM default"]
+        TRAIN["training/main.py<br/>solo LightGBM + parallel lambdarank"]
         INFER["training/inference.py"]
         NIGHT["training/nightly.py<br/>3:30 CT"]
-        MORN["training/morning.py<br/>8:32 CT"]
+        MORN["training/morning.py<br/>8:32 CT or click"]
+        NEWS["training/news_day_judge.py"]
     end
 
     subgraph Serving
         API["api/routes.py"]
-        WEB["typescript/<br/>Trading / Feature Store / Models / Data"]
+        WEB["typescript/<br/>Trading / What if / Test run / Feature Store / Models / Data"]
     end
 
     WIKI --> BUILDUNIV
@@ -85,30 +108,45 @@ flowchart TB
     YF --> INFER
     POLY --> INFER
     FH --> INFER
+    FH --> NEWS
     NIGHT --> PS
     NIGHT --> FS
     NIGHT --> TRAIN
     MORN --> INFER
-    MORN --> API
+    MORN --> NEWS
+    MORN --> SS
+    NEWS --> MORN
     FS --> API
     MS --> API
     TS --> API
+    SS --> API
+    PB --> API
     TRS --> API
     API --> WEB
+```
+
+Layers only talk downward:
+
+```
+ingestion/ → storage/ → features/ → training/ → api/ → typescript/
 ```
 
 ## Structure
 
 ```
 python/stock_picker/
+├── log.py       # get_logger(__name__); no print()
 ├── tickers/     # top-2000-by-market-cap universe
 ├── ingestion/   # yfinance history + live quotes; Polygon/Finnhub extras
-├── storage/     # Parquet/pickle/CSV (Repository pattern)
-├── features/    # pipeline, catalog, registry, trade log
-├── training/    # dataset, models, ensemble, nightly/morning jobs
-└── api/         # FastAPI -- endpoints wrap tested functions
+├── storage/     # parquet prices/features; SQLite trades/scans/paper book
+├── features/    # pipeline, catalog, registry, trade CLI
+├── paper/       # Open→Close paper book over morning lists
+├── training/    # dataset, models, ensemble, nightly/morning, news
+└── api/         # FastAPI — endpoints wrap tested functions
 
-typescript/      # React + Vite + TS (Trading / Feature Store / Models / Data)
+typescript/      # React + Vite + TS
+launchd/         # 3:30 CT nightly, 8:32 CT morning (backup)
+scripts/         # morning.sh / nightly.sh
 ```
 
 ## Quickstart
@@ -152,15 +190,23 @@ hot-reloads on its own.
 
 ## Web app
 
-- **Trading**: this-morning picks (saved 8:32 scan first; live rescore only
-  if that file is missing), trade log with leftover-share lots, log-a-trade
-  with date/time. Open lots vs closed lots by sell day. Fills live in
-  `data/trades/stockpicker.db` (unique fill); `trades.csv` is a dump.
+- **Trading**: Rank and Fit from this morning’s scan. **Check this
+  morning's prices** runs Rank+Fit now, unchecks 8:32, and waits if a scan
+  is already running. Trade history is hold-to-close (8:40–2:55 CT via the
+  daily bar), week groups, MTD / YTD / All. Fills live in SQLite; `trades.csv`
+  is a dump. Do not log index funds (SPY) here.
+- **What if**: every morning list Open→Close, Fit / Rank / top-K slices,
+  hit rate, news Avoid on the short lists.
+- **Test run**: fake opens only (last Close ±3%). Rank, Fit, or Both use
+  the real morning path (`score_from_quotes`, `persist=False`) so Monday’s
+  cache is not overwritten. Fake quotes are ~2s; scoring ~2,000 names is
+  the slow part (~10 min) because each ticker rebuilds open-known columns
+  from price history.
 - **Feature Store**: registry, catalog, coverage/correlation (sampled),
   prune (actually excluded from training).
-- **Models**: ensemble picker, run training, run history. Freshness on this
-  tab and Trading: features and the live model must reach the last completed
-  session or scoring is refused.
+- **Models**: ensemble picker (return families + LightGBM Rank), run
+  training, run history. Freshness: features and the live model must reach
+  the last completed session or scoring is refused.
 - **Data**: OHLCV chart, daily from PriceStore or hourly from yfinance.
 
 ## Training
@@ -169,74 +215,89 @@ Predicts the same-day open→close return, pooled across tickers. Walk-forward
 on dates (never k-fold) plus a held-out set of entire tickers. Read
 `training/dataset.py` before changing this module — most columns are
 `shift(1)`’d; overnight gap and the open-known recency family are not,
-because they use `Open_t` and never `Close_t`.
+because they use `Open_t` and never `Close_t`. Live scoring mirrors that in
+`training/inference.py`: copy last night’s row, overwrite gap + the 28
+open-known columns from today’s print.
 
-Default ensemble is solo LightGBM (`training/main.py`). Lambdarank is on the
-Models picker and trains a parallel pickle (`day_session_return_rank.pkl`);
-it is not weight-averaged with the return models. Adding a return family is
-measured in `training/tune_experiment.py`, not assumed. LightGBM is fully
-retrained after the close; it is not incrementally patched with two new days.
+Default ensemble is solo LightGBM (`training/main.py`). Lambdarank trains
+alongside it when selected. Adding a return family is measured in
+`training/tune_experiment.py`, not assumed. LightGBM is fully retrained
+after the close; it is not incrementally patched with two new days.
 
-Holdout metrics change every retrain — see the Models tab / `data/training_runs/runs.json`.
-The unfiltered day-session base rate is about a coin flip (~50%). A 0.5%
-predicted-return gate trades fewer names for a higher hit rate
-(`training/backtest.py`).
+Holdout metrics change every retrain — see the Models tab /
+`data/training_runs/runs.json`. The unfiltered day-session base rate is
+about a coin flip (~50%). A 0.5% predicted-return gate trades fewer names
+for a higher hit rate (`training/backtest.py`). Rank scores are relative;
+do not 0.5%-gate them.
 
 ## Daily jobs
 
 Launchd plists in `launchd/`, scripts in `scripts/`. Loaded on this machine
-as `com.stockpicker.nightly` and `com.stockpicker.morning`.
+as `com.stockpicker.nightly` and `com.stockpicker.morning`. Hours are Mac
+local time (`CHICAGO_TIMEZONE = ZoneInfo("America/Chicago")` in
+`ingestion/session.py`). Launchd does not catch up a missed calendar tick
+(lid sleep).
 
 | When | What |
 |---|---|
 | Weekdays 3:30 PM Chicago | Prices → features through last completed session → full retrain |
-| Weekdays 8:32 AM Chicago | Score today’s dated opens → `data/buy_signals/` and `picks/YYYY/MM/DD.txt` (pushed) |
+| Weekdays 8:32 AM Chicago | Backup: score today’s dated opens if the Trading checkbox is still on |
+| Click on Trading ~8:31 | Disable 8:32, take `morning.lock`, Rank+Fit in parallel, news, publish |
 
-The Mac has to be on. Logs: `~/Library/Logs/stock-picker/`.
+Outputs: SQLite scan cache, `picks/YYYY/MM/DD.txt` + `picks/latest.txt`
+(pushed so it opens in the GitHub app). Rank goes up as soon as Rank
+finishes (target ~8:35). Fit + Rank 1–10 news on first publish; Rank 11–20
+news republishes. Email is optional and often stuck in local postfix.
+
+The Mac has to be on. Logs: `~/Library/Logs/stock-picker/` (stderr logging,
+not `print`).
 
 ## Known issues
 
-These are still true. The old README’s “no live caller exists yet” and
-“same-day bar silently treated as yesterday” are **not** — live scoring
-runs at 8:32 CT, and `ingestion/session.py` drops bars after the last
-completed close before features/training see them.
+These are still true. Live scoring **does** run (click or 8:32 CT), and
+`ingestion/session.py` drops bars after the last completed close before
+features/training see them.
 
 **Still true**
 
-- Thin names may not have an official open at 8:32. The morning job retries
-  once a minute later if many quotes are missing; leftover names are skipped,
-  not invented from last trade.
+- Thin names may not have an official open at 8:32. Leftover names are
+  skipped, not invented from last trade. Paying for Polygon real-time does
+  not guarantee 2,000 official `day.o` prints at T+10s — NYSE DMMs finish
+  the opening cross when they finish.
+- Scoring ~2,000 names is slow (~10 min in Test run) because Rank and Fit
+  each read parquet and rebuild open-known columns per ticker. Fake quotes
+  are cheap; that loop is not.
 - Yahoo can still ship an unfinished daily bar *during* the session. The
   3:30 CT job runs after settle; a manual `features:main` at 10am would
-  otherwise have included today’s in-progress candle (that’s what
-  `completed_sessions()` is for).
+  otherwise have included today’s in-progress candle (`completed_sessions()`).
 - Yahoo can leave yesterday’s close as `NaN` if you pull before the daily
-  bar is finalized. Nightly at 3:30 CT is usually past that; a too-early
-  pull is still a vendor risk, not a silent `.iloc[-1]` bug.
+  bar is finalized. Nightly at 3:30 CT is usually past that.
 - Polygon’s Default/Starter key 403s on the live snapshot — Yahoo is the
   real bulk open path until the key is entitled.
 - `sector_relative_return` fills once Yahoo sectors are on UniverseStore
   (`bazelisk run //python/stock_picker/ingestion:fundamentals`; nightly
   fills a capped batch of missing names).
+- 8:32 launchd has missed when the lid was closed or the weekday after a
+  plist hour change had not fired yet. Click is the proven path.
 
 **Guarded (do not treat as open bugs)**
 
 - Stale feature snapshot → `StaleFeatureSnapshotError` / freshness badge.
 - Live open not dated today → ticker omitted from quotes.
 - Large overnight gap → kept (a real print, not a 30% plausibility filter).
+- File lock → second 8:32 or second click skips with “already running”.
 
 ## Roadmap
 
 Already shipped (do not re-open): nightly/morning jobs, leftover-share
-lots, dated opens, open-known recency columns, `trades.csv`, per-run
-archived pickles (`day_session_return_{run_id}.pkl`), volatility-delta
-features.
+lots, dated opens, open-known recency columns, SQLite trades/scans/paper
+book, What if / Test run tabs, parallel Rank+Fit, lambdarank pickle, news
+on the short list, click disables 8:32, stdlib logging.
 
-- [ ] Ranking-objective LightGBM (better Rank IC; would mean top-K picks
-      instead of a 0.5% return gate) — measured in `tune_experiment.py`
 - [ ] Volatility-normalized confidence threshold — measured in
       `backtest.py`, not the live 0.5% gate
 - [ ] Persist sector labels for `sector_relative_return`
+- [ ] Faster morning scoring (open-known recompute is the wall)
 - [ ] Bazel-wired production `vite build` + frontend tests (`package.json`
       has a build script; `typescript/BUILD.bazel` only runs `dev` /
       typecheck)
