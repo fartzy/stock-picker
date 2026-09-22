@@ -77,11 +77,7 @@ export default function MorningCheck() {
 
   return (
     <div>
-      <p className="muted">
-        Only the opens are fake (last Close ±3%). Rank, Fit, earnings skip, and
-        news on Fit + Rank top 10 are the real Monday path. Does not overwrite
-        the live cache.
-      </p>
+      <p className="muted">Fake opens. Live scan stays.</p>
       <div className="meta-row" style={{ marginTop: "var(--space-2)" }}>
         <div className="list-toggle" role="group" aria-label="Which models">
           {(["rank", "fit", "both"] as const).map((option) => (

@@ -80,10 +80,7 @@ export default function App() {
       {tab === "testrun" && (
         <section>
           <h2>Test run</h2>
-          <p className="muted">
-            Fake last-close opens for the whole universe. Times Rank, Fit, and both.
-            Not a live scan — no Yahoo, no news.
-          </p>
+          <p className="muted">Fake opens. Live scan stays.</p>
           <div className="panel">
             <MorningCheck />
           </div>
