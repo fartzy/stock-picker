@@ -158,9 +158,20 @@ and invoke it as `bazelisk`.
 ```
 bazelisk build //...
 bazelisk test //...
-bazelisk run //python/stock_picker/api:main       # FastAPI on :8000
+bazelisk run //python/stock_picker/api:main       # FastAPI on :8000 (LAN + loopback)
 bazelisk run //typescript:dev                     # Vite on :5173, proxies /api -> :8000
 ```
+
+iPhone Home Screen (same Wi-Fi, Mac awake, API running):
+
+```
+pnpm --dir typescript build
+bazelisk run //python/stock_picker/api:main
+```
+
+On the phone, Safari → `http://<this-Mac-LAN-ip>:8000` → Share → **Add to Home Screen**. Not the App Store. Lid closed or off Wi-Fi = the icon does nothing.
+
+App Store (other machine, personal cloud): see `docs/app-store.md`.
 
 A clone already has prices, features, and a trained model. To refresh after
 the close (or skip waiting for 3:30 CT):
