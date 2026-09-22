@@ -70,7 +70,7 @@ export default function App() {
       {tab === "whatif" && (
         <section>
           <h2>What if</h2>
-          <p className="muted">Morning picks held Open→Close. Not your Fidelity fills.</p>
+          <p className="muted">Morning lists, open to close.</p>
           <div className="panel">
             <WhatIf />
           </div>
