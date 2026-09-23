@@ -1,0 +1,8 @@
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_parallel",
+    srcs = ["test_parallel.py"],
+    imports = ["../.."],
+    deps = ["//python/stock_picker:parallel"],
+)

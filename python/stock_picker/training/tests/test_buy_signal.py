@@ -207,6 +207,38 @@ def test_stale_snapshot_is_skipped_with_the_freshness_error_message(tmp_path):
     assert str(_STALE_SNAPSHOT_DATE) in skip["reason"]
 
 
+def test_scoring_more_than_one_bucket_still_sorts_and_skips(tmp_path, monkeypatch):
+    from stock_picker.training import buy_signal as buy_signal_mod
+
+    monkeypatch.setattr(buy_signal_mod, "SCORE_BUCKET", 2)
+    monkeypatch.setattr(buy_signal_mod, "SCORE_WORKERS", 3)
+    universe_store, feature_store, model_store, config_store, price_store = _stores(tmp_path)
+    model_store.write(MODEL_NAME, _trained_ensemble())
+    quotes = {}
+    for ticker, signal_value in [("AAA", 5.0), ("BBB", 4.0), ("CCC", 3.0), ("DDD", 2.0), ("EEE", 1.5)]:
+        _seed_ticker(feature_store, universe_store, ticker, _FRESH_SNAPSHOT_DATE, signal_value)
+        quotes[ticker] = _quote()
+    _seed_ticker(feature_store, universe_store, "FFF", _FRESH_SNAPSHOT_DATE, 5.0)
+
+    result = compute_buy_signals(
+        threshold=float("-inf"),
+        as_of=_AS_OF,
+        universe_store=universe_store,
+        feature_store=feature_store,
+        model_store=model_store,
+        config_store=config_store,
+        price_store=price_store,
+        quote_fetcher=lambda tickers: quotes,
+    )
+
+    assert result.scored_count == 5
+    names = [signal.ticker for signal in result.signals]
+    assert set(names) == {"AAA", "BBB", "CCC", "DDD", "EEE"}
+    predicted = [signal.predicted_return for signal in result.signals]
+    assert predicted == sorted(predicted, reverse=True)
+    assert {"ticker": "FFF", "reason": "no live quote available"} in result.skipped
+
+
 def test_signals_are_sorted_by_predicted_return_descending(tmp_path):
     universe_store, feature_store, model_store, config_store, price_store = _stores(tmp_path)
     model_store.write(MODEL_NAME, _trained_ensemble())
