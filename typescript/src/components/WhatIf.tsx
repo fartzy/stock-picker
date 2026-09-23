@@ -37,12 +37,6 @@ function StatsLine({ stats }: { stats: PaperListStats | undefined }) {
       {" · avg "}
       <Pct value={stats.avg} />
       {stats.n_avoid ? ` · skipped ${stats.n_avoid} gap-down news` : ""}
-      {stats.avg_ex_news !== null && stats.avg_ex_news !== undefined && stats.n_avoid ? (
-        <>
-          {" · without those "}
-          <Pct value={stats.avg_ex_news} />
-        </>
-      ) : null}
     </>
   );
 }

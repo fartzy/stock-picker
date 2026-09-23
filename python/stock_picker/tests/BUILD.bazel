@@ -1,6 +1,13 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_news_skip",
+    srcs = ["test_news_skip.py"],
+    imports = ["../.."],
+    deps = ["//python/stock_picker:news_skip"],
+)
+
+py_pytest(
     name = "test_parallel",
     srcs = ["test_parallel.py"],
     imports = ["../.."],

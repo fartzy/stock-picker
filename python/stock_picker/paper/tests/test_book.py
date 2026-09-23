@@ -179,3 +179,6 @@ def test_news_plus_gap_down_is_avoid_gap_up_is_still_buy(tmp_path):
     assert by_ticker["DOWN"]["news_blocks"] is True
     assert by_ticker["UP"]["news_blocks"] is False
     assert view["rank_stats"]["n_avoid"] == 1
+    assert view["rank_stats"]["n_scored"] == 1
+    assert view["rank_stats"]["avg"] == (11.5 / 11.0) - 1
+    assert view["days"][0]["rank_avg"] == (11.5 / 11.0) - 1

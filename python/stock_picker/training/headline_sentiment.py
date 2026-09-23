@@ -74,6 +74,11 @@ _MATERIAL_PHRASES = (
     "plunges after",
     "crashes after",
     "halts phase",
+    "insider sell",
+    "cto sells",
+    "cto sold",
+    "sold shares",
+    "form 4",
 )
 
 _LABELED: list[tuple[str, int]] = [
@@ -96,6 +101,8 @@ _LABELED: list[tuple[str, int]] = [
     ("Company slashes full-year guidance", 1),
     ("SEC opens investigation into accounting", 1),
     ("Stock plunges after failed late-stage study", 1),
+    ("Fastly's CTO Sells Over 33,000 Shares for $825,000 After the Stock Rose", 1),
+    ("Insider sold 40,000 shares in Form 4 filing", 1),
     # Big good / mania
     ("FDA approves first-in-class treatment", 1),
     ("Company to be acquired at a 40 percent premium", 1),

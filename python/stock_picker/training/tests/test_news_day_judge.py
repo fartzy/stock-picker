@@ -23,6 +23,15 @@ def test_news_blocks_buy_only_when_open_gaps_down():
     assert news_blocks_buy("PIPE", 9.0, None) is False
 
 
+def test_insider_sell_skips_even_on_gap_up():
+    headline = (
+        "Fastly's CTO Sells Over 33,000 Shares for $825,000 "
+        "After the Stock Rose 177% Over the Past Year"
+    )
+    assert news_blocks_buy(headline, 28.02, 27.42) is True
+    assert news_blocks_buy("PIPE dilution/offering", 11.0, 10.0) is False
+
+
 def test_parse_judge_avoid_true():
     assert _parse_judge('{"avoid": true, "reason": "Phase 3 trial pause"}') == (
         True,
