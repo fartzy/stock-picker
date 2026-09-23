@@ -36,10 +36,10 @@ function StatsLine({ stats }: { stats: PaperListStats | undefined }) {
       {hit ? ` · ${hit}` : ""}
       {" · avg "}
       <Pct value={stats.avg} />
-      {stats.n_avoid ? ` · avoid ${stats.n_avoid}` : ""}
+      {stats.n_avoid ? ` · skipped ${stats.n_avoid} gap-down news` : ""}
       {stats.avg_ex_news !== null && stats.avg_ex_news !== undefined && stats.n_avoid ? (
         <>
-          {" · ex-news "}
+          {" · without those "}
           <Pct value={stats.avg_ex_news} />
         </>
       ) : null}
@@ -104,8 +104,10 @@ function ListTable({
                 <td className="trade-num">
                   <Pct value={row.session_return} />
                 </td>
-                <td className={row.news_flag ? "quote-diff-down" : "muted"}>
-                  {row.news_flag ? `avoid · ${row.news_flag}` : "—"}
+                <td className={row.news_blocks ? "quote-diff-down" : row.news_flag ? "quote-diff-up" : "muted"}>
+                  {row.news_flag
+                    ? `${row.news_blocks ? "skip" : "still buy"} · ${row.news_flag}`
+                    : "—"}
                 </td>
               </tr>
             ))}

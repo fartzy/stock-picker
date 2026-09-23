@@ -43,7 +43,7 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
                 </td>
                 <td className="trade-num">{formatUsd(pick.open_price)}</td>
                 <td className={pick.news_flag ? "quote-diff-down" : "muted"}>
-                  {pick.news_flag ? `avoid · ${pick.news_flag}` : "—"}
+                  {pick.news_flag ? `news · ${pick.news_flag}` : "—"}
                 </td>
               </tr>
             ))}

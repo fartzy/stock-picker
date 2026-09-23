@@ -299,6 +299,8 @@ class BuySignalRow(BaseModel):
     # Headline from Finnhub company-news on this name only, if it looks
     # like a trial hold / FDA / dilution day. None = no flag.
     news_flag: str | None = None
+    prev_close: float | None = None
+    news_blocks: bool = False
 
 
 class SkippedTicker(BaseModel):
@@ -340,6 +342,7 @@ class PaperPickRow(BaseModel):
     close_price: float | None = None
     session_return: float | None = None
     news_flag: str | None = None
+    news_blocks: bool = False
 
 
 class PaperListStats(BaseModel):

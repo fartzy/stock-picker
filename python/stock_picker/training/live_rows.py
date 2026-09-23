@@ -23,6 +23,7 @@ class LiveRow:
     ticker: str
     skipped: dict | None = None
     open_price: float | None = None
+    prev_close: float | None = None
     snapshot_date: str | None = None
     row: pd.DataFrame | None = None
 
@@ -80,6 +81,7 @@ def prepare_one(
     return LiveRow(
         ticker,
         open_price=quote["open"],
+        prev_close=float(prev_close) if prev_close is not None else None,
         snapshot_date=snapshot_date.isoformat(),
         row=row,
     )

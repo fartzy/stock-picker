@@ -91,7 +91,7 @@ from stock_picker.training import job as training_job
 from stock_picker.training import morning_check as morning_check_job
 from stock_picker.training import morning_job as morning_scan_job
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
-from stock_picker.training.news_day_judge import fetch_recent_news_flags
+from stock_picker.training.news_day_judge import fetch_recent_news_flags, news_blocks_buy
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.morning import load_cached_signals
@@ -170,6 +170,19 @@ def get_quotes(tickers: str) -> QuotesResponse:
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
 
 
+def _signal_payload(signal) -> dict:
+    if isinstance(signal, dict):
+        payload = dict(signal)
+    else:
+        payload = asdict(signal)
+    payload["news_blocks"] = news_blocks_buy(
+        payload.get("news_flag"),
+        payload.get("open_price"),
+        payload.get("prev_close"),
+    )
+    return payload
+
+
 def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse | None:
     payload = load_cached_signals(kind=kind)
     if payload is None:
@@ -177,7 +190,7 @@ def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse
     return BuySignalResponse(
         as_of=payload["as_of"],
         threshold=payload.get("threshold", threshold),
-        signals=payload.get("signals") or [],
+        signals=[_signal_payload(s) for s in (payload.get("signals") or [])],
         scored_count=payload.get("scored_count", 0),
         skipped=payload.get("skipped") or [],
         top_drivers=payload.get("top_drivers") or [],
@@ -207,7 +220,7 @@ def get_buy_signal(
         return BuySignalResponse(
             as_of=result.as_of,
             threshold=result.threshold,
-            signals=[asdict(signal) for signal in result.signals],
+            signals=[_signal_payload(signal) for signal in result.signals],
             scored_count=result.scored_count,
             skipped=result.skipped,
             top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
@@ -221,7 +234,7 @@ def get_buy_signal(
     return BuySignalResponse(
         as_of=result.as_of,
         threshold=result.threshold,
-        signals=[asdict(signal) for signal in result.signals],
+        signals=[_signal_payload(signal) for signal in result.signals],
         scored_count=result.scored_count,
         skipped=result.skipped,
         top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],

@@ -148,6 +148,7 @@ export interface PaperPickRow {
   close_price: number | null;
   session_return: number | null;
   news_flag?: string | null;
+  news_blocks?: boolean;
 }
 
 export interface PaperListStats {
@@ -363,6 +364,8 @@ export interface BuySignalRow {
   open_price: number;
   snapshot_date: string;
   news_flag?: string | null;
+  prev_close?: number | null;
+  news_blocks?: boolean;
 }
 
 export interface SkippedTicker {

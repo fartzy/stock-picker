@@ -259,8 +259,10 @@ export default function BuySignal() {
                         : `${(signal.predicted_return * 100).toFixed(2)}%`}
                     </td>
                     <td className="trade-num">{formatUsd(signal.open_price)}</td>
-                    <td className={signal.news_flag ? "quote-diff-down" : "muted"}>
-                      {signal.news_flag ?? "—"}
+                    <td className={signal.news_blocks ? "quote-diff-down" : signal.news_flag ? "quote-diff-up" : "muted"}>
+                      {signal.news_flag
+                        ? `${signal.news_blocks ? "skip" : "still buy"} · ${signal.news_flag}`
+                        : "—"}
                     </td>
                   </tr>
                 ))}

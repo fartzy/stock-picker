@@ -14,6 +14,7 @@ import pandas as pd
 from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.scan_store import ScanStore
+from stock_picker.training.news_day_judge import news_blocks_buy
 
 KINDS = ("fit", "rank")
 
@@ -29,6 +30,23 @@ def _bar(history: pd.DataFrame, day: str) -> pd.Series | None:
     if matched.empty:
         return None
     return matched.iloc[-1]
+
+
+def _prior_close(history: pd.DataFrame | None, day: str) -> float | None:
+    """Yesterday's completed Close -- the gap vs this morning's open."""
+    if history is None or history.empty or "Close" not in history.columns:
+        return None
+    index = pd.to_datetime(history.index)
+    if getattr(index, "tz", None) is not None:
+        index = index.tz_localize(None)
+    index = index.normalize()
+    prior = history.loc[index < pd.Timestamp(day)]
+    if prior.empty:
+        return None
+    close = prior.iloc[-1]["Close"]
+    if pd.isna(close) or float(close) <= 0:
+        return None
+    return float(close)
 
 
 def _session_from_bar(bar: pd.Series | None) -> tuple[float | None, float | None, float | None]:
@@ -115,7 +133,8 @@ def rebuild_paper_book(
             for rank, signal in enumerate(signals, start=1):
                 ticker = signal["ticker"]
                 predicted = signal.get("predicted_return")
-                open_px = close_px = session_return = None
+                open_px = close_px = session_return = prev_close = None
+                history = None
                 if session_done:
                     try:
                         history = prices.read(ticker)
@@ -124,12 +143,15 @@ def rebuild_paper_book(
                     open_px, close_px, session_return = _session_from_bar(
                         _bar(history, day) if history is not None else None
                     )
+                    prev_close = _prior_close(history, day)
                     if open_px is None and ticker in live:
                         quote = live[ticker]
                         o, c = quote.get("open"), quote.get("last")
                         if o and c and float(o) > 0:
                             open_px, close_px = float(o), float(c)
                             session_return = (close_px / open_px) - 1.0
+                        if prev_close is None and quote.get("prev_close"):
+                            prev_close = float(quote["prev_close"])
                 cached_flag = signal.get("news_flag")
                 news_flag = cached_flag or fetched_news.get(ticker)
                 news_checked = 1 if (cached_flag is not None or ticker in fetched_news or news_fetcher is not None) else 0
@@ -149,6 +171,7 @@ def rebuild_paper_book(
                         session_return=session_return,
                         news_flag=news_flag,
                         news_checked=news_checked,
+                        prev_close=prev_close,
                     )
                 )
     book.replace_all(picks)
@@ -177,6 +200,10 @@ def _news_unchecked(picks: list[PaperPick]) -> bool:
     return any(not p.news_checked for p in picks)
 
 
+def _missing_prev_close_for_news(picks: list[PaperPick]) -> bool:
+    return any(p.news_flag and p.prev_close is None for p in picks)
+
+
 def load_or_rebuild(
     scan_store: ScanStore | None = None,
     price_store: PriceStore | None = None,
@@ -200,6 +227,7 @@ def load_or_rebuild(
         and len(existing) >= _scan_size(scans)
         and not _missing_closes(existing, cutoff)
         and news_done
+        and not _missing_prev_close_for_news(existing)
     ):
         return existing
     return rebuild_paper_book(
@@ -225,8 +253,8 @@ def _list_stats(rows: list[dict]) -> dict:
     losses = sum(1 for r in rets if r < 0)
     flats = n_scored - wins - losses
     avg = sum(rets) / n_scored if n_scored else None
-    flagged = [r for r in rows if r.get("news_flag")]
-    kept = [r for r in rows if not r.get("news_flag")]
+    flagged = [r for r in rows if r.get("news_blocks")]
+    kept = [r for r in rows if not r.get("news_blocks")]
     kept_rets = [r["session_return"] for r in kept if r["session_return"] is not None]
     kept_avg = sum(kept_rets) / len(kept_rets) if kept_rets else None
     return {
@@ -274,6 +302,7 @@ def paper_book_view(
                 "close_price": pick.close_price,
                 "session_return": pick.session_return,
                 "news_flag": pick.news_flag,
+                "news_blocks": news_blocks_buy(pick.news_flag, pick.open_price, pick.prev_close),
             }
         )
 
