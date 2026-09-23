@@ -2,26 +2,20 @@
 one function: score every active ticker's current-morning quote through the
 persisted ensemble and report which ones clear a confidence threshold, and why.
 
-Every building block here already exists and is independently tested --
-`inference.py` builds the lookahead-safe row and guards against stale/implausible
-data, `quotes.py` batch-fetches live quotes in a single call, `importance.py`
-already computes the model's blended feature importance. This module is the per-ticker loop that ties them together, skipping (and
-recording why) rather than crashing on any one ticker's bad data. Scoring
-runs in 200-name buckets via `stock_picker.parallel` -- same size as the
-Yahoo quote batches.
+Open-known rows are built once (`live_rows.prepare_live_rows`) in 200-name
+process buckets. Rank and Fit only predict on that matrix -- they do not
+each rebuild parquet + seasonality.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import date
-from functools import partial
 from typing import Callable
 
 import pandas as pd
 
 from stock_picker.features.quotes import fetch_ticker_quotes
-from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -29,10 +23,7 @@ from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.ensemble import Ensemble, predict_ensemble
 from stock_picker.training.importance import ensemble_importance
-from stock_picker.training.inference import (
-    StaleFeatureSnapshotError,
-    build_inference_row,
-)
+from stock_picker.training.live_rows import LiveRow, prepare_live_rows
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_TOP_K
 
@@ -53,8 +44,8 @@ TOP_DRIVER_COUNT = 3
 NO_MODEL_SENTINEL = ""
 
 # Same 200 / 10 as Yahoo quote batches -- one universe, one bucket size.
-SCORE_BUCKET = BUCKET_SIZE
-SCORE_WORKERS = WORKERS
+SCORE_BUCKET = 200
+SCORE_WORKERS = 10
 
 
 @dataclass
@@ -76,158 +67,39 @@ class BuySignalResult:
     top_drivers: list[tuple[str, float]] = field(default_factory=list)
 
 
-@dataclass(frozen=True)
-class TickerScore:
-    """One name after parquet + open-known row + predict.
-
-    skipped is set XOR scored. A scored name that misses the threshold
-    still counts in scored_count; signal is None until it clears.
-    """
-
-    ticker: str
-    skipped: dict | None = None
-    scored: bool = False
-    signal: BuySignal | None = None
-
-
-def _prepare_one(
-    ticker: str,
-    quotes: dict[str, dict],
-    earnings: set[str],
-    feature_store: FeatureStore,
-    price_store: PriceStore,
-    as_of: date,
-    spy_open: float | None,
-    spy_prev_close: float | None,
-) -> tuple[TickerScore | None, dict | None]:
-    """Skip, or the open-known row ready for a bucket-wide predict.
-
-    Returns (skip, None) or (None, {ticker, open, snapshot_date, row}).
-    Predict is not here -- one LightGBM call per 200-name bucket.
-    """
-    if ticker in earnings:
-        return (
-            TickerScore(
-                ticker,
-                skipped={
-                    "ticker": ticker,
-                    "reason": "earnings on or since the prior session -- news day, not a pattern day",
-                },
-            ),
-            None,
-        )
-    quote = quotes.get(ticker)
-    if quote is None:
-        return TickerScore(ticker, skipped={"ticker": ticker, "reason": "no live quote available"}), None
-    prev_close = quote.get("prev_close")
-    if prev_close is None:
-        return TickerScore(ticker, skipped={"ticker": ticker, "reason": "no previous close available"}), None
-    try:
-        prior_features = feature_store.read(ticker)
-    except FileNotFoundError:
-        return TickerScore(ticker, skipped={"ticker": ticker, "reason": "no feature history"}), None
-    snapshot_date = prior_features.index[-1].date()
-    try:
-        prior_history = price_store.read(ticker)
-    except FileNotFoundError:
-        prior_history = None
-    if prior_history is not None and not prior_history.empty:
-        prior_history = prior_history[prior_history.index.date < as_of]
-        if prior_history.empty:
-            prior_history = None
-    try:
-        row = build_inference_row(
-            prior_day_features=prior_features.iloc[-1],
-            today_open=quote["open"],
-            yesterday_close=prev_close,
-            snapshot_date=snapshot_date,
-            as_of_date=as_of,
-            prior_history=prior_history,
-            spy_open=spy_open,
-            spy_prev_close=spy_prev_close,
-        )
-    except StaleFeatureSnapshotError as extra:
-        return TickerScore(ticker, skipped={"ticker": ticker, "reason": str(extra)}), None
-    return None, {
-        "ticker": ticker,
-        "open": quote["open"],
-        "snapshot_date": snapshot_date.isoformat(),
-        "row": row,
-    }
-
-
-def _score_bucket(
-    tickers,
-    quotes,
-    earnings,
+def _signals_from_live_rows(
+    live_rows: list[LiveRow],
     ensemble: Ensemble,
-    feature_store,
-    price_store,
-    as_of,
     threshold: float,
-    spy_open,
-    spy_prev_close,
-) -> list[TickerScore]:
-    prepared: list[dict] = []
-    results: list[TickerScore] = []
-    for ticker in tickers:
-        skip, ready = _prepare_one(
-            ticker,
-            quotes=quotes,
-            earnings=earnings,
-            feature_store=feature_store,
-            price_store=price_store,
-            as_of=as_of,
-            spy_open=spy_open,
-            spy_prev_close=spy_prev_close,
-        )
-        if skip is not None:
-            results.append(skip)
+) -> tuple[list[BuySignal], list[dict], int]:
+    """Predict on already-built rows. Rank and Fit both call this."""
+    skipped: list[dict] = []
+    ready: list[LiveRow] = []
+    for item in live_rows:
+        if item.skipped is not None:
+            skipped.append(item.skipped)
             continue
-        prepared.append(ready)
-    if not prepared:
-        return results
-    frame = pd.concat([item["row"] for item in prepared], ignore_index=True)
+        if item.row is None:
+            continue
+        ready.append(item)
+    if not ready:
+        return [], skipped, 0
+    frame = pd.concat([item.row for item in ready], ignore_index=True)
     predicted = predict_ensemble(ensemble, frame)
-    for item, predicted_return in zip(prepared, predicted):
+    signals: list[BuySignal] = []
+    for item, predicted_return in zip(ready, predicted):
         predicted_return = float(predicted_return)
         if predicted_return > threshold:
-            results.append(
-                TickerScore(
-                    item["ticker"],
-                    scored=True,
-                    signal=BuySignal(
-                        ticker=item["ticker"],
-                        predicted_return=predicted_return,
-                        open_price=item["open"],
-                        snapshot_date=item["snapshot_date"],
-                    ),
+            signals.append(
+                BuySignal(
+                    ticker=item.ticker,
+                    predicted_return=predicted_return,
+                    open_price=item.open_price,
+                    snapshot_date=item.snapshot_date,
                 )
             )
-        else:
-            results.append(TickerScore(item["ticker"], scored=True))
-    return results
+    return signals, skipped, len(ready)
 
-
-def _score_universe(tickers: list[str], **kwargs) -> tuple[list[BuySignal], list[dict], int]:
-    signals: list[BuySignal] = []
-    skipped: list[dict] = []
-    scored_count = 0
-    for bucket in run_buckets(
-        partial(_score_bucket, **kwargs),
-        tickers,
-        bucket_size=SCORE_BUCKET,
-        workers=SCORE_WORKERS,
-    ):
-        for result in bucket:
-            if result.skipped is not None:
-                skipped.append(result.skipped)
-                continue
-            if result.scored:
-                scored_count += 1
-            if result.signal is not None:
-                signals.append(result.signal)
-    return signals, skipped, scored_count
 
 
 def compute_buy_signals(
@@ -243,6 +115,7 @@ def compute_buy_signals(
     news_fetcher: Callable[[list[str], date], dict[str, str]] | None = None,
     model_name: str | None = None,
     top_k: int | None = None,
+    live_rows: list[LiveRow] | None = None,
 ) -> BuySignalResult:
     as_of = as_of or date.today()
     universe_store = universe_store or UniverseStore()
@@ -299,18 +172,20 @@ def compute_buy_signals(
         except TypeError:
             earnings = set()
 
-    signals, skipped, scored_count = _score_universe(
-        tickers=tickers,
-        quotes=quotes,
-        earnings=earnings,
-        ensemble=ensemble,
-        feature_store=feature_store,
-        price_store=price_store,
-        as_of=as_of,
-        threshold=threshold,
-        spy_open=spy_open,
-        spy_prev_close=spy_prev_close,
-    )
+    if live_rows is None:
+        live_rows = prepare_live_rows(
+            tickers=tickers,
+            quotes=quotes,
+            earnings=earnings,
+            feature_store=feature_store,
+            price_store=price_store,
+            as_of=as_of,
+            spy_open=spy_open,
+            spy_prev_close=spy_prev_close,
+            bucket_size=SCORE_BUCKET,
+            workers=SCORE_WORKERS,
+        )
+    signals, skipped, scored_count = _signals_from_live_rows(live_rows, ensemble, threshold)
 
     signals.sort(key=lambda signal: signal.predicted_return, reverse=True)
     if top_k is not None:

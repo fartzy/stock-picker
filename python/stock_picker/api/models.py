@@ -318,7 +318,7 @@ class BuySignalResponse(BaseModel):
     scored_count: int
     skipped: list[SkippedTicker]
     top_drivers: list[TopDriver]
-    # True when this is the 8:32 job's saved scan, not a live rescore.
+    # True when this is the 8:31 job's saved scan, not a live rescore.
     cached: bool = False
 
 

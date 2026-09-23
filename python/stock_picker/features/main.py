@@ -25,20 +25,30 @@ def main() -> None:
     cutoff = last_completed_session_date()
     logger.info("features through last completed session %s", cutoff)
     histories = {}
+    missing_prices: list[str] = []
     for ticker in tickers:
         try:
             history = price_store.read(ticker)
         except FileNotFoundError:
             # Active in UniverseStore doesn't guarantee ingestion succeeded for it
             # (e.g. a transient yfinance failure) -- skip rather than crash the
-            # whole run over one ticker.
+            # whole run over one ticker. Nightly already retried these on the
+            # daily pull; leftover names still have no completed bar.
             logger.warning("skipping %s: no price data found", ticker)
+            missing_prices.append(ticker)
             continue
         history = completed_sessions(history)
         if history.empty:
             logger.warning("skipping %s: no completed session through %s", ticker, cutoff)
+            missing_prices.append(ticker)
             continue
         histories[ticker] = history
+    if missing_prices:
+        logger.warning(
+            "features missing completed prices for %s tickers: %s",
+            len(missing_prices),
+            ", ".join(missing_prices[:20]),
+        )
 
     downloaded = download_price_history([BENCHMARK_TICKER, VIX_TICKER])
     spy = downloaded.get(BENCHMARK_TICKER)

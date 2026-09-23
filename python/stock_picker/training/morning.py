@@ -1,6 +1,6 @@
 """Weekday morning scoring: today's opens through last night's model.
 
-Runs at 8:32 CT. Rank and Fit score in parallel on one quote pull.
+Runs at 8:31 CT. Rank and Fit predict on one shared open-known matrix.
 Rank is published as soon as Rank finishes (target ~8:35 CT).
 """
 
@@ -16,11 +16,20 @@ from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
 from stock_picker.features.quotes import fetch_ticker_quotes
+from stock_picker.storage.feature_store import FeatureStore
+from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.news_day_judge import fetch_recent_news_flags
 from stock_picker.storage.paths import data_root
 from stock_picker.storage.scan_store import ScanStore
-from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals, compute_rank_signals
+from stock_picker.training.buy_signal import (
+    DEFAULT_THRESHOLD,
+    SCORE_BUCKET,
+    SCORE_WORKERS,
+    compute_buy_signals,
+    compute_rank_signals,
+)
+from stock_picker.training.live_rows import prepare_live_rows
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.notify import (
     format_not_ready_email,
@@ -40,7 +49,7 @@ _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
 
 
 def _try_lock_morning():
-    """Non-blocking lock so 8:32 cannot start a second scan.
+    """Non-blocking lock so 8:31 cannot start a second scan.
 
     Returns an open file that must stay open until scoring finishes, or
     None if another process already holds the lock.
@@ -107,30 +116,53 @@ def score_from_quotes(
     news_fetcher=fetch_recent_news_flags,
     earnings_fetcher=fetch_recent_earnings_tickers,
 ):
-    """Rank + Fit in parallel on a quote map, then news on Fit + Rank top 10.
+    """Build open-known rows once, then Rank + Fit only predict.
 
-    Same path the 8:32 job and Test run use. persist=False skips cache/git/email
+    Same path the 8:31 job and Test run use. persist=False skips cache/git/email
     so a test run does not overwrite Monday's files.
     """
     freshness = pipeline_freshness()
+    as_of = date.today()
+    tickers = UniverseStore().active_tickers()
+    try:
+        earnings = earnings_fetcher(tickers, as_of) or set()
+    except TypeError:
+        earnings = earnings_fetcher(tickers) or set()
+    spy_quote = quotes.get("SPY")
+    spy_open = spy_quote.get("open") if spy_quote else None
+    spy_prev_close = spy_quote.get("prev_close") if spy_quote else None
+    live_rows = prepare_live_rows(
+        tickers=tickers,
+        quotes=quotes,
+        earnings=earnings,
+        feature_store=FeatureStore(),
+        price_store=PriceStore(),
+        as_of=as_of,
+        spy_open=spy_open,
+        spy_prev_close=spy_prev_close,
+        bucket_size=SCORE_BUCKET,
+        workers=SCORE_WORKERS,
+    )
 
-    def quote_fetcher(tickers, as_of=None):
+    def quote_fetcher(names, as_of=None):
         return quotes
 
     def _rank():
         return compute_rank_signals(
             top_k=RANK_TOP_K,
             quote_fetcher=quote_fetcher,
-            earnings_fetcher=earnings_fetcher,
+            earnings_fetcher=None,
             news_fetcher=None,
+            live_rows=live_rows,
         )
 
     def _fit():
         return compute_buy_signals(
             threshold=threshold,
             quote_fetcher=quote_fetcher,
-            earnings_fetcher=earnings_fetcher,
+            earnings_fetcher=None,
             news_fetcher=None,
+            live_rows=live_rows,
         )
 
     rank_result = None

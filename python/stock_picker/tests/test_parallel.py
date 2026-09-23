@@ -1,4 +1,4 @@
-from stock_picker.parallel import run_buckets, split_buckets
+from stock_picker.parallel import run_buckets, run_buckets_processes, split_buckets
 
 
 def test_split_buckets_is_contiguous_slices():
@@ -15,6 +15,14 @@ def test_run_buckets_skips_the_pool_for_one_chunk():
 
     assert run_buckets(work, [1, 2, 3], bucket_size=10, workers=10) == [6]
     assert seen == [[1, 2, 3]]
+
+
+def _double_payload(n):
+    return n * 2
+
+
+def test_run_buckets_processes_covers_every_payload():
+    assert sorted(run_buckets_processes(_double_payload, [1, 2, 3], workers=2)) == [2, 4, 6]
 
 
 def test_run_buckets_covers_every_item_once():

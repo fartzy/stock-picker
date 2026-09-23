@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Weekday morning scoring at 8:32 CT. Skip if morning_job_enabled is false.
+# Weekday morning scoring at 8:31 CT. Skip if morning_job_enabled is false.
 set -euo pipefail
 
 ROOT="${STOCK_PICKER_ROOT:-/Users/michael.artz/dev/stock-picker}"

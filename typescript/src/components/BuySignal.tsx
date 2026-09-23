@@ -328,7 +328,7 @@ function MorningTrigger({
           checked={!forceOff && job?.enabled !== false}
           onChange={(event) => toggleJob(event.target.checked)}
         />
-        If I don't click, start at 8:32 anyway
+        If I don't click, start at 8:31 anyway
       </label>
       {running && <span className="view-meta">Getting this morning's prices…</span>}
       {scan?.status === "failed" && (

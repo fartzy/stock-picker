@@ -19,8 +19,7 @@
     <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
   <!-- Hours are the Mac's local timezone (this box is America/Chicago).
-       8:32 CT = two minutes after the cash open; Rank's ~3 min test run
-       lands around 8:35 CT. -->
+       8:31 CT = one minute after the cash open. Scoring is ~2 min now. -->
   <key>StartCalendarInterval</key>
   <array>
     <dict>
@@ -29,7 +28,7 @@
       <key>Hour</key>
       <integer>8</integer>
       <key>Minute</key>
-      <integer>32</integer>
+      <integer>31</integer>
     </dict>
     <dict>
       <key>Weekday</key>
@@ -37,7 +36,7 @@
       <key>Hour</key>
       <integer>8</integer>
       <key>Minute</key>
-      <integer>32</integer>
+      <integer>31</integer>
     </dict>
     <dict>
       <key>Weekday</key>
@@ -45,7 +44,7 @@
       <key>Hour</key>
       <integer>8</integer>
       <key>Minute</key>
-      <integer>32</integer>
+      <integer>31</integer>
     </dict>
     <dict>
       <key>Weekday</key>
@@ -53,7 +52,7 @@
       <key>Hour</key>
       <integer>8</integer>
       <key>Minute</key>
-      <integer>32</integer>
+      <integer>31</integer>
     </dict>
     <dict>
       <key>Weekday</key>
@@ -61,7 +60,7 @@
       <key>Hour</key>
       <integer>8</integer>
       <key>Minute</key>
-      <integer>32</integer>
+      <integer>31</integer>
     </dict>
   </array>
   <key>StandardOutPath</key>
