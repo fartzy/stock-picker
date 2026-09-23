@@ -9,9 +9,9 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker:news_skip",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
-        "//python/stock_picker/training",
         "@pypi//pandas",
     ],
 )

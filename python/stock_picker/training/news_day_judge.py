@@ -17,6 +17,7 @@ from pathlib import Path
 import requests
 
 from stock_picker.ingestion.finnhub_client import fetch_news_articles
+from stock_picker.news_skip import news_blocks_buy
 from stock_picker.training.headline_sentiment import news_flag_from_articles as material_flag
 from stock_picker.training.langfuse_local import trace_news_judge
 
@@ -177,23 +178,6 @@ def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) ->
     except (requests.RequestException, KeyError, IndexError, TypeError, ValueError):
         return None
     return _parse_judge(content)
-
-
-def news_blocks_buy(
-    news_flag: str | None,
-    open_price: float | None,
-    prev_close: float | None,
-) -> bool:
-    """Skip the name only when there is material news *and* the open gapped down.
-
-    Gap-up (or flat / unknown close) still buys -- the print already ate the
-    headline. Missing prev_close does not block.
-    """
-    if not news_flag:
-        return False
-    if open_price is None or prev_close is None or prev_close <= 0:
-        return False
-    return float(open_price) < float(prev_close)
 
 
 def flag_from_articles(ticker: str, articles: list[dict]) -> str | None:

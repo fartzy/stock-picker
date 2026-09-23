@@ -13,3 +13,10 @@ py_library(
     imports = [".."],
     visibility = ["//visibility:public"],
 )
+
+py_library(
+    name = "news_skip",
+    srcs = ["news_skip.py"],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)

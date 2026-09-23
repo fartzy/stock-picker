@@ -11,10 +11,10 @@ from datetime import date
 
 import pandas as pd
 
+from stock_picker.news_skip import news_blocks_buy
 from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.scan_store import ScanStore
-from stock_picker.training.news_day_judge import news_blocks_buy
 
 KINDS = ("fit", "rank")
 
@@ -247,16 +247,14 @@ def _avg(rows: list[dict]) -> float | None:
 
 
 def _list_stats(rows: list[dict]) -> dict:
-    rets = [r["session_return"] for r in rows if r["session_return"] is not None]
+    flagged = [r for r in rows if r.get("news_blocks")]
+    kept = [r for r in rows if not r.get("news_blocks")]
+    rets = [r["session_return"] for r in kept if r["session_return"] is not None]
     n_scored = len(rets)
     wins = sum(1 for r in rets if r > 0)
     losses = sum(1 for r in rets if r < 0)
     flats = n_scored - wins - losses
     avg = sum(rets) / n_scored if n_scored else None
-    flagged = [r for r in rows if r.get("news_blocks")]
-    kept = [r for r in rows if not r.get("news_blocks")]
-    kept_rets = [r["session_return"] for r in kept if r["session_return"] is not None]
-    kept_avg = sum(kept_rets) / len(kept_rets) if kept_rets else None
     return {
         "n": len(rows),
         "n_scored": n_scored,
@@ -266,7 +264,7 @@ def _list_stats(rows: list[dict]) -> dict:
         "hit_rate": (wins / n_scored) if n_scored else None,
         "avg": avg,
         "n_avoid": len(flagged),
-        "avg_ex_news": kept_avg,
+        "avg_ex_news": avg,
     }
 
 

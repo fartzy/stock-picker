@@ -41,6 +41,7 @@ py_library(
     visibility = ["//visibility:public"],
     deps = [
         "//python/stock_picker:log",
+        "//python/stock_picker:news_skip",
         "//python/stock_picker:parallel",
         "//python/stock_picker/features",
         "//python/stock_picker/ingestion",
