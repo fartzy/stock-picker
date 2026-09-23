@@ -19,9 +19,12 @@ import yfinance as yf
 from yfinance.const import _QUERY1_URL_
 from yfinance.data import YfData
 
-# Yahoo's v7 quote endpoint accepts a comma-separated symbols list; keep
-# chunks well under typical URL-length limits and retry-friendly.
-QUOTE_BATCH_SIZE = 200
+from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
+
+# Yahoo's v7 quote URL is a comma-separated list; 200 names is the same
+# bucket size as morning scoring (~10 requests for a 2,000-name universe).
+QUOTE_BATCH_SIZE = BUCKET_SIZE
+QUOTE_WORKERS = WORKERS
 # 1-minute fallback is only for tickers the snapshot didn't date as today.
 INTRADAY_FALLBACK_BATCH_SIZE = 100
 REGULAR_SESSION_OPEN_MINUTES = 9 * 60 + 30
@@ -203,29 +206,35 @@ def quotes_from_snapshot(raw_quotes: list[dict], as_of: date) -> dict[str, dict]
     return quotes
 
 
-def fetch_quote_snapshots(tickers: list[str]) -> list[dict]:
-    """Yahoo v7 quote snapshot for `tickers`, chunked. Empty list on a
-    chunk that Yahoo doesn't return rather than aborting the whole scan."""
-    if not tickers:
+def _snapshot_chunk(chunk: list[str]) -> list[dict]:
+    """One Yahoo v7 batch. Own client per thread -- YfData is not shared."""
+    params = {
+        "symbols": ",".join(chunk),
+        "formatted": "false",
+        "lang": "en-US",
+        "region": "US",
+    }
+    try:
+        payload = YfData().get_raw_json(f"{_QUERY1_URL_}/v7/finance/quote", params=params)
+    except Exception:
         return []
-    client = YfData()
+    return (payload or {}).get("quoteResponse", {}).get("result") or []
+
+
+def fetch_quote_snapshots(tickers: list[str]) -> list[dict]:
+    """Yahoo v7 quote snapshot for `tickers`, in 200-name buckets.
+
+    One bad chunk (rate limit, crumb, delisted names) returns [] for that
+    bucket and does not abort the rest.
+    """
     snapshots: list[dict] = []
-    for start in range(0, len(tickers), QUOTE_BATCH_SIZE):
-        chunk = tickers[start : start + QUOTE_BATCH_SIZE]
-        params = {
-            "symbols": ",".join(chunk),
-            "formatted": "false",
-            "lang": "en-US",
-            "region": "US",
-        }
-        try:
-            payload = client.get_raw_json(f"{_QUERY1_URL_}/v7/finance/quote", params=params)
-        except Exception:
-            # Same contract as download_price_history: one bad chunk (rate
-            # limit, crumb, delisted names) must not abort the rest.
-            continue
-        result = (payload or {}).get("quoteResponse", {}).get("result") or []
-        snapshots.extend(result)
+    for chunk_result in run_buckets(
+        _snapshot_chunk,
+        tickers,
+        bucket_size=QUOTE_BATCH_SIZE,
+        workers=QUOTE_WORKERS,
+    ):
+        snapshots.extend(chunk_result)
     return snapshots
 
 
@@ -236,11 +245,12 @@ def _missing(tickers: list[str], quotes: dict[str, dict]) -> list[str]:
 def _download_in_chunks(
     tickers: list[str], period: str, interval: str, chunk_size: int
 ) -> dict[str, pd.DataFrame]:
+    def _one(chunk: list[str]) -> dict[str, pd.DataFrame]:
+        return download_price_history(chunk, period=period, interval=interval)
+
     histories: dict[str, pd.DataFrame] = {}
-    for start in range(0, len(tickers), chunk_size):
-        histories.update(
-            download_price_history(tickers[start : start + chunk_size], period=period, interval=interval)
-        )
+    for chunk_result in run_buckets(_one, tickers, bucket_size=chunk_size, workers=QUOTE_WORKERS):
+        histories.update(chunk_result)
     return histories
 
 

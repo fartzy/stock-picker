@@ -128,3 +128,30 @@ def rank_ic(predicted: pd.Series, actual: pd.Series, dates: pd.Series) -> float:
 
     daily_ic = frame.groupby("date").apply(_daily_ic, include_groups=False)
     return float(daily_ic.mean())
+
+
+def simulate_top_k(
+    predicted: pd.Series,
+    actual: pd.Series,
+    dates: pd.Series,
+    k: int = 20,
+) -> dict:
+    """Long the top-K names each day by predicted score, sell at the close.
+
+    Ranking models do not emit percents, so they cannot use simulate_trades'
+    0.5% gate. This is the Rank tab's actual rule.
+    """
+    frame = pd.DataFrame({"predicted": predicted, "actual": actual, "date": dates})
+    picks = frame.sort_values("predicted", ascending=False).groupby("date", group_keys=False).head(k)
+    n_trades = len(picks)
+    n_days = int(frame["date"].nunique())
+    has_trades = n_trades > 0
+    return {
+        "k": k,
+        "n_trades": n_trades,
+        "n_days": n_days,
+        "avg_picks_per_day": (n_trades / n_days) if n_days else None,
+        "hit_rate": float((picks["actual"] > 0).mean()) if has_trades else float("nan"),
+        "avg_return": float(picks["actual"].mean()) if has_trades else float("nan"),
+        "total_return": float(picks["actual"].sum()) if has_trades else float("nan"),
+    }

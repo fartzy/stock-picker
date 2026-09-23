@@ -3,6 +3,7 @@ import pytest
 
 from stock_picker.training.backtest import (
     rank_ic,
+    simulate_top_k,
     simulate_trades,
     simulate_trades_vol_normalized,
     sweep_thresholds,
@@ -100,6 +101,18 @@ def test_rank_ic_averages_across_multiple_days():
     dates = pd.Series(["2026-01-01"] * 3 + ["2026-01-02"] * 3)
 
     assert rank_ic(predicted, actual, dates) == pytest.approx(0.0)
+
+
+def test_simulate_top_k_takes_highest_scores_each_day():
+    predicted = pd.Series([0.9, 0.1, 0.8, 0.2])
+    actual = pd.Series([0.04, -0.01, 0.03, 0.00])
+    dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-02", "2026-01-02"])
+
+    result = simulate_top_k(predicted, actual, dates, k=1)
+
+    assert result["n_trades"] == 2
+    assert result["hit_rate"] == pytest.approx(1.0)
+    assert result["avg_return"] == pytest.approx(0.035)
 
 
 def test_rank_ic_ignores_single_ticker_days():

@@ -15,6 +15,7 @@ py_library(
     visibility = ["//visibility:public"],
     deps = [
         "//python/stock_picker:log",
+        "//python/stock_picker:parallel",
         "//python/stock_picker/storage",
         "//python/stock_picker/tickers",
         "@pypi//pandas",

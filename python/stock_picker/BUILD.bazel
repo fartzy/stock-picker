@@ -6,3 +6,10 @@ py_library(
     imports = [".."],
     visibility = ["//visibility:public"],
 )
+
+py_library(
+    name = "parallel",
+    srcs = ["parallel.py"],
+    imports = [".."],
+    visibility = ["//visibility:public"],
+)

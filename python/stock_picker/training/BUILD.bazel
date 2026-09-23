@@ -28,6 +28,7 @@ py_library(
         "morning_job.py",
         "nightly.py",
         "notify.py",
+        "objective_search.py",
         "model_registry.py",
         "rank_model.py",
         "recent_picks_demo.py",
@@ -39,6 +40,7 @@ py_library(
     visibility = ["//visibility:public"],
     deps = [
         "//python/stock_picker:log",
+        "//python/stock_picker:parallel",
         "//python/stock_picker/features",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
@@ -95,6 +97,21 @@ py_binary(
 py_binary(
     name = "tune_experiment",
     srcs = ["tune_experiment.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//lightgbm",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "objective_search",
+    srcs = ["objective_search.py"],
     imports = ["../.."],
     visibility = ["//python:__subpackages__"],
     deps = [
