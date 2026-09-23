@@ -1,7 +1,7 @@
 """Test run: only the opens are fake. Everything else is the real morning path.
 
 Fake opens = last Close jittered by a small random gap. Rank + Fit run in
-parallel, earnings skip and news on Fit + Rank top 10 -- same as 8:32 CT.
+parallel, earnings skip and news on Fit + Rank top 10 -- same as 8:31 CT.
 persist=False so this does not overwrite Monday's cache.
 """
 

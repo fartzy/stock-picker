@@ -1,9 +1,8 @@
 """Morning-scale bucket parallelism.
 
-The live universe is ~2,000 names. Yahoo's v7 quote URL and per-ticker
-parquet scoring both work in chunks of 200, which is 10 buckets. Quotes
-and inference share this helper so there is one thread-pool pattern, not
-two copies of ThreadPoolExecutor.
+The live universe is ~2,000 names. Yahoo quote URLs are I/O -- threads.
+Rebuilding open-known rows from parquet is pandas CPU -- processes.
+Both use 200-name buckets / 10 workers.
 
 Results come back in completion order. Callers that need a ranking sort
 after merge.
@@ -12,7 +11,7 @@ after merge.
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from typing import TypeVar
 
 BUCKET_SIZE = 200
@@ -35,7 +34,7 @@ def run_buckets(
     bucket_size: int = BUCKET_SIZE,
     workers: int = WORKERS,
 ) -> list[R]:
-    """Run `work` once per bucket.
+    """Run `work` once per bucket on threads (Yahoo, leftover downloads).
 
     A single bucket stays on this thread -- tests and leftover quote
     fallbacks should not pay for a pool of 10.
@@ -52,3 +51,23 @@ def run_buckets(
         for future in as_completed(futures):
             results.append(future.result())
     return results
+
+
+def run_buckets_processes(
+    work: Callable[[T], R],
+    payloads: Sequence[T],
+    *,
+    workers: int = WORKERS,
+) -> list[R]:
+    """Run picklable `work` once per payload on processes (parquet + pandas).
+
+    `work` must be a module-level function -- spawn cannot pickle lambdas.
+    One payload stays on this thread.
+    """
+    if not payloads:
+        return []
+    if len(payloads) == 1:
+        return [work(payloads[0])]
+    n_workers = min(workers, len(payloads))
+    with ProcessPoolExecutor(max_workers=n_workers) as pool:
+        return list(pool.map(work, payloads))

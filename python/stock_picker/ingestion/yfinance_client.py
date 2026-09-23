@@ -19,16 +19,66 @@ import yfinance as yf
 from yfinance.const import _QUERY1_URL_
 from yfinance.data import YfData
 
+from stock_picker.log import get_logger
 from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
 
 # Yahoo's v7 quote URL is a comma-separated list; 200 names is the same
 # bucket size as morning scoring (~10 requests for a 2,000-name universe).
 QUOTE_BATCH_SIZE = BUCKET_SIZE
 QUOTE_WORKERS = WORKERS
+# After a 200-name daily pull, retry names Yahoo omitted — first in 20s,
+# then one ticker at a time so one thin name cannot kill a batch.
+HISTORY_RETRY_BATCH = 20
+
+logger = get_logger(__name__)
 # 1-minute fallback is only for tickers the snapshot didn't date as today.
 INTRADAY_FALLBACK_BATCH_SIZE = 100
 REGULAR_SESSION_OPEN_MINUTES = 9 * 60 + 30
 REGULAR_SESSION_CLOSE_MINUTES = 16 * 60
+
+
+def _download_price_history_batch(
+    tickers: list[str],
+    period: str,
+    interval: str,
+) -> dict[str, pd.DataFrame]:
+    """One yfinance download. Empty / all-NaN names are omitted, not stored."""
+    if not tickers:
+        return {}
+    raw = yf.download(
+        tickers=tickers,
+        period=period,
+        interval=interval,
+        group_by="ticker",
+        auto_adjust=False,
+        progress=False,
+    )
+    # yfinance always returns MultiIndex (ticker, field) columns when
+    # group_by="ticker" is set, even for a single ticker.
+    result = {}
+    for ticker in tickers:
+        if ticker not in raw:
+            continue
+        history = raw[ticker].dropna(how="all")
+        if not history.empty:
+            result[ticker] = history
+    return result
+
+
+def _retry_missing_histories(
+    tickers: list[str],
+    period: str,
+    interval: str,
+) -> dict[str, pd.DataFrame]:
+    """Yahoo often drops thin names from a 2000-ticker pull. Try smaller groups."""
+    recovered: dict[str, pd.DataFrame] = {}
+    for start in range(0, len(tickers), HISTORY_RETRY_BATCH):
+        chunk = tickers[start : start + HISTORY_RETRY_BATCH]
+        recovered.update(_download_price_history_batch(chunk, period, interval))
+    still = [ticker for ticker in tickers if ticker not in recovered]
+    for ticker in still:
+        recovered.update(_download_price_history_batch([ticker], period, interval))
+    return recovered
 
 
 def download_price_history(
@@ -38,30 +88,30 @@ def download_price_history(
 ) -> dict[str, pd.DataFrame]:
     """Download OHLCV history for a batch of tickers.
 
-    Returns a mapping of ticker -> DataFrame with columns
-    [Open, High, Low, Close, Adj Close, Volume], indexed by date.
+    ~2,000 names go out in 200-ticker buckets (same size as morning quotes).
+    Names Yahoo omitted are retried in groups of 20, then one at a time.
+    Morning "no live quote" does not mean this nightly bar should be skipped.
     """
-    raw = yf.download(
-        tickers=tickers,
-        period=period,
-        interval=interval,
-        group_by="ticker",
-        auto_adjust=False,
-        progress=False,
-    )
-
-    # yfinance always returns MultiIndex (ticker, field) columns when group_by="ticker"
-    # is set, even for a single ticker -- always slice per ticker, no single-ticker
-    # special case. A ticker yfinance couldn't fetch (delisted, transient API failure,
-    # etc.) comes back as an all-NaN slice -- exclude it rather than storing an empty
-    # DataFrame that would break downstream assumptions of at least one row.
-    result = {}
-    for ticker in tickers:
-        if ticker not in raw:
-            continue
-        history = raw[ticker].dropna(how="all")
-        if not history.empty:
-            result[ticker] = history
+    if not tickers:
+        return {}
+    if len(tickers) > QUOTE_BATCH_SIZE:
+        result: dict[str, pd.DataFrame] = {}
+        for part in run_buckets(
+            lambda chunk: _download_price_history_batch(list(chunk), period, interval),
+            tickers,
+            bucket_size=QUOTE_BATCH_SIZE,
+            workers=QUOTE_WORKERS,
+        ):
+            result.update(part)
+    else:
+        result = _download_price_history_batch(tickers, period, interval)
+    missing = [ticker for ticker in tickers if ticker not in result]
+    if missing:
+        logger.info("retrying %s tickers Yahoo dropped from the daily pull", len(missing))
+        result.update(_retry_missing_histories(missing, period, interval))
+        still = [ticker for ticker in tickers if ticker not in result]
+        if still:
+            logger.warning("still no daily history for %s: %s", len(still), ", ".join(still[:20]))
     return result
 
 

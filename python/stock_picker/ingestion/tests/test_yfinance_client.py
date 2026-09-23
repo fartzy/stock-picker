@@ -45,6 +45,38 @@ def test_download_price_history_slices_multiindex_for_a_single_ticker():
     assert list(result["SPY"].columns) == ["Open", "Close"]
 
 
+def test_download_price_history_retries_names_yahoo_dropped_from_a_large_pull():
+    # A 2000-name nightly pull often omits thin names. Those must come back
+    # on the smaller retry, not stay missing from PriceStore forever.
+    aapl = pd.DataFrame(
+        [[1.0, 2.0]],
+        index=pd.date_range("2026-01-01", periods=1),
+        columns=pd.MultiIndex.from_product([["AAPL"], ["Open", "Close"]]),
+    )
+    omc = pd.DataFrame(
+        [[3.0, 4.0]],
+        index=pd.date_range("2026-01-01", periods=1),
+        columns=pd.MultiIndex.from_product([["OMC"], ["Open", "Close"]]),
+    )
+    tickers = ["AAPL", "OMC"] + [f"T{i:03d}" for i in range(200)]
+
+    def _download(tickers, **kwargs):
+        names = list(tickers)
+        if names == ["OMC"]:
+            return omc
+        if "OMC" in names and len(names) <= 20:
+            return pd.concat([aapl, omc], axis=1)
+        if "AAPL" in names:
+            return aapl
+        return pd.DataFrame()
+
+    with patch("stock_picker.ingestion.yfinance_client.yf.download", side_effect=_download):
+        result = download_price_history(tickers, period="6mo")
+
+    assert "AAPL" in result
+    assert "OMC" in result
+
+
 def test_download_price_history_excludes_a_failed_ticker():
     # a ticker yfinance couldn't fetch (delisted, transient failure) comes back as
     # an all-NaN slice -- it must be excluded, not stored as an empty DataFrame.
