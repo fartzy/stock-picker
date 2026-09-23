@@ -55,6 +55,7 @@ class BuySignal:
     open_price: float
     snapshot_date: str
     news_flag: str | None = None
+    prev_close: float | None = None
 
 
 @dataclass
@@ -96,6 +97,7 @@ def _signals_from_live_rows(
                     predicted_return=predicted_return,
                     open_price=item.open_price,
                     snapshot_date=item.snapshot_date,
+                    prev_close=item.prev_close,
                 )
             )
     return signals, skipped, len(ready)

@@ -102,6 +102,8 @@ def _pick_rows(signals) -> list[dict]:
             "open_price": s.open_price,
             "snapshot_date": s.snapshot_date,
             "news_flag": s.news_flag,
+            "prev_close": getattr(s, "prev_close", None),
+            "news_blocks": False,
         }
         for s in signals
     ]

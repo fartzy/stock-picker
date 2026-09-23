@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS paper_picks (
     session_return REAL,
     news_flag TEXT,
     news_checked INTEGER NOT NULL DEFAULT 0,
+    prev_close REAL,
     PRIMARY KEY (as_of, kind, rank)
 );
 """
@@ -43,6 +44,7 @@ class PaperPick:
     session_return: float | None
     news_flag: str | None = None
     news_checked: int = 0
+    prev_close: float | None = None
 
 
 class PaperBookStore:
@@ -66,14 +68,16 @@ class PaperBookStore:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_flag TEXT")
         if "news_checked" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_checked INTEGER NOT NULL DEFAULT 0")
+        if "prev_close" not in columns:
+            conn.execute("ALTER TABLE paper_picks ADD COLUMN prev_close REAL")
 
     def replace_all(self, picks: list[PaperPick]) -> None:
         with self._connect() as conn:
             conn.execute("DELETE FROM paper_picks")
             conn.executemany(
                 "INSERT INTO paper_picks "
-                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     (
                         p.as_of,
@@ -86,6 +90,7 @@ class PaperBookStore:
                         p.session_return,
                         p.news_flag,
                         p.news_checked,
+                        p.prev_close,
                     )
                     for p in picks
                 ],
@@ -95,7 +100,7 @@ class PaperBookStore:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT as_of, kind, rank, ticker, predicted, open_price, close_price, "
-                "session_return, news_flag, news_checked "
+                "session_return, news_flag, news_checked, prev_close "
                 "FROM paper_picks ORDER BY as_of, kind, rank"
             ).fetchall()
         return [PaperPick(**dict(row)) for row in rows]

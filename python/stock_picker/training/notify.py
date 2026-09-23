@@ -17,6 +17,17 @@ TOP_N = 20
 PICKS_DIR_NAME = "picks"
 
 
+def _news_suffix(row: dict) -> str:
+    from stock_picker.training.news_day_judge import news_blocks_buy
+
+    flag = row.get("news_flag")
+    if not flag:
+        return ""
+    if news_blocks_buy(flag, row.get("open_price"), row.get("prev_close")):
+        return f"  SKIP {flag}"
+    return f"  NEWS {flag}"
+
+
 def notify_address(key_file: Path | None = None) -> str | None:
     env = os.environ.get(NOTIFY_EMAIL_ENV, "").strip()
     if env:
@@ -51,7 +62,7 @@ def format_picks_email(payload: dict) -> tuple[str, str]:
         for row in top:
             pred = float(row["predicted_return"]) * 100
             flag = row.get("news_flag")
-            extra = f"  NEWS {flag}" if flag else ""
+            extra = _news_suffix(row)
             lines.append(f"{row['ticker']:8}  {pred:6.2f}%  {float(row['open_price']):10.2f}{extra}")
     earnings = [s.get("ticker") for s in skipped if "earnings" in (s.get("reason") or "")]
     earnings = [t for t in earnings if t]
@@ -74,7 +85,7 @@ def format_rank_picks(payload: dict, k: int = 20) -> str:
     ]
     for i, row in enumerate(signals[:k], start=1):
         flag = row.get("news_flag")
-        extra = f"  NEWS {flag}" if flag else ""
+        extra = _news_suffix(row)
         lines.append(
             f"{i:2}  {row['ticker']:8}  {float(row['predicted_return']):10.4f}  {float(row['open_price']):10.2f}{extra}"
         )

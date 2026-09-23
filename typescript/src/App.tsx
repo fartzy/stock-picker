@@ -70,7 +70,7 @@ export default function App() {
       {tab === "whatif" && (
         <section>
           <h2>What if</h2>
-          <p className="muted">Morning lists, open to close.</p>
+          <p className="muted">Morning lists, open to close. News + gap down: skip. News + gap up: still buy.</p>
           <div className="panel">
             <WhatIf />
           </div>

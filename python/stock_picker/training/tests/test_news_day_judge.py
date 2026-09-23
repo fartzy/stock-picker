@@ -4,6 +4,7 @@ from stock_picker.training.news_day_judge import (
     grok_judge,
     llm_chat_url,
     llm_model,
+    news_blocks_buy,
 )
 
 
@@ -12,6 +13,14 @@ def test_llm_chat_url_uses_proxy_env(monkeypatch):
     monkeypatch.setenv("LLM_NEWS_MODEL", "local-test-model")
     assert llm_chat_url() == "http://127.0.0.1:4000/v1/chat/completions"
     assert llm_model() == "local-test-model"
+
+
+def test_news_blocks_buy_only_when_open_gaps_down():
+    assert news_blocks_buy("PIPE", 9.0, 10.0) is True
+    assert news_blocks_buy("PIPE", 11.0, 10.0) is False
+    assert news_blocks_buy("PIPE", 10.0, 10.0) is False
+    assert news_blocks_buy(None, 9.0, 10.0) is False
+    assert news_blocks_buy("PIPE", 9.0, None) is False
 
 
 def test_parse_judge_avoid_true():
