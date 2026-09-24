@@ -35,6 +35,7 @@ py_library(
         "rank_model.py",
         "recent_picks_demo.py",
         "splits.py",
+        "story_prune.py",
         "train.py",
         "tune_experiment.py",
     ],
@@ -109,6 +110,21 @@ py_binary(
         "@pypi//lightgbm",
         "@pypi//numpy",
         "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "story_prune",
+    srcs = ["story_prune.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
+        "@pypi//scikit_learn",
     ],
 )
 

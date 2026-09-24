@@ -403,5 +403,100 @@
     "feature": "spy_overnight_gap",
     "reason": "manually pruned from Registry",
     "pruned_at": "2026-09-18T21:53:08.931960-05:00"
+  },
+  {
+    "feature": "story_open_vs_5d_low_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.553655-05:00"
+  },
+  {
+    "feature": "story_two_big_fade_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.554436-05:00"
+  },
+  {
+    "feature": "story_down_run_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.554935-05:00"
+  },
+  {
+    "feature": "story_seq2_week_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.555473-05:00"
+  },
+  {
+    "feature": "story_seq4_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.556050-05:00"
+  },
+  {
+    "feature": "story_chase_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.556670-05:00"
+  },
+  {
+    "feature": "story_down_run_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.557363-05:00"
+  },
+  {
+    "feature": "two_big_then_fade_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.558139-05:00"
+  },
+  {
+    "feature": "story_two_big_fade_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.558655-05:00"
+  },
+  {
+    "feature": "story_continuation_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.559141-05:00"
+  },
+  {
+    "feature": "month_crash_yday_up_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.559603-05:00"
+  },
+  {
+    "feature": "story_month_crash_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.560062-05:00"
+  },
+  {
+    "feature": "story_chase_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.560527-05:00"
+  },
+  {
+    "feature": "story_dump_quiet_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.560977-05:00"
+  },
+  {
+    "feature": "story_continuation_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.561489-05:00"
+  },
+  {
+    "feature": "story_yday_swing_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.561964-05:00"
+  },
+  {
+    "feature": "story_flips3_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.562439-05:00"
+  },
+  {
+    "feature": "story_inside_day_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.563099-05:00"
+  },
+  {
+    "feature": "story_failed_bounce_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "pruned_at": "2026-09-23T22:02:48.563659-05:00"
   }
 ]

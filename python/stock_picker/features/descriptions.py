@@ -480,6 +480,64 @@ _pattern(
         "and this morning's 5-way gap (known at the open)."
     ),
 )
+_pattern(
+    r"^two_big_then_fade_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when sessions t-4 and t-3 were both "
+        ">1% up, t-2 was >1% down, t-1 was a small down (<1%), plus this morning's "
+        "3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^month_crash_yday_up_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when the prior ~month close was down "
+        "over 30% (or not), yesterday's session was over 1% up (or not), plus this "
+        "morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^week_run_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when the prior week close-to-close "
+        "was up over 5%, down over 5%, or flat, plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^chase_then_fade_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when t-3 gapped up and closed up, "
+        "t-2 and t-1 gapped down but still closed up, plus this morning's 3-way gap "
+        "(known at the open)."
+    ),
+)
+_pattern(
+    r"^three_up_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when the last 3 completed sessions "
+        "were all up (or not), plus this morning's 3-way gap (known at the open)."
+    ),
+)
+_pattern(
+    r"^dump_then_quiet_open3_seasonality$",
+    lambda m: (
+        "Average historical day-session return when the prior ~month close was down "
+        "over 20% (or not), yesterday's session was quiet (<1% abs), plus this "
+        "morning's 3-way gap (known at the open)."
+    ),
+)
+
+
+_pattern(
+    r"^story_.+_seasonality$",
+    lambda m: (
+        "Experiment open-known story: average historical day-session return "
+        "for prior times this ticker had this completed-day path / week-month "
+        "setup and this morning's gap or open location (known at the open). "
+        "Train, then prune."
+    ),
+)
 
 _pattern(
     r"^news_article_count_(\d+)d$",
