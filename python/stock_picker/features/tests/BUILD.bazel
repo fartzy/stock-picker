@@ -22,6 +22,18 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_structure",
+    srcs = ["test_structure.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+        "//python/stock_picker/training",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_catalog",
     srcs = ["test_catalog.py"],
     imports = ["../../.."],

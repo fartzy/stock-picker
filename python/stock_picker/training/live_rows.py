@@ -13,6 +13,7 @@ from datetime import date
 import pandas as pd
 
 from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets_processes, split_buckets
+from stock_picker.features.structure import fill_cluster_overnight_gaps
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.training.inference import StaleFeatureSnapshotError, build_inference_row
@@ -151,4 +152,5 @@ def prepare_live_rows(
     rows: list[LiveRow] = []
     for bucket in run_buckets_processes(prepare_bucket_payload, payloads, workers=workers):
         rows.extend(bucket)
+    fill_cluster_overnight_gaps(rows, quotes)
     return rows

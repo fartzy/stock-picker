@@ -15,10 +15,13 @@ from __future__ import annotations
 import pandas as pd
 
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
+from stock_picker.features.structure import CLUSTER_GAP_COLUMN
 
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
-OPEN_KNOWN_FEATURE_COLUMNS = frozenset({GAP_COLUMN, "spy_overnight_gap", *OPEN_KNOWN_COLUMNS})
+OPEN_KNOWN_FEATURE_COLUMNS = frozenset(
+    {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS}
+)
 
 
 def day_session_return(history: pd.DataFrame) -> pd.Series:
