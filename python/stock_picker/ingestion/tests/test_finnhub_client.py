@@ -3,6 +3,7 @@ from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 from stock_picker.ingestion.finnhub_client import (
+    candle_bars_from_payload,
     earnings_tickers_from_calendar,
     fetch_finnhub_quotes,
     finnhub_api_key,
@@ -58,14 +59,20 @@ def test_finnhub_api_key_env_wins(tmp_path):
         assert finnhub_api_key(key_file=key_file) == "from-env"
 
 
-def test_fetch_finnhub_quotes_skips_when_leftovers_exceed_the_cap():
+def test_fetch_finnhub_quotes_fills_the_first_cap_when_leftovers_exceed_it():
     tickers = [f"T{i}" for i in range(41)]
+    payload = {"o": 10.0, "c": 11.0, "pc": 9.5, "t": _unix(2026, 9, 10, 9, 31)}
 
-    with patch("stock_picker.ingestion.finnhub_client.fetch_one_finnhub_quote") as mock_fetch:
+    with patch(
+        "stock_picker.ingestion.finnhub_client.fetch_one_finnhub_quote",
+        return_value=payload,
+    ) as mock_fetch:
         quotes = fetch_finnhub_quotes(tickers, as_of=date(2026, 9, 10), api_key="k", sleep_seconds=0)
 
-    assert quotes == {}
-    mock_fetch.assert_not_called()
+    assert mock_fetch.call_count == 40
+    assert len(quotes) == 40
+    assert "T40" not in quotes
+    assert quotes["T0"]["open"] == 10.0
 
 
 def test_fetch_quotes_uses_finnhub_only_for_yahoo_leftovers():
@@ -105,3 +112,22 @@ def test_earnings_tickers_from_calendar_maps_finnhub_dots_to_yahoo_dashes():
     )
 
     assert hits == {"BRK-B", "MSFT"}
+
+
+def test_candle_bars_from_payload_keeps_completed_sessions():
+    payload = {
+        "s": "ok",
+        "t": [_unix(2026, 9, 22, 9, 30), _unix(2026, 9, 23, 9, 30)],
+        "o": [10.0, 11.0],
+        "h": [10.5, 11.5],
+        "l": [9.5, 10.5],
+        "c": [10.2, 11.1],
+        "v": [1000, 1100],
+    }
+
+    bars = candle_bars_from_payload(payload, as_of=date(2026, 9, 22))
+
+    assert len(bars) == 1
+    assert bars[0]["date"] == date(2026, 9, 22)
+    assert bars[0]["Open"] == 10.0
+    assert bars[0]["Close"] == 10.2

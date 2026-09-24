@@ -95,6 +95,19 @@ py_pytest(
     ],
 )
 
+
+py_pytest(
+    name = "test_news",
+    srcs = ["test_news.py"],
+    imports = ["../../.."],
+    deps = [
+        ":fixtures",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)
+
 py_pytest(
     name = "test_momentum",
     srcs = ["test_momentum.py"],

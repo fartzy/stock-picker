@@ -433,6 +433,26 @@ _pattern(
     ),
 )
 
+_pattern(
+    r"^news_article_count_(\d+)d$",
+    lambda m: f"Two headlines in the trailing {m[1]} {_day_plural(int(m[1]))} → 2.0.",
+)
+_pattern(
+    r"^news_max_material_score_(\d+)d$",
+    lambda m: (
+        f"A trial-pause headline scores 0.91 and a routine beat scores 0.12 over "
+        f"{m[1]} {_day_plural(int(m[1]))} → 0.91."
+    ),
+)
+_pattern(
+    r"^news_has_material_(\d+)d$",
+    lambda m: f"One clinical-hold headline in the trailing {m[1]} {_day_plural(int(m[1]))} → 1.0.",
+)
+_pattern(
+    r"^news_has_insider_sell_(\d+)d$",
+    lambda m: f"A Form 4 'CTO sells shares' headline in the trailing {m[1]} {_day_plural(int(m[1]))} → 1.0.",
+)
+
 
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if

@@ -90,3 +90,17 @@ def test_build_pooled_dataset_combines_tickers_with_metadata_columns():
     assert set(pooled["ticker"]) == {"AAA", "BBB"}
     assert "date" in pooled.columns
     assert len(pooled) == 2 * (len(history) - 1)
+
+
+
+def test_news_columns_are_shifted_with_close_known_features():
+    history, features = _make_history_and_features()
+    features["news_has_material_1d"] = [float(i) for i in range(len(history))]
+    features["news_article_count_3d"] = [float(i) + 10 for i in range(len(history))]
+
+    frame = build_training_frame(history, features)
+
+    for date, row in frame.iterrows():
+        prior_date_pos = features.index.get_loc(date) - 1
+        assert row["news_has_material_1d"] == features["news_has_material_1d"].iloc[prior_date_pos]
+        assert row["news_article_count_3d"] == features["news_article_count_3d"].iloc[prior_date_pos]

@@ -15,6 +15,7 @@ from stock_picker.features import (
     cross_sectional,
     distributional,
     momentum,
+    news,
     open_pattern_seasonality,
     oscillators,
     pattern_seasonality,
@@ -29,6 +30,7 @@ from stock_picker.features.formulas import describe_computation
 
 _SINGLE_TICKER_BUILDERS = {
     "momentum": momentum.build_momentum_features,
+    "news": news.build_news_features,
     "volatility": volatility.build_volatility_features,
     "trend": trend.build_trend_features,
     "oscillators": oscillators.build_oscillator_features,

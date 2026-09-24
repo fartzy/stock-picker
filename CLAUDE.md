@@ -27,6 +27,7 @@ bazelisk run //python/stock_picker/features:main
 bazelisk run //python/stock_picker/features:catalog           # every feature: description, formula, example, coverage
 bazelisk run //python/stock_picker/training:main               # CLI training entrypoint (same path the UI's "Run training" button uses)
 bazelisk run //python/stock_picker/training:tune_experiment    # research script: pruning + hyperparameter + ensemble-weight search
+bazelisk run //python/stock_picker/training:news_ingest        # full-universe Finnhub news into data/news/news.db (also runs after 8:31)
 bazelisk run //python/stock_picker/features:log_trade -- --ticker AAPL --side buy --shares 10 --price 230.00
 bazelisk run //:gazelle                                        # regenerate BUILD.bazel srcs/deps after adding/removing an import
 ```
@@ -60,10 +61,10 @@ ingestion/  -> storage/  -> features/  -> training/  -> api/ -> typescript/
 
 - **`storage/`**: Repository pattern (`UniverseStore`,
   `PriceStore`, `FeatureStore`, `ModelStore`, `TradeStore`,
-  `ScanStore`, `PaperBookStore`,
+  `ScanStore`, `PaperBookStore`, `NewsStore`,
   `PrunedFeatureStore`, `TrainingRunStore`, `TrainingConfigStore`).
-  Prices/features stay parquet; trades, morning scans, and the paper book
-  are SQLite. `paper/` scores morning lists Open->Close -- not ML columns.
+  Prices/features stay parquet; trades, morning scans, the paper book,
+  and universe news articles are SQLite. `paper/` scores morning lists Open->Close -- not ML columns.
   Every store constructor takes an optional `data_dir` for test isolation
   (`Store(data_dir=tmp_path)`) -- this is the established DI pattern for
   testing anything that touches persistence.

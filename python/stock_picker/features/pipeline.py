@@ -18,6 +18,7 @@ from stock_picker.features.cross_sectional import (
 )
 from stock_picker.features.distributional import build_distributional_features
 from stock_picker.features.momentum import build_momentum_features
+from stock_picker.features.news import build_news_features
 from stock_picker.features.open_pattern_seasonality import build_open_pattern_features
 from stock_picker.features.oscillators import build_oscillator_features
 from stock_picker.features.pattern_seasonality import build_pattern_features
@@ -35,6 +36,7 @@ def build_features(
     pooled_seasonality: pd.Series | None = None,
     spy_history: pd.DataFrame | None = None,
     vix_history: pd.DataFrame | None = None,
+    news_articles=None,
 ) -> pd.DataFrame:
     """Combine every feature category for a single ticker's OHLCV history.
 
@@ -61,6 +63,7 @@ def build_features(
             sector_avg_return=sector_avg_return,
         ),
         build_regime_features(history.index, spy_history=spy_history, vix_history=vix_history),
+        build_news_features(history, articles=news_articles),
     ]
     return pd.concat(categories, axis=1)
 
@@ -71,6 +74,7 @@ def build_features_for_universe(
     sector_by_ticker: dict[str, str] | None = None,
     spy_history: pd.DataFrame | None = None,
     vix_history: pd.DataFrame | None = None,
+    news_articles_by_ticker: dict | None = None,
 ) -> dict[str, pd.DataFrame]:
     """Compute features for every ticker in `histories`, including the cross-sectional
     return-rank columns and pooled setup-seasonality average, both of which require
@@ -122,6 +126,7 @@ def build_features_for_universe(
             pooled_seasonality=pooled_seasonality_by_ticker[ticker],
             spy_history=spy_history if spy_history is not None else benchmark_history,
             vix_history=vix_history,
+            news_articles=(news_articles_by_ticker or {}).get(ticker),
         )
 
     return features_by_ticker

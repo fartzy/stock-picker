@@ -26,6 +26,7 @@ py_library(
         "model.py",
         "morning.py",
         "news_day_judge.py",
+        "news_ingest.py",
         "morning_job.py",
         "nightly.py",
         "notify.py",
@@ -134,6 +135,18 @@ py_binary(
     deps = [
         ":training",
         "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "news_ingest",
+    srcs = ["news_ingest.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
     ],
 )

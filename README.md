@@ -19,7 +19,7 @@ Fit, then news on the short list.
   bars, then the daily chart. Polygon is first only if the key is entitled
   (Default/Starter 403s on the full-market snapshot; $199 real-time still
   does not guarantee 2,000 official opens at T+5s or T+30s). Finnhub fills
-  a small leftover set and supplies the earnings calendar skip.
+  the first 40 leftover names and supplies the earnings calendar skip.
 - **Features**: ~135 columns across 13 categories, including 28 open-known
   recency patterns (last few completed days + this morning’s open). Those
   columns are recomputed at the open; everything else stays last night’s
@@ -30,7 +30,9 @@ Fit, then news on the short list.
   **parallel pickle** (`day_session_return_rank.pkl`), never averaged into
   the return blend.
 - **Jobs** (Mac must be awake, `America/Chicago`): **3:30 PM** weekdays
-  refresh prices, rebuild features, retrain. **8:31 AM** weekdays is the
+  refresh prices (Yahoo, then Finnhub daily bars for names still missing
+  the last session), resume universe news ingest, rebuild features, retrain.
+  **8:31 AM** weekdays is the
   backup score. Prefer **Check this morning's prices** on Trading around
   8:31 — that click disables the 8:31 job for the day and takes a file lock so
   launchd cannot double-run.
@@ -38,12 +40,16 @@ Fit, then news on the short list.
   Rank 11–20 and a second GitHub publish. Avoid only on big news (crash or
   mania), not any headline. Grok if a key is in the environment; otherwise
   TF-IDF + event phrases. Optional local Langfuse on `127.0.0.1:3100`.
+  After the 8:31 lock is released, a rate-limited ingest walks the full
+  universe (prior three sessions) into SQLite `data/news/news.db` with
+  headline, summary, material score, and phrase hits. Nightly rebuilds
+  lagged news features (`news_article_count_1d`, material score, insider-sell flag).
 - **Logs**: `print()` is gone. Jobs use `stock_picker.log.get_logger`.
 
 Price, feature, and model data is **tracked in git** so a fresh clone
 already runs. Regenerating it rewrites large parquet blobs. Trades, morning
-scans, and the paper book are **SQLite** (`data/trades/stockpicker.db`,
-`data/buy_signals/scans.db`, `data/paper_book/paper_book.db`).
+scans, the paper book, and universe news are **SQLite** (`data/trades/stockpicker.db`,
+`data/buy_signals/scans.db`, `data/paper_book/paper_book.db`, `data/news/news.db`).
 
 ## Architecture
 

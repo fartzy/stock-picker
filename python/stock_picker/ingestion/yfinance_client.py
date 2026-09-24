@@ -342,7 +342,7 @@ def fetch_quotes(tickers: list[str], as_of: date | None = None) -> dict[str, dic
     2. Yahoo quote snapshot -- bulk, today's `regularMarketOpen`.
     3. Yahoo 1-minute bars -- first 9:30 ET print, for names still missing.
     4. Yahoo daily chart -- last resort if a today bar exists.
-    5. Finnhub /quote -- leftover only (rate-limited, not 2000 names).
+    5. Finnhub /quote -- leftover only, first 40 still-missing names.
 
     Names still missing after that have not printed an open yet -- the
     caller can retry later; we do not invent an open from last trade.
