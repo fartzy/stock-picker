@@ -3,9 +3,33 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-from stock_picker.ingestion.session import completed_sessions, last_completed_session_date
+from stock_picker.ingestion.session import (
+    cash_session_date,
+    completed_sessions,
+    last_completed_session_date,
+    session_has_closed,
+)
 
 ET = ZoneInfo("America/New_York")
+
+
+def test_cash_session_date_is_today_on_a_weekday():
+    now = datetime(2026, 9, 24, 10, 0, tzinfo=ET)
+
+    assert cash_session_date(now) == datetime(2026, 9, 24).date()
+    assert session_has_closed(now) is False
+
+
+def test_cash_session_date_is_friday_on_the_weekend():
+    saturday = datetime(2026, 9, 26, 11, 0, tzinfo=ET)
+
+    assert cash_session_date(saturday) == datetime(2026, 9, 25).date()
+    assert session_has_closed(saturday) is True
+
+
+def test_session_has_closed_after_settle():
+    assert session_has_closed(datetime(2026, 9, 24, 16, 20, tzinfo=ET)) is True
+    assert session_has_closed(datetime(2026, 9, 24, 15, 59, tzinfo=ET)) is False
 
 
 def test_before_the_bell_uses_the_previous_weekday():

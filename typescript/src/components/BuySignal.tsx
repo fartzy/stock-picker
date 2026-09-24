@@ -17,7 +17,10 @@ import {
   type UniverseResponse,
 } from "../api";
 import { formatUsd } from "../format";
+import { isCashSessionToday, sessionHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
+import { useQuotes } from "../useQuotes";
+import { Diff } from "./Diff";
 import FreshnessBadge from "./FreshnessBadge";
 
 const LATEST_OPTION_VALUE = "";
@@ -54,16 +57,30 @@ function MorningList({
   title,
   list,
   isRank,
+  showLive,
+  closed,
 }: {
   title: string;
   list: BuySignalResponse | null;
   isRank: boolean;
+  showLive: boolean;
+  closed: boolean;
 }) {
+  const [open, setOpen] = useState(false);
+  const tickers = list?.signals.map((s) => s.ticker) ?? [];
+  const { quotes } = useQuotes(tickers, {
+    enabled: showLive && open && tickers.length > 0,
+    intervalMs: closed || tickers.length > 40 ? undefined : 60_000,
+  });
   if (!list) return null;
   const noModel = list.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL);
   if (noModel) return null;
+  const liveLabel = closed ? "Close" : "Last";
   return (
-    <details className="view-card morning-list">
+    <details
+      className="view-card morning-list"
+      onToggle={(event) => setOpen((event.currentTarget as HTMLDetailsElement).open)}
+    >
       <summary>
         <strong>{title}</strong>
         {` · ${list.as_of} · ${list.signals.length} · scored ${list.scored_count}`}
@@ -77,12 +94,14 @@ function MorningList({
               <th>Ticker</th>
               <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
               <th className="trade-num">Open</th>
+              {showLive && <th className="trade-num">{liveLabel}</th>}
               <th>News</th>
             </tr>
           </thead>
           <tbody>
             {list.signals.map((signal) => {
               const news = newsCell(signal);
+              const last = quotes[signal.ticker]?.last;
               return (
                 <tr key={`${title}-${signal.ticker}`}>
                   <td className="trade-ticker">{signal.ticker}</td>
@@ -92,6 +111,21 @@ function MorningList({
                       : `${(signal.predicted_return * 100).toFixed(2)}%`}
                   </td>
                   <td className="trade-num">{formatUsd(signal.open_price)}</td>
+                  {showLive && (
+                    <td className="trade-num">
+                      {last === undefined ? (
+                        <span className="muted">—</span>
+                      ) : (
+                        <>
+                          {formatUsd(last)}{" "}
+                          <Diff
+                            value={last - signal.open_price}
+                            pct={signal.open_price ? (last - signal.open_price) / signal.open_price : null}
+                          />
+                        </>
+                      )}
+                    </td>
+                  )}
                   <td className={news.className}>{news.text}</td>
                 </tr>
               );
@@ -281,18 +315,33 @@ export default function BuySignal() {
       )}
 
       {!error && (rankList || fitList) && (
-        <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
-          <summary>
-            <strong>This morning</strong>
-            {rankList ? ` · ${rankList.as_of}` : fitList ? ` · ${fitList.as_of}` : ""}
-          </summary>
-          <div className="morning-lists">
-            <MorningList title="Rank" list={rankList} isRank={true} />
-            <MorningList title="Fit 0.5%" list={fitList} isRank={false} />
-          </div>
-        </details>
+        <MorningLists rankList={rankList} fitList={fitList} />
       )}
     </div>
+  );
+}
+
+function MorningLists({
+  rankList,
+  fitList,
+}: {
+  rankList: BuySignalResponse | null;
+  fitList: BuySignalResponse | null;
+}) {
+  const asOf = rankList?.as_of ?? fitList?.as_of ?? null;
+  const showLive = isCashSessionToday(asOf);
+  const closed = sessionHasClosed();
+  return (
+    <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
+      <summary>
+        <strong>This morning</strong>
+        {asOf ? ` · ${asOf}` : ""}
+      </summary>
+      <div className="morning-lists">
+        <MorningList title="Rank" list={rankList} isRank={true} showLive={showLive} closed={closed} />
+        <MorningList title="Fit 0.5%" list={fitList} isRank={false} showLive={showLive} closed={closed} />
+      </div>
+    </details>
   );
 }
 

@@ -185,14 +185,21 @@ function columnClass(column: string): string | undefined {
   return column === "Ticker" || column === "Bought" || column === "Sold" ? undefined : "trade-num";
 }
 
-function HoldToCloseNote({ positions }: { positions: Position[] }) {
+function HoldToCloseNote({
+  positions,
+  typicalOn,
+}: {
+  positions: Position[];
+  typicalOn?: number;
+}) {
   const total = holdToCloseTotal(positions);
   if (total === null) return null;
+  const denom = typicalOn || total.invested;
   return (
     <>
       {" "}
       &middot; 8:40–2:55 CT{" "}
-      <Diff value={total.pnl} pct={total.invested ? total.pnl / total.invested : null} />
+      <Diff value={total.pnl} pct={denom ? total.pnl / denom : null} />
     </>
   );
 }
@@ -237,6 +244,7 @@ function BenchmarkNote({
 function ClosedDayGroup({
   day,
   positions,
+  onBooks,
   sessionReturn,
   overnightReturn,
   expanded,
@@ -244,6 +252,7 @@ function ClosedDayGroup({
 }: {
   day: string;
   positions: Position[];
+  onBooks: number;
   sessionReturn: number | undefined;
   overnightReturn: number | undefined;
   expanded: boolean;
@@ -251,6 +260,7 @@ function ClosedDayGroup({
 }) {
   const summary = summarizePositions(positions);
   const session = holdToCloseTotal(positions);
+  const denom = onBooks || summary.invested;
   return (
     <details
       className="view-card"
@@ -264,16 +274,13 @@ function ClosedDayGroup({
         <span className="view-meta">
           {positions.length} lot{positions.length === 1 ? "" : "s"}
           {" · "}
-          {formatUsd(summary.invested)}
+          {formatUsd(denom)}
           {" · "}
-          <Diff value={summary.pnl} pct={summary.invested ? summary.pnl / summary.invested : null} />
+          <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />
           {session !== null && (
             <>
               {" · 8:40–2:55 CT "}
-              <Diff
-                value={session.pnl}
-                pct={session.invested ? session.pnl / session.invested : null}
-              />
+              <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
             </>
           )}
           <BenchmarkNote sessionReturn={sessionReturn} overnightReturn={overnightReturn} />
@@ -350,13 +357,14 @@ function holdPctForDays(days: string[], overnight: Record<string, number>): numb
 function windowSummary(
   lots: Position[],
   spySessionByDay: Record<string, number>,
-  peakWorking: Record<string, number> = {},
+  onBooksByDay: Record<string, number> = {},
 ): {
   lots: Position[];
   sessions: number;
-  typicalWorking: number;
+  typicalOn: number;
+  onSum: number;
   pnl: number;
-  spySessionDollars: number;
+  spyPct: number | null;
 } {
   const pnl = lots.reduce((sum, p) => sum + (p.pnl ?? 0), 0);
   const byDay = new Map<string, Position[]>();
@@ -365,31 +373,37 @@ function windowSummary(
     group.push(lot);
     byDay.set(lot.day, group);
   }
+  let onSum = 0;
+  let spyOn = 0;
   let spySessionDollars = 0;
-  let workingSum = 0;
   for (const [day, dayLots] of byDay) {
     const stacked = dayLots.reduce((sum, p) => sum + p.invested, 0);
-    const dayWorking = peakWorking[day] ?? stacked;
-    workingSum += dayWorking;
+    const on = onBooksByDay[day] || stacked;
+    onSum += on;
     const spy = spySessionByDay[day];
-    if (spy !== undefined) spySessionDollars += dayWorking * spy;
+    if (spy !== undefined) {
+      spyOn += on;
+      spySessionDollars += on * spy;
+    }
   }
   const sessions = byDay.size;
   return {
     lots,
     sessions,
-    typicalWorking: sessions ? workingSum / sessions : 0,
+    typicalOn: sessions ? onSum / sessions : 0,
+    onSum,
     pnl,
-    spySessionDollars,
+    spyPct: spyOn ? spySessionDollars / spyOn : null,
   };
 }
 
 type PeriodSummary = {
   lots: Position[];
   sessions: number;
-  typicalWorking: number;
+  typicalOn: number;
+  onSum: number;
   pnl: number;
-  spySessionDollars: number;
+  spyPct: number | null;
 };
 
 function PeriodLine({
@@ -401,24 +415,25 @@ function PeriodLine({
   summary: PeriodSummary;
   holdPct: number | null;
 }) {
-  const denom = summary.typicalWorking;
+  const pctDenom = summary.typicalOn;
   return (
     <>
       <strong>{label}</strong>
-      {` · ${formatUsd(summary.typicalWorking)} on · ${summary.sessions}d · `}
-      <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />
-      {" · intraday S&P "}
-      <Diff
-        value={summary.spySessionDollars}
-        pct={denom ? summary.spySessionDollars / denom : null}
-      />
+      {` · ${summary.sessions}d · ${formatUsd(summary.typicalOn)}/day · `}
+      <Diff value={summary.pnl} pct={pctDenom ? summary.pnl / pctDenom : null} />
+      {summary.spyPct !== null && (
+        <>
+          {" · intraday S&P "}
+          <SpyPct value={summary.spyPct} />
+        </>
+      )}
       {holdPct !== null && (
         <>
           {" · buy-and-hold S&P "}
-          <Diff value={denom * holdPct} pct={holdPct} />
+          <SpyPct value={holdPct} />
         </>
       )}
-      <HoldToCloseNote positions={summary.lots} />
+      <HoldToCloseNote positions={summary.lots} typicalOn={pctDenom} />
     </>
   );
 }
@@ -483,10 +498,10 @@ export default function TradeHistory() {
   const overnight = benchmarkData?.overnight ?? {};
   const monthLots = closedLots.filter((p) => inCalendarMonth(p.day, now));
   const yearLots = closedLots.filter((p) => inCalendarYear(p.day, now));
-  const peaks = data.peak_working ?? {};
-  const month = windowSummary(monthLots, spySessions, peaks);
-  const year = windowSummary(yearLots, spySessions, peaks);
-  const allTime = windowSummary(closedLots, spySessions, peaks);
+  const onBooks = data.peak_working ?? {};
+  const month = windowSummary(monthLots, spySessions, onBooks);
+  const year = windowSummary(yearLots, spySessions, onBooks);
+  const allTime = windowSummary(closedLots, spySessions, onBooks);
   const allHold = benchmarkData?.hold?.pct ?? null;
 
   return (
@@ -560,7 +575,7 @@ export default function TradeHistory() {
 
           {groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
             const lotsThisWeek = weekDays.flatMap(([, lots]) => lots);
-            const weekSummary = windowSummary(lotsThisWeek, spySessions, peaks);
+            const weekSummary = windowSummary(lotsThisWeek, spySessions, onBooks);
             const weekHold = holdPctForDays(
               lotsThisWeek.map((p) => p.day),
               overnight,
@@ -589,6 +604,7 @@ export default function TradeHistory() {
                   <ClosedDayGroup
                     day={day}
                     positions={dayPositions}
+                    onBooks={onBooks[day] ?? 0}
                     sessionReturn={benchmarkData?.returns[day]}
                     overnightReturn={benchmarkData?.overnight?.[day]}
                     expanded={expandedDays.has(day)}
