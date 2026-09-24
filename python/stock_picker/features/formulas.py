@@ -418,6 +418,29 @@ _pattern(
 )
 
 
+_pattern(
+    r"^pca_(\d+)$",
+    lambda m: (
+        "StandardScaler + PCA(5) on that date's universe matrix of "
+        "[return_1d, return_5d, return_20d, rsi_14, volatility_20d, atr_14]; "
+        f"column is component {m[1]}"
+    ),
+)
+_pattern(
+    r"^cluster_id$",
+    lambda m: (
+        "MiniBatchKMeans(k=8).fit_predict(StandardScaler([return_20d, "
+        "volatility_20d, rsi_14])) that date"
+    ),
+)
+_pattern(
+    r"^cluster_overnight_gap$",
+    lambda m: (
+        "mean_j in cluster_i, j!=i  (Open_j,t / Close_j,t-1 - 1)"
+    ),
+)
+
+
 def describe_computation(name: str) -> str:
     """Short pandas-expression formula for a feature column, or a flagged
     placeholder if no pattern matches."""

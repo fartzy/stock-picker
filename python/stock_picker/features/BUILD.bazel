@@ -31,6 +31,7 @@ py_library(
         "regime.py",
         "registry.py",
         "selection.py",
+        "structure.py",
         "trades.py",
         "trend.py",
         "volatility.py",
@@ -44,6 +45,7 @@ py_library(
         "//python/stock_picker/storage",
         "@pypi//numpy",
         "@pypi//pandas",
+        "@pypi//scikit_learn",
     ],
 )
 

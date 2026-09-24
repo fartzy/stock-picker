@@ -569,6 +569,30 @@ _pattern(
 )
 
 
+_pattern(
+    r"^pca_(\d+)$",
+    lambda m: (
+        f"Component {m[1]} of a 5-PC PCA on that date's close-based cross-section "
+        "(return 1/5/20d, RSI-14, vol-20d, ATR-14). Fit that day only; signs "
+        "aligned to the prior day."
+    ),
+)
+_pattern(
+    r"^cluster_id$",
+    lambda m: (
+        "MiniBatch k-means (k=8) id from (return_20d, vol_20d, RSI-14) as of "
+        "that date. Recency is those rolling windows ending yesterday after shift(1)."
+    ),
+)
+_pattern(
+    r"^cluster_overnight_gap$",
+    lambda m: (
+        "Mean overnight gap of the other names in this ticker's cluster "
+        "(Open_t / Close_{t-1} - 1). Known at the open; not shift(1)'d."
+    ),
+)
+
+
 def describe_feature(name: str) -> str:
     """Plain-English description of a feature column, or a flagged placeholder if
     no pattern matches."""

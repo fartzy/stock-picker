@@ -505,6 +505,26 @@ _pattern(
 )
 
 
+_pattern(
+    r"^pca_(\d+)$",
+    lambda m: (
+        "Names that look like yesterday's high-vol tape score +1.2 on "
+        f"pca_{m[1]} → 1.2."
+    ),
+)
+_pattern(
+    r"^cluster_id$",
+    lambda m: "Eight groups that day; this name is in group 3 → 3.0.",
+)
+_pattern(
+    r"^cluster_overnight_gap$",
+    lambda m: (
+        "Four peers in the cluster gapped +1.0%, +1.2%, +0.8%, +1.0%; "
+        "this name excluded → 0.01."
+    ),
+)
+
+
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if
     no pattern matches."""

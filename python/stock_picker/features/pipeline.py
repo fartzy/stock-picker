@@ -25,6 +25,7 @@ from stock_picker.features.pattern_seasonality import build_pattern_features
 from stock_picker.features.regime import build_regime_features
 from stock_picker.features.trend import build_trend_features
 from stock_picker.features.volatility import build_volatility_features
+from stock_picker.features.structure import build_structure_features, merge_structure
 from stock_picker.features.volume import build_volume_features
 
 
@@ -129,4 +130,5 @@ def build_features_for_universe(
             news_articles=(news_articles_by_ticker or {}).get(ticker),
         )
 
-    return features_by_ticker
+    structure = build_structure_features(histories, features_by_ticker)
+    return merge_structure(features_by_ticker, structure)
