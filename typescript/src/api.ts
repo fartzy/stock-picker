@@ -542,8 +542,22 @@ export const fetchPipelineFreshness = () => getJson<PipelineFreshnessResponse>("
 export const setLiveModel = (runId: string) =>
   mutate<LiveModelResponse>("POST", "/api/live-model", { run_id: runId });
 export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/live-model");
-export const fetchQuotes = (tickers: string[]) =>
-  getJson<QuotesResponse>(`/api/quotes?tickers=${tickers.map(encodeURIComponent).join(",")}`);
+const QUOTE_BATCH = 200;
+
+export async function fetchQuotes(tickers: string[]): Promise<QuotesResponse> {
+  const unique = [...new Set(tickers.filter(Boolean))];
+  if (unique.length === 0) return { quotes: [] };
+  const batches: string[][] = [];
+  for (let i = 0; i < unique.length; i += QUOTE_BATCH) {
+    batches.push(unique.slice(i, i + QUOTE_BATCH));
+  }
+  const parts = await Promise.all(
+    batches.map((batch) =>
+      getJson<QuotesResponse>(`/api/quotes?tickers=${batch.map(encodeURIComponent).join(",")}`),
+    ),
+  );
+  return { quotes: parts.flatMap((part) => part.quotes) };
+}
 export const createTrade = (trade: TradeCreate) => mutate<TradesResponse>("POST", "/api/trades", trade);
 export const fetchBuySignal = (threshold: number, live = false, kind: "fit" | "rank" = "fit") =>
   getJson<BuySignalResponse>(

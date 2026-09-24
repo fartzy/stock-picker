@@ -21,14 +21,35 @@ SESSION_CLOSE_HOUR = 16
 SESSION_CLOSE_SETTLE_MINUTES = 15
 
 
-def last_completed_session_date(now: datetime | None = None) -> date:
-    """Most recent weekday whose regular session has closed (plus settle)."""
-    clock = now.astimezone(US_EASTERN) if now is not None else datetime.now(US_EASTERN)
-    closed = clock.hour > SESSION_CLOSE_HOUR or (
+def _eastern(now: datetime | None = None) -> datetime:
+    if now is not None:
+        return now.astimezone(US_EASTERN)
+    return datetime.now(US_EASTERN)
+
+
+def cash_session_date(now: datetime | None = None) -> date:
+    """Weekday the cash session is on (or Friday, on a weekend)."""
+    day = _eastern(now).date()
+    while day.weekday() >= 5:
+        day -= timedelta(days=1)
+    return day
+
+
+def session_has_closed(now: datetime | None = None) -> bool:
+    """True after 16:00 ET plus settle, or on the weekend."""
+    clock = _eastern(now)
+    if clock.date().weekday() >= 5:
+        return True
+    return clock.hour > SESSION_CLOSE_HOUR or (
         clock.hour == SESSION_CLOSE_HOUR and clock.minute >= SESSION_CLOSE_SETTLE_MINUTES
     )
+
+
+def last_completed_session_date(now: datetime | None = None) -> date:
+    """Most recent weekday whose regular session has closed (plus settle)."""
+    clock = _eastern(now)
     day = clock.date()
-    if not closed:
+    if not session_has_closed(clock):
         day -= timedelta(days=1)
     while day.weekday() >= 5:
         day -= timedelta(days=1)
