@@ -66,6 +66,14 @@ def main() -> None:
     universe_store = UniverseStore()
     sector_by_ticker = universe_store.sector_by_ticker()
 
+    from stock_picker.ingestion.weather import read_nyc_weather, refresh_nyc_weather
+
+    try:
+        refresh_nyc_weather()
+    except Exception:
+        logger.exception("NYC weather refresh failed -- using stored series if any")
+    nyc_weather = read_nyc_weather()
+
     news_by_ticker = articles_by_ticker()
     features_by_ticker = build_features_for_universe(
         histories,
@@ -74,6 +82,7 @@ def main() -> None:
         spy_history=benchmark_history,
         vix_history=vix_history if not vix_history.empty else None,
         news_articles_by_ticker=news_by_ticker,
+        nyc_weather=nyc_weather if not nyc_weather.empty else None,
     )
 
     feature_store = FeatureStore()

@@ -36,6 +36,7 @@ py_library(
         "trend.py",
         "volatility.py",
         "volume.py",
+        "weather.py",
     ],
     imports = ["../.."],
     visibility = ["//visibility:public"],

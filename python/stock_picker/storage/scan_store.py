@@ -169,3 +169,10 @@ class ScanStore:
 
     def days(self) -> list[str]:
         return self._backend.days()
+
+    def latest(self, kind: str = "fit") -> dict | None:
+        for day in reversed(self.days()):
+            payload = self.read(day, kind)
+            if payload:
+                return payload
+        return None

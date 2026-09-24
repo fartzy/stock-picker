@@ -13,6 +13,9 @@
   --good: #5fae8c;
   --bad: #d9647a;
   --neutral: #6b70a0;
+  /* Scan-line hover -- accent tint so it reads on both --surface (tables)
+     and --surface-raised (feature cards). */
+  --row-hover: color-mix(in srgb, var(--accent) 16%, transparent);
 
   /* Spacing scale -- covers every detail-level gap/padding/margin in the app.
      Page-level macro layout (.page) is intentionally its own thing below. */
@@ -139,17 +142,21 @@ section + section {
   margin-bottom: var(--space-3);
 }
 
+.row-hover {
+  transition: background-color 120ms ease;
+}
+
+.row-hover:hover,
+.trade-table tbody tr:hover {
+  background: var(--row-hover);
+}
+
 .feature-row {
   padding: var(--space-1) var(--space-2);
   margin: 0 calc(var(--space-2) * -1);
   border-bottom: 1px solid var(--line);
   border-radius: 4px;
   font-size: var(--text-label);
-  transition: background-color 120ms ease;
-}
-
-.feature-row:hover {
-  background: var(--surface-raised);
 }
 
 .feature-row:last-child {
@@ -304,11 +311,6 @@ section + section {
   border-bottom: 1px solid var(--line);
   border-radius: 4px;
   font-size: var(--text-label);
-  transition: background-color 120ms ease;
-}
-
-.model-type-row:hover {
-  background: var(--surface-raised);
 }
 
 .model-type-row:last-child {
@@ -398,12 +400,20 @@ section + section {
 }
 
 .week-block {
-  margin-bottom: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.week-block > summary {
+  margin-bottom: var(--space-2);
 }
 
 .week-block > .view-card {
-  margin-left: var(--space-3);
-  margin-bottom: var(--space-2);
+  margin: 0 0 0 var(--space-2);
+  padding: var(--space-1) var(--space-2);
 }
 
 .view-features {
@@ -475,18 +485,62 @@ section + section {
 }
 
 details.view-card {
-  border: 1px solid transparent;
-  transition: border-color 120ms ease, transform 120ms ease;
-}
-
-details.view-card:hover,
-details.view-card:focus-within {
-  border-color: var(--accent);
-  transform: translateY(-1px);
+  border: 1px solid var(--line);
 }
 
 details.view-card summary {
   cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+details.view-card summary::-webkit-details-marker {
+  display: none;
+}
+
+details.view-card summary::before {
+  content: "";
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
+  transform: rotate(-45deg);
+  flex-shrink: 0;
+}
+
+details.view-card[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.morning-fold {
+  padding: var(--space-2) var(--space-3);
+}
+
+.morning-lists {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.morning-list {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: var(--space-1) var(--space-2);
+}
+
+.morning-list summary {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+}
+
+.morning-list summary strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* Registry's ~10 categories are structural groupings of many features each
@@ -612,14 +666,6 @@ details.view-card summary {
   letter-spacing: 0.03em;
 }
 
-.trade-table tbody tr {
-  transition: background 120ms ease;
-}
-
-.trade-table tbody tr:hover {
-  background: var(--surface-raised);
-}
-
 .trade-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -689,7 +735,7 @@ details.view-card summary {
   text-decoration: underline;
 }
 
-/* Briefly marks the feature row a Data-tab column header just linked to
+/* Brieflyks the feature row a Data-tab column header just linked to
    (see Registry.tsx's pendingFeature effect) -- an accent outline, same
    color language as the app's existing accent-colored hover lifts. */
 .feature-row-highlight {
@@ -727,6 +773,12 @@ details.view-card summary {
   gap: var(--space-2);
   margin-top: var(--space-4);
   flex-wrap: wrap;
+}
+
+.trading-scan-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 /* Visually separates "log a trade" from the table above it -- previously a
@@ -785,6 +837,7 @@ details.view-card summary {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .training-result {

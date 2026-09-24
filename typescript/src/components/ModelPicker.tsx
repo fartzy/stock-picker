@@ -84,7 +84,7 @@ export default function ModelPicker() {
         </p>
       )}
       {pickable.map((info) => (
-        <div className="model-type-row" key={info.model_type}>
+        <div className="model-type-row row-hover" key={info.model_type}>
           <label>
             <input
               type="checkbox"

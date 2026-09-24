@@ -20,9 +20,11 @@ import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
 import FreshnessBadge from "./FreshnessBadge";
 
-// "Latest" isn't a real run_id -- this <option>'s value means "clear the
-// explicit selection," resolved via resetLiveModel() rather than setLiveModel().
 const LATEST_OPTION_VALUE = "";
+const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
+const NO_MODEL_SENTINEL = "";
+const LOADING_PHRASES = ["Fetching this morning's quotes...", "Scoring tickers...", "Ranking picks..."];
+const LOADING_PHRASE_INTERVAL_MS = 900;
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -34,44 +36,93 @@ function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): stri
   return holdoutAccuracy === null ? when : `${when} · ${(holdoutAccuracy * 100).toFixed(1)}% holdout`;
 }
 
-// Percent, not fraction -- shown as a plain "%" input.
-const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
-
-// Sentinel the backend uses for skipped[] when no model is trained yet at
-// all, rather than "nothing cleared the bar today" -- see buy_signal.py.
-// Deliberately not a valid ticker shape, so it can never collide with a
-// real skipped ticker (an earlier "ALL" sentinel collided with Allstate's
-// actual ticker symbol).
-const NO_MODEL_SENTINEL = "";
-
-// The real request is one round trip (live quotes -> score -> rank), not
-// discrete steps -- these cycle purely to make a several-second wait feel
-// alive and give a rough sense of what's happening, not to report genuine
-// backend progress.
-const LOADING_PHRASES = ["Fetching this morning's quotes...", "Scoring tickers...", "Ranking picks..."];
-const LOADING_PHRASE_INTERVAL_MS = 900;
-
 function formatToday(): string {
   return new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
 }
 
+function newsCell(signal: { news_flag?: string | null; news_blocks?: boolean }) {
+  if (!signal.news_flag) {
+    return { className: "muted" as const, text: "—" };
+  }
+  return {
+    className: signal.news_blocks ? ("quote-diff-down" as const) : ("quote-diff-up" as const),
+    text: `${signal.news_blocks ? "skip" : "still buy"} · ${signal.news_flag}`,
+  };
+}
+
+function MorningList({
+  title,
+  list,
+  isRank,
+}: {
+  title: string;
+  list: BuySignalResponse | null;
+  isRank: boolean;
+}) {
+  if (!list) return null;
+  const noModel = list.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL);
+  if (noModel) return null;
+  return (
+    <details className="view-card morning-list">
+      <summary>
+        <strong>{title}</strong>
+        {` · ${list.as_of} · ${list.signals.length} · scored ${list.scored_count}`}
+      </summary>
+      {list.signals.length === 0 ? (
+        <p className="muted">No tickers on this list.</p>
+      ) : (
+        <table className="trade-table" style={{ marginTop: "var(--space-2)" }}>
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
+              <th className="trade-num">Open</th>
+              <th>News</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.signals.map((signal) => {
+              const news = newsCell(signal);
+              return (
+                <tr key={`${title}-${signal.ticker}`}>
+                  <td className="trade-ticker">{signal.ticker}</td>
+                  <td className="trade-num">
+                    {isRank
+                      ? signal.predicted_return.toFixed(4)
+                      : `${(signal.predicted_return * 100).toFixed(2)}%`}
+                  </td>
+                  <td className="trade-num">{formatUsd(signal.open_price)}</td>
+                  <td className={news.className}>{news.text}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </details>
+  );
+}
+
 export default function BuySignal() {
   const [thresholdPct, setThresholdPct] = useState(DEFAULT_THRESHOLD_PCT);
-  const [data, setData] = useState<BuySignalResponse | null>(null);
+  const [rankList, setRankList] = useState<BuySignalResponse | null>(null);
+  const [fitList, setFitList] = useState<BuySignalResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
-  const [listKind, setListKind] = useState<"rank" | "fit">("rank");
   const [jobTick, setJobTick] = useState(0);
   const [autoRunOff, setAutoRunOff] = useState(false);
-  // Cheap (a parquet read, no live quotes) so this shows up front, before
-  // the user ever clicks -- otherwise the scan's actual breadth (every
-  // ticker ever tracked, not some smaller subset) stays invisible until
-  // after a full live run reveals it via scored_count/skipped.
   const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
   const { data: trainingRuns } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
   const [modelRefreshCount, setModelRefreshCount] = useState(0);
-  const { data: liveModel } = useFetchData<LiveModelResponse>(fetchLiveModel, { deps: [modelRefreshCount] });
+  const { data: liveModel } = useFetchData<LiveModelResponse>(fetchLiveModel, {
+    deps: [modelRefreshCount],
+  });
+  const { data: scanStatus } = useFetchData(fetchMorningScan, {
+    deps: [jobTick],
+    intervalMs: 2000,
+  });
+  const scanRunning = scanStatus?.status === "running";
 
   async function handleModelChange(runId: string) {
     if (runId === LATEST_OPTION_VALUE) {
@@ -83,7 +134,7 @@ export default function BuySignal() {
   }
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !scanRunning) {
       setLoadingPhraseIndex(0);
       return;
     }
@@ -91,7 +142,25 @@ export default function BuySignal() {
       setLoadingPhraseIndex((i) => (i + 1) % LOADING_PHRASES.length);
     }, LOADING_PHRASE_INTERVAL_MS);
     return () => clearInterval(intervalId);
-  }, [loading]);
+  }, [loading, scanRunning]);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      fetchBuySignal(thresholdPct / 100, false, "rank"),
+      fetchBuySignal(thresholdPct / 100, false, "fit"),
+    ])
+      .then(([rank, fit]) => {
+        if (!cancelled) {
+          setRankList(rank);
+          setFitList(fit);
+        }
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [thresholdPct, scanStatus?.status, scanStatus?.completed_at]);
 
   async function waitForScan(): Promise<void> {
     const deadline = Date.now() + 8 * 60 * 1000;
@@ -129,7 +198,12 @@ export default function BuySignal() {
         }
         await waitForScan();
       }
-      setData(await fetchBuySignal(thresholdPct / 100, false, listKind));
+      const [rank, fit] = await Promise.all([
+        fetchBuySignal(thresholdPct / 100, false, "rank"),
+        fetchBuySignal(thresholdPct / 100, false, "fit"),
+      ]);
+      setRankList(rank);
+      setFitList(fit);
       setError(null);
     } catch (err) {
       setError(String(err));
@@ -137,10 +211,6 @@ export default function BuySignal() {
       setLoading(false);
     }
   }
-
-  const displayed = data;
-  const showingCache = Boolean(displayed?.cached);
-  const noModel = displayed?.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL) ?? false;
 
   return (
     <div>
@@ -150,66 +220,47 @@ export default function BuySignal() {
         </p>
       )}
       <FreshnessBadge />
-      <div className="list-toggle" role="group" aria-label="Pick list">
-        <button
-          type="button"
-          className={listKind === "rank" ? "active" : ""}
-          onClick={() => {
-            setListKind("rank");
-            setData(null);
-          }}
-        >
-          Rank
-        </button>
-        <button
-          type="button"
-          className={listKind === "fit" ? "active" : ""}
-          onClick={() => {
-            setListKind("fit");
-            setData(null);
-          }}
-        >
-          Fit 0.5%
-        </button>
-      </div>
-      {trainingRuns && liveModel && (
+      <div className="trading-scan-controls">
+        {trainingRuns && liveModel && (
+          <div className="form-row" style={{ alignItems: "center", marginTop: 0 }}>
+            <label className="muted" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ minWidth: 88 }}>Model</span>
+              <select
+                className="form-select"
+                value={liveModel.selected_run_id ?? LATEST_OPTION_VALUE}
+                onChange={(e) => handleModelChange(e.target.value)}
+                style={{ padding: "10px 8px", fontSize: "var(--text-body)" }}
+              >
+                <option value={LATEST_OPTION_VALUE}>Latest</option>
+                {trainingRuns.runs
+                  .filter((run) => run.has_archived_model)
+                  .map((run) => (
+                    <option key={run.run_id} value={run.run_id}>
+                      {formatRunLabel(run.started_at, run.holdout_metrics?.directional_accuracy ?? null)}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
+        )}
         <div className="form-row" style={{ alignItems: "center", marginTop: 0 }}>
-          <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            Model
-            <select
-              className="form-select"
-              value={liveModel.selected_run_id ?? LATEST_OPTION_VALUE}
-              onChange={(e) => handleModelChange(e.target.value)}
-            >
-              <option value={LATEST_OPTION_VALUE}>Latest</option>
-              {trainingRuns.runs
-                .filter((run) => run.has_archived_model)
-                .map((run) => (
-                  <option key={run.run_id} value={run.run_id}>
-                    {formatRunLabel(run.started_at, run.holdout_metrics?.directional_accuracy ?? null)}
-                  </option>
-                ))}
-            </select>
+          <label className="muted" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ minWidth: 88 }}>Threshold</span>
+            <input
+              className="form-input"
+              type="number"
+              step="0.1"
+              min="0"
+              value={thresholdPct}
+              onChange={(e) => setThresholdPct(Number(e.target.value))}
+              style={{ width: 70, padding: "10px 8px", fontSize: "var(--text-body)" }}
+            />
+            <span>%</span>
           </label>
+          <button className="btn-hero" onClick={handleCheck} disabled={loading || scanRunning}>
+            {loading || scanRunning ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
+          </button>
         </div>
-      )}
-      <div className="form-row" style={{ alignItems: "center" }}>
-        <label className="muted" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          Threshold
-          <input
-            className="form-input"
-            type="number"
-            step="0.1"
-            min="0"
-            value={thresholdPct}
-            onChange={(e) => setThresholdPct(Number(e.target.value))}
-            style={{ width: 70, padding: "10px 8px", fontSize: "var(--text-body)" }}
-          />
-          <span>%</span>
-        </label>
-        <button className="btn-hero" onClick={handleCheck} disabled={loading}>
-          {loading ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
-        </button>
       </div>
       <MorningTrigger jobNonce={jobTick} forceOff={autoRunOff} />
 
@@ -218,108 +269,44 @@ export default function BuySignal() {
           {error}
         </p>
       )}
-      {showingCache && displayed && (
+      {scanRunning && (
         <p className="muted" style={{ marginTop: 8 }}>
-          Loaded this morning's saved scan ({displayed.as_of}).
+          Getting this morning's prices…
+        </p>
+      )}
+      {scanStatus?.status === "failed" && (
+        <p className="error" style={{ marginTop: 8 }}>
+          {scanStatus.error || "Morning run failed"}
         </p>
       )}
 
-      {displayed && !error && noModel && (
-        <p className="muted" style={{ marginTop: 12 }}>
-          No trained model yet. Train one on the Models tab first.
-        </p>
-      )}
-
-      {displayed && !error && !noModel && (
-        <div style={{ marginTop: 12 }}>
-          {displayed.top_drivers.length > 0 && (
-            <p className="muted">
-              Top drivers: {displayed.top_drivers.map((d) => `${d.feature} (${d.importance.toFixed(1)}%)`).join(", ")}
-            </p>
-          )}
-          {displayed.signals.length === 0 ? (
-            <p className="muted">No tickers cleared the {thresholdPct}% threshold this morning.</p>
-          ) : (
-            <table className="trade-table">
-              <thead>
-                <tr>
-                  <th>Ticker</th>
-                  <th className="trade-num">{listKind === "rank" ? "Rank score" : "Predicted return"}</th>
-                  <th className="trade-num">Open price</th>
-                  <th>News</th>
-                </tr>
-              </thead>
-              <tbody>
-                {displayed.signals.map((signal) => (
-                  <tr key={signal.ticker}>
-                    <td className="trade-ticker">{signal.ticker}</td>
-                    <td className="trade-num">
-                      {listKind === "rank"
-                        ? signal.predicted_return.toFixed(4)
-                        : `${(signal.predicted_return * 100).toFixed(2)}%`}
-                    </td>
-                    <td className="trade-num">{formatUsd(signal.open_price)}</td>
-                    <td className={signal.news_blocks ? "quote-diff-down" : signal.news_flag ? "quote-diff-up" : "muted"}>
-                      {signal.news_flag
-                        ? `${signal.news_blocks ? "skip" : "still buy"} · ${signal.news_flag}`
-                        : "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-          <p className="muted" style={{ marginTop: 8 }}>
-            Scored {displayed.scored_count} of {displayed.scored_count + displayed.skipped.length} tickers ·{" "}
-            <span title={displayed.skipped.map((s) => `${s.ticker}: ${s.reason}`).join("\n")}>
-              {displayed.skipped.length} skipped
-            </span>
-          </p>
-        </div>
+      {!error && (rankList || fitList) && (
+        <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
+          <summary>
+            <strong>This morning</strong>
+            {rankList ? ` · ${rankList.as_of}` : fitList ? ` · ${fitList.as_of}` : ""}
+          </summary>
+          <div className="morning-lists">
+            <MorningList title="Rank" list={rankList} isRank={true} />
+            <MorningList title="Fit 0.5%" list={fitList} isRank={false} />
+          </div>
+        </details>
       )}
     </div>
   );
 }
 
-
 function MorningTrigger({
   jobNonce = 0,
   forceOff = false,
 }: {
-  onDone?: () => void;
   jobNonce?: number;
   forceOff?: boolean;
 }) {
   const { data: job, error: jobError } = useFetchData(fetchMorningJob, { deps: [jobNonce] });
-  const [scanTick, setScanTick] = useState(0);
-  const [scan, setScan] = useState<import("../api").MorningScanStatus | null>(null);
-  const running = scan?.status === "running";
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchMorningScan()
-      .then((result) => {
-        if (!cancelled) setScan(result);
-      })
-      .catch(() => undefined);
-    return () => {
-      cancelled = true;
-    };
-  }, [scanTick]);
-
-  useEffect(() => {
-    if (!running) return undefined;
-    const id = setInterval(() => {
-      fetchMorningScan()
-        .then(setScan)
-        .catch(() => undefined);
-    }, 2000);
-    return () => clearInterval(id);
-  }, [running]);
 
   async function toggleJob(enabled: boolean) {
     await setMorningJob(enabled);
-    setScanTick((n) => n + 1);
   }
 
   return (
@@ -332,10 +319,6 @@ function MorningTrigger({
         />
         If I don't click, start at 8:31 anyway
       </label>
-      {running && <span className="view-meta">Getting this morning's prices…</span>}
-      {scan?.status === "failed" && (
-        <span className="error">{scan.error || "Couldn't get this morning's prices"}</span>
-      )}
       {jobError && <span className="error">{jobError}</span>}
     </div>
   );

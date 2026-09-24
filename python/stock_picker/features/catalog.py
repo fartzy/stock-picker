@@ -21,6 +21,7 @@ from stock_picker.features import (
     pattern_seasonality,
     regime,
     structure,
+    weather,
     trend,
     volatility,
     volume,
@@ -88,6 +89,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     columns["cross_sectional"] = _cross_sectional_columns(sample_history)
     columns["regime"] = _regime_columns(sample_history)
     columns["structure"] = list(structure.STRUCTURE_COLUMNS)
+    columns["weather"] = list(weather.WEATHER_COLUMNS)
     return columns
 
 

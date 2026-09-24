@@ -409,6 +409,16 @@ class MorningCheckResponse(BaseModel):
 
 class MorningCheckRequest(BaseModel):
     which: Literal["rank", "fit", "both"] = "both"
+    run_id: str | None = None
+
+
+class MorningCheckRunSummary(BaseModel):
+    id: str
+    started_at: str | None = None
+    completed_at: str | None = None
+    which: str | None = None
+    status: str | None = None
+    n_quotes: int | None = None
 
 
 class MorningJobSettings(BaseModel):

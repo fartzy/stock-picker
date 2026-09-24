@@ -9,6 +9,7 @@ py_library(
         "polygon_client.py",
         "refresh_prices.py",
         "session.py",
+        "weather.py",
         "yfinance_client.py",
     ],
     imports = ["../.."],
@@ -21,6 +22,20 @@ py_library(
         "@pypi//pandas",
         "@pypi//requests",
         "@pypi//yfinance",
+    ],
+)
+
+py_binary(
+    name = "weather",
+    srcs = ["weather.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":ingestion",
+        "//python/stock_picker:log",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+        "@pypi//requests",
     ],
 )
 

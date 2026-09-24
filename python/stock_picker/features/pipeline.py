@@ -23,6 +23,7 @@ from stock_picker.features.open_pattern_seasonality import build_open_pattern_fe
 from stock_picker.features.oscillators import build_oscillator_features
 from stock_picker.features.pattern_seasonality import build_pattern_features
 from stock_picker.features.regime import build_regime_features
+from stock_picker.features.weather import build_weather_features
 from stock_picker.features.trend import build_trend_features
 from stock_picker.features.volatility import build_volatility_features
 from stock_picker.features.structure import build_structure_features, merge_structure
@@ -38,6 +39,7 @@ def build_features(
     spy_history: pd.DataFrame | None = None,
     vix_history: pd.DataFrame | None = None,
     news_articles=None,
+    nyc_weather: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Combine every feature category for a single ticker's OHLCV history.
 
@@ -64,6 +66,7 @@ def build_features(
             sector_avg_return=sector_avg_return,
         ),
         build_regime_features(history.index, spy_history=spy_history, vix_history=vix_history),
+        build_weather_features(history.index, nyc=nyc_weather),
         build_news_features(history, articles=news_articles),
     ]
     return pd.concat(categories, axis=1)
@@ -76,6 +79,7 @@ def build_features_for_universe(
     spy_history: pd.DataFrame | None = None,
     vix_history: pd.DataFrame | None = None,
     news_articles_by_ticker: dict | None = None,
+    nyc_weather: pd.DataFrame | None = None,
 ) -> dict[str, pd.DataFrame]:
     """Compute features for every ticker in `histories`, including the cross-sectional
     return-rank columns and pooled setup-seasonality average, both of which require
@@ -128,6 +132,7 @@ def build_features_for_universe(
             spy_history=spy_history if spy_history is not None else benchmark_history,
             vix_history=vix_history,
             news_articles=(news_articles_by_ticker or {}).get(ticker),
+            nyc_weather=nyc_weather,
         )
 
     structure = build_structure_features(histories, features_by_ticker)

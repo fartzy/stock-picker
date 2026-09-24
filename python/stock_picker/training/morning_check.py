@@ -10,10 +10,11 @@ from __future__ import annotations
 import random
 import threading
 import time
-from dataclasses import dataclass, field, replace
+from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime
 from typing import Literal
 
+from stock_picker.storage import morning_check_store
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD
@@ -175,10 +176,32 @@ def run_morning_check(
     )
 
 
+def _status_from_payload(payload: dict) -> MorningCheckStatus:
+    quotes = [FakeQuote(**q) if not isinstance(q, FakeQuote) else q for q in payload.get("quotes") or []]
+    passes = []
+    for item in payload.get("passes") or []:
+        if isinstance(item, TimedPass):
+            passes.append(item)
+        else:
+            passes.append(TimedPass(**item))
+    return MorningCheckStatus(
+        status=payload.get("status") or "completed",
+        which=payload.get("which"),
+        started_at=payload.get("started_at"),
+        completed_at=payload.get("completed_at"),
+        error=payload.get("error"),
+        n_quotes=int(payload.get("n_quotes") or 0),
+        quote_seconds=payload.get("quote_seconds"),
+        quotes=quotes,
+        passes=passes,
+    )
+
+
 class MorningCheckJob:
     def __init__(self) -> None:
         self._lock = threading.Lock()
-        self._state = MorningCheckStatus()
+        saved = morning_check_store.latest()
+        self._state = _status_from_payload(saved) if saved else MorningCheckStatus()
 
     def status(self) -> MorningCheckStatus:
         with self._lock:
@@ -197,6 +220,7 @@ class MorningCheckJob:
         def _run() -> None:
             try:
                 result = run_morning_check(which=which)
+                morning_check_store.save(asdict(result))
                 with self._lock:
                     self._state = result
             except Exception as exc:  # noqa: BLE001 -- surfaced on the panel
@@ -221,3 +245,16 @@ def status() -> MorningCheckStatus:
 
 def start(which: Which = "both") -> bool:
     return _default.start(which)
+
+
+def load_saved(run_id: str) -> MorningCheckStatus | None:
+    payload = morning_check_store.read(run_id)
+    if payload is None:
+        return None
+    with _default._lock:
+        _default._state = _status_from_payload(payload)
+        return replace(_default._state)
+
+
+def saved_runs() -> list[dict]:
+    return morning_check_store.list_runs()

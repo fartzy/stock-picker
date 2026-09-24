@@ -221,14 +221,7 @@ def load_or_rebuild(
 
     cutoff = last_completed_session_date()
     existing = book.read()
-    news_done = existing and any(p.news_checked for p in existing)
-    if (
-        existing
-        and len(existing) >= _scan_size(scans)
-        and not _missing_closes(existing, cutoff)
-        and news_done
-        and not _missing_prev_close_for_news(existing)
-    ):
+    if existing:
         return existing
     return rebuild_paper_book(
         completed_through=cutoff,

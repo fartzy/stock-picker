@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
   fetchMorningCheck,
+  fetchMorningCheckRuns,
+  loadMorningCheck,
   runMorningCheck,
   type MorningCheckResponse,
   type TimedPass,
@@ -62,6 +64,10 @@ export default function MorningCheck() {
     deps: [refresh],
     intervalMs: POLL_MS,
   });
+  const savedRuns = useFetchData(fetchMorningCheckRuns, {
+    deps: [refresh, data?.completed_at],
+  });
+  const runs = savedRuns.data;
 
   async function start() {
     setBusy(true);
@@ -77,8 +83,7 @@ export default function MorningCheck() {
 
   return (
     <div>
-      <p className="muted">Fake opens. Live scan stays.</p>
-      <div className="meta-row" style={{ marginTop: "var(--space-2)" }}>
+      <div className="meta-row">
         <div className="list-toggle" role="group" aria-label="Which models">
           {(["rank", "fit", "both"] as const).map((option) => (
             <button
@@ -95,6 +100,38 @@ export default function MorningCheck() {
         <button type="button" className="btn-primary" onClick={start} disabled={running || busy}>
           {running ? "Running..." : "Run morning check"}
         </button>
+        {runs && runs.length > 0 && (
+          <select
+            className="form-select"
+            value=""
+            disabled={running || busy}
+            onChange={async (event) => {
+              const id = event.target.value;
+              if (!id) return;
+              setBusy(true);
+              try {
+                await loadMorningCheck(id);
+                setRefresh((n) => n + 1);
+              } finally {
+                setBusy(false);
+              }
+            }}
+          >
+            <option value="">Earlier runs</option>
+            {runs.map((run) => (
+              <option key={run.id} value={run.id}>
+                {(run.started_at
+                  ? new Date(run.started_at).toLocaleString(undefined, {
+                      month: "short",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })
+                  : run.id) + (run.which ? ` · ${run.which}` : "")}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
       {error && <p className="error">{error}</p>}
       {data && data.status !== "idle" && (

@@ -53,3 +53,23 @@ def test_both_uses_score_from_quotes(monkeypatch):
     assert called["persist"] is False
     assert [p.which for p in result.passes] == ["rank", "fit", "both"]
     assert result.n_quotes == 1
+
+
+def test_morning_check_store_round_trips(tmp_path):
+    from stock_picker.storage import morning_check_store as store
+
+    payload = {
+        "status": "completed",
+        "which": "both",
+        "started_at": "2026-09-24T00:00:00-05:00",
+        "completed_at": "2026-09-24T00:04:00-05:00",
+        "n_quotes": 3,
+        "quotes": [],
+        "passes": [],
+    }
+    store.save(payload, data_dir=tmp_path)
+    latest = store.latest(data_dir=tmp_path)
+    assert latest["n_quotes"] == 3
+    runs = store.list_runs(data_dir=tmp_path)
+    assert len(runs) == 1
+    assert store.read(runs[0]["id"], data_dir=tmp_path)["which"] == "both"

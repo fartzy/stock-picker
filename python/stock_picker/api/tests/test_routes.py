@@ -8,11 +8,13 @@ from fastapi import status
 from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
+from stock_picker.features.catalog import list_feature_columns
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
+from stock_picker.training.live_rows import LiveRow
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import train_lightgbm
 
@@ -189,6 +191,17 @@ def client(tmp_path):
         mock_trade_store.return_value.append.side_effect = _append_trade
         mock_fetch_quotes.return_value = {"AAA": {"open": 100.0, "last": 105.0}}
         yield TestClient(app)
+
+
+def test_get_root_matches_whether_web_dist_is_present():
+    from stock_picker.api.app import _web_dist
+
+    response = TestClient(app).get("/")
+    if _web_dist().is_dir():
+        assert response.status_code == status.HTTP_200_OK
+        assert "text/html" in response.headers.get("content-type", "")
+    else:
+        assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 def test_get_catalog(client):
@@ -634,7 +647,7 @@ def test_get_registry(client):
     assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["entities"][0]["name"] == "ticker"
-    assert len(body["feature_views"]) == 12
+    assert {view["name"] for view in body["feature_views"]} == set(list_feature_columns(synthetic_history(n=140)))
     assert body["feature_services"][0]["name"] == "day_session_return_model"
 
 
@@ -661,18 +674,24 @@ def test_get_buy_signal_scores_active_tickers_and_serializes_the_full_shape(clie
     model = train_lightgbm(train_frame, params={"min_data_in_leaf": 5}, num_boost_round=20)
     ensemble = Ensemble(members=[model], weights=[1.0])
     snapshot_date = date.today() - timedelta(days=1)
-    feature_frame = pd.DataFrame({"signal": [5.0]}, index=pd.DatetimeIndex([snapshot_date], name="date"))
+    live_row = LiveRow(
+        ticker="ZZZ",
+        open_price=101.0,
+        prev_close=100.0,
+        snapshot_date=snapshot_date.isoformat(),
+        row=pd.DataFrame({"signal": [5.0]}),
+    )
 
     with (
         patch("stock_picker.training.buy_signal.ModelStore") as mock_model_store,
         patch("stock_picker.training.buy_signal.UniverseStore") as mock_universe_store,
-        patch("stock_picker.training.buy_signal.FeatureStore") as mock_feature_store,
+        patch("stock_picker.training.buy_signal.prepare_live_rows") as mock_prepare,
         patch("stock_picker.features.quotes.fetch_quotes") as mock_fetch_quotes,
     ):
         mock_model_store.return_value.exists.return_value = True
         mock_model_store.return_value.read.return_value = ensemble
         mock_universe_store.return_value.active_tickers.return_value = ["ZZZ"]
-        mock_feature_store.return_value.read.return_value = feature_frame
+        mock_prepare.return_value = [live_row]
         mock_fetch_quotes.return_value = {"ZZZ": {"open": 101.0, "last": 102.0, "prev_close": 100.0}}
 
         response = client.get("/api/buy-signal", params={"threshold": 0.005})

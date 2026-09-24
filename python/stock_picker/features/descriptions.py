@@ -593,6 +593,32 @@ _pattern(
 )
 
 
+_pattern(
+    r"^weather_nyc_tmax_yday$",
+    lambda m: "NYC calendar-yesterday max temperature (C), Open-Meteo archive. Known at the open.",
+)
+_pattern(
+    r"^weather_nyc_tmin_yday$",
+    lambda m: "NYC calendar-yesterday min temperature (C). Known at the open.",
+)
+_pattern(
+    r"^weather_nyc_precip_yday$",
+    lambda m: "NYC calendar-yesterday precipitation (mm). Known at the open.",
+)
+_pattern(
+    r"^weather_nyc_snow_yday$",
+    lambda m: "NYC calendar-yesterday snowfall (cm). Known at the open.",
+)
+_pattern(
+    r"^weather_nyc_hdd_yday$",
+    lambda m: "NYC calendar-yesterday heating degree-days vs 18C. Known at the open.",
+)
+_pattern(
+    r"^weather_nyc_cdd_yday$",
+    lambda m: "NYC calendar-yesterday cooling degree-days vs 18C. Known at the open.",
+)
+
+
 def describe_feature(name: str) -> str:
     """Plain-English description of a feature column, or a flagged placeholder if
     no pattern matches."""

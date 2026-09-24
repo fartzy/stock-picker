@@ -504,9 +504,21 @@ export interface MorningCheckResponse {
 
 export const fetchTrainingStatus = () => getJson<TrainingStatusResponse>("/api/training/status");
 export const runTraining = () => mutate<TrainingStatusResponse>("POST", "/api/training/run");
+export interface MorningCheckRunSummary {
+  id: string;
+  started_at: string | null;
+  completed_at: string | null;
+  which: string | null;
+  status: string | null;
+  n_quotes: number | null;
+}
+
 export const fetchMorningCheck = () => getJson<MorningCheckResponse>("/api/morning-check");
+export const fetchMorningCheckRuns = () => getJson<MorningCheckRunSummary[]>("/api/morning-check/runs");
 export const runMorningCheck = (which: "rank" | "fit" | "both" = "both") =>
   mutate<MorningCheckResponse>("POST", "/api/morning-check", { which });
+export const loadMorningCheck = (runId: string) =>
+  mutate<MorningCheckResponse>("POST", "/api/morning-check/load", { run_id: runId });
 
 export interface MorningJobSettings {
   enabled: boolean;

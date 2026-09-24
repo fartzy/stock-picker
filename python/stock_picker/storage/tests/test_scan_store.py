@@ -52,6 +52,14 @@ def test_days_lists_fit_and_rank(tmp_path):
     assert store.days() == ["2026-09-17", "2026-09-18"]
 
 
+def test_latest_is_the_newest_day_for_that_kind(tmp_path):
+    store = ScanStore(data_dir=tmp_path)
+    store.write("2026-09-17", "rank", {"as_of": "2026-09-17", "kind": "rank", "signals": [{"ticker": "OLD"}]})
+    store.write("2026-09-18", "rank", {"as_of": "2026-09-18", "kind": "rank", "signals": [{"ticker": "NEW"}]})
+
+    assert store.latest("rank")["signals"][0]["ticker"] == "NEW"
+
+
 def test_json_backend_still_round_trips_when_injected(tmp_path):
     store = ScanStore(data_dir=tmp_path, backend=JsonScanLog(tmp_path))
     store.write("2026-09-18", "fit", {"as_of": "2026-09-18", "signals": []})

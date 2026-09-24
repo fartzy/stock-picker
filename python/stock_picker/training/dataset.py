@@ -16,11 +16,12 @@ import pandas as pd
 
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 from stock_picker.features.structure import CLUSTER_GAP_COLUMN
+from stock_picker.features.weather import WEATHER_COLUMNS
 
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
 OPEN_KNOWN_FEATURE_COLUMNS = frozenset(
-    {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS}
+    {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS, *WEATHER_COLUMNS}
 )
 
 
