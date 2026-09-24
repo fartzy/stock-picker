@@ -39,6 +39,18 @@ py_pytest(
     ],
 )
 
+
+py_pytest(
+    name = "test_refresh_prices",
+    srcs = ["test_refresh_prices.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)
+
 py_pytest(
     name = "test_finnhub_client",
     srcs = ["test_finnhub_client.py"],

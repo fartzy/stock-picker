@@ -183,6 +183,11 @@ def _pipeline() -> Pipeline:
     return pipe
 
 
+def material_phrase_hits(text: str) -> list[str]:
+    blob = f" {(text or '').lower()} "
+    return [phrase for phrase in _MATERIAL_PHRASES if phrase in blob]
+
+
 def material_news_score(text: str) -> float:
     blob = (text or "").strip()
     if not blob:
@@ -197,6 +202,17 @@ def is_material_news(text: str) -> bool:
     if not blob:
         return False
     return int(_pipeline().predict([blob])[0]) == 1
+
+
+def classify_article_text(headline: str, summary: str = "") -> tuple[float, bool, list[str]]:
+    """Score + material flag + phrase hits for one headline/summary pair.
+
+    Stored on every universe article so later training can use the
+    continuous score, the skip-style flag, and the event-phrase list
+    (insider sells, Form 4, trial hold, dilution, ...) as features.
+    """
+    blob = f"{(headline or '').strip()}. {(summary or '').strip()}".strip()
+    return material_news_score(blob), is_material_news(blob), material_phrase_hits(blob)
 
 
 def news_flag_from_articles(articles: list[dict]) -> str | None:

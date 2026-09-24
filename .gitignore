@@ -12,6 +12,8 @@ __pycache__/
 .env
 data/buy_signals/*
 !data/buy_signals/.gitkeep
+data/news/*
+!data/news/.gitkeep
 .idea/
 # SQLite WAL sidecar -- the .db is the source of truth (trades, later scans).
 *.db-wal

@@ -26,13 +26,15 @@ import requests
 FINNHUB_QUOTE_URL = "https://finnhub.io/api/v1/quote"
 FINNHUB_EARNINGS_CALENDAR_URL = "https://finnhub.io/api/v1/calendar/earnings"
 FINNHUB_COMPANY_NEWS_URL = "https://finnhub.io/api/v1/company-news"
+FINNHUB_CANDLE_URL = "https://finnhub.io/api/v1/stock/candle"
 FINNHUB_API_KEY_ENV = "FINNHUB_API_KEY"
 FINNHUB_KEY_FILE = Path.home() / ".config" / "api" / "finnhub.txt"
 QUOTE_TIMEOUT_SECONDS = 10
 # Free-tier ceiling. Stay just under it so a leftover fill doesn't 429.
 MIN_SECONDS_BETWEEN_CALLS = 1.05
-# 200 leftover names would take ~3.5 minutes -- skip Finnhub and leave them
-# missing rather than blocking the whole morning scan.
+# 200 leftover names would take ~3.5 minutes. Fill the first
+# MAX_LEFTOVER_TICKERS so a 100-200 Yahoo miss still gets some opens;
+# the rest wait for the evening daily-bar backfill.
 MAX_LEFTOVER_TICKERS = 40
 
 
@@ -137,14 +139,18 @@ def fetch_finnhub_quotes(
     api_key: str | None = None,
     sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
 ) -> dict[str, dict]:
-    """Today's open/last/prev_close for leftover tickers. Empty if no key,
-    nothing left, or more leftovers than MAX_LEFTOVER_TICKERS."""
+    """Today's open/last/prev_close for leftover tickers.
+
+    Caps at MAX_LEFTOVER_TICKERS so 8:31 stays short; extras stay missing
+    until the evening daily-bar backfill. Empty if no key or nothing left.
+    """
     key = api_key if api_key is not None else finnhub_api_key()
-    if not key or not tickers or len(tickers) > MAX_LEFTOVER_TICKERS:
+    if not key or not tickers:
         return {}
+    names = tickers[:MAX_LEFTOVER_TICKERS]
     quotes = {}
     session = requests.Session()
-    for index, ticker in enumerate(tickers):
+    for index, ticker in enumerate(names):
         if index and sleep_seconds > 0:
             time.sleep(sleep_seconds)
         payload = fetch_one_finnhub_quote(ticker, key, session=session)
@@ -211,6 +217,99 @@ def fetch_earnings_tickers(
     return hits
 
 
+
+def candle_bars_from_payload(payload: dict, as_of: date | None = None) -> list[dict]:
+    """Shape one Finnhub /stock/candle JSON object into daily OHLCV rows.
+
+    `t` is unix seconds; dated in America/New_York like /quote. Rows after
+    `as_of` (in-progress session) are dropped. Pure, no network.
+    """
+    if not isinstance(payload, dict) or payload.get("s") != "ok":
+        return []
+    times = payload.get("t") or []
+    opens = payload.get("o") or []
+    highs = payload.get("h") or []
+    lows = payload.get("l") or []
+    closes = payload.get("c") or []
+    volumes = payload.get("v") or []
+    n = min(len(times), len(opens), len(highs), len(lows), len(closes), len(volumes))
+    bars = []
+    for i in range(n):
+        session_date = _session_date_from_unix(times[i])
+        if session_date is None:
+            continue
+        if as_of is not None and session_date > as_of:
+            continue
+        open_price = _finite_positive(opens[i])
+        high_price = _finite_positive(highs[i])
+        low_price = _finite_positive(lows[i])
+        close_price = _finite_positive(closes[i])
+        if open_price is None or close_price is None:
+            continue
+        try:
+            volume = float(volumes[i])
+        except (TypeError, ValueError):
+            volume = 0.0
+        bars.append(
+            {
+                "date": session_date,
+                "Open": open_price,
+                "High": high_price if high_price is not None else max(open_price, close_price),
+                "Low": low_price if low_price is not None else min(open_price, close_price),
+                "Close": close_price,
+                "Volume": volume if volume == volume and volume >= 0 else 0.0,
+            }
+        )
+    return bars
+
+
+def fetch_one_finnhub_candle(
+    ticker: str,
+    from_date: date,
+    to_date: date,
+    api_key: str,
+    session: requests.Session | None = None,
+) -> dict | None:
+    client = session or requests
+    start = datetime(from_date.year, from_date.month, from_date.day, tzinfo=ZoneInfo("America/New_York"))
+    end = datetime(to_date.year, to_date.month, to_date.day, 23, 59, 59, tzinfo=ZoneInfo("America/New_York"))
+    try:
+        response = client.get(
+            FINNHUB_CANDLE_URL,
+            params={
+                "symbol": finnhub_symbol(ticker),
+                "resolution": "D",
+                "from": int(start.timestamp()),
+                "to": int(end.timestamp()),
+                "token": api_key,
+            },
+            timeout=QUOTE_TIMEOUT_SECONDS,
+        )
+        if response.status_code == 429:
+            return None
+        response.raise_for_status()
+        payload = response.json()
+    except (requests.RequestException, ValueError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def fetch_finnhub_candles(
+    ticker: str,
+    from_date: date,
+    to_date: date,
+    api_key: str | None = None,
+) -> list[dict] | None:
+    """Daily OHLCV for one leftover name. None on transport/429; [] if no bars."""
+    key = api_key if api_key is not None else finnhub_api_key()
+    if not key:
+        return None
+    payload = fetch_one_finnhub_candle(ticker, from_date, to_date, key)
+    if payload is None:
+        return None
+    return candle_bars_from_payload(payload, as_of=to_date)
+
+
 # Only the names we already recommended -- not the 2000-name universe.
 MAX_NEWS_TICKERS = 40
 
@@ -221,7 +320,7 @@ def fetch_company_news(
     to_date: date,
     api_key: str | None = None,
     session: requests.Session | None = None,
-) -> list[dict]:
+) -> list[dict] | None:
     key = api_key if api_key is not None else finnhub_api_key()
     if not key:
         return []
@@ -240,9 +339,9 @@ def fetch_company_news(
         response.raise_for_status()
         payload = response.json()
     except (requests.RequestException, ValueError):
-        return []
+        return None
     if not isinstance(payload, list):
-        return []
+        return None
     return [row for row in payload if isinstance(row, dict)]
 
 

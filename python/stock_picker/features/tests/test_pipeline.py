@@ -17,6 +17,8 @@ def test_build_features_combines_every_category():
         "skew_20d",
         "day_of_week",
         "seq3_open3_seasonality",
+        "news_article_count_1d",
+        "news_has_insider_sell_3d",
     ]:
         assert column in features.columns
 

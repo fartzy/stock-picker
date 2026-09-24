@@ -48,6 +48,13 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_news_store",
+    srcs = ["test_news_store.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
     name = "test_paper_book_store",
     srcs = ["test_paper_book_store.py"],
     imports = ["../../.."],

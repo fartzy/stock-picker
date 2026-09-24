@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from stock_picker.features.news import articles_by_ticker
 from stock_picker.features.pipeline import build_features_for_universe
 from stock_picker.features.regime import VIX_TICKER
 from stock_picker.log import get_logger
@@ -33,7 +34,7 @@ def main() -> None:
             # Active in UniverseStore doesn't guarantee ingestion succeeded for it
             # (e.g. a transient yfinance failure) -- skip rather than crash the
             # whole run over one ticker. Nightly already retried these on the
-            # daily pull; leftover names still have no completed bar.
+            # daily pull and Finnhub candle backfill; leftover names still have no bar.
             logger.warning("skipping %s: no price data found", ticker)
             missing_prices.append(ticker)
             continue
@@ -65,12 +66,14 @@ def main() -> None:
     universe_store = UniverseStore()
     sector_by_ticker = universe_store.sector_by_ticker()
 
+    news_by_ticker = articles_by_ticker()
     features_by_ticker = build_features_for_universe(
         histories,
         benchmark_history=benchmark_history,
         sector_by_ticker=sector_by_ticker or None,
         spy_history=benchmark_history,
         vix_history=vix_history if not vix_history.empty else None,
+        news_articles_by_ticker=news_by_ticker,
     )
 
     feature_store = FeatureStore()

@@ -481,6 +481,35 @@ _pattern(
     ),
 )
 
+_pattern(
+    r"^news_article_count_(\d+)d$",
+    lambda m: (
+        f"Count of Finnhub company-news headlines on this ticker over the trailing "
+        f"{m[1]} trading {_day_plural(int(m[1]))} (completed sessions)."
+    ),
+)
+_pattern(
+    r"^news_max_material_score_(\d+)d$",
+    lambda m: (
+        f"Highest Tfidf + event-phrase material-news score over the trailing "
+        f"{m[1]} trading {_day_plural(int(m[1]))} (0 = routine, near 1 = skip-style news)."
+    ),
+)
+_pattern(
+    r"^news_has_material_(\d+)d$",
+    lambda m: (
+        f"1 if any headline in the trailing {m[1]} trading {_day_plural(int(m[1]))} "
+        "was classified as material news (trial hold, dilution, insider sell, ...)."
+    ),
+)
+_pattern(
+    r"^news_has_insider_sell_(\d+)d$",
+    lambda m: (
+        f"1 if any headline in the trailing {m[1]} trading {_day_plural(int(m[1]))} "
+        "hit an insider-sell phrase (Form 4, CTO sells, sold shares)."
+    ),
+)
+
 
 def describe_feature(name: str) -> str:
     """Plain-English description of a feature column, or a flagged placeholder if

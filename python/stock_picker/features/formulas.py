@@ -341,6 +341,26 @@ _pattern(
     ),
 )
 
+_pattern(
+    r"^news_article_count_(\d+)d$",
+    lambda m: f"count(articles with session_date in trailing {m[1]} sessions)",
+)
+_pattern(
+    r"^news_max_material_score_(\d+)d$",
+    lambda m: f"max(material_score of articles in trailing {m[1]} sessions, default 0)",
+)
+_pattern(
+    r"^news_has_material_(\d+)d$",
+    lambda m: f"1 if any article in trailing {m[1]} sessions has is_material else 0",
+)
+_pattern(
+    r"^news_has_insider_sell_(\d+)d$",
+    lambda m: (
+        f"1 if any article in trailing {m[1]} sessions hits insider-sell phrases "
+        "(form 4 / cto sells / sold shares)"
+    ),
+)
+
 
 def describe_computation(name: str) -> str:
     """Short pandas-expression formula for a feature column, or a flagged

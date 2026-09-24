@@ -1,7 +1,9 @@
 from stock_picker.training.headline_sentiment import (
+    classify_article_text,
     is_material_news,
     is_material_negative,
     material_negative_score,
+    material_phrase_hits,
     news_flag_from_articles,
 )
 
@@ -30,3 +32,15 @@ def test_news_flag_from_articles_picks_the_trial_headline():
 
     assert flag is not None
     assert "clinical trial" in flag.lower()
+
+
+def test_classify_article_text_exposes_score_flag_and_phrase_hits():
+    score, material, hits = classify_article_text(
+        "Insider sold 40,000 shares in Form 4 filing",
+        "",
+    )
+
+    assert material
+    assert score > 0.5
+    assert "form 4" in hits
+    assert "insider sell" not in material_phrase_hits("Analyst upgrades shares to buy on growth")

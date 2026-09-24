@@ -26,16 +26,20 @@ def run_nightly() -> int:
     cutoff = last_completed_session_date()
     logger.info("nightly start %s last_completed_session=%s", started.isoformat(), cutoff)
     try:
-        logger.info("=== 1/4 refresh prices ===")
+        logger.info("=== 1/5 refresh prices (Yahoo, then Finnhub leftover bars) ===")
         refresh_prices()
-        logger.info("=== 2/4 fill missing sectors (capped Yahoo profile pull) ===")
+        logger.info("=== 2/5 resume universe news ingest ===")
+        from stock_picker.training.news_ingest import ingest_universe_news
+
+        ingest_universe_news()
+        logger.info("=== 3/5 fill missing sectors (capped Yahoo profile pull) ===")
         from stock_picker.ingestion.fundamentals import refresh_missing_sectors
 
         n_sectors = refresh_missing_sectors()
         logger.info("wrote sectors for %s tickers", n_sectors)
-        logger.info("=== 3/4 rebuild features ===")
+        logger.info("=== 4/5 rebuild features ===")
         rebuild_features()
-        logger.info("=== 4/4 retrain (return ensemble + lambdarank if selected) ===")
+        logger.info("=== 5/5 retrain (return ensemble + lambdarank if selected) ===")
         # main() persists the pickle *and* appends TrainingRunStore --
         # run_training() alone overwrites latest without a run record, so
         # pipeline_freshness still thinks the model is days behind.

@@ -40,6 +40,7 @@ from stock_picker.training.notify import (
     write_picks_files,
 )
 from stock_picker.storage.training_config_store import TrainingConfigStore
+from stock_picker.training.news_ingest import ingest_universe_news
 from stock_picker.training.rank_model import RANK_NEWS_TOP_K, RANK_TOP_K
 
 logger = get_logger(__name__)
@@ -286,10 +287,14 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
             mailed,
         )
         logger.info("morning done %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
-        return 0
     finally:
         lock.close()
 
+    try:
+        ingest_universe_news()
+    except Exception:
+        logger.exception("universe news ingest failed")
+    return 0
 
 
 def main() -> None:
