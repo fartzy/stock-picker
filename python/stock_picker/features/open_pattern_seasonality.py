@@ -29,6 +29,10 @@ from stock_picker.features.conditional_seasonality import (
 from stock_picker.features.pattern_seasonality import day_session_return, day_session_streak
 from stock_picker.features.volatility import ATR_WINDOW, average_true_range
 
+SESSION_BIG = 0.01
+MONTH_CRASH = 0.30
+WEEK_RUN = 0.05
+DUMP_MONTH = 0.20
 GAP_LARGE_THRESHOLD = 0.015
 VOL_WINDOW = 20
 WILD_QUIET = 0.8
@@ -70,7 +74,61 @@ OPEN_KNOWN_COLUMNS = [
     "gap_trap_open_seasonality",
     "streak_crash_open_seasonality",
     "multi_crash_bounce_open_seasonality",
+    "two_big_then_fade_open3_seasonality",
+    "month_crash_yday_up_open3_seasonality",
+    "week_run_open3_seasonality",
+    "chase_then_fade_open3_seasonality",
+    "three_up_open3_seasonality",
+    "dump_then_quiet_open3_seasonality",
 ]
+
+# Experiment family -- train, then prune. Same open-known rules as above.
+STORY_OPEN_KNOWN_COLUMNS = [
+    "story_seq2_open5_seasonality",
+    "story_seq2_loc3_seasonality",
+    "story_seq4_open5_seasonality",
+    "story_seq4_loc3_seasonality",
+    "story_week_run_loc3_seasonality",
+    "story_week_run_open5_seasonality",
+    "story_month_crash_open5_seasonality",
+    "story_month_crash_loc3_seasonality",
+    "story_chase_loc3_seasonality",
+    "story_chase_open5_seasonality",
+    "story_three_up_loc3_seasonality",
+    "story_three_up_open5_seasonality",
+    "story_dump_quiet_loc3_seasonality",
+    "story_dump_quiet_open5_seasonality",
+    "story_two_big_fade_loc3_seasonality",
+    "story_two_big_fade_open5_seasonality",
+    "story_continuation_open5_seasonality",
+    "story_continuation_loc3_seasonality",
+    "story_reversal_open5_seasonality",
+    "story_reversal_loc3_seasonality",
+    "story_yday_swing_loc3_seasonality",
+    "story_yday_swing_open3_seasonality",
+    "story_down_run_open5_seasonality",
+    "story_down_run_loc3_seasonality",
+    "story_streak_loc3_seasonality",
+    "story_vol_regime_loc3_seasonality",
+    "story_wildest_loc3_seasonality",
+    "story_net3_loc3_seasonality",
+    "story_flips3_loc3_seasonality",
+    "story_seq3_week_open3_seasonality",
+    "story_seq2_week_open3_seasonality",
+    "story_inside_day_open3_seasonality",
+    "story_outside_day_open3_seasonality",
+    "story_weak_close_open3_seasonality",
+    "story_strong_close_open3_seasonality",
+    "story_two_gap_down_open3_seasonality",
+    "story_open_vs_5d_high_seasonality",
+    "story_open_vs_5d_low_seasonality",
+    "story_two_day_run_open3_seasonality",
+    "story_failed_bounce_open3_seasonality",
+    "story_three_same_gap_open3_seasonality",
+    "story_yday_range_week_open3_seasonality",
+]
+
+OPEN_KNOWN_COLUMNS = OPEN_KNOWN_COLUMNS + STORY_OPEN_KNOWN_COLUMNS
 
 
 def prior_bucket_mean(values: pd.Series, bucket: pd.Series) -> pd.Series:
@@ -247,6 +305,22 @@ class _Parts:
     gap_trap: pd.Series
     streak_crash: pd.Series
     multi_crash: pd.Series
+    two_big_fade: pd.Series
+    month_crash_bounce: pd.Series
+    week_run: pd.Series
+    chase_fade: pd.Series
+    three_up: pd.Series
+    dump_quiet: pd.Series
+    inside_day: pd.Series
+    outside_day: pd.Series
+    weak_close: pd.Series
+    strong_close: pd.Series
+    two_gap_down: pd.Series
+    open_vs_5d_high: pd.Series
+    open_vs_5d_low: pd.Series
+    two_day_run: pd.Series
+    failed_bounce: pd.Series
+    three_same_gap: pd.Series
 
 
 def _parts(history: pd.DataFrame) -> _Parts:
@@ -310,8 +384,7 @@ def _parts(history: pd.DataFrame) -> _Parts:
     yday_swing[yday_valid & (yday >= 0) & yday_large.eq(False)] = "up"
     yday_swing[yday_valid & (yday >= 0) & yday_large.eq(True)] = "big_up"
 
-    two_day_swing = combine_keys(
-        size_label(two_large),
+    two_day_swing = combine_keys(size_label(two_large),
         size_label(yday_large),
         last_dir,
     )
@@ -395,6 +468,120 @@ def _parts(history: pd.DataFrame) -> _Parts:
     extreme_label[yday_extreme.eq(False)] = "normal"
     multi_crash = combine_keys(down_path, extreme_label, open5)
 
+    s4_sess = session.shift(4)
+    s3_sess = session.shift(3)
+    s2_sess = session.shift(2)
+    s1_sess = session.shift(1)
+    two_big_fade = pd.Series(pd.NA, index=history.index, dtype="object")
+    fade_hit = (
+        (s4_sess > SESSION_BIG)
+        & (s3_sess > SESSION_BIG)
+        & (s2_sess < -SESSION_BIG)
+        & (s1_sess < 0)
+        & (s1_sess >= -SESSION_BIG)
+    )
+    fade_known = s4_sess.notna() & s3_sess.notna() & s2_sess.notna() & s1_sess.notna()
+    two_big_fade[fade_known] = "miss"
+    two_big_fade[fade_hit.eq(True)] = "hit"
+
+    month_ret = history["Close"].shift(1) / history["Close"].shift(22) - 1.0
+    crash = pd.Series(pd.NA, index=history.index, dtype="object")
+    crash[month_ret.notna()] = np.where(month_ret[month_ret.notna()] < -MONTH_CRASH, "crash", "no_crash")
+    yday_up1 = pd.Series(pd.NA, index=history.index, dtype="object")
+    yday_up1[s1_sess.notna()] = np.where(s1_sess[s1_sess.notna()] > SESSION_BIG, "yday_up1", "not_up1")
+    month_crash_bounce = combine_keys(crash, yday_up1)
+
+    week_ret = history["Close"].shift(1) / history["Close"].shift(6) - 1.0
+    week_run = pd.Series(pd.NA, index=history.index, dtype="object")
+    week_known = week_ret.notna()
+    week_run[week_known & (week_ret > WEEK_RUN)] = "week_up"
+    week_run[week_known & (week_ret < -WEEK_RUN)] = "week_down"
+    week_run[week_known & (week_ret.abs() <= WEEK_RUN)] = "week_flat"
+
+    g1 = gap.shift(1)
+    g2 = gap.shift(2)
+    g3 = gap.shift(3)
+    chase_hit = (
+        (g3 > GAP_FLAT_THRESHOLD)
+        & (s3_sess > 0)
+        & (g2 < -GAP_FLAT_THRESHOLD)
+        & (s2_sess > 0)
+        & (g1 < -GAP_FLAT_THRESHOLD)
+        & (s1_sess > 0)
+    )
+    chase_known = (
+        g3.notna()
+        & s3_sess.notna()
+        & g2.notna()
+        & s2_sess.notna()
+        & g1.notna()
+        & s1_sess.notna()
+    )
+    chase_fade = pd.Series(pd.NA, index=history.index, dtype="object")
+    chase_fade[chase_known] = "miss"
+    chase_fade[chase_hit.eq(True)] = "hit"
+
+    three_up = pd.Series(pd.NA, index=history.index, dtype="object")
+    three_known = s1.notna() & s2.notna() & s3.notna()
+    three_up[three_known] = "not_uuu"
+    three_up[three_known & (s1 == 1.0) & (s2 == 1.0) & (s3 == 1.0)] = "uuu"
+
+    dump = pd.Series(pd.NA, index=history.index, dtype="object")
+    dump[month_ret.notna()] = np.where(month_ret[month_ret.notna()] < -DUMP_MONTH, "dump", "no_dump")
+    quiet_yday = pd.Series(pd.NA, index=history.index, dtype="object")
+    quiet_yday[s1_sess.notna()] = np.where(s1_sess[s1_sess.notna()].abs() < SESSION_BIG, "quiet", "not_quiet")
+    dump_quiet = combine_keys(dump, quiet_yday)
+
+    yday_high = history["High"].shift(1)
+    yday_low = history["Low"].shift(1)
+    two_high = history["High"].shift(2)
+    two_low = history["Low"].shift(2)
+    yday_close_loc = (history["Close"].shift(1) - yday_low) / (yday_high - yday_low).replace(0, np.nan)
+    inside_day = pd.Series(pd.NA, index=history.index, dtype="object")
+    inside_known = yday_high.notna() & yday_low.notna() & two_high.notna() & two_low.notna()
+    inside_hit = inside_known & (yday_high < two_high) & (yday_low > two_low)
+    inside_day[inside_known] = "not_inside"
+    inside_day[inside_hit] = "inside"
+    outside_day = pd.Series(pd.NA, index=history.index, dtype="object")
+    outside_hit = inside_known & (yday_high > two_high) & (yday_low < two_low)
+    outside_day[inside_known] = "not_outside"
+    outside_day[outside_hit] = "outside"
+    weak_close = pd.Series(pd.NA, index=history.index, dtype="object")
+    weak_known = yday_close_loc.notna()
+    weak_close[weak_known] = np.where(yday_close_loc[weak_known] < 0.25, "weak", "not_weak")
+    strong_close = pd.Series(pd.NA, index=history.index, dtype="object")
+    strong_close[weak_known] = np.where(yday_close_loc[weak_known] > 0.75, "strong", "not_strong")
+    two_gap_down = pd.Series(pd.NA, index=history.index, dtype="object")
+    two_gap_known = g1.notna() & g2.notna()
+    two_gap_down[two_gap_known] = "not_dd"
+    two_gap_down[two_gap_known & (g1 < -GAP_FLAT_THRESHOLD) & (g2 < -GAP_FLAT_THRESHOLD)] = "dd"
+    high5 = history["High"].shift(1).rolling(5, min_periods=5).max()
+    low5 = history["Low"].shift(1).rolling(5, min_periods=5).min()
+    open_ = history["Open"]
+    open_vs_5d_high = pd.Series(pd.NA, index=history.index, dtype="object")
+    high_known = open_.notna() & high5.notna()
+    open_vs_5d_high[high_known] = np.where(open_[high_known] >= high5[high_known], "at_high", "below_high")
+    open_vs_5d_low = pd.Series(pd.NA, index=history.index, dtype="object")
+    low_known = open_.notna() & low5.notna()
+    open_vs_5d_low[low_known] = np.where(open_[low_known] <= low5[low_known], "at_low", "above_low")
+    two_day_run = pd.Series(pd.NA, index=history.index, dtype="object")
+    two_known = s1.notna() & s2.notna()
+    two_day_run[two_known] = "mixed"
+    two_day_run[two_known & (s1 == 1.0) & (s2 == 1.0)] = "uu"
+    two_day_run[two_known & (s1 == -1.0) & (s2 == -1.0)] = "dd"
+    failed_bounce = pd.Series(pd.NA, index=history.index, dtype="object")
+    bounce_hit = (s2 == 1.0) & (s1 == -1.0) & (s3 == -1.0)
+    bounce_known = s1.notna() & s2.notna() & s3.notna()
+    failed_bounce[bounce_known] = "miss"
+    failed_bounce[bounce_hit.eq(True)] = "hit"
+    three_same_gap = pd.Series(pd.NA, index=history.index, dtype="object")
+    same_up = (g1 > GAP_FLAT_THRESHOLD) & (g2 > GAP_FLAT_THRESHOLD) & (open3 == "up")
+    same_down = (g1 < -GAP_FLAT_THRESHOLD) & (g2 < -GAP_FLAT_THRESHOLD) & (open3 == "down")
+    three_gap_known = g1.notna() & g2.notna() & open3.notna()
+    three_same_gap[three_gap_known] = "mixed"
+    three_same_gap[three_gap_known & same_up.eq(True)] = "uuu"
+    three_same_gap[three_gap_known & same_down.eq(True)] = "ddd"
+
     return _Parts(
         session=session,
         open3=open3,
@@ -426,6 +613,22 @@ def _parts(history: pd.DataFrame) -> _Parts:
         gap_trap=gap_trap,
         streak_crash=streak_crash,
         multi_crash=multi_crash,
+        two_big_fade=two_big_fade,
+        month_crash_bounce=month_crash_bounce,
+        week_run=week_run,
+        chase_fade=chase_fade,
+        three_up=three_up,
+        dump_quiet=dump_quiet,
+        inside_day=inside_day,
+        outside_day=outside_day,
+        weak_close=weak_close,
+        strong_close=strong_close,
+        two_gap_down=two_gap_down,
+        open_vs_5d_high=open_vs_5d_high,
+        open_vs_5d_low=open_vs_5d_low,
+        two_day_run=two_day_run,
+        failed_bounce=failed_bounce,
+        three_same_gap=three_same_gap,
     )
 
 
@@ -460,6 +663,54 @@ def build_open_pattern_features(history: pd.DataFrame) -> pd.DataFrame:
         "gap_trap_open_seasonality": parts.gap_trap,
         "streak_crash_open_seasonality": parts.streak_crash,
         "multi_crash_bounce_open_seasonality": parts.multi_crash,
+        "two_big_then_fade_open3_seasonality": combine_keys(parts.two_big_fade, parts.open3),
+        "month_crash_yday_up_open3_seasonality": combine_keys(parts.month_crash_bounce, parts.open3),
+        "week_run_open3_seasonality": combine_keys(parts.week_run, parts.open3),
+        "chase_then_fade_open3_seasonality": combine_keys(parts.chase_fade, parts.open3),
+        "three_up_open3_seasonality": combine_keys(parts.three_up, parts.open3),
+        "dump_then_quiet_open3_seasonality": combine_keys(parts.dump_quiet, parts.open3),
+        "story_seq2_open5_seasonality": combine_keys(parts.seq2, parts.open5),
+        "story_seq2_loc3_seasonality": combine_keys(parts.seq2, parts.loc3),
+        "story_seq4_open5_seasonality": combine_keys(parts.seq4, parts.open5),
+        "story_seq4_loc3_seasonality": combine_keys(parts.seq4, parts.loc3),
+        "story_week_run_loc3_seasonality": combine_keys(parts.week_run, parts.loc3),
+        "story_week_run_open5_seasonality": combine_keys(parts.week_run, parts.open5),
+        "story_month_crash_open5_seasonality": combine_keys(parts.month_crash_bounce, parts.open5),
+        "story_month_crash_loc3_seasonality": combine_keys(parts.month_crash_bounce, parts.loc3),
+        "story_chase_loc3_seasonality": combine_keys(parts.chase_fade, parts.loc3),
+        "story_chase_open5_seasonality": combine_keys(parts.chase_fade, parts.open5),
+        "story_three_up_loc3_seasonality": combine_keys(parts.three_up, parts.loc3),
+        "story_three_up_open5_seasonality": combine_keys(parts.three_up, parts.open5),
+        "story_dump_quiet_loc3_seasonality": combine_keys(parts.dump_quiet, parts.loc3),
+        "story_dump_quiet_open5_seasonality": combine_keys(parts.dump_quiet, parts.open5),
+        "story_two_big_fade_loc3_seasonality": combine_keys(parts.two_big_fade, parts.loc3),
+        "story_two_big_fade_open5_seasonality": combine_keys(parts.two_big_fade, parts.open5),
+        "story_continuation_open5_seasonality": combine_keys(parts.continuation, parts.open5),
+        "story_continuation_loc3_seasonality": combine_keys(parts.continuation, parts.loc3),
+        "story_reversal_open5_seasonality": combine_keys(parts.late_reversal, parts.open5),
+        "story_reversal_loc3_seasonality": combine_keys(parts.late_reversal, parts.loc3),
+        "story_yday_swing_loc3_seasonality": combine_keys(parts.yday_swing, parts.loc3),
+        "story_yday_swing_open3_seasonality": combine_keys(parts.yday_swing, parts.open3),
+        "story_down_run_open5_seasonality": combine_keys(parts.down_run, parts.open5),
+        "story_down_run_loc3_seasonality": combine_keys(parts.down_run, parts.loc3),
+        "story_streak_loc3_seasonality": combine_keys(parts.streak, parts.loc3),
+        "story_vol_regime_loc3_seasonality": combine_keys(parts.vol_regime, parts.loc3),
+        "story_wildest_loc3_seasonality": combine_keys(parts.wildest, parts.loc3),
+        "story_net3_loc3_seasonality": combine_keys(parts.net3, parts.loc3),
+        "story_flips3_loc3_seasonality": combine_keys(parts.flips3, parts.loc3),
+        "story_seq3_week_open3_seasonality": combine_keys(parts.seq3, parts.week_run, parts.open3),
+        "story_seq2_week_open3_seasonality": combine_keys(parts.seq2, parts.week_run, parts.open3),
+        "story_inside_day_open3_seasonality": combine_keys(parts.inside_day, parts.open3),
+        "story_outside_day_open3_seasonality": combine_keys(parts.outside_day, parts.open3),
+        "story_weak_close_open3_seasonality": combine_keys(parts.weak_close, parts.open3),
+        "story_strong_close_open3_seasonality": combine_keys(parts.strong_close, parts.open3),
+        "story_two_gap_down_open3_seasonality": combine_keys(parts.two_gap_down, parts.open3),
+        "story_open_vs_5d_high_seasonality": parts.open_vs_5d_high,
+        "story_open_vs_5d_low_seasonality": parts.open_vs_5d_low,
+        "story_two_day_run_open3_seasonality": combine_keys(parts.two_day_run, parts.open3),
+        "story_failed_bounce_open3_seasonality": combine_keys(parts.failed_bounce, parts.open3),
+        "story_three_same_gap_open3_seasonality": combine_keys(parts.three_same_gap, parts.open3),
+        "story_yday_range_week_open3_seasonality": combine_keys(parts.yday_range, parts.week_run, parts.open3),
     }
     return pd.DataFrame(
         {name: prior_bucket_mean(parts.session, bucket) for name, bucket in buckets.items()},

@@ -432,6 +432,57 @@ _pattern(
         "other times that path + bounce happened, averaged +0.5% → ≈ 0.005."
     ),
 )
+_pattern(
+    r"^two_big_then_fade_open3_seasonality$",
+    lambda m: (
+        "Up >1% four and three days ago, down >1% two days ago, small down yesterday, "
+        "gapped down this morning: other times that fade happened, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^month_crash_yday_up_open3_seasonality$",
+    lambda m: (
+        "Down over 30% in a month, yesterday up >1%, open within 1% of yesterday's "
+        "close: other times that bounce setup happened, averaged +0.4% → ≈ 0.004."
+    ),
+)
+_pattern(
+    r"^week_run_open3_seasonality$",
+    lambda m: (
+        "Up over 5% on the week, this morning gapped down: other times that run + "
+        "gap happened, averaged -0.2% → ≈ -0.002."
+    ),
+)
+_pattern(
+    r"^chase_then_fade_open3_seasonality$",
+    lambda m: (
+        "Three days of chasing (gap up then two gap-down opens that still closed up), "
+        "this morning gapped down: other times that chase faded, averaged +0.3% → ≈ 0.003."
+    ),
+)
+_pattern(
+    r"^three_up_open3_seasonality$",
+    lambda m: (
+        "Three up sessions, this morning gapped down: other times that stretch + "
+        "gap happened, averaged +0.2% → ≈ 0.002."
+    ),
+)
+_pattern(
+    r"^dump_then_quiet_open3_seasonality$",
+    lambda m: (
+        "Down over 20% in a month, quiet yesterday, this morning gapped up: other "
+        "times that dump then quiet happened, averaged +0.4% → ≈ 0.004."
+    ),
+)
+
+
+_pattern(
+    r"^story_.+_seasonality$",
+    lambda m: (
+        "Same completed-day story as the named path, this morning's gap or "
+        "open location matched a prior time: session averaged +0.3% → ≈ 0.003."
+    ),
+)
 
 _pattern(
     r"^news_article_count_(\d+)d$",

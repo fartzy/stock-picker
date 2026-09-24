@@ -18,12 +18,21 @@ def test_build_open_pattern_features_has_the_named_open_known_columns():
     features = build_open_pattern_features(synthetic_history(n=140))
 
     assert list(features.columns) == OPEN_KNOWN_COLUMNS
-    assert len(OPEN_KNOWN_COLUMNS) == 28
+    from stock_picker.features.open_pattern_seasonality import STORY_OPEN_KNOWN_COLUMNS
+
+    assert len(OPEN_KNOWN_COLUMNS) == 34 + len(STORY_OPEN_KNOWN_COLUMNS)
+    assert all(name in features.columns for name in STORY_OPEN_KNOWN_COLUMNS)
     for column in (
         "gap_seq3_open3_seasonality",
         "gap_trap_open_seasonality",
         "streak_crash_open_seasonality",
         "multi_crash_bounce_open_seasonality",
+        "two_big_then_fade_open3_seasonality",
+        "month_crash_yday_up_open3_seasonality",
+        "week_run_open3_seasonality",
+        "chase_then_fade_open3_seasonality",
+        "three_up_open3_seasonality",
+        "dump_then_quiet_open3_seasonality",
     ):
         assert column in features.columns
 
@@ -37,6 +46,24 @@ def test_prior_bucket_mean_excludes_the_current_row():
     assert pd.isna(result.iloc[0])
     assert result.iloc[1] == pytest.approx(1.0)
     assert result.iloc[2] == pytest.approx(2.0)
+
+
+def test_two_big_then_fade_bucket_hits_the_named_path():
+    from stock_picker.features.open_pattern_seasonality import _parts
+
+    index = pd.bdate_range("2026-01-05", periods=8)
+    sessions = [0.0, 0.0, 0.0, 0.02, 0.02, -0.02, -0.005, 0.0]
+    opens = [10.0]
+    closes = [10.0]
+    for session in sessions[1:]:
+        opens.append(closes[-1])
+        closes.append(opens[-1] * (1.0 + session))
+    history = pd.DataFrame(
+        {"Open": opens, "High": closes, "Low": opens, "Close": closes, "Volume": [1.0] * 8},
+        index=index,
+    )
+    parts = _parts(history)
+    assert parts.two_big_fade.iloc[-1] == "hit"
 
 
 def test_completed_sequence_uses_prior_days_not_today():

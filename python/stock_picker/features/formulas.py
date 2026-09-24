@@ -340,6 +340,62 @@ _pattern(
         "+ gap5(open); session.groupby(bucket).expanding().mean().shift(1)"
     ),
 )
+_pattern(
+    r"^two_big_then_fade_open3_seasonality$",
+    lambda m: (
+        "bucket = (session.shift(4)>1% and session.shift(3)>1% and "
+        "session.shift(2)<-1% and -1%<=session.shift(1)<0) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^month_crash_yday_up_open3_seasonality$",
+    lambda m: (
+        "bucket = (Close.shift(1)/Close.shift(22)-1 < -30%) + "
+        "(session.shift(1)>1%) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^week_run_open3_seasonality$",
+    lambda m: (
+        "bucket = sign of Close.shift(1)/Close.shift(6)-1 vs +/-5% + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^chase_then_fade_open3_seasonality$",
+    lambda m: (
+        "bucket = (gap.shift(3)>0.5% & session.shift(3)>0 and "
+        "gap.shift(2)< -0.5% & session.shift(2)>0 and "
+        "gap.shift(1)< -0.5% & session.shift(1)>0) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^three_up_open3_seasonality$",
+    lambda m: (
+        "bucket = (session.shift(1..3) all up?) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+_pattern(
+    r"^dump_then_quiet_open3_seasonality$",
+    lambda m: (
+        "bucket = (Close.shift(1)/Close.shift(22)-1 < -20%) + "
+        "(|session.shift(1)|<1%) + gap3(open); "
+        "session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
+
+
+_pattern(
+    r"^story_.+_seasonality$",
+    lambda m: (
+        "bucket = story path (completed sessions / week-month / gap sequence) "
+        "+ this morning's open bucket; session.groupby(bucket).expanding().mean().shift(1)"
+    ),
+)
 
 _pattern(
     r"^news_article_count_(\d+)d$",
