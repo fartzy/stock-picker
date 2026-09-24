@@ -404,6 +404,21 @@ def get_morning_check() -> MorningCheckResponse:
     return MorningCheckResponse(**asdict(morning_check_job.status()))
 
 
+@router.get("/morning-check/runs")
+def list_morning_checks() -> list[dict]:
+    return morning_check_job.saved_runs()
+
+
+@router.post("/morning-check/load")
+def load_morning_check(body: MorningCheckRequest) -> MorningCheckResponse:
+    if not body.run_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="run_id required")
+    loaded = morning_check_job.load_saved(body.run_id)
+    if loaded is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="test run not found")
+    return MorningCheckResponse(**asdict(loaded))
+
+
 @router.get("/morning-job")
 def get_morning_job() -> MorningJobSettings:
     return MorningJobSettings(enabled=TrainingConfigStore().read().morning_job_enabled)

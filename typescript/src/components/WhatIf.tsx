@@ -153,7 +153,7 @@ export default function WhatIf() {
   });
 
   if (error) return <p className="error">{error}</p>;
-  if (!data) return <p className="muted">Loading paper book...</p>;
+  if (!data) return <p className="muted">Loading…</p>;
 
   return (
     <div>

@@ -132,7 +132,7 @@ export default function Registry({
 } = {}) {
   const { data: registry, error: registryError } = useFetchData<RegistryResponse>(fetchRegistry);
   const { data: catalog, error: catalogError } = useFetchData<CatalogResponse>(fetchCatalog);
-  const { data: coverage, error: coverageError } = useFetchData<CoverageResponse>(fetchCoverage);
+  const { data: coverage } = useFetchData<CoverageResponse>(fetchCoverage);
   const { data: importance, error: importanceError } =
     useFetchData<ImportanceResponse>(fetchFeatureImportance);
   const { data: prunedData, error: prunedError } = useFetchData<PrunedFeaturesResponse>(
@@ -141,8 +141,7 @@ export default function Registry({
   );
   const { data: selectionData, error: selectionError } =
     useFetchData<FeatureSelectionResponse>(fetchFeatureSelection);
-  const { data: correlationData, error: correlationError } =
-    useFetchData<CorrelationResponse>(fetchCorrelation);
+  const { data: correlationData } = useFetchData<CorrelationResponse>(fetchCorrelation);
   const [sortMode, setSortMode] = useState<SortMode>("pipeline");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [prunedOverride, setPrunedOverride] = useState<Set<string> | null>(null);
@@ -398,7 +397,7 @@ export default function Registry({
               const isExpanded = expandedFeatures.has(feature);
               return (
                 <div
-                  className={`feature-row${feature === highlightedFeature ? " feature-row-highlight" : ""}`}
+                  className={`feature-row row-hover${feature === highlightedFeature ? " feature-row-highlight" : ""}`}
                   key={feature}
                   ref={(el) => {
                     if (el) rowRefs.current.set(feature, el);

@@ -26,6 +26,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from stock_picker.features.open_pattern_seasonality import STORY_OPEN_KNOWN_COLUMNS
+from stock_picker.features.structure import STRUCTURE_COLUMNS
+from stock_picker.features.weather import WEATHER_COLUMNS
 from stock_picker.features.pruning import pruned_features
 from stock_picker.log import get_logger
 from stock_picker.storage.feature_exclusion_store import PrunedFeatureStore
@@ -50,7 +52,12 @@ NAMED_EXPERIMENT_COLUMNS = (
     "three_up_open3_seasonality",
     "dump_then_quiet_open3_seasonality",
 )
-EXPERIMENT_COLUMNS = tuple(NAMED_EXPERIMENT_COLUMNS) + tuple(STORY_OPEN_KNOWN_COLUMNS)
+EXPERIMENT_COLUMNS = (
+    tuple(NAMED_EXPERIMENT_COLUMNS)
+    + tuple(STORY_OPEN_KNOWN_COLUMNS)
+    + tuple(STRUCTURE_COLUMNS)
+    + tuple(WEATHER_COLUMNS)
+)
 LASSO_ALPHA = 1e-4
 PRUNE_REASON = "story prune: below-median RF and Ridge (or Lasso zero)"
 

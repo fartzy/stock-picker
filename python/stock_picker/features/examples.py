@@ -525,6 +525,32 @@ _pattern(
 )
 
 
+_pattern(
+    r"^weather_nyc_tmax_yday$",
+    lambda m: "Yesterday in Central Park hit 28C → 28.0.",
+)
+_pattern(
+    r"^weather_nyc_tmin_yday$",
+    lambda m: "Overnight low 12C → 12.0.",
+)
+_pattern(
+    r"^weather_nyc_precip_yday$",
+    lambda m: "12 mm of rain yesterday → 12.0.",
+)
+_pattern(
+    r"^weather_nyc_snow_yday$",
+    lambda m: "No snow → 0.0.",
+)
+_pattern(
+    r"^weather_nyc_hdd_yday$",
+    lambda m: "Mean 10C vs 18C base → 8.0 HDD.",
+)
+_pattern(
+    r"^weather_nyc_cdd_yday$",
+    lambda m: "Mean 22C vs 18C base → 4.0 CDD.",
+)
+
+
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if
     no pattern matches."""

@@ -17,6 +17,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//python/stock_picker:log",
         "//python/stock_picker/features",
         "//python/stock_picker/ingestion",
         "//python/stock_picker/paper",
@@ -35,6 +36,7 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":api",
+        "//python/stock_picker:log",
         "@pypi//uvicorn",
     ],
 )

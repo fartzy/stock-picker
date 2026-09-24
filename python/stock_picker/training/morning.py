@@ -70,8 +70,10 @@ def load_cached_signals(
     signal_dir: Path = DEFAULT_SIGNAL_DIR,
     kind: str = "fit",
 ) -> dict | None:
-    day = as_of or date.today().isoformat()
-    return ScanStore(data_dir=signal_dir).read(day, kind)
+    store = ScanStore(data_dir=signal_dir)
+    if as_of:
+        return store.read(as_of, kind)
+    return store.read(date.today().isoformat(), kind) or store.latest(kind)
 
 
 def _write_signals(payload: dict, as_of: str, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> Path:

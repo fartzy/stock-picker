@@ -31,6 +31,7 @@ def test_list_feature_columns_has_all_categories():
         "regime",
         "news",
         "structure",
+        "weather",
     }
     assert set(catalog) == expected_categories
     for columns in catalog.values():

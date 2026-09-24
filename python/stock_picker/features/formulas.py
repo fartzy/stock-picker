@@ -441,6 +441,12 @@ _pattern(
 )
 
 
+_pattern(
+    r"^weather_nyc_(tmax|tmin|precip|snow|hdd|cdd)_yday$",
+    lambda m: "Open-Meteo daily NYC series as of calendar T-1, aligned to the feature date T",
+)
+
+
 def describe_computation(name: str) -> str:
     """Short pandas-expression formula for a feature column, or a flagged
     placeholder if no pattern matches."""
