@@ -873,35 +873,52 @@ details.view-card[open] > summary::before {
 
 .slice-bar {
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
+  align-items: stretch;
+  gap: var(--space-3);
   flex-wrap: wrap;
   margin-bottom: var(--space-4);
 }
 
-.slice-field {
+.toggle-pill {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
 }
 
-.slice-check {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--text-caption);
+.toggle-pill.on {
+  border-color: var(--accent);
+}
+
+.toggle-pill-btn {
+  border: 0;
+  background: transparent;
   color: var(--text-muted);
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: var(--text-label);
   font-family: var(--sans);
+}
+
+.toggle-pill-btn.active {
+  background: var(--surface-raised);
+  color: var(--text);
 }
 
 .slice-input {
   width: 72px;
-  padding: 8px 10px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+  padding: 10px 12px;
   font-size: var(--text-body);
+  background: transparent;
 }
 
 .slice-input:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
 .slice-result {
