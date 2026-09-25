@@ -45,7 +45,8 @@ function shiftCalendarDay(year: number, month: number, day: number, delta: numbe
 
 export function cashSessionDate(now: Date = new Date()): string {
   let { year, month, day, weekday } = nyParts(now);
-  while (weekday >= 5) {
+  // JS weekday: Sun=0 … Sat=6. Weekend is Sat/Sun, not Fri (Python's weekday() is Mon=0).
+  while (weekday === 0 || weekday === 6) {
     const prev = shiftCalendarDay(year, month, day, -1);
     year = prev.year;
     month = prev.month;
@@ -57,7 +58,7 @@ export function cashSessionDate(now: Date = new Date()): string {
 
 export function sessionHasClosed(now: Date = new Date()): boolean {
   const { hour, minute, weekday } = nyParts(now);
-  if (weekday >= 5) return true;
+  if (weekday === 0 || weekday === 6) return true;
   return hour > SESSION_CLOSE_HOUR || (hour === SESSION_CLOSE_HOUR && minute >= SESSION_CLOSE_SETTLE_MINUTES);
 }
 
