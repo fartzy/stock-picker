@@ -67,7 +67,7 @@ function MorningList({
   showLive: boolean;
   closed: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const tickers = list?.signals.map((s) => s.ticker) ?? [];
   const { quotes } = useQuotes(tickers, {
     enabled: showLive && open && tickers.length > 0,
@@ -157,7 +157,9 @@ export default function BuySignal() {
     deps: [jobTick],
     intervalMs: 2000,
   });
-  const scanRunning = scanStatus?.status === "running";
+  const listsReady =
+    isCashSessionToday(rankList?.as_of) && (rankList?.signals.length ?? 0) > 0;
+  const scanRunning = scanStatus?.status === "running" && !listsReady;
 
   async function handleModelChange(runId: string) {
     if (runId === LATEST_OPTION_VALUE) {
@@ -181,19 +183,24 @@ export default function BuySignal() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      fetchBuySignal(thresholdPct / 100, false, "rank"),
-      fetchBuySignal(thresholdPct / 100, false, "fit"),
-    ])
-      .then(([rank, fit]) => {
-        if (!cancelled) {
-          setRankList(rank);
-          setFitList(fit);
-        }
-      })
-      .catch(() => undefined);
+    function load() {
+      Promise.all([
+        fetchBuySignal(thresholdPct / 100, false, "rank"),
+        fetchBuySignal(thresholdPct / 100, false, "fit"),
+      ])
+        .then(([rank, fit]) => {
+          if (!cancelled) {
+            setRankList(rank);
+            setFitList(fit);
+          }
+        })
+        .catch(() => undefined);
+    }
+    load();
+    const intervalId = scanStatus?.status === "running" ? setInterval(load, 2000) : undefined;
     return () => {
       cancelled = true;
+      if (intervalId) clearInterval(intervalId);
     };
   }, [thresholdPct, scanStatus?.status, scanStatus?.completed_at]);
 
@@ -205,6 +212,8 @@ export default function BuySignal() {
       if (scan.status === "failed") {
         throw new Error(scan.error || "morning scan failed");
       }
+      const rank = await fetchBuySignal(thresholdPct / 100, false, "rank");
+      if (isCashSessionToday(rank.as_of) && rank.signals.length > 0) return;
       await new Promise((resolve) => setTimeout(resolve, 2000));
     }
     throw new Error("morning scan is still running");
