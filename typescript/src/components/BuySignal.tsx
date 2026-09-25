@@ -22,6 +22,7 @@ import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
 import { Diff } from "./Diff";
 import FreshnessBadge from "./FreshnessBadge";
+import TogglePill from "./TogglePill";
 
 const LATEST_OPTION_VALUE = "";
 const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
@@ -372,14 +373,9 @@ function MorningTrigger({
 
   return (
     <div className="meta-row" style={{ marginTop: "var(--space-3)" }}>
-      <label className="muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <input
-          type="checkbox"
-          checked={job?.enabled !== false}
-          onChange={(event) => toggleJob(event.target.checked)}
-        />
+      <TogglePill on={job?.enabled !== false} onToggle={() => toggleJob(job?.enabled === false)}>
         If I don't click, start at 8:31 anyway
-      </label>
+      </TogglePill>
       {jobError && <span className="error">{jobError}</span>}
     </div>
   );

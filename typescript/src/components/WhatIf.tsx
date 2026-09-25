@@ -7,6 +7,7 @@ import {
   type PaperPickRow,
 } from "../api";
 import { useFetchData } from "../useFetchData";
+import TogglePill from "./TogglePill";
 
 type Kind = "fit" | "rank" | "both";
 
@@ -259,24 +260,26 @@ function TopField({
   onValue: (value: string) => void;
 }) {
   return (
-    <div className="slice-field">
-      <label className="slice-check">
-        <input type="checkbox" checked={enabled} onChange={(event) => onEnabled(event.target.checked)} />
-        {label}
-      </label>
-      <input
-        className="form-input slice-input"
-        type="number"
-        min={1}
-        step={1}
-        inputMode="numeric"
-        placeholder="all"
-        disabled={!enabled}
-        value={value}
-        onChange={(event) => onValue(event.target.value)}
-        aria-label={`${label} top`}
-      />
-    </div>
+    <TogglePill
+      on={enabled}
+      onToggle={() => onEnabled(!enabled)}
+      extra={
+        <input
+          className="form-input slice-input"
+          type="number"
+          min={1}
+          step={1}
+          inputMode="numeric"
+          placeholder="all"
+          disabled={!enabled}
+          value={value}
+          onChange={(event) => onValue(event.target.value)}
+          aria-label={`${label} top`}
+        />
+      }
+    >
+      {label}
+    </TogglePill>
   );
 }
 
