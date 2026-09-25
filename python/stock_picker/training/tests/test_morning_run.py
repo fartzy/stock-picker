@@ -34,6 +34,26 @@ def test_run_morning_skips_when_8_32_job_is_disabled(tmp_path, monkeypatch):
     assert quotes_called == []
 
 
+def test_run_morning_skips_scheduled_run_when_today_already_scored(tmp_path, monkeypatch):
+    monkeypatch.setattr(m, "_LOCK_PATH", tmp_path / "morning.lock")
+    monkeypatch.setattr(
+        m,
+        "pipeline_freshness",
+        lambda: SimpleNamespace(ready_for_inference=True, detail="ready", as_of="2026-09-25"),
+    )
+    monkeypatch.setattr(
+        m,
+        "TrainingConfigStore",
+        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
+    )
+    monkeypatch.setattr(m, "load_cached_signals", lambda kind="fit": {"as_of": "2026-09-25"} if kind == "rank" else None)
+    quotes_called = []
+    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: quotes_called.append(True) or {})
+
+    assert m.run_morning() == 0
+    assert quotes_called == []
+
+
 def test_run_morning_skips_when_a_scan_is_already_running(tmp_path, monkeypatch):
     monkeypatch.setattr(m, "_LOCK_PATH", tmp_path / "morning.lock")
     monkeypatch.setattr(
@@ -46,6 +66,7 @@ def test_run_morning_skips_when_a_scan_is_already_running(tmp_path, monkeypatch)
         "TrainingConfigStore",
         lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
     )
+    monkeypatch.setattr(m, "load_cached_signals", lambda **k: None)
     quotes_called = []
     monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: quotes_called.append(True) or {})
     held = m._try_lock_morning()

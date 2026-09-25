@@ -871,6 +871,66 @@ details.view-card[open] > summary::before {
   color: var(--bad);
 }
 
+.slice-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.slice-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.slice-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-family: var(--sans);
+}
+
+.slice-input {
+  width: 72px;
+  padding: 8px 10px;
+  font-size: var(--text-body);
+}
+
+.slice-input:disabled {
+  opacity: 0.45;
+}
+
+.slice-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  .slice-result {
+    grid-template-columns: 1fr;
+  }
+}
+
+.slice-card {
+  padding: var(--space-3);
+}
+
+.slice-card-kicker {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.slice-card-avg {
+  font-size: var(--text-heading-sm);
+  font-family: var(--sans);
+}
+
 .list-toggle {
   display: inline-flex;
   gap: var(--space-2);

@@ -2,12 +2,83 @@ import { useState } from "react";
 import {
   fetchPaperBook,
   type PaperBookDay,
+  type PaperBookResponse,
   type PaperListStats,
   type PaperPickRow,
 } from "../api";
 import { useFetchData } from "../useFetchData";
 
 type Kind = "fit" | "rank" | "both";
+
+function listStats(rows: PaperPickRow[]): PaperListStats {
+  const flagged = rows.filter((row) => row.news_blocks);
+  const kept = rows.filter((row) => !row.news_blocks);
+  const rets = kept.map((row) => row.session_return).filter((value): value is number => value !== null);
+  const nScored = rets.length;
+  const wins = rets.filter((value) => value > 0).length;
+  const losses = rets.filter((value) => value < 0).length;
+  const avg = nScored ? rets.reduce((sum, value) => sum + value, 0) / nScored : null;
+  return {
+    n: rows.length,
+    n_scored: nScored,
+    wins,
+    losses,
+    flats: nScored - wins - losses,
+    hit_rate: nScored ? wins / nScored : null,
+    avg,
+    n_avoid: flagged.length,
+    avg_ex_news: avg,
+  };
+}
+
+function compound(avgs: number[]): number | null {
+  if (avgs.length === 0) return null;
+  return avgs.reduceRight((wealth, avg) => wealth * (1 + avg), 1) - 1;
+}
+
+function takeTop(rows: PaperPickRow[], topK: number | undefined): PaperPickRow[] {
+  if (topK === undefined) return rows;
+  return rows.filter((row) => row.rank <= topK);
+}
+
+function sliceBook(
+  data: PaperBookResponse,
+  kind: Kind,
+  fitTopK: number | undefined,
+  rankTopK: number | undefined,
+): PaperBookResponse {
+  const days = data.days.map((day) => {
+    const fit = kind === "rank" ? [] : takeTop(day.fit, fitTopK);
+    const rank = kind === "fit" ? [] : takeTop(day.rank, rankTopK);
+    const fitStats = listStats(fit);
+    const rankStats = listStats(rank);
+    return {
+      ...day,
+      fit,
+      rank,
+      fit_avg: fitStats.avg,
+      rank_avg: rankStats.avg,
+      fit_stats: fitStats,
+      rank_stats: rankStats,
+    };
+  });
+  const fitRows = days.flatMap((day) => day.fit);
+  const rankRows = days.flatMap((day) => day.rank);
+  const fitAvgs = days.map((day) => day.fit_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
+  const rankAvgs = days.map((day) => day.rank_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
+  return {
+    ...data,
+    days,
+    fit_compound: compound(fitAvgs),
+    rank_compound: compound(rankAvgs),
+    fit_days: fitAvgs.length,
+    rank_days: rankAvgs.length,
+    fit_stats: listStats(fitRows),
+    rank_stats: listStats(rankRows),
+    kind,
+    n_picks: fitRows.length + rankRows.length,
+  };
+}
 
 function formatDay(day: string): string {
   return new Date(`${day}T12:00:00`).toLocaleDateString("en-US", {
@@ -112,23 +183,44 @@ function ListTable({
   );
 }
 
-function DayCard({ day, kind }: { day: PaperBookDay; kind: Kind }) {
+function shortfallNote(asked: number | undefined, got: number, label: "Rank" | "Fit"): string | null {
+  if (asked === undefined || got === 0 || got >= asked) return null;
+  return `${label} had ${got} that morning`;
+}
+
+function DayCard({
+  day,
+  kind,
+  rankAsked,
+  fitAsked,
+}: {
+  day: PaperBookDay;
+  kind: Kind;
+  rankAsked: number | undefined;
+  fitAsked: number | undefined;
+}) {
+  const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
+  const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
   return (
     <details className="view-card">
       <summary>
         <strong style={{ color: "var(--accent)" }}>{formatDay(day.as_of)}</strong>{" "}
         <span className="view-meta">
-          {kind !== "rank" && day.fit.length > 0 && (
-            <>
-              Fit {day.fit.length} <Pct value={day.fit_avg} />
-              <StatsLine stats={day.fit_stats} />
-            </>
-          )}
-          {kind === "both" && day.fit.length > 0 && day.rank.length > 0 && " · "}
           {kind !== "fit" && day.rank.length > 0 && (
             <>
               Rank {day.rank.length} <Pct value={day.rank_avg} />
-              <StatsLine stats={day.rank_stats} />
+            </>
+          )}
+          {kind === "both" && day.fit.length > 0 && day.rank.length > 0 && " · "}
+          {kind !== "rank" && day.fit.length > 0 && (
+            <>
+              Fit {day.fit.length} <Pct value={day.fit_avg} />
+            </>
+          )}
+          {(rankNote || fitNote) && (
+            <>
+              {" · "}
+              <span className="muted">{[rankNote, fitNote].filter(Boolean).join(" · ")}</span>
             </>
           )}
         </span>
@@ -145,77 +237,112 @@ function DayCard({ day, kind }: { day: PaperBookDay; kind: Kind }) {
   );
 }
 
+function parseTop(raw: string): number | undefined {
+  const trimmed = raw.trim();
+  if (trimmed === "") return undefined;
+  const n = Number(trimmed);
+  if (!Number.isFinite(n) || n <= 0) return undefined;
+  return Math.floor(n);
+}
+
+function TopField({
+  label,
+  enabled,
+  onEnabled,
+  value,
+  onValue,
+}: {
+  label: string;
+  enabled: boolean;
+  onEnabled: (on: boolean) => void;
+  value: string;
+  onValue: (value: string) => void;
+}) {
+  return (
+    <div className="slice-field">
+      <label className="slice-check">
+        <input type="checkbox" checked={enabled} onChange={(event) => onEnabled(event.target.checked)} />
+        {label}
+      </label>
+      <input
+        className="form-input slice-input"
+        type="number"
+        min={1}
+        step={1}
+        inputMode="numeric"
+        placeholder="all"
+        disabled={!enabled}
+        value={value}
+        onChange={(event) => onValue(event.target.value)}
+        aria-label={`${label} top`}
+      />
+    </div>
+  );
+}
+
 export default function WhatIf() {
-  const [kind, setKind] = useState<Kind>("both");
-  const [topK, setTopK] = useState<number | undefined>(undefined);
-  const { data, error } = useFetchData(() => fetchPaperBook(kind, topK), {
-    deps: [kind, topK ?? "all"],
-  });
+  const [rankOn, setRankOn] = useState(true);
+  const [fitOn, setFitOn] = useState(true);
+  const [rankText, setRankText] = useState("5");
+  const [fitText, setFitText] = useState("5");
+  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [] });
 
   if (error) return <p className="error">{error}</p>;
-  if (!data) return <p className="muted">Loading…</p>;
+  if (!raw) return <p className="muted">Loading…</p>;
+
+  const rankAsked = rankOn ? parseTop(rankText) : undefined;
+  const fitAsked = fitOn ? parseTop(fitText) : undefined;
+  const kind: Kind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
+  const data = sliceBook(raw, kind, fitOn ? fitAsked : undefined, rankOn ? rankAsked : undefined);
 
   return (
     <div>
-      <div className="meta-row" style={{ marginBottom: "var(--space-3)" }}>
-        <div className="list-toggle" role="group" aria-label="List">
-          {(["both", "fit", "rank"] as Kind[]).map((option) => (
-            <button
-              key={option}
-              type="button"
-              className={kind === option ? "active" : ""}
-              onClick={() => setKind(option)}
-            >
-              {option === "both" ? "Fit + Rank" : option === "fit" ? "Fit" : "Rank"}
-            </button>
-          ))}
-        </div>
-        <label className="meta-label" htmlFor="whatif-topk">
-          Top
-        </label>
-        <select
-          id="whatif-topk"
-          className="form-select"
-          value={topK ?? "all"}
-          onChange={(event) => {
-            const value = event.target.value;
-            setTopK(value === "all" ? undefined : Number(value));
-          }}
-        >
-          <option value="all">all</option>
-          {[5, 10, 20, 50].map((n) => (
-            <option key={n} value={n}>
-              {n}
-            </option>
-          ))}
-        </select>
+      <div className="slice-bar">
+        <TopField label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText} />
+        <TopField label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText} />
       </div>
-      {data.days.length === 0 ? (
-        <p className="muted">No morning lists yet.</p>
+      {data.days.length === 0 || (!rankOn && !fitOn) ? (
+        <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists yet."}</p>
       ) : (
         <>
-          <div className="view-card">
-            {kind !== "rank" && (
-              <p className="period-row">
-                <strong>Fit</strong>
-                {` · ${data.fit_days}d · ${data.fit_stats?.n ?? data.n_picks} names · `}
-                <Pct value={data.fit_compound} />
-                {" compound"}
-                <StatsLine stats={data.fit_stats} />
-              </p>
+          <div className="slice-result">
+            {rankOn && (
+              <div className="view-card slice-card">
+                <div className="slice-card-kicker">
+                  Rank · {rankAsked === undefined ? "all" : `top ${rankAsked}`} · {data.rank_days}d
+                </div>
+                <div className="slice-card-avg">
+                  <Pct value={data.rank_compound} /> compound
+                </div>
+                <p className="view-meta" style={{ marginTop: 4 }}>
+                  {data.rank_stats?.n ?? 0} names
+                  <StatsLine stats={data.rank_stats} />
+                </p>
+              </div>
             )}
-            {kind !== "fit" && (
-              <p className="period-row">
-                <strong>Rank</strong>
-                {` · ${data.rank_days}d · ${data.rank_stats?.n ?? 0} names · `}
-                <Pct value={data.rank_compound} />
-                {" compound"}
-                <StatsLine stats={data.rank_stats} />
-              </p>
+            {fitOn && (
+              <div className="view-card slice-card">
+                <div className="slice-card-kicker">
+                  Fit · {fitAsked === undefined ? "all" : `top ${fitAsked}`} · {data.fit_days}d
+                </div>
+                <div className="slice-card-avg">
+                  <Pct value={data.fit_compound} /> compound
+                </div>
+                <p className="view-meta" style={{ marginTop: 4 }}>
+                  {data.fit_stats?.n ?? 0} names
+                  <StatsLine stats={data.fit_stats} />
+                </p>
+              </div>
             )}
           </div>
           {data.days.map((day) => (
-            <DayCard day={day} kind={kind} key={day.as_of} />
+            <DayCard
+              day={day}
+              kind={kind}
+              rankAsked={rankAsked}
+              fitAsked={fitAsked}
+              key={day.as_of}
+            />
           ))}
         </>
       )}
