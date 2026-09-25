@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
 
-from stock_picker.ingestion.session import CHICAGO_TIMEZONE
+from stock_picker.ingestion.session import CHICAGO_TIMEZONE, cash_session_date, session_has_closed
 from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
@@ -69,11 +69,24 @@ def load_cached_signals(
     as_of: str | None = None,
     signal_dir: Path = DEFAULT_SIGNAL_DIR,
     kind: str = "fit",
+    now: datetime | None = None,
 ) -> dict | None:
+    """Today's scan only, while the cash session is open.
+
+    Rank writes a few minutes before Fit. Falling back to `latest` in that
+    window labels Wednesday's names with Thursday's date. After the bell,
+    latest is fine for looking back.
+    """
     store = ScanStore(data_dir=signal_dir)
     if as_of:
         return store.read(as_of, kind)
-    return store.read(date.today().isoformat(), kind) or store.latest(kind)
+    today = cash_session_date(now).isoformat()
+    payload = store.read(today, kind)
+    if payload:
+        return payload
+    if not session_has_closed(now):
+        return None
+    return store.latest(kind)
 
 
 def _write_signals(payload: dict, as_of: str, signal_dir: Path = DEFAULT_SIGNAL_DIR) -> Path:
@@ -259,6 +272,9 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         return 1
     if not ignore_disabled and not TrainingConfigStore().read().morning_job_enabled:
         logger.warning("morning job disabled -- skipping scheduled run")
+        return 0
+    if not ignore_disabled and load_cached_signals(kind="rank"):
+        logger.info("today's rank already on disk -- skipping scheduled run")
         return 0
 
     lock = _try_lock_morning()

@@ -75,6 +75,7 @@ function MorningList({
   if (!list) return null;
   const noModel = list.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL);
   if (noModel) return null;
+  if (list.signals.length === 0 && list.scored_count === 0) return null;
   const liveLabel = closed ? "Close" : "Last";
   return (
     <details
@@ -145,7 +146,6 @@ export default function BuySignal() {
   const [error, setError] = useState<string | null>(null);
   const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
   const [jobTick, setJobTick] = useState(0);
-  const [autoRunOff, setAutoRunOff] = useState(false);
   const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
   const { data: trainingRuns } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
   const [modelRefreshCount, setModelRefreshCount] = useState(0);
@@ -218,7 +218,6 @@ export default function BuySignal() {
         setError("Job already running — getting this morning's prices.");
         await waitForScan();
       } else {
-        setAutoRunOff(true);
         await setMorningJob(false);
         setJobTick((n) => n + 1);
         try {
@@ -231,6 +230,8 @@ export default function BuySignal() {
           setError("Job already running — getting this morning's prices.");
         }
         await waitForScan();
+        await setMorningJob(true);
+        setJobTick((n) => n + 1);
       }
       const [rank, fit] = await Promise.all([
         fetchBuySignal(thresholdPct / 100, false, "rank"),
@@ -296,7 +297,7 @@ export default function BuySignal() {
           </button>
         </div>
       </div>
-      <MorningTrigger jobNonce={jobTick} forceOff={autoRunOff} />
+      <MorningTrigger jobNonce={jobTick} />
 
       {error && (
         <p className="error" style={{ marginTop: 8 }}>
@@ -328,18 +329,31 @@ function MorningLists({
   rankList: BuySignalResponse | null;
   fitList: BuySignalResponse | null;
 }) {
-  const asOf = rankList?.as_of ?? fitList?.as_of ?? null;
-  const showLive = isCashSessionToday(asOf);
   const closed = sessionHasClosed();
+  const rankToday = isCashSessionToday(rankList?.as_of);
+  const fitToday = isCashSessionToday(fitList?.as_of);
+  const headerAsOf = rankToday ? rankList?.as_of : fitToday ? fitList?.as_of : rankList?.as_of ?? fitList?.as_of;
   return (
     <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
       <summary>
         <strong>This morning</strong>
-        {asOf ? ` · ${asOf}` : ""}
+        {headerAsOf ? ` · ${headerAsOf}` : ""}
       </summary>
       <div className="morning-lists">
-        <MorningList title="Rank" list={rankList} isRank={true} showLive={showLive} closed={closed} />
-        <MorningList title="Fit 0.5%" list={fitList} isRank={false} showLive={showLive} closed={closed} />
+        <MorningList
+          title="Rank"
+          list={rankList}
+          isRank={true}
+          showLive={rankToday}
+          closed={closed}
+        />
+        <MorningList
+          title="Fit 0.5%"
+          list={fitList}
+          isRank={false}
+          showLive={fitToday}
+          closed={closed}
+        />
       </div>
     </details>
   );
@@ -347,10 +361,8 @@ function MorningLists({
 
 function MorningTrigger({
   jobNonce = 0,
-  forceOff = false,
 }: {
   jobNonce?: number;
-  forceOff?: boolean;
 }) {
   const { data: job, error: jobError } = useFetchData(fetchMorningJob, { deps: [jobNonce] });
 
@@ -363,7 +375,7 @@ function MorningTrigger({
       <label className="muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <input
           type="checkbox"
-          checked={!forceOff && job?.enabled !== false}
+          checked={job?.enabled !== false}
           onChange={(event) => toggleJob(event.target.checked)}
         />
         If I don't click, start at 8:31 anyway

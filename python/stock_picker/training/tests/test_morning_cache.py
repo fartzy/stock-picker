@@ -1,6 +1,10 @@
 import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from stock_picker.training.morning import load_cached_signals
+
+ET = ZoneInfo("America/New_York")
 
 
 def test_load_cached_signals_returns_today_payload(tmp_path):
@@ -22,6 +26,33 @@ def test_load_cached_signals_ignores_yesterdays_latest(tmp_path):
 
 def test_load_cached_signals_is_none_when_the_job_has_not_run(tmp_path):
     assert load_cached_signals(signal_dir=tmp_path) is None
+
+
+def test_open_session_does_not_serve_yesterdays_latest_as_today(tmp_path):
+    from stock_picker.storage.scan_store import ScanStore
+
+    ScanStore(data_dir=tmp_path).write(
+        "2026-09-23",
+        "rank",
+        {"as_of": "2026-09-23", "kind": "rank", "signals": [{"ticker": "TRLV"}]},
+    )
+    morning = datetime(2026, 9, 24, 9, 35, tzinfo=ET)
+
+    assert load_cached_signals(signal_dir=tmp_path, kind="rank", now=morning) is None
+
+
+def test_after_the_bell_latest_is_ok(tmp_path):
+    from stock_picker.storage.scan_store import ScanStore
+
+    ScanStore(data_dir=tmp_path).write(
+        "2026-09-23",
+        "fit",
+        {"as_of": "2026-09-23", "kind": "fit", "signals": [{"ticker": "TRLV"}]},
+    )
+    evening = datetime(2026, 9, 24, 16, 20, tzinfo=ET)
+
+    loaded = load_cached_signals(signal_dir=tmp_path, kind="fit", now=evening)
+    assert loaded["signals"][0]["ticker"] == "TRLV"
 
 
 def test_write_signals_lands_under_the_app_data_dir(tmp_path):

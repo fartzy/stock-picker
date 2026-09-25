@@ -36,6 +36,39 @@ def test_rebuild_stores_every_name_not_just_top_five(tmp_path):
     assert paper_book_view(picks, kind="rank")["n_picks"] == 0
 
 
+def test_paper_book_view_slices_fit_and_rank_separately():
+    from stock_picker.storage.paper_book_store import PaperPick
+
+    picks = [
+        PaperPick(
+            as_of="2026-09-24",
+            kind="fit",
+            rank=i,
+            ticker=f"F{i}",
+            predicted=0.01,
+            open_price=10.0,
+            close_price=10.1,
+            session_return=0.01,
+        )
+        for i in range(1, 6)
+    ] + [
+        PaperPick(
+            as_of="2026-09-24",
+            kind="rank",
+            rank=i,
+            ticker=f"R{i}",
+            predicted=0.5,
+            open_price=10.0,
+            close_price=10.1,
+            session_return=0.01,
+        )
+        for i in range(1, 6)
+    ]
+    sliced = paper_book_view(picks, kind="both", fit_top_k=2, rank_top_k=4)
+    assert [row["ticker"] for row in sliced["days"][0]["fit"]] == ["F1", "F2"]
+    assert [row["ticker"] for row in sliced["days"][0]["rank"]] == ["R1", "R2", "R3", "R4"]
+
+
 def test_rebuild_scores_open_to_close(tmp_path):
     scans = ScanStore(data_dir=tmp_path / "scans")
     scans.write(

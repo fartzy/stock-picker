@@ -198,6 +198,20 @@ def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse
     )
 
 
+def _empty_buy_signal(threshold: float) -> BuySignalResponse:
+    from stock_picker.ingestion.session import cash_session_date
+
+    return BuySignalResponse(
+        as_of=cash_session_date().isoformat(),
+        threshold=threshold,
+        signals=[],
+        scored_count=0,
+        skipped=[],
+        top_drivers=[],
+        cached=True,
+    )
+
+
 @router.get("/buy-signal")
 def get_buy_signal(
     threshold: float = DEFAULT_THRESHOLD, live: bool = False, kind: str = "fit"
@@ -208,6 +222,10 @@ def get_buy_signal(
         cached = _cached_buy_signal(threshold, kind=kind)
         if cached is not None:
             return cached
+        from stock_picker.ingestion.session import session_has_closed
+
+        if not session_has_closed():
+            return _empty_buy_signal(threshold)
     if kind == "rank":
         from stock_picker.training.buy_signal import compute_rank_signals
         from stock_picker.training.rank_model import RANK_TOP_K
@@ -268,13 +286,26 @@ def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
 
 
 @router.get("/paper-book")
-def get_paper_book(kind: str = "both", top_k: int | None = None) -> PaperBookResponse:
+def get_paper_book(
+    kind: str = "both",
+    top_k: int | None = None,
+    fit_top_k: int | None = None,
+    rank_top_k: int | None = None,
+) -> PaperBookResponse:
     if kind not in ("fit", "rank", "both"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="kind must be fit, rank, or both"
         )
     picks = load_or_rebuild()
-    return PaperBookResponse(**paper_book_view(picks, kind=kind, top_k=top_k))
+    return PaperBookResponse(
+        **paper_book_view(
+            picks,
+            kind=kind,
+            top_k=top_k,
+            fit_top_k=fit_top_k,
+            rank_top_k=rank_top_k,
+        )
+    )
 
 
 @router.get("/positions")

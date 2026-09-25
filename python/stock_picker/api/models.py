@@ -377,6 +377,8 @@ class PaperBookResponse(BaseModel):
     rank_stats: PaperListStats = PaperListStats()
     kind: str = "both"
     top_k: int | None = None
+    fit_top_k: int | None = None
+    rank_top_k: int | None = None
     n_picks: int = 0
 
 

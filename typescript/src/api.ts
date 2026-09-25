@@ -440,9 +440,16 @@ export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correla
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
-export const fetchPaperBook = (kind: "fit" | "rank" | "both" = "both", topK?: number) => {
+export const fetchPaperBook = (
+  kind: "fit" | "rank" | "both" = "both",
+  topK?: number,
+  fitTopK?: number,
+  rankTopK?: number,
+) => {
   const params = new URLSearchParams({ kind });
   if (topK !== undefined) params.set("top_k", String(topK));
+  if (fitTopK !== undefined) params.set("fit_top_k", String(fitTopK));
+  if (rankTopK !== undefined) params.set("rank_top_k", String(rankTopK));
   return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
 };
 export const fetchBenchmarkReturns = (dates: string[]) =>

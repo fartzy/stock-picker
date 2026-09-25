@@ -222,7 +222,10 @@ def load_or_rebuild(
     cutoff = last_completed_session_date()
     existing = book.read()
     if existing:
-        return existing
+        have = {p.as_of for p in existing}
+        needed = [day for day in scans.days() if date.fromisoformat(day) <= cutoff]
+        if needed and set(needed) <= have and not _missing_closes(existing, cutoff):
+            return existing
     return rebuild_paper_book(
         completed_through=cutoff,
         scan_store=scans,
@@ -274,14 +277,23 @@ def paper_book_view(
     picks: list[PaperPick],
     kind: str = "both",
     top_k: int | None = None,
+    fit_top_k: int | None = None,
+    rank_top_k: int | None = None,
 ) -> dict:
-    """Slice stored picks. kind is fit, rank, or both. top_k None = all."""
+    """Slice stored picks. kind is fit, rank, or both. top_k None = all.
+
+    fit_top_k / rank_top_k override top_k per list so Rank top 5 + Fit top 2
+    does not need a rebuild.
+    """
     wanted = KINDS if kind == "both" else (kind,)
+    fit_k = fit_top_k if fit_top_k is not None else top_k
+    rank_k = rank_top_k if rank_top_k is not None else top_k
     days: dict[str, dict] = {}
     for pick in picks:
         if pick.kind not in wanted:
             continue
-        if top_k is not None and pick.rank > top_k:
+        cap = fit_k if pick.kind == "fit" else rank_k
+        if cap is not None and pick.rank > cap:
             continue
         bucket = days.setdefault(pick.as_of, {"as_of": pick.as_of, "fit": [], "rank": []})
         bucket[pick.kind].append(
@@ -334,5 +346,7 @@ def paper_book_view(
         "rank_stats": _list_stats(rank_rows),
         "kind": kind,
         "top_k": top_k,
+        "fit_top_k": fit_k,
+        "rank_top_k": rank_k,
         "n_picks": sum(len(d["fit"]) + len(d["rank"]) for d in day_list),
     }
