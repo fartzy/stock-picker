@@ -43,7 +43,7 @@ def run_nightly() -> int:
         refresh_nyc_weather()
         logger.info("=== 5/6 rebuild features ===")
         rebuild_features()
-        logger.info("=== 6/6 retrain (return ensemble + lambdarank if selected) ===")
+        logger.info("=== 6/6 retrain (return ensemble + rank if selected) ===")
         # main() persists the pickle *and* appends TrainingRunStore --
         # run_training() alone overwrites latest without a run record, so
         # pipeline_freshness still thinks the model is days behind.

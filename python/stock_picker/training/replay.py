@@ -2,7 +2,7 @@
 
 Uses PriceStore daily bars (not Yahoo v7). Features are the last snapshot
 strictly before `as_of`. Fit is the archived run if `model_run_id` is set.
-Rank is still the latest lambdarank pickle -- we do not archive Rank per run.
+Rank is still the latest rank pickle (ListFold) -- we do not archive Rank per run.
 """
 
 from __future__ import annotations

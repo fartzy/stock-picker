@@ -78,7 +78,7 @@ _PACKAGES = {
 _DESCRIPTIONS = {
     "lightgbm": "Gradient-boosted trees predicting the continuous day-session return. Ensemble member.",
     "lightgbm_rank": (
-        "LightGBM lambdarank: orders names within a day (NDCG), not predicted percent. "
+        "LightGBM ListFold (listwise rank): orders names within a day, not predicted percent. "
         "Served as a parallel top-K list -- not an ensemble member with the return models."
     ),
     "random_forest": "Bagged regression trees predicting the continuous day-session return. Ensemble member.",

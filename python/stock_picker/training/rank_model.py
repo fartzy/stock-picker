@@ -1,6 +1,6 @@
-"""Fit and persist the lambdarank model next to production LightGBM.
+"""Fit and persist the ListFold rank model next to production LightGBM.
 
-Does not overwrite day_session_return.pkl. Learning-to-rank (lambdarank)
+Does not overwrite day_session_return.pkl. Learning-to-rank (ListFold)
 only penalizes wrong *order* within a day -- not |actual% − predicted%|.
 A winner scored "too low" in percent terms is fine if it still ranks above
 losers. Scores are relative, not percents; morning serving takes top-K,

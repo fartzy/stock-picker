@@ -102,7 +102,7 @@ def selected_model_specs() -> list[ModelSpec] | None:
 
 
 def partition_model_specs(specs: list[ModelSpec] | None) -> tuple[list[ModelSpec] | None, bool]:
-    """Split UI/CLI specs into return-ensemble members vs lambdarank.
+    """Split UI/CLI specs into return-ensemble members vs the rank model.
 
     Rank scores are not percents -- they cannot be weight-averaged with
     LightGBM/Ridge. None specs = default return composition *and* train rank.

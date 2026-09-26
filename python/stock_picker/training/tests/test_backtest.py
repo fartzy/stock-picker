@@ -3,6 +3,7 @@ import pytest
 
 from stock_picker.training.backtest import (
     rank_ic,
+    simulate_consensus,
     simulate_top_k,
     simulate_trades,
     simulate_trades_vol_normalized,
@@ -149,3 +150,46 @@ def test_sweep_vol_normalized_thresholds_returns_one_row_per_threshold():
 
     assert list(sweep["z_threshold"]) == [0.0, 1.0, 2.0]
     assert len(sweep) == 3
+
+
+def test_simulate_consensus_requires_both_gate_and_top_k():
+    # Four names on one day: only the first clears the 0.5% fit gate AND
+    # lands in the rank model's top-1. The second clears the gate but ranks
+    # low; the third ranks high but misses the gate; the fourth misses both.
+    fit_predicted = pd.Series([0.02, 0.03, 0.001, -0.01])
+    rank_predicted = pd.Series([9.0, 1.0, 8.0, 2.0])
+    actual = pd.Series([0.04, 0.05, 0.06, 0.07])
+    dates = pd.Series(["2026-01-01"] * 4)
+
+    result = simulate_consensus(fit_predicted, rank_predicted, actual, dates, k=1, threshold=0.005)
+
+    assert result["n_trades"] == 1
+    assert result["avg_return"] == pytest.approx(0.04)
+    assert result["hit_rate"] == 1.0
+
+
+def test_simulate_consensus_top_k_is_per_day_not_global():
+    # k=1 with two days: each day contributes its own top-ranked name, so a
+    # globally-2nd-best rank score still trades on its own day.
+    fit_predicted = pd.Series([0.02, 0.02, 0.02, 0.02])
+    rank_predicted = pd.Series([9.0, 5.0, 3.0, 1.0])
+    actual = pd.Series([0.01, -0.01, 0.02, -0.02])
+    dates = pd.Series(["2026-01-01", "2026-01-01", "2026-01-02", "2026-01-02"])
+
+    result = simulate_consensus(fit_predicted, rank_predicted, actual, dates, k=1, threshold=0.005)
+
+    assert result["n_trades"] == 2
+    assert result["avg_picks_per_day"] == pytest.approx(1.0)
+    assert result["total_return"] == pytest.approx(0.03)
+
+
+def test_simulate_consensus_no_agreement_returns_nan_not_error():
+    fit_predicted = pd.Series([0.001, 0.002])
+    rank_predicted = pd.Series([1.0, 2.0])
+    actual = pd.Series([0.01, 0.02])
+    dates = pd.Series(["2026-01-01"] * 2)
+
+    result = simulate_consensus(fit_predicted, rank_predicted, actual, dates, k=1, threshold=0.005)
+
+    assert result["n_trades"] == 0
+    assert result["hit_rate"] != result["hit_rate"]  # NaN

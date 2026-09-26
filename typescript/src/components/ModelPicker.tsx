@@ -69,7 +69,7 @@ export default function ModelPicker() {
   const chosen = chosenModelTypes ?? new Set(modelSelection.available_model_types);
   // model-types describes every trainer (including logistic_regression, a
   // diagnostic-only fit). The picker offers TRAINABLE_MODEL_TYPES -- return
-  // models plus lambdarank. Rank is trained as its own pickle, not blended.
+  // models plus the ListFold rank model. Rank is trained as its own pickle, not blended.
   const pickable = modelTypes.model_types.filter((info) =>
     modelSelection.available_model_types.includes(info.model_type),
   );
@@ -79,7 +79,7 @@ export default function ModelPicker() {
       <h3>Model families for training</h3>
       {chosenModelTypes === null && (
         <p className="muted" style={{ marginTop: 0 }}>
-          All checked = no override (solo LightGBM + lambdarank pickle). Rank is
+          All checked = no override (solo LightGBM + Rank pickle). Rank is
           never averaged into the 0.5% return blend.
         </p>
       )}

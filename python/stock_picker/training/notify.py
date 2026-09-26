@@ -90,7 +90,7 @@ def format_rank_picks(payload: dict, k: int = 20) -> str:
             f"{i:2}  {row['ticker']:8}  {float(row['predicted_return']):10.4f}  {float(row['open_price']):10.2f}{extra}"
         )
     if not signals:
-        lines.append("(no lambdarank model, or no names scored)")
+        lines.append("(no rank model, or no names scored)")
     return "\n".join(lines).strip() + "\n"
 
 
