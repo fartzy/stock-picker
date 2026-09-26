@@ -94,11 +94,13 @@ scan persistence unchanged, tests for the intersection helper reused from
 `backtest.simulate_consensus` (don't re-derive it in TS; expose it on the
 scan payload from the API).
 
-**P1 -- decide SVR from the numbers** in `training/svr_search.py`'s run (or
-rerun it). Rule: if no blend beats solo LightGBM on fold directional
-accuracy AND rank IC, close it out -- keep the trainer + script, don't add
-"svr" to PREDICTIVE_MODEL_TYPES; record a short ADR ("evaluated, rejected,
-numbers"). Precedent: RandomForest/NeuralNet/Ridge all ended there.
+**P1 -- finish the SVR decision.** The first search run (2026-09-26) was NOT
+a clean reject: solo SVR topped fold accuracy and the (3,1,0) lgbm+svr blend
+beat solo LightGBM on accuracy, Rank IC, and both gated metrics -- by small,
+stability-unverified margins. The full state, numbers, work queue (stability
+rerun -> one holdout confirmation -> promote or reject), and SVM-specific
+traps live in **ADR 0020** (`docs/adr/0020-svr-family-evaluated-not-promoted.md`)
+-- read that record first; it supersedes this paragraph.
 
 **P2 -- bottom-of-list evidence.** ListFold orders the bottom too (lambdarank
 never did). Add bottom-20 tracking to the What if paper book (do the day's

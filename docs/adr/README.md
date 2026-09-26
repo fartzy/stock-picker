@@ -31,3 +31,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0017](0017-quote-provider-chain.md) | 2026-09-23 | Morning quotes: Polygon, then Yahoo, then Finnhub; blacklist store |
 | [0018](0018-listfold-rank-objective.md) | 2026-09-26 | Rank objective is ListFold (custom listwise loss), replacing lambdarank |
 | [0019](0019-consensus-gate-proposed.md) | 2026-09-26 | Proposed: consensus gate (Fit 0.5% ∩ Rank top-20) as a stricter buy list |
+| [0020](0020-svr-family-evaluated-not-promoted.md) | 2026-09-26 | LinearSVR evaluated for Fit — promising, not promoted; includes the SVM handoff brief |
