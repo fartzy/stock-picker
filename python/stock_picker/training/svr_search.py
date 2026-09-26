@@ -118,11 +118,23 @@ def main() -> None:
                 "gated_n": float(np.mean([g["n_trades"] for g in gated])),
                 "gated_hit": float(np.nanmean([g["hit_rate"] for g in gated])),
                 "gated_avg": float(np.nanmean([g["avg_return"] for g in gated])),
+                "acc_by_fold": [round(a, 4) for a in accs],
+                "ic_by_fold": [round(i, 4) for i in ics],
             }
         )
 
     summary = pd.DataFrame(rows).sort_values("acc", ascending=False)
-    logger.info("mean across %s folds:\n%s", N_SPLITS, summary.to_string(index=False))
+    table = summary.drop(columns=["acc_by_fold", "ic_by_fold"])
+    logger.info("mean across %s folds:\n%s", N_SPLITS, table.to_string(index=False))
+    # Fold means hide regime luck (one hot fold can carry a blend) -- the
+    # per-fold lists say whether an edge is consistent or one lucky window.
+    for row in rows:
+        logger.info(
+            "  %s acc by fold: %s | rank_ic by fold: %s",
+            row["weights (lgbm,svr,ridge)"],
+            row["acc_by_fold"],
+            row["ic_by_fold"],
+        )
     logger.info("done %.1fs", time.time() - started)
 
 
