@@ -10,12 +10,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 
+import numpy as np
 import pandas as pd
 
-from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets_processes, split_buckets
+from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
 from stock_picker.features.structure import fill_cluster_overnight_gaps
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
+from stock_picker.storage.ticker_blacklist_store import blacklisted_tickers
 from stock_picker.training.inference import StaleFeatureSnapshotError, build_inference_row
 
 
@@ -29,6 +31,14 @@ class LiveRow:
     row: pd.DataFrame | None = None
 
 
+def _index_dates(index: pd.Index) -> np.ndarray:
+    """Calendar dates without a Python date object per row."""
+    values = pd.DatetimeIndex(index)
+    if values.tz is not None:
+        values = values.tz_convert("America/New_York").tz_localize(None)
+    return values.normalize().date
+
+
 def prepare_one(
     ticker: str,
     quotes: dict[str, dict],
@@ -38,7 +48,13 @@ def prepare_one(
     as_of: date,
     spy_open: float | None,
     spy_prev_close: float | None,
+    blocked: set[str] | None = None,
 ) -> LiveRow:
+    if ticker in (blocked if blocked is not None else blacklisted_tickers()):
+        return LiveRow(
+            ticker,
+            skipped={"ticker": ticker, "reason": "blacklisted"},
+        )
     if ticker in earnings:
         return LiveRow(
             ticker,
@@ -57,13 +73,17 @@ def prepare_one(
         prior_features = feature_store.read(ticker)
     except FileNotFoundError:
         return LiveRow(ticker, skipped={"ticker": ticker, "reason": "no feature history"})
-    snapshot_date = prior_features.index[-1].date()
+    feature_dates = _index_dates(prior_features.index)
+    prior_features = prior_features.iloc[feature_dates < as_of]
+    if prior_features.empty:
+        return LiveRow(ticker, skipped={"ticker": ticker, "reason": "no feature snapshot before this morning"})
+    snapshot_date = feature_dates[feature_dates < as_of][-1]
     try:
         prior_history = price_store.read(ticker)
     except FileNotFoundError:
         prior_history = None
     if prior_history is not None and not prior_history.empty:
-        prior_history = prior_history[prior_history.index.date < as_of]
+        prior_history = prior_history.iloc[_index_dates(prior_history.index) < as_of]
         if prior_history.empty:
             prior_history = None
     try:
@@ -88,37 +108,6 @@ def prepare_one(
     )
 
 
-def prepare_bucket_payload(payload: tuple) -> list[LiveRow]:
-    """Module-level so ProcessPoolExecutor can pickle it under spawn."""
-    (
-        tickers,
-        quotes,
-        earnings,
-        feature_dir,
-        price_dir,
-        as_of_iso,
-        spy_open,
-        spy_prev_close,
-    ) = payload
-    as_of = date.fromisoformat(as_of_iso)
-    feature_store = FeatureStore(data_dir=feature_dir)
-    price_store = PriceStore(data_dir=price_dir)
-    earning_set = set(earnings)
-    return [
-        prepare_one(
-            ticker,
-            quotes=quotes,
-            earnings=earning_set,
-            feature_store=feature_store,
-            price_store=price_store,
-            as_of=as_of,
-            spy_open=spy_open,
-            spy_prev_close=spy_prev_close,
-        )
-        for ticker in tickers
-    ]
-
-
 def prepare_live_rows(
     tickers: list[str],
     quotes: dict[str, dict],
@@ -133,24 +122,30 @@ def prepare_live_rows(
 ) -> list[LiveRow]:
     """Rebuild open-known rows once for the universe.
 
-    10 process buckets of 200. Rank and Fit both consume this list.
+    Thread buckets of 100 -- parquet I/O, not GIL-bound LightGBM.
+    Rank and Fit both consume this list.
     """
-    chunks = split_buckets(tickers, bucket_size)
-    payloads = [
-        (
-            chunk,
-            quotes,
-            list(earnings),
-            str(feature_store._data_dir),
-            str(price_store._data_dir),
-            as_of.isoformat(),
-            spy_open,
-            spy_prev_close,
-        )
-        for chunk in chunks
-    ]
+    blocked = blacklisted_tickers()
+    earning_set = set(earnings)
+
+    def _chunk(chunk: list[str]) -> list[LiveRow]:
+        return [
+            prepare_one(
+                ticker,
+                quotes=quotes,
+                earnings=earning_set,
+                feature_store=feature_store,
+                price_store=price_store,
+                as_of=as_of,
+                spy_open=spy_open,
+                spy_prev_close=spy_prev_close,
+                blocked=blocked,
+            )
+            for ticker in chunk
+        ]
+
     rows: list[LiveRow] = []
-    for bucket in run_buckets_processes(prepare_bucket_payload, payloads, workers=workers):
+    for bucket in run_buckets(_chunk, tickers, bucket_size=bucket_size, workers=workers):
         rows.extend(bucket)
     fill_cluster_overnight_gaps(rows, quotes)
     return rows

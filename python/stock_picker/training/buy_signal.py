@@ -2,9 +2,9 @@
 one function: score every active ticker's current-morning quote through the
 persisted ensemble and report which ones clear a confidence threshold, and why.
 
-Open-known rows are built once (`live_rows.prepare_live_rows`) in 200-name
-process buckets. Rank and Fit only predict on that matrix -- they do not
-each rebuild parquet + seasonality.
+Open-known rows are built once (`live_rows.prepare_live_rows`) in process
+buckets. Rank and Fit only predict on that matrix -- they do not each
+rebuild parquet + seasonality.
 """
 
 from __future__ import annotations
@@ -16,6 +16,7 @@ from typing import Callable
 import pandas as pd
 
 from stock_picker.features.quotes import fetch_ticker_quotes
+from stock_picker.parallel import BUCKET_SIZE, WORKERS
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -43,9 +44,8 @@ TOP_DRIVER_COUNT = 3
 # day misreport as "no model trained yet."
 NO_MODEL_SENTINEL = ""
 
-# Same 200 / 10 as Yahoo quote batches -- one universe, one bucket size.
-SCORE_BUCKET = 200
-SCORE_WORKERS = 10
+SCORE_BUCKET = BUCKET_SIZE
+SCORE_WORKERS = WORKERS
 
 
 @dataclass
@@ -152,7 +152,10 @@ def compute_buy_signals(
         )
 
     ensemble = model_store.read(model_name)
-    tickers = universe_store.active_tickers()
+    from stock_picker.storage.ticker_blacklist_store import blacklisted_tickers
+
+    blocked = blacklisted_tickers()
+    tickers = [ticker for ticker in universe_store.active_tickers() if ticker not in blocked]
     try:
         quotes = quote_fetcher(tickers, as_of=as_of)
     except TypeError:

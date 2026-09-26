@@ -136,7 +136,6 @@ def prior_bucket_mean(values: pd.Series, bucket: pd.Series) -> pd.Series:
     occurrences -- the current row's own value is not in its own average."""
     return values.groupby(bucket).transform(lambda s: s.expanding().mean().shift(1))
 
-
 def combine_keys(*parts: pd.Series, sep: str = "_") -> pd.Series:
     """Join bucket parts into one key; NaN in any part propagates."""
     result = pd.Series(pd.NA, index=parts[0].index, dtype="object")
@@ -632,17 +631,18 @@ def _parts(history: pd.DataFrame) -> _Parts:
     )
 
 
-def build_open_pattern_features(history: pd.DataFrame) -> pd.DataFrame:
-    parts = _parts(history)
-    buckets = {
+def open_known_buckets(parts: _Parts) -> dict[str, pd.Series]:
+    """Column name -> bucket key. Training and live scoring share this map."""
+    yday_dir = direction_letter(parts.session.shift(1))
+    return {
         "seq2_open3_seasonality": combine_keys(parts.seq2, parts.open3),
         "seq3_open3_seasonality": combine_keys(parts.seq3, parts.open3),
         "seq4_open3_seasonality": combine_keys(parts.seq4, parts.open3),
         "seq3_open5_seasonality": combine_keys(parts.seq3, parts.open5),
         "streak_open3_seasonality": combine_keys(parts.streak, parts.open3),
         "streak_open5_seasonality": combine_keys(parts.streak, parts.open5),
-        "flips_3d_open3_seasonality": combine_keys(parts.flips3, direction_letter(parts.session.shift(1)), parts.open3),
-        "flips_5d_open3_seasonality": combine_keys(parts.flips5, direction_letter(parts.session.shift(1)), parts.open3),
+        "flips_3d_open3_seasonality": combine_keys(parts.flips3, yday_dir, parts.open3),
+        "flips_5d_open3_seasonality": combine_keys(parts.flips5, yday_dir, parts.open3),
         "late_reversal_open3_seasonality": combine_keys(parts.late_reversal, parts.open3),
         "continuation_open3_seasonality": combine_keys(parts.continuation, parts.open3),
         "yday_swing_open5_seasonality": combine_keys(parts.yday_swing, parts.open5),
@@ -712,23 +712,20 @@ def build_open_pattern_features(history: pd.DataFrame) -> pd.DataFrame:
         "story_three_same_gap_open3_seasonality": combine_keys(parts.three_same_gap, parts.open3),
         "story_yday_range_week_open3_seasonality": combine_keys(parts.yday_range, parts.week_run, parts.open3),
     }
+
+
+def build_open_pattern_features(history: pd.DataFrame) -> pd.DataFrame:
+    parts = _parts(history)
+    buckets = open_known_buckets(parts)
     return pd.DataFrame(
         {name: prior_bucket_mean(parts.session, bucket) for name, bucket in buckets.items()},
         index=history.index,
     )
 
 
-def open_known_feature_row(history: pd.DataFrame, today_open: float) -> pd.Series:
-    """Recompute the open-known columns as of this morning.
-
-    `history` must be completed sessions only (through yesterday). A dummy
-    today row carries `today_open` so gap / open-location buckets see this
-    morning's print without inventing a close.
-    """
-    if history.empty or not np.isfinite(today_open):
-        return pd.Series(dtype="float64")
-
-    today_index = history.index[-1] + pd.Timedelta(1, unit="D")
+def extend_with_today_open(history: pd.DataFrame, today_open: float) -> pd.DataFrame:
+    """Yesterday's completed bars plus a dummy today row that only has the open."""
+    today_index = history.index[-1] + pd.Timedelta(days=1)
     today = pd.DataFrame(
         {
             "Open": [today_open],
@@ -742,5 +739,16 @@ def open_known_feature_row(history: pd.DataFrame, today_open: float) -> pd.Serie
     for column in history.columns:
         if column not in today.columns:
             today[column] = np.nan
-    extended = pd.concat([history, today[history.columns]])
-    return build_open_pattern_features(extended).iloc[-1]
+    return pd.concat([history, today[history.columns]])
+
+
+def open_known_feature_row(history: pd.DataFrame, today_open: float) -> pd.Series:
+    """Recompute the open-known columns as of this morning.
+
+    `history` must be completed sessions only (through yesterday). A dummy
+    today row carries `today_open` so gap / open-location buckets see this
+    morning's print without inventing a close.
+    """
+    if history.empty or not np.isfinite(today_open):
+        return pd.Series(dtype="float64")
+    return build_open_pattern_features(extend_with_today_open(history, today_open)).iloc[-1]

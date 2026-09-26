@@ -2,7 +2,8 @@
 
 The live universe is ~2,000 names. Yahoo quote URLs are I/O -- threads.
 Rebuilding open-known rows from parquet is pandas CPU -- processes.
-Both use 200-name buckets / 10 workers.
+Open-known rows use 100-name process buckets (up to 16 workers). Yahoo
+leftover quotes stay on threads.
 
 Results come back in completion order. Callers that need a ranking sort
 after merge.
@@ -14,8 +15,10 @@ from collections.abc import Callable, Sequence
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from typing import TypeVar
 
-BUCKET_SIZE = 200
-WORKERS = 10
+import os
+
+BUCKET_SIZE = 100
+WORKERS = min(16, os.cpu_count() or 10)
 
 T = TypeVar("T")
 R = TypeVar("R")
