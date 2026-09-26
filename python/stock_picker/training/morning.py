@@ -25,11 +25,13 @@ from stock_picker.storage.paths import data_root
 from stock_picker.storage.scan_store import ScanStore
 from stock_picker.training.buy_signal import (
     DEFAULT_THRESHOLD,
+    OPEN_KNOWN_COLUMNS_SET,
     SCORE_BUCKET,
     SCORE_WORKERS,
     compute_buy_signals,
     compute_rank_signals,
 )
+from stock_picker.training.ensemble import ensemble_feature_names
 from stock_picker.training.live_rows import prepare_live_rows
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.notify import (
@@ -40,9 +42,10 @@ from stock_picker.training.notify import (
     send_email,
     write_picks_files,
 )
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.news_ingest import ingest_universe_news
-from stock_picker.training.rank_model import RANK_NEWS_TOP_K, RANK_TOP_K
+from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_NEWS_TOP_K, RANK_TOP_K
 
 logger = get_logger(__name__)
 
@@ -163,6 +166,37 @@ def score_from_quotes(
     spy_quote = quotes.get("SPY")
     spy_open = spy_quote.get("open") if spy_quote else None
     spy_prev_close = spy_quote.get("prev_close") if spy_quote else None
+
+    from stock_picker.training.main import MODEL_NAME
+
+    # Mirrors compute_buy_signals' own model_name resolution exactly (a
+    # given model_run_id wins; otherwise fall back to the globally selected
+    # live run, same as passing model_name=None would) -- fit_model_name
+    # must name the SAME model _fit() below will actually load, or the
+    # excluded-features derivation would be for the wrong model.
+    fit_model_name = (
+        f"{MODEL_NAME}_{model_run_id}"
+        if model_run_id
+        else (
+            f"{MODEL_NAME}_{selected_run_id}"
+            if (selected_run_id := TrainingConfigStore().read().selected_run_id)
+            else MODEL_NAME
+        )
+    )
+    model_store = ModelStore()
+    # Union, not either alone: this row matrix is shared, so a column either
+    # model's own feature_names actually needs must be computed -- excluding
+    # it here would reindex that model to NaN for it (see
+    # ensemble.ensemble_feature_names). Derived from these two SPECIFIC
+    # loaded models, never the current global pruned-features state, for the
+    # same reason. Missing model -> contributes nothing, handled the same as
+    # "not persisted yet" further down in compute_buy_signals/compute_rank_signals.
+    needed_features: set[str] = set()
+    for name in (fit_model_name, RANK_MODEL_NAME):
+        if model_store.exists(name):
+            needed_features |= ensemble_feature_names(model_store.read(name))
+    excluded_features = OPEN_KNOWN_COLUMNS_SET - needed_features if needed_features else None
+
     live_rows = prepare_live_rows(
         tickers=tickers,
         quotes=quotes,
@@ -174,6 +208,7 @@ def score_from_quotes(
         spy_prev_close=spy_prev_close,
         bucket_size=SCORE_BUCKET,
         workers=SCORE_WORKERS,
+        excluded_features=excluded_features,
     )
     scored = sum(1 for row in live_rows if row.row is not None)
     logger.info("live_rows %.1fs scored=%s skipped=%s", time.perf_counter() - t_rows, scored, len(live_rows) - scored)
@@ -192,19 +227,15 @@ def score_from_quotes(
         )
 
     def _fit():
-        kwargs = dict(
+        return compute_buy_signals(
             threshold=threshold,
             as_of=as_of,
             quote_fetcher=quote_fetcher,
             earnings_fetcher=None,
             news_fetcher=None,
             live_rows=live_rows,
+            model_name=fit_model_name,
         )
-        if model_run_id:
-            from stock_picker.training.main import MODEL_NAME
-
-            kwargs["model_name"] = f"{MODEL_NAME}_{model_run_id}"
-        return compute_buy_signals(**kwargs)
 
     rank_result = None
     rank_n = 0

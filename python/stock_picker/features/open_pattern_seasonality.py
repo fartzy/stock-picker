@@ -714,11 +714,25 @@ def open_known_buckets(parts: _Parts) -> dict[str, pd.Series]:
     }
 
 
-def build_open_pattern_features(history: pd.DataFrame) -> pd.DataFrame:
+def build_open_pattern_features(
+    history: pd.DataFrame, excluded: frozenset[str] | None = None
+) -> pd.DataFrame:
+    """`excluded` skips a bucket's `prior_bucket_mean` (the expensive
+    groupby+expanding+transform pass) entirely rather than computing then
+    discarding it -- for live scoring, where a currently-pruned column's
+    value is provably never read (see `training/model.py`'s
+    `feature_columns`), not for the nightly writer, whose persisted snapshot
+    also backs the Feature Store tab's browse/audit view of pruned columns.
+    """
     parts = _parts(history)
     buckets = open_known_buckets(parts)
+    skip = excluded or frozenset()
     return pd.DataFrame(
-        {name: prior_bucket_mean(parts.session, bucket) for name, bucket in buckets.items()},
+        {
+            name: prior_bucket_mean(parts.session, bucket)
+            for name, bucket in buckets.items()
+            if name not in skip
+        },
         index=history.index,
     )
 
@@ -742,13 +756,19 @@ def extend_with_today_open(history: pd.DataFrame, today_open: float) -> pd.DataF
     return pd.concat([history, today[history.columns]])
 
 
-def open_known_feature_row(history: pd.DataFrame, today_open: float) -> pd.Series:
+def open_known_feature_row(
+    history: pd.DataFrame, today_open: float, excluded: frozenset[str] | None = None
+) -> pd.Series:
     """Recompute the open-known columns as of this morning.
 
     `history` must be completed sessions only (through yesterday). A dummy
     today row carries `today_open` so gap / open-location buckets see this
-    morning's print without inventing a close.
+    morning's print without inventing a close. `excluded` (currently-pruned
+    columns) is forwarded to `build_open_pattern_features` -- skip computing
+    values the model will not read, instead of computing and discarding them.
     """
     if history.empty or not np.isfinite(today_open):
         return pd.Series(dtype="float64")
-    return build_open_pattern_features(extend_with_today_open(history, today_open)).iloc[-1]
+    return build_open_pattern_features(
+        extend_with_today_open(history, today_open), excluded=excluded
+    ).iloc[-1]

@@ -6,6 +6,7 @@ from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import (
     ModelSpec,
     ensemble_composition,
+    ensemble_feature_names,
     evaluate_ensemble,
     partition_model_specs,
     predict_ensemble,
@@ -95,6 +96,21 @@ def test_ensemble_composition_reports_each_members_type_weight_and_feature_count
     assert [m.weight for m in composition] == [1.0, 0.5]
     # Both members see the same two feature columns here -- signal/momentum.
     assert all(m.feature_count == 2 for m in composition)
+
+
+def test_ensemble_feature_names_is_the_union_across_differently_scoped_members():
+    # Two members trained on disjoint feature subsets -- the union (not
+    # either member alone) is what live-row building must never skip
+    # computing, or predict()'s reindex would silently NaN one member's
+    # inputs. See ensemble.ensemble_feature_names.
+    train_frame = _make_learnable_frame(400, seed=1)
+    specs = [
+        ModelSpec("lightgbm", params={"min_data_in_leaf": 10}, included_features={"signal"}),
+        ModelSpec("ridge", included_features={"momentum"}),
+    ]
+    ensemble = train_ensemble(train_frame, specs)
+
+    assert ensemble_feature_names(ensemble) == frozenset({"signal", "momentum"})
 
 
 def test_partition_model_specs_none_means_default_return_and_rank():

@@ -91,6 +91,20 @@ def ensemble_composition(ensemble: Ensemble) -> list[EnsembleMemberInfo]:
     ]
 
 
+def ensemble_feature_names(ensemble: Ensemble) -> frozenset[str]:
+    """Union of every member's own persisted `feature_names` -- what this
+    specific loaded model (not the current global pruned-features state,
+    which may have changed since it was trained) actually reads. The one
+    safe source for "which open-known columns can live-row building skip
+    computing for this model" (see `live_rows.prepare_live_rows`):
+    `predict()` reindexes to a model's own `feature_names`, so a column
+    missing from a DIFFERENT (older or newer) model's list would silently
+    reindex to NaN instead of its real value if this were derived from
+    anything other than the model actually about to score the row.
+    """
+    return frozenset().union(*(set(member.feature_names) for member in ensemble.members))
+
+
 def selected_model_specs() -> list[ModelSpec] | None:
     """Wiring: reads the persisted composable model-type choices (see
     `storage/training_config_store.py`), or None if nothing's been chosen

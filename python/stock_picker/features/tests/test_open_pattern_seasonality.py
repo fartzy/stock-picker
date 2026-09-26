@@ -37,6 +37,30 @@ def test_build_open_pattern_features_has_the_named_open_known_columns():
         assert column in features.columns
 
 
+def test_build_open_pattern_features_excluded_columns_are_omitted():
+    # Live scoring skips computing a currently-pruned column's expensive
+    # groupby+expanding+transform pass entirely (see morning-window
+    # performance in training/live_rows.py), rather than computing and
+    # discarding it -- confirm the column is genuinely absent, not just NaN.
+    features = build_open_pattern_features(
+        synthetic_history(n=140), excluded=frozenset({"seq2_open3_seasonality"})
+    )
+
+    assert "seq2_open3_seasonality" not in features.columns
+    assert "seq3_open3_seasonality" in features.columns
+    assert len(features.columns) == len(OPEN_KNOWN_COLUMNS) - 1
+
+
+def test_open_known_feature_row_excluded_columns_are_omitted():
+    history = synthetic_history(n=140)
+    today_open = float(history["Close"].iloc[-1]) * 1.01
+
+    row = open_known_feature_row(history, today_open, excluded=frozenset({"seq2_open3_seasonality"}))
+
+    assert "seq2_open3_seasonality" not in row.index
+    assert "seq3_open3_seasonality" in row.index
+
+
 def test_prior_bucket_mean_excludes_the_current_row():
     values = pd.Series([1.0, 3.0, 5.0])
     bucket = pd.Series(["a", "a", "a"])
