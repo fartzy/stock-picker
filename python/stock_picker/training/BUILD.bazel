@@ -31,6 +31,7 @@ py_library(
         "nightly.py",
         "notify.py",
         "objective_search.py",
+        "profile_live_rows.py",
         "model_registry.py",
         "rank_model.py",
         "recent_picks_demo.py",
@@ -199,6 +200,18 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":training",
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "profile_live_rows",
+    srcs = ["profile_live_rows.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
         "//python/stock_picker/storage",
     ],
 )
