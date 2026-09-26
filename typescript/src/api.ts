@@ -140,6 +140,18 @@ export interface PositionsResponse {
   peak_working?: Record<string, number>;
 }
 
+export interface PaperBookDay {
+  as_of: string;
+  scan_id?: string;
+  model_run_id?: string | null;
+  fit: PaperPickRow[];
+  rank: PaperPickRow[];
+  fit_avg: number | null;
+  rank_avg: number | null;
+  fit_stats?: PaperListStats;
+  rank_stats?: PaperListStats;
+}
+
 export interface PaperPickRow {
   rank: number;
   ticker: string;
@@ -161,16 +173,6 @@ export interface PaperListStats {
   avg: number | null;
   n_avoid?: number;
   avg_ex_news?: number | null;
-}
-
-export interface PaperBookDay {
-  as_of: string;
-  fit: PaperPickRow[];
-  rank: PaperPickRow[];
-  fit_avg: number | null;
-  rank_avg: number | null;
-  fit_stats?: PaperListStats;
-  rank_stats?: PaperListStats;
 }
 
 export interface PaperBookResponse {
@@ -452,6 +454,12 @@ export const fetchPaperBook = (
   if (rankTopK !== undefined) params.set("rank_top_k", String(rankTopK));
   return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
 };
+export const rebuildPaperBook = () => mutate<PaperBookResponse>("POST", "/api/paper-book/rebuild");
+export const replayPaperBook = (asOf: string, modelRunId?: string | null) =>
+  mutate<PaperBookResponse>("POST", "/api/paper-book/replay", {
+    as_of: asOf,
+    model_run_id: modelRunId ?? null,
+  });
 export const fetchBenchmarkReturns = (dates: string[]) =>
   getJson<BenchmarkReturnsResponse>(`/api/benchmark-returns?dates=${dates.map(encodeURIComponent).join(",")}`);
 export const fetchPrunedFeatures = () => getJson<PrunedFeaturesResponse>("/api/pruned-features");

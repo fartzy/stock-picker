@@ -2,7 +2,7 @@ from datetime import date
 
 import pandas as pd
 
-from stock_picker.paper.book import paper_book_view, rebuild_paper_book
+from stock_picker.paper.book import load_paper_book, paper_book_view, rebuild_paper_book
 from stock_picker.storage.paper_book_store import PaperBookStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.scan_store import ScanStore
@@ -69,6 +69,11 @@ def test_paper_book_view_slices_fit_and_rank_separately():
     assert [row["ticker"] for row in sliced["days"][0]["rank"]] == ["R1", "R2", "R3", "R4"]
 
 
+def test_load_paper_book_does_not_rebuild(tmp_path):
+    book = PaperBookStore(data_dir=tmp_path / "paper")
+    assert load_paper_book(paper_store=book) == []
+
+
 def test_rebuild_scores_open_to_close(tmp_path):
     scans = ScanStore(data_dir=tmp_path / "scans")
     scans.write(
@@ -105,6 +110,62 @@ def test_rebuild_scores_open_to_close(tmp_path):
     by_ticker = {p.ticker: p for p in picks}
     assert by_ticker["TDTH"].session_return == (1.83 / 1.56) - 1
     assert by_ticker["QH"].session_return is None
+
+
+def test_session_quotes_from_prices_uses_the_daily_bar(tmp_path):
+    from stock_picker.paper.book import session_quotes_from_prices
+
+    prices = PriceStore(data_dir=tmp_path / "prices")
+    prices.write(
+        "WRBY",
+        pd.DataFrame(
+            {
+                "Open": [23.18, 26.27],
+                "High": [26.95, 27.0],
+                "Low": [23.0, 26.2],
+                "Close": [26.27, 26.71],
+                "Volume": [1.0, 1.0],
+            },
+            index=pd.DatetimeIndex(["2026-09-24", "2026-09-25"]),
+        ),
+    )
+    quotes = session_quotes_from_prices(["WRBY"], date(2026, 9, 25), prices)
+    assert quotes["WRBY"]["open"] == 26.27
+    assert quotes["WRBY"]["prev_close"] == 26.27
+    assert quotes["WRBY"]["last"] == 26.71
+
+
+def test_rebuild_uses_scan_open_not_daily_bar(tmp_path):
+    scans = ScanStore(data_dir=tmp_path / "scans")
+    scans.write(
+        "2026-09-25",
+        "rank",
+        {
+            "as_of": "2026-09-25",
+            "kind": "rank",
+            "signals": [{"ticker": "WRBY", "predicted_return": 0.99, "open_price": 23.18}],
+        },
+    )
+    prices = PriceStore(data_dir=tmp_path / "prices")
+    prices.write(
+        "WRBY",
+        pd.DataFrame(
+            {"Open": [26.27], "High": [27.0], "Low": [23.0], "Close": [26.71], "Volume": [1.0]},
+            index=pd.DatetimeIndex(["2026-09-25"]),
+        ),
+    )
+    picks = rebuild_paper_book(
+        completed_through=date(2026, 9, 25),
+        scan_store=scans,
+        price_store=prices,
+        paper_store=PaperBookStore(data_dir=tmp_path / "paper"),
+        quote_fetcher=lambda tickers, as_of: {},
+        news_fetcher=lambda tickers, as_of: {},
+    )
+
+    assert picks[0].open_price == 23.18
+    assert picks[0].close_price == 26.71
+    assert picks[0].session_return == (26.71 / 23.18) - 1
 
 
 def test_live_quote_fills_a_missing_daily_bar(tmp_path):

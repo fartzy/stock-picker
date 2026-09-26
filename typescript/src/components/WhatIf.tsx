@@ -1,12 +1,17 @@
 import { useState } from "react";
 import {
   fetchPaperBook,
+  fetchTrainingRuns,
+  rebuildPaperBook,
+  replayPaperBook,
   type PaperBookDay,
   type PaperBookResponse,
   type PaperListStats,
   type PaperPickRow,
+  type TrainingRunRecord,
 } from "../api";
 import { useFetchData } from "../useFetchData";
+import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
 import TogglePill from "./TogglePill";
 
 type Kind = "fit" | "rank" | "both";
@@ -81,6 +86,16 @@ function sliceBook(
   };
 }
 
+function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
+  const when = new Date(startedAt).toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  return holdoutAccuracy === null ? when : `${when} · ${(holdoutAccuracy * 100).toFixed(1)}% holdout`;
+}
+
 function formatDay(day: string): string {
   return new Date(`${day}T12:00:00`).toLocaleDateString("en-US", {
     weekday: "long",
@@ -113,12 +128,6 @@ function StatsLine({ stats }: { stats: PaperListStats | undefined }) {
   );
 }
 
-function Predicted({ value, isRank }: { value: number | null; isRank: boolean }) {
-  if (value === null) return <>—</>;
-  if (isRank) return <>{value.toFixed(3)}</>;
-  return <>{(value * 100).toFixed(2)}%</>;
-}
-
 function ListTable({
   title,
   rows,
@@ -141,44 +150,24 @@ function ListTable({
         <StatsLine stats={stats} />
       </p>
       <div style={{ overflowX: "auto" }}>
-        <table className="trade-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Ticker</th>
-              <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
-              <th className="trade-num">Open</th>
-              <th className="trade-num">Close</th>
-              <th className="trade-num">Session</th>
-              <th>News</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={`${title}-${row.rank}-${row.ticker}`}>
-                <td>{row.rank}</td>
-                <td className="trade-ticker">{row.ticker}</td>
-                <td className="trade-num">
-                  <Predicted value={row.predicted} isRank={isRank} />
-                </td>
-                <td className="trade-num">
-                  {row.open_price !== null ? `$${row.open_price.toFixed(2)}` : "—"}
-                </td>
-                <td className="trade-num">
-                  {row.close_price !== null ? `$${row.close_price.toFixed(2)}` : "—"}
-                </td>
-                <td className="trade-num">
-                  <Pct value={row.session_return} />
-                </td>
-                <td className={row.news_blocks ? "quote-diff-down" : row.news_flag ? "quote-diff-up" : "muted"}>
-                  {row.news_flag
-                    ? `${row.news_blocks ? "skip" : "still buy"} · ${row.news_flag}`
-                    : "—"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          rows={rows}
+          rowKey={(row) => `${title}-${row.rank}-${row.ticker}`}
+          columns={[
+            { key: "rank", header: "#", cell: (row) => row.rank },
+            { key: "ticker", header: "Ticker", cell: (row) => <TickerCell ticker={row.ticker} /> },
+            {
+              key: "score",
+              header: isRank ? "Score" : "Predicted",
+              numeric: true,
+              cell: (row) => <ScoreCell value={row.predicted} isRank={isRank} />,
+            },
+            { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
+            { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
+            { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
+            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} /> },
+          ]}
+        />
       </div>
     </div>
   );
@@ -194,11 +183,13 @@ function DayCard({
   kind,
   rankAsked,
   fitAsked,
+  modelLabel,
 }: {
   day: PaperBookDay;
   kind: Kind;
   rankAsked: number | undefined;
   fitAsked: number | undefined;
+  modelLabel?: string;
 }) {
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
@@ -207,6 +198,8 @@ function DayCard({
       <summary>
         <strong style={{ color: "var(--accent)" }}>{formatDay(day.as_of)}</strong>{" "}
         <span className="view-meta">
+          {day.scan_id ? "replay · " : "live · "}
+          {modelLabel ? <span className="muted">{modelLabel} · </span> : null}
           {kind !== "fit" && day.rank.length > 0 && (
             <>
               Rank {day.rank.length} <Pct value={day.rank_avg} />
@@ -288,7 +281,13 @@ export default function WhatIf() {
   const [fitOn, setFitOn] = useState(true);
   const [rankText, setRankText] = useState("5");
   const [fitText, setFitText] = useState("5");
-  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [] });
+  const [refresh, setRefresh] = useState(0);
+  const [busy, setBusy] = useState(false);
+  const [rebuildError, setRebuildError] = useState<string | null>(null);
+  const [replayDay, setReplayDay] = useState("");
+  const [replayModel, setReplayModel] = useState("live");
+  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [refresh] });
+  const { data: trainingRuns } = useFetchData(fetchTrainingRuns, { deps: [] });
 
   if (error) return <p className="error">{error}</p>;
   if (!raw) return <p className="muted">Loading…</p>;
@@ -303,6 +302,71 @@ export default function WhatIf() {
       <div className="slice-bar">
         <TopField label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText} />
         <TopField label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText} />
+        <button
+          type="button"
+          className="icon-btn"
+          disabled={busy}
+          title="Fill Open→Close after the session"
+          aria-label="Update What if after the close"
+          onClick={async () => {
+            setBusy(true);
+            setRebuildError(null);
+            try {
+              await rebuildPaperBook();
+              setRefresh((n) => n + 1);
+            } catch (err) {
+              setRebuildError(String(err));
+            } finally {
+              setBusy(false);
+            }
+          }}
+        >
+          {busy ? "Updating…" : "↻"}
+        </button>
+        {rebuildError && <span className="error">{rebuildError}</span>}
+      </div>
+      <div className="slice-bar">
+        <input
+          className="form-input"
+          type="date"
+          value={replayDay || raw.days[0]?.as_of || ""}
+          onChange={(event) => setReplayDay(event.target.value)}
+          aria-label="Replay day"
+        />
+        <select
+          className="form-select"
+          value={replayModel}
+          onChange={(event) => setReplayModel(event.target.value)}
+          aria-label="Replay model"
+        >
+          <option value="live">Live Fit pickle</option>
+          {(trainingRuns?.runs ?? [])
+            .filter((run: TrainingRunRecord) => run.has_archived_model)
+            .map((run: TrainingRunRecord) => (
+              <option key={run.run_id} value={run.run_id}>
+                {formatRunLabel(run.started_at, run.holdout_metrics?.directional_accuracy ?? null)}
+              </option>
+            ))}
+        </select>
+        <button
+          type="button"
+          className="icon-btn"
+          disabled={busy || !replayDay}
+          onClick={async () => {
+            setBusy(true);
+            setRebuildError(null);
+            try {
+              await replayPaperBook(replayDay, replayModel === "live" ? null : replayModel);
+              setRefresh((n) => n + 1);
+            } catch (err) {
+              setRebuildError(String(err));
+            } finally {
+              setBusy(false);
+            }
+          }}
+        >
+          {busy ? "Scoring…" : "Run"}
+        </button>
       </div>
       {data.days.length === 0 || (!rankOn && !fitOn) ? (
         <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists yet."}</p>
@@ -344,7 +408,19 @@ export default function WhatIf() {
               kind={kind}
               rankAsked={rankAsked}
               fitAsked={fitAsked}
-              key={day.as_of}
+              modelLabel={
+                day.model_run_id
+                  ? (() => {
+                      const run = (trainingRuns?.runs ?? []).find((item) => item.run_id === day.model_run_id);
+                      return run
+                        ? formatRunLabel(run.started_at, run.holdout_metrics?.directional_accuracy ?? null)
+                        : day.model_run_id.slice(0, 8);
+                    })()
+                  : day.scan_id
+                    ? "Live Fit pickle"
+                    : undefined
+              }
+              key={`${day.as_of}-${day.scan_id || "live"}`}
             />
           ))}
         </>

@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS paper_picks (
     news_flag TEXT,
     news_checked INTEGER NOT NULL DEFAULT 0,
     prev_close REAL,
-    PRIMARY KEY (as_of, kind, rank)
+    scan_id TEXT NOT NULL DEFAULT '',
+    model_run_id TEXT,
+    PRIMARY KEY (as_of, scan_id, kind, rank)
 );
 """
 
@@ -45,6 +47,8 @@ class PaperPick:
     news_flag: str | None = None
     news_checked: int = 0
     prev_close: float | None = None
+    scan_id: str = ""
+    model_run_id: str | None = None
 
 
 class PaperBookStore:
@@ -70,14 +74,18 @@ class PaperBookStore:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_checked INTEGER NOT NULL DEFAULT 0")
         if "prev_close" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN prev_close REAL")
+        if "scan_id" not in columns:
+            conn.execute("ALTER TABLE paper_picks ADD COLUMN scan_id TEXT NOT NULL DEFAULT ''")
+        if "model_run_id" not in columns:
+            conn.execute("ALTER TABLE paper_picks ADD COLUMN model_run_id TEXT")
 
     def replace_all(self, picks: list[PaperPick]) -> None:
         with self._connect() as conn:
-            conn.execute("DELETE FROM paper_picks")
+            conn.execute("DELETE FROM paper_picks WHERE scan_id = ''")
             conn.executemany(
                 "INSERT INTO paper_picks "
-                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     (
                         p.as_of,
@@ -91,6 +99,8 @@ class PaperBookStore:
                         p.news_flag,
                         p.news_checked,
                         p.prev_close,
+                        p.scan_id,
+                        p.model_run_id,
                     )
                     for p in picks
                 ],
@@ -100,7 +110,34 @@ class PaperBookStore:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT as_of, kind, rank, ticker, predicted, open_price, close_price, "
-                "session_return, news_flag, news_checked, prev_close "
-                "FROM paper_picks ORDER BY as_of, kind, rank"
+                "session_return, news_flag, news_checked, prev_close, scan_id, model_run_id "
+                "FROM paper_picks ORDER BY as_of, scan_id, kind, rank"
             ).fetchall()
         return [PaperPick(**dict(row)) for row in rows]
+
+    def replace_scan(self, as_of: str, scan_id: str, picks: list[PaperPick]) -> None:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM paper_picks WHERE as_of = ? AND scan_id = ?", (as_of, scan_id))
+            conn.executemany(
+                "INSERT INTO paper_picks "
+                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                [
+                    (
+                        p.as_of,
+                        p.kind,
+                        p.rank,
+                        p.ticker,
+                        p.predicted,
+                        p.open_price,
+                        p.close_price,
+                        p.session_return,
+                        p.news_flag,
+                        p.news_checked,
+                        p.prev_close,
+                        p.scan_id,
+                        p.model_run_id,
+                    )
+                    for p in picks
+                ],
+            )

@@ -359,6 +359,8 @@ class PaperListStats(BaseModel):
 
 class PaperBookDay(BaseModel):
     as_of: str
+    scan_id: str = ""
+    model_run_id: str | None = None
     fit: list[PaperPickRow] = []
     rank: list[PaperPickRow] = []
     fit_avg: float | None = None
@@ -380,6 +382,12 @@ class PaperBookResponse(BaseModel):
     fit_top_k: int | None = None
     rank_top_k: int | None = None
     n_picks: int = 0
+
+
+class PaperReplayRequest(BaseModel):
+    as_of: str
+    model_run_id: str | None = None
+    threshold: float = 0.005
 
 
 class FakeQuote(BaseModel):
