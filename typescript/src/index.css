@@ -15,7 +15,7 @@
   --neutral: #6b70a0;
   /* Scan-line hover -- accent tint so it reads on both --surface (tables)
      and --surface-raised (feature cards). */
-  --row-hover: color-mix(in srgb, var(--accent) 16%, transparent);
+  --row-hover: color-mix(in srgb, var(--accent) 8%, transparent);
 
   /* Spacing scale -- covers every detail-level gap/padding/margin in the app.
      Page-level macro layout (.page) is intentionally its own thing below. */
@@ -148,7 +148,7 @@ section + section {
 
 .row-hover:hover,
 .trade-table tbody tr:hover {
-  background: var(--row-hover);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
 
 .feature-row {
@@ -385,35 +385,212 @@ section + section {
   font-size: var(--text-caption);
   color: var(--text-muted);
   font-family: var(--sans);
-  white-space: nowrap;
   overflow: visible;
 }
 
+.stat-strip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  min-width: 0;
+  font-family: var(--sans);
+}
+
+.stat-strip .stat-cell {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: var(--text-caption);
+  line-height: 1.3;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat-strip .stat-cell.is-title,
+.stat-strip .stat-cell.is-title .stat-value {
+  font-weight: 700;
+  font-size: var(--text-label);
+}
+
+.stat-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-table col.is-title {
+  width: 17.5rem;
+}
+
+.stat-table col.is-hug:not(.is-title) {
+  width: 5.75rem;
+}
+
+.stat-table thead {
+  display: table-header-group;
+}
+
+.stat-table tbody {
+  display: table-row-group;
+}
+
+.stat-table tr {
+  display: table-row;
+}
+
+.stat-table th,
+.stat-table td {
+  display: table-cell;
+  padding: 8px 24px 8px 0;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.stat-table td.is-title,
+.stat-table th.is-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-table td.is-hug:not(.is-title),
+.stat-table th.is-hug:not(.is-title) {
+  overflow: hidden;
+}
+
+.stat-table tbody tr:hover td {
+  background: var(--row-hover);
+}
+
+.stat-table tbody tr.stat-expand-body:hover td,
+.stat-table tbody tr.stat-expand-body td {
+  background: transparent;
+}
+
+.stat-table tr.is-expandable {
+  cursor: pointer;
+}
+
+.stat-table tr.is-expandable:focus {
+  outline: none;
+}
+
+.stat-table tr.is-expandable:focus-visible td {
+  background: var(--row-hover);
+}
+
+.stat-table th:last-child,
+.stat-table td:last-child {
+  padding-right: 0;
+}
+
+.stat-table th {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.stat-table td {
+  color: var(--text);
+}
+
+.stat-table th[data-align="end"],
+.stat-table td[data-align="end"] {
+  text-align: right;
+}
+
+.stat-table td.is-title {
+  font-weight: 700;
+  font-size: var(--text-label);
+  white-space: nowrap;
+}
+
+.stat-table tbody + tbody tr:first-child td {
+  border-top: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+}
+
+.stat-table tbody:nth-of-type(2) tr:first-child td {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.stat-expand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.stat-expand::before {
+  content: "▶";
+  flex: 0 0 0.9em;
+  width: 0.9em;
+  font-size: 0.7em;
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.stat-table tr.is-expandable[aria-expanded="true"] .stat-expand::before {
+  content: "▼";
+}
+
+.stat-expand-body td {
+  padding: 6px 0 10px 8px;
+  white-space: normal;
+}
+
+/* Per-trade lots use different columns than the week/day stats.
+   A quiet well, not a row-hover wash. */
+.day-lots {
+  background: color-mix(in srgb, var(--ink) 28%, var(--surface-raised));
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.day-lots .trade-table {
+  margin: 0;
+}
+
+.day-lots .trade-table thead th {
+  background: color-mix(in srgb, var(--ink) 18%, var(--surface-raised));
+}
+
+.day-lots .trade-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+.stat-table tr.is-nested td.is-title {
+  padding-left: 1.25rem;
+  font-weight: 600;
+  font-size: var(--text-caption);
+}
+
+
+
 .period-row {
   margin: 0 0 var(--space-2);
-  white-space: nowrap;
-  overflow: visible;
 }
 
 .period-row:last-child {
   margin-bottom: 0;
-}
-
-.week-block {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
-  margin-bottom: var(--space-2);
-}
-
-.week-block > summary {
-  margin-bottom: var(--space-2);
-}
-
-.week-block > .view-card {
-  margin: 0 0 0 var(--space-2);
-  padding: var(--space-1) var(--space-2);
 }
 
 .view-features {
@@ -492,7 +669,7 @@ details.view-card summary {
   cursor: pointer;
   list-style: none;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-2);
 }
 
@@ -501,17 +678,16 @@ details.view-card summary::-webkit-details-marker {
 }
 
 details.view-card summary::before {
-  content: "";
-  width: 0.45em;
-  height: 0.45em;
-  border-right: 1.5px solid var(--text-muted);
-  border-bottom: 1.5px solid var(--text-muted);
-  transform: rotate(-45deg);
-  flex-shrink: 0;
+  content: "▶";
+  flex: 0 0 0.9em;
+  width: 0.9em;
+  font-size: 0.7em;
+  line-height: 1;
+  color: var(--text-muted);
 }
 
 details.view-card[open] > summary::before {
-  transform: rotate(45deg);
+  content: "▼";
 }
 
 .morning-fold {
@@ -771,6 +947,20 @@ details.view-card[open] > summary::before {
 .side-sell {
   background: color-mix(in srgb, var(--bad) 16%, transparent);
   color: var(--bad);
+}
+
+.quote-diff {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.quote-diff-mark {
+  flex: 0 0 0.9em;
+  width: 0.9em;
+  text-align: center;
 }
 
 .quote-diff-up {

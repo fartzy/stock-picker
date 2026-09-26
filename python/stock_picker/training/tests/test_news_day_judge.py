@@ -1,3 +1,4 @@
+import threading
 from datetime import date
 
 from stock_picker.training.news_day_judge import (
@@ -95,3 +96,28 @@ def test_fetch_recent_news_flags_judges_all_and_keeps_only_flagged(monkeypatch):
     )
     flags = fetch_recent_news_flags(["AAA", "BBB", "CCC", "DDD"], date(2026, 9, 25))
     assert flags == {"BBB": "avoid", "DDD": "avoid"}
+
+
+def test_fetch_recent_news_flags_judges_names_concurrently(monkeypatch):
+    """Serial judging would deadlock: each call waits for the others to start."""
+    tickers = ["AAA", "BBB", "CCC", "DDD"]
+    barrier = threading.Barrier(len(tickers), timeout=2)
+    seen: list[str] = []
+    lock = threading.Lock()
+
+    def flag(ticker, _arts):
+        with lock:
+            seen.append(ticker)
+        barrier.wait()
+        return "avoid" if ticker == "BBB" else None
+
+    monkeypatch.setattr(
+        "stock_picker.training.news_day_judge.fetch_news_articles",
+        lambda *a, **k: {ticker: [{"headline": ticker}] for ticker in tickers},
+    )
+    monkeypatch.setattr("stock_picker.training.news_day_judge.flag_from_articles", flag)
+
+    flags = fetch_recent_news_flags(tickers, date(2026, 9, 25))
+
+    assert flags == {"BBB": "avoid"}
+    assert set(seen) == set(tickers)

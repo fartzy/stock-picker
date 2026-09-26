@@ -9,6 +9,7 @@ import {
 } from "../api";
 import { useFetchData } from "../useFetchData";
 import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
+import { StatStrip } from "./StatStrip";
 
 const POLL_MS = 2000;
 
@@ -21,8 +22,15 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
   return (
     <details className="view-card">
       <summary>
-        <strong>{pass.which}</strong>
-        {` · ${seconds(pass.seconds)} · scored ${pass.scored_count} · ${pass.n_picks} picks · ${pass.skipped_count} skipped`}
+        <StatStrip
+          items={[
+            { key: "which", title: true, align: "start", value: <strong>{pass.which}</strong> },
+            { key: "time", label: "Time", value: seconds(pass.seconds) },
+            { key: "scored", label: "Scored", value: pass.scored_count },
+            { key: "picks", label: "Picks", value: pass.n_picks },
+            { key: "skipped", label: "Skipped", value: pass.skipped_count },
+          ]}
+        />
       </summary>
       {pass.picks.length > 0 && (
         <div style={{ marginTop: "var(--space-2)" }}>
@@ -128,9 +136,18 @@ export default function MorningCheck() {
       {data && data.status !== "idle" && (
         <div style={{ marginTop: "var(--space-3)" }}>
           <p className="period-row">
-            <strong>{data.status}</strong>
-            {data.quote_seconds !== null && ` · fake quotes ${seconds(data.quote_seconds)} · ${data.n_quotes} names`}
-            {data.error ? ` · ${data.error}` : ""}
+            <StatStrip
+              items={[
+                { key: "status", title: true, align: "start", value: <strong>{data.status}</strong> },
+                ...(data.quote_seconds !== null
+                  ? [
+                      { key: "quotes", label: "Fake quotes", value: seconds(data.quote_seconds) },
+                      { key: "names", label: "Names", value: data.n_quotes },
+                    ]
+                  : []),
+                ...(data.error ? [{ key: "error", align: "start" as const, value: data.error }] : []),
+              ]}
+            />
           </p>
           {data.passes.map((pass) => (
             <PassBlock key={pass.which} pass={pass} isRank={pass.which === "rank"} />
@@ -138,7 +155,12 @@ export default function MorningCheck() {
           {data.quotes.length > 0 && (
             <details className="view-card">
               <summary>
-                Fake opens · {data.quotes.length} names
+                <StatStrip
+                  items={[
+                    { key: "title", title: true, align: "start", value: "Fake opens" },
+                    { key: "names", align: "start", value: `${data.quotes.length} names` },
+                  ]}
+                />
               </summary>
               <div style={{ overflowX: "auto", maxHeight: 360, overflowY: "auto" }}>
                 <DataTable

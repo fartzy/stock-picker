@@ -12,6 +12,7 @@ import {
 } from "../api";
 import { useFetchData } from "../useFetchData";
 import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
+import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
 
 type Kind = "fit" | "rank" | "both";
@@ -114,18 +115,18 @@ function Pct({ value }: { value: number | null | undefined }) {
   );
 }
 
-function StatsLine({ stats }: { stats: PaperListStats | undefined }) {
-  if (!stats || stats.n_scored === 0) return null;
+function statsItems(stats: PaperListStats | undefined): StatItem[] {
+  if (!stats || stats.n_scored === 0) return [];
   const hit = stats.hit_rate !== null ? `${(stats.hit_rate * 100).toFixed(0)}% hit` : null;
-  return (
-    <>
-      {` · ${stats.n_scored} scored · ${stats.wins}W/${stats.losses}L`}
-      {hit ? ` · ${hit}` : ""}
-      {" · avg "}
-      <Pct value={stats.avg} />
-      {stats.n_avoid ? ` · skipped ${stats.n_avoid} gap-down news` : ""}
-    </>
-  );
+  return [
+    { key: "scored", label: "Scored", value: stats.n_scored },
+    { key: "wl", label: "W/L", value: `${stats.wins}W/${stats.losses}L` },
+    ...(hit ? [{ key: "hit", label: "Hit", value: hit }] : []),
+    { key: "avg", label: "Avg", value: <Pct value={stats.avg} /> },
+    ...(stats.n_avoid
+      ? [{ key: "skipped", label: "Skipped", value: `${stats.n_avoid} gap-down news` }]
+      : []),
+  ];
 }
 
 function ListTable({
@@ -145,9 +146,13 @@ function ListTable({
   return (
     <div>
       <p className="view-meta" style={{ marginBottom: "var(--space-2)" }}>
-        <strong>{title}</strong>
-        {` · ${rows.length} names`}
-        <StatsLine stats={stats} />
+        <StatStrip
+          items={[
+            { key: "title", title: true, align: "start", value: <strong>{title}</strong> },
+            { key: "names", align: "start", value: `${rows.length} names` },
+            ...statsItems(stats),
+          ]}
+        />
       </p>
       <div style={{ overflowX: "auto" }}>
         <DataTable
@@ -196,28 +201,46 @@ function DayCard({
   return (
     <details className="view-card">
       <summary>
-        <strong style={{ color: "var(--accent)" }}>{formatDay(day.as_of)}</strong>{" "}
-        <span className="view-meta">
-          {day.scan_id ? "replay · " : "live · "}
-          {modelLabel ? <span className="muted">{modelLabel} · </span> : null}
-          {kind !== "fit" && day.rank.length > 0 && (
-            <>
-              Rank {day.rank.length} <Pct value={day.rank_avg} />
-            </>
-          )}
-          {kind === "both" && day.fit.length > 0 && day.rank.length > 0 && " · "}
-          {kind !== "rank" && day.fit.length > 0 && (
-            <>
-              Fit {day.fit.length} <Pct value={day.fit_avg} />
-            </>
-          )}
-          {(rankNote || fitNote) && (
-            <>
-              {" · "}
-              <span className="muted">{[rankNote, fitNote].filter(Boolean).join(" · ")}</span>
-            </>
-          )}
-        </span>
+        <StatStrip
+          items={[
+            {
+              key: "title",
+              title: true,
+              align: "start",
+              value: <strong style={{ color: "var(--accent)" }}>{formatDay(day.as_of)}</strong>,
+            },
+            { key: "kind", align: "start", value: day.scan_id ? "replay" : "live" },
+            ...(modelLabel ? [{ key: "model", align: "start" as const, value: modelLabel }] : []),
+            ...(kind !== "fit" && day.rank.length > 0
+              ? [
+                  {
+                    key: "rank",
+                    label: "Rank",
+                    value: (
+                      <>
+                        {day.rank.length} <Pct value={day.rank_avg} />
+                      </>
+                    ),
+                  },
+                ]
+              : []),
+            ...(kind !== "rank" && day.fit.length > 0
+              ? [
+                  {
+                    key: "fit",
+                    label: "Fit",
+                    value: (
+                      <>
+                        {day.fit.length} <Pct value={day.fit_avg} />
+                      </>
+                    ),
+                  },
+                ]
+              : []),
+            ...(rankNote ? [{ key: "rank-note", align: "start" as const, value: rankNote }] : []),
+            ...(fitNote ? [{ key: "fit-note", align: "start" as const, value: fitNote }] : []),
+          ]}
+        />
       </summary>
       <div style={{ display: "grid", gap: "var(--space-4)", marginTop: "var(--space-3)" }}>
         {kind !== "rank" && (
@@ -376,28 +399,48 @@ export default function WhatIf() {
             {rankOn && (
               <div className="view-card slice-card">
                 <div className="slice-card-kicker">
-                  Rank · {rankAsked === undefined ? "all" : `top ${rankAsked}`} · {data.rank_days}d
+                  <StatStrip
+                    items={[
+                      { key: "title", title: true, align: "start", value: "Rank" },
+                      { key: "slice", align: "start", value: rankAsked === undefined ? "all" : `top ${rankAsked}` },
+                      { key: "days", align: "start", value: `${data.rank_days}d` },
+                    ]}
+                  />
                 </div>
                 <div className="slice-card-avg">
                   <Pct value={data.rank_compound} /> compound
                 </div>
                 <p className="view-meta" style={{ marginTop: 4 }}>
-                  {data.rank_stats?.n ?? 0} names
-                  <StatsLine stats={data.rank_stats} />
+                  <StatStrip
+                    items={[
+                      { key: "names", align: "start", value: `${data.rank_stats?.n ?? 0} names` },
+                      ...statsItems(data.rank_stats),
+                    ]}
+                  />
                 </p>
               </div>
             )}
             {fitOn && (
               <div className="view-card slice-card">
                 <div className="slice-card-kicker">
-                  Fit · {fitAsked === undefined ? "all" : `top ${fitAsked}`} · {data.fit_days}d
+                  <StatStrip
+                    items={[
+                      { key: "title", title: true, align: "start", value: "Fit" },
+                      { key: "slice", align: "start", value: fitAsked === undefined ? "all" : `top ${fitAsked}` },
+                      { key: "days", align: "start", value: `${data.fit_days}d` },
+                    ]}
+                  />
                 </div>
                 <div className="slice-card-avg">
                   <Pct value={data.fit_compound} /> compound
                 </div>
                 <p className="view-meta" style={{ marginTop: 4 }}>
-                  {data.fit_stats?.n ?? 0} names
-                  <StatsLine stats={data.fit_stats} />
+                  <StatStrip
+                    items={[
+                      { key: "names", align: "start", value: `${data.fit_stats?.n ?? 0} names` },
+                      ...statsItems(data.fit_stats),
+                    ]}
+                  />
                 </p>
               </div>
             )}
