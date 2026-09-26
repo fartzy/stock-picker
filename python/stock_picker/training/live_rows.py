@@ -13,7 +13,7 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
+from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets_processes, split_buckets
 from stock_picker.features.structure import fill_cluster_overnight_gaps
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
@@ -110,6 +110,50 @@ def prepare_one(
     )
 
 
+@dataclass
+class _BucketPayload:
+    """One process-pool call's worth of work: a ticker chunk plus every
+    read-only value `prepare_one` needs. `run_buckets_processes` requires a
+    picklable, module-level `work` function -- a closure capturing these
+    (as `prepare_live_rows` used to, back when this ran on threads) can't
+    cross a process boundary, so they travel as plain dataclass fields
+    instead. `feature_store`/`price_store` are safe to pickle as-is: each
+    is just a wrapped `Path` (see storage/feature_store.py,
+    storage/price_store.py), not a live connection or file handle, so a
+    worker's copy resolves the exact same on-disk location -- including a
+    test's `data_dir` override.
+    """
+
+    tickers: list[str]
+    quotes: dict[str, dict]
+    earnings: set[str]
+    feature_store: FeatureStore
+    price_store: PriceStore
+    as_of: date
+    spy_open: float | None
+    spy_prev_close: float | None
+    blocked: set[str]
+    excluded_features: frozenset[str] | None
+
+
+def _prepare_bucket(payload: _BucketPayload) -> list[LiveRow]:
+    return [
+        prepare_one(
+            ticker,
+            quotes=payload.quotes,
+            earnings=payload.earnings,
+            feature_store=payload.feature_store,
+            price_store=payload.price_store,
+            as_of=payload.as_of,
+            spy_open=payload.spy_open,
+            spy_prev_close=payload.spy_prev_close,
+            blocked=payload.blocked,
+            excluded_features=payload.excluded_features,
+        )
+        for ticker in payload.tickers
+    ]
+
+
 def prepare_live_rows(
     tickers: list[str],
     quotes: dict[str, dict],
@@ -125,7 +169,13 @@ def prepare_live_rows(
 ) -> list[LiveRow]:
     """Rebuild open-known rows once for the universe.
 
-    Thread buckets of 100 -- parquet I/O, not GIL-bound LightGBM.
+    Process buckets of 100: per-ticker cost here is CPU-bound pandas
+    (groupby+expanding+transform in features/open_pattern_seasonality.py),
+    not the parquet I/O this was originally sized for -- Python threads
+    don't parallelize CPU work (the GIL blocks it), so this used to run
+    close to sequential despite the bucket machinery. Measured: a 50-name
+    sample through the old thread path (8.76s) was not faster than plain
+    sequential (8.33s) -- see training/profile_live_rows.py.
     Rank and Fit both consume this list.
 
     `excluded_features` (currently-pruned columns) skips their open-known
@@ -138,26 +188,24 @@ def prepare_live_rows(
     """
     blocked = blacklisted_tickers()
     earning_set = set(earnings)
-
-    def _chunk(chunk: list[str]) -> list[LiveRow]:
-        return [
-            prepare_one(
-                ticker,
-                quotes=quotes,
-                earnings=earning_set,
-                feature_store=feature_store,
-                price_store=price_store,
-                as_of=as_of,
-                spy_open=spy_open,
-                spy_prev_close=spy_prev_close,
-                blocked=blocked,
-                excluded_features=excluded_features,
-            )
-            for ticker in chunk
-        ]
+    payloads = [
+        _BucketPayload(
+            tickers=chunk,
+            quotes=quotes,
+            earnings=earning_set,
+            feature_store=feature_store,
+            price_store=price_store,
+            as_of=as_of,
+            spy_open=spy_open,
+            spy_prev_close=spy_prev_close,
+            blocked=blocked,
+            excluded_features=excluded_features,
+        )
+        for chunk in split_buckets(tickers, bucket_size)
+    ]
 
     rows: list[LiveRow] = []
-    for bucket in run_buckets(_chunk, tickers, bucket_size=bucket_size, workers=workers):
+    for bucket in run_buckets_processes(_prepare_bucket, payloads, workers=workers):
         rows.extend(bucket)
     fill_cluster_overnight_gaps(rows, quotes)
     return rows
