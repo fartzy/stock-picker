@@ -5,7 +5,7 @@ wraps an already-tested pure function from `features/`. No new business logic.
 from __future__ import annotations
 
 from dataclasses import asdict
-from datetime import datetime
+from datetime import date, datetime
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException, status
@@ -32,6 +32,7 @@ from stock_picker.api.models import (
     ModelSelectionResponse,
     ModelTypesResponse,
     PaperBookResponse,
+    PaperReplayRequest,
     PositionsResponse,
     PriceHistoryResponse,
     PruneRequest,
@@ -53,7 +54,8 @@ from stock_picker.features.benchmark import (
     fetch_benchmark_returns,
 )
 from stock_picker.features.hold_to_close import apply_hold_to_close
-from stock_picker.paper.book import load_or_rebuild, paper_book_view, rebuild_paper_book
+from stock_picker.paper.book import load_paper_book, paper_book_view, refresh_paper_book
+from stock_picker.training.replay import replay_morning
 from stock_picker.features.catalog import (
     compute_formulas_all,
     correlation_matrix,
@@ -189,7 +191,7 @@ def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse
         return None
     return BuySignalResponse(
         as_of=payload["as_of"],
-        threshold=payload.get("threshold", threshold),
+        threshold=payload.get("threshold") if payload.get("threshold") is not None else threshold,
         signals=[_signal_payload(s) for s in (payload.get("signals") or [])],
         scored_count=payload.get("scored_count", 0),
         skipped=payload.get("skipped") or [],
@@ -296,7 +298,7 @@ def get_paper_book(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="kind must be fit, rank, or both"
         )
-    picks = load_or_rebuild()
+    picks = load_paper_book()
     return PaperBookResponse(
         **paper_book_view(
             picks,
@@ -306,6 +308,19 @@ def get_paper_book(
             rank_top_k=rank_top_k,
         )
     )
+
+
+@router.post("/paper-book/rebuild")
+def post_paper_book_rebuild() -> PaperBookResponse:
+    picks = refresh_paper_book()
+    return PaperBookResponse(**paper_book_view(picks, kind="both"))
+
+
+@router.post("/paper-book/replay")
+def post_paper_book_replay(body: PaperReplayRequest) -> PaperBookResponse:
+    as_of = date.fromisoformat(body.as_of)
+    replay_morning(as_of, model_run_id=body.model_run_id, threshold=body.threshold)
+    return PaperBookResponse(**paper_book_view(load_paper_book(), kind="both"))
 
 
 @router.get("/positions")

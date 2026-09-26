@@ -1,6 +1,6 @@
 """Weekday morning scoring: today's opens through last night's model.
 
-Runs at 8:31 CT. Rank and Fit predict on one shared open-known matrix.
+Runs at 8:30:15 CT. Rank and Fit predict on one shared open-known matrix.
 Rank is published as soon as Rank finishes (target ~8:35 CT).
 """
 
@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import fcntl
 from concurrent.futures import ThreadPoolExecutor
+import time
 from datetime import date, datetime
 from pathlib import Path
 
@@ -50,7 +51,7 @@ _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
 
 
 def _try_lock_morning():
-    """Non-blocking lock so 8:31 cannot start a second scan.
+    """Non-blocking lock so 8:30 cannot start a second scan.
 
     Returns an open file that must stay open until scoring finishes, or
     None if another process already holds the lock.
@@ -97,9 +98,15 @@ def _write_signals(payload: dict, as_of: str, signal_dir: Path = DEFAULT_SIGNAL_
     return signal_dir / name
 
 
-def _payload_from(result, freshness) -> dict:
+def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
+    from stock_picker.storage.training_config_store import TrainingConfigStore
+
+    run_id = model_run_id
+    if run_id is None:
+        run_id = TrainingConfigStore().read().selected_run_id
     return {
         "as_of": result.as_of,
+        "model_run_id": run_id,
         "threshold": result.threshold,
         "signals": [
             {
@@ -131,19 +138,28 @@ def score_from_quotes(
     persist: bool = True,
     news_fetcher=fetch_recent_news_flags,
     earnings_fetcher=fetch_recent_earnings_tickers,
+    as_of: date | None = None,
+    model_run_id: str | None = None,
 ):
     """Build open-known rows once, then Rank + Fit only predict.
 
-    Same path the 8:31 job and Test run use. persist=False skips cache/git/email
+    Same path the 8:30 job and Test run use. persist=False skips cache/git/email
     so a test run does not overwrite Monday's files.
     """
+    t0 = time.perf_counter()
     freshness = pipeline_freshness()
-    as_of = date.today()
-    tickers = UniverseStore().active_tickers()
+    as_of = as_of or date.today()
+    from stock_picker.storage.ticker_blacklist_store import blacklisted_tickers
+
+    blocked = blacklisted_tickers()
+    tickers = [ticker for ticker in UniverseStore().active_tickers() if ticker not in blocked]
+    logger.info("score start names=%s blocked=%s persist=%s", len(tickers), sorted(blocked), persist)
     try:
         earnings = earnings_fetcher(tickers, as_of) or set()
     except TypeError:
         earnings = earnings_fetcher(tickers) or set()
+    logger.info("earnings %.1fs n=%s", time.perf_counter() - t0, len(earnings))
+    t_rows = time.perf_counter()
     spy_quote = quotes.get("SPY")
     spy_open = spy_quote.get("open") if spy_quote else None
     spy_prev_close = spy_quote.get("prev_close") if spy_quote else None
@@ -159,6 +175,8 @@ def score_from_quotes(
         bucket_size=SCORE_BUCKET,
         workers=SCORE_WORKERS,
     )
+    scored = sum(1 for row in live_rows if row.row is not None)
+    logger.info("live_rows %.1fs scored=%s skipped=%s", time.perf_counter() - t_rows, scored, len(live_rows) - scored)
 
     def quote_fetcher(names, as_of=None):
         return quotes
@@ -166,6 +184,7 @@ def score_from_quotes(
     def _rank():
         return compute_rank_signals(
             top_k=RANK_TOP_K,
+            as_of=as_of,
             quote_fetcher=quote_fetcher,
             earnings_fetcher=None,
             news_fetcher=None,
@@ -173,24 +192,31 @@ def score_from_quotes(
         )
 
     def _fit():
-        return compute_buy_signals(
+        kwargs = dict(
             threshold=threshold,
+            as_of=as_of,
             quote_fetcher=quote_fetcher,
             earnings_fetcher=None,
             news_fetcher=None,
             live_rows=live_rows,
         )
+        if model_run_id:
+            from stock_picker.training.main import MODEL_NAME
+
+            kwargs["model_name"] = f"{MODEL_NAME}_{model_run_id}"
+        return compute_buy_signals(**kwargs)
 
     rank_result = None
     rank_n = 0
     rank_text = ""
+    t_pred = time.perf_counter()
     with ThreadPoolExecutor(max_workers=2) as pool:
         rank_future = pool.submit(_rank)
         fit_future = pool.submit(_fit)
         try:
             rank_result = rank_future.result()
             if persist and rank_result.signals:
-                rank_payload = _payload_from(rank_result, freshness)
+                rank_payload = _payload_from(rank_result, freshness, model_run_id)
                 rank_payload["kind"] = "rank"
                 _write_signals(rank_payload, rank_result.as_of)
                 rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
@@ -201,6 +227,12 @@ def score_from_quotes(
         except Exception:
             logger.exception("ranking skipped")
         result = fit_future.result()
+    logger.info(
+        "predict %.1fs rank=%s fit=%s",
+        time.perf_counter() - t_pred,
+        0 if rank_result is None else len(rank_result.signals),
+        len(result.signals),
+    )
 
     if not persist and rank_result is not None:
         rank_n = len(rank_result.signals)
@@ -219,7 +251,10 @@ def score_from_quotes(
         if not names or news_fetcher is None:
             return {}
         logger.info("news check %s names (%s)", len(names), label)
-        return news_fetcher(names, date.fromisoformat(result.as_of)) or {}
+        t_news = time.perf_counter()
+        flags = news_fetcher(names, date.fromisoformat(result.as_of)) or {}
+        logger.info("news %s %.1fs flagged=%s", label, time.perf_counter() - t_news, len(flags))
+        return flags
 
     first = [s.ticker for s in result.signals]
     if rank_result is not None:
@@ -227,11 +262,11 @@ def score_from_quotes(
     _apply_flags(_news(first, f"fit + rank 1-{RANK_NEWS_TOP_K}"))
     if persist:
         if rank_result is not None and rank_result.signals:
-            rank_payload = _payload_from(rank_result, freshness)
+            rank_payload = _payload_from(rank_result, freshness, model_run_id)
             rank_payload["kind"] = "rank"
             _write_signals(rank_payload, rank_result.as_of)
             rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
-        fit_payload = _payload_from(result, freshness)
+        fit_payload = _payload_from(result, freshness, model_run_id)
         _write_signals(fit_payload, result.as_of)
         _subject, fit_body = format_picks_email(fit_payload)
         body = (rank_text + "\n" + fit_body) if rank_text else fit_body
@@ -245,14 +280,15 @@ def score_from_quotes(
     rest_flags = _news(rest, f"rank {RANK_NEWS_TOP_K + 1}-{RANK_TOP_K} after first publish")
     _apply_flags(rest_flags)
     if persist and rest_flags and rank_result is not None and rank_result.signals:
-        rank_payload = _payload_from(rank_result, freshness)
+        rank_payload = _payload_from(rank_result, freshness, model_run_id)
         rank_payload["kind"] = "rank"
         _write_signals(rank_payload, rank_result.as_of)
         rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
-        fit_payload = _payload_from(result, freshness)
+        fit_payload = _payload_from(result, freshness, model_run_id)
         _subject, fit_body = format_picks_email(fit_payload)
         publish_picks(result.as_of, rank_text + "\n" + fit_body)
         logger.info("republish GitHub after rank 11-20 news")
+    logger.info("score done %.1fs", time.perf_counter() - t0)
     return freshness, rank_result, result, rank_n, rank_text
 
 

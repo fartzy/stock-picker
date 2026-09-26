@@ -59,6 +59,36 @@ def _session_from_bar(bar: pd.Series | None) -> tuple[float | None, float | None
     return open_px, close_px, (close_px / open_px) - 1.0
 
 
+def session_quotes_from_prices(
+    tickers: list[str],
+    as_of: date,
+    price_store: PriceStore | None = None,
+) -> dict[str, dict]:
+    """Official Open/Close/prev close from daily bars -- not a live snapshot.
+
+    Historical What if must not call Yahoo v7. That path can copy yesterday's
+    Open (WRBY $23.18). The bar for `as_of` is the session we are scoring.
+    """
+    prices = price_store if price_store is not None else PriceStore()
+    day = as_of.isoformat()
+    quotes: dict[str, dict] = {}
+    for ticker in tickers:
+        try:
+            history = prices.read(ticker)
+        except FileNotFoundError:
+            continue
+        open_px, close_px, _ = _session_from_bar(_bar(history, day))
+        prev_close = _prior_close(history, day)
+        if open_px is None or prev_close is None:
+            continue
+        quotes[ticker] = {
+            "open": open_px,
+            "last": close_px if close_px is not None else open_px,
+            "prev_close": prev_close,
+        }
+    return quotes
+
+
 def _quotes_for(tickers: list[str], as_of: date) -> dict[str, dict]:
     from stock_picker.ingestion.yfinance_client import fetch_quotes
 
@@ -103,7 +133,7 @@ def rebuild_paper_book(
             if payload is None:
                 continue
             signals = payload.get("signals") or []
-            day_signals.append((kind, signals))
+            day_signals.append((kind, signals, payload.get("model_run_id")))
             if session_done:
                 for signal in signals:
                     ticker = signal["ticker"]
@@ -115,7 +145,7 @@ def rebuild_paper_book(
                         missing.append(ticker)
         live = quotes(sorted(set(missing)), date.fromisoformat(day)) if missing else {}
         need_news: list[str] = []
-        for _, signals in day_signals:
+        for _, signals, _ in day_signals:
             for signal in signals:
                 if not signal.get("news_flag"):
                     need_news.append(signal["ticker"])
@@ -129,29 +159,36 @@ def rebuild_paper_book(
 
             day_news_fetcher = fetch_recent_news_flags
         fetched_news = _news_for_day(day, unique_need, day_news_fetcher)
-        for kind, signals in day_signals:
+        for kind, signals, model_run_id in day_signals:
             for rank, signal in enumerate(signals, start=1):
                 ticker = signal["ticker"]
                 predicted = signal.get("predicted_return")
-                open_px = close_px = session_return = prev_close = None
+                scan_open = signal.get("open_price")
+                open_px = float(scan_open) if scan_open else None
+                close_px = session_return = prev_close = None
                 history = None
                 if session_done:
                     try:
                         history = prices.read(ticker)
                     except FileNotFoundError:
                         history = None
-                    open_px, close_px, session_return = _session_from_bar(
+                    bar_open, bar_close, _ = _session_from_bar(
                         _bar(history, day) if history is not None else None
                     )
                     prev_close = _prior_close(history, day)
-                    if open_px is None and ticker in live:
+                    if open_px is None:
+                        open_px = bar_open
+                    close_px = bar_close
+                    if close_px is None and ticker in live:
                         quote = live[ticker]
-                        o, c = quote.get("open"), quote.get("last")
-                        if o and c and float(o) > 0:
-                            open_px, close_px = float(o), float(c)
-                            session_return = (close_px / open_px) - 1.0
+                        if open_px is None and quote.get("open"):
+                            open_px = float(quote["open"])
+                        if quote.get("last"):
+                            close_px = float(quote["last"])
                         if prev_close is None and quote.get("prev_close"):
                             prev_close = float(quote["prev_close"])
+                    if open_px and close_px and open_px > 0:
+                        session_return = (close_px / open_px) - 1.0
                 cached_flag = signal.get("news_flag")
                 news_flag = cached_flag or fetched_news.get(ticker)
                 news_checked = 1 if (cached_flag is not None or ticker in fetched_news or news_fetcher is not None) else 0
@@ -172,6 +209,8 @@ def rebuild_paper_book(
                         news_flag=news_flag,
                         news_checked=news_checked,
                         prev_close=prev_close,
+                        scan_id="",
+                        model_run_id=model_run_id,
                     )
                 )
     book.replace_all(picks)
@@ -204,33 +243,26 @@ def _missing_prev_close_for_news(picks: list[PaperPick]) -> bool:
     return any(p.news_flag and p.prev_close is None for p in picks)
 
 
-def load_or_rebuild(
+def load_paper_book(paper_store: PaperBookStore | None = None) -> list[PaperPick]:
+    """SQLite only. Never Yahoo on a GET -- 990 names would hang What if."""
+    book = paper_store if paper_store is not None else PaperBookStore()
+    return book.read()
+
+
+def refresh_paper_book(
     scan_store: ScanStore | None = None,
     price_store: PriceStore | None = None,
     paper_store: PaperBookStore | None = None,
     news_fetcher=None,
 ) -> list[PaperPick]:
-    """Read SQLite; rebuild if empty, short, or a completed day still has no Close.
-
-    News flags come from the morning scan when present. Finnhub is not
-    called on every GET -- a 992-name day would take minutes.
-    """
-    scans = scan_store if scan_store is not None else ScanStore()
-    book = paper_store if paper_store is not None else PaperBookStore()
+    """Rebuild through the last completed session. Use the What if refresh button."""
     from stock_picker.ingestion.session import last_completed_session_date
 
-    cutoff = last_completed_session_date()
-    existing = book.read()
-    if existing:
-        have = {p.as_of for p in existing}
-        needed = [day for day in scans.days() if date.fromisoformat(day) <= cutoff]
-        if needed and set(needed) <= have and not _missing_closes(existing, cutoff):
-            return existing
     return rebuild_paper_book(
-        completed_through=cutoff,
-        scan_store=scans,
+        completed_through=last_completed_session_date(),
+        scan_store=scan_store,
         price_store=price_store,
-        paper_store=book,
+        paper_store=paper_store,
         news_fetcher=news_fetcher,
     )
 
@@ -288,14 +320,26 @@ def paper_book_view(
     wanted = KINDS if kind == "both" else (kind,)
     fit_k = fit_top_k if fit_top_k is not None else top_k
     rank_k = rank_top_k if rank_top_k is not None else top_k
-    days: dict[str, dict] = {}
+    days: dict[tuple[str, str], dict] = {}
     for pick in picks:
         if pick.kind not in wanted:
             continue
         cap = fit_k if pick.kind == "fit" else rank_k
         if cap is not None and pick.rank > cap:
             continue
-        bucket = days.setdefault(pick.as_of, {"as_of": pick.as_of, "fit": [], "rank": []})
+        scan_id = pick.scan_id or ""
+        bucket = days.setdefault(
+            (pick.as_of, scan_id),
+            {
+                "as_of": pick.as_of,
+                "scan_id": scan_id,
+                "model_run_id": pick.model_run_id,
+                "fit": [],
+                "rank": [],
+            },
+        )
+        if pick.model_run_id and not bucket.get("model_run_id"):
+            bucket["model_run_id"] = pick.model_run_id
         bucket[pick.kind].append(
             {
                 "rank": pick.rank,
@@ -314,19 +358,22 @@ def paper_book_view(
     rank_avgs: list[float] = []
     fit_rows: list[dict] = []
     rank_rows: list[dict] = []
-    for as_of in sorted(days, reverse=True):
-        row = days[as_of]
+    for key in sorted(days, reverse=True):
+        row = days[key]
         fit_stats = _list_stats(row["fit"])
         rank_stats = _list_stats(row["rank"])
-        if fit_stats["avg"] is not None:
-            fit_avgs.append(fit_stats["avg"])
-        if rank_stats["avg"] is not None:
-            rank_avgs.append(rank_stats["avg"])
-        fit_rows.extend(row["fit"])
-        rank_rows.extend(row["rank"])
+        if not row["scan_id"]:
+            if fit_stats["avg"] is not None:
+                fit_avgs.append(fit_stats["avg"])
+            if rank_stats["avg"] is not None:
+                rank_avgs.append(rank_stats["avg"])
+            fit_rows.extend(row["fit"])
+            rank_rows.extend(row["rank"])
         day_list.append(
             {
-                "as_of": as_of,
+                "as_of": row["as_of"],
+                "scan_id": row["scan_id"],
+                "model_run_id": row["model_run_id"],
                 "fit": row["fit"],
                 "rank": row["rank"],
                 "fit_avg": fit_stats["avg"],

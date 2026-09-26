@@ -664,6 +664,20 @@ details.view-card[open] > summary::before {
   font-size: var(--text-caption);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.col-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.col-hint {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  opacity: 0.7;
 }
 
 .trade-table tbody tr:last-child td {
@@ -919,6 +933,27 @@ details.view-card[open] > summary::before {
 
 .slice-input:disabled {
   opacity: 0.4;
+}
+
+.icon-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: var(--text-body);
+  font-family: var(--sans);
+  line-height: 1;
+}
+
+.icon-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.icon-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .slice-result {

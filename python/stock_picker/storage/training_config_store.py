@@ -40,7 +40,7 @@ class TrainingConfig:
     # behavior). Set = "use this specific historical run's archived model
     # for live inference instead" -- see training/buy_signal.py.
     selected_run_id: str | None = None
-    # False = skip the 8:31 launchd job; trigger Rank+Fit from the UI instead.
+    # False = skip the 8:30 launchd job; trigger Rank+Fit from the UI instead.
     morning_job_enabled: bool = True
 
 
