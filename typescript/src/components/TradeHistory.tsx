@@ -7,8 +7,25 @@ import {
   type PositionsResponse,
 } from "../api";
 import AddTradeForm from "./AddTradeForm";
-import { Diff } from "./Diff";
 import { formatUsd } from "../format";
+import {
+  CLOSED_LOT_COLUMNS,
+  Diff,
+  HOLD_WINDOW_LABEL,
+  OPEN_LOT_COLUMNS,
+  PERIOD_COLUMNS,
+  SignedPct,
+  StatBody,
+  StatDetail,
+  StatExpand,
+  StatHead,
+  StatRow,
+  StatStrip,
+  StatTable,
+  lotColumnClass,
+  type StatItem,
+  type StatValues,
+} from "./stats";
 import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
@@ -24,7 +41,7 @@ function formatTime(executedAt: string): string {
 
 function formatDay(day: string): string {
   return new Date(`${day}T12:00:00`).toLocaleDateString("en-US", {
-    weekday: "long",
+    weekday: "short",
     month: "short",
     day: "numeric",
   });
@@ -86,15 +103,27 @@ function summarizePositions(positions: Position[]): PositionsSummary {
   };
 }
 
-function SummaryLine({ label, summary }: { label: string; summary: PositionsSummary }) {
+function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
   const { invested, pnl, hasUnknownPnl } = summary;
-  return (
-    <>
-      {label} &middot; {formatUsd(invested)} invested &middot;{" "}
-      <Diff value={pnl} pct={invested ? pnl / invested : null} />
-      {hasUnknownPnl ? " (partial)" : ""}
-    </>
-  );
+  return [
+    { key: "title", title: true, align: "start", value: <strong style={{ color: "var(--accent)" }}>Open now</strong> },
+    { key: "lots", align: "start", value: count === 0 ? "No open lots" : `${count} lot${count === 1 ? "" : "s"}` },
+    ...(count === 0
+      ? []
+      : [
+          { key: "on-book", label: "On book", value: formatUsd(invested) },
+          {
+            key: "pnl",
+            label: "P&L",
+            value: (
+              <>
+                <Diff value={pnl} pct={invested ? pnl / invested : null} />
+                {hasUnknownPnl ? " (partial)" : ""}
+              </>
+            ),
+          },
+        ]),
+  ];
 }
 
 function holdToCloseTotal(positions: Position[]): { pnl: number; invested: number } | null {
@@ -106,17 +135,15 @@ function holdToCloseTotal(positions: Position[]): { pnl: number; invested: numbe
   };
 }
 
-function PnlCell({ position, caption }: { position: Position; caption: string }) {
+function PnlCell({ position, caption }: { position: Position; caption?: string }) {
   return (
     <td className="trade-num">
-      <div>
-        {position.pnl !== null ? (
-          <Diff value={position.pnl} pct={position.invested ? position.pnl / position.invested : null} />
-        ) : (
-          "--"
-        )}
-      </div>
-      <div className="muted">{caption}</div>
+      {position.pnl !== null ? (
+        <Diff value={position.pnl} pct={position.invested ? position.pnl / position.invested : null} />
+      ) : (
+        "--"
+      )}
+      {caption ? <div className="muted">{caption}</div> : null}
     </td>
   );
 }
@@ -148,16 +175,13 @@ function ClosedRow({ position }: { position: Position }) {
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
       <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
-      <PnlCell position={position} caption="realized" />
+      <PnlCell position={position} />
       <td className="trade-num">
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
       </td>
       <td className="trade-num">
         {holdClosePnl !== null ? (
-          <>
-            <Diff value={holdClosePnl} pct={holdPct} />
-            <div className="muted">8:40–2:55 CT</div>
-          </>
+          <Diff value={holdClosePnl} pct={holdPct} />
         ) : (
           <span className="muted">session open</span>
         )}
@@ -167,78 +191,41 @@ function ClosedRow({ position }: { position: Position }) {
   );
 }
 
-const OPEN_COLUMNS = ["Ticker", "Shares", "Bought", "Buy Price", "Last", "P&L", "Invested"];
-const CLOSED_COLUMNS = [
-  "Ticker",
-  "Shares",
-  "Bought",
-  "Buy Price",
-  "Sold",
-  "Sell Price",
-  "P&L",
-  "Close",
-  "8:40–2:55 CT",
-  "Invested",
-];
-
-function columnClass(column: string): string | undefined {
-  return column === "Ticker" || column === "Bought" || column === "Sold" ? undefined : "trade-num";
-}
-
-function HoldToCloseNote({
-  positions,
-  typicalOn,
-}: {
-  positions: Position[];
-  typicalOn?: number;
-}) {
+function holdToCloseItem(positions: Position[], typicalOn?: number): StatItem | null {
   const total = holdToCloseTotal(positions);
   if (total === null) return null;
   const denom = typicalOn || total.invested;
-  return (
-    <>
-      {" "}
-      &middot; 8:40–2:55 CT{" "}
-      <Diff value={total.pnl} pct={denom ? total.pnl / denom : null} />
-    </>
-  );
+  return {
+    key: "hold",
+    label: HOLD_WINDOW_LABEL,
+    value: <Diff value={total.pnl} pct={denom ? total.pnl / denom : null} />,
+  };
 }
 
-function SpyPct({ value }: { value: number }) {
-  const isUp = value >= 0;
-  return (
-    <span className={isUp ? "quote-diff-up" : "quote-diff-down"}>
-      {isUp ? "▲" : "▼"} {(Math.abs(value) * 100).toFixed(2)}%
-    </span>
-  );
-}
-
-function BenchmarkNote({
-  sessionReturn,
-  overnightReturn,
-}: {
-  sessionReturn: number | undefined;
-  overnightReturn: number | undefined;
-}) {
-  if (sessionReturn === undefined && overnightReturn === undefined) return null;
-  return (
-    <>
-      {sessionReturn !== undefined && (
-        <>
-          {" "}
-          &middot; intraday S&amp;P{" "}
-          <SpyPct value={sessionReturn} />
-        </>
-      )}
-      {overnightReturn !== undefined && (
-        <>
-          {" "}
-          &middot; buy-and-hold S&amp;P{" "}
-          <SpyPct value={overnightReturn} />
-        </>
-      )}
-    </>
-  );
+function dayValues(
+  day: string,
+  positions: Position[],
+  onBooks: number,
+  sessionReturn?: number,
+  overnightReturn?: number,
+): StatValues {
+  const summary = summarizePositions(positions);
+  const session = holdToCloseTotal(positions);
+  const denom = onBooks || summary.invested;
+  return {
+    title: <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>,
+    days: `${positions.length} lot${positions.length === 1 ? "" : "s"}`,
+    typical: formatUsd(denom),
+    pnl: <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />,
+    intraday: sessionReturn !== undefined ? <SignedPct value={sessionReturn} /> : "",
+    bh: overnightReturn !== undefined ? <SignedPct value={overnightReturn} /> : "",
+    hold:
+      session !== null ? (
+        <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
+      ) : (
+        ""
+      ),
+  };
 }
 
 function ClosedDayGroup({
@@ -253,58 +240,39 @@ function ClosedDayGroup({
   day: string;
   positions: Position[];
   onBooks: number;
-  sessionReturn: number | undefined;
-  overnightReturn: number | undefined;
+  sessionReturn?: number;
+  overnightReturn?: number;
   expanded: boolean;
   onToggle: () => void;
 }) {
-  const summary = summarizePositions(positions);
-  const session = holdToCloseTotal(positions);
-  const denom = onBooks || summary.invested;
   return (
-    <details
-      className="view-card"
+    <StatExpand
+      nested
       open={expanded}
-      onToggle={(event) => {
-        if ((event.currentTarget as HTMLDetailsElement).open !== expanded) onToggle();
-      }}
+      onToggle={onToggle}
+      values={dayValues(day, positions, onBooks, sessionReturn, overnightReturn)}
     >
-      <summary>
-        <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>{" "}
-        <span className="view-meta">
-          {positions.length} lot{positions.length === 1 ? "" : "s"}
-          {" · "}
-          {formatUsd(denom)}
-          {" · "}
-          <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />
-          {session !== null && (
-            <>
-              {" · 8:40–2:55 CT "}
-              <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
-            </>
-          )}
-          <BenchmarkNote sessionReturn={sessionReturn} overnightReturn={overnightReturn} />
-        </span>
-      </summary>
-      <div style={{ overflowX: "auto", marginTop: "var(--space-3)" }}>
-        <table className="trade-table">
-          <thead>
-            <tr>
-              {CLOSED_COLUMNS.map((column) => (
-                <th key={column} className={columnClass(column)}>
-                  {column}
-                </th>
+      <StatDetail>
+        <div className="day-lots">
+          <table className="trade-table">
+            <thead>
+              <tr>
+                {CLOSED_LOT_COLUMNS.map((column) => (
+                  <th key={column} className={lotColumnClass(column)}>
+                    {column}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {positions.map((position, index) => (
+                <ClosedRow position={position} key={`${position.ticker}-${position.day}-${index}`} />
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {positions.map((position, index) => (
-              <ClosedRow position={position} key={`${position.ticker}-${position.day}-${index}`} />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </details>
+            </tbody>
+          </table>
+        </div>
+      </StatDetail>
+    </StatExpand>
   );
 }
 
@@ -406,59 +374,18 @@ type PeriodSummary = {
   spyPct: number | null;
 };
 
-function PeriodLine({
-  label,
-  summary,
-  holdPct,
-}: {
-  label: string;
-  summary: PeriodSummary;
-  holdPct: number | null;
-}) {
+function periodValues(label: string, summary: PeriodSummary, holdPct: number | null): StatValues {
   const pctDenom = summary.typicalOn;
-  return (
-    <>
-      <strong>{label}</strong>
-      {` · ${summary.sessions}d · ${formatUsd(summary.typicalOn)}/day · `}
-      <Diff value={summary.pnl} pct={pctDenom ? summary.pnl / pctDenom : null} />
-      {summary.spyPct !== null && (
-        <>
-          {" · intraday S&P "}
-          <SpyPct value={summary.spyPct} />
-        </>
-      )}
-      {holdPct !== null && (
-        <>
-          {" · buy-and-hold S&P "}
-          <SpyPct value={holdPct} />
-        </>
-      )}
-      <HoldToCloseNote positions={summary.lots} typicalOn={pctDenom} />
-    </>
-  );
-}
-
-function PeriodRow({
-  label,
-  summary,
-  holdPct,
-}: {
-  label: string;
-  summary: PeriodSummary;
-  holdPct: number | null;
-}) {
-  if (summary.lots.length === 0 || summary.sessions === 0) {
-    return (
-      <p className="muted" style={{ margin: "0 0 var(--space-2)" }}>
-        {label}: no closed lots
-      </p>
-    );
-  }
-  return (
-    <p className="period-row">
-      <PeriodLine label={label} summary={summary} holdPct={holdPct} />
-    </p>
-  );
+  const hold = holdToCloseItem(summary.lots, pctDenom);
+  return {
+    title: <strong>{label}</strong>,
+    days: `${summary.sessions}d`,
+    typical: `${formatUsd(summary.typicalOn)}/day`,
+    pnl: <Diff value={summary.pnl} pct={pctDenom ? summary.pnl / pctDenom : null} />,
+    intraday: summary.spyPct !== null ? <SignedPct value={summary.spyPct} /> : "—",
+    bh: holdPct !== null ? <SignedPct value={holdPct} /> : "—",
+    hold: hold?.value ?? "—",
+  };
 }
 
 export default function TradeHistory() {
@@ -505,28 +432,11 @@ export default function TradeHistory() {
   const allHold = benchmarkData?.hold?.pct ?? null;
 
   return (
-    <div>
+    <div className="trade-history">
       {nothing ? (
         <p className="muted">No trades logged yet.</p>
       ) : (
         <>
-          <div className="view-card" style={{ marginBottom: "var(--space-3)" }}>
-            <PeriodRow
-              label="MTD"
-              summary={month}
-              holdPct={holdPctForDays(monthLots.map((p) => p.day), overnight) ?? allHold}
-            />
-            <PeriodRow
-              label="YTD"
-              summary={year}
-              holdPct={holdPctForDays(yearLots.map((p) => p.day), overnight) ?? allHold}
-            />
-            <PeriodRow
-              label="All"
-              summary={allTime}
-              holdPct={holdPctForDays(closedLots.map((p) => p.day), overnight) ?? allHold}
-            />
-          </div>
           <details
             className="view-card"
             open={openNowExpanded}
@@ -535,29 +445,19 @@ export default function TradeHistory() {
             }}
           >
             <summary>
-              <strong style={{ color: "var(--accent)" }}>Open now</strong>{" "}
-              <span className="view-meta">
-                {openPositions.length === 0 ? (
-                  "No open lots"
-                ) : (
-                  <SummaryLine
-                    label={`${openPositions.length} lot${openPositions.length === 1 ? "" : "s"}`}
-                    summary={summarizePositions(openPositions)}
-                  />
-                )}
-              </span>
+              <StatStrip items={openNowItems(openPositions.length, summarizePositions(openPositions))} />
             </summary>
             {openPositions.length === 0 ? (
-              <p className="muted" style={{ marginTop: "var(--space-3)" }}>
+              <p className="muted" style={{marginTop: "var(--space-3)" }}>
                 Nothing left open.
               </p>
             ) : (
-              <div style={{ overflowX: "auto", marginTop: "var(--space-3)" }}>
+              <div style={{ overflowX: "auto",marginTop: "var(--space-3)" }}>
                 <table className="trade-table">
                   <thead>
                     <tr>
-                      {OPEN_COLUMNS.map((column) => (
-                        <th key={column} className={columnClass(column)}>
+                      {OPEN_LOT_COLUMNS.map((column) => (
+                        <th key={column} className={lotColumnClass(column)}>
                           {column}
                         </th>
                       ))}
@@ -573,7 +473,33 @@ export default function TradeHistory() {
             )}
           </details>
 
-          {groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
+          <div className="view-card">
+          <StatTable columns={PERIOD_COLUMNS}>
+            <StatHead />
+            <StatBody>
+              <StatRow
+                values={periodValues(
+                  "MTD",
+                  month,
+                  holdPctForDays(monthLots.map((p) => p.day), overnight) ?? allHold,
+                )}
+              />
+              <StatRow
+                values={periodValues(
+                  "YTD",
+                  year,
+                  holdPctForDays(yearLots.map((p) => p.day), overnight) ?? allHold,
+                )}
+              />
+              <StatRow
+                values={periodValues(
+                  "All",
+                  allTime,
+                  holdPctForDays(closedLots.map((p) => p.day), overnight) ?? allHold,
+                )}
+              />
+            </StatBody>
+            {groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
             const lotsThisWeek = weekDays.flatMap(([, lots]) => lots);
             const weekSummary = windowSummary(lotsThisWeek, spySessions, onBooks);
             const weekHold = holdPctForDays(
@@ -582,24 +508,12 @@ export default function TradeHistory() {
             );
             const isOpen = monday in weekOpen ? weekOpen[monday] : weekIndex === 0;
             return (
-              <details
-                className="view-card week-block"
+              <StatExpand
                 key={monday}
                 open={isOpen}
-                onToggle={(event) => {
-                  const open = (event.currentTarget as HTMLDetailsElement).open;
-                  setWeekOpen((current) => ({ ...current, [monday]: open }));
-                }}
+                onToggle={() => setWeekOpen((current) => ({ ...current, [monday]: !isOpen }))}
+                values={periodValues(formatWeekRange(monday), weekSummary, weekHold)}
               >
-                <summary>
-                  <span className="view-meta">
-                    <PeriodLine
-                      label={formatWeekRange(monday)}
-                      summary={weekSummary}
-                      holdPct={weekHold}
-                    />
-                  </span>
-                </summary>
                 {weekDays.map(([day, dayPositions]) => (
                   <ClosedDayGroup
                     day={day}
@@ -609,7 +523,7 @@ export default function TradeHistory() {
                     overnightReturn={benchmarkData?.overnight?.[day]}
                     expanded={expandedDays.has(day)}
                     onToggle={() =>
-                      setExpandedDays((current) => {
+                     setExpandedDays((current) => {
                         const next = new Set(current);
                         if (next.has(day)) next.delete(day);
                         else next.add(day);
@@ -619,12 +533,14 @@ export default function TradeHistory() {
                     key={day}
                   />
                 ))}
-              </details>
+              </StatExpand>
             );
-          })}
+         })}
+          </StatTable>
+          </div>
 
           {unmatchedSells.length > 0 && (
-            <p className="muted" style={{ marginTop: "var(--space-3)" }}>
+            <p className="muted" style={{marginTop: "var(--space-3)" }}>
               Sells with no matching buy in the log:{" "}
               {unmatchedSells
                 .map((position) =>

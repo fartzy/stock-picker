@@ -1,4 +1,5 @@
 import { fetchPipelineFreshness, type PipelineFreshnessResponse } from "../api";
+import { StatStrip } from "./StatStrip";
 import { useFetchData } from "../useFetchData";
 
 const POLL_INTERVAL_MS = 30_000;
@@ -24,12 +25,14 @@ export default function FreshnessBadge() {
   const ready = data.ready_for_inference;
   return (
     <p className={ready ? "freshness-ok" : "freshness-stale"} title={data.detail}>
-      {ready ? "Ready to score" : "Not ready to score"}
-      {" · "}
-      features {formatIsoDate(data.feature_snapshot_date)}
-      {" · "}
-      model through {formatIsoDate(data.model_trained_through)}
-      {!ready && <span className="muted"> — {data.detail}</span>}
+      <StatStrip
+        items={[
+          { key: "ready", title: true, align: "start", value: ready ? "Ready to score" : "Not ready to score" },
+          { key: "features", label: "Features", value: formatIsoDate(data.feature_snapshot_date) },
+          { key: "model", label: "Model through", value: formatIsoDate(data.model_trained_through) },
+          ...(!ready ? [{ key: "detail", align: "start" as const, value: data.detail }] : []),
+        ]}
+      />
     </p>
   );
 }

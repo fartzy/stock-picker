@@ -21,6 +21,7 @@ import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
 import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
 import FreshnessBadge from "./FreshnessBadge";
+import { StatStrip } from "./stats";
 import TogglePill from "./TogglePill";
 
 const LATEST_OPTION_VALUE = "";
@@ -74,8 +75,14 @@ function MorningList({
       onToggle={(event) => setOpen((event.currentTarget as HTMLDetailsElement).open)}
     >
       <summary>
-        <strong>{title}</strong>
-        {` · ${list.as_of} · ${list.signals.length} · scored ${list.scored_count}`}
+        <StatStrip
+          items={[
+            { key: "title", title: true, align: "start", value: <strong>{title}</strong> },
+            { key: "as-of", align: "start", value: list.as_of },
+            { key: "picks", align: "start", value: `${list.signals.length} picks` },
+            { key: "scored", align: "start", value: `scored ${list.scored_count}` },
+          ]}
+        />
       </summary>
       {list.signals.length === 0 ? (
         <p className="muted">No tickers on this list.</p>
@@ -260,7 +267,17 @@ export default function BuySignal() {
     <div>
       {universe && (
         <p className="muted" style={{ marginBottom: 8 }}>
-          {formatToday()} · Sell by close · {universe.active_ticker_count.toLocaleString()} tickers scanned.
+          <StatStrip
+            items={[
+              { key: "today", align: "start", value: formatToday() },
+              { key: "window", align: "start", value: "Sell by close" },
+              {
+                key: "scanned",
+                align: "start",
+                value: `${universe.active_ticker_count.toLocaleString()} tickers scanned`,
+              },
+            ]}
+          />
         </p>
       )}
       <FreshnessBadge />
@@ -345,8 +362,12 @@ function MorningLists({
   return (
     <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
       <summary>
-        <strong>This morning</strong>
-        {headerAsOf ? ` · ${headerAsOf}` : ""}
+        <StatStrip
+          items={[
+            { key: "title", title: true, align: "start", value: <strong>This morning</strong> },
+            ...(headerAsOf ? [{ key: "as-of", align: "start" as const, value: headerAsOf }] : []),
+          ]}
+        />
       </summary>
       <div className="morning-lists">
         <MorningList
