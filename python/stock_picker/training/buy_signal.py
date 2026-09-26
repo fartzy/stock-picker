@@ -62,6 +62,7 @@ class BuySignal:
     open_price: float
     snapshot_date: str
     news_flag: str | None = None
+    news_checked: bool = False
     prev_close: float | None = None
 
 
@@ -212,7 +213,10 @@ def compute_buy_signals(
         except TypeError:
             flags = {}
         for signal in signals:
+            # This path judges every returned name in one shot, so all are
+            # checked -- a blank News column here means "clear", not "pending".
             signal.news_flag = flags.get(signal.ticker)
+            signal.news_checked = True
     blended_importance = sorted(ensemble_importance(ensemble).items(), key=lambda item: item[1], reverse=True)
     top_drivers = blended_importance[:TOP_DRIVER_COUNT]
 

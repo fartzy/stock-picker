@@ -127,7 +127,7 @@ function MorningList({
               {
                 key: "news",
                 header: "News",
-                cell: (signal) => <NewsCell flag={signal.news_flag} blocks={signal.news_blocks} />,
+                cell: (signal) => <NewsCell flag={signal.news_flag} blocks={signal.news_blocks} checked={signal.news_checked} />,
               },
             ]}
           />

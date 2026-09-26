@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -195,15 +196,34 @@ def flag_from_articles(ticker: str, articles: list[dict]) -> str | None:
     return flagged
 
 
+# Each name's judge is an independent LLM call (grok_judge -> requests.post,
+# several seconds of network wait apiece); run them concurrently like the
+# Finnhub article fetch above rather than serially -- on the morning path this
+# loop was the single largest cost after row building, ~4-5s x every picked
+# name. I/O-bound, so threads parallelize despite the GIL. Bounded to match
+# fetch_news_articles' own fan-out, and pick counts are small (Rank top-20,
+# a handful for Fit) so this is a wave or two, not a fixed 8-wide firehose.
+NEWS_JUDGE_WORKERS = 8
+
+
+def _judge_one(item: tuple[str, list[dict]]) -> tuple[str, str | None]:
+    ticker, articles = item
+    return ticker, flag_from_articles(ticker, articles)
+
+
 def fetch_recent_news_flags(tickers: list[str], as_of: date) -> dict[str, str]:
     """Picks only. ticker -> avoid reason. Empty dict if nothing to skip."""
     start = as_of - timedelta(days=1)
     while start.weekday() >= 5:
         start -= timedelta(days=1)
     articles_by_ticker = fetch_news_articles(tickers, as_of, from_date=start)
+    if not articles_by_ticker:
+        return {}
+    items = list(articles_by_ticker.items())
+    workers = min(NEWS_JUDGE_WORKERS, len(items))
     flags: dict[str, str] = {}
-    for ticker, articles in articles_by_ticker.items():
-        flag = flag_from_articles(ticker, articles)
-        if flag:
-            flags[ticker] = flag
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for ticker, flag in pool.map(_judge_one, items):
+            if flag:
+                flags[ticker] = flag
     return flags

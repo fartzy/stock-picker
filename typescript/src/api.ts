@@ -160,6 +160,7 @@ export interface PaperPickRow {
   close_price: number | null;
   session_return: number | null;
   news_flag?: string | null;
+  news_checked?: boolean;
   news_blocks?: boolean;
 }
 
@@ -366,6 +367,7 @@ export interface BuySignalRow {
   open_price: number;
   snapshot_date: string;
   news_flag?: string | null;
+  news_checked?: boolean;
   prev_close?: number | null;
   news_blocks?: boolean;
 }
@@ -501,6 +503,7 @@ export interface TimedPass {
     open_price: number;
     snapshot_date: string;
     news_flag?: string | null;
+    news_checked?: boolean;
   }>;
   skipped_count: number;
 }
