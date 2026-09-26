@@ -20,6 +20,7 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVR
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.listwise import make_listfold_objective
@@ -112,6 +113,24 @@ NEURAL_NET_DEFAULT_PARAMS = {
 # regularization stays warranted, just not as aggressive.
 RIDGE_DEFAULT_PARAMS = {
     "alpha": 1.0,
+    "random_state": 0,
+}
+# LinearSVR, not kernel SVR: kernel fitting compares rows against rows
+# (roughly quadratic in sample count), which is impractical at this
+# dataset's row count -- the linear formulation is the only SVM variant
+# that scales here. epsilon-insensitive loss is the family's actual point
+# of difference vs. ridge: errors inside the epsilon tube cost nothing and
+# errors outside grow linearly (MAE-like, same robustness rationale as
+# production Fit's MAE objective) vs. ridge's squared error. epsilon=0.001
+# is ~0.1% return -- forecasts within a tenth of a percent of the label are
+# treated as correct rather than chased. max_iter raised well above
+# sklearn's default 1000, which liblinear frequently exhausts without
+# converging at this row count.
+SVR_DEFAULT_PARAMS = {
+    "C": 1.0,
+    "epsilon": 0.001,
+    "loss": "epsilon_insensitive",
+    "max_iter": 10000,
     "random_state": 0,
 }
 
@@ -335,6 +354,37 @@ def train_ridge(
     return TrainedModel(model_type="ridge", estimator=regressor, feature_names=columns)
 
 
+def train_svr(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """Predicts the same continuous day-session return the other predictive
+    trainers do, so it blends natively -- but it is NOT in
+    PREDICTIVE_MODEL_TYPES yet: per this codebase's convention, a new family
+    earns its way onto the Models picker through the empirical solo-vs-blend
+    search (see training/svr_search.py), the same bar random_forest,
+    neural_net, and ridge were held to.
+
+    Wrapped in the same impute+scale Pipeline as train_ridge, for the same
+    two reasons: LinearSVR has no native missing-value support, and both its
+    L2 penalty and its epsilon tube are scale-sensitive -- meaningless unless
+    every feature (and the margin geometry they induce) is on the same scale
+    first.
+    """
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    regressor = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+            ("regress", LinearSVR(**{**SVR_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
+    return TrainedModel(model_type="svr", estimator=regressor, feature_names=columns)
+
+
 MODEL_TRAINERS = {
     "lightgbm": train_lightgbm,
     "lightgbm_rank": train_lightgbm_rank,
@@ -342,6 +392,7 @@ MODEL_TRAINERS = {
     "logistic_regression": train_logistic_regression,
     "neural_net": train_neural_net,
     "ridge": train_ridge,
+    "svr": train_svr,
 }
 
 # The model types that predict the continuous day-session return and can

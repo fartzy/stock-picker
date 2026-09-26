@@ -39,6 +39,7 @@ py_library(
         "replay.py",
         "splits.py",
         "story_prune.py",
+        "svr_search.py",
         "train.py",
         "tune_experiment.py",
     ],
@@ -216,5 +217,19 @@ py_binary(
         ":training",
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "svr_search",
+    srcs = ["svr_search.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
