@@ -7,8 +7,8 @@ import {
   type MorningCheckResponse,
   type TimedPass,
 } from "../api";
-import { formatUsd } from "../format";
 import { useFetchData } from "../useFetchData";
+import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
 
 const POLL_MS = 2000;
 
@@ -25,32 +25,23 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
         {` · ${seconds(pass.seconds)} · scored ${pass.scored_count} · ${pass.n_picks} picks · ${pass.skipped_count} skipped`}
       </summary>
       {pass.picks.length > 0 && (
-        <table className="trade-table" style={{ marginTop: "var(--space-2)" }}>
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
-              <th className="trade-num">Fake open</th>
-              <th>News</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pass.picks.map((pick) => (
-              <tr key={`${pass.which}-${pick.ticker}`}>
-                <td className="trade-ticker">{pick.ticker}</td>
-                <td className="trade-num">
-                  {isRank
-                    ? pick.predicted_return.toFixed(4)
-                    : `${(pick.predicted_return * 100).toFixed(2)}%`}
-                </td>
-                <td className="trade-num">{formatUsd(pick.open_price)}</td>
-                <td className={pick.news_flag ? "quote-diff-down" : "muted"}>
-                  {pick.news_flag ? `news · ${pick.news_flag}` : "—"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div style={{ marginTop: "var(--space-2)" }}>
+          <DataTable
+            rows={pass.picks}
+            rowKey={(pick) => `${pass.which}-${pick.ticker}`}
+            columns={[
+              { key: "ticker", header: "Ticker", cell: (pick) => <TickerCell ticker={pick.ticker} /> },
+              {
+                key: "score",
+                header: isRank ? "Score" : "Predicted",
+                numeric: true,
+                cell: (pick) => <ScoreCell value={pick.predicted_return} isRank={isRank} />,
+              },
+              { key: "open", header: "Fake open", numeric: true, cell: (pick) => <UsdCell value={pick.open_price} /> },
+              { key: "news", header: "News", cell: (pick) => <NewsCell flag={pick.news_flag} /> },
+            ]}
+          />
+        </div>
       )}
     </details>
   );
@@ -150,24 +141,15 @@ export default function MorningCheck() {
                 Fake opens · {data.quotes.length} names
               </summary>
               <div style={{ overflowX: "auto", maxHeight: 360, overflowY: "auto" }}>
-                <table className="trade-table">
-                  <thead>
-                    <tr>
-                      <th>Ticker</th>
-                      <th className="trade-num">Fake open</th>
-                      <th className="trade-num">Last close</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.quotes.map((quote) => (
-                      <tr key={quote.ticker}>
-                        <td className="trade-ticker">{quote.ticker}</td>
-                        <td className="trade-num">{formatUsd(quote.fake_open)}</td>
-                        <td className="trade-num">{formatUsd(quote.last_close)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  rows={data.quotes}
+                  rowKey={(quote) => quote.ticker}
+                  columns={[
+                    { key: "ticker", header: "Ticker", cell: (quote) => <TickerCell ticker={quote.ticker} /> },
+                    { key: "open", header: "Fake open", numeric: true, cell: (quote) => <UsdCell value={quote.fake_open} /> },
+                    { key: "close", header: "Last close", numeric: true, cell: (quote) => <UsdCell value={quote.last_close} /> },
+                  ]}
+                />
               </div>
             </details>
           )}
