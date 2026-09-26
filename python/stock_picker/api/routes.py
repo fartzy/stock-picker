@@ -168,8 +168,23 @@ def create_trade(trade: TradeCreate) -> TradesResponse:
 
 
 @router.get("/quotes")
-def get_quotes(tickers: str) -> QuotesResponse:
-    return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(tickers.split(","))))
+def get_quotes(tickers: str, as_of: str | None = None) -> QuotesResponse:
+    """Live by default. If `as_of` names a session that has already settled
+    (an earlier date, or today's date once the close has settled), serve the
+    real closing bar from PriceStore instead of a live quote -- a live fetch
+    returns nothing useful for a past/closed session (no fresh print to
+    return), which otherwise leaves Prev/Open/Close blank for any day-old
+    scan. Same data source What if already trusts for settled days
+    (paper/book.py's session_quotes_from_prices)."""
+    names = tickers.split(",")
+    if as_of:
+        from stock_picker.ingestion.session import cash_session_date, session_has_closed
+        from stock_picker.paper.book import session_quotes_from_prices
+
+        as_of_date = date.fromisoformat(as_of)
+        if as_of_date < cash_session_date() or session_has_closed():
+            return QuotesResponse(quotes=quote_summaries(session_quotes_from_prices(names, as_of_date)))
+    return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(names)))
 
 
 def _signal_payload(signal) -> dict:

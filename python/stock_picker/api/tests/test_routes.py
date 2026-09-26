@@ -567,6 +567,46 @@ def test_get_quotes(client):
     ]
 
 
+def test_get_quotes_with_as_of_in_the_past_uses_settled_bar_not_live_fetch(client):
+    # A live fetch has nothing useful to say about a date that already
+    # closed (see routes.get_quotes) -- it should serve the real settled
+    # bar instead. Patch session_quotes_from_prices directly (not
+    # PriceStore) so this doesn't depend on real files on disk.
+    with patch(
+        "stock_picker.paper.book.session_quotes_from_prices",
+        return_value={"AAA": {"open": 50.0, "last": 52.0, "prev_close": 49.0}},
+    ) as mock_settled:
+        response = client.get("/api/quotes", params={"tickers": "AAA", "as_of": "2020-01-02"})
+
+    assert response.status_code == status.HTTP_200_OK
+    mock_settled.assert_called_once()
+    called_tickers, called_as_of = mock_settled.call_args[0][0], mock_settled.call_args[0][1]
+    assert called_tickers == ["AAA"]
+    assert called_as_of == date(2020, 1, 2)
+    quotes = response.json()["quotes"]
+    assert quotes[0]["open"] == 50.0
+    assert quotes[0]["last"] == 52.0
+    assert quotes[0]["prev_close"] == 49.0
+
+
+def test_get_quotes_with_as_of_for_the_still_open_session_uses_live_fetch(client):
+    # Today's own not-yet-closed session must keep behaving exactly like the
+    # no-as_of case (test_get_quotes above) -- as_of alone doesn't switch to
+    # the settled path, only a date that has actually closed does.
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 9, 28)),
+        patch("stock_picker.ingestion.session.session_has_closed", return_value=False),
+        patch("stock_picker.paper.book.session_quotes_from_prices") as mock_settled,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA", "as_of": "2026-09-28"})
+
+    assert response.status_code == status.HTTP_200_OK
+    mock_settled.assert_not_called()
+    quotes = response.json()["quotes"]
+    assert quotes[0]["open"] == 100.0
+    assert quotes[0]["last"] == 105.0
+
+
 def test_get_benchmark_returns(client):
     spy_history = pd.DataFrame(
         {"Open": [500.0], "Close": [505.0]},
