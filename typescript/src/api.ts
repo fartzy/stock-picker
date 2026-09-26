@@ -562,16 +562,17 @@ export const setLiveModel = (runId: string) =>
 export const resetLiveModel = () => mutate<LiveModelResponse>("DELETE", "/api/live-model");
 const QUOTE_BATCH = 200;
 
-export async function fetchQuotes(tickers: string[]): Promise<QuotesResponse> {
+export async function fetchQuotes(tickers: string[], asOf?: string): Promise<QuotesResponse> {
   const unique = [...new Set(tickers.filter(Boolean))];
   if (unique.length === 0) return { quotes: [] };
   const batches: string[][] = [];
   for (let i = 0; i < unique.length; i += QUOTE_BATCH) {
     batches.push(unique.slice(i, i + QUOTE_BATCH));
   }
+  const suffix = asOf ? `&as_of=${encodeURIComponent(asOf)}` : "";
   const parts = await Promise.all(
     batches.map((batch) =>
-      getJson<QuotesResponse>(`/api/quotes?tickers=${batch.map(encodeURIComponent).join(",")}`),
+      getJson<QuotesResponse>(`/api/quotes?tickers=${batch.map(encodeURIComponent).join(",")}${suffix}`),
     ),
   );
   return { quotes: parts.flatMap((part) => part.quotes) };

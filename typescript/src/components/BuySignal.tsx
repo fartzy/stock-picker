@@ -61,6 +61,7 @@ function MorningList({
   const { quotes } = useQuotes(tickers, {
     enabled: showLive && open && tickers.length > 0,
     intervalMs: closed || tickers.length > 40 ? undefined : 60_000,
+    asOf: list?.as_of,
   });
   if (!list) return null;
   const noModel = list.skipped.some((s) => s.ticker === NO_MODEL_SENTINEL);
