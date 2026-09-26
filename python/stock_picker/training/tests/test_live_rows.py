@@ -200,7 +200,11 @@ def test_prepare_one_excluded_features_skips_recompute_but_keeps_other_open_know
     assert row.row.iloc[0]["seq3_open3_seasonality"] != pytest.approx(_SENTINEL)
 
 
-def test_prepare_live_rows_reads_blacklist_once_and_merges_thread_buckets(tmp_path, monkeypatch):
+def test_prepare_live_rows_reads_blacklist_once_and_merges_process_buckets(tmp_path, monkeypatch):
+    # blacklisted_tickers() runs once in prepare_live_rows itself and
+    # travels into each bucket's payload as plain data (a set) -- workers
+    # never call it themselves, so this assertion holds regardless of the
+    # thread-vs-process switch (see _BucketPayload).
     from stock_picker.training import live_rows as live_rows_mod
 
     feature_store, price_store = _stores(tmp_path)
@@ -238,3 +242,48 @@ def test_prepare_live_rows_reads_blacklist_once_and_merges_thread_buckets(tmp_pa
     for ticker in ["AAA", "BBB", "CCC", "DDD"]:
         assert by_ticker[ticker].row is not None
         assert by_ticker[ticker].snapshot_date == _SNAPSHOT.isoformat()
+
+
+def test_prepare_live_rows_excluded_features_survives_the_process_boundary(tmp_path):
+    # excluded_features must round-trip through real pickling into a
+    # separate OS process (bucket_size=1 forces >1 real subprocess for 2
+    # tickers) -- a same-process call, or a mock replacing the pool, would
+    # not catch a payload field that fails to pickle or silently arrives
+    # empty on the worker side.
+    feature_store, price_store = _stores(tmp_path)
+    history = synthetic_history(n=140)
+    as_of = (history.index[-1] + pd.tseries.offsets.BDay(1)).date()
+    snapshot_date = history.index[-1].date()
+    quotes = {}
+    for ticker in ["AAA", "BBB"]:
+        price_store.write(ticker, history)
+        frame = pd.DataFrame(
+            {
+                "some_feature": [1.0],
+                GAP_COLUMN: [0.0],
+                "seq2_open3_seasonality": [_SENTINEL],
+                "seq3_open3_seasonality": [_SENTINEL],
+            },
+            index=pd.DatetimeIndex([snapshot_date], name="date"),
+        )
+        feature_store.write(ticker, frame)
+        quotes[ticker] = _quote()
+
+    rows = prepare_live_rows(
+        ["AAA", "BBB"],
+        quotes=quotes,
+        earnings=set(),
+        feature_store=feature_store,
+        price_store=price_store,
+        as_of=as_of,
+        spy_open=None,
+        spy_prev_close=None,
+        bucket_size=1,
+        workers=2,
+        excluded_features=frozenset({"seq2_open3_seasonality"}),
+    )
+
+    for row in rows:
+        assert row.row is not None
+        assert row.row.iloc[0]["seq2_open3_seasonality"] == pytest.approx(_SENTINEL)
+        assert row.row.iloc[0]["seq3_open3_seasonality"] != pytest.approx(_SENTINEL)
