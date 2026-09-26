@@ -35,11 +35,22 @@ def test_both_uses_score_from_quotes(monkeypatch):
 
     called = {}
 
-    def fake_score(quotes, threshold=0.005, persist=True, news_fetcher=None, earnings_fetcher=None):
+    def fake_score(
+        quotes,
+        threshold=0.005,
+        persist=True,
+        news_fetcher=None,
+        earnings_fetcher=None,
+        as_of=None,
+        model_run_id=None,
+        on_progress=None,
+    ):
         called["persist"] = persist
         called["news"] = news_fetcher is not None
         rank = BuySignalResult(as_of="2026-09-19", threshold=0.0, scored_count=2, signals=[])
         fit = BuySignalResult(as_of="2026-09-19", threshold=0.005, scored_count=2, signals=[])
+        if on_progress is not None:
+            on_progress(rank, fit)
         return None, rank, fit, 0, ""
 
     monkeypatch.setattr(mc, "score_from_quotes", fake_score)

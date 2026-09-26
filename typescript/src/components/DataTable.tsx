@@ -93,14 +93,25 @@ export function ScoreCell({ value, isRank }: { value: number | null | undefined;
 export function NewsCell({
   flag,
   blocks,
+  checked,
 }: {
   flag?: string | null;
   blocks?: boolean;
+  // Three states, since a blank cell is now ambiguous under progressive news:
+  //   flag present        -> material news found (skip / still buy · reason)
+  //   checked, no flag    -> judged clear
+  //   not checked yet     -> still being judged in a later batch
+  // `checked` undefined (historical/older data with no such field) is treated
+  // as checked -- those runs finished news before this field existed.
+  checked?: boolean;
 }) {
-  if (!flag) return <span className="muted">—</span>;
-  return (
-    <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
-      {blocks ? "skip" : "still buy"} · {flag}
-    </span>
-  );
+  if (flag) {
+    return (
+      <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
+        {blocks ? "skip" : "still buy"} · {flag}
+      </span>
+    );
+  }
+  if (checked === false) return <span className="muted">pending</span>;
+  return <span className="muted">clear</span>;
 }

@@ -52,6 +52,13 @@ logger = get_logger(__name__)
 DEFAULT_SIGNAL_DIR = data_root() / "buy_signals"
 _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
 
+# News is applied in priority batches so the highest-conviction names surface
+# first (viewable/published) while the rest enrich in the background. The first
+# batch is deliberately tiny -- just the top few of each list -- so the first
+# paint costs one parallel news wave (~5s), not one covering every pick.
+RANK_FIRST_NEWS = 4
+FIT_FIRST_NEWS = 2
+
 
 def _try_lock_morning():
     """Non-blocking lock so 8:30 cannot start a second scan.
@@ -118,6 +125,7 @@ def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
                 "open_price": signal.open_price,
                 "snapshot_date": signal.snapshot_date,
                 "news_flag": signal.news_flag,
+                "news_checked": signal.news_checked,
             }
             for signal in result.signals
         ],
@@ -143,11 +151,18 @@ def score_from_quotes(
     earnings_fetcher=fetch_recent_earnings_tickers,
     as_of: date | None = None,
     model_run_id: str | None = None,
+    on_progress=None,
 ):
     """Build open-known rows once, then Rank + Fit only predict.
 
     Same path the 8:30 job and Test run use. persist=False skips cache/git/email
     so a test run does not overwrite Monday's files.
+
+    `on_progress(rank_result, fit_result)`, if given, fires after every news
+    batch -- the Test run job uses it to surface partial picks (top few
+    news-checked) for viewing while later batches keep judging. The real
+    morning path passes nothing and instead surfaces the same staging via its
+    existing GitHub/cache publish points below.
     """
     t0 = time.perf_counter()
     freshness = pipeline_freshness()
@@ -268,12 +283,16 @@ def score_from_quotes(
     if not persist and rank_result is not None:
         rank_n = len(rank_result.signals)
 
-    def _apply_flags(flags):
-        for signal in result.signals:
-            if signal.ticker in flags:
-                signal.news_flag = flags[signal.ticker]
+    def _apply_news(checked: set[str], flags: dict[str, str]) -> None:
+        # Mark every judged ticker news_checked (so a blank News column reads
+        # "clear", not "still checking") and attach a flag where one was found.
+        # Applies to both lists so a name in fit and rank updates in both.
+        signals = list(result.signals)
         if rank_result is not None:
-            for signal in rank_result.signals:
+            signals.extend(rank_result.signals)
+        for signal in signals:
+            if signal.ticker in checked:
+                signal.news_checked = True
                 if signal.ticker in flags:
                     signal.news_flag = flags[signal.ticker]
 
@@ -287,11 +306,11 @@ def score_from_quotes(
         logger.info("news %s %.1fs flagged=%s", label, time.perf_counter() - t_news, len(flags))
         return flags
 
-    first = [s.ticker for s in result.signals]
-    if rank_result is not None:
-        first.extend(s.ticker for s in rank_result.signals[:RANK_NEWS_TOP_K])
-    _apply_flags(_news(first, f"fit + rank 1-{RANK_NEWS_TOP_K}"))
-    if persist:
+    def _publish(first: bool) -> None:
+        """Write + publish the current picks (news flags applied so far). The
+        first call also writes the local cache files; later calls only
+        republish the GitHub/email body after news changed something."""
+        nonlocal rank_text
         if rank_result is not None and rank_result.signals:
             rank_payload = _payload_from(rank_result, freshness, model_run_id)
             rank_payload["kind"] = "rank"
@@ -301,24 +320,53 @@ def score_from_quotes(
         _write_signals(fit_payload, result.as_of)
         _subject, fit_body = format_picks_email(fit_payload)
         body = (rank_text + "\n" + fit_body) if rank_text else fit_body
-        write_picks_files(result.as_of, body)
+        if first:
+            write_picks_files(result.as_of, body)
         publish_picks(result.as_of, body)
-        logger.info("first publish GitHub + cache (Fit + Rank, news on rank 1-10)")
 
-    rest = []
-    if rank_result is not None:
-        rest = [s.ticker for s in rank_result.signals[RANK_NEWS_TOP_K:RANK_TOP_K]]
-    rest_flags = _news(rest, f"rank {RANK_NEWS_TOP_K + 1}-{RANK_TOP_K} after first publish")
-    _apply_flags(rest_flags)
-    if persist and rest_flags and rank_result is not None and rank_result.signals:
-        rank_payload = _payload_from(rank_result, freshness, model_run_id)
-        rank_payload["kind"] = "rank"
-        _write_signals(rank_payload, rank_result.as_of)
-        rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
-        fit_payload = _payload_from(result, freshness, model_run_id)
-        _subject, fit_body = format_picks_email(fit_payload)
-        publish_picks(result.as_of, rank_text + "\n" + fit_body)
-        logger.info("republish GitHub after rank 11-20 news")
+    rank_signals = rank_result.signals if rank_result is not None else []
+    fit_signals = result.signals
+
+    def _names(*groups) -> list[str]:
+        names: list[str] = []
+        for group in groups:
+            names.extend(s.ticker for s in group)
+        return names
+
+    # Priority batches: the smallest, highest-conviction set first so it can be
+    # viewed/published after a single parallel news wave, then the remainder.
+    stages = [
+        (
+            f"first paint (rank 1-{RANK_FIRST_NEWS} + fit 1-{FIT_FIRST_NEWS})",
+            _names(rank_signals[:RANK_FIRST_NEWS], fit_signals[:FIT_FIRST_NEWS]),
+        ),
+        (
+            f"rest of fit + rank {RANK_FIRST_NEWS + 1}-{RANK_NEWS_TOP_K}",
+            _names(fit_signals[FIT_FIRST_NEWS:], rank_signals[RANK_FIRST_NEWS:RANK_NEWS_TOP_K]),
+        ),
+        (
+            f"rank {RANK_NEWS_TOP_K + 1}-{RANK_TOP_K}",
+            _names(rank_signals[RANK_NEWS_TOP_K:RANK_TOP_K]),
+        ),
+    ]
+
+    seen: set[str] = set()
+    for index, (label, names) in enumerate(stages):
+        fresh = [ticker for ticker in dict.fromkeys(names) if ticker not in seen]
+        seen.update(fresh)
+        flags = _news(fresh, label) if fresh else {}
+        _apply_news(set(fresh), flags)
+        if persist:
+            # Stage 0 is the first publish (unconditional, gets the picks out);
+            # later stages only republish if their news actually changed a flag.
+            if index == 0:
+                _publish(first=True)
+                logger.info("first publish GitHub + cache (%s)", label)
+            elif flags:
+                _publish(first=False)
+                logger.info("republish GitHub after %s news", label)
+        if on_progress is not None:
+            on_progress(rank_result, result)
     logger.info("score done %.1fs", time.perf_counter() - t0)
     return freshness, rank_result, result, rank_n, rank_text
 

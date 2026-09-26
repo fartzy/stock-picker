@@ -165,7 +165,7 @@ function ListTable({
             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
             { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
-            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} /> },
+            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} /> },
           ]}
         />
       </div>

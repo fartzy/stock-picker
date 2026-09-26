@@ -1,5 +1,8 @@
+from datetime import date
+
 from stock_picker.training.news_day_judge import (
     _parse_judge,
+    fetch_recent_news_flags,
     flag_from_articles,
     grok_judge,
     llm_chat_url,
@@ -76,3 +79,19 @@ def test_flag_from_articles_empty_is_trust(monkeypatch):
         lambda ticker, headlines, api_key=None: None,
     )
     assert flag_from_articles("BVC", []) is None
+
+
+def test_fetch_recent_news_flags_judges_all_and_keeps_only_flagged(monkeypatch):
+    # The judge loop runs concurrently across tickers (ThreadPoolExecutor);
+    # confirm every judged name is aggregated and only the flagged ones survive.
+    articles = {t: [{"headline": f"{t} headline"}] for t in ["AAA", "BBB", "CCC", "DDD"]}
+    monkeypatch.setattr(
+        "stock_picker.training.news_day_judge.fetch_news_articles",
+        lambda *a, **k: articles,
+    )
+    monkeypatch.setattr(
+        "stock_picker.training.news_day_judge.flag_from_articles",
+        lambda ticker, arts: "avoid" if ticker in {"BBB", "DDD"} else None,
+    )
+    flags = fetch_recent_news_flags(["AAA", "BBB", "CCC", "DDD"], date(2026, 9, 25))
+    assert flags == {"BBB": "avoid", "DDD": "avoid"}

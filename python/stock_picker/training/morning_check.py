@@ -103,6 +103,7 @@ def _pick_rows(signals) -> list[dict]:
             "open_price": s.open_price,
             "snapshot_date": s.snapshot_date,
             "news_flag": s.news_flag,
+            "news_checked": getattr(s, "news_checked", False),
             "prev_close": getattr(s, "prev_close", None),
             "news_blocks": False,
         }
@@ -110,44 +111,24 @@ def _pick_rows(signals) -> list[dict]:
     ]
 
 
-def run_morning_check(
-    which: Which = "both",
-    universe: UniverseStore | None = None,
-    prices: PriceStore | None = None,
-    news_fetcher=fetch_recent_news_flags,
-) -> MorningCheckStatus:
-    started = datetime.now().astimezone().isoformat()
-    t0 = time.perf_counter()
-    quotes = randomized_fake_quotes(universe=universe, prices=prices)
-    quote_seconds = time.perf_counter() - t0
-    quote_lookup = _quote_map(quotes)
-
-    wall_t0 = time.perf_counter()
-    _freshness, rank_result, fit_result, _rank_n, _rank_text = score_from_quotes(
-        quote_lookup,
-        threshold=DEFAULT_THRESHOLD,
-        persist=False,
-        news_fetcher=news_fetcher if which in ("fit", "both", "rank") else None,
-    )
-    wall = time.perf_counter() - wall_t0
-
+def _passes_from(which: Which, rank_result, fit_result, seconds: float) -> list[TimedPass]:
     passes: list[TimedPass] = []
     if which in ("rank", "both") and rank_result is not None:
         passes.append(
             TimedPass(
                 which="rank",
-                seconds=wall if which == "rank" else wall,
+                seconds=seconds,
                 scored_count=rank_result.scored_count,
                 n_picks=len(rank_result.signals),
                 picks=_pick_rows(rank_result.signals),
                 skipped_count=len(rank_result.skipped),
             )
         )
-    if which in ("fit", "both"):
+    if which in ("fit", "both") and fit_result is not None:
         passes.append(
             TimedPass(
                 which="fit",
-                seconds=wall if which == "fit" else wall,
+                seconds=seconds,
                 scored_count=fit_result.scored_count,
                 n_picks=len(fit_result.signals),
                 picks=_pick_rows(fit_result.signals),
@@ -158,22 +139,60 @@ def run_morning_check(
         passes.append(
             TimedPass(
                 which="both",
-                seconds=wall,
-                scored_count=max(fit_result.scored_count, rank_result.scored_count if rank_result else 0),
+                seconds=seconds,
+                scored_count=max(
+                    fit_result.scored_count if fit_result else 0,
+                    rank_result.scored_count if rank_result else 0,
+                ),
                 n_picks=sum(p.n_picks for p in passes if p.which != "both"),
             )
         )
+    return passes
 
-    return MorningCheckStatus(
-        status="completed",
-        which=which,
-        started_at=started,
-        completed_at=datetime.now().astimezone().isoformat(),
-        n_quotes=len(quotes),
-        quote_seconds=quote_seconds,
-        quotes=quotes,
-        passes=passes,
+
+def run_morning_check(
+    which: Which = "both",
+    universe: UniverseStore | None = None,
+    prices: PriceStore | None = None,
+    news_fetcher=fetch_recent_news_flags,
+    progress=None,
+) -> MorningCheckStatus:
+    """`progress`, if given, is called with a partial (status="running")
+    MorningCheckStatus after every news batch -- the top few picks land
+    news-checked first while later batches keep judging, so the panel can be
+    viewed before the whole universe is done."""
+    started = datetime.now().astimezone().isoformat()
+    t0 = time.perf_counter()
+    quotes = randomized_fake_quotes(universe=universe, prices=prices)
+    quote_seconds = time.perf_counter() - t0
+    quote_lookup = _quote_map(quotes)
+
+    wall_t0 = time.perf_counter()
+
+    def _snapshot(status: str, rank_result, fit_result, completed_at: str | None = None) -> MorningCheckStatus:
+        return MorningCheckStatus(
+            status=status,
+            which=which,
+            started_at=started,
+            completed_at=completed_at,
+            n_quotes=len(quotes),
+            quote_seconds=quote_seconds,
+            quotes=quotes,
+            passes=_passes_from(which, rank_result, fit_result, time.perf_counter() - wall_t0),
+        )
+
+    def _on_stage(rank_result, fit_result) -> None:
+        if progress is not None:
+            progress(_snapshot("running", rank_result, fit_result))
+
+    _freshness, rank_result, fit_result, _rank_n, _rank_text = score_from_quotes(
+        quote_lookup,
+        threshold=DEFAULT_THRESHOLD,
+        persist=False,
+        news_fetcher=news_fetcher if which in ("fit", "both", "rank") else None,
+        on_progress=_on_stage,
     )
+    return _snapshot("completed", rank_result, fit_result, completed_at=datetime.now().astimezone().isoformat())
 
 
 def _status_from_payload(payload: dict) -> MorningCheckStatus:
@@ -219,7 +238,13 @@ class MorningCheckJob:
 
         def _run() -> None:
             try:
-                result = run_morning_check(which=which)
+                def _progress(partial: MorningCheckStatus) -> None:
+                    # Publish each batch's partial state so status() (and the
+                    # polling UI) can render the first picks before the run ends.
+                    with self._lock:
+                        self._state = partial
+
+                result = run_morning_check(which=which, progress=_progress)
                 morning_check_store.save(asdict(result))
                 with self._lock:
                     self._state = result
