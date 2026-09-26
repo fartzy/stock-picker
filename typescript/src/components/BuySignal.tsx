@@ -16,11 +16,10 @@ import {
   type TrainingRunsResponse,
   type UniverseResponse,
 } from "../api";
-import { formatUsd } from "../format";
 import { isCashSessionToday, sessionHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
-import { Diff } from "./Diff";
+import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
 import FreshnessBadge from "./FreshnessBadge";
 import TogglePill from "./TogglePill";
 
@@ -42,16 +41,6 @@ function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): stri
 
 function formatToday(): string {
   return new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
-}
-
-function newsCell(signal: { news_flag?: string | null; news_blocks?: boolean }) {
-  if (!signal.news_flag) {
-    return { className: "muted" as const, text: "—" };
-  }
-  return {
-    className: signal.news_blocks ? ("quote-diff-down" as const) : ("quote-diff-up" as const),
-    text: `${signal.news_blocks ? "skip" : "still buy"} · ${signal.news_flag}`,
-  };
 }
 
 function MorningList({
@@ -90,50 +79,59 @@ function MorningList({
       {list.signals.length === 0 ? (
         <p className="muted">No tickers on this list.</p>
       ) : (
-        <table className="trade-table" style={{ marginTop: "var(--space-2)" }}>
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th className="trade-num">{isRank ? "Score" : "Predicted"}</th>
-              <th className="trade-num">Open</th>
-              {showLive && <th className="trade-num">{liveLabel}</th>}
-              <th>News</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list.signals.map((signal) => {
-              const news = newsCell(signal);
-              const last = quotes[signal.ticker]?.last;
-              return (
-                <tr key={`${title}-${signal.ticker}`}>
-                  <td className="trade-ticker">{signal.ticker}</td>
-                  <td className="trade-num">
-                    {isRank
-                      ? signal.predicted_return.toFixed(4)
-                      : `${(signal.predicted_return * 100).toFixed(2)}%`}
-                  </td>
-                  <td className="trade-num">{formatUsd(signal.open_price)}</td>
-                  {showLive && (
-                    <td className="trade-num">
-                      {last === undefined ? (
-                        <span className="muted">—</span>
-                      ) : (
-                        <>
-                          {formatUsd(last)}{" "}
-                          <Diff
-                            value={last - signal.open_price}
-                            pct={signal.open_price ? (last - signal.open_price) / signal.open_price : null}
-                          />
-                        </>
-                      )}
-                    </td>
-                  )}
-                  <td className={news.className}>{news.text}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div style={{ marginTop: "var(--space-2)" }}>
+          <DataTable
+            rows={list.signals}
+            rowKey={(signal) => `${title}-${signal.ticker}`}
+            columns={[
+              {
+                key: "ticker",
+                header: "Ticker",
+                cell: (signal) => <TickerCell ticker={signal.ticker} />,
+              },
+              {
+                key: "score",
+                header: isRank ? "Score" : "Predicted",
+                numeric: true,
+                cell: (signal) => <ScoreCell value={signal.predicted_return} isRank={isRank} />,
+              },
+              {
+                key: "prev",
+                header: "Prev",
+                numeric: true,
+                when: showLive,
+                cell: (signal) => (
+                  <UsdCell value={quotes[signal.ticker]?.prev_close ?? signal.prev_close} />
+                ),
+              },
+              {
+                key: "open",
+                header: showLive ? <ColumnTitle label="Open" hint="▲ vs prev" /> : "Open",
+                numeric: true,
+                cell: (signal) => (
+                  <UsdDiffCell
+                    value={signal.open_price}
+                    vs={showLive ? quotes[signal.ticker]?.prev_close ?? signal.prev_close : undefined}
+                  />
+                ),
+              },
+              {
+                key: "last",
+                header: <ColumnTitle label={liveLabel} hint="▲ vs open" />,
+                numeric: true,
+                when: showLive,
+                cell: (signal) => (
+                  <UsdDiffCell value={quotes[signal.ticker]?.last} vs={signal.open_price} />
+                ),
+              },
+              {
+                key: "news",
+                header: "News",
+                cell: (signal) => <NewsCell flag={signal.news_flag} blocks={signal.news_blocks} />,
+              },
+            ]}
+          />
+        </div>
       )}
     </details>
   );
@@ -383,7 +381,7 @@ function MorningTrigger({
   return (
     <div className="meta-row" style={{ marginTop: "var(--space-3)" }}>
       <TogglePill on={job?.enabled !== false} onToggle={() => toggleJob(job?.enabled === false)}>
-        If I don't click, start at 8:31 anyway
+        If I don't click, start at 8:30 anyway
       </TogglePill>
       {jobError && <span className="error">{jobError}</span>}
     </div>
