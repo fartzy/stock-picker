@@ -182,6 +182,18 @@ def test_quotes_from_snapshot_omits_a_stale_previous_session_quote():
     assert quotes == {}
 
 
+def test_drop_copied_prior_open_is_yesterdays_open_not_a_real_gap():
+    from stock_picker.ingestion.yfinance_client import drop_copied_prior_opens
+
+    quotes = {
+        "WRBY": {"open": 23.18, "last": 26.71, "prev_close": 26.27},
+        "PS": {"open": 52.96, "last": 56.16, "prev_close": 52.28},
+    }
+    kept = drop_copied_prior_opens(quotes, {"WRBY": 23.18, "PS": 49.32})
+    assert "WRBY" not in kept
+    assert kept["PS"]["open"] == 52.96
+
+
 def test_quotes_from_snapshot_keeps_a_large_today_open():
     raw = [
         {
@@ -236,6 +248,50 @@ def test_quotes_from_intraday_omits_a_ticker_with_no_today_rth_bar():
     quotes = quotes_from_intraday({"SIG": history}, as_of=date(2026, 9, 10))
 
     assert quotes == {}
+
+
+def test_fetch_quotes_uses_one_minute_open_even_when_snapshot_still_has_yesterday():
+    stale_snapshot = [
+        {
+            "symbol": "WRBY",
+            "regularMarketOpen": 23.18,
+            "regularMarketPrice": 25.81,
+            "regularMarketPreviousClose": 26.27,
+            "regularMarketTime": _eastern_unix(2026, 9, 25, 9, 31),
+        }
+    ]
+    index = pd.DatetimeIndex(
+        ["2026-09-24 15:59:00", "2026-09-25 09:30:00"],
+        tz="America/New_York",
+    )
+    minute_history = pd.DataFrame(
+        {
+            "Open": [26.27, 26.27],
+            "High": [26.30, 26.40],
+            "Low": [26.20, 26.20],
+            "Close": [26.27, 26.35],
+            "Volume": [1000, 500],
+        },
+        index=index,
+    )
+
+    with (
+        patch("stock_picker.ingestion.polygon_client.fetch_polygon_quotes", return_value={}),
+        patch("stock_picker.ingestion.finnhub_client.fetch_finnhub_quotes", return_value={}),
+        patch("stock_picker.ingestion.yfinance_client.prior_session_opens", return_value={"WRBY": 23.18}),
+        patch(
+            "stock_picker.ingestion.yfinance_client.fetch_quote_snapshots",
+            return_value=stale_snapshot,
+        ),
+        patch(
+            "stock_picker.ingestion.yfinance_client.download_price_history",
+            return_value={"WRBY": minute_history},
+        ) as mock_download,
+    ):
+        quotes = fetch_quotes(["WRBY"], as_of=date(2026, 9, 25), prior_opens={"WRBY": 23.18})
+
+    assert quotes["WRBY"]["open"] == 26.27
+    assert mock_download.call_args.kwargs["interval"] == "1m"
 
 
 def test_fetch_quotes_falls_back_to_intraday_when_yahoo_snapshot_is_not_today():

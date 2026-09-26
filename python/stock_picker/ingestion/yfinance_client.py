@@ -292,6 +292,63 @@ def _missing(tickers: list[str], quotes: dict[str, dict]) -> list[str]:
     return [ticker for ticker in tickers if ticker not in quotes]
 
 
+def copied_prior_open(open_price: float, prior_open: float) -> bool:
+    """True when `open_price` is yesterday's Open to the cent.
+
+    Yahoo's v7 snapshot often keeps `regularMarketOpen` on the prior session
+    after `regularMarketTime` has flipped to today. That is Thursday's $23.18,
+    not Friday's $26.27. A real gap vs previous *close* is kept.
+    """
+    return round(open_price, 2) == round(prior_open, 2)
+
+
+def prior_session_opens(
+    tickers: list[str],
+    as_of: date,
+    price_store=None,
+) -> dict[str, float]:
+    """Last PriceStore Open strictly before `as_of` -- yesterday's official Open."""
+    from stock_picker.storage.price_store import PriceStore
+
+    store = price_store if price_store is not None else PriceStore()
+    opens: dict[str, float] = {}
+    for ticker in tickers:
+        try:
+            history = store.read(ticker)
+        except FileNotFoundError:
+            continue
+        if history.empty or "Open" not in history.columns:
+            continue
+        session_dates = _session_dates(history.index)
+        prior = history.iloc[session_dates.to_numpy() < as_of]
+        if prior.empty:
+            continue
+        open_price = float(prior["Open"].iloc[-1])
+        if pd.notna(open_price) and open_price > 0:
+            opens[ticker] = open_price
+    return opens
+
+
+def drop_copied_prior_opens(
+    quotes: dict[str, dict],
+    prior_opens: dict[str, float],
+) -> dict[str, dict]:
+    """Drop quotes whose open equals that ticker's prior-session Open."""
+    kept = {}
+    for ticker, quote in quotes.items():
+        prior = prior_opens.get(ticker)
+        if prior is not None and copied_prior_open(quote["open"], prior):
+            logger.info(
+                "drop copied prior open %s open=%s prior_open=%s",
+                ticker,
+                quote["open"],
+                prior,
+            )
+            continue
+        kept[ticker] = quote
+    return kept
+
+
 def _download_in_chunks(
     tickers: list[str], period: str, interval: str, chunk_size: int
 ) -> dict[str, pd.DataFrame]:
@@ -304,23 +361,29 @@ def _download_in_chunks(
     return histories
 
 
-def fetch_yahoo_quotes(tickers: list[str], as_of: date) -> dict[str, dict]:
-    """Yahoo-only cascade: quote snapshot, then 1-minute RTH bars, then daily.
+def fetch_yahoo_quotes(
+    tickers: list[str],
+    as_of: date,
+    prior_opens: dict[str, float] | None = None,
+) -> dict[str, dict]:
+    """Yahoo open = first 9:30 ET 1-minute print, not v7 regularMarketOpen.
 
-    Snapshot is today's official open (`regularMarketOpen`) as soon as Yahoo
-    has it -- usually seconds after the print, in 200-ticker batches, so
-    ~2000 names is about 10 requests. 1-minute bars are only for names the
-    snapshot didn't date as today (has not opened / delayed daily candle).
+    Snapshot Open at 8:31 CT is often yesterday's Open with today's
+    timestamp (WRBY $23.18). 1-minute RTH is the cash print. Snapshot is
+    leftover after that, then daily. Copied yesterday Open is always
+    dropped -- YahooQuoteProvider does not pass prior_opens in.
     """
-    quotes = quotes_from_snapshot(fetch_quote_snapshots(tickers), as_of=as_of)
+    if prior_opens is None:
+        prior_opens = prior_session_opens(tickers, as_of)
+    quotes = quotes_from_intraday(
+        _download_in_chunks(tickers, period="5d", interval="1m", chunk_size=INTRADAY_FALLBACK_BATCH_SIZE),
+        as_of=as_of,
+    )
     missing = _missing(tickers, quotes)
     if missing:
-        quotes.update(
-            quotes_from_intraday(
-                _download_in_chunks(missing, period="5d", interval="1m", chunk_size=INTRADAY_FALLBACK_BATCH_SIZE),
-                as_of=as_of,
-            )
-        )
+        leftover = quotes_from_snapshot(fetch_quote_snapshots(missing), as_of=as_of)
+        leftover = drop_copied_prior_opens(leftover, prior_opens)
+        quotes.update(leftover)
         missing = _missing(tickers, quotes)
     if missing:
         quotes.update(
@@ -329,33 +392,15 @@ def fetch_yahoo_quotes(tickers: list[str], as_of: date) -> dict[str, dict]:
                 as_of=as_of,
             )
         )
-    return quotes
+    return drop_copied_prior_opens(quotes, prior_opens)
 
 
-def fetch_quotes(tickers: list[str], as_of: date | None = None) -> dict[str, dict]:
-    """Today's regular-session open + latest price + previous close.
+def fetch_quotes(
+    tickers: list[str],
+    as_of: date | None = None,
+    prior_opens: dict[str, float] | None = None,
+) -> dict[str, dict]:
+    """Facade -- Polygon then Yahoo then Finnhub. See quote_providers.fetch_quotes."""
+    from stock_picker.ingestion.quote_providers import fetch_quotes as fetch_session_quotes
 
-    Free path, in order, each requiring the print to be dated `as_of`:
-
-    1. Polygon full-market snapshot -- one call, only if the key is entitled
-       (Starter/free is 403; then this is a no-op).
-    2. Yahoo quote snapshot -- bulk, today's `regularMarketOpen`.
-    3. Yahoo 1-minute bars -- first 9:30 ET print, for names still missing.
-    4. Yahoo daily chart -- last resort if a today bar exists.
-    5. Finnhub /quote -- leftover only, first 40 still-missing names.
-
-    Names still missing after that have not printed an open yet -- the
-    caller can retry later; we do not invent an open from last trade.
-    """
-    from stock_picker.ingestion.finnhub_client import fetch_finnhub_quotes
-    from stock_picker.ingestion.polygon_client import fetch_polygon_quotes
-
-    as_of = as_of or date.today()
-    quotes = fetch_polygon_quotes(tickers, as_of=as_of)
-    missing = _missing(tickers, quotes)
-    if missing:
-        quotes.update(fetch_yahoo_quotes(missing, as_of=as_of))
-        missing = _missing(tickers, quotes)
-    if missing:
-        quotes.update(fetch_finnhub_quotes(missing, as_of=as_of))
-    return quotes
+    return fetch_session_quotes(tickers, as_of=as_of)

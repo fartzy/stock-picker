@@ -12,6 +12,15 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_quote_providers",
+    srcs = ["test_quote_providers.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/ingestion",
+    ],
+)
+
+py_pytest(
     name = "test_polygon_client",
     srcs = ["test_polygon_client.py"],
     imports = ["../../.."],

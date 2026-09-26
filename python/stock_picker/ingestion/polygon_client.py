@@ -154,12 +154,24 @@ def fetch_polygon_snapshot(api_key: str) -> list[dict]:
             params={"apiKey": api_key},
             timeout=SNAPSHOT_TIMEOUT_SECONDS,
         )
+        if response.status_code == 403:
+            from stock_picker.log import get_logger
+
+            get_logger(__name__).warning(
+                "polygon snapshot 403 -- key loaded, plan not entitled for day.o"
+            )
+            return []
         response.raise_for_status()
         payload = response.json()
     except (requests.RequestException, ValueError):
         return []
     tickers = payload.get("tickers")
-    return tickers if isinstance(tickers, list) else []
+    if not isinstance(tickers, list):
+        return []
+    from stock_picker.log import get_logger
+
+    get_logger(__name__).info("polygon snapshot tickers=%s", len(tickers))
+    return tickers
 
 
 def fetch_polygon_quotes(tickers: list[str], as_of: date, api_key: str | None = None) -> dict[str, dict]:

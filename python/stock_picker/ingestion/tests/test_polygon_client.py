@@ -86,6 +86,22 @@ def test_quotes_from_polygon_snapshot_skips_when_day_open_has_not_printed():
     assert quotes == {}
 
 
+def test_fetch_polygon_snapshot_403_is_empty_not_an_exception():
+    from stock_picker.ingestion.polygon_client import fetch_polygon_snapshot
+
+    class _Response:
+        status_code = 403
+
+        def raise_for_status(self):
+            raise AssertionError("403 must not raise")
+
+        def json(self):
+            raise AssertionError("403 must not parse a body")
+
+    with patch("stock_picker.ingestion.polygon_client.requests.get", return_value=_Response()):
+        assert fetch_polygon_snapshot("test-key") == []
+
+
 def test_fetch_polygon_quotes_returns_empty_without_a_key():
     with patch.dict("os.environ", {"BUILD_WORKING_DIRECTORY": "/tmp"}, clear=True):
         assert fetch_polygon_quotes(["SIG"], as_of=date(2026, 9, 10), api_key="") == {}
@@ -166,4 +182,4 @@ def test_fetch_quotes_falls_through_to_yahoo_when_polygon_is_stale():
         quotes = fetch_quotes(["SIG"], as_of=date(2026, 9, 10))
 
     assert quotes["SIG"]["open"] == 103.47
-    mock_download.assert_not_called()
+    mock_download.assert_called()
