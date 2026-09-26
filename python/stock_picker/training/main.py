@@ -116,7 +116,7 @@ def run_training(
 
     `model_specs`, if given, is the composable composition chosen via the UI
     (see `ensemble.py`'s `selected_model_specs()`); `None` falls back to
-    `DEFAULT_MODEL_SPECS` and also trains lambdarank. `lightgbm_rank` is
+    `DEFAULT_MODEL_SPECS` and also trains the ListFold rank model. `lightgbm_rank` is
     peeled out of the return blender (see `partition_model_specs`) and
     written to `day_session_return_rank.pkl`. Each spec's own
     `excluded_features`/`included_features` are overwritten here with the
@@ -201,7 +201,7 @@ def run_training(
     if wants_rank:
         from stock_picker.training.rank_model import train_and_persist_rank_model
 
-        logger.info("training lambdarank (parallel pickle, not blended into the return ensemble)")
+        logger.info("training ListFold rank model (parallel pickle, not blended into the return ensemble)")
         train_and_persist_rank_model(included_features=included_features)
 
     fold_metrics = [result.metrics for result in fold_results]

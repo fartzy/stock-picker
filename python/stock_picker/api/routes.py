@@ -219,7 +219,7 @@ def get_buy_signal(
     threshold: float = DEFAULT_THRESHOLD, live: bool = False, kind: str = "fit"
 ) -> BuySignalResponse:
     """Prefer this morning's saved scan. `live=true` forces a full rescore.
-    kind=rank loads lambdarank top-K (scores are not percents)."""
+    kind=rank loads the rank-model top-K (scores are not percents)."""
     if not live:
         cached = _cached_buy_signal(threshold, kind=kind)
         if cached is not None:

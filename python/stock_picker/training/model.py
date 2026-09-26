@@ -22,6 +22,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from stock_picker.training.dataset import LABEL_COLUMN
+from stock_picker.training.listwise import make_listfold_objective
 
 NON_FEATURE_COLUMNS = {"ticker", "date", LABEL_COLUMN}
 
@@ -62,7 +63,9 @@ LIGHTGBM_DEFAULT_PARAMS = {
 }
 DEFAULT_NUM_BOOST_ROUND = 100
 # lambdarank NDCG only covers grades 0-30; a day has ~2000 names so we
-# bucket within-day returns into this many relevance levels.
+# bucket within-day returns into this many relevance levels. Production Rank
+# no longer uses lambdarank (see train_lightgbm_rank), but the constant stays
+# for objective_search's incumbent-vs-challenger bake-offs.
 LIGHTGBM_RANK_GRADES = 10
 
 RANDOM_FOREST_DEFAULT_PARAMS = {
@@ -174,9 +177,8 @@ def train_lightgbm_rank(
     num_boost_round: int = DEFAULT_NUM_BOOST_ROUND,
     excluded_features: set[str] | None = None,
     included_features: set[str] | None = None,
-    relevance_grades: int = LIGHTGBM_RANK_GRADES,
 ) -> TrainedModel:
-    """Learning-to-rank (lambdarank): relative order within a day, not the %.
+    """Learning-to-rank (ListFold): relative order within a day, not the %.
 
     Regression (MSE/MAE) punishes |actual − predicted|. If A returned +10%
     and B +5% and the model scores A > B but as 2% vs 1%, regression still
@@ -184,42 +186,33 @@ def train_lightgbm_rank(
     morning -- see e.g. Poh, Lim, Zohren, Roberts, "Building Cross-Sectional
     Systematic Strategies by Learning to Rank" (JFDS).
 
-    This trainer:
-    - Groups strictly by `date` so pairs/lists are same-session only.
-    - Down/flat sessions are relevance 0 (not a winner). Ups are 1..N by
-      size vs other ups that day. Predicting 0.03% on a +1.8% winner that
-      is still near the top is not a miss; ranking a down name above an up
-      name is.
-    - Objective lambdarank / metric NDCG@5 and @20 (the live top-K cuts).
-    - predict() is a relative score, not a percent. Do not blend with
-      regression members or gate at 0.5%. Evaluate Rank IC (mean
-      within-day Spearman) and top-K hit / mean session return.
+    The objective is ListFold-exp (Zhang, Wu, Chen, arXiv:2104.12484; see
+    training/listwise.py) as a custom LightGBM objective, grouped strictly by
+    `date` so lists are same-session only. It replaced lambdarank on
+    2026-09-26 after objective_search's bake-off: on the same data, features,
+    and base params, ListFold beat lambdarank on Rank IC (0.10 vs 0.02 across
+    walk-forward folds, 0.22 vs 0.03 on never-seen holdout tickers) and
+    top-20 session return -- the promotion bar objective_search documents.
+    lambdarank's ups-only relevance grades also could not distinguish
+    "slightly down" from "crashing" (every down day was grade 0); ListFold
+    orders the whole list, which is also what a future short leg would need.
+
+    predict() is a relative score, not a percent. Do not blend with
+    regression members or gate at 0.5%. Evaluate Rank IC (mean within-day
+    Spearman) and top-K hit / mean session return.
     """
     if "date" not in train_frame.columns:
-        raise ValueError("lambdarank needs a date column to group same-day peers")
+        raise ValueError("listwise ranking needs a date column to group same-day peers")
     columns = feature_columns(train_frame, excluded_features, included_features)
     sorted_frame = train_frame.sort_values("date")
-
-    def _grades(day: pd.Series) -> pd.Series:
-        grades = pd.Series(0, index=day.index, dtype=int)
-        ups = day[day > 0]
-        if ups.empty:
-            return grades
-        n = min(relevance_grades, max(2, int(ups.nunique())))
-        buckets = pd.qcut(ups.rank(method="first"), n, labels=False, duplicates="drop")
-        grades.loc[ups.index] = buckets.astype(int) + 1
-        return grades
-
-    relevance = sorted_frame.groupby("date")[LABEL_COLUMN].transform(_grades)
-    relevance = relevance.fillna(0).astype(int)
-    group_sizes = sorted_frame.groupby("date").size().to_numpy()
-    dataset = lgb.Dataset(sorted_frame[columns], label=relevance, group=group_sizes)
+    day_codes = pd.factorize(sorted_frame["date"])[0]
+    labels = sorted_frame[LABEL_COLUMN].to_numpy()
+    dataset = lgb.Dataset(sorted_frame[columns], label=labels)
     merged = {
         **LIGHTGBM_DEFAULT_PARAMS,
         **(params or {}),
-        "objective": "lambdarank",
-        "metric": "ndcg",
-        "eval_at": [5, 20],
+        "objective": make_listfold_objective(day_codes, labels),
+        "metric": "None",
     }
     rounds = int(merged.pop("num_boost_round", num_boost_round))
     booster = lgb.train(merged, dataset, num_boost_round=rounds)

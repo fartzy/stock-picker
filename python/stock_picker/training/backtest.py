@@ -104,6 +104,45 @@ def sweep_vol_normalized_thresholds(
     )
 
 
+def simulate_consensus(
+    fit_predicted: pd.Series,
+    rank_predicted: pd.Series,
+    actual: pd.Series,
+    dates: pd.Series,
+    k: int = 20,
+    threshold: float = 0.005,
+) -> dict:
+    """Trade only when BOTH lenses agree: the Fit model's predicted return
+    clears `threshold` AND the name is in that day's top-K by the rank
+    model's score. The two models optimize structurally different losses
+    (per-row magnitude vs. within-day order), so requiring agreement is a
+    stricter confidence gate than either alone -- the live threshold
+    sensitivity observed on real scans (hit rate rising with confidence)
+    suggests fewer, doubly-confirmed picks should trade quality for volume.
+    """
+    frame = pd.DataFrame(
+        {"fit": fit_predicted, "rank": rank_predicted, "actual": actual, "date": dates}
+    )
+    top_k_index = (
+        frame.sort_values("rank", ascending=False).groupby("date", group_keys=False).head(k).index
+    )
+    picks = frame[(frame["fit"] > threshold) & frame.index.isin(top_k_index)]
+    n_trades = len(picks)
+    n_days = int(frame["date"].nunique())
+    has_trades = n_trades > 0
+
+    return {
+        "k": k,
+        "threshold": threshold,
+        "n_trades": n_trades,
+        "n_days": n_days,
+        "avg_picks_per_day": (n_trades / n_days) if n_days else None,
+        "hit_rate": float((picks["actual"] > 0).mean()) if has_trades else float("nan"),
+        "avg_return": float(picks["actual"].mean()) if has_trades else float("nan"),
+        "total_return": float(picks["actual"].sum()) if has_trades else float("nan"),
+    }
+
+
 def rank_ic(predicted: pd.Series, actual: pd.Series, dates: pd.Series) -> float:
     """Mean daily cross-sectional Spearman rank correlation (Rank IC) between
     predicted and actual returns -- the standard quant metric for "does this

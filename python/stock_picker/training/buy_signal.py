@@ -222,14 +222,14 @@ def compute_rank_signals(
     as_of: date | None = None,
     **kwargs,
 ) -> BuySignalResult:
-    """Lambdarank top-K. Score is relative rank, not a percent."""
+    """Rank-model top-K (ListFold). Score is relative rank, not a percent."""
     model_store = kwargs.get("model_store") or ModelStore()
     as_of = as_of or date.today()
     if not model_store.exists(RANK_MODEL_NAME):
         return BuySignalResult(
             as_of=as_of.isoformat(),
             threshold=0.0,
-            skipped=[{"ticker": NO_MODEL_SENTINEL, "reason": "no lambdarank model persisted yet"}],
+            skipped=[{"ticker": NO_MODEL_SENTINEL, "reason": "no rank model persisted yet"}],
         )
     return compute_buy_signals(
         threshold=float("-inf"),

@@ -4,7 +4,7 @@ Morning picks and trade history. ~2,000 US names, open→close, FastAPI + React.
 
 Every morning:
 
-- **Rank** — LightGBM lambdarank, top 20
+- **Rank** — LightGBM ListFold (listwise rank), top 20
 - **Fit** — LightGBM return model, 0.5% gate
 
 Nightly writes yesterday’s features. Morning plugs today’s open into the
@@ -58,7 +58,7 @@ flowchart TB
 
     subgraph Training
         DATASET["training/dataset.py"]
-        TRAIN["training/main.py<br/>solo LightGBM + parallel lambdarank"]
+        TRAIN["training/main.py<br/>solo LightGBM + parallel ListFold rank"]
         INFER["training/inference.py"]
         NIGHT["training/nightly.py<br/>3:30 CT"]
         MORN["training/morning.py<br/>8:30:15 CT or click"]
