@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from stock_picker.ingestion.yfinance_client import fetch_quotes
+from stock_picker.ingestion.quote_providers import fetch_quotes
 
 DIFF_DECIMAL_PLACES = 2
 PCT_DECIMAL_PLACES = 4

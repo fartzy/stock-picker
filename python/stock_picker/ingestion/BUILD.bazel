@@ -7,6 +7,7 @@ py_library(
         "fundamentals.py",
         "main.py",
         "polygon_client.py",
+        "quote_providers.py",
         "refresh_prices.py",
         "session.py",
         "weather.py",
@@ -60,6 +61,17 @@ py_binary(
         ":ingestion",
         "//python/stock_picker/storage",
         "@pypi//yfinance",
+    ],
+)
+
+py_binary(
+    name = "probe_quotes",
+    srcs = ["probe_quotes.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":ingestion",
+        "//python/stock_picker:log",
     ],
 )
 
