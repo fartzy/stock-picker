@@ -1,7 +1,7 @@
 # App Store (other machine)
 
 Do this on a **separate machine** with a **personal cloud account**. This
-Mac stays the trading box (8:31 click, parquet, SQLite, launchd). Do not
+Mac stays the trading box (8:30 click, parquet, SQLite, launchd). Do not
 put cloud keys, Apple certs, or API secrets in this repo.
 
 Home Screen on Wi‑Fi is already shipped (`http://<LAN>:8000` → Share →
