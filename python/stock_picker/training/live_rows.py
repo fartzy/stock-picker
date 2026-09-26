@@ -49,6 +49,7 @@ def prepare_one(
     spy_open: float | None,
     spy_prev_close: float | None,
     blocked: set[str] | None = None,
+    excluded_features: frozenset[str] | None = None,
 ) -> LiveRow:
     if ticker in (blocked if blocked is not None else blacklisted_tickers()):
         return LiveRow(
@@ -96,6 +97,7 @@ def prepare_one(
             prior_history=prior_history,
             spy_open=spy_open,
             spy_prev_close=spy_prev_close,
+            excluded_features=excluded_features,
         )
     except StaleFeatureSnapshotError as extra:
         return LiveRow(ticker, skipped={"ticker": ticker, "reason": str(extra)})
@@ -119,11 +121,20 @@ def prepare_live_rows(
     spy_prev_close: float | None,
     bucket_size: int = BUCKET_SIZE,
     workers: int = WORKERS,
+    excluded_features: frozenset[str] | None = None,
 ) -> list[LiveRow]:
     """Rebuild open-known rows once for the universe.
 
     Thread buckets of 100 -- parquet I/O, not GIL-bound LightGBM.
     Rank and Fit both consume this list.
+
+    `excluded_features` (currently-pruned columns) skips their open-known
+    recomputation per ticker -- every trainer's own `feature_columns()`
+    drops them before prediction anyway, so computing them here is pure
+    waste on the one path with a real morning-window time budget. Defaults
+    to None (compute everything) rather than reading `pruned_features()`
+    itself, so callers control freshness explicitly instead of this
+    function reading global state on every invocation.
     """
     blocked = blacklisted_tickers()
     earning_set = set(earnings)
@@ -140,6 +151,7 @@ def prepare_live_rows(
                 spy_open=spy_open,
                 spy_prev_close=spy_prev_close,
                 blocked=blocked,
+                excluded_features=excluded_features,
             )
             for ticker in chunk
         ]

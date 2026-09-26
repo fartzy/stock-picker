@@ -43,6 +43,7 @@ def build_inference_row(
     prior_history: pd.DataFrame | None = None,
     spy_open: float | None = None,
     spy_prev_close: float | None = None,
+    excluded_features: frozenset[str] | None = None,
 ) -> pd.DataFrame:
     """A single-row DataFrame ready to feed to a trained ensemble's `predict_ensemble`.
 
@@ -50,6 +51,12 @@ def build_inference_row(
     feature snapshot that's more likely stale than right. A large overnight
     gap is a real open, not a reason to refuse the row -- the quote fetcher
     already required the print to be dated today.
+
+    `excluded_features` (currently-pruned columns, see
+    `features/pruning.py`) skips their open-known recomputation below --
+    they are dropped again anyway by every trainer's own `feature_columns()`
+    before prediction, so computing them here just to discard them is pure
+    waste on the one path with a real morning-window time budget.
     """
     freshness = check_freshness(DEFAULT_TTL_DAYS, snapshot_date, as_of_date)
     if not freshness.ok:
@@ -64,7 +71,7 @@ def build_inference_row(
     if spy_open is not None and spy_prev_close and spy_prev_close > 0 and "spy_overnight_gap" in row.index:
         row["spy_overnight_gap"] = (spy_open - spy_prev_close) / spy_prev_close
     if prior_history is not None and not prior_history.empty:
-        open_known = open_known_feature_row(prior_history, today_open)
+        open_known = open_known_feature_row(prior_history, today_open, excluded=excluded_features)
         for column in OPEN_KNOWN_COLUMNS:
             if column in row.index and column in open_known.index:
                 row[column] = open_known[column]

@@ -15,6 +15,7 @@ from typing import Callable
 
 import pandas as pd
 
+from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 from stock_picker.features.quotes import fetch_ticker_quotes
 from stock_picker.parallel import BUCKET_SIZE, WORKERS
 from stock_picker.storage.feature_store import FeatureStore
@@ -22,7 +23,7 @@ from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.storage.universe_store import UniverseStore
-from stock_picker.training.ensemble import Ensemble, predict_ensemble
+from stock_picker.training.ensemble import Ensemble, ensemble_feature_names, predict_ensemble
 from stock_picker.training.importance import ensemble_importance
 from stock_picker.training.live_rows import LiveRow, prepare_live_rows
 from stock_picker.training.main import MODEL_NAME
@@ -46,6 +47,12 @@ NO_MODEL_SENTINEL = ""
 
 SCORE_BUCKET = BUCKET_SIZE
 SCORE_WORKERS = WORKERS
+
+# Which open-known columns a given loaded model's own feature_names doesn't
+# need -- see live_rows.prepare_live_rows' excluded_features and
+# ensemble.ensemble_feature_names for why this must come from the specific
+# model about to score, not the current global pruned-features state.
+OPEN_KNOWN_COLUMNS_SET = frozenset(OPEN_KNOWN_COLUMNS)
 
 
 @dataclass
@@ -178,6 +185,7 @@ def compute_buy_signals(
             earnings = set()
 
     if live_rows is None:
+        excluded_features = OPEN_KNOWN_COLUMNS_SET - ensemble_feature_names(ensemble)
         live_rows = prepare_live_rows(
             tickers=tickers,
             quotes=quotes,
@@ -189,6 +197,7 @@ def compute_buy_signals(
             spy_prev_close=spy_prev_close,
             bucket_size=SCORE_BUCKET,
             workers=SCORE_WORKERS,
+            excluded_features=excluded_features,
         )
     signals, skipped, scored_count = _signals_from_live_rows(live_rows, ensemble, threshold)
 

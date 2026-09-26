@@ -3,6 +3,7 @@ from datetime import date
 import pandas as pd
 import pytest
 
+from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.training.dataset import GAP_COLUMN
@@ -151,6 +152,52 @@ def test_prepare_one_uses_the_last_snapshot_strictly_before_as_of(tmp_path):
     assert row.row is not None
     assert row.row.iloc[0]["some_feature"] == pytest.approx(1.0)
     assert row.row.iloc[0][GAP_COLUMN] == pytest.approx(0.02)
+
+
+_SENTINEL = 999.0
+
+
+def test_prepare_one_excluded_features_skips_recompute_but_keeps_other_open_known_columns(tmp_path):
+    # A currently-pruned open-known column must not get recomputed -- its
+    # sentinel from last night's persisted snapshot should survive untouched
+    # -- while a NOT-excluded open-known column must still be freshly
+    # recomputed from today's open (see features/open_pattern_seasonality.py
+    # and training/inference.py's build_inference_row).
+    feature_store, price_store = _stores(tmp_path)
+    history = synthetic_history(n=140)
+    price_store.write("AAPL", history)
+    snapshot_date = history.index[-1].date()
+    # Next business day after the snapshot -- inside check_freshness's TTL
+    # (see training/freshness.py), unlike this file's usual fixed _AS_OF,
+    # which is unrelated to synthetic_history's own date range.
+    as_of = (history.index[-1] + pd.tseries.offsets.BDay(1)).date()
+    frame = pd.DataFrame(
+        {
+            "some_feature": [1.0],
+            GAP_COLUMN: [0.0],
+            "seq2_open3_seasonality": [_SENTINEL],
+            "seq3_open3_seasonality": [_SENTINEL],
+        },
+        index=pd.DatetimeIndex([snapshot_date], name="date"),
+    )
+    feature_store.write("AAPL", frame)
+
+    row = prepare_one(
+        "AAPL",
+        quotes={"AAPL": _quote(open_price=102.0, prev_close=100.0)},
+        earnings=set(),
+        feature_store=feature_store,
+        price_store=price_store,
+        as_of=as_of,
+        spy_open=None,
+        spy_prev_close=None,
+        blocked=set(),
+        excluded_features=frozenset({"seq2_open3_seasonality"}),
+    )
+
+    assert row.row is not None
+    assert row.row.iloc[0]["seq2_open3_seasonality"] == pytest.approx(_SENTINEL)
+    assert row.row.iloc[0]["seq3_open3_seasonality"] != pytest.approx(_SENTINEL)
 
 
 def test_prepare_live_rows_reads_blacklist_once_and_merges_thread_buckets(tmp_path, monkeypatch):
