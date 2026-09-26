@@ -62,6 +62,13 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_ticker_blacklist_store",
+    srcs = ["test_ticker_blacklist_store.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
     name = "test_scan_store",
     srcs = ["test_scan_store.py"],
     imports = ["../../.."],
