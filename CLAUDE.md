@@ -108,6 +108,14 @@ ingestion/  -> storage/  -> features/  -> training/  -> api/ -> typescript/
 
 ## Conventions
 
+- Architecture decisions live in `docs/adr/` (one numbered record per
+  decision, backfilled 0001-0017 on 2026-09-26). Record new decisions there
+  in the same PR that makes them; point superseded records at their
+  replacement instead of rewriting them.
+- Delegating work to a cheaper/smaller model? Hand it
+  `docs/delegation-briefing.md` -- non-negotiables, style, known traps, and
+  the prioritized work queue.
+
 - One feature branch + one PR per logical change, squash-merged; check
   `git rev-list --left-right --count main...origin/main` and pull before
   branching, since other sessions/worktrees may be working in this repo
