@@ -61,7 +61,7 @@ flowchart TB
         TRAIN["training/main.py<br/>solo LightGBM + parallel lambdarank"]
         INFER["training/inference.py"]
         NIGHT["training/nightly.py<br/>3:30 CT"]
-        MORN["training/morning.py<br/>8:31 CT or click"]
+        MORN["training/morning.py<br/>8:30:15 CT or click"]
         NEWS["training/news_day_judge.py"]
         INGEST["training/news_ingest.py"]
     end
@@ -165,12 +165,12 @@ After adding/removing a Python import: `bazelisk run //:gazelle`.
 
 ## Jobs
 
-Mac awake, Chicago time. Click on Trading around 8:31 is the proven path.
+Mac awake, Chicago time. Click on Trading around 8:30 is the proven path.
 
 | When | What |
 |---|---|
 | Weekdays 3:30 PM | Prices → features → retrain |
-| Weekdays 8:31 AM | Backup score if the checkbox is on |
-| Click on Trading | Rank + Fit now, unchecks 8:31 |
+| Weekdays 8:30:15 AM | Backup score if the checkbox is on (Polygon day.o) |
+| Click on Trading | Rank + Fit now, unchecks 8:30 |
 
 Do not log index funds (SPY).
