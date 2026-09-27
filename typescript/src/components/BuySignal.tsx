@@ -16,6 +16,7 @@ import {
   type TrainingRunsResponse,
   type UniverseResponse,
 } from "../api";
+import { morningScanButton } from "../morningScanUi";
 import { isCashSessionToday, sessionHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
@@ -27,8 +28,6 @@ import TogglePill from "./TogglePill";
 const LATEST_OPTION_VALUE = "";
 const DEFAULT_THRESHOLD_PCT = DEFAULT_BUY_THRESHOLD * 100;
 const NO_MODEL_SENTINEL = "";
-const LOADING_PHRASES = ["Fetching this morning's quotes...", "Scoring tickers...", "Ranking picks..."];
-const LOADING_PHRASE_INTERVAL_MS = 900;
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -151,7 +150,7 @@ export default function BuySignal() {
   const [fitList, setFitList] = useState<BuySignalResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [loadingPhraseIndex, setLoadingPhraseIndex] = useState(0);
+
   const [jobTick, setJobTick] = useState(0);
   const { data: universe } = useFetchData<UniverseResponse>(fetchUniverse);
   const { data: trainingRuns } = useFetchData<TrainingRunsResponse>(fetchTrainingRuns);
@@ -175,17 +174,6 @@ export default function BuySignal() {
     }
     setModelRefreshCount((c) => c + 1);
   }
-
-  useEffect(() => {
-    if (!loading && !scanRunning) {
-      setLoadingPhraseIndex(0);
-      return;
-    }
-    const intervalId = setInterval(() => {
-      setLoadingPhraseIndex((i) => (i + 1) % LOADING_PHRASES.length);
-    }, LOADING_PHRASE_INTERVAL_MS);
-    return () => clearInterval(intervalId);
-  }, [loading, scanRunning]);
 
   useEffect(() => {
     let cancelled = false;
@@ -231,7 +219,6 @@ export default function BuySignal() {
     try {
       const existing = await fetchMorningScan();
       if (existing.status === "running") {
-        setError("Job already running — getting this morning's prices.");
         await waitForScan();
       } else {
         await setMorningJob(false);
@@ -243,7 +230,6 @@ export default function BuySignal() {
           if (!message.includes("409") && !/already/i.test(message)) {
             throw err;
           }
-          setError("Job already running — getting this morning's prices.");
         }
         await waitForScan();
         await setMorningJob(true);
@@ -318,8 +304,12 @@ export default function BuySignal() {
             />
             <span>%</span>
           </label>
-          <button className="btn-hero" onClick={handleCheck} disabled={loading || scanRunning}>
-            {loading || scanRunning ? LOADING_PHRASES[loadingPhraseIndex] : "Check this morning's prices"}
+          <button
+            className="btn-hero"
+            onClick={handleCheck}
+            disabled={morningScanButton(loading || scanRunning).disabled}
+          >
+            {morningScanButton(loading || scanRunning).label}
           </button>
         </div>
       </div>
@@ -328,11 +318,6 @@ export default function BuySignal() {
       {error && (
         <p className="error" style={{ marginTop: 8 }}>
           {error}
-        </p>
-      )}
-      {scanRunning && (
-        <p className="muted" style={{ marginTop: 8 }}>
-          Getting this morning's prices…
         </p>
       )}
       {scanStatus?.status === "failed" && (

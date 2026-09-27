@@ -2,6 +2,19 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_morning_scan",
+    srcs = ["test_morning_scan.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/api",
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/training",
+        "@pypi//fastapi",
+        "@pypi//httpx",
+    ],
+)
+
+py_pytest(
     name = "test_routes",
     srcs = ["test_routes.py"],
     imports = ["../../.."],

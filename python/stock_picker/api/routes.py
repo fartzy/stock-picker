@@ -498,31 +498,39 @@ def set_morning_job(body: MorningJobSettings) -> MorningJobSettings:
     return MorningJobSettings(enabled=body.enabled)
 
 
+def _morning_scan_status() -> MorningScanStatus:
+    from stock_picker.training.morning import morning_lock_held
+
+    state = morning_scan_job.status()
+    if state.status != "running" and morning_lock_held():
+        return MorningScanStatus(status="running")
+    return MorningScanStatus(
+        status=state.status,
+        started_at=state.started_at,
+        completed_at=state.completed_at,
+        error=state.error,
+    )
+
+
 @router.post("/morning-scan")
 def start_morning_scan() -> MorningScanStatus:
+    from stock_picker.training.morning import morning_lock_held
+
+    if morning_scan_job.status().status == "running" or morning_lock_held():
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="a morning scan is already in progress"
+        )
     started = morning_scan_job.start()
     if not started:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail="a morning scan is already in progress"
         )
-    state = morning_scan_job.status()
-    return MorningScanStatus(
-        status=state.status,
-        started_at=state.started_at,
-        completed_at=state.completed_at,
-        error=state.error,
-    )
+    return _morning_scan_status()
 
 
 @router.get("/morning-scan")
 def get_morning_scan() -> MorningScanStatus:
-    state = morning_scan_job.status()
-    return MorningScanStatus(
-        status=state.status,
-        started_at=state.started_at,
-        completed_at=state.completed_at,
-        error=state.error,
-    )
+    return _morning_scan_status()
 
 
 @router.post("/training/run")
