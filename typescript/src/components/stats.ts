@@ -1,4 +1,10 @@
-/** Shared stats UI: tables, strips, signed numbers, named columns. */
+/**
+ * Stats kit — Trade History, morning headings, Test run, What if.
+ *
+ * Add a period column: PeriodCol in statColumns.ts, then fill that key
+ * in periodValues / dayValues. Swap look: data-appearance + CSS, or
+ * tone on col().
+ */
 
 export { Diff, SignedPct } from "./Diff";
 export { StatStrip, type StatItem } from "./StatStrip";

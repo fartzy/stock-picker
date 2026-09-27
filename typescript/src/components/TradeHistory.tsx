@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import {
   fetchBenchmarkReturns,
+  fetchFees,
   fetchPositions,
   type BenchmarkReturnsResponse,
+  type FeesResponse,
   type Position,
   type PositionsResponse,
 } from "../api";
@@ -415,6 +417,7 @@ export default function TradeHistory() {
     () => (days.length > 0 ? fetchBenchmarkReturns(days) : Promise.resolve({ returns: {} })),
     { deps: [days.join(",")] },
   );
+  const { data: feesData } = useFetchData<FeesResponse>(fetchFees);
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading trade history...</p>;
@@ -551,6 +554,19 @@ export default function TradeHistory() {
                 .join(", ")}
               .
             </p>
+          )}
+          {(feesData?.fees.length ?? 0) > 0 && (
+            <details className="muted" style={{ marginTop: "var(--space-2)" }}>
+              <summary>Show fees</summary>
+              <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>
+                {feesData!.fees.map((fee) => (
+                  <li key={`${fee.day}-${fee.ticker}-${fee.side}-${fee.amount}`}>
+                    {fee.day} {fee.ticker} {fee.side} {formatUsd(fee.amount)}
+                    {fee.note ? ` · ${fee.note}` : ""}
+                  </li>
+                ))}
+              </ul>
+            </details>
           )}
         </>
       )}

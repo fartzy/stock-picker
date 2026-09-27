@@ -140,6 +140,18 @@ export interface PositionsResponse {
   peak_working?: Record<string, number>;
 }
 
+export interface FeeRecord {
+  ticker: string;
+  day: string;
+  side: "buy" | "sell";
+  amount: number;
+  note?: string;
+}
+
+export interface FeesResponse {
+  fees: FeeRecord[];
+}
+
 export interface PaperBookDay {
   as_of: string;
   scan_id?: string;
@@ -444,6 +456,7 @@ export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correla
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
+export const fetchFees = () => getJson<FeesResponse>("/api/fees");
 export const fetchPaperBook = (
   kind: "fit" | "rank" | "both" = "both",
   topK?: number,
