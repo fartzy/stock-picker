@@ -25,7 +25,7 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0011](0011-confidence-gated-buy-list.md) | 2026-09-07 | Fit trades only above a 0.5% predicted-return confidence gate |
 | [0012](0012-top-2000-universe.md) | 2026-09-08 | Universe = top ~2000 US names by market cap |
 | [0013](0013-archived-runs-live-model-pick.md) | 2026-09-08 | Every training run's model is archived; the live model is a user pick |
-| [0014](0014-scheduled-jobs.md) | 2026-09-11 | Nightly 3:30 PM CT retrain; morning scoring 8:30:15 CT, click takes priority |
+| [0014](0014-scheduled-jobs.md) | 2026-09-11 | Nightly 3:30 PM CT retrain; morning scoring 8:30:10 CT, click takes priority |
 | [0015](0015-rank-as-parallel-pickle.md) | 2026-09-16 | Rank is its own top-K pickle, never blended with Fit |
 | [0016](0016-news-skip-rules-and-local-tracing.md) | 2026-09-20 | News judged locally (Langfuse-traced); skip rules are conditional on the gap |
 | [0017](0017-quote-provider-chain.md) | 2026-09-23 | Morning quotes: Polygon, then Yahoo, then Finnhub; blacklist store |

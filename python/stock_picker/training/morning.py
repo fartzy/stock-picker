@@ -1,6 +1,6 @@
 """Weekday morning scoring: today's opens through last night's model.
 
-Runs at 8:30:15 CT. Rank and Fit predict on one shared open-known matrix.
+Runs at 8:30:10 CT. Rank and Fit predict on one shared open-known matrix.
 Rank is published as soon as Rank finishes (target ~8:35 CT).
 """
 
@@ -74,6 +74,15 @@ def _try_lock_morning():
         handle.close()
         return None
     return handle
+
+
+def morning_lock_held() -> bool:
+    """True while launchd or another process is mid-score."""
+    handle = _try_lock_morning()
+    if handle is None:
+        return True
+    handle.close()
+    return False
 
 
 def load_cached_signals(

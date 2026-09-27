@@ -9,7 +9,9 @@ def test_second_lock_fails_while_first_is_held(tmp_path, monkeypatch):
     first = m._try_lock_morning()
     assert first is not None
     assert m._try_lock_morning() is None
+    assert m.morning_lock_held() is True
     first.close()
+    assert m.morning_lock_held() is False
     third = m._try_lock_morning()
     assert third is not None
     third.close()
