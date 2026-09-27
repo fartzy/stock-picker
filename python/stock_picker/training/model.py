@@ -361,11 +361,11 @@ def train_svr(
     included_features: set[str] | None = None,
 ) -> TrainedModel:
     """Predicts the same continuous day-session return the other predictive
-    trainers do, so it blends natively -- but it is NOT in
-    PREDICTIVE_MODEL_TYPES yet: per this codebase's convention, a new family
-    earns its way onto the Models picker through the empirical solo-vs-blend
-    search (see training/svr_search.py), the same bar random_forest,
-    neural_net, and ridge were held to.
+    trainers do, so it blends natively -- but it is kept out of
+    PREDICTIVE_MODEL_TYPES: the solo-vs-blend search (training/svr_search.py,
+    ADR 0020) failed the fold-stability bar, same close-out as
+    random_forest, neural_net, and ridge. Remaining SVM path is stacked
+    columns into LightGBM (ADR 0021), not a blender seat.
 
     Wrapped in the same impute+scale Pipeline as train_ridge, for the same
     two reasons: LinearSVR has no native missing-value support, and both its

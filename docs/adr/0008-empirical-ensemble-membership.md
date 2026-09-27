@@ -21,8 +21,9 @@ return) and kept as a standalone importance lens.
 
 ## Consequences
 
-- RandomForest (#38), NeuralNet, and Ridge (#48/#49) all went through the
-  search and all lost to solo LightGBM -- production Fit is
-  `DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm")]`, decided by numbers.
-- The pattern is permanent: a new family (e.g. SVR) gets a trainer + a
-  search run before any picker/production exposure.
+- RandomForest (#38), NeuralNet, Ridge (#48/#49), and LinearSVR (ADR 0020)
+  all went through the search and all lost to solo LightGBM -- production
+  Fit is `DEFAULT_MODEL_SPECS = [ModelSpec("lightgbm")]`, decided by numbers.
+  SVR's remaining path is stacked columns, not a blender seat (ADR 0021).
+- The pattern is permanent: a new family gets a trainer + a search run
+  before any picker/production exposure.
