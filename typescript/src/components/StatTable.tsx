@@ -1,18 +1,18 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, type KeyboardEvent, type ReactNode } from "react";
 
-/** One column. Look lives in CSS via `data-appearance`. */
+/** Look lives in CSS: `data-appearance` plus `tone` classes. */
 export type StatColumn = {
   key: string;
   label?: ReactNode;
   align?: "start" | "end";
   title?: boolean;
-  /** Keep this column tight; leftover width is shared by the rest. */
+  /** Tight column; leftover width is shared by the rest. */
   hug?: boolean;
+  /** `bench` = S&P / session band; `pnl` = outer box around P&L. */
+  tone?: "bench" | "pnl";
 };
 
-/** CSS hook on the table. Add a block in index.css to swap look. */
 export type StatAppearance = "period" | "weeks" | "days" | (string & {});
-
 export type StatValues = Record<string, ReactNode>;
 
 const TableCtx = createContext<StatColumn[] | null>(null);
@@ -23,38 +23,67 @@ function useColumns(): StatColumn[] {
   return columns;
 }
 
-function cellAlign(column: StatColumn): "start" | "end" {
+function cx(...bits: Array<string | false | undefined>): string | undefined {
+  const joined = bits.filter(Boolean).join(" ");
+  return joined || undefined;
+}
+
+function columnClass(column: StatColumn): string | undefined {
+  return cx(column.title && "is-title", column.hug && "is-hug", column.tone && `stat-tone-${column.tone}`);
+}
+
+function columnAlign(column: StatColumn): "start" | "end" {
   return column.align ?? (column.title ? "start" : "end");
 }
 
-function cellClass(column: StatColumn): string | undefined {
-  const bits = [column.title ? "is-title" : "", column.hug ? "is-hug" : ""].filter(Boolean);
-  return bits.length ? bits.join(" ") : undefined;
+function Cells({
+  values,
+  as,
+  first,
+}: {
+  values?: StatValues;
+  as: "th" | "td";
+  first?: "expand";
+}) {
+  const Tag = as;
+  const header = as === "th";
+  return (
+    <>
+      {useColumns().map((column, index) => {
+        const content = header ? (column.label ?? "") : (values?.[column.key] ?? "");
+        return (
+          <Tag key={column.key} className={columnClass(column)} data-align={columnAlign(column)}>
+            {first === "expand" && index === 0 ? (
+              <span className="stat-expand" aria-hidden="true">
+                {content}
+              </span>
+            ) : (
+              content
+            )}
+          </Tag>
+        );
+      })}
+    </>
+  );
 }
 
-type TableProps = {
+export function StatTable({
+  columns,
+  appearance = "period",
+  className,
+  children,
+}: {
   columns: StatColumn[];
-  /** CSS hook. Swap look in index.css without changing callers. */
   appearance?: StatAppearance;
   className?: string;
   children: ReactNode;
-};
-
-export function StatTable({ columns, appearance = "period", className, children }: TableProps) {
+}) {
   return (
     <TableCtx.Provider value={columns}>
-      <table
-        className={["stat-table", className].filter(Boolean).join(" ")}
-        data-appearance={appearance}
-      >
+      <table className={cx("stat-table", className)} data-appearance={appearance}>
         <colgroup>
           {columns.map((column) => (
-            <col
-              key={column.key}
-              className={[column.title ? "is-title" : "", column.hug ? "is-hug" : ""]
-                .filter(Boolean)
-                .join(" ") || undefined}
-            />
+            <col key={column.key} className={columnClass(column)} />
           ))}
         </colgroup>
         {children}
@@ -64,15 +93,10 @@ export function StatTable({ columns, appearance = "period", className, children 
 }
 
 export function StatHead() {
-  const columns = useColumns();
   return (
     <thead>
       <tr>
-        {columns.map((column) => (
-          <th key={column.key} className={cellClass(column)} data-align={cellAlign(column)}>
-            {column.label ?? ""}
-          </th>
-        ))}
+        <Cells as="th" />
       </tr>
     </thead>
   );
@@ -82,21 +106,10 @@ export function StatBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>;
 }
 
-export function StatRow({
-  values,
-  nested = false,
-}: {
-  values: StatValues;
-  nested?: boolean;
-}) {
-  const columns = useColumns();
+export function StatRow({ values, nested = false }: { values: StatValues; nested?: boolean }) {
   return (
     <tr className={nested ? "is-nested" : undefined}>
-      {columns.map((column) => (
-        <td key={column.key} className={cellClass(column)} data-align={cellAlign(column)}>
-          {values[column.key] ?? ""}
-        </td>
-      ))}
+      <Cells as="td" values={values} />
     </tr>
   );
 }
@@ -113,7 +126,14 @@ export function StatDetail({ children }: { children: ReactNode }) {
   );
 }
 
-/** One summary row as its own `<tbody>`. Children render as sibling bodies. */
+function onActivate(event: KeyboardEvent, onToggle: () => void) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    onToggle();
+  }
+}
+
+/** One summary row as its own `<tbody>`. Open children render as sibling bodies. */
 export function StatExpand({
   values,
   open,
@@ -127,33 +147,17 @@ export function StatExpand({
   nested?: boolean;
   children?: ReactNode;
 }) {
-  const columns = useColumns();
   return (
     <>
       <tbody>
         <tr
-          className={["is-expandable", nested ? "is-nested" : ""].filter(Boolean).join(" ")}
+          className={cx("is-expandable", nested && "is-nested")}
           aria-expanded={open}
-          onClick={onToggle}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              onToggle();
-            }
-          }}
           tabIndex={0}
+          onClick={onToggle}
+          onKeyDown={(event) => onActivate(event, onToggle)}
         >
-          {columns.map((column, index) => (
-            <td key={column.key} className={cellClass(column)} data-align={cellAlign(column)}>
-              {index === 0 ? (
-                <span className="stat-expand" aria-hidden="true">
-                  {values[column.key] ?? ""}
-                </span>
-              ) : (
-                (values[column.key] ?? "")
-              )}
-            </td>
-          ))}
+          <Cells as="td" values={values} first="expand" />
         </tr>
       </tbody>
       {open ? children : null}

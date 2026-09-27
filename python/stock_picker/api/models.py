@@ -113,6 +113,18 @@ class Position(BaseModel):
     hold_close_pnl: float | None = None
 
 
+class FeeRecord(BaseModel):
+    ticker: str
+    day: str
+    side: Literal["buy", "sell"]
+    amount: float
+    note: str = ""
+
+
+class FeesResponse(BaseModel):
+    fees: list[FeeRecord]
+
+
 class PositionsResponse(BaseModel):
     positions: list[Position]
     # NY session date -> dollars on the book while anything is on (not peak,

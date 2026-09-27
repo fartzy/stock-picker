@@ -17,6 +17,7 @@ export function col(
     title,
     align: extras.align ?? (title ? "start" : "end"),
     hug: extras.hug,
+    tone: extras.tone,
   };
 }
 
@@ -28,10 +29,10 @@ export const PeriodCol = {
   title: col("title", undefined, { title: true, hug: true }),
   days: col("days", undefined, { align: "start", hug: true }),
   typical: col("typical", "Typical"),
-  pnl: col("pnl", "P&L"),
-  intraday: col("intraday", "Intraday S&P"),
-  bh: col("bh", "Buy & hold S&P"),
-  hold: col("hold", HOLD_WINDOW_LABEL),
+  pnl: col("pnl", "P&L", { tone: "pnl" }),
+  intraday: col("intraday", "Intraday S&P", { tone: "bench" }),
+  bh: col("bh", "Buy & hold S&P", { tone: "bench" }),
+  hold: col("hold", HOLD_WINDOW_LABEL, { tone: "bench" }),
 } as const;
 
 export const PERIOD_COLUMNS: StatColumn[] = Object.values(PeriodCol);

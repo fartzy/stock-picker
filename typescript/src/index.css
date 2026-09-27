@@ -425,9 +425,13 @@ section + section {
 }
 
 .stat-table {
+  --stat-pnl-edge: 1.5px solid rgba(255, 255, 255, 0.55);
+  --stat-pnl-glow: 0 0 6px rgba(255, 255, 255, 0.06);
+  --stat-bench: color-mix(in srgb, var(--ink) 28%, transparent);
   display: table;
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   table-layout: fixed;
   font-family: var(--sans);
   font-size: var(--text-caption);
@@ -496,7 +500,7 @@ section + section {
 
 .stat-table th:last-child,
 .stat-table td:last-child {
-  padding-right: 0;
+  padding-right: 10px;
 }
 
 .stat-table th {
@@ -520,6 +524,39 @@ section + section {
   font-weight: 700;
   font-size: var(--text-label);
   white-space: nowrap;
+}
+
+.stat-table th.stat-tone-bench,
+.stat-table td.stat-tone-bench {
+  background: var(--stat-bench);
+}
+
+.stat-table th.stat-tone-bench {
+  color: #b9c6e4;
+}
+
+.stat-table tbody tr:hover td.stat-tone-bench {
+  background: color-mix(in srgb, var(--ink) 28%, var(--row-hover));
+}
+
+.stat-table th.stat-tone-pnl,
+.stat-table td.stat-tone-pnl {
+  border-left: var(--stat-pnl-edge);
+  border-right: var(--stat-pnl-edge);
+}
+
+.stat-table thead th.stat-tone-pnl {
+  border-top: var(--stat-pnl-edge);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: var(--stat-pnl-glow);
+}
+
+.stat-table tbody:last-of-type > tr:last-child:not(.stat-expand-body) > td.stat-tone-pnl {
+  border-bottom: var(--stat-pnl-edge);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: var(--stat-pnl-glow);
 }
 
 .stat-table tbody + tbody tr:first-child td {
@@ -556,8 +593,6 @@ section + section {
   white-space: normal;
 }
 
-/* Per-trade lots use different columns than the week/day stats.
-   A quiet well, not a row-hover wash. */
 .day-lots {
   background: color-mix(in srgb, var(--ink) 28%, var(--surface-raised));
   border: 1px solid var(--line);

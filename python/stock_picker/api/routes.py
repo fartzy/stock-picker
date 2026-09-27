@@ -20,6 +20,7 @@ from stock_picker.api.models import (
     FeatureSelectionRequest,
     FeatureSelectionResponse,
     FeatureValuesResponse,
+    FeesResponse,
     ImportanceResponse,
     LiveModelResponse,
     MorningCheckRequest,
@@ -85,6 +86,7 @@ from stock_picker.features.trades import (
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.fee_store import FeeStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.storage.training_run_store import TrainingRunStore
@@ -336,6 +338,11 @@ def post_paper_book_replay(body: PaperReplayRequest) -> PaperBookResponse:
     as_of = date.fromisoformat(body.as_of)
     replay_morning(as_of, model_run_id=body.model_run_id, threshold=body.threshold)
     return PaperBookResponse(**paper_book_view(load_paper_book(), kind="both"))
+
+
+@router.get("/fees")
+def get_fees() -> FeesResponse:
+    return FeesResponse(fees=[fee.__dict__ for fee in FeeStore().read()])
 
 
 @router.get("/positions")

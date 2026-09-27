@@ -18,6 +18,8 @@ data/morning_checks/*
 !data/morning_checks/.gitkeep
 data/ticker_blacklist/*
 !data/ticker_blacklist/blacklist.json
+data/fees/*
+!data/fees/fees.json
 .idea/
 # SQLite WAL sidecar -- the .db is the source of truth (trades, later scans).
 *.db-wal
