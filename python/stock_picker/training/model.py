@@ -20,7 +20,7 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import LinearSVR
+from sklearn.svm import LinearSVC, LinearSVR
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.listwise import make_listfold_objective
@@ -133,6 +133,25 @@ SVR_DEFAULT_PARAMS = {
     "max_iter": 10000,
     "random_state": 0,
 }
+# LinearSVC, not kernel SVC: same row-count constraint as LinearSVR.
+# squared_hinge + dual=False is the primal formulation -- hinge requires
+# dual=True, which is the slow n_samples-sized problem at 443k rows.
+# class_weight=balanced keeps the 0.5% gate plane from collapsing to
+# "always down" (that class is the minority). These two classifiers are
+# stacking helpers (ADR 0021), not blender members -- not in MODEL_TRAINERS.
+SVC_DEFAULT_PARAMS = {
+    "C": 1.0,
+    "loss": "squared_hinge",
+    "max_iter": 10000,
+    "random_state": 0,
+    "dual": False,
+    "class_weight": "balanced",
+}
+# Same 0.5% cut as buy_signal.DEFAULT_THRESHOLD / backtest.simulate_trades.
+# Copied rather than imported: model.py is the leaf trainers sit on, and
+# buy_signal imports the ensemble/live path above it.
+FIT_GATE_THRESHOLD = 0.005
+STACKED_SVM_COLUMNS = ("svr_oof_pred", "svc_direction_margin", "svc_gate_margin")
 
 
 @dataclass
@@ -383,6 +402,84 @@ def train_svr(
     )
     regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
     return TrainedModel(model_type="svr", estimator=regressor, feature_names=columns)
+
+
+def _fit_linear_svc(
+    train_frame: pd.DataFrame,
+    labels: pd.Series,
+    model_type: str,
+    params: dict | None,
+    excluded_features: set[str] | None,
+    included_features: set[str] | None,
+) -> TrainedModel:
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    classifier = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+            ("classify", LinearSVC(**{**SVC_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    classifier.fit(train_frame[columns], labels)
+    return TrainedModel(model_type=model_type, estimator=classifier, feature_names=columns)
+
+
+def train_svc_direction(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on sign(day-session return). Its decision_function is the
+    signed distance to the up/down plane -- stacked as svc_direction_margin
+    (ADR 0021). Not a blender member.
+    """
+    direction = (train_frame[LABEL_COLUMN] > 0).astype(int)
+    return _fit_linear_svc(
+        train_frame, direction, "svc_direction", params, excluded_features, included_features
+    )
+
+
+def train_svc_gate(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on (day-session return > 0.5%), the production Fit gate.
+    Stacked as svc_gate_margin (ADR 0021). Not a blender member.
+    """
+    gated = (train_frame[LABEL_COLUMN] > FIT_GATE_THRESHOLD).astype(int)
+    return _fit_linear_svc(
+        train_frame, gated, "svc_gate", params, excluded_features, included_features
+    )
+
+
+def decision_scores(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
+    """Signed distance to the LinearSVC plane (Pipeline.decision_function).
+
+    For LinearSVR this is the same number as predict(); stacking uses
+    predict() for the return column and this helper for the two SVC margins.
+    """
+    aligned = frame.reindex(columns=trained.feature_names)
+    return np.asarray(trained.estimator.decision_function(aligned))
+
+
+def attach_stacked_svm_columns(
+    frame: pd.DataFrame,
+    svr: TrainedModel,
+    svc_direction: TrainedModel,
+    svc_gate: TrainedModel,
+) -> pd.DataFrame:
+    """Append the three ADR 0021 columns. Callers must pass estimators fit
+    on rows strictly before `frame` (walk-forward OOF) -- fitting on the
+    same rows leaks the label into LightGBM.
+    """
+    out = frame.copy()
+    out["svr_oof_pred"] = predict(svr, frame)
+    out["svc_direction_margin"] = decision_scores(svc_direction, frame)
+    out["svc_gate_margin"] = decision_scores(svc_gate, frame)
+    return out
 
 
 MODEL_TRAINERS = {

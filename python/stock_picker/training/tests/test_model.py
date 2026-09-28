@@ -3,6 +3,8 @@ import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.model import (
+    STACKED_SVM_COLUMNS,
+    attach_stacked_svm_columns,
     evaluate,
     feature_columns,
     train_lightgbm,
@@ -11,6 +13,8 @@ from stock_picker.training.model import (
     train_neural_net,
     train_random_forest,
     train_ridge,
+    train_svc_direction,
+    train_svc_gate,
     train_svr,
 )
 
@@ -211,3 +215,46 @@ def test_train_svr_handles_missing_values():
     model = train_svr(train_frame)
 
     assert model.model_type == "svr"
+
+
+def test_train_svc_direction_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_direction(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] > 0).astype(int)
+
+    assert model.model_type == "svc_direction"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_train_svc_gate_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_gate(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] > 0.005).astype(int)
+
+    assert model.model_type == "svc_gate"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_attach_stacked_svm_columns_adds_the_three_adr_0021_columns():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+    stacked = attach_stacked_svm_columns(
+        test_frame,
+        train_svr(train_frame),
+        train_svc_direction(train_frame),
+        train_svc_gate(train_frame),
+    )
+
+    for column in STACKED_SVM_COLUMNS:
+        assert column in stacked.columns
+        assert stacked[column].notna().all()
+    assert len(stacked) == len(test_frame)
+    # Original columns stay put -- stacking appends, it does not rewrite
+    # the open-known row.
+    assert (stacked["signal"] == test_frame["signal"]).all()

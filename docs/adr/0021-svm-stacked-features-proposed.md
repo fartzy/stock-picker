@@ -56,11 +56,20 @@ Every stacked value on row *t* must come from an SVM fit on rows
 pooled frame and appending predictions leaks the label into the feature.
 That is the single easiest way to manufacture a win here.
 
-Live morning scoring, if this ever promotes: fit the three estimators
-on all training history once (nightly), persist them next to the
-logistic diagnostic, score today's live row. That nightly cost is a
-LinearSVR fit (~35–45 min) plus two LinearSVC fits (usually faster).
-State it in the promotion PR; do not discover it after.
+Two clocks — do not mix them:
+
+- **Nightly (fit):** the three estimators train on all history once and
+  are persisted next to the logistic diagnostic. LinearSVR dominates
+  (~35–45 min); the two LinearSVCs are smaller. This is the 3:30 CT
+  retrain, not the morning scan.
+- **Morning (predict):** today's open-known row is already built
+  (`live_rows.prepare_live_rows`, the current <2 min wall). Scoring the
+  three stacked columns is three linear predicts on that same ~90-feature
+  vector — a matrix-vector multiply per name, milliseconds across the
+  universe, not a refit. The morning scan does **not** run
+  `svr_stack_search`.
+
+State the nightly fit cost in the promotion PR; do not discover it after.
 
 ## Promotion bar
 
@@ -84,12 +93,14 @@ same snapshot discipline: rerun the baseline in the same job.
 
 ## Work queue
 
-1. `python/stock_picker/training/svr_stack_search.py` — mirror
-   `svr_search.py`: load pooled train tickers, walk-forward, for each
-   fold fit LinearSVR + two LinearSVCs on train, attach the three
-   columns to the test frame, fit LightGBM with and without them,
-   log means and per-fold acc/IC. Holdout never touched. Background
-   job, expect the LinearSVR fold times from 0020 (7–43 min/fold).
+1. `python/stock_picker/training/svr_stack_search.py` — exists; run
+   `bazelisk run //python/stock_picker/training:svr_stack_search`.
+   Walk-forward, holdout untouched. Each fold fits LinearSVR + two
+   LinearSVCs on train, attaches the three columns, fits LightGBM with
+   and without them. Test-side columns are OOF; train-side columns are
+   in-sample so LightGBM has a column to split on (standard stacking
+   shortcut — scored metrics are the OOF test ones). Background job,
+   expect the LinearSVR fold times from 0020 (7–43 min/fold).
 2. Read the per-fold lists against the bar above.
 3. Holdout once, or close it out.
 
