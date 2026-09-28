@@ -3,14 +3,24 @@ import pandas as pd
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.model import (
+    STACKED_SVM_COLUMNS,
+    attach_stacked_svm_columns,
+    decision_scores,
     evaluate,
     feature_columns,
+    fit_stacked_svm_estimators,
     train_lightgbm,
     train_lightgbm_rank,
     train_logistic_regression,
     train_neural_net,
     train_random_forest,
     train_ridge,
+    train_svc_bottom_quintile,
+    train_svc_direction,
+    train_svc_down_gate,
+    train_svc_gate,
+    train_svc_strong_up,
+    train_svc_top_quintile,
     train_svr,
 )
 
@@ -211,3 +221,101 @@ def test_train_svr_handles_missing_values():
     model = train_svr(train_frame)
 
     assert model.model_type == "svr"
+
+
+def test_train_svc_direction_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_direction(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] > 0).astype(int)
+
+    assert model.model_type == "svc_direction"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_train_svc_gate_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_gate(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] > 0.005).astype(int)
+
+    assert model.model_type == "svc_gate"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_train_svc_down_gate_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_down_gate(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] < -0.005).astype(int)
+
+    assert model.model_type == "svc_down_gate"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_train_svc_strong_up_learns_a_clear_signal():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_strong_up(train_frame)
+    predicted = model.estimator.predict(test_frame[model.feature_names])
+    actual = (test_frame[LABEL_COLUMN] > 0.01).astype(int)
+
+    assert model.model_type == "svc_strong_up"
+    assert (predicted == actual).mean() > 0.9
+
+
+def test_train_svc_top_quintile_ranks_the_right_tail():
+    # Top-quintile is a 20% class -- majority-class accuracy is already 0.80,
+    # so the stacking-relevant check is that the margin ranks true top-20
+    # names above the rest.
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_top_quintile(train_frame)
+    scores = decision_scores(model, test_frame)
+    actual = test_frame[LABEL_COLUMN].rank(pct=True) >= 0.8
+
+    assert model.model_type == "svc_top_quintile"
+    assert scores[actual.to_numpy()].mean() > scores[~actual.to_numpy()].mean()
+
+
+def test_train_svc_bottom_quintile_ranks_the_right_tail():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+
+    model = train_svc_bottom_quintile(train_frame)
+    scores = decision_scores(model, test_frame)
+    actual = test_frame[LABEL_COLUMN].rank(pct=True) <= 0.2
+
+    assert model.model_type == "svc_bottom_quintile"
+    assert scores[actual.to_numpy()].mean() > scores[~actual.to_numpy()].mean()
+
+
+def test_attach_stacked_svm_columns_adds_the_seven_adr_0021_columns():
+    train_frame = _make_learnable_frame(400, seed=1)
+    test_frame = _make_learnable_frame(200, seed=2)
+    stacked = attach_stacked_svm_columns(test_frame, fit_stacked_svm_estimators(train_frame))
+
+    assert list(STACKED_SVM_COLUMNS) == [
+        "svr_oof_pred",
+        "svc_direction_margin",
+        "svc_gate_margin",
+        "svc_down_gate_margin",
+        "svc_strong_up_margin",
+        "svc_top_quintile_margin",
+        "svc_bottom_quintile_margin",
+    ]
+    for column in STACKED_SVM_COLUMNS:
+        assert column in stacked.columns
+        assert stacked[column].notna().all()
+    assert len(stacked) == len(test_frame)
+    # Original columns stay put -- stacking appends, it does not rewrite
+    # the open-known row.
+    assert (stacked["signal"] == test_frame["signal"]).all()

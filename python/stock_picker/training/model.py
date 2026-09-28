@@ -20,7 +20,7 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import LinearSVR
+from sklearn.svm import LinearSVC, LinearSVR
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.listwise import make_listfold_objective
@@ -133,6 +133,44 @@ SVR_DEFAULT_PARAMS = {
     "max_iter": 10000,
     "random_state": 0,
 }
+# LinearSVC, not kernel SVC: same row-count constraint as LinearSVR.
+# squared_hinge + dual=False is the primal formulation -- hinge requires
+# dual=True, which is the slow n_samples-sized problem at 443k rows.
+# class_weight=balanced keeps the 0.5% gate plane from collapsing to
+# "always down" (that class is the minority). These two classifiers are
+# stacking helpers (ADR 0021), not blender members -- not in MODEL_TRAINERS.
+SVC_DEFAULT_PARAMS = {
+    "C": 1.0,
+    "loss": "squared_hinge",
+    "max_iter": 10000,
+    "random_state": 0,
+    "dual": False,
+    "class_weight": "balanced",
+}
+# Same 0.5% cut as buy_signal.DEFAULT_THRESHOLD / backtest.simulate_trades.
+# Copied rather than imported: model.py is the leaf trainers sit on, and
+# buy_signal imports the ensemble/live path above it.
+FIT_GATE_THRESHOLD = 0.005
+# 1.0% cut from the same threshold sweep -- historically a higher hit
+# rate at much lower n_trades (see nightly holdout table). A different
+# plane from the 0.5% gate, not a rescaled copy of it.
+STRONG_UP_THRESHOLD = 0.01
+TOP_QUINTILE = 0.8
+BOTTOM_QUINTILE = 0.2
+# One LinearSVR (the expensive nightly fit) plus six LinearSVC planes.
+# Extra SVRs each cost ~35-45 min; extra SVC planes are minutes and only
+# earn a seat if they ask a different question (up/down, the two tails,
+# the 1% cut, within-day top/bottom). return<0 is omitted -- it is the
+# negative of direction. Kernel SVM is still forbidden at 443k rows.
+STACKED_SVM_COLUMNS = (
+    "svr_oof_pred",
+    "svc_direction_margin",
+    "svc_gate_margin",
+    "svc_down_gate_margin",
+    "svc_strong_up_margin",
+    "svc_top_quintile_margin",
+    "svc_bottom_quintile_margin",
+)
 
 
 @dataclass
@@ -361,11 +399,11 @@ def train_svr(
     included_features: set[str] | None = None,
 ) -> TrainedModel:
     """Predicts the same continuous day-session return the other predictive
-    trainers do, so it blends natively -- but it is NOT in
-    PREDICTIVE_MODEL_TYPES yet: per this codebase's convention, a new family
-    earns its way onto the Models picker through the empirical solo-vs-blend
-    search (see training/svr_search.py), the same bar random_forest,
-    neural_net, and ridge were held to.
+    trainers do, so it blends natively -- but it is kept out of
+    PREDICTIVE_MODEL_TYPES: the solo-vs-blend search (training/svr_search.py,
+    ADR 0020) failed the fold-stability bar, same close-out as
+    random_forest, neural_net, and ridge. Remaining SVM path is stacked
+    columns into LightGBM (ADR 0021), not a blender seat.
 
     Wrapped in the same impute+scale Pipeline as train_ridge, for the same
     two reasons: LinearSVR has no native missing-value support, and both its
@@ -383,6 +421,174 @@ def train_svr(
     )
     regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
     return TrainedModel(model_type="svr", estimator=regressor, feature_names=columns)
+
+
+def _fit_linear_svc(
+    train_frame: pd.DataFrame,
+    labels: pd.Series,
+    model_type: str,
+    params: dict | None,
+    excluded_features: set[str] | None,
+    included_features: set[str] | None,
+) -> TrainedModel:
+    columns = feature_columns(train_frame, excluded_features, included_features)
+    classifier = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median")),
+            ("scale", StandardScaler()),
+            ("classify", LinearSVC(**{**SVC_DEFAULT_PARAMS, **(params or {})})),
+        ]
+    )
+    classifier.fit(train_frame[columns], labels)
+    return TrainedModel(model_type=model_type, estimator=classifier, feature_names=columns)
+
+
+def train_svc_direction(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on sign(day-session return). Its decision_function is the
+    signed distance to the up/down plane -- stacked as svc_direction_margin
+    (ADR 0021). Not a blender member.
+    """
+    direction = (train_frame[LABEL_COLUMN] > 0).astype(int)
+    return _fit_linear_svc(
+        train_frame, direction, "svc_direction", params, excluded_features, included_features
+    )
+
+
+def train_svc_gate(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on (day-session return > 0.5%), the production Fit gate.
+    Stacked as svc_gate_margin (ADR 0021). Not a blender member.
+    """
+    gated = (train_frame[LABEL_COLUMN] > FIT_GATE_THRESHOLD).astype(int)
+    return _fit_linear_svc(
+        train_frame, gated, "svc_gate", params, excluded_features, included_features
+    )
+
+
+def train_svc_down_gate(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on (day-session return < -0.5%), the other tail of the
+    production gate. Asymmetric from svc_gate because class balance and
+    the plane both differ -- not the negative of svc_gate_margin.
+    """
+    gated = (train_frame[LABEL_COLUMN] < -FIT_GATE_THRESHOLD).astype(int)
+    return _fit_linear_svc(
+        train_frame, gated, "svc_down_gate", params, excluded_features, included_features
+    )
+
+
+def train_svc_strong_up(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on (day-session return > 1%), the next threshold in the
+    buy-signal sweep. A stricter plane than the 0.5% gate.
+    """
+    gated = (train_frame[LABEL_COLUMN] > STRONG_UP_THRESHOLD).astype(int)
+    return _fit_linear_svc(
+        train_frame, gated, "svc_strong_up", params, excluded_features, included_features
+    )
+
+
+def _within_day_pct(frame: pd.DataFrame) -> pd.Series:
+    """Percentile rank of the label inside each session. Tests without a
+    date column treat the whole frame as one day.
+    """
+    if "date" not in frame.columns:
+        return frame[LABEL_COLUMN].rank(pct=True)
+    return frame.groupby("date")[LABEL_COLUMN].rank(pct=True)
+
+
+def train_svc_top_quintile(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on within-day top 20% by return -- Rank-flavored, the
+    names ListFold is trying to put first.
+    """
+    labels = (_within_day_pct(train_frame) >= TOP_QUINTILE).astype(int)
+    return _fit_linear_svc(
+        train_frame, labels, "svc_top_quintile", params, excluded_features, included_features
+    )
+
+
+def train_svc_bottom_quintile(
+    train_frame: pd.DataFrame,
+    params: dict | None = None,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> TrainedModel:
+    """LinearSVC on within-day bottom 20% by return -- the other end of
+    the list ListFold orders and MAE-Fit ignores.
+    """
+    labels = (_within_day_pct(train_frame) <= BOTTOM_QUINTILE).astype(int)
+    return _fit_linear_svc(
+        train_frame, labels, "svc_bottom_quintile", params, excluded_features, included_features
+    )
+
+
+def decision_scores(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
+    """Signed distance to the LinearSVC plane (Pipeline.decision_function).
+
+    For LinearSVR this is the same number as predict(); stacking uses
+    predict() for the return column and this helper for the SVC margins.
+    """
+    aligned = frame.reindex(columns=trained.feature_names)
+    return np.asarray(trained.estimator.decision_function(aligned))
+
+
+def fit_stacked_svm_estimators(
+    train_frame: pd.DataFrame,
+    excluded_features: set[str] | None = None,
+    included_features: set[str] | None = None,
+) -> dict[str, TrainedModel]:
+    """Fit the seven ADR 0021 estimators on `train_frame`. Callers must
+    not attach these to the same rows they were fit on when scoring.
+    """
+    kwargs = {"excluded_features": excluded_features, "included_features": included_features}
+    return {
+        "svr_oof_pred": train_svr(train_frame, **kwargs),
+        "svc_direction_margin": train_svc_direction(train_frame, **kwargs),
+        "svc_gate_margin": train_svc_gate(train_frame, **kwargs),
+        "svc_down_gate_margin": train_svc_down_gate(train_frame, **kwargs),
+        "svc_strong_up_margin": train_svc_strong_up(train_frame, **kwargs),
+        "svc_top_quintile_margin": train_svc_top_quintile(train_frame, **kwargs),
+        "svc_bottom_quintile_margin": train_svc_bottom_quintile(train_frame, **kwargs),
+    }
+
+
+def attach_stacked_svm_columns(
+    frame: pd.DataFrame,
+    estimators: dict[str, TrainedModel],
+) -> pd.DataFrame:
+    """Append the ADR 0021 columns. Callers must pass estimators fit on
+    rows strictly before `frame` (walk-forward OOF) -- fitting on the
+    same rows leaks the label into LightGBM.
+    """
+    out = frame.copy()
+    out["svr_oof_pred"] = predict(estimators["svr_oof_pred"], frame)
+    for column in STACKED_SVM_COLUMNS:
+        if column == "svr_oof_pred":
+            continue
+        out[column] = decision_scores(estimators[column], frame)
+    return out
 
 
 MODEL_TRAINERS = {

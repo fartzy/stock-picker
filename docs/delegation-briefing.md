@@ -94,13 +94,12 @@ scan persistence unchanged, tests for the intersection helper reused from
 `backtest.simulate_consensus` (don't re-derive it in TS; expose it on the
 scan payload from the API).
 
-**P1 -- finish the SVR decision.** The first search run (2026-09-26) was NOT
-a clean reject: solo SVR topped fold accuracy and the (3,1,0) lgbm+svr blend
-beat solo LightGBM on accuracy, Rank IC, and both gated metrics -- by small,
-stability-unverified margins. The full state, numbers, work queue (stability
-rerun -> one holdout confirmation -> promote or reject), and SVM-specific
-traps live in **ADR 0020** (`docs/adr/0020-svr-family-evaluated-not-promoted.md`)
--- read that record first; it supersedes this paragraph.
+**P1 -- SVM stacked-feature search (ADR 0021).** LinearSVR as a blender
+member is closed (ADR 0020 Rejected: overnight rerun failed ≥3/4 folds on
+both acc and rank IC). The remaining SVM question is seven OOF columns
+fed to LightGBM (one LinearSVR prediction + six LinearSVC planes). First
+step is `python/stock_picker/training/svr_stack_search.py`; leakage rule
+and promotion bar are in the ADR. Do not reopen the blender path.
 
 **P2 -- bottom-of-list evidence.** ListFold orders the bottom too (lambdarank
 never did). Add bottom-20 tracking to the What if paper book (do the day's
