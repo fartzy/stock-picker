@@ -17,6 +17,7 @@ import {
   type UniverseResponse,
 } from "../api";
 import { morningScanButton } from "../morningScanUi";
+import { newsBlocksBuy } from "../newsSkip";
 import { isCashSessionToday, sessionHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
@@ -134,7 +135,16 @@ function MorningList({
               {
                 key: "news",
                 header: "News",
-                cell: (signal) => <NewsCell flag={signal.news_flag} blocks={signal.news_blocks} checked={signal.news_checked} />,
+                cell: (signal) => {
+                  const prev = quotes[signal.ticker]?.prev_close ?? signal.prev_close;
+                  return (
+                    <NewsCell
+                      flag={signal.news_flag}
+                      blocks={newsBlocksBuy(signal.news_flag, signal.open_price, prev)}
+                      checked={signal.news_checked}
+                    />
+                  );
+                },
               },
             ]}
           />

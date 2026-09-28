@@ -52,7 +52,12 @@ function Cells({
       {useColumns().map((column, index) => {
         const content = header ? (column.label ?? "") : (values?.[column.key] ?? "");
         return (
-          <Tag key={column.key} className={columnClass(column)} data-align={columnAlign(column)}>
+          <Tag
+            key={column.key}
+            className={columnClass(column)}
+            data-align={columnAlign(column)}
+            data-col={column.key}
+          >
             {first === "expand" && index === 0 ? (
               <span className="stat-expand" aria-hidden="true">
                 {content}
@@ -83,7 +88,7 @@ export function StatTable({
       <table className={cx("stat-table", className)} data-appearance={appearance}>
         <colgroup>
           {columns.map((column) => (
-            <col key={column.key} className={columnClass(column)} />
+            <col key={column.key} className={columnClass(column)} data-col={column.key} />
           ))}
         </colgroup>
         {children}

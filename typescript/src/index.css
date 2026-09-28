@@ -446,6 +446,59 @@ section + section {
   width: 5.75rem;
 }
 
+.stat-table col.is-hug[data-col="fees"] {
+  width: 4.5rem;
+}
+
+.stat-table.is-fees-closed col.is-hug[data-col="fees"] {
+  width: 4.25rem;
+}
+
+.stat-table th[data-col="fees"],
+.stat-table td[data-col="fees"] {
+  color: var(--text-muted);
+  padding-left: 12px;
+  padding-right: 12px;
+  overflow: visible;
+}
+
+.stat-table td[data-col="fees"] {
+  font-size: var(--text-micro);
+}
+
+.fees-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.fees-toggle::after {
+  content: "▶";
+  flex: 0 0 0.75em;
+  width: 0.75em;
+  font-size: 0.65em;
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.stat-table.is-fees-open .fees-toggle::after {
+  content: "▼";
+}
+
+.fees-toggle:hover {
+  color: var(--accent);
+}
+
 .stat-table thead {
   display: table-header-group;
 }
@@ -472,8 +525,8 @@ section + section {
   text-overflow: ellipsis;
 }
 
-.stat-table td.is-hug:not(.is-title),
-.stat-table th.is-hug:not(.is-title) {
+.stat-table td.is-hug:not(.is-title):not([data-col="fees"]),
+.stat-table th.is-hug:not(.is-title):not([data-col="fees"]) {
   overflow: hidden;
 }
 
@@ -542,12 +595,23 @@ section + section {
 .stat-table th.stat-tone-pnl,
 .stat-table td.stat-tone-pnl {
   border-left: var(--stat-pnl-edge);
+  padding-right: 16px;
+}
+
+.stat-table th[data-col="fees"],
+.stat-table td[data-col="fees"] {
+  border-left: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   border-right: var(--stat-pnl-edge);
 }
 
 .stat-table thead th.stat-tone-pnl {
   border-top: var(--stat-pnl-edge);
   border-top-left-radius: 5px;
+  box-shadow: var(--stat-pnl-glow);
+}
+
+.stat-table thead th[data-col="fees"] {
+  border-top: var(--stat-pnl-edge);
   border-top-right-radius: 5px;
   box-shadow: var(--stat-pnl-glow);
 }
@@ -555,6 +619,11 @@ section + section {
 .stat-table tbody:last-of-type > tr:last-child:not(.stat-expand-body) > td.stat-tone-pnl {
   border-bottom: var(--stat-pnl-edge);
   border-bottom-left-radius: 5px;
+  box-shadow: var(--stat-pnl-glow);
+}
+
+.stat-table tbody:last-of-type > tr:last-child:not(.stat-expand-body) > td[data-col="fees"] {
+  border-bottom: var(--stat-pnl-edge);
   border-bottom-right-radius: 5px;
   box-shadow: var(--stat-pnl-glow);
 }
@@ -898,6 +967,12 @@ details.view-card[open] > summary::before {
 .trade-num {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.trade-table th.lot-fees,
+.trade-table td.lot-fees {
+  color: var(--text-muted);
+  font-size: var(--text-micro);
 }
 
 .trade-time {

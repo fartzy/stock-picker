@@ -177,7 +177,12 @@ def get_quotes(tickers: str, as_of: str | None = None) -> QuotesResponse:
     returns nothing useful for a past/closed session (no fresh print to
     return), which otherwise leaves Prev/Open/Close blank for any day-old
     scan. Same data source What if already trusts for settled days
-    (paper/book.py's session_quotes_from_prices)."""
+    (paper/book.py's session_quotes_from_prices).
+
+    Today's close is on disk only after the 3:30 CT nightly pull. Until that
+    bar exists, keep the live snapshot so Close/Prev are not empty between
+    3:15 CT and the nightly write.
+    """
     names = tickers.split(",")
     if as_of:
         from stock_picker.ingestion.session import cash_session_date, session_has_closed
@@ -185,15 +190,37 @@ def get_quotes(tickers: str, as_of: str | None = None) -> QuotesResponse:
 
         as_of_date = date.fromisoformat(as_of)
         if as_of_date < cash_session_date() or session_has_closed():
-            return QuotesResponse(quotes=quote_summaries(session_quotes_from_prices(names, as_of_date)))
+            settled = session_quotes_from_prices(names, as_of_date)
+            if settled:
+                return QuotesResponse(quotes=quote_summaries(settled))
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(names)))
 
 
-def _signal_payload(signal) -> dict:
+def _prior_closes(tickers: list[str], as_of: str) -> dict[str, float]:
+    """Friday's Close for `as_of` -- same `_prior_close` What if uses."""
+    from stock_picker.paper.book import _prior_close
+    from stock_picker.storage.price_store import PriceStore
+
+    prices = PriceStore()
+    out: dict[str, float] = {}
+    for ticker in tickers:
+        try:
+            history = prices.read(ticker)
+        except FileNotFoundError:
+            continue
+        prev = _prior_close(history, as_of)
+        if prev is not None:
+            out[ticker] = prev
+    return out
+
+
+def _signal_payload(signal, prev_close: float | None = None) -> dict:
     if isinstance(signal, dict):
         payload = dict(signal)
     else:
         payload = asdict(signal)
+    if payload.get("prev_close") is None and prev_close is not None:
+        payload["prev_close"] = prev_close
     payload["news_blocks"] = news_blocks_buy(
         payload.get("news_flag"),
         payload.get("open_price"),
@@ -202,14 +229,23 @@ def _signal_payload(signal) -> dict:
     return payload
 
 
+def _signals_with_gaps(signals: list, as_of: str) -> list[dict]:
+    """Skip/still-buy needs the gap. Fill a blank prev_close from PriceStore."""
+    rows = [s if isinstance(s, dict) else asdict(s) for s in signals]
+    missing = [row["ticker"] for row in rows if row.get("prev_close") is None]
+    filled = _prior_closes(missing, as_of) if missing else {}
+    return [_signal_payload(row, filled.get(row["ticker"])) for row in rows]
+
+
 def _cached_buy_signal(threshold: float, kind: str = "fit") -> BuySignalResponse | None:
     payload = load_cached_signals(kind=kind)
     if payload is None:
         return None
+    as_of = payload["as_of"]
     return BuySignalResponse(
-        as_of=payload["as_of"],
+        as_of=as_of,
         threshold=payload.get("threshold") if payload.get("threshold") is not None else threshold,
-        signals=[_signal_payload(s) for s in (payload.get("signals") or [])],
+        signals=_signals_with_gaps(payload.get("signals") or [], as_of),
         scored_count=payload.get("scored_count", 0),
         skipped=payload.get("skipped") or [],
         top_drivers=payload.get("top_drivers") or [],
@@ -257,7 +293,7 @@ def get_buy_signal(
         return BuySignalResponse(
             as_of=result.as_of,
             threshold=result.threshold,
-            signals=[_signal_payload(signal) for signal in result.signals],
+            signals=_signals_with_gaps(result.signals, result.as_of),
             scored_count=result.scored_count,
             skipped=result.skipped,
             top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
@@ -271,7 +307,7 @@ def get_buy_signal(
     return BuySignalResponse(
         as_of=result.as_of,
         threshold=result.threshold,
-        signals=[_signal_payload(signal) for signal in result.signals],
+        signals=_signals_with_gaps(result.signals, result.as_of),
         scored_count=result.scored_count,
         skipped=result.skipped,
         top_drivers=[{"feature": name, "importance": value} for name, value in result.top_drivers],
@@ -353,8 +389,19 @@ def get_positions() -> PositionsResponse:
         {row["ticker"] for row in summaries if not row["closed"] and row["shares"] > 0}
     )
     quotes = fetch_ticker_quotes(open_tickers) if open_tickers else {}
+    from stock_picker.ingestion.session import last_completed_session_date, session_has_closed
+
+    hold_quotes: dict[str, dict] = {}
+    if session_has_closed():
+        today = last_completed_session_date().isoformat()
+        closed_today = sorted(
+            {row["ticker"] for row in summaries if row.get("day") == today}
+        )
+        if closed_today:
+            hold_quotes = fetch_ticker_quotes(closed_today)
     positions = apply_hold_to_close(
-        summaries if not quotes else position_summaries(trades, quotes)
+        summaries if not quotes else position_summaries(trades, quotes),
+        live_quotes=hold_quotes or None,
     )
     return PositionsResponse(
         positions=positions,
