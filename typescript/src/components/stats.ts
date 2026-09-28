@@ -27,4 +27,5 @@ export {
   PeriodCol,
   col,
   lotColumnClass,
+  periodColumns,
 } from "./statColumns";

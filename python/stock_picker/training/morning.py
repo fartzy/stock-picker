@@ -135,6 +135,7 @@ def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
                 "snapshot_date": signal.snapshot_date,
                 "news_flag": signal.news_flag,
                 "news_checked": signal.news_checked,
+                "prev_close": signal.prev_close,
             }
             for signal in result.signals
         ],

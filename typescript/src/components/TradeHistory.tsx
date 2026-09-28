@@ -4,6 +4,7 @@ import {
   fetchFees,
   fetchPositions,
   type BenchmarkReturnsResponse,
+  type FeeRecord,
   type FeesResponse,
   type Position,
   type PositionsResponse,
@@ -15,7 +16,6 @@ import {
   Diff,
   HOLD_WINDOW_LABEL,
   OPEN_LOT_COLUMNS,
-  PERIOD_COLUMNS,
   SignedPct,
   StatBody,
   StatDetail,
@@ -25,6 +25,7 @@ import {
   StatStrip,
   StatTable,
   lotColumnClass,
+  periodColumns,
   type StatItem,
   type StatValues,
 } from "./stats";
@@ -32,6 +33,9 @@ import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
 
+function roundUsd(value: number): number {
+  return Math.round(value * 100) / 100;
+}
 
 function formatTime(executedAt: string): string {
   return new Date(executedAt).toLocaleTimeString("en-US", {
@@ -137,14 +141,38 @@ function holdToCloseTotal(positions: Position[]): { pnl: number; invested: numbe
   };
 }
 
-function PnlCell({ position, caption }: { position: Position; caption?: string }) {
+function feeSum(fees: FeeRecord[], days?: Iterable<string>): number {
+  const allow = days === undefined ? null : new Set(days);
+  return fees.reduce((sum, fee) => (allow === null || allow.has(fee.day) ? sum + fee.amount : sum), 0);
+}
+
+/** One ticket per closed lot, same ticker and session. Extra tickets stay leftover. */
+function assignLotFees(
+  lots: Position[],
+  fees: FeeRecord[],
+): { lotFees: number[]; leftover: FeeRecord[] } {
+  const unused = [...fees];
+  const lotFees = lots.map((lot) => {
+    const index = unused.findIndex((fee) => fee.day === lot.day && fee.ticker === lot.ticker);
+    if (index < 0) return 0;
+    const [fee] = unused.splice(index, 1);
+    return fee.amount;
+  });
+  return { lotFees, leftover: unused };
+}
+
+function PnlCell({
+  pnl,
+  invested,
+  caption,
+}: {
+  pnl: number | null;
+  invested: number;
+  caption?: string;
+}) {
   return (
     <td className="trade-num">
-      {position.pnl !== null ? (
-        <Diff value={position.pnl} pct={position.invested ? position.pnl / position.invested : null} />
-      ) : (
-        "--"
-      )}
+      {pnl !== null ? <Diff value={pnl} pct={invested ? pnl / invested : null} /> : "--"}
       {caption ? <div className="muted">{caption}</div> : null}
     </td>
   );
@@ -158,17 +186,31 @@ function OpenRow({ position }: { position: Position }) {
       <td className="trade-time">{position.buy_time ? `${formatTime(position.buy_time)} ET` : "--"}</td>
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
       <td className="trade-num">{position.current_price !== null ? formatUsd(position.current_price) : "--"}</td>
-      <PnlCell position={position} caption="unrealized" />
+      <PnlCell pnl={position.pnl} invested={position.invested} caption="unrealized" />
       <td className="trade-num">{formatUsd(position.invested)}</td>
     </tr>
   );
 }
 
-function ClosedRow({ position }: { position: Position }) {
+function feeAmount(tickets: number, show: boolean) {
+  if (!show) return "";
+  return tickets > 0 ? formatUsd(tickets) : "—";
+}
+
+function ClosedRow({
+  position,
+  fee = 0,
+  showFees = false,
+}: {
+  position: Position;
+  fee?: number;
+  showFees?: boolean;
+}) {
   const holdClosePnl = position.hold_close_pnl ?? null;
   const holdClosePrice = position.hold_close_price ?? null;
   const holdPct =
     holdClosePnl !== null && position.invested ? holdClosePnl / position.invested : null;
+  const netPnl = position.pnl !== null ? roundUsd(position.pnl - fee) : null;
   return (
     <tr>
       <td className="trade-ticker">{position.ticker}</td>
@@ -177,7 +219,8 @@ function ClosedRow({ position }: { position: Position }) {
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
       <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
-      <PnlCell position={position} />
+      <PnlCell pnl={netPnl} invested={position.invested} />
+      {showFees ? <td className="trade-num lot-fees">{fee ? formatUsd(fee) : "—"}</td> : null}
       <td className="trade-num">
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
       </td>
@@ -210,15 +253,20 @@ function dayValues(
   onBooks: number,
   sessionReturn?: number,
   overnightReturn?: number,
+  fees: FeeRecord[] = [],
+  showFees = false,
 ): StatValues {
   const summary = summarizePositions(positions);
   const session = holdToCloseTotal(positions);
   const denom = onBooks || summary.invested;
+  const tickets = feeSum(fees, [day]);
+  const netPnl = roundUsd(summary.pnl - tickets);
   return {
     title: <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>,
     days: `${positions.length} lot${positions.length === 1 ? "" : "s"}`,
     typical: formatUsd(denom),
-    pnl: <Diff value={summary.pnl} pct={denom ? summary.pnl / denom : null} />,
+    pnl: <Diff value={netPnl} pct={denom ? netPnl / denom : null} />,
+    fees: feeAmount(tickets, showFees),
     intraday: sessionReturn !== undefined ? <SignedPct value={sessionReturn} /> : "",
     bh: overnightReturn !== undefined ? <SignedPct value={overnightReturn} /> : "",
     hold:
@@ -238,6 +286,8 @@ function ClosedDayGroup({
   overnightReturn,
   expanded,
   onToggle,
+  fees = [],
+  showFees = false,
 }: {
   day: string;
   positions: Position[];
@@ -246,20 +296,26 @@ function ClosedDayGroup({
   overnightReturn?: number;
   expanded: boolean;
   onToggle: () => void;
+  fees?: FeeRecord[];
+  showFees?: boolean;
 }) {
+  const { lotFees } = assignLotFees(positions, fees.filter((fee) => fee.day === day));
+  const lotColumns = showFees
+    ? CLOSED_LOT_COLUMNS
+    : CLOSED_LOT_COLUMNS.filter((column) => column !== "Fees");
   return (
     <StatExpand
       nested
       open={expanded}
       onToggle={onToggle}
-      values={dayValues(day, positions, onBooks, sessionReturn, overnightReturn)}
+      values={dayValues(day, positions, onBooks, sessionReturn, overnightReturn, fees, showFees)}
     >
       <StatDetail>
         <div className="day-lots">
           <table className="trade-table">
             <thead>
               <tr>
-                {CLOSED_LOT_COLUMNS.map((column) => (
+                {lotColumns.map((column) => (
                   <th key={column} className={lotColumnClass(column)}>
                     {column}
                   </th>
@@ -268,7 +324,12 @@ function ClosedDayGroup({
             </thead>
             <tbody>
               {positions.map((position, index) => (
-                <ClosedRow position={position} key={`${position.ticker}-${position.day}-${index}`} />
+                <ClosedRow
+                  position={position}
+                  fee={lotFees[index]}
+                  showFees={showFees}
+                  key={`${position.ticker}-${position.day}-${index}`}
+                />
               ))}
             </tbody>
           </table>
@@ -376,14 +437,22 @@ type PeriodSummary = {
   spyPct: number | null;
 };
 
-function periodValues(label: string, summary: PeriodSummary, holdPct: number | null): StatValues {
+function periodValues(
+  label: string,
+  summary: PeriodSummary,
+  holdPct: number | null,
+  tickets = 0,
+  showFees = false,
+): StatValues {
   const pctDenom = summary.typicalOn;
   const hold = holdToCloseItem(summary.lots, pctDenom);
+  const netPnl = roundUsd(summary.pnl - tickets);
   return {
     title: <strong>{label}</strong>,
     days: `${summary.sessions}d`,
     typical: `${formatUsd(summary.typicalOn)}/day`,
-    pnl: <Diff value={summary.pnl} pct={pctDenom ? summary.pnl / pctDenom : null} />,
+    pnl: <Diff value={netPnl} pct={pctDenom ? netPnl / pctDenom : null} />,
+    fees: feeAmount(tickets, showFees),
     intraday: summary.spyPct !== null ? <SignedPct value={summary.spyPct} /> : "—",
     bh: holdPct !== null ? <SignedPct value={holdPct} /> : "—",
     hold: hold?.value ?? "—",
@@ -395,6 +464,7 @@ export default function TradeHistory() {
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
   const [weekOpen, setWeekOpen] = useState<Record<string, boolean>>({});
+  const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
   });
@@ -433,6 +503,7 @@ export default function TradeHistory() {
   const year = windowSummary(yearLots, spySessions, onBooks);
   const allTime = windowSummary(closedLots, spySessions, onBooks);
   const allHold = benchmarkData?.hold?.pct ?? null;
+  const fees = feesData?.fees ?? [];
 
   return (
     <div className="trade-history">
@@ -477,7 +548,23 @@ export default function TradeHistory() {
           </details>
 
           <div className="view-card">
-          <StatTable columns={PERIOD_COLUMNS}>
+          <StatTable
+            columns={periodColumns(
+              <button
+                type="button"
+                className="fees-toggle"
+                aria-expanded={showFees}
+                aria-label={showFees ? "Hide fees" : "Show fees"}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setShowFees((open) => !open);
+                }}
+              >
+                Fees
+              </button>,
+            )}
+            className={showFees ? "is-fees-open" : "is-fees-closed"}
+          >
             <StatHead />
             <StatBody>
               <StatRow
@@ -485,6 +572,8 @@ export default function TradeHistory() {
                   "MTD",
                   month,
                   holdPctForDays(monthLots.map((p) => p.day), overnight) ?? allHold,
+                  feeSum(fees, monthLots.map((p) => p.day)),
+                  showFees,
                 )}
               />
               <StatRow
@@ -492,6 +581,8 @@ export default function TradeHistory() {
                   "YTD",
                   year,
                   holdPctForDays(yearLots.map((p) => p.day), overnight) ?? allHold,
+                  feeSum(fees, yearLots.map((p) => p.day)),
+                  showFees,
                 )}
               />
               <StatRow
@@ -499,6 +590,8 @@ export default function TradeHistory() {
                   "All",
                   allTime,
                   holdPctForDays(closedLots.map((p) => p.day), overnight) ?? allHold,
+                  feeSum(fees, closedLots.map((p) => p.day)),
+                  showFees,
                 )}
               />
             </StatBody>
@@ -515,7 +608,13 @@ export default function TradeHistory() {
                 key={monday}
                 open={isOpen}
                 onToggle={() => setWeekOpen((current) => ({ ...current, [monday]: !isOpen }))}
-                values={periodValues(formatWeekRange(monday), weekSummary, weekHold)}
+                values={periodValues(
+                  formatWeekRange(monday),
+                  weekSummary,
+                  weekHold,
+                  feeSum(fees, lotsThisWeek.map((p) => p.day)),
+                  showFees,
+                )}
               >
                 {weekDays.map(([day, dayPositions]) => (
                   <ClosedDayGroup
@@ -533,6 +632,8 @@ export default function TradeHistory() {
                         return next;
                       })
                     }
+                    fees={fees}
+                    showFees={showFees}
                     key={day}
                   />
                 ))}
@@ -555,19 +656,7 @@ export default function TradeHistory() {
               .
             </p>
           )}
-          {(feesData?.fees.length ?? 0) > 0 && (
-            <details className="muted" style={{ marginTop: "var(--space-2)" }}>
-              <summary>Show fees</summary>
-              <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>
-                {feesData!.fees.map((fee) => (
-                  <li key={`${fee.day}-${fee.ticker}-${fee.side}-${fee.amount}`}>
-                    {fee.day} {fee.ticker} {fee.side} {formatUsd(fee.amount)}
-                    {fee.note ? ` · ${fee.note}` : ""}
-                  </li>
-                ))}
-              </ul>
-            </details>
-          )}
+
         </>
       )}
       <AddTradeForm onAdded={() => setRefreshCount((c) => c + 1)} />

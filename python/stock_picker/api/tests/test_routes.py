@@ -589,6 +589,24 @@ def test_get_quotes_with_as_of_in_the_past_uses_settled_bar_not_live_fetch(clien
     assert quotes[0]["prev_close"] == 49.0
 
 
+def test_get_quotes_after_close_falls_back_to_live_when_todays_bar_is_missing(client):
+    # 3:15 CT settle flips session_has_closed, but PriceStore still has
+    # Friday until nightly writes today's bar. Empty settled quotes must
+    # not blank Close/Prev -- live snapshot fills until the bar lands.
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 9, 28)),
+        patch("stock_picker.ingestion.session.session_has_closed", return_value=True),
+        patch("stock_picker.paper.book.session_quotes_from_prices", return_value={}) as mock_settled,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA", "as_of": "2026-09-28"})
+
+    assert response.status_code == status.HTTP_200_OK
+    mock_settled.assert_called_once()
+    quotes = response.json()["quotes"]
+    assert quotes[0]["ticker"] == "AAA"
+    assert quotes[0]["last"] == 105.0
+
+
 def test_get_quotes_with_as_of_for_the_still_open_session_uses_live_fetch(client):
     # Today's own not-yet-closed session must keep behaving exactly like the
     # no-as_of case (test_get_quotes above) -- as_of alone doesn't switch to
@@ -689,6 +707,36 @@ def test_get_registry(client):
     assert body["entities"][0]["name"] == "ticker"
     assert {view["name"] for view in body["feature_views"]} == set(list_feature_columns(synthetic_history(n=140)))
     assert body["feature_services"][0]["name"] == "day_session_return_model"
+
+
+def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
+    cached = {
+        "as_of": "2026-09-28",
+        "threshold": 0.005,
+        "signals": [
+            {
+                "ticker": "TWLO",
+                "predicted_return": 0.4,
+                "open_price": 267.59,
+                "snapshot_date": "2026-09-25",
+                "news_flag": "Why Twilio (TWLO) Shares Are Getting Obliterated Today",
+                "news_checked": True,
+            }
+        ],
+        "scored_count": 1,
+        "skipped": [],
+        "top_drivers": [],
+    }
+    with (
+        patch("stock_picker.api.routes.load_cached_signals", return_value=cached),
+        patch("stock_picker.api.routes._prior_closes", return_value={"TWLO": 275.80}),
+    ):
+        response = client.get("/api/buy-signal", params={"kind": "rank"})
+
+    assert response.status_code == status.HTTP_200_OK
+    row = response.json()["signals"][0]
+    assert row["prev_close"] == 275.80
+    assert row["news_blocks"] is True
 
 
 def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):

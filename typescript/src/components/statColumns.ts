@@ -30,12 +30,19 @@ export const PeriodCol = {
   days: col("days", undefined, { align: "start", hug: true }),
   typical: col("typical", "Typical"),
   pnl: col("pnl", "P&L", { tone: "pnl" }),
+  fees: col("fees", undefined, { hug: true }),
   intraday: col("intraday", "Intraday S&P", { tone: "bench" }),
   bh: col("bh", "Buy & hold S&P", { tone: "bench" }),
   hold: col("hold", HOLD_WINDOW_LABEL, { tone: "bench" }),
 } as const;
 
 export const PERIOD_COLUMNS: StatColumn[] = Object.values(PeriodCol);
+
+export function periodColumns(feesLabel: ReactNode): StatColumn[] {
+  return PERIOD_COLUMNS.map((column) =>
+    column.key === "fees" ? { ...column, label: feesLabel } : column,
+  );
+}
 
 export const OPEN_LOT_COLUMNS = [
   "Ticker",
@@ -55,11 +62,14 @@ export const CLOSED_LOT_COLUMNS = [
   "Sold",
   "Sell Price",
   "P&L",
+  "Fees",
   "Close",
   HOLD_WINDOW_LABEL,
   "Invested",
 ] as const;
 
 export function lotColumnClass(column: string): string | undefined {
-  return column === "Ticker" || column === "Bought" || column === "Sold" ? undefined : "trade-num";
+  if (column === "Ticker" || column === "Bought" || column === "Sold") return undefined;
+  if (column === "Fees") return "trade-num lot-fees";
+  return "trade-num";
 }

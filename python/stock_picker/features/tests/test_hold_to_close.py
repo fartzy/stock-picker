@@ -55,6 +55,53 @@ def test_in_progress_session_stays_blank(tmp_path):
     assert annotated[0]["hold_close_pnl"] is None
 
 
+def test_stored_bar_wins_over_live_quotes(tmp_path):
+    store = _prices(tmp_path, "ZS", "2026-09-25", 205.50, 193.05)
+    lots = [
+        {
+            "ticker": "ZS",
+            "shares": 25,
+            "buy_time": "2026-09-25T10:35:00-04:00",
+            "buy_price": 194.52,
+            "pnl": 55.0,
+        }
+    ]
+
+    annotated = apply_hold_to_close(
+        lots,
+        price_store=store,
+        completed_through=date(2026, 9, 25),
+        live_quotes={"ZS": {"open": 1.0, "last": 2.0}},
+    )
+
+    assert annotated[0]["hold_open_price"] == 205.5
+    assert annotated[0]["hold_close_price"] == 193.05
+
+
+def test_live_quotes_fill_after_close_when_todays_bar_is_missing(tmp_path):
+    store = PriceStore(data_dir=tmp_path)
+    lots = [
+        {
+            "ticker": "ZS",
+            "shares": 25,
+            "buy_time": "2026-09-28T10:35:00-04:00",
+            "buy_price": 194.52,
+            "pnl": 55.0,
+        }
+    ]
+
+    annotated = apply_hold_to_close(
+        lots,
+        price_store=store,
+        completed_through=date(2026, 9, 28),
+        live_quotes={"ZS": {"open": 188.89, "last": 199.01}},
+    )
+
+    assert annotated[0]["hold_open_price"] == 188.89
+    assert annotated[0]["hold_close_price"] == 199.01
+    assert annotated[0]["hold_close_pnl"] == round((199.01 - 188.89) * 25, 2)
+
+
 def test_missing_price_file_is_blank_not_an_error(tmp_path):
     store = PriceStore(data_dir=tmp_path)
     lots = [

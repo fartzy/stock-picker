@@ -3,7 +3,9 @@
 Not "your fill vs the close". 8:40 CT is 9:40 ET (ten minutes after the
 bell); 2:55 CT is 15:55 ET (five minutes before the close). Daily Open and
 Close are the stored prints for that window -- we do not refetch 1-minute
-bars. Same share count as the lot. In-progress today stays blank.
+bars. Same share count as the lot. In-progress today stays blank until
+the session settles; after the bell, a live snapshot fills until nightly
+writes today's bar.
 """
 
 from __future__ import annotations
@@ -63,11 +65,14 @@ def apply_hold_to_close(
     positions: list[dict],
     price_store: PriceStore | None = None,
     completed_through: date | None = None,
+    live_quotes: dict[str, dict] | None = None,
 ) -> list[dict]:
     """Add 8:40 CT Open / 2:55 CT Close P&L on each lot.
 
     Share count from the lot; prices from that session's Open and Close,
-    not the actual fill. In-progress sessions stay None.
+    not the actual fill. In-progress sessions stay None. After the bell,
+    if today's bar is not on disk yet, `live_quotes` (open/last) fills
+    the same cells until nightly writes the bar.
     """
     store = price_store if price_store is not None else PriceStore()
     if completed_through is None:
@@ -76,6 +81,7 @@ def apply_hold_to_close(
         cutoff = last_completed_session_date()
     else:
         cutoff = completed_through
+    quotes = live_quotes or {}
     cache: dict[tuple[str, str], tuple[float | None, float | None]] = {}
     annotated = []
     for position in positions:
@@ -93,7 +99,14 @@ def apply_hold_to_close(
             continue
         key = (position["ticker"], buy_day)
         if key not in cache:
-            cache[key] = session_open_close(position["ticker"], buy_day, store)
+            open_px, close_px = session_open_close(position["ticker"], buy_day, store)
+            if (open_px is None or close_px is None) and quotes:
+                quote = quotes.get(position["ticker"]) or {}
+                live_open = quote.get("open")
+                live_last = quote.get("last")
+                if live_open and live_last:
+                    open_px, close_px = float(live_open), float(live_last)
+            cache[key] = (open_px, close_px)
         open_px, close_px = cache[key]
         if open_px is None or close_px is None:
             annotated.append(row)

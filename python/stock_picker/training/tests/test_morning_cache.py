@@ -66,6 +66,41 @@ def test_write_signals_lands_under_the_app_data_dir(tmp_path):
     assert json.loads((tmp_path / "latest.json").read_text())["as_of"] == "2026-09-11"
 
 
+def test_payload_from_keeps_prev_close_for_the_gap_skip():
+    from types import SimpleNamespace
+
+    from stock_picker.training.morning import _payload_from
+
+    result = SimpleNamespace(
+        as_of="2026-09-28",
+        threshold=0.005,
+        scored_count=1,
+        skipped=[],
+        top_drivers=[],
+        signals=[
+            SimpleNamespace(
+                ticker="TWLO",
+                predicted_return=0.4,
+                open_price=267.59,
+                snapshot_date="2026-09-25",
+                news_flag="Why Twilio Shares Are Getting Obliterated Today",
+                news_checked=True,
+                prev_close=275.80,
+            )
+        ],
+    )
+    freshness = SimpleNamespace(
+        feature_snapshot_date="2026-09-25",
+        model_trained_through="2026-09-25",
+        ready_for_inference=True,
+        detail="ready",
+    )
+
+    payload = _payload_from(result, freshness, model_run_id="run-1")
+
+    assert payload["signals"][0]["prev_close"] == 275.80
+
+
 def test_write_rank_signals_uses_the_rank_filename(tmp_path):
     from stock_picker.training.morning import _write_signals
 
