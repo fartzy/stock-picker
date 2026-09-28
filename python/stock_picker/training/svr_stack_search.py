@@ -1,18 +1,26 @@
 """Walk-forward bake-off of LightGBM with vs without stacked SVM columns.
 
 ADR 0021: LinearSVR is closed as a blender member (ADR 0020). This asks
-whether three out-of-fold SVM numbers help LightGBM as extra columns:
+whether seven out-of-fold SVM numbers help LightGBM as extra columns:
 
-  svr_oof_pred          LinearSVR predicted open->close return
-  svc_direction_margin  LinearSVC signed distance to the up/down plane
-  svc_gate_margin       LinearSVC signed distance to the 0.5% buy-gate plane
+  svr_oof_pred                 LinearSVR predicted open->close return
+  svc_direction_margin         LinearSVC distance to the up/down plane
+  svc_gate_margin              LinearSVC distance to the +0.5% buy-gate
+  svc_down_gate_margin         LinearSVC distance to the -0.5% tail
+  svc_strong_up_margin         LinearSVC distance to the +1% plane
+  svc_top_quintile_margin      LinearSVC distance to within-day top 20%
+  svc_bottom_quintile_margin   LinearSVC distance to within-day bottom 20%
 
-Each fold fits the three SVM estimators on TRAIN only, attaches their
+One LinearSVR (the expensive nightly fit) plus six LinearSVC planes that
+each ask a different question. Extra SVRs are not in this search -- each
+would add ~35-45 min nightly for a correlated return forecast.
+
+Each fold fits the seven estimators on TRAIN only, attaches their
 outputs to the TEST frame, then fits LightGBM with and without those
 columns. Holdout tickers are never touched. Does not write production
 pickles or touch PrunedFeatureStore.
 
-Promotion bar (ADR 0021): LightGBM-with-the-three-columns beats solo
+Promotion bar (ADR 0021): LightGBM-with-the-stacked-columns beats solo
 LightGBM in >=3 of 4 folds on both acc and rank IC. Per-fold lists, not
 just means. Holdout is a later, separate step if this clears.
 
@@ -36,11 +44,9 @@ from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.model import (
     STACKED_SVM_COLUMNS,
     attach_stacked_svm_columns,
+    fit_stacked_svm_estimators,
     predict,
     train_lightgbm,
-    train_svc_direction,
-    train_svc_gate,
-    train_svr,
 )
 from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
 
@@ -93,20 +99,19 @@ def main() -> None:
         train_frame = pooled[train_mask]
         test_frame = pooled[test_mask]
         t0 = time.time()
-        svr = train_svr(train_frame, excluded_features=excluded)
-        svc_dir = train_svc_direction(train_frame, excluded_features=excluded)
-        svc_gate = train_svc_gate(train_frame, excluded_features=excluded)
+        estimators = fit_stacked_svm_estimators(train_frame, excluded_features=excluded)
         t_svm = time.time()
         logger.info(
-            "fold %s fitted svr+svc_direction+svc_gate (train=%s, %.1fs)",
+            "fold %s fitted %s SVM estimators (train=%s, %.1fs)",
             fold,
+            len(estimators),
             len(train_frame),
             t_svm - t0,
         )
 
         baseline = train_lightgbm(train_frame, excluded_features=excluded)
-        stacked_train = attach_stacked_svm_columns(train_frame, svr, svc_dir, svc_gate)
-        stacked_test = attach_stacked_svm_columns(test_frame, svr, svc_dir, svc_gate)
+        stacked_train = attach_stacked_svm_columns(train_frame, estimators)
+        stacked_test = attach_stacked_svm_columns(test_frame, estimators)
         # Train-side stacked columns are in-sample (same-fold SVM). LightGBM
         # only *sees* them at fit time so it has a column to split on; the
         # scored test columns are OOF (SVM fit on earlier dates). Do not

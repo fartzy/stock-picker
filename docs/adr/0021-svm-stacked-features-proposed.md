@@ -37,17 +37,24 @@ description/formula/example views (ADR 0007) would be a lie. It lives in
 the training layer, generated per walk-forward fold, same as any other
 model output.
 
-The candidate handful — three columns, not a kitchen sink:
+Seven columns: one LinearSVR plus six LinearSVC planes. Extra SVRs are
+the expensive ones (~35–45 min each nightly) and would be correlated
+return forecasts; extra SVC planes are minutes and only earn a seat if
+they ask a different question.
 
 | column | estimator | what LightGBM sees |
 |---|---|---|
-| `svr_oof_pred` | LinearSVR (existing `train_svr`) | predicted open→close return |
-| `svc_direction_margin` | LinearSVC, label = sign of day-session return | signed distance to the up/down plane (`decision_function`) |
-| `svc_gate_margin` | LinearSVC, label = (return > 0.5%) | signed distance to the production buy-gate plane |
+| `svr_oof_pred` | LinearSVR | predicted open→close return |
+| `svc_direction_margin` | LinearSVC, `return > 0` | distance to the up/down plane |
+| `svc_gate_margin` | LinearSVC, `return > 0.5%` | distance to the production buy-gate |
+| `svc_down_gate_margin` | LinearSVC, `return < −0.5%` | distance to the other tail of the gate |
+| `svc_strong_up_margin` | LinearSVC, `return > 1%` | distance to the next sweep threshold |
+| `svc_top_quintile_margin` | LinearSVC, within-day top 20% | Rank-flavored: names ListFold wants first |
+| `svc_bottom_quintile_margin` | LinearSVC, within-day bottom 20% | the other end of that list |
 
-Three is the cap for the first search. More SVMs on feature subsets wait
-until these three have numbers. Kernel SVR / kernel SVC on the pooled
-443k rows is still forbidden (ADR 0020 trap: rows kill kernels).
+`return < 0` is omitted — it is the negative of direction. Kernel SVM
+on the pooled 443k rows is still forbidden (ADR 0020). More SVMs on
+feature subsets wait until these seven have numbers.
 
 ## Leakage rule (the one that makes a fake win)
 
@@ -58,13 +65,13 @@ That is the single easiest way to manufacture a win here.
 
 Two clocks — do not mix them:
 
-- **Nightly (fit):** the three estimators train on all history once and
+- **Nightly (fit):** the seven estimators train on all history once and
   are persisted next to the logistic diagnostic. LinearSVR dominates
-  (~35–45 min); the two LinearSVCs are smaller. This is the 3:30 CT
+  (~35–45 min); the six LinearSVCs are minutes each. This is the 3:30 CT
   retrain, not the morning scan.
 - **Morning (predict):** today's open-known row is already built
   (`live_rows.prepare_live_rows`, the current <2 min wall). Scoring the
-  three stacked columns is three linear predicts on that same ~90-feature
+  seven stacked columns is seven linear predicts on that same ~90-feature
   vector — a matrix-vector multiply per name, milliseconds across the
   universe, not a refit. The morning scan does **not** run
   `svr_stack_search`.
@@ -78,14 +85,14 @@ Same empirical gate as everything else (ADR 0004, 0008):
 1. Research script, walk-forward folds only, holdout untouched. Solo
    LightGBM on the existing feature set is always the baseline in the
    same run.
-2. LightGBM-with-the-three-columns must beat that baseline in **≥3 of 4
+2. LightGBM-with-the-stacked-columns must beat that baseline in **≥3 of 4
    folds on both acc and rank IC**. Per-fold lists, not just means
    (0020's lesson).
 3. If (2) holds, score holdout once on the 200 never-seen tickers.
    Both the folds and the holdout must favor the stacked model.
 4. Either failure → keep the script, flip this record to Rejected.
    Success → add the columns on the training-frame path, persist the
-   three estimators, flip this record to Accepted with the holdout
+   seven estimators, flip this record to Accepted with the holdout
    numbers.
 
 Do not mix 0020's blend table with this search. Different question,
@@ -95,8 +102,8 @@ same snapshot discipline: rerun the baseline in the same job.
 
 1. `python/stock_picker/training/svr_stack_search.py` — exists; run
    `bazelisk run //python/stock_picker/training:svr_stack_search`.
-   Walk-forward, holdout untouched. Each fold fits LinearSVR + two
-   LinearSVCs on train, attaches the three columns, fits LightGBM with
+   Walk-forward, holdout untouched. Each fold fits LinearSVR + six
+   LinearSVCs on train, attaches the seven columns, fits LightGBM with
    and without them. Test-side columns are OOF; train-side columns are
    in-sample so LightGBM has a column to split on (standard stacking
    shortcut — scored metrics are the OOF test ones). Background job,

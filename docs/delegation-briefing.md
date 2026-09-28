@@ -96,11 +96,10 @@ scan payload from the API).
 
 **P1 -- SVM stacked-feature search (ADR 0021).** LinearSVR as a blender
 member is closed (ADR 0020 Rejected: overnight rerun failed ≥3/4 folds on
-both acc and rank IC). The remaining SVM question is three OOF columns
-fed to LightGBM (`svr_oof_pred`, `svc_direction_margin`,
-`svc_gate_margin`). First step is
-`python/stock_picker/training/svr_stack_search.py`; leakage rule and
-promotion bar are in the ADR. Do not reopen the blender path.
+both acc and rank IC). The remaining SVM question is seven OOF columns
+fed to LightGBM (one LinearSVR prediction + six LinearSVC planes). First
+step is `python/stock_picker/training/svr_stack_search.py`; leakage rule
+and promotion bar are in the ADR. Do not reopen the blender path.
 
 **P2 -- bottom-of-list evidence.** ListFold orders the bottom too (lambdarank
 never did). Add bottom-20 tracking to the What if paper book (do the day's
