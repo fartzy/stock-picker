@@ -133,12 +133,14 @@ function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
   ];
 }
 
-function holdToCloseTotal(positions: Position[]): { pnl: number; invested: number } | null {
+function holdToCloseTotal(positions: Position[]): { pnl: number; typicalInvested: number } | null {
   const priced = positions.filter((p) => p.hold_close_pnl !== null);
   if (priced.length === 0) return null;
   return {
     pnl: priced.reduce((sum, p) => sum + (p.hold_close_pnl ?? 0), 0),
-    invested: priced.reduce((sum, p) => sum + p.invested, 0),
+    // This comparison has its own capital base: late buys must not dilute it.
+    typicalInvested: priced.reduce((sum, p) => sum + p.hold_eligible_invested, 0)
+      / new Set(priced.map((p) => p.day)).size,
   };
 }
 
@@ -210,7 +212,8 @@ function ClosedRow({
   const holdClosePnl = position.hold_close_pnl ?? null;
   const holdClosePrice = position.hold_close_price ?? null;
   const holdPct =
-    holdClosePnl !== null && position.invested ? holdClosePnl / position.invested : null;
+    holdClosePnl !== null && position.hold_eligible_invested
+      ? holdClosePnl / position.hold_eligible_invested : null;
   const netPnl = position.pnl !== null ? roundUsd(position.pnl - fee) : null;
   return (
     <tr>
@@ -228,21 +231,21 @@ function ClosedRow({
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
       </td>
       <td className="trade-num">{formatUsd(position.invested)}</td>
-      <td className="trade-num">
+      <td className="trade-num" title={`${position.hold_eligible_shares.toLocaleString()} shares bought before 9:00 AM CT`}>
         {holdClosePnl !== null ? (
           <Diff value={holdClosePnl} pct={holdPct} />
         ) : (
-          <span className="muted">session open</span>
+          <span className="muted">{position.hold_eligible_shares === 0 ? "Excluded" : "Awaiting close"}</span>
         )}
       </td>
     </tr>
   );
 }
 
-function holdToCloseItem(positions: Position[], typicalOn?: number): StatItem | null {
+function holdToCloseItem(positions: Position[]): StatItem | null {
   const total = holdToCloseTotal(positions);
   if (total === null) return null;
-  const denom = typicalOn || total.invested;
+  const denom = total.typicalInvested;
   return {
     key: "hold",
     label: HOLD_WINDOW_LABEL,
@@ -260,7 +263,7 @@ function dayValues(
   showFees = false,
 ): StatValues {
   const summary = summarizePositions(positions);
-  const session = holdToCloseTotal(positions);
+  const session = holdToCloseItem(positions);
   const denom = onBooks || summary.invested;
   const tickets = feeSum(fees, [day]);
   const netPnl = roundUsd(summary.pnl - tickets);
@@ -272,12 +275,7 @@ function dayValues(
     fees: feeAmount(tickets, showFees),
     intraday: sessionReturn !== undefined ? <SignedPct value={sessionReturn} /> : "",
     bh: overnightReturn !== undefined ? <SignedPct value={overnightReturn} /> : "",
-    hold:
-      session !== null ? (
-        <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
-      ) : (
-        ""
-      ),
+    hold: session?.value ?? "—",
   };
 }
 
@@ -452,7 +450,7 @@ function periodValues(
   showFees = false,
 ): StatValues {
   const pctDenom = summary.typicalOn;
-  const hold = holdToCloseItem(summary.lots, pctDenom);
+  const hold = holdToCloseItem(summary.lots);
   const netPnl = roundUsd(summary.pnl - tickets);
   return {
     title: <strong>{label}</strong>,

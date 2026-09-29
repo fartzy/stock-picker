@@ -3,14 +3,14 @@
 Not "your fill vs the close". 8:40 CT is 9:40 ET (ten minutes after the
 bell); 2:55 CT is 15:55 ET (five minutes before the close). Daily Open and
 Close are the stored prints for that window -- we do not refetch 1-minute
-bars. Same share count as the lot. In-progress today stays blank until
+bars. Only shares bought before 9:00 AM CT qualify. In-progress today stays blank until
 the session settles; after the bell, a live snapshot fills until nightly
 writes today's bar.
 """
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, time
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -18,6 +18,8 @@ import pandas as pd
 from stock_picker.storage.price_store import PriceStore
 
 _NY = ZoneInfo("America/New_York")
+_CHICAGO = ZoneInfo("America/Chicago")
+HOLD_ENTRY_CUTOFF = time(9, 0)
 NOTIONAL_DECIMAL_PLACES = 2
 
 
@@ -26,6 +28,19 @@ def _buy_session_day(buy_time: str | None) -> str | None:
         return None
     stamp = pd.to_datetime(buy_time, utc=True, format="ISO8601")
     return stamp.tz_convert(_NY).date().isoformat()
+
+
+def _eligible_buys(position: dict) -> list[dict]:
+    """Filter original entries in Chicago time, including DST and split exits."""
+    buys = position.get("_buy_allocations", [position])
+    eligible = []
+    for buy in buys:
+        if not buy.get("buy_time") or (buy.get("shares") or 0) <= 0:
+            continue
+        stamp = pd.to_datetime(buy["buy_time"], utc=True, format="ISO8601")
+        if stamp.tz_convert(_CHICAGO).time() < HOLD_ENTRY_CUTOFF:
+            eligible.append(buy)
+    return eligible
 
 
 def _bar_on(history: pd.DataFrame, day: str) -> pd.Series | None:
@@ -69,10 +84,11 @@ def apply_hold_to_close(
 ) -> list[dict]:
     """Add 8:40 CT Open / 2:55 CT Close P&L on each lot.
 
-    Share count from the lot; prices from that session's Open and Close,
+    Only pre-9 AM CT buys count; prices from each buy session's Open and Close,
     not the actual fill. In-progress sessions stay None. After the bell,
     if today's bar is not on disk yet, `live_quotes` (open/last) fills
-    the same cells until nightly writes the bar.
+    the same cells until nightly writes the bar. Close remains visible even
+    for excluded lots; only the counterfactual P&L and its capital are filtered.
     """
     store = price_store if price_store is not None else PriceStore()
     if completed_through is None:
@@ -83,36 +99,50 @@ def apply_hold_to_close(
         cutoff = completed_through
     quotes = live_quotes or {}
     cache: dict[tuple[str, str], tuple[float | None, float | None]] = {}
+
+    def prices_for(ticker: str, buy_day: str) -> tuple[float | None, float | None]:
+        if date.fromisoformat(buy_day) > cutoff:
+            return None, None
+        key = (ticker, buy_day)
+        if key not in cache:
+            open_px, close_px = session_open_close(ticker, buy_day, store)
+            if (open_px is None or close_px is None) and buy_day == cutoff.isoformat():
+                quote = quotes.get(ticker) or {}
+                live_open, live_last = quote.get("open"), quote.get("last")
+                if live_open and live_last:
+                    open_px, close_px = float(live_open), float(live_last)
+            cache[key] = (open_px, close_px)
+        return cache[key]
+
     annotated = []
     for position in positions:
         row = dict(position)
+        row.pop("_buy_allocations", None)
         row["hold_open_price"] = None
         row["hold_close_price"] = None
         row["hold_close_pnl"] = None
+        eligible = _eligible_buys(position)
+        row["hold_eligible_shares"] = sum(buy["shares"] for buy in eligible)
+        row["hold_eligible_invested"] = round(
+            sum(buy.get("invested", 0) for buy in eligible), NOTIONAL_DECIMAL_PLACES
+        )
         buy_day = _buy_session_day(position.get("buy_time"))
         shares = position.get("shares") or 0.0
         if not buy_day or shares <= 0:
             annotated.append(row)
             continue
-        if cutoff is not None and date.fromisoformat(buy_day) > cutoff:
-            annotated.append(row)
-            continue
-        key = (position["ticker"], buy_day)
-        if key not in cache:
-            open_px, close_px = session_open_close(position["ticker"], buy_day, store)
-            if (open_px is None or close_px is None) and quotes:
-                quote = quotes.get(position["ticker"]) or {}
-                live_open = quote.get("open")
-                live_last = quote.get("last")
-                if live_open and live_last:
-                    open_px, close_px = float(live_open), float(live_last)
-            cache[key] = (open_px, close_px)
-        open_px, close_px = cache[key]
-        if open_px is None or close_px is None:
-            annotated.append(row)
-            continue
-        row["hold_open_price"] = round(open_px, NOTIONAL_DECIMAL_PLACES)
-        row["hold_close_price"] = round(close_px, NOTIONAL_DECIMAL_PLACES)
-        row["hold_close_pnl"] = round((close_px - open_px) * shares, NOTIONAL_DECIMAL_PLACES)
+        open_px, close_px = prices_for(position["ticker"], buy_day)
+        row["hold_open_price"] = round(open_px, NOTIONAL_DECIMAL_PLACES) if open_px is not None else None
+        row["hold_close_price"] = round(close_px, NOTIONAL_DECIMAL_PLACES) if close_px is not None else None
+        pnl = 0.0
+        for buy in eligible:
+            entry_day = _buy_session_day(buy["buy_time"])
+            entry_open, entry_close = prices_for(position["ticker"], entry_day)
+            if entry_open is None or entry_close is None:
+                break  # Never publish a partial result for an incompletely priced lot.
+            pnl += (entry_close - entry_open) * buy["shares"]
+        else:
+            if eligible:
+                row["hold_close_pnl"] = round(pnl, NOTIONAL_DECIMAL_PLACES)
         annotated.append(row)
     return annotated

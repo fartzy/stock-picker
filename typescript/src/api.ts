@@ -133,6 +133,8 @@ export interface Position {
   hold_open_price?: number | null;
   hold_close_price: number | null;
   hold_close_pnl: number | null;
+  hold_eligible_shares: number;
+  hold_eligible_invested: number;
 }
 
 export interface PositionsResponse {
