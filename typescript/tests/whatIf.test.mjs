@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { DEFAULT_TRADE_SIZE, simulateBook, simulatePick, simulationDay } from "../src/whatIf.js";
+import { DEFAULT_TRADE_SIZE, TRADE_SIZE_OPTIONS, simulateBook, simulatePick, simulationDay } from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
   ticker: "AAA", rank: 1, predicted: 0.01, open_price: 100, close_price: null,
@@ -24,6 +24,16 @@ test("default is $10K per trade, including losses and flat trades", () => {
   assert.deepEqual(simulatePick(pick(0.02), 10_000), { status: "scored", pnl: 200, endingValue: 10_200 });
   assert.deepEqual(simulatePick(pick(-0.01), 10_000), { status: "scored", pnl: -100, endingValue: 9_900 });
   assert.deepEqual(simulatePick(pick(0), 5_000), { status: "scored", pnl: 0, endingValue: 5_000 });
+});
+
+test("shared trade-size choices support all requested amounts", () => {
+  assert.deepEqual(TRADE_SIZE_OPTIONS, [3_000, 4_000, 5_000, 6_000, 8_000, 10_000, 15_000, 20_000]);
+  assert.ok(TRADE_SIZE_OPTIONS.includes(DEFAULT_TRADE_SIZE));
+  for (const amount of TRADE_SIZE_OPTIONS) {
+    assert.deepEqual(simulatePick(pick(0.01), amount), {
+      status: "scored", pnl: amount / 100, endingValue: amount + amount / 100,
+    });
+  }
 });
 
 test("skipped and pending picks never become zero-return investments", () => {
