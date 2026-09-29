@@ -18,6 +18,7 @@ import {
   OPEN_LOT_COLUMNS,
   SignedPct,
   StatBody,
+  StatColGroup,
   StatDetail,
   StatExpand,
   StatHead,
@@ -132,12 +133,14 @@ function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
   ];
 }
 
-function holdToCloseTotal(positions: Position[]): { pnl: number; invested: number } | null {
+function holdToCloseTotal(positions: Position[]): { pnl: number; typicalInvested: number } | null {
   const priced = positions.filter((p) => p.hold_close_pnl !== null);
   if (priced.length === 0) return null;
   return {
     pnl: priced.reduce((sum, p) => sum + (p.hold_close_pnl ?? 0), 0),
-    invested: priced.reduce((sum, p) => sum + p.invested, 0),
+    // This comparison has its own capital base: late buys must not dilute it.
+    typicalInvested: priced.reduce((sum, p) => sum + p.hold_eligible_invested, 0)
+      / new Set(priced.map((p) => p.day)).size,
   };
 }
 
@@ -171,7 +174,7 @@ function PnlCell({
   caption?: string;
 }) {
   return (
-    <td className="trade-num">
+    <td className="trade-num lot-pnl">
       {pnl !== null ? <Diff value={pnl} pct={invested ? pnl / invested : null} /> : "--"}
       {caption ? <div className="muted">{caption}</div> : null}
     </td>
@@ -209,7 +212,8 @@ function ClosedRow({
   const holdClosePnl = position.hold_close_pnl ?? null;
   const holdClosePrice = position.hold_close_price ?? null;
   const holdPct =
-    holdClosePnl !== null && position.invested ? holdClosePnl / position.invested : null;
+    holdClosePnl !== null && position.hold_eligible_invested
+      ? holdClosePnl / position.hold_eligible_invested : null;
   const netPnl = position.pnl !== null ? roundUsd(position.pnl - fee) : null;
   return (
     <tr>
@@ -220,26 +224,28 @@ function ClosedRow({
       <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
       <PnlCell pnl={netPnl} invested={position.invested} />
-      {showFees ? <td className="trade-num lot-fees">{fee ? formatUsd(fee) : "—"}</td> : null}
+      <td className="trade-num lot-fees" aria-hidden={!showFees || undefined}>
+        {feeAmount(fee, showFees)}
+      </td>
       <td className="trade-num">
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
       </td>
-      <td className="trade-num">
+      <td className="trade-num">{formatUsd(position.invested)}</td>
+      <td className="trade-num" title={`${position.hold_eligible_shares.toLocaleString()} shares bought before 9:00 AM CT`}>
         {holdClosePnl !== null ? (
           <Diff value={holdClosePnl} pct={holdPct} />
         ) : (
-          <span className="muted">session open</span>
+          <span className="muted">{position.hold_eligible_shares === 0 ? "Excluded" : "Awaiting close"}</span>
         )}
       </td>
-      <td className="trade-num">{formatUsd(position.invested)}</td>
     </tr>
   );
 }
 
-function holdToCloseItem(positions: Position[], typicalOn?: number): StatItem | null {
+function holdToCloseItem(positions: Position[]): StatItem | null {
   const total = holdToCloseTotal(positions);
   if (total === null) return null;
-  const denom = typicalOn || total.invested;
+  const denom = total.typicalInvested;
   return {
     key: "hold",
     label: HOLD_WINDOW_LABEL,
@@ -257,7 +263,7 @@ function dayValues(
   showFees = false,
 ): StatValues {
   const summary = summarizePositions(positions);
-  const session = holdToCloseTotal(positions);
+  const session = holdToCloseItem(positions);
   const denom = onBooks || summary.invested;
   const tickets = feeSum(fees, [day]);
   const netPnl = roundUsd(summary.pnl - tickets);
@@ -269,12 +275,7 @@ function dayValues(
     fees: feeAmount(tickets, showFees),
     intraday: sessionReturn !== undefined ? <SignedPct value={sessionReturn} /> : "",
     bh: overnightReturn !== undefined ? <SignedPct value={overnightReturn} /> : "",
-    hold:
-      session !== null ? (
-        <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
-      ) : (
-        ""
-      ),
+    hold: session?.value ?? "—",
   };
 }
 
@@ -300,9 +301,6 @@ function ClosedDayGroup({
   showFees?: boolean;
 }) {
   const { lotFees } = assignLotFees(positions, fees.filter((fee) => fee.day === day));
-  const lotColumns = showFees
-    ? CLOSED_LOT_COLUMNS
-    : CLOSED_LOT_COLUMNS.filter((column) => column !== "Fees");
   return (
     <StatExpand
       nested
@@ -313,11 +311,18 @@ function ClosedDayGroup({
       <StatDetail>
         <div className="day-lots">
           <table className="trade-table">
+            <StatColGroup columns={CLOSED_LOT_COLUMNS} />
             <thead>
               <tr>
-                {lotColumns.map((column) => (
-                  <th key={column} className={lotColumnClass(column)}>
-                    {column}
+                {CLOSED_LOT_COLUMNS.map((column) => (
+                  <th
+                    key={column.key}
+                    scope="col"
+                    data-col={column.key}
+                    className={lotColumnClass(column.label)}
+                    aria-hidden={(column.key === "fees" && !showFees) || undefined}
+                  >
+                    {column.key === "fees" && !showFees ? "" : column.label}
                   </th>
                 ))}
               </tr>
@@ -445,7 +450,7 @@ function periodValues(
   showFees = false,
 ): StatValues {
   const pctDenom = summary.typicalOn;
-  const hold = holdToCloseItem(summary.lots, pctDenom);
+  const hold = holdToCloseItem(summary.lots);
   const netPnl = roundUsd(summary.pnl - tickets);
   return {
     title: <strong>{label}</strong>,
@@ -547,8 +552,14 @@ export default function TradeHistory() {
             )}
           </details>
 
-          <div className="view-card">
+          <div
+            className="view-card trade-history-scroll"
+            role="region"
+            aria-label="Closed trade history"
+            tabIndex={0}
+          >
           <StatTable
+            layoutColumns={CLOSED_LOT_COLUMNS}
             columns={periodColumns(
               <button
                 type="button"
@@ -563,7 +574,7 @@ export default function TradeHistory() {
                 Fees
               </button>,
             )}
-            className={showFees ? "is-fees-open" : "is-fees-closed"}
+            className={`trade-history-table ${showFees ? "is-fees-open" : "is-fees-closed"}`}
           >
             <StatHead />
             <StatBody>

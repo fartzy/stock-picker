@@ -4,88 +4,20 @@ import {
   fetchTrainingRuns,
   rebuildPaperBook,
   replayPaperBook,
-  type PaperBookDay,
-  type PaperBookResponse,
   type PaperListStats,
-  type PaperPickRow,
   type TrainingRunRecord,
 } from "../api";
 import { useFetchData } from "../useFetchData";
-import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
+import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
+import { Diff } from "./Diff";
+import { formatUsd } from "../format";
+import {
+  DEFAULT_TRADE_SIZE, LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
+  type LookbackDays, type MoneySummary, type PickKind, type PickOutcome,
+  type SimulatedDay, type SimulatedPick, type TradeSizes,
+} from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
-
-type Kind = "fit" | "rank" | "both";
-
-function listStats(rows: PaperPickRow[]): PaperListStats {
-  const flagged = rows.filter((row) => row.news_blocks);
-  const kept = rows.filter((row) => !row.news_blocks);
-  const rets = kept.map((row) => row.session_return).filter((value): value is number => value !== null);
-  const nScored = rets.length;
-  const wins = rets.filter((value) => value > 0).length;
-  const losses = rets.filter((value) => value < 0).length;
-  const avg = nScored ? rets.reduce((sum, value) => sum + value, 0) / nScored : null;
-  return {
-    n: rows.length,
-    n_scored: nScored,
-    wins,
-    losses,
-    flats: nScored - wins - losses,
-    hit_rate: nScored ? wins / nScored : null,
-    avg,
-    n_avoid: flagged.length,
-    avg_ex_news: avg,
-  };
-}
-
-function compound(avgs: number[]): number | null {
-  if (avgs.length === 0) return null;
-  return avgs.reduceRight((wealth, avg) => wealth * (1 + avg), 1) - 1;
-}
-
-function takeTop(rows: PaperPickRow[], topK: number | undefined): PaperPickRow[] {
-  if (topK === undefined) return rows;
-  return rows.filter((row) => row.rank <= topK);
-}
-
-function sliceBook(
-  data: PaperBookResponse,
-  kind: Kind,
-  fitTopK: number | undefined,
-  rankTopK: number | undefined,
-): PaperBookResponse {
-  const days = data.days.map((day) => {
-    const fit = kind === "rank" ? [] : takeTop(day.fit, fitTopK);
-    const rank = kind === "fit" ? [] : takeTop(day.rank, rankTopK);
-    const fitStats = listStats(fit);
-    const rankStats = listStats(rank);
-    return {
-      ...day,
-      fit,
-      rank,
-      fit_avg: fitStats.avg,
-      rank_avg: rankStats.avg,
-      fit_stats: fitStats,
-      rank_stats: rankStats,
-    };
-  });
-  const fitRows = days.flatMap((day) => day.fit);
-  const rankRows = days.flatMap((day) => day.rank);
-  const fitAvgs = days.map((day) => day.fit_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
-  const rankAvgs = days.map((day) => day.rank_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
-  return {
-    ...data,
-    days,
-    fit_compound: compound(fitAvgs),
-    rank_compound: compound(rankAvgs),
-    fit_days: fitAvgs.length,
-    rank_days: rankAvgs.length,
-    fit_stats: listStats(fitRows),
-    rank_stats: listStats(rankRows),
-    kind,
-    n_picks: fitRows.length + rankRows.length,
-  };
-}
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -115,6 +47,26 @@ function Pct({ value }: { value: number | null | undefined }) {
   );
 }
 
+function Dollars({ value }: { value: number | null }) {
+  return value === null ? <span className="muted">—</span> : <Diff value={value} pct={null} />;
+}
+
+function PickMoney({ outcome, ending = false }: { outcome: PickOutcome; ending?: boolean }) {
+  if (outcome.status !== "scored") {
+    return <span className="muted">{outcome.status === "skipped" ? "Skipped" : "Awaiting close"}</span>;
+  }
+  return ending ? <UsdCell value={outcome.endingValue} /> : <Dollars value={outcome.pnl} />;
+}
+
+function moneyItems(money: MoneySummary): StatItem[] {
+  return [
+    { key: "capital", label: "Completed capital", value: formatUsd(money.invested) },
+    { key: "pnl", label: "P&L", value: <Dollars value={money.pnl} /> },
+    { key: "ending", label: "End value", value: <UsdCell value={money.endingValue} /> },
+    ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
+  ];
+}
+
 function statsItems(stats: PaperListStats | undefined): StatItem[] {
   if (!stats || stats.n_scored === 0) return [];
   const hit = stats.hit_rate !== null ? `${(stats.hit_rate * 100).toFixed(0)}% hit` : null;
@@ -129,16 +81,48 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
   ];
 }
 
+function StrategySummary({ title, topK, days, stats, money }: {
+  title: string;
+  topK: number | undefined;
+  days: number;
+  stats: PaperListStats | undefined;
+  money: MoneySummary;
+}) {
+  return (
+    <div className="view-card slice-card" aria-label={`${title} simulation total`}>
+      <div className="slice-card-kicker">
+        <StatStrip items={[
+          { key: "title", title: true, align: "start", value: title },
+          { key: "slice", align: "start", value: topK === undefined ? "all" : `top ${topK}` },
+          { key: "days", align: "start", value: `${days}d` },
+        ]} />
+      </div>
+      <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">P&L</span></div>
+      <p className="view-meta">
+        <StatStrip items={[
+          { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
+          ...statsItems(stats),
+          ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
+        ]} />
+      </p>
+    </div>
+  );
+}
+
 function ListTable({
   title,
   rows,
   stats,
   isRank,
+  money,
+  dollarsPerTrade,
 }: {
   title: string;
-  rows: PaperPickRow[];
+  rows: SimulatedPick[];
   stats: PaperListStats | undefined;
   isRank: boolean;
+  money: MoneySummary;
+  dollarsPerTrade: number;
 }) {
   if (rows.length === 0) {
     return <p className="muted">{title}: no list that morning</p>;
@@ -154,6 +138,7 @@ function ListTable({
           ]}
         />
       </p>
+      <p className="view-meta"><StatStrip items={moneyItems(money)} /></p>
       <div style={{ overflowX: "auto" }}>
         <DataTable
           rows={rows}
@@ -170,6 +155,10 @@ function ListTable({
             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
             { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
+            { key: "pnl", header: <ColumnTitle label="P&L" hint={`${formatUsd(dollarsPerTrade)} / trade`} />, numeric: true,
+              cell: (row) => <PickMoney outcome={row.hypothetical} /> },
+            { key: "ending", header: "End value", numeric: true,
+              cell: (row) => <PickMoney outcome={row.hypothetical} ending /> },
             { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} /> },
           ]}
         />
@@ -189,12 +178,14 @@ function DayCard({
   rankAsked,
   fitAsked,
   modelLabel,
+  tradeSizes,
 }: {
-  day: PaperBookDay;
-  kind: Kind;
+  day: SimulatedDay;
+  kind: PickKind;
   rankAsked: number | undefined;
   fitAsked: number | undefined;
   modelLabel?: string;
+  tradeSizes: TradeSizes;
 }) {
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
@@ -218,7 +209,7 @@ function DayCard({
                     label: "Rank",
                     value: (
                       <>
-                        {day.rank.length} <Pct value={day.rank_avg} />
+                        {day.rank.length} <Pct value={day.rank_avg} /> · <Dollars value={day.rank_money.pnl} />
                       </>
                     ),
                   },
@@ -231,7 +222,7 @@ function DayCard({
                     label: "Fit",
                     value: (
                       <>
-                        {day.fit.length} <Pct value={day.fit_avg} />
+                        {day.fit.length} <Pct value={day.fit_avg} /> · <Dollars value={day.fit_money.pnl} />
                       </>
                     ),
                   },
@@ -242,12 +233,14 @@ function DayCard({
           ]}
         />
       </summary>
-      <div style={{ display: "grid", gap: "var(--space-4)", marginTop: "var(--space-3)" }}>
+      <div className="what-if-day-lists">
         {kind !== "rank" && (
-          <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false} />
+          <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
+            money={day.fit_money} dollarsPerTrade={tradeSizes.fit} />
         )}
         {kind !== "fit" && (
-          <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true} />
+          <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
+            money={day.rank_money} dollarsPerTrade={tradeSizes.rank} />
         )}
       </div>
     </details>
@@ -262,36 +255,55 @@ function parseTop(raw: string): number | undefined {
   return Math.floor(n);
 }
 
-function TopField({
+function StrategyControl({
   label,
   enabled,
   onEnabled,
   value,
   onValue,
+  dollarsPerTrade,
+  onTradeSize,
 }: {
   label: string;
   enabled: boolean;
   onEnabled: (on: boolean) => void;
   value: string;
   onValue: (value: string) => void;
+  dollarsPerTrade: number;
+  onTradeSize: (amount: number) => void;
 }) {
   return (
     <TogglePill
       on={enabled}
       onToggle={() => onEnabled(!enabled)}
       extra={
-        <input
-          className="form-input slice-input"
-          type="number"
-          min={1}
-          step={1}
-          inputMode="numeric"
-          placeholder="all"
-          disabled={!enabled}
-          value={value}
-          onChange={(event) => onValue(event.target.value)}
-          aria-label={`${label} top`}
-        />
+        <>
+          <input
+            className="form-input slice-input"
+            type="number"
+            min={1}
+            step={1}
+            inputMode="numeric"
+            placeholder="all"
+            disabled={!enabled}
+            value={value}
+            onChange={(event) => onValue(event.target.value)}
+            aria-label={`${label} top`}
+            title="Number of top picks"
+          />
+          <select
+            className="form-select what-if-trade-size"
+            value={dollarsPerTrade}
+            disabled={!enabled}
+            onChange={(event) => onTradeSize(Number(event.target.value))}
+            aria-label={`${label} dollars per trade`}
+            title={`${label}: amount per trade`}
+          >
+            {TRADE_SIZE_OPTIONS.map((amount) => (
+              <option key={amount} value={amount}>${amount / 1_000}K / trade</option>
+            ))}
+          </select>
+        </>
       }
     >
       {label}
@@ -304,6 +316,8 @@ export default function WhatIf() {
   const [fitOn, setFitOn] = useState(true);
   const [rankText, setRankText] = useState("5");
   const [fitText, setFitText] = useState("5");
+  const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
+  const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
   const [rebuildError, setRebuildError] = useState<string | null>(null);
@@ -317,14 +331,23 @@ export default function WhatIf() {
 
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
-  const kind: Kind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
-  const data = sliceBook(raw, kind, fitOn ? fitAsked : undefined, rankOn ? rankAsked : undefined);
+  const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
+  const data = simulateBook(raw, {
+    kind, fitTopK: fitAsked, rankTopK: rankAsked, tradeSizes, lookbackDays, asOf: simulationDay(),
+  });
 
   return (
     <div>
-      <div className="slice-bar">
-        <TopField label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText} />
-        <TopField label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText} />
+      <div className="slice-bar what-if-toolbar">
+        <StrategyControl label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText}
+          dollarsPerTrade={tradeSizes.rank} onTradeSize={(rank) => setTradeSizes((sizes) => ({ ...sizes, rank }))} />
+        <StrategyControl label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText}
+          dollarsPerTrade={tradeSizes.fit} onTradeSize={(fit) => setTradeSizes((sizes) => ({ ...sizes, fit }))} />
+        <select className="form-select what-if-period" value={lookbackDays ?? "all"}
+          aria-label="Simulation period"
+          onChange={(event) => setLookbackDays(LOOKBACK_OPTIONS.find((option) => String(option.days ?? "all") === event.target.value)?.days ?? null)}>
+          {LOOKBACK_OPTIONS.map((option) => <option key={option.label} value={option.days ?? "all"}>{option.label}</option>)}
+        </select>
         <button
           type="button"
           className="icon-btn"
@@ -346,6 +369,13 @@ export default function WhatIf() {
         >
           {busy ? "Updating…" : "↻"}
         </button>
+        <details className="what-if-help">
+          <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
+          <div className="what-if-help-body">
+            <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
+            <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
+          </div>
+        </details>
         {rebuildError && <span className="error">{rebuildError}</span>}
       </div>
       <div className="slice-bar">
@@ -392,57 +422,17 @@ export default function WhatIf() {
         </button>
       </div>
       {data.days.length === 0 || (!rankOn && !fitOn) ? (
-        <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists yet."}</p>
+        <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists in this period."}</p>
       ) : (
         <>
           <div className="slice-result">
             {rankOn && (
-              <div className="view-card slice-card">
-                <div className="slice-card-kicker">
-                  <StatStrip
-                    items={[
-                      { key: "title", title: true, align: "start", value: "Rank" },
-                      { key: "slice", align: "start", value: rankAsked === undefined ? "all" : `top ${rankAsked}` },
-                      { key: "days", align: "start", value: `${data.rank_days}d` },
-                    ]}
-                  />
-                </div>
-                <div className="slice-card-avg">
-                  <Pct value={data.rank_compound} /> compound
-                </div>
-                <p className="view-meta" style={{ marginTop: 4 }}>
-                  <StatStrip
-                    items={[
-                      { key: "names", align: "start", value: `${data.rank_stats?.n ?? 0} names` },
-                      ...statsItems(data.rank_stats),
-                    ]}
-                  />
-                </p>
-              </div>
+              <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
+                stats={data.rank_stats} money={data.rank_money} />
             )}
             {fitOn && (
-              <div className="view-card slice-card">
-                <div className="slice-card-kicker">
-                  <StatStrip
-                    items={[
-                      { key: "title", title: true, align: "start", value: "Fit" },
-                      { key: "slice", align: "start", value: fitAsked === undefined ? "all" : `top ${fitAsked}` },
-                      { key: "days", align: "start", value: `${data.fit_days}d` },
-                    ]}
-                  />
-                </div>
-                <div className="slice-card-avg">
-                  <Pct value={data.fit_compound} /> compound
-                </div>
-                <p className="view-meta" style={{ marginTop: 4 }}>
-                  <StatStrip
-                    items={[
-                      { key: "names", align: "start", value: `${data.fit_stats?.n ?? 0} names` },
-                      ...statsItems(data.fit_stats),
-                    ]}
-                  />
-                </p>
-              </div>
+              <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
+                stats={data.fit_stats} money={data.fit_money} />
             )}
           </div>
           {data.days.map((day) => (
@@ -451,6 +441,7 @@ export default function WhatIf() {
               kind={kind}
               rankAsked={rankAsked}
               fitAsked={fitAsked}
+              tradeSizes={tradeSizes}
               modelLabel={
                 day.model_run_id
                   ? (() => {

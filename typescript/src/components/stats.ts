@@ -10,6 +10,7 @@ export { Diff, SignedPct } from "./Diff";
 export { StatStrip, type StatItem } from "./StatStrip";
 export {
   StatBody,
+  StatColGroup,
   StatDetail,
   StatExpand,
   StatHead,

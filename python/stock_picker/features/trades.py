@@ -183,6 +183,18 @@ def trade_history(trades: pd.DataFrame) -> list[dict]:
     return enriched
 
 
+def _allocate_buys(buys: list[dict], fraction: float) -> list[dict]:
+    """Keep entry provenance proportional to this book's average-cost matching.
+
+    Comparison rules need the original buy times, not just the latest add-on
+    shown in the table. This metadata never changes realized P&L or cost basis.
+    """
+    return [
+        {**buy, "shares": buy["shares"] * fraction, "invested": buy["invested"] * fraction}
+        for buy in buys
+    ]
+
+
 def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[dict]:
     """One row per closed lot plus leftover open shares, walking the log in
     time so a buy on Monday sold Tuesday is closed -- not an empty "open"
@@ -224,6 +236,11 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
     for row in chronological.itertuples():
         ticker = row.ticker
         if row.side == "buy":
+            buy = {
+                "buy_time": row.executed_at,
+                "shares": float(row.shares),
+                "invested": float(row.shares) * float(row.price),
+            }
             lot = open_lots.get(ticker)
             if lot is None:
                 open_lots[ticker] = {
@@ -231,12 +248,14 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                     "cost": float(row.shares) * float(row.price),
                     "buy_time": row.executed_at,
                     "buy_dt": row.executed_dt,
+                    "buys": [buy],
                 }
             else:
                 lot["shares"] += float(row.shares)
                 lot["cost"] += float(row.shares) * float(row.price)
                 lot["buy_time"] = row.executed_at
                 lot["buy_dt"] = row.executed_dt
+                lot["buys"].append(buy)
             continue
 
         lot = open_lots.get(ticker)
@@ -262,6 +281,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
 
         avg_cost = lot["cost"] / lot["shares"]
         matched = min(sell_shares, lot["shares"])
+        fraction = matched / lot["shares"]
         invested = avg_cost * matched
         pnl = round((float(row.price) - avg_cost) * matched, NOTIONAL_DECIMAL_PLACES)
         rows.append(
@@ -281,8 +301,10 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                 "current_price": None,
                 "closed": True,
                 "pnl": pnl,
+                "_buy_allocations": _allocate_buys(lot["buys"], fraction),
             }
         )
+        lot["buys"] = _allocate_buys(lot["buys"], 1 - fraction)
         lot["shares"] -= matched
         lot["cost"] -= invested
         if lot["shares"] <= 1e-9:
@@ -312,6 +334,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                 "sell_price": None,
                 "closed": False,
                 "pnl": pnl,
+                "_buy_allocations": lot["buys"],
             }
         )
 

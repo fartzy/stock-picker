@@ -108,9 +108,13 @@ class Position(BaseModel):
     pnl: float | None
     # 8:40 AM CT Open -> 2:55 PM CT Close on the buy's session. None if
     # the session is still in progress or PriceStore has no bar that day.
+    # P&L also stays None when no original buys qualify for the comparison.
     hold_open_price: float | None = None
     hold_close_price: float | None = None
     hold_close_pnl: float | None = None
+    # Only original buys strictly before 9:00 AM America/Chicago qualify.
+    hold_eligible_shares: float = 0
+    hold_eligible_invested: float = 0
 
 
 class FeeRecord(BaseModel):

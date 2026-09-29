@@ -1,4 +1,4 @@
-import { createContext, useContext, type KeyboardEvent, type ReactNode } from "react";
+import { createContext, useContext, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 
 /** Look lives in CSS: `data-appearance` plus `tone` classes. */
 export type StatColumn = {
@@ -10,6 +10,9 @@ export type StatColumn = {
   hug?: boolean;
   /** `bench` = S&P / session band; `pnl` = outer box around P&L. */
   tone?: "bench" | "pnl";
+  /** Physical columns covered by a summary cell in a shared layout. */
+  colSpan?: number;
+  width?: CSSProperties["width"];
 };
 
 export type StatAppearance = "period" | "weeks" | "days" | (string & {});
@@ -57,6 +60,7 @@ function Cells({
             className={columnClass(column)}
             data-align={columnAlign(column)}
             data-col={column.key}
+            colSpan={column.colSpan}
           >
             {first === "expand" && index === 0 ? (
               <span className="stat-expand" aria-hidden="true">
@@ -72,13 +76,32 @@ function Cells({
   );
 }
 
+/** Reuse the same physical widths in summary and expanded detail tables. */
+export function StatColGroup({ columns }: { columns: StatColumn[] }) {
+  return (
+    <colgroup>
+      {columns.map((column) => (
+        <col
+          key={column.key}
+          className={columnClass(column)}
+          data-col={column.key}
+          span={column.colSpan}
+          style={{ width: column.width }}
+        />
+      ))}
+    </colgroup>
+  );
+}
+
 export function StatTable({
   columns,
+  layoutColumns = columns,
   appearance = "period",
   className,
   children,
 }: {
   columns: StatColumn[];
+  layoutColumns?: StatColumn[];
   appearance?: StatAppearance;
   className?: string;
   children: ReactNode;
@@ -86,11 +109,7 @@ export function StatTable({
   return (
     <TableCtx.Provider value={columns}>
       <table className={cx("stat-table", className)} data-appearance={appearance}>
-        <colgroup>
-          {columns.map((column) => (
-            <col key={column.key} className={columnClass(column)} data-col={column.key} />
-          ))}
-        </colgroup>
+        <StatColGroup columns={layoutColumns} />
         {children}
       </table>
     </TableCtx.Provider>
@@ -125,7 +144,9 @@ export function StatDetail({ children }: { children: ReactNode }) {
   return (
     <tbody>
       <tr className="stat-expand-body">
-        <td colSpan={columns.length}>{children}</td>
+        <td colSpan={columns.reduce((total, column) => total + (column.colSpan ?? 1), 0)}>
+          {children}
+        </td>
       </tr>
     </tbody>
   );
