@@ -18,6 +18,8 @@ export function col(
     align: extras.align ?? (title ? "start" : "end"),
     hug: extras.hug,
     tone: extras.tone,
+    colSpan: extras.colSpan,
+    width: extras.width,
   };
 }
 
@@ -36,7 +38,47 @@ export const PeriodCol = {
   hold: col("hold", HOLD_WINDOW_LABEL, { tone: "bench" }),
 } as const;
 
-export const PERIOD_COLUMNS: StatColumn[] = Object.values(PeriodCol);
+/** The fee track stays reserved so toggling it never shifts the other columns. */
+const FEES_PERCENT = 5;
+const lotWidth = (percent: number) => `${(percent * (100 - FEES_PERCENT)) / 100}%`;
+
+/**
+ * One physical layout for the summary and lot tables. Summary cells span their
+ * constituent lot columns; P&L, fees and hold-to-close share identical tracks.
+ * Lot widths divide the space remaining after the reserved fee column.
+ */
+const HISTORY_COLUMN_GROUPS = [
+  {
+    summary: PeriodCol.title,
+    lots: [
+      { key: "ticker", label: "Ticker", width: lotWidth(6) },
+      { key: "shares", label: "Shares", width: lotWidth(6) },
+      { key: "bought", label: "Bought", width: lotWidth(13) },
+    ],
+  },
+  {
+    summary: PeriodCol.days,
+    lots: [{ key: "buy-price", label: "Buy Price", width: lotWidth(7) }],
+  },
+  {
+    summary: PeriodCol.typical,
+    lots: [
+      { key: "sold", label: "Sold", width: lotWidth(10) },
+      { key: "sell-price", label: "Sell Price", width: lotWidth(8) },
+    ],
+  },
+  { summary: PeriodCol.pnl, lots: [{ key: "pnl", label: "P&L", width: lotWidth(17) }] },
+  { summary: PeriodCol.fees, lots: [{ key: "fees", label: "Fees", width: `${FEES_PERCENT}%` }] },
+  { summary: PeriodCol.intraday, lots: [{ key: "close", label: "Close", width: lotWidth(8) }] },
+  { summary: PeriodCol.bh, lots: [{ key: "invested", label: "Invested", width: lotWidth(10) }] },
+  { summary: PeriodCol.hold, lots: [{ key: "hold", label: HOLD_WINDOW_LABEL, width: lotWidth(15) }] },
+];
+
+export const CLOSED_LOT_COLUMNS = HISTORY_COLUMN_GROUPS.flatMap(({ lots }) => lots);
+export const PERIOD_COLUMNS: StatColumn[] = HISTORY_COLUMN_GROUPS.map(({ summary, lots }) => ({
+  ...summary,
+  colSpan: lots.length,
+}));
 
 export function periodColumns(feesLabel: ReactNode): StatColumn[] {
   return PERIOD_COLUMNS.map((column) =>
@@ -54,22 +96,9 @@ export const OPEN_LOT_COLUMNS = [
   "Invested",
 ] as const;
 
-export const CLOSED_LOT_COLUMNS = [
-  "Ticker",
-  "Shares",
-  "Bought",
-  "Buy Price",
-  "Sold",
-  "Sell Price",
-  "P&L",
-  "Fees",
-  "Close",
-  HOLD_WINDOW_LABEL,
-  "Invested",
-] as const;
-
 export function lotColumnClass(column: string): string | undefined {
   if (column === "Ticker" || column === "Bought" || column === "Sold") return undefined;
+  if (column === "P&L") return "trade-num lot-pnl";
   if (column === "Fees") return "trade-num lot-fees";
   return "trade-num";
 }

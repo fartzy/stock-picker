@@ -18,6 +18,7 @@ import {
   OPEN_LOT_COLUMNS,
   SignedPct,
   StatBody,
+  StatColGroup,
   StatDetail,
   StatExpand,
   StatHead,
@@ -171,7 +172,7 @@ function PnlCell({
   caption?: string;
 }) {
   return (
-    <td className="trade-num">
+    <td className="trade-num lot-pnl">
       {pnl !== null ? <Diff value={pnl} pct={invested ? pnl / invested : null} /> : "--"}
       {caption ? <div className="muted">{caption}</div> : null}
     </td>
@@ -220,10 +221,13 @@ function ClosedRow({
       <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
       <PnlCell pnl={netPnl} invested={position.invested} />
-      {showFees ? <td className="trade-num lot-fees">{fee ? formatUsd(fee) : "—"}</td> : null}
+      <td className="trade-num lot-fees" aria-hidden={!showFees || undefined}>
+        {feeAmount(fee, showFees)}
+      </td>
       <td className="trade-num">
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
       </td>
+      <td className="trade-num">{formatUsd(position.invested)}</td>
       <td className="trade-num">
         {holdClosePnl !== null ? (
           <Diff value={holdClosePnl} pct={holdPct} />
@@ -231,7 +235,6 @@ function ClosedRow({
           <span className="muted">session open</span>
         )}
       </td>
-      <td className="trade-num">{formatUsd(position.invested)}</td>
     </tr>
   );
 }
@@ -300,9 +303,6 @@ function ClosedDayGroup({
   showFees?: boolean;
 }) {
   const { lotFees } = assignLotFees(positions, fees.filter((fee) => fee.day === day));
-  const lotColumns = showFees
-    ? CLOSED_LOT_COLUMNS
-    : CLOSED_LOT_COLUMNS.filter((column) => column !== "Fees");
   return (
     <StatExpand
       nested
@@ -313,11 +313,18 @@ function ClosedDayGroup({
       <StatDetail>
         <div className="day-lots">
           <table className="trade-table">
+            <StatColGroup columns={CLOSED_LOT_COLUMNS} />
             <thead>
               <tr>
-                {lotColumns.map((column) => (
-                  <th key={column} className={lotColumnClass(column)}>
-                    {column}
+                {CLOSED_LOT_COLUMNS.map((column) => (
+                  <th
+                    key={column.key}
+                    scope="col"
+                    data-col={column.key}
+                    className={lotColumnClass(column.label)}
+                    aria-hidden={(column.key === "fees" && !showFees) || undefined}
+                  >
+                    {column.key === "fees" && !showFees ? "" : column.label}
                   </th>
                 ))}
               </tr>
@@ -547,8 +554,14 @@ export default function TradeHistory() {
             )}
           </details>
 
-          <div className="view-card">
+          <div
+            className="view-card trade-history-scroll"
+            role="region"
+            aria-label="Closed trade history"
+            tabIndex={0}
+          >
           <StatTable
+            layoutColumns={CLOSED_LOT_COLUMNS}
             columns={periodColumns(
               <button
                 type="button"
@@ -563,7 +576,7 @@ export default function TradeHistory() {
                 Fees
               </button>,
             )}
-            className={showFees ? "is-fees-open" : "is-fees-closed"}
+            className={`trade-history-table ${showFees ? "is-fees-open" : "is-fees-closed"}`}
           >
             <StatHead />
             <StatBody>
