@@ -9,6 +9,7 @@ export const LOOKBACK_OPTIONS = [
 ] as const;
 export type LookbackDays = (typeof LOOKBACK_OPTIONS)[number]["days"];
 export type PickKind = "fit" | "rank" | "both";
+export type TradeSizes = Readonly<Record<Exclude<PickKind, "both">, number>>;
 
 export interface PickOutcome {
   status: "scored" | "skipped" | "pending";
@@ -47,7 +48,7 @@ interface SimulationOptions {
   kind: PickKind;
   fitTopK?: number;
   rankTopK?: number;
-  dollarsPerTrade: number;
+  tradeSizes: TradeSizes;
   lookbackDays: LookbackDays;
   asOf: string;
 }
@@ -110,23 +111,23 @@ function compound(avgs: number[]): number | null {
  * Dollar profits are added, not compounded or multiplied by the compound metric.
  */
 export function simulateBook(data: PaperBookResponse, options: SimulationOptions): SimulatedBook {
-  const { kind, fitTopK, rankTopK, dollarsPerTrade, lookbackDays, asOf } = options;
+  const { kind, fitTopK, rankTopK, tradeSizes, lookbackDays, asOf } = options;
   const start = new Date(`${asOf}T12:00:00Z`);
   if (lookbackDays !== null) start.setUTCDate(start.getUTCDate() - lookbackDays + 1);
   const from = lookbackDays === null ? null : start.toISOString().slice(0, 10);
-  const rowsFor = (rows: PaperPickRow[], topK?: number): SimulatedPick[] => rows
+  const rowsFor = (rows: PaperPickRow[], dollarsPerTrade: number, topK?: number): SimulatedPick[] => rows
     .filter((row) => topK === undefined || row.rank <= topK)
     .map((row) => ({ ...row, hypothetical: simulatePick(row, dollarsPerTrade) }));
   const days = data.days
     .filter((day) => day.as_of <= asOf && (from === null || day.as_of >= from))
     .map((day): SimulatedDay => {
-      const fit = kind === "rank" ? [] : rowsFor(day.fit, fitTopK);
-      const rank = kind === "fit" ? [] : rowsFor(day.rank, rankTopK);
+      const fit = kind === "rank" ? [] : rowsFor(day.fit, tradeSizes.fit, fitTopK);
+      const rank = kind === "fit" ? [] : rowsFor(day.rank, tradeSizes.rank, rankTopK);
       const fitStats = listStats(fit), rankStats = listStats(rank);
       return {
         ...day, fit, rank, fit_avg: fitStats.avg, rank_avg: rankStats.avg,
         fit_stats: fitStats, rank_stats: rankStats,
-        fit_money: moneySummary(fit, dollarsPerTrade), rank_money: moneySummary(rank, dollarsPerTrade),
+        fit_money: moneySummary(fit, tradeSizes.fit), rank_money: moneySummary(rank, tradeSizes.rank),
       };
     });
   const liveDays = days.filter((day) => !day.scan_id);
@@ -138,7 +139,7 @@ export function simulateBook(data: PaperBookResponse, options: SimulationOptions
     fit_compound: compound(fitAvgs), rank_compound: compound(rankAvgs),
     fit_days: fitAvgs.length, rank_days: rankAvgs.length,
     fit_stats: listStats(fit), rank_stats: listStats(rank),
-    fit_money: moneySummary(fit, dollarsPerTrade), rank_money: moneySummary(rank, dollarsPerTrade),
+    fit_money: moneySummary(fit, tradeSizes.fit), rank_money: moneySummary(rank, tradeSizes.rank),
     n_picks: fit.length + rank.length,
   };
 }

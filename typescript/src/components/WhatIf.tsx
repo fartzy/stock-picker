@@ -14,7 +14,7 @@ import { formatUsd } from "../format";
 import {
   DEFAULT_TRADE_SIZE, LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
   type LookbackDays, type MoneySummary, type PickKind, type PickOutcome,
-  type SimulatedDay, type SimulatedPick,
+  type SimulatedDay, type SimulatedPick, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
@@ -81,11 +81,10 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
   ];
 }
 
-function StrategySummary({ title, topK, days, compound, stats, money }: {
+function StrategySummary({ title, topK, days, stats, money }: {
   title: string;
   topK: number | undefined;
   days: number;
-  compound: number | null;
   stats: PaperListStats | undefined;
   money: MoneySummary;
 }) {
@@ -99,7 +98,6 @@ function StrategySummary({ title, topK, days, compound, stats, money }: {
         ]} />
       </div>
       <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">P&L</span></div>
-      <p className="view-meta"><Pct value={compound} /> compound · percentage benchmark, not dollar sizing</p>
       <p className="view-meta">
         <StatStrip items={[
           { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
@@ -180,14 +178,14 @@ function DayCard({
   rankAsked,
   fitAsked,
   modelLabel,
-  dollarsPerTrade,
+  tradeSizes,
 }: {
   day: SimulatedDay;
   kind: PickKind;
   rankAsked: number | undefined;
   fitAsked: number | undefined;
   modelLabel?: string;
-  dollarsPerTrade: number;
+  tradeSizes: TradeSizes;
 }) {
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
@@ -238,11 +236,11 @@ function DayCard({
       <div className="what-if-day-lists">
         {kind !== "rank" && (
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
-            money={day.fit_money} dollarsPerTrade={dollarsPerTrade} />
+            money={day.fit_money} dollarsPerTrade={tradeSizes.fit} />
         )}
         {kind !== "fit" && (
           <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
-            money={day.rank_money} dollarsPerTrade={dollarsPerTrade} />
+            money={day.rank_money} dollarsPerTrade={tradeSizes.rank} />
         )}
       </div>
     </details>
@@ -257,36 +255,55 @@ function parseTop(raw: string): number | undefined {
   return Math.floor(n);
 }
 
-function TopField({
+function StrategyControl({
   label,
   enabled,
   onEnabled,
   value,
   onValue,
+  dollarsPerTrade,
+  onTradeSize,
 }: {
   label: string;
   enabled: boolean;
   onEnabled: (on: boolean) => void;
   value: string;
   onValue: (value: string) => void;
+  dollarsPerTrade: number;
+  onTradeSize: (amount: number) => void;
 }) {
   return (
     <TogglePill
       on={enabled}
       onToggle={() => onEnabled(!enabled)}
       extra={
-        <input
-          className="form-input slice-input"
-          type="number"
-          min={1}
-          step={1}
-          inputMode="numeric"
-          placeholder="all"
-          disabled={!enabled}
-          value={value}
-          onChange={(event) => onValue(event.target.value)}
-          aria-label={`${label} top`}
-        />
+        <>
+          <input
+            className="form-input slice-input"
+            type="number"
+            min={1}
+            step={1}
+            inputMode="numeric"
+            placeholder="all"
+            disabled={!enabled}
+            value={value}
+            onChange={(event) => onValue(event.target.value)}
+            aria-label={`${label} top`}
+            title="Number of top picks"
+          />
+          <select
+            className="form-select what-if-trade-size"
+            value={dollarsPerTrade}
+            disabled={!enabled}
+            onChange={(event) => onTradeSize(Number(event.target.value))}
+            aria-label={`${label} dollars per trade`}
+            title={`${label}: amount per trade`}
+          >
+            {TRADE_SIZE_OPTIONS.map((amount) => (
+              <option key={amount} value={amount}>${amount / 1_000}K / trade</option>
+            ))}
+          </select>
+        </>
       }
     >
       {label}
@@ -299,7 +316,7 @@ export default function WhatIf() {
   const [fitOn, setFitOn] = useState(true);
   const [rankText, setRankText] = useState("5");
   const [fitText, setFitText] = useState("5");
-  const [dollarsPerTrade, setDollarsPerTrade] = useState<number>(DEFAULT_TRADE_SIZE);
+  const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -316,28 +333,21 @@ export default function WhatIf() {
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
   const data = simulateBook(raw, {
-    kind, fitTopK: fitAsked, rankTopK: rankAsked, dollarsPerTrade, lookbackDays, asOf: simulationDay(),
+    kind, fitTopK: fitAsked, rankTopK: rankAsked, tradeSizes, lookbackDays, asOf: simulationDay(),
   });
 
   return (
     <div>
-      <div className="slice-bar">
-        <TopField label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText} />
-        <TopField label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText} />
-        <label className="what-if-control">
-          Per trade
-          <select className="form-select" value={dollarsPerTrade}
-            onChange={(event) => setDollarsPerTrade(Number(event.target.value))}>
-            {TRADE_SIZE_OPTIONS.map((amount) => <option key={amount} value={amount}>{formatUsd(amount)}</option>)}
-          </select>
-        </label>
-        <label className="what-if-control">
-          Period
-          <select className="form-select" value={lookbackDays ?? "all"}
-            onChange={(event) => setLookbackDays(LOOKBACK_OPTIONS.find((option) => String(option.days ?? "all") === event.target.value)?.days ?? null)}>
-            {LOOKBACK_OPTIONS.map((option) => <option key={option.label} value={option.days ?? "all"}>{option.label}</option>)}
-          </select>
-        </label>
+      <div className="slice-bar what-if-toolbar">
+        <StrategyControl label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText}
+          dollarsPerTrade={tradeSizes.rank} onTradeSize={(rank) => setTradeSizes((sizes) => ({ ...sizes, rank }))} />
+        <StrategyControl label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText}
+          dollarsPerTrade={tradeSizes.fit} onTradeSize={(fit) => setTradeSizes((sizes) => ({ ...sizes, fit }))} />
+        <select className="form-select what-if-period" value={lookbackDays ?? "all"}
+          aria-label="Simulation period"
+          onChange={(event) => setLookbackDays(LOOKBACK_OPTIONS.find((option) => String(option.days ?? "all") === event.target.value)?.days ?? null)}>
+          {LOOKBACK_OPTIONS.map((option) => <option key={option.label} value={option.days ?? "all"}>{option.label}</option>)}
+        </select>
         <button
           type="button"
           className="icon-btn"
@@ -359,6 +369,13 @@ export default function WhatIf() {
         >
           {busy ? "Updating…" : "↻"}
         </button>
+        <details className="what-if-help">
+          <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
+          <div className="what-if-help-body">
+            <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
+            <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
+          </div>
+        </details>
         {rebuildError && <span className="error">{rebuildError}</span>}
       </div>
       <div className="slice-bar">
@@ -404,10 +421,6 @@ export default function WhatIf() {
           {busy ? "Scoring…" : "Run"}
         </button>
       </div>
-      <p className="view-meta what-if-assumptions">
-        {data.from ? `${data.from} – ${data.through} · rolling calendar weeks · ` : "All recorded days · "}
-        Fixed amount per pick each day · fractional shares · before fees/slippage · live-list totals only
-      </p>
       {data.days.length === 0 || (!rankOn && !fitOn) ? (
         <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists in this period."}</p>
       ) : (
@@ -415,11 +428,11 @@ export default function WhatIf() {
           <div className="slice-result">
             {rankOn && (
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
-                compound={data.rank_compound} stats={data.rank_stats} money={data.rank_money} />
+                stats={data.rank_stats} money={data.rank_money} />
             )}
             {fitOn && (
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
-                compound={data.fit_compound} stats={data.fit_stats} money={data.fit_money} />
+                stats={data.fit_stats} money={data.fit_money} />
             )}
           </div>
           {data.days.map((day) => (
@@ -428,7 +441,7 @@ export default function WhatIf() {
               kind={kind}
               rankAsked={rankAsked}
               fitAsked={fitAsked}
-              dollarsPerTrade={dollarsPerTrade}
+              tradeSizes={tradeSizes}
               modelLabel={
                 day.model_run_id
                   ? (() => {

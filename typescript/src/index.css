@@ -1223,16 +1223,89 @@ details.view-card[open] > summary::before {
   margin-bottom: var(--space-4);
 }
 
-.what-if-control {
-  display: inline-flex;
-  align-items: center;
+.what-if-toolbar {
   gap: var(--space-2);
-  color: var(--text-muted);
-  font-size: var(--text-label);
 }
 
-.what-if-assumptions {
-  margin-bottom: var(--space-3);
+.what-if-toolbar .form-select,
+.what-if-toolbar .slice-input {
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.what-if-toolbar .what-if-trade-size {
+  border: 0;
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 10px;
+}
+
+.what-if-trade-size:disabled {
+  opacity: 0.4;
+}
+
+.what-if-toolbar .what-if-period {
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 8px 12px;
+}
+
+.what-if-help {
+  position: relative;
+  align-self: center;
+  color: var(--text-muted);
+}
+
+.what-if-help > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.what-if-help > summary::-webkit-details-marker {
+  display: none;
+}
+
+.what-if-help > summary:hover,
+.what-if-help > summary:focus-visible {
+  color: var(--text);
+  background: var(--surface-raised);
+}
+
+.what-if-help-body {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  width: 320px;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+}
+
+.what-if-help-body p {
+  margin: 0;
+}
+
+.what-if-help-body p + p {
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  .what-if-help[open] {
+    flex-basis: 100%;
+  }
+
+  .what-if-help-body {
+    position: static;
+    width: auto;
+  }
 }
 
 .what-if-day-lists {

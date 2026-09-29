@@ -14,7 +14,8 @@ const book = (days) => ({
   kind: "both", top_k: null, n_picks: 0,
 });
 const options = {
-  kind: "both", fitTopK: 2, rankTopK: 2, dollarsPerTrade: DEFAULT_TRADE_SIZE,
+  kind: "both", fitTopK: 2, rankTopK: 2,
+  tradeSizes: { rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE },
   lookbackDays: null, asOf: "2026-09-29",
 };
 
@@ -41,11 +42,32 @@ test("top 2 means $20K per strategy per day; strategies stay independent", () =>
   const result = simulateBook(data, options);
   assert.deepEqual(result.rank_money, { pnl: 100, invested: 20_000, endingValue: 20_100, completed: 2, pending: 0 });
   assert.deepEqual(result.fit_money, { pnl: 400, invested: 20_000, endingValue: 20_400, completed: 2, pending: 0 });
-  const half = simulateBook(data, { ...options, dollarsPerTrade: 5_000 });
+  const half = simulateBook(data, { ...options, tradeSizes: { rank: 5_000, fit: 5_000 } });
   assert.equal(half.rank_money.pnl, 50);
   assert.equal(half.fit_money.pnl, 200);
   assert.equal(half.days[0].rank[0].hypothetical.endingValue, 5_100);
   assert.equal(data.days[0].rank[0].hypothetical, undefined); // Pure, no API-data mutation.
+});
+
+test("Rank $10K and Fit $5K reconcile separately at pick, day and period levels", () => {
+  const data = book([
+    day("2026-09-29", [pick(0.02), pick(-0.01, { rank: 2 })], [pick(0.03), pick(0.01, { rank: 2 })]),
+    day("2026-09-28", [pick(-0.01)], [pick(-0.02)]),
+  ]);
+  const result = simulateBook(data, { ...options, tradeSizes: { rank: 10_000, fit: 5_000 } });
+  assert.deepEqual(result.days[0].fit[0].hypothetical, { status: "scored", pnl: 150, endingValue: 5_150 });
+  assert.deepEqual(result.days[0].fit_money, { pnl: 200, invested: 10_000, endingValue: 10_200, completed: 2, pending: 0 });
+  assert.deepEqual(result.fit_money, { pnl: 100, invested: 15_000, endingValue: 15_100, completed: 3, pending: 0 });
+  assert.deepEqual(result.rank_money, { pnl: 0, invested: 30_000, endingValue: 30_000, completed: 3, pending: 0 });
+  const equalSizes = simulateBook(data, options);
+  assert.deepEqual(result.rank_money, equalSizes.rank_money);
+  assert.deepEqual(result.days.map((row) => row.rank), equalSizes.days.map((row) => row.rank));
+  assert.deepEqual(result.fit_stats, equalSizes.fit_stats); // Sizing does not alter percentage statistics.
+  const smallerRank = simulateBook(data, { ...options, tradeSizes: { rank: 5_000, fit: 5_000 } });
+  assert.deepEqual(smallerRank.fit_money, result.fit_money);
+  assert.deepEqual(smallerRank.days.map((row) => row.fit), result.days.map((row) => row.fit));
+  assert.equal(smallerRank.days[0].rank_money.pnl, 50);
+  assert.deepEqual(simulateBook(data, { ...options, kind: "fit", tradeSizes: { rank: 10_000, fit: 5_000 } }).fit_money, result.fit_money);
 });
 
 test("dollars are additive, not compound profits or an average times top K", () => {
