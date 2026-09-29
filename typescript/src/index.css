@@ -454,15 +454,14 @@ section + section {
   width: 4.25rem;
 }
 
-.stat-table > :is(thead, tbody) > tr > [data-col="fees"] {
+/* One compact cell style for summary and transaction fee columns. */
+.stat-table > :is(thead, tbody) > tr > [data-col="fees"],
+.trade-table :is(th, td).lot-fees {
   color: var(--text-muted);
-  padding-left: 12px;
-  padding-right: 12px;
-  overflow: visible;
-}
-
-.stat-table > tbody > tr > td[data-col="fees"] {
+  padding-left: var(--space-1);
+  padding-right: var(--space-1);
   font-size: var(--text-micro);
+  overflow: visible;
 }
 
 .fees-toggle {
@@ -1004,12 +1003,6 @@ details.view-card[open] > summary::before {
 
 .day-lots .trade-table :is(th, td):last-child {
   padding-right: 10px;
-}
-
-.trade-table th.lot-fees,
-.trade-table td.lot-fees {
-  color: var(--text-muted);
-  font-size: var(--text-micro);
 }
 
 .trade-time {

@@ -39,7 +39,7 @@ export const PeriodCol = {
 } as const;
 
 /** The fee track stays reserved so toggling it never shifts the other columns. */
-const FEES_PERCENT = 5;
+const FEES_PERCENT = 4;
 const lotWidth = (percent: number) => `${(percent * (100 - FEES_PERCENT)) / 100}%`;
 
 /**
