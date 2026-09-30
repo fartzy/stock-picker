@@ -29,13 +29,16 @@ Promotion bar (ADR 0021): LightGBM-with-the-stacked-columns beats solo
 LightGBM in >=3 of 4 folds on both acc and rank IC. Per-fold lists, not
 just means. Holdout is a later, separate step if this clears.
 
-Run: bazelisk run //python/stock_picker/training:svr_stack_search
+Run: bazelisk run //python/stock_picker/training:svr_stack_search --
+     --run-dir /path/to/persistent/research/svm-trial-001
+Resume the same snapshot with the same options plus --resume.
 """
 
 from __future__ import annotations
 
 import argparse
 import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -49,6 +52,14 @@ from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import rank_ic, simulate_trades
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.model import (
+    BOTTOM_QUINTILE,
+    DEFAULT_NUM_BOOST_ROUND,
+    FIT_GATE_THRESHOLD,
+    LIGHTGBM_DEFAULT_PARAMS,
+    SVC_DEFAULT_PARAMS,
+    STRONG_UP_THRESHOLD,
+    SVR_DEFAULT_PARAMS,
+    TOP_QUINTILE,
     attach_stacked_svm_columns,
     feature_columns,
     fit_stacked_svm_estimators,
@@ -56,12 +67,32 @@ from stock_picker.training.model import (
     train_lightgbm,
 )
 from stock_picker.training.splits import select_holdout_tickers, walk_forward_splits
+from stock_picker.training.svr_stack_run import ResearchRun, make_manifest
 
 logger = get_logger(__name__)
 
 N_SPLITS = 4
 OOF_SEED_SPLITS = 3
 FIT_THRESHOLD = 0.005
+
+
+def _run_settings() -> dict:
+    """Freeze the estimator and scoring parameters used by this script."""
+    return {
+        "n_splits": N_SPLITS,
+        "oof_seed_splits": OOF_SEED_SPLITS,
+        "fit_threshold": FIT_THRESHOLD,
+        "svr": SVR_DEFAULT_PARAMS,
+        "svc": SVC_DEFAULT_PARAMS,
+        "svc_labels": {
+            "fit_gate": FIT_GATE_THRESHOLD,
+            "strong_up": STRONG_UP_THRESHOLD,
+            "top_quintile": TOP_QUINTILE,
+            "bottom_quintile": BOTTOM_QUINTILE,
+        },
+        "lightgbm": LIGHTGBM_DEFAULT_PARAMS,
+        "lightgbm_rounds": DEFAULT_NUM_BOOST_ROUND,
+    }
 
 
 def _parse_svm_names(values: list[str] | None) -> tuple[str, ...]:
@@ -173,8 +204,11 @@ def _oof_training_views(
 
 
 def main(
+    run_dir: Path,
     excluded_outputs: tuple[str, ...] = (),
     retained_outputs: tuple[str, ...] = (),
+    *,
+    resume: bool = False,
 ) -> None:
     started = time.time()
     tickers = UniverseStore().active_tickers()
@@ -194,13 +228,32 @@ def main(
     )
 
     splits = walk_forward_splits(pooled["date"], n_splits=N_SPLITS)
-    oof_training_blocks = []
     # The first outer training block has no earlier outer fold to supply
     # stacked columns. Three smaller chronological fits cover its later
     # 75%; the first quarter is warm-up and is excluded from BOTH
     # LightGBM candidates in every outer fold.
     first_train = pooled[splits[0][0]]
     seed_splits = walk_forward_splits(first_train["date"], n_splits=OOF_SEED_SPLITS)
+    manifest = make_manifest(
+        pooled, train_tickers, holdout, base_features, excluded, candidates,
+        splits, seed_splits, settings=_run_settings(),
+    )
+    with ResearchRun(run_dir, manifest, resume=resume) as run:
+        _run_folds(run, pooled, splits, seed_splits, excluded, base_features, candidates, started)
+
+
+def _run_folds(
+    run: ResearchRun,
+    pooled: pd.DataFrame,
+    splits: list[tuple[np.ndarray, np.ndarray]],
+    seed_splits: list[tuple[np.ndarray, np.ndarray]],
+    excluded: set[str],
+    base_features: set[str],
+    candidates: dict[str, tuple[str, ...]],
+    started: float,
+) -> None:
+    oof_training_blocks = []
+    first_train = pooled[splits[0][0]]
     for seed_fold, (seed_train_mask, seed_test_mask) in enumerate(seed_splits, start=1):
         seed_train = first_train[seed_train_mask]
         seed_test = first_train[seed_test_mask]
@@ -214,8 +267,20 @@ def main(
             len(seed_test),
             seed_test["date"].min(),
         )
-        seed_estimators = fit_stacked_svm_estimators(seed_train, excluded_features=excluded)
-        oof_training_blocks.append(attach_stacked_svm_columns(seed_test, seed_estimators))
+        seed_block = run.block(
+            f"seed-{seed_fold}", seed_test,
+            fit_end=seed_train["date"].max(), score_start=seed_test["date"].min(),
+        )
+        if seed_block is None:
+            seed_estimators = fit_stacked_svm_estimators(seed_train, excluded_features=excluded)
+            seed_block = attach_stacked_svm_columns(seed_test, seed_estimators)
+            run.save_block(
+                f"seed-{seed_fold}", seed_test, seed_block,
+                fit_end=seed_train["date"].max(), score_start=seed_test["date"].min(),
+            )
+        else:
+            logger.info("OOF seed %s restored from validated checkpoint", seed_fold)
+        oof_training_blocks.append(seed_block)
 
     baseline_folds = []
     candidate_folds = {name: [] for name in candidates}
@@ -235,14 +300,19 @@ def main(
             len(test_frame),
             test_frame["date"].min(),
         )
-        baseline = train_lightgbm(baseline_train, excluded_features=excluded)
-        if set(baseline.feature_names) != base_features:
-            raise ValueError("baseline did not train on the intended production feature set")
         actual = test_frame[LABEL_COLUMN]
         dates = test_frame["date"]
-        baseline_metrics = _fold_metrics(
-            pd.Series(predict(baseline, test_frame), index=test_frame.index), actual, dates
-        )
+        baseline_metrics = run.metric(fold, "baseline", ())
+        if baseline_metrics is None:
+            baseline = train_lightgbm(baseline_train, excluded_features=excluded)
+            if set(baseline.feature_names) != base_features:
+                raise ValueError("baseline did not train on the intended production feature set")
+            baseline_metrics = _fold_metrics(
+                pd.Series(predict(baseline, test_frame), index=test_frame.index), actual, dates
+            )
+            run.save_metric(fold, "baseline", (), baseline_metrics)
+        else:
+            logger.info("fold %s baseline restored from validated checkpoint", fold)
         baseline_folds.append(baseline_metrics)
         logger.info(
             "fold %s baseline acc=%.6f rank_ic=%.6f gated_n=%s gated_hit=%.6f gated_avg=%.6f (%.1fs)",
@@ -255,21 +325,37 @@ def main(
             time.time() - t0,
         )
 
-        estimators = fit_stacked_svm_estimators(train_frame, excluded_features=excluded)
-        t_svm = time.time()
-        logger.info(
-            "fold %s fitted %s SVM estimators (%.1fs elapsed)",
-            fold,
-            len(estimators),
-            t_svm - t0,
+        stacked_test = run.block(
+            f"outer-{fold}", test_frame,
+            fit_end=train_frame["date"].max(), score_start=test_frame["date"].min(),
         )
-
-        stacked_test = attach_stacked_svm_columns(test_frame, estimators)
+        if stacked_test is None:
+            if any(run.metric(fold, name, columns) is not None for name, columns in candidates.items()):
+                raise ValueError(f"fold {fold} has candidate metrics without its SVM block")
+            estimators = fit_stacked_svm_estimators(train_frame, excluded_features=excluded)
+            logger.info(
+                "fold %s fitted %s SVM estimators (%.1fs elapsed)",
+                fold, len(estimators), time.time() - t0,
+            )
+            stacked_test = attach_stacked_svm_columns(test_frame, estimators)
+            run.save_block(
+                f"outer-{fold}", test_frame, stacked_test,
+                fit_end=train_frame["date"].max(), score_start=test_frame["date"].min(),
+            )
+        else:
+            logger.info("fold %s SVM outputs restored from validated checkpoint", fold)
         scored_subsets = {}
         for name, columns in candidates.items():
+            saved_metrics = run.metric(fold, name, columns)
+            if saved_metrics is not None:
+                candidate_folds[name].append(saved_metrics)
+                scored_subsets[columns] = (saved_metrics, name)
+                logger.info("fold %s %s restored from validated checkpoint", fold, name)
+                continue
             if columns in scored_subsets:
                 metrics, fitted_as = scored_subsets[columns]
                 candidate_folds[name].append(metrics)
+                run.save_metric(fold, name, columns, metrics)
                 logger.info("fold %s %s = %s (same subset; no additional fit)", fold, name, fitted_as)
                 continue
             expected_features = base_features | set(columns)
@@ -284,6 +370,7 @@ def main(
                 pd.Series(predict(stacked, stacked_test), index=test_frame.index), actual, dates
             )
             candidate_folds[name].append(metrics)
+            run.save_metric(fold, name, columns, metrics)
             scored_subsets[columns] = (metrics, name)
             logger.info(
                 "fold %s %s acc=%.6f rank_ic=%.6f gated_n=%s gated_hit=%.6f gated_avg=%.6f (%.1fs total)",
@@ -322,10 +409,22 @@ def main(
         return accs, ics
 
     base_acc, base_ic = _summarize("baseline", baseline_folds)
+    results = {
+        "baseline": [run.metric(fold, "baseline", ()) for fold in range(1, N_SPLITS + 1)],
+        "candidates": {},
+    }
     for name, folds in candidate_folds.items():
         candidate_acc, candidate_ic = _summarize(name, folds)
         acc_wins = sum(s > b for s, b in zip(candidate_acc, base_acc))
         ic_wins = sum(s > b for s, b in zip(candidate_ic, base_ic))
+        cleared = acc_wins >= 3 and ic_wins >= 3
+        results["candidates"][name] = {
+            "columns": list(candidates[name]),
+            "folds": [
+                run.metric(fold, name, candidates[name]) for fold in range(1, N_SPLITS + 1)
+            ],
+            "acc_wins": acc_wins, "rank_ic_wins": ic_wins, "cleared_fold_bar": cleared,
+        }
         logger.info(
             "%s vs baseline: acc wins %s/%s, rank_ic wins %s/%s (bar %s)",
             name,
@@ -333,14 +432,24 @@ def main(
             N_SPLITS,
             ic_wins,
             N_SPLITS,
-            "cleared" if acc_wins >= 3 and ic_wins >= 3 else "failed",
+            "cleared" if cleared else "failed",
         )
+    run.write_results(results)
+    logger.info("research results=%s", run.run_dir / "results.json")
     logger.info("stacked columns=%s", STACKED_SVM_COLUMNS)
     logger.info("done %.1fs", time.time() - started)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--run-dir", type=Path, required=True, metavar="PATH",
+        help="new directory for immutable manifest and research checkpoints",
+    )
+    parser.add_argument(
+        "--resume", action="store_true",
+        help="resume only if PATH already contains an exactly matching run",
+    )
     parser.add_argument(
         "--exclude-svm", action="append", metavar="NAME[,NAME]",
         help="experiment-only SVM outputs to prune",
@@ -356,4 +465,7 @@ if __name__ == "__main__":
         candidate_columns(excluded_outputs, retained_outputs)
     except ValueError as exc:
         parser.error(str(exc))
-    main(excluded_outputs=excluded_outputs, retained_outputs=retained_outputs)
+    main(
+        args.run_dir, excluded_outputs=excluded_outputs,
+        retained_outputs=retained_outputs, resume=args.resume,
+    )

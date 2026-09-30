@@ -65,8 +65,10 @@ That is the single easiest way to manufacture a win here.
 
 Two clocks — do not mix them:
 
-- **Nightly (fit):** the seven estimators train on all history once and
-  are persisted next to the logistic diagnostic. LinearSVR dominates
+- **Nightly (fit, only if promoted):** the selected estimators would train on
+  all history once and be persisted next to the logistic diagnostic. No
+  nightly SVM fitting or live SVM scoring is wired in while this ADR is
+  Proposed. LinearSVR dominates
   (~35–45 min); the six LinearSVCs are minutes each. This is the 3:30 CT
   retrain, not the morning scan.
 - **Morning (predict):** today's open-known row is already built
@@ -101,7 +103,31 @@ same snapshot discipline: rerun the baseline in the same job.
 ## Work queue
 
 1. `python/stock_picker/training/svr_stack_search.py` — exists; run
-   `bazelisk run //python/stock_picker/training:svr_stack_search`.
+   `bazelisk run //python/stock_picker/training:svr_stack_search -- --run-dir /path/to/persistent/research/svm-trial-001`.
+   Use a persistent directory outside production data and temporary storage.
+   A fresh run requires a new directory. For an interrupted run, repeat
+   the same command and options with `--resume`; the stored manifest must
+   match the actual loaded rows, tickers, feature selection, fold masks,
+   parameters, dependency versions and research source bytes exactly.
+   Provenance includes SciPy's runtime version plus the actual bytes of
+   `requirements.txt`, `MODULE.bazel` and `.bazelversion`; the source tree
+   must remain readable (normal Bazel source symlinks resolve to it).
+   The SQLite checkpoint commits each seven-output OOF block and each
+   fold/candidate metric atomically. It never saves an in-sample SVM value,
+   production feature parquet, model pickle or prune setting. The local
+   checkpoint uses schema version 2 in both the manifest and SQLite
+   `user_version`: seven-output numeric NPZ arrays with
+   `allow_pickle=False` on both save and load. Integer row indexes and
+   UTF-8 JSON metadata encoded as uint8 arrays preserve exact row order,
+   ticker/date identities and canonical column names. Outputs must be
+   real, finite and exactly rows-by-seven; ordinary base-feature NaNs
+   remain valid. Archive members, shapes, dtypes, identities, source/base
+   frame equality, checksums and strictly earlier fit dates are validated
+   before reuse. Checksums detect corruption, not authenticity. There is
+   no pickle fallback or conversion; legacy runs require a fresh directory.
+   Completed metrics are committed per candidate, with aliases reusing the
+   same subset fit. A completed run atomically publishes deterministic
+   `results.json`; resuming a completed run does not repeat fitting.
    Walk-forward, holdout untouched. Each fold fits LinearSVR + six
    LinearSVCs on train, attaches the seven columns, and compares LightGBM
    ablations against a baseline on the same eligible rows. Both train-side
