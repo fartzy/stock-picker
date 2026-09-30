@@ -201,6 +201,14 @@ def test_feature_columns_included_features_still_respects_exclusions():
     assert feature_columns(frame, excluded_features={"signal"}, included_features={"signal", "other"}) == ["other"]
 
 
+def test_feature_columns_positive_selection_cannot_include_target_or_identity():
+    frame = pd.DataFrame(
+        {"ticker": ["A"], "date": pd.to_datetime(["2026-01-02"]), LABEL_COLUMN: [0.01], "signal": [1]}
+    )
+
+    assert feature_columns(frame, included_features=set(frame.columns)) == ["signal"]
+
+
 def test_train_svr_learns_a_clear_signal():
     train_frame = _make_learnable_frame(400, seed=1)
     test_frame = _make_learnable_frame(200, seed=2)

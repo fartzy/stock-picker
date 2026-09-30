@@ -11,26 +11,25 @@ whether seven out-of-fold SVM numbers help LightGBM as extra columns:
   svc_top_quintile_margin      LinearSVC distance to within-day top 20%
   svc_bottom_quintile_margin   LinearSVC distance to within-day bottom 20%
 
-One LinearSVR (the expensive nightly fit) plus six LinearSVC planes that
-each ask a different question. Extra SVRs are not in this search -- each
-would add ~35-45 min nightly for a correlated return forecast.
+One LinearSVR (expensive to fit) plus six LinearSVC planes that each ask a
+different question. These are research candidates, not currently trained
+nightly or scored live. If promoted, the selected SVMs would be fit at night;
+extra SVRs are not in this search because each would add ~35-45 minutes to
+that retrain for a correlated return forecast.
 
-Each fold fits the seven estimators on TRAIN only, attaches their
-outputs to the TEST frame, then fits LightGBM with the full set and two
-ablations against a same-fold solo baseline. The optional --oof-train
-comparison also makes the LightGBM training columns temporal OOF: inner
-walk-forward SVM fits seed the first fold, and each outer fold's OOF test
-columns become training rows for the next fold. Both LightGBM candidates
-use the same eligible training rows in that comparison. Holdout tickers
-are never touched. Does not write production pickles or touch
-PrunedFeatureStore.
+Each fold fits the seven estimators on TRAIN only and attaches their
+outputs to the TEST frame. LightGBM training columns are strictly temporal
+OOF too: inner walk-forward fits seed the first fold, and each outer fold's
+OOF test columns become training rows for the next fold. Solo and stacked
+LightGBM always use the same eligible rows. One SVM fit per seed/outer fold
+feeds every ablation. Holdout tickers are never loaded, and the experiment
+does not write production pickles or touch PrunedFeatureStore.
 
 Promotion bar (ADR 0021): LightGBM-with-the-stacked-columns beats solo
 LightGBM in >=3 of 4 folds on both acc and rank IC. Per-fold lists, not
 just means. Holdout is a later, separate step if this clears.
 
 Run: bazelisk run //python/stock_picker/training:svr_stack_search
-Follow-up: bazelisk run //python/stock_picker/training:svr_stack_search -- --oof-train
 """
 
 from __future__ import annotations
@@ -42,6 +41,7 @@ import numpy as np
 import pandas as pd
 
 from stock_picker.features.pruning import pruned_features
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
@@ -49,8 +49,8 @@ from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.backtest import rank_ic, simulate_trades
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.model import (
-    STACKED_SVM_COLUMNS,
     attach_stacked_svm_columns,
+    feature_columns,
     fit_stacked_svm_estimators,
     predict,
     train_lightgbm,
@@ -62,11 +62,60 @@ logger = get_logger(__name__)
 N_SPLITS = 4
 OOF_SEED_SPLITS = 3
 FIT_THRESHOLD = 0.005
-CANDIDATE_COLUMNS = {
-    "all_seven": STACKED_SVM_COLUMNS,
-    "svr_only": ("svr_oof_pred",),
-    "svc_planes_only": STACKED_SVM_COLUMNS[1:],
-}
+
+
+def _parse_svm_names(values: list[str] | None) -> tuple[str, ...]:
+    """Accept repeated/comma-separated canonical names; reject silent typos."""
+    supplied = [name.strip() for value in values or [] for name in value.split(",")]
+    if any(not name for name in supplied):
+        raise ValueError("SVM feature names cannot be empty")
+    unknown = set(supplied) - set(STACKED_SVM_COLUMNS)
+    if unknown:
+        raise ValueError(f"unknown SVM feature(s): {', '.join(sorted(unknown))}")
+    return tuple(name for name in STACKED_SVM_COLUMNS if name in supplied)
+
+
+def candidate_columns(
+    excluded_outputs: tuple[str, ...] = (),
+    retained_outputs: tuple[str, ...] = (),
+) -> dict[str, tuple[str, ...]]:
+    """Ablations of research outputs, independent of production base pruning.
+
+    ``retained_outputs`` is an explicit experiment-only subset; exclusions
+    are then applied to it. Named aliases are preserved for reporting, while
+    the runner fits LightGBM only once per distinct subset per fold. The SVM
+    input feature set never changes between these candidates.
+    """
+    unknown = (set(excluded_outputs) | set(retained_outputs)) - set(STACKED_SVM_COLUMNS)
+    if unknown:
+        raise ValueError(f"unknown SVM feature(s): {', '.join(sorted(unknown))}")
+    available = tuple(
+        name for name in STACKED_SVM_COLUMNS
+        if (not retained_outputs or name in retained_outputs) and name not in excluded_outputs
+    )
+    if not available:
+        raise ValueError("all SVM outputs were excluded from the experiment")
+
+    proposals = [(f"only_{name}", (name,)) for name in available]
+    proposals.extend(
+        [
+            ("svr_only", tuple(name for name in available if name == "svr_oof_pred")),
+            ("svc_planes_only", tuple(name for name in available if name != "svr_oof_pred")),
+            (
+                "all_seven" if len(available) == len(STACKED_SVM_COLUMNS) else "selected_subset",
+                available,
+            ),
+        ]
+    )
+    proposals.extend(
+        (f"drop_{name}", tuple(other for other in available if other != name))
+        for name in available
+    )
+    candidates = {}
+    for name, columns in proposals:
+        if columns:
+            candidates[name] = columns
+    return candidates
 
 
 def _load_pooled(tickers, price_store, feature_store):
@@ -111,56 +160,70 @@ def _oof_training_views(
     if not stacked_train.index.is_unique or not stacked_train.index.isin(train_frame.index).all():
         raise ValueError("OOF training rows must be a unique subset of the outer training frame")
     baseline_train = train_frame.loc[stacked_train.index]
+    missing = set(STACKED_SVM_COLUMNS) - set(stacked_train.columns)
+    if missing:
+        raise ValueError(f"OOF training rows lack stacked columns: {sorted(missing)}")
     if not baseline_train["date"].equals(stacked_train["date"]):
         raise ValueError("OOF training dates do not match the outer training frame")
+    if not baseline_train.equals(stacked_train.reindex(columns=baseline_train.columns)):
+        raise ValueError("OOF training identities, labels or base features changed")
+    if not np.isfinite(stacked_train[list(STACKED_SVM_COLUMNS)].to_numpy()).all():
+        raise ValueError("OOF training SVM outputs must be finite")
     return baseline_train, stacked_train
 
 
-def main(train_side_oof: bool = False) -> None:
+def main(
+    excluded_outputs: tuple[str, ...] = (),
+    retained_outputs: tuple[str, ...] = (),
+) -> None:
     started = time.time()
     tickers = UniverseStore().active_tickers()
     holdout = select_holdout_tickers(tickers)
     train_tickers = [t for t in tickers if t not in holdout]
     logger.info("train tickers=%s holdout=%s (holdout untouched)", len(train_tickers), len(holdout))
     pooled = _load_pooled(train_tickers, PriceStore(), FeatureStore())
-    excluded = pruned_features()
-    logger.info("rows=%s train_side_oof=%s (%.1fs)", len(pooled), train_side_oof, time.time() - started)
+    if set(STACKED_SVM_COLUMNS) & set(pooled.columns):
+        raise ValueError("SVM outputs must not appear in the production feature snapshot")
+    # Production exclusions apply only to ordinary input features. Which
+    # experimental outputs LightGBM receives is a separate research choice.
+    excluded = pruned_features() - set(STACKED_SVM_COLUMNS)
+    base_features = set(feature_columns(pooled, excluded_features=excluded))
+    candidates = candidate_columns(excluded_outputs, retained_outputs)
+    logger.info(
+        "rows=%s candidates=%s (%.1fs)", len(pooled), list(candidates), time.time() - started
+    )
 
     splits = walk_forward_splits(pooled["date"], n_splits=N_SPLITS)
     oof_training_blocks = []
-    if train_side_oof:
-        # The first outer training block has no earlier outer fold to supply
-        # stacked columns. Three smaller chronological fits cover its later
-        # 75%; the first quarter is warm-up and is excluded from BOTH
-        # LightGBM candidates in every outer fold.
-        first_train = pooled[splits[0][0]]
-        seed_splits = walk_forward_splits(first_train["date"], n_splits=OOF_SEED_SPLITS)
-        for seed_fold, (seed_train_mask, seed_test_mask) in enumerate(seed_splits, start=1):
-            seed_train = first_train[seed_train_mask]
-            seed_test = first_train[seed_test_mask]
-            _require_earlier_dates(seed_train, seed_test)
-            logger.info(
-                "OOF seed %s/%s fit=%s through %s, score=%s from %s",
-                seed_fold,
-                OOF_SEED_SPLITS,
-                len(seed_train),
-                seed_train["date"].max(),
-                len(seed_test),
-                seed_test["date"].min(),
-            )
-            seed_estimators = fit_stacked_svm_estimators(seed_train, excluded_features=excluded)
-            oof_training_blocks.append(attach_stacked_svm_columns(seed_test, seed_estimators))
+    # The first outer training block has no earlier outer fold to supply
+    # stacked columns. Three smaller chronological fits cover its later
+    # 75%; the first quarter is warm-up and is excluded from BOTH
+    # LightGBM candidates in every outer fold.
+    first_train = pooled[splits[0][0]]
+    seed_splits = walk_forward_splits(first_train["date"], n_splits=OOF_SEED_SPLITS)
+    for seed_fold, (seed_train_mask, seed_test_mask) in enumerate(seed_splits, start=1):
+        seed_train = first_train[seed_train_mask]
+        seed_test = first_train[seed_test_mask]
+        _require_earlier_dates(seed_train, seed_test)
+        logger.info(
+            "OOF seed %s/%s fit=%s through %s, score=%s from %s",
+            seed_fold,
+            OOF_SEED_SPLITS,
+            len(seed_train),
+            seed_train["date"].max(),
+            len(seed_test),
+            seed_test["date"].min(),
+        )
+        seed_estimators = fit_stacked_svm_estimators(seed_train, excluded_features=excluded)
+        oof_training_blocks.append(attach_stacked_svm_columns(seed_test, seed_estimators))
 
     baseline_folds = []
-    candidate_folds = {name: [] for name in CANDIDATE_COLUMNS}
+    candidate_folds = {name: [] for name in candidates}
     for fold, (train_mask, test_mask) in enumerate(splits, start=1):
         train_frame = pooled[train_mask]
         test_frame = pooled[test_mask]
         _require_earlier_dates(train_frame, test_frame)
-        if train_side_oof:
-            baseline_train, stacked_train = _oof_training_views(train_frame, oof_training_blocks)
-        else:
-            baseline_train = train_frame
+        baseline_train, stacked_train = _oof_training_views(train_frame, oof_training_blocks)
         t0 = time.time()
         logger.info(
             "fold %s/%s train=%s/%s through %s, test=%s from %s",
@@ -173,6 +236,8 @@ def main(train_side_oof: bool = False) -> None:
             test_frame["date"].min(),
         )
         baseline = train_lightgbm(baseline_train, excluded_features=excluded)
+        if set(baseline.feature_names) != base_features:
+            raise ValueError("baseline did not train on the intended production feature set")
         actual = test_frame[LABEL_COLUMN]
         dates = test_frame["date"]
         baseline_metrics = _fold_metrics(
@@ -200,12 +265,13 @@ def main(train_side_oof: bool = False) -> None:
         )
 
         stacked_test = attach_stacked_svm_columns(test_frame, estimators)
-        if not train_side_oof:
-            # Default bake-off uses in-sample train-side SVM values so
-            # LightGBM has columns to split on. Only test-side metrics count.
-            stacked_train = attach_stacked_svm_columns(train_frame, estimators)
-        base_features = set(baseline.feature_names)
-        for name, columns in CANDIDATE_COLUMNS.items():
+        scored_subsets = {}
+        for name, columns in candidates.items():
+            if columns in scored_subsets:
+                metrics, fitted_as = scored_subsets[columns]
+                candidate_folds[name].append(metrics)
+                logger.info("fold %s %s = %s (same subset; no additional fit)", fold, name, fitted_as)
+                continue
             expected_features = base_features | set(columns)
             stacked = train_lightgbm(
                 stacked_train,
@@ -218,6 +284,7 @@ def main(train_side_oof: bool = False) -> None:
                 pd.Series(predict(stacked, stacked_test), index=test_frame.index), actual, dates
             )
             candidate_folds[name].append(metrics)
+            scored_subsets[columns] = (metrics, name)
             logger.info(
                 "fold %s %s acc=%.6f rank_ic=%.6f gated_n=%s gated_hit=%.6f gated_avg=%.6f (%.1fs total)",
                 fold,
@@ -229,10 +296,9 @@ def main(train_side_oof: bool = False) -> None:
                 metrics["gated_avg"],
                 time.time() - t0,
             )
-        if train_side_oof:
-            # This test block becomes historical training data next fold;
-            # its SVM values were generated from strictly earlier dates.
-            oof_training_blocks.append(stacked_test)
+        # This test block becomes historical training data next fold;
+        # its SVM values were generated from strictly earlier dates.
+        oof_training_blocks.append(stacked_test)
 
     def _summarize(name, folds):
         accs = [f["acc"] for f in folds]
@@ -275,5 +341,19 @@ def main(train_side_oof: bool = False) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--oof-train", action="store_true", help="use chronological OOF SVM columns for LightGBM training rows")
-    main(train_side_oof=parser.parse_args().oof_train)
+    parser.add_argument(
+        "--exclude-svm", action="append", metavar="NAME[,NAME]",
+        help="experiment-only SVM outputs to prune",
+    )
+    parser.add_argument(
+        "--retain-svm", action="append", metavar="NAME[,NAME]",
+        help="experiment-only SVM outputs to retain",
+    )
+    args = parser.parse_args()
+    try:
+        excluded_outputs = _parse_svm_names(args.exclude_svm)
+        retained_outputs = _parse_svm_names(args.retain_svm)
+        candidate_columns(excluded_outputs, retained_outputs)
+    except ValueError as exc:
+        parser.error(str(exc))
+    main(excluded_outputs=excluded_outputs, retained_outputs=retained_outputs)

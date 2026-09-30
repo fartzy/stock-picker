@@ -194,7 +194,11 @@ def feature_columns(
     """
     excluded = excluded_features or set()
     if included_features is not None:
-        return [c for c in frame.columns if c in included_features and c not in excluded]
+        return [
+            c
+            for c in frame.columns
+            if c in included_features and c not in NON_FEATURE_COLUMNS and c not in excluded
+        ]
     return [c for c in frame.columns if c not in NON_FEATURE_COLUMNS and c not in excluded]
 
 

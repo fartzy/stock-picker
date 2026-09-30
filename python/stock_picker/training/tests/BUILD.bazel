@@ -146,6 +146,7 @@ py_pytest(
     imports = ["../../.."],
     deps = [
         "//python/stock_picker/training",
+        "@pypi//numpy",
         "@pypi//pandas",
     ],
 )

@@ -103,10 +103,10 @@ same snapshot discipline: rerun the baseline in the same job.
 1. `python/stock_picker/training/svr_stack_search.py` — exists; run
    `bazelisk run //python/stock_picker/training:svr_stack_search`.
    Walk-forward, holdout untouched. Each fold fits LinearSVR + six
-   LinearSVCs on train, attaches the seven columns, fits LightGBM with
-   and without them. Test-side columns are OOF; train-side columns are
-   in-sample so LightGBM has a column to split on (standard stacking
-   shortcut — scored metrics are the OOF test ones). Background job,
+   LinearSVCs on train, attaches the seven columns, and compares LightGBM
+   ablations against a baseline on the same eligible rows. Both train-side
+   and test-side stacked columns are strictly earlier-date OOF; the first
+   outer fold is seeded with smaller chronological fits. Background job,
    expect the LinearSVR fold times from 0020 (7–43 min/fold).
 2. Read the per-fold lists against the bar above.
 3. Holdout once, or close it out.
