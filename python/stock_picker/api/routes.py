@@ -50,6 +50,7 @@ from stock_picker.api.models import ModelChoice as ModelChoiceModel
 from stock_picker.api.models import ModelTypeInfo as ModelTypeInfoModel
 from stock_picker.api.models import TrainingRunRecord as TrainingRunRecordModel
 from stock_picker.features.benchmark import (
+    fetch_benchmark_history,
     fetch_benchmark_hold,
     fetch_benchmark_overnight,
     fetch_benchmark_returns,
@@ -327,15 +328,19 @@ def get_universe() -> UniverseResponse:
 @router.get("/benchmark-returns")
 def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
     requested = [d for d in dates.split(",") if d]
-    hold_raw = fetch_benchmark_hold(min(requested), max(requested)) if requested else None
+    history = fetch_benchmark_history() if requested else None
+    hold_raw = (
+        fetch_benchmark_hold(min(requested), max(requested), history=history)
+        if history is not None else None
+    )
     hold = (
         BenchmarkHold(start=hold_raw["from"], end=hold_raw["to"], pct=hold_raw["return"])
         if hold_raw
         else None
     )
     return BenchmarkReturnsResponse(
-        returns=fetch_benchmark_returns(requested),
-        overnight=fetch_benchmark_overnight(requested),
+        returns=fetch_benchmark_returns(requested, history=history) if history is not None else {},
+        overnight=fetch_benchmark_overnight(requested, history=history) if history is not None else {},
         hold=hold,
     )
 

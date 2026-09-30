@@ -634,10 +634,11 @@ def test_get_benchmark_returns(client):
     with patch(
         "stock_picker.features.benchmark.download_price_history",
         return_value={"SPY": spy_history},
-    ):
+    ) as download:
         response = client.get("/api/benchmark-returns", params={"dates": "2026-01-01,2026-01-02"})
 
     assert response.status_code == status.HTTP_200_OK
+    download.assert_called_once_with(["SPY"])
     # 2026-01-02 has no matching row in the fixture -- omitted, not erred on.
     assert response.json()["returns"] == {"2026-01-01": (505.0 - 500.0) / 500.0}
     assert response.json()["hold"] is None or "pct" in response.json()["hold"]
