@@ -52,7 +52,12 @@ py_pytest(
     name = "test_news_day_judge",
     srcs = ["test_news_day_judge.py"],
     imports = ["../../.."],
-    deps = ["//python/stock_picker/training"],
+    deps = [
+        "//python/stock_picker:news_check",
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/training",
+        "@pypi//requests",
+    ],
 )
 
 py_pytest(
@@ -86,7 +91,7 @@ py_pytest(
     name = "test_morning_run",
     srcs = ["test_morning_run.py"],
     imports = ["../../.."],
-    deps = ["//python/stock_picker/training"],
+    deps = ["//python/stock_picker:news_check", "//python/stock_picker/training"],
 )
 
 py_pytest(
