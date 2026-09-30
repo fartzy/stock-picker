@@ -48,6 +48,14 @@ def test_no_finnhub_key_is_a_failure_not_an_empty_feed(monkeypatch):
     assert fetch_company_news("TRLV", START, DAY) is None
 
 
+def test_finnhub_article_ids_in_query_strings_are_not_collapsed():
+    rows = [article(f"Story {i}", url=f"https://finnhub.io/api/news?id={i}") for i in range(5)]
+    rows.append(article("Duplicate with updated title", url="https://finnhub.io/api/news?id=2&utm_source=feed"))
+    result = sources.merge_news_sources({"finnhub": rows}, START, DAY, NOW)
+    assert len(result.articles) == 5
+    assert {row["url"] for row in result.articles} == {f"https://finnhub.io/api/news?id={i}" for i in range(5)}
+
+
 def test_polygon_normalizes_articles_and_reports_pagination(monkeypatch):
     calls = []
     monkeypatch.setattr(sources, "polygon_api_key", lambda: "dummy-key")

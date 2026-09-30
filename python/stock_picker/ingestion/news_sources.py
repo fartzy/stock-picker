@@ -11,7 +11,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date, datetime, time, timedelta, timezone
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from zoneinfo import ZoneInfo
 
 import requests
@@ -114,7 +114,14 @@ def merge_news_sources(
             url = str(article.get("url") or "").strip()
             try:
                 parts = urlsplit(url)
-                url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+                # Finnhub's public article links use /api/news?id=... . Only
+                # tracking parameters are disposable; dropping id collapses
+                # unrelated articles from the same endpoint into one story.
+                query = urlencode([
+                    (key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True)
+                    if not key.lower().startswith("utm_") and key.lower() not in {"gclid", "fbclid"}
+                ])
+                url = urlunsplit((parts.scheme, parts.netloc, parts.path, query, ""))
             except ValueError:
                 url = ""
             identity = re.sub(r"\W+", " ", headline).casefold().strip()
