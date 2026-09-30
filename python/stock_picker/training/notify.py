@@ -22,6 +22,10 @@ def _news_suffix(row: dict) -> str:
 
     flag = row.get("news_flag")
     if not flag:
+        check = row.get("news_check") or {}
+        state = check.get("status")
+        if state in {"degraded", "error", "not_checked"}:
+            return f"  NEWS {state.replace('_', ' ')}"
         return ""
     if news_blocks_buy(flag, row.get("open_price"), row.get("prev_close")):
         return f"  SKIP {flag}"

@@ -18,6 +18,7 @@ import pandas as pd
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 from stock_picker.features.quotes import fetch_ticker_quotes
 from stock_picker.parallel import BUCKET_SIZE, WORKERS
+from stock_picker.news_check import NewsCheck, apply_news_checks
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
@@ -64,6 +65,7 @@ class BuySignal:
     news_flag: str | None = None
     news_checked: bool = False
     prev_close: float | None = None
+    news_check: dict | None = None
 
 
 @dataclass
@@ -122,7 +124,7 @@ def compute_buy_signals(
     price_store: PriceStore | None = None,
     quote_fetcher: Callable[[list[str]], dict[str, dict]] = fetch_ticker_quotes,
     earnings_fetcher: Callable[[list[str], date], set[str]] | None = None,
-    news_fetcher: Callable[[list[str], date], dict[str, str]] | None = None,
+    news_fetcher: Callable[[list[str], date], dict[str, NewsCheck | str]] | None = None,
     model_name: str | None = None,
     top_k: int | None = None,
     live_rows: list[LiveRow] | None = None,
@@ -208,15 +210,12 @@ def compute_buy_signals(
     # Tests pass news_fetcher=None (no network). Morning / live API pass
     # Finnhub so only the recommended names get a company-news lookup.
     if news_fetcher is not None and signals:
+        names = [signal.ticker for signal in signals]
         try:
-            flags = news_fetcher([signal.ticker for signal in signals], as_of) or {}
-        except TypeError:
-            flags = {}
-        for signal in signals:
-            # This path judges every returned name in one shot, so all are
-            # checked -- a blank News column here means "clear", not "pending".
-            signal.news_flag = flags.get(signal.ticker)
-            signal.news_checked = True
+            checks = news_fetcher(names, as_of) or {}
+        except Exception:
+            checks = {name: NewsCheck(status="error", issues=["check_failed"]) for name in names}
+        apply_news_checks(signals, names, checks)
     blended_importance = sorted(ensemble_importance(ensemble).items(), key=lambda item: item[1], reverse=True)
     top_drivers = blended_importance[:TOP_DRIVER_COUNT]
 

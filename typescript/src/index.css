@@ -136,6 +136,16 @@ section + section {
   color: var(--text-muted);
 }
 
+.news-check {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.news-check-warning {
+  color: #a65a00;
+}
+
 .summary-line {
   font-size: var(--text-body);
   color: var(--text-muted);

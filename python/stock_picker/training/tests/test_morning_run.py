@@ -1,6 +1,9 @@
 from types import SimpleNamespace
+from datetime import date
 
 from stock_picker.training import morning as m
+from stock_picker.news_check import NewsCheck
+from stock_picker.training.buy_signal import BuySignal, BuySignalResult
 
 
 def test_second_lock_fails_while_first_is_held(tmp_path, monkeypatch):
@@ -77,6 +80,33 @@ def test_run_morning_skips_when_a_scan_is_already_running(tmp_path, monkeypatch)
     assert m.run_morning(ignore_disabled=True) == 0
     assert quotes_called == []
     held.close()
+
+
+def test_later_successful_news_batches_are_saved_even_without_flags(monkeypatch):
+    freshness = SimpleNamespace(feature_snapshot_date="2026-09-29", model_trained_through="2026-09-29",
+                                ready_for_inference=True, detail="ready")
+    monkeypatch.setattr(m, "pipeline_freshness", lambda: freshness)
+    monkeypatch.setattr("stock_picker.storage.ticker_blacklist_store.blacklisted_tickers", lambda: set())
+    monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: []))
+    monkeypatch.setattr(m, "TrainingConfigStore", lambda: SimpleNamespace(read=lambda: SimpleNamespace(selected_run_id=None)))
+    monkeypatch.setattr(m, "ModelStore", lambda: SimpleNamespace(exists=lambda name: False))
+    monkeypatch.setattr(m, "FeatureStore", lambda: None)
+    monkeypatch.setattr(m, "PriceStore", lambda: None)
+    monkeypatch.setattr(m, "prepare_live_rows", lambda **kwargs: [])
+    def result(n):
+        return BuySignalResult("2026-09-30", 0.005, [BuySignal(f"T{i}", 0.01, 10, "2026-09-29") for i in range(n)])
+    monkeypatch.setattr(m, "compute_rank_signals", lambda **kwargs: result(12))
+    monkeypatch.setattr(m, "compute_buy_signals", lambda **kwargs: result(3))
+    saved = []
+    monkeypatch.setattr(m, "_write_signals", lambda payload, *args: saved.append(payload))
+    monkeypatch.setattr(m, "write_picks_files", lambda *args: None)
+    monkeypatch.setattr(m, "publish_picks", lambda *args: None)
+    m.score_from_quotes({}, as_of=date(2026, 9, 30), earnings_fetcher=lambda *args: set(),
+                        news_fetcher=lambda names, day: {name: NewsCheck(status="no_news", article_count=0, reviewed_count=0) for name in names})
+    ranks = [payload for payload in saved if payload.get("kind") == "rank"]
+    assert len(ranks) == 4  # Initial publish, then all three news batches.
+    assert all(row["news_checked"] for row in ranks[-1]["signals"])
+    assert all(row["news_check"]["status"] == "no_news" for row in ranks[-1]["signals"])
 
 
 

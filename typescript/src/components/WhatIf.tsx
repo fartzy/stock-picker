@@ -212,7 +212,7 @@ function ListTable({
               cell: (row) => <PickMoney outcome={row.hypothetical} /> },
             { key: "ending", header: "End value", numeric: true,
               cell: (row) => <PickMoney outcome={row.hypothetical} ending /> },
-            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} /> },
+            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} check={row.news_check} /> },
           ]}
         />
       </div>
