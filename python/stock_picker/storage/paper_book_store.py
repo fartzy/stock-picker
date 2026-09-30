@@ -6,6 +6,7 @@ column and not a Fidelity fill. One row per (day, list kind, rank).
 
 from __future__ import annotations
 
+import json
 import sqlite3
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -26,6 +27,7 @@ CREATE TABLE IF NOT EXISTS paper_picks (
     session_return REAL,
     news_flag TEXT,
     news_checked INTEGER NOT NULL DEFAULT 0,
+    news_check TEXT,
     prev_close REAL,
     scan_id TEXT NOT NULL DEFAULT '',
     model_run_id TEXT,
@@ -49,6 +51,7 @@ class PaperPick:
     prev_close: float | None = None
     scan_id: str = ""
     model_run_id: str | None = None
+    news_check: dict | None = None
 
 
 class PaperBookStore:
@@ -72,6 +75,8 @@ class PaperBookStore:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_flag TEXT")
         if "news_checked" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_checked INTEGER NOT NULL DEFAULT 0")
+        if "news_check" not in columns:
+            conn.execute("ALTER TABLE paper_picks ADD COLUMN news_check TEXT")
         if "prev_close" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN prev_close REAL")
         if "scan_id" not in columns:
@@ -84,8 +89,8 @@ class PaperBookStore:
             conn.execute("DELETE FROM paper_picks WHERE scan_id = ''")
             conn.executemany(
                 "INSERT INTO paper_picks "
-                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id, news_check) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     (
                         p.as_of,
@@ -101,6 +106,7 @@ class PaperBookStore:
                         p.prev_close,
                         p.scan_id,
                         p.model_run_id,
+                        json.dumps(p.news_check) if p.news_check is not None else None,
                     )
                     for p in picks
                 ],
@@ -110,18 +116,21 @@ class PaperBookStore:
         with self._connect() as conn:
             rows = conn.execute(
                 "SELECT as_of, kind, rank, ticker, predicted, open_price, close_price, "
-                "session_return, news_flag, news_checked, prev_close, scan_id, model_run_id "
+                "session_return, news_flag, news_checked, prev_close, scan_id, model_run_id, news_check "
                 "FROM paper_picks ORDER BY as_of, scan_id, kind, rank"
             ).fetchall()
-        return [PaperPick(**dict(row)) for row in rows]
+        return [
+            PaperPick(**{**dict(row), "news_check": json.loads(row["news_check"]) if row["news_check"] else None})
+            for row in rows
+        ]
 
     def replace_scan(self, as_of: str, scan_id: str, picks: list[PaperPick]) -> None:
         with self._connect() as conn:
             conn.execute("DELETE FROM paper_picks WHERE as_of = ? AND scan_id = ?", (as_of, scan_id))
             conn.executemany(
                 "INSERT INTO paper_picks "
-                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(as_of, kind, rank, ticker, predicted, open_price, close_price, session_return, news_flag, news_checked, prev_close, scan_id, model_run_id, news_check) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     (
                         p.as_of,
@@ -137,6 +146,7 @@ class PaperBookStore:
                         p.prev_close,
                         p.scan_id,
                         p.model_run_id,
+                        json.dumps(p.news_check) if p.news_check is not None else None,
                     )
                     for p in picks
                 ],

@@ -142,6 +142,7 @@ function MorningList({
                       flag={signal.news_flag}
                       blocks={newsBlocksBuy(signal.news_flag, signal.open_price, prev)}
                       checked={signal.news_checked}
+                      check={signal.news_check}
                     />
                   );
                 },

@@ -46,7 +46,7 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
                 cell: (pick) => <ScoreCell value={pick.predicted_return} isRank={isRank} />,
               },
               { key: "open", header: "Fake open", numeric: true, cell: (pick) => <UsdCell value={pick.open_price} /> },
-              { key: "news", header: "News", cell: (pick) => <NewsCell flag={pick.news_flag} checked={pick.news_checked} /> },
+              { key: "news", header: "News", cell: (pick) => <NewsCell flag={pick.news_flag} checked={pick.news_checked} check={pick.news_check} /> },
             ]}
           />
         </div>

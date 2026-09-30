@@ -19,7 +19,7 @@ from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD
 from stock_picker.training.morning import score_from_quotes
-from stock_picker.training.news_day_judge import fetch_recent_news_flags
+from stock_picker.training.news_day_judge import fetch_recent_news_checks
 
 
 Status = Literal["idle", "running", "completed", "failed"]
@@ -104,6 +104,7 @@ def _pick_rows(signals) -> list[dict]:
             "snapshot_date": s.snapshot_date,
             "news_flag": s.news_flag,
             "news_checked": getattr(s, "news_checked", False),
+            "news_check": getattr(s, "news_check", None),
             "prev_close": getattr(s, "prev_close", None),
             "news_blocks": False,
         }
@@ -154,7 +155,7 @@ def run_morning_check(
     which: Which = "both",
     universe: UniverseStore | None = None,
     prices: PriceStore | None = None,
-    news_fetcher=fetch_recent_news_flags,
+    news_fetcher=fetch_recent_news_checks,
     progress=None,
 ) -> MorningCheckStatus:
     """`progress`, if given, is called with a partial (status="running")

@@ -323,8 +323,8 @@ def fetch_company_news(
 ) -> list[dict] | None:
     key = api_key if api_key is not None else finnhub_api_key()
     if not key:
-        return []
-    client = session or requests.Session()
+        return None
+    client = session or requests
     try:
         response = client.get(
             FINNHUB_COMPANY_NEWS_URL,

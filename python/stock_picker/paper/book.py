@@ -147,7 +147,7 @@ def rebuild_paper_book(
         need_news: list[str] = []
         for _, signals, _ in day_signals:
             for signal in signals:
-                if not signal.get("news_flag"):
+                if not signal.get("news_flag") and not signal.get("news_check") and not signal.get("news_checked"):
                     need_news.append(signal["ticker"])
         unique_need = sorted(set(need_news))
         # Short lists only -- a 992-name Fit day would take minutes on Finnhub.
@@ -191,7 +191,7 @@ def rebuild_paper_book(
                         session_return = (close_px / open_px) - 1.0
                 cached_flag = signal.get("news_flag")
                 news_flag = cached_flag or fetched_news.get(ticker)
-                news_checked = 1 if (cached_flag is not None or ticker in fetched_news or news_fetcher is not None) else 0
+                news_checked = int(bool(signal.get("news_checked") or cached_flag is not None or ticker in fetched_news or news_fetcher is not None))
                 if cached_flag:
                     news_checked = 1
                 elif fetched_news or news_fetcher is not None:
@@ -208,6 +208,7 @@ def rebuild_paper_book(
                         session_return=session_return,
                         news_flag=news_flag,
                         news_checked=news_checked,
+                        news_check=signal.get("news_check"),
                         prev_close=prev_close,
                         scan_id="",
                         model_run_id=model_run_id,
@@ -349,6 +350,8 @@ def paper_book_view(
                 "close_price": pick.close_price,
                 "session_return": pick.session_return,
                 "news_flag": pick.news_flag,
+                "news_checked": bool(pick.news_checked),
+                "news_check": pick.news_check or {"status": "unknown"},
                 "news_blocks": news_blocks_buy(pick.news_flag, pick.open_price, pick.prev_close),
             }
         )

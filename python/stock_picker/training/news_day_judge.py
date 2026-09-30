@@ -1,6 +1,6 @@
 """After Rank/Fit pick names: AVOID only on BIG news, good or bad.
 
-Trial blow-up, FDA reject/approval, dilution, bankruptcy, takeover,
+Trial blow-up, sector/regulatory catalysts, FDA reject/approval, dilution, takeover,
 halt-pending-news -- skip the name. Analyst initiate, modest beat,
 pre-market roundup -- trust the tape. Grok if keyed; else a Tfidf +
 event-phrase logistic model. Not "any headline".
@@ -12,15 +12,18 @@ import json
 import os
 import re
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
 
-from stock_picker.ingestion.finnhub_client import fetch_news_articles
+from stock_picker.ingestion.finnhub_client import MAX_NEWS_TICKERS, fetch_news_articles
+from stock_picker.ingestion.news_sources import NewsCoverage, fetch_news_coverage
+from stock_picker.news_check import NewsCheck
 from stock_picker.news_skip import news_blocks_buy
 from stock_picker.training.headline_sentiment import news_flag_from_articles as material_flag
 from stock_picker.training.langfuse_local import trace_news_judge
+from stock_picker.training.news_policy import NEWS_SYSTEM_PROMPT, regulatory_news_flag
 
 XAI_API_KEY_ENV = "XAI_API_KEY"
 XAI_KEY_FILE = Path.home() / ".config" / "api" / "xai.txt"
@@ -30,19 +33,9 @@ LLM_PROXY_API_KEY_ENV = "LLM_PROXY_API_KEY"
 GROK_CONFIG = Path.home() / ".grok" / "config.toml"
 DEFAULT_PROXY_MODEL = "grok-4-fast-non-reasoning"
 JUDGE_TIMEOUT_SECONDS = 20
-MAX_HEADLINES = 5
+MAX_HEADLINES = 20
 
-_SYSTEM = (
-    "We day-trade open-to-close using a price-pattern model. "
-    "AVOID only if this is BIG company news that will dominate the session "
-    "-- crash OR mania: trial hold/fail, FDA reject or approval, dilution/"
-    "offering, bankruptcy, takeover/buyout, trading halt pending news, "
-    "CEO ouster, guidance collapse. "
-    "TRUST the tape for routine items: analyst initiate/upgrade, modest "
-    "earnings beat, conference, index add, pre-market roundup that merely "
-    "mentions the ticker. "
-    "Reply with JSON only: {\"avoid\": true or false, \"reason\": \"short phrase\"}."
-)
+_SYSTEM = NEWS_SYSTEM_PROMPT
 
 
 def _grok_config_model() -> dict:
@@ -95,11 +88,25 @@ def llm_api_key(key_file: Path = XAI_KEY_FILE) -> str | None:
     if proxy:
         return proxy
     cfg = _grok_config_model()
-    env_name = str(cfg.get("env_key") or "").strip()
-    if env_name:
+    configured_base = str(cfg.get("base_url") or "").strip().rstrip("/")
+    override_base = os.environ.get(LLM_PROXY_BASE_URL_ENV, "").strip().rstrip("/")
+    if override_base and override_base != configured_base:
+        return xai_api_key(key_file=key_file) if llm_chat_url() == XAI_CHAT_URL else None
+    # Grok supports an inline key in its owner-only local config. Read it in
+    # memory; never copy credentials into scan payloads, logs, or the checkout.
+    inline = str(cfg.get("api_key") or "").strip()
+    if inline:
+        return inline
+    env_names = cfg.get("env_key") or []
+    if isinstance(env_names, str):
+        env_names = [env_names]
+    for env_name in env_names:
         from_env = os.environ.get(env_name, "").strip()
         if from_env:
             return from_env
+    # A personal xAI key must not be sent to a configured proxy by accident.
+    if llm_chat_url() != XAI_CHAT_URL:
+        return None
     return xai_api_key(key_file=key_file)
 
 
@@ -127,7 +134,8 @@ def _headlines(articles: list[dict]) -> list[str]:
     for article in articles[:MAX_HEADLINES]:
         headline = str(article.get("headline") or "").strip()
         if headline:
-            out.append(headline)
+            summary = str(article.get("summary") or "").strip()
+            out.append(f"{headline[:500]}\nSummary: {summary[:1500]}" if summary else headline[:500])
     return out
 
 
@@ -139,6 +147,8 @@ def _parse_judge(text: str) -> tuple[bool, str] | None:
     try:
         payload = json.loads(match.group(0))
     except json.JSONDecodeError:
+        return None
+    if not isinstance(payload, dict):
         return None
     avoid = payload.get("avoid")
     if avoid is True:
@@ -191,7 +201,7 @@ def flag_from_articles(ticker: str, articles: list[dict]) -> str | None:
         avoid, reason = judged
         trace_news_judge(ticker, headlines, "grok", avoid, reason or None)
         return reason if avoid else None
-    flagged = material_flag(articles)
+    flagged = regulatory_news_flag(articles) or material_flag(articles)
     trace_news_judge(ticker, headlines, "tfidf", flagged is not None, flagged)
     return flagged
 
@@ -227,3 +237,62 @@ def fetch_recent_news_flags(tickers: list[str], as_of: date) -> dict[str, str]:
             if flag:
                 flags[ticker] = flag
     return flags
+
+
+def check_news_coverage(ticker: str, coverage: NewsCoverage) -> NewsCheck:
+    """A completed attempt is not necessarily a successful news check."""
+    articles = coverage.articles
+    check = NewsCheck(
+        article_count=len(articles), reviewed_count=0,
+        sources=list(coverage.sources), issues=list(coverage.issues),
+        checked_at=datetime.now(timezone.utc).isoformat(), articles=articles,
+    )
+    if not check.sources:
+        check.status = "error"
+        return check
+    if not articles:
+        check.status = "degraded" if check.issues else "no_news"
+        return check
+    headlines = _headlines(articles)
+    judged = grok_judge(ticker, headlines)
+    if judged is None:
+        check.judge = "classifier"
+        check.issues.append("llm_unavailable")
+        check.flag = regulatory_news_flag(articles) or material_flag(articles)
+        check.reviewed_count = len(articles)
+    else:
+        avoid, reason = judged
+        check.judge = "grok"
+        check.flag = reason if avoid else None
+        check.reviewed_count = len(headlines)
+        if len(articles) > len(headlines):
+            check.issues.append("review_truncated")
+            unseen = articles[MAX_HEADLINES:]
+            check.flag = check.flag or regulatory_news_flag(unseen) or material_flag(unseen)
+    check.status = "degraded" if check.issues else "complete"
+    trace_news_judge(ticker, headlines, check.judge, bool(check.flag), check.flag)
+    return check
+
+
+def fetch_recent_news_checks(tickers: list[str], as_of: date) -> dict[str, NewsCheck]:
+    """Prior weekday through now/as_of, using both feeds for every pick."""
+    names = list(dict.fromkeys(tickers))
+    if not names:
+        return {}
+    start = as_of - timedelta(days=1)
+    while start.weekday() >= 5:
+        start -= timedelta(days=1)
+    selected = names[:MAX_NEWS_TICKERS]
+    coverage = fetch_news_coverage(selected, start, as_of)
+
+    def check_one(ticker: str) -> tuple[str, NewsCheck]:
+        evidence = coverage.get(ticker, NewsCoverage(issues=["feeds_unavailable"]))
+        return ticker, check_news_coverage(ticker, evidence)
+
+    with ThreadPoolExecutor(max_workers=min(NEWS_JUDGE_WORKERS, len(selected))) as pool:
+        results = dict(pool.map(check_one, selected))
+    results.update({
+        name: NewsCheck(status="not_checked", issues=["ticker_limit"])
+        for name in names[MAX_NEWS_TICKERS:]
+    })
+    return results

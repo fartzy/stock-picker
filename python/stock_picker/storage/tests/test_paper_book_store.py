@@ -1,4 +1,5 @@
 from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
+import sqlite3
 
 
 def test_replace_all_round_trips(tmp_path):
@@ -35,3 +36,25 @@ def test_replace_all_clears_previous_rows(tmp_path):
 
     loaded = store.read()
     assert [p.ticker for p in loaded] == ["TDTH"]
+
+
+def test_legacy_database_migration_preserves_rows_and_news_evidence(tmp_path):
+    from stock_picker.storage.paper_book_store import _SCHEMA
+
+    with sqlite3.connect(tmp_path / "paper_book.db") as conn:
+        conn.executescript(_SCHEMA.replace("    news_check TEXT,\n", ""))
+        conn.execute("INSERT INTO paper_picks (as_of, kind, rank, ticker) VALUES ('2026-09-30', 'rank', 1, 'TRLV')")
+    store = PaperBookStore(data_dir=tmp_path)
+    assert store.read()[0].ticker == "TRLV"
+    assert store.read()[0].news_check is None
+    evidence = {"status": "degraded", "article_count": 3, "issues": ["llm_unavailable"]}
+    pick = store.read()[0]
+    pick.news_check = evidence
+    store.replace_all([pick])
+    replay = PaperPick("2026-09-30", "fit", 1, "TRLV", None, None, None, None,
+                       scan_id="replay", news_check={"status": "not_checked"})
+    store.replace_scan("2026-09-30", "replay", [replay])
+    # Reopening also runs migration again; both live/replay evidence survive.
+    rows = PaperBookStore(data_dir=tmp_path).read()
+    assert rows[0].news_check == evidence
+    assert rows[1].news_check == {"status": "not_checked"}
