@@ -1,4 +1,4 @@
-import type { PaperBookDay, PaperBookResponse, PaperListStats, PaperPickRow } from "./api";
+import type { BenchmarkReturnsResponse, PaperBookDay, PaperBookResponse, PaperListStats, PaperPickRow } from "./api";
 
 export const DEFAULT_TRADE_SIZE = 10_000;
 export const TRADE_SIZE_OPTIONS = [3_000, 4_000, 5_000, 6_000, 8_000, 10_000, 15_000, 20_000] as const;
@@ -42,6 +42,26 @@ export interface SimulatedBook extends Omit<PaperBookResponse, "days"> {
   rank_money: MoneySummary;
   from: string | null;
   through: string;
+}
+
+export type StrategyKind = Exclude<PickKind, "both">;
+
+export interface BenchmarkMeasure {
+  pnl: number | null;
+  pct: number | null;
+}
+
+export interface StrategyBenchmark {
+  intraday: BenchmarkMeasure;
+  hold: BenchmarkMeasure;
+  matchedDays: number;
+  activeDays: number;
+  /** Capital available for the matched SPY day sessions. */
+  intradayCapital: number;
+  /** A fixed SPY buy-and-hold stake, rather than capital summed across days. */
+  holdCapital: number | null;
+  holdFrom: string | null;
+  holdThrough: string | null;
 }
 
 interface SimulationOptions {
@@ -142,4 +162,123 @@ export function simulateBook(data: PaperBookResponse, options: SimulationOptions
     fit_money: moneySummary(fit, tradeSizes.fit), rank_money: moneySummary(rank, tradeSizes.rank),
     n_picks: fit.length + rank.length,
   };
+}
+
+/** Replays and unscored/skipped picks never create benchmark exposure. A date
+ * appears once even if the live book contains multiple rows for that session.
+ */
+function strategyCapitalByDay(book: SimulatedBook, kind: StrategyKind): Map<string, number> {
+  const capital = new Map<string, number>();
+  for (const day of book.days) {
+    if (day.scan_id) continue;
+    const invested = kind === "rank" ? day.rank_money.invested : day.fit_money.invested;
+    if (invested > 0) capital.set(day.as_of, (capital.get(day.as_of) ?? 0) + invested);
+  }
+  return capital;
+}
+
+/** Only completed, active live dates are sent to the shared SPY endpoint. */
+export function benchmarkDates(book: SimulatedBook, kind: StrategyKind): string[] {
+  return [...strategyCapitalByDay(book, kind).keys()].sort();
+}
+
+/** Match SPY's day sessions to the strategy's invested capital on each day.
+ * Buy-and-hold uses one fixed stake (average active-day capital) from the
+ * first selected day's open to the last selected day's close. The API's
+ * first-close to last-close return is chained after the first day's session.
+ */
+export function compareStrategyToBenchmark(
+  book: SimulatedBook,
+  kind: StrategyKind,
+  benchmark: BenchmarkReturnsResponse | null,
+): StrategyBenchmark {
+  const capitalByDay = strategyCapitalByDay(book, kind);
+  const dates = [...capitalByDay.keys()].sort();
+  const activeDays = dates.length;
+  const totalCapital = [...capitalByDay.values()].reduce((sum, value) => sum + value, 0);
+  const holdCapital = activeDays ? totalCapital / activeDays : null;
+
+  let matchedDays = 0;
+  let intradayCapital = 0;
+  let intradayPnl = 0;
+  for (const [date, capital] of capitalByDay) {
+    const sessionReturn = benchmark?.returns[date];
+    if (sessionReturn === undefined || !Number.isFinite(sessionReturn)) continue;
+    matchedDays += 1;
+    intradayCapital += capital;
+    intradayPnl += capital * sessionReturn;
+  }
+  const intradayDollars = matchedDays ? cents(intradayPnl) / 100 : null;
+
+  const hold = benchmark?.hold;
+  const firstSession = benchmark?.returns[dates[0]];
+  const hasFullHoldInterval = activeDays > 0
+    && hold?.start === dates[0]
+    && hold?.end === dates[activeDays - 1]
+    && Number.isFinite(hold.pct)
+    && firstSession !== undefined && Number.isFinite(firstSession);
+  const holdPct = hasFullHoldInterval ? (1 + firstSession!) * (1 + hold!.pct) - 1 : null;
+  const holdDollars = holdPct === null ? null : cents(holdCapital! * holdPct) / 100;
+
+  return {
+    intraday: {
+      pnl: intradayDollars,
+      pct: intradayDollars === null ? null : intradayDollars / intradayCapital,
+    },
+    hold: {
+      pnl: holdDollars,
+      pct: holdPct,
+    },
+    matchedDays,
+    activeDays,
+    intradayCapital,
+    holdCapital,
+    holdFrom: hasFullHoldInterval ? hold!.start : null,
+    holdThrough: hasFullHoldInterval ? hold!.end : null,
+  };
+}
+
+export interface BenchmarkLoad {
+  response: BenchmarkReturnsResponse | null;
+  error: string | null;
+}
+
+export interface StrategyBenchmarkResponses {
+  rankKey: string;
+  fitKey: string;
+  rank: BenchmarkLoad;
+  fit: BenchmarkLoad;
+}
+
+/** Independent requests: one failing strategy must not hide the other.
+ * Identical date lists share a request; historical lists can be cached by the
+ * caller, while current-day lists are always refetched to avoid stale closes.
+ */
+export async function loadStrategyBenchmarks(
+  rankDates: string[],
+  fitDates: string[],
+  fetcher: (dates: string[]) => Promise<BenchmarkReturnsResponse>,
+  historicalCache?: Map<string, Promise<BenchmarkLoad>>,
+  today?: string,
+): Promise<StrategyBenchmarkResponses> {
+  const requests = new Map<string, Promise<BenchmarkLoad>>();
+  const get = (dates: string[]): Promise<BenchmarkLoad> => {
+    const key = dates.join(",");
+    if (!dates.length) return Promise.resolve({ response: null, error: null });
+    if (!requests.has(key)) {
+      const isHistorical = today !== undefined && dates.every((date) => date < today);
+      const cached = isHistorical ? historicalCache?.get(key) : undefined;
+      const request = cached ?? fetcher(dates)
+        .then((response): BenchmarkLoad => ({ response, error: null }))
+        .catch((error): BenchmarkLoad => {
+          historicalCache?.delete(key); // A failed request must be retried on the next selection.
+          return { response: null, error: String(error) };
+        });
+      if (isHistorical && historicalCache && !cached) historicalCache.set(key, request);
+      requests.set(key, request);
+    }
+    return requests.get(key)!;
+  };
+  const [rank, fit] = await Promise.all([get(rankDates), get(fitDates)]);
+  return { rankKey: rankDates.join(","), fitKey: fitDates.join(","), rank, fit };
 }

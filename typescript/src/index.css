@@ -1409,6 +1409,58 @@ details.view-card[open] > summary::before {
   font-family: var(--sans);
 }
 
+.what-if-benchmark {
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.what-if-benchmark-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px var(--space-2);
+}
+
+.what-if-benchmark-label {
+  color: var(--text-muted);
+}
+
+.what-if-benchmark-value {
+  display: inline-flex;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.what-if-benchmark-loading {
+  font-size: var(--text-caption);
+}
+
+.what-if-benchmark-help {
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.what-if-benchmark-help summary {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.what-if-benchmark-help summary:hover,
+.what-if-benchmark-help summary:focus-visible {
+  color: var(--text);
+}
+
+.what-if-benchmark-help p {
+  margin: var(--space-2) 0 0;
+  max-width: 60ch;
+}
+
 .list-toggle {
   display: inline-flex;
   gap: var(--space-2);
