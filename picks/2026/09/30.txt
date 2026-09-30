@@ -3,10 +3,10 @@ Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
  1  TRLV          1.0047       10.85
- 2  CBRS          0.7945      180.52
+ 2  CBRS          0.7945      180.52  SKIP Cerebras Systems: Benchmark Numbers Do Not Make This A Winner
  3  MBLY          0.3550        7.26
  4  APP           0.3048      296.12
- 5  MRNA          0.3037      188.08
+ 5  MRNA          0.3037      188.08  SKIP Wall Street Breakfast Podcast: Federal Boost For Navitas
  6  LBRT          0.2766       18.00
  7  SIND          0.2651       13.53
  8  KEN           0.2647       62.92
@@ -22,3 +22,16 @@ Relative scores (not percents). Not the 0.5% gate.
 18  NOC           0.2440      485.61
 19  CENX          0.2420       36.03
 20  AADX          0.2417       11.88
+
+stockpicker picks for 2026-09-30
+Features through 2026-09-29, model trained through 2026-09-29 -- ready for this morning's opens.
+scored 1771 · 5 cleared 0.5% · showing top 5
+
+ticker      pred%        open
+MRNA        9.01%      188.08  SKIP Wall Street Breakfast Podcast: Federal Boost For Navitas
+TRLV        2.77%       10.85
+FICO        1.80%      605.60
+CBRS        1.49%      180.52  SKIP Cerebras Systems: Benchmark Numbers Do Not Make This A Winner
+RGC         1.02%        6.23
+
+Skipped earnings: MU, JBL, FDS, JEF, KMX, CAG, UEC, CALM
