@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { DEFAULT_TRADE_SIZE, TRADE_SIZE_OPTIONS, simulateBook, simulatePick, simulationDay } from "../src/whatIf.js";
+import {
+  benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
+  simulateBook, simulatePick, simulationDay,
+} from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
   ticker: "AAA", rank: 1, predicted: 0.01, open_price: 100, close_price: null,
@@ -153,4 +156,135 @@ test("single-strategy and empty selections remain consistent", () => {
   const empty = simulateBook(book([]), options);
   assert.equal(empty.rank_money.pnl, null);
   assert.equal(empty.fit_money.endingValue, null);
+});
+
+test("Rank and Fit SPY comparisons honor independent sizing, top K and active dates", () => {
+  const result = simulateBook(book([
+    day("2026-09-29", [pick(0.01), pick(0.02, { rank: 2 }), pick(0.9, { rank: 3 })], [pick(0.01)]),
+    day("2026-09-28", [pick(0.01)], [pick(null)]),
+  ]), { ...options, tradeSizes: { rank: 10_000, fit: 5_000 } });
+  assert.deepEqual(benchmarkDates(result, "rank"), ["2026-09-28", "2026-09-29"]);
+  assert.deepEqual(benchmarkDates(result, "fit"), ["2026-09-29"]);
+  const spy = {
+    returns: { "2026-09-28": -0.01, "2026-09-29": 0.02 },
+    hold: { start: "2026-09-28", end: "2026-09-29", pct: 0.03 },
+  };
+  const rank = compareStrategyToBenchmark(result, "rank", spy);
+  assert.deepEqual(rank.intraday, { pnl: 300, pct: 0.01 });
+  assert.equal(rank.intradayCapital, 30_000);
+  assert.equal(rank.holdCapital, 15_000);
+  assert.ok(Math.abs(rank.hold.pct - 0.0197) < 1e-12);
+  assert.equal(rank.hold.pnl, 295.5);
+  const fit = compareStrategyToBenchmark(result, "fit", spy);
+  assert.deepEqual(fit.intraday, { pnl: 100, pct: 0.02 });
+  assert.equal(fit.holdCapital, 5_000);
+  assert.deepEqual(fit.hold, { pnl: null, pct: null }); // This response covers Rank's different interval.
+});
+
+test("skips, pending closes, and replay rows do not create SPY exposure", () => {
+  const result = simulateBook(book([
+    day("2026-09-29", [pick(0.01, { news_blocks: true }), pick(null, { rank: 2 })]),
+    day("2026-09-28", [pick(0.01), pick(0.02, { rank: 2 })]),
+    day("2026-09-28", [pick(0.5)], [], { scan_id: "replay" }),
+  ]), options);
+  assert.deepEqual(benchmarkDates(result, "rank"), ["2026-09-28"]);
+  const rank = compareStrategyToBenchmark(result, "rank", {
+    returns: { "2026-09-28": -0.01, "2026-09-29": 0.5 },
+    hold: { start: "2026-09-28", end: "2026-09-29", pct: 0.1 },
+  });
+  assert.equal(rank.activeDays, 1);
+  assert.deepEqual(rank.intraday, { pnl: -200, pct: -0.01 });
+  assert.equal(rank.hold.pnl, null);
+});
+
+test("missing SPY sessions are excluded from the intraday denominator, not treated as flat", () => {
+  const result = simulateBook(book([
+    day("2026-09-29", [pick(0.01), pick(0.01, { rank: 2 })]),
+    day("2026-09-25", [pick(0.01)]),
+  ]), options);
+  const rank = compareStrategyToBenchmark(result, "rank", {
+    returns: { "2026-09-25": 0.01 },
+    hold: { start: "2026-09-25", end: "2026-09-29", pct: -0.02 },
+  });
+  assert.equal(rank.matchedDays, 1);
+  assert.equal(rank.activeDays, 2);
+  assert.equal(rank.intradayCapital, 10_000);
+  assert.deepEqual(rank.intraday, { pnl: 100, pct: 0.01 });
+  assert.equal(rank.holdCapital, 15_000);
+  assert.ok(Math.abs(rank.hold.pct - (-0.0102)) < 1e-12);
+  assert.equal(rank.hold.pnl, -153); // First day's open, then continuous hold through intervening days.
+  assert.deepEqual(compareStrategyToBenchmark(result, "rank", null).intraday, { pnl: null, pct: null });
+});
+
+test("missing or shifted SPY hold interval is never presented as the selected interval", () => {
+  const result = simulateBook(book([
+    day("2026-09-29", [pick(0.01)]), day("2026-09-28", [pick(0.01)]),
+  ]), options);
+  for (const hold of [null, { start: "2026-09-27", end: "2026-09-29", pct: 0.01 },
+    { start: "2026-09-28", end: "2026-09-29", pct: NaN }]) {
+    const comparison = compareStrategyToBenchmark(result, "rank", { returns: {}, hold });
+    assert.deepEqual(comparison.hold, { pnl: null, pct: null });
+    assert.equal(comparison.holdFrom, null);
+  }
+});
+
+test("duplicate tickers remain distinct selected picks; invalid SPY returns never produce NaN", () => {
+  const result = simulateBook(book([
+    day("2026-09-29", [pick(0.01), pick(0.02, { rank: 2 })]),
+  ]), options);
+  assert.equal(result.rank_money.completed, 2);
+  const missing = compareStrategyToBenchmark(result, "rank", { returns: { "2026-09-29": NaN } });
+  assert.equal(missing.intraday.pnl, null);
+  assert.equal(missing.intraday.pct, null);
+  assert.equal(missing.intradayCapital, 0);
+  const flat = compareStrategyToBenchmark(result, "rank", { returns: { "2026-09-29": 0 } });
+  assert.deepEqual(flat.intraday, { pnl: 0, pct: 0 });
+});
+
+test("a one-day SPY buy-and-hold is that day's open-to-close return", () => {
+  const result = simulateBook(book([day("2026-09-29", [pick(0.01)])]), options);
+  const hold = { start: "2026-09-29", end: "2026-09-29", pct: 0 };
+  const comparison = compareStrategyToBenchmark(result, "rank", {
+    returns: { "2026-09-29": 0.025 }, hold,
+  });
+  assert.equal(comparison.hold.pnl, 250);
+  assert.ok(Math.abs(comparison.hold.pct - 0.025) < 1e-12);
+  assert.equal(comparison.holdCapital, 10_000);
+  assert.deepEqual(compareStrategyToBenchmark(result, "rank", { returns: {}, hold }).hold,
+    { pnl: null, pct: null }); // First open is unknown.
+});
+
+test("benchmark loads deduplicate matching date sets and keep strategy failures independent", async () => {
+  const calls = [];
+  const fetcher = async (dates) => {
+    calls.push(dates.join(","));
+    if (dates[0] === "2026-09-28") throw new Error("old API: 404");
+    return { returns: { "2026-09-29": 0.01 } };
+  };
+  const result = await loadStrategyBenchmarks(["2026-09-28"], ["2026-09-29"], fetcher);
+  assert.match(result.rank.error, /404/);
+  assert.equal(result.rank.response, null);
+  assert.equal(result.fit.error, null);
+  assert.equal(result.fit.response.returns["2026-09-29"], 0.01);
+  const shared = await loadStrategyBenchmarks(["2026-09-29"], ["2026-09-29"], fetcher);
+  assert.equal(shared.rank, shared.fit);
+  assert.deepEqual(calls, ["2026-09-28", "2026-09-29", "2026-09-29"]);
+});
+
+test("historical benchmark cache reuses successes, retries failures, and never caches today", async () => {
+  const cache = new Map();
+  let calls = 0;
+  const fetcher = async () => {
+    calls += 1;
+    if (calls === 1) throw new Error("temporary");
+    return { returns: { "2026-09-28": 0.01, "2026-09-29": 0.02 } };
+  };
+  const first = await loadStrategyBenchmarks(["2026-09-28"], [], fetcher, cache, "2026-09-29");
+  assert.match(first.rank.error, /temporary/);
+  await loadStrategyBenchmarks(["2026-09-28"], [], fetcher, cache, "2026-09-29");
+  await loadStrategyBenchmarks(["2026-09-28"], [], fetcher, cache, "2026-09-29");
+  assert.equal(calls, 2);
+  await loadStrategyBenchmarks(["2026-09-29"], [], fetcher, cache, "2026-09-29");
+  await loadStrategyBenchmarks(["2026-09-29"], [], fetcher, cache, "2026-09-29");
+  assert.equal(calls, 4);
 });

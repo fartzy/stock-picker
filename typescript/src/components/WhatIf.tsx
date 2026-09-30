@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
+  fetchBenchmarkReturns,
   fetchPaperBook,
   fetchTrainingRuns,
   rebuildPaperBook,
@@ -12,9 +13,11 @@ import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from
 import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
-  DEFAULT_TRADE_SIZE, LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
+  benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
+  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
+  type BenchmarkLoad,
   type LookbackDays, type MoneySummary, type PickKind, type PickOutcome,
-  type SimulatedDay, type SimulatedPick, type TradeSizes,
+  type SimulatedDay, type SimulatedPick, type StrategyBenchmark, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
@@ -81,13 +84,37 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
   ];
 }
 
-function StrategySummary({ title, topK, days, stats, money }: {
+function BenchmarkLine({ label, pnl, pct, detail, hint }: {
+  label: string;
+  pnl: number | null;
+  pct: number | null;
+  detail: string;
+  hint: string;
+}) {
+  return (
+    <div className="what-if-benchmark-line" title={hint}>
+      <span className="what-if-benchmark-label">{label} <span className="muted">{detail}</span></span>
+      <span className="what-if-benchmark-value"><Dollars value={pnl} /> <Pct value={pct} /></span>
+    </div>
+  );
+}
+
+function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError }: {
   title: string;
   topK: number | undefined;
   days: number;
   stats: PaperListStats | undefined;
   money: MoneySummary;
+  benchmark: StrategyBenchmark;
+  benchmarkLoading: boolean;
+  benchmarkError: string | null;
 }) {
+  const intradayDetail = benchmark.activeDays
+    ? `${benchmark.matchedDays}/${benchmark.activeDays}d`
+    : "no completed days";
+  const holdDetail = benchmark.holdFrom && benchmark.holdThrough
+    ? `${benchmark.holdFrom} → ${benchmark.holdThrough}`
+    : "unavailable";
   return (
     <div className="view-card slice-card" aria-label={`${title} simulation total`}>
       <div className="slice-card-kicker">
@@ -105,6 +132,32 @@ function StrategySummary({ title, topK, days, stats, money }: {
           ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
         ]} />
       </p>
+      <div className="what-if-benchmark" aria-label={`${title} S&P comparisons`}>
+        {benchmarkLoading && <span className="muted what-if-benchmark-loading">Loading S&P…</span>}
+        {benchmarkError && <span className="error what-if-benchmark-loading" role="status">S&P unavailable: benchmark request failed.</span>}
+        {!benchmarkLoading && !benchmarkError && benchmark.activeDays > 0 && benchmark.matchedDays === 0 && (
+          <span className="muted what-if-benchmark-loading" role="status">S&P data unavailable for these days.</span>
+        )}
+        <BenchmarkLine
+          label="S&P intraday"
+          pnl={benchmark.intraday.pnl}
+          pct={benchmark.intraday.pct}
+          detail={intradayDetail}
+          hint={`SPY open→close on ${benchmark.matchedDays} matched completed days; ${formatUsd(benchmark.intradayCapital)} of selected daily capital. Missing SPY days are excluded.`}
+        />
+        <BenchmarkLine
+          label="S&P buy & hold"
+          pnl={benchmark.hold.pnl}
+          pct={benchmark.hold.pct}
+          detail={holdDetail}
+          hint="One SPY stake from the first selected day's open through the last selected day's close."
+        />
+        <details className="what-if-benchmark-help">
+          <summary>ⓘ How S&P is sized</summary>
+          <p>Intraday: SPY open→close on matched completed days, using each day’s invested capital. Missing SPY days are excluded.</p>
+          <p>Buy &amp; hold: first selected day’s open→last selected day’s close, including intervening sessions. One stake of {benchmark.holdCapital === null ? "—" : formatUsd(benchmark.holdCapital)} (average completed-day capital), not a new stake each day. The first day’s SPY return and both endpoint closes must be available.</p>
+        </details>
+      </div>
     </div>
   );
 }
@@ -323,18 +376,31 @@ export default function WhatIf() {
   const [rebuildError, setRebuildError] = useState<string | null>(null);
   const [replayDay, setReplayDay] = useState("");
   const [replayModel, setReplayModel] = useState("live");
+  const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
   const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [refresh] });
   const { data: trainingRuns } = useFetchData(fetchTrainingRuns, { deps: [] });
-
-  if (error) return <p className="error">{error}</p>;
-  if (!raw) return <p className="muted">Loading…</p>;
-
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
-  const data = simulateBook(raw, {
+  const data = raw ? simulateBook(raw, {
     kind, fitTopK: fitAsked, rankTopK: rankAsked, tradeSizes, lookbackDays, asOf: simulationDay(),
-  });
+  }) : null;
+  const rankDates = data && rankOn ? benchmarkDates(data, "rank") : [];
+  const fitDates = data && fitOn ? benchmarkDates(data, "fit") : [];
+  const rankKey = rankDates.join(",");
+  const fitKey = fitDates.join(",");
+  const { data: benchmarkData } = useFetchData(
+    () => loadStrategyBenchmarks(rankDates, fitDates, fetchBenchmarkReturns, benchmarkCache.current, simulationDay())
+      .then((result) => ({ ...result, revision: refresh })),
+    { deps: [rankKey, fitKey, refresh] },
+  );
+
+  if (error) return <p className="error">{error}</p>;
+  if (!raw || !data) return <p className="muted">Loading…</p>;
+  const currentBenchmarks = benchmarkData?.revision === refresh && benchmarkData.rankKey === rankKey
+    && benchmarkData.fitKey === fitKey ? benchmarkData : null;
+  const rankBenchmark = currentBenchmarks?.rank ?? null;
+  const fitBenchmark = currentBenchmarks?.fit ?? null;
 
   return (
     <div>
@@ -359,6 +425,7 @@ export default function WhatIf() {
             setRebuildError(null);
             try {
               await rebuildPaperBook();
+              benchmarkCache.current.clear();
               setRefresh((n) => n + 1);
             } catch (err) {
               setRebuildError(String(err));
@@ -428,11 +495,17 @@ export default function WhatIf() {
           <div className="slice-result">
             {rankOn && (
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
-                stats={data.rank_stats} money={data.rank_money} />
+                stats={data.rank_stats} money={data.rank_money}
+                benchmark={compareStrategyToBenchmark(data, "rank", rankBenchmark?.response ?? null)}
+                benchmarkLoading={rankDates.length > 0 && !rankBenchmark}
+                benchmarkError={rankBenchmark?.error ?? null} />
             )}
             {fitOn && (
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
-                stats={data.fit_stats} money={data.fit_money} />
+                stats={data.fit_stats} money={data.fit_money}
+                benchmark={compareStrategyToBenchmark(data, "fit", fitBenchmark?.response ?? null)}
+                benchmarkLoading={fitDates.length > 0 && !fitBenchmark}
+                benchmarkError={fitBenchmark?.error ?? null} />
             )}
           </div>
           {data.days.map((day) => (
