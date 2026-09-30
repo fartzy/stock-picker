@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_run_store import TrainingRunStore
@@ -212,6 +213,9 @@ def test_get_catalog(client):
     assert "momentum" in body["catalog"]
     assert "return_1d" in body["descriptions"]
     assert "return_1d" in body["formulas"]
+    assert set(body["experimental_features"]) == set(STACKED_SVM_COLUMNS)
+    assert all(body["experimental_features"][name]["computation"] for name in STACKED_SVM_COLUMNS)
+    assert not set(STACKED_SVM_COLUMNS).intersection(body["formulas"])
 
 
 def test_get_coverage(client):
@@ -430,6 +434,17 @@ def test_set_then_get_feature_selection(client):
 
     get_response = client.get("/api/feature-selection")
     assert get_response.json() == {"included_features": ["return_1d", "return_2d"]}
+
+
+def test_experimental_svm_feature_cannot_enter_production_selection(client):
+    response = client.post(
+        "/api/feature-selection",
+        json={"included_features": ["return_1d", STACKED_SVM_COLUMNS[0]]},
+    )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert STACKED_SVM_COLUMNS[0] in response.json()["detail"]
+    assert client.get("/api/feature-selection").json() == {"included_features": None}
 
 
 def test_clear_feature_selection_resets_to_no_selection(client):
@@ -707,6 +722,10 @@ def test_get_registry(client):
     assert body["entities"][0]["name"] == "ticker"
     assert {view["name"] for view in body["feature_views"]} == set(list_feature_columns(synthetic_history(n=140)))
     assert body["feature_services"][0]["name"] == "day_session_return_model"
+    assert body["experimental_views"][0]["status"] == "experimental"
+    assert body["experimental_views"][0]["features"] == list(STACKED_SVM_COLUMNS)
+    assert "svm_derived" not in body["feature_services"][0]["feature_views"]
+    assert "ttl_days" not in body["experimental_views"][0]
 
 
 def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):

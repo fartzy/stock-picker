@@ -301,7 +301,8 @@ def test_train_svc_bottom_quintile_ranks_the_right_tail():
 def test_attach_stacked_svm_columns_adds_the_seven_adr_0021_columns():
     train_frame = _make_learnable_frame(400, seed=1)
     test_frame = _make_learnable_frame(200, seed=2)
-    stacked = attach_stacked_svm_columns(test_frame, fit_stacked_svm_estimators(train_frame))
+    estimators = fit_stacked_svm_estimators(train_frame)
+    stacked = attach_stacked_svm_columns(test_frame, estimators)
 
     assert list(STACKED_SVM_COLUMNS) == [
         "svr_oof_pred",
@@ -312,6 +313,7 @@ def test_attach_stacked_svm_columns_adds_the_seven_adr_0021_columns():
         "svc_top_quintile_margin",
         "svc_bottom_quintile_margin",
     ]
+    assert set(estimators) == set(STACKED_SVM_COLUMNS)
     for column in STACKED_SVM_COLUMNS:
         assert column in stacked.columns
         assert stacked[column].notna().all()

@@ -62,6 +62,7 @@ from stock_picker.features.catalog import (
     correlation_matrix,
     coverage_report,
     describe_all,
+    experimental_features,
     examples_all,
     list_feature_columns,
     top_correlated_pairs,
@@ -75,8 +76,9 @@ from stock_picker.features.price_history import (
 )
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
-from stock_picker.features.registry import TICKER_ENTITY, build_registry
+from stock_picker.features.registry import TICKER_ENTITY, build_registry, experimental_views
 from stock_picker.features.selection import selected_features
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.features.trades import (
     position_summaries,
     time_weighted_working_by_day,
@@ -117,6 +119,7 @@ def get_catalog() -> CatalogResponse:
         descriptions=describe_all(history),
         formulas=compute_formulas_all(history),
         examples=examples_all(history),
+        experimental_features={name: asdict(feature) for name, feature in experimental_features().items()},
     )
 
 
@@ -463,6 +466,12 @@ def get_feature_selection() -> FeatureSelectionResponse:
 
 @router.post("/feature-selection")
 def set_feature_selection(body: FeatureSelectionRequest) -> FeatureSelectionResponse:
+    experimental = sorted(set(body.included_features) & set(STACKED_SVM_COLUMNS))
+    if experimental:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"SVM-derived research outputs cannot be selected for production training: {', '.join(experimental)}",
+        )
     TrainingConfigStore().write_included_features(set(body.included_features))
     return FeatureSelectionResponse(included_features=sorted(body.included_features))
 
@@ -673,4 +682,5 @@ def get_registry() -> RegistryResponse:
         entities=[asdict(TICKER_ENTITY)],
         feature_views=[asdict(view) for view in feature_views],
         feature_services=[asdict(service) for service in feature_services],
+        experimental_views=[asdict(view) for view in experimental_views()],
     )

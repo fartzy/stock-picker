@@ -29,6 +29,7 @@ from stock_picker.features import (
 from stock_picker.features.descriptions import describe_feature
 from stock_picker.features.examples import feature_example
 from stock_picker.features.formulas import describe_computation
+from stock_picker.features.stacked_svm import SVM_DERIVED_FEATURES, ExperimentalFeature
 
 _SINGLE_TICKER_BUILDERS = {
     "momentum": momentum.build_momentum_features,
@@ -122,6 +123,15 @@ def examples_all(sample_history: pd.DataFrame) -> dict[str, str]:
         for columns in catalog.values()
         for column in columns
     }
+
+
+def experimental_features() -> dict[str, ExperimentalFeature]:
+    """Training-layer candidates, deliberately absent from pipeline columns.
+
+    They have prose computation/examples rather than persisted coverage or a
+    pandas formula because their values depend on fitted SVM estimators.
+    """
+    return {feature.name: feature for feature in SVM_DERIVED_FEATURES}
 
 
 def coverage_report(feature_tables: dict[str, pd.DataFrame]) -> pd.DataFrame:

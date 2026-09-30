@@ -14,6 +14,8 @@ import {
   type CatalogResponse,
   type CorrelationResponse,
   type CoverageResponse,
+  type ExperimentalFeature,
+  type ExperimentalFeatureView,
   type FeatureSelectionResponse,
   type FeatureView,
   type ImportanceResponse,
@@ -26,6 +28,7 @@ import {
   IMPORTANCE_GRADIENT_MAX_PCT,
   NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD,
 } from "../theme";
+import { experimentalRegistrySections } from "../experimentalRegistry";
 import { useFetchData } from "../useFetchData";
 
 // Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
@@ -120,6 +123,41 @@ function MetaGrid({ view }: { view: FeatureView }) {
         </div>
       ))}
     </div>
+  );
+}
+
+function ExperimentalViewSection({
+  view,
+  features,
+}: {
+  view: ExperimentalFeatureView;
+  features: Record<string, ExperimentalFeature>;
+}) {
+  return (
+    <details className="view-card registry-category">
+      <summary>
+        <strong style={{ color: "var(--accent)" }}>SVM-derived · experimental</strong>
+        <span className="muted">{view.features.length} research candidates</span>
+      </summary>
+      <div className="view-features">
+        <p className="muted">{view.description} Values are computed during walk-forward trials.</p>
+        {view.features.map((name) => {
+          const feature = features[name];
+          if (!feature) return null;
+          return (
+            <details className="feature-row row-hover" key={name}>
+              <summary className="feature-row-header">
+                <span className="feature-name">{name}</span>
+                <span className="muted">research only</span>
+              </summary>
+              <div className="feature-desc">{feature.description}</div>
+              <div className="feature-example"><span className="feature-example-label">How computed</span> {feature.computation}</div>
+              <div className="feature-example"><span className="feature-example-label">e.g.</span> {feature.example}</div>
+            </details>
+          );
+        })}
+      </div>
+    </details>
   );
 }
 
@@ -517,6 +555,13 @@ export default function Registry({
         </details>
         );
       })}
+      {experimentalRegistrySections(registry, catalog).map(({ view, features }) => (
+        <ExperimentalViewSection
+          key={view.name}
+          view={view}
+          features={features}
+        />
+      ))}
     </div>
   );
 }

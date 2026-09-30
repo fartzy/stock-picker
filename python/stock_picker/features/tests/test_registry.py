@@ -1,7 +1,8 @@
 from datetime import date
 
 from stock_picker.features.catalog import list_feature_columns
-from stock_picker.features.registry import DEFAULT_TTL_DAYS, build_registry, check_freshness
+from stock_picker.features.registry import DEFAULT_TTL_DAYS, build_registry, check_freshness, experimental_views
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
 
 
@@ -25,6 +26,16 @@ def test_build_registry_feature_service_references_every_view():
     assert len(feature_services) == 1
     service = feature_services[0]
     assert set(service.feature_views) == {v.name for v in feature_views}
+    assert "svm_derived" not in service.feature_views
+
+
+def test_experimental_view_is_separate_from_production_service():
+    views = experimental_views()
+
+    assert len(views) == 1
+    assert views[0].status == "experimental"
+    assert tuple(views[0].features) == STACKED_SVM_COLUMNS
+    assert not hasattr(views[0], "ttl_days")
 
 
 def test_cross_sectional_view_is_tagged_cross_ticker():

@@ -15,6 +15,7 @@ from datetime import date, timedelta
 import pandas as pd
 
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 
 TICKER_ENTITY_NAME = "ticker"
 
@@ -65,6 +66,17 @@ class FeatureService:
 
 
 @dataclass
+class ExperimentalFeatureView:
+    """Research metadata, intentionally not a persisted production FeatureView."""
+
+    name: str
+    features: list[str]
+    source: str
+    status: str
+    description: str
+
+
+@dataclass
 class FreshnessResult:
     ok: bool
     age_days: int
@@ -104,6 +116,19 @@ def build_registry(sample_history: pd.DataFrame) -> tuple[list[FeatureView], lis
     ]
 
     return feature_views, feature_services
+
+
+def experimental_views() -> list[ExperimentalFeatureView]:
+    """Research-only views; never attach these to a production FeatureService."""
+    return [
+        ExperimentalFeatureView(
+            name="svm_derived",
+            features=list(STACKED_SVM_COLUMNS),
+            source="Walk-forward SVM estimators in training research",
+            status="experimental",
+            description="Trial-only model outputs, not persisted pipeline features or live inputs yet. If they pass validation, nightly SVM fits can feed LightGBM.",
+        )
+    ]
 
 
 def _weekdays_elapsed(start: date, end: date) -> int:
