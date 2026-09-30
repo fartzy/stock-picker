@@ -33,6 +33,8 @@ import {
 import { useFetchData } from "../useFetchData";
 
 const TRADE_TIMEZONE = "America/New_York";
+// Session closes and imported fills can change while this view stays open.
+const REFRESH_INTERVAL_MS = 60_000;
 
 function roundUsd(value: number): number {
   return Math.round(value * 100) / 100;
@@ -472,6 +474,7 @@ export default function TradeHistory() {
   const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
+    intervalMs: REFRESH_INTERVAL_MS,
   });
 
   const openPositions = useMemo(
@@ -490,9 +493,11 @@ export default function TradeHistory() {
   const days = useMemo(() => dayGroups.map(([day]) => day), [dayGroups]);
   const { data: benchmarkData } = useFetchData<BenchmarkReturnsResponse>(
     () => (days.length > 0 ? fetchBenchmarkReturns(days) : Promise.resolve({ returns: {} })),
-    { deps: [days.join(",")] },
+    { deps: [days.join(",")], intervalMs: REFRESH_INTERVAL_MS },
   );
-  const { data: feesData } = useFetchData<FeesResponse>(fetchFees);
+  const { data: feesData } = useFetchData<FeesResponse>(fetchFees, {
+    intervalMs: REFRESH_INTERVAL_MS,
+  });
 
   if (error) return <p className="error">{error}</p>;
   if (!data) return <p className="muted">Loading trade history...</p>;
