@@ -25,22 +25,31 @@ export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?:
   }
   const count = check.article_count;
   const articles = count == null ? "" : ` · ${count} article${count === 1 ? "" : "s"}`;
+  const classifierOnly = check.status === "degraded" && check.issues.length === 1 && check.issues[0] === "llm_unavailable";
   const labels: Record<NewsCheckDetails["status"], string> = {
     complete: "reviewed",
-    no_news: "no articles found",
-    degraded: "limited check",
-    error: "check failed",
+    no_news: "no recent articles",
+    degraded: classifierOnly ? "AI unavailable" : "limited news check",
+    error: "news check failed",
     not_checked: "not checked",
     unknown: "coverage not recorded",
   };
+  let coverageLabel = `${labels[check.status] ?? "coverage not recorded"}${articles}`;
+  if (check.status === "no_news" || check.status === "error") {
+    coverageLabel = labels[check.status];
+  } else if (classifierOnly && count != null) {
+    coverageLabel = `${labels.degraded} · ${count} article${count === 1 ? "" : "s"} screened`;
+  }
   const detail = [
-    check.reviewed_count != null ? `${check.reviewed_count} of ${count ?? "?"} articles reviewed` : "",
+    check.reviewed_count != null && count !== 0
+      ? `${check.reviewed_count} of ${count ?? "?"} articles ${check.judge === "classifier" ? "screened by local classifier" : "reviewed"}`
+      : "",
     check.sources.length ? `Sources: ${check.sources.join(", ")}` : "",
     ...check.issues.map((issue) => ISSUE_LABELS[issue] ?? "Incomplete news coverage"),
     check.checked_at ? `Checked ${new Date(check.checked_at).toLocaleString()}` : "",
   ].filter(Boolean).join(". ");
   return {
-    label: `${labels[check.status] ?? "coverage not recorded"}${articles}`,
+    label: flag ? "" : coverageLabel,
     detail,
     warning: check.status === "degraded" || check.status === "error",
   };
