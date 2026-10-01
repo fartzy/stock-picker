@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 from stock_picker.training.morning import load_cached_signals
 
 ET = ZoneInfo("America/New_York")
+CT = ZoneInfo("America/Chicago")
 
 
 def test_load_cached_signals_returns_today_payload(tmp_path):
@@ -53,6 +54,21 @@ def test_after_the_bell_latest_is_ok(tmp_path):
 
     loaded = load_cached_signals(signal_dir=tmp_path, kind="fit", now=evening)
     assert loaded["signals"][0]["ticker"] == "TRLV"
+
+
+def test_late_chicago_evening_keeps_todays_saved_scan(tmp_path):
+    from stock_picker.storage.scan_store import ScanStore
+
+    ScanStore(data_dir=tmp_path).write(
+        "2026-09-30",
+        "rank",
+        {"as_of": "2026-09-30", "kind": "rank", "signals": [{"ticker": "WED"}]},
+    )
+    late_evening = datetime(2026, 9, 30, 23, 5, tzinfo=CT)
+
+    loaded = load_cached_signals(signal_dir=tmp_path, kind="rank", now=late_evening)
+
+    assert loaded["signals"][0]["ticker"] == "WED"
 
 
 def test_write_signals_lands_under_the_app_data_dir(tmp_path):
