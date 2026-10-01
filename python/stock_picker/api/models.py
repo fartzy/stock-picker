@@ -52,11 +52,24 @@ class SetLiveModelRequest(BaseModel):
 # ---- responses ----
 
 
+class ExperimentalFeature(BaseModel):
+    name: str
+    description: str
+    computation: str
+    example: str
+
+
+class ModelDerivedFeature(ExperimentalFeature):
+    status: Literal["production_eligible"]
+
+
 class CatalogResponse(BaseModel):
     catalog: dict[str, list[str]]
     descriptions: dict[str, str]
     formulas: dict[str, str]
     examples: dict[str, str]
+    experimental_features: dict[str, ExperimentalFeature]
+    model_derived_features: dict[str, ModelDerivedFeature]
 
 
 class CoverageResponse(BaseModel):
@@ -301,10 +314,36 @@ class FeatureService(BaseModel):
     description: str
 
 
+class ExperimentalFeatureView(BaseModel):
+    name: str
+    features: list[str]
+    source: str
+    status: str
+    description: str
+
+
+class ModelDerivedFeatureView(ExperimentalFeatureView):
+    status: Literal["production_eligible"]
+
+
 class RegistryResponse(BaseModel):
     entities: list[Entity]
     feature_views: list[FeatureView]
     feature_services: list[FeatureService]
+    experimental_views: list[ExperimentalFeatureView]
+    model_derived_views: list[ModelDerivedFeatureView]
+
+
+class NewsCheckDetails(BaseModel):
+    status: Literal["complete", "no_news", "degraded", "error", "not_checked", "unknown"]
+    flag: str | None = None
+    article_count: int | None = None
+    reviewed_count: int | None = None
+    judge: str | None = None
+    sources: list[str] = Field(default_factory=list)
+    issues: list[str] = Field(default_factory=list)
+    checked_at: str | None = None
+    articles: list[dict] = Field(default_factory=list)
 
 
 class NewsCheckDetails(BaseModel):

@@ -1,6 +1,6 @@
 #!/bin/zsh
-# Weekday morning scoring at 8:30:10 CT. launchd fires at 8:30; we wait
-# 10s so Polygon day.o has the opening cross (~8:30:01–8:30:03).
+# Start Bazel before the bell. Python gates the first Polygon pull to
+# 8:30:05 CT and retries missing opens until 8:33 CT.
 set -euo pipefail
 
 ROOT="${STOCK_PICKER_ROOT:-/Users/michael.artz/dev/stock-picker}"
@@ -14,7 +14,6 @@ export BUILD_WORKING_DIRECTORY="$ROOT"
 
 {
   echo "===== $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
-  sleep 10
   echo "===== score $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
   bazelisk run //python/stock_picker/training:morning
   echo "===== done $(date '+%Y-%m-%d %H:%M:%S %Z') ====="

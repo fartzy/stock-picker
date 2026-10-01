@@ -1,6 +1,6 @@
 """Weekday morning scoring: today's opens through last night's model.
 
-Runs at 8:30:10 CT. Rank and Fit predict on one shared open-known matrix.
+Starts before 8:30 CT; first Polygon snapshot is gated to 8:30:05 CT.
 Rank is published as soon as Rank finishes (target ~8:35 CT).
 """
 
@@ -16,7 +16,7 @@ from stock_picker.ingestion.session import CHICAGO_TIMEZONE, cash_session_date, 
 from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
-from stock_picker.features.quotes import fetch_ticker_quotes
+from stock_picker.ingestion.quote_providers import fetch_morning_quotes, wait_for_morning_snapshot
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
@@ -394,6 +394,10 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
             send_email(subject, body),
         )
         return 1
+    if not ignore_disabled:
+        # launchd prestarts Bazel at 08:29; evaluate the backup switch at
+        # 08:30:05 so a last-minute UI choice still takes effect.
+        wait_for_morning_snapshot()
     if not ignore_disabled and not TrainingConfigStore().read().morning_job_enabled:
         logger.warning("morning job disabled -- skipping scheduled run")
         return 0
@@ -407,7 +411,7 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         return 0
 
     try:
-        quotes = fetch_ticker_quotes(UniverseStore().active_tickers())
+        quotes = fetch_morning_quotes(UniverseStore().active_tickers())
         logger.info("quotes=%s", len(quotes))
         freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
             quotes, threshold=threshold, persist=True

@@ -21,6 +21,20 @@ export interface CatalogResponse {
   descriptions: Record<string, string>;
   formulas: Record<string, string>;
   examples: Record<string, string>;
+  // Optional while an older API process is still serving after a frontend deploy.
+  experimental_features?: Record<string, ExperimentalFeature>;
+  model_derived_features?: Record<string, ModelDerivedFeature>;
+}
+
+export interface ExperimentalFeature {
+  name: string;
+  description: string;
+  computation: string;
+  example: string;
+}
+
+export interface ModelDerivedFeature extends ExperimentalFeature {
+  status: "production_eligible";
 }
 
 export interface ImportanceResponse {
@@ -246,10 +260,30 @@ export interface FeatureService {
   description: string;
 }
 
+export interface ExperimentalFeatureView {
+  name: string;
+  features: string[];
+  source: string;
+  status: "experimental";
+  description: string;
+}
+
+
+export interface ModelDerivedFeatureView {
+  name: string;
+  features: string[];
+  source: string;
+  status: "production_eligible";
+  description: string;
+}
+
 export interface RegistryResponse {
   entities: { name: string; description: string }[];
   feature_views: FeatureView[];
   feature_services: FeatureService[];
+  // Optional while an older API process is still serving after a frontend deploy.
+  experimental_views?: ExperimentalFeatureView[];
+  model_derived_views?: ModelDerivedFeatureView[];
 }
 
 export interface PrunedFeatureEntry {
