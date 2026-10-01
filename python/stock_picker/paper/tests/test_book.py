@@ -3,7 +3,7 @@ from datetime import date
 import pandas as pd
 
 from stock_picker.paper.book import load_paper_book, paper_book_view, rebuild_paper_book
-from stock_picker.storage.paper_book_store import PaperBookStore
+from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.scan_store import ScanStore
 
@@ -72,6 +72,63 @@ def test_paper_book_view_slices_fit_and_rank_separately():
 def test_load_paper_book_does_not_rebuild(tmp_path):
     book = PaperBookStore(data_dir=tmp_path / "paper")
     assert load_paper_book(paper_store=book) == []
+
+
+def test_rebuild_one_completed_day_preserves_history_and_replays(tmp_path):
+    scans = ScanStore(data_dir=tmp_path / "scans")
+    scans.write(
+        "2026-09-30",
+        "rank",
+        {"as_of": "2026-09-30", "kind": "rank", "signals": [
+            {"ticker": "WED", "predicted_return": 0.2, "open_price": 10.0, "news_checked": True}
+        ]},
+    )
+    prices = PriceStore(data_dir=tmp_path / "prices")
+    prices.write(
+        "WED",
+        pd.DataFrame(
+            {"Open": [10.0], "Close": [11.0]},
+            index=pd.DatetimeIndex(["2026-09-30"]),
+        ),
+    )
+    book = PaperBookStore(data_dir=tmp_path / "paper")
+    older = PaperPick("2026-09-29", "rank", 1, "OLD", 0.1, 8.0, 9.0, 0.125)
+    replay = PaperPick("2026-09-30", "fit", 1, "REPLAY", 0.1, 8.0, 9.0, 0.125, scan_id="replay-1")
+    book.replace_all([older])
+    book.replace_scan("2026-09-30", "replay-1", [replay])
+
+    for _ in range(2):
+        rows = rebuild_paper_book(
+            completed_through=date(2026, 9, 30),
+            scan_store=scans,
+            price_store=prices,
+            paper_store=book,
+            quote_fetcher=lambda tickers, as_of: {},
+            news_fetcher=lambda tickers, as_of: {},
+            only_day="2026-09-30",
+        )
+
+    assert len(rows) == 1
+    assert rows[0].ticker == "WED"
+    assert rows[0].session_return == (11.0 / 10.0) - 1.0
+    assert book.read() == [older, rows[0], replay]
+
+
+def test_rebuild_one_day_without_saved_scan_does_not_delete_existing_rows(tmp_path):
+    book = PaperBookStore(data_dir=tmp_path / "paper")
+    existing = PaperPick("2026-09-30", "fit", 1, "KEEP", 0.1, 8.0, 9.0, 0.125)
+    book.replace_all([existing])
+
+    rows = rebuild_paper_book(
+        completed_through=date(2026, 9, 30),
+        scan_store=ScanStore(data_dir=tmp_path / "scans"),
+        price_store=PriceStore(data_dir=tmp_path / "prices"),
+        paper_store=book,
+        only_day="2026-09-30",
+    )
+
+    assert rows == []
+    assert book.read() == [existing]
 
 
 def test_rebuild_scores_open_to_close(tmp_path):

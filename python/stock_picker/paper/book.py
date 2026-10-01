@@ -111,6 +111,7 @@ def rebuild_paper_book(
     paper_store: PaperBookStore | None = None,
     quote_fetcher=None,
     news_fetcher=None,
+    only_day: str | None = None,
 ) -> list[PaperPick]:
     scans = scan_store if scan_store is not None else ScanStore()
     prices = price_store if price_store is not None else PriceStore()
@@ -124,7 +125,8 @@ def rebuild_paper_book(
         cutoff = completed_through
 
     picks: list[PaperPick] = []
-    for day in scans.days():
+    days = [only_day] if only_day is not None else scans.days()
+    for day in days:
         session_done = cutoff is None or date.fromisoformat(day) <= cutoff
         day_signals: list[tuple[str, list]] = []
         missing: list[str] = []
@@ -143,6 +145,9 @@ def rebuild_paper_book(
                         history = None
                     if _session_from_bar(_bar(history, day) if history is not None else None)[0] is None:
                         missing.append(ticker)
+        if only_day is not None and not day_signals:
+            # No scan was saved for this session; keep the existing book.
+            return []
         live = quotes(sorted(set(missing)), date.fromisoformat(day)) if missing else {}
         need_news: list[str] = []
         for _, signals, _ in day_signals:
@@ -214,8 +219,24 @@ def rebuild_paper_book(
                         model_run_id=model_run_id,
                     )
                 )
-    book.replace_all(picks)
+    if only_day is None:
+        book.replace_all(picks)
+    else:
+        book.replace_scan(only_day, "", picks)
     return picks
+
+
+def refresh_completed_paper_book_day(as_of: date) -> list[PaperPick]:
+    """Add only the completed session after prices settle; preserve history/replays.
+
+    Do not query a live quote provider for a past close. Missing daily bars
+    remain pending until a later manual refresh supplies them.
+    """
+    return rebuild_paper_book(
+        completed_through=as_of,
+        only_day=as_of.isoformat(),
+        quote_fetcher=lambda tickers, day: {},
+    )
 
 
 def _scan_size(scans: ScanStore) -> int:
