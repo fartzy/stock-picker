@@ -11,6 +11,7 @@ py_library(
         "backtest.py",
         "buy_signal.py",
         "dataset.py",
+        "direction_stack.py",
         "ensemble.py",
         "freshness.py",
         "grid_search.py",
