@@ -2,11 +2,11 @@ stockpicker RANKING top 20 for 2026-10-01
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  CTVA          0.4254       14.44
- 2  LQDA          0.3453       24.01
- 3  MAN           0.3023       54.03
- 4  MRNA          0.2904      186.01
- 5  NKTR          0.2799       55.40
+ 1  CTVA          0.4254       14.44  NEWS degraded
+ 2  LQDA          0.3453       24.01  SKIP district court patent infringement ruling vs UTHR on Yutrepia
+ 3  MAN           0.3023       54.03  NEWS degraded
+ 4  MRNA          0.2904      186.01  NEWS degraded
+ 5  NKTR          0.2799       55.40  NEWS degraded
  6  WLK           0.2738       60.37
  7  MICC          0.2719       17.10
  8  CPB           0.2131       19.55
@@ -22,3 +22,15 @@ Relative scores (not percents). Not the 0.5% gate.
 18  DOW           0.1804       26.98
 19  OKE           0.1780       84.54
 20  RITM          0.1760        8.67
+
+stockpicker picks for 2026-10-01
+Features through 2026-09-30, model trained through 2026-09-30 -- ready for this morning's opens.
+scored 1943 · 4 cleared 0.5% · showing top 4
+
+ticker      pred%        open
+LQDA        3.50%       24.01  SKIP district court patent infringement ruling vs UTHR on Yutrepia
+NKTR        1.40%       55.40  NEWS degraded
+CTVA        0.92%       14.44  NEWS degraded
+QH          0.61%        3.71
+
+Skipped earnings: MU, ACN, NKE, JBL, FDS, AYI, CAG, CALM, AEHR
