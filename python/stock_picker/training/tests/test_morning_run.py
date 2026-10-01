@@ -33,9 +33,12 @@ def test_run_morning_skips_when_8_32_job_is_disabled(tmp_path, monkeypatch):
         lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=False)),
     )
     quotes_called = []
-    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: quotes_called.append(True) or {})
+    waited = []
+    monkeypatch.setattr(m, "wait_for_morning_snapshot", lambda: waited.append(True))
+    monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: quotes_called.append(True) or {})
 
     assert m.run_morning() == 0
+    assert waited == [True]
     assert quotes_called == []
 
 
@@ -53,7 +56,7 @@ def test_run_morning_skips_scheduled_run_when_today_already_scored(tmp_path, mon
     )
     monkeypatch.setattr(m, "load_cached_signals", lambda kind="fit": {"as_of": "2026-09-25"} if kind == "rank" else None)
     quotes_called = []
-    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: quotes_called.append(True) or {})
+    monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: quotes_called.append(True) or {})
 
     assert m.run_morning() == 0
     assert quotes_called == []
@@ -73,7 +76,7 @@ def test_run_morning_skips_when_a_scan_is_already_running(tmp_path, monkeypatch)
     )
     monkeypatch.setattr(m, "load_cached_signals", lambda **k: None)
     quotes_called = []
-    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: quotes_called.append(True) or {})
+    monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: quotes_called.append(True) or {})
     held = m._try_lock_morning()
     assert held is not None
 
@@ -123,7 +126,7 @@ def test_run_morning_ingests_universe_news_after_releasing_the_lock(tmp_path, mo
         lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
     )
     monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: ["AAPL"]))
-    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
+    monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
     monkeypatch.setattr(
         m,
         "score_from_quotes",
@@ -165,7 +168,7 @@ def test_run_morning_still_succeeds_if_universe_news_ingest_fails(tmp_path, monk
         lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
     )
     monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: ["AAPL"]))
-    monkeypatch.setattr(m, "fetch_ticker_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
+    monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
     monkeypatch.setattr(
         m,
         "score_from_quotes",
