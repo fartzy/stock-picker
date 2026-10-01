@@ -17,6 +17,7 @@ import pandas as pd
 
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.selection import selected_features
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.log import get_logger
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
@@ -27,12 +28,13 @@ from stock_picker.training.backtest import sweep_thresholds
 from stock_picker.training.dataset import LABEL_COLUMN, build_pooled_dataset
 from stock_picker.training.ensemble import (
     ModelSpec,
+    ensemble_feature_names,
     evaluate_ensemble,
     partition_model_specs,
     predict_ensemble,
     selected_model_specs,
 )
-from stock_picker.training.model import EvaluationMetrics, train_logistic_regression
+from stock_picker.training.model import NON_FEATURE_COLUMNS, EvaluationMetrics, train_logistic_regression
 from stock_picker.training.splits import select_holdout_tickers
 from stock_picker.training.train import run_walk_forward
 
@@ -102,17 +104,26 @@ def run_training(
     included_features: set[str] | None = None,
     model_specs: list[ModelSpec] | None = None,
     run_id: str | None = None,
+    stack_direction_margin: bool = True,
 ) -> TrainingSummary:
     """Runs one full walk-forward + holdout + threshold-sweep pass and persists
     the final ensemble, returning a plain-JSON-serializable summary. Shared by
     the CLI entrypoint (`main()` below) and `api/routes.py`'s `/api/training/run`
     endpoint, so there's exactly one training path regardless of who triggers it.
 
-    `included_features`, if given, restricts every ensemble member (and the
-    standalone diagnostic fit below) to that exact set (still always minus
-    the pruned set -- see `feature_columns()`'s precedence). `None` means
-    "every feature, subject to pruning only," same as before this parameter
-    existed.
+    `included_features`, if given, restricts every return-ensemble member
+    (and the standalone diagnostic fit below) to that exact set (still
+    always minus the pruned set -- see `feature_columns()`'s precedence).
+    The direction SVC is deliberately different: when the LightGBM margin
+    is active it uses every unpruned raw feature, even if LightGBM has a
+    narrow positive selection. `None` means every feature, subject to
+    pruning only. At least one unpruned raw feature is required when using a
+    positive selection, because the standalone diagnostic and Rank models
+    cannot train on a model-derived margin alone.
+
+    `stack_direction_margin` defaults on for production Fit. Research scripts
+    that selected a winner using raw-feature folds pass False when
+    materializing that winner so the archived model matches its comparison.
 
     `model_specs`, if given, is the composable composition chosen via the UI
     (see `ensemble.py`'s `selected_model_specs()`); `None` falls back to
@@ -138,9 +149,16 @@ def run_training(
     train_tickers = [t for t in tickers if t not in holdout_ticker_set]
     holdout_tickers = [t for t in tickers if t in holdout_ticker_set]
 
+    excluded_features = pruned_features()
+    if included_features is not None and not (
+        included_features - excluded_features - set(STACKED_SVM_COLUMNS) - NON_FEATURE_COLUMNS
+    ):
+        raise ValueError(
+            "positive feature selection must include at least one unpruned raw feature; "
+            "the direction SVC margin alone cannot train diagnostic or Rank models"
+        )
     price_store = PriceStore()
     feature_store = FeatureStore()
-    excluded_features = pruned_features()
     predictive_specs, wants_rank = partition_model_specs(model_specs)
     base_specs = predictive_specs if predictive_specs is not None else DEFAULT_MODEL_SPECS
     specs = [
@@ -169,24 +187,20 @@ def run_training(
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
 
-    fold_results = run_walk_forward(train_dataset, specs=specs)
+    # Production Fit enables the derived feature; raw-feature research
+    # winners explicitly opt out so materialization matches their search.
+    fold_results = run_walk_forward(
+        train_dataset, specs=specs, stack_direction_margin=stack_direction_margin
+    )
     for result in fold_results:
         logger.info("fold %s: %s", result.fold, result.metrics)
 
     final_ensemble = fold_results[-1].model
-    ModelStore().write(MODEL_NAME, final_ensemble)
-    if run_id:
-        ModelStore().write(f"{MODEL_NAME}_{run_id}", final_ensemble)
 
-    # Every member trains against the same train_dataset with the same
-    # excluded_features/included_features (applied uniformly above), so
-    # today they always resolve to the same feature_names -- an emergent
-    # property of that uniform filtering, not an enforced invariant. This
-    # assertion is the tripwire: per-model feature subsets are flagged as
-    # deferred future work in this function's own docstring above, and
-    # would break it.
-    resolved_features = final_ensemble.members[0].feature_names
-    assert all(member.feature_names == resolved_features for member in final_ensemble.members)
+    # Fit alone sees the model-derived margin, while all other members see
+    # raw features only. Include the saved SVC's raw inputs too, so the run
+    # record describes everything the archived predictor requires to score.
+    resolved_features = sorted(ensemble_feature_names(final_ensemble))
 
     # Standalone diagnostic fit, not an Ensemble member: logistic regression
     # predicts binary direction, a unit incompatible with the continuous
@@ -196,7 +210,24 @@ def run_training(
     diagnostic_model = train_logistic_regression(
         train_dataset, excluded_features=excluded_features, included_features=included_features
     )
-    ModelStore().write(DIAGNOSTIC_MODEL_NAME, diagnostic_model)
+
+    fold_metrics = [result.metrics for result in fold_results]
+    holdout_metrics = None
+    threshold_sweep = None
+    if holdout_tickers:
+        holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
+        holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
+        logger.info("holdout tickers %s: %s", holdout_tickers, holdout_metrics)
+
+        predicted = pd.Series(predict_ensemble(final_ensemble, holdout_dataset), index=holdout_dataset.index)
+        actual = holdout_dataset[LABEL_COLUMN]
+        sweep = sweep_thresholds(predicted, actual, n_days=holdout_dataset["date"].nunique())
+        logger.info("%s", sweep.to_string(index=False))
+
+        # DataFrame.to_dict() leaves numpy scalar types in place (not JSON-
+        # serializable as-is) -- round-tripping through to_json()/json.loads()
+        # is pandas' own well-tested path for native Python types instead.
+        threshold_sweep = json.loads(sweep.to_json(orient="records"))
 
     if wants_rank:
         from stock_picker.training.rank_model import train_and_persist_rank_model
@@ -204,34 +235,7 @@ def run_training(
         logger.info("training ListFold rank model (parallel pickle, not blended into the return ensemble)")
         train_and_persist_rank_model(included_features=included_features)
 
-    fold_metrics = [result.metrics for result in fold_results]
-
-    if not holdout_tickers:
-        return TrainingSummary(
-            fold_metrics=fold_metrics,
-            holdout_metrics=None,
-            threshold_sweep=None,
-            train_tickers=train_tickers,
-            holdout_tickers=holdout_tickers,
-            date_range=_date_range(train_dataset),
-            resolved_features=resolved_features,
-            model_specs=resolved_specs,
-        )
-
-    holdout_dataset = _load_pooled_dataset(holdout_tickers, price_store, feature_store)
-    holdout_metrics = evaluate_ensemble(final_ensemble, holdout_dataset)
-    logger.info("holdout tickers %s: %s", holdout_tickers, holdout_metrics)
-
-    predicted = pd.Series(predict_ensemble(final_ensemble, holdout_dataset), index=holdout_dataset.index)
-    actual = holdout_dataset[LABEL_COLUMN]
-    sweep = sweep_thresholds(predicted, actual, n_days=holdout_dataset["date"].nunique())
-    logger.info("%s", sweep.to_string(index=False))
-
-    # DataFrame.to_dict() leaves numpy scalar types in place (not JSON-
-    # serializable as-is) -- round-tripping through to_json()/json.loads()
-    # is pandas' own well-tested path for native Python types instead.
-    threshold_sweep = json.loads(sweep.to_json(orient="records"))
-    return TrainingSummary(
+    summary = TrainingSummary(
         fold_metrics=fold_metrics,
         holdout_metrics=holdout_metrics,
         threshold_sweep=threshold_sweep,
@@ -241,6 +245,15 @@ def run_training(
         resolved_features=resolved_features,
         model_specs=resolved_specs,
     )
+    # Publish only after every evaluation and companion model has succeeded.
+    # A failed holdout/Rank/diagnostic fit must not replace a working Fit
+    # model; write the run-specific archive before changing `latest`.
+    model_store = ModelStore()
+    model_store.write(DIAGNOSTIC_MODEL_NAME, diagnostic_model)
+    if run_id:
+        model_store.write(f"{MODEL_NAME}_{run_id}", final_ensemble)
+    model_store.write(MODEL_NAME, final_ensemble)
+    return summary
 
 
 def _now() -> str:

@@ -56,9 +56,11 @@ small amount without qualifying as a standalone forecast or blender member.
   market-feature formula/example views for it. Document its estimator,
   target, source inputs, timing, and trained-model dependency where users
   inspect or select model-derived features.
-- Archive new runs normally. The currently selected live archive remains
-  unchanged until the user selects another run, per ADR 0013. This decision
-  does not itself retrain, select, or promote a live model.
+- Archive new runs normally. If `selected_run_id` pins a prior archive,
+  live scoring stays on that archive until the user changes the selection,
+  per ADR 0013. When no run is pinned, live scoring follows `latest`, so a
+  successful retraining updates it automatically. This decision does not
+  itself retrain, select, or promote a live model.
 
 ## Consequences and verification
 
