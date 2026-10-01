@@ -2,6 +2,7 @@
 // Keep the hour/settle numbers in lockstep with that module.
 
 const NY = "America/New_York";
+const CHICAGO = "America/Chicago";
 export const SESSION_CLOSE_HOUR = 16;
 export const SESSION_CLOSE_SETTLE_MINUTES = 15;
 
@@ -65,4 +66,20 @@ export function sessionHasClosed(now: Date = new Date()): boolean {
 export function isCashSessionToday(asOf: string | null | undefined, now: Date = new Date()): boolean {
   if (!asOf) return false;
   return asOf === cashSessionDate(now);
+}
+
+export function isChicagoCalendarToday(asOf: string | null | undefined, now: Date = new Date()): boolean {
+  if (!asOf) return false;
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: CHICAGO,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const get = (type: string) => Number(parts.find((part) => part.type === type)?.value);
+  return asOf === isoDate(get("year"), get("month"), get("day"));
+}
+
+export function scanHasClosed(asOf: string | null | undefined, now: Date = new Date()): boolean {
+  return !!asOf && (asOf < cashSessionDate(now) || sessionHasClosed(now));
 }
