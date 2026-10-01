@@ -858,7 +858,7 @@ def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):
     with patch("stock_picker.training.buy_signal.ModelStore") as mock_model_store:
         mock_model_store.return_value.exists.return_value = False
 
-        response = client.get("/api/buy-signal")
+        response = client.get("/api/buy-signal", params={"live": True})
 
     assert response.status_code == status.HTTP_200_OK
     body = response.json()
@@ -897,7 +897,7 @@ def test_get_buy_signal_scores_active_tickers_and_serializes_the_full_shape(clie
         mock_prepare.return_value = [live_row]
         mock_fetch_quotes.return_value = {"ZZZ": {"open": 101.0, "last": 102.0, "prev_close": 100.0}}
 
-        response = client.get("/api/buy-signal", params={"threshold": 0.005})
+        response = client.get("/api/buy-signal", params={"threshold": 0.005, "live": True})
 
     assert response.status_code == status.HTTP_200_OK
     body = response.json()
