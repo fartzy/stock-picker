@@ -18,7 +18,7 @@ import {
 } from "../api";
 import { morningScanButton } from "../morningScanUi";
 import { newsBlocksBuy } from "../newsSkip";
-import { isCashSessionToday, sessionHasClosed } from "../session";
+import { isCashSessionToday, isChicagoCalendarToday, scanHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
 import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
@@ -351,10 +351,10 @@ function MorningLists({
   rankList: BuySignalResponse | null;
   fitList: BuySignalResponse | null;
 }) {
-  const closed = sessionHasClosed();
-  const rankToday = isCashSessionToday(rankList?.as_of);
-  const fitToday = isCashSessionToday(fitList?.as_of);
+  const rankToday = isCashSessionToday(rankList?.as_of) || isChicagoCalendarToday(rankList?.as_of);
+  const fitToday = isCashSessionToday(fitList?.as_of) || isChicagoCalendarToday(fitList?.as_of);
   const headerAsOf = rankToday ? rankList?.as_of : fitToday ? fitList?.as_of : rankList?.as_of ?? fitList?.as_of;
+  const closed = scanHasClosed(headerAsOf);
   return (
     <details className="view-card morning-fold" style={{ marginTop: 12 }} open>
       <summary>
