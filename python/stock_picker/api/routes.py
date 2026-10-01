@@ -240,6 +240,7 @@ def _signal_payload(signal, prev_close: float | None = None) -> dict:
         payload.get("news_flag"),
         payload.get("open_price"),
         payload.get("prev_close"),
+        (payload.get("news_check") or {}).get("status"),
     )
     return payload
 

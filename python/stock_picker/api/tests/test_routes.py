@@ -890,6 +890,23 @@ def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
     assert row["news_check"]["article_count"] == 5
 
 
+def test_cached_buy_signal_holds_degraded_review_without_a_news_flag(client):
+    cached = {
+        "as_of": "2026-10-02", "threshold": 0.005, "scored_count": 1,
+        "signals": [{"ticker": "AAA", "predicted_return": 0.1, "open_price": 11.0,
+                     "snapshot_date": "2026-10-01", "news_flag": None,
+                     "news_checked": False, "news_check": {"status": "degraded",
+                     "issues": ["llm_unavailable"], "sources": ["finnhub"],
+                     "article_count": 1, "reviewed_count": 1}}],
+        "skipped": [], "top_drivers": [],
+    }
+    with patch("stock_picker.api.routes.load_cached_signals", return_value=cached):
+        response = client.get("/api/buy-signal", params={"kind": "rank"})
+    row = response.json()["signals"][0]
+    assert row["news_blocks"] is True
+    assert row["news_checked"] is False
+
+
 def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):
     with patch("stock_picker.training.buy_signal.ModelStore") as mock_model_store:
         mock_model_store.return_value.exists.return_value = False
