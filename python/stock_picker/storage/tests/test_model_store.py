@@ -1,6 +1,10 @@
+import stat
+
 import numpy as np
 import pandas as pd
+import pytest
 
+from stock_picker.storage import model_store
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, score_direction_margin
@@ -40,6 +44,59 @@ def test_exists_reflects_whether_a_model_has_been_written(tmp_path):
     store.write("never_written", {"anything": "picklable"})
 
     assert store.exists("never_written") is True
+
+
+def test_replacement_publishes_new_model_without_temporary_file(tmp_path):
+    store = ModelStore(data_dir=tmp_path)
+    store.write("latest", {"version": 1})
+    destination = tmp_path / "latest.pkl"
+    assert stat.S_IMODE(destination.stat().st_mode) == 0o600
+    destination.chmod(0o640)
+    previous_bytes = destination.read_bytes()
+
+    store.write("latest", {"version": 2})
+
+    assert store.read("latest") == {"version": 2}
+    assert destination.read_bytes() != previous_bytes
+    assert stat.S_IMODE(destination.stat().st_mode) == 0o640
+    assert set(tmp_path.iterdir()) == {destination}
+
+
+def test_serialization_failure_preserves_previous_model_and_cleans_temp(tmp_path, monkeypatch):
+    store = ModelStore(data_dir=tmp_path)
+    store.write("latest", {"version": 1})
+    previous_bytes = (tmp_path / "latest.pkl").read_bytes()
+
+    def fail_after_partial_write(_model, file):
+        file.write(b"incomplete pickle")
+        raise RuntimeError("serialization failed")
+
+    monkeypatch.setattr(model_store.pickle, "dump", fail_after_partial_write)
+
+    with pytest.raises(RuntimeError, match="serialization failed"):
+        store.write("latest", {"version": 2})
+
+    assert (tmp_path / "latest.pkl").read_bytes() == previous_bytes
+    assert store.read("latest") == {"version": 1}
+    assert set(tmp_path.iterdir()) == {tmp_path / "latest.pkl"}
+
+
+def test_replacement_failure_preserves_previous_model_and_cleans_temp(tmp_path, monkeypatch):
+    store = ModelStore(data_dir=tmp_path)
+    store.write("latest", {"version": 1})
+    previous_bytes = (tmp_path / "latest.pkl").read_bytes()
+
+    def fail_replace(_source, _destination):
+        raise OSError("replace failed")
+
+    monkeypatch.setattr(model_store.os, "replace", fail_replace)
+
+    with pytest.raises(OSError, match="replace failed"):
+        store.write("latest", {"version": 2})
+
+    assert (tmp_path / "latest.pkl").read_bytes() == previous_bytes
+    assert store.read("latest") == {"version": 1}
+    assert set(tmp_path.iterdir()) == {tmp_path / "latest.pkl"}
 
 
 def test_direction_svc_round_trips_in_the_same_archive_as_its_lightgbm(tmp_path):
