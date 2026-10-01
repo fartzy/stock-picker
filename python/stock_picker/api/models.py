@@ -346,18 +346,6 @@ class NewsCheckDetails(BaseModel):
     articles: list[dict] = Field(default_factory=list)
 
 
-class NewsCheckDetails(BaseModel):
-    status: Literal["complete", "no_news", "degraded", "error", "not_checked", "unknown"]
-    flag: str | None = None
-    article_count: int | None = None
-    reviewed_count: int | None = None
-    judge: str | None = None
-    sources: list[str] = Field(default_factory=list)
-    issues: list[str] = Field(default_factory=list)
-    checked_at: str | None = None
-    articles: list[dict] = Field(default_factory=list)
-
-
 class BuySignalRow(BaseModel):
     ticker: str
     predicted_return: float
