@@ -19,6 +19,8 @@ import {
   type FeatureSelectionResponse,
   type FeatureView,
   type ImportanceResponse,
+  type ModelDerivedFeature,
+  type ModelDerivedFeatureView,
   type PrunedFeaturesResponse,
   type RegistryResponse,
 } from "../api";
@@ -29,6 +31,12 @@ import {
   NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD,
 } from "../theme";
 import { experimentalRegistrySections } from "../experimentalRegistry";
+import {
+  hasUnprunedMarketFeature,
+  modelDerivedRegistrySections,
+  sameFeatureSet,
+  selectableFeatureNames,
+} from "../modelDerivedRegistry";
 import { useFetchData } from "../useFetchData";
 
 // Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
@@ -161,6 +169,84 @@ function ExperimentalViewSection({
   );
 }
 
+function ModelDerivedViewSection({
+  view,
+  features,
+  included,
+  pruned,
+  importance,
+  selectionPending,
+  toggleSelected,
+  togglePrune,
+}: {
+  view: ModelDerivedFeatureView;
+  features: Record<string, ModelDerivedFeature>;
+  included: Set<string> | null;
+  pruned: Set<string>;
+  importance: ImportanceResponse;
+  selectionPending: boolean;
+  toggleSelected: (feature: string) => Promise<void>;
+  togglePrune: (feature: string, reason?: string) => Promise<void>;
+}) {
+  return (
+    <details className="view-card registry-category">
+      <summary>
+        <strong style={{ color: "var(--accent)" }}>Model-derived · trainable</strong>
+        <span className="muted">{view.features.length} feature{view.features.length === 1 ? "" : "s"}</span>
+        {view.features.some((name) => pruned.has(name)) && (
+          <span className="category-tally category-tally-pruned">
+            {view.features.filter((name) => pruned.has(name)).length} pruned
+          </span>
+        )}
+      </summary>
+      <div className="view-features">
+        <p className="muted">{view.description} Source: {view.source}. Computed during training and scoring; not stored as market-data coverage.</p>
+        {view.features.map((name) => {
+          const feature = features[name];
+          if (!feature) return null;
+          const isPruned = pruned.has(name);
+          const imp = importance.importance[name];
+          return (
+            <div className="feature-row row-hover" key={name}>
+              <div className="feature-row-header">
+                <span>
+                  <input
+                    type="checkbox"
+                    checked={included === null || included.has(name)}
+                    disabled={selectionPending}
+                    onChange={() => void toggleSelected(name)}
+                    title="Include this feature in the next training run"
+                    aria-label={`Include ${name} in the next training run`}
+                  />{" "}
+                  <span className={isPruned ? "pruned-feature feature-name" : "feature-name"}>{name}</span>{" "}
+                  {isPruned ? (
+                    <button type="button" className="feature-badge feature-badge-pruned" onClick={() => void togglePrune(name)}>
+                      pruned
+                    </button>
+                  ) : (
+                    <button type="button" className="prune-toggle" onClick={() => void togglePrune(name, "manually pruned from Registry")}>
+                      prune
+                    </button>
+                  )}
+                </span>
+                <span className="feature-stats">
+                  <span title="Created by the companion direction model, not measured from a stored market-data column">model-derived</span>
+                  <span style={{ color: importanceColor(imp) }} title={formatImportanceBreakdown(name, importance.by_model_type)}>
+                    {imp !== undefined ? `${imp.toFixed(1)}% importance` : isPruned ? "excluded" : "not trained"}
+                  </span>
+                </span>
+              </div>
+              <div className="feature-desc">{feature.description}</div>
+              <div className="feature-example"><span className="feature-example-label">How computed</span> {feature.computation}</div>
+              <div className="feature-example"><span className="feature-example-label">e.g.</span> {feature.example}</div>
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  );
+}
+
 export default function Registry({
   pendingFeature,
   onFeatureFocused,
@@ -186,6 +272,8 @@ export default function Registry({
   // undefined = not yet initialized from the fetch; null = no selection
   // (every feature included); Set = an explicit selection.
   const [included, setIncluded] = useState<Set<string> | null | undefined>(undefined);
+  const [selectionPending, setSelectionPending] = useState(false);
+  const [mutationError, setMutationError] = useState<string | null>(null);
   const [highlightedFeature, setHighlightedFeature] = useState<string | null>(null);
   // Which rows show their description/formula -- collapsed by default so
   // scanning ~97 rows doesn't mean scrolling past that much text for each one.
@@ -263,9 +351,8 @@ export default function Registry({
       }
     }
   }
-  const allFeatureNames = new Set(
-    (registry?.feature_views ?? []).flatMap((view) => view.features),
-  );
+  const allFeatureNames = registry && catalog ? selectableFeatureNames(registry, catalog) : new Set<string>();
+  const marketFeatureNames = new Set((registry?.feature_views ?? []).flatMap((view) => view.features));
 
   // Once the poll confirms the override matches the server, drop it and
   // trust the poll again -- otherwise a prune made elsewhere (e.g. the
@@ -309,7 +396,12 @@ export default function Registry({
     const next = new Set(pruned);
     if (next.has(feature)) {
       next.delete(feature);
-      await unpruneFeature(feature);
+      try {
+        await unpruneFeature(feature);
+      } catch (error) {
+        setMutationError(`Could not unprune ${feature}: ${String(error)}`);
+        return;
+      }
     } else {
       // Every prune badge (negligible/correlated/plain) triggers pruning
       // directly on click -- someone clicking to see *why* a badge is there
@@ -319,12 +411,19 @@ export default function Registry({
         return;
       }
       next.add(feature);
-      await pruneFeature(feature, reason);
+      try {
+        await pruneFeature(feature, reason);
+      } catch (error) {
+        setMutationError(`Could not prune ${feature}: ${String(error)}`);
+        return;
+      }
     }
+    setMutationError(null);
     setPrunedOverride(next);
   }
 
   async function toggleSelected(feature: string) {
+    if (selectionPending) return;
     // `included === null` means "everything," so the first toggle away from
     // the default has to materialize the full set before removing one name
     // from it -- otherwise there'd be nothing to toggle against.
@@ -334,18 +433,36 @@ export default function Registry({
     } else {
       next.add(feature);
     }
-    if (next.size === allFeatureNames.size) {
-      setIncluded(null);
-      await clearFeatureSelection();
-    } else {
-      setIncluded(next);
-      await setFeatureSelection([...next]);
+    if (!hasUnprunedMarketFeature(next, marketFeatureNames, pruned)) {
+      setMutationError("Keep at least one unpruned market-data feature selected; the model-derived margin requires raw inputs.");
+      return;
+    }
+    setSelectionPending(true);
+    setMutationError(null);
+    try {
+      const saved = sameFeatureSet(next, allFeatureNames)
+        ? await clearFeatureSelection()
+        : await setFeatureSelection([...next]);
+      setIncluded(saved.included_features ? new Set(saved.included_features) : null);
+    } catch (error) {
+      setMutationError(`Could not update training selection: ${String(error)}`);
+    } finally {
+      setSelectionPending(false);
     }
   }
 
   async function resetSelection() {
-    setIncluded(null);
-    await clearFeatureSelection();
+    if (selectionPending) return;
+    setSelectionPending(true);
+    setMutationError(null);
+    try {
+      const saved = await clearFeatureSelection();
+      setIncluded(saved.included_features ? new Set(saved.included_features) : null);
+    } catch (error) {
+      setMutationError(`Could not reset training selection: ${String(error)}`);
+    } finally {
+      setSelectionPending(false);
+    }
   }
 
   function toggleExpanded(feature: string) {
@@ -389,11 +506,12 @@ export default function Registry({
           {selectedCount} / {allFeatureNames.size}
         </span>
         {included !== null && (
-          <button type="button" className="prune-toggle" onClick={resetSelection}>
+          <button type="button" className="prune-toggle" disabled={selectionPending} onClick={() => void resetSelection()}>
             reset to all
           </button>
         )}
       </div>
+      {mutationError && <p className="error" role="alert">{mutationError}</p>}
       {registry.feature_views.map((view) => {
         // A signal before expanding anything -- with ~10 categories and ~97
         // rows total, "what needs attention" shouldn't require opening every
@@ -446,7 +564,8 @@ export default function Registry({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        onChange={() => toggleSelected(feature)}
+                        disabled={selectionPending}
+                        onChange={() => void toggleSelected(feature)}
                         title="Include this feature in the next training run"
                       />{" "}
                       <button
@@ -555,6 +674,19 @@ export default function Registry({
         </details>
         );
       })}
+      {modelDerivedRegistrySections(registry, catalog).map(({ view, features }) => (
+        <ModelDerivedViewSection
+          key={view.name}
+          view={view}
+          features={features}
+          included={included}
+          pruned={pruned}
+          importance={importance}
+          selectionPending={selectionPending}
+          toggleSelected={toggleSelected}
+          togglePrune={togglePrune}
+        />
+      ))}
       {experimentalRegistrySections(registry, catalog).map(({ view, features }) => (
         <ExperimentalViewSection
           key={view.name}

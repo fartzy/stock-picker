@@ -281,3 +281,20 @@ def test_derived_only_positive_selection_fails_before_training_or_publication(
 
     with pytest.raises(ValueError, match="at least one unpruned raw feature"):
         run_training(included_features=included, model_specs=[ModelSpec("lightgbm")])
+
+
+def test_catalog_only_raw_feature_cannot_bypass_post_load_selection_guard(monkeypatch):
+    stored, latest, write_order = _stub_fold_training(monkeypatch, set())
+    monkeypatch.setattr(
+        "stock_picker.training.main.run_walk_forward",
+        lambda *_args, **_kwargs: pytest.fail("should reject before fitting"),
+    )
+
+    with pytest.raises(ValueError, match="present in the training dataset"):
+        run_training(
+            included_features={DIRECTION_MARGIN_COLUMN, "sector_relative_return"},
+            model_specs=[ModelSpec("lightgbm")],
+        )
+
+    assert stored == {"day_session_return": latest}
+    assert write_order == []

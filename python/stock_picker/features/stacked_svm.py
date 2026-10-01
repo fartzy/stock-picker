@@ -1,8 +1,8 @@
-"""Research-only metadata for model-derived SVM stacking outputs (ADR 0021).
+"""Metadata for model-derived SVM stacking outputs (ADRs 0021 and 0022).
 
 These values are produced by fitted training estimators, not by the feature
-pipeline or its persisted parquet snapshots. Keep the definition separate from
-the catalog's pandas formulas and from production feature selection.
+pipeline or its persisted parquet snapshots. Only the direction margin is
+eligible for production LightGBM training; the other six remain research-only.
 """
 
 from dataclasses import dataclass
@@ -26,7 +26,7 @@ SVM_DERIVED_FEATURES = (
     ExperimentalFeature(
         name="svc_direction_margin",
         description="Signed LinearSVC margin for a positive open-to-close return.",
-        computation="Fit LinearSVC on earlier days with return > 0 as the positive class; score this day's open-known features with decision_function.",
+        computation="Fit LinearSVC out-of-fold on earlier days using all unpruned raw open-known inputs and return > 0 as the positive class; score live rows with the saved estimator's decision_function.",
         example="A positive margin favors an up day; its magnitude is a model score, not a probability.",
     ),
     ExperimentalFeature(
@@ -62,3 +62,7 @@ SVM_DERIVED_FEATURES = (
 )
 
 STACKED_SVM_COLUMNS = tuple(feature.name for feature in SVM_DERIVED_FEATURES)
+PRODUCTION_MODEL_DERIVED_COLUMNS = ("svc_direction_margin",)
+RESEARCH_SVM_COLUMNS = tuple(
+    name for name in STACKED_SVM_COLUMNS if name not in PRODUCTION_MODEL_DERIVED_COLUMNS
+)

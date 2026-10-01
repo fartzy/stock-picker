@@ -1,7 +1,7 @@
 # 0022: Include the direction SVC margin as a Fit model-derived feature
 
 Date: 2026-09-30
-Status: Accepted (implementation pending; no new model selected for live use)
+Status: Implemented for future Fit runs (no new model selected for live use)
 
 ## Context and evidence
 

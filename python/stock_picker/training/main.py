@@ -186,6 +186,16 @@ def run_training(
     )
 
     train_dataset = _load_pooled_dataset(train_tickers, price_store, feature_store)
+    if included_features is not None:
+        # The catalog describes intended pipeline columns, but a few are not
+        # yet materialized in persisted training data. A named raw feature
+        # only counts if this run can actually train on it.
+        available_raw = set(train_dataset.columns) - NON_FEATURE_COLUMNS - set(STACKED_SVM_COLUMNS)
+        if not ((included_features - excluded_features) & available_raw):
+            raise ValueError(
+                "positive feature selection must include at least one unpruned raw feature "
+                "present in the training dataset"
+            )
 
     # Production Fit enables the derived feature; raw-feature research
     # winners explicitly opt out so materialization matches their search.

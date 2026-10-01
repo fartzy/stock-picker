@@ -47,6 +47,26 @@ js_test(
 )
 
 ts_project(
+    name = "model_derived_registry_helpers",
+    srcs = ["src/modelDerivedRegistry.ts"],
+    declaration = False,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": True,
+        "types": [],
+    }},
+)
+
+js_test(
+    name = "model_derived_registry_test",
+    entry_point = "tests/modelDerivedRegistry.test.mjs",
+    data = [":model_derived_registry_helpers", "package.json"],
+)
+
+ts_project(
     name = "typecheck",
     srcs = glob([
         "src/**/*.ts",

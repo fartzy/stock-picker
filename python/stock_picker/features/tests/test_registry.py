@@ -1,8 +1,8 @@
 from datetime import date
 
 from stock_picker.features.catalog import list_feature_columns
-from stock_picker.features.registry import DEFAULT_TTL_DAYS, build_registry, check_freshness, experimental_views
-from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
+from stock_picker.features.registry import DEFAULT_TTL_DAYS, build_registry, check_freshness, experimental_views, model_derived_views
+from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
 
 
@@ -34,8 +34,16 @@ def test_experimental_view_is_separate_from_production_service():
 
     assert len(views) == 1
     assert views[0].status == "experimental"
-    assert tuple(views[0].features) == STACKED_SVM_COLUMNS
+    assert tuple(views[0].features) == RESEARCH_SVM_COLUMNS
     assert not hasattr(views[0], "ttl_days")
+
+
+def test_model_derived_view_is_production_eligible_but_not_persisted():
+    [view] = model_derived_views()
+
+    assert view.status == "production_eligible"
+    assert tuple(view.features) == PRODUCTION_MODEL_DERIVED_COLUMNS
+    assert not hasattr(view, "ttl_days")
 
 
 def test_cross_sectional_view_is_tagged_cross_ticker():

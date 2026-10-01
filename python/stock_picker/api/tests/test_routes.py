@@ -9,15 +9,34 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
-from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
+from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.live_rows import LiveRow
-from stock_picker.training.main import MODEL_NAME
-from stock_picker.training.model import train_lightgbm
+from stock_picker.training.main import DIAGNOSTIC_MODEL_NAME, MODEL_NAME
+from stock_picker.training.model import TrainedModel, train_lightgbm
+
+
+class _FakeBooster:
+    """Picklable gain-only estimator for API metadata assertions."""
+
+    def __init__(self, names):
+        self.names = names
+
+    def feature_name(self):
+        return self.names
+
+    def feature_importance(self, importance_type):
+        assert importance_type == "gain"
+        return [1.0] * len(self.names)
+
+
+def _fake_ensemble(names):
+    member = TrainedModel(model_type="lightgbm", estimator=_FakeBooster(names), feature_names=names)
+    return Ensemble(members=[member], weights=[1.0])
 
 # Prune/unprune mutate a real store instance rather than returning canned
 # values, so a stateful fake (shared across both import sites routes.py
@@ -213,8 +232,10 @@ def test_get_catalog(client):
     assert "momentum" in body["catalog"]
     assert "return_1d" in body["descriptions"]
     assert "return_1d" in body["formulas"]
-    assert set(body["experimental_features"]) == set(STACKED_SVM_COLUMNS)
-    assert all(body["experimental_features"][name]["computation"] for name in STACKED_SVM_COLUMNS)
+    assert set(body["experimental_features"]) == set(RESEARCH_SVM_COLUMNS)
+    assert all(body["experimental_features"][name]["computation"] for name in RESEARCH_SVM_COLUMNS)
+    assert set(body["model_derived_features"]) == set(PRODUCTION_MODEL_DERIVED_COLUMNS)
+    assert body["model_derived_features"]["svc_direction_margin"]["status"] == "production_eligible"
     assert not set(STACKED_SVM_COLUMNS).intersection(body["formulas"])
 
 
@@ -282,6 +303,12 @@ def test_prune_feature_with_a_given_reason(client):
     assert entry["reason"] == "high correlation to return_3d (r=0.996)"
 
 
+def test_direction_margin_can_be_pruned_and_unpruned(client):
+    feature = PRODUCTION_MODEL_DERIVED_COLUMNS[0]
+    assert feature in client.post(f"/api/features/{feature}/prune").json()["pruned_features"]
+    assert feature not in client.delete(f"/api/features/{feature}/prune").json()["pruned_features"]
+
+
 def test_get_feature_importance_returns_empty_dict_without_a_trained_model(client):
     response = client.get("/api/feature-importance")
 
@@ -294,6 +321,31 @@ def test_get_model_info_returns_empty_list_without_a_trained_model(client):
 
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"models": []}
+
+
+def test_importance_and_model_info_follow_pinned_archive_not_latest(client):
+    _model_store.write(MODEL_NAME, _fake_ensemble(["return_1d"]))
+    _model_store.write(f"{MODEL_NAME}_run-1", _fake_ensemble(["return_1d", "svc_direction_margin"]))
+    latest_importance = client.get("/api/feature-importance").json()
+    assert latest_importance["importance"] == {"return_1d": 100.0}
+    assert client.get("/api/model-info").json()["models"][0]["feature_count"] == 1
+
+    # The latest-only diagnostic must not be paired with a historical Fit.
+    _model_store.write(DIAGNOSTIC_MODEL_NAME, object())
+
+    _training_config_state["selected_run_id"] = "run-1"
+    pinned_importance = client.get("/api/feature-importance").json()
+    assert pinned_importance["importance"] == {"return_1d": 50.0, "svc_direction_margin": 50.0}
+    assert set(pinned_importance["by_model_type"]) == {"lightgbm"}
+    assert client.get("/api/model-info").json()["models"][0]["feature_count"] == 2
+
+
+def test_missing_pinned_archive_never_falls_back_to_latest(client):
+    _model_store.write(MODEL_NAME, _fake_ensemble(["return_1d"]))
+    _training_config_state["selected_run_id"] = "missing"
+
+    assert client.get("/api/feature-importance").json() == {"importance": {}, "by_model_type": {}}
+    assert client.get("/api/model-info").json() == {"models": []}
 
 
 def test_get_model_types_describes_every_known_model_type(client):
@@ -437,6 +489,7 @@ def test_set_then_get_feature_selection(client):
 
 
 def test_experimental_svm_feature_cannot_enter_production_selection(client):
+    client.post("/api/feature-selection", json={"included_features": ["return_2d"]})
     response = client.post(
         "/api/feature-selection",
         json={"included_features": ["return_1d", STACKED_SVM_COLUMNS[0]]},
@@ -444,6 +497,41 @@ def test_experimental_svm_feature_cannot_enter_production_selection(client):
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
     assert STACKED_SVM_COLUMNS[0] in response.json()["detail"]
+    assert client.get("/api/feature-selection").json() == {"included_features": ["return_2d"]}
+
+
+def test_direction_margin_can_be_selected_with_a_raw_feature(client):
+    response = client.post(
+        "/api/feature-selection",
+        json={"included_features": ["return_1d", "svc_direction_margin"]},
+    )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()["included_features"] == ["return_1d", "svc_direction_margin"]
+
+
+@pytest.mark.parametrize(
+    "selected",
+    [[], ["svc_direction_margin"], ["not_a_real_feature"], ["return_1d", "not_a_real_feature"]],
+)
+def test_selection_without_usable_raw_feature_preserves_previous_choice(client, selected):
+    client.post("/api/feature-selection", json={"included_features": ["return_2d"]})
+
+    response = client.post("/api/feature-selection", json={"included_features": selected})
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert client.get("/api/feature-selection").json() == {"included_features": ["return_2d"]}
+
+
+def test_pruned_raw_feature_does_not_support_direction_only_selection(client):
+    client.post("/api/features/return_1d/prune")
+
+    response = client.post(
+        "/api/feature-selection",
+        json={"included_features": ["return_1d", "svc_direction_margin"]},
+    )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
     assert client.get("/api/feature-selection").json() == {"included_features": None}
 
 
@@ -723,9 +811,12 @@ def test_get_registry(client):
     assert {view["name"] for view in body["feature_views"]} == set(list_feature_columns(synthetic_history(n=140)))
     assert body["feature_services"][0]["name"] == "day_session_return_model"
     assert body["experimental_views"][0]["status"] == "experimental"
-    assert body["experimental_views"][0]["features"] == list(STACKED_SVM_COLUMNS)
+    assert body["experimental_views"][0]["features"] == list(RESEARCH_SVM_COLUMNS)
+    assert body["model_derived_views"][0]["status"] == "production_eligible"
+    assert body["model_derived_views"][0]["features"] == list(PRODUCTION_MODEL_DERIVED_COLUMNS)
     assert "svm_derived" not in body["feature_services"][0]["feature_views"]
     assert "ttl_days" not in body["experimental_views"][0]
+    assert "ttl_days" not in body["model_derived_views"][0]
 
 
 def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
