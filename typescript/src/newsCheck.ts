@@ -15,11 +15,11 @@ const ISSUE_LABELS: Record<string, string> = {
   ticker_limit: "Outside this batch's 40-name news limit",
 };
 
-export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?: boolean | null) {
+export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?: boolean | null, flag?: string | null) {
   if (!check) {
     return {
-      label: checked === false ? "pending" : "coverage not recorded",
-      detail: "This scan has no saved news-coverage evidence.",
+      label: checked === false ? "pending" : flag ? "" : checked === true ? "checked (older scan)" : "details unavailable",
+      detail: "This older scan saved the news decision, but not detailed source coverage.",
       warning: false,
     };
   }

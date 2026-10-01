@@ -7,9 +7,10 @@ const check = (status, extra = {}) => ({
 });
 
 test("legacy, pending, empty and failed checks are distinct", () => {
-  assert.equal(newsCheckPresentation().label, "coverage not recorded");
-  assert.equal(newsCheckPresentation(null, true).label, "coverage not recorded");
+  assert.equal(newsCheckPresentation().label, "details unavailable");
+  assert.equal(newsCheckPresentation(null, true).label, "checked (older scan)");
   assert.equal(newsCheckPresentation(null, false).label, "pending");
+  assert.equal(newsCheckPresentation(null, true, "material headline").label, "");
   assert.equal(newsCheckPresentation(check("no_news", { article_count: 0, reviewed_count: 0 })).label, "no articles found · 0 articles");
   assert.equal(newsCheckPresentation(check("not_checked", { article_count: null })).label, "not checked");
   assert.equal(newsCheckPresentation(check("error", { article_count: 0 })).label, "check failed · 0 articles");
