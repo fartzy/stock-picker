@@ -69,6 +69,42 @@ def test_paper_book_view_slices_fit_and_rank_separately():
     assert [row["ticker"] for row in sliced["days"][0]["rank"]] == ["R1", "R2", "R3", "R4"]
 
 
+def test_degraded_saved_review_is_held_out_of_what_if_returns():
+    picks = [
+        PaperPick(as_of="2026-10-02", kind="rank", rank=1, ticker="HOLD",
+                  predicted=0.5, open_price=10.0, close_price=8.0,
+                  session_return=-0.2, news_checked=0,
+                  news_check={"status": "degraded", "issues": ["llm_unavailable"]}),
+        PaperPick(as_of="2026-10-02", kind="rank", rank=2, ticker="CLEAR",
+                  predicted=0.3, open_price=10.0, close_price=11.0,
+                  session_return=0.1, news_checked=1,
+                  news_check={"status": "no_news"}),
+    ]
+    view = paper_book_view(picks, kind="rank")
+    assert view["days"][0]["rank"][0]["news_blocks"] is True
+    assert view["rank_stats"]["n_avoid"] == 1
+    assert view["rank_stats"]["n_scored"] == 1
+
+
+def test_rebuild_preserves_saved_degraded_review_status(tmp_path):
+    scans = ScanStore(data_dir=tmp_path / "scans")
+    scans.write("2026-10-02", "rank", {
+        "as_of": "2026-10-02", "kind": "rank", "signals": [{
+            "ticker": "HOLD", "predicted_return": 0.5, "open_price": 10.0,
+            "news_checked": False, "news_check": {"status": "degraded"},
+        }],
+    })
+    picks = rebuild_paper_book(
+        completed_through=date(2026, 10, 1), scan_store=scans,
+        price_store=PriceStore(data_dir=tmp_path / "prices"),
+        paper_store=PaperBookStore(data_dir=tmp_path / "paper"),
+        quote_fetcher=lambda tickers, as_of: {},
+        news_fetcher=lambda tickers, as_of: {},
+    )
+    assert picks[0].news_checked == 0
+    assert picks[0].news_check == {"status": "degraded"}
+
+
 def test_load_paper_book_does_not_rebuild(tmp_path):
     book = PaperBookStore(data_dir=tmp_path / "paper")
     assert load_paper_book(paper_store=book) == []

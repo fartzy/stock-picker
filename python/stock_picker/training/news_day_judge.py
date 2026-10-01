@@ -23,7 +23,7 @@ from stock_picker.news_check import NewsCheck
 from stock_picker.news_skip import news_blocks_buy
 from stock_picker.training.headline_sentiment import news_flag_from_articles as material_flag
 from stock_picker.training.langfuse_local import trace_news_judge
-from stock_picker.training.news_policy import NEWS_SYSTEM_PROMPT, regulatory_news_flag
+from stock_picker.training.news_policy import NEWS_SYSTEM_PROMPT, high_impact_event_flag, regulatory_news_flag
 
 XAI_API_KEY_ENV = "XAI_API_KEY"
 XAI_KEY_FILE = Path.home() / ".config" / "api" / "xai.txt"
@@ -193,6 +193,9 @@ def grok_judge(ticker: str, headlines: list[str], api_key: str | None = None) ->
 
 def flag_from_articles(ticker: str, articles: list[dict]) -> str | None:
     """BIG news only. Grok if keyed; else the material-news classifier."""
+    event = high_impact_event_flag(articles)
+    if event:
+        return event
     headlines = _headlines(articles)
     if not headlines:
         return None
@@ -252,6 +255,14 @@ def check_news_coverage(ticker: str, coverage: NewsCoverage) -> NewsCheck:
         return check
     if not articles:
         check.status = "degraded" if check.issues else "no_news"
+        return check
+    event = high_impact_event_flag(articles)
+    if event:
+        check.judge = "event_guard"
+        check.flag = event
+        check.reviewed_count = len(articles)
+        check.status = "degraded" if check.issues else "complete"
+        trace_news_judge(ticker, _headlines(articles), check.judge, True, event)
         return check
     headlines = _headlines(articles)
     judged = grok_judge(ticker, headlines)

@@ -140,7 +140,7 @@ function MorningList({
                   return (
                     <NewsCell
                       flag={signal.news_flag}
-                      blocks={newsBlocksBuy(signal.news_flag, signal.open_price, prev)}
+                      blocks={newsBlocksBuy(signal.news_flag, signal.open_price, prev, signal.news_check?.status)}
                       checked={signal.news_checked}
                       check={signal.news_check}
                     />

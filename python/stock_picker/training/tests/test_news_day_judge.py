@@ -3,7 +3,7 @@ from datetime import date
 from types import SimpleNamespace
 
 from stock_picker.ingestion.news_sources import NewsCoverage
-from stock_picker.training.news_policy import regulatory_news_flag
+from stock_picker.training.news_policy import high_impact_event_flag, regulatory_news_flag
 from stock_picker.news_check import NewsCheck, apply_news_checks
 
 from stock_picker.training.news_day_judge import (
@@ -183,6 +183,48 @@ def test_regulatory_catalyst_is_flagged_even_without_llm(monkeypatch):
     assert "llm_unavailable" in result.issues
     assert news_blocks_buy(result.flag, 10.85, 12.41)
     assert not news_blocks_buy(result.flag, 13, 12.41)
+
+
+def test_spin_off_is_a_hard_stop_even_when_the_headline_is_generic(monkeypatch):
+    monkeypatch.setattr(
+        "stock_picker.training.news_day_judge.grok_judge",
+        lambda *a: (_ for _ in ()).throw(AssertionError("hard stops should not depend on AI")),
+    )
+    result = check_news_coverage("CTVA", NewsCoverage(
+        articles=[{
+            "headline": "Dear Corteva Stock Fans, Mark Your Calendars for Oct. 1",
+            "summary": "Corteva is about to officially spin off its seed genetics business",
+        }],
+        sources=["finnhub", "polygon"],
+    ))
+    assert result.flag.startswith("corporate action:")
+    assert result.judge == "event_guard"
+    assert result.status == "complete"
+    assert news_blocks_buy(result.flag, 14.44, 77.65, result.status)
+    assert news_blocks_buy(result.flag, 80.0, 77.65, result.status)
+
+
+def test_released_phase_two_data_is_a_hard_stop_regardless_of_tone(monkeypatch):
+    monkeypatch.setattr("stock_picker.training.news_day_judge.grok_judge", lambda *a: (False, ""))
+    result = check_news_coverage("NKTR", NewsCoverage(
+        articles=[{
+            "headline": "New Biomarker Data Presented at EADV Congress",
+            "summary": "Nektar announced new results from its Phase 2b study in patients.",
+        }],
+        sources=["finnhub"],
+    ))
+    assert result.flag.startswith("clinical readout:")
+    assert result.judge == "event_guard"
+    assert news_blocks_buy(result.flag, 60.0, 55.0, result.status)
+
+
+def test_future_conference_and_generic_spin_off_discussion_are_not_hard_stops():
+    assert high_impact_event_flag([{
+        "headline": "Company will present Phase 2b trial data at a conference next month",
+    }]) is None
+    assert high_impact_event_flag([{
+        "headline": "Analysts discuss whether the company could spin off a unit someday",
+    }]) is None
 
 
 def test_regulatory_fallback_distinguishes_actions_from_speculation():

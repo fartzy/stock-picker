@@ -104,6 +104,7 @@ export function NewsCell({
   check?: NewsCheckDetails | null;
 }) {
   const coverage = newsCheckPresentation(check, checked, flag);
+  const hold = blocks && !flag;
   return (
     <span className="news-check" title={coverage.detail}>
       {flag && (
@@ -111,7 +112,8 @@ export function NewsCell({
           {blocks ? "skip" : "still buy"} · {flag}
         </span>
       )}
-      {coverage.label && <span className={coverage.warning ? "news-check-warning" : "muted"}>{coverage.label}</span>}
+      {hold && <span className="news-check-warning">hold · {coverage.label || "news review incomplete"}</span>}
+      {coverage.label && !hold && <span className={coverage.warning ? "news-check-warning" : "muted"}>{coverage.label}</span>}
     </span>
   );
 }
