@@ -16,10 +16,12 @@ import pandas as pd
 
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
+from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, score_direction_margin
 from stock_picker.training.model import (
     RANK_MODEL_TYPE,
     EvaluationMetrics,
     TrainedModel,
+    feature_columns,
     predict,
     train_model,
 )
@@ -38,9 +40,23 @@ class ModelSpec:
 class Ensemble:
     members: list[TrainedModel]
     weights: list[float]
+    # Kept in the same archive as the LightGBM member that consumes its
+    # margin. Old pickles do not have this field; scoring uses getattr.
+    direction_svc: TrainedModel | None = None
 
 
 def train_ensemble(train_frame: pd.DataFrame, specs: list[ModelSpec]) -> Ensemble:
+    for spec in specs:
+        if (
+            spec.model_type != "lightgbm"
+            and DIRECTION_MARGIN_COLUMN in feature_columns(
+                train_frame, spec.excluded_features, spec.included_features
+            )
+        ):
+            raise ValueError(
+                f"{DIRECTION_MARGIN_COLUMN} is only supported for LightGBM members; "
+                f"{spec.model_type} would consume it"
+            )
     members = [
         train_model(
             spec.model_type,
@@ -55,6 +71,28 @@ def train_ensemble(train_frame: pd.DataFrame, specs: list[ModelSpec]) -> Ensembl
 
 
 def predict_ensemble(ensemble: Ensemble, frame: pd.DataFrame) -> np.ndarray:
+    unsupported = [
+        member.model_type
+        for member in ensemble.members
+        if member.model_type != "lightgbm" and DIRECTION_MARGIN_COLUMN in member.feature_names
+    ]
+    if unsupported:
+        raise ValueError(
+            f"{DIRECTION_MARGIN_COLUMN} is only supported for LightGBM members; "
+            f"found {unsupported}"
+        )
+    if any(
+        member.model_type == "lightgbm" and DIRECTION_MARGIN_COLUMN in member.feature_names
+        for member in ensemble.members
+    ):
+        direction_svc = getattr(ensemble, "direction_svc", None)
+        if direction_svc is None:
+            raise ValueError("LightGBM expects direction margin but its fitted SVC is missing")
+        # Ignore a supplied margin: it could be stale, spoofed, or generated
+        # by a different SVC than the one paired with this archived model.
+        frame = frame.assign(**{
+            DIRECTION_MARGIN_COLUMN: score_direction_margin(frame, direction_svc)
+        })
     total_weight = sum(ensemble.weights)
     blended = sum(
         predict(member, frame) * weight for member, weight in zip(ensemble.members, ensemble.weights)
@@ -102,7 +140,11 @@ def ensemble_feature_names(ensemble: Ensemble) -> frozenset[str]:
     reindex to NaN instead of its real value if this were derived from
     anything other than the model actually about to score the row.
     """
-    return frozenset().union(*(set(member.feature_names) for member in ensemble.members))
+    names = frozenset().union(*(set(member.feature_names) for member in ensemble.members))
+    direction_svc = getattr(ensemble, "direction_svc", None)
+    if direction_svc is not None:
+        names |= frozenset(direction_svc.feature_names)
+    return names
 
 
 def selected_model_specs() -> list[ModelSpec] | None:

@@ -97,6 +97,13 @@ def test_score_direction_margin_rejects_missing_inputs_and_nonfinite_values(monk
 
     with pytest.raises(ValueError, match="inputs are missing"):
         stack.score_direction_margin(frame.drop(columns="signal"), svc)
+    with pytest.raises(ValueError, match="all missing"):
+        stack.score_direction_margin(frame.assign(signal=[np.nan, 2.0]), svc)
+    partial = frame.assign(momentum=[np.nan, 0.5])
+    two_feature_svc = SimpleNamespace(
+        model_type="svc_direction", feature_names=["signal", "momentum"]
+    )
+    assert stack.score_direction_margin(partial, two_feature_svc).tolist() == [0.4, -0.2]
     with pytest.raises(ValueError, match="own margin"):
         stack.score_direction_margin(
             frame.assign(svc_direction_margin=0.1),

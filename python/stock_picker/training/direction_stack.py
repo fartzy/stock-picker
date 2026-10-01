@@ -49,6 +49,10 @@ def score_direction_margin(frame: pd.DataFrame, direction_svc: TrainedModel) -> 
         raise ValueError(f"direction SVC inputs are missing: {sorted(missing)}")
     if DIRECTION_MARGIN_COLUMN in direction_svc.feature_names:
         raise ValueError("direction SVC cannot use its own margin as an input")
+    # The saved median imputer permits ordinary partial gaps, but an entirely
+    # missing source vector can otherwise yield a plausible constant margin.
+    if frame[direction_svc.feature_names].isna().all(axis=1).any():
+        raise ValueError("direction SVC inputs are all missing for at least one row")
     values = np.asarray(decision_scores(direction_svc, frame), dtype=float)
     if values.shape != (len(frame),) or not np.isfinite(values).all():
         raise ValueError("direction SVC margins must be finite and row-aligned")
