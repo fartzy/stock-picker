@@ -7,13 +7,15 @@ via `storage.model_store.ModelStore`, so inference never depends on an MLflow se
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 
 import mlflow
 import pandas as pd
 
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.storage.paths import data_root
+from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, iter_direction_margin_folds
 from stock_picker.training.ensemble import Ensemble, ModelSpec, evaluate_ensemble, train_ensemble
 from stock_picker.training.model import EvaluationMetrics
 from stock_picker.training.splits import walk_forward_splits
@@ -62,22 +64,80 @@ def run_walk_forward(
     n_splits: int = 4,
     specs: list[ModelSpec] | None = None,
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
+    stack_direction_margin: bool = False,
 ) -> list[FoldResult]:
-    """Train+evaluate an ensemble across `n_splits` walk-forward folds, logging
-    each to MLflow. Returns `FoldResult`s in chronological order."""
+    """Train+evaluate an ensemble across chronological folds.
+
+    When ``stack_direction_margin`` is enabled for production and a LightGBM
+    member selects the direction margin, its training rows receive strictly
+    earlier-date SVC predictions. The paired SVC is fitted
+    on the entire preceding outer training period, using *all unpruned raw*
+    features even when LightGBM has a narrower positive selection. Other
+    member families train on those same eligible rows but never see the margin.
+    """
     specs = specs if specs is not None else DEFAULT_SPECS
+    stacked_specs = [
+        spec
+        for spec in specs
+        if stack_direction_margin
+        and spec.model_type == "lightgbm"
+        and DIRECTION_MARGIN_COLUMN not in (spec.excluded_features or set())
+        and (spec.included_features is None or DIRECTION_MARGIN_COLUMN in spec.included_features)
+    ]
+    # A run has one SVC paired to every margin-consuming LightGBM member.
+    # Production passes a uniform pruned set to every spec; reject ambiguous
+    # direct calls rather than choosing an arbitrary set of source inputs.
+    if stacked_specs and any(
+        (spec.excluded_features or set()) != (stacked_specs[0].excluded_features or set())
+        for spec in stacked_specs[1:]
+    ):
+        raise ValueError("direction-margin LightGBM members must share excluded features")
+    # The model-derived margin is a Fit/LightGBM input only. A shared
+    # positive selection from the UI must not make Ridge or another member
+    # consume it merely because it is present in the stacked frame.
+    training_specs = [
+        (
+            spec
+            if spec.model_type == "lightgbm"
+            else replace(
+                spec,
+                excluded_features=set(spec.excluded_features or ()) | {DIRECTION_MARGIN_COLUMN},
+                included_features=(
+                    None if spec.included_features is None
+                    else set(spec.included_features) - {DIRECTION_MARGIN_COLUMN}
+                ),
+            )
+        )
+        for spec in specs
+    ]
     _configure_mlflow(tracking_dir)
-    splits = walk_forward_splits(pooled_dataset["date"], n_splits=n_splits)
+    if stacked_specs:
+        source_exclusions = set(stacked_specs[0].excluded_features or ()) | set(STACKED_SVM_COLUMNS)
+        stacked_folds = iter_direction_margin_folds(
+            pooled_dataset,
+            excluded_features=source_exclusions,
+            n_splits=n_splits,
+        )
+        folds = (
+            (fold.baseline_train, fold.stacked_train, fold.stacked_test, fold.direction_svc)
+            for fold in stacked_folds
+        )
+    else:
+        splits = walk_forward_splits(pooled_dataset["date"], n_splits=n_splits)
+        folds = (
+            (pooled_dataset[train_mask], pooled_dataset[train_mask], pooled_dataset[test_mask], None)
+            for train_mask, test_mask in splits
+        )
 
     fold_results = []
     with mlflow.start_run(run_name="walk_forward"):
         _log_specs(specs, n_splits)
+        mlflow.log_param("svc_direction_margin_enabled", bool(stacked_specs))
 
-        for fold, (train_mask, test_mask) in enumerate(splits):
-            train_frame = pooled_dataset[train_mask]
-            test_frame = pooled_dataset[test_mask]
-
-            ensemble = train_ensemble(train_frame, specs)
+        for fold, (base_train, stacked_train, test_frame, direction_svc) in enumerate(folds):
+            train_frame = stacked_train if direction_svc is not None else base_train
+            ensemble = train_ensemble(train_frame, training_specs)
+            ensemble.direction_svc = direction_svc
             metrics = evaluate_ensemble(ensemble, test_frame)
 
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):

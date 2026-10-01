@@ -62,8 +62,10 @@ from stock_picker.features.catalog import (
     correlation_matrix,
     coverage_report,
     describe_all,
+    experimental_features,
     examples_all,
     list_feature_columns,
+    model_derived_features,
     top_correlated_pairs,
 )
 from stock_picker.features.catalog_loader import STATS_SAMPLE_SIZE, feature_tables, sample_history
@@ -75,8 +77,9 @@ from stock_picker.features.price_history import (
 )
 from stock_picker.features.pruning import pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
-from stock_picker.features.registry import TICKER_ENTITY, build_registry
+from stock_picker.features.registry import TICKER_ENTITY, build_registry, experimental_views, model_derived_views
 from stock_picker.features.selection import selected_features
+from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS
 from stock_picker.features.trades import (
     position_summaries,
     time_weighted_working_by_day,
@@ -117,6 +120,11 @@ def get_catalog() -> CatalogResponse:
         descriptions=describe_all(history),
         formulas=compute_formulas_all(history),
         examples=examples_all(history),
+        experimental_features={name: asdict(feature) for name, feature in experimental_features().items()},
+        model_derived_features={
+            name: {**asdict(feature), "status": "production_eligible"}
+            for name, feature in model_derived_features().items()
+        },
     )
 
 
@@ -438,16 +446,22 @@ def unprune_feature(feature: str) -> PrunedFeaturesResponse:
 
 @router.get("/feature-importance")
 def get_feature_importance() -> ImportanceResponse:
-    importance = model_importance()
+    selected_run_id = TrainingConfigStore().read().selected_run_id
+    model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+    importance = model_importance(
+        model_name, store=ModelStore(), include_diagnostic=selected_run_id is None
+    )
     return ImportanceResponse(importance=importance["blended"], by_model_type=importance["by_model_type"])
 
 
 @router.get("/model-info")
 def get_model_info() -> ModelInfoResponse:
     store = ModelStore()
-    if not store.exists(MODEL_NAME):
+    selected_run_id = TrainingConfigStore().read().selected_run_id
+    model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+    if not store.exists(model_name):
         return ModelInfoResponse(models=[])
-    return ModelInfoResponse(models=ensemble_composition(store.read(MODEL_NAME)))
+    return ModelInfoResponse(models=ensemble_composition(store.read(model_name)))
 
 
 @router.get("/model-types")
@@ -463,8 +477,29 @@ def get_feature_selection() -> FeatureSelectionResponse:
 
 @router.post("/feature-selection")
 def set_feature_selection(body: FeatureSelectionRequest) -> FeatureSelectionResponse:
-    TrainingConfigStore().write_included_features(set(body.included_features))
-    return FeatureSelectionResponse(included_features=sorted(body.included_features))
+    included = set(body.included_features)
+    experimental = sorted(included & set(RESEARCH_SVM_COLUMNS))
+    if experimental:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"SVM-derived research outputs cannot be selected for production training: {', '.join(experimental)}",
+        )
+    raw_catalog = list_feature_columns(sample_history())
+    raw_features = {name for columns in raw_catalog.values() for name in columns}
+    unknown = sorted(included - raw_features - set(PRODUCTION_MODEL_DERIVED_COLUMNS))
+    if unknown:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Unknown feature names cannot be selected for production training: {', '.join(unknown)}",
+        )
+    usable_raw = (included & raw_features) - pruned_features()
+    if not usable_raw:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Feature selection requires at least one unpruned raw pipeline feature alongside any model-derived feature.",
+        )
+    TrainingConfigStore().write_included_features(included)
+    return FeatureSelectionResponse(included_features=sorted(included))
 
 
 @router.delete("/feature-selection")
@@ -673,4 +708,6 @@ def get_registry() -> RegistryResponse:
         entities=[asdict(TICKER_ENTITY)],
         feature_views=[asdict(view) for view in feature_views],
         feature_services=[asdict(service) for service in feature_services],
+        experimental_views=[asdict(view) for view in experimental_views()],
+        model_derived_views=[asdict(view) for view in model_derived_views()],
     )

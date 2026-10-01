@@ -133,6 +133,11 @@ def _describe(params: dict) -> str:
     )
 
 
+def _persist_raw_winner(specs: list[ModelSpec]) -> None:
+    """Materialize the winner under the same raw-feature regime searched above."""
+    run_training(model_specs=specs, stack_direction_margin=False)
+
+
 def main() -> None:
     t0 = time.time()
     excluded = pruned_features()
@@ -306,21 +311,17 @@ def main() -> None:
         logger.info("\nNot persisting -- nothing beat the current production holdout accuracy.")
     elif winner_name == "solo LightGBM":
         logger.info("\nPersisting solo LightGBM via run_training -- holdout beat the previous latest.")
-        run_training(
-            model_specs=[
-                ModelSpec("lightgbm", params=persistable_lgbm_params, excluded_features=excluded, weight=1.0)
-            ]
-        )
+        _persist_raw_winner([
+            ModelSpec("lightgbm", params=persistable_lgbm_params, excluded_features=excluded, weight=1.0)
+        ])
     elif winner_name.startswith("return-avg") or winner_name.startswith("learned-w"):
         w_lgbm = mean_w if winner_name.startswith("learned-w") else 1.0
         w_ridge = (1 - mean_w) if winner_name.startswith("learned-w") else 1.0
         logger.info(f"\nPersisting LightGBM+Ridge ({winner_name}) via run_training.")
-        run_training(
-            model_specs=[
-                ModelSpec("lightgbm", params=persistable_lgbm_params, excluded_features=excluded, weight=w_lgbm),
-                ModelSpec("ridge", params=dict(RIDGE_DEFAULT_PARAMS), excluded_features=excluded, weight=w_ridge),
-            ]
-        )
+        _persist_raw_winner([
+            ModelSpec("lightgbm", params=persistable_lgbm_params, excluded_features=excluded, weight=w_lgbm),
+            ModelSpec("ridge", params=dict(RIDGE_DEFAULT_PARAMS), excluded_features=excluded, weight=w_ridge),
+        ])
     else:
         logger.info(f"\n{winner_name} beat production on a metric live scoring cannot serve; not persisting.")
 

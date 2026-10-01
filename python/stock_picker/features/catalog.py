@@ -29,6 +29,12 @@ from stock_picker.features import (
 from stock_picker.features.descriptions import describe_feature
 from stock_picker.features.examples import feature_example
 from stock_picker.features.formulas import describe_computation
+from stock_picker.features.stacked_svm import (
+    PRODUCTION_MODEL_DERIVED_COLUMNS,
+    RESEARCH_SVM_COLUMNS,
+    SVM_DERIVED_FEATURES,
+    ExperimentalFeature,
+)
 
 _SINGLE_TICKER_BUILDERS = {
     "momentum": momentum.build_momentum_features,
@@ -121,6 +127,24 @@ def examples_all(sample_history: pd.DataFrame) -> dict[str, str]:
         column: feature_example(column)
         for columns in catalog.values()
         for column in columns
+    }
+
+
+def experimental_features() -> dict[str, ExperimentalFeature]:
+    """Research-only training candidates, absent from pipeline columns.
+
+    They have prose computation/examples rather than persisted coverage or a
+    pandas formula because their values depend on fitted SVM estimators.
+    """
+    return {feature.name: feature for feature in SVM_DERIVED_FEATURES if feature.name in RESEARCH_SVM_COLUMNS}
+
+
+def model_derived_features() -> dict[str, ExperimentalFeature]:
+    """Production-eligible fitted outputs, not persisted pipeline features."""
+    return {
+        feature.name: feature
+        for feature in SVM_DERIVED_FEATURES
+        if feature.name in PRODUCTION_MODEL_DERIVED_COLUMNS
     }
 
 

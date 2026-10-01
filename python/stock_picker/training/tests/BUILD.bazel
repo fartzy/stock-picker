@@ -141,6 +141,40 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_direction_stack",
+    srcs = ["test_direction_stack.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
+    name = "test_svr_stack_run",
+    srcs = ["test_svr_stack_run.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
+    name = "test_svr_stack_search",
+    srcs = ["test_svr_stack_search.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_train",
     srcs = ["test_train.py"],
     imports = ["../../.."],
