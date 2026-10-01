@@ -3,10 +3,10 @@
   "trade_date": "2026-10-01",
   "source": "User-provided broker order summaries and confirmations; repeated pasted confirmations deduplicated by order number and fill details",
   "time_zone": "America/New_York",
-  "note": "One CTVA buy at $13.63 has no reported time or order number. Where execution time was omitted, order time is used and marked as such. Each row is one filled order, including orders with multiple executions.",
+  "note": "The 09:38:08 CTVA buy was confirmed after the initial reconciliation, replacing its provisional timestamp. Where execution time was omitted, order time is used and marked as such. Each row is one filled order, including orders with multiple executions.",
   "filled_order_count": 35,
   "orders": [
-    {"order_number": null, "ticker": "CTVA", "side": "buy", "shares": 500, "price": 13.63, "executed_at": null, "broker_net_amount": 6815.00, "time_basis": "missing; appears last in the reverse-chronological order list"},
+    {"order_number": "1DE011KY", "ticker": "CTVA", "side": "buy", "shares": 500, "price": 13.63, "executed_at": "2026-10-01T09:38:08-04:00", "broker_net_amount": 6815.00},
     {"order_number": "1DE0538W", "ticker": "LQDA", "side": "buy", "shares": 200, "price": 26.1727, "executed_at": "2026-10-01T09:39:48-04:00", "broker_net_amount": 5234.54},
     {"order_number": "1DE07TH6", "ticker": "NKTR", "side": "buy", "shares": 100, "price": 54.9517, "executed_at": "2026-10-01T09:41:51-04:00", "broker_net_amount": 5495.17},
     {"order_number": "1DE01SSK", "ticker": "CTVA", "side": "buy", "shares": 500, "price": 13.035, "executed_at": "2026-10-01T09:42:52-04:00", "broker_net_amount": 6517.50},
