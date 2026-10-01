@@ -8,6 +8,7 @@ import {
   type TimedPass,
 } from "../api";
 import { useFetchData } from "../useFetchData";
+import { newsBlocksBuy } from "../newsSkip";
 import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
 import { StatStrip } from "./StatStrip";
 
@@ -46,7 +47,20 @@ function PassBlock({ pass, isRank }: { pass: TimedPass; isRank: boolean }) {
                 cell: (pick) => <ScoreCell value={pick.predicted_return} isRank={isRank} />,
               },
               { key: "open", header: "Fake open", numeric: true, cell: (pick) => <UsdCell value={pick.open_price} /> },
-              { key: "news", header: "News", cell: (pick) => <NewsCell flag={pick.news_flag} checked={pick.news_checked} check={pick.news_check} /> },
+              {
+                key: "news",
+                header: "News",
+                cell: (pick) => {
+                  const status = pick.news_check?.status
+                    ?? (pick.news_checked === false ? "not_checked" : undefined);
+                  return <NewsCell
+                    flag={pick.news_flag}
+                    blocks={newsBlocksBuy(pick.news_flag, pick.open_price, null, status)}
+                    checked={pick.news_checked}
+                    check={pick.news_check}
+                  />;
+                },
+              },
             ]}
           />
         </div>
