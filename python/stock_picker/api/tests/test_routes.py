@@ -710,6 +710,42 @@ def test_get_quotes_after_close_falls_back_to_live_when_todays_bar_is_missing(cl
     assert quotes[0]["last"] == 105.0
 
 
+def test_get_quotes_after_close_fills_only_names_missing_from_partial_settled_bars(client):
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 1)),
+        patch("stock_picker.ingestion.session.session_has_closed", return_value=True),
+        patch(
+            "stock_picker.paper.book.session_quotes_from_prices",
+            return_value={"AAA": {"open": 50.0, "last": 52.0, "prev_close": 49.0}},
+        ),
+        patch(
+            "stock_picker.api.routes.fetch_ticker_quotes",
+            return_value={"BBB": {"open": 70.0, "last": 72.0, "prev_close": 69.0}},
+        ) as mock_live,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA,BBB", "as_of": "2026-10-01"})
+
+    assert response.status_code == status.HTTP_200_OK
+    assert {quote["ticker"]: quote["last"] for quote in response.json()["quotes"]} == {
+        "AAA": 52.0,
+        "BBB": 72.0,
+    }
+    mock_live.assert_called_once_with(["BBB"], as_of=date(2026, 10, 1))
+
+
+def test_get_quotes_for_past_date_never_fills_missing_bar_with_todays_quote(client):
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 1)),
+        patch("stock_picker.paper.book.session_quotes_from_prices", return_value={}),
+        patch("stock_picker.api.routes.fetch_ticker_quotes") as mock_live,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA", "as_of": "2026-09-30"})
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()["quotes"] == []
+    mock_live.assert_not_called()
+
+
 def test_get_quotes_with_as_of_for_the_still_open_session_uses_live_fetch(client):
     # Today's own not-yet-closed session must keep behaving exactly like the
     # no-as_of case (test_get_quotes above) -- as_of alone doesn't switch to
