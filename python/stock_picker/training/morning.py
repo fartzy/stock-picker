@@ -12,7 +12,7 @@ import time
 from datetime import date, datetime
 from pathlib import Path
 
-from stock_picker.ingestion.session import CHICAGO_TIMEZONE, cash_session_date, session_has_closed
+from stock_picker.ingestion.session import CHICAGO_TIMEZONE, session_has_closed
 from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
@@ -101,7 +101,10 @@ def load_cached_signals(
     store = ScanStore(data_dir=signal_dir)
     if as_of:
         return store.read(as_of, kind)
-    today = cash_session_date(now).isoformat()
+    # The UI is in Chicago time. At 23:00 CT it is already tomorrow in
+    # New York, but tonight's saved scan still belongs to today here.
+    current = now or datetime.now(CHICAGO_TIMEZONE)
+    today = current.astimezone(CHICAGO_TIMEZONE).date().isoformat()
     payload = store.read(today, kind)
     if payload:
         return payload
