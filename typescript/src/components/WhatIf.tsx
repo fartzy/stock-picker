@@ -153,9 +153,8 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
           hint="One SPY stake from the first selected day's open through the last selected day's close."
         />
         <details className="what-if-benchmark-help">
-          <summary>ⓘ How S&P is sized</summary>
-          <p>Intraday: SPY open→close on matched completed days, using each day’s invested capital. Missing SPY days are excluded.</p>
-          <p>Buy &amp; hold: first selected day’s open→last selected day’s close, including intervening sessions. One stake of {benchmark.holdCapital === null ? "—" : formatUsd(benchmark.holdCapital)} (average completed-day capital), not a new stake each day. The first day’s SPY return and both endpoint closes must be available.</p>
+          <summary>ⓘ S&amp;P method</summary>
+          <p>Intraday matches each day’s stake. Buy &amp; hold uses one average-sized stake from the first open to the last close.</p>
         </details>
       </div>
     </div>

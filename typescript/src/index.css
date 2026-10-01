@@ -1405,7 +1405,8 @@ details.view-card[open] > summary::before {
 }
 
 .slice-card {
-  padding: var(--space-3);
+  padding: var(--space-4);
+  font-family: var(--sans);
 }
 
 .slice-card-kicker {
@@ -1426,6 +1427,7 @@ details.view-card[open] > summary::before {
   display: grid;
   gap: var(--space-2);
   font-size: var(--text-caption);
+  font-family: var(--sans);
   font-variant-numeric: tabular-nums;
 }
 
@@ -1439,6 +1441,7 @@ details.view-card[open] > summary::before {
 
 .what-if-benchmark-label {
   color: var(--text-muted);
+  font-weight: 600;
 }
 
 .what-if-benchmark-value {
@@ -1453,7 +1456,8 @@ details.view-card[open] > summary::before {
 
 .what-if-benchmark-help {
   color: var(--text-muted);
-  line-height: 1.4;
+  font-family: var(--sans);
+  line-height: 1.35;
 }
 
 .what-if-benchmark-help summary {
@@ -1467,8 +1471,7 @@ details.view-card[open] > summary::before {
 }
 
 .what-if-benchmark-help p {
-  margin: var(--space-2) 0 0;
-  max-width: 60ch;
+  margin: var(--space-1) 0 0;
 }
 
 .list-toggle {
