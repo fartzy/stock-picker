@@ -1,8 +1,9 @@
 # 0021: Rejected: SVM as stacked LightGBM columns
 
 Date: 2026-09-27
-Status: Rejected (2026-09-30; walk-forward gate failed, holdout untouched,
-no production columns, estimator pickle, or pipeline change)
+Status: Rejected under its research gate (2026-09-30; holdout untouched).
+The production-promotion instructions below are superseded by ADR 0022 for
+`svc_direction_margin` only; the procedure below remains historical.
 
 ## Outcome
 
