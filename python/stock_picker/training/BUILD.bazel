@@ -28,6 +28,7 @@ py_library(
         "model.py",
         "morning.py",
         "news_day_judge.py",
+        "news_policy.py",
         "news_ingest.py",
         "morning_job.py",
         "nightly.py",
@@ -50,6 +51,7 @@ py_library(
     visibility = ["//visibility:public"],
     deps = [
         "//python/stock_picker:log",
+        "//python/stock_picker:news_check",
         "//python/stock_picker:news_skip",
         "//python/stock_picker:parallel",
         "//python/stock_picker/features",
@@ -182,6 +184,7 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":training",
+        "//python/stock_picker:news_check",
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
     ],

@@ -2,6 +2,13 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_news_sources",
+    srcs = ["test_news_sources.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/ingestion", "@pypi//requests"],
+)
+
+py_pytest(
     name = "test_yfinance_client",
     srcs = ["test_yfinance_client.py"],
     imports = ["../../.."],

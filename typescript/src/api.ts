@@ -180,6 +180,18 @@ export interface PaperBookDay {
   rank_stats?: PaperListStats;
 }
 
+export interface NewsCheckDetails {
+  status: "complete" | "no_news" | "degraded" | "error" | "not_checked" | "unknown";
+  flag?: string | null;
+  article_count: number | null;
+  reviewed_count: number | null;
+  judge?: string | null;
+  sources: string[];
+  issues: string[];
+  checked_at?: string | null;
+  articles?: Array<{ headline: string; summary?: string; published_at?: string; url?: string; source?: string }>;
+}
+
 export interface PaperPickRow {
   rank: number;
   ticker: string;
@@ -188,7 +200,8 @@ export interface PaperPickRow {
   close_price: number | null;
   session_return: number | null;
   news_flag?: string | null;
-  news_checked?: boolean;
+  news_checked?: boolean | null;
+  news_check?: NewsCheckDetails | null;
   news_blocks?: boolean;
 }
 
@@ -415,7 +428,8 @@ export interface BuySignalRow {
   open_price: number;
   snapshot_date: string;
   news_flag?: string | null;
-  news_checked?: boolean;
+  news_checked?: boolean | null;
+  news_check?: NewsCheckDetails | null;
   prev_close?: number | null;
   news_blocks?: boolean;
 }
@@ -552,7 +566,8 @@ export interface TimedPass {
     open_price: number;
     snapshot_date: string;
     news_flag?: string | null;
-    news_checked?: boolean;
+    news_checked?: boolean | null;
+    news_check?: NewsCheckDetails | null;
   }>;
   skipped_count: number;
 }

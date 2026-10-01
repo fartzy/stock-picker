@@ -8,7 +8,7 @@ npm_link_all_packages()
 # Pure calculations run with Bazel's Node toolchain; no test-framework install.
 ts_project(
     name = "what_if_calculations",
-    srcs = ["src/api.ts", "src/whatIf.ts"],
+    srcs = ["src/api.ts", "src/whatIf.ts", "src/newsCheck.ts"],
     declaration = False,
     transpiler = "tsc",
     tsconfig = {"compilerOptions": {
@@ -23,6 +23,12 @@ ts_project(
 js_test(
     name = "what_if_test",
     entry_point = "tests/whatIf.test.mjs",
+    data = [":what_if_calculations", "package.json"],
+)
+
+js_test(
+    name = "news_check_test",
+    entry_point = "tests/newsCheck.test.mjs",
     data = [":what_if_calculations", "package.json"],
 )
 

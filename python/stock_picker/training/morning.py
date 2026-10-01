@@ -20,7 +20,8 @@ from stock_picker.features.quotes import fetch_ticker_quotes
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
-from stock_picker.training.news_day_judge import fetch_recent_news_flags
+from stock_picker.training.news_day_judge import fetch_recent_news_checks
+from stock_picker.news_check import NewsCheck, apply_news_checks
 from stock_picker.storage.paths import data_root
 from stock_picker.storage.scan_store import ScanStore
 from stock_picker.training.buy_signal import (
@@ -135,6 +136,7 @@ def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
                 "snapshot_date": signal.snapshot_date,
                 "news_flag": signal.news_flag,
                 "news_checked": signal.news_checked,
+                "news_check": getattr(signal, "news_check", None),
                 "prev_close": signal.prev_close,
             }
             for signal in result.signals
@@ -157,7 +159,7 @@ def score_from_quotes(
     quotes: dict[str, dict],
     threshold: float = DEFAULT_THRESHOLD,
     persist: bool = True,
-    news_fetcher=fetch_recent_news_flags,
+    news_fetcher=fetch_recent_news_checks,
     earnings_fetcher=fetch_recent_earnings_tickers,
     as_of: date | None = None,
     model_run_id: str | None = None,
@@ -293,33 +295,31 @@ def score_from_quotes(
     if not persist and rank_result is not None:
         rank_n = len(rank_result.signals)
 
-    def _apply_news(checked: set[str], flags: dict[str, str]) -> None:
-        # Mark every judged ticker news_checked (so a blank News column reads
-        # "clear", not "still checking") and attach a flag where one was found.
-        # Applies to both lists so a name in fit and rank updates in both.
+    def _apply_news(names: list[str], checks: dict) -> None:
         signals = list(result.signals)
         if rank_result is not None:
             signals.extend(rank_result.signals)
-        for signal in signals:
-            if signal.ticker in checked:
-                signal.news_checked = True
-                if signal.ticker in flags:
-                    signal.news_flag = flags[signal.ticker]
+        apply_news_checks(signals, names, checks)
 
     def _news(tickers, label):
         names = list(dict.fromkeys(tickers))
-        if not names or news_fetcher is None:
+        if not names:
             return {}
+        if news_fetcher is None:
+            return {name: NewsCheck(status="not_checked") for name in names}
         logger.info("news check %s names (%s)", len(names), label)
         t_news = time.perf_counter()
-        flags = news_fetcher(names, date.fromisoformat(result.as_of)) or {}
-        logger.info("news %s %.1fs flagged=%s", label, time.perf_counter() - t_news, len(flags))
-        return flags
+        try:
+            checks = news_fetcher(names, date.fromisoformat(result.as_of)) or {}
+        except Exception:
+            # Provider errors can contain credentials in their URL. Retain a
+            # stable failure code, not the raw exception or a misleading clear.
+            checks = {name: NewsCheck(status="error", issues=["check_failed"]) for name in names}
+        logger.info("news %s %.1fs results=%s", label, time.perf_counter() - t_news, len(checks))
+        return checks
 
     def _publish(first: bool) -> None:
-        """Write + publish the current picks (news flags applied so far). The
-        first call also writes the local cache files; later calls only
-        republish the GitHub/email body after news changed something."""
+        """Persist the current picks and their news evidence after every batch."""
         nonlocal rank_text
         if rank_result is not None and rank_result.signals:
             rank_payload = _payload_from(rank_result, freshness, model_run_id)
@@ -364,15 +364,14 @@ def score_from_quotes(
     for index, (label, names) in enumerate(stages):
         fresh = [ticker for ticker in dict.fromkeys(names) if ticker not in seen]
         seen.update(fresh)
-        flags = _news(fresh, label) if fresh else {}
-        _apply_news(set(fresh), flags)
+        checks = _news(fresh, label) if fresh else {}
+        _apply_news(fresh, checks)
         if persist:
-            # Stage 0 is the first publish (unconditional, gets the picks out);
-            # later stages only republish if their news actually changed a flag.
+            # Persist every completed batch, including no-news and failures.
             if index == 0:
                 _publish(first=True)
                 logger.info("first publish GitHub + cache (%s)", label)
-            elif flags:
+            elif fresh:
                 _publish(first=False)
                 logger.info("republish GitHub after %s news", label)
         if on_progress is not None:

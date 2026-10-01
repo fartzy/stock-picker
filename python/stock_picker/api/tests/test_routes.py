@@ -831,6 +831,8 @@ def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
                 "snapshot_date": "2026-09-25",
                 "news_flag": "Why Twilio (TWLO) Shares Are Getting Obliterated Today",
                 "news_checked": True,
+                "news_check": {"status": "degraded", "article_count": 5, "reviewed_count": 5,
+                               "sources": ["finnhub"], "issues": ["polygon_unavailable"]},
             }
         ],
         "scored_count": 1,
@@ -847,6 +849,9 @@ def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
     row = response.json()["signals"][0]
     assert row["prev_close"] == 275.80
     assert row["news_blocks"] is True
+    assert row["news_checked"] is True
+    assert row["news_check"]["status"] == "degraded"
+    assert row["news_check"]["article_count"] == 5
 
 
 def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):

@@ -98,7 +98,7 @@ from stock_picker.training import job as training_job
 from stock_picker.training import morning_check as morning_check_job
 from stock_picker.training import morning_job as morning_scan_job
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
-from stock_picker.training.news_day_judge import fetch_recent_news_flags, news_blocks_buy
+from stock_picker.training.news_day_judge import fetch_recent_news_checks, news_blocks_buy
 from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_signals
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.morning import load_cached_signals
@@ -296,7 +296,7 @@ def get_buy_signal(
         result = compute_rank_signals(
             top_k=RANK_TOP_K,
             earnings_fetcher=fetch_recent_earnings_tickers,
-            news_fetcher=fetch_recent_news_flags,
+            news_fetcher=fetch_recent_news_checks,
         )
         return BuySignalResponse(
             as_of=result.as_of,
@@ -310,7 +310,7 @@ def get_buy_signal(
     result = compute_buy_signals(
         threshold=threshold,
         earnings_fetcher=fetch_recent_earnings_tickers,
-        news_fetcher=fetch_recent_news_flags,
+        news_fetcher=fetch_recent_news_checks,
     )
     return BuySignalResponse(
         as_of=result.as_of,

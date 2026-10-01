@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from stock_picker.training.ensemble import EnsembleMemberInfo
 
@@ -334,6 +334,18 @@ class RegistryResponse(BaseModel):
     model_derived_views: list[ModelDerivedFeatureView]
 
 
+class NewsCheckDetails(BaseModel):
+    status: Literal["complete", "no_news", "degraded", "error", "not_checked", "unknown"]
+    flag: str | None = None
+    article_count: int | None = None
+    reviewed_count: int | None = None
+    judge: str | None = None
+    sources: list[str] = Field(default_factory=list)
+    issues: list[str] = Field(default_factory=list)
+    checked_at: str | None = None
+    articles: list[dict] = Field(default_factory=list)
+
+
 class BuySignalRow(BaseModel):
     ticker: str
     predicted_return: float
@@ -342,6 +354,8 @@ class BuySignalRow(BaseModel):
     # Headline from Finnhub company-news on this name only, if it looks
     # like a trial hold / FDA / dilution day. None = no flag.
     news_flag: str | None = None
+    news_checked: bool | None = None
+    news_check: NewsCheckDetails | None = None
     prev_close: float | None = None
     news_blocks: bool = False
 
@@ -385,6 +399,8 @@ class PaperPickRow(BaseModel):
     close_price: float | None = None
     session_return: float | None = None
     news_flag: str | None = None
+    news_checked: bool | None = None
+    news_check: NewsCheckDetails | None = None
     news_blocks: bool = False
 
 

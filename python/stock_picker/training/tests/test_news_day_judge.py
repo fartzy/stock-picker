@@ -1,15 +1,61 @@
 import threading
 from datetime import date
+from types import SimpleNamespace
+
+from stock_picker.ingestion.news_sources import NewsCoverage
+from stock_picker.training.news_policy import regulatory_news_flag
+from stock_picker.news_check import NewsCheck, apply_news_checks
 
 from stock_picker.training.news_day_judge import (
     _parse_judge,
+    check_news_coverage,
     fetch_recent_news_flags,
+    fetch_recent_news_checks,
     flag_from_articles,
     grok_judge,
     llm_chat_url,
+    llm_api_key,
     llm_model,
     news_blocks_buy,
 )
+
+
+def test_local_grok_key_works_without_shell_environment(tmp_path, monkeypatch):
+    config = tmp_path / "config.toml"
+    config.write_text('[model.news]\nbase_url = "https://proxy.example/v1"\napi_key = "local-test-key"\n')
+    monkeypatch.setattr("stock_picker.training.news_day_judge.GROK_CONFIG", config)
+    monkeypatch.delenv("LLM_PROXY_API_KEY", raising=False)
+    monkeypatch.delenv("LLM_PROXY_BASE_URL", raising=False)
+    assert llm_api_key(key_file=tmp_path / "missing") == "local-test-key"
+    assert llm_chat_url() == "https://proxy.example/v1/chat/completions"
+    assert list(tmp_path.iterdir()) == [config]
+
+
+def test_grok_config_supports_ordered_environment_names(tmp_path, monkeypatch):
+    config = tmp_path / "config.toml"
+    config.write_text('[model.news]\nbase_url = "https://proxy.example/v1"\nenv_key = ["NEWS_TEST_EMPTY", "NEWS_TEST_KEY"]\n')
+    monkeypatch.setattr("stock_picker.training.news_day_judge.GROK_CONFIG", config)
+    monkeypatch.delenv("LLM_PROXY_API_KEY", raising=False)
+    monkeypatch.delenv("NEWS_TEST_EMPTY", raising=False)
+    monkeypatch.setenv("NEWS_TEST_KEY", "environment-test-key")
+    assert llm_api_key(key_file=tmp_path / "missing") == "environment-test-key"
+
+
+def test_personal_xai_key_is_not_used_for_a_proxy(tmp_path, monkeypatch):
+    monkeypatch.setattr("stock_picker.training.news_day_judge.GROK_CONFIG", tmp_path / "missing")
+    monkeypatch.delenv("LLM_PROXY_API_KEY", raising=False)
+    monkeypatch.setenv("LLM_PROXY_BASE_URL", "https://proxy.example/v1")
+    monkeypatch.setenv("XAI_API_KEY", "personal-test-key")
+    assert llm_api_key() is None
+
+
+def test_config_key_stays_bound_to_its_own_proxy(tmp_path, monkeypatch):
+    config = tmp_path / "config.toml"
+    config.write_text('[model.news]\nbase_url = "https://proxy.example/v1"\napi_key = "local-test-key"\n')
+    monkeypatch.setattr("stock_picker.training.news_day_judge.GROK_CONFIG", config)
+    monkeypatch.delenv("LLM_PROXY_API_KEY", raising=False)
+    monkeypatch.setenv("LLM_PROXY_BASE_URL", "https://different.example/v1")
+    assert llm_api_key() is None
 
 
 def test_llm_chat_url_uses_proxy_env(monkeypatch):
@@ -121,3 +167,91 @@ def test_fetch_recent_news_flags_judges_names_concurrently(monkeypatch):
 
     assert flags == {"BBB": "avoid"}
     assert set(seen) == set(tickers)
+
+
+DEA_HEADLINE = "MSOS, TRLV Slide After Hours As DEA Judge Pauses Cannabis Rescheduling Case"
+
+
+def test_regulatory_catalyst_is_flagged_even_without_llm(monkeypatch):
+    monkeypatch.setattr("stock_picker.training.news_day_judge.grok_judge", lambda *a: None)
+    result = check_news_coverage("TRLV", NewsCoverage(
+        articles=[{"headline": DEA_HEADLINE}], sources=["finnhub", "polygon"],
+    ))
+    assert result.flag == DEA_HEADLINE
+    assert result.status == "degraded"
+    assert result.article_count == 1
+    assert "llm_unavailable" in result.issues
+    assert news_blocks_buy(result.flag, 10.85, 12.41)
+    assert not news_blocks_buy(result.flag, 13, 12.41)
+
+
+def test_regulatory_fallback_distinguishes_actions_from_speculation():
+    for headline in [
+        "Court blocks cannabis legalization case", "Regulator revokes operating license",
+        "Government bans chip exports", "Government approves cannabis rescheduling",
+    ]:
+        assert regulatory_news_flag([{"headline": headline}]) == headline
+    for headline in [
+        "DEA judge may pause cannabis rescheduling", "Court does not block cannabis legalization",
+        "Cannabis rescheduling debate continues", "Analyst upgrades cannabis stocks",
+        "Government considers whether regulator revokes operating license",
+    ]:
+        assert regulatory_news_flag([{"headline": headline}]) is None
+
+
+def test_sixth_article_and_summary_reach_judge(monkeypatch):
+    seen = []
+    monkeypatch.setattr("stock_picker.training.news_day_judge.grok_judge", lambda ticker, text: seen.extend(text) or (True, "Regulatory pause"))
+    articles = [{"headline": f"Roundup {i}"} for i in range(5)] + [{"headline": DEA_HEADLINE, "summary": "A sector-wide regulatory pause."}]
+    result = check_news_coverage("TRLV", NewsCoverage(articles=articles, sources=["finnhub", "polygon"]))
+    assert len(seen) == 6
+    assert "sector-wide regulatory pause" in seen[-1]
+    assert result.status == "complete"
+    assert result.reviewed_count == 6
+
+
+def test_feed_failures_and_empty_success_cannot_claim_complete(monkeypatch):
+    monkeypatch.setattr("stock_picker.training.news_day_judge.grok_judge", lambda *a: (False, ""))
+    assert check_news_coverage("X", NewsCoverage(issues=["feeds_unavailable"])).status == "error"
+    assert check_news_coverage("X", NewsCoverage(sources=["finnhub", "polygon"])).status == "no_news"
+    result = check_news_coverage("X", NewsCoverage(articles=[{"headline": "Routine"}], sources=["finnhub"], issues=["polygon_unavailable"]))
+    assert result.status == "degraded"
+    assert result.flag is None
+
+
+def test_truncated_review_stays_degraded_even_if_llm_says_no_flag(monkeypatch):
+    monkeypatch.setattr("stock_picker.training.news_day_judge.grok_judge", lambda *a: (False, ""))
+    articles = [{"headline": "Routine quarterly update"} for _ in range(20)] + [{"headline": DEA_HEADLINE}]
+    result = check_news_coverage("TRLV", NewsCoverage(articles=articles, sources=["finnhub", "polygon"]))
+    assert result.status == "degraded"
+    assert result.flag == DEA_HEADLINE
+    assert result.reviewed_count == 20
+    assert result.article_count == 21
+
+
+def test_grok_http_failure_does_not_escape_or_expose_request(monkeypatch):
+    import requests
+    def fail(*a, **kw):
+        raise requests.HTTPError("provider rejected request")
+    monkeypatch.setattr("stock_picker.training.news_day_judge.requests.post", fail)
+    assert grok_judge("TRLV", [DEA_HEADLINE], api_key="dummy-test-key") is None
+
+
+def test_excess_names_are_explicitly_not_checked(monkeypatch):
+    fetched = []
+    def fetch(names, start, end):
+        fetched.extend(names)
+        return {name: NewsCoverage(sources=["finnhub", "polygon"]) for name in names}
+    monkeypatch.setattr("stock_picker.training.news_day_judge.fetch_news_coverage", fetch)
+    results = fetch_recent_news_checks([f"T{i}" for i in range(41)], date(2026, 9, 30))
+    assert len(fetched) == 40
+    assert results["T40"].status == "not_checked"
+    assert results["T40"].issues == ["ticker_limit"]
+
+
+def test_failed_check_carries_evidence_to_each_list_without_claiming_checked():
+    signals = [SimpleNamespace(ticker="TRLV"), SimpleNamespace(ticker="TRLV")]
+    apply_news_checks(signals, ["TRLV"], {"TRLV": NewsCheck(status="error", issues=["check_failed"])})
+    assert all(not signal.news_checked for signal in signals)
+    assert all(signal.news_check["status"] == "error" for signal in signals)
+    assert all(signal.news_flag is None for signal in signals)

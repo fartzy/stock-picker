@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import type { NewsCheckDetails } from "../api";
+import { newsCheckPresentation } from "../newsCheck";
 import { formatUsd } from "../format";
 import { Diff } from "./Diff";
 
@@ -94,24 +96,22 @@ export function NewsCell({
   flag,
   blocks,
   checked,
+  check,
 }: {
   flag?: string | null;
   blocks?: boolean;
-  // Three states, since a blank cell is now ambiguous under progressive news:
-  //   flag present        -> material news found (skip / still buy · reason)
-  //   checked, no flag    -> judged clear
-  //   not checked yet     -> still being judged in a later batch
-  // `checked` undefined (historical/older data with no such field) is treated
-  // as checked -- those runs finished news before this field existed.
-  checked?: boolean;
+  checked?: boolean | null;
+  check?: NewsCheckDetails | null;
 }) {
-  if (flag) {
-    return (
-      <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
-        {blocks ? "skip" : "still buy"} · {flag}
-      </span>
-    );
-  }
-  if (checked === false) return <span className="muted">pending</span>;
-  return <span className="muted">clear</span>;
+  const coverage = newsCheckPresentation(check, checked);
+  return (
+    <span className="news-check" title={coverage.detail}>
+      {flag && (
+        <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
+          {blocks ? "skip" : "still buy"} · {flag}
+        </span>
+      )}
+      <span className={coverage.warning ? "news-check-warning" : "muted"}>{coverage.label}</span>
+    </span>
+  );
 }
