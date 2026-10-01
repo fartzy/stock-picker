@@ -52,11 +52,24 @@ class SetLiveModelRequest(BaseModel):
 # ---- responses ----
 
 
+class ExperimentalFeature(BaseModel):
+    name: str
+    description: str
+    computation: str
+    example: str
+
+
+class ModelDerivedFeature(ExperimentalFeature):
+    status: Literal["production_eligible"]
+
+
 class CatalogResponse(BaseModel):
     catalog: dict[str, list[str]]
     descriptions: dict[str, str]
     formulas: dict[str, str]
     examples: dict[str, str]
+    experimental_features: dict[str, ExperimentalFeature]
+    model_derived_features: dict[str, ModelDerivedFeature]
 
 
 class CoverageResponse(BaseModel):
@@ -301,10 +314,24 @@ class FeatureService(BaseModel):
     description: str
 
 
+class ExperimentalFeatureView(BaseModel):
+    name: str
+    features: list[str]
+    source: str
+    status: str
+    description: str
+
+
+class ModelDerivedFeatureView(ExperimentalFeatureView):
+    status: Literal["production_eligible"]
+
+
 class RegistryResponse(BaseModel):
     entities: list[Entity]
     feature_views: list[FeatureView]
     feature_services: list[FeatureService]
+    experimental_views: list[ExperimentalFeatureView]
+    model_derived_views: list[ModelDerivedFeatureView]
 
 
 class NewsCheckDetails(BaseModel):

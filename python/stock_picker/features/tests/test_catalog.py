@@ -4,10 +4,13 @@ import pytest
 from stock_picker.features.catalog import (
     correlation_matrix,
     coverage_report,
+    experimental_features,
     list_feature_columns,
+    model_derived_features,
     top_correlated_pairs,
 )
 from stock_picker.features.tests.fixtures import synthetic_history
+from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 
 
 def test_list_feature_columns_has_all_categories():
@@ -40,6 +43,27 @@ def test_list_feature_columns_has_all_categories():
     total_columns = sum(len(columns) for columns in catalog.values())
     # 95 pre-pass + setup_seasonality + pooled_setup_seasonality, some slack
     assert total_columns >= 90
+    assert not set(STACKED_SVM_COLUMNS).intersection(
+        column for columns in catalog.values() for column in columns
+    )
+
+
+def test_experimental_features_are_described_without_pipeline_formulas():
+    experimental = experimental_features()
+
+    assert tuple(experimental) == RESEARCH_SVM_COLUMNS
+    for name, feature in experimental.items():
+        assert feature.name == name
+        assert feature.description and feature.computation and feature.example
+        assert "earlier" in feature.computation.lower()
+
+
+def test_production_model_derived_feature_is_separate_from_research_and_pipeline():
+    derived = model_derived_features()
+
+    assert tuple(derived) == PRODUCTION_MODEL_DERIVED_COLUMNS
+    assert not set(derived) & set(experimental_features())
+    assert derived["svc_direction_margin"].computation
 
 
 def test_coverage_report_flags_an_all_nan_column():

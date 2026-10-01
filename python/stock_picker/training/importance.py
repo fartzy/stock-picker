@@ -74,7 +74,12 @@ def ensemble_importance(ensemble: Ensemble) -> dict[str, float]:
     return combined
 
 
-def model_importance() -> dict:
+def model_importance(
+    model_name: str = MODEL_NAME,
+    *,
+    store: ModelStore | None = None,
+    include_diagnostic: bool = True,
+) -> dict:
     """Wiring: loads the persisted production ensemble and the standalone
     logistic-regression diagnostic model (see training/main.py's
     run_training), returning the ensemble's blended importance plus a
@@ -82,13 +87,15 @@ def model_importance() -> dict:
     coefficient-based view -- a genuinely different lens (linear/monotonic
     effect size) than the tree-based gain/impurity measures the ensemble
     members produce. Empty/missing pieces just contribute empty dicts."""
-    store = ModelStore()
+    store = store if store is not None else ModelStore()
     blended: dict[str, float] = {}
     by_model_type: dict[str, dict[str, float]] = {}
-    if store.exists(MODEL_NAME):
-        ensemble = store.read(MODEL_NAME)
+    if store.exists(model_name):
+        ensemble = store.read(model_name)
         blended = ensemble_importance(ensemble)
         by_model_type = {member.model_type: model_type_importance(member) for member in ensemble.members}
-    if store.exists(DIAGNOSTIC_MODEL_NAME):
+    # The standalone diagnostic is stored only for the latest Fit. Never
+    # combine it with an explicitly pinned historical ensemble.
+    if include_diagnostic and store.exists(model_name) and store.exists(DIAGNOSTIC_MODEL_NAME):
         by_model_type["logistic_regression"] = model_type_importance(store.read(DIAGNOSTIC_MODEL_NAME))
     return {"blended": blended, "by_model_type": by_model_type}

@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
@@ -13,7 +14,8 @@ from stock_picker.training.ensemble import (
     selected_model_specs,
     train_ensemble,
 )
-from stock_picker.training.model import EvaluationMetrics
+from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, score_direction_margin
+from stock_picker.training.model import EvaluationMetrics, predict, train_model, train_svc_direction
 
 
 def _make_learnable_frame(n, seed):
@@ -111,6 +113,98 @@ def test_ensemble_feature_names_is_the_union_across_differently_scoped_members()
     ensemble = train_ensemble(train_frame, specs)
 
     assert ensemble_feature_names(ensemble) == frozenset({"signal", "momentum"})
+
+
+def _ensemble_with_direction_margin():
+    svc_train = _make_learnable_frame(400, seed=10)
+    fit_train = _make_learnable_frame(400, seed=11)
+    direction_svc = train_svc_direction(svc_train, included_features={"signal"})
+    stacked_train = fit_train.assign(**{
+        DIRECTION_MARGIN_COLUMN: score_direction_margin(fit_train, direction_svc)
+    })
+    ensemble = train_ensemble(stacked_train, [ModelSpec(
+        "lightgbm", params={"min_data_in_leaf": 10},
+        included_features={DIRECTION_MARGIN_COLUMN},
+    )])
+    ensemble.direction_svc = direction_svc
+    return ensemble
+
+
+def test_direction_margin_is_recomputed_from_raw_frame_for_predict_and_evaluate():
+    ensemble = _ensemble_with_direction_margin()
+    raw = _make_learnable_frame(50, seed=12)
+    manual = raw.assign(**{
+        DIRECTION_MARGIN_COLUMN: score_direction_margin(raw, ensemble.direction_svc)
+    })
+
+    expected = predict(ensemble.members[0], manual)
+    assert np.allclose(predict_ensemble(ensemble, raw), expected)
+    assert np.allclose(
+        predict_ensemble(ensemble, raw.assign(svc_direction_margin=999.0)), expected
+    )
+    metrics = evaluate_ensemble(ensemble, raw)
+    assert metrics.mae == pytest.approx(np.mean(np.abs(expected - raw[LABEL_COLUMN])))
+    assert ensemble_feature_names(ensemble) == frozenset({"signal", DIRECTION_MARGIN_COLUMN})
+
+
+def test_direction_margin_requires_matching_estimator_and_raw_inputs():
+    ensemble = _ensemble_with_direction_margin()
+    raw = _make_learnable_frame(50, seed=12)
+    ensemble.direction_svc = None
+    with pytest.raises(ValueError, match="fitted SVC is missing"):
+        predict_ensemble(ensemble, raw.assign(svc_direction_margin=123.0))
+
+    ensemble.direction_svc = train_svc_direction(
+        _make_learnable_frame(400, seed=10), included_features={"signal"}
+    )
+    with pytest.raises(ValueError, match="inputs are missing"):
+        predict_ensemble(ensemble, raw.drop(columns="signal"))
+
+
+def test_direction_margin_mixed_ensemble_only_adds_margin_to_lightgbm():
+    svc_train = _make_learnable_frame(400, seed=10)
+    fit_train = _make_learnable_frame(400, seed=11)
+    raw = _make_learnable_frame(50, seed=12)
+    direction_svc = train_svc_direction(svc_train, included_features={"signal"})
+    stacked_train = fit_train.assign(**{
+        DIRECTION_MARGIN_COLUMN: score_direction_margin(fit_train, direction_svc)
+    })
+    ensemble = train_ensemble(stacked_train, [
+        ModelSpec("lightgbm", params={"min_data_in_leaf": 10},
+                  included_features={DIRECTION_MARGIN_COLUMN}),
+        ModelSpec("ridge", excluded_features={DIRECTION_MARGIN_COLUMN}),
+    ])
+    ensemble.direction_svc = direction_svc
+    manual = raw.assign(**{DIRECTION_MARGIN_COLUMN: score_direction_margin(raw, direction_svc)})
+    expected = (predict(ensemble.members[0], manual) + predict(ensemble.members[1], raw)) / 2
+
+    assert DIRECTION_MARGIN_COLUMN not in ensemble.members[1].feature_names
+    assert np.allclose(predict_ensemble(ensemble, raw), expected)
+    assert np.allclose(
+        predict_ensemble(ensemble, raw.assign(svc_direction_margin=999.0)), expected
+    )
+    assert ensemble_feature_names(ensemble) == frozenset({
+        "signal", "momentum", DIRECTION_MARGIN_COLUMN
+    })
+
+
+def test_direction_margin_rejects_non_lightgbm_consumer_at_train_and_predict():
+    svc_train = _make_learnable_frame(400, seed=10)
+    fit_train = _make_learnable_frame(400, seed=11)
+    raw = _make_learnable_frame(50, seed=12)
+    direction_svc = train_svc_direction(svc_train, included_features={"signal"})
+    stacked = fit_train.assign(**{
+        DIRECTION_MARGIN_COLUMN: score_direction_margin(fit_train, direction_svc)
+    })
+    with pytest.raises(ValueError, match="only supported for LightGBM members"):
+        train_ensemble(stacked, [ModelSpec("ridge", included_features={DIRECTION_MARGIN_COLUMN})])
+
+    # Simulate a malformed archived ensemble that bypassed the training guard.
+    ensemble = _ensemble_with_direction_margin()
+    ensemble.members.append(train_model("ridge", stacked, included_features={DIRECTION_MARGIN_COLUMN}))
+    ensemble.weights.append(1.0)
+    with pytest.raises(ValueError, match="only supported for LightGBM members"):
+        predict_ensemble(ensemble, raw.assign(svc_direction_margin=999.0))
 
 
 def test_partition_model_specs_none_means_default_return_and_rank():

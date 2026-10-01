@@ -9,7 +9,10 @@ native format -- an acceptable tradeoff for locally-retrained models.
 
 from __future__ import annotations
 
+import os
 import pickle
+import stat
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -29,8 +32,28 @@ class ModelStore:
         return self._data_dir / f"{name}.pkl"
 
     def write(self, name: str, model: Any) -> None:
-        with open(self._path_for(name), "wb") as f:
-            pickle.dump(model, f)
+        # Publish only after serialization completes, so a failed write cannot
+        # truncate the previous archive (particularly the live "latest" one).
+        destination = self._path_for(name)
+        temporary: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                dir=self._data_dir, prefix=f".{name}-", suffix=".tmp", delete=False
+            ) as file:
+                temporary = Path(file.name)
+                pickle.dump(model, file)
+                file.flush()
+                os.fsync(file.fileno())
+            try:
+                existing_mode = stat.S_IMODE(destination.stat().st_mode)
+            except FileNotFoundError:
+                pass  # New archives keep NamedTemporaryFile's secure mode.
+            else:
+                temporary.chmod(existing_mode)
+            os.replace(temporary, destination)
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
 
     def read(self, name: str) -> Any:
         with open(self._path_for(name), "rb") as f:

@@ -26,7 +26,7 @@ from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import ModelSpec, evaluate_ensemble, predict_ensemble
-from stock_picker.training.main import _load_pooled_dataset, run_training
+from stock_picker.training.main import TrainingSummary, _load_pooled_dataset, run_training
 from stock_picker.training.model import (
     LIGHTGBM_DEFAULT_PARAMS,
     RANDOM_FOREST_DEFAULT_PARAMS,
@@ -102,6 +102,11 @@ def evaluate_specs(pooled_train: pd.DataFrame, specs: list[ModelSpec]) -> tuple[
         maes.append(metrics.mae)
         accs.append(metrics.directional_accuracy)
     return sum(maes) / len(maes), sum(accs) / len(accs)
+
+
+def _persist_raw_winner(specs: list[ModelSpec]) -> TrainingSummary:
+    """Materialize the winner under the same raw-feature regime searched above."""
+    return run_training(model_specs=specs, stack_direction_margin=False)
 
 
 def main() -> None:
@@ -185,7 +190,7 @@ def main() -> None:
         logger.info(f"  {spec.model_type} weight={spec.weight} params={spec.params}")
 
     logger.info("\n=== Persist via run_training (holdout scored there too) ===")
-    summary = run_training(model_specs=winner_specs)
+    summary = _persist_raw_winner(winner_specs)
     logger.info(f"holdout: {summary.holdout_metrics}")
     if summary.threshold_sweep:
         sweep = pd.DataFrame(summary.threshold_sweep)

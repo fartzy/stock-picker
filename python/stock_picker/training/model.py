@@ -22,6 +22,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC, LinearSVR
 
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.listwise import make_listfold_objective
 
@@ -157,22 +158,6 @@ FIT_GATE_THRESHOLD = 0.005
 STRONG_UP_THRESHOLD = 0.01
 TOP_QUINTILE = 0.8
 BOTTOM_QUINTILE = 0.2
-# One LinearSVR (the expensive nightly fit) plus six LinearSVC planes.
-# Extra SVRs each cost ~35-45 min; extra SVC planes are minutes and only
-# earn a seat if they ask a different question (up/down, the two tails,
-# the 1% cut, within-day top/bottom). return<0 is omitted -- it is the
-# negative of direction. Kernel SVM is still forbidden at 443k rows.
-STACKED_SVM_COLUMNS = (
-    "svr_oof_pred",
-    "svc_direction_margin",
-    "svc_gate_margin",
-    "svc_down_gate_margin",
-    "svc_strong_up_margin",
-    "svc_top_quintile_margin",
-    "svc_bottom_quintile_margin",
-)
-
-
 @dataclass
 class TrainedModel:
     """One fitted model, regardless of underlying library -- what `ensemble.py`
@@ -209,7 +194,11 @@ def feature_columns(
     """
     excluded = excluded_features or set()
     if included_features is not None:
-        return [c for c in frame.columns if c in included_features and c not in excluded]
+        return [
+            c
+            for c in frame.columns
+            if c in included_features and c not in NON_FEATURE_COLUMNS and c not in excluded
+        ]
     return [c for c in frame.columns if c not in NON_FEATURE_COLUMNS and c not in excluded]
 
 

@@ -128,7 +128,16 @@ def quotes_from_polygon_snapshot(
     """
     quotes = {}
     for item in raw_tickers:
-        ticker = item.get("ticker")
+        polygon_ticker = item.get("ticker")
+        if not isinstance(polygon_ticker, str):
+            continue
+        # Polygon spells class shares BRK.B; our universe uses BRK-B.
+        # Keep the universe symbol as the quote key for downstream stores.
+        ticker = (
+            polygon_ticker
+            if polygon_ticker in wanted
+            else polygon_ticker.replace(".", "-")
+        )
         if ticker not in wanted:
             continue
         if _item_session_date(item) != as_of:
