@@ -38,6 +38,34 @@ def test_quotes_from_polygon_snapshot_uses_today_day_open():
     assert quotes == {"SIG": {"open": 103.47, "last": 96.07, "prev_close": 102.48}}
 
 
+def test_quotes_from_polygon_snapshot_maps_class_shares_to_universe_symbols():
+    raw = [
+        {
+            "ticker": "BRK.B",
+            "updated": _ns(2026, 9, 10),
+            "day": {"o": 501.43, "c": 502.0},
+            "lastTrade": {"p": 502.0},
+            "prevDay": {"c": 499.0},
+        },
+        {
+            "ticker": "MKC.V",
+            "updated": _ns(2026, 9, 10),
+            "day": {"o": 49.59, "c": 49.7},
+            "lastTrade": {"p": 49.7},
+            "prevDay": {"c": 49.0},
+        },
+    ]
+
+    quotes = quotes_from_polygon_snapshot(
+        raw, wanted={"BRK-B", "MKC-V"}, as_of=date(2026, 9, 10)
+    )
+
+    assert quotes == {
+        "BRK-B": {"open": 501.43, "last": 502.0, "prev_close": 499.0},
+        "MKC-V": {"open": 49.59, "last": 49.7, "prev_close": 49.0},
+    }
+
+
 def test_quotes_from_polygon_snapshot_omits_a_stale_previous_session():
     raw = [
         {
