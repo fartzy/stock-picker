@@ -2,12 +2,12 @@ stockpicker RANKING top 20 for 2026-10-02
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  FICO          0.5835      611.51  HOLD news review not checked
- 2  STX           0.5499      820.87  HOLD news review not checked
- 3  WDC           0.4347      423.20  HOLD news review not checked
- 4  TH            0.4205       19.15  HOLD news review not checked
+ 1  FICO          0.5835      611.51  HOLD news review degraded
+ 2  STX           0.5499      820.87  HOLD news review degraded
+ 3  WDC           0.4347      423.20  HOLD news review degraded
+ 4  TH            0.4205       19.15
  5  MOD           0.3190      182.72  HOLD news review not checked
- 6  LQDA          0.3080       26.69  HOLD news review not checked
+ 6  LQDA          0.3080       26.69  SKIP Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication
  7  DUOL          0.3003      146.00  HOLD news review not checked
  8  SNDK          0.2929     1773.12  HOLD news review not checked
  9  MEDP          0.2912      593.03  HOLD news review not checked
@@ -22,3 +22,31 @@ Relative scores (not percents). Not the 0.5% gate.
 18  FIGS          0.2708       14.04  HOLD news review not checked
 19  MKC           0.2680       43.32  HOLD news review not checked
 20  STLA          0.2660        4.49  HOLD news review not checked
+
+stockpicker picks for 2026-10-02
+Features through 2026-10-01, model trained through 2026-10-01 -- ready for this morning's opens.
+scored 1933 · 77 cleared 0.5% · showing top 20
+
+ticker      pred%        open
+FICO        6.65%      611.51  HOLD news review degraded
+LQDA        3.21%       26.69  SKIP Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication
+WIX         1.72%       73.98  HOLD news review not checked
+STX         1.17%      820.87  HOLD news review degraded
+WDC         1.01%      423.20  HOLD news review degraded
+STLA        0.73%        4.49  HOLD news review not checked
+TH          0.71%       19.15
+ALHC        0.71%        7.75  HOLD news review not checked
+CTVA        0.68%       12.40  HOLD news review not checked
+MOD         0.66%      182.72  HOLD news review not checked
+IBRX        0.65%        9.42  HOLD news review not checked
+NN          0.60%       14.08  HOLD news review not checked
+SEDG        0.60%       31.72  HOLD news review not checked
+XENE        0.60%       39.10  HOLD news review not checked
+LUNR        0.59%       14.28  HOLD news review not checked
+ALMR        0.59%       33.37  HOLD news review not checked
+JBL         0.58%      304.01  HOLD news review not checked
+AAOI        0.58%      110.46  HOLD news review not checked
+SM          0.58%       34.13  HOLD news review not checked
+BWLP        0.58%       24.89  HOLD news review not checked
+
+Skipped earnings: ACN, NKE, QH, AYI, VFS, AEHR
