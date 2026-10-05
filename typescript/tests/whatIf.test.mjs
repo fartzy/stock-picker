@@ -39,12 +39,18 @@ test("shared trade-size choices support all requested amounts", () => {
   }
 });
 
-test("skipped and pending picks never become zero-return investments", () => {
+test("hard skips show hypothetical end value without entering totals; holds can count", () => {
   for (const value of [null, NaN, Infinity]) {
     assert.equal(simulatePick(pick(value), 10_000).status, "pending");
   }
-  assert.deepEqual(simulatePick(pick(0.5, { news_blocks: true }), 10_000), {
+  assert.deepEqual(simulatePick(pick(0.5, { news_blocks: true, news_flag: "corporate action" }), 10_000), {
+    status: "skipped", pnl: null, endingValue: 15_000,
+  });
+  assert.deepEqual(simulatePick(pick(null, { news_blocks: true, news_flag: "corporate action" }), 10_000), {
     status: "skipped", pnl: null, endingValue: null,
+  });
+  assert.deepEqual(simulatePick(pick(0.5, { news_blocks: true, news_flag: null }), 10_000), {
+    status: "held", pnl: 5_000, endingValue: 15_000,
   });
   for (const amount of [0, -1, NaN, Infinity]) assert.throws(() => simulatePick(pick(0.01), amount), RangeError);
 });
@@ -95,7 +101,7 @@ test("dollars are additive, not compound profits or an average times top K", () 
 
 test("news blocks do not backfill below top K; pending closes do not dilute totals", () => {
   const result = simulateBook(book([day("2026-09-29", [
-    pick(0.9, { news_blocks: true }), pick(null, { rank: 2 }), pick(0.1, { rank: 3 }),
+    pick(0.9, { news_blocks: true, news_flag: "corporate action" }), pick(null, { rank: 2 }), pick(0.1, { rank: 3 }),
   ])]), options);
   assert.equal(result.rank_money.pnl, null);
   assert.equal(result.rank_money.endingValue, null);
@@ -103,6 +109,19 @@ test("news blocks do not backfill below top K; pending closes do not dilute tota
   assert.equal(result.rank_money.pending, 1);
   assert.equal(result.rank_stats.n_avoid, 1);
   assert.equal(result.rank_days, 0);
+  assert.equal(result.days[0].rank[0].hypothetical.endingValue, 19_000);
+});
+
+test("completed news holds contribute to totals while hard skips do not", () => {
+  const result = simulateBook(book([day("2026-09-29", [
+    pick(-0.02, { news_blocks: true, news_flag: null }),
+    pick(0.5, { rank: 2, news_blocks: true, news_flag: "corporate action" }),
+  ])]), options);
+  assert.deepEqual(result.rank_money, { pnl: -200, invested: 10_000, endingValue: 9_800, completed: 1, pending: 0 });
+  assert.equal(result.days[0].rank[1].hypothetical.endingValue, 15_000);
+  assert.equal(result.rank_stats.n_scored, 1);
+  assert.equal(result.rank_stats.n_avoid, 1);
+  assert.deepEqual(benchmarkDates(result, "rank"), ["2026-09-29"]);
 });
 
 test("line-item cents reconcile with day and period totals", () => {
@@ -183,7 +202,7 @@ test("Rank and Fit SPY comparisons honor independent sizing, top K and active da
 
 test("skips, pending closes, and replay rows do not create SPY exposure", () => {
   const result = simulateBook(book([
-    day("2026-09-29", [pick(0.01, { news_blocks: true }), pick(null, { rank: 2 })]),
+    day("2026-09-29", [pick(0.01, { news_blocks: true, news_flag: "corporate action" }), pick(null, { rank: 2 })]),
     day("2026-09-28", [pick(0.01), pick(0.02, { rank: 2 })]),
     day("2026-09-28", [pick(0.5)], [], { scan_id: "replay" }),
   ]), options);

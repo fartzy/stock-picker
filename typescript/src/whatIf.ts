@@ -12,7 +12,7 @@ export type PickKind = "fit" | "rank" | "both";
 export type TradeSizes = Readonly<Record<Exclude<PickKind, "both">, number>>;
 
 export interface PickOutcome {
-  status: "scored" | "skipped" | "pending";
+  status: "scored" | "held" | "skipped" | "pending";
   pnl: number | null;
   endingValue: number | null;
 }
@@ -80,6 +80,8 @@ export function simulationDay(now = new Date()): string {
 
 const cents = (value: number) => Math.round(value * 100);
 const hasReturn = (row: PaperPickRow) => row.session_return !== null && Number.isFinite(row.session_return);
+const isHardSkip = (row: PaperPickRow) => Boolean(row.news_blocks && row.news_flag);
+const isNewsHold = (row: PaperPickRow) => Boolean(row.news_blocks && !row.news_flag);
 
 /** Fixed notional per pick; fractional-share equivalent, before fees/slippage.
  * Round each pick once so displayed line items reconcile with every total.
@@ -88,14 +90,15 @@ export function simulatePick(row: PaperPickRow, dollarsPerTrade: number): PickOu
   if (!Number.isFinite(dollarsPerTrade) || dollarsPerTrade <= 0) {
     throw new RangeError("Dollars per trade must be positive and finite");
   }
-  if (row.news_blocks) return { status: "skipped", pnl: null, endingValue: null };
-  if (!hasReturn(row)) return { status: "pending", pnl: null, endingValue: null };
+  if (!hasReturn(row)) return { status: isHardSkip(row) ? "skipped" : "pending", pnl: null, endingValue: null };
   const pnlCents = cents(dollarsPerTrade * row.session_return!);
-  return { status: "scored", pnl: pnlCents / 100, endingValue: (cents(dollarsPerTrade) + pnlCents) / 100 };
+  const endingValue = (cents(dollarsPerTrade) + pnlCents) / 100;
+  if (isHardSkip(row)) return { status: "skipped", pnl: null, endingValue };
+  return { status: isNewsHold(row) ? "held" : "scored", pnl: pnlCents / 100, endingValue };
 }
 
 function moneySummary(rows: SimulatedPick[], dollarsPerTrade: number): MoneySummary {
-  const completed = rows.filter((row) => row.hypothetical.status === "scored");
+  const completed = rows.filter((row) => row.hypothetical.status === "scored" || row.hypothetical.status === "held");
   const pnlCents = completed.reduce((sum, row) => sum + cents(row.hypothetical.pnl!), 0);
   const investedCents = completed.length * cents(dollarsPerTrade);
   return {
@@ -108,7 +111,7 @@ function moneySummary(rows: SimulatedPick[], dollarsPerTrade: number): MoneySumm
 }
 
 function listStats(rows: PaperPickRow[]): PaperListStats {
-  const kept = rows.filter((row) => !row.news_blocks && hasReturn(row));
+  const kept = rows.filter((row) => !isHardSkip(row) && hasReturn(row));
   const returns = kept.map((row) => row.session_return!);
   const wins = returns.filter((value) => value > 0).length;
   const losses = returns.filter((value) => value < 0).length;
@@ -117,7 +120,7 @@ function listStats(rows: PaperPickRow[]): PaperListStats {
     n: rows.length, n_scored: returns.length, wins, losses,
     flats: returns.length - wins - losses,
     hit_rate: returns.length ? wins / returns.length : null,
-    avg, avg_ex_news: avg, n_avoid: rows.filter((row) => row.news_blocks).length,
+    avg, avg_ex_news: avg, n_avoid: rows.filter(isHardSkip).length,
   };
 }
 
