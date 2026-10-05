@@ -14,9 +14,10 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.dataset import LABEL_COLUMN
-from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, score_direction_margin
+from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN
 from stock_picker.training.model import (
     RANK_MODEL_TYPE,
     EvaluationMetrics,
@@ -25,6 +26,7 @@ from stock_picker.training.model import (
     predict,
     train_model,
 )
+from stock_picker.training.svm_stack import score_stacked_svm
 
 
 @dataclass
@@ -43,18 +45,21 @@ class Ensemble:
     # Kept in the same archive as the LightGBM member that consumes its
     # margin. Old pickles do not have this field; scoring uses getattr.
     direction_svc: TrainedModel | None = None
+    # New archives carry whichever SVM outputs their LightGBM members use.
+    # Legacy archives only have direction_svc, handled during inference.
+    stacked_svm_estimators: dict[str, TrainedModel] | None = None
 
 
 def train_ensemble(train_frame: pd.DataFrame, specs: list[ModelSpec]) -> Ensemble:
     for spec in specs:
         if (
             spec.model_type != "lightgbm"
-            and DIRECTION_MARGIN_COLUMN in feature_columns(
+            and set(STACKED_SVM_COLUMNS) & set(feature_columns(
                 train_frame, spec.excluded_features, spec.included_features
-            )
+            ))
         ):
             raise ValueError(
-                f"{DIRECTION_MARGIN_COLUMN} is only supported for LightGBM members; "
+                "stacked SVM outputs are only supported for LightGBM members; "
                 f"{spec.model_type} would consume it"
             )
     members = [
@@ -74,25 +79,29 @@ def predict_ensemble(ensemble: Ensemble, frame: pd.DataFrame) -> np.ndarray:
     unsupported = [
         member.model_type
         for member in ensemble.members
-        if member.model_type != "lightgbm" and DIRECTION_MARGIN_COLUMN in member.feature_names
+        if member.model_type != "lightgbm" and set(STACKED_SVM_COLUMNS) & set(member.feature_names)
     ]
     if unsupported:
         raise ValueError(
-            f"{DIRECTION_MARGIN_COLUMN} is only supported for LightGBM members; "
+            "stacked SVM outputs are only supported for LightGBM members; "
             f"found {unsupported}"
         )
-    if any(
-        member.model_type == "lightgbm" and DIRECTION_MARGIN_COLUMN in member.feature_names
-        for member in ensemble.members
-    ):
+    needed = tuple(
+        name for name in STACKED_SVM_COLUMNS
+        if any(member.model_type == "lightgbm" and name in member.feature_names
+               for member in ensemble.members)
+    )
+    if needed:
+        estimators = dict(getattr(ensemble, "stacked_svm_estimators", None) or {})
         direction_svc = getattr(ensemble, "direction_svc", None)
-        if direction_svc is None:
+        if direction_svc is not None:
+            estimators.setdefault(DIRECTION_MARGIN_COLUMN, direction_svc)
+        if DIRECTION_MARGIN_COLUMN in needed and DIRECTION_MARGIN_COLUMN not in estimators:
             raise ValueError("LightGBM expects direction margin but its fitted SVC is missing")
-        # Ignore a supplied margin: it could be stale, spoofed, or generated
-        # by a different SVC than the one paired with this archived model.
-        frame = frame.assign(**{
-            DIRECTION_MARGIN_COLUMN: score_direction_margin(frame, direction_svc)
-        })
+        # Ignore caller-provided stacked columns: only the estimators paired
+        # with this archived LightGBM may generate its inference inputs.
+        scored = score_stacked_svm(frame, estimators, needed)
+        frame = frame.assign(**{name: scored[name] for name in needed})
     total_weight = sum(ensemble.weights)
     blended = sum(
         predict(member, frame) * weight for member, weight in zip(ensemble.members, ensemble.weights)
@@ -144,6 +153,8 @@ def ensemble_feature_names(ensemble: Ensemble) -> frozenset[str]:
     direction_svc = getattr(ensemble, "direction_svc", None)
     if direction_svc is not None:
         names |= frozenset(direction_svc.feature_names)
+    for estimator in (getattr(ensemble, "stacked_svm_estimators", None) or {}).values():
+        names |= frozenset(estimator.feature_names)
     return names
 
 

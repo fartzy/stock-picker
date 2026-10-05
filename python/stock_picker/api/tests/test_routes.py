@@ -488,16 +488,15 @@ def test_set_then_get_feature_selection(client):
     assert get_response.json() == {"included_features": ["return_1d", "return_2d"]}
 
 
-def test_experimental_svm_feature_cannot_enter_production_selection(client):
-    client.post("/api/feature-selection", json={"included_features": ["return_2d"]})
+def test_all_svm_outputs_can_enter_feature_selection(client):
     response = client.post(
         "/api/feature-selection",
-        json={"included_features": ["return_1d", STACKED_SVM_COLUMNS[0]]},
+        json={"included_features": ["return_1d", *STACKED_SVM_COLUMNS]},
     )
 
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
-    assert STACKED_SVM_COLUMNS[0] in response.json()["detail"]
-    assert client.get("/api/feature-selection").json() == {"included_features": ["return_2d"]}
+    assert response.status_code == status.HTTP_200_OK
+    assert set(response.json()["included_features"]) == {"return_1d", *STACKED_SVM_COLUMNS}
+    assert set(client.get("/api/feature-selection").json()["included_features"]) == {"return_1d", *STACKED_SVM_COLUMNS}
 
 
 def test_direction_margin_can_be_selected_with_a_raw_feature(client):
@@ -846,12 +845,10 @@ def test_get_registry(client):
     assert body["entities"][0]["name"] == "ticker"
     assert {view["name"] for view in body["feature_views"]} == set(list_feature_columns(synthetic_history(n=140)))
     assert body["feature_services"][0]["name"] == "day_session_return_model"
-    assert body["experimental_views"][0]["status"] == "experimental"
-    assert body["experimental_views"][0]["features"] == list(RESEARCH_SVM_COLUMNS)
+    assert body["experimental_views"] == []
     assert body["model_derived_views"][0]["status"] == "production_eligible"
     assert body["model_derived_views"][0]["features"] == list(PRODUCTION_MODEL_DERIVED_COLUMNS)
     assert "svm_derived" not in body["feature_services"][0]["feature_views"]
-    assert "ttl_days" not in body["experimental_views"][0]
     assert "ttl_days" not in body["model_derived_views"][0]
 
 

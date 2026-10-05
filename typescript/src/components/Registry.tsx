@@ -434,7 +434,7 @@ export default function Registry({
       next.add(feature);
     }
     if (!hasUnprunedMarketFeature(next, marketFeatureNames, pruned)) {
-      setMutationError("Keep at least one unpruned market-data feature selected; the model-derived margin requires raw inputs.");
+      setMutationError("Keep at least one unpruned market-data feature selected; model-derived SVM outputs require raw inputs.");
       return;
     }
     setSelectionPending(true);

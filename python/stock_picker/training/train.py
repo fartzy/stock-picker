@@ -19,6 +19,7 @@ from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, iter_
 from stock_picker.training.ensemble import Ensemble, ModelSpec, evaluate_ensemble, train_ensemble
 from stock_picker.training.model import EvaluationMetrics
 from stock_picker.training.splits import walk_forward_splits
+from stock_picker.training.svm_stack import iter_stacked_svm_folds
 
 DEFAULT_TRACKING_DIR = data_root() / "mlruns"
 # A single LightGBM model is just a one-member ensemble -- this default keeps
@@ -68,9 +69,9 @@ def run_walk_forward(
 ) -> list[FoldResult]:
     """Train+evaluate an ensemble across chronological folds.
 
-    When ``stack_direction_margin`` is enabled for production and a LightGBM
-    member selects the direction margin, its training rows receive strictly
-    earlier-date SVC predictions. The paired SVC is fitted
+    When ``stack_direction_margin`` is enabled and a LightGBM member selects
+    SVM outputs, its training rows receive strictly earlier-date predictions.
+    The paired estimators are fitted
     on the entire preceding outer training period, using *all unpruned raw*
     features even when LightGBM has a narrower positive selection. Other
     member families train on those same eligible rows but never see the margin.
@@ -81,17 +82,29 @@ def run_walk_forward(
         for spec in specs
         if stack_direction_margin
         and spec.model_type == "lightgbm"
-        and DIRECTION_MARGIN_COLUMN not in (spec.excluded_features or set())
-        and (spec.included_features is None or DIRECTION_MARGIN_COLUMN in spec.included_features)
+        and any(
+            name not in (spec.excluded_features or set())
+            and (spec.included_features is None or name in spec.included_features)
+            for name in STACKED_SVM_COLUMNS
+        )
     ]
-    # A run has one SVC paired to every margin-consuming LightGBM member.
+    selected_outputs = tuple(
+        name for name in STACKED_SVM_COLUMNS
+        if any(
+            name not in (spec.excluded_features or set())
+            and (spec.included_features is None or name in spec.included_features)
+            for spec in stacked_specs
+        )
+    )
+    # A run has one fitted estimator per output used by LightGBM members.
     # Production passes a uniform pruned set to every spec; reject ambiguous
     # direct calls rather than choosing an arbitrary set of source inputs.
+    source_exclusions = set(stacked_specs[0].excluded_features or ()) - set(STACKED_SVM_COLUMNS) if stacked_specs else set()
     if stacked_specs and any(
-        (spec.excluded_features or set()) != (stacked_specs[0].excluded_features or set())
+        (set(spec.excluded_features or ()) - set(STACKED_SVM_COLUMNS)) != source_exclusions
         for spec in stacked_specs[1:]
     ):
-        raise ValueError("direction-margin LightGBM members must share excluded features")
+        raise ValueError("stacked-SVM LightGBM members must share excluded features")
     # The model-derived margin is a Fit/LightGBM input only. A shared
     # positive selection from the UI must not make Ridge or another member
     # consume it merely because it is present in the stacked frame.
@@ -101,17 +114,17 @@ def run_walk_forward(
             if spec.model_type == "lightgbm"
             else replace(
                 spec,
-                excluded_features=set(spec.excluded_features or ()) | {DIRECTION_MARGIN_COLUMN},
+                excluded_features=set(spec.excluded_features or ()) | set(STACKED_SVM_COLUMNS),
                 included_features=(
                     None if spec.included_features is None
-                    else set(spec.included_features) - {DIRECTION_MARGIN_COLUMN}
+                    else set(spec.included_features) - set(STACKED_SVM_COLUMNS)
                 ),
             )
         )
         for spec in specs
     ]
     _configure_mlflow(tracking_dir)
-    if stacked_specs:
+    if selected_outputs == (DIRECTION_MARGIN_COLUMN,):
         source_exclusions = set(stacked_specs[0].excluded_features or ()) | set(STACKED_SVM_COLUMNS)
         stacked_folds = iter_direction_margin_folds(
             pooled_dataset,
@@ -119,25 +132,38 @@ def run_walk_forward(
             n_splits=n_splits,
         )
         folds = (
-            (fold.baseline_train, fold.stacked_train, fold.stacked_test, fold.direction_svc)
+            (fold.baseline_train, fold.stacked_train, fold.stacked_test,
+             {DIRECTION_MARGIN_COLUMN: fold.direction_svc})
+            for fold in stacked_folds
+        )
+    elif selected_outputs:
+        stacked_folds = iter_stacked_svm_folds(
+            pooled_dataset,
+            outputs=selected_outputs,
+            excluded_features=stacked_specs[0].excluded_features,
+            n_splits=n_splits,
+        )
+        folds = (
+            (fold.baseline_train, fold.stacked_train, fold.stacked_test, fold.estimators)
             for fold in stacked_folds
         )
     else:
         splits = walk_forward_splits(pooled_dataset["date"], n_splits=n_splits)
         folds = (
-            (pooled_dataset[train_mask], pooled_dataset[train_mask], pooled_dataset[test_mask], None)
+            (pooled_dataset[train_mask], pooled_dataset[train_mask], pooled_dataset[test_mask], {})
             for train_mask, test_mask in splits
         )
 
     fold_results = []
     with mlflow.start_run(run_name="walk_forward"):
         _log_specs(specs, n_splits)
-        mlflow.log_param("svc_direction_margin_enabled", bool(stacked_specs))
+        mlflow.log_param("stacked_svm_outputs", ",".join(selected_outputs))
 
-        for fold, (base_train, stacked_train, test_frame, direction_svc) in enumerate(folds):
-            train_frame = stacked_train if direction_svc is not None else base_train
+        for fold, (base_train, stacked_train, test_frame, estimators) in enumerate(folds):
+            train_frame = stacked_train if estimators else base_train
             ensemble = train_ensemble(train_frame, training_specs)
-            ensemble.direction_svc = direction_svc
+            ensemble.stacked_svm_estimators = estimators or None
+            ensemble.direction_svc = estimators.get(DIRECTION_MARGIN_COLUMN)
             metrics = evaluate_ensemble(ensemble, test_frame)
 
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):

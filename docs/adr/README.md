@@ -34,3 +34,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0020](0020-svr-family-evaluated-not-promoted.md) | 2026-09-26 | LinearSVR rejected as a Fit blender member (stability rerun failed the fold bar) |
 | [0021](0021-svm-stacked-features-proposed.md) | 2026-09-27 | Seven-output SVM stacking research rejected under its predeclared fold gate |
 | [0022](0022-direction-svc-model-derived-feature.md) | 2026-09-30 | Include the direction SVC margin by default in future Fit training; keep chronological stacking safe |
+| [0023](0023-all-svm-outputs-as-fit-features.md) | 2026-10-04 | Keep all seven SVM outputs as selectable, prunable Fit features; train chronologically and save paired estimators |

@@ -1,8 +1,8 @@
 """Metadata for model-derived SVM stacking outputs (ADRs 0021 and 0022).
 
 These values are produced by fitted training estimators, not by the feature
-pipeline or its persisted parquet snapshots. Only the direction margin is
-eligible for production LightGBM training; the other six remain research-only.
+pipeline or its persisted parquet snapshots. All seven are selectable Fit
+inputs; pruning can disable any of them for the next trained model.
 """
 
 from dataclasses import dataclass
@@ -62,7 +62,7 @@ SVM_DERIVED_FEATURES = (
 )
 
 STACKED_SVM_COLUMNS = tuple(feature.name for feature in SVM_DERIVED_FEATURES)
-PRODUCTION_MODEL_DERIVED_COLUMNS = ("svc_direction_margin",)
+PRODUCTION_MODEL_DERIVED_COLUMNS = STACKED_SVM_COLUMNS
 RESEARCH_SVM_COLUMNS = tuple(
     name for name in STACKED_SVM_COLUMNS if name not in PRODUCTION_MODEL_DERIVED_COLUMNS
 )

@@ -1,3 +1,5 @@
+import pickle
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -16,6 +18,8 @@ from stock_picker.training.ensemble import (
 )
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, score_direction_margin
 from stock_picker.training.model import EvaluationMetrics, predict, train_model, train_svc_direction
+from stock_picker.training.model import fit_stacked_svm_estimators
+from stock_picker.training.svm_stack import score_stacked_svm
 
 
 def _make_learnable_frame(n, seed):
@@ -145,6 +149,33 @@ def test_direction_margin_is_recomputed_from_raw_frame_for_predict_and_evaluate(
     metrics = evaluate_ensemble(ensemble, raw)
     assert metrics.mae == pytest.approx(np.mean(np.abs(expected - raw[LABEL_COLUMN])))
     assert ensemble_feature_names(ensemble) == frozenset({"signal", DIRECTION_MARGIN_COLUMN})
+
+
+def test_multiple_saved_svm_outputs_are_recomputed_at_inference():
+    outputs = ("svr_oof_pred", "svc_gate_margin")
+    source = _make_learnable_frame(400, seed=10)
+    fit_train = _make_learnable_frame(400, seed=11)
+    estimators = fit_stacked_svm_estimators(source, included_features={"signal"}, outputs=outputs)
+    derived_train = score_stacked_svm(fit_train, estimators, outputs)
+    stacked_train = fit_train.assign(**{name: derived_train[name] for name in outputs})
+    ensemble = train_ensemble(stacked_train, [ModelSpec(
+        "lightgbm", params={"min_data_in_leaf": 10}, included_features={"signal", *outputs}
+    )])
+    ensemble.stacked_svm_estimators = estimators
+    raw = _make_learnable_frame(50, seed=12)
+    derived_test = score_stacked_svm(raw, estimators, outputs)
+    manual = raw.assign(**{name: derived_test[name] for name in outputs})
+    expected = predict(ensemble.members[0], manual)
+
+    assert set(outputs).issubset(ensemble.members[0].feature_names)
+    assert np.allclose(predict_ensemble(ensemble, raw), expected)
+    assert np.allclose(predict_ensemble(ensemble, raw.assign(**{name: 999 for name in outputs})), expected)
+    assert set(ensemble_feature_names(ensemble)) == {"signal", *outputs}
+    restored = pickle.loads(pickle.dumps(ensemble))
+    assert np.allclose(predict_ensemble(restored, raw), expected)
+    del estimators["svc_gate_margin"]
+    with pytest.raises(ValueError, match="fitted SVM is missing"):
+        predict_ensemble(ensemble, raw)
 
 
 def test_direction_margin_requires_matching_estimator_and_raw_inputs():

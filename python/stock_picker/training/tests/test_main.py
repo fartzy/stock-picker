@@ -6,6 +6,7 @@ import pytest
 
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training.dataset import LABEL_COLUMN
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN
 from stock_picker.training.ensemble import ModelSpec, predict_ensemble
 from stock_picker.training.main import TrainingSummary, _date_range, main, run_training
@@ -124,7 +125,10 @@ def test_run_training_never_fits_svc_on_holdout_and_scores_raw_holdout(tmp_path,
         "stock_picker.training.main._load_pooled_dataset",
         lambda tickers, *_: pooled[pooled["ticker"].isin(tickers)].copy(),
     )
-    monkeypatch.setattr("stock_picker.training.main.pruned_features", lambda: set())
+    monkeypatch.setattr(
+        "stock_picker.training.main.pruned_features",
+        lambda: set(STACKED_SVM_COLUMNS) - {DIRECTION_MARGIN_COLUMN},
+    )
     monkeypatch.setattr("stock_picker.training.main.ModelStore", lambda: SimpleNamespace(write=record_write))
     monkeypatch.setattr("stock_picker.training.main.run_walk_forward", isolated_walk_forward)
     monkeypatch.setattr("stock_picker.training.main.train_logistic_regression", lambda *_args, **_kwargs: object())
