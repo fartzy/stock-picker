@@ -1,4 +1,23 @@
-from stock_picker.features.quotes import quote_summaries
+from datetime import date
+from unittest.mock import patch
+
+from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
+
+
+def test_live_quotes_prefer_yahoo_before_delayed_polygon():
+    with patch("stock_picker.features.quotes.fetch_quotes", return_value={}) as fetch:
+        fetch_ticker_quotes(["TH"])
+
+    assert [provider.name for provider in fetch.call_args.kwargs["providers"]] == [
+        "yahoo", "polygon", "finnhub"
+    ]
+
+
+def test_historical_quotes_keep_default_provider_order():
+    with patch("stock_picker.features.quotes.fetch_quotes", return_value={}) as fetch:
+        fetch_ticker_quotes(["TH"], as_of=date(2020, 1, 2))
+
+    assert fetch.call_args.kwargs == {"as_of": date(2020, 1, 2)}
 
 
 def test_quote_summaries_computes_diff_and_pct():

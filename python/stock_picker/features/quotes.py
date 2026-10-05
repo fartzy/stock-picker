@@ -8,13 +8,20 @@ from __future__ import annotations
 
 from datetime import date
 
-from stock_picker.ingestion.quote_providers import fetch_quotes
+from stock_picker.ingestion.quote_providers import fetch_quotes, quote_providers
+from stock_picker.ingestion.session import cash_session_date
 
 DIFF_DECIMAL_PLACES = 2
 PCT_DECIMAL_PLACES = 4
 
 
 def fetch_ticker_quotes(tickers: list[str], as_of: date | None = None) -> dict[str, dict]:
+    # The full-market Polygon snapshot can lag the tape by 15 minutes even
+    # while its opening price is valid. For the live "Last" column, prefer
+    # Yahoo's current regular-session minute bar; keep Polygon as a fallback.
+    if as_of is None or as_of == cash_session_date():
+        live_providers = quote_providers(("yahoo", "polygon", "finnhub"))
+        return fetch_quotes(tickers, as_of=as_of, providers=live_providers)
     return fetch_quotes(tickers, as_of=as_of)
 
 
