@@ -61,6 +61,16 @@ def test_format_picks_email_appends_a_news_flag():
     assert "NEWS Xenon pauses Phase 3 clinical trial" in body
 
 
+def test_incomplete_review_is_a_hold_in_published_picks():
+    payload = {
+        "as_of": "2026-10-02", "scored_count": 1, "skipped": [],
+        "signals": [{"ticker": "AAA", "predicted_return": 0.01, "open_price": 10.0,
+                     "news_checked": False, "news_check": {"status": "degraded"}}],
+    }
+    _, body = format_picks_email(payload)
+    assert "HOLD news review degraded" in body
+
+
 def test_format_not_ready_email():
     subject, body = format_not_ready_email("2026-09-11", "model trained through Monday")
 

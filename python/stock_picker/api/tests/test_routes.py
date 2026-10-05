@@ -710,6 +710,42 @@ def test_get_quotes_after_close_falls_back_to_live_when_todays_bar_is_missing(cl
     assert quotes[0]["last"] == 105.0
 
 
+def test_get_quotes_after_close_fills_only_names_missing_from_partial_settled_bars(client):
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 1)),
+        patch("stock_picker.ingestion.session.session_has_closed", return_value=True),
+        patch(
+            "stock_picker.paper.book.session_quotes_from_prices",
+            return_value={"AAA": {"open": 50.0, "last": 52.0, "prev_close": 49.0}},
+        ),
+        patch(
+            "stock_picker.api.routes.fetch_ticker_quotes",
+            return_value={"BBB": {"open": 70.0, "last": 72.0, "prev_close": 69.0}},
+        ) as mock_live,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA,BBB", "as_of": "2026-10-01"})
+
+    assert response.status_code == status.HTTP_200_OK
+    assert {quote["ticker"]: quote["last"] for quote in response.json()["quotes"]} == {
+        "AAA": 52.0,
+        "BBB": 72.0,
+    }
+    mock_live.assert_called_once_with(["BBB"], as_of=date(2026, 10, 1))
+
+
+def test_get_quotes_for_past_date_never_fills_missing_bar_with_todays_quote(client):
+    with (
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 1)),
+        patch("stock_picker.paper.book.session_quotes_from_prices", return_value={}),
+        patch("stock_picker.api.routes.fetch_ticker_quotes") as mock_live,
+    ):
+        response = client.get("/api/quotes", params={"tickers": "AAA", "as_of": "2026-09-30"})
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()["quotes"] == []
+    mock_live.assert_not_called()
+
+
 def test_get_quotes_with_as_of_for_the_still_open_session_uses_live_fetch(client):
     # Today's own not-yet-closed session must keep behaving exactly like the
     # no-as_of case (test_get_quotes above) -- as_of alone doesn't switch to
@@ -852,6 +888,23 @@ def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):
     assert row["news_checked"] is True
     assert row["news_check"]["status"] == "degraded"
     assert row["news_check"]["article_count"] == 5
+
+
+def test_cached_buy_signal_holds_degraded_review_without_a_news_flag(client):
+    cached = {
+        "as_of": "2026-10-02", "threshold": 0.005, "scored_count": 1,
+        "signals": [{"ticker": "AAA", "predicted_return": 0.1, "open_price": 11.0,
+                     "snapshot_date": "2026-10-01", "news_flag": None,
+                     "news_checked": False, "news_check": {"status": "degraded",
+                     "issues": ["llm_unavailable"], "sources": ["finnhub"],
+                     "article_count": 1, "reviewed_count": 1}}],
+        "skipped": [], "top_drivers": [],
+    }
+    with patch("stock_picker.api.routes.load_cached_signals", return_value=cached):
+        response = client.get("/api/buy-signal", params={"kind": "rank"})
+    row = response.json()["signals"][0]
+    assert row["news_blocks"] is True
+    assert row["news_checked"] is False
 
 
 def test_get_buy_signal_with_no_trained_model_reports_the_no_model_skip(client):

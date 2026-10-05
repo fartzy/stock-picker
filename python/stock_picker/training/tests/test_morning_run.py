@@ -108,6 +108,7 @@ def test_later_successful_news_batches_are_saved_even_without_flags(monkeypatch)
                         news_fetcher=lambda names, day: {name: NewsCheck(status="no_news", article_count=0, reviewed_count=0) for name in names})
     ranks = [payload for payload in saved if payload.get("kind") == "rank"]
     assert len(ranks) == 4  # Initial publish, then all three news batches.
+    assert all(row["news_check"]["status"] == "not_checked" for row in ranks[0]["signals"])
     assert all(row["news_checked"] for row in ranks[-1]["signals"])
     assert all(row["news_check"]["status"] == "no_news" for row in ranks[-1]["signals"])
 
