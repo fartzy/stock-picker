@@ -20,7 +20,7 @@ export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?:
     return {
       label: checked === false ? "pending" : flag ? "" : checked === true ? "checked (older scan)" : "details unavailable",
       detail: "This older scan saved the news decision, but not detailed source coverage.",
-      warning: false,
+      warning: checked === false,
     };
   }
   const count = check.article_count;
@@ -51,6 +51,6 @@ export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?:
   return {
     label: flag ? "" : coverageLabel,
     detail,
-    warning: check.status === "degraded" || check.status === "error",
+    warning: !["complete", "no_news"].includes(check.status),
   };
 }

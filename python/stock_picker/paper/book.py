@@ -196,11 +196,16 @@ def rebuild_paper_book(
                         session_return = (close_px / open_px) - 1.0
                 cached_flag = signal.get("news_flag")
                 news_flag = cached_flag or fetched_news.get(ticker)
-                news_checked = int(bool(signal.get("news_checked") or cached_flag is not None or ticker in fetched_news or news_fetcher is not None))
-                if cached_flag:
-                    news_checked = 1
-                elif fetched_news or news_fetcher is not None:
-                    news_checked = 1
+                saved_check = signal.get("news_check")
+                if saved_check is not None:
+                    # A degraded saved check must not become "reviewed" merely
+                    # because this rebuild had a news fetcher configured.
+                    news_checked = int(bool(signal.get("news_checked")))
+                else:
+                    news_checked = int(bool(
+                        signal.get("news_checked") or cached_flag is not None
+                        or ticker in fetched_news or news_fetcher is not None
+                    ))
                 picks.append(
                     PaperPick(
                         as_of=day,
@@ -373,7 +378,10 @@ def paper_book_view(
                 "news_flag": pick.news_flag,
                 "news_checked": bool(pick.news_checked),
                 "news_check": pick.news_check or {"status": "unknown"},
-                "news_blocks": news_blocks_buy(pick.news_flag, pick.open_price, pick.prev_close),
+                "news_blocks": news_blocks_buy(
+                    pick.news_flag, pick.open_price, pick.prev_close,
+                    (pick.news_check or {}).get("status"),
+                ),
             }
         )
 

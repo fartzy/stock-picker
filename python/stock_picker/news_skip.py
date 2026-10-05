@@ -1,7 +1,7 @@
-"""Skip inventory for morning news.
+"""Shared morning news decision for live picks and historical What if.
 
-Gap-down + any material headline still skips. Some headlines skip even
-when the open gapped up -- add a phrase here, not a one-off if in What if.
+Incomplete reviews are holds. Hard-stop events skip regardless of gap; other
+material headlines skip when the open gaps down.
 """
 
 from __future__ import annotations
@@ -26,7 +26,11 @@ ALWAYS_SKIP_PHRASES: tuple[str, ...] = (
     "sells shares",
     "share sale",
     "stock sale",
+    "corporate action:",
+    "clinical readout:",
 )
+
+INCOMPLETE_NEWS_STATUSES = frozenset({"degraded", "error", "not_checked", "unknown"})
 
 
 def always_skip_news(news_flag: str | None) -> bool:
@@ -40,12 +44,15 @@ def news_blocks_buy(
     news_flag: str | None,
     open_price: float | None,
     prev_close: float | None,
+    check_status: str | None = None,
 ) -> bool:
-    """Skip if the headline is on ALWAYS_SKIP_PHRASES, or news + gap down.
+    """Hold incomplete reviews; skip hard-stop events or material gap-downs.
 
-    Gap-up still buys for other material news. Missing prev_close does
-    not block unless always_skip_news is true.
+    Gap-up still buys for other material news after a complete review.
+    Missing prev_close does not block unless the event or review status does.
     """
+    if check_status in INCOMPLETE_NEWS_STATUSES:
+        return True
     if not news_flag:
         return False
     if always_skip_news(news_flag):

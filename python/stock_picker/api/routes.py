@@ -187,20 +187,27 @@ def get_quotes(tickers: str, as_of: str | None = None) -> QuotesResponse:
     scan. Same data source What if already trusts for settled days
     (paper/book.py's session_quotes_from_prices).
 
-    Today's close is on disk only after the 3:30 CT nightly pull. Until that
-    bar exists, keep the live snapshot so Close/Prev are not empty between
-    3:15 CT and the nightly write.
+    Today's bars can arrive one ticker at a time before the nightly pull.
+    Preserve completed bars and fill only missing names from the live quote
+    chain; a partial PriceStore result must not blank the rest of the scan.
+    Never substitute today's live quote for a missing historical bar.
     """
-    names = tickers.split(",")
+    names = [ticker for ticker in tickers.split(",") if ticker]
     if as_of:
         from stock_picker.ingestion.session import cash_session_date, session_has_closed
         from stock_picker.paper.book import session_quotes_from_prices
 
         as_of_date = date.fromisoformat(as_of)
-        if as_of_date < cash_session_date() or session_has_closed():
+        session_day = cash_session_date()
+        if as_of_date < session_day or session_has_closed():
             settled = session_quotes_from_prices(names, as_of_date)
-            if settled:
+            if as_of_date < session_day:
                 return QuotesResponse(quotes=quote_summaries(settled))
+            missing = [ticker for ticker in names if ticker not in settled]
+            if missing:
+                live = fetch_ticker_quotes(missing, as_of=as_of_date)
+                settled.update({ticker: live[ticker] for ticker in missing if ticker in live})
+            return QuotesResponse(quotes=quote_summaries(settled))
     return QuotesResponse(quotes=quote_summaries(fetch_ticker_quotes(names)))
 
 
@@ -233,6 +240,7 @@ def _signal_payload(signal, prev_close: float | None = None) -> dict:
         payload.get("news_flag"),
         payload.get("open_price"),
         payload.get("prev_close"),
+        (payload.get("news_check") or {}).get("status"),
     )
     return payload
 

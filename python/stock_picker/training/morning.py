@@ -21,7 +21,7 @@ from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.news_day_judge import fetch_recent_news_checks
-from stock_picker.news_check import NewsCheck, apply_news_checks
+from stock_picker.news_check import NewsCheck, apply_news_checks, news_check_payload
 from stock_picker.storage.paths import data_root
 from stock_picker.storage.scan_store import ScanStore
 from stock_picker.training.buy_signal import (
@@ -139,7 +139,10 @@ def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
                 "snapshot_date": signal.snapshot_date,
                 "news_flag": signal.news_flag,
                 "news_checked": signal.news_checked,
-                "news_check": getattr(signal, "news_check", None),
+                "news_check": getattr(signal, "news_check", None)
+                or news_check_payload(NewsCheck(
+                    status="unknown" if signal.news_checked else "not_checked"
+                )),
                 "prev_close": signal.prev_close,
             }
             for signal in result.signals
