@@ -55,10 +55,15 @@ function Dollars({ value }: { value: number | null }) {
 }
 
 function PickMoney({ outcome, ending = false }: { outcome: PickOutcome; ending?: boolean }) {
-  if (outcome.status !== "scored") {
-    return <span className="muted">{outcome.status === "skipped" ? "Skipped" : "Awaiting close"}</span>;
+  if (ending) {
+    if (outcome.endingValue === null) return <span className="muted">Awaiting close</span>;
+    return <span title={outcome.status === "skipped" ? "Hypothetical value; excluded from strategy totals" : undefined}>
+      <UsdCell value={outcome.endingValue} />
+    </span>;
   }
-  return ending ? <UsdCell value={outcome.endingValue} /> : <Dollars value={outcome.pnl} />;
+  if (outcome.status === "skipped") return <span className="muted">Skipped</span>;
+  if (outcome.status === "pending") return <span className="muted">Awaiting close</span>;
+  return <Dollars value={outcome.pnl} />;
 }
 
 function moneyItems(money: MoneySummary): StatItem[] {
