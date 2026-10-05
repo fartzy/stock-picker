@@ -32,6 +32,46 @@ _UNCERTAIN_ACTION = re.compile(
     r"expected|consider\w*|debate\w*|whether|urges?|asks?)\b", re.I,
 )
 
+# These events make an open-to-close pattern trade incomparable or unusually
+# catalyst-driven regardless of whether the headline sounds positive. Keep the
+# guard narrow: a future conference presentation is not a released readout.
+_SPIN_OFF = re.compile(
+    r"\b(?:spin[\s-]?off|spun\s+off|separat(?:ion|ed|es?)\s+(?:from|into|of))\b", re.I,
+)
+_SPECULATIVE_SPIN_OFF = re.compile(r"\b(?:could|might|whether|rumou?r|hypothetical|someday)\b", re.I)
+_CLINICAL_CONTEXT = re.compile(
+    r"\b(?:phase\s*(?:[1-4](?:[a-d])?|i{1,3}v?)|clinical\s+(?:trial|study)|biomarker|efficacy)\b", re.I,
+)
+_CLINICAL_DATA = re.compile(r"\b(?:data|results?|findings|readout)\b", re.I)
+_RELEASED = re.compile(
+    r"\b(?:presented|announced|reported|released|published|unveiled|showed|demonstrated)\b", re.I,
+)
+_FUTURE_READOUT = re.compile(
+    r"\b(?:will|plans?\s+to|scheduled\s+to|expected\s+to|to\s+be)\s+"
+    r"(?:presented|announced|reported|released|published|unveiled)\b", re.I,
+)
+
+
+def high_impact_event_flag(articles: list[dict]) -> str | None:
+    """Deterministic no-trade guard for corporate actions and released trial data."""
+    for article in articles:
+        headline = str(article.get("headline") or "").strip()
+        summary = str(article.get("summary") or "").strip()
+        if not headline:
+            continue
+        text = f"{headline}. {summary}"
+        for sentence in re.split(r"[.!?]", text):
+            if _SPIN_OFF.search(sentence) and not _SPECULATIVE_SPIN_OFF.search(sentence):
+                return f"corporate action: {headline[:120]}"
+            if (
+                _CLINICAL_CONTEXT.search(sentence)
+                and _CLINICAL_DATA.search(sentence)
+                and _RELEASED.search(sentence)
+                and not _FUTURE_READOUT.search(sentence)
+            ):
+                return f"clinical readout: {headline[:120]}"
+    return None
+
 
 def regulatory_news_flag(articles: list[dict]) -> str | None:
     for article in articles:

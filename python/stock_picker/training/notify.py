@@ -21,13 +21,15 @@ def _news_suffix(row: dict) -> str:
     from stock_picker.training.news_day_judge import news_blocks_buy
 
     flag = row.get("news_flag")
+    check = row.get("news_check") or {}
+    state = check.get("status")
     if not flag:
-        check = row.get("news_check") or {}
-        state = check.get("status")
-        if state in {"degraded", "error", "not_checked"}:
-            return f"  NEWS {state.replace('_', ' ')}"
+        if state in {"degraded", "error", "not_checked", "unknown"}:
+            return f"  HOLD news review {state.replace('_', ' ')}"
+        if row.get("news_checked") is False:
+            return "  HOLD news review pending"
         return ""
-    if news_blocks_buy(flag, row.get("open_price"), row.get("prev_close")):
+    if news_blocks_buy(flag, row.get("open_price"), row.get("prev_close"), state):
         return f"  SKIP {flag}"
     return f"  NEWS {flag}"
 
