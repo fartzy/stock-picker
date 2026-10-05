@@ -32,10 +32,8 @@ def test_build_registry_feature_service_references_every_view():
 def test_experimental_view_is_separate_from_production_service():
     views = experimental_views()
 
-    assert len(views) == 1
-    assert views[0].status == "experimental"
-    assert tuple(views[0].features) == RESEARCH_SVM_COLUMNS
-    assert not hasattr(views[0], "ttl_days")
+    assert views == []
+    assert RESEARCH_SVM_COLUMNS == ()
 
 
 def test_model_derived_view_is_production_eligible_but_not_persisted():

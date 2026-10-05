@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN
 from stock_picker.training.ensemble import ModelSpec
@@ -9,14 +10,14 @@ from stock_picker.training.splits import walk_forward_splits
 from stock_picker.training.train import run_walk_forward
 
 
-def _make_pooled_dataset(n_dates=20, n_tickers=2):
+def _make_pooled_dataset(n_dates=20, n_tickers=10):
     dates = pd.date_range("2026-01-01", periods=n_dates, freq="B")
     rng = np.random.default_rng(0)
     frames = []
     for i in range(n_tickers):
         signal = rng.normal(size=n_dates)
         # Both direction classes occur even in the first tiny seed period.
-        label = 0.02 * np.where((np.arange(n_dates) + i) % 2 == 0, 1, -1)
+        label = (0.02 + i * 0.0001) * np.where((np.arange(n_dates) + i) % 2 == 0, 1, -1)
         frames.append(
             pd.DataFrame(
                 {"date": dates, "ticker": f"T{i}", "signal": signal, LABEL_COLUMN: label}
@@ -40,7 +41,8 @@ def test_run_walk_forward_returns_one_result_per_fold(tmp_path):
     assert results[-1].train_rows > results[0].train_rows
     for result in results:
         assert isinstance(result.metrics.directional_accuracy, float)
-        assert DIRECTION_MARGIN_COLUMN in result.model.members[0].feature_names
+        assert set(STACKED_SVM_COLUMNS).issubset(result.model.members[0].feature_names)
+        assert set(result.model.stacked_svm_estimators) == set(STACKED_SVM_COLUMNS)
         assert result.model.direction_svc is not None
 
 

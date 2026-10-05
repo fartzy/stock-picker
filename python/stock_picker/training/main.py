@@ -121,7 +121,8 @@ def run_training(
     positive selection, because the standalone diagnostic and Rank models
     cannot train on a model-derived margin alone.
 
-    `stack_direction_margin` defaults on for production Fit. Research scripts
+    `stack_direction_margin` enables selected SVM-derived Fit columns (the
+    original name is retained for older callers). Research scripts
     that selected a winner using raw-feature folds pass False when
     materializing that winner so the archived model matches its comparison.
 
@@ -197,7 +198,7 @@ def run_training(
                 "present in the training dataset"
             )
 
-    # Production Fit enables the derived feature; raw-feature research
+    # Fit enables the derived features; raw-feature research
     # winners explicitly opt out so materialization matches their search.
     fold_results = run_walk_forward(
         train_dataset, specs=specs, stack_direction_margin=stack_direction_margin

@@ -547,19 +547,28 @@ def fit_stacked_svm_estimators(
     train_frame: pd.DataFrame,
     excluded_features: set[str] | None = None,
     included_features: set[str] | None = None,
+    outputs: tuple[str, ...] | None = None,
 ) -> dict[str, TrainedModel]:
-    """Fit the seven ADR 0021 estimators on `train_frame`. Callers must
+    """Fit selected stacked estimators (all seven by default). Callers must
     not attach these to the same rows they were fit on when scoring.
     """
+    selected = set(STACKED_SVM_COLUMNS if outputs is None else outputs)
+    unknown = selected - set(STACKED_SVM_COLUMNS)
+    if unknown:
+        raise ValueError(f"unknown stacked SVM outputs: {sorted(unknown)}")
     kwargs = {"excluded_features": excluded_features, "included_features": included_features}
+    trainers = {
+        "svr_oof_pred": train_svr,
+        "svc_direction_margin": train_svc_direction,
+        "svc_gate_margin": train_svc_gate,
+        "svc_down_gate_margin": train_svc_down_gate,
+        "svc_strong_up_margin": train_svc_strong_up,
+        "svc_top_quintile_margin": train_svc_top_quintile,
+        "svc_bottom_quintile_margin": train_svc_bottom_quintile,
+    }
     return {
-        "svr_oof_pred": train_svr(train_frame, **kwargs),
-        "svc_direction_margin": train_svc_direction(train_frame, **kwargs),
-        "svc_gate_margin": train_svc_gate(train_frame, **kwargs),
-        "svc_down_gate_margin": train_svc_down_gate(train_frame, **kwargs),
-        "svc_strong_up_margin": train_svc_strong_up(train_frame, **kwargs),
-        "svc_top_quintile_margin": train_svc_top_quintile(train_frame, **kwargs),
-        "svc_bottom_quintile_margin": train_svc_bottom_quintile(train_frame, **kwargs),
+        name: trainers[name](train_frame, **kwargs)
+        for name in STACKED_SVM_COLUMNS if name in selected
     }
 
 
