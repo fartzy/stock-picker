@@ -2,16 +2,16 @@ stockpicker RANKING top 20 for 2026-10-05
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  LQDA          0.3752       28.07  HOLD news review not checked
- 2  BMY           0.3492       59.67  HOLD news review not checked
- 3  NESR          0.3469       24.25  HOLD news review not checked
- 4  CTVA          0.3463       11.81  HOLD news review not checked
+ 1  LQDA          0.3752       28.07  HOLD news review degraded
+ 2  BMY           0.3492       59.67
+ 3  NESR          0.3469       24.25
+ 4  CTVA          0.3463       11.81  SKIP corporate action: Vylor has scarcity value, says Jim Cramer
  5  CHRW          0.3439      140.01  HOLD news review not checked
  6  INSM          0.3384      105.50  HOLD news review not checked
  7  NKE           0.3290       33.46  HOLD news review not checked
  8  MRP           0.3279       23.08  HOLD news review not checked
  9  AJG           0.3221      219.65  HOLD news review not checked
-10  UMC           0.3183       23.73  HOLD news review not checked
+10  UMC           0.3183       23.73
 11  RKT           0.3161       11.47  HOLD news review not checked
 12  OSK           0.3128      130.77  HOLD news review not checked
 13  BX            0.3112      110.20  HOLD news review not checked
@@ -22,3 +22,19 @@ Relative scores (not percents). Not the 0.5% gate.
 18  DXCM          0.2979       84.75  HOLD news review not checked
 19  PIPR          0.2879       64.87  HOLD news review not checked
 20  SEZL          0.2864      106.50  HOLD news review not checked
+
+stockpicker picks for 2026-10-05
+Features through 2026-10-02, model trained through 2026-10-02 -- ready for this morning's opens.
+scored 1920 · 8 cleared 0.5% · showing top 8
+
+ticker      pred%        open
+LQDA        1.11%       28.07  HOLD news review degraded
+UMC         1.07%       23.73
+KOD         1.03%       92.28  HOLD news review not checked
+CHRW        0.85%      140.01  HOLD news review not checked
+CTVA        0.81%       11.81  SKIP corporate action: Vylor has scarcity value, says Jim Cramer
+BRVE        0.52%       22.02  HOLD news review not checked
+SHAZ        0.51%       50.45  HOLD news review not checked
+MAAS        0.51%       13.66  HOLD news review not checked
+
+Skipped earnings: MKC, QH, VFS
