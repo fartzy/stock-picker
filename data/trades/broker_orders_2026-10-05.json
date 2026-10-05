@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Execution time is used for every fill. Broker net sale proceeds are preserved to infer fees; the fully canceled BMY order is not a fill.",
-  "filled_order_count": 15,
+  "filled_order_count": 19,
   "orders": [
     {"order_number": "2DI09S4X", "ticker": "BMY", "side": "buy", "shares": 120, "price": 59.63, "executed_at": "2026-10-05T09:38:00-04:00", "broker_net_amount": 7155.60},
     {"order_number": "2DI04G01", "ticker": "LQDA", "side": "buy", "shares": 200, "price": 27.105, "executed_at": "2026-10-05T09:40:18-04:00", "broker_net_amount": 5421.00},
@@ -20,12 +20,16 @@
     {"order_number": "2DI0R5R0", "ticker": "BMY", "side": "buy", "shares": 100, "price": 58.54, "executed_at": "2026-10-05T11:01:38-04:00", "broker_net_amount": 5854.00},
     {"order_number": "2DI0X34F", "ticker": "BMY", "side": "sell", "shares": 520, "price": 58.90, "executed_at": "2026-10-05T11:27:16-04:00", "broker_net_amount": 30627.36},
     {"order_number": "2DI11Y2R", "ticker": "BMY", "side": "buy", "shares": 100, "price": 58.7199, "executed_at": "2026-10-05T11:45:47-04:00", "broker_net_amount": 5871.99},
-    {"order_number": "2DI0VB83", "ticker": "BMY", "side": "sell", "shares": 100, "price": 58.95, "executed_at": "2026-10-05T12:13:21-04:00", "broker_net_amount": 5894.87}
+    {"order_number": "2DI0VB83", "ticker": "BMY", "side": "sell", "shares": 100, "price": 58.95, "executed_at": "2026-10-05T12:13:21-04:00", "broker_net_amount": 5894.87},
+    {"order_number": "2DI0V5VC", "ticker": "BMY", "side": "sell", "shares": 200, "price": 59.06, "executed_at": "2026-10-05T12:22:46-04:00", "broker_net_amount": 11811.75},
+    {"order_number": "2DI196Q3", "ticker": "BMY", "side": "buy", "shares": 100, "price": 58.915, "executed_at": "2026-10-05T13:06:24-04:00", "broker_net_amount": 5891.50},
+    {"order_number": "2DI1DLG7", "ticker": "BMY", "side": "buy", "shares": 100, "price": 58.87, "executed_at": "2026-10-05T13:12:00-04:00", "broker_net_amount": 5887.00},
+    {"order_number": "2DI1DLQG", "ticker": "BMY", "side": "buy", "shares": 50, "price": 58.8599, "executed_at": "2026-10-05T13:13:01-04:00", "broker_net_amount": 2943.00}
   ],
   "fully_canceled_order_numbers": ["2DI0XR7C"],
   "reconciliation": {
-    "BMY": {"bought_shares": 920, "sold_shares": 620, "remaining_shares": 300, "buy_cost": 54142.59, "net_sale_proceeds": 36522.23, "net_realized_pnl_average_cost": 28.61},
+    "BMY": {"bought_shares": 1170, "sold_shares": 820, "remaining_shares": 350, "buy_cost": 68864.09, "net_sale_proceeds": 48333.98, "net_realized_pnl_average_cost": 74.38},
     "LQDA": {"bought_shares": 1000, "sold_shares": 1000, "remaining_shares": 0, "buy_cost": 26499.00, "net_sale_proceeds": 26795.43, "net_realized_pnl": 296.43},
-    "inferred_sale_fees": 1.34
+    "inferred_sale_fees": 1.59
   }
 }
