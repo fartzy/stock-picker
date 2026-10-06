@@ -170,9 +170,9 @@ Mac awake, Chicago time. Click on Trading around 8:30 is the proven path.
 | When | What |
 |---|---|
 | Weekdays 3:30 PM | Prices → features → retrain |
-| Weekdays 8:29 AM | Prestart backup scorer; check the checkbox at 8:30:05, then retry Polygon snapshots every 5s through 8:33 |
+| Weekdays 8:29 AM | Prestart backup scorer; check the checkbox at 8:30:05, collect real-time Polygon opening aggregates through 8:33, then fill gaps from REST/Yahoo/Finnhub |
 | Click on Trading | Rank + Fit now, unchecks 8:30 |
 
-TODO: Evaluate Polygon WebSocket per-second aggregate `op` for faster opening-quote coverage; retain the REST snapshot fallback.
+The per-second Polygon stream uses the official `op` field; REST snapshots and Yahoo/Finnhub still fill names without a stream open.
 
 Do not log index funds (SPY).
