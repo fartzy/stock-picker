@@ -3,8 +3,8 @@
   "trade_date": "2026-10-06",
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "Execution time is used for every fill. The open WDC buy is not a fill. Broker net sale proceeds are preserved to infer fees.",
-  "filled_order_count": 11,
+  "note": "Execution time is used for every fill. Fully canceled orders are not fills. Broker net sale proceeds are preserved to infer fees.",
+  "filled_order_count": 15,
   "orders": [
     {"order_number": "2DJ06GBL", "ticker": "WDC", "side": "buy", "shares": 12, "price": 417.32, "executed_at": "2026-10-06T09:37:20-04:00", "broker_net_amount": 5007.84},
     {"order_number": "2DJ039T4", "ticker": "ALHC", "side": "buy", "shares": 600, "price": 8.33, "executed_at": "2026-10-06T09:48:45-04:00", "broker_net_amount": 4998.00},
@@ -16,13 +16,17 @@
     {"order_number": "2DJ0KFDW", "ticker": "WDC", "side": "buy", "shares": 12, "price": 411.03, "executed_at": "2026-10-06T10:23:40-04:00", "broker_net_amount": 4932.36},
     {"order_number": "2DJ0KC97", "ticker": "ALHC", "side": "sell", "shares": 600, "price": 8.35, "executed_at": "2026-10-06T10:35:53-04:00", "broker_net_amount": 5009.89},
     {"order_number": "2DJ0NYSG", "ticker": "ALHC", "side": "sell", "shares": 500, "price": 8.3279, "executed_at": "2026-10-06T10:37:36-04:00", "broker_net_amount": 4163.86},
-    {"order_number": "2DJ0PMV8", "ticker": "WDC", "side": "buy", "shares": 12, "price": 409.71, "executed_at": "2026-10-06T10:38:34-04:00", "broker_net_amount": 4916.52}
+    {"order_number": "2DJ0PMV8", "ticker": "WDC", "side": "buy", "shares": 12, "price": 409.71, "executed_at": "2026-10-06T10:38:34-04:00", "broker_net_amount": 4916.52},
+    {"order_number": "2DJ1056R", "ticker": "WDC", "side": "sell", "shares": 36, "price": 413.62, "executed_at": "2026-10-06T10:50:53-04:00", "broker_net_amount": 14890.01},
+    {"order_number": "2DJ0YTS5", "ticker": "WDC", "side": "sell", "shares": 12, "price": 414.09, "executed_at": "2026-10-06T10:52:10-04:00", "broker_net_amount": 4968.97},
+    {"order_number": "2DJ0VJ2J", "ticker": "WDC", "side": "sell", "shares": 24, "price": 414.155, "executed_at": "2026-10-06T10:55:47-04:00", "broker_net_amount": 9939.51},
+    {"order_number": "2DJ0WW5D", "ticker": "ALHC", "side": "sell", "shares": 500, "price": 8.3178, "executed_at": "2026-10-06T10:57:02-04:00", "broker_net_amount": 4158.81}
   ],
-  "fully_canceled_order_numbers": ["2DJ0NYNZ"],
-  "open_order_numbers_not_filled": ["2DJ102MY"],
+  "fully_canceled_order_numbers": ["2DJ0NYNZ", "2DJ102MY"],
   "reconciliation": {
-    "WDC": {"bought_shares": 72, "sold_shares": 0, "remaining_shares": 72, "buy_cost": 29745.36},
-    "ALHC": {"bought_shares": 1600, "sold_shares": 1100, "remaining_shares": 500, "buy_cost": 13219.68, "net_sale_proceeds": 9173.75, "net_realized_pnl_average_cost": 85.22},
-    "inferred_sale_fees": 0.20
+    "WDC": {"bought_shares": 72, "sold_shares": 72, "remaining_shares": 0, "buy_cost": 29745.36, "net_sale_proceeds": 29798.49, "net_realized_pnl": 53.13},
+    "ALHC": {"bought_shares": 1600, "sold_shares": 1600, "remaining_shares": 0, "buy_cost": 13219.68, "net_sale_proceeds": 13332.56, "net_realized_pnl": 112.88},
+    "inferred_sale_fees": 0.92,
+    "net_realized_pnl": 166.01
   }
 }
