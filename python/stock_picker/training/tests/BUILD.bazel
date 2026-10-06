@@ -7,6 +7,17 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_overnight_dataset",
+    srcs = ["test_overnight_dataset.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//exchange_calendars",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_story_prune",
     srcs = ["test_story_prune.py"],
     imports = ["../../.."],

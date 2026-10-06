@@ -32,6 +32,7 @@ manifest:
     dateutil: python_dateutil
     docker: docker
     dotenv: python_dotenv
+    exchange_calendars: exchange_calendars
     fastapi: fastapi
     flask: flask
     flask_cors: flask_cors
@@ -57,6 +58,7 @@ manifest:
     jinja2: jinja2
     joblib: joblib
     kiwisolver: kiwisolver
+    korean_lunar_calendar: korean_lunar_calendar
     lightgbm: lightgbm
     lxml: lxml
     mako: mako
@@ -109,6 +111,7 @@ manifest:
     pydantic_core: pydantic_core
     pygments: pygments
     pylab: matplotlib
+    pyluach: pyluach
     pyparsing: pyparsing
     pytest: pytest
     pytz: pytz
@@ -123,6 +126,8 @@ manifest:
     sqlparse: sqlparse
     starlette: starlette
     threadpoolctl: threadpoolctl
+    tlz: toolz
+    toolz: toolz
     typing_extensions: typing_extensions
     typing_inspection: typing_inspection
     tzdata: tzdata
@@ -137,4 +142,4 @@ manifest:
     zipp: zipp
   pip_repository:
     name: pypi
-integrity: 10ccce88753e7d416e0bce41da9900ae0fe7507d57df3574e891869a73a6c2bf
+integrity: 1e021fb6a152e786b00ee6d65dc1d219b5ccf2414e36a04a46ca4cf522f63b15
