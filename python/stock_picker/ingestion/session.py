@@ -7,7 +7,7 @@ Features and training must stop at the last *finished* session -- after
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -43,6 +43,15 @@ def session_has_closed(now: datetime | None = None) -> bool:
     return clock.hour > SESSION_CLOSE_HOUR or (
         clock.hour == SESSION_CLOSE_HOUR and clock.minute >= SESSION_CLOSE_SETTLE_MINUTES
     )
+
+
+def cash_session_has_ended(now: datetime | None = None) -> bool:
+    """True at the 16:00 ET bell; display-only closes need not wait for settlement.
+
+    Training and stored daily bars still use the stricter `session_has_closed`.
+    """
+    clock = _eastern(now)
+    return clock.date().weekday() >= 5 or clock.time() >= time(SESSION_CLOSE_HOUR)
 
 
 def last_completed_session_date(now: datetime | None = None) -> date:

@@ -4,8 +4,8 @@ Not "your fill vs the close". 8:40 CT is 9:40 ET (ten minutes after the
 bell); 2:55 CT is 15:55 ET (five minutes before the close). Daily Open and
 Close are the stored prints for that window -- we do not refetch 1-minute
 bars. Only shares bought before 9:00 AM CT qualify. In-progress today stays blank until
-the session settles; after the bell, a live snapshot fills until nightly
-writes today's bar.
+the cash session ends; today's aggregate close fills until nightly writes
+the settled bar.
 """
 
 from __future__ import annotations
@@ -86,7 +86,7 @@ def apply_hold_to_close(
 
     Only pre-9 AM CT buys count; prices from each buy session's Open and Close,
     not the actual fill. In-progress sessions stay None. After the bell,
-    if today's bar is not on disk yet, `live_quotes` (open/last) fills
+    if today's bar is not on disk yet, `live_quotes` (open/day close) fills
     the same cells until nightly writes the bar. Close remains visible even
     for excluded lots; only the counterfactual P&L and its capital are filtered.
     """

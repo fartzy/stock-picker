@@ -3,6 +3,7 @@ from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 from stock_picker.ingestion.polygon_client import (
+    closing_quotes_from_polygon_snapshot,
     fetch_polygon_quotes,
     polygon_api_key,
     quotes_from_polygon_snapshot,
@@ -37,6 +38,26 @@ def test_quotes_from_polygon_snapshot_uses_today_day_open():
     quotes = quotes_from_polygon_snapshot(raw, wanted={"SIG"}, as_of=date(2026, 9, 10))
 
     assert quotes == {"SIG": {"open": 103.47, "last": 96.07, "prev_close": 102.48}}
+
+
+def test_closing_snapshot_uses_day_close_not_after_hours_last_trade():
+    raw = [
+        {
+            "ticker": "WDC",
+            "updated": _ns(2026, 10, 6, 16, 11),
+            "day": {"o": 426.60, "c": 411.04},
+            "lastTrade": {"p": 411.60, "t": _ns(2026, 10, 6, 16, 11)},
+        },
+        {
+            "ticker": "ALHC",
+            "updated": _ns(2026, 10, 5, 16, 11),
+            "day": {"o": 8.44, "c": 8.37},
+        },
+    ]
+
+    assert closing_quotes_from_polygon_snapshot(raw, {"WDC", "ALHC"}, date(2026, 10, 6)) == {
+        "WDC": {"open": 426.60, "last": 411.04}
+    }
 
 
 def test_quotes_from_polygon_snapshot_maps_class_shares_to_universe_symbols():
