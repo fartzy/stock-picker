@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Execution time is used for every fill. Fully canceled orders are not fills. Broker net sale proceeds are preserved to infer fees.",
-  "filled_order_count": 15,
+  "filled_order_count": 24,
   "orders": [
     {"order_number": "2DJ06GBL", "ticker": "WDC", "side": "buy", "shares": 12, "price": 417.32, "executed_at": "2026-10-06T09:37:20-04:00", "broker_net_amount": 5007.84},
     {"order_number": "2DJ039T4", "ticker": "ALHC", "side": "buy", "shares": 600, "price": 8.33, "executed_at": "2026-10-06T09:48:45-04:00", "broker_net_amount": 4998.00},
@@ -20,13 +20,24 @@
     {"order_number": "2DJ1056R", "ticker": "WDC", "side": "sell", "shares": 36, "price": 413.62, "executed_at": "2026-10-06T10:50:53-04:00", "broker_net_amount": 14890.01},
     {"order_number": "2DJ0YTS5", "ticker": "WDC", "side": "sell", "shares": 12, "price": 414.09, "executed_at": "2026-10-06T10:52:10-04:00", "broker_net_amount": 4968.97},
     {"order_number": "2DJ0VJ2J", "ticker": "WDC", "side": "sell", "shares": 24, "price": 414.155, "executed_at": "2026-10-06T10:55:47-04:00", "broker_net_amount": 9939.51},
-    {"order_number": "2DJ0WW5D", "ticker": "ALHC", "side": "sell", "shares": 500, "price": 8.3178, "executed_at": "2026-10-06T10:57:02-04:00", "broker_net_amount": 4158.81}
+    {"order_number": "2DJ0WW5D", "ticker": "ALHC", "side": "sell", "shares": 500, "price": 8.3178, "executed_at": "2026-10-06T10:57:02-04:00", "broker_net_amount": 4158.81},
+    {"order_number": "2DJ1BY7D", "ticker": "WERN", "side": "buy", "shares": 150, "price": 33.16, "executed_at": "2026-10-06T12:23:32-04:00", "broker_net_amount": 4974.00},
+    {"order_number": "2DJ0V7MR", "ticker": "WERN", "side": "buy", "shares": 150, "price": 33.11, "executed_at": "2026-10-06T12:24:28-04:00", "broker_net_amount": 4966.50},
+    {"order_number": "2DJ170G7", "ticker": "WERN", "side": "buy", "shares": 150, "price": 33.04, "executed_at": "2026-10-06T12:26:07-04:00", "broker_net_amount": 4956.00},
+    {"order_number": "2DJ1BGYJ", "ticker": "WERN", "side": "buy", "shares": 300, "price": 32.97, "executed_at": "2026-10-06T12:42:50-04:00", "broker_net_amount": 9891.00},
+    {"order_number": "2DJ175J6", "ticker": "WERN", "side": "buy", "shares": 300, "price": 32.90333333, "executed_at": "2026-10-06T12:49:35-04:00", "broker_net_amount": 9871.00, "execution_parts": 3},
+    {"order_number": "2DJ19W4W", "ticker": "WERN", "side": "buy", "shares": 150, "price": 32.90, "executed_at": "2026-10-06T12:52:28-04:00", "broker_net_amount": 4935.00, "execution_parts": 2},
+    {"order_number": "2DJ1H3HP", "ticker": "WERN", "side": "buy", "shares": 300, "price": 32.88, "executed_at": "2026-10-06T13:56:30-04:00", "broker_net_amount": 9864.00},
+    {"order_number": "2DJ1P781", "ticker": "WERN", "side": "sell", "shares": 750, "price": 33.13, "executed_at": "2026-10-06T14:13:00-04:00", "broker_net_amount": 24846.98},
+    {"order_number": "2DJ1QL4Z", "ticker": "WERN", "side": "sell", "shares": 400, "price": 33.10, "executed_at": "2026-10-06T14:14:29-04:00", "broker_net_amount": 13239.72}
   ],
-  "fully_canceled_order_numbers": ["2DJ0NYNZ", "2DJ102MY"],
+  "fully_canceled_order_numbers": ["2DJ0NYNZ", "2DJ102MY", "2DJ13F36"],
+  "unidentified_canceled_orders": ["WERN sell 350 shares limit $33.20 on 2026-10-06, order number absent from provided confirmation"],
   "reconciliation": {
     "WDC": {"bought_shares": 72, "sold_shares": 72, "remaining_shares": 0, "buy_cost": 29745.36, "net_sale_proceeds": 29798.49, "net_realized_pnl": 53.13},
     "ALHC": {"bought_shares": 1600, "sold_shares": 1600, "remaining_shares": 0, "buy_cost": 13219.68, "net_sale_proceeds": 13332.56, "net_realized_pnl": 112.88},
-    "inferred_sale_fees": 0.92,
-    "net_realized_pnl": 166.01
+    "WERN": {"bought_shares": 1500, "sold_shares": 1150, "remaining_shares": 350, "buy_cost": 49457.50, "net_sale_proceeds": 38086.70, "inferred_sale_fees": 0.80, "average_cost_remaining_cost": 11540.08, "average_cost_gross_realized_pnl": 170.08, "average_cost_net_realized_pnl": 169.28},
+    "inferred_sale_fees": 1.72,
+    "net_realized_pnl": 335.29
   }
 }
