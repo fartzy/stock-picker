@@ -818,6 +818,29 @@ def test_get_positions_fills_todays_close_at_the_bell(client, tmp_path):
     closing_quotes.assert_called_once_with(["AAA"], as_of=date(2026, 10, 6))
 
 
+def test_get_paper_book_fills_todays_close_without_rebuilding(client):
+    from stock_picker.storage.paper_book_store import PaperPick
+
+    picks = [
+        PaperPick("2026-10-06", "fit", 1, "KOD", 0.0177, 92.86, None, None),
+        PaperPick("2026-10-05", "fit", 1, "OLD", 0.01, 10.0, 11.0, 0.1),
+    ]
+    with (
+        patch("stock_picker.api.routes.load_paper_book", return_value=picks),
+        patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=True),
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 6)),
+        patch("stock_picker.ingestion.polygon_client.fetch_polygon_closing_quotes",
+              return_value={"KOD": {"open": 92.86, "last": 93.10}}) as closing_quotes,
+    ):
+        response = client.get("/api/paper-book", params={"kind": "fit", "top_k": 5})
+
+    assert response.status_code == status.HTTP_200_OK
+    rows = {day["as_of"]: day["fit"] for day in response.json()["days"]}
+    assert rows["2026-10-06"][0]["close_price"] == 93.10
+    assert rows["2026-10-05"][0]["close_price"] == 11.0
+    closing_quotes.assert_called_once_with(["KOD"], as_of=date(2026, 10, 6))
+
+
 def test_get_price_history_daily(client):
     response = client.get("/api/prices/AAA")
 
