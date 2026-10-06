@@ -2,10 +2,10 @@ stockpicker RANKING top 20 for 2026-10-06
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  LAD           0.3293      298.46  HOLD news review not checked
- 2  WDC           0.3289      426.60  HOLD news review not checked
- 3  AN            0.3249      159.06  HOLD news review not checked
- 4  STX           0.3217      857.12  HOLD news review not checked
+ 1  LAD           0.3293      298.46
+ 2  WDC           0.3289      426.60  HOLD news review degraded
+ 3  AN            0.3249      159.06
+ 4  STX           0.3217      857.12  HOLD news review degraded
  5  WERN          0.3149       33.96  HOLD news review not checked
  6  GTX           0.3110       26.44  HOLD news review not checked
  7  ALHC          0.3090        8.44  HOLD news review not checked
@@ -22,3 +22,31 @@ Relative scores (not percents). Not the 0.5% gate.
 18  HMY           0.2882       17.12  HOLD news review not checked
 19  EPAM          0.2880      109.00  HOLD news review not checked
 20  CVE           0.2869       31.23  HOLD news review not checked
+
+stockpicker picks for 2026-10-06
+Features through 2026-10-05, model trained through 2026-10-05 -- ready for this morning's opens.
+scored 1973 · 122 cleared 0.5% · showing top 20
+
+ticker      pred%        open
+KOD         1.77%       92.86
+RGC         1.19%        7.22
+VICR        0.97%      307.89  HOLD news review not checked
+IGR         0.87%       11.57  HOLD news review not checked
+IOVA        0.80%       14.21  HOLD news review not checked
+AXTI        0.76%       87.78  HOLD news review not checked
+ALHC        0.75%        8.44  HOLD news review not checked
+PURR        0.73%       12.83  HOLD news review not checked
+UMC         0.68%       23.54  HOLD news review not checked
+CBRS        0.68%      178.73  HOLD news review not checked
+GLXY        0.67%       22.98  HOLD news review not checked
+NN          0.67%       13.32  HOLD news review not checked
+FRVO        0.67%       13.60  HOLD news review not checked
+WDC         0.66%      426.60  HOLD news review degraded
+AADX        0.66%       11.60  HOLD news review not checked
+PARR        0.65%       86.01  HOLD news review not checked
+OKLO        0.65%       37.37  HOLD news review not checked
+HUBG        0.63%       28.43  HOLD news review not checked
+HYMC        0.63%       19.11  HOLD news review not checked
+CIG-C       0.63%        3.50  HOLD news review not checked
+
+Skipped earnings: STZ, MKC, RPM, LW, PENG, NEOG
