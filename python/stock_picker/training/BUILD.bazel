@@ -35,6 +35,9 @@ py_library(
         "notify.py",
         "objective_search.py",
         "overnight_dataset.py",
+        "overnight_day_scores.py",
+        "overnight_job.py",
+        "overnight_model.py",
         "profile_live_rows.py",
         "model_registry.py",
         "rank_model.py",
@@ -78,6 +81,20 @@ py_binary(
     deps = [
         ":training",
         "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//pandas",
+    ],
+)
+
+py_binary(
+    name = "overnight_job",
+    srcs = ["overnight_job.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/ingestion",
         "//python/stock_picker/storage",
         "@pypi//pandas",
     ],
