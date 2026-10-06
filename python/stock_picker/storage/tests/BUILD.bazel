@@ -2,6 +2,17 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_overnight_price_store",
+    srcs = ["test_overnight_price_store.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "@pypi//exchange_calendars",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_fee_store",
     srcs = ["test_fee_store.py"],
     imports = ["../../.."],

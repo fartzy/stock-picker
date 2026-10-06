@@ -9,6 +9,7 @@ py_library(
         "model_store.py",
         "morning_check_store.py",
         "news_store.py",
+        "overnight_price_store.py",
         "paper_book_store.py",
         "paths.py",
         "price_store.py",
@@ -22,6 +23,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "@pypi//exchange_calendars",
         "@pypi//pandas",
         "@pypi//pyarrow",  # keep: implicit pandas parquet backend, no direct import
     ],
