@@ -9,14 +9,14 @@ from __future__ import annotations
 import fcntl
 from concurrent.futures import ThreadPoolExecutor
 import time
-from datetime import date, datetime
+from datetime import date, datetime, time as clock_time, timedelta
 from pathlib import Path
 
 from stock_picker.ingestion.session import CHICAGO_TIMEZONE, session_has_closed
 from stock_picker.log import get_logger
 
 from stock_picker.features.earnings import fetch_recent_earnings_tickers
-from stock_picker.ingestion.quote_providers import fetch_morning_quotes, wait_for_morning_snapshot
+from stock_picker.ingestion.quote_providers import fetch_morning_quotes, fetch_quotes, wait_for_morning_snapshot
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
@@ -59,6 +59,8 @@ _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
 # paint costs one parallel news wave (~5s), not one covering every pick.
 RANK_FIRST_NEWS = 4
 FIT_FIRST_NEWS = 2
+MORNING_RECOVERY_TIMES = (clock_time(8, 40), clock_time(8, 45))
+RECOVERABLE_SKIP_REASONS = frozenset({"no live quote available", "no previous close available"})
 
 
 def _try_lock_morning():
@@ -386,6 +388,106 @@ def score_from_quotes(
     return freshness, rank_result, result, rank_n, rank_text
 
 
+def recover_missing_morning_quotes(
+    quotes: dict[str, dict],
+    rank_result,
+    fit_result,
+    threshold: float,
+    *,
+    model_run_id: str | None = None,
+    now_fn=None,
+    sleep_fn=time.sleep,
+) -> None:
+    """Retry only quote gaps after first publication, then rescore all names.
+
+    Rescoring the full open-known matrix keeps cross-sectional features and
+    rank positions comparable. The first result remains visible throughout;
+    only a completed second result is written. Earnings and other deliberate
+    exclusions are never retried as quote failures.
+    """
+    now = now_fn or (lambda: datetime.now(CHICAGO_TIMEZONE))
+    as_of = date.fromisoformat(fit_result.as_of)
+    if as_of != now().date():
+        return
+    missing = {
+        item["ticker"] for item in fit_result.skipped
+        if item.get("reason") in RECOVERABLE_SKIP_REASONS and item.get("ticker")
+    }
+    if not missing:
+        return
+
+    # The initial checks are decisions made at morning time. Reuse them when
+    # rescoring so a later feed/LLM failure cannot silently change old picks.
+    news_cache = {
+        signal.ticker: NewsCheck(**signal.news_check)
+        for signal in [*(rank_result.signals if rank_result else []), *fit_result.signals]
+        if signal.news_check
+    }
+
+    def cached_news_fetcher(names: list[str], day: date) -> dict[str, NewsCheck]:
+        fresh = [name for name in names if name not in news_cache]
+        if fresh:
+            news_cache.update(fetch_recent_news_checks(fresh, day) or {})
+        return {name: news_cache[name] for name in names if name in news_cache}
+
+    final_at = datetime.combine(as_of, MORNING_RECOVERY_TIMES[-1], CHICAGO_TIMEZONE) + timedelta(minutes=1)
+    for retry_time in MORNING_RECOVERY_TIMES:
+        if not missing or now() > final_at:
+            break
+        target = datetime.combine(as_of, retry_time, CHICAGO_TIMEZONE)
+        remaining = (target - now()).total_seconds()
+        if remaining > 0:
+            sleep_fn(remaining)
+        if now() > final_at:
+            break
+        try:
+            recovered = fetch_quotes(sorted(missing), as_of=as_of)
+        except Exception:
+            logger.exception("morning quote recovery failed")
+            continue
+        recovered = {ticker: quote for ticker, quote in recovered.items() if ticker in missing}
+        if not recovered:
+            logger.info("morning quote recovery found no new opens; missing=%s", len(missing))
+            continue
+        candidate_quotes = {**quotes, **recovered}
+        try:
+            freshness, next_rank, next_fit, _, _ = score_from_quotes(
+                candidate_quotes,
+                threshold=threshold,
+                persist=False,
+                news_fetcher=cached_news_fetcher,
+                as_of=as_of,
+                model_run_id=model_run_id,
+            )
+        except Exception:
+            logger.exception("morning quote recovery rescore failed")
+            continue
+        if next_rank is None and rank_result is not None:
+            logger.warning("morning quote recovery rank failed; retaining original scan")
+            continue
+
+        rank_text = ""
+        if next_rank is not None:
+            rank_payload = _payload_from(next_rank, freshness)
+            rank_payload["kind"] = "rank"
+            _write_signals(rank_payload, next_rank.as_of)
+            rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
+        fit_payload = _payload_from(next_fit, freshness)
+        _write_signals(fit_payload, next_fit.as_of)
+        _, fit_body = format_picks_email(fit_payload)
+        publish_picks(as_of.isoformat(), rank_text + "\n" + fit_body if rank_text else fit_body)
+        quotes = candidate_quotes
+        rank_result, fit_result = next_rank, next_fit
+        missing = {
+            item["ticker"] for item in fit_result.skipped
+            if item.get("reason") in RECOVERABLE_SKIP_REASONS and item.get("ticker")
+        }
+        logger.info(
+            "morning recovery added=%s scored=%s still_missing=%s",
+            len(recovered), fit_result.scored_count, len(missing),
+        )
+
+
 def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = False) -> int:
     started = datetime.now(CHICAGO_TIMEZONE)
     logger.info("morning start %s", started.isoformat())
@@ -419,8 +521,9 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
     try:
         quotes = fetch_morning_quotes(UniverseStore().active_tickers())
         logger.info("quotes=%s", len(quotes))
+        model_run_id = TrainingConfigStore().read().selected_run_id
         freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
-            quotes, threshold=threshold, persist=True
+            quotes, threshold=threshold, persist=True, model_run_id=model_run_id
         )
         payload = _payload_from(result, freshness)
         path = DEFAULT_SIGNAL_DIR / f"{result.as_of}.json"
@@ -438,6 +541,12 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
             published,
             mailed,
         )
+        try:
+            recover_missing_morning_quotes(
+                quotes, rank_result, result, threshold, model_run_id=model_run_id
+            )
+        except Exception:
+            logger.exception("morning quote recovery failed after the initial publish")
         logger.info("morning done %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
     finally:
         lock.close()

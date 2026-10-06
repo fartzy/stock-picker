@@ -202,10 +202,12 @@ export default function BuySignal() {
         .catch(() => undefined);
     }
     load();
-    const intervalId = scanStatus?.status === "running" ? setInterval(load, 2000) : undefined;
+    // The scheduled scan runs in a separate process, so its status here can
+    // stay idle while a late valid open is merged into the published ranking.
+    const intervalId = setInterval(load, scanStatus?.status === "running" ? 2000 : 60_000);
     return () => {
       cancelled = true;
-      if (intervalId) clearInterval(intervalId);
+      clearInterval(intervalId);
     };
   }, [thresholdPct, scanStatus?.status, scanStatus?.completed_at]);
 
