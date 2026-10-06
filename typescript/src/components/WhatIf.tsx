@@ -381,7 +381,9 @@ export default function WhatIf() {
   const [replayDay, setReplayDay] = useState("");
   const [replayModel, setReplayModel] = useState("live");
   const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
-  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [refresh] });
+  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
+    deps: [refresh], intervalMs: 60_000,
+  });
   const { data: trainingRuns } = useFetchData(fetchTrainingRuns, { deps: [] });
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;

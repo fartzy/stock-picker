@@ -2,7 +2,9 @@ from datetime import date
 
 import pandas as pd
 
-from stock_picker.paper.book import load_paper_book, paper_book_view, rebuild_paper_book
+from stock_picker.paper.book import (
+    load_paper_book, paper_book_view, rebuild_paper_book, with_current_close_quotes,
+)
 from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.scan_store import ScanStore
@@ -108,6 +110,27 @@ def test_rebuild_preserves_saved_degraded_review_status(tmp_path):
 def test_load_paper_book_does_not_rebuild(tmp_path):
     book = PaperBookStore(data_dir=tmp_path / "paper")
     assert load_paper_book(paper_store=book) == []
+
+
+def test_current_close_overlay_only_updates_pending_live_picks():
+    today = date(2026, 10, 6)
+    pending = PaperPick("2026-10-06", "fit", 1, "KOD", 0.01, 92.86, None, None)
+    replay = PaperPick("2026-10-06", "fit", 1, "KOD", 0.01, 92.86, None, None,
+                       scan_id="replay-1")
+    prior = PaperPick("2026-10-05", "fit", 1, "KOD", 0.01, 90.0, None, None)
+    settled = PaperPick("2026-10-06", "rank", 1, "WDC", 0.02, 426.6, 410.0,
+                        410.0 / 426.6 - 1)
+
+    result = with_current_close_quotes(
+        [pending, replay, prior, settled], today,
+        {"KOD": {"open": 999.0, "last": 93.10}, "WDC": {"open": 426.6, "last": 411.04}},
+    )
+
+    assert result[0].open_price == 92.86  # Keep the actual scan open.
+    assert result[0].close_price == 93.10
+    assert result[0].session_return == 93.10 / 92.86 - 1
+    assert result[1:] == [replay, prior, settled]
+    assert pending.close_price is None  # Do not mutate the stored pick.
 
 
 def test_rebuild_one_completed_day_preserves_history_and_replays(tmp_path):

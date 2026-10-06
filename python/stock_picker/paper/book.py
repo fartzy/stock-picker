@@ -7,6 +7,7 @@ list so the What if tab can slice without another rebuild.
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import date
 
 import pandas as pd
@@ -271,9 +272,38 @@ def _missing_prev_close_for_news(picks: list[PaperPick]) -> bool:
 
 
 def load_paper_book(paper_store: PaperBookStore | None = None) -> list[PaperPick]:
-    """SQLite only. Never Yahoo on a GET -- 990 names would hang What if."""
+    """Read stored picks; live current-day close enrichment happens in the API."""
     book = paper_store if paper_store is not None else PaperBookStore()
     return book.read()
+
+
+def with_current_close_quotes(
+    picks: list[PaperPick], as_of: date, quotes: dict[str, dict]
+) -> list[PaperPick]:
+    """Overlay post-bell closes on today's live picks without rewriting history.
+
+    Replay rows and prior sessions must keep their stored outcomes. The scan's
+    recorded opening price wins over the quote's open.
+    """
+    today = as_of.isoformat()
+    updated = []
+    for pick in picks:
+        if pick.as_of != today or pick.scan_id or pick.session_return is not None:
+            updated.append(pick)
+            continue
+        quote = quotes.get(pick.ticker) or {}
+        open_price = pick.open_price or quote.get("open")
+        close_price = pick.close_price or quote.get("last")
+        if not open_price or not close_price or open_price <= 0 or close_price <= 0:
+            updated.append(pick)
+            continue
+        updated.append(replace(
+            pick,
+            open_price=float(open_price),
+            close_price=float(close_price),
+            session_return=float(close_price) / float(open_price) - 1.0,
+        ))
+    return updated
 
 
 def refresh_paper_book(

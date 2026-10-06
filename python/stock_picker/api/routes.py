@@ -55,7 +55,12 @@ from stock_picker.features.benchmark import (
     fetch_benchmark_returns,
 )
 from stock_picker.features.hold_to_close import apply_hold_to_close
-from stock_picker.paper.book import load_paper_book, paper_book_view, refresh_paper_book
+from stock_picker.paper.book import (
+    load_paper_book,
+    paper_book_view,
+    refresh_paper_book,
+    with_current_close_quotes,
+)
 from stock_picker.training.replay import replay_morning
 from stock_picker.features.catalog import (
     compute_formulas_all,
@@ -368,6 +373,20 @@ def get_paper_book(
             status_code=status.HTTP_400_BAD_REQUEST, detail="kind must be fit, rank, or both"
         )
     picks = load_paper_book()
+    from stock_picker.ingestion.session import cash_session_date, cash_session_has_ended
+
+    if cash_session_has_ended():
+        from stock_picker.ingestion.polygon_client import fetch_polygon_closing_quotes
+
+        today = cash_session_date()
+        missing = sorted({
+            pick.ticker for pick in picks
+            if pick.as_of == today.isoformat() and not pick.scan_id
+            and pick.session_return is None
+        })
+        if missing:
+            closes = fetch_polygon_closing_quotes(missing, as_of=today)
+            picks = with_current_close_quotes(picks, today, closes)
     return PaperBookResponse(
         **paper_book_view(
             picks,
