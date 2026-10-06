@@ -8,6 +8,7 @@ py_library(
         "main.py",
         "news_sources.py",
         "polygon_client.py",
+        "polygon_stream.py",
         "quote_providers.py",
         "refresh_prices.py",
         "session.py",
@@ -24,6 +25,7 @@ py_library(
         "@pypi//pandas",
         "@pypi//requests",
         "@pypi//yfinance",
+        "@pypi//websockets",
     ],
 )
 

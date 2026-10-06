@@ -143,6 +143,26 @@ def test_morning_snapshots_begin_at_83005_and_retry_missing_every_five_seconds()
     assert fallback.called_with is None
 
 
+def test_morning_default_chain_keeps_stream_opens_and_fills_missing_from_snapshot(monkeypatch):
+    clock = _Clock(8, 29, 58)
+    polygon = _SequencePolygon(clock, [{"B": _quote(2)}])
+    fallback = _Stub("yahoo", {"A": _quote(10), "B": _quote(20)})
+    monkeypatch.setattr("stock_picker.ingestion.quote_providers.quote_providers", lambda: [polygon, fallback])
+    monkeypatch.setattr("stock_picker.ingestion.polygon_client.polygon_api_key", lambda: "test-key")
+    monkeypatch.setattr(
+        "stock_picker.ingestion.polygon_stream.fetch_polygon_stream_quotes",
+        lambda names, as_of, cutoff: {"A": _quote(1)},
+    )
+
+    quotes = fetch_morning_quotes(["A", "B"], now_fn=clock.now, sleep_fn=clock.sleep)
+
+    assert quotes == {"A": _quote(1), "B": _quote(2)}
+    assert clock.sleeps == [7]
+    assert polygon.calls[0][0].strftime("%H:%M:%S") == "08:30:05"
+    assert polygon.calls[0][1] == ["B"]
+    assert fallback.called_with is None
+
+
 def test_wait_for_morning_snapshot_preserves_830_checkbox_window():
     clock = _Clock(8, 29, 0)
 
