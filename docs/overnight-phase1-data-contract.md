@@ -42,7 +42,9 @@ the bars, then pass those records through this builder and inspect exclusions.
 An alternative is to backfill source/action evidence for the existing Yahoo
 rows and verify every raw Open/Close against the provider's documented basis;
 column names and `auto_adjust=False` alone are insufficient. Neither backfill
-is performed in Phase 1.
+is performed in Phase 1. The separate single-ticker implementation is described
+in [Phase 2a ingestion](overnight-phase2a-ingestion.md); it does not run a
+backfill or train a model.
 
 The first feature set is exactly the nine ordered columns in
 `training/overnight_dataset.py`: six completed prior closes supply yesterday's
