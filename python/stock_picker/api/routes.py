@@ -405,18 +405,22 @@ def get_positions() -> PositionsResponse:
         {row["ticker"] for row in summaries if not row["closed"] and row["shares"] > 0}
     )
     quotes = fetch_ticker_quotes(open_tickers) if open_tickers else {}
-    from stock_picker.ingestion.session import last_completed_session_date, session_has_closed
+    from stock_picker.ingestion.polygon_client import fetch_polygon_closing_quotes
+    from stock_picker.ingestion.session import cash_session_date, cash_session_has_ended
 
     hold_quotes: dict[str, dict] = {}
-    if session_has_closed():
-        today = last_completed_session_date().isoformat()
+    hold_through = None
+    if cash_session_has_ended():
+        hold_through = cash_session_date()
+        today = hold_through.isoformat()
         closed_today = sorted(
             {row["ticker"] for row in summaries if row.get("day") == today}
         )
         if closed_today:
-            hold_quotes = fetch_ticker_quotes(closed_today)
+            hold_quotes = fetch_polygon_closing_quotes(closed_today, as_of=hold_through)
     positions = apply_hold_to_close(
         summaries if not quotes else position_summaries(trades, quotes),
+        completed_through=hold_through,
         live_quotes=hold_quotes or None,
     )
     return PositionsResponse(

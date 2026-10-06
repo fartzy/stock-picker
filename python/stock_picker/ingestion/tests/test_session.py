@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from stock_picker.ingestion.session import (
+    cash_session_has_ended,
     cash_session_date,
     completed_sessions,
     last_completed_session_date,
@@ -30,6 +31,14 @@ def test_cash_session_date_is_friday_on_the_weekend():
 def test_session_has_closed_after_settle():
     assert session_has_closed(datetime(2026, 9, 24, 16, 20, tzinfo=ET)) is True
     assert session_has_closed(datetime(2026, 9, 24, 15, 59, tzinfo=ET)) is False
+
+
+def test_display_close_starts_at_bell_without_advancing_training_cutoff():
+    before = datetime(2026, 9, 24, 15, 59, tzinfo=ET)
+    at_bell = datetime(2026, 9, 24, 16, 0, tzinfo=ET)
+    assert cash_session_has_ended(before) is False
+    assert cash_session_has_ended(at_bell) is True
+    assert session_has_closed(at_bell) is False
 
 
 def test_before_the_bell_uses_the_previous_weekday():

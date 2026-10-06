@@ -794,6 +794,30 @@ def test_get_positions(client):
     assert positions["BBB"]["pnl"] is None
 
 
+def test_get_positions_fills_todays_close_at_the_bell(client, tmp_path):
+    from stock_picker.storage.price_store import PriceStore
+
+    trades = pd.DataFrame([
+        {"ticker": "AAA", "side": "buy", "shares": 10, "price": 10.0,
+         "executed_at": "2026-10-06T09:35:00-04:00"},
+        {"ticker": "AAA", "side": "sell", "shares": 10, "price": 10.5,
+         "executed_at": "2026-10-06T10:00:00-04:00"},
+    ])
+    with (
+        patch("stock_picker.api.routes.trade_log", return_value=trades),
+        patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=True),
+        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 6)),
+        patch("stock_picker.ingestion.polygon_client.fetch_polygon_closing_quotes",
+              return_value={"AAA": {"open": 10.0, "last": 11.0}}) as closing_quotes,
+        patch("stock_picker.features.hold_to_close.PriceStore", return_value=PriceStore(tmp_path)),
+    ):
+        response = client.get("/api/positions")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()["positions"][0]["hold_close_price"] == 11.0
+    closing_quotes.assert_called_once_with(["AAA"], as_of=date(2026, 10, 6))
+
+
 def test_get_price_history_daily(client):
     response = client.get("/api/prices/AAA")
 

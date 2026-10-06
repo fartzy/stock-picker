@@ -171,6 +171,31 @@ def quotes_from_polygon_snapshot(
     return quotes
 
 
+def closing_quotes_from_polygon_snapshot(
+    raw_tickers: list[dict], wanted: set[str], as_of: date
+) -> dict[str, dict]:
+    """Use today's aggregate close, never a later after-hours last trade."""
+    quotes = {}
+    for item in raw_tickers:
+        ticker = _matched_ticker(item, wanted)
+        if ticker is None or _item_session_date(item) != as_of:
+            continue
+        day = item.get("day") or {}
+        open_price = _finite_positive(day.get("o"))
+        close_price = _finite_positive(day.get("c"))
+        if open_price is not None and close_price is not None:
+            quotes[ticker] = {"open": open_price, "last": close_price}
+    return quotes
+
+
+def fetch_polygon_closing_quotes(tickers: list[str], as_of: date) -> dict[str, dict]:
+    """One paid snapshot for post-bell display until the settled bar is stored."""
+    key = polygon_api_key()
+    if not key or not tickers:
+        return {}
+    return closing_quotes_from_polygon_snapshot(fetch_polygon_snapshot(key), set(tickers), as_of)
+
+
 def snapshot_rejection_counts(raw_tickers: list[dict], wanted: set[str], as_of: date) -> dict[str, int]:
     """Explain why a nonempty paid snapshot did not fill the requested names."""
     matched = {}
