@@ -1,6 +1,6 @@
 #!/bin/zsh
-# Start Bazel before the bell. Python gates the first Polygon pull to
-# 8:30:05 CT and retries missing opens until 8:33 CT.
+# Start Bazel before the bell. Python checks the backup switch at 8:30:05 CT,
+# then collects real-time Polygon opens through 8:33 CT before REST fallbacks.
 set -euo pipefail
 
 ROOT="${STOCK_PICKER_ROOT:-/Users/michael.artz/dev/stock-picker}"

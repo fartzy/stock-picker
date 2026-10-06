@@ -3,7 +3,7 @@
 Morning scoring needs `{ticker: {open, last, prev_close}}` dated `as_of`.
 Each provider fills names the previous one missed. Default order:
 
-  polygon  -- REST snapshot `day.o` (opening cross). One call, whole tape.
+  polygon  -- real-time aggregate `op`, then REST snapshot `day.o`.
   yahoo    -- 9:30 ET 1-minute print, then snapshot, never yesterday's Open.
   finnhub  -- leftover only.
 
@@ -175,12 +175,12 @@ def fetch_morning_quotes(
     now_fn: Callable[[], datetime] | None = None,
     sleep_fn: Callable[[float], None] = time.sleep,
 ) -> dict[str, SessionQuote]:
-    """Retry the full-market Polygon snapshot for the scheduled/manual scan.
+    """Collect real-time Polygon opens, then fetch missing names via REST.
 
-    The first request is no earlier than 08:30:05 Chicago time. Keep the
-    names found on earlier pulls, retry missing names every five seconds
-    through 08:33, then run the remaining providers once. Other quote API
-    callers keep the ordinary single-pass provider chain.
+    The stream starts no earlier than 08:30:05 Chicago time and runs through
+    08:33. Keep its official opens, then fetch missing names via REST and run
+    the remaining providers once. Injected-provider tests and other quote API
+    callers keep the ordinary snapshot chain.
     """
     now = now_fn or (lambda: datetime.now(CHICAGO_TIMEZONE))
     as_of = as_of or now().date()
@@ -202,6 +202,13 @@ def fetch_morning_quotes(
     cutoff = datetime.combine(as_of, MORNING_SNAPSHOT_CUTOFF, CHICAGO_TIMEZONE)
     next_pull = max(first_at, now())
     quotes: dict[str, SessionQuote] = {}
+    if providers is None and now() < cutoff:
+        from stock_picker.ingestion.polygon_stream import fetch_polygon_stream_quotes
+
+        remaining = (first_at - now()).total_seconds()
+        if remaining > 0:
+            sleep_fn(remaining)
+        quotes.update(fetch_polygon_stream_quotes(names, as_of, cutoff))
     attempts = 0
     while True:
         remaining = (next_pull - now()).total_seconds()

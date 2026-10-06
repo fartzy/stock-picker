@@ -37,6 +37,13 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_polygon_stream",
+    srcs = ["test_polygon_stream.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/ingestion"],
+)
+
+py_pytest(
     name = "test_fundamentals",
     srcs = ["test_fundamentals.py"],
     imports = ["../../.."],
