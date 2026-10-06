@@ -17,6 +17,7 @@ reason to drop it. Illiquid names with no day.open yet are skipped until
 from __future__ import annotations
 
 import os
+from collections import Counter
 from datetime import date, datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -80,17 +81,23 @@ def polygon_api_key(key_file: Path | None = None) -> str | None:
     return _key_from_config_file(key_file or POLYGON_KEY_FILE)
 
 
-def _session_date_from_ns(timestamp_ns: object) -> date | None:
-    """Polygon timestamps are unix nanoseconds in UTC; convert to the US
-    cash-session calendar date (America/New_York)."""
+def _eastern_datetime_from_ns(timestamp_ns: object) -> datetime | None:
+    """Convert Polygon's Unix nanoseconds to a readable Eastern timestamp."""
     try:
         nanos = int(timestamp_ns)
-    except (TypeError, ValueError):
+        if nanos <= 0:
+            return None
+        return datetime.fromtimestamp(nanos / 1_000_000_000, tz=timezone.utc).astimezone(
+            ZoneInfo("America/New_York")
+        )
+    except (TypeError, ValueError, OverflowError, OSError):
         return None
-    if nanos <= 0:
-        return None
-    seconds = nanos / 1_000_000_000
-    return datetime.fromtimestamp(seconds, tz=timezone.utc).astimezone(ZoneInfo("America/New_York")).date()
+
+
+def _session_date_from_ns(timestamp_ns: object) -> date | None:
+    """Polygon timestamps are Unix nanoseconds; validate in the US session timezone."""
+    timestamp = _eastern_datetime_from_ns(timestamp_ns)
+    return timestamp.date() if timestamp is not None else None
 
 
 def _finite_positive(value: object) -> float | None:
@@ -113,6 +120,33 @@ def _item_session_date(item: dict) -> date | None:
     return _session_date_from_ns(last_trade.get("t"))
 
 
+def _matched_ticker(item: dict, wanted: set[str]) -> str | None:
+    polygon_ticker = item.get("ticker")
+    if not isinstance(polygon_ticker, str):
+        return None
+    # Polygon spells class shares BRK.B; our universe uses BRK-B.
+    ticker = polygon_ticker if polygon_ticker in wanted else polygon_ticker.replace(".", "-")
+    return ticker if ticker in wanted else None
+
+
+def _quote_and_rejection(item: dict, as_of: date) -> tuple[dict | None, str | None]:
+    if _item_session_date(item) != as_of:
+        return None, "not_dated_today"
+    day = item.get("day") or {}
+    prev_day = item.get("prevDay") or {}
+    last_trade = item.get("lastTrade") or {}
+    open_price = _finite_positive(day.get("o"))
+    if open_price is None:
+        return None, "no_day_open"
+    prev_close = _finite_positive(prev_day.get("c"))
+    if prev_close is None:
+        return None, "no_prev_close"
+    # The opening trade itself is the latest known price if neither the
+    # separate last-trade field nor the daily close has populated yet.
+    last_price = _finite_positive(last_trade.get("p")) or _finite_positive(day.get("c")) or open_price
+    return {"open": open_price, "last": last_price, "prev_close": prev_close}, None
+
+
 def quotes_from_polygon_snapshot(
     raw_tickers: list[dict],
     wanted: set[str],
@@ -121,42 +155,46 @@ def quotes_from_polygon_snapshot(
     """Shape Polygon snapshot rows into {ticker: open/last/prev_close}.
 
     `day.o` is today's official open once the opening cross has printed.
-    `lastTrade.p` fills `last` when the stock has traded; if `day.o` is
-    still empty (illiquid, first minute) we do not invent an open from
-    lastTrade -- that's a last print, not the open. Previous close is
-    `prevDay.c`. Pure -- no network.
+    `lastTrade.p` fills `last` when available, then `day.c`, then the known
+    opening trade itself. If `day.o` is still empty, we do not invent an
+    open from lastTrade -- that's a last print, not the open. Previous
+    close is `prevDay.c`. Pure -- no network.
     """
     quotes = {}
     for item in raw_tickers:
-        polygon_ticker = item.get("ticker")
-        if not isinstance(polygon_ticker, str):
+        ticker = _matched_ticker(item, wanted)
+        if ticker is None:
             continue
-        # Polygon spells class shares BRK.B; our universe uses BRK-B.
-        # Keep the universe symbol as the quote key for downstream stores.
-        ticker = (
-            polygon_ticker
-            if polygon_ticker in wanted
-            else polygon_ticker.replace(".", "-")
-        )
-        if ticker not in wanted:
-            continue
-        if _item_session_date(item) != as_of:
-            continue
-        day = item.get("day") or {}
-        prev_day = item.get("prevDay") or {}
-        last_trade = item.get("lastTrade") or {}
-        open_price = _finite_positive(day.get("o"))
-        last_price = _finite_positive(last_trade.get("p")) or _finite_positive(day.get("c"))
-        prev_close = _finite_positive(prev_day.get("c"))
-        if open_price is None or last_price is None or prev_close is None:
-            continue
-        quotes[ticker] = {"open": open_price, "last": last_price, "prev_close": prev_close}
+        quote, _ = _quote_and_rejection(item, as_of)
+        if quote is not None:
+            quotes[ticker] = quote
     return quotes
+
+
+def snapshot_rejection_counts(raw_tickers: list[dict], wanted: set[str], as_of: date) -> dict[str, int]:
+    """Explain why a nonempty paid snapshot did not fill the requested names."""
+    matched = {}
+    for item in raw_tickers:
+        ticker = _matched_ticker(item, wanted)
+        if ticker is not None:
+            matched[ticker] = item
+    counts: Counter[str] = Counter()
+    for ticker in wanted:
+        item = matched.get(ticker)
+        if item is None:
+            counts["absent"] += 1
+            continue
+        if _finite_positive((item.get("day") or {}).get("o")) is not None:
+            counts["raw_day_open"] += 1
+        quote, reason = _quote_and_rejection(item, as_of)
+        counts["accepted" if quote is not None else reason or "unknown"] += 1
+    return dict(counts)
 
 
 def fetch_polygon_snapshot(api_key: str) -> list[dict]:
     """One full-market snapshot. Empty list on HTTP/JSON failure so the
     caller can fall through to Yahoo instead of aborting the scan."""
+    response = None
     try:
         response = requests.get(
             POLYGON_SNAPSHOT_URL,
@@ -173,13 +211,22 @@ def fetch_polygon_snapshot(api_key: str) -> list[dict]:
         response.raise_for_status()
         payload = response.json()
     except (requests.RequestException, ValueError):
+        from stock_picker.log import get_logger
+
+        get_logger(__name__).warning(
+            "polygon snapshot request failed http=%s",
+            response.status_code if response is not None else None,
+        )
         return []
     tickers = payload.get("tickers")
     if not isinstance(tickers, list):
         return []
     from stock_picker.log import get_logger
 
-    get_logger(__name__).info("polygon snapshot tickers=%s", len(tickers))
+    get_logger(__name__).info(
+        "polygon snapshot status=%s tickers=%s request_id=%s",
+        payload.get("status"), len(tickers), payload.get("request_id"),
+    )
     return tickers
 
 
@@ -191,4 +238,31 @@ def fetch_polygon_quotes(tickers: list[str], as_of: date, api_key: str | None = 
     key = api_key if api_key is not None else polygon_api_key()
     if not key or not tickers:
         return {}
-    return quotes_from_polygon_snapshot(fetch_polygon_snapshot(key), set(tickers), as_of)
+    raw = fetch_polygon_snapshot(key)
+    wanted = set(tickers)
+    quotes = quotes_from_polygon_snapshot(raw, wanted, as_of)
+    if len(quotes) < len(wanted) // 2:
+        from stock_picker.log import get_logger
+
+        samples = {
+            ticker: {
+                "updated_et": (
+                    timestamp.isoformat()
+                    if (timestamp := _eastern_datetime_from_ns(item.get("updated"))) else None
+                ),
+                "day_o": (item.get("day") or {}).get("o"),
+                "day_c": (item.get("day") or {}).get("c"),
+                "prev_day_c": (item.get("prevDay") or {}).get("c"),
+                "last_trade_et": (
+                    timestamp.isoformat()
+                    if (timestamp := _eastern_datetime_from_ns((item.get("lastTrade") or {}).get("t"))) else None
+                ),
+            }
+            for item in raw
+            if (ticker := item.get("ticker")) in {"AAPL", "MSFT", "BMY"}
+        }
+        get_logger(__name__).warning(
+            "polygon snapshot low coverage requested=%s reasons=%s samples=%s",
+            len(wanted), snapshot_rejection_counts(raw, wanted, as_of), samples,
+        )
+    return quotes

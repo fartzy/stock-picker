@@ -6,6 +6,7 @@ from stock_picker.ingestion.polygon_client import (
     fetch_polygon_quotes,
     polygon_api_key,
     quotes_from_polygon_snapshot,
+    snapshot_rejection_counts,
 )
 from stock_picker.ingestion.yfinance_client import fetch_quotes
 
@@ -112,6 +113,39 @@ def test_quotes_from_polygon_snapshot_skips_when_day_open_has_not_printed():
     quotes = quotes_from_polygon_snapshot(raw, wanted={"ILLQ"}, as_of=date(2026, 9, 10))
 
     assert quotes == {}
+
+
+def test_quotes_from_polygon_snapshot_uses_open_as_last_until_other_prices_arrive():
+    raw = [{
+        "ticker": "SIG",
+        "updated": _ns(2026, 9, 10, 9, 30),
+        "day": {"o": 103.47},
+        "prevDay": {"c": 102.48},
+    }]
+
+    assert quotes_from_polygon_snapshot(raw, {"SIG"}, date(2026, 9, 10)) == {
+        "SIG": {"open": 103.47, "last": 103.47, "prev_close": 102.48}
+    }
+
+
+def test_snapshot_rejection_counts_show_why_a_paid_response_fills_zero_names():
+    raw = [
+        {"ticker": "GOOD", "updated": _ns(2026, 9, 10), "day": {"o": 10}, "prevDay": {"c": 9}},
+        {"ticker": "EMPTY", "updated": _ns(2026, 9, 10), "day": {}, "prevDay": {"c": 9}},
+        {"ticker": "STALE", "updated": _ns(2026, 9, 9), "day": {"o": 10}, "prevDay": {"c": 9}},
+        {"ticker": "NOPREV", "updated": _ns(2026, 9, 10), "day": {"o": 10}, "prevDay": {}},
+    ]
+
+    assert snapshot_rejection_counts(
+        raw, {"GOOD", "EMPTY", "STALE", "NOPREV", "MISSING"}, date(2026, 9, 10)
+    ) == {
+        "accepted": 1,
+        "absent": 1,
+        "not_dated_today": 1,
+        "no_day_open": 1,
+        "no_prev_close": 1,
+        "raw_day_open": 3,
+    }
 
 
 def test_fetch_polygon_snapshot_403_is_empty_not_an_exception():
