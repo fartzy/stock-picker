@@ -10,6 +10,7 @@ from stock_picker.ingestion.massive_overnight import (
     MassiveOvernightClient,
     MassiveOvernightError,
     parse_action_page,
+    parse_current_snapshot,
     parse_daily_bar_page,
 )
 
@@ -34,6 +35,40 @@ def bars_page(*items, adjusted=False, next_url=None):
 
 def actions_page(*items, next_url=None):
     return {"status": "OK", "results": list(items), "next_url": next_url}
+
+
+def snapshot(day=START, *, ticker="AAPL", opened=10.0):
+    stamped = int(pd.Timestamp(day, tz="America/New_York").replace(hour=15).timestamp() * 1_000_000_000)
+    return {
+        "status": "OK",
+        "ticker": {
+            "ticker": ticker, "updated": stamped,
+            "day": {"o": opened}, "prevDay": {"c": 9.9},
+            "lastTrade": {"p": 10.2, "t": stamped},
+        },
+    }
+
+
+def test_current_open_requires_session_dated_snapshot_and_completed_action_checks():
+    fake = FakeSession([
+        FakeResponse(snapshot()), FakeResponse(actions_page()), FakeResponse(actions_page()),
+    ])
+    observed = MassiveOvernightClient("test-key", session=fake).fetch_current_open("AAPL", START)
+    assert observed.open == 10.0
+    assert observed.previous_close == 9.9
+    assert observed.last_trade == 10.2
+    assert observed.corporate_action == "verified_none"
+    assert fake.calls[0][0].endswith("/v2/snapshot/locale/us/markets/stocks/tickers/AAPL")
+    assert fake.calls[1][1]["execution_date.gte"] == START.isoformat()
+
+
+@pytest.mark.parametrize("payload", [
+    snapshot(END), snapshot(ticker="MSFT"), snapshot(opened=0),
+    {**snapshot(), "status": "ERROR"},
+])
+def test_current_snapshot_rejects_stale_wrong_or_invalid_open(payload):
+    with pytest.raises(MassiveOvernightError):
+        parse_current_snapshot(payload, "AAPL", START)
 
 
 class FakeResponse:

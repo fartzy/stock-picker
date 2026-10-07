@@ -10,6 +10,7 @@ matching the pydantic convention already used for request bodies.
 
 from __future__ import annotations
 
+from datetime import date, datetime
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -47,6 +48,15 @@ class ModelSelectionRequest(BaseModel):
 
 class SetLiveModelRequest(BaseModel):
     run_id: str
+
+
+class OvernightForecastRequest(BaseModel):
+    ticker: str
+    assumed_close: float
+    step: float | None = None
+    shares: float | None = None
+    exit_today_cost_per_share: float | None = None
+    exit_next_open_cost_per_share: float | None = None
 
 
 # ---- responses ----
@@ -282,6 +292,54 @@ class PriceHistoryResponse(BaseModel):
     ticker: str
     interval: Literal["daily", "hourly"]
     prices: list[PricePoint]
+
+
+class OvernightModelResponse(BaseModel):
+    available: bool
+    feature_columns: list[str]
+    feature_version: str
+    trained_through: str | None
+    label_observed_on: str | None
+    evaluated_rows: int
+    model_gap_mae: float | None
+    unchanged_gap_mae: float | None
+    ticker_mean_gap_mae: float | None
+    day_model_source: dict[str, object] | None
+    serving_inputs_pinned: bool
+
+
+class OvernightForecastCaseResponse(BaseModel):
+    label: Literal["primary", "lower", "higher"]
+    assumed_close: float
+    predicted_gap: float
+    projected_open: float
+    difference_per_share: float
+    after_cost_difference_per_share: float | None
+    gross_difference_for_shares: float | None
+    after_cost_difference_for_shares: float | None
+    next_session: date | None
+    oof_model_gap_mae: float | None
+    oof_zero_gap_mae: float | None
+    oof_ticker_mean_gap_mae: float | None
+    oof_abs_open_error_p90_at_assumed_price: float | None
+    features: dict[str, float]
+
+
+class OvernightForecastResponse(BaseModel):
+    ticker: str
+    session: date
+    today_open: float
+    last_trade: float | None
+    last_trade_at: datetime | None
+    quote_fetched_at: datetime
+    step: float
+    shares: float | None
+    cases: list[OvernightForecastCaseResponse]
+    day_outputs: dict[str, float]
+    model_trained_through: date
+    model_label_observed_on: date
+    model_feature_version: str
+    evaluated_rows: int
 
 
 class FeatureValuesResponse(BaseModel):

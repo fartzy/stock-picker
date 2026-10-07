@@ -103,6 +103,11 @@ class OvernightModel:
     gap_abs_error_p90: float
     open_abs_error_p90: float
     day_model_source: dict[str, object] | None = None
+    # Pin the exact morning estimators used when this artifact is published.
+    # Mutable ``latest`` Fit/Rank paths can be replaced after the morning scan.
+    day_fit_model: Ensemble | None = None
+    day_rank_model: Ensemble | None = None
+    day_model_trained_through: date | None = None
 
 
 @dataclass(frozen=True)

@@ -101,6 +101,63 @@ export interface FeatureValuesResponse {
   rows: Record<string, number | string | null>[];
 }
 
+export interface OvernightModelResponse {
+  available: boolean;
+  feature_columns: string[];
+  feature_version: string;
+  trained_through: string | null;
+  label_observed_on: string | null;
+  evaluated_rows: number;
+  model_gap_mae: number | null;
+  unchanged_gap_mae: number | null;
+  ticker_mean_gap_mae: number | null;
+  day_model_source: Record<string, unknown> | null;
+  serving_inputs_pinned: boolean;
+}
+
+export interface OvernightForecastCase {
+  label: "primary" | "lower" | "higher";
+  assumed_close: number;
+  predicted_gap: number;
+  projected_open: number;
+  difference_per_share: number;
+  after_cost_difference_per_share: number | null;
+  gross_difference_for_shares: number | null;
+  after_cost_difference_for_shares: number | null;
+  next_session: string | null;
+  oof_model_gap_mae: number | null;
+  oof_zero_gap_mae: number | null;
+  oof_ticker_mean_gap_mae: number | null;
+  oof_abs_open_error_p90_at_assumed_price: number | null;
+  features: Record<string, number>;
+}
+
+export interface OvernightForecastResponse {
+  ticker: string;
+  session: string;
+  today_open: number;
+  last_trade: number | null;
+  last_trade_at: string | null;
+  quote_fetched_at: string;
+  step: number;
+  shares: number | null;
+  cases: OvernightForecastCase[];
+  day_outputs: Record<string, number>;
+  model_trained_through: string;
+  model_label_observed_on: string;
+  model_feature_version: string;
+  evaluated_rows: number;
+}
+
+export interface OvernightForecastRequest {
+  ticker: string;
+  assumed_close: number;
+  step?: number;
+  shares?: number;
+  exit_today_cost_per_share?: number;
+  exit_next_open_cost_per_share?: number;
+}
+
 export interface CorrelationPair {
   a: string;
   b: string;
@@ -502,6 +559,20 @@ export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") 
   getJson<PriceHistoryResponse>(`/api/prices/${encodeURIComponent(ticker)}?interval=${interval}`);
 export const fetchFeatureValues = (ticker: string) =>
   getJson<FeatureValuesResponse>(`/api/features/${encodeURIComponent(ticker)}`);
+export const fetchOvernightModel = () => getJson<OvernightModelResponse>("/api/overnight/model");
+export async function forecastOvernight(request: OvernightForecastRequest): Promise<OvernightForecastResponse> {
+  const response = await fetch("/api/overnight/forecast", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(request),
+  });
+  if (!response.ok) {
+    const body: unknown = await response.json().catch(() => null);
+    const detail = body && typeof body === "object" && "detail" in body ? String(body.detail) : `HTTP ${response.status}`;
+    throw new Error(detail);
+  }
+  return response.json() as Promise<OvernightForecastResponse>;
+}
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");

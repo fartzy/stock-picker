@@ -75,6 +75,8 @@ h1 {
   display: flex;
   gap: var(--space-6);
   border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .tab-button {
@@ -1579,4 +1581,97 @@ details.view-card[open] > summary::before {
   border: 1px solid var(--accent);
   border-radius: 6px;
   padding: var(--space-4);
+}
+
+.overnight-page {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.overnight-intro,
+.overnight-forecast-flow,
+.overnight-case,
+.overnight-feature-row,
+.overnight-model-metrics {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.overnight-intro { align-items: start; }
+.overnight-intro h3 { margin: 0 0 var(--space-1); }
+.overnight-intro p { margin: 0; }
+.overnight-badge {
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: var(--text-caption);
+  padding: var(--space-1) var(--space-3);
+  white-space: nowrap;
+}
+
+.overnight-positions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.overnight-positions button,
+.overnight-nickel {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-raised);
+  color: var(--text);
+  cursor: pointer;
+}
+.overnight-positions button:hover,
+.overnight-nickel:hover { border-color: var(--accent); }
+.overnight-form { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3); }
+.overnight-form label,
+.overnight-costs label { display: grid; gap: var(--space-1); font-size: var(--text-caption); color: var(--text-muted); }
+.overnight-form > label { min-width: 140px; flex: 1 1 145px; }
+.overnight-form .form-input { width: 100%; }
+.overnight-costs { flex-basis: 100%; }
+.overnight-costs summary,
+.overnight-feature-snapshot summary,
+.overnight-registry summary { cursor: pointer; }
+.overnight-costs > div { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+.overnight-costs label { min-width: 180px; }
+.overnight-evidence,
+.overnight-forecast-card,
+.overnight-neighbors {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: var(--space-4);
+}
+.overnight-evidence { display: grid; gap: var(--space-1); }
+.overnight-evidence strong { color: var(--text); }
+.overnight-forecast-flow { align-items: center; justify-content: flex-start; }
+.overnight-forecast-flow > div { display: grid; gap: var(--space-1); }
+.overnight-forecast-flow > div > span { color: var(--text-muted); font-size: var(--text-caption); }
+.overnight-forecast-flow strong { color: var(--text); font-size: var(--text-heading-lg); }
+.overnight-forecast-flow > span { color: var(--accent); font-size: var(--text-heading-lg); }
+.overnight-forecast-card p { margin-bottom: 0; }
+.overnight-case { border-top: 1px solid var(--line); padding: var(--space-2) 0; flex-wrap: wrap; }
+.overnight-feature-snapshot,
+.overnight-registry { margin: var(--space-4) 0; padding: var(--space-4); }
+.overnight-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2); }
+.overnight-feature-row { flex-direction: column; border-top: 1px solid var(--line); padding: var(--space-2); }
+.overnight-feature-row code { color: var(--accent); overflow-wrap: anywhere; }
+.overnight-feature-row small { color: var(--text-muted); }
+.overnight-model-metrics { flex-wrap: wrap; justify-content: flex-start; }
+.overnight-model-metrics span { background: var(--surface-raised); padding: var(--space-3); border-radius: 6px; }
+.overnight-ticker-action { display: inline-flex; align-items: center; gap: var(--space-1); }
+.overnight-row-link,
+.overnight-text-link { border: 0; background: none; color: var(--accent); cursor: pointer; font: inherit; }
+.overnight-row-link { padding: 0 var(--space-1); }
+.overnight-row-link:hover,
+.overnight-row-link:focus-visible,
+.overnight-text-link:hover,
+.overnight-text-link:focus-visible { text-decoration: underline; }
+
+@media (max-width: 700px) {
+  .overnight-intro,
+  .overnight-forecast-flow { flex-wrap: wrap; }
+  .overnight-badge { white-space: normal; }
+  .overnight-forecast-flow strong { font-size: var(--text-heading-sm); }
+  .overnight-form > label { flex-basis: 100%; }
 }

@@ -7,6 +7,7 @@ from __future__ import annotations
 from dataclasses import asdict
 from datetime import date, datetime
 from typing import Literal
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, HTTPException, status
 
@@ -32,6 +33,9 @@ from stock_picker.api.models import (
     ModelSelectionRequest,
     ModelSelectionResponse,
     ModelTypesResponse,
+    OvernightForecastRequest,
+    OvernightForecastResponse,
+    OvernightModelResponse,
     PaperBookResponse,
     PaperReplayRequest,
     PositionsResponse,
@@ -94,6 +98,7 @@ from stock_picker.features.trades import (
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.ingestion.massive_overnight import MassiveOvernightError, TICKER_PATTERN
 from stock_picker.storage.fee_store import FeeStore
 from stock_picker.storage.trade_store import Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
@@ -113,8 +118,39 @@ from stock_picker.training.job import JobStatus
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import TRAINABLE_MODEL_TYPES
 from stock_picker.training.model_registry import describe_model_types
+from stock_picker.training.overnight_model import MODEL_NAME as OVERNIGHT_MODEL_NAME
+from stock_picker.training.overnight_service import model_summary, serialize_result, serve_overnight_forecast
 
 router = APIRouter(prefix="/api")
+
+
+@router.get("/overnight/model")
+def get_overnight_model() -> OvernightModelResponse:
+    store = ModelStore()
+    model = store.read(OVERNIGHT_MODEL_NAME) if store.exists(OVERNIGHT_MODEL_NAME) else None
+    return OvernightModelResponse(**model_summary(model))
+
+
+@router.post("/overnight/forecast")
+def post_overnight_forecast(body: OvernightForecastRequest) -> OvernightForecastResponse:
+    ticker = body.ticker.strip().upper()
+    if not TICKER_PATTERN.fullmatch(ticker):
+        raise HTTPException(status_code=422, detail="invalid ticker")
+    session = datetime.now(ZoneInfo("America/New_York")).date()
+    try:
+        result = serve_overnight_forecast(
+            ticker=ticker, session=session, assumed_close=body.assumed_close,
+            step=body.step, shares=body.shares,
+            exit_today_cost_per_share=body.exit_today_cost_per_share,
+            exit_next_open_cost_per_share=body.exit_next_open_cost_per_share,
+        )
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except MassiveOvernightError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    return OvernightForecastResponse(**serialize_result(result))
 
 
 @router.get("/catalog")

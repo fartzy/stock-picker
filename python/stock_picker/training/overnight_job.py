@@ -75,6 +75,9 @@ def train_and_persist_overnight(
     tracking_dir: Path,
     n_splits: int = 4,
     day_model_source: dict[str, object] | None = None,
+    serving_fit_model: Ensemble | None = None,
+    serving_rank_model: Ensemble | None = None,
+    day_model_trained_through: date | None = None,
 ) -> OvernightTrainingResult:
     """Generate OOF morning outputs, evaluate, then publish one named model."""
     label_rows, exclusions = build_verified_overnight_rows(verified_by_ticker, contract)
@@ -98,6 +101,12 @@ def train_and_persist_overnight(
     scored = attach_historical_day_scores(eligible, day_scores)
     model = train_overnight_model(scored, contract, n_splits=n_splits)
     model.day_model_source = day_model_source
+    if any(value is not None for value in (serving_fit_model, serving_rank_model, day_model_trained_through)):
+        if serving_fit_model is None or serving_rank_model is None or day_model_trained_through is None:
+            raise ValueError("serving morning models and their training cutoff must be supplied together")
+        model.day_fit_model = serving_fit_model
+        model.day_rank_model = serving_rank_model
+        model.day_model_trained_through = day_model_trained_through
     model_store.write(MODEL_NAME, model)
     return OvernightTrainingResult(
         model=model,
@@ -180,6 +189,11 @@ def main() -> None:
             "day_universe_mode": args.day_universe,
             "day_universe_tickers": len(day_tickers),
         },
+        serving_fit_model=fit,
+        serving_rank_model=rank,
+        # This is conservative if an existing saved estimator was fitted
+        # earlier than the frame we loaded; it can only delay serving.
+        day_model_trained_through=pd.to_datetime(day_training["date"]).max().date(),
     )
     print(json.dumps({
         "artifact": MODEL_NAME,
