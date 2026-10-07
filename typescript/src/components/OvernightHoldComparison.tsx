@@ -65,7 +65,8 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes }: {
   kind: "rank" | "fit" | "both";
   tradeSizes: TradeSizes;
 }) {
-  const [holdPercent, setHoldPercent] = useState(50);
+  const [presetPercent, setPresetPercent] = useState<number | null>(null);
+  const [customPercent, setCustomPercent] = useState("");
   const [actuals, setActuals] = useState<Map<string, OvernightActualRow> | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,8 +74,13 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes }: {
     ...(kind !== "rank" ? day.fit : []),
     ...(kind !== "fit" ? day.rank : []),
   ];
+  const customValue = Number(customPercent);
+  const holdPercent = customPercent !== ""
+    ? (Number.isFinite(customValue) && customValue > 0 && customValue <= 100 ? customValue : null)
+    : presetPercent;
 
   async function load() {
+    if (holdPercent === null) return;
     const tickers = [...new Set(rows.map((row) => row.ticker))];
     if (tickers.length > 30) {
       setError("Select at most 30 distinct names in the Rank/Fit top controls for this comparison.");
@@ -94,28 +100,31 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes }: {
 
   return (
     <details className="overnight-hold-panel">
-      <summary>What if part of this basket was held to the next open?</summary>
-      <p className="muted">Hindsight using actual, action-checked raw prices when the next session has opened. Fractional shares; fees and slippage excluded. Existing Rank/Fit totals above do not change.</p>
+      <summary><span>Hold to next open</span><small>Historical comparison</small></summary>
       <div className="overnight-hold-controls">
-        <label>Hold <strong>{holdPercent}%</strong> of each included position
-          <input type="range" min="0" max="100" step="1" value={holdPercent}
-            onChange={(event) => setHoldPercent(Number(event.target.value))} aria-label="Percent held until next open" />
-        </label>
+        <span className="overnight-hold-label">Hold</span>
         <div className="overnight-hold-presets">{HOLD_PRESETS.map((percent) => (
-          <button key={percent} type="button" className={percent === holdPercent ? "active" : ""}
-            onClick={() => setHoldPercent(percent)}>{percent}%</button>
+          <button key={percent} type="button" className={percent === presetPercent && customPercent === "" ? "active" : ""}
+            aria-pressed={percent === presetPercent && customPercent === ""}
+            onClick={() => { setPresetPercent(percent); setCustomPercent(""); }}>{percent}%</button>
         ))}</div>
-        <button className="btn-primary" type="button" disabled={busy || rows.length === 0} onClick={load}>
-          {busy ? "Checking opens…" : actuals ? "Refresh observed opens" : "Check observed next opens"}
+        <label className="overnight-hold-custom">Custom <input className="form-input" type="number" inputMode="numeric" min="1" max="100" step="1"
+          value={customPercent} onChange={(event) => { setCustomPercent(event.target.value); setPresetPercent(null); }} placeholder="%" aria-label="Custom hold percentage" /></label>
+        <button className="btn-primary" type="button" disabled={busy || rows.length === 0 || holdPercent === null} onClick={load}>
+          {busy ? "Checking…" : actuals ? "Refresh opens" : "Compare"}
         </button>
       </div>
+      <div className="overnight-hold-footnote">
+        <span>Actual next opens · Rank/Fit totals unchanged</span>
+        <details><summary>Method</summary><p>Historical comparison using verified raw prices. Fractional shares; fees and slippage excluded. Not a forecast.</p></details>
+      </div>
       {error && <p className="error" role="alert">{error}</p>}
-      {actuals && <>
+      {actuals && holdPercent !== null && <>
         {kind !== "rank" && <StrategyHoldRows label="Fit" rows={day.fit} dollarsPerTrade={tradeSizes.fit}
           baselinePnl={day.fit_money.pnl} fraction={holdPercent / 100} actuals={actuals} />}
         {kind !== "fit" && <StrategyHoldRows label="Rank" rows={day.rank} dollarsPerTrade={tradeSizes.rank}
           baselinePnl={day.rank_money.pnl} fraction={holdPercent / 100} actuals={actuals} />}
-        <p className="muted">A missing next open, split/dividend, or disagreement between the book close and verified close prevents a complete basket total. This observed-price comparison is not the overnight model’s forecast.</p>
+        <p className="muted">Incomplete baskets exclude missing opens, corporate actions, and close-price mismatches.</p>
       </>}
     </details>
   );

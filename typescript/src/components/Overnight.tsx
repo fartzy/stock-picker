@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   fetchOvernightModel, fetchPositions, forecastOvernight,
   type OvernightForecastCase, type OvernightForecastResponse, type OvernightModelResponse,
@@ -7,6 +7,7 @@ import {
 import { formatUsd } from "../format";
 import { OVERNIGHT_FEATURE_DESCRIPTIONS, OVERNIGHT_FEATURE_GROUPS } from "../overnightFeatures";
 import { useFetchData } from "../useFetchData";
+import OvernightMorningPicks from "./OvernightMorningPicks";
 
 function percentage(value: number | null): string {
   return value === null ? "—" : `${(value * 100).toFixed(2)}%`;
@@ -81,7 +82,7 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
   );
 }
 
-export default function Overnight({ initialTicker }: { initialTicker?: string }) {
+export default function Overnight({ initialTicker, compact = false }: { initialTicker?: string; compact?: boolean }) {
   const { data: model, error: modelError } = useFetchData<OvernightModelResponse>(fetchOvernightModel);
   const { data: positions } = useFetchData<PositionsResponse>(fetchPositions);
   const [ticker, setTicker] = useState(initialTicker ?? "");
@@ -93,6 +94,7 @@ export default function Overnight({ initialTicker }: { initialTicker?: string })
   const [result, setResult] = useState<OvernightForecastResponse | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const priceInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setTicker(initialTicker ?? "");
@@ -102,6 +104,17 @@ export default function Overnight({ initialTicker }: { initialTicker?: string })
   const open = (positions?.positions ?? []).filter((position) => !position.closed && position.shares > 0);
   const openByTicker = new Map<string, number>();
   for (const position of open) openByTicker.set(position.ticker, (openByTicker.get(position.ticker) ?? 0) + position.shares);
+
+  function selectTicker(name: string) {
+    if (name !== ticker) {
+      setTicker(name);
+      setAssumedClose("");
+      setShares(openByTicker.has(name) ? String(openByTicker.get(name)) : "");
+      setResult(null);
+      setError(null);
+    }
+    priceInputRef.current?.focus();
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -146,27 +159,34 @@ export default function Overnight({ initialTicker }: { initialTicker?: string })
   }
 
   return (
-    <div className="overnight-page">
-      <div className="overnight-intro">
-        <div><h3>If it closes at $X, where might it open?</h3><p className="muted">A separate close → next-session-open model. It does not predict the rest of today or tell you to hold.</p></div>
-        <span className="overnight-badge">Scenario · not an order</span>
-      </div>
+    <div className={`overnight-page ${compact ? "is-quick" : ""}`}>
+      {!compact && <>
+        <div className="overnight-intro">
+          <div><h3>Close → next open</h3><p className="muted">Choose a ticker and a possible closing price.</p></div>
+          <span className="overnight-badge">Scenario only</span>
+        </div>
+        <OvernightMorningPicks selectedTicker={ticker} onSelect={selectTicker} />
+      </>}
       {modelError && <p className="error">Could not load overnight model: {modelError}</p>}
-      {model && !model.available && <p className="overnight-evidence">No saved overnight forecast model yet. The 15 inputs are defined, but no number will be invented until a tested artifact is selected.</p>}
-      {model && model.available && !model.serving_inputs_pinned && <p className="overnight-evidence">This saved model does not include its pinned morning estimators. Forecasting is disabled until it is retrained with that serving bundle.</p>}
-      {openByTicker.size > 0 && <div className="overnight-positions"><span className="muted">Open positions</span>{[...openByTicker].map(([name, count]) => (
-        <button type="button" key={name} onClick={() => { setTicker(name); setShares(String(count)); setResult(null); }}>{name} · {count} shares</button>
+      {model && !model.available && <p className="overnight-unavailable">Forecast unavailable — no saved overnight model yet.</p>}
+      {model && model.available && !model.serving_inputs_pinned && <p className="overnight-unavailable">Forecast unavailable — this model needs its saved morning inputs.</p>}
+      {!compact && openByTicker.size > 0 && <div className="overnight-positions"><span className="muted">Open positions</span>{[...openByTicker].map(([name, count]) => (
+        <button type="button" key={name} onClick={() => selectTicker(name)}>{name} · {count} shares</button>
       ))}</div>}
       <form className="overnight-form" onSubmit={submit}>
-        <label>Ticker<input className="form-input" value={ticker} onChange={(event) => setTicker(event.target.value.toUpperCase())} placeholder="WERN" required /></label>
-        <label>Assumed close<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={assumedClose} onChange={(event) => setAssumedClose(event.target.value)} placeholder="Enter your price" required /></label>
-        <label>Sensitivity step<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => setStep(event.target.value)} placeholder="Default 0.5%" /></label>
-        <button className="overnight-nickel" type="button" onClick={() => setStep("0.05")}>Use $0.05</button>
-        <label>Shares (optional)<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={shares} onChange={(event) => setShares(event.target.value)} placeholder="Per-share result" /></label>
-        <details className="overnight-costs"><summary>Execution costs (optional)</summary><div><label>Sell-at-close cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => setExitTodayCost(event.target.value)} /></label><label>Sell-at-next-open cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => setExitNextCost(event.target.value)} /></label></div></details>
-        <button className="btn-primary" type="submit" disabled={busy || !model?.available || !model.serving_inputs_pinned}>{busy ? "Checking…" : "Estimate next open"}</button>
+        <div className="overnight-form-primary">
+          <label>Ticker<input className="form-input" value={ticker} onChange={(event) => { setTicker(event.target.value.toUpperCase()); setResult(null); }} placeholder="Ticker" required /></label>
+          <label>Assumed close<input ref={priceInputRef} name="assumed-close" className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={assumedClose} onChange={(event) => { setAssumedClose(event.target.value); setResult(null); }} placeholder="$ if it closed now" required /></label>
+          <label><span>Shares <small className="overnight-optional">optional</small></span><input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={shares} onChange={(event) => setShares(event.target.value)} placeholder="Per-share" /></label>
+          <button className="btn-primary" type="submit" disabled={busy || !model?.available || !model.serving_inputs_pinned}>{busy ? "Checking…" : "Estimate open"}</button>
+        </div>
+        <details className="overnight-costs"><summary>Adjust sensitivity & costs</summary><div>
+          <label>Sensitivity step<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => setStep(event.target.value)} placeholder="Default 0.5%" /></label>
+          <button className="overnight-nickel" type="button" onClick={() => setStep("0.05")}>Use $0.05</button>
+          <label>Close exit cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => setExitTodayCost(event.target.value)} /></label>
+          <label>Next-open exit cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => setExitNextCost(event.target.value)} /></label>
+        </div></details>
       </form>
-      <p className="muted">Enter the price you want to treat as today’s close. We do not silently copy an untimestamped “last” quote into this field.</p>
       {error && <p className="error" role="alert">{error}</p>}
       {result && model && <ForecastResult result={result} model={model} />}
     </div>
