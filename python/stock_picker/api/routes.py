@@ -92,8 +92,8 @@ from stock_picker.features.registry import TICKER_ENTITY, build_registry, experi
 from stock_picker.features.selection import selected_features
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS
 from stock_picker.features.trades import (
+    peak_working_by_day,
     position_summaries,
-    time_weighted_working_by_day,
     trade_history,
     trade_log,
 )
@@ -494,7 +494,7 @@ def get_positions() -> PositionsResponse:
     )
     return PositionsResponse(
         positions=positions,
-        peak_working=time_weighted_working_by_day(trades),
+        peak_working=peak_working_by_day(trades),
     )
 
 

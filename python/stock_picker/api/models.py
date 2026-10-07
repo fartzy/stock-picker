@@ -154,8 +154,7 @@ class FeesResponse(BaseModel):
 
 class PositionsResponse(BaseModel):
     positions: list[Position]
-    # NY session date -> dollars on the book while anything is on (not peak,
-    # not a 6.5h smear of the empty afternoon).
+    # NY session date -> maximum simultaneous cost basis on the book.
     peak_working: dict[str, float] = {}
 
 

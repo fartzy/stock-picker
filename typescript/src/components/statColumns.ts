@@ -30,7 +30,7 @@ export function col(
 export const PeriodCol = {
   title: col("title", undefined, { title: true, hug: true }),
   days: col("days", undefined, { align: "start", hug: true }),
-  typical: col("typical", "Typical"),
+  typical: col("typical", "Peak capital"),
   pnl: col("pnl", "P&L", { tone: "pnl" }),
   fees: col("fees", undefined, { hug: true }),
   intraday: col("intraday", "Intraday S&P", { tone: "bench" }),
