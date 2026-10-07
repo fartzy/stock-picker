@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
-  simulateBook, simulatePick, simulationDay,
+  simulateBook, simulateOvernightHold, simulatePick, simulationDay, summarizeOvernightHold,
 } from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
@@ -27,6 +27,35 @@ test("default is $10K per trade, including losses and flat trades", () => {
   assert.deepEqual(simulatePick(pick(0.02), 10_000), { status: "scored", pnl: 200, endingValue: 10_200 });
   assert.deepEqual(simulatePick(pick(-0.01), 10_000), { status: "scored", pnl: -100, endingValue: 9_900 });
   assert.deepEqual(simulatePick(pick(0), 5_000), { status: "scored", pnl: 0, endingValue: 5_000 });
+});
+
+test("holding 50% to the observed next open changes only the separate comparison", () => {
+  const row = { ...pick(0.02, { close_price: 102 }), hypothetical: simulatePick(pick(0.02), 10_000) };
+  const actual = { ticker: "AAA", session: "2026-10-05", next_session: "2026-10-06",
+    status: "observed", verified_close: 102, next_open: 103, reason: null };
+  const half = simulateOvernightHold(row, actual, 10_000, 0.5);
+  assert.deepEqual(half, { status: "observed", incrementalPnl: 50, endingValue: 10_250, includedInTotals: true });
+  assert.equal(row.hypothetical.endingValue, 10_200);
+  assert.deepEqual(summarizeOvernightHold([half], 200), {
+    included: 1, observed: 1, incrementalPnl: 50, scenarioPnl: 250,
+  });
+});
+
+test("pending next opens and skipped names cannot silently enter a basket total", () => {
+  const row = { ...pick(0.02, { close_price: 102 }), hypothetical: simulatePick(pick(0.02), 10_000) };
+  const pending = simulateOvernightHold(row, { status: "awaiting_next_open" }, 10_000, 0.3);
+  assert.equal(pending.status, "awaiting_next_open");
+  assert.deepEqual(summarizeOvernightHold([pending], 200), {
+    included: 1, observed: 0, incrementalPnl: 0, scenarioPnl: null,
+  });
+  const skip = { ...row, hypothetical: simulatePick(pick(0.02, {
+    news_blocks: true, news_flag: "corporate action",
+  }), 10_000) };
+  const observed = simulateOvernightHold(skip, { status: "observed", verified_close: 102, next_open: 103 }, 10_000, 1);
+  assert.equal(observed.endingValue, 10_300);
+  assert.equal(observed.includedInTotals, false);
+  assert.equal(summarizeOvernightHold([observed], null).scenarioPnl, null);
+  assert.equal(simulateOvernightHold(row, { status: "observed", verified_close: 101, next_open: 103 }, 10_000, 1).status, "price_mismatch");
 });
 
 test("shared trade-size choices support all requested amounts", () => {

@@ -1668,6 +1668,40 @@ details.view-card[open] > summary::before {
 .overnight-text-link:hover,
 .overnight-text-link:focus-visible { text-decoration: underline; }
 
+.overnight-hold-panel {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+}
+.overnight-hold-panel > summary { color: var(--accent); cursor: pointer; font-weight: 700; }
+.overnight-hold-controls { display: flex; align-items: end; flex-wrap: wrap; gap: var(--space-3); }
+.overnight-hold-controls label { display: grid; gap: var(--space-1); min-width: 210px; }
+.overnight-hold-controls input[type="range"] { accent-color: var(--accent); width: 100%; }
+.overnight-hold-presets { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.overnight-hold-presets button {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  padding: var(--space-2);
+}
+.overnight-hold-presets button.active { border-color: var(--accent); color: var(--accent); }
+.overnight-hold-list { margin-top: var(--space-4); }
+.overnight-hold-list h4 { margin-bottom: var(--space-1); }
+.overnight-hold-table-wrap { overflow-x: auto; }
+.overnight-hold-table { border-collapse: collapse; font-size: var(--text-caption); width: 100%; }
+.overnight-hold-table th, .overnight-hold-table td {
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-2);
+  text-align: right;
+  white-space: nowrap;
+}
+.overnight-hold-table th:first-child, .overnight-hold-table td:first-child { text-align: left; }
+.overnight-hold-table small { color: var(--text-muted); }
+
 @media (max-width: 700px) {
   .overnight-intro,
   .overnight-forecast-flow { flex-wrap: wrap; }

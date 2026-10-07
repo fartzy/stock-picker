@@ -501,6 +501,25 @@ class PaperBookResponse(BaseModel):
     n_picks: int = 0
 
 
+class OvernightActualsRequest(BaseModel):
+    as_of: date
+    tickers: list[str] = Field(min_length=1, max_length=30)
+
+
+class OvernightActualRow(BaseModel):
+    ticker: str
+    session: date
+    next_session: date | None
+    status: Literal["observed", "awaiting_next_open", "corporate_action", "unavailable"]
+    verified_close: float | None = None
+    next_open: float | None = None
+    reason: str | None = None
+
+
+class OvernightActualsResponse(BaseModel):
+    rows: list[OvernightActualRow]
+
+
 class PaperReplayRequest(BaseModel):
     as_of: str
     model_run_id: str | None = None

@@ -36,6 +36,8 @@ from stock_picker.api.models import (
     OvernightForecastRequest,
     OvernightForecastResponse,
     OvernightModelResponse,
+    OvernightActualsRequest,
+    OvernightActualsResponse,
     PaperBookResponse,
     PaperReplayRequest,
     PositionsResponse,
@@ -120,6 +122,7 @@ from stock_picker.training.model import TRAINABLE_MODEL_TYPES
 from stock_picker.training.model_registry import describe_model_types
 from stock_picker.training.overnight_model import MODEL_NAME as OVERNIGHT_MODEL_NAME
 from stock_picker.training.overnight_service import model_summary, serialize_result, serve_overnight_forecast
+from stock_picker.training.overnight_hold import observed_next_open
 
 router = APIRouter(prefix="/api")
 
@@ -151,6 +154,17 @@ def post_overnight_forecast(body: OvernightForecastRequest) -> OvernightForecast
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     return OvernightForecastResponse(**serialize_result(result))
+
+
+@router.post("/what-if/overnight-actuals")
+def post_overnight_actuals(body: OvernightActualsRequest) -> OvernightActualsResponse:
+    """On-demand hindsight; never changes the persisted morning paper book."""
+    tickers = list(dict.fromkeys(ticker.strip().upper() for ticker in body.tickers))
+    if any(not TICKER_PATTERN.fullmatch(ticker) for ticker in tickers):
+        raise HTTPException(status_code=422, detail="invalid ticker")
+    return OvernightActualsResponse(rows=[
+        asdict(observed_next_open(ticker, body.as_of)) for ticker in tickers
+    ])
 
 
 @router.get("/catalog")

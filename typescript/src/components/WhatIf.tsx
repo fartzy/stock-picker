@@ -21,6 +21,7 @@ import {
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
+import OvernightHoldComparison from "./OvernightHoldComparison";
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -291,6 +292,10 @@ function DayCard({
         />
       </summary>
       <div className="what-if-day-lists">
+        <OvernightHoldComparison
+          key={`${day.as_of}-${day.scan_id}-${day.fit.map((row) => row.ticker).join(",")}-${day.rank.map((row) => row.ticker).join(",")}`}
+          day={day} kind={kind} tradeSizes={tradeSizes}
+        />
         {kind !== "rank" && (
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
             money={day.fit_money} dollarsPerTrade={tradeSizes.fit} />

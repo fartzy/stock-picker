@@ -1,4 +1,4 @@
-import type { BenchmarkReturnsResponse, PaperBookDay, PaperBookResponse, PaperListStats, PaperPickRow } from "./api";
+import type { BenchmarkReturnsResponse, OvernightActualRow, PaperBookDay, PaperBookResponse, PaperListStats, PaperPickRow } from "./api";
 
 export const DEFAULT_TRADE_SIZE = 10_000;
 export const TRADE_SIZE_OPTIONS = [3_000, 4_000, 5_000, 6_000, 8_000, 10_000, 15_000, 20_000] as const;
@@ -19,6 +19,53 @@ export interface PickOutcome {
 
 export interface SimulatedPick extends PaperPickRow {
   hypothetical: PickOutcome;
+}
+
+export interface OvernightHoldOutcome {
+  status: "observed" | "awaiting_next_open" | "unavailable" | "price_mismatch" | "awaiting_close";
+  incrementalPnl: number | null;
+  endingValue: number | null;
+  includedInTotals: boolean;
+}
+
+/** Hindsight only. Same-share exposure is sold at the close or next open.
+ * The separate verified raw close must agree with the What If close before
+ * combining prices from the two sources. Hard skips remain display-only.
+ */
+export function simulateOvernightHold(
+  row: SimulatedPick, actual: OvernightActualRow | undefined,
+  dollarsPerTrade: number, holdFraction: number,
+): OvernightHoldOutcome {
+  if (!Number.isFinite(holdFraction) || holdFraction < 0 || holdFraction > 1) {
+    throw new RangeError("Hold fraction must be between 0 and 1");
+  }
+  const includedInTotals = row.hypothetical.status === "scored" || row.hypothetical.status === "held";
+  if (row.open_price === null || !Number.isFinite(row.open_price) || row.open_price <= 0
+    || row.close_price === null || !Number.isFinite(row.close_price) || row.close_price <= 0
+    || row.hypothetical.endingValue === null) {
+    return { status: "awaiting_close", incrementalPnl: null, endingValue: null, includedInTotals };
+  }
+  if (!actual || actual.status !== "observed" || actual.verified_close === null || actual.next_open === null) {
+    return { status: actual?.status === "awaiting_next_open" ? "awaiting_next_open" : "unavailable",
+      incrementalPnl: null, endingValue: null, includedInTotals };
+  }
+  if (Math.abs(actual.verified_close - row.close_price) > Math.max(0.005, row.close_price * 0.001)) {
+    return { status: "price_mismatch", incrementalPnl: null, endingValue: null, includedInTotals };
+  }
+  const shares = dollarsPerTrade / row.open_price;
+  const incrementalPnl = cents(shares * holdFraction * (actual.next_open - row.close_price)) / 100;
+  return { status: "observed", incrementalPnl,
+    endingValue: (cents(row.hypothetical.endingValue) + cents(incrementalPnl)) / 100,
+    includedInTotals };
+}
+
+export function summarizeOvernightHold(outcomes: OvernightHoldOutcome[], baselinePnl: number | null) {
+  const included = outcomes.filter((outcome) => outcome.includedInTotals);
+  const observed = included.filter((outcome) => outcome.status === "observed");
+  const incrementalPnl = observed.reduce((sum, outcome) => sum + cents(outcome.incrementalPnl!), 0) / 100;
+  const complete = included.length > 0 && observed.length === included.length;
+  return { included: included.length, observed: observed.length, incrementalPnl,
+    scenarioPnl: complete && baselinePnl !== null ? (cents(baselinePnl) + cents(incrementalPnl)) / 100 : null };
 }
 
 export interface MoneySummary {
