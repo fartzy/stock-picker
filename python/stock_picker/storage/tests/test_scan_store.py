@@ -1,4 +1,8 @@
-from stock_picker.storage.scan_store import JsonScanLog, ScanStore
+import sqlite3
+
+import pytest
+
+from stock_picker.storage.scan_store import JsonScanLog, ScanStore, SqliteScanLog
 
 
 def test_write_then_read_round_trips_a_fit_scan(tmp_path):
@@ -66,3 +70,18 @@ def test_json_backend_still_round_trips_when_injected(tmp_path):
 
     assert (tmp_path / "scans.db").exists() is False
     assert store.read("2026-09-18", "fit")["as_of"] == "2026-09-18"
+
+
+def test_sqlite_connection_closes_after_success_and_error(tmp_path):
+    log = SqliteScanLog(tmp_path)
+
+    with log._connect() as successful:
+        successful.execute("SELECT 1")
+    with pytest.raises(sqlite3.ProgrammingError, match="closed database"):
+        successful.execute("SELECT 1")
+
+    with pytest.raises(sqlite3.OperationalError):
+        with log._connect() as failed:
+            failed.execute("SELECT * FROM missing_table")
+    with pytest.raises(sqlite3.ProgrammingError, match="closed database"):
+        failed.execute("SELECT 1")

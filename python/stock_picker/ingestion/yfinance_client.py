@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 import yfinance as yf
+from yfinance.cache import _CookieDBManager, _TzDBManager
 from yfinance.const import _QUERY1_URL_
 from yfinance.data import YfData
 
@@ -37,6 +38,12 @@ REGULAR_SESSION_OPEN_MINUTES = 9 * 60 + 30
 REGULAR_SESSION_CLOSE_MINUTES = 16 * 60
 
 
+def _close_yfinance_caches() -> None:
+    """Release this worker's thread-local SQLite connections before it exits."""
+    _TzDBManager.close_db()
+    _CookieDBManager.close_db()
+
+
 def _download_price_history_batch(
     tickers: list[str],
     period: str,
@@ -45,14 +52,18 @@ def _download_price_history_batch(
     """One yfinance download. Empty / all-NaN names are omitted, not stored."""
     if not tickers:
         return {}
-    raw = yf.download(
-        tickers=tickers,
-        period=period,
-        interval=interval,
-        group_by="ticker",
-        auto_adjust=False,
-        progress=False,
-    )
+    try:
+        raw = yf.download(
+            tickers=tickers,
+            period=period,
+            interval=interval,
+            group_by="ticker",
+            auto_adjust=False,
+            progress=False,
+            threads=False,
+        )
+    finally:
+        _close_yfinance_caches()
     # yfinance always returns MultiIndex (ticker, field) columns when
     # group_by="ticker" is set, even for a single ticker.
     result = {}
@@ -268,6 +279,8 @@ def _snapshot_chunk(chunk: list[str]) -> list[dict]:
         payload = YfData().get_raw_json(f"{_QUERY1_URL_}/v7/finance/quote", params=params)
     except Exception:
         return []
+    finally:
+        _close_yfinance_caches()
     return (payload or {}).get("quoteResponse", {}).get("result") or []
 
 
