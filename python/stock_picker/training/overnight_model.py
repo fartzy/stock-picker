@@ -1,9 +1,11 @@
 """Close-conditioned next-open model, with morning-model outputs as inputs.
 
-The first nine columns come from ``overnight_dataset``. Four more are the
-same-day Fit, Rank, SVR, and direction-SVC outputs available after today's
-open. Historical values must be scored by models fitted before their session.
-Intraday volatility is intentionally not substituted with a completed bar.
+Ten columns come from ``overnight_dataset``, including strictly prior
+five-session momentum. Four are the same-day Fit, Rank, SVR, and direction-SVC
+outputs available after today's open; the last compares Fit's prediction with
+the assumed day move. Historical morning values must be scored by models
+fitted before their session. Intraday volatility is not replaced by a
+completed bar.
 """
 
 from __future__ import annotations
