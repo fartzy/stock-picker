@@ -2,10 +2,10 @@ stockpicker RANKING top 20 for 2026-10-07
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  WDC           0.3592      401.08  HOLD news review not checked
- 2  STX           0.3453      784.25  HOLD news review not checked
- 3  IBRX          0.3049        9.50  HOLD news review not checked
- 4  MRNA          0.2872      183.65  HOLD news review not checked
+ 1  WDC           0.3592      401.08  HOLD news review degraded
+ 2  STX           0.3453      784.25  SKIP Seagate (STX) Stock Trades Down, Here Is Why
+ 3  IBRX          0.3049        9.50
+ 4  MRNA          0.2872      183.65  SKIP Novavax, Moderna stocks fall after WHO calls plague risk 'low'
  5  MAAS          0.2653       11.73  HOLD news review not checked
  6  VSXY          0.2340       83.35  HOLD news review not checked
  7  SYRE          0.2218       78.91  HOLD news review not checked
@@ -22,3 +22,31 @@ Relative scores (not percents). Not the 0.5% gate.
 18  IMNM          0.1613       18.94  HOLD news review not checked
 19  LAD           0.1601      285.63  HOLD news review not checked
 20  ELVN          0.1526       41.62  HOLD news review not checked
+
+stockpicker picks for 2026-10-07
+Features through 2026-10-06, model trained through 2026-10-06 -- ready for this morning's opens.
+scored 1972 · 209 cleared 0.5% · showing top 20
+
+ticker      pred%        open
+RGC         1.40%        7.35
+FRVO        1.22%       13.95
+BULL        1.22%        5.83  HOLD news review not checked
+AXTI        1.20%       79.78  HOLD news review not checked
+STX         0.99%      784.25  SKIP Seagate (STX) Stock Trades Down, Here Is Why
+IOVA        0.96%       12.52  HOLD news review not checked
+GH          0.92%      166.50  HOLD news review not checked
+WDC         0.91%      401.08  HOLD news review degraded
+CIEN        0.90%      428.98  HOLD news review not checked
+ABCL        0.90%       12.85  HOLD news review not checked
+KLAC        0.90%      192.04  HOLD news review not checked
+BB          0.89%        9.34  HOLD news review not checked
+VICR        0.89%      288.00  HOLD news review not checked
+PL          0.89%       17.88  HOLD news review not checked
+FN          0.88%      471.31  HOLD news review not checked
+STRL        0.88%      545.52  HOLD news review not checked
+INIO        0.88%       20.80  HOLD news review not checked
+CAMT        0.87%      150.29  HOLD news review not checked
+FPS         0.87%       40.00  HOLD news review not checked
+FIX         0.87%     1770.01  HOLD news review not checked
+
+Skipped earnings: STZ, RPM, APLD, LEVI, LW, NRIX, PENG, NEOG
