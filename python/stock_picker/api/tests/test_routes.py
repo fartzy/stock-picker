@@ -794,6 +794,27 @@ def test_get_positions(client):
     assert positions["BBB"]["pnl"] is None
 
 
+def test_get_positions_uses_peak_capital_not_time_weighted_average(client):
+    trades = pd.DataFrame([
+        {"ticker": "FIRST", "side": "buy", "shares": 1, "price": 1000.0,
+         "executed_at": "2026-10-07T09:31:00-04:00"},
+        {"ticker": "FIRST", "side": "sell", "shares": 1, "price": 1001.0,
+         "executed_at": "2026-10-07T09:32:00-04:00"},
+        {"ticker": "SECOND", "side": "buy", "shares": 1, "price": 40000.0,
+         "executed_at": "2026-10-07T09:33:00-04:00"},
+        {"ticker": "SECOND", "side": "sell", "shares": 1, "price": 40001.0,
+         "executed_at": "2026-10-07T09:34:00-04:00"},
+    ])
+    with (
+        patch("stock_picker.api.routes.trade_log", return_value=trades),
+        patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=False),
+    ):
+        response = client.get("/api/positions")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()["peak_working"]["2026-10-07"] == 40000.0
+
+
 def test_get_positions_fills_todays_close_at_the_bell(client, tmp_path):
     from stock_picker.storage.price_store import PriceStore
 

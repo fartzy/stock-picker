@@ -52,19 +52,7 @@ def peak_working_by_day(trades: pd.DataFrame) -> dict[str, float]:
     cost: dict[str, float] = {}
     peaks: dict[str, float] = {}
     for row in frame.itertuples():
-        ticker = row.ticker
-        qty = float(row.shares)
-        notional = qty * float(row.price)
-        if row.side == "buy":
-            shares[ticker] = shares.get(ticker, 0.0) + qty
-            cost[ticker] = cost.get(ticker, 0.0) + notional
-        else:
-            held = shares.get(ticker, 0.0)
-            avg = (cost.get(ticker, 0.0) / held) if held else 0.0
-            sold = min(qty, held) if held else 0.0
-            cost[ticker] = cost.get(ticker, 0.0) - avg * sold
-            shares[ticker] = held - sold
-        working = sum(value for value in cost.values() if value > 0)
+        working = _apply_fill(shares, cost, row)
         day = row.executed_dt.tz_convert("America/New_York").date().isoformat()
         peaks[day] = round(max(peaks.get(day, 0.0), working), NOTIONAL_DECIMAL_PLACES)
     return peaks
@@ -79,10 +67,15 @@ def _apply_fill(shares: dict[str, float], cost: dict[str, float], row) -> float:
         cost[ticker] = cost.get(ticker, 0.0) + notional
     else:
         held = shares.get(ticker, 0.0)
-        avg = (cost.get(ticker, 0.0) / held) if held else 0.0
-        sold = min(qty, held) if held else 0.0
-        cost[ticker] = cost.get(ticker, 0.0) - avg * sold
-        shares[ticker] = held - sold
+        if qty >= held:
+            # A complete exit must leave no floating-point cost dust that
+            # would count the empty afternoon as capital still on the book.
+            shares[ticker] = 0.0
+            cost[ticker] = 0.0
+        else:
+            avg = cost[ticker] / held
+            cost[ticker] -= avg * qty
+            shares[ticker] = held - qty
     return sum(value for value in cost.values() if value > 0)
 
 

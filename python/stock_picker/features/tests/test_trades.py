@@ -74,6 +74,27 @@ def test_time_weighted_working_is_less_than_a_lunch_spike():
     assert averages["2026-09-16"] < 14000
 
 
+def test_full_exit_does_not_carry_fractional_cost_into_next_session():
+    from stock_picker.features.trades import time_weighted_working_by_day
+
+    trades = pd.DataFrame(
+        [
+            {"ticker": "OLD", "side": "buy", "shares": 1, "price": 0.492,
+             "executed_at": "2026-10-01T09:31:00-04:00"},
+            {"ticker": "OLD", "side": "buy", "shares": 2, "price": 0.509,
+             "executed_at": "2026-10-01T09:31:00-04:00"},
+            {"ticker": "OLD", "side": "sell", "shares": 3, "price": 0.50,
+             "executed_at": "2026-10-01T09:32:00-04:00"},
+            {"ticker": "NEW", "side": "buy", "shares": 1, "price": 40000.0,
+             "executed_at": "2026-10-02T09:31:00-04:00"},
+            {"ticker": "NEW", "side": "sell", "shares": 1, "price": 40001.0,
+             "executed_at": "2026-10-02T09:32:00-04:00"},
+        ]
+    )
+
+    assert time_weighted_working_by_day(trades)["2026-10-02"] == 40000.0
+
+
 def test_position_summaries_merges_closed_position_into_one_row():
     trades = pd.DataFrame(
         [
