@@ -1,0 +1,34 @@
+import { fetchOvernightModel, type OvernightModelResponse } from "../api";
+import { useFetchData } from "../useFetchData";
+
+function pct(value: number | null): string {
+  return value === null ? "Not measured" : `${(value * 100).toFixed(3)}%`;
+}
+
+export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernight: () => void }) {
+  const { data, error } = useFetchData<OvernightModelResponse>(fetchOvernightModel);
+  if (error) return <p className="error">Overnight model: {error}</p>;
+  if (!data) return <p className="muted">Loading overnight model…</p>;
+  return (
+    <div className="overnight-model-panel">
+      <p><strong>{data.available ? "Saved next-open model" : "No saved next-open model"}</strong> · Separate from the Rank/Fit open-to-close models.</p>
+      {data.available ? (
+        <>
+          <p>Trained through {data.trained_through}; latest target open observed {data.label_observed_on}. {data.feature_columns.length} inputs · {data.feature_version}.</p>
+          <div className="overnight-model-metrics">
+            <span>Held-out model gap MAE <strong>{pct(data.model_gap_mae)}</strong></span>
+            <span>Unchanged-price MAE <strong>{pct(data.unchanged_gap_mae)}</strong></span>
+            <span>Ticker-mean MAE <strong>{pct(data.ticker_mean_gap_mae)}</strong></span>
+            <span>Evaluated rows <strong>{data.evaluated_rows}</strong></span>
+          </div>
+          {data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
+            <p className="overnight-evidence">This artifact did not beat the unchanged-price baseline on held-out gap error. It stays visible for investigation.</p>
+          )}
+          {!data.serving_inputs_pinned && <p className="overnight-evidence">The saved artifact lacks pinned morning estimators. Retrain it before requesting a forecast.</p>}
+        </>
+      ) : <p className="muted">The model code and 15-feature contract are available for inspection; a forecast requires an explicitly saved artifact. It is never trained during a request.</p>}
+      <p className="muted">Exploratory 12-ticker comparison: best model variant MAE 1.2854% versus 1.2775% for unchanged price across 623 held-out sessions. That does not establish a hold-overnight edge.</p>
+      <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
+    </div>
+  );
+}

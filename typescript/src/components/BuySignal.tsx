@@ -50,12 +50,14 @@ function MorningList({
   isRank,
   showLive,
   closed,
+  onOpenOvernight,
 }: {
   title: string;
   list: BuySignalResponse | null;
   isRank: boolean;
   showLive: boolean;
   closed: boolean;
+  onOpenOvernight: (ticker: string) => void;
 }) {
   const [open, setOpen] = useState(true);
   const tickers = list?.signals.map((s) => s.ticker) ?? [];
@@ -95,7 +97,7 @@ function MorningList({
               {
                 key: "ticker",
                 header: "Ticker",
-                cell: (signal) => <TickerCell ticker={signal.ticker} />,
+                cell: (signal) => <span className="overnight-ticker-action"><TickerCell ticker={signal.ticker} /><button type="button" className="overnight-row-link" title={`Check ${signal.ticker}’s next open if it closes at your price`} aria-label={`Estimate ${signal.ticker} next open`} onClick={() => onOpenOvernight(signal.ticker)}>↗</button></span>,
               },
               {
                 key: "score",
@@ -155,7 +157,7 @@ function MorningList({
   );
 }
 
-export default function BuySignal() {
+export default function BuySignal({ onOpenOvernight }: { onOpenOvernight: (ticker: string) => void }) {
   const [thresholdPct, setThresholdPct] = useState(DEFAULT_THRESHOLD_PCT);
   const [rankList, setRankList] = useState<BuySignalResponse | null>(null);
   const [fitList, setFitList] = useState<BuySignalResponse | null>(null);
@@ -340,7 +342,7 @@ export default function BuySignal() {
       )}
 
       {!error && (rankList || fitList) && (
-        <MorningLists rankList={rankList} fitList={fitList} />
+        <MorningLists rankList={rankList} fitList={fitList} onOpenOvernight={onOpenOvernight} />
       )}
     </div>
   );
@@ -349,9 +351,11 @@ export default function BuySignal() {
 function MorningLists({
   rankList,
   fitList,
+  onOpenOvernight,
 }: {
   rankList: BuySignalResponse | null;
   fitList: BuySignalResponse | null;
+  onOpenOvernight: (ticker: string) => void;
 }) {
   const rankToday = isCashSessionToday(rankList?.as_of) || isChicagoCalendarToday(rankList?.as_of);
   const fitToday = isCashSessionToday(fitList?.as_of) || isChicagoCalendarToday(fitList?.as_of);
@@ -374,6 +378,7 @@ function MorningLists({
           isRank={true}
           showLive={rankToday}
           closed={closed}
+          onOpenOvernight={onOpenOvernight}
         />
         <MorningList
           title="Fit 0.5%"
@@ -381,6 +386,7 @@ function MorningLists({
           isRank={false}
           showLive={fitToday}
           closed={closed}
+          onOpenOvernight={onOpenOvernight}
         />
       </div>
     </details>

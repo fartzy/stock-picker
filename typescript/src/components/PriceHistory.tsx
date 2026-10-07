@@ -291,8 +291,10 @@ function FeatureValuesTable({
 
 export default function PriceHistory({
   onNavigateToFeature,
+  onOpenOvernight,
 }: {
   onNavigateToFeature: (feature: string) => void;
+  onOpenOvernight: (ticker: string) => void;
 }) {
   const [inputValue, setInputValue] = useState(DEFAULT_TICKER);
   const [ticker, setTicker] = useState(DEFAULT_TICKER);
@@ -363,6 +365,7 @@ export default function PriceHistory({
       {data && data.prices.length > 0 && (
         <>
           <h3>Price history (source data)</h3>
+          <button className="overnight-text-link" type="button" onClick={() => onOpenOvernight(ticker)}>Check a current close → next-open scenario for {ticker}</button>
           {(() => {
             const latest = data.prices[data.prices.length - 1];
             const previous = data.prices[data.prices.length - 2];

@@ -183,10 +183,10 @@ function PnlCell({
   );
 }
 
-function OpenRow({ position }: { position: Position }) {
+function OpenRow({ position, onOpenOvernight }: { position: Position; onOpenOvernight: (ticker: string) => void }) {
   return (
     <tr>
-      <td className="trade-ticker">{position.ticker}</td>
+      <td className="trade-ticker"><span className="overnight-ticker-action">{position.ticker}<button type="button" className="overnight-row-link" title={`Check ${position.ticker}’s next open if it closes at your price`} aria-label={`Estimate ${position.ticker} next open`} onClick={() => onOpenOvernight(position.ticker)}>↗</button></span></td>
       <td className="trade-num">{position.shares}</td>
       <td className="trade-time">{position.buy_time ? `${formatTime(position.buy_time)} ET` : "--"}</td>
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
@@ -466,7 +466,7 @@ function periodValues(
   };
 }
 
-export default function TradeHistory() {
+export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ticker: string) => void }) {
   const [refreshCount, setRefreshCount] = useState(0);
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
@@ -549,7 +549,7 @@ export default function TradeHistory() {
                   </thead>
                   <tbody>
                     {openPositions.map((position) => (
-                      <OpenRow position={position} key={`${position.ticker}-open`} />
+                      <OpenRow position={position} onOpenOvernight={onOpenOvernight} key={`${position.ticker}-open`} />
                     ))}
                   </tbody>
                 </table>
