@@ -18,10 +18,11 @@ import pandas as pd
 
 
 LABEL_COLUMN = "label_next_open_gap"
-FEATURE_VERSION = "overnight_close_scenario_v1"
+FEATURE_VERSION = "overnight_close_scenario_v2"
 FEATURE_COLUMNS = (
     "prior_close",
     "prior_return_1d",
+    "prior_return_5d",
     "prior_volatility_5d",
     "today_open",
     "today_open_gap",
@@ -225,6 +226,7 @@ def build_feature_row(
     values = (
         closes[-1],
         prior_returns[-1],
+        closes[-1] / closes[0] - 1,
         prior_volatility,
         opened,
         opened / closes[-1] - 1,

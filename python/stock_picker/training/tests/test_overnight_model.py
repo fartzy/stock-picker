@@ -15,11 +15,13 @@ from stock_picker.training.overnight_day_scores import generate_historical_day_s
 from stock_picker.training.overnight_job import train_and_persist_overnight
 from stock_picker.training.overnight_model import (
     DAY_OUTPUT_COLUMNS,
+    FIT_RESIDUAL_COLUMN,
     MODEL_FEATURE_VERSION,
     MODEL_FEATURE_COLUMNS,
     DayModelOutputs,
     OvernightModel,
     attach_historical_day_scores,
+    add_model_derived_features,
     forecast_assumed_close,
     forecast_if_closes_at,
     score_day_models,
@@ -43,6 +45,7 @@ def make_rows() -> pd.DataFrame:
                 "date": session,
                 "prior_close": prior_close,
                 "prior_return_1d": 0.001 * (day_index % 3 - 1),
+                "prior_return_5d": 0.002 * (day_index % 4 - 2),
                 "prior_volatility_5d": 0.02,
                 "today_open": today_open,
                 "today_open_gap": today_open / prior_close - 1,
@@ -59,11 +62,22 @@ def make_rows() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def test_contract_has_thirteen_features_and_fit_prediction_is_a_real_column():
-    assert MODEL_FEATURE_COLUMNS[:9] == FEATURE_COLUMNS
-    assert len(MODEL_FEATURE_COLUMNS) == 13
+def test_contract_has_fifteen_features_and_fit_prediction_is_a_real_column():
+    assert MODEL_FEATURE_COLUMNS[:10] == FEATURE_COLUMNS
+    assert len(MODEL_FEATURE_COLUMNS) == 15
     assert "day_fit_predicted_return" in MODEL_FEATURE_COLUMNS
     assert "assumed_close" in MODEL_FEATURE_COLUMNS
+    assert FIT_RESIDUAL_COLUMN in MODEL_FEATURE_COLUMNS
+
+
+def test_fit_residual_uses_assumed_price_and_cannot_be_spoofed():
+    rows = make_rows().iloc[:1]
+    enriched = add_model_derived_features(rows)
+    assert enriched.iloc[0][FIT_RESIDUAL_COLUMN] == pytest.approx(
+        rows.iloc[0][DAY_OUTPUT_COLUMNS[0]] - rows.iloc[0]["assumed_day_return"]
+    )
+    with pytest.raises(ValueError, match="does not match"):
+        add_model_derived_features(enriched.assign(**{FIT_RESIDUAL_COLUMN: 9.0}))
 
 
 def test_historical_scores_require_prior_training_and_full_coverage():

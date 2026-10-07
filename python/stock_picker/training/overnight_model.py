@@ -1,9 +1,11 @@
 """Close-conditioned next-open model, with morning-model outputs as inputs.
 
-The first nine columns come from ``overnight_dataset``. Four more are the
-same-day Fit, Rank, SVR, and direction-SVC outputs available after today's
-open. Historical values must be scored by models fitted before their session.
-Intraday volatility is intentionally not substituted with a completed bar.
+Ten columns come from ``overnight_dataset``, including strictly prior
+five-session momentum. Four are the same-day Fit, Rank, SVR, and direction-SVC
+outputs available after today's open; the last compares Fit's prediction with
+the assumed day move. Historical morning values must be scored by models
+fitted before their session. Intraday volatility is not replaced by a
+completed bar.
 """
 
 from __future__ import annotations
@@ -31,16 +33,17 @@ from stock_picker.training.svm_stack import score_stacked_svm
 
 
 MODEL_NAME = "next_open_from_assumed_close"
-MODEL_FEATURE_VERSION = "overnight_with_morning_outputs_v1"
+MODEL_FEATURE_VERSION = "overnight_with_morning_outputs_v2"
 DAY_OUTPUT_COLUMNS = (
     "day_fit_predicted_return",
     "day_rank_score",
     "day_svr_predicted_return",
     "day_svc_direction_margin",
 )
-MODEL_FEATURE_COLUMNS = (*FEATURE_COLUMNS, *DAY_OUTPUT_COLUMNS)
+FIT_RESIDUAL_COLUMN = "fit_minus_assumed_day_return"
+MODEL_FEATURE_COLUMNS = (*FEATURE_COLUMNS, *DAY_OUTPUT_COLUMNS, FIT_RESIDUAL_COLUMN)
 SVM_OUTPUT_COLUMNS = ("svr_oof_pred", "svc_direction_margin")
-assert len(MODEL_FEATURE_COLUMNS) <= 15
+assert len(MODEL_FEATURE_COLUMNS) == 15
 
 DEFAULT_PARAMS = {
     "objective": "regression_l1",
@@ -186,8 +189,24 @@ def attach_historical_day_scores(
     return joined.drop(columns="trained_through")
 
 
+def add_model_derived_features(frame: pd.DataFrame) -> pd.DataFrame:
+    """Apply the same assumption-vs-Fit transform to training and scenarios."""
+    required = {"assumed_day_return", DAY_OUTPUT_COLUMNS[0]}
+    if required - set(frame):
+        raise ValueError("overnight frame lacks inputs for the Fit residual")
+    residual = frame[DAY_OUTPUT_COLUMNS[0]] - frame["assumed_day_return"]
+    if FIT_RESIDUAL_COLUMN in frame and not np.allclose(
+        frame[FIT_RESIDUAL_COLUMN].to_numpy(dtype=float),
+        residual.to_numpy(dtype=float),
+        rtol=0,
+        atol=1e-12,
+    ):
+        raise ValueError("supplied Fit residual does not match its source features")
+    return frame.assign(**{FIT_RESIDUAL_COLUMN: residual})
+
+
 def _validated_training_frame(frame: pd.DataFrame) -> pd.DataFrame:
-    required = {"ticker", "date", LABEL_COLUMN, *MODEL_FEATURE_COLUMNS}
+    required = {"ticker", "date", LABEL_COLUMN, *(name for name in MODEL_FEATURE_COLUMNS if name != FIT_RESIDUAL_COLUMN)}
     if required - set(frame):
         raise ValueError(f"overnight training frame lacks {sorted(required - set(frame))}")
     if frame.empty or frame.duplicated(["ticker", "date"]).any():
@@ -195,16 +214,20 @@ def _validated_training_frame(frame: pd.DataFrame) -> pd.DataFrame:
     dates = pd.to_datetime(frame["date"], errors="raise")
     if dates.isna().any() or dates.dt.tz is not None or not dates.equals(dates.dt.normalize()):
         raise ValueError("overnight dates must be timezone-naive exchange dates")
+    frame = add_model_derived_features(frame)
     values = frame[[*MODEL_FEATURE_COLUMNS, LABEL_COLUMN]].to_numpy(dtype=float)
     if not np.isfinite(values).all():
         raise ValueError("overnight training features and labels must be finite")
     return frame.assign(date=dates).sort_values(["date", "ticker"]).reset_index(drop=True)
 
 
-def _fit(frame: pd.DataFrame, params: dict | None, rounds: int) -> lgb.Booster:
+def _fit(
+    frame: pd.DataFrame, params: dict | None, rounds: int,
+    feature_columns: tuple[str, ...] = MODEL_FEATURE_COLUMNS,
+) -> lgb.Booster:
     if rounds < 1:
         raise ValueError("boosting rounds must be positive")
-    dataset = lgb.Dataset(frame[list(MODEL_FEATURE_COLUMNS)], label=frame[LABEL_COLUMN])
+    dataset = lgb.Dataset(frame[list(feature_columns)], label=frame[LABEL_COLUMN])
     return lgb.train({**DEFAULT_PARAMS, **(params or {})}, dataset, num_boost_round=rounds)
 
 
@@ -290,7 +313,7 @@ def forecast_assumed_close(
     if any(model.contract.get(key) != getattr(contract, key) for key in ("source", "basis", "action_source")):
         raise ValueError("overnight model price contract is incompatible")
     row = scenario.features.to_dict() | day_outputs.as_features()
-    features = pd.DataFrame([row], columns=list(MODEL_FEATURE_COLUMNS))
+    features = add_model_derived_features(pd.DataFrame([row]))[list(MODEL_FEATURE_COLUMNS)]
     if features.isna().any().any():
         raise ValueError("overnight forecast has missing features")
     gap = float(model.booster.predict(features)[0])
