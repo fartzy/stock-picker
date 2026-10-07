@@ -1,10 +1,12 @@
 """Overnight endpoints expose model state and preserve scenario metadata."""
 
+from datetime import date
 from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
+from stock_picker.training.overnight_hold import ObservedNextOpen
 
 
 class EmptyModelStore:
@@ -64,3 +66,20 @@ def test_forecast_schema_keeps_assumed_price_and_all_feature_snapshots():
         })
     assert response.status_code == 200
     assert [case["features"]["assumed_close"] for case in response.json()["cases"]] == [32.9, 32.85, 32.95]
+
+
+def test_what_if_actuals_deduplicate_and_keep_future_open_pending():
+    pending = ObservedNextOpen("WERN", date(2026, 10, 6), date(2026, 10, 7), "awaiting_next_open")
+    with patch("stock_picker.api.routes.observed_next_open", return_value=pending) as lookup:
+        response = TestClient(app).post("/api/what-if/overnight-actuals", json={
+            "as_of": "2026-10-06", "tickers": ["wern", "WERN"],
+        })
+    assert response.status_code == 200
+    assert response.json()["rows"] == [{
+        "ticker": "WERN", "session": "2026-10-06", "next_session": "2026-10-07",
+        "status": "awaiting_next_open", "verified_close": None, "next_open": None, "reason": None,
+    }]
+    lookup.assert_called_once_with("WERN", date(2026, 10, 6))
+    assert TestClient(app).post("/api/what-if/overnight-actuals", json={
+        "as_of": "2026-10-06", "tickers": ["BAD/SYMBOL"],
+    }).status_code == 422

@@ -287,6 +287,20 @@ export interface PaperBookResponse {
   n_picks: number;
 }
 
+export interface OvernightActualRow {
+  ticker: string;
+  session: string;
+  next_session: string | null;
+  status: "observed" | "awaiting_next_open" | "corporate_action" | "unavailable";
+  verified_close: number | null;
+  next_open: number | null;
+  reason: string | null;
+}
+
+export interface OvernightActualsResponse {
+  rows: OvernightActualRow[];
+}
+
 export interface BenchmarkHold {
   start: string;
   end: string;
@@ -590,6 +604,8 @@ export const fetchPaperBook = (
   if (rankTopK !== undefined) params.set("rank_top_k", String(rankTopK));
   return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
 };
+export const fetchOvernightActuals = (asOf: string, tickers: string[]) =>
+  mutate<OvernightActualsResponse>("POST", "/api/what-if/overnight-actuals", { as_of: asOf, tickers });
 export const rebuildPaperBook = () => mutate<PaperBookResponse>("POST", "/api/paper-book/rebuild");
 export const replayPaperBook = (asOf: string, modelRunId?: string | null) =>
   mutate<PaperBookResponse>("POST", "/api/paper-book/replay", {
