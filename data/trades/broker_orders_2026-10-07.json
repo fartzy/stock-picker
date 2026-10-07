@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Execution time is used for every fill. The order-list summary duplicates these detailed confirmations and is not imported a second time. Broker net sale proceeds are preserved to infer fees; price improvement is not a separate cash flow.",
-  "filled_order_count": 29,
+  "filled_order_count": 31,
   "orders": [
     {"order_number": "2E006GPM", "ticker": "IBRX", "side": "buy", "shares": 800, "price": 9.40, "executed_at": "2026-10-07T09:36:32-04:00", "broker_net_amount": 7520.00},
     {"order_number": "2E004L2G", "ticker": "IBRX", "side": "sell", "shares": 800, "price": 9.57, "executed_at": "2026-10-07T09:42:44-04:00", "broker_net_amount": 7655.84},
@@ -34,12 +34,15 @@
     {"order_number": "2E00NJNZ", "ticker": "WDC", "side": "buy", "shares": 3, "price": 400.325, "executed_at": "2026-10-07T10:03:15-04:00", "broker_net_amount": 1200.98},
     {"order_number": "2E00JHWJ", "ticker": "WDC", "side": "buy", "shares": 3, "price": 400.615, "executed_at": "2026-10-07T10:03:28-04:00", "broker_net_amount": 1201.85},
     {"order_number": "2E00DH81", "ticker": "WDC", "side": "buy", "shares": 3, "price": 400.8299, "executed_at": "2026-10-07T10:03:43-04:00", "broker_net_amount": 1202.49},
-    {"order_number": "2E00GJHN", "ticker": "WDC", "side": "sell", "shares": 102, "price": 402.345, "executed_at": "2026-10-07T10:06:44-04:00", "broker_net_amount": 41038.34}
+    {"order_number": "2E00GJHN", "ticker": "WDC", "side": "sell", "shares": 102, "price": 402.345, "executed_at": "2026-10-07T10:06:44-04:00", "broker_net_amount": 41038.34},
+    {"order_number": "2E00FYS0", "ticker": "TXG", "side": "buy", "shares": 80, "price": 73.7601, "executed_at": "2026-10-07T10:13:19-04:00", "broker_net_amount": 5900.81},
+    {"order_number": "2E00J0DM", "ticker": "TXG", "side": "sell", "shares": 80, "price": 74.86, "executed_at": "2026-10-07T10:16:03-04:00", "broker_net_amount": 5988.67}
   ],
   "reconciliation": {
     "IBRX": {"bought_shares": 800, "sold_shares": 800, "remaining_shares": 0, "buy_cost": 7520.00, "net_sale_proceeds": 7655.84, "inferred_sale_fees": 0.16, "net_realized_pnl": 135.84},
     "WDC": {"bought_shares": 102, "sold_shares": 102, "remaining_shares": 0, "buy_cost": 40978.71, "net_sale_proceeds": 41038.34, "inferred_sale_fees": 0.85, "net_realized_pnl": 59.63},
-    "inferred_sale_fees": 1.01,
-    "net_realized_pnl": 195.47
+    "TXG": {"bought_shares": 80, "sold_shares": 80, "remaining_shares": 0, "buy_cost": 5900.81, "net_sale_proceeds": 5988.67, "inferred_sale_fees": 0.13, "net_realized_pnl": 87.86},
+    "inferred_sale_fees": 1.14,
+    "net_realized_pnl": 283.33
   }
 }
