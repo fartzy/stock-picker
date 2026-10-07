@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Protocol
+from typing import Iterator, Protocol
 
 from stock_picker.storage.paths import data_root
 
@@ -91,10 +92,15 @@ class SqliteScanLog:
             conn.executescript(_SCHEMA)
         self._import_json_if_empty()
 
-    def _connect(self) -> sqlite3.Connection:
+    @contextmanager
+    def _connect(self) -> Iterator[sqlite3.Connection]:
         conn = sqlite3.connect(self._db_path)
         conn.row_factory = sqlite3.Row
-        return conn
+        try:
+            with conn:
+                yield conn
+        finally:
+            conn.close()
 
     def _import_json_if_empty(self) -> None:
         with self._connect() as conn:

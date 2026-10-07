@@ -26,6 +26,7 @@ def test_download_price_history_splits_by_ticker():
         result = download_price_history(["AAPL", "MSFT"], period="6mo")
 
     mock_download.assert_called_once()
+    assert mock_download.call_args.kwargs["threads"] is False
     assert set(result.keys()) == {"AAPL", "MSFT"}
     assert list(result["AAPL"].columns) == ["Open", "Close"]
 
@@ -43,6 +44,20 @@ def test_download_price_history_slices_multiindex_for_a_single_ticker():
 
     assert set(result.keys()) == {"SPY"}
     assert list(result["SPY"].columns) == ["Open", "Close"]
+
+
+def test_download_closes_yfinance_caches_after_error():
+    with (
+        patch("stock_picker.ingestion.yfinance_client.yf.download", side_effect=RuntimeError("failed")),
+        patch("stock_picker.ingestion.yfinance_client._close_yfinance_caches") as close_caches,
+    ):
+        try:
+            download_price_history(["AAPL"])
+        except RuntimeError:
+            pass
+        else:
+            raise AssertionError("download should have failed")
+    close_caches.assert_called_once()
 
 
 def test_download_price_history_retries_names_yahoo_dropped_from_a_large_pull():
