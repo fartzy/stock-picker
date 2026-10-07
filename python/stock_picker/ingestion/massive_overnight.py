@@ -50,6 +50,59 @@ class VerifiedOvernightBars:
     dividend_events: tuple[ActionEvent, ...]
 
 
+@dataclass(frozen=True)
+class VerifiedCurrentOpen:
+    """Session-dated raw open with action status checked by Massive."""
+
+    open: float
+    previous_close: float
+    last_trade: float | None
+    last_trade_at: datetime | None
+    fetched_at: datetime
+    corporate_action: str
+
+
+def parse_current_snapshot(payload: object, ticker: str, session: date) -> tuple[float, float, float | None, datetime | None]:
+    """Parse the documented single-ticker snapshot without trusting a stale row.
+
+    https://massive.com/docs/rest/stocks/snapshots/single-ticker-snapshot
+    The snapshot is a display/observed-open source, never an overnight label.
+    """
+    if not isinstance(payload, dict) or payload.get("status") != "OK":
+        raise MassiveOvernightError("single-ticker snapshot was not OK")
+    item = payload.get("ticker")
+    if not isinstance(item, dict) or item.get("ticker") != ticker:
+        raise MassiveOvernightError("single-ticker snapshot did not match the ticker")
+    timestamp = item.get("updated") or (item.get("lastTrade") or {}).get("t")
+    try:
+        observed_at = datetime.fromtimestamp(int(timestamp) / 1_000_000_000, timezone.utc).astimezone(
+            ZoneInfo("America/New_York")
+        )
+    except (TypeError, ValueError, OverflowError, OSError) as exc:
+        raise MassiveOvernightError("single-ticker snapshot has no session timestamp") from exc
+    if observed_at.date() != session:
+        raise MassiveOvernightError("single-ticker snapshot is not dated to the scenario session")
+    day = item.get("day") or {}
+    previous = item.get("prevDay") or {}
+    opened = _price(day.get("o"))
+    previous_close = _price(previous.get("c"))
+    trade = item.get("lastTrade") or {}
+    trade_at = None
+    trade_price = None
+    if trade.get("t") is not None:
+        try:
+            trade_at = datetime.fromtimestamp(int(trade["t"]) / 1_000_000_000, timezone.utc).astimezone(
+                ZoneInfo("America/New_York")
+            )
+        except (TypeError, ValueError, OverflowError, OSError) as exc:
+            raise MassiveOvernightError("single-ticker last-trade timestamp is invalid") from exc
+        if trade_at.date() == session and trade.get("p") is not None:
+            trade_price = _price(trade["p"])
+        else:
+            trade_at = None
+    return opened, previous_close, trade_price, trade_at
+
+
 def _price(value: object, *, allow_zero: bool = False) -> float:
     if isinstance(value, bool):
         raise MassiveOvernightError("invalid numeric bar field")
@@ -250,6 +303,22 @@ class MassiveOvernightClient:
                 continue
             events.extend(page_events)
         return tuple(events)
+
+    def fetch_current_open(self, ticker: str, session: date) -> VerifiedCurrentOpen:
+        """Get a session-dated open; never certify an unchecked action day."""
+        if not TICKER_PATTERN.fullmatch(ticker):
+            raise ValueError("invalid ticker")
+        snapshot = self._get_payload(
+            API_ROOT + f"/v2/snapshot/locale/us/markets/stocks/tickers/{ticker}", {}
+        )
+        opened, previous_close, last_trade, last_trade_at = parse_current_snapshot(snapshot, ticker, session)
+        splits = self._actions(SPLITS_PATH, "execution_date", "split", ticker, session, session)
+        dividends = self._actions(DIVIDENDS_PATH, "ex_dividend_date", "dividend", ticker, session, session)
+        action = "split" if splits else "dividend" if dividends else "verified_none"
+        return VerifiedCurrentOpen(
+            opened, previous_close, last_trade, last_trade_at,
+            datetime.now(timezone.utc), action,
+        )
 
     def fetch(self, ticker: str, start: date, end: date) -> VerifiedOvernightBars:
         """Fetch all bars and action pages; certify only after every page succeeds."""
