@@ -19,15 +19,18 @@ from stock_picker.ingestion.massive_overnight import (
     VerifiedOvernightBars,
 )
 from stock_picker.storage.feature_store import FeatureStore
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.training.live_rows import prepare_one
 from stock_picker.training.overnight_dataset import (
     CurrentOpenProvenance,
     PriceContract,
     build_scenario_features,
+    next_expected_session,
 )
 from stock_picker.training.overnight_model import (
     DayModelOutputs,
+    MODEL_NAME,
     OvernightForecast,
     OvernightModel,
     forecast_assumed_close,
@@ -111,6 +114,8 @@ def build_forecast_cases(
         raise ValueError("assumed close must be finite and positive")
     if shares is not None and (not isfinite(shares) or shares <= 0):
         raise ValueError("shares must be finite and positive")
+    if next_expected_session(session) is None:
+        raise ValueError("scenario date is not a verifiable XNYS session")
     if (exit_today_cost_per_share is None) != (exit_next_open_cost_per_share is None):
         raise ValueError("both exit cost assumptions must be supplied together")
     for cost in (exit_today_cost_per_share, exit_next_open_cost_per_share):
@@ -119,7 +124,9 @@ def build_forecast_cases(
     resolved_step = step if step is not None else assumed_close * 0.005
     if not isfinite(resolved_step) or not 0 < resolved_step < assumed_close:
         raise ValueError("scenario step must be positive and smaller than assumed close")
-    if model.day_fit_model is None or model.day_rank_model is None or model.day_model_trained_through is None:
+    if any(getattr(model, name, None) is None for name in (
+        "day_fit_model", "day_rank_model", "day_model_trained_through",
+    )):
         raise ValueError("overnight artifact does not pin its same-day serving models")
     if model.day_model_trained_through >= session:
         raise ValueError("same-day serving models saw the scenario session")
@@ -157,7 +164,7 @@ def build_forecast_cases(
 
 
 def fetch_forecast_inputs(
-    ticker: str, session: date, model: OvernightModel,
+    ticker: str, session: date,
     *, client: MassiveOvernightClient | None = None,
     feature_store: FeatureStore | None = None,
     price_store: PriceStore | None = None,
@@ -179,6 +186,69 @@ def fetch_forecast_inputs(
     return verified, current, prepared.row
 
 
+def serve_overnight_forecast(
+    *, ticker: str, session: date, assumed_close: float,
+    step: float | None = None, shares: float | None = None,
+    exit_today_cost_per_share: float | None = None,
+    exit_next_open_cost_per_share: float | None = None,
+    model_store: ModelStore | None = None,
+    client: MassiveOvernightClient | None = None,
+    feature_store: FeatureStore | None = None,
+    price_store: PriceStore | None = None,
+) -> OvernightScenarioResult:
+    """One explicit request; never retrain or fall back to an unverified bar."""
+    if not isfinite(assumed_close) or assumed_close <= 0:
+        raise ValueError("assumed close must be finite and positive")
+    if shares is not None and (not isfinite(shares) or shares <= 0):
+        raise ValueError("shares must be finite and positive")
+    if next_expected_session(session) is None:
+        raise ValueError("scenario date is not a verifiable XNYS session")
+    store = model_store or ModelStore()
+    if not store.exists(MODEL_NAME):
+        raise FileNotFoundError("no saved overnight model is selected")
+    model = store.read(MODEL_NAME)
+    if model_summary(model)["serving_inputs_pinned"] is not True:
+        raise ValueError("saved overnight model lacks pinned serving inputs")
+    if model.label_observed_on > session or model.day_model_trained_through >= session:
+        raise ValueError("saved model has seen the scenario session or a later date")
+    verified, current, day_row = fetch_forecast_inputs(
+        ticker, session, client=client, feature_store=feature_store, price_store=price_store,
+    )
+    return build_forecast_cases(
+        ticker=ticker, session=session, verified=verified, current=current,
+        day_row=day_row, model=model, assumed_close=assumed_close,
+        step=step, shares=shares,
+        exit_today_cost_per_share=exit_today_cost_per_share,
+        exit_next_open_cost_per_share=exit_next_open_cost_per_share,
+    )
+
+
 def serialize_result(result: OvernightScenarioResult) -> dict[str, object]:
     """JSON-friendly, stable result for the API and eventual What if replay."""
-    return asdict(result)
+    return {
+        "ticker": result.ticker, "session": result.session,
+        "today_open": result.today_open, "last_trade": result.last_trade,
+        "last_trade_at": result.last_trade_at,
+        "quote_fetched_at": result.quote_fetched_at,
+        "step": result.step, "shares": result.shares,
+        "cases": [
+            {
+                "label": case.label, **asdict(case.forecast),
+                "after_cost_difference_per_share": case.after_cost_difference_per_share,
+                "gross_difference_for_shares": (
+                    case.forecast.difference_per_share * result.shares if result.shares is not None else None
+                ),
+                "after_cost_difference_for_shares": (
+                    case.after_cost_difference_per_share * result.shares
+                    if result.shares is not None and case.after_cost_difference_per_share is not None else None
+                ),
+                "features": case.features,
+            }
+            for case in result.cases
+        ],
+        "day_outputs": result.day_outputs.as_features(),
+        "model_trained_through": result.model_trained_through,
+        "model_label_observed_on": result.model_label_observed_on,
+        "model_feature_version": result.model_feature_version,
+        "evaluated_rows": result.evaluated_rows,
+    }
