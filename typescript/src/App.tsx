@@ -3,6 +3,7 @@ import BuySignal from "./components/BuySignal";
 import MorningCheck from "./components/MorningCheck";
 import ModelPicker from "./components/ModelPicker";
 import Overnight from "./components/Overnight";
+import OvernightQuickLook from "./components/OvernightQuickLook";
 import OvernightModelPanel from "./components/OvernightModelPanel";
 import OvernightFeaturePanel from "./components/OvernightFeaturePanel";
 import PriceHistory from "./components/PriceHistory";
@@ -31,10 +32,22 @@ export default function App() {
   const [pendingFeature, setPendingFeature] = useState<string | null>(null);
   const [overnightTicker, setOvernightTicker] = useState("");
   const [overnightRequest, setOvernightRequest] = useState(0);
+  const [quickTicker, setQuickTicker] = useState<string | null>(null);
 
   function openOvernight(ticker = "") {
+    if (ticker) {
+      setQuickTicker(ticker);
+      return;
+    }
     setOvernightTicker(ticker);
     setOvernightRequest((value) => value + 1);
+    setTab("overnight");
+  }
+
+  function openFullOvernight() {
+    setOvernightTicker(quickTicker ?? "");
+    setOvernightRequest((value) => value + 1);
+    setQuickTicker(null);
     setTab("overnight");
   }
 
@@ -152,6 +165,8 @@ export default function App() {
           </div>
         </section>
       )}
+      {quickTicker && <OvernightQuickLook key={quickTicker} ticker={quickTicker}
+        onClose={() => setQuickTicker(null)} onOpenFull={openFullOvernight} />}
     </div>
   );
 }
