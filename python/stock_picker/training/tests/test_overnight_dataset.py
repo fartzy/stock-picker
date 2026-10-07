@@ -11,6 +11,7 @@ from stock_picker.training.overnight_dataset import (
     FEATURE_COLUMNS,
     LABEL_COLUMN,
     PriceContract,
+    build_feature_row,
     build_overnight_training_frame,
     build_scenario_features,
     next_expected_session,
@@ -60,12 +61,19 @@ def test_example_features_and_label_do_not_assume_a_next_open(calendar):
 
     assert tuple(result.frame.columns) == (*FEATURE_COLUMNS, LABEL_COLUMN)
     assert row["prior_close"] == 10.0
+    assert row["prior_return_5d"] == 0.0
     assert row["today_open"] == 9.0
     assert row["today_open_gap"] == pytest.approx(-0.10)
     assert row["assumed_close"] == 9.5
     assert row["assumed_day_return"] == pytest.approx(9.5 / 9 - 1)
     assert row[LABEL_COLUMN] == pytest.approx(0.02)
     assert row["weekday"] == 4
+
+
+def test_prior_five_session_return_uses_only_completed_closes():
+    row = build_feature_row([8.0, 9.0, 9.0, 9.5, 10.0, 10.0], 9.0, 9.5, date(2026, 10, 2))
+    assert row["prior_return_5d"] == pytest.approx(0.25)
+    assert row["assumed_day_return"] == pytest.approx(9.5 / 9.0 - 1)
 
 
 def test_friday_to_monday_and_holiday_pairing(calendar):
