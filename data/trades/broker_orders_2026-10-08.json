@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Execution time is used for each unique filled order. Broker activity rounds some displayed prices; exact execution prices and amounts take precedence. Repeated order confirmations and matching activity rows are not imported again. Broker net sale proceeds are preserved to infer fees; total price improvement is not a separate cash flow.",
-  "filled_order_count": 16,
+  "filled_order_count": 19,
   "orders": [
     {"order_number": "2E108HT4", "ticker": "LGN", "side": "buy", "shares": 100, "price": 51.85, "executed_at": "2026-10-08T09:40:47-04:00", "broker_net_amount": 5185.00},
     {"order_number": "2E102H0J", "ticker": "ALM", "side": "buy", "shares": 500, "price": 11.885, "executed_at": "2026-10-08T09:41:16-04:00", "broker_net_amount": 5942.50},
@@ -21,12 +21,15 @@
     {"order_number": "2E10NHTJ", "ticker": "LGN", "side": "buy", "shares": 100, "price": 51.62, "executed_at": "2026-10-08T10:09:27-04:00", "broker_net_amount": 5162.00},
     {"order_number": "2E10JKRQ", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.44, "executed_at": "2026-10-08T10:17:19-04:00", "broker_net_amount": 2572.00},
     {"order_number": "2E10FWMF", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.385, "executed_at": "2026-10-08T10:17:49-04:00", "broker_net_amount": 2569.25},
-    {"order_number": "2E10KXKX", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.395, "executed_at": "2026-10-08T10:18:38-04:00", "broker_net_amount": 2569.75}
+    {"order_number": "2E10KXKX", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.395, "executed_at": "2026-10-08T10:18:38-04:00", "broker_net_amount": 2569.75},
+    {"order_number": "2E10NV9M", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.555, "executed_at": "2026-10-08T10:41:11-04:00", "broker_net_amount": 2577.75},
+    {"order_number": "2E10FH2P", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.58, "executed_at": "2026-10-08T10:42:18-04:00", "broker_net_amount": 2579.00},
+    {"order_number": "2E10G50Z", "ticker": "LGN", "side": "buy", "shares": 50, "price": 51.525, "executed_at": "2026-10-08T10:44:06-04:00", "broker_net_amount": 2576.25}
   ],
   "reconciliation": {
     "ALM": {"bought_shares": 600, "sold_shares": 600, "remaining_shares": 0, "buy_cost": 7129.83, "net_sale_proceeds": 7160.85, "inferred_sale_fees": 0.15, "net_realized_pnl": 31.02},
     "PURR": {"bought_shares": 300, "sold_shares": 300, "remaining_shares": 0, "buy_cost": 3345.00, "net_sale_proceeds": 3380.96, "inferred_sale_fees": 0.07, "net_realized_pnl": 35.96},
-    "LGN": {"bought_shares": 670, "sold_shares": 0, "remaining_shares": 670, "buy_cost": 34605.15},
+    "LGN": {"bought_shares": 820, "sold_shares": 0, "remaining_shares": 820, "buy_cost": 42338.15},
     "inferred_sale_fees": 0.22,
     "net_realized_pnl": 66.98
   }
