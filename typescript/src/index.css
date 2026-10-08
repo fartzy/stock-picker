@@ -1720,6 +1720,12 @@ details.view-card[open] > summary::before {
 .overnight-price-head button:disabled { color: var(--text-muted); cursor: default; text-decoration: none; }
 .overnight-price-field .form-input { width: 100%; }
 .overnight-quote-status { margin: 0; color: var(--text-muted); font-size: var(--text-caption); }
+.overnight-quote-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); }
+.overnight-quote-source { color: var(--text-muted); font-size: var(--text-caption); }
+.overnight-quote-source summary { color: var(--accent); cursor: pointer; }
+.overnight-quote-source summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.overnight-quote-source[open] { flex-basis: 100%; }
+.overnight-quote-source p { margin: var(--space-1) 0 0; }
 .overnight-optional { display: inline; font-size: var(--text-micro); }
 .overnight-form .form-input { width: 100%; }
 .overnight-form-primary > button { min-height: 40px; white-space: nowrap; }

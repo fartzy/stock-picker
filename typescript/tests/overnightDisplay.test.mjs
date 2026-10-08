@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { overnightDirection, overnightDollarText, overnightGapText } from "../src/overnightDisplay.js";
+import { overnightDirection, overnightDollarText, overnightGapText, overnightQuoteStatus } from "../src/overnightDisplay.js";
+
+test("quote states stay concise without hiding stale or out-of-hours instructions", () => {
+  assert.equal(overnightQuoteStatus(true, true), "Fresh");
+  assert.equal(overnightQuoteStatus(false, true), "Stale — refresh before use");
+  assert.equal(overnightQuoteStatus(false, false), "Outside regular hours — enter a price manually");
+});
 
 test("a tiny nonzero gap does not render as Up +0.00% and $0.00", () => {
   const direction = overnightDirection(0.000001, 0.0001);

@@ -5,7 +5,7 @@ import {
   type OvernightCurrentPriceResponse, type PositionsResponse,
 } from "../api";
 import { formatUsd } from "../format";
-import { overnightDirection, overnightDollarText, overnightGapText } from "../overnightDisplay";
+import { overnightDirection, overnightDollarText, overnightGapText, overnightQuoteStatus } from "../overnightDisplay";
 import { OVERNIGHT_FEATURE_DESCRIPTIONS, OVERNIGHT_FEATURE_GROUPS } from "../overnightFeatures";
 import { expireQuotePrefill, isFreshCashSessionQuote, isWithinQuoteSession, type AssumedCloseInput } from "../session";
 import { useFetchData } from "../useFetchData";
@@ -22,6 +22,9 @@ function quotePrice(value: number): string {
 const easternTradeTime = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/New_York", year: "numeric", month: "short", day: "numeric",
   hour: "numeric", minute: "2-digit", second: "2-digit", timeZoneName: "short",
+});
+const easternShortTime = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York", hour: "numeric", minute: "2-digit",
 });
 
 function isFreshQuote(quote: OvernightCurrentPriceResponse, now: number): boolean {
@@ -232,11 +235,8 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
   const openByTicker = new Map<string, number>();
   for (const position of open) openByTicker.set(position.ticker, (openByTicker.get(position.ticker) ?? 0) + position.shares);
   const quoteIsFresh = quote !== null && quote.ticker === ticker.trim().toUpperCase() && isFreshQuote(quote, now);
-  const quoteStatus = quoteIsFresh
-    ? "Fresh for use as an editable assumption"
-    : quote !== null && isWithinQuoteSession(quote, now)
-      ? "Stale quote; refresh before using this price"
-      : "Outside regular cash hours; enter a price manually";
+  const quoteStatus = overnightQuoteStatus(quoteIsFresh, quote !== null && isWithinQuoteSession(quote, now));
+  const quoteObservedAt = quote && Number.isFinite(Date.parse(quote.observed_at)) ? new Date(quote.observed_at) : null;
 
   function refreshQuote() {
     quoteRequestRef.current += 1;
@@ -354,11 +354,17 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
           <label><span>Shares <small className="overnight-optional">optional</small></span><input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={shares} onChange={(event) => { setShares(event.target.value); invalidateForecast(); }} placeholder="Per-share" /></label>
           <button className="btn-primary" type="submit" disabled={busy || !model?.available || !model.serving_inputs_pinned}>{busy ? "Checking…" : "Estimate open"}</button>
         </div>
-        {(quoteBusy || quote || quoteError) && <p className="overnight-quote-status" role="status">
-          {quoteBusy ? "Checking latest trade…" : quote
-            ? `Massive last trade ${quotePrice(quote.price)} · ${Number.isFinite(Date.parse(quote.observed_at)) ? easternTradeTime.format(new Date(quote.observed_at)) : "time unavailable"} · ${quoteStatus}`
-            : `No fresh trade: ${quoteError}. Enter a price manually.`}
-        </p>}
+        {(quoteBusy || quote || quoteError) && <div className="overnight-quote-line">
+          <span className="overnight-quote-status" role="status">
+            {quoteBusy ? "Checking latest trade…" : quote
+              ? `Last ${quotePrice(quote.price)} · ${quoteObservedAt ? `${easternShortTime.format(quoteObservedAt)} ET` : "time unavailable"} · ${quoteStatus}`
+              : `No fresh trade: ${quoteError}. Enter a price manually.`}
+          </span>
+          {quote && <details className="overnight-quote-source">
+            <summary>Source</summary>
+            <p>Massive last trade · {quoteObservedAt ? easternTradeTime.format(quoteObservedAt) : "time unavailable"}. This is an editable closing-price assumption, not the official close.</p>
+          </details>}
+        </div>}
         <details className="overnight-costs"><summary>Adjust sensitivity & costs</summary><div>
           <label>Sensitivity step<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => { setStep(event.target.value); invalidateForecast(); }} placeholder="Default 0.5%" /></label>
           <button className="overnight-nickel" type="button" onClick={() => { setStep("0.05"); invalidateForecast(); }}>Use $0.05</button>

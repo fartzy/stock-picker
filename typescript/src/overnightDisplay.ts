@@ -1,5 +1,10 @@
 export type OvernightDirection = "up" | "down" | "flat";
 
+export function overnightQuoteStatus(fresh: boolean, withinCashSession: boolean): string {
+  if (fresh) return "Fresh";
+  return withinCashSession ? "Stale — refresh before use" : "Outside regular hours — enter a price manually";
+}
+
 // The headline shows cents and hundredths of a percent. A smaller move should
 // not appear as "Up +0.00%" beside an unchanged-looking price.
 export function overnightDirection(predictedGap: number, differencePerShare: number): OvernightDirection {
