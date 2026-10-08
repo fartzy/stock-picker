@@ -97,11 +97,13 @@ export function NewsCell({
   blocks,
   checked,
   check,
+  skipLabel = "skip",
 }: {
   flag?: string | null;
   blocks?: boolean;
   checked?: boolean | null;
   check?: NewsCheckDetails | null;
+  skipLabel?: string;
 }) {
   const coverage = newsCheckPresentation(check, checked, flag);
   const hold = blocks && !flag;
@@ -109,7 +111,7 @@ export function NewsCell({
     <span className="news-check" title={coverage.detail}>
       {flag && (
         <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
-          {blocks ? "skip" : "still buy"} · {flag}
+          {blocks ? skipLabel : "still buy"} · {flag}
         </span>
       )}
       {hold && <span className="news-check-warning">hold · {coverage.label || "news review incomplete"}</span>}

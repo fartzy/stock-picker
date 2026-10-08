@@ -153,6 +153,90 @@ test("completed news holds contribute to totals while hard skips do not", () => 
   assert.deepEqual(benchmarkDates(result, "rank"), ["2026-09-29"]);
 });
 
+test("news skips stay on by default; switching them off scores only priced saved picks inside top K", () => {
+  const flagged = { news_blocks: true, news_flag: "corporate action" };
+  const data = book([day("2026-09-29", [
+    pick(0.1, { ...flagged, close_price: 110 }),
+    pick(null, { ...flagged, rank: 2, close_price: null }),
+    pick(0.5, { ...flagged, rank: 3, close_price: 150 }),
+  ])]);
+  const normal = simulateBook(data, options);
+  const included = simulateBook(data, { ...options, applyNewsSkips: false });
+  assert.deepEqual(normal.days[0].rank.map((row) => row.hypothetical.status), ["skipped", "skipped"]);
+  assert.deepEqual(included.days[0].rank.map((row) => row.hypothetical.status), ["scored", "pending"]);
+  assert.deepEqual(included.rank_money, { pnl: 1_000, invested: 10_000, endingValue: 11_000, completed: 1, pending: 1 });
+  assert.equal(included.rank_stats.n_scored, 1);
+  assert.equal(included.rank_stats.n_avoid, 0);
+  assert.equal(included.days[0].rank.length, 2); // No backfill from rank 3.
+  assert.equal(data.days[0].rank[0].hypothetical, undefined);
+  assert.equal(simulatePick(pick(0.1, { ...flagged }), 10_000, false).status, "pending"); // Missing close.
+  assert.equal(simulatePick(pick(0.1, { ...flagged, open_price: null, close_price: 110 }), 10_000, false).status, "pending");
+  assert.equal(simulatePick(pick(null, { ...flagged, close_price: 110 }), 10_000, false).status, "pending");
+});
+
+test("news toggle reconciles Rank/Fit pick, day, period, stats, benchmark and overnight totals", () => {
+  const flagged = { news_blocks: true, news_flag: "corporate action" };
+  const data = book([
+    day("2026-09-29", [
+      pick(0.1, { ...flagged, close_price: 110 }),
+      pick(-0.02, { rank: 2, news_blocks: true, news_flag: null, close_price: 98 }),
+      pick(0.5, { rank: 3, close_price: 150 }),
+    ], [pick(-0.05, { ...flagged, close_price: 95 })]),
+    day("2026-09-28", [pick(0.02, { close_price: 102 })], [pick(0.01, { close_price: 101 })]),
+  ]);
+  const sized = { ...options, tradeSizes: { rank: 10_000, fit: 5_000 } };
+  const normal = simulateBook(data, sized);
+  const included = simulateBook(data, { ...sized, applyNewsSkips: false });
+  assert.equal(normal.days[0].rank_money.pnl, -200);
+  assert.equal(included.days[0].rank_money.pnl, 800);
+  assert.equal(included.days[0].fit_money.pnl, -250);
+  assert.deepEqual(included.rank_money, { pnl: 1_000, invested: 30_000, endingValue: 31_000, completed: 3, pending: 0 });
+  assert.deepEqual(included.fit_money, { pnl: -200, invested: 10_000, endingValue: 9_800, completed: 2, pending: 0 });
+  assert.equal(included.rank_stats.n_scored, 3);
+  assert.equal(included.rank_stats.n_avoid, 0);
+  assert.ok(Math.abs(included.rank_stats.avg - (0.1 / 3)) < 1e-12);
+  assert.equal(included.rank_stats.avg_ex_news, 0);
+  assert.ok(Math.abs(included.rank_compound - 0.0608) < 1e-12);
+  assert.equal(included.rank_days, 2);
+  assert.equal(included.fit_days, 2);
+  assert.deepEqual(benchmarkDates(normal, "fit"), ["2026-09-28"]);
+  assert.deepEqual(benchmarkDates(included, "fit"), ["2026-09-28", "2026-09-29"]);
+  const spy = { returns: { "2026-09-28": 0.01, "2026-09-29": 0.02 },
+    hold: { start: "2026-09-28", end: "2026-09-29", pct: 0.03 } };
+  assert.deepEqual(compareStrategyToBenchmark(included, "rank", spy).intraday, { pnl: 500, pct: 500 / 30_000 });
+  assert.deepEqual(compareStrategyToBenchmark(included, "fit", spy).intraday, { pnl: 150, pct: 0.015 });
+  assert.equal(compareStrategyToBenchmark(included, "fit", spy).holdCapital, 5_000);
+  const actual = { status: "observed", verified_close: 110, next_open: 111 };
+  const skippedHold = simulateOvernightHold(normal.days[0].rank[0], actual, 10_000, 0.5);
+  const includedHold = simulateOvernightHold(included.days[0].rank[0], actual, 10_000, 0.5);
+  const heldActual = { status: "observed", verified_close: 98, next_open: 99 };
+  const normalBasket = [skippedHold, simulateOvernightHold(normal.days[0].rank[1], heldActual, 10_000, 0.5)];
+  const includedBasket = [includedHold, simulateOvernightHold(included.days[0].rank[1], heldActual, 10_000, 0.5)];
+  assert.equal(skippedHold.includedInTotals, false);
+  assert.equal(includedHold.includedInTotals, true);
+  assert.deepEqual(summarizeOvernightHold(normalBasket, normal.days[0].rank_money.pnl), {
+    included: 1, observed: 1, incrementalPnl: 50, scenarioPnl: -150,
+  });
+  assert.deepEqual(summarizeOvernightHold(includedBasket, included.days[0].rank_money.pnl), {
+    included: 2, observed: 2, incrementalPnl: 100, scenarioPnl: 900,
+  });
+});
+
+test("news toggle scores replay rows in their own card without adding them to live period totals", () => {
+  const flagged = { news_blocks: true, news_flag: "corporate action", close_price: 140 };
+  const data = book([
+    day("2026-09-29", [pick(0.01, { close_price: 101 })]),
+    day("2026-09-29", [pick(0.4, flagged)], [], { scan_id: "replay-1" }),
+  ]);
+  const normal = simulateBook(data, options);
+  const included = simulateBook(data, { ...options, applyNewsSkips: false });
+  assert.equal(normal.days[1].rank_money.pnl, null);
+  assert.equal(included.days[1].rank_money.pnl, 4_000);
+  assert.equal(included.rank_money.pnl, 100);
+  assert.equal(included.rank_stats.n_scored, 1);
+  assert.deepEqual(benchmarkDates(included, "rank"), ["2026-09-29"]);
+});
+
 test("line-item cents reconcile with day and period totals", () => {
   const result = simulateBook(book([
     day("2026-09-29", [pick(0.0000014), pick(0.0000014, { rank: 2 })]),

@@ -57,13 +57,13 @@ function Dollars({ value }: { value: number | null }) {
 
 function PickMoney({ outcome, ending = false }: { outcome: PickOutcome; ending?: boolean }) {
   if (ending) {
-    if (outcome.endingValue === null) return <span className="muted">Awaiting close</span>;
+    if (outcome.endingValue === null) return <span className="muted">Awaiting prices</span>;
     return <span title={outcome.status === "skipped" ? "Hypothetical value; excluded from strategy totals" : undefined}>
       <UsdCell value={outcome.endingValue} />
     </span>;
   }
   if (outcome.status === "skipped") return <span className="muted">Skipped</span>;
-  if (outcome.status === "pending") return <span className="muted">Awaiting close</span>;
+  if (outcome.status === "pending") return <span className="muted">Awaiting prices</span>;
   return <Dollars value={outcome.pnl} />;
 }
 
@@ -72,7 +72,7 @@ function moneyItems(money: MoneySummary): StatItem[] {
     { key: "capital", label: "Completed capital", value: formatUsd(money.invested) },
     { key: "pnl", label: "P&L", value: <Dollars value={money.pnl} /> },
     { key: "ending", label: "End value", value: <UsdCell value={money.endingValue} /> },
-    ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
+    ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting prices` }] : []),
   ];
 }
 
@@ -85,7 +85,7 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
     ...(hit ? [{ key: "hit", label: "Hit", value: hit }] : []),
     { key: "avg", label: "Avg", value: <Pct value={stats.avg} /> },
     ...(stats.n_avoid
-      ? [{ key: "skipped", label: "Skipped", value: `${stats.n_avoid} gap-down news` }]
+      ? [{ key: "skipped", label: "Skipped", value: `${stats.n_avoid} news skips` }]
       : []),
   ];
 }
@@ -135,7 +135,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
         <StatStrip items={[
           { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
           ...statsItems(stats),
-          ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
+          ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting prices` }] : []),
         ]} />
       </p>
       <div className="what-if-benchmark" aria-label={`${title} S&P comparisons`}>
@@ -217,7 +217,12 @@ function ListTable({
               cell: (row) => <PickMoney outcome={row.hypothetical} /> },
             { key: "ending", header: "End value", numeric: true,
               cell: (row) => <PickMoney outcome={row.hypothetical} ending /> },
-            { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} check={row.news_check} /> },
+            { key: "news", header: "Saved news check", cell: (row) => <>
+              <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked}
+                check={row.news_check} skipLabel="saved skip" />
+              {row.news_blocks && row.news_flag && row.hypothetical.status === "scored"
+                && <small className="what-if-news-included">Included here</small>}
+            </> },
           ]}
         />
       </div>
@@ -380,6 +385,7 @@ export default function WhatIf() {
   const [fitText, setFitText] = useState("5");
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
+  const [applyNewsSkips, setApplyNewsSkips] = useState(true);
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
   const [rebuildError, setRebuildError] = useState<string | null>(null);
@@ -394,7 +400,7 @@ export default function WhatIf() {
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
   const data = raw ? simulateBook(raw, {
-    kind, fitTopK: fitAsked, rankTopK: rankAsked, tradeSizes, lookbackDays, asOf: simulationDay(),
+    kind, fitTopK: fitAsked, rankTopK: rankAsked, applyNewsSkips, tradeSizes, lookbackDays, asOf: simulationDay(),
   }) : null;
   const rankDates = data && rankOn ? benchmarkDates(data, "rank") : [];
   const fitDates = data && fitOn ? benchmarkDates(data, "fit") : [];
@@ -425,6 +431,11 @@ export default function WhatIf() {
           onChange={(event) => setLookbackDays(LOOKBACK_OPTIONS.find((option) => String(option.days ?? "all") === event.target.value)?.days ?? null)}>
           {LOOKBACK_OPTIONS.map((option) => <option key={option.label} value={option.days ?? "all"}>{option.label}</option>)}
         </select>
+        <label className="what-if-news-toggle" title="Turn off to include priced picks skipped by saved news checks in hypothetical results.">
+          <input type="checkbox" checked={applyNewsSkips}
+            onChange={(event) => setApplyNewsSkips(event.target.checked)} />
+          <span>Apply news skips</span>
+        </label>
         <button
           type="button"
           className="icon-btn"
@@ -451,6 +462,7 @@ export default function WhatIf() {
           <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
           <div className="what-if-help-body">
             <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
+            <p>Turn off news skips to include priced picks from the original Rank/Fit lists in hypothetical totals. Missing prices stay pending; saved news checks and live decisions stay the same.</p>
             <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
           </div>
         </details>
