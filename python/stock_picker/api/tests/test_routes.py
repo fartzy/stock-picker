@@ -9,9 +9,12 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.trades import position_summaries
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.fee_store import Fee, FeeStore
+from stock_picker.storage.trade_store import TradeStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
@@ -157,6 +160,7 @@ def client(tmp_path):
                 "shares": trade.shares,
                 "price": trade.price,
                 "executed_at": trade.executed_at,
+                "manual_fee": trade.manual_fee,
             }
         )
 
@@ -648,6 +652,69 @@ def test_create_trade_uses_the_supplied_executed_at(client):
     assert response.status_code == status.HTTP_200_OK
     fly = next(t for t in response.json()["trades"] if t["ticker"] == "FLY")
     assert fly["executed_at"].startswith("2026-09-11T09:40:00")
+
+
+def test_create_trade_records_optional_fee_on_its_fill(client):
+    with patch("stock_picker.api.routes.FeeStore") as fee_store:
+        response = client.post(
+            "/api/trades",
+            json={
+                "ticker": "FLY",
+                "side": "sell",
+                "shares": 3,
+                "price": 10,
+                "fee": 0.17,
+                "executed_at": "2026-10-07T22:30:00-07:00",
+            },
+        )
+
+    assert response.status_code == status.HTTP_200_OK
+    recorded = next(t for t in response.json()["trades"] if t["ticker"] == "FLY")
+    assert recorded["manual_fee"] == 0.17
+    fee_store.return_value.append.assert_not_called()
+
+
+@pytest.mark.parametrize("fee", [-0.01, "NaN", "Infinity"])
+def test_create_trade_rejects_invalid_fee(client, fee):
+    with patch("stock_picker.api.routes.FeeStore") as fee_store:
+        response = client.post(
+            "/api/trades",
+            json={"ticker": "FLY", "side": "buy", "shares": 3, "price": 10, "fee": fee},
+        )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    fee_store.return_value.append.assert_not_called()
+
+
+def test_real_trade_api_persists_manual_fees_without_rewriting_legacy_fees(tmp_path):
+    store = TradeStore(data_dir=tmp_path / "trades")
+    legacy = FeeStore(data_dir=tmp_path / "fees")
+    legacy.append(Fee("AAA", "2026-09-05", "sell", 0.4, "Brokerage ticket"))
+    with (
+        patch("stock_picker.api.routes.TradeStore", lambda: store),
+        patch("stock_picker.features.trades.TradeStore", lambda: store),
+        patch("stock_picker.api.routes.FeeStore", lambda: legacy),
+        patch("stock_picker.api.routes.apply_hold_to_close", lambda positions, **_: positions),
+    ):
+        real_client = TestClient(app)
+        buy = {"ticker": "AAA", "side": "buy", "shares": 10, "price": 10,
+               "fee": 1.0, "executed_at": "2026-09-04T10:00:00-04:00"}
+        sell = {"ticker": "AAA", "side": "sell", "shares": 10, "price": 12,
+                "fee": 0.2, "executed_at": "2026-09-05T10:00:00-04:00"}
+        assert real_client.post("/api/trades", json=buy).status_code == 200
+        assert real_client.post("/api/trades", json=sell).status_code == 200
+        assert real_client.post("/api/trades", json=sell).status_code == 200
+        conflict = real_client.post("/api/trades", json={**sell, "fee": 0.3})
+        assert conflict.status_code == status.HTTP_409_CONFLICT
+        assert [fee["amount"] for fee in real_client.get("/api/fees").json()["fees"]] == [0.4]
+        position = real_client.get("/api/positions").json()["positions"][0]
+        assert position["manual_fee"] == pytest.approx(1.2)
+
+    assert len(store.read()) == 2
+    closed = position_summaries(store.read(), {})[0]
+    assert closed["pnl"] == 20.0
+    assert closed["manual_fee"] == pytest.approx(1.2)
+    assert closed["pnl"] - closed["manual_fee"] - legacy.read()[0].amount == pytest.approx(18.4)
 
 
 def test_get_quotes(client):

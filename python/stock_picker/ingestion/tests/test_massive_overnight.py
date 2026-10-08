@@ -1,6 +1,7 @@
 """Provider responses must prove raw basis and complete action screening."""
 
 from datetime import date, datetime, timedelta
+from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -11,6 +12,7 @@ from stock_picker.ingestion.massive_overnight import (
     MassiveOvernightError,
     parse_action_page,
     parse_current_snapshot,
+    parse_current_trade,
     parse_daily_bar_page,
 )
 
@@ -60,6 +62,24 @@ def test_current_open_requires_session_dated_snapshot_and_completed_action_check
     assert observed.corporate_action == "verified_none"
     assert fake.calls[0][0].endswith("/v2/snapshot/locale/us/markets/stocks/tickers/AAPL")
     assert fake.calls[1][1]["execution_date.gte"] == START.isoformat()
+
+
+def test_current_trade_uses_one_snapshot_and_preserves_trade_timestamp():
+    fake = FakeSession([FakeResponse(snapshot())])
+    observed = MassiveOvernightClient("test-key", session=fake).fetch_current_trade("AAPL", START)
+    assert observed.price == 10.2
+    assert observed.observed_at.date() == START
+    assert len(fake.calls) == 1
+
+
+@pytest.mark.parametrize("payload", [
+    snapshot(END), snapshot(ticker="MSFT"),
+    {**snapshot(), "ticker": {**snapshot()["ticker"], "lastTrade": {"p": 10.2}}},
+    {**snapshot(), "ticker": {**snapshot()["ticker"], "lastTrade": {"p": 0, "t": snapshot()["ticker"]["lastTrade"]["t"]}}},
+])
+def test_current_trade_rejects_wrong_session_ticker_or_missing_trade(payload):
+    with pytest.raises(MassiveOvernightError):
+        parse_current_trade(payload, "AAPL", START)
 
 
 @pytest.mark.parametrize("payload", [
@@ -179,10 +199,12 @@ def test_more_restrictive_action_coverage_is_enforced():
 
 
 def test_current_session_is_not_certified_as_complete():
-    today = datetime.now(ZoneInfo("America/New_York")).date()
+    now = datetime(2026, 10, 6, 12, tzinfo=ZoneInfo("America/New_York"))
     session = FakeSession([])
-    with pytest.raises(MassiveOvernightError, match="completed historical"):
-        MassiveOvernightClient("test-key", session=session).fetch("AAPL", today, today)
+    with patch("stock_picker.ingestion.massive_overnight.datetime", wraps=datetime) as clock:
+        clock.now.return_value = now
+        with pytest.raises(MassiveOvernightError, match="completed historical"):
+            MassiveOvernightClient("test-key", session=session).fetch("AAPL", now.date(), now.date())
     assert not session.calls
 
 

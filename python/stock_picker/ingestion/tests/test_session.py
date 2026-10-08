@@ -5,6 +5,8 @@ import pandas as pd
 
 from stock_picker.ingestion.session import (
     cash_session_has_ended,
+    cash_session_is_open,
+    cash_session_window,
     cash_session_date,
     completed_sessions,
     last_completed_session_date,
@@ -39,6 +41,26 @@ def test_display_close_starts_at_bell_without_advancing_training_cutoff():
     assert cash_session_has_ended(before) is False
     assert cash_session_has_ended(at_bell) is True
     assert session_has_closed(at_bell) is False
+
+
+def test_cash_session_open_uses_weekday_eastern_open_and_close_boundaries():
+    assert cash_session_is_open(datetime(2026, 10, 6, 9, 29, tzinfo=ET)) is False
+    assert cash_session_is_open(datetime(2026, 10, 6, 9, 30, tzinfo=ET)) is True
+    assert cash_session_is_open(datetime(2026, 10, 6, 15, 55, tzinfo=ET)) is True
+    assert cash_session_is_open(datetime(2026, 10, 6, 16, 0, tzinfo=ET)) is False
+    assert cash_session_is_open(datetime(2026, 10, 6, 16, 5, tzinfo=ET)) is False
+    assert cash_session_is_open(datetime(2026, 10, 10, 15, 55, tzinfo=ET)) is False
+
+
+def test_xnys_early_close_and_holiday_boundaries():
+    early = datetime(2026, 11, 27, 12, 55, tzinfo=ET)
+    window = cash_session_window(early)
+    assert window is not None
+    assert window.close_at.astimezone(ET) == datetime(2026, 11, 27, 13, 0, tzinfo=ET)
+    assert cash_session_is_open(early) is True
+    assert cash_session_is_open(datetime(2026, 11, 27, 13, 0, tzinfo=ET)) is False
+    assert cash_session_is_open(datetime(2026, 11, 27, 13, 5, tzinfo=ET)) is False
+    assert cash_session_window(datetime(2026, 11, 26, 12, 0, tzinfo=ET)) is None
 
 
 def test_before_the_bell_uses_the_previous_weekday():

@@ -7,9 +7,11 @@ Features and training must stop at the last *finished* session -- after
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
+import exchange_calendars as xcals
 import pandas as pd
 
 US_EASTERN = ZoneInfo("America/New_York")
@@ -19,6 +21,14 @@ CHICAGO_TIMEZONE = ZoneInfo("America/Chicago")
 # after the bell -- well past this settle.
 SESSION_CLOSE_HOUR = 16
 SESSION_CLOSE_SETTLE_MINUTES = 15
+
+@dataclass(frozen=True)
+class CashSessionWindow:
+    open_at: datetime
+    close_at: datetime
+
+    def contains(self, instant: datetime) -> bool:
+        return self.open_at <= instant < self.close_at
 
 
 def _eastern(now: datetime | None = None) -> datetime:
@@ -52,6 +62,24 @@ def cash_session_has_ended(now: datetime | None = None) -> bool:
     """
     clock = _eastern(now)
     return clock.date().weekday() >= 5 or clock.time() >= time(SESSION_CLOSE_HOUR)
+
+
+def cash_session_window(now: datetime | None = None) -> CashSessionWindow | None:
+    """XNYS regular-session bounds for the Eastern date, including early closes."""
+    clock = _eastern(now)
+    calendar = xcals.get_calendar("XNYS")
+    session = clock.date().isoformat()
+    if not calendar.is_session(session):
+        return None
+    opened, closed = calendar.session_open_close(session)
+    return CashSessionWindow(opened.to_pydatetime(), closed.to_pydatetime())
+
+
+def cash_session_is_open(now: datetime | None = None) -> bool:
+    """True only inside today's XNYS regular session."""
+    clock = _eastern(now)
+    window = cash_session_window(clock)
+    return window is not None and window.contains(clock)
 
 
 def last_completed_session_date(now: datetime | None = None) -> date:

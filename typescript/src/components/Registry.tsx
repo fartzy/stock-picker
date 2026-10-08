@@ -38,6 +38,7 @@ import {
   selectableFeatureNames,
 } from "../modelDerivedRegistry";
 import { useFetchData } from "../useFetchData";
+import { FeatureCategory, FeatureRow } from "./FeaturePresentation";
 
 // Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
 // poll rather than fetch-once so a prune made there shows up here too, same
@@ -522,15 +523,13 @@ export default function Registry({
           return !pruned.has(f) && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
         }).length;
         return (
-        <details
-          className="view-card registry-category"
+        <FeatureCategory
+          title={view.name}
           key={view.name}
-          ref={(el) => {
+          categoryRef={(el) => {
             if (el) detailsRefs.current.set(view.name, el);
           }}
-        >
-          <summary>
-            <strong style={{ color: "var(--accent)" }}>{view.name}</strong>
+          summaryExtra={<>
             {viewPrunedCount > 0 && (
               <span className="category-tally category-tally-pruned">{viewPrunedCount} pruned</span>
             )}
@@ -540,8 +539,8 @@ export default function Registry({
               </span>
             )}
             <MetaGrid view={view} />
-          </summary>
-          <div className="view-features">
+          </>}
+        >
             {sortFeatures(view.features, sortMode, sortDirection, coverageByFeature, importance.importance).map((feature) => {
               const pct = coverageByFeature[feature];
               const imp = importance.importance[feature];
@@ -552,39 +551,28 @@ export default function Registry({
               const isSelected = included === null || included.has(feature);
               const isExpanded = expandedFeatures.has(feature);
               return (
-                <div
-                  className={`feature-row row-hover${feature === highlightedFeature ? " feature-row-highlight" : ""}`}
+                <FeatureRow
                   key={feature}
-                  ref={(el) => {
+                  name={feature}
+                  expanded={isExpanded}
+                  onToggle={() => toggleExpanded(feature)}
+                  highlighted={feature === highlightedFeature}
+                  pruned={isPruned}
+                  rowRef={(el) => {
                     if (el) rowRefs.current.set(feature, el);
                   }}
-                >
-                  <div className="feature-row-header">
-                    <span>
+                  leading={<>
                       <input
                         type="checkbox"
                         checked={isSelected}
                         disabled={selectionPending}
                         onChange={() => void toggleSelected(feature)}
                         title="Include this feature in the next training run"
-                      />{" "}
-                      <button
-                        type="button"
-                        className="feature-row-toggle"
-                        onClick={() => toggleExpanded(feature)}
-                        title={isExpanded ? "Hide description and formula" : "Show description and formula"}
-                      >
-                        {isExpanded ? "▾" : "▸"}
-                      </button>{" "}
-                      <span style={{ color: coverageColor(pct) }}>&#9679;</span>{" "}
-                      <span
-                        className={isPruned ? "pruned-feature feature-name" : "feature-name"}
-                        onClick={() => toggleExpanded(feature)}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        {feature}
-                      </span>{" "}
+                        aria-label={`Include ${feature} in the next training run`}
+                      />
+                      <span style={{ color: coverageColor(pct) }} aria-hidden="true">&#9679;</span>
+                  </>}
+                  actions={<>
                       {isPruned && (
                         <button
                           type="button"
@@ -630,8 +618,8 @@ export default function Registry({
                           prune
                         </button>
                       )}
-                    </span>
-                    <span className="feature-stats">
+                  </>}
+                  stats={<>
                       <span title="Non-null coverage across the universe">
                         {pct !== undefined ? `${Math.round(pct * 100)}% coverage` : "design-only"}
                       </span>
@@ -656,22 +644,17 @@ export default function Registry({
                           />
                         </span>
                       )}
-                    </span>
+                  </>}
+                >
+                  <div className="feature-desc">{catalog.descriptions[feature]}</div>
+                  <div className="feature-example">
+                    <span className="feature-example-label">e.g.</span> {catalog.examples[feature]}
                   </div>
-                  {isExpanded && (
-                    <>
-                      <div className="feature-desc">{catalog.descriptions[feature]}</div>
-                      <div className="feature-example">
-                        <span className="feature-example-label">e.g.</span> {catalog.examples[feature]}
-                      </div>
-                      <code className="feature-formula">{catalog.formulas[feature]}</code>
-                    </>
-                  )}
-                </div>
+                  <code className="feature-formula">{catalog.formulas[feature]}</code>
+                </FeatureRow>
               );
             })}
-          </div>
-        </details>
+        </FeatureCategory>
         );
       })}
       {modelDerivedRegistrySections(registry, catalog).map(({ view, features }) => (

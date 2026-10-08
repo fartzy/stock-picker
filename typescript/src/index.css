@@ -220,6 +220,22 @@ section + section {
   text-decoration: underline;
 }
 
+.feature-name-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.feature-name-button:focus-visible,
+.feature-row-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Plain-text disclosure chevron toggling a row's description/formula --
    same "no button chrome, ~97 of these on screen" reasoning as .prune-toggle. */
 .feature-row-toggle {
@@ -349,6 +365,14 @@ section + section {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+}
+
+.feature-row-main {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  min-width: 0;
 }
 
 .feature-stats {
@@ -1688,6 +1712,14 @@ details.view-card[open] > summary::before {
 .overnight-form-primary { display: grid; grid-template-columns: minmax(115px, .8fr) minmax(200px, 1.4fr) minmax(110px, .8fr) auto; gap: var(--space-3); align-items: end; }
 .overnight-form label,
 .overnight-costs label { display: grid; gap: var(--space-1); font-size: var(--text-caption); color: var(--text-muted); }
+.overnight-price-field { display: grid; gap: var(--space-1); min-width: 0; }
+.overnight-price-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-muted); }
+.overnight-price-actions { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
+.overnight-price-head button { border: 0; background: transparent; color: var(--accent); font: inherit; font-size: var(--text-caption); cursor: pointer; padding: 0; white-space: nowrap; }
+.overnight-price-head button:hover { text-decoration: underline; }
+.overnight-price-head button:disabled { color: var(--text-muted); cursor: default; text-decoration: none; }
+.overnight-price-field .form-input { width: 100%; }
+.overnight-quote-status { margin: 0; color: var(--text-muted); font-size: var(--text-caption); }
 .overnight-optional { display: inline; font-size: var(--text-micro); }
 .overnight-form .form-input { width: 100%; }
 .overnight-form-primary > button { min-height: 40px; white-space: nowrap; }
@@ -1698,8 +1730,8 @@ details.view-card[open] > summary::before {
 .overnight-costs > div { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3); margin-top: var(--space-2); padding: var(--space-3); background: var(--surface-raised); border-radius: 7px; }
 .overnight-costs label { min-width: 160px; flex: 1 1 160px; }
 .overnight-costs .overnight-nickel { align-self: end; min-height: 40px; }
-.overnight-quick-dialog { width: min(680px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto 16px auto auto; border: 1px solid var(--accent); border-radius: 14px; padding: 0; background: var(--surface); color: var(--text); box-shadow: 0 28px 80px #0009; overflow-y: auto; }
-.overnight-quick-dialog::backdrop { background: #050714b8; backdrop-filter: blur(3px); }
+.overnight-quick-dialog { width: min(680px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; border: 1px solid var(--accent); border-radius: 14px; padding: 0; background: var(--surface); color: var(--text); box-shadow: 0 28px 80px #0009; overflow-y: auto; }
+.overnight-quick-dialog::backdrop { background: transparent; }
 .overnight-quick-inner { display: grid; gap: var(--space-4); padding: var(--space-6); }
 .overnight-quick-head { display: flex; justify-content: space-between; align-items: start; gap: var(--space-3); border-bottom: 1px solid var(--line); padding-bottom: var(--space-3); }
 .overnight-quick-head span { color: var(--accent); font-size: var(--text-caption); }
@@ -1728,6 +1760,7 @@ details.view-card[open] > summary::before {
 .overnight-case { border-top: 1px solid var(--line); padding: var(--space-2) 0; flex-wrap: wrap; }
 .overnight-feature-snapshot,
 .overnight-registry { margin: var(--space-4) 0; padding: var(--space-4); }
+.overnight-feature-category { margin: var(--space-2) 0 0; }
 .overnight-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2); }
 .overnight-feature-row { flex-direction: column; border-top: 1px solid var(--line); padding: var(--space-2); }
 .overnight-feature-row code { color: var(--accent); overflow-wrap: anywhere; }

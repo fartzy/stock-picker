@@ -25,6 +25,7 @@ class TradeCreate(BaseModel):
     side: Literal["buy", "sell"]
     shares: float
     price: float
+    fee: float | None = Field(default=None, ge=0, allow_inf_nan=False)
     # ISO 8601 with offset. None = stamp as now (the old form behavior).
     executed_at: str | None = None
 
@@ -107,6 +108,7 @@ class Trade(BaseModel):
     executed_at: str
     # None for a "buy" row -- only a closing "sell" has a realized P&L.
     realized_pnl: float | None = None
+    manual_fee: float = 0.0
 
 
 class TradesResponse(BaseModel):
@@ -129,6 +131,8 @@ class Position(BaseModel):
     current_price: float | None
     closed: bool
     pnl: float | None
+    # Fill-linked fees allocated to this position; legacy JSON fees remain separate.
+    manual_fee: float = 0.0
     # 8:40 AM CT Open -> 2:55 PM CT Close on the buy's session. None if
     # the session is still in progress or PriceStore has no bar that day.
     # P&L also stays None when no original buys qualify for the comparison.
@@ -339,6 +343,16 @@ class OvernightForecastResponse(BaseModel):
     model_label_observed_on: date
     model_feature_version: str
     evaluated_rows: int
+
+
+class OvernightCurrentPriceResponse(BaseModel):
+    ticker: str
+    price: float
+    observed_at: datetime
+    fetched_at: datetime
+    session_open_at: datetime
+    session_close_at: datetime
+    source: Literal["massive_last_trade"] = "massive_last_trade"
 
 
 class FeatureValuesResponse(BaseModel):

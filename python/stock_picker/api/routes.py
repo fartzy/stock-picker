@@ -5,7 +5,7 @@ wraps an already-tested pure function from `features/`. No new business logic.
 from __future__ import annotations
 
 from dataclasses import asdict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import Literal
 from zoneinfo import ZoneInfo
 
@@ -35,6 +35,7 @@ from stock_picker.api.models import (
     ModelTypesResponse,
     OvernightForecastRequest,
     OvernightForecastResponse,
+    OvernightCurrentPriceResponse,
     OvernightModelResponse,
     OvernightActualsRequest,
     OvernightActualsResponse,
@@ -100,9 +101,10 @@ from stock_picker.features.trades import (
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
-from stock_picker.ingestion.massive_overnight import MassiveOvernightError, TICKER_PATTERN
+from stock_picker.ingestion.massive_overnight import MassiveOvernightClient, MassiveOvernightError, TICKER_PATTERN
+from stock_picker.ingestion.session import cash_session_window
 from stock_picker.storage.fee_store import FeeStore
-from stock_picker.storage.trade_store import Trade, TradeStore
+from stock_picker.storage.trade_store import ConflictingTradeFeeError, Trade, TradeStore
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
@@ -132,6 +134,35 @@ def get_overnight_model() -> OvernightModelResponse:
     store = ModelStore()
     model = store.read(OVERNIGHT_MODEL_NAME) if store.exists(OVERNIGHT_MODEL_NAME) else None
     return OvernightModelResponse(**model_summary(model))
+
+
+@router.get("/overnight/current-price")
+def get_overnight_current_price(ticker: str) -> OvernightCurrentPriceResponse:
+    """A fresh, timestamped trade for an editable assumed-close prefill."""
+    name = ticker.strip().upper()
+    if not TICKER_PATTERN.fullmatch(name):
+        raise HTTPException(status_code=422, detail="invalid ticker")
+    now = datetime.now(ZoneInfo("America/New_York"))
+    try:
+        window = cash_session_window(now)
+    except (LookupError, RuntimeError, TypeError, ValueError, OverflowError) as exc:
+        raise HTTPException(status_code=503, detail="Exchange session calendar is unavailable; enter an assumed close manually") from exc
+    if window is None or not window.contains(now):
+        raise HTTPException(status_code=503, detail="Current price is available only during regular exchange hours; enter an assumed close manually")
+    session = now.date()
+    try:
+        trade = MassiveOvernightClient().fetch_current_trade(name, session)
+    except MassiveOvernightError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    if not window.contains(datetime.now(ZoneInfo("America/New_York"))) or not window.contains(trade.observed_at):
+        raise HTTPException(status_code=503, detail="No regular-session trade is available; enter an assumed close manually")
+    if trade.observed_at > trade.fetched_at + timedelta(seconds=5) or trade.fetched_at - trade.observed_at > timedelta(minutes=5):
+        raise HTTPException(status_code=503, detail="No trade in the last five minutes; enter an assumed close manually")
+    return OvernightCurrentPriceResponse(
+        ticker=name, price=trade.price, observed_at=trade.observed_at,
+        fetched_at=trade.fetched_at, session_open_at=window.open_at,
+        session_close_at=window.close_at, source="massive_last_trade",
+    )
 
 
 @router.post("/overnight/forecast")
@@ -220,15 +251,18 @@ def _executed_at(value: str | None) -> str:
 
 @router.post("/trades")
 def create_trade(trade: TradeCreate) -> TradesResponse:
-    TradeStore().append(
-        Trade(
-            ticker=trade.ticker,
-            side=trade.side,
-            shares=trade.shares,
-            price=trade.price,
-            executed_at=_executed_at(trade.executed_at),
-        )
+    fill = Trade(
+        ticker=trade.ticker,
+        side=trade.side,
+        shares=trade.shares,
+        price=trade.price,
+        executed_at=_executed_at(trade.executed_at),
+        manual_fee=trade.fee or 0.0,
     )
+    try:
+        TradeStore().append(fill)
+    except ConflictingTradeFeeError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
     return TradesResponse(trades=trade_history(trade_log()))
 
 

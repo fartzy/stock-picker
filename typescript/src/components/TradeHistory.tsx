@@ -101,6 +101,7 @@ function formatStamp(executedAt: string, relativeToDay?: string): string {
 interface PositionsSummary {
   invested: number;
   pnl: number;
+  manualFees: number;
   hasUnknownPnl: boolean;
 }
 
@@ -108,12 +109,14 @@ function summarizePositions(positions: Position[]): PositionsSummary {
   return {
     invested: positions.reduce((sum, p) => sum + p.invested, 0),
     pnl: positions.reduce((sum, p) => sum + (p.pnl ?? 0), 0),
+    manualFees: positions.reduce((sum, p) => sum + (p.manual_fee ?? 0), 0),
     hasUnknownPnl: positions.some((p) => p.pnl === null),
   };
 }
 
 function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
-  const { invested, pnl, hasUnknownPnl } = summary;
+  const { invested, pnl, manualFees, hasUnknownPnl } = summary;
+  const netPnl = roundUsd(pnl - manualFees);
   return [
     { key: "title", title: true, align: "start", value: <strong style={{ color: "var(--accent)" }}>Open now</strong> },
     { key: "lots", align: "start", value: count === 0 ? "No open lots" : `${count} lot${count === 1 ? "" : "s"}` },
@@ -126,7 +129,7 @@ function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
             label: "P&L",
             value: (
               <>
-                <Diff value={pnl} pct={invested ? pnl / invested : null} />
+                <Diff value={netPnl} pct={invested ? netPnl / invested : null} />
                 {hasUnknownPnl ? " (partial)" : ""}
               </>
             ),
@@ -191,7 +194,7 @@ function OpenRow({ position, onOpenOvernight }: { position: Position; onOpenOver
       <td className="trade-time">{position.buy_time ? `${formatTime(position.buy_time)} ET` : "--"}</td>
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
       <td className="trade-num">{position.current_price !== null ? formatUsd(position.current_price) : "--"}</td>
-      <PnlCell pnl={position.pnl} invested={position.invested} caption="unrealized" />
+      <PnlCell pnl={position.pnl === null ? null : roundUsd(position.pnl - (position.manual_fee ?? 0))} invested={position.invested} caption="unrealized" />
       <td className="trade-num">{formatUsd(position.invested)}</td>
     </tr>
   );
@@ -216,7 +219,8 @@ function ClosedRow({
   const holdPct =
     holdClosePnl !== null && position.hold_eligible_invested
       ? holdClosePnl / position.hold_eligible_invested : null;
-  const netPnl = position.pnl !== null ? roundUsd(position.pnl - fee) : null;
+  const totalFee = fee + (position.manual_fee ?? 0);
+  const netPnl = position.pnl !== null ? roundUsd(position.pnl - totalFee) : null;
   return (
     <tr>
       <td className="trade-ticker">{position.ticker}</td>
@@ -227,7 +231,7 @@ function ClosedRow({
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
       <PnlCell pnl={netPnl} invested={position.invested} />
       <td className="trade-num lot-fees" aria-hidden={!showFees || undefined}>
-        {feeAmount(fee, showFees)}
+        {feeAmount(totalFee, showFees)}
       </td>
       <td className="trade-num">
         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
@@ -267,7 +271,7 @@ function dayValues(
   const summary = summarizePositions(positions);
   const session = holdToCloseItem(positions);
   const denom = onBooks || summary.invested;
-  const tickets = feeSum(fees, [day]);
+  const tickets = feeSum(fees, [day]) + summary.manualFees;
   const netPnl = roundUsd(summary.pnl - tickets);
   return {
     title: <strong style={{ color: "var(--accent)" }}>{formatDay(day)}</strong>,
@@ -453,13 +457,15 @@ function periodValues(
 ): StatValues {
   const pctDenom = summary.typicalOn;
   const hold = holdToCloseItem(summary.lots);
-  const netPnl = roundUsd(summary.pnl - tickets);
+  const manualFees = summary.lots.reduce((sum, lot) => sum + (lot.manual_fee ?? 0), 0);
+  const totalFees = tickets + manualFees;
+  const netPnl = roundUsd(summary.pnl - totalFees);
   return {
     title: <strong>{label}</strong>,
     days: `${summary.sessions}d`,
     typical: `${formatUsd(summary.typicalOn)}/day`,
     pnl: <Diff value={netPnl} pct={pctDenom ? netPnl / pctDenom : null} />,
-    fees: feeAmount(tickets, showFees),
+    fees: feeAmount(totalFees, showFees),
     intraday: summary.spyPct !== null ? <SignedPct value={summary.spyPct} /> : "—",
     bh: holdPct !== null ? <SignedPct value={holdPct} /> : "—",
     hold: hold?.value ?? "—",
@@ -496,6 +502,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
     { deps: [days.join(",")], intervalMs: REFRESH_INTERVAL_MS },
   );
   const { data: feesData } = useFetchData<FeesResponse>(fetchFees, {
+    deps: [refreshCount],
     intervalMs: REFRESH_INTERVAL_MS,
   });
 
