@@ -411,7 +411,10 @@ function MorningTrigger({
 }: {
   jobNonce?: number;
 }) {
-  const { data: job, error: jobError } = useFetchData(fetchMorningJob, { deps: [jobNonce] });
+  const { data: job, error: jobError } = useFetchData(fetchMorningJob, {
+    deps: [jobNonce],
+    intervalMs: 30_000,
+  });
 
   async function toggleJob(enabled: boolean) {
     await setMorningJob(enabled);
