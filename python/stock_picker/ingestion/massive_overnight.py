@@ -62,6 +62,34 @@ class VerifiedCurrentOpen:
     corporate_action: str
 
 
+@dataclass(frozen=True)
+class ObservedCurrentTrade:
+    """Timestamped last trade for display, not an official session close."""
+
+    price: float
+    observed_at: datetime
+    fetched_at: datetime
+
+
+def parse_current_trade(payload: object, ticker: str, session: date) -> tuple[float, datetime]:
+    """Accept only a positive, same-session trade from the single-ticker snapshot."""
+    if not isinstance(payload, dict) or payload.get("status") != "OK":
+        raise MassiveOvernightError("single-ticker snapshot was not OK")
+    item = payload.get("ticker")
+    if not isinstance(item, dict) or item.get("ticker") != ticker:
+        raise MassiveOvernightError("single-ticker snapshot did not match the ticker")
+    trade = item.get("lastTrade") or {}
+    if not isinstance(trade, dict):
+        raise MassiveOvernightError("single-ticker last trade is invalid")
+    try:
+        observed_at = datetime.fromtimestamp(int(trade["t"]) / 1_000_000_000, timezone.utc)
+    except (KeyError, TypeError, ValueError, OverflowError, OSError) as exc:
+        raise MassiveOvernightError("single-ticker snapshot has no last-trade timestamp") from exc
+    if observed_at.astimezone(ZoneInfo("America/New_York")).date() != session:
+        raise MassiveOvernightError("single-ticker last trade is not from the current session")
+    return _price(trade.get("p")), observed_at
+
+
 def parse_current_snapshot(payload: object, ticker: str, session: date) -> tuple[float, float, float | None, datetime | None]:
     """Parse the documented single-ticker snapshot without trusting a stale row.
 
@@ -319,6 +347,16 @@ class MassiveOvernightClient:
             opened, previous_close, last_trade, last_trade_at,
             datetime.now(timezone.utc), action,
         )
+
+    def fetch_current_trade(self, ticker: str, session: date) -> ObservedCurrentTrade:
+        """One snapshot request for UI price prefill; no model/action assertion."""
+        if not TICKER_PATTERN.fullmatch(ticker):
+            raise ValueError("invalid ticker")
+        snapshot = self._get_payload(
+            API_ROOT + f"/v2/snapshot/locale/us/markets/stocks/tickers/{ticker}", {}
+        )
+        price, observed_at = parse_current_trade(snapshot, ticker, session)
+        return ObservedCurrentTrade(price, observed_at, datetime.now(timezone.utc))
 
     def fetch(self, ticker: str, start: date, end: date) -> VerifiedOvernightBars:
         """Fetch all bars and action pages; certify only after every page succeeds."""

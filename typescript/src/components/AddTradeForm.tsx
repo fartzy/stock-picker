@@ -6,6 +6,7 @@ interface FormState {
   side: "buy" | "sell";
   shares: string;
   price: string;
+  fee: string;
   executedAt: string;
 }
 
@@ -27,7 +28,7 @@ function toIsoWithOffset(localDateTime: string): string {
 }
 
 function emptyForm(): FormState {
-  return { ticker: "", side: "buy", shares: "", price: "", executedAt: localDateTimeValue(new Date()) };
+  return { ticker: "", side: "buy", shares: "", price: "", fee: "", executedAt: localDateTimeValue(new Date()) };
 }
 
 export default function AddTradeForm({ onAdded }: { onAdded: () => void }) {
@@ -39,6 +40,7 @@ export default function AddTradeForm({ onAdded }: { onAdded: () => void }) {
     form.ticker.trim() !== "" &&
     Number(form.shares) > 0 &&
     Number(form.price) > 0 &&
+    (form.fee === "" || (Number.isFinite(Number(form.fee)) && Number(form.fee) >= 0)) &&
     form.executedAt !== "";
 
   async function handleSubmit(e: React.FormEvent) {
@@ -52,6 +54,7 @@ export default function AddTradeForm({ onAdded }: { onAdded: () => void }) {
       side: form.side,
       shares: Number(form.shares),
       price: Number(form.price),
+      ...(form.fee !== "" ? { fee: Number(form.fee) } : {}),
       executed_at: toIsoWithOffset(form.executedAt),
     };
     try {
@@ -100,6 +103,17 @@ export default function AddTradeForm({ onAdded }: { onAdded: () => void }) {
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
           style={{ width: 100 }}
+        />
+        <input
+          className="form-input"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="Fee (optional)"
+          aria-label="Fee in dollars (optional)"
+          value={form.fee}
+          onChange={(e) => setForm({ ...form, fee: e.target.value })}
+          style={{ width: 130 }}
         />
         <input
           className="form-input"

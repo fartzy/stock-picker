@@ -14,7 +14,7 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
       <p><strong>{data.available ? "Saved next-open model" : "No saved next-open model"}</strong> · Separate from the Rank/Fit open-to-close models.</p>
       {data.available ? (
         <>
-          <p>Trained through {data.trained_through}; latest target open observed {data.label_observed_on}. {data.feature_columns.length} inputs · {data.feature_version}.</p>
+          <p>Trained through {data.trained_through}; latest next open observed {data.label_observed_on}. The model uses {data.feature_columns.length} inputs.</p>
           <div className="overnight-model-metrics">
             <span>Held-out model gap MAE <strong>{pct(data.model_gap_mae)}</strong></span>
             <span>Unchanged-price MAE <strong>{pct(data.unchanged_gap_mae)}</strong></span>
@@ -26,7 +26,7 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
           )}
           {!data.serving_inputs_pinned && <p className="overnight-evidence">The saved artifact lacks pinned morning estimators. Retrain it before requesting a forecast.</p>}
         </>
-      ) : <p className="muted">The model code and 15-feature contract are available for inspection; a forecast requires an explicitly saved artifact. It is never trained during a request.</p>}
+      ) : <p className="muted">The model code and its {data.feature_columns.length} inputs are available for inspection; a forecast requires a saved model. It is never trained during a request.</p>}
       <p className="muted">Exploratory 12-ticker comparison: best model variant MAE 1.2854% versus 1.2775% for unchanged price across 623 held-out sessions. That does not establish a hold-overnight edge.</p>
       <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
     </div>

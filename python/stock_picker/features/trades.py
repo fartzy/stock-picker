@@ -21,6 +21,12 @@ _RTH_CLOSE = time(16, 0)
 NOTIONAL_DECIMAL_PLACES = 2
 
 
+def _manual_fee(row) -> float:
+    """Older trade frames predate the optional per-fill fee column."""
+    value = getattr(row, "manual_fee", 0.0)
+    return 0.0 if pd.isna(value) else float(value)
+
+
 def _fills_in_time_order(trades: pd.DataFrame) -> pd.DataFrame:
     """Chronological fills; at the same timestamp, buys before sells.
 
@@ -170,6 +176,7 @@ def trade_history(trades: pd.DataFrame) -> list[dict]:
                 "notional": round(row.shares * row.price, NOTIONAL_DECIMAL_PLACES),
                 "executed_at": row.executed_at,
                 "realized_pnl": realized_pnl,
+                "manual_fee": _manual_fee(row),
             }
         )
     enriched.sort(key=lambda t: t["executed_at"], reverse=True)
@@ -180,10 +187,16 @@ def _allocate_buys(buys: list[dict], fraction: float) -> list[dict]:
     """Keep entry provenance proportional to this book's average-cost matching.
 
     Comparison rules need the original buy times, not just the latest add-on
-    shown in the table. This metadata never changes realized P&L or cost basis.
+    shown in the table. Buy fees follow the same shares across partial exits;
+    gross realized P&L and cost basis remain unchanged.
     """
     return [
-        {**buy, "shares": buy["shares"] * fraction, "invested": buy["invested"] * fraction}
+        {
+            **buy,
+            "shares": buy["shares"] * fraction,
+            "invested": buy["invested"] * fraction,
+            "manual_fee": buy["manual_fee"] * fraction,
+        }
         for buy in buys
     ]
 
@@ -233,6 +246,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                 "buy_time": row.executed_at,
                 "shares": float(row.shares),
                 "invested": float(row.shares) * float(row.price),
+                "manual_fee": _manual_fee(row),
             }
             lot = open_lots.get(ticker)
             if lot is None:
@@ -268,6 +282,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                     "sell_price": round(float(row.price), NOTIONAL_DECIMAL_PLACES),
                     "closed": True,
                     "pnl": None,
+                    "manual_fee": _manual_fee(row),
                 }
             )
             continue
@@ -277,6 +292,8 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
         fraction = matched / lot["shares"]
         invested = avg_cost * matched
         pnl = round((float(row.price) - avg_cost) * matched, NOTIONAL_DECIMAL_PLACES)
+        matched_buys = _allocate_buys(lot["buys"], fraction)
+        manual_fee = sum(buy["manual_fee"] for buy in matched_buys) + _manual_fee(row)
         rows.append(
             {
                 "ticker": ticker,
@@ -294,7 +311,8 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                 "current_price": None,
                 "closed": True,
                 "pnl": pnl,
-                "_buy_allocations": _allocate_buys(lot["buys"], fraction),
+                "manual_fee": manual_fee,
+                "_buy_allocations": matched_buys,
             }
         )
         lot["buys"] = _allocate_buys(lot["buys"], 1 - fraction)
@@ -327,6 +345,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
                 "sell_price": None,
                 "closed": False,
                 "pnl": pnl,
+                "manual_fee": sum(buy["manual_fee"] for buy in lot["buys"]),
                 "_buy_allocations": lot["buys"],
             }
         )

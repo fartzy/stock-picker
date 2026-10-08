@@ -5,6 +5,18 @@ const NY = "America/New_York";
 const CHICAGO = "America/Chicago";
 export const SESSION_CLOSE_HOUR = 16;
 export const SESSION_CLOSE_SETTLE_MINUTES = 15;
+const QUOTE_MAX_AGE_MS = 5 * 60 * 1000;
+
+export interface CashSessionQuoteTimes {
+  observed_at: string;
+  session_open_at: string;
+  session_close_at: string;
+}
+
+export interface AssumedCloseInput {
+  value: string;
+  quote: CashSessionQuoteTimes | null;
+}
 
 function nyParts(now: Date): { year: number; month: number; day: number; hour: number; minute: number; weekday: number } {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -61,6 +73,28 @@ export function sessionHasClosed(now: Date = new Date()): boolean {
   const { hour, minute, weekday } = nyParts(now);
   if (weekday === 0 || weekday === 6) return true;
   return hour > SESSION_CLOSE_HOUR || (hour === SESSION_CLOSE_HOUR && minute >= SESSION_CLOSE_SETTLE_MINUTES);
+}
+
+export function isWithinQuoteSession(quote: CashSessionQuoteTimes, now: number): boolean {
+  const opened = Date.parse(quote.session_open_at);
+  const closed = Date.parse(quote.session_close_at);
+  return Number.isFinite(opened) && Number.isFinite(closed)
+    && opened < closed && opened <= now && now < closed;
+}
+
+export function isFreshCashSessionQuote(quote: CashSessionQuoteTimes, now: number): boolean {
+  const observed = Date.parse(quote.observed_at);
+  return Number.isFinite(observed)
+    && observed <= now + 5_000
+    && now - observed < QUOTE_MAX_AGE_MS
+    && isWithinQuoteSession(quote, observed)
+    && isWithinQuoteSession(quote, now);
+}
+
+export function expireQuotePrefill(input: AssumedCloseInput, now: number): AssumedCloseInput {
+  return input.quote !== null && !isFreshCashSessionQuote(input.quote, now)
+    ? { value: "", quote: null }
+    : input;
 }
 
 export function isCashSessionToday(asOf: string | null | undefined, now: Date = new Date()): boolean {

@@ -1,6 +1,8 @@
 import pandas as pd
+import pytest
 
 from stock_picker.features.trades import position_summaries, trade_history
+from stock_picker.storage.trade_store import Trade, TradeStore
 
 
 def test_buy_then_sell_computes_realized_pnl():
@@ -186,3 +188,38 @@ def test_position_summaries_accepts_mixed_utc_offsets():
     days = {row["ticker"]: row["day"] for row in positions}
     assert days["HOOD"] == "2026-09-04"
     assert days["FLY"] == "2026-09-11"
+
+
+def test_manual_entry_fee_follows_overnight_partial_exits(tmp_path):
+    store = TradeStore(data_dir=tmp_path)
+    store.append(Trade("AAA", "buy", 10, 10, "2026-09-04T10:00:00-04:00", 1.0))
+    store.append(Trade("AAA", "sell", 4, 12, "2026-09-05T10:00:00-04:00", 0.2))
+
+    first = position_summaries(store.read(), {"AAA": {"last": 11}})
+    closed = next(row for row in first if row["closed"])
+    open_row = next(row for row in first if not row["closed"])
+    assert (closed["day"], closed["pnl"]) == ("2026-09-05", 8.0)
+    assert closed["manual_fee"] == pytest.approx(0.6)
+    assert open_row["shares"] == 6.0
+    assert open_row["manual_fee"] == pytest.approx(0.6)
+
+    store.append(Trade("AAA", "sell", 6, 11, "2026-09-06T10:00:00-04:00", 0.3))
+    exits = [row for row in position_summaries(store.read(), {}) if row["closed"]]
+    assert [row["day"] for row in exits] == ["2026-09-06", "2026-09-05"]
+    assert [row["manual_fee"] for row in exits] == pytest.approx([0.9, 0.6])
+    assert round(sum(row["pnl"] - row["manual_fee"] for row in exits), 2) == 12.5
+
+
+def test_manual_fees_follow_average_cost_buy_allocations(tmp_path):
+    store = TradeStore(data_dir=tmp_path)
+    store.append(Trade("AAA", "buy", 10, 10, "2026-09-04T10:00:00-04:00", 1.0))
+    store.append(Trade("AAA", "buy", 10, 20, "2026-09-04T11:00:00-04:00", 3.0))
+    store.append(Trade("AAA", "sell", 5, 25, "2026-09-05T10:00:00-04:00", 0.5))
+
+    rows = position_summaries(store.read(), {"AAA": {"last": 25}})
+    closed = next(row for row in rows if row["closed"])
+    open_row = next(row for row in rows if not row["closed"])
+    assert closed["pnl"] == 50.0  # Five shares at the $15 average basis.
+    assert [buy["shares"] for buy in closed["_buy_allocations"]] == [2.5, 2.5]
+    assert closed["manual_fee"] == pytest.approx(1.5)
+    assert open_row["manual_fee"] == pytest.approx(3.0)

@@ -158,6 +158,16 @@ export interface OvernightForecastRequest {
   exit_next_open_cost_per_share?: number;
 }
 
+export interface OvernightCurrentPriceResponse {
+  ticker: string;
+  price: number;
+  observed_at: string;
+  fetched_at: string;
+  session_open_at: string;
+  session_close_at: string;
+  source: "massive_last_trade";
+}
+
 export interface CorrelationPair {
   a: string;
   b: string;
@@ -179,6 +189,7 @@ export interface Trade {
   executed_at: string;
   // null for a "buy" row -- only a closing "sell" has a realized P&L.
   realized_pnl: number | null;
+  manual_fee?: number;
 }
 
 export interface TradesResponse {
@@ -201,6 +212,7 @@ export interface Position {
   current_price: number | null;
   closed: boolean;
   pnl: number | null;
+  manual_fee?: number;
   hold_open_price?: number | null;
   hold_close_price: number | null;
   hold_close_pnl: number | null;
@@ -541,6 +553,7 @@ export interface TradeCreate {
   side: "buy" | "sell";
   shares: number;
   price: number;
+  fee?: number;
   executed_at?: string;
 }
 
@@ -574,6 +587,15 @@ export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") 
 export const fetchFeatureValues = (ticker: string) =>
   getJson<FeatureValuesResponse>(`/api/features/${encodeURIComponent(ticker)}`);
 export const fetchOvernightModel = () => getJson<OvernightModelResponse>("/api/overnight/model");
+export async function fetchOvernightCurrentPrice(ticker: string): Promise<OvernightCurrentPriceResponse> {
+  const response = await fetch(`/api/overnight/current-price?ticker=${encodeURIComponent(ticker)}`);
+  if (!response.ok) {
+    const body: unknown = await response.json().catch(() => null);
+    const detail = body && typeof body === "object" && "detail" in body ? String(body.detail) : `HTTP ${response.status}`;
+    throw new Error(detail);
+  }
+  return response.json() as Promise<OvernightCurrentPriceResponse>;
+}
 export async function forecastOvernight(request: OvernightForecastRequest): Promise<OvernightForecastResponse> {
   const response = await fetch("/api/overnight/forecast", {
     method: "POST",

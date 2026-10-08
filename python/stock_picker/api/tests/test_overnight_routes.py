@@ -1,12 +1,16 @@
 """Overnight endpoints expose model state and preserve scenario metadata."""
 
-from datetime import date
+from datetime import date, datetime, timedelta
 from unittest.mock import patch
+from zoneinfo import ZoneInfo
 
 from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.training.overnight_hold import ObservedNextOpen
+from stock_picker.ingestion.massive_overnight import ObservedCurrentTrade
+
+ET = ZoneInfo("America/New_York")
 
 
 class EmptyModelStore:
@@ -22,6 +26,82 @@ def test_model_metadata_is_visible_without_an_artifact():
     assert body["available"] is False
     assert len(body["feature_columns"]) == 15
     assert body["serving_inputs_pinned"] is False
+
+
+def test_current_price_prefill_requires_fresh_timestamp_and_valid_ticker():
+    now = datetime(2026, 10, 6, 15, 55, tzinfo=ET)
+    with patch("stock_picker.api.routes.MassiveOvernightClient") as provider, patch("stock_picker.api.routes.datetime") as clock:
+        clock.now.return_value = now
+        provider.return_value.fetch_current_trade.return_value = ObservedCurrentTrade(5.915, now, now)
+        response = TestClient(app).get("/api/overnight/current-price?ticker=bull")
+        assert response.status_code == 200
+        assert response.json()["ticker"] == "BULL"
+        assert response.json()["price"] == 5.915
+        assert datetime.fromisoformat(response.json()["observed_at"].replace("Z", "+00:00")) == now
+        assert datetime.fromisoformat(response.json()["session_open_at"]).astimezone(ET) == datetime(2026, 10, 6, 9, 30, tzinfo=ET)
+        assert datetime.fromisoformat(response.json()["session_close_at"]).astimezone(ET) == datetime(2026, 10, 6, 16, 0, tzinfo=ET)
+        provider.return_value.fetch_current_trade.return_value = ObservedCurrentTrade(
+            5.915, now - timedelta(minutes=6), now,
+        )
+        stale = TestClient(app).get("/api/overnight/current-price?ticker=BULL")
+    assert stale.status_code == 503
+    assert "five minutes" in stale.json()["detail"]
+    assert TestClient(app).get("/api/overnight/current-price?ticker=BAD/SYMBOL").status_code == 422
+
+
+def test_current_price_rejects_quotes_outside_cash_session_and_keeps_manual_entry():
+    client = TestClient(app)
+    with patch("stock_picker.api.routes.MassiveOvernightClient") as provider, patch("stock_picker.api.routes.datetime") as clock:
+        after_close = datetime(2026, 10, 6, 16, 5, tzinfo=ET)
+        clock.now.return_value = after_close
+        assert client.get("/api/overnight/current-price?ticker=BULL").status_code == 503
+        provider.return_value.fetch_current_trade.assert_not_called()
+
+        before_open = datetime(2026, 10, 6, 9, 29, tzinfo=ET)
+        clock.now.return_value = before_open
+        assert client.get("/api/overnight/current-price?ticker=BULL").status_code == 503
+        provider.return_value.fetch_current_trade.assert_not_called()
+
+        clock.now.return_value = datetime(2026, 10, 10, 15, 55, tzinfo=ET)
+        assert client.get("/api/overnight/current-price?ticker=BULL").status_code == 503
+        provider.return_value.fetch_current_trade.assert_not_called()
+
+        at_open = datetime(2026, 10, 6, 9, 30, tzinfo=ET)
+        clock.now.return_value = at_open
+        provider.return_value.fetch_current_trade.return_value = ObservedCurrentTrade(
+            5.915, at_open - timedelta(seconds=1), at_open,
+        )
+        outside_trade = client.get("/api/overnight/current-price?ticker=BULL")
+        assert outside_trade.status_code == 503
+        assert "manually" in outside_trade.json()["detail"]
+
+        before_close = datetime(2026, 10, 6, 15, 59, 59, tzinfo=ET)
+        bell = datetime(2026, 10, 6, 16, 0, tzinfo=ET)
+        clock.now.side_effect = [before_close, bell]
+        provider.return_value.fetch_current_trade.return_value = ObservedCurrentTrade(
+            5.915, before_close, before_close,
+        )
+        crossed_bell = client.get("/api/overnight/current-price?ticker=BULL")
+        assert crossed_bell.status_code == 503
+        assert "manually" in crossed_bell.json()["detail"]
+
+
+def test_current_price_obeys_xnys_early_close():
+    client = TestClient(app)
+    before_close = datetime(2026, 11, 27, 12, 55, tzinfo=ET)
+    after_close = datetime(2026, 11, 27, 13, 5, tzinfo=ET)
+    with patch("stock_picker.api.routes.MassiveOvernightClient") as provider, patch("stock_picker.api.routes.datetime") as clock:
+        clock.now.return_value = before_close
+        provider.return_value.fetch_current_trade.return_value = ObservedCurrentTrade(
+            42.10, before_close, before_close,
+        )
+        live = client.get("/api/overnight/current-price?ticker=BULL")
+        assert live.status_code == 200
+        assert datetime.fromisoformat(live.json()["session_close_at"]).astimezone(ET) == datetime(2026, 11, 27, 13, 0, tzinfo=ET)
+        clock.now.return_value = after_close
+        closed = client.get("/api/overnight/current-price?ticker=BULL")
+        assert closed.status_code == 503
+        provider.return_value.fetch_current_trade.assert_called_once()
 
 
 def test_forecast_rejects_invalid_symbol_and_reports_missing_model():
