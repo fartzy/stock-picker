@@ -28,7 +28,10 @@ export function useFetchData<T>(fetcher: () => Promise<T>, options?: UseFetchDat
     function run() {
       fetcher()
         .then((result) => {
-          if (!cancelled) setData(result);
+          if (!cancelled) {
+            setData(result);
+            setError(null);
+          }
         })
         .catch((err) => {
           if (!cancelled) setError(String(err));
