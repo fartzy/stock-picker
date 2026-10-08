@@ -3,8 +3,8 @@
   "trade_date": "2026-10-07",
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "Execution time is used for every fill. The order-list summary duplicates these detailed confirmations and is not imported a second time. Broker net sale proceeds are preserved to infer fees; price improvement is not a separate cash flow.",
-  "filled_order_count": 31,
+  "note": "Execution time is used for every fill. The order-list summary duplicates these detailed confirmations and is not imported a second time. Order 2E01DVSZ was supplied twice; only its 1-share execution is counted, while its other 199 shares were canceled. Order 2E01PK2C was canceled without a fill and is omitted. Broker net sale proceeds are preserved to infer fees; price improvement is not a separate cash flow.",
+  "filled_order_count": 50,
   "orders": [
     {"order_number": "2E006GPM", "ticker": "IBRX", "side": "buy", "shares": 800, "price": 9.40, "executed_at": "2026-10-07T09:36:32-04:00", "broker_net_amount": 7520.00},
     {"order_number": "2E004L2G", "ticker": "IBRX", "side": "sell", "shares": 800, "price": 9.57, "executed_at": "2026-10-07T09:42:44-04:00", "broker_net_amount": 7655.84},
@@ -36,13 +36,33 @@
     {"order_number": "2E00DH81", "ticker": "WDC", "side": "buy", "shares": 3, "price": 400.8299, "executed_at": "2026-10-07T10:03:43-04:00", "broker_net_amount": 1202.49},
     {"order_number": "2E00GJHN", "ticker": "WDC", "side": "sell", "shares": 102, "price": 402.345, "executed_at": "2026-10-07T10:06:44-04:00", "broker_net_amount": 41038.34},
     {"order_number": "2E00FYS0", "ticker": "TXG", "side": "buy", "shares": 80, "price": 73.7601, "executed_at": "2026-10-07T10:13:19-04:00", "broker_net_amount": 5900.81},
-    {"order_number": "2E00J0DM", "ticker": "TXG", "side": "sell", "shares": 80, "price": 74.86, "executed_at": "2026-10-07T10:16:03-04:00", "broker_net_amount": 5988.67}
+    {"order_number": "2E00J0DM", "ticker": "TXG", "side": "sell", "shares": 80, "price": 74.86, "executed_at": "2026-10-07T10:16:03-04:00", "broker_net_amount": 5988.67},
+    {"order_number": "2E018DYD", "ticker": "BULL", "side": "buy", "shares": 1000, "price": 5.8886, "executed_at": "2026-10-07T12:35:50-04:00", "broker_net_amount": 5888.60},
+    {"order_number": "2E0193GK", "ticker": "BULL", "side": "sell", "shares": 1000, "price": 5.9114, "executed_at": "2026-10-07T12:38:23-04:00", "broker_net_amount": 5911.27},
+    {"order_number": "2E016GM6", "ticker": "BULL", "side": "buy", "shares": 1000, "price": 5.8399, "executed_at": "2026-10-07T12:43:38-04:00", "broker_net_amount": 5839.90},
+    {"order_number": "2E0135DN", "ticker": "BULL", "side": "buy", "shares": 1000, "price": 5.8386, "executed_at": "2026-10-07T12:52:30-04:00", "broker_net_amount": 5838.60},
+    {"order_number": "2E01CWR9", "ticker": "BULL", "side": "buy", "shares": 200, "price": 5.845, "executed_at": "2026-10-07T12:53:10-04:00", "broker_net_amount": 1169.00},
+    {"order_number": "2E014JC7", "ticker": "BULL", "side": "sell", "shares": 2200, "price": 5.855, "executed_at": "2026-10-07T12:54:26-04:00", "broker_net_amount": 12880.73},
+    {"order_number": "2E015WS5", "ticker": "BULL", "side": "buy", "shares": 1000, "price": 5.865, "executed_at": "2026-10-07T12:57:12-04:00", "broker_net_amount": 5865.00},
+    {"order_number": "2E012JYC", "ticker": "BULL", "side": "buy", "shares": 200, "price": 5.855, "executed_at": "2026-10-07T12:57:32-04:00", "broker_net_amount": 1171.00},
+    {"order_number": "2E017727", "ticker": "BULL", "side": "buy", "shares": 200, "price": 5.855, "executed_at": "2026-10-07T12:58:01-04:00", "broker_net_amount": 1171.00},
+    {"order_number": "2E013723", "ticker": "BULL", "side": "buy", "shares": 1000, "price": 5.835, "executed_at": "2026-10-07T13:00:46-04:00", "broker_net_amount": 5835.00},
+    {"order_number": "2E01DMV3", "ticker": "BULL", "side": "buy", "shares": 200, "price": 5.835, "executed_at": "2026-10-07T13:06:28-04:00", "broker_net_amount": 1167.00},
+    {"order_number": "2E018M9Y", "ticker": "BULL", "side": "sell", "shares": 2600, "price": 5.865, "executed_at": "2026-10-07T13:08:41-04:00", "broker_net_amount": 15248.68},
+    {"order_number": "2E012NDF", "ticker": "BULL", "side": "buy", "shares": 500, "price": 5.8669, "executed_at": "2026-10-07T13:14:21-04:00", "broker_net_amount": 2933.45},
+    {"order_number": "2E01D1HV", "ticker": "BULL", "side": "sell", "shares": 500, "price": 5.915, "executed_at": "2026-10-07T13:16:55-04:00", "broker_net_amount": 2957.43},
+    {"order_number": "2E014R2H", "ticker": "BULL", "side": "buy", "shares": 500, "price": 5.8701, "executed_at": "2026-10-07T13:28:08-04:00", "broker_net_amount": 2935.05},
+    {"order_number": "2E01GTKJ", "ticker": "BULL", "side": "buy", "shares": 300, "price": 5.86, "executed_at": "2026-10-07T13:30:45-04:00", "broker_net_amount": 1758.00},
+    {"order_number": "2E01DVSZ", "ticker": "BULL", "side": "buy", "shares": 1, "price": 5.86, "executed_at": "2026-10-07T13:36:51-04:00", "broker_net_amount": 5.86},
+    {"order_number": "2E01N7N0", "ticker": "BULL", "side": "sell", "shares": 500, "price": 5.915, "executed_at": "2026-10-07T13:39:32-04:00", "broker_net_amount": 2957.43},
+    {"order_number": "2E01JX2Z", "ticker": "BULL", "side": "sell", "shares": 301, "price": 5.915, "executed_at": "2026-10-07T13:40:01-04:00", "broker_net_amount": 1780.38}
   ],
   "reconciliation": {
     "IBRX": {"bought_shares": 800, "sold_shares": 800, "remaining_shares": 0, "buy_cost": 7520.00, "net_sale_proceeds": 7655.84, "inferred_sale_fees": 0.16, "net_realized_pnl": 135.84},
     "WDC": {"bought_shares": 102, "sold_shares": 102, "remaining_shares": 0, "buy_cost": 40978.71, "net_sale_proceeds": 41038.34, "inferred_sale_fees": 0.85, "net_realized_pnl": 59.63},
     "TXG": {"bought_shares": 80, "sold_shares": 80, "remaining_shares": 0, "buy_cost": 5900.81, "net_sale_proceeds": 5988.67, "inferred_sale_fees": 0.13, "net_realized_pnl": 87.86},
-    "inferred_sale_fees": 1.14,
-    "net_realized_pnl": 283.33
+    "BULL": {"bought_shares": 7101, "sold_shares": 7101, "remaining_shares": 0, "buy_cost": 41577.46, "net_sale_proceeds": 41735.92, "inferred_sale_fees": 0.90, "net_realized_pnl": 158.46},
+    "inferred_sale_fees": 2.04,
+    "net_realized_pnl": 441.79
   }
 }
