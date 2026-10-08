@@ -1272,6 +1272,36 @@ details.view-card[open] > summary::before {
   padding: 8px 12px;
 }
 
+.what-if-news-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--text-label);
+  cursor: pointer;
+}
+
+.what-if-news-toggle:hover,
+.what-if-news-toggle:focus-within {
+  border-color: var(--accent);
+  background: var(--surface-raised);
+}
+
+.what-if-news-toggle input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.what-if-news-included {
+  display: block;
+  color: var(--accent);
+  font-size: var(--text-caption);
+}
+
 .what-if-help {
   position: relative;
   align-self: center;

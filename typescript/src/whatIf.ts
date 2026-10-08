@@ -30,7 +30,8 @@ export interface OvernightHoldOutcome {
 
 /** Hindsight only. Same-share exposure is sold at the close or next open.
  * The separate verified raw close must agree with the What If close before
- * combining prices from the two sources. Hard skips remain display-only.
+ * combining prices from the two sources. Picks excluded by this scenario
+ * remain display-only.
  */
 export function simulateOvernightHold(
   row: SimulatedPick, actual: OvernightActualRow | undefined,
@@ -115,6 +116,7 @@ interface SimulationOptions {
   kind: PickKind;
   fitTopK?: number;
   rankTopK?: number;
+  applyNewsSkips?: boolean;
   tradeSizes: TradeSizes;
   lookbackDays: LookbackDays;
   asOf: string;
@@ -129,18 +131,25 @@ const cents = (value: number) => Math.round(value * 100);
 const hasReturn = (row: PaperPickRow) => row.session_return !== null && Number.isFinite(row.session_return);
 const isHardSkip = (row: PaperPickRow) => Boolean(row.news_blocks && row.news_flag);
 const isNewsHold = (row: PaperPickRow) => Boolean(row.news_blocks && !row.news_flag);
+const hasTradePrices = (row: PaperPickRow) => row.open_price !== null && Number.isFinite(row.open_price) && row.open_price > 0
+  && row.close_price !== null && Number.isFinite(row.close_price) && row.close_price > 0;
 
 /** Fixed notional per pick; fractional-share equivalent, before fees/slippage.
  * Round each pick once so displayed line items reconcile with every total.
  */
-export function simulatePick(row: PaperPickRow, dollarsPerTrade: number): PickOutcome {
+export function simulatePick(row: PaperPickRow, dollarsPerTrade: number, applyNewsSkips = true): PickOutcome {
   if (!Number.isFinite(dollarsPerTrade) || dollarsPerTrade <= 0) {
     throw new RangeError("Dollars per trade must be positive and finite");
   }
-  if (!hasReturn(row)) return { status: isHardSkip(row) ? "skipped" : "pending", pnl: null, endingValue: null };
+  if (!hasReturn(row)) return { status: isHardSkip(row) && applyNewsSkips ? "skipped" : "pending", pnl: null, endingValue: null };
+  if (isHardSkip(row) && !applyNewsSkips && !hasTradePrices(row)) {
+    return { status: "pending", pnl: null, endingValue: null };
+  }
   const pnlCents = cents(dollarsPerTrade * row.session_return!);
   const endingValue = (cents(dollarsPerTrade) + pnlCents) / 100;
-  if (isHardSkip(row)) return { status: "skipped", pnl: null, endingValue };
+  if (isHardSkip(row) && applyNewsSkips) {
+    return { status: "skipped", pnl: null, endingValue };
+  }
   return { status: isNewsHold(row) ? "held" : "scored", pnl: pnlCents / 100, endingValue };
 }
 
@@ -157,17 +166,19 @@ function moneySummary(rows: SimulatedPick[], dollarsPerTrade: number): MoneySumm
   };
 }
 
-function listStats(rows: PaperPickRow[]): PaperListStats {
-  const kept = rows.filter((row) => !isHardSkip(row) && hasReturn(row));
+function listStats(rows: SimulatedPick[]): PaperListStats {
+  const kept = rows.filter((row) => row.hypothetical.status === "scored" || row.hypothetical.status === "held");
   const returns = kept.map((row) => row.session_return!);
   const wins = returns.filter((value) => value > 0).length;
   const losses = returns.filter((value) => value < 0).length;
   const avg = returns.length ? returns.reduce((sum, value) => sum + value, 0) / returns.length : null;
+  const exNews = rows.filter((row) => !isHardSkip(row) && hasReturn(row)).map((row) => row.session_return!);
   return {
     n: rows.length, n_scored: returns.length, wins, losses,
     flats: returns.length - wins - losses,
     hit_rate: returns.length ? wins / returns.length : null,
-    avg, avg_ex_news: avg, n_avoid: rows.filter(isHardSkip).length,
+    avg, avg_ex_news: exNews.length ? exNews.reduce((sum, value) => sum + value, 0) / exNews.length : null,
+    n_avoid: rows.filter((row) => row.hypothetical.status === "skipped").length,
   };
 }
 
@@ -176,18 +187,18 @@ function compound(avgs: number[]): number | null {
 }
 
 /** One pipeline for filtering, sizing, day results and overall results.
- * Top-K is applied before the news filter: skipped picks are not backfilled.
+ * Top-K is applied before news skips: skipped picks are not backfilled.
  * Replay rows can be inspected but never double-count a live session in totals.
  * Dollar profits are added, not compounded or multiplied by the compound metric.
  */
 export function simulateBook(data: PaperBookResponse, options: SimulationOptions): SimulatedBook {
-  const { kind, fitTopK, rankTopK, tradeSizes, lookbackDays, asOf } = options;
+  const { kind, fitTopK, rankTopK, applyNewsSkips = true, tradeSizes, lookbackDays, asOf } = options;
   const start = new Date(`${asOf}T12:00:00Z`);
   if (lookbackDays !== null) start.setUTCDate(start.getUTCDate() - lookbackDays + 1);
   const from = lookbackDays === null ? null : start.toISOString().slice(0, 10);
   const rowsFor = (rows: PaperPickRow[], dollarsPerTrade: number, topK?: number): SimulatedPick[] => rows
     .filter((row) => topK === undefined || row.rank <= topK)
-    .map((row) => ({ ...row, hypothetical: simulatePick(row, dollarsPerTrade) }));
+    .map((row) => ({ ...row, hypothetical: simulatePick(row, dollarsPerTrade, applyNewsSkips) }));
   const days = data.days
     .filter((day) => day.as_of <= asOf && (from === null || day.as_of >= from))
     .map((day): SimulatedDay => {
