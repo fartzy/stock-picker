@@ -11,6 +11,7 @@ from dataclasses import asdict, dataclass
 from datetime import date, datetime, timedelta
 from math import isclose, isfinite
 
+import exchange_calendars as xcals
 import pandas as pd
 
 from stock_picker.ingestion.massive_overnight import (
@@ -33,9 +34,11 @@ from stock_picker.training.overnight_model import (
     MODEL_NAME,
     OvernightForecast,
     OvernightModel,
+    STACKED_FEATURE_COLUMNS,
     forecast_assumed_close,
     score_day_models,
 )
+from stock_picker.training.overnight_variants import VARIANT_OUTPUT_COLUMNS
 
 
 RAW_CONTRACT = PriceContract("massive", "raw", "massive_actions")
@@ -85,6 +88,17 @@ def model_summary(model: OvernightModel | None) -> dict[str, object]:
     def average(name: str) -> float | None:
         return sum(getattr(fold, name) * fold.n_rows for fold in model.folds) / rows if rows else None
 
+    pinned = all((
+        getattr(model, "day_fit_model", None) is not None,
+        getattr(model, "day_rank_model", None) is not None,
+        getattr(model, "day_model_trained_through", None) is not None,
+    ))
+    if model.feature_columns == STACKED_FEATURE_COLUMNS:
+        variants = getattr(model, "day_variant_models", None) or {}
+        pinned = pinned and getattr(model, "day_variant_trained_through", None) is not None
+        pinned = pinned and set(variants) == set(VARIANT_OUTPUT_COLUMNS) and all(
+            variants[column] is not None for column in VARIANT_OUTPUT_COLUMNS
+        )
     return {
         "available": True, "feature_columns": list(model.feature_columns),
         "feature_version": model.feature_version,
@@ -94,11 +108,7 @@ def model_summary(model: OvernightModel | None) -> dict[str, object]:
         "unchanged_gap_mae": average("zero_gap_mae"),
         "ticker_mean_gap_mae": average("ticker_mean_gap_mae"),
         "day_model_source": model.day_model_source,
-        "serving_inputs_pinned": all((
-            getattr(model, "day_fit_model", None) is not None,
-            getattr(model, "day_rank_model", None) is not None,
-            getattr(model, "day_model_trained_through", None) is not None,
-        )),
+        "serving_inputs_pinned": pinned,
     }
 
 
@@ -128,8 +138,19 @@ def build_forecast_cases(
         "day_fit_model", "day_rank_model", "day_model_trained_through",
     )):
         raise ValueError("overnight artifact does not pin its same-day serving models")
+    variants = getattr(model, "day_variant_models", None)
+    if model.feature_columns == STACKED_FEATURE_COLUMNS and (
+        set(variants or {}) != set(VARIANT_OUTPUT_COLUMNS)
+        or any(variants[column] is None for column in VARIANT_OUTPUT_COLUMNS)
+    ):
+        raise ValueError("overnight artifact does not pin its named morning variants")
     if model.day_model_trained_through >= session:
         raise ValueError("same-day serving models saw the scenario session")
+    if model.feature_columns == STACKED_FEATURE_COLUMNS and (
+        getattr(model, "day_variant_trained_through", None) is None
+        or model.day_variant_trained_through >= session
+    ):
+        raise ValueError("morning variants saw the scenario session")
     if model.label_observed_on > session:
         raise ValueError("overnight model saw a future label")
     if current.corporate_action != "verified_none":
@@ -141,7 +162,11 @@ def build_forecast_cases(
         raise ValueError("snapshot previous close differs from verified raw history")
     if len(day_row) != 1:
         raise ValueError("one open-known same-day feature row is required")
-    day_outputs = score_day_models(day_row, model.day_fit_model, model.day_rank_model)
+    day_outputs = (
+        score_day_models(day_row, model.day_fit_model, model.day_rank_model, variants)
+        if model.feature_columns == STACKED_FEATURE_COLUMNS else
+        score_day_models(day_row, model.day_fit_model, model.day_rank_model)
+    )
     provenance = CurrentOpenProvenance("massive", "raw", "massive_actions", current.corporate_action)
     cases = []
     for label, price in (("primary", assumed_close), ("lower", assumed_close - resolved_step), ("higher", assumed_close + resolved_step)):
@@ -168,8 +193,14 @@ def fetch_forecast_inputs(
     *, client: MassiveOvernightClient | None = None,
     feature_store: FeatureStore | None = None,
     price_store: PriceStore | None = None,
+    require_prior_session_snapshot: bool = False,
 ) -> tuple[VerifiedOvernightBars, VerifiedCurrentOpen, pd.DataFrame]:
-    """Provider/storage adapter. No legacy daily bar enters the overnight label."""
+    """Provider/storage adapter. No legacy daily bar enters the overnight label.
+
+    The stacked contract trains on yesterday's snapshot fields, so it requires
+    that exact prior XNYS session. Old 15-feature artifacts keep their existing
+    feature-snapshot freshness policy.
+    """
     provider = client or MassiveOvernightClient()
     verified = provider.fetch(ticker, session - timedelta(days=40), session - timedelta(days=1))
     current = provider.fetch_current_open(ticker, session)
@@ -183,6 +214,14 @@ def fetch_forecast_inputs(
     )
     if prepared.row is None:
         raise ValueError(f"same-day feature row unavailable: {prepared.skipped}")
+    if require_prior_session_snapshot:
+        calendar = xcals.get_calendar("XNYS")
+        expected = pd.Timestamp(calendar.previous_session(session.isoformat())).date()
+        if prepared.snapshot_date != expected.isoformat():
+            raise ValueError(
+                f"stacked overnight forecast needs the prior XNYS feature snapshot "
+                f"{expected}; found {prepared.snapshot_date or 'none'}"
+            )
     return verified, current, prepared.row
 
 
@@ -209,10 +248,14 @@ def serve_overnight_forecast(
     model = store.read(MODEL_NAME)
     if model_summary(model)["serving_inputs_pinned"] is not True:
         raise ValueError("saved overnight model lacks pinned serving inputs")
-    if model.label_observed_on > session or model.day_model_trained_through >= session:
+    if (
+        model.label_observed_on > session or model.day_model_trained_through >= session
+        or (model.feature_columns == STACKED_FEATURE_COLUMNS and model.day_variant_trained_through >= session)
+    ):
         raise ValueError("saved model has seen the scenario session or a later date")
     verified, current, day_row = fetch_forecast_inputs(
         ticker, session, client=client, feature_store=feature_store, price_store=price_store,
+        require_prior_session_snapshot=model.feature_columns == STACKED_FEATURE_COLUMNS,
     )
     return build_forecast_cases(
         ticker=ticker, session=session, verified=verified, current=current,

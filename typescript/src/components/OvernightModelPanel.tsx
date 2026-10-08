@@ -22,12 +22,11 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
             <span>Evaluated rows <strong>{data.evaluated_rows}</strong></span>
           </div>
           {data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
-            <p className="overnight-evidence">This artifact did not beat the unchanged-price baseline on held-out gap error. It stays visible for investigation.</p>
+            <p className="overnight-evidence">Forecasts are available. On held-out sessions, this model had more error than assuming an unchanged open.</p>
           )}
           {!data.serving_inputs_pinned && <p className="overnight-evidence">The saved artifact lacks pinned morning estimators. Retrain it before requesting a forecast.</p>}
         </>
       ) : <p className="muted">The model code and its {data.feature_columns.length} inputs are available for inspection; a forecast requires a saved model. It is never trained during a request.</p>}
-      <p className="muted">Exploratory 12-ticker comparison: best model variant MAE 1.2854% versus 1.2775% for unchanged price across 623 held-out sessions. That does not establish a hold-overnight edge.</p>
       <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
     </div>
   );
