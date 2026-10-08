@@ -73,8 +73,6 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
   const primary = result.cases.find((item) => item.label === "primary");
   if (!primary) return <p className="error">Forecast response is missing its primary scenario.</p>;
   const neighbors = result.cases.filter((item) => item.label !== "primary");
-  const losesToUnchanged = primary.oof_model_gap_mae !== null && primary.oof_zero_gap_mae !== null
-    && primary.oof_model_gap_mae >= primary.oof_zero_gap_mae;
   const direction = overnightDirection(primary.predicted_gap, primary.difference_per_share);
   const directionLabel = direction === "up" ? "↑ Up" : direction === "down" ? "↓ Down" : primary.predicted_gap === 0 ? "→ Flat" : "→ ≈ Flat";
   const hasComparison = primary.oof_model_gap_mae !== null && primary.oof_zero_gap_mae !== null;
@@ -90,14 +88,13 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
         </div>
         <span className="overnight-result-from">From {quotePrice(primary.assumed_close)} assumed close · {overnightDollarText(primary.difference_per_share)}/share before costs</span>
       </div>
-      <p className="overnight-result-caution">
-        {hasComparison
-          ? `${losesToUnchanged ? "No measured edge" : "Historical error"} · ${percentage(primary.oof_model_gap_mae)} model vs ${percentage(primary.oof_zero_gap_mae)} unchanged`
-          : "Experimental estimate · historical error unavailable"}
-      </p>
+      <p className="overnight-result-caution">Experimental · historical test under review</p>
       <details className="overnight-result-details">
         <summary>Accuracy &amp; costs</summary>
         <div className="overnight-result-detail-body">
+          <p>Historical error is provisional while morning inputs are audited. {hasComparison
+            ? `${percentage(primary.oof_model_gap_mae)} model vs ${percentage(primary.oof_zero_gap_mae)} unchanged.`
+            : "No comparable historical error is available."}</p>
           <p>Held-out gap error from {result.evaluated_rows} rows. Historical 90th-percentile absolute open error at this price: {primary.oof_abs_open_error_p90_at_assumed_price === null ? "not measured" : formatUsd(primary.oof_abs_open_error_p90_at_assumed_price)}; not a guaranteed range.</p>
           <p>Gross change: {overnightDollarText(primary.difference_per_share)}/share{primary.gross_difference_for_shares !== null ? ` · ${overnightDollarText(primary.gross_difference_for_shares)} for ${result.shares} shares` : ""}. {primary.after_cost_difference_per_share === null
             ? "No execution costs entered."
