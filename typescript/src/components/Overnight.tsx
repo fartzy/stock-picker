@@ -5,6 +5,7 @@ import {
   type OvernightCurrentPriceResponse, type PositionsResponse,
 } from "../api";
 import { formatUsd } from "../format";
+import { overnightDirection, overnightDollarText, overnightGapText } from "../overnightDisplay";
 import { OVERNIGHT_FEATURE_DESCRIPTIONS, OVERNIGHT_FEATURE_GROUPS } from "../overnightFeatures";
 import { expireQuotePrefill, isFreshCashSessionQuote, isWithinQuoteSession, type AssumedCloseInput } from "../session";
 import { useFetchData } from "../useFetchData";
@@ -28,11 +29,13 @@ function isFreshQuote(quote: OvernightCurrentPriceResponse, now: number): boolea
 }
 
 function CaseSummary({ value }: { value: OvernightForecastCase }) {
+  const direction = overnightDirection(value.predicted_gap, value.difference_per_share);
+  const directionLabel = direction === "up" ? "↑ Up" : direction === "down" ? "↓ Down" : value.predicted_gap === 0 ? "→ Flat" : "→ ≈ Flat";
   return (
     <div className="overnight-case">
-      <span>If the close is <strong>{formatUsd(value.assumed_close)}</strong></span>
-      <span>Estimated next open <strong>{formatUsd(value.projected_open)}</strong></span>
-      <span>{percentage(value.predicted_gap)} gap</span>
+      <span>Close <strong>{quotePrice(value.assumed_close)}</strong></span>
+      <span>Open <strong>{formatUsd(value.projected_open)}</strong></span>
+      <span>{directionLabel} {overnightGapText(value.predicted_gap, direction)}</span>
     </div>
   );
 }
@@ -40,23 +43,25 @@ function CaseSummary({ value }: { value: OvernightForecastCase }) {
 function FeatureSnapshot({ value, columns }: { value: OvernightForecastCase; columns: string[] }) {
   const groups = [...new Set(columns.map((name) => OVERNIGHT_FEATURE_GROUPS[name] ?? "Other"))];
   return (
-    <details className="view-card overnight-feature-snapshot">
-      <summary>Inputs used for this assumed close · {columns.length} features</summary>
-      <p className="muted">Values are model inputs, not explanations of cause. Prior-session values stop before today.</p>
-      {groups.map((group) => (
-        <div key={group}>
-          <h4>{group}</h4>
-          <div className="overnight-feature-grid">
-            {columns.filter((name) => (OVERNIGHT_FEATURE_GROUPS[name] ?? "Other") === group).map((name) => (
-              <div className="overnight-feature-row" key={name}>
-                <code>{name}</code>
-                <span>{value.features[name]?.toPrecision(5) ?? "—"}</span>
-                <small>{OVERNIGHT_FEATURE_DESCRIPTIONS[name] ?? "Model input"}</small>
-              </div>
-            ))}
+    <details className="overnight-result-details overnight-feature-snapshot">
+      <summary>Model inputs · {columns.length}</summary>
+      <div className="overnight-result-detail-body">
+        <p className="muted">Inputs, not explanations of cause.</p>
+        {groups.map((group) => (
+          <div key={group}>
+            <h4>{group}</h4>
+            <div className="overnight-feature-grid">
+              {columns.filter((name) => (OVERNIGHT_FEATURE_GROUPS[name] ?? "Other") === group).map((name) => (
+                <div className="overnight-feature-row" key={name}>
+                  <code>{name}</code>
+                  <span>{value.features[name]?.toPrecision(5) ?? "—"}</span>
+                  <small>{OVERNIGHT_FEATURE_DESCRIPTIONS[name] ?? "Model input"}</small>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </details>
   );
 }
@@ -67,30 +72,43 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
   const neighbors = result.cases.filter((item) => item.label !== "primary");
   const losesToUnchanged = primary.oof_model_gap_mae !== null && primary.oof_zero_gap_mae !== null
     && primary.oof_model_gap_mae >= primary.oof_zero_gap_mae;
+  const direction = overnightDirection(primary.predicted_gap, primary.difference_per_share);
+  const directionLabel = direction === "up" ? "↑ Up" : direction === "down" ? "↓ Down" : primary.predicted_gap === 0 ? "→ Flat" : "→ ≈ Flat";
+  const hasComparison = primary.oof_model_gap_mae !== null && primary.oof_zero_gap_mae !== null;
   return (
     <div className="overnight-results" aria-live="polite">
-      <div className="overnight-evidence">
-        <strong>{losesToUnchanged ? "No measured accuracy edge over unchanged price." : "Historical accuracy comparison"}</strong>
-        <span>Held-out gap error: model {percentage(primary.oof_model_gap_mae)} · unchanged price {percentage(primary.oof_zero_gap_mae)} · {result.evaluated_rows} rows.</span>
-        <span>Historical 90th-percentile absolute open error at this price: {primary.oof_abs_open_error_p90_at_assumed_price === null ? "not measured" : formatUsd(primary.oof_abs_open_error_p90_at_assumed_price)}. This is not a guaranteed range.</span>
-      </div>
       <div className="overnight-forecast-card">
-        <div className="overnight-forecast-flow">
-          <div><span>Assumed close · {result.session}</span><strong>{formatUsd(primary.assumed_close)}</strong></div>
-          <span aria-hidden="true">→</span>
-          <div><span>Estimated open · {primary.next_session ?? "next session unknown"}</span><strong>{formatUsd(primary.projected_open)}</strong></div>
+        <span className="overnight-result-label">Estimated next open · {primary.next_session ?? "next session"}</span>
+        <div className="overnight-result-main">
+          <strong>{formatUsd(primary.projected_open)}</strong>
+          <span className={`overnight-direction is-${direction}`} aria-label={`Model direction: ${direction}, ${overnightGapText(primary.predicted_gap, direction)}`}>
+            {directionLabel} {overnightGapText(primary.predicted_gap, direction)}
+          </span>
         </div>
-        <p>Model gap {percentage(primary.predicted_gap)} · gross difference versus selling at the assumed close {formatUsd(primary.difference_per_share)} per share
-          {primary.gross_difference_for_shares !== null ? ` (${formatUsd(primary.gross_difference_for_shares)} for ${result.shares} shares)` : ""}.</p>
-        <p>{primary.after_cost_difference_per_share === null
-          ? "Execution costs not specified; the difference above is before costs."
-          : `After your entered exit costs: ${formatUsd(primary.after_cost_difference_per_share)} per share.`}</p>
+        <span className="overnight-result-from">From {quotePrice(primary.assumed_close)} assumed close · {overnightDollarText(primary.difference_per_share)}/share before costs</span>
       </div>
-      <div className="overnight-neighbors">
-        <p className="muted">Sensitivity only: if today’s close prints here instead. These are not an uncertainty interval.</p>
-        {neighbors.map((item) => <CaseSummary key={item.label} value={item} />)}
-      </div>
-      <p className="muted">Assumes this price is today’s close; remaining intraday movement is not predicted. Last provider trade: {result.last_trade_at ? new Date(result.last_trade_at).toLocaleString() : "unavailable"}. Latest next open observed for training: {result.model_label_observed_on}. This model uses {model.feature_columns.length} inputs.</p>
+      <p className="overnight-result-caution">
+        {hasComparison
+          ? `${losesToUnchanged ? "No measured edge" : "Historical error"} · ${percentage(primary.oof_model_gap_mae)} model vs ${percentage(primary.oof_zero_gap_mae)} unchanged`
+          : "Experimental estimate · historical error unavailable"}
+      </p>
+      <details className="overnight-result-details">
+        <summary>Accuracy &amp; costs</summary>
+        <div className="overnight-result-detail-body">
+          <p>Held-out gap error from {result.evaluated_rows} rows. Historical 90th-percentile absolute open error at this price: {primary.oof_abs_open_error_p90_at_assumed_price === null ? "not measured" : formatUsd(primary.oof_abs_open_error_p90_at_assumed_price)}; not a guaranteed range.</p>
+          <p>Gross change: {overnightDollarText(primary.difference_per_share)}/share{primary.gross_difference_for_shares !== null ? ` · ${overnightDollarText(primary.gross_difference_for_shares)} for ${result.shares} shares` : ""}. {primary.after_cost_difference_per_share === null
+            ? "No execution costs entered."
+            : `After entered exit costs: ${overnightDollarText(primary.after_cost_difference_per_share)}/share${primary.after_cost_difference_for_shares !== null ? ` · ${overnightDollarText(primary.after_cost_difference_for_shares)} total` : ""}.`}</p>
+          <p>Scenario assumes today closes at the entered price; it does not predict the rest of today. Latest next-open label used: {result.model_label_observed_on}. {model.feature_columns.length} inputs.</p>
+        </div>
+      </details>
+      <details className="overnight-result-details">
+        <summary>Other close prices</summary>
+        <div className="overnight-result-detail-body">
+          <p>What-if sensitivity, not an uncertainty range.</p>
+          {neighbors.map((item) => <CaseSummary key={item.label} value={item} />)}
+        </div>
+      </details>
       <FeatureSnapshot value={primary} columns={model.feature_columns} />
     </div>
   );
