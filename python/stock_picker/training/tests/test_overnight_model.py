@@ -10,11 +10,16 @@ import pandas as pd
 import pytest
 
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.feature_store import FeatureStore
+from stock_picker.storage.price_store import PriceStore
 from stock_picker.training.overnight_dataset import (
     CurrentOpenProvenance, FEATURE_COLUMNS, LABEL_COLUMN, PriceContract, ScenarioBuild,
     build_overnight_training_frame,
 )
-from stock_picker.training.overnight_day_scores import generate_historical_day_scores
+from stock_picker.training.overnight_day_scores import (
+    align_overnight_morning_inputs, generate_historical_day_scores,
+)
+from stock_picker.training.live_rows import prepare_one
 from stock_picker.training.overnight_cohort import (
     COHORT_SOURCE, make_ranked_cohort_manifest, ranked_labeled_rows,
     save_ranked_cohort_manifest, select_ranked_cohort,
@@ -25,6 +30,8 @@ from stock_picker.training.overnight_model import (
     FIT_RESIDUAL_COLUMN,
     MODEL_FEATURE_VERSION,
     MODEL_FEATURE_COLUMNS,
+    STACKED_FEATURE_COLUMNS,
+    STACKED_FEATURE_VERSION,
     DayModelOutputs,
     OvernightModel,
     attach_historical_day_scores,
@@ -34,6 +41,10 @@ from stock_picker.training.overnight_model import (
     score_day_models,
     train_overnight_model,
 )
+from stock_picker.training.overnight_variants import (
+    VARIANT_OUTPUT_COLUMNS, train_morning_variants, variant_feature_names,
+)
+from stock_picker.training.ensemble import ModelSpec
 
 
 CONTRACT = PriceContract("massive", "raw", "massive_actions")
@@ -75,6 +86,68 @@ def test_contract_has_fifteen_features_and_fit_prediction_is_a_real_column():
     assert "day_fit_predicted_return" in MODEL_FEATURE_COLUMNS
     assert "assumed_close" in MODEL_FEATURE_COLUMNS
     assert FIT_RESIDUAL_COLUMN in MODEL_FEATURE_COLUMNS
+
+
+def test_named_morning_variants_are_distinct_and_fitted_only_on_earlier_full_universe(monkeypatch):
+    from stock_picker.training import overnight_variants
+
+    sessions = pd.bdate_range("2025-01-02", periods=140)
+    rows = pd.DataFrame([
+        {"date": session, "ticker": ticker, "signal": float(index), "svr_oof_pred": 0.1,
+         "label_day_session_return": 0.001}
+        for index, session in enumerate(sessions) for ticker in ("AAA", "BBB")
+    ])
+    features = variant_feature_names(rows, [
+        ModelSpec("lightgbm", included_features={"signal", "svr_oof_pred"}),
+    ])
+    assert features == {"signal"}
+    trained = {}
+
+    def capture(frame, specs):
+        model_type = specs[0].model_type
+        window = frame["date"].nunique()
+        trained[(model_type, window)] = frame
+        assert specs[0].included_features == {"signal"}
+        return SimpleNamespace(model_type=model_type, window=window)
+
+    monkeypatch.setattr(overnight_variants, "train_ensemble", capture)
+    models = train_morning_variants(
+        rows, included_features=features, scoring_date=sessions[-1] + pd.Timedelta(days=1),
+    )
+    assert set(models) == set(VARIANT_OUTPUT_COLUMNS)
+    assert {(model.model_type, model.window) for model in models.values()} == {
+        ("lightgbm", 20), ("lightgbm", 120), ("ridge", 140),
+    }
+    assert all(len(frame) == frame["date"].nunique() * 2 for frame in trained.values())
+    with pytest.raises(ValueError, match="before the scoring session"):
+        train_morning_variants(rows, included_features=features, scoring_date=sessions[-1])
+
+
+def test_stacked_contract_accepts_all_named_outputs_and_old_contract_still_forecasts():
+    rows = make_rows()
+    for index, column in enumerate(VARIANT_OUTPUT_COLUMNS):
+        rows[column] = 0.001 * (index + 1)
+    model = train_overnight_model(
+        rows, CONTRACT, n_splits=2, rounds=5, params={"min_data_in_leaf": 2},
+        feature_columns=STACKED_FEATURE_COLUMNS, feature_version=STACKED_FEATURE_VERSION,
+    )
+    assert model.feature_columns == STACKED_FEATURE_COLUMNS
+    assert model.contract["feature_version"] == STACKED_FEATURE_VERSION
+    last = rows.iloc[-1]
+    outputs = DayModelOutputs(
+        *(float(last[column]) for column in DAY_OUTPUT_COLUMNS),
+        {column: float(last[column]) for column in VARIANT_OUTPUT_COLUMNS},
+    )
+    scenario = ScenarioBuild(last[list(FEATURE_COLUMNS)], date(2026, 2, 11), None)
+    result = forecast_assumed_close(scenario, outputs, model, session=date(2026, 2, 10), contract=CONTRACT)
+    assert result.projected_open > 0
+    with pytest.raises(ValueError, match="incomplete"):
+        DayModelOutputs(0.01, 0.2, 0.01, 0.2, {VARIANT_OUTPUT_COLUMNS[0]: 0.01}).as_features()
+    with pytest.raises(ValueError, match="missing features"):
+        forecast_assumed_close(
+            scenario, DayModelOutputs(0.01, 0.2, 0.01, 0.2), model,
+            session=date(2026, 2, 10), contract=CONTRACT,
+        )
 
 
 def test_fit_residual_uses_assumed_price_and_cannot_be_spoofed():
@@ -153,6 +226,36 @@ def test_same_scoring_path_is_used_for_saved_fit_rank_and_svm(monkeypatch):
     assert values.as_features() == dict(zip(DAY_OUTPUT_COLUMNS, (0.03, 0.4, 0.02, 0.7)))
 
 
+def test_pinned_variant_scores_use_the_same_columns_as_historical_training(monkeypatch):
+    from stock_picker.training import overnight_model, overnight_variants
+
+    fit = SimpleNamespace(stacked_svm_estimators={"svr_oof_pred": object(), "svc_direction_margin": object()})
+    rank = object()
+    variants = {column: object() for column in VARIANT_OUTPUT_COLUMNS}
+    monkeypatch.setattr(
+        overnight_model, "score_stacked_svm",
+        lambda frame, estimators, outputs: pd.DataFrame(
+            {"svr_oof_pred": [0.02], "svc_direction_margin": [0.7]}, index=frame.index,
+        ),
+    )
+    monkeypatch.setattr(
+        overnight_model, "predict_ensemble",
+        lambda ensemble, frame: np.array([0.03 if ensemble is fit else 0.4]),
+    )
+    predictions = dict(zip(VARIANT_OUTPUT_COLUMNS, (0.01, 0.015, 0.025)))
+    monkeypatch.setattr(
+        overnight_variants, "predict_ensemble",
+        lambda ensemble, frame: np.array([next(
+            value for column, value in predictions.items() if variants[column] is ensemble
+        )]),
+    )
+    row = pd.DataFrame({"signal": [1.0]})
+    historical = overnight_model.score_day_model_frame(row, fit, rank, variants)
+    live = score_day_models(row, fit, rank, variants).as_features()
+    assert historical.iloc[0].to_dict() == live
+    assert set(live) == set(DAY_OUTPUT_COLUMNS) | set(VARIANT_OUTPUT_COLUMNS)
+
+
 def test_full_scenario_recomputes_close_derived_inputs(monkeypatch):
     from stock_picker.training import overnight_model
 
@@ -224,6 +327,108 @@ def test_historical_generator_tags_each_score_with_earlier_fold_cutoff(monkeypat
     assert len(scores) == 8
     assert (scores["trained_through"] < scores["date"]).all()
     assert set(DAY_OUTPUT_COLUMNS).issubset(scores.columns)
+    bundle = generate_historical_day_scores(
+        day_rows, fit_specs=[SimpleNamespace(model_type="lightgbm")],
+        rank_spec=SimpleNamespace(model_type="lightgbm_rank"),
+        tracking_dir=tmp_path, n_splits=2, return_serving_models=True,
+    )
+    assert bundle.scores.equals(scores)
+    assert bundle.serving_fit_model is fit_model
+    assert bundle.serving_rank_model is not None
+    assert bundle.serving_trained_through < scores["date"].max().date()
+
+
+def test_historical_variant_scores_use_prior_full_cross_sections(monkeypatch, tmp_path):
+    from stock_picker.training import overnight_day_scores
+
+    dates = pd.bdate_range("2026-01-05", periods=12)
+    day_rows = pd.DataFrame([
+        {"ticker": ticker, "date": session, "signal": float(index),
+         "label_day_session_return": 0.01}
+        for index, session in enumerate(dates) for ticker in ("AAA", "BBB")
+    ])
+    fit_model = SimpleNamespace(stacked_svm_estimators={"svr_oof_pred": object(), "svc_direction_margin": object()})
+    monkeypatch.setattr(
+        overnight_day_scores, "run_walk_forward",
+        lambda frame, **kwargs: [SimpleNamespace(model=fit_model)] * 2,
+    )
+    monkeypatch.setattr(overnight_day_scores, "train_ensemble", lambda frame, specs: object())
+    seen = []
+
+    def fit_variants(train, *, included_features, scoring_date):
+        assert included_features == {"signal"}
+        assert train["date"].max() < scoring_date
+        assert len(train) == train["date"].nunique() * 2
+        seen.append(scoring_date)
+        return {column: object() for column in VARIANT_OUTPUT_COLUMNS}
+
+    def score(frame, fit, rank, variants):
+        assert set(variants) == set(VARIANT_OUTPUT_COLUMNS)
+        return pd.DataFrame(
+            {column: np.ones(len(frame)) for column in (*DAY_OUTPUT_COLUMNS, *VARIANT_OUTPUT_COLUMNS)},
+            index=frame.index,
+        )
+
+    monkeypatch.setattr(overnight_day_scores, "train_morning_variants", fit_variants)
+    monkeypatch.setattr(overnight_day_scores, "score_day_model_frame", score)
+    scores = generate_historical_day_scores(
+        day_rows, fit_specs=[ModelSpec("lightgbm", included_features={"signal"})],
+        rank_spec=ModelSpec("lightgbm_rank"), tracking_dir=tmp_path,
+        n_splits=2, include_variants=True,
+    )
+    assert len(seen) == 2
+    assert len(scores) == 16
+    assert set(VARIANT_OUTPUT_COLUMNS).issubset(scores)
+    assert (scores["trained_through"] < scores["date"]).all()
+    joined = attach_historical_day_scores(
+        scores[["ticker", "date"]].copy(), scores,
+        output_columns=(*DAY_OUTPUT_COLUMNS, *VARIANT_OUTPUT_COLUMNS),
+    )
+    assert set(VARIANT_OUTPUT_COLUMNS).issubset(joined)
+    leaked = scores.copy()
+    leaked.loc[leaked.index[0], "trained_through"] = leaked.loc[leaked.index[0], "date"]
+    with pytest.raises(ValueError, match="strictly earlier"):
+        attach_historical_day_scores(
+            scores[["ticker", "date"]].copy(), leaked,
+            output_columns=(*DAY_OUTPUT_COLUMNS, *VARIANT_OUTPUT_COLUMNS),
+        )
+
+
+def test_overnight_historical_cluster_and_weather_match_one_ticker_live_row(tmp_path):
+    first, second = pd.Timestamp("2026-09-08"), pd.Timestamp("2026-09-09")
+    rows = pd.DataFrame([
+        {"ticker": ticker, "date": session, "overnight_gap": gap,
+         "cluster_id": cluster, "cluster_overnight_gap": peer_gap,
+         "weather_nyc_tmax_yday": weather}
+        for ticker, observations in {
+            "AAA": ((first, 0.01, 2.0, 0.02, 12.0), (second, 0.03, 2.0, 0.99, 13.0)),
+            "BBB": ((first, 0.02, 2.0, 0.01, 12.0), (second, 0.04, 2.0, 0.88, 13.0)),
+        }.items()
+        for session, gap, cluster, peer_gap, weather in observations
+    ])
+    aligned = align_overnight_morning_inputs(rows)
+    historical = aligned.loc[(aligned["ticker"] == "AAA") & (aligned["date"] == second)].iloc[0]
+    assert historical["overnight_gap"] == pytest.approx(0.03)
+    assert historical["cluster_overnight_gap"] == pytest.approx(0.02)
+    assert historical["weather_nyc_tmax_yday"] == pytest.approx(12.0)
+    assert pd.isna(aligned.loc[(aligned["ticker"] == "AAA") & (aligned["date"] == first),
+                             "cluster_overnight_gap"].iloc[0])
+
+    feature_store = FeatureStore(data_dir=tmp_path / "features")
+    feature_store.write(
+        "AAA", pd.DataFrame({
+            "overnight_gap": [0.01], "cluster_id": [2.0],
+            "cluster_overnight_gap": [0.02], "weather_nyc_tmax_yday": [12.0],
+        }, index=pd.DatetimeIndex([first], name="date")),
+    )
+    live = prepare_one(
+        "AAA", {"AAA": {"open": 103.0, "last": 103.0, "prev_close": 100.0}},
+        set(), feature_store, PriceStore(data_dir=tmp_path / "prices"), second.date(),
+        None, None, blocked=set(),
+    )
+    assert live.row is not None
+    for column in ("overnight_gap", "cluster_overnight_gap", "weather_nyc_tmax_yday"):
+        assert live.row.iloc[0][column] == pytest.approx(historical[column])
 
 
 def test_job_publishes_only_after_prior_trained_scores_and_model_fit(monkeypatch, tmp_path):
@@ -275,6 +480,56 @@ def test_job_publishes_only_after_prior_trained_scores_and_model_fit(monkeypatch
             {}, scores[["ticker", "date"]], fit_specs=[], rank_spec=SimpleNamespace(model_type="lightgbm_rank"),
             contract=CONTRACT, model_store=store, tracking_dir=tmp_path, n_splits=2, rank_top_k=2,
         )
+
+
+def test_job_archives_stacked_contract_and_pinned_variant_estimators(monkeypatch, tmp_path):
+    from stock_picker.training import overnight_job
+
+    labels = make_rows().drop(columns=list(DAY_OUTPUT_COLUMNS))
+    scores = make_rows()[["ticker", "date", *DAY_OUTPUT_COLUMNS]].copy()
+    for index, column in enumerate(VARIANT_OUTPUT_COLUMNS):
+        scores[column] = 0.001 * (index + 1)
+    scores["trained_through"] = scores["date"] - pd.Timedelta(days=1)
+    scores = scores.loc[scores["date"] >= scores["date"].sort_values().unique()[4]]
+    monkeypatch.setattr(overnight_job, "build_verified_overnight_rows", lambda verified, contract: (labels, {}))
+    captured = {}
+
+    def train(frame, contract, **kwargs):
+        captured["columns"] = set(frame)
+        captured["contract"] = kwargs
+        return SimpleNamespace()
+
+    monkeypatch.setattr(overnight_job, "train_overnight_model", train)
+    variants = {column: object() for column in VARIANT_OUTPUT_COLUMNS}
+    store = ModelStore(data_dir=tmp_path / "models")
+    train_and_persist_overnight(
+        {}, scores[["ticker", "date"]], fit_specs=[], rank_spec=ModelSpec("lightgbm_rank"),
+        contract=CONTRACT, model_store=store, tracking_dir=tmp_path, n_splits=2,
+        historical_day_scores=scores, rank_top_k=2, include_variants=True,
+        serving_fit_model=SimpleNamespace(), serving_rank_model=SimpleNamespace(),
+        day_model_trained_through=date(2026, 1, 2), serving_variant_models=variants,
+        serving_variant_trained_through=date(2026, 1, 5),
+    )
+    assert set(VARIANT_OUTPUT_COLUMNS).issubset(captured["columns"])
+    assert captured["contract"]["feature_columns"] == STACKED_FEATURE_COLUMNS
+    assert captured["contract"]["feature_version"] == STACKED_FEATURE_VERSION
+    archived = store.read("next_open_from_assumed_close")
+    assert set(archived.day_variant_models) == set(VARIANT_OUTPUT_COLUMNS)
+    assert len(archived.day_model_source["morning_variants"]) == 3
+
+
+def test_stacked_job_rejects_missing_serving_variants_before_writing(tmp_path):
+    store = ModelStore(data_dir=tmp_path / "models")
+    with pytest.raises(ValueError, match="all pinned serving models"):
+        train_and_persist_overnight(
+            {}, pd.DataFrame(), fit_specs=[], rank_spec=ModelSpec("lightgbm_rank"),
+            contract=CONTRACT, model_store=store, tracking_dir=tmp_path,
+            include_variants=True, serving_fit_model=SimpleNamespace(),
+            serving_rank_model=SimpleNamespace(), day_model_trained_through=date(2026, 1, 2),
+            serving_variant_models=None,
+            serving_variant_trained_through=date(2026, 1, 5),
+        )
+    assert not store.exists("next_open_from_assumed_close")
 
 
 def test_ranked_cohort_tie_breaks_before_filtering_labels_and_ignores_fit_only_names():
@@ -472,7 +727,7 @@ def test_cli_fetches_only_ranked_union_with_warmup_not_final_unlabeled_day(monke
     monkeypatch.setattr(overnight_job, "FeatureStore", lambda: object())
     monkeypatch.setattr(overnight_job, "data_root", lambda: tmp_path)
 
-    overnight_job.main(["--start", "2026-09-08", "--end", "2026-09-10"])
+    overnight_job.main(["--start", "2026-09-08", "--end", "2026-09-10", "--legacy-features"])
     capsys.readouterr()
     expected = set(tickers[:21])
     assert seen["keys"] == expected
@@ -480,6 +735,6 @@ def test_cli_fetches_only_ranked_union_with_warmup_not_final_unlabeled_day(monke
     assert all(start == date(2026, 8, 28) and end == date(2026, 9, 10) for _, start, end in fetched)
     assert seen["label_start"] == date(2026, 9, 8)
     fetched.clear()
-    overnight_job.main(["--start", "2026-09-08", "--end", "2026-09-10", "--tickers", "T00", "T24"])
+    overnight_job.main(["--start", "2026-09-08", "--end", "2026-09-10", "--legacy-features", "--tickers", "T00", "T24"])
     capsys.readouterr()
     assert {ticker for ticker, _, _ in fetched} == {"T00"}

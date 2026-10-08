@@ -25,11 +25,12 @@ are absent. The saved artifact records this limitation as
 It must not be described as "the stocks actually ranked that morning" until
 dated universe/quote snapshots can reconstruct those exact candidates.
 
-For requested label dates `[start, end]`, the Massive fetch begins six XNYS
+For requested label dates `[start, end)`, the Massive fetch begins six XNYS
 sessions before `start` so the first date can have six prior completed closes.
-Only labels dated within the requested window enter training; the last fetched
-bar still has no next-open label. Missing or incomplete same-day score
-cross-sections stop the run rather than changing the reconstructed top 20.
+The `end` bar supplies the last potential next open but has no label itself.
+Only labels dated within the requested window enter training. Missing or
+incomplete same-day score cross-sections stop the run rather than changing the
+reconstructed top 20.
 
 The CLI reports `label_rows` for selected, verified Rank ticker-days only.
 `provider_labeled_rows`, `provider_candidate_rows`, and
@@ -38,3 +39,30 @@ tickers**, including six-session history, dates outside the selected Rank
 cohort, and the final unlabeled bar. Their denominator is intentionally
 different from `label_rows`; do not calculate a cohort exclusion rate from
 the provider-wide counts.
+
+## Morning predictions used as inputs
+
+The default overnight contract has 18 inputs: the original 15 plus open-to-close
+Fit predictions from a 20-session LightGBM, a 120-session LightGBM, and a Ridge
+model. These are named model families/windows, not archived run IDs. Each
+historical score is fitted on earlier sessions; the Rank top 20 is chosen
+before any overnight label is joined. The saved artifact carries all three
+variant estimators and their training cutoff, as well as its Fit and Rank
+estimators. An incomplete artifact is rejected before it can be written.
+
+For this overnight path, historical `cluster_overnight_gap` and NYC weather
+columns use the previous feature snapshot. The generic same-day frame leaves
+them unshifted, but its same-day cluster membership depends on the close and
+would leak information into a morning score. The extra lag matches the
+one-ticker scenario path without fetching a whole peer universe on each click.
+An 18-input forecast requires the snapshot from the immediately preceding
+XNYS session; the older 15-input artifact retains its existing freshness rule.
+
+The Fit/Rank serving estimators are from the last chronological fold, not a
+refit on the full frame, and may be one test block old. The 20-/120-session
+variants are also held fixed within each test block; early folds can have
+fewer than 120 available sessions. Those limits, current-universe survivorship,
+and the reconstructed rather than archived cohort must accompany any reported
+hold/accuracy result. No new 18-input artifact or performance claim is implied
+by this code path alone; training and verified-price evaluation are separate
+explicit runs.

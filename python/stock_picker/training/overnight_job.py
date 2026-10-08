@@ -31,12 +31,20 @@ from stock_picker.training.overnight_cohort import (
     ranked_labeled_rows, save_ranked_cohort_manifest, select_ranked_cohort,
 )
 from stock_picker.training.overnight_dataset import PRIOR_CLOSE_COUNT, PriceContract, build_overnight_training_frame
-from stock_picker.training.overnight_day_scores import generate_historical_day_scores
+from stock_picker.training.overnight_day_scores import (
+    align_overnight_morning_inputs, generate_historical_day_scores,
+)
 from stock_picker.training.overnight_model import (
     MODEL_NAME,
     OvernightModel,
+    DAY_OUTPUT_COLUMNS,
+    STACKED_FEATURE_COLUMNS,
+    STACKED_FEATURE_VERSION,
     attach_historical_day_scores,
     train_overnight_model,
+)
+from stock_picker.training.overnight_variants import (
+    MORNING_VARIANTS, VARIANT_OUTPUT_COLUMNS, train_morning_variants, variant_feature_names,
 )
 from stock_picker.training.rank_model import RANK_TOP_K
 
@@ -103,8 +111,24 @@ def train_and_persist_overnight(
     label_start: date | None = None,
     label_end: date | None = None,
     ticker_whitelist: set[str] | None = None,
+    include_variants: bool = False,
+    serving_variant_models: dict[str, Ensemble] | None = None,
+    serving_variant_trained_through: date | None = None,
 ) -> OvernightTrainingResult:
     """Train only on reconstructed as-of Rank picks with verified labels."""
+    if include_variants and (
+        serving_fit_model is None or serving_rank_model is None
+        or day_model_trained_through is None
+        or serving_variant_trained_through is None
+        or serving_variant_models is None
+        or set(serving_variant_models) != set(VARIANT_OUTPUT_COLUMNS)
+        or any(serving_variant_models[column] is None for column in VARIANT_OUTPUT_COLUMNS)
+    ):
+        raise ValueError("stacked overnight training requires all pinned serving models and cutoff")
+    if not include_variants and (
+        serving_variant_models is not None or serving_variant_trained_through is not None
+    ):
+        raise ValueError("legacy overnight training cannot pin unused morning variants")
     label_rows, exclusions = build_verified_overnight_rows(verified_by_ticker, contract)
     provider_labeled_rows = len(label_rows)
     provider_candidate_rows = provider_labeled_rows + sum(exclusions.values())
@@ -121,6 +145,7 @@ def train_and_persist_overnight(
         rank_spec=rank_spec,
         tracking_dir=tracking_dir,
         n_splits=n_splits,
+        include_variants=include_variants,
     )
     cohort = select_ranked_cohort(day_scores, day_training_frame, top_k=rank_top_k)
     scored_dates = set(cohort["date"])
@@ -139,14 +164,25 @@ def train_and_persist_overnight(
         ticker_whitelist=ticker_whitelist,
     )
     manifest_path, manifest_sha256 = save_ranked_cohort_manifest(manifest, tracking_dir)
-    scored = attach_historical_day_scores(eligible, day_scores)
-    model = train_overnight_model(scored, contract, n_splits=n_splits)
+    outputs = (*DAY_OUTPUT_COLUMNS, *VARIANT_OUTPUT_COLUMNS) if include_variants else DAY_OUTPUT_COLUMNS
+    scored = attach_historical_day_scores(eligible, day_scores, output_columns=outputs)
+    model = (
+        train_overnight_model(
+            scored, contract, n_splits=n_splits,
+            feature_columns=STACKED_FEATURE_COLUMNS, feature_version=STACKED_FEATURE_VERSION,
+        ) if include_variants else train_overnight_model(scored, contract, n_splits=n_splits)
+    )
     model.day_model_source = {
         **(day_model_source or {}), "cohort_source": COHORT_SOURCE, "rank_top_k": rank_top_k,
         "cohort_universe_limit": COHORT_UNIVERSE_LIMIT,
         "ticker_whitelist": sorted(ticker_whitelist) if ticker_whitelist is not None else None,
         "cohort_manifest_relative_path": manifest_path.relative_to(tracking_dir).as_posix(),
         "cohort_manifest_sha256": manifest_sha256,
+        "morning_variants": [
+            {"column": variant.column, "model_type": variant.model_type,
+             "window_sessions": variant.window_sessions}
+            for variant in MORNING_VARIANTS
+        ] if include_variants else [],
     }
     if any(value is not None for value in (serving_fit_model, serving_rank_model, day_model_trained_through)):
         if serving_fit_model is None or serving_rank_model is None or day_model_trained_through is None:
@@ -154,6 +190,9 @@ def train_and_persist_overnight(
         model.day_fit_model = serving_fit_model
         model.day_rank_model = serving_rank_model
         model.day_model_trained_through = day_model_trained_through
+    if include_variants:
+        model.day_variant_models = serving_variant_models
+        model.day_variant_trained_through = serving_variant_trained_through
     model_store.write(MODEL_NAME, model)
     return OvernightTrainingResult(
         model=model,
@@ -193,6 +232,10 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--end", type=date.fromisoformat, required=True)
     parser.add_argument("--folds", type=int, default=4)
     parser.add_argument(
+        "--legacy-features", action="store_true",
+        help="Retain the earlier 15-input contract rather than training the named morning variants",
+    )
+    parser.add_argument(
         "--day-universe", choices=("all",), default="all",
         help="Historical Fit/Rank folds must use the full universe",
     )
@@ -225,10 +268,13 @@ def main(argv: list[str] | None = None) -> None:
     client = MassiveOvernightClient()
     # Choose Rank names before the expensive, raw/action-checked provider calls.
     # The last requested session has no next-open label within this fetch range.
-    historical_scores = generate_historical_day_scores(
+    historical = generate_historical_day_scores(
         day_training, fit_specs=fit_specs, rank_spec=rank_spec,
         tracking_dir=args.tracking_dir or data_root() / "mlruns", n_splits=args.folds,
+        include_variants=not args.legacy_features,
+        return_serving_models=not args.legacy_features,
     )
+    historical_scores = historical if args.legacy_features else historical.scores
     cohort = select_ranked_cohort(historical_scores, day_training)
     eligible_dates = (cohort["date"] >= pd.Timestamp(args.start)) & (cohort["date"] < pd.Timestamp(args.end))
     needed_tickers = set(cohort.loc[eligible_dates, "ticker"])
@@ -238,6 +284,13 @@ def main(argv: list[str] | None = None) -> None:
         raise ValueError("no dated Rank picks are eligible for a next-open label in this range")
     fetch_start = fetch_start_with_prior_sessions(args.start)
     verified = {ticker: client.fetch(ticker, fetch_start, args.end) for ticker in sorted(needed_tickers)}
+    aligned_day_training = align_overnight_morning_inputs(day_training) if not args.legacy_features else day_training
+    serving_variants = (
+        train_morning_variants(
+            aligned_day_training,
+            included_features=variant_feature_names(aligned_day_training, fit_specs),
+        ) if not args.legacy_features else None
+    )
     output_store = ModelStore(data_dir=args.output_model_dir) if args.output_model_dir else source_model_store
     result = train_and_persist_overnight(
         verified,
@@ -249,20 +302,39 @@ def main(argv: list[str] | None = None) -> None:
         tracking_dir=args.tracking_dir or data_root() / "mlruns",
         n_splits=args.folds,
         day_model_source={
-            "fit_artifact": fit_name,
-            "rank_artifact": RANK_MODEL_NAME,
+            "fit_architecture_template_artifact": fit_name,
+            "rank_architecture_template_artifact": RANK_MODEL_NAME,
+            "serving_day_model_source": (
+                "aligned_historical_final_fold" if not args.legacy_features else "selected_saved_artifacts"
+            ),
+            "serving_day_model_fold_cutoff": (
+                historical.serving_trained_through.isoformat() if not args.legacy_features else None
+            ),
+            "serving_variant_cutoff": (
+                pd.to_datetime(aligned_day_training["date"]).max().date().isoformat()
+                if not args.legacy_features else None
+            ),
             "day_universe_mode": args.day_universe,
             "day_universe_tickers": len(day_tickers),
         },
-        serving_fit_model=fit,
-        serving_rank_model=rank,
+        serving_fit_model=fit if args.legacy_features else historical.serving_fit_model,
+        serving_rank_model=rank if args.legacy_features else historical.serving_rank_model,
         # This is conservative if an existing saved estimator was fitted
         # earlier than the frame we loaded; it can only delay serving.
-        day_model_trained_through=pd.to_datetime(day_training["date"]).max().date(),
+        day_model_trained_through=(
+            pd.to_datetime(day_training["date"]).max().date()
+            if args.legacy_features else historical.serving_trained_through
+        ),
+        serving_variant_trained_through=(
+            pd.to_datetime(aligned_day_training["date"]).max().date()
+            if not args.legacy_features else None
+        ),
         historical_day_scores=historical_scores,
         label_start=args.start,
         label_end=args.end,
         ticker_whitelist=set(args.tickers) if args.tickers else None,
+        include_variants=not args.legacy_features,
+        serving_variant_models=serving_variants,
     )
     print(json.dumps({
         "artifact": MODEL_NAME,

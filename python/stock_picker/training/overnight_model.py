@@ -30,6 +30,7 @@ from stock_picker.training.overnight_dataset import (
 )
 from stock_picker.training.splits import walk_forward_splits
 from stock_picker.training.svm_stack import score_stacked_svm
+from stock_picker.training.overnight_variants import VARIANT_OUTPUT_COLUMNS, score_morning_variants
 
 
 MODEL_NAME = "next_open_from_assumed_close"
@@ -44,6 +45,8 @@ FIT_RESIDUAL_COLUMN = "fit_minus_assumed_day_return"
 MODEL_FEATURE_COLUMNS = (*FEATURE_COLUMNS, *DAY_OUTPUT_COLUMNS, FIT_RESIDUAL_COLUMN)
 SVM_OUTPUT_COLUMNS = ("svr_oof_pred", "svc_direction_margin")
 assert len(MODEL_FEATURE_COLUMNS) == 15
+STACKED_FEATURE_VERSION = "overnight_ranked_stacked_morning"
+STACKED_FEATURE_COLUMNS = (*MODEL_FEATURE_COLUMNS, *VARIANT_OUTPUT_COLUMNS)
 
 DEFAULT_PARAMS = {
     "objective": "regression_l1",
@@ -64,6 +67,7 @@ class DayModelOutputs:
     rank_score: float
     svr_predicted_return: float
     svc_direction_margin: float
+    variants: dict[str, float] | None = None
 
     def as_features(self) -> dict[str, float]:
         values = dict(zip(DAY_OUTPUT_COLUMNS, (
@@ -72,6 +76,10 @@ class DayModelOutputs:
             self.svr_predicted_return,
             self.svc_direction_margin,
         )))
+        if self.variants is not None:
+            if set(self.variants) != set(VARIANT_OUTPUT_COLUMNS):
+                raise ValueError("same-day variant outputs are incomplete")
+            values.update(self.variants)
         if not all(isfinite(value) for value in values.values()):
             raise ValueError("same-day model outputs must be finite")
         return values
@@ -108,6 +116,9 @@ class OvernightModel:
     day_fit_model: Ensemble | None = None
     day_rank_model: Ensemble | None = None
     day_model_trained_through: date | None = None
+    # Optional for old 15-feature pickles. New stacked artifacts pin all three.
+    day_variant_models: dict[str, Ensemble] | None = None
+    day_variant_trained_through: date | None = None
 
 
 @dataclass(frozen=True)
@@ -125,6 +136,7 @@ class OvernightForecast:
 
 def score_day_model_frame(
     open_known_rows: pd.DataFrame, fit: Ensemble, rank: Ensemble,
+    variant_models: dict[str, Ensemble] | None = None,
 ) -> pd.DataFrame:
     """One train/serve scoring path using the actual saved morning estimators."""
     if open_known_rows.empty:
@@ -137,6 +149,8 @@ def score_day_model_frame(
         DAY_OUTPUT_COLUMNS[2]: margins["svr_oof_pred"].to_numpy(),
         DAY_OUTPUT_COLUMNS[3]: margins["svc_direction_margin"].to_numpy(),
     }, index=open_known_rows.index)
+    if variant_models is not None:
+        scored = pd.concat([scored, score_morning_variants(open_known_rows, variant_models)], axis=1)
     if not np.isfinite(scored.to_numpy(dtype=float)).all():
         raise ValueError("same-day model outputs must be finite")
     return scored
@@ -144,16 +158,21 @@ def score_day_model_frame(
 
 def score_day_models(
     open_known_row: pd.DataFrame, fit: Ensemble, rank: Ensemble,
+    variant_models: dict[str, Ensemble] | None = None,
 ) -> DayModelOutputs:
     """Use the same scoring transform as historical fold generation."""
     if len(open_known_row) != 1:
         raise ValueError("exactly one open-known same-day row is required")
-    scored = score_day_model_frame(open_known_row, fit, rank).iloc[0]
+    scored = score_day_model_frame(open_known_row, fit, rank, variant_models).iloc[0]
     result = DayModelOutputs(
         fit_predicted_return=float(scored[DAY_OUTPUT_COLUMNS[0]]),
         rank_score=float(scored[DAY_OUTPUT_COLUMNS[1]]),
         svr_predicted_return=float(scored[DAY_OUTPUT_COLUMNS[2]]),
         svc_direction_margin=float(scored[DAY_OUTPUT_COLUMNS[3]]),
+        variants=(
+            {column: float(scored[column]) for column in VARIANT_OUTPUT_COLUMNS}
+            if variant_models is not None else None
+        ),
     )
     result.as_features()
     return result
@@ -161,6 +180,7 @@ def score_day_models(
 
 def attach_historical_day_scores(
     overnight_rows: pd.DataFrame, day_scores: pd.DataFrame,
+    *, output_columns: tuple[str, ...] = DAY_OUTPUT_COLUMNS,
 ) -> pd.DataFrame:
     """Join a pooled overnight frame to genuinely prior-trained morning scores.
 
@@ -169,16 +189,16 @@ def attach_historical_day_scores(
     predictions would leak the same-day label into overnight training.
     """
     keys = {"ticker", "date"}
-    required = keys | {"trained_through", *DAY_OUTPUT_COLUMNS}
+    required = keys | {"trained_through", *output_columns}
     if keys - set(overnight_rows) or required - set(day_scores):
         raise ValueError("pooled overnight rows or historical day scores lack required columns")
     if overnight_rows.duplicated(["ticker", "date"]).any() or day_scores.duplicated(["ticker", "date"]).any():
         raise ValueError("ticker/date scores must be unique")
-    if set(DAY_OUTPUT_COLUMNS) & set(overnight_rows):
+    if set(output_columns) & set(overnight_rows):
         raise ValueError("overnight rows must not contain unverified day outputs")
     joined = overnight_rows.merge(day_scores[list(required)], on=["ticker", "date"], how="left", validate="one_to_one")
-    if joined[list(DAY_OUTPUT_COLUMNS)].isna().any().any():
-        raise ValueError("every overnight row needs all four historical same-day outputs")
+    if joined[list(output_columns)].isna().any().any():
+        raise ValueError("every overnight row needs all historical same-day outputs")
     dates = pd.to_datetime(joined["date"], errors="raise")
     fitted = pd.to_datetime(joined["trained_through"], errors="coerce")
     if (
@@ -188,7 +208,7 @@ def attach_historical_day_scores(
         or not (fitted.dt.normalize() < dates).all()
     ):
         raise ValueError("every same-day score must come from a strictly earlier fitted model")
-    values = joined[list(DAY_OUTPUT_COLUMNS)].to_numpy(dtype=float)
+    values = joined[list(output_columns)].to_numpy(dtype=float)
     if not np.isfinite(values).all():
         raise ValueError("historical same-day outputs must be finite")
     return joined.drop(columns="trained_through")
@@ -210,8 +230,10 @@ def add_model_derived_features(frame: pd.DataFrame) -> pd.DataFrame:
     return frame.assign(**{FIT_RESIDUAL_COLUMN: residual})
 
 
-def _validated_training_frame(frame: pd.DataFrame) -> pd.DataFrame:
-    required = {"ticker", "date", LABEL_COLUMN, *(name for name in MODEL_FEATURE_COLUMNS if name != FIT_RESIDUAL_COLUMN)}
+def _validated_training_frame(
+    frame: pd.DataFrame, feature_columns: tuple[str, ...] = MODEL_FEATURE_COLUMNS,
+) -> pd.DataFrame:
+    required = {"ticker", "date", LABEL_COLUMN, *(name for name in feature_columns if name != FIT_RESIDUAL_COLUMN)}
     if required - set(frame):
         raise ValueError(f"overnight training frame lacks {sorted(required - set(frame))}")
     if frame.empty or frame.duplicated(["ticker", "date"]).any():
@@ -220,7 +242,7 @@ def _validated_training_frame(frame: pd.DataFrame) -> pd.DataFrame:
     if dates.isna().any() or dates.dt.tz is not None or not dates.equals(dates.dt.normalize()):
         raise ValueError("overnight dates must be timezone-naive exchange dates")
     frame = add_model_derived_features(frame)
-    values = frame[[*MODEL_FEATURE_COLUMNS, LABEL_COLUMN]].to_numpy(dtype=float)
+    values = frame[[*feature_columns, LABEL_COLUMN]].to_numpy(dtype=float)
     if not np.isfinite(values).all():
         raise ValueError("overnight training features and labels must be finite")
     return frame.assign(date=dates).sort_values(["date", "ticker"]).reset_index(drop=True)
@@ -243,9 +265,16 @@ def train_overnight_model(
     n_splits: int = 4,
     params: dict | None = None,
     rounds: int = DEFAULT_ROUNDS,
+    feature_columns: tuple[str, ...] = MODEL_FEATURE_COLUMNS,
+    feature_version: str = MODEL_FEATURE_VERSION,
 ) -> OvernightModel:
     """Chronological evaluation, then one separate model fitted on all rows."""
-    rows = _validated_training_frame(frame)
+    if (feature_columns, feature_version) not in (
+        (MODEL_FEATURE_COLUMNS, MODEL_FEATURE_VERSION),
+        (STACKED_FEATURE_COLUMNS, STACKED_FEATURE_VERSION),
+    ):
+        raise ValueError("unknown overnight feature contract")
+    rows = _validated_training_frame(frame, feature_columns)
     if rows["date"].nunique() < n_splits + 1:
         raise ValueError("not enough distinct sessions for walk-forward evaluation")
     metrics = []
@@ -255,8 +284,8 @@ def train_overnight_model(
         train, test = rows.loc[train_mask], rows.loc[test_mask]
         if train.empty or test.empty or train["date"].max() >= test["date"].min():
             raise ValueError("invalid chronological overnight fold")
-        booster = _fit(train, params, rounds)
-        predicted = np.asarray(booster.predict(test[list(MODEL_FEATURE_COLUMNS)]), dtype=float)
+        booster = _fit(train, params, rounds, feature_columns)
+        predicted = np.asarray(booster.predict(test[list(feature_columns)]), dtype=float)
         actual = test[LABEL_COLUMN].to_numpy(dtype=float)
         assumed = test["assumed_close"].to_numpy(dtype=float)
         ticker_means = train.groupby("ticker")[LABEL_COLUMN].mean()
@@ -281,15 +310,15 @@ def train_overnight_model(
     if label_observed_on is None:
         raise ValueError("the latest overnight label has no verifiable next session")
     return OvernightModel(
-        booster=_fit(rows, params, rounds),
+        booster=_fit(rows, params, rounds, feature_columns),
         contract={
             **contract.artifact_metadata(),
-            "feature_columns": MODEL_FEATURE_COLUMNS,
+            "feature_columns": feature_columns,
             "base_feature_columns": FEATURE_COLUMNS,
-            "feature_version": MODEL_FEATURE_VERSION,
+            "feature_version": feature_version,
         },
-        feature_columns=MODEL_FEATURE_COLUMNS,
-        feature_version=MODEL_FEATURE_VERSION,
+        feature_columns=feature_columns,
+        feature_version=feature_version,
         trained_through=trained_through,
         label_observed_on=label_observed_on,
         folds=tuple(metrics),
@@ -311,14 +340,21 @@ def forecast_assumed_close(
         raise ValueError(f"invalid overnight scenario: {scenario.exclusion_reason}")
     if scenario.next_session is None:
         raise ValueError("overnight scenario has no verified next exchange session")
-    if model.feature_columns != MODEL_FEATURE_COLUMNS or model.feature_version != MODEL_FEATURE_VERSION:
+    if (model.feature_columns, model.feature_version) not in (
+        (MODEL_FEATURE_COLUMNS, MODEL_FEATURE_VERSION),
+        (STACKED_FEATURE_COLUMNS, STACKED_FEATURE_VERSION),
+    ):
         raise ValueError("overnight model feature contract is incompatible")
     if model.label_observed_on > session:
         raise ValueError("overnight model has seen the scenario session or a later date")
     if any(model.contract.get(key) != getattr(contract, key) for key in ("source", "basis", "action_source")):
         raise ValueError("overnight model price contract is incompatible")
     row = scenario.features.to_dict() | day_outputs.as_features()
-    features = add_model_derived_features(pd.DataFrame([row]))[list(MODEL_FEATURE_COLUMNS)]
+    enriched = add_model_derived_features(pd.DataFrame([row]))
+    missing = set(model.feature_columns) - set(enriched)
+    if missing:
+        raise ValueError(f"overnight forecast has missing features: {sorted(missing)}")
+    features = enriched[list(model.feature_columns)]
     if features.isna().any().any():
         raise ValueError("overnight forecast has missing features")
     gap = float(model.booster.predict(features)[0])
@@ -366,6 +402,14 @@ def forecast_if_closes_at(
     """The full hypothetical-close question, independent of API or UI."""
     if fit_trained_through >= session or rank_trained_through >= session:
         raise ValueError("same-day models must be fitted before the scenario session")
+    if (
+        overnight_model.feature_columns == STACKED_FEATURE_COLUMNS
+        and (
+            overnight_model.day_variant_trained_through is None
+            or overnight_model.day_variant_trained_through >= session
+        )
+    ):
+        raise ValueError("morning variants must be fitted before the scenario session")
     scenario = build_scenario_features(
         prior_history,
         provenance,
@@ -380,7 +424,11 @@ def forecast_if_closes_at(
         raise ValueError(f"invalid overnight scenario: {scenario.exclusion_reason}")
     return forecast_assumed_close(
         scenario,
-        score_day_models(open_known_day_row, fit_model, rank_model),
+        (
+            score_day_models(open_known_day_row, fit_model, rank_model, overnight_model.day_variant_models)
+            if overnight_model.feature_columns == STACKED_FEATURE_COLUMNS else
+            score_day_models(open_known_day_row, fit_model, rank_model)
+        ),
         overnight_model,
         session=session,
         contract=contract,
