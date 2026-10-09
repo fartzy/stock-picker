@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
-  selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
-  summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold,
+  overnightSelectionKey, selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
+  summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold, summarizeSelectedOvernightHistory,
 } from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
@@ -124,6 +124,26 @@ test("history compares repeatable rules on matched complete live days only", () 
     all: { selected: 2, observed: 2, pnl: -100, endingValue: 19_900, extraPnl: -100 },
     down: { selected: 1, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 },
   });
+});
+
+test("top aggregate follows the selected exit rule without requiring other rules to finish", () => {
+  const simulated = simulateBook(book([
+    day("2026-09-29", [
+      pick(-0.02, { ticker: "AAA", close_price: 98 }),
+      pick(0.02, { ticker: "BBB", rank: 2, close_price: 102 }),
+    ]),
+    day("2026-09-28", [pick(-0.01, { ticker: "CCC", close_price: 99 })]),
+  ]), options);
+  const actuals = new Map([["2026-09-29", new Map([
+    ["AAA", { status: "observed", verified_close: 98, next_open: 100 }],
+  ])]]);
+  const selected = (rule, choices) => summarizeSelectedOvernightHistory(
+    simulated.days, actuals, "rank", 10_000, 1, rule, choices,
+  );
+  assert.deepEqual(selected("down"), { eligibleDays: 2, matchedDays: 1, pnl: 200, endingValue: 20_200 });
+  assert.deepEqual(selected("all"), { eligibleDays: 2, matchedDays: 0, pnl: null, endingValue: null });
+  const custom = new Map([[overnightSelectionKey(simulated.days[0], "rank"), new Set(["AAA"])]]);
+  assert.deepEqual(selected("custom", custom), { eligibleDays: 2, matchedDays: 2, pnl: 100, endingValue: 30_100 });
 });
 
 test("shared trade-size choices support all requested amounts", () => {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   fetchBenchmarkReturns,
   fetchOvernightActuals,
@@ -16,20 +16,19 @@ import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
-  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, selectOvernightExitRows, simulateBook,
-  simulateOvernightHold, simulationDay, summarizeOvernightExit,
+  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, selectOvernightExitRows, simulateBook,
+  simulateOvernightHold, simulationDay, summarizeOvernightExit, summarizeSelectedOvernightHistory,
   type BenchmarkLoad,
   type LookbackDays, type MoneySummary, type OvernightExitMode, type OvernightExitRule,
-  type PickKind, type PickOutcome, type SimulatedDay, type SimulatedPick,
+  type PickKind, type PickOutcome, type SelectedOvernightHistorySummary, type SimulatedDay, type SimulatedPick,
   type StrategyBenchmark, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
-import OvernightHoldComparison, {
-  OvernightHistoryComparison, type LoadOvernightActuals,
-} from "./OvernightHoldComparison";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
+const EMPTY_CUSTOM = new Set<string>();
+type LoadOvernightActuals = (asOf: string, tickers: string[], force?: boolean) => Promise<void>;
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -137,7 +136,7 @@ function BenchmarkLine({ label, pnl, pct, detail, hint }: {
   );
 }
 
-function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, closeBaseline }: {
+function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, scenario, exitMode }: {
   title: string;
   topK: number | undefined;
   days: number;
@@ -146,7 +145,8 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   benchmark: StrategyBenchmark;
   benchmarkLoading: boolean;
   benchmarkError: string | null;
-  closeBaseline: boolean;
+  scenario: SelectedOvernightHistorySummary | null;
+  exitMode: OvernightExitMode;
 }) {
   const intradayDetail = benchmark.activeDays
     ? `${benchmark.matchedDays}/${benchmark.activeDays}d`
@@ -154,6 +154,8 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   const holdDetail = benchmark.holdFrom && benchmark.holdThrough
     ? `${benchmark.holdFrom} → ${benchmark.holdThrough}`
     : "unavailable";
+  const exitLabel = exitMode === "down" ? "Down-day next-open P&L"
+    : exitMode === "custom" ? "Selected next-open P&L" : "Next-open P&L";
   return (
     <div className="view-card slice-card" aria-label={`${title} simulation total`}>
       <div className="slice-card-kicker">
@@ -163,7 +165,13 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
           { key: "days", align: "start", value: `${days}d` },
         ]} />
       </div>
-      <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">{closeBaseline ? "Close P&L" : "P&L"}</span></div>
+      <div className="slice-card-avg">
+        {scenario && scenario.pnl === null ? <span className="muted">Awaiting opens</span>
+          : <Dollars value={scenario ? scenario.pnl : money.pnl} />}
+        <span className="muted">{scenario ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days` : "P&L"}</span>
+      </div>
+      {scenario && <p className="what-if-exit-baseline">Close-only total {money.pnl === null ? "awaiting close" : formatUsd(money.pnl)} across {days} days
+        {scenario.matchedDays < scenario.eligibleDays ? " · next-open total is partial" : ""}</p>}
       <p className="view-meta">
         <StatStrip items={[
           { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
@@ -302,9 +310,10 @@ function DayCard({
   modelLabel,
   tradeSizes,
   actuals,
-  loadActuals,
   overnightPortion,
   exitMode,
+  custom,
+  onToggleHold,
 }: {
   day: SimulatedDay;
   kind: PickKind;
@@ -313,22 +322,12 @@ function DayCard({
   modelLabel?: string;
   tradeSizes: TradeSizes;
   actuals?: ReadonlyMap<string, OvernightActualRow>;
-  loadActuals: LoadOvernightActuals;
   overnightPortion: number;
   exitMode: OvernightExitMode;
+  custom: Record<StrategyKind, ReadonlySet<string>>;
+  onToggleHold: (strategy: StrategyKind, ticker: string) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [custom, setCustom] = useState<Record<StrategyKind, ReadonlySet<string>>>(() => ({
-    rank: new Set(), fit: new Set(),
-  }));
-  function toggleHold(strategy: StrategyKind, ticker: string) {
-    setCustom((current) => {
-      const selected = new Set(current[strategy]);
-      if (selected.has(ticker)) selected.delete(ticker);
-      else selected.add(ticker);
-      return { ...current, [strategy]: selected };
-    });
-  }
   function exitPnl(strategy: StrategyKind): number | null {
     const money = day[`${strategy}_money`];
     if (exitMode === "close") return money.pnl;
@@ -386,22 +385,17 @@ function DayCard({
         />
       </summary>
       {isOpen && <div className="what-if-day-lists">
-        <OvernightHoldComparison
-          key={`${day.as_of}-${day.scan_id}-${exitMode}-${day.fit.map((row) => row.ticker).join(",")}-${day.rank.map((row) => row.ticker).join(",")}`}
-          day={day} kind={kind} tradeSizes={tradeSizes} actuals={actuals} loadActuals={loadActuals}
-          portion={overnightPortion} selectedRule={exitMode} custom={custom}
-        />
         {kind !== "rank" && (
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
             money={day.fit_money} dollarsPerTrade={tradeSizes.fit} actuals={actuals}
             overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.fit}
-            onToggleHold={(ticker) => toggleHold("fit", ticker)} />
+            onToggleHold={(ticker) => onToggleHold("fit", ticker)} />
         )}
         {kind !== "fit" && (
           <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
             money={day.rank_money} dollarsPerTrade={tradeSizes.rank} actuals={actuals}
             overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.rank}
-            onToggleHold={(ticker) => toggleHold("rank", ticker)} />
+            onToggleHold={(ticker) => onToggleHold("rank", ticker)} />
         )}
       </div>}
     </details>
@@ -483,6 +477,10 @@ export default function WhatIf() {
   const [holdNextOpen, setHoldNextOpen] = useState(false);
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
   const [overnightPortion, setOvernightPortion] = useState(100);
+  const [openRefresh, setOpenRefresh] = useState(0);
+  const [historyBusy, setHistoryBusy] = useState(false);
+  const [historyError, setHistoryError] = useState<string | null>(null);
+  const [customSelections, setCustomSelections] = useState<ReadonlyMap<string, ReadonlySet<string>>>(() => new Map());
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
   const [rebuildError, setRebuildError] = useState<string | null>(null);
@@ -512,7 +510,7 @@ export default function WhatIf() {
     { deps: [rankKey, fitKey, refresh] },
   );
 
-  async function loadActuals(asOf: string, tickers: string[], force = false): Promise<void> {
+  const loadActuals: LoadOvernightActuals = useCallback(async (asOf, tickers, force = false) => {
     const requested = [...new Set(tickers.map((ticker) => ticker.toUpperCase()))];
     const cached = actualsCache.current.get(asOf);
     const needed = force ? requested : requested.filter((ticker) => !cached?.has(ticker)
@@ -525,6 +523,59 @@ export default function WhatIf() {
     responses.forEach((response) => response.rows.forEach((row) => merged.set(row.ticker, row)));
     actualsCache.current.set(asOf, merged);
     setActualsRevision((value) => value + 1);
+  }, []);
+
+  const historyJobs = new Map<string, Set<string>>();
+  if (data && holdNextOpen) for (const day of data.days) {
+    if (day.scan_id) continue;
+    for (const strategy of (["rank", "fit"] as const)) {
+      if ((strategy === "rank" && !rankOn) || (strategy === "fit" && !fitOn)
+        || day[`${strategy}_money`].invested <= 0) continue;
+      const selected = customSelections.get(overnightSelectionKey(day, strategy)) ?? EMPTY_CUSTOM;
+      const tickers = historyJobs.get(day.as_of) ?? new Set<string>();
+      selectOvernightExitRows(day[strategy], overnightRule, selected)
+        .forEach((row) => tickers.add(row.ticker));
+      if (tickers.size) historyJobs.set(day.as_of, tickers);
+    }
+  }
+  const historyJobsKey = JSON.stringify([...historyJobs].map(([asOf, tickers]) => ({ asOf, tickers: [...tickers] })));
+  useEffect(() => {
+    const jobs = JSON.parse(historyJobsKey) as Array<{ asOf: string; tickers: string[] }>;
+    if (!holdNextOpen || jobs.length === 0) {
+      setHistoryBusy(false);
+      setHistoryError(null);
+      return;
+    }
+    let active = true;
+    let cursor = 0;
+    let failures = 0;
+    setHistoryBusy(true);
+    setHistoryError(null);
+    async function worker() {
+      while (cursor < jobs.length) {
+        const job = jobs[cursor++];
+        try { await loadActuals(job.asOf, job.tickers, openRefresh > 0); }
+        catch { failures += 1; }
+      }
+    }
+    void Promise.all(Array.from({ length: Math.min(4, jobs.length) }, worker)).then(() => {
+      if (!active) return;
+      setHistoryBusy(false);
+      if (failures) setHistoryError(`${failures} ${failures === 1 ? "day" : "days"} could not be checked`);
+    });
+    return () => { active = false; };
+  }, [holdNextOpen, historyJobsKey, loadActuals, openRefresh]);
+
+  function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
+    setCustomSelections((current) => {
+      const next = new Map(current);
+      const key = overnightSelectionKey(day, strategy);
+      const selected = new Set(next.get(key));
+      if (selected.has(ticker)) selected.delete(ticker);
+      else selected.add(ticker);
+      next.set(key, selected);
+      return next;
+    });
   }
 
   if (error) return <p className="error">{error}</p>;
@@ -533,6 +584,14 @@ export default function WhatIf() {
     && benchmarkData.fitKey === fitKey ? benchmarkData : null;
   const rankBenchmark = currentBenchmarks?.rank ?? null;
   const fitBenchmark = currentBenchmarks?.fit ?? null;
+  const rankScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
+    data.days, actualsCache.current, "rank", tradeSizes.rank, overnightPortion / 100,
+    overnightRule, customSelections,
+  ) : null;
+  const fitScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
+    data.days, actualsCache.current, "fit", tradeSizes.fit, overnightPortion / 100,
+    overnightRule, customSelections,
+  ) : null;
 
   return (
     <div>
@@ -568,8 +627,13 @@ export default function WhatIf() {
               onChange={(event) => setOvernightPortion(Number(event.target.value))}>
               {[100, 50, 30, 10].map((value) => <option key={value} value={value}>{value}% held</option>)}
             </select>
+            <button type="button" className="icon-btn" title="Refresh actual next opens"
+              aria-label="Refresh actual next opens" disabled={historyBusy}
+              onClick={() => setOpenRefresh((value) => value + 1)}>↻</button>
           </>}
         </div>
+        {historyBusy && holdNextOpen && <span className="muted">Checking opens…</span>}
+        {historyError && holdNextOpen && <span className="error" role="status">{historyError}</span>}
         <button
           type="button"
           className="icon-btn"
@@ -655,7 +719,7 @@ export default function WhatIf() {
             {rankOn && (
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
                 stats={data.rank_stats} money={data.rank_money}
-                closeBaseline={holdNextOpen}
+                scenario={rankScenario} exitMode={exitMode}
                 benchmark={compareStrategyToBenchmark(data, "rank", rankBenchmark?.response ?? null)}
                 benchmarkLoading={rankDates.length > 0 && !rankBenchmark}
                 benchmarkError={rankBenchmark?.error ?? null} />
@@ -663,16 +727,12 @@ export default function WhatIf() {
             {fitOn && (
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
                 stats={data.fit_stats} money={data.fit_money}
-                closeBaseline={holdNextOpen}
+                scenario={fitScenario} exitMode={exitMode}
                 benchmark={compareStrategyToBenchmark(data, "fit", fitBenchmark?.response ?? null)}
                 benchmarkLoading={fitDates.length > 0 && !fitBenchmark}
                 benchmarkError={fitBenchmark?.error ?? null} />
             )}
           </div>
-          {holdNextOpen && overnightRule !== "custom" &&
-            <OvernightHistoryComparison days={data.days} kind={kind} tradeSizes={tradeSizes}
-              actualsByDay={actualsCache.current} loadActuals={loadActuals}
-              portion={overnightPortion} selectedRule={overnightRule} />}
           {data.days.map((day) => (
             <DayCard
               day={day}
@@ -681,9 +741,13 @@ export default function WhatIf() {
               fitAsked={fitAsked}
               tradeSizes={tradeSizes}
               actuals={actualsCache.current.get(day.as_of)}
-              loadActuals={loadActuals}
               overnightPortion={overnightPortion}
               exitMode={exitMode}
+              custom={{
+                rank: customSelections.get(overnightSelectionKey(day, "rank")) ?? EMPTY_CUSTOM,
+                fit: customSelections.get(overnightSelectionKey(day, "fit")) ?? EMPTY_CUSTOM,
+              }}
+              onToggleHold={(strategy, ticker) => toggleCustom(day, strategy, ticker)}
               modelLabel={
                 day.model_run_id
                   ? (() => {

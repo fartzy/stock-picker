@@ -72,6 +72,10 @@ export function summarizeOvernightHold(outcomes: OvernightHoldOutcome[], baselin
 export type OvernightExitRule = "all" | "down" | "custom";
 export type OvernightExitMode = "close" | OvernightExitRule;
 
+export function overnightSelectionKey(day: SimulatedDay, kind: StrategyKind): string {
+  return `${day.as_of}:${day.scan_id || "live"}:${kind}`;
+}
+
 export interface OvernightExitSummary {
   selected: number;
   observed: number;
@@ -126,6 +130,44 @@ export interface OvernightHistorySummary {
   baselineEndingValue: number | null;
   all: OvernightExitSummary;
   down: OvernightExitSummary;
+}
+
+export interface SelectedOvernightHistorySummary {
+  eligibleDays: number;
+  matchedDays: number;
+  pnl: number | null;
+  endingValue: number | null;
+}
+
+/** Aggregate only days whose selected exit has a verified next open. */
+export function summarizeSelectedOvernightHistory(
+  days: SimulatedDay[], actualsByDay: ReadonlyMap<string, ReadonlyMap<string, OvernightActualRow>>,
+  kind: StrategyKind, dollarsPerTrade: number, holdFraction: number, rule: OvernightExitRule,
+  customSelections: ReadonlyMap<string, ReadonlySet<string>> = new Map(),
+): SelectedOvernightHistorySummary {
+  let eligibleDays = 0;
+  let matchedDays = 0;
+  let pnlCents = 0;
+  let endingCents = 0;
+  for (const day of days) {
+    if (day.scan_id) continue;
+    const baseline = day[`${kind}_money`];
+    if (baseline.invested <= 0) continue;
+    eligibleDays += 1;
+    const result = summarizeOvernightExit(
+      day[kind], actualsByDay.get(day.as_of) ?? new Map(), dollarsPerTrade,
+      baseline, holdFraction, rule, customSelections.get(overnightSelectionKey(day, kind)),
+    );
+    if (result.pnl === null || result.endingValue === null) continue;
+    matchedDays += 1;
+    pnlCents += cents(result.pnl);
+    endingCents += cents(result.endingValue);
+  }
+  return {
+    eligibleDays, matchedDays,
+    pnl: matchedDays ? pnlCents / 100 : null,
+    endingValue: matchedDays ? endingCents / 100 : null,
+  };
 }
 
 /** Use the same complete live days for both repeatable rules so totals compare fairly. */
