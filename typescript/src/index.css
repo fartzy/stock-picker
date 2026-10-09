@@ -738,14 +738,25 @@ section + section {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--text-muted);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-raised);
+  color: var(--text);
   font-family: var(--sans);
   font-size: var(--text-micro);
   cursor: pointer;
 }
 
-.trade-history-week-toggle:hover {
-  color: var(--text);
+.trade-history-week-toggle:hover,
+.trade-history-week-toggle:has(input:focus-visible) {
+  border-color: var(--accent);
+  background: var(--row-hover);
+}
+
+.trade-history-week-toggle:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .trade-history-week-toggle input {
