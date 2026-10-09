@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "One row per filled order, including orders with multiple executions. Execution times and prices are used. Broker net sale proceeds are preserved to infer fees; total price improvement is not a separate cash flow. Repeated confirmations are not imported again. Unmatched activity is not in the live trade ledger.",
-  "filled_order_count": 48,
+  "filled_order_count": 63,
   "orders": [
     {"order_number": "2E203M4S", "ticker": "ALM", "side": "sell", "shares": 4500, "price": 11.8954, "executed_at": "2026-10-09T09:31:05-04:00", "broker_net_amount": 53528.19},
     {"order_number": "2E20BCMW", "ticker": "ALM", "side": "sell", "shares": 2000, "price": 11.7836, "executed_at": "2026-10-09T09:33:01-04:00", "broker_net_amount": 23566.71},
@@ -53,7 +53,22 @@
     {"order_number": "2E21QCY6", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.1899, "executed_at": "2026-10-09T14:23:04-04:00", "broker_net_amount": 3018.99},
     {"order_number": "2E21M1ST", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.265, "executed_at": "2026-10-09T14:27:19-04:00", "broker_net_amount": 3026.50},
     {"order_number": "2E21KQCL", "ticker": "HPQ", "side": "sell", "shares": 400, "price": 30.255, "executed_at": "2026-10-09T14:27:48-04:00", "broker_net_amount": 12101.75},
-    {"order_number": "2E21FQRJ", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.885, "executed_at": "2026-10-09T14:32:35-04:00", "broker_net_amount": 2577.00}
+    {"order_number": "2E21FQRJ", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.885, "executed_at": "2026-10-09T14:32:35-04:00", "broker_net_amount": 2577.00},
+    {"order_number": "2E21M3G5", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.845, "executed_at": "2026-10-09T14:36:56-04:00", "broker_net_amount": 2569.00},
+    {"order_number": "2E21R3SQ", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.845, "executed_at": "2026-10-09T14:37:32-04:00", "broker_net_amount": 2569.00},
+    {"order_number": "2E21K3LS", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.835, "executed_at": "2026-10-09T14:38:06-04:00", "broker_net_amount": 2567.00},
+    {"order_number": "2E21FRX7", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.825, "executed_at": "2026-10-09T14:39:03-04:00", "broker_net_amount": 2565.00},
+    {"order_number": "2E21H3Q4", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.8299, "executed_at": "2026-10-09T14:41:17-04:00", "broker_net_amount": 2565.98},
+    {"order_number": "2E21FSC1", "ticker": "CRGY", "side": "buy", "shares": 500, "price": 12.805, "executed_at": "2026-10-09T14:41:38-04:00", "broker_net_amount": 6402.50},
+    {"order_number": "2E21P538", "ticker": "CRGY", "side": "buy", "shares": 100, "price": 12.81, "executed_at": "2026-10-09T14:43:37-04:00", "broker_net_amount": 1281.00},
+    {"order_number": "2E21FT5D", "ticker": "CRGY", "side": "buy", "shares": 100, "price": 12.815, "executed_at": "2026-10-09T14:46:20-04:00", "broker_net_amount": 1281.50},
+    {"order_number": "2E21MV15", "ticker": "CRGY", "side": "buy", "shares": 1000, "price": 12.765, "executed_at": "2026-10-09T14:46:45-04:00", "broker_net_amount": 12765.00},
+    {"order_number": "2E21QJ21", "ticker": "CRGY", "side": "buy", "shares": 700, "price": 12.795, "executed_at": "2026-10-09T14:47:05-04:00", "broker_net_amount": 8956.50},
+    {"order_number": "2E21M59V", "ticker": "CRGY", "side": "buy", "shares": 500, "price": 12.7999, "executed_at": "2026-10-09T14:47:31-04:00", "broker_net_amount": 6399.95},
+    {"order_number": "2E21K5Q1", "ticker": "CRGY", "side": "buy", "shares": 400, "price": 12.785, "executed_at": "2026-10-09T14:50:06-04:00", "broker_net_amount": 5114.00},
+    {"order_number": "2E21F5KH", "ticker": "CRGY", "side": "buy", "shares": 500, "price": 12.7482, "executed_at": "2026-10-09T14:51:00-04:00", "broker_net_amount": 6374.10},
+    {"order_number": "2E21K5YZ", "ticker": "CRGY", "side": "buy", "shares": 1000, "price": 12.775, "executed_at": "2026-10-09T14:51:29-04:00", "broker_net_amount": 12775.00},
+    {"order_number": "2E21HVD0", "ticker": "CRGY", "side": "sell", "shares": 5000, "price": 12.797352, "executed_at": "2026-10-09T14:53:07-04:00", "broker_net_amount": 63985.43, "execution_count": 2, "executions": [{"shares": 800, "price": 12.795, "broker_net_amount": 10235.78}, {"shares": 4200, "price": 12.7978, "broker_net_amount": 53749.65}]}
   ],
   "canceled_orders": [
     {"order_number": "2E20HSCF", "ticker": "HPQ", "side": "sell", "shares_ordered": 150, "limit_price": 31.02, "ordered_at": "2026-10-09T10:09:59-04:00", "filled_shares": 0}
@@ -65,6 +80,6 @@
     "ALM": {"starting_shares": 6500, "sold_shares": 6500, "remaining_shares": 0, "gross_sale_proceeds": 77096.50, "inferred_sale_fees": 1.60, "net_sale_proceeds": 77094.90},
     "HPQ": {"starting_shares": 0, "bought_shares": 5800, "sold_shares": 5800, "remaining_shares": 0, "buy_cost": 176310.12, "gross_sale_proceeds": 176707.00, "inferred_sale_fees": 3.66, "net_sale_proceeds": 176703.34, "net_realized_pnl": 393.22},
     "LQDA": {"starting_shares": 0, "bought_shares": 560, "sold_shares": 560, "remaining_shares": 0, "buy_cost": 15099.15, "gross_sale_proceeds": 15178.74, "inferred_sale_fees": 0.32, "net_sale_proceeds": 15178.42, "net_realized_pnl": 79.27},
-    "CRGY": {"starting_shares": 0, "bought_shares": 200, "sold_shares": 0, "remaining_shares": 200, "buy_cost": 2577.00}
+    "CRGY": {"starting_shares": 0, "bought_shares": 6000, "sold_shares": 5000, "remaining_shares": 1000, "buy_cost": 76762.53, "gross_sale_proceeds": 63986.76, "inferred_sale_fees": 1.33, "net_sale_proceeds": 63985.43, "net_realized_pnl": 16.66, "average_cost_method": true}
   }
 }
