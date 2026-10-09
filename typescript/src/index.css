@@ -756,7 +756,7 @@ section + section {
 
 .trade-history-table {
   min-width: 84rem;
-  --week-row-bg: color-mix(in srgb, var(--ink) 12%, var(--surface-raised));
+  --week-row-bg: color-mix(in srgb, white 5%, var(--surface-raised));
 }
 
 .trade-history-table > tbody > tr.is-week-summary > td {
@@ -764,7 +764,7 @@ section + section {
 }
 
 .trade-history-table > tbody > tr.is-week-summary > td.stat-tone-bench {
-  background: color-mix(in srgb, var(--ink) 35%, var(--surface-raised));
+  background: color-mix(in srgb, var(--ink) 24%, var(--surface-raised));
 }
 
 .trade-history-table > tbody > tr.is-week-summary:is(:hover, :focus-visible) > td {
