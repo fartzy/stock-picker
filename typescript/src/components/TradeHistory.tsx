@@ -119,7 +119,7 @@ function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
   const netPnl = roundUsd(pnl - manualFees);
   return [
     { key: "title", title: true, align: "start", value: <strong style={{ color: "var(--accent)" }}>Open now</strong> },
-    { key: "lots", align: "start", value: count === 0 ? "No open lots" : `${count} lot${count === 1 ? "" : "s"}` },
+    { key: "lots", align: "start", value: count === 0 ? "No open positions" : `${count} lot${count === 1 ? "" : "s"}` },
     ...(count === 0
       ? []
       : [
@@ -524,6 +524,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   const allTime = windowSummary(closedLots, spySessions, onBooks);
   const allHold = benchmarkData?.hold?.pct ?? null;
   const fees = feesData?.fees ?? [];
+  const openItems = openNowItems(openPositions.length, summarizePositions(openPositions));
 
   const renderClosedDay = ([day, dayPositions]: [string, Position[]]) => (
     <ClosedDayGroup
@@ -551,24 +552,24 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   return (
     <div className="trade-history">
       {nothing ? (
-        <p className="muted">No trades logged yet.</p>
+        <p className="muted trade-history-empty">No trades yet</p>
       ) : (
         <>
-          <details
-            className="view-card"
-            open={openNowExpanded}
-            onToggle={(event) => {
-              setOpenNowExpanded((event.currentTarget as HTMLDetailsElement).open);
-            }}
-          >
-            <summary>
-              <StatStrip items={openNowItems(openPositions.length, summarizePositions(openPositions))} />
-            </summary>
-            {openPositions.length === 0 ? (
-              <p className="muted" style={{marginTop: "var(--space-3)" }}>
-                Nothing left open.
-              </p>
-            ) : (
+          {openPositions.length === 0 ? (
+            <div className="view-card">
+              <StatStrip items={openItems} />
+            </div>
+          ) : (
+            <details
+              className="view-card"
+              open={openNowExpanded}
+              onToggle={(event) => {
+                setOpenNowExpanded((event.currentTarget as HTMLDetailsElement).open);
+              }}
+            >
+              <summary>
+                <StatStrip items={openItems} />
+              </summary>
               <div style={{ overflowX: "auto",marginTop: "var(--space-3)" }}>
                 <table className="trade-table">
                   <thead>
@@ -587,8 +588,8 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
                   </tbody>
                 </table>
               </div>
-            )}
-          </details>
+            </details>
+          )}
 
           <div
             className="view-card trade-history-scroll"

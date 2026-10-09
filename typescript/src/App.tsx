@@ -60,9 +60,6 @@ export default function App() {
         <h1>
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
-        <p className="muted">
-          Morning picks, overnight scenarios, and trade history.
-        </p>
       </header>
 
       <div className="tab-bar">
