@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-09",
+  "source": "User-provided broker order confirmations; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Execution times and prices are used. Broker net sale proceeds are preserved to infer fees; repeated order confirmations must not be imported again.",
+  "filled_order_count": 2,
+  "orders": [
+    {"order_number": "2E203M4S", "ticker": "ALM", "side": "sell", "shares": 4500, "price": 11.8954, "executed_at": "2026-10-09T09:31:05-04:00", "broker_net_amount": 53528.19},
+    {"order_number": "2E20BCMW", "ticker": "ALM", "side": "sell", "shares": 2000, "price": 11.7836, "executed_at": "2026-10-09T09:33:01-04:00", "broker_net_amount": 23566.71}
+  ],
+  "reconciliation": {
+    "ALM": {"starting_shares": 6500, "sold_shares": 6500, "remaining_shares": 0, "gross_sale_proceeds": 77096.50, "inferred_sale_fees": 1.60, "net_sale_proceeds": 77094.90}
+  }
+}
