@@ -66,6 +66,10 @@ export function UsdCell({ value }: { value: number | null | undefined }) {
   return <>{formatUsd(value)}</>;
 }
 
+export function QuoteLoadingCell() {
+  return <span className="quote-loading" role="img" title="Fetching latest price" aria-label="Fetching latest price" />;
+}
+
 export function UsdDiffCell({
   value,
   vs,

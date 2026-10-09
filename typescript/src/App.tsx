@@ -32,6 +32,7 @@ export default function App() {
   const [pendingFeature, setPendingFeature] = useState<string | null>(null);
   const [overnightTicker, setOvernightTicker] = useState("");
   const [overnightRequest, setOvernightRequest] = useState(0);
+  const [overnightReturnTab, setOvernightReturnTab] = useState<Tab | null>(null);
   const [quickTicker, setQuickTicker] = useState<string | null>(null);
 
   function openOvernight(ticker = "") {
@@ -39,12 +40,14 @@ export default function App() {
       setQuickTicker(ticker);
       return;
     }
+    setOvernightReturnTab(tab === "overnight" ? null : tab);
     setOvernightTicker(ticker);
     setOvernightRequest((value) => value + 1);
     setTab("overnight");
   }
 
   function openFullOvernight() {
+    setOvernightReturnTab(tab === "overnight" ? null : tab);
     setOvernightTicker(quickTicker ?? "");
     setOvernightRequest((value) => value + 1);
     setQuickTicker(null);
@@ -67,7 +70,10 @@ export default function App() {
           <button
             key={t.id}
             className={`tab-button ${tab === t.id ? "active" : ""}`}
-            onClick={() => setTab(t.id)}
+            onClick={() => {
+              if (t.id === "overnight") setOvernightReturnTab(null);
+              setTab(t.id);
+            }}
           >
             {t.label}
           </button>
@@ -94,15 +100,26 @@ export default function App() {
 
       {tab === "overnight" && (
         <section>
-          <h2>Tomorrow’s open</h2>
+          <div className="section-title-row">
+            <h2>Tomorrow’s open</h2>
+            {overnightReturnTab && (
+              <button className="section-title-action" type="button" onClick={() => setTab(overnightReturnTab)}>
+                ← Back to {TABS.find((item) => item.id === overnightReturnTab)?.label}
+              </button>
+            )}
+          </div>
           <div className="panel"><Overnight key={overnightRequest} initialTicker={overnightTicker} /></div>
         </section>
       )}
 
       {tab === "whatif" && (
         <section>
-          <h2>What if</h2>
-          <p className="muted">Open → close by default. “Hold to next open” uses actual prices, not a model. <button className="overnight-text-link" type="button" onClick={() => openOvernight()}>Forecast scenario ↗</button></p>
+          <div className="section-title-row">
+            <h2>What if</h2>
+            <button className="section-title-action" type="button" onClick={() => openOvernight()}>
+              Forecast tomorrow’s open ↗
+            </button>
+          </div>
           <div className="panel">
             <WhatIf />
           </div>

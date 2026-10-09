@@ -323,24 +323,21 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
     <div className={`overnight-page ${compact ? "is-quick" : ""}`}>
       {!compact && <>
         <div className="overnight-intro">
-          <div><h3>Close → next open</h3><p className="muted">Choose a ticker and a possible closing price.</p></div>
-          <span className="overnight-badge">Scenario only</span>
+          <h3>Closing-price scenario</h3>
+          <span className="overnight-badge">Model estimate</span>
         </div>
-        <OvernightMorningPicks selectedTicker={ticker} onSelect={selectTicker} />
+        <OvernightMorningPicks selectedTicker={ticker} onSelect={selectTicker} openPositions={[...openByTicker]} />
       </>}
       {modelError && <p className="error">Could not load overnight model: {modelError}</p>}
       {model && !model.available && <p className="overnight-unavailable">Forecast unavailable — no saved overnight model yet.</p>}
       {model && model.available && !model.serving_inputs_pinned && <p className="overnight-unavailable">Forecast unavailable — this model needs its saved morning inputs.</p>}
-      {!compact && openByTicker.size > 0 && <div className="overnight-positions"><span className="muted">Open positions</span>{[...openByTicker].map(([name, count]) => (
-        <button type="button" key={name} onClick={() => selectTicker(name)}>{name} · {count} shares</button>
-      ))}</div>}
       <form className="overnight-form" onSubmit={submit}>
         <div className="overnight-form-primary">
           <label>Ticker<input className="form-input" value={ticker} onChange={(event) => {
             quoteRequestRef.current += 1;
             setTicker(event.target.value.toUpperCase()); setQuoteTicker(""); setQuote(null); setQuoteError(null);
             setCloseInput({ value: "", quote: null }); priceEditedRef.current = false; invalidateForecast();
-          }} placeholder="Ticker" required /></label>
+          }} placeholder="Or enter any ticker" required /></label>
           <div className="overnight-price-field">
             <div className="overnight-price-head"><span>Assumed close</span><span className="overnight-price-actions">
               <button type="button" disabled={quoteBusy || !ticker.trim()} onClick={refreshQuote}>{quoteBusy ? "Loading…" : "Refresh quote"}</button>

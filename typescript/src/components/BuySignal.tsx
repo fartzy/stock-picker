@@ -21,7 +21,7 @@ import { newsBlocksBuy } from "../newsSkip";
 import { isCashSessionToday, isChicagoCalendarToday, scanHasClosed } from "../session";
 import { useFetchData } from "../useFetchData";
 import { useQuotes } from "../useQuotes";
-import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
+import { ColumnTitle, DataTable, NewsCell, QuoteLoadingCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
 import FreshnessBadge from "./FreshnessBadge";
 import { StatStrip } from "./stats";
 import TogglePill from "./TogglePill";
@@ -61,7 +61,7 @@ function MorningList({
 }) {
   const [open, setOpen] = useState(true);
   const tickers = list?.signals.map((s) => s.ticker) ?? [];
-  const { quotes } = useQuotes(tickers, {
+  const { quotes, loading: quotesLoading } = useQuotes(tickers, {
     enabled: showLive && open && tickers.length > 0,
     intervalMs: closed || tickers.length > 40 ? undefined : 60_000,
     asOf: list?.as_of,
@@ -130,9 +130,9 @@ function MorningList({
                 header: <ColumnTitle label={liveLabel} hint="▲ vs open" />,
                 numeric: true,
                 when: showLive,
-                cell: (signal) => (
-                  <UsdDiffCell value={quotes[signal.ticker]?.last} vs={signal.open_price} />
-                ),
+                cell: (signal) => quotesLoading && quotes[signal.ticker]?.last == null
+                  ? <QuoteLoadingCell />
+                  : <UsdDiffCell value={quotes[signal.ticker]?.last} vs={signal.open_price} />,
               },
               {
                 key: "news",

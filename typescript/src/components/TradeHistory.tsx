@@ -288,6 +288,7 @@ function dayValues(
 function ClosedDayGroup({
   day,
   positions,
+  nested = true,
   onBooks,
   sessionReturn,
   overnightReturn,
@@ -298,6 +299,7 @@ function ClosedDayGroup({
 }: {
   day: string;
   positions: Position[];
+  nested?: boolean;
   onBooks: number;
   sessionReturn?: number;
   overnightReturn?: number;
@@ -309,7 +311,7 @@ function ClosedDayGroup({
   const { lotFees } = assignLotFees(positions, fees.filter((fee) => fee.day === day));
   return (
     <StatExpand
-      nested
+      nested={nested}
       open={expanded}
       onToggle={onToggle}
       values={dayValues(day, positions, onBooks, sessionReturn, overnightReturn, fees, showFees)}
@@ -477,6 +479,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
   const [weekOpen, setWeekOpen] = useState<Record<string, boolean>>({});
+  const [showWeeks, setShowWeeks] = useState(true);
   const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
@@ -521,6 +524,29 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   const allTime = windowSummary(closedLots, spySessions, onBooks);
   const allHold = benchmarkData?.hold?.pct ?? null;
   const fees = feesData?.fees ?? [];
+
+  const renderClosedDay = ([day, dayPositions]: [string, Position[]]) => (
+    <ClosedDayGroup
+      key={day}
+      day={day}
+      positions={dayPositions}
+      nested={showWeeks}
+      onBooks={onBooks[day] ?? 0}
+      sessionReturn={benchmarkData?.returns[day]}
+      overnightReturn={benchmarkData?.overnight?.[day]}
+      expanded={expandedDays.has(day)}
+      onToggle={() =>
+        setExpandedDays((current) => {
+          const next = new Set(current);
+          if (next.has(day)) next.delete(day);
+          else next.add(day);
+          return next;
+        })
+      }
+      fees={fees}
+      showFees={showFees}
+    />
+  );
 
   return (
     <div className="trade-history">
@@ -570,6 +596,18 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
             aria-label="Closed trade history"
             tabIndex={0}
           >
+          {dayGroups.length > 0 && (
+            <div className="trade-history-toolbar">
+              <label className="trade-history-week-toggle">
+                <input
+                  type="checkbox"
+                  checked={showWeeks}
+                  onChange={(event) => setShowWeeks(event.currentTarget.checked)}
+                />
+                Show weeks
+              </label>
+            </div>
+          )}
           <StatTable
             layoutColumns={CLOSED_LOT_COLUMNS}
             columns={periodColumns(
@@ -618,51 +656,31 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
                 )}
               />
             </StatBody>
-            {groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
-            const lotsThisWeek = weekDays.flatMap(([, lots]) => lots);
-            const weekSummary = windowSummary(lotsThisWeek, spySessions, onBooks);
-            const weekHold = holdPctForDays(
-              lotsThisWeek.map((p) => p.day),
-              overnight,
-            );
-            const isOpen = monday in weekOpen ? weekOpen[monday] : weekIndex === 0;
-            return (
-              <StatExpand
-                key={monday}
-                open={isOpen}
-                onToggle={() => setWeekOpen((current) => ({ ...current, [monday]: !isOpen }))}
-                values={periodValues(
-                  formatWeekRange(monday),
-                  weekSummary,
-                  weekHold,
-                  feeSum(fees, lotsThisWeek.map((p) => p.day)),
-                  showFees,
-                )}
-              >
-                {weekDays.map(([day, dayPositions]) => (
-                  <ClosedDayGroup
-                    day={day}
-                    positions={dayPositions}
-                    onBooks={onBooks[day] ?? 0}
-                    sessionReturn={benchmarkData?.returns[day]}
-                    overnightReturn={benchmarkData?.overnight?.[day]}
-                    expanded={expandedDays.has(day)}
-                    onToggle={() =>
-                     setExpandedDays((current) => {
-                        const next = new Set(current);
-                        if (next.has(day)) next.delete(day);
-                        else next.add(day);
-                        return next;
-                      })
-                    }
-                    fees={fees}
-                    showFees={showFees}
-                    key={day}
-                  />
-                ))}
-              </StatExpand>
-            );
-         })}
+            {showWeeks
+              ? groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
+                  const lotsThisWeek = weekDays.flatMap(([, lots]) => lots);
+                  const weekSummary = windowSummary(lotsThisWeek, spySessions, onBooks);
+                  const weekHold = holdPctForDays(lotsThisWeek.map((p) => p.day), overnight);
+                  const isOpen = monday in weekOpen ? weekOpen[monday] : weekIndex === 0;
+                  return (
+                    <StatExpand
+                      key={monday}
+                      className="is-week-summary"
+                      open={isOpen}
+                      onToggle={() => setWeekOpen((current) => ({ ...current, [monday]: !isOpen }))}
+                      values={periodValues(
+                        formatWeekRange(monday),
+                        weekSummary,
+                        weekHold,
+                        feeSum(fees, lotsThisWeek.map((p) => p.day)),
+                        showFees,
+                      )}
+                    >
+                      {weekDays.map(renderClosedDay)}
+                    </StatExpand>
+                  );
+                })
+              : dayGroups.map(renderClosedDay)}
           </StatTable>
           </div>
 

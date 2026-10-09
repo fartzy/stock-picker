@@ -48,6 +48,13 @@ function formatDay(day: string): string {
   });
 }
 
+function formatMonthDay(day: string): string {
+  return new Date(`${day}T12:00:00`).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
 function Pct({ value }: { value: number | null | undefined }) {
   if (value === null || value === undefined) return <span className="muted">—</span>;
   const isUp = value >= 0;
@@ -130,8 +137,48 @@ function BenchmarkLine({ label, pnl, pct, detail, hint }: {
 }) {
   return (
     <div className="what-if-benchmark-line" title={hint}>
-      <span className="what-if-benchmark-label">{label} <span className="muted">{detail}</span></span>
+      <span className="what-if-benchmark-label">
+        <span>{label}</span>
+        <span className="what-if-benchmark-detail">{detail}</span>
+      </span>
       <span className="what-if-benchmark-value"><Dollars value={pnl} /> <Pct value={pct} /></span>
+    </div>
+  );
+}
+
+function StrategyResult({
+  label,
+  scenario,
+  closePnl,
+}: {
+  label: string;
+  scenario: SelectedOvernightHistorySummary | null;
+  closePnl: number | null;
+}) {
+  return (
+    <div className="slice-card-result">
+      <div className="slice-card-result-header">
+        <span className="slice-card-result-label">{label}</span>
+        {scenario && (
+          <span className="slice-card-result-coverage">
+            {scenario.matchedDays}/{scenario.eligibleDays} next opens priced
+          </span>
+        )}
+      </div>
+      <div className="slice-card-result-value">
+        {scenario && scenario.pnl === null
+          ? <span className="muted">Awaiting opens</span>
+          : <Dollars value={scenario ? scenario.pnl : closePnl} />}
+      </div>
+      {scenario && (
+        <div className="slice-card-result-baseline">
+          <span>Close-only P&amp;L</span>
+          <strong>{closePnl === null ? "Awaiting close" : formatUsd(closePnl)}</strong>
+          {scenario.matchedDays < scenario.eligibleDays && (
+            <span className="slice-card-result-partial">Next-open result is partial</span>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -152,7 +199,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
     ? `${benchmark.matchedDays}/${benchmark.activeDays}d`
     : "no completed days";
   const holdDetail = benchmark.holdFrom && benchmark.holdThrough
-    ? `${benchmark.holdFrom} → ${benchmark.holdThrough}`
+    ? `${formatMonthDay(benchmark.holdFrom)}–${formatMonthDay(benchmark.holdThrough)}`
     : "unavailable";
   const exitLabel = exitMode === "down" ? "Down-day next-open P&L"
     : exitMode === "custom" ? "Selected next-open P&L" : "Next-open P&L";
@@ -165,13 +212,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
           { key: "days", align: "start", value: `${days}d` },
         ]} />
       </div>
-      <div className="slice-card-avg">
-        {scenario && scenario.pnl === null ? <span className="muted">Awaiting opens</span>
-          : <Dollars value={scenario ? scenario.pnl : money.pnl} />}
-        <span className="muted">{scenario ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days` : "P&L"}</span>
-      </div>
-      {scenario && <p className="what-if-exit-baseline">Close-only total {money.pnl === null ? "awaiting close" : formatUsd(money.pnl)} across {days} days
-        {scenario.matchedDays < scenario.eligibleDays ? " · next-open total is partial" : ""}</p>}
+      <StrategyResult label={scenario ? exitLabel : "P&L"} scenario={scenario} closePnl={money.pnl} />
       <p className="view-meta">
         <StatStrip items={[
           { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
@@ -661,6 +702,7 @@ export default function WhatIf() {
         <details className="what-if-help">
           <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
           <div className="what-if-help-body">
+            <p>Close exits are the default. “Hold to next open” uses actual next-session prices; forecasts are separate.</p>
             <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
             <p>Turn off news skips to include priced picks from the original Rank/Fit lists in hypothetical totals. Missing prices stay pending; saved news checks and live decisions stay the same.</p>
             <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>

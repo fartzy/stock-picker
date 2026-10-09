@@ -165,19 +165,21 @@ export function StatExpand({
   open,
   onToggle,
   nested = false,
+  className,
   children,
 }: {
   values: StatValues;
   open: boolean;
   onToggle: () => void;
   nested?: boolean;
+  className?: string;
   children?: ReactNode;
 }) {
   return (
     <>
       <tbody>
         <tr
-          className={cx("is-expandable", nested && "is-nested")}
+          className={cx("is-expandable", nested && "is-nested", className)}
           aria-expanded={open}
           tabIndex={0}
           onClick={onToggle}
