@@ -6,6 +6,7 @@ from stock_picker.ingestion.refresh_prices import (
     backfill_missing_sessions,
     history_from_finnhub_bars,
     tickers_missing_session,
+    write_refreshed_history,
 )
 from stock_picker.storage.price_store import PriceStore
 
@@ -78,3 +79,22 @@ def test_history_from_finnhub_bars_sets_adj_close():
 
     assert list(frame.columns) == ["Open", "High", "Low", "Close", "Adj Close", "Volume"]
     assert frame.iloc[0]["Adj Close"] == 4.5
+
+
+def test_sparse_refresh_keeps_prior_history_and_adds_new_bar(tmp_path):
+    store = PriceStore(data_dir=tmp_path)
+    existing = pd.DataFrame(
+        {"Close": [10.0, 11.0, 12.0]},
+        index=pd.DatetimeIndex(["2026-10-05", "2026-10-06", "2026-10-07"]),
+    )
+    store.write("TCBI", existing)
+    incoming = pd.DataFrame(
+        {"Close": [13.0]},
+        index=pd.DatetimeIndex(["2026-10-08"]),
+    )
+
+    write_refreshed_history(store, "TCBI", incoming)
+
+    history = store.read("TCBI")
+    assert list(history["Close"]) == [11.0, 12.0, 13.0]
+    assert history.index[-1] == pd.Timestamp("2026-10-08")

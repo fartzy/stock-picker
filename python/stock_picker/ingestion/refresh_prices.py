@@ -73,6 +73,18 @@ def merge_price_history(existing: pd.DataFrame | None, incoming: pd.DataFrame) -
     return combined
 
 
+def write_refreshed_history(store: PriceStore, ticker: str, incoming: pd.DataFrame) -> None:
+    """Keep the prior window when a provider returns only a partial history."""
+    try:
+        existing = store.read(ticker)
+    except FileNotFoundError:
+        existing = None
+    merged = merge_price_history(existing, incoming)
+    if existing is not None and not existing.empty:
+        merged = merged.tail(max(len(existing), len(incoming)))
+    store.write(ticker, merged)
+
+
 def backfill_missing_sessions(
     tickers: list[str],
     store: PriceStore,
@@ -139,7 +151,7 @@ def refresh_prices() -> None:
         finished = completed_sessions(frame)
         if finished.empty:
             continue
-        store.write(ticker, finished)
+        write_refreshed_history(store, ticker, finished)
         written += 1
     logger.info("wrote %s through %s", written, cutoff)
     backfill_missing_sessions(tickers, store, cutoff)
