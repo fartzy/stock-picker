@@ -273,6 +273,7 @@ interface SimulationOptions {
   fitTopK?: number;
   rankTopK?: number;
   applyNewsSkips?: boolean;
+  excludedTickers?: ReadonlySet<string>;
   tradeSizes: TradeSizes;
   lookbackDays: LookbackDays;
   asOf: string;
@@ -348,12 +349,14 @@ function compound(avgs: number[]): number | null {
  * Dollar profits are added, not compounded or multiplied by the compound metric.
  */
 export function simulateBook(data: PaperBookResponse, options: SimulationOptions): SimulatedBook {
-  const { kind, fitTopK, rankTopK, applyNewsSkips = true, tradeSizes, lookbackDays, asOf } = options;
+  const { kind, fitTopK, rankTopK, applyNewsSkips = true, excludedTickers, tradeSizes, lookbackDays, asOf } = options;
   const start = new Date(`${asOf}T12:00:00Z`);
   if (lookbackDays !== null) start.setUTCDate(start.getUTCDate() - lookbackDays + 1);
   const from = lookbackDays === null ? null : start.toISOString().slice(0, 10);
   const rowsFor = (rows: PaperPickRow[], dollarsPerTrade: number, topK?: number): SimulatedPick[] => rows
     .filter((row) => topK === undefined || row.rank <= topK)
+    // Exclusions remove original picks; they do not promote a lower-ranked replacement.
+    .filter((row) => !excludedTickers?.has(row.ticker.toUpperCase()))
     .map((row) => ({ ...row, hypothetical: simulatePick(row, dollarsPerTrade, applyNewsSkips) }));
   const days = data.days
     .filter((day) => day.as_of <= asOf && (from === null || day.as_of >= from))

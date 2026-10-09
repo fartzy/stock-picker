@@ -229,6 +229,44 @@ test("news blocks do not backfill below top K; pending closes do not dilute tota
   assert.equal(result.days[0].rank[0].hypothetical.endingValue, 19_000);
 });
 
+test("excluding current blacklist removes historical Rank/Fit picks without backfill", () => {
+  const source = book([
+    day("2026-09-25", [
+      pick(-0.1888889, { ticker: "TDTH", open_price: 1.8, close_price: 1.46 }),
+      pick(0.02, { ticker: "AAA", rank: 2, close_price: 102 }),
+      pick(0.1, { ticker: "RANK3", rank: 3, close_price: 110 }),
+    ], [
+      pick(-0.1888889, { ticker: "TDTH", open_price: 1.8, close_price: 1.46 }),
+      pick(-0.01, { ticker: "BBB", rank: 2, close_price: 99 }),
+      pick(0.1, { ticker: "FIT3", rank: 3, close_price: 110 }),
+    ]),
+    day("2026-09-26", [pick(0.01, { ticker: "CCC", close_price: 101 })],
+      [pick(0.02, { ticker: "DDD", close_price: 102 })]),
+  ]);
+  const original = simulateBook(source, options);
+  const filtered = simulateBook(source, { ...options, excludedTickers: new Set(["TDTH"]) });
+  assert.deepEqual(filtered.days[0].rank.map((row) => row.ticker), ["AAA"]);
+  assert.deepEqual(filtered.days[0].fit.map((row) => row.ticker), ["BBB"]);
+  assert.equal(filtered.days[0].rank_money.pnl, 200);
+  assert.equal(filtered.days[0].fit_money.pnl, -100);
+  assert.deepEqual(filtered.rank_money, { pnl: 300, invested: 20_000, endingValue: 20_300, completed: 2, pending: 0 });
+  assert.deepEqual(filtered.fit_money, { pnl: 100, invested: 20_000, endingValue: 20_100, completed: 2, pending: 0 });
+  assert.equal(filtered.rank_stats.n_scored, 2);
+  assert.equal(filtered.rank_stats.avg, 0.015);
+  assert.deepEqual(compareStrategyToBenchmark(filtered, "rank", {
+    returns: { "2026-09-25": 0.01, "2026-09-26": 0.01 },
+  }).intraday, { pnl: 200, pct: 0.01 });
+  const actuals = new Map([
+    ["2026-09-25", new Map([["AAA", { status: "observed", verified_close: 102, next_open: 103 }]])],
+    ["2026-09-26", new Map([["CCC", { status: "observed", verified_close: 101, next_open: 101 }]])],
+  ]);
+  assert.deepEqual(summarizeSelectedOvernightHistory(filtered.days, actuals, "rank", 10_000, 1, "all"), {
+    eligibleDays: 2, matchedDays: 2, pnl: 400, endingValue: 20_400,
+  });
+  assert.equal(summarizeSelectedOvernightHistory(original.days, actuals, "rank", 10_000, 1, "all").matchedDays, 1);
+  assert.equal(source.days[0].rank.length, 3); // The stored historical list is untouched.
+});
+
 test("completed news holds contribute to totals while hard skips do not", () => {
   const result = simulateBook(book([day("2026-09-29", [
     pick(-0.02, { news_blocks: true, news_flag: null }),

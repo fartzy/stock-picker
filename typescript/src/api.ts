@@ -626,6 +626,7 @@ export const fetchPaperBook = (
   if (rankTopK !== undefined) params.set("rank_top_k", String(rankTopK));
   return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
 };
+export const fetchBlacklistedTickers = () => getJson<string[]>("/api/ticker-blacklist");
 export const fetchOvernightActuals = (asOf: string, tickers: string[]) =>
   mutate<OvernightActualsResponse>("POST", "/api/what-if/overnight-actuals", { as_of: asOf, tickers });
 export const rebuildPaperBook = () => mutate<PaperBookResponse>("POST", "/api/paper-book/rebuild");

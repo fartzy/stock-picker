@@ -280,6 +280,14 @@ def test_get_pruned_features_starts_empty(client):
     assert body["archive"] == []
 
 
+def test_get_ticker_blacklist_returns_current_sorted_names(client):
+    with patch("stock_picker.api.routes.blacklisted_tickers", return_value={"XNDU", "TDTH"}):
+        response = client.get("/api/ticker-blacklist")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == ["TDTH", "XNDU"]
+
+
 def test_prune_then_unprune_feature(client):
     prune_response = client.post("/api/features/return_1d/prune")
     assert prune_response.status_code == status.HTTP_200_OK
