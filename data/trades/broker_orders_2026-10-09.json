@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "One row per filled order, including orders with multiple executions. Execution times and prices are used. Broker net sale proceeds are preserved to infer fees; total price improvement is not a separate cash flow. Repeated confirmations are not imported again. Unmatched activity is not in the live trade ledger.",
-  "filled_order_count": 25,
+  "filled_order_count": 30,
   "orders": [
     {"order_number": "2E203M4S", "ticker": "ALM", "side": "sell", "shares": 4500, "price": 11.8954, "executed_at": "2026-10-09T09:31:05-04:00", "broker_net_amount": 53528.19},
     {"order_number": "2E20BCMW", "ticker": "ALM", "side": "sell", "shares": 2000, "price": 11.7836, "executed_at": "2026-10-09T09:33:01-04:00", "broker_net_amount": 23566.71},
@@ -30,7 +30,12 @@
     {"order_number": "2E20L60J", "ticker": "HPQ", "side": "buy", "shares": 200, "price": 30.415, "executed_at": "2026-10-09T10:48:14-04:00", "broker_net_amount": 6083.00},
     {"order_number": "2E20LW7J", "ticker": "HPQ", "side": "buy", "shares": 600, "price": 30.37, "executed_at": "2026-10-09T10:49:18-04:00", "broker_net_amount": 18222.00},
     {"order_number": "2E20J61Q", "ticker": "HPQ", "side": "buy", "shares": 400, "price": 30.3299, "executed_at": "2026-10-09T10:50:31-04:00", "broker_net_amount": 12131.96},
-    {"order_number": "2E20PM08", "ticker": "HPQ", "side": "sell", "shares": 2600, "price": 30.525, "executed_at": "2026-10-09T10:56:54-04:00", "broker_net_amount": 79363.36}
+    {"order_number": "2E20PM08", "ticker": "HPQ", "side": "sell", "shares": 2600, "price": 30.525, "executed_at": "2026-10-09T10:56:54-04:00", "broker_net_amount": 79363.36},
+    {"order_number": "2E20Y9JP", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.38, "executed_at": "2026-10-09T11:33:52-04:00", "broker_net_amount": 3038.00},
+    {"order_number": "2E210ZVQ", "ticker": "HPQ", "side": "buy", "shares": 150, "price": 30.36, "executed_at": "2026-10-09T11:34:35-04:00", "broker_net_amount": 4554.00},
+    {"order_number": "2E210B5Y", "ticker": "HPQ", "side": "buy", "shares": 50, "price": 30.355, "executed_at": "2026-10-09T11:35:13-04:00", "broker_net_amount": 1517.75},
+    {"order_number": "2E20WZL1", "ticker": "HPQ", "side": "buy", "shares": 50, "price": 30.35, "executed_at": "2026-10-09T11:36:07-04:00", "broker_net_amount": 1517.50},
+    {"order_number": "2E20T9HJ", "ticker": "HPQ", "side": "buy", "shares": 50, "price": 30.3599, "executed_at": "2026-10-09T11:36:53-04:00", "broker_net_amount": 1518.00}
   ],
   "canceled_orders": [
     {"order_number": "2E20HSCF", "ticker": "HPQ", "side": "sell", "shares_ordered": 150, "limit_price": 31.02, "ordered_at": "2026-10-09T10:09:59-04:00", "filled_shares": 0}
@@ -40,7 +45,7 @@
   ],
   "reconciliation": {
     "ALM": {"starting_shares": 6500, "sold_shares": 6500, "remaining_shares": 0, "gross_sale_proceeds": 77096.50, "inferred_sale_fees": 1.60, "net_sale_proceeds": 77094.90},
-    "HPQ": {"starting_shares": 0, "bought_shares": 3000, "sold_shares": 3000, "remaining_shares": 0, "buy_cost": 91492.43, "gross_sale_proceeds": 91705.00, "inferred_sale_fees": 1.90, "net_sale_proceeds": 91703.10, "net_realized_pnl": 210.67},
+    "HPQ": {"starting_shares": 0, "bought_shares": 3400, "sold_shares": 3000, "remaining_shares": 400, "buy_cost": 103637.68, "gross_sale_proceeds": 91705.00, "inferred_sale_fees": 1.90, "net_sale_proceeds": 91703.10, "net_realized_pnl": 210.67},
     "LQDA": {"starting_shares": 0, "bought_shares": 560, "sold_shares": 560, "remaining_shares": 0, "buy_cost": 15099.15, "gross_sale_proceeds": 15178.74, "inferred_sale_fees": 0.32, "net_sale_proceeds": 15178.42, "net_realized_pnl": 79.27}
   }
 }
