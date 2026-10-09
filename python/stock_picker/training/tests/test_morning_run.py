@@ -45,6 +45,7 @@ def test_run_morning_skips_when_8_32_job_is_disabled(tmp_path, monkeypatch):
 
 def test_run_morning_skips_scheduled_run_when_today_already_scored(tmp_path, monkeypatch):
     monkeypatch.setattr(m, "_LOCK_PATH", tmp_path / "morning.lock")
+    monkeypatch.setattr(m, "wait_for_morning_snapshot", lambda: None)
     monkeypatch.setattr(
         m,
         "pipeline_freshness",
