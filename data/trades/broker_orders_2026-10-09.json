@@ -3,8 +3,8 @@
   "trade_date": "2026-10-09",
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "One row per filled order, including orders with multiple executions. Execution times and prices are used. Broker net sale proceeds are preserved to infer fees; total price improvement is not a separate cash flow. Repeated confirmations are not imported again. Unmatched activity and the unreconciled afternoon HPQ fills are not in the live trade ledger.",
-  "filled_order_count": 46,
+  "note": "One row per filled order, including orders with multiple executions. Execution times and prices are used. Broker net sale proceeds are preserved to infer fees; total price improvement is not a separate cash flow. Repeated confirmations are not imported again. Unmatched activity is not in the live trade ledger.",
+  "filled_order_count": 48,
   "orders": [
     {"order_number": "2E203M4S", "ticker": "ALM", "side": "sell", "shares": 4500, "price": 11.8954, "executed_at": "2026-10-09T09:31:05-04:00", "broker_net_amount": 53528.19},
     {"order_number": "2E20BCMW", "ticker": "ALM", "side": "sell", "shares": 2000, "price": 11.7836, "executed_at": "2026-10-09T09:33:01-04:00", "broker_net_amount": 23566.71},
@@ -48,10 +48,12 @@
     {"order_number": "2E214SR2", "ticker": "HPQ", "side": "buy", "shares": 200, "price": 30.265, "executed_at": "2026-10-09T12:34:52-04:00", "broker_net_amount": 6053.00},
     {"order_number": "2E2165FT", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.23, "executed_at": "2026-10-09T12:38:29-04:00", "broker_net_amount": 3023.00},
     {"order_number": "2E214VH2", "ticker": "HPQ", "side": "sell", "shares": 2400, "price": 30.375, "executed_at": "2026-10-09T12:47:31-04:00", "broker_net_amount": 72898.49},
+    {"order_number": "2E21DYT1", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.195, "executed_at": "2026-10-09T14:12:54-04:00", "broker_net_amount": 3019.50},
     {"order_number": "2E21LC3V", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.195, "executed_at": "2026-10-09T14:21:49-04:00", "broker_net_amount": 3019.50},
     {"order_number": "2E21QCY6", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.1899, "executed_at": "2026-10-09T14:23:04-04:00", "broker_net_amount": 3018.99},
     {"order_number": "2E21M1ST", "ticker": "HPQ", "side": "buy", "shares": 100, "price": 30.265, "executed_at": "2026-10-09T14:27:19-04:00", "broker_net_amount": 3026.50},
-    {"order_number": "2E21KQCL", "ticker": "HPQ", "side": "sell", "shares": 400, "price": 30.255, "executed_at": "2026-10-09T14:27:48-04:00", "broker_net_amount": 12101.75}
+    {"order_number": "2E21KQCL", "ticker": "HPQ", "side": "sell", "shares": 400, "price": 30.255, "executed_at": "2026-10-09T14:27:48-04:00", "broker_net_amount": 12101.75},
+    {"order_number": "2E21FQRJ", "ticker": "CRGY", "side": "buy", "shares": 200, "price": 12.885, "executed_at": "2026-10-09T14:32:35-04:00", "broker_net_amount": 2577.00}
   ],
   "canceled_orders": [
     {"order_number": "2E20HSCF", "ticker": "HPQ", "side": "sell", "shares_ordered": 150, "limit_price": 31.02, "ordered_at": "2026-10-09T10:09:59-04:00", "filled_shares": 0}
@@ -61,7 +63,8 @@
   ],
   "reconciliation": {
     "ALM": {"starting_shares": 6500, "sold_shares": 6500, "remaining_shares": 0, "gross_sale_proceeds": 77096.50, "inferred_sale_fees": 1.60, "net_sale_proceeds": 77094.90},
-    "HPQ": {"starting_shares": 0, "bought_shares": 5700, "sold_shares": 5800, "unmatched_sell_shares": 100, "remaining_shares": null, "buy_cost": 173290.62, "gross_sale_proceeds": 176707.00, "inferred_sale_fees": 3.66, "net_sale_proceeds": 176703.34, "net_realized_pnl": null, "last_reconciled_pnl": 375.96, "last_reconciled_at": "2026-10-09T12:47:31-04:00"},
-    "LQDA": {"starting_shares": 0, "bought_shares": 560, "sold_shares": 560, "remaining_shares": 0, "buy_cost": 15099.15, "gross_sale_proceeds": 15178.74, "inferred_sale_fees": 0.32, "net_sale_proceeds": 15178.42, "net_realized_pnl": 79.27}
+    "HPQ": {"starting_shares": 0, "bought_shares": 5800, "sold_shares": 5800, "remaining_shares": 0, "buy_cost": 176310.12, "gross_sale_proceeds": 176707.00, "inferred_sale_fees": 3.66, "net_sale_proceeds": 176703.34, "net_realized_pnl": 393.22},
+    "LQDA": {"starting_shares": 0, "bought_shares": 560, "sold_shares": 560, "remaining_shares": 0, "buy_cost": 15099.15, "gross_sale_proceeds": 15178.74, "inferred_sale_fees": 0.32, "net_sale_proceeds": 15178.42, "net_realized_pnl": 79.27},
+    "CRGY": {"starting_shares": 0, "bought_shares": 200, "sold_shares": 0, "remaining_shares": 200, "buy_cost": 2577.00}
   }
 }
