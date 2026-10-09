@@ -373,15 +373,15 @@ function MorningLists({
           ]}
         />
       </summary>
-      {(rankQuick.length > 0 || fitQuick.length > 0) && <div className="morning-quick-picks" aria-label="Quick overnight look for morning picks">
-        <span>Overnight quick look</span>
+      {(rankQuick.length > 0 || fitQuick.length > 0) && <div className="morning-quick-picks" aria-label="Next-open estimates for morning picks">
+        <span>Next-open estimate</span>
         {rankQuick.length > 0 && <div><small>Rank</small>{rankQuick.map((signal) => (
           <button type="button" key={`rank-${signal.ticker}`} onClick={() => onOpenOvernight(signal.ticker)}
-            aria-label={`Open ${signal.ticker} overnight quick look`}>{signal.ticker}<span aria-hidden="true">↗</span></button>
+            aria-label={`Open ${signal.ticker} next-open estimate`}>{signal.ticker}<span aria-hidden="true">↗</span></button>
         ))}</div>}
         {fitQuick.length > 0 && <div><small>Fit</small>{fitQuick.map((signal) => (
           <button type="button" key={`fit-${signal.ticker}`} onClick={() => onOpenOvernight(signal.ticker)}
-            aria-label={`Open ${signal.ticker} overnight quick look`}>{signal.ticker}<span aria-hidden="true">↗</span></button>
+            aria-label={`Open ${signal.ticker} next-open estimate`}>{signal.ticker}<span aria-hidden="true">↗</span></button>
         ))}</div>}
       </div>}
       <div className="morning-lists">

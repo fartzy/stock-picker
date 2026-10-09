@@ -65,9 +65,11 @@ body {
 }
 
 h1 {
-  font-family: var(--sans);
-  font-weight: 800;
+  font-family: "Avenir Next", var(--sans);
+  font-weight: 700;
   font-size: var(--text-heading-lg);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
   margin: 0;
 }
 
@@ -162,6 +164,11 @@ section + section {
 
 .muted {
   color: var(--text-muted);
+}
+
+.trade-history-empty {
+  font-family: var(--sans);
+  font-size: var(--text-label);
 }
 
 .news-check {
@@ -924,7 +931,7 @@ details.view-card[open] > summary::before {
 }
 
 .morning-quick-picks { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--line); }
-.morning-quick-picks > span { color: var(--text-muted); font-size: var(--text-micro); }
+.morning-quick-picks > span { color: var(--text-muted); font-family: var(--sans); font-size: var(--text-micro); font-weight: 600; }
 .morning-quick-picks > div { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
 .morning-quick-picks small { color: var(--accent); font-size: var(--text-micro); margin-right: var(--space-1); }
 .morning-quick-picks button { display: inline-flex; align-items: center; gap: var(--space-1); border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--text); cursor: pointer; font: inherit; font-size: var(--text-micro); padding: 2px var(--space-2); }
