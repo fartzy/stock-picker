@@ -1,6 +1,7 @@
 """Observed next-open What If comparisons never use a future or mixed bar."""
 
 from datetime import date, datetime, timezone
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -72,5 +73,24 @@ def test_stale_current_snapshot_means_next_open_is_still_awaited():
     def stale(ticker, session):
         raise MassiveOvernightError("single-ticker snapshot is not dated to the scenario session")
     client.fetch_current_open = stale
+    result = observed_next_open("WERN", date(2026, 10, 5), client=client, today=date(2026, 10, 6))
+    assert result.status == "awaiting_next_open"
+
+
+def test_next_session_before_cash_open_is_pending_without_provider_call():
+    client = FakeClient(verified(next_bar=False))
+    result = observed_next_open(
+        "ALM", date(2026, 10, 8), client=client, today=date(2026, 10, 9),
+        clock=datetime(2026, 10, 9, 9, 5, tzinfo=ZoneInfo("America/New_York")),
+    )
+    assert result.status == "awaiting_next_open"
+    assert client.fetch_calls == []
+
+
+def test_missing_current_session_open_is_pending():
+    client = FakeClient(verified(next_bar=False))
+    def missing_open(ticker, session):
+        raise MassiveOvernightError("single-ticker snapshot has no current-session open")
+    client.fetch_current_open = missing_open
     result = observed_next_open("WERN", date(2026, 10, 5), client=client, today=date(2026, 10, 6))
     assert result.status == "awaiting_next_open"

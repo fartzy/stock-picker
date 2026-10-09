@@ -20,6 +20,7 @@ from stock_picker.ingestion.massive_overnight import (
     MassiveOvernightError,
     TICKER_PATTERN,
 )
+from stock_picker.ingestion.session import cash_session_window
 from stock_picker.training.overnight_dataset import next_expected_session
 
 
@@ -40,6 +41,7 @@ def observed_next_open(
     *,
     client: MassiveOvernightClient | None = None,
     today: date | None = None,
+    clock: datetime | None = None,
 ) -> ObservedNextOpen:
     """Return an actual next open only after it is observed and action-checked."""
     if not TICKER_PATTERN.fullmatch(ticker):
@@ -47,9 +49,14 @@ def observed_next_open(
     next_session = next_expected_session(session)
     if next_session is None:
         return ObservedNextOpen(ticker, session, None, "unavailable", reason="exchange session unavailable")
-    current_date = today or datetime.now(ZoneInfo("America/New_York")).date()
+    current_clock = clock or datetime.now(ZoneInfo("America/New_York"))
+    current_date = today or current_clock.date()
     if next_session > current_date:
         return ObservedNextOpen(ticker, session, next_session, "awaiting_next_open")
+    if next_session == current_date and (clock is not None or today is None):
+        window = cash_session_window(current_clock)
+        if window is not None and current_clock < window.open_at:
+            return ObservedNextOpen(ticker, session, next_session, "awaiting_next_open")
 
     provider = client or MassiveOvernightClient()
     try:
@@ -75,6 +82,9 @@ def observed_next_open(
             opened = float(verified.history.loc[next_stamp, "Open"])
         return ObservedNextOpen(ticker, session, next_session, "observed", close, opened)
     except MassiveOvernightError as exc:
-        if next_session == current_date and str(exc) == "single-ticker snapshot is not dated to the scenario session":
+        if next_session == current_date and str(exc) in {
+            "single-ticker snapshot is not dated to the scenario session",
+            "single-ticker snapshot has no current-session open",
+        }:
             return ObservedNextOpen(ticker, session, next_session, "awaiting_next_open")
         return ObservedNextOpen(ticker, session, next_session, "unavailable", reason=str(exc))

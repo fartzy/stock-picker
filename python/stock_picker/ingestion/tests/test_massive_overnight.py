@@ -91,6 +91,12 @@ def test_current_snapshot_rejects_stale_wrong_or_invalid_open(payload):
         parse_current_snapshot(payload, "AAPL", START)
 
 
+def test_current_snapshot_names_missing_regular_session_open():
+    payload = snapshot(opened=0)
+    with pytest.raises(MassiveOvernightError, match="no current-session open"):
+        parse_current_snapshot(payload, "AAPL", START)
+
+
 class FakeResponse:
     status_code = 200
 

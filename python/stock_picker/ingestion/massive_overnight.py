@@ -112,6 +112,8 @@ def parse_current_snapshot(payload: object, ticker: str, session: date) -> tuple
         raise MassiveOvernightError("single-ticker snapshot is not dated to the scenario session")
     day = item.get("day") or {}
     previous = item.get("prevDay") or {}
+    if day.get("o") in (None, 0, 0.0):
+        raise MassiveOvernightError("single-ticker snapshot has no current-session open")
     opened = _price(day.get("o"))
     previous_close = _price(previous.get("c"))
     trade = item.get("lastTrade") or {}
