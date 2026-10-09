@@ -70,6 +70,7 @@ export function summarizeOvernightHold(outcomes: OvernightHoldOutcome[], baselin
 }
 
 export type OvernightExitRule = "all" | "down" | "custom";
+export type OvernightExitMode = "close" | OvernightExitRule;
 
 export interface OvernightExitSummary {
   selected: number;

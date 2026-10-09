@@ -102,7 +102,7 @@ export default function App() {
       {tab === "whatif" && (
         <section>
           <h2>What if</h2>
-          <p className="muted">This book remains an open → close comparison. Historical overnight replay will appear separately once earlier-date model artifacts are available. <button className="overnight-text-link" type="button" onClick={() => openOvernight()}>Open today’s overnight scenario</button></p>
+          <p className="muted">Open → close by default. “Hold to next open” uses actual prices, not a model. <button className="overnight-text-link" type="button" onClick={() => openOvernight()}>Forecast scenario ↗</button></p>
           <div className="panel">
             <WhatIf />
           </div>

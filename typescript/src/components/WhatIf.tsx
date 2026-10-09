@@ -16,16 +16,20 @@ import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
-  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
+  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, selectOvernightExitRows, simulateBook,
+  simulateOvernightHold, simulationDay, summarizeOvernightExit,
   type BenchmarkLoad,
-  type LookbackDays, type MoneySummary, type PickKind, type PickOutcome,
-  type SimulatedDay, type SimulatedPick, type StrategyBenchmark, type TradeSizes,
+  type LookbackDays, type MoneySummary, type OvernightExitMode, type OvernightExitRule,
+  type PickKind, type PickOutcome, type SimulatedDay, type SimulatedPick,
+  type StrategyBenchmark, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
 import OvernightHoldComparison, {
   OvernightHistoryComparison, type LoadOvernightActuals,
 } from "./OvernightHoldComparison";
+
+const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -71,11 +75,35 @@ function PickMoney({ outcome, ending = false }: { outcome: PickOutcome; ending?:
   return <Dollars value={outcome.pnl} />;
 }
 
-function moneyItems(money: MoneySummary): StatItem[] {
+function heldUntilOpen(row: SimulatedPick, mode: OvernightExitMode, custom: ReadonlySet<string>): boolean {
+  return mode !== "close" && selectOvernightExitRows([row], mode, custom).length > 0;
+}
+
+function ScenarioPickMoney({ row, actual, dollarsPerTrade, portion, mode, custom, ending = false }: {
+  row: SimulatedPick;
+  actual?: OvernightActualRow;
+  dollarsPerTrade: number;
+  portion: number;
+  mode: OvernightExitMode;
+  custom: ReadonlySet<string>;
+  ending?: boolean;
+}) {
+  if (!heldUntilOpen(row, mode, custom)) return <PickMoney outcome={row.hypothetical} ending={ending} />;
+  const outcome = simulateOvernightHold(row, actual, dollarsPerTrade, portion / 100);
+  if (outcome.status !== "observed" || row.hypothetical.pnl === null) {
+    const label = outcome.status === "price_mismatch" ? "Price mismatch" : "Awaiting open";
+    return <span className="muted">{label}</span>;
+  }
+  if (ending) return <UsdCell value={outcome.endingValue} />;
+  const pnl = Math.round((row.hypothetical.pnl + outcome.incrementalPnl!) * 100) / 100;
+  return <Dollars value={pnl} />;
+}
+
+function moneyItems(money: MoneySummary, closeBaseline = false): StatItem[] {
   return [
     { key: "capital", label: "Completed capital", value: formatUsd(money.invested) },
-    { key: "pnl", label: "P&L", value: <Dollars value={money.pnl} /> },
-    { key: "ending", label: "End value", value: <UsdCell value={money.endingValue} /> },
+    { key: "pnl", label: closeBaseline ? "Close P&L" : "P&L", value: <Dollars value={money.pnl} /> },
+    { key: "ending", label: closeBaseline ? "Close value" : "End value", value: <UsdCell value={money.endingValue} /> },
     ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting prices` }] : []),
   ];
 }
@@ -109,7 +137,7 @@ function BenchmarkLine({ label, pnl, pct, detail, hint }: {
   );
 }
 
-function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError }: {
+function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, closeBaseline }: {
   title: string;
   topK: number | undefined;
   days: number;
@@ -118,6 +146,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   benchmark: StrategyBenchmark;
   benchmarkLoading: boolean;
   benchmarkError: string | null;
+  closeBaseline: boolean;
 }) {
   const intradayDetail = benchmark.activeDays
     ? `${benchmark.matchedDays}/${benchmark.activeDays}d`
@@ -134,7 +163,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
           { key: "days", align: "start", value: `${days}d` },
         ]} />
       </div>
-      <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">P&L</span></div>
+      <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">{closeBaseline ? "Close P&L" : "P&L"}</span></div>
       <p className="view-meta">
         <StatStrip items={[
           { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
@@ -178,6 +207,11 @@ function ListTable({
   isRank,
   money,
   dollarsPerTrade,
+  actuals,
+  overnightPortion,
+  exitMode,
+  custom,
+  onToggleHold,
 }: {
   title: string;
   rows: SimulatedPick[];
@@ -185,6 +219,11 @@ function ListTable({
   isRank: boolean;
   money: MoneySummary;
   dollarsPerTrade: number;
+  actuals?: ReadonlyMap<string, OvernightActualRow>;
+  overnightPortion: number;
+  exitMode: OvernightExitMode;
+  custom: ReadonlySet<string>;
+  onToggleHold: (ticker: string) => void;
 }) {
   if (rows.length === 0) {
     return <p className="muted">{title}: no list that morning</p>;
@@ -200,7 +239,7 @@ function ListTable({
           ]}
         />
       </p>
-      <p className="view-meta"><StatStrip items={moneyItems(money)} /></p>
+      <p className="view-meta"><StatStrip items={moneyItems(money, exitMode !== "close")} /></p>
       <div style={{ overflowX: "auto" }}>
         <DataTable
           rows={rows}
@@ -217,10 +256,26 @@ function ListTable({
             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
             { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
-            { key: "pnl", header: <ColumnTitle label="P&L" hint={`${formatUsd(dollarsPerTrade)} / trade`} />, numeric: true,
-              cell: (row) => <PickMoney outcome={row.hypothetical} /> },
-            { key: "ending", header: "End value", numeric: true,
-              cell: (row) => <PickMoney outcome={row.hypothetical} ending /> },
+            { key: "exit", header: "Exit", when: exitMode !== "close", cell: (row) => {
+              const eligible = row.hypothetical.status === "scored" || row.hypothetical.status === "held";
+              if (!eligible) return <span className="muted">Excluded</span>;
+              if (exitMode === "custom") return <label className="what-if-exit-choice">
+                <input type="checkbox" checked={custom.has(row.ticker)}
+                  aria-label={`Hold ${row.ticker} until next open`}
+                  onChange={() => onToggleHold(row.ticker)} />
+                <span>Next open</span>
+              </label>;
+              return <span className={heldUntilOpen(row, exitMode, custom) ? "what-if-exit-open" : "muted"}>
+                {heldUntilOpen(row, exitMode, custom) ? "Next open" : "Close"}
+              </span>;
+            } },
+            { key: "pnl", header: <ColumnTitle label={exitMode === "close" ? "P&L" : "Exit P&L"}
+              hint={`${formatUsd(dollarsPerTrade)} / trade`} />, numeric: true,
+              cell: (row) => <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
+                dollarsPerTrade={dollarsPerTrade} portion={overnightPortion} mode={exitMode} custom={custom} /> },
+            { key: "ending", header: exitMode === "close" ? "End value" : "Exit value", numeric: true,
+              cell: (row) => <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
+                dollarsPerTrade={dollarsPerTrade} portion={overnightPortion} mode={exitMode} custom={custom} ending /> },
             { key: "news", header: "Saved news check", cell: (row) => <>
               <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked}
                 check={row.news_check} skipLabel="saved skip" />
@@ -249,7 +304,7 @@ function DayCard({
   actuals,
   loadActuals,
   overnightPortion,
-  setOvernightPortion,
+  exitMode,
 }: {
   day: SimulatedDay;
   kind: PickKind;
@@ -260,12 +315,32 @@ function DayCard({
   actuals?: ReadonlyMap<string, OvernightActualRow>;
   loadActuals: LoadOvernightActuals;
   overnightPortion: number;
-  setOvernightPortion: (value: number) => void;
+  exitMode: OvernightExitMode;
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [custom, setCustom] = useState<Record<StrategyKind, ReadonlySet<string>>>(() => ({
+    rank: new Set(), fit: new Set(),
+  }));
+  function toggleHold(strategy: StrategyKind, ticker: string) {
+    setCustom((current) => {
+      const selected = new Set(current[strategy]);
+      if (selected.has(ticker)) selected.delete(ticker);
+      else selected.add(ticker);
+      return { ...current, [strategy]: selected };
+    });
+  }
+  function exitPnl(strategy: StrategyKind): number | null {
+    const money = day[`${strategy}_money`];
+    if (exitMode === "close") return money.pnl;
+    return summarizeOvernightExit(day[strategy], actuals ?? EMPTY_OVERNIGHT_ACTUALS,
+      tradeSizes[strategy], money, overnightPortion / 100, exitMode, custom[strategy]).pnl;
+  }
+  const rankExitPnl = kind !== "fit" ? exitPnl("rank") : null;
+  const fitExitPnl = kind !== "rank" ? exitPnl("fit") : null;
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
   return (
-    <details className="view-card">
+    <details className="view-card" onToggle={(event) => setIsOpen(event.currentTarget.open)}>
       <summary>
         <StatStrip
           items={[
@@ -281,10 +356,11 @@ function DayCard({
               ? [
                   {
                     key: "rank",
-                    label: "Rank",
+                    label: exitMode === "close" ? "Rank" : "Rank exit",
                     value: (
                       <>
-                        {day.rank.length} <Pct value={day.rank_avg} /> · <Dollars value={day.rank_money.pnl} />
+                        {day.rank.length} {exitMode === "close" && <Pct value={day.rank_avg} />} · {rankExitPnl === null && exitMode !== "close"
+                          ? <span className="muted">Awaiting open</span> : <Dollars value={rankExitPnl} />}
                       </>
                     ),
                   },
@@ -294,10 +370,11 @@ function DayCard({
               ? [
                   {
                     key: "fit",
-                    label: "Fit",
+                    label: exitMode === "close" ? "Fit" : "Fit exit",
                     value: (
                       <>
-                        {day.fit.length} <Pct value={day.fit_avg} /> · <Dollars value={day.fit_money.pnl} />
+                        {day.fit.length} {exitMode === "close" && <Pct value={day.fit_avg} />} · {fitExitPnl === null && exitMode !== "close"
+                          ? <span className="muted">Awaiting open</span> : <Dollars value={fitExitPnl} />}
                       </>
                     ),
                   },
@@ -308,21 +385,25 @@ function DayCard({
           ]}
         />
       </summary>
-      <div className="what-if-day-lists">
+      {isOpen && <div className="what-if-day-lists">
         <OvernightHoldComparison
-          key={`${day.as_of}-${day.scan_id}-${day.fit.map((row) => row.ticker).join(",")}-${day.rank.map((row) => row.ticker).join(",")}`}
+          key={`${day.as_of}-${day.scan_id}-${exitMode}-${day.fit.map((row) => row.ticker).join(",")}-${day.rank.map((row) => row.ticker).join(",")}`}
           day={day} kind={kind} tradeSizes={tradeSizes} actuals={actuals} loadActuals={loadActuals}
-          portion={overnightPortion} setPortion={setOvernightPortion}
+          portion={overnightPortion} selectedRule={exitMode} custom={custom}
         />
         {kind !== "rank" && (
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
-            money={day.fit_money} dollarsPerTrade={tradeSizes.fit} />
+            money={day.fit_money} dollarsPerTrade={tradeSizes.fit} actuals={actuals}
+            overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.fit}
+            onToggleHold={(ticker) => toggleHold("fit", ticker)} />
         )}
         {kind !== "fit" && (
           <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
-            money={day.rank_money} dollarsPerTrade={tradeSizes.rank} />
+            money={day.rank_money} dollarsPerTrade={tradeSizes.rank} actuals={actuals}
+            overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.rank}
+            onToggleHold={(ticker) => toggleHold("rank", ticker)} />
         )}
-      </div>
+      </div>}
     </details>
   );
 }
@@ -399,6 +480,8 @@ export default function WhatIf() {
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [applyNewsSkips, setApplyNewsSkips] = useState(true);
+  const [holdNextOpen, setHoldNextOpen] = useState(false);
+  const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
   const [overnightPortion, setOvernightPortion] = useState(100);
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -415,6 +498,7 @@ export default function WhatIf() {
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
+  const exitMode: OvernightExitMode = holdNextOpen ? overnightRule : "close";
   const data = raw ? simulateBook(raw, {
     kind, fitTopK: fitAsked, rankTopK: rankAsked, applyNewsSkips, tradeSizes, lookbackDays, asOf: simulationDay(),
   }) : null;
@@ -467,6 +551,25 @@ export default function WhatIf() {
             onChange={(event) => setApplyNewsSkips(event.target.checked)} />
           <span>Apply news skips</span>
         </label>
+        <div className="what-if-exit-control" aria-label="Exit scenario">
+          <label className="what-if-news-toggle" title="Compare selling at the close with exits at the verified next-session open.">
+            <input type="checkbox" checked={holdNextOpen}
+              onChange={(event) => setHoldNextOpen(event.target.checked)} />
+            <span>Hold to next open</span>
+          </label>
+          {holdNextOpen && <>
+            <select className="form-select" value={overnightRule} aria-label="Stocks held to next open"
+              onChange={(event) => setOvernightRule(event.target.value as OvernightExitRule)}>
+              <option value="all">All included</option>
+              <option value="down">Down today</option>
+              <option value="custom">Pick stocks</option>
+            </select>
+            <select className="form-select what-if-hold-portion" value={overnightPortion} aria-label="Portion held to next open"
+              onChange={(event) => setOvernightPortion(Number(event.target.value))}>
+              {[100, 50, 30, 10].map((value) => <option key={value} value={value}>{value}% held</option>)}
+            </select>
+          </>}
+        </div>
         <button
           type="button"
           className="icon-btn"
@@ -552,6 +655,7 @@ export default function WhatIf() {
             {rankOn && (
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
                 stats={data.rank_stats} money={data.rank_money}
+                closeBaseline={holdNextOpen}
                 benchmark={compareStrategyToBenchmark(data, "rank", rankBenchmark?.response ?? null)}
                 benchmarkLoading={rankDates.length > 0 && !rankBenchmark}
                 benchmarkError={rankBenchmark?.error ?? null} />
@@ -559,14 +663,16 @@ export default function WhatIf() {
             {fitOn && (
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
                 stats={data.fit_stats} money={data.fit_money}
+                closeBaseline={holdNextOpen}
                 benchmark={compareStrategyToBenchmark(data, "fit", fitBenchmark?.response ?? null)}
                 benchmarkLoading={fitDates.length > 0 && !fitBenchmark}
                 benchmarkError={fitBenchmark?.error ?? null} />
             )}
           </div>
-          <OvernightHistoryComparison days={data.days} kind={kind} tradeSizes={tradeSizes}
-            actualsByDay={actualsCache.current} loadActuals={loadActuals}
-            portion={overnightPortion} setPortion={setOvernightPortion} />
+          {holdNextOpen && overnightRule !== "custom" &&
+            <OvernightHistoryComparison days={data.days} kind={kind} tradeSizes={tradeSizes}
+              actualsByDay={actualsCache.current} loadActuals={loadActuals}
+              portion={overnightPortion} selectedRule={overnightRule} />}
           {data.days.map((day) => (
             <DayCard
               day={day}
@@ -577,7 +683,7 @@ export default function WhatIf() {
               actuals={actualsCache.current.get(day.as_of)}
               loadActuals={loadActuals}
               overnightPortion={overnightPortion}
-              setOvernightPortion={setOvernightPortion}
+              exitMode={exitMode}
               modelLabel={
                 day.model_run_id
                   ? (() => {

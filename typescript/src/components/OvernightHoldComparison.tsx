@@ -3,14 +3,13 @@ import type { OvernightActualRow } from "../api";
 import { formatUsd } from "../format";
 import {
   selectOvernightExitRows, simulateOvernightHold, summarizeOvernightExit, summarizeOvernightHistory,
-  type MoneySummary, type OvernightExitRule, type OvernightExitSummary,
+  type MoneySummary, type OvernightExitMode, type OvernightExitRule, type OvernightExitSummary,
   type PickKind, type SimulatedDay, type SimulatedPick, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 
 export type LoadOvernightActuals = (asOf: string, tickers: string[], force?: boolean) => Promise<void>;
 export type ActualsByDay = ReadonlyMap<string, ReadonlyMap<string, OvernightActualRow>>;
 
-const HOLD_PORTIONS = [100, 50, 30, 10];
 const EMPTY_ACTUALS = new Map<string, OvernightActualRow>();
 
 interface StrategyRows {
@@ -64,18 +63,16 @@ function actualStatus(actual: OvernightActualRow | undefined): string {
   return actual.reason ? `Unavailable · ${actual.reason}` : "Unavailable";
 }
 
-export default function OvernightHoldComparison({ day, kind, tradeSizes, actuals, loadActuals, portion, setPortion }: {
+export default function OvernightHoldComparison({ day, kind, tradeSizes, actuals, loadActuals, portion, selectedRule, custom }: {
   day: SimulatedDay;
   kind: PickKind;
   tradeSizes: TradeSizes;
   actuals?: ReadonlyMap<string, OvernightActualRow>;
   loadActuals: LoadOvernightActuals;
   portion: number;
-  setPortion: (value: number) => void;
+  selectedRule: OvernightExitMode;
+  custom: Record<StrategyKind, ReadonlySet<string>>;
 }) {
-  const [custom, setCustom] = useState<Record<StrategyKind, ReadonlySet<string>>>(() => ({
-    rank: new Set(), fit: new Set(),
-  }));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const strategies = strategiesFor(day, kind, tradeSizes);
@@ -100,26 +97,13 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes, actuals
     }
   }
 
-  function toggleTicker(strategy: StrategyKind, ticker: string) {
-    setCustom((current) => {
-      const next = new Set(current[strategy]);
-      if (next.has(ticker)) next.delete(ticker);
-      else next.add(ticker);
-      return { ...current, [strategy]: next };
-    });
-  }
-
-  return <details className="overnight-hold-panel" onToggle={(event) => {
+  return <details className="overnight-hold-panel" open={selectedRule !== "close"} onToggle={(event) => {
     if (event.currentTarget.open && !busy && tickers.some((ticker) => !actuals?.has(ticker)
       || actuals.get(ticker)?.status === "awaiting_next_open")) void load(false);
   }}>
-    <summary><span>Next-open replay</span><small>Actual prices · separate from forecast</small></summary>
+    <summary><span>Next-open replay</span><small>Actual prices</small></summary>
     <div className="overnight-exit-toolbar">
-      <label>Portion held <select className="form-select" value={portion}
-        onChange={(event) => setPortion(Number(event.target.value))}>
-        {HOLD_PORTIONS.map((value) => <option key={value} value={value}>{value}%</option>)}
-      </select></label>
-      <span className="muted">Other shares sell at close</span>
+      <span className="muted">{portion}% held · other shares sell at close</span>
       <button type="button" className="icon-btn" disabled={busy || !tickers.length} onClick={() => void load(true)}>
         {busy ? "Checking…" : actuals ? "Refresh opens" : "Check opens"}
       </button>
@@ -128,39 +112,20 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes, actuals
     <div className="overnight-exit-table-wrap"><table className="overnight-exit-table" aria-label="Daily next-open exit comparison">
       <thead><tr><th>Exit rule</th>{strategies.map((strategy) => <th key={strategy.kind}>{strategy.kind === "rank" ? "Rank" : "Fit"} P&amp;L / end</th>)}</tr></thead>
       <tbody>
-        <tr><th scope="row">Sell at close <small>Current result</small></th>{strategies.map((strategy) => <td key={strategy.kind}>
+        <tr className={selectedRule === "close" ? "is-selected" : undefined}><th scope="row">Sell at close <small>Current result</small></th>{strategies.map((strategy) => <td key={strategy.kind}>
           <MoneyResult pnl={strategy.money.pending ? null : strategy.money.pnl}
             endingValue={strategy.money.pending ? null : strategy.money.endingValue} pending="Awaiting close" />
         </td>)}</tr>
-        {(["all", "down", "custom"] as const).map((rule) => <tr key={rule}><th scope="row">
+        {(["all", "down", "custom"] as const).map((rule) => <tr key={rule} className={selectedRule === rule ? "is-selected" : undefined}><th scope="row">
           {rule === "all" ? "Hold all included" : rule === "down" ? "Hold down today" : "My selection"}
-          <small>{rule === "down" ? "Today's open → close" : rule === "custom" ? "Choose below" : "Same shares"}</small>
+          <small>{rule === "down" ? "Today’s losers" : rule === "custom" ? "Pick in tables below" : "Same shares"}</small>
         </th>{strategies.map((strategy) => {
           const result = resultFor(strategy, rule);
           return <td key={strategy.kind}><ScenarioResult result={result} customEmpty={rule === "custom" && result.selected === 0} /></td>;
         })}</tr>)}
       </tbody>
     </table></div>
-    <div className="overnight-exit-pickers">
-      {strategies.map((strategy) => {
-        const eligible = selectOvernightExitRows(strategy.rows, "all");
-        const excluded = strategy.rows.length - eligible.length;
-        return <div className="overnight-exit-picker" key={strategy.kind}>
-          <div className="overnight-exit-picker-head"><strong>{strategy.kind === "rank" ? "Rank" : "Fit"} · my selection</strong>
-            <span>{resultFor(strategy, "custom").selected} selected</span></div>
-          <div className="overnight-exit-chips">{eligible.map((row) => <label key={`${row.rank}-${row.ticker}`}
-            className="overnight-exit-chip">
-            <input type="checkbox" checked={custom[strategy.kind].has(row.ticker)}
-              onChange={() => toggleTicker(strategy.kind, row.ticker)} />
-            <strong>{row.ticker}</strong>
-            <span className={row.session_return !== null && row.session_return < 0 ? "quote-diff-down" : "quote-diff-up"}>
-              {row.session_return === null ? "—" : `${row.session_return < 0 ? "▼" : "▲"} ${(Math.abs(row.session_return) * 100).toFixed(2)}%`}
-            </span>
-          </label>)}</div>
-          {excluded > 0 && <small className="muted">{excluded} skipped or unpriced {excluded === 1 ? "name" : "names"} excluded</small>}
-        </div>;
-      })}
-    </div>
+    {selectedRule === "custom" && <p className="overnight-exit-instruction">Choose <strong>Next open</strong> beside each stock in the Rank and Fit tables.</p>}
     <details className="overnight-exit-price-details"><summary>Per-ticker prices</summary>
       <div className="overnight-exit-table-wrap"><table className="overnight-exit-table">
         <thead><tr><th>Ticker</th><th>Today</th><th>Close</th><th>Next open</th><th>Status</th></tr></thead>
@@ -186,14 +151,14 @@ export default function OvernightHoldComparison({ day, kind, tradeSizes, actuals
   </details>;
 }
 
-export function OvernightHistoryComparison({ days, kind, tradeSizes, actualsByDay, loadActuals, portion, setPortion }: {
+export function OvernightHistoryComparison({ days, kind, tradeSizes, actualsByDay, loadActuals, portion, selectedRule }: {
   days: SimulatedDay[];
   kind: PickKind;
   tradeSizes: TradeSizes;
   actualsByDay: ActualsByDay;
   loadActuals: LoadOvernightActuals;
   portion: number;
-  setPortion: (value: number) => void;
+  selectedRule: OvernightExitRule;
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -234,10 +199,7 @@ export function OvernightHistoryComparison({ days, kind, tradeSizes, actualsByDa
     <div className="overnight-history-head"><div><h3>Next-open replay across history</h3>
       <p>Hypothetical exits at actual opens</p></div><span className="overnight-history-badge">HINDSIGHT</span></div>
     <div className="overnight-exit-toolbar">
-      <label>Portion held <select className="form-select" value={portion}
-        onChange={(event) => setPortion(Number(event.target.value))}>
-        {HOLD_PORTIONS.map((value) => <option key={value} value={value}>{value}%</option>)}
-      </select></label>
+      <span className="muted">{portion}% held · remaining shares sell at close</span>
       <button type="button" className="icon-btn" disabled={busy} onClick={() => void loadHistory()}>
         {busy ? "Checking history…" : actualsByDay.size ? "Refresh actual opens" : "Compare actual opens"}
       </button>
@@ -253,9 +215,9 @@ export function OvernightHistoryComparison({ days, kind, tradeSizes, actualsByDa
       <div className="overnight-history-line"><span>Sell at close</span>
         <MoneyResult pnl={result.baselinePnl} endingValue={result.baselineEndingValue}
           endingLabel="Sum of exits" pending={pendingLabel} /></div>
-      <div className="overnight-history-line"><span>Hold all</span>
+      <div className={`overnight-history-line${selectedRule === "all" ? " is-selected" : ""}`}><span>Hold all</span>
         <ScenarioResult result={result.all} endingLabel="Sum of exits" pendingLabel={pendingLabel} /></div>
-      <div className="overnight-history-line"><span>Hold down today</span>
+      <div className={`overnight-history-line${selectedRule === "down" ? " is-selected" : ""}`}><span>Hold down today</span>
         <ScenarioResult result={result.down} endingLabel="Sum of exits" pendingLabel={pendingLabel} /></div>
     </div>})}</div>
     <p className="overnight-history-note">Matched, complete live days only. Exit values sum the same per-trade notional across days; they are not compounded. Custom picks stay exploratory.</p>
