@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
-  simulateBook, simulateOvernightHold, simulatePick, simulationDay, summarizeOvernightHold,
+  selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
+  summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold,
 } from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
@@ -56,6 +57,69 @@ test("pending next opens and skipped names cannot silently enter a basket total"
   assert.equal(observed.includedInTotals, false);
   assert.equal(summarizeOvernightHold([observed], null).scenarioPnl, null);
   assert.equal(simulateOvernightHold(row, { status: "observed", verified_close: 101, next_open: 103 }, 10_000, 1).status, "price_mismatch");
+});
+
+test("all, down-today, and custom exits use the same eligible shares and close baseline", () => {
+  const flagged = { news_blocks: true, news_flag: "corporate action" };
+  const data = simulateBook(book([day("2026-09-29", [
+    pick(-0.02, { ticker: "AAA", close_price: 98 }),
+    pick(0.02, { ticker: "BBB", rank: 2, close_price: 102 }),
+    pick(-0.05, { ticker: "SKIP", rank: 3, close_price: 95, ...flagged }),
+  ])]), { ...options, rankTopK: 3 });
+  const simulated = data.days[0];
+  const actuals = new Map([
+    ["AAA", { status: "observed", verified_close: 98, next_open: 100 }],
+    ["BBB", { status: "observed", verified_close: 102, next_open: 99 }],
+    ["SKIP", { status: "observed", verified_close: 95, next_open: 110 }],
+  ]);
+  const summarize = (rule, chosen) => summarizeOvernightExit(
+    simulated.rank, actuals, 10_000, simulated.rank_money, 1, rule, chosen,
+  );
+  assert.deepEqual(selectOvernightExitRows(simulated.rank, "down").map((row) => row.ticker), ["AAA"]);
+  assert.deepEqual(summarize("all"), { selected: 2, observed: 2, pnl: -100, endingValue: 19_900, extraPnl: -100 });
+  assert.deepEqual(summarize("down"), { selected: 1, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 });
+  assert.deepEqual(summarize("custom", new Set(["BBB", "SKIP"])),
+    { selected: 1, observed: 1, pnl: -300, endingValue: 19_700, extraPnl: -300 });
+  assert.deepEqual(summarize("custom", new Set()),
+    { selected: 0, observed: 0, pnl: 0, endingValue: 20_000, extraPnl: 0 });
+  assert.equal(simulated.rank_money.pnl, 0);
+});
+
+test("missing selected opens and incomplete close baskets never show a scenario total", () => {
+  const data = simulateBook(book([day("2026-09-29", [
+    pick(-0.02, { ticker: "AAA", close_price: 98 }),
+    pick(0.02, { ticker: "BBB", rank: 2, close_price: 102 }),
+  ])]), options);
+  const simulated = data.days[0];
+  const actuals = new Map([["AAA", { status: "observed", verified_close: 98, next_open: 100 }]]);
+  assert.deepEqual(summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, 1, "all"),
+    { selected: 2, observed: 1, pnl: null, endingValue: null, extraPnl: null });
+  assert.equal(summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, 0.5, "down").pnl, 100);
+  const incomplete = simulateBook(book([day("2026-09-29", [
+    pick(-0.02, { ticker: "AAA", close_price: 98 }),
+    pick(null, { ticker: "BBB", rank: 2, close_price: null }),
+  ])]), options).days[0];
+  assert.equal(summarizeOvernightExit(incomplete.rank, actuals, 10_000, incomplete.rank_money, 1, "down").pnl, null);
+});
+
+test("history compares repeatable rules on matched complete live days only", () => {
+  const simulated = simulateBook(book([
+    day("2026-09-29", [
+      pick(-0.02, { ticker: "AAA", close_price: 98 }),
+      pick(0.02, { ticker: "BBB", rank: 2, close_price: 102 }),
+    ]),
+    day("2026-09-28", [pick(-0.01, { ticker: "CCC", close_price: 99 })]),
+    day("2026-09-27", [pick(-0.05, { ticker: "DDD", close_price: 95 })], [], { scan_id: "replay" }),
+  ]), options);
+  const actuals = new Map([["2026-09-29", new Map([
+    ["AAA", { status: "observed", verified_close: 98, next_open: 100 }],
+    ["BBB", { status: "observed", verified_close: 102, next_open: 99 }],
+  ])]]);
+  assert.deepEqual(summarizeOvernightHistory(simulated.days, actuals, "rank", 10_000, 1), {
+    eligibleDays: 2, matchedDays: 1, baselinePnl: 0,
+    all: { selected: 2, observed: 2, pnl: -100, endingValue: 19_900, extraPnl: -100 },
+    down: { selected: 1, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 },
+  });
 });
 
 test("shared trade-size choices support all requested amounts", () => {

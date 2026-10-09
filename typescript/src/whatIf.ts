@@ -69,6 +69,112 @@ export function summarizeOvernightHold(outcomes: OvernightHoldOutcome[], baselin
     scenarioPnl: complete && baselinePnl !== null ? (cents(baselinePnl) + cents(incrementalPnl)) / 100 : null };
 }
 
+export type OvernightExitRule = "all" | "down" | "custom";
+
+export interface OvernightExitSummary {
+  selected: number;
+  observed: number;
+  pnl: number | null;
+  endingValue: number | null;
+  extraPnl: number | null;
+}
+
+/** Select at the close, using only information available by then. */
+export function selectOvernightExitRows(
+  rows: SimulatedPick[], rule: OvernightExitRule, customTickers: ReadonlySet<string> = new Set(),
+): SimulatedPick[] {
+  return rows.filter((row) => {
+    if (row.hypothetical.status !== "scored" && row.hypothetical.status !== "held") return false;
+    if (rule === "down") return row.session_return !== null && row.session_return < 0;
+    if (rule === "custom") return customTickers.has(row.ticker);
+    return true;
+  });
+}
+
+/** The existing close result is the baseline; only selected shares change exit. */
+export function summarizeOvernightExit(
+  rows: SimulatedPick[], actuals: ReadonlyMap<string, OvernightActualRow>,
+  dollarsPerTrade: number, baseline: MoneySummary, holdFraction: number,
+  rule: OvernightExitRule, customTickers?: ReadonlySet<string>,
+): OvernightExitSummary {
+  const selectedRows = selectOvernightExitRows(rows, rule, customTickers);
+  const outcomes = selectedRows.map((row) => simulateOvernightHold(
+    row, actuals.get(row.ticker), dollarsPerTrade, holdFraction,
+  ));
+  const observed = outcomes.filter((outcome) => outcome.status === "observed").length;
+  const complete = baseline.pending === 0 && baseline.pnl !== null && baseline.endingValue !== null
+    && observed === selectedRows.length;
+  if (!complete) return { selected: selectedRows.length, observed, pnl: null, endingValue: null, extraPnl: null };
+  const extraCents = outcomes.reduce((sum, outcome) => sum + cents(outcome.incrementalPnl!), 0);
+  return {
+    selected: selectedRows.length,
+    observed,
+    pnl: (cents(baseline.pnl!) + extraCents) / 100,
+    endingValue: (cents(baseline.endingValue!) + extraCents) / 100,
+    extraPnl: extraCents / 100,
+  };
+}
+
+export interface OvernightHistorySummary {
+  eligibleDays: number;
+  matchedDays: number;
+  baselinePnl: number | null;
+  all: OvernightExitSummary;
+  down: OvernightExitSummary;
+}
+
+/** Use the same complete live days for both repeatable rules so totals compare fairly. */
+export function summarizeOvernightHistory(
+  days: SimulatedDay[], actualsByDay: ReadonlyMap<string, ReadonlyMap<string, OvernightActualRow>>,
+  kind: StrategyKind, dollarsPerTrade: number, holdFraction: number,
+): OvernightHistorySummary {
+  let eligibleDays = 0;
+  let matchedDays = 0;
+  let baselineCents = 0;
+  let allPnlCents = 0;
+  let allEndingCents = 0;
+  let allExtraCents = 0;
+  let downPnlCents = 0;
+  let downEndingCents = 0;
+  let downExtraCents = 0;
+  let allSelected = 0;
+  let downSelected = 0;
+  const noActuals = new Map<string, OvernightActualRow>();
+  for (const day of days) {
+    if (day.scan_id) continue;
+    const rows = day[kind];
+    const baseline = day[`${kind}_money`];
+    if (baseline.invested <= 0) continue;
+    eligibleDays += 1;
+    const actuals = actualsByDay.get(day.as_of) ?? noActuals;
+    const all = summarizeOvernightExit(rows, actuals, dollarsPerTrade, baseline, holdFraction, "all");
+    const down = summarizeOvernightExit(rows, actuals, dollarsPerTrade, baseline, holdFraction, "down");
+    if (all.pnl === null || down.pnl === null) continue;
+    matchedDays += 1;
+    baselineCents += cents(baseline.pnl!);
+    allPnlCents += cents(all.pnl);
+    allEndingCents += cents(all.endingValue!);
+    allExtraCents += cents(all.extraPnl!);
+    downPnlCents += cents(down.pnl);
+    downEndingCents += cents(down.endingValue!);
+    downExtraCents += cents(down.extraPnl!);
+    allSelected += all.selected;
+    downSelected += down.selected;
+  }
+  const summary = (selected: number, pnlCents: number, endingCents: number, extraCents: number): OvernightExitSummary => ({
+    selected, observed: selected,
+    pnl: matchedDays ? pnlCents / 100 : null,
+    endingValue: matchedDays ? endingCents / 100 : null,
+    extraPnl: matchedDays ? extraCents / 100 : null,
+  });
+  return {
+    eligibleDays, matchedDays,
+    baselinePnl: matchedDays ? baselineCents / 100 : null,
+    all: summary(allSelected, allPnlCents, allEndingCents, allExtraCents),
+    down: summary(downSelected, downPnlCents, downEndingCents, downExtraCents),
+  };
+}
+
 export interface MoneySummary {
   pnl: number | null;
   invested: number;
