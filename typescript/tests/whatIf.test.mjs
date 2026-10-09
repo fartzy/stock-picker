@@ -100,6 +100,10 @@ test("missing selected opens and incomplete close baskets never show a scenario 
     pick(null, { ticker: "BBB", rank: 2, close_price: null }),
   ])]), options).days[0];
   assert.equal(summarizeOvernightExit(incomplete.rank, actuals, 10_000, incomplete.rank_money, 1, "down").pnl, null);
+  const mismatch = new Map([["AAA", { status: "observed", verified_close: 97, next_open: 100 }]]);
+  assert.equal(summarizeOvernightExit(simulated.rank, mismatch, 10_000, simulated.rank_money, 1, "down").pnl, null);
+  assert.throws(() => summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, NaN, "custom"),
+    /Hold fraction/);
 });
 
 test("history compares repeatable rules on matched complete live days only", () => {
@@ -116,7 +120,7 @@ test("history compares repeatable rules on matched complete live days only", () 
     ["BBB", { status: "observed", verified_close: 102, next_open: 99 }],
   ])]]);
   assert.deepEqual(summarizeOvernightHistory(simulated.days, actuals, "rank", 10_000, 1), {
-    eligibleDays: 2, matchedDays: 1, baselinePnl: 0,
+    eligibleDays: 2, matchedDays: 1, baselinePnl: 0, baselineEndingValue: 20_000,
     all: { selected: 2, observed: 2, pnl: -100, endingValue: 19_900, extraPnl: -100 },
     down: { selected: 1, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 },
   });

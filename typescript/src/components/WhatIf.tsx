@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import {
   fetchBenchmarkReturns,
+  fetchOvernightActuals,
   fetchPaperBook,
   fetchTrainingRuns,
   rebuildPaperBook,
   replayPaperBook,
   type PaperListStats,
+  type OvernightActualRow,
   type TrainingRunRecord,
 } from "../api";
 import { useFetchData } from "../useFetchData";
@@ -21,7 +23,9 @@ import {
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import TogglePill from "./TogglePill";
-import OvernightHoldComparison from "./OvernightHoldComparison";
+import OvernightHoldComparison, {
+  OvernightHistoryComparison, type LoadOvernightActuals,
+} from "./OvernightHoldComparison";
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -242,6 +246,10 @@ function DayCard({
   fitAsked,
   modelLabel,
   tradeSizes,
+  actuals,
+  loadActuals,
+  overnightPortion,
+  setOvernightPortion,
 }: {
   day: SimulatedDay;
   kind: PickKind;
@@ -249,6 +257,10 @@ function DayCard({
   fitAsked: number | undefined;
   modelLabel?: string;
   tradeSizes: TradeSizes;
+  actuals?: ReadonlyMap<string, OvernightActualRow>;
+  loadActuals: LoadOvernightActuals;
+  overnightPortion: number;
+  setOvernightPortion: (value: number) => void;
 }) {
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
@@ -299,7 +311,8 @@ function DayCard({
       <div className="what-if-day-lists">
         <OvernightHoldComparison
           key={`${day.as_of}-${day.scan_id}-${day.fit.map((row) => row.ticker).join(",")}-${day.rank.map((row) => row.ticker).join(",")}`}
-          day={day} kind={kind} tradeSizes={tradeSizes}
+          day={day} kind={kind} tradeSizes={tradeSizes} actuals={actuals} loadActuals={loadActuals}
+          portion={overnightPortion} setPortion={setOvernightPortion}
         />
         {kind !== "rank" && (
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
@@ -386,12 +399,15 @@ export default function WhatIf() {
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [applyNewsSkips, setApplyNewsSkips] = useState(true);
+  const [overnightPortion, setOvernightPortion] = useState(100);
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
   const [rebuildError, setRebuildError] = useState<string | null>(null);
   const [replayDay, setReplayDay] = useState("");
   const [replayModel, setReplayModel] = useState("live");
   const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
+  const actualsCache = useRef(new Map<string, Map<string, OvernightActualRow>>());
+  const [, setActualsRevision] = useState(0);
   const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
     deps: [refresh], intervalMs: 60_000,
   });
@@ -411,6 +427,21 @@ export default function WhatIf() {
       .then((result) => ({ ...result, revision: refresh })),
     { deps: [rankKey, fitKey, refresh] },
   );
+
+  async function loadActuals(asOf: string, tickers: string[], force = false): Promise<void> {
+    const requested = [...new Set(tickers.map((ticker) => ticker.toUpperCase()))];
+    const cached = actualsCache.current.get(asOf);
+    const needed = force ? requested : requested.filter((ticker) => !cached?.has(ticker)
+      || cached.get(ticker)?.status === "awaiting_next_open");
+    if (!needed.length) return;
+    const batches: string[][] = [];
+    for (let index = 0; index < needed.length; index += 30) batches.push(needed.slice(index, index + 30));
+    const responses = await Promise.all(batches.map((batch) => fetchOvernightActuals(asOf, batch)));
+    const merged = new Map(actualsCache.current.get(asOf));
+    responses.forEach((response) => response.rows.forEach((row) => merged.set(row.ticker, row)));
+    actualsCache.current.set(asOf, merged);
+    setActualsRevision((value) => value + 1);
+  }
 
   if (error) return <p className="error">{error}</p>;
   if (!raw || !data) return <p className="muted">Loading…</p>;
@@ -448,6 +479,8 @@ export default function WhatIf() {
             try {
               await rebuildPaperBook();
               benchmarkCache.current.clear();
+              actualsCache.current.clear();
+              setActualsRevision((value) => value + 1);
               setRefresh((n) => n + 1);
             } catch (err) {
               setRebuildError(String(err));
@@ -531,6 +564,9 @@ export default function WhatIf() {
                 benchmarkError={fitBenchmark?.error ?? null} />
             )}
           </div>
+          <OvernightHistoryComparison days={data.days} kind={kind} tradeSizes={tradeSizes}
+            actualsByDay={actualsCache.current} loadActuals={loadActuals}
+            portion={overnightPortion} setPortion={setOvernightPortion} />
           {data.days.map((day) => (
             <DayCard
               day={day}
@@ -538,6 +574,10 @@ export default function WhatIf() {
               rankAsked={rankAsked}
               fitAsked={fitAsked}
               tradeSizes={tradeSizes}
+              actuals={actualsCache.current.get(day.as_of)}
+              loadActuals={loadActuals}
+              overnightPortion={overnightPortion}
+              setOvernightPortion={setOvernightPortion}
               modelLabel={
                 day.model_run_id
                   ? (() => {

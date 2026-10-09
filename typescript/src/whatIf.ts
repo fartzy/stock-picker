@@ -97,6 +97,9 @@ export function summarizeOvernightExit(
   dollarsPerTrade: number, baseline: MoneySummary, holdFraction: number,
   rule: OvernightExitRule, customTickers?: ReadonlySet<string>,
 ): OvernightExitSummary {
+  if (!Number.isFinite(holdFraction) || holdFraction < 0 || holdFraction > 1) {
+    throw new RangeError("Hold fraction must be between 0 and 1");
+  }
   const selectedRows = selectOvernightExitRows(rows, rule, customTickers);
   const outcomes = selectedRows.map((row) => simulateOvernightHold(
     row, actuals.get(row.ticker), dollarsPerTrade, holdFraction,
@@ -119,6 +122,7 @@ export interface OvernightHistorySummary {
   eligibleDays: number;
   matchedDays: number;
   baselinePnl: number | null;
+  baselineEndingValue: number | null;
   all: OvernightExitSummary;
   down: OvernightExitSummary;
 }
@@ -131,6 +135,7 @@ export function summarizeOvernightHistory(
   let eligibleDays = 0;
   let matchedDays = 0;
   let baselineCents = 0;
+  let baselineEndingCents = 0;
   let allPnlCents = 0;
   let allEndingCents = 0;
   let allExtraCents = 0;
@@ -152,6 +157,7 @@ export function summarizeOvernightHistory(
     if (all.pnl === null || down.pnl === null) continue;
     matchedDays += 1;
     baselineCents += cents(baseline.pnl!);
+    baselineEndingCents += cents(baseline.endingValue!);
     allPnlCents += cents(all.pnl);
     allEndingCents += cents(all.endingValue!);
     allExtraCents += cents(all.extraPnl!);
@@ -170,6 +176,7 @@ export function summarizeOvernightHistory(
   return {
     eligibleDays, matchedDays,
     baselinePnl: matchedDays ? baselineCents / 100 : null,
+    baselineEndingValue: matchedDays ? baselineEndingCents / 100 : null,
     all: summary(allSelected, allPnlCents, allEndingCents, allExtraCents),
     down: summary(downSelected, downPnlCents, downEndingCents, downExtraCents),
   };
