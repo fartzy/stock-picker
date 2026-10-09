@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   fetchBenchmarkReturns,
+  fetchBlacklistedTickers,
   fetchOvernightActuals,
   fetchPaperBook,
   fetchTrainingRuns,
@@ -515,6 +516,7 @@ export default function WhatIf() {
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [applyNewsSkips, setApplyNewsSkips] = useState(true);
+  const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
   const [holdNextOpen, setHoldNextOpen] = useState(false);
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
   const [overnightPortion, setOvernightPortion] = useState(100);
@@ -533,13 +535,19 @@ export default function WhatIf() {
   const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
     deps: [refresh], intervalMs: 60_000,
   });
+  const { data: blacklistedTickers, error: blacklistError } = useFetchData(fetchBlacklistedTickers, {
+    deps: [refresh], intervalMs: 60_000,
+  });
   const { data: trainingRuns } = useFetchData(fetchTrainingRuns, { deps: [] });
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
   const exitMode: OvernightExitMode = holdNextOpen ? overnightRule : "close";
+  const excludedTickers = excludeBlacklisted && blacklistedTickers
+    ? new Set(blacklistedTickers) : undefined;
   const data = raw ? simulateBook(raw, {
-    kind, fitTopK: fitAsked, rankTopK: rankAsked, applyNewsSkips, tradeSizes, lookbackDays, asOf: simulationDay(),
+    kind, fitTopK: fitAsked, rankTopK: rankAsked, applyNewsSkips, excludedTickers,
+    tradeSizes, lookbackDays, asOf: simulationDay(),
   }) : null;
   const rankDates = data && rankOn ? benchmarkDates(data, "rank") : [];
   const fitDates = data && fitOn ? benchmarkDates(data, "fit") : [];
@@ -651,6 +659,14 @@ export default function WhatIf() {
             onChange={(event) => setApplyNewsSkips(event.target.checked)} />
           <span>Apply news skips</span>
         </label>
+        <label className="what-if-news-toggle" title="Remove currently blacklisted tickers from historical results without backfilling lower-ranked picks.">
+          <input type="checkbox" checked={excludeBlacklisted} disabled={blacklistedTickers === null}
+            onChange={(event) => setExcludeBlacklisted(event.target.checked)} />
+          <span>Exclude blacklisted</span>
+        </label>
+        {blacklistError && <span className="error" role="status">
+          {blacklistError.includes(": 404") ? "Restart API to enable filter" : "Couldn’t load blacklist"}
+        </span>}
         <div className="what-if-exit-control" aria-label="Exit scenario">
           <label className="what-if-news-toggle" title="Compare selling at the close with exits at the verified next-session open.">
             <input type="checkbox" checked={holdNextOpen}
@@ -668,19 +684,18 @@ export default function WhatIf() {
               onChange={(event) => setOvernightPortion(Number(event.target.value))}>
               {[100, 50, 30, 10].map((value) => <option key={value} value={value}>{value}% held</option>)}
             </select>
-            <button type="button" className="icon-btn" title="Refresh actual next opens"
-              aria-label="Refresh actual next opens" disabled={historyBusy}
-              onClick={() => setOpenRefresh((value) => value + 1)}>↻</button>
+            <button type="button" className="icon-btn what-if-action-btn" title="Refresh actual next opens"
+              disabled={historyBusy}
+              onClick={() => setOpenRefresh((value) => value + 1)}>Refresh opens</button>
           </>}
         </div>
         {historyBusy && holdNextOpen && <span className="muted">Checking opens…</span>}
         {historyError && holdNextOpen && <span className="error" role="status">{historyError}</span>}
         <button
           type="button"
-          className="icon-btn"
+          className="icon-btn what-if-action-btn"
           disabled={busy}
           title="Fill Open→Close after the session"
-          aria-label="Update What if after the close"
           onClick={async () => {
             setBusy(true);
             setRebuildError(null);
@@ -697,7 +712,7 @@ export default function WhatIf() {
             }
           }}
         >
-          {busy ? "Updating…" : "↻"}
+          {busy ? "Updating…" : "Update closes"}
         </button>
         <details className="what-if-help">
           <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
@@ -705,6 +720,7 @@ export default function WhatIf() {
             <p>Close exits are the default. “Hold to next open” uses actual next-session prices; forecasts are separate.</p>
             <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
             <p>Turn off news skips to include priced picks from the original Rank/Fit lists in hypothetical totals. Missing prices stay pending; saved news checks and live decisions stay the same.</p>
+            <p>Exclude blacklisted removes current blacklist names from historical comparisons without replacing them with lower-ranked picks.</p>
             <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
           </div>
         </details>

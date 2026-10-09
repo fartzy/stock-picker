@@ -105,6 +105,7 @@ from stock_picker.ingestion.massive_overnight import MassiveOvernightClient, Mas
 from stock_picker.ingestion.session import cash_session_window
 from stock_picker.storage.fee_store import FeeStore
 from stock_picker.storage.trade_store import ConflictingTradeFeeError, Trade, TradeStore
+from stock_picker.storage.ticker_blacklist_store import blacklisted_tickers
 from stock_picker.storage.training_config_store import ModelChoice, TrainingConfigStore
 from stock_picker.storage.training_run_store import TrainingRunStore
 from stock_picker.storage.universe_store import UniverseStore
@@ -443,6 +444,12 @@ def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
         overnight=fetch_benchmark_overnight(requested),
         hold=hold,
     )
+
+
+@router.get("/ticker-blacklist")
+def get_ticker_blacklist() -> list[str]:
+    """Current scoring exclusions, available for optional historical comparisons."""
+    return sorted(blacklisted_tickers())
 
 
 @router.get("/paper-book")

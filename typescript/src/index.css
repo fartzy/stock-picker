@@ -1421,6 +1421,18 @@ details.view-card[open] > summary::before {
   accent-color: var(--accent);
 }
 
+.what-if-toolbar > .what-if-news-toggle:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--row-hover);
+}
+
+.what-if-news-toggle:has(input:disabled) {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.what-if-action-btn { white-space: nowrap; font-size: var(--text-label); }
+
 .what-if-exit-control { display: inline-flex; align-items: stretch; flex-wrap: wrap; gap: var(--space-1); }
 .what-if-exit-control .what-if-news-toggle:has(input:checked) { border-color: var(--accent); background: var(--row-hover); }
 .what-if-exit-control .form-select { min-width: 125px; width: auto; border-radius: 10px; background: var(--surface); }
