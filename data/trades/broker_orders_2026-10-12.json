@@ -3,8 +3,8 @@
   "trade_date": "2026-10-12",
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "Execution times and order-level average prices are used in the live ledger. Broker net sale proceeds determine manual fees. Price improvement is not a separate cash flow.",
-  "filled_order_count": 24,
+  "note": "Execution times and order-level average prices are used in the live ledger. Broker net sale proceeds determine manual fees. Price improvement is not a separate cash flow. Broker rounding of individual buys can differ from price-times-shares in the ledger.",
+  "filled_order_count": 41,
   "orders": [
     {"order_number": "2E501MNK", "ticker": "FRMI", "side": "buy", "shares": 1500, "price": 3.285, "executed_at": "2026-10-12T09:36:27-04:00", "broker_net_amount": 4927.50},
     {"order_number": "2E50500G", "ticker": "MMED", "side": "buy", "shares": 300, "price": 18.87, "executed_at": "2026-10-12T09:37:08-04:00", "broker_net_amount": 5661.00, "execution_count": 2},
@@ -49,11 +49,38 @@
       ]
     },
     {"order_number": "2E5111JQ", "ticker": "FRMI", "side": "sell", "shares": 500, "price": 3.255, "executed_at": "2026-10-12T11:56:28-04:00", "broker_net_amount": 1627.46},
-    {"order_number": "2E50X13W", "ticker": "FRMI", "side": "sell", "shares": 1500, "price": 3.255, "executed_at": "2026-10-12T11:58:36-04:00", "broker_net_amount": 4882.39}
+    {"order_number": "2E50X13W", "ticker": "FRMI", "side": "sell", "shares": 1500, "price": 3.255, "executed_at": "2026-10-12T11:58:36-04:00", "broker_net_amount": 4882.39},
+    {"order_number": "2E50WJNL", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.74, "executed_at": "2026-10-12T12:23:02-04:00", "broker_net_amount": 2674.00},
+    {"order_number": "2E50X6J3", "ticker": "FSLY", "side": "buy", "shares": 50, "price": 26.6899, "executed_at": "2026-10-12T12:23:57-04:00", "broker_net_amount": 1334.50},
+    {"order_number": "2E50RJ9Y", "ticker": "FSLY", "side": "buy", "shares": 50, "price": 26.6899, "executed_at": "2026-10-12T12:25:32-04:00", "broker_net_amount": 1334.50},
+    {
+      "order_number": "2E5117XS", "ticker": "FSLY", "side": "buy", "shares": 50, "price": 26.66,
+      "executed_at": "2026-10-12T12:26:57-04:00", "broker_net_amount": 1333.00,
+      "execution_count": 3,
+      "executions": [
+        {"shares": 13, "price": 26.66, "broker_net_amount": 346.58},
+        {"shares": 2, "price": 26.66, "broker_net_amount": 53.32},
+        {"shares": 35, "price": 26.66, "broker_net_amount": 933.10}
+      ]
+    },
+    {"order_number": "2E50TK2T", "ticker": "FSLY", "side": "buy", "shares": 150, "price": 26.65, "executed_at": "2026-10-12T12:27:37-04:00", "broker_net_amount": 3997.50},
+    {"order_number": "2E50X7GG", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.645, "executed_at": "2026-10-12T12:28:40-04:00", "broker_net_amount": 2664.50},
+    {"order_number": "2E50Z84H", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.62, "executed_at": "2026-10-12T12:29:07-04:00", "broker_net_amount": 2662.00},
+    {"order_number": "2E50QWCS", "ticker": "FSLY", "side": "buy", "shares": 200, "price": 26.55, "executed_at": "2026-10-12T12:29:36-04:00", "broker_net_amount": 5310.00},
+    {"order_number": "2E50QWFH", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.6299, "executed_at": "2026-10-12T12:29:55-04:00", "broker_net_amount": 2662.99},
+    {"order_number": "2E50VYFP", "ticker": "FSLY", "side": "buy", "shares": 200, "price": 26.6299, "executed_at": "2026-10-12T12:36:44-04:00", "broker_net_amount": 5325.98},
+    {"order_number": "2E50RLPV", "ticker": "FSLY", "side": "buy", "shares": 200, "price": 26.565, "executed_at": "2026-10-12T12:37:52-04:00", "broker_net_amount": 5313.00},
+    {"order_number": "2E50Z9SR", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.57, "executed_at": "2026-10-12T12:38:10-04:00", "broker_net_amount": 2657.00},
+    {"order_number": "2E51010S", "ticker": "FSLY", "side": "buy", "shares": 100, "price": 26.5001, "executed_at": "2026-10-12T12:46:25-04:00", "broker_net_amount": 2650.01},
+    {"order_number": "2E5184X6", "ticker": "FSLY", "side": "buy", "shares": 500, "price": 26.45, "executed_at": "2026-10-12T12:58:01-04:00", "broker_net_amount": 13225.00},
+    {"order_number": "2E51CJG6", "ticker": "FSLY", "side": "buy", "shares": 500, "price": 26.4299, "executed_at": "2026-10-12T13:01:30-04:00", "broker_net_amount": 13214.95},
+    {"order_number": "2E512VKZ", "ticker": "FSLY", "side": "sell", "shares": 1500, "price": 26.59, "executed_at": "2026-10-12T13:09:09-04:00", "broker_net_amount": 39884.17},
+    {"order_number": "2E5125YC", "ticker": "FSLY", "side": "sell", "shares": 1000, "price": 26.595, "executed_at": "2026-10-12T13:09:42-04:00", "broker_net_amount": 26594.45}
   ],
   "reconciliation": {
     "FRMI": {"starting_shares": 0, "bought_shares": 22000, "sold_shares": 22000, "remaining_shares": 0, "buy_cost": 71156.04, "net_sale_proceeds": 71429.51, "inferred_sale_fees": 1.49, "net_realized_pnl": 273.47, "average_cost_method": true},
     "MMED": {"starting_shares": 0, "bought_shares": 300, "sold_shares": 300, "remaining_shares": 0, "buy_cost": 5661.00, "net_sale_proceeds": 5629.38, "inferred_sale_fees": 0.12, "net_realized_pnl": -31.62},
-    "MAN": {"starting_shares": 0, "bought_shares": 100, "sold_shares": 100, "remaining_shares": 0, "buy_cost": 5212.00, "net_sale_proceeds": 5223.90, "inferred_sale_fees": 0.11, "net_realized_pnl": 11.90}
+    "MAN": {"starting_shares": 0, "bought_shares": 100, "sold_shares": 100, "remaining_shares": 0, "buy_cost": 5212.00, "net_sale_proceeds": 5223.90, "inferred_sale_fees": 0.11, "net_realized_pnl": 11.90},
+    "FSLY": {"starting_shares": 0, "bought_shares": 2500, "sold_shares": 2500, "remaining_shares": 0, "buy_cost": 66358.93, "ledger_price_based_buy_cost": 66358.92, "net_sale_proceeds": 66478.62, "inferred_sale_fees": 1.38, "net_realized_pnl": 119.69, "ledger_net_realized_pnl": 119.70, "note": "Two 50-share buys at $26.6899 each round from $1,334.495 to $1,334.50 in the broker cash totals, causing a one-cent difference from ledger price-times-shares P&L."}
   }
 }
