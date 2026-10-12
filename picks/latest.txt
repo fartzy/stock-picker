@@ -2,10 +2,10 @@ stockpicker RANKING top 20 for 2026-10-12
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  ALHC          0.2120        7.49  HOLD news review not checked
- 2  FRMI          0.1977        3.39  HOLD news review not checked
- 3  MMED          0.1891       18.87  HOLD news review not checked
- 4  QURE          0.1855       22.38  HOLD news review not checked
+ 1  ALHC          0.2120        7.49  SKIP CMS downgraded ALHC California Medicare Advantage plan to 3.5 stars
+ 2  FRMI          0.1977        3.39
+ 3  MMED          0.1891       18.87
+ 4  QURE          0.1855       22.38
  5  TNGX          0.1757       23.57  HOLD news review not checked
  6  MAN           0.1551       52.40  HOLD news review not checked
  7  SKM           0.1515       33.26  HOLD news review not checked
@@ -22,3 +22,13 @@ Relative scores (not percents). Not the 0.5% gate.
 18  CDP           0.1317       33.27  HOLD news review not checked
 19  ALK           0.1316       38.83  HOLD news review not checked
 20  MUFG          0.1316       22.22  HOLD news review not checked
+
+stockpicker picks for 2026-10-12
+Features through 2026-10-09, model trained through 2026-10-09 -- ready for this morning's opens.
+scored 1975 · 2 cleared 0.5% · showing top 2
+
+ticker      pred%        open
+AXTI        0.86%       66.30
+FRMI        0.63%        3.39
+
+Skipped earnings: DAL
