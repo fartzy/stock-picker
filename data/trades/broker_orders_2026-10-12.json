@@ -4,7 +4,7 @@
   "source": "User-provided broker order confirmations; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Execution times and order-level average prices are used in the live ledger. Broker net sale proceeds determine manual fees. Price improvement is not a separate cash flow.",
-  "filled_order_count": 20,
+  "filled_order_count": 24,
   "orders": [
     {"order_number": "2E501MNK", "ticker": "FRMI", "side": "buy", "shares": 1500, "price": 3.285, "executed_at": "2026-10-12T09:36:27-04:00", "broker_net_amount": 4927.50},
     {"order_number": "2E50500G", "ticker": "MMED", "side": "buy", "shares": 300, "price": 18.87, "executed_at": "2026-10-12T09:37:08-04:00", "broker_net_amount": 5661.00, "execution_count": 2},
@@ -25,10 +25,34 @@
     {"order_number": "2E50MBPW", "ticker": "FRMI", "side": "buy", "shares": 2000, "price": 3.21525, "executed_at": "2026-10-12T10:38:31-04:00", "broker_net_amount": 6430.50, "execution_count": 3},
     {"order_number": "2E50J47Y", "ticker": "FRMI", "side": "sell", "shares": 11000, "price": 3.241, "executed_at": "2026-10-12T10:56:15-04:00", "broker_net_amount": 35650.26},
     {"order_number": "2E50N7NX", "ticker": "MAN", "side": "sell", "shares": 100, "price": 52.2401, "executed_at": "2026-10-12T11:06:18-04:00", "broker_net_amount": 5223.90},
-    {"order_number": "2E50RSBY", "ticker": "FRMI", "side": "sell", "shares": 5000, "price": 3.255, "executed_at": "2026-10-12T11:28:36-04:00", "broker_net_amount": 16274.66}
+    {"order_number": "2E50RSBY", "ticker": "FRMI", "side": "sell", "shares": 5000, "price": 3.255, "executed_at": "2026-10-12T11:28:36-04:00", "broker_net_amount": 16274.66},
+    {"order_number": "2E510CJV", "ticker": "FRMI", "side": "sell", "shares": 1000, "price": 3.245, "executed_at": "2026-10-12T11:55:46-04:00", "broker_net_amount": 3244.93},
+    {
+      "order_number": "2E50TYCC", "ticker": "FRMI", "side": "sell", "shares": 3000, "price": 3.25,
+      "ordered_at": "2026-10-12T11:46:50-04:00", "executed_at": "2026-10-12T11:56:18-04:00",
+      "order_type": "limit", "limit_price": 3.25, "broker_net_amount": 9749.81, "execution_count": 14,
+      "executions": [
+        {"executed_at": "2026-10-12T11:49:38-04:00", "shares": 4, "price": 3.25, "broker_net_amount": 13.00},
+        {"executed_at": "2026-10-12T11:50:00-04:00", "shares": 250, "price": 3.25, "broker_net_amount": 812.48},
+        {"executed_at": "2026-10-12T11:50:35-04:00", "shares": 2, "price": 3.25, "broker_net_amount": 6.50},
+        {"executed_at": "2026-10-12T11:51:27-04:00", "shares": 1, "price": 3.25, "broker_net_amount": 3.25},
+        {"executed_at": "2026-10-12T11:51:29-04:00", "shares": 3, "price": 3.25, "broker_net_amount": 9.75},
+        {"executed_at": "2026-10-12T11:52:24-04:00", "shares": 9, "price": 3.25, "broker_net_amount": 29.25},
+        {"executed_at": "2026-10-12T11:53:06-04:00", "shares": 50, "price": 3.25, "broker_net_amount": 162.50},
+        {"executed_at": "2026-10-12T11:54:00-04:00", "shares": 3, "price": 3.25, "broker_net_amount": 9.75},
+        {"executed_at": "2026-10-12T11:54:49-04:00", "shares": 38, "price": 3.25, "broker_net_amount": 123.50},
+        {"executed_at": "2026-10-12T11:55:30-04:00", "shares": 2, "price": 3.25, "broker_net_amount": 6.50},
+        {"executed_at": "2026-10-12T11:55:36-04:00", "shares": 7, "price": 3.25, "broker_net_amount": 22.75},
+        {"executed_at": "2026-10-12T11:55:41-04:00", "shares": 1, "price": 3.25, "broker_net_amount": 3.25},
+        {"executed_at": "2026-10-12T11:56:01-04:00", "shares": 100, "price": 3.25, "broker_net_amount": 325.00},
+        {"executed_at": "2026-10-12T11:56:18-04:00", "shares": 2530, "price": 3.25, "broker_net_amount": 8222.33}
+      ]
+    },
+    {"order_number": "2E5111JQ", "ticker": "FRMI", "side": "sell", "shares": 500, "price": 3.255, "executed_at": "2026-10-12T11:56:28-04:00", "broker_net_amount": 1627.46},
+    {"order_number": "2E50X13W", "ticker": "FRMI", "side": "sell", "shares": 1500, "price": 3.255, "executed_at": "2026-10-12T11:58:36-04:00", "broker_net_amount": 4882.39}
   ],
   "reconciliation": {
-    "FRMI": {"starting_shares": 0, "bought_shares": 22000, "sold_shares": 16000, "remaining_shares": 6000, "buy_cost": 71156.04, "net_sale_proceeds": 51924.92, "inferred_sale_fees": 1.08, "net_realized_pnl": 175.07, "average_cost_method": true},
+    "FRMI": {"starting_shares": 0, "bought_shares": 22000, "sold_shares": 22000, "remaining_shares": 0, "buy_cost": 71156.04, "net_sale_proceeds": 71429.51, "inferred_sale_fees": 1.49, "net_realized_pnl": 273.47, "average_cost_method": true},
     "MMED": {"starting_shares": 0, "bought_shares": 300, "sold_shares": 300, "remaining_shares": 0, "buy_cost": 5661.00, "net_sale_proceeds": 5629.38, "inferred_sale_fees": 0.12, "net_realized_pnl": -31.62},
     "MAN": {"starting_shares": 0, "bought_shares": 100, "sold_shares": 100, "remaining_shares": 0, "buy_cost": 5212.00, "net_sale_proceeds": 5223.90, "inferred_sale_fees": 0.11, "net_realized_pnl": 11.90}
   }
