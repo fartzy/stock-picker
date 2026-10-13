@@ -155,7 +155,7 @@ function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyP
   emptyGain?: string;
 }) {
   return (
-    <tr className={primary ? "is-strategy" : undefined} title={hint}>
+    <tr className={`row-hover${primary ? " is-strategy" : ""}`} title={hint}>
       <th scope="row"><span>{label}</span><small>{detail}</small></th>
       <td><SignedDollars value={pnl} emptyLabel={emptyPnl} /></td>
       <td><SignedPercent value={gain} emptyLabel={emptyGain} /></td>

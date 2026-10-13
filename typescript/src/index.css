@@ -1679,6 +1679,10 @@ details.view-card[open] > summary::before {
   background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
 
+.what-if-comparison tbody tr.row-hover:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
 .what-if-comparison tbody tr.is-strategy th,
 .what-if-comparison tbody tr.is-strategy td {
   border-top-color: color-mix(in srgb, var(--accent) 28%, var(--line));
