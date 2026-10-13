@@ -15,24 +15,32 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
         <div>
           <strong>Next-open forecast</strong>
           <span>Separate from Rank and Fit</span>
+          {data.available && (
+            <p className="overnight-model-meta">{data.feature_columns.length} inputs · Trained through {data.trained_through} · {data.evaluated_rows} evaluated rows</p>
+          )}
         </div>
         <span className="overnight-badge">{data.available ? "Saved model" : "Not trained"}</span>
       </div>
       {data.available ? (
         <>
-          <p className="overnight-model-meta">{data.feature_columns.length} inputs · Trained through {data.trained_through} · {data.evaluated_rows} evaluated rows</p>
           <div className="overnight-model-metrics">
             <span><small>Model error</small><strong>{pct(data.model_gap_mae)}</strong></span>
             <span><small>No-change baseline</small><strong>{pct(data.unchanged_gap_mae)}</strong></span>
             <span><small>Ticker baseline</small><strong>{pct(data.ticker_mean_gap_mae)}</strong></span>
           </div>
-          {data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
-            <p className="overnight-model-caution">Historical model error exceeded the no-change baseline.</p>
-          )}
-          {!data.serving_inputs_pinned && <p className="overnight-model-caution">Morning inputs are not pinned; retrain before forecasting.</p>}
         </>
       ) : <p className="overnight-model-meta">{data.feature_columns.length} inputs defined · Save a model to forecast</p>}
-      <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
+      <div className="overnight-model-footer">
+        <div>
+          {data.available && data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
+            <p className="overnight-model-caution">Historical model error exceeded the no-change baseline.</p>
+          )}
+          {data.available && !data.serving_inputs_pinned && (
+            <p className="overnight-model-caution">Morning inputs are not pinned; retrain before forecasting.</p>
+          )}
+        </div>
+        <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
+      </div>
     </div>
   );
 }
