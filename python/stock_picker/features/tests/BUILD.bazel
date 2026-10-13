@@ -11,6 +11,13 @@ py_library(
 )
 
 py_pytest(
+    name = "test_pruning",
+    srcs = ["test_pruning.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/features"],
+)
+
+py_pytest(
     name = "test_trajectory",
     srcs = ["test_trajectory.py"],
     imports = ["../../.."],
