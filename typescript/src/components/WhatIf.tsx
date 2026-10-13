@@ -176,7 +176,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   exitMode: OvernightExitMode;
 }) {
   const intradayDetail = benchmark.activeDays
-    ? `${benchmark.matchedDays}/${benchmark.activeDays} days${benchmark.matchedDays < benchmark.activeDays ? " · partial" : ""}`
+    ? `${benchmark.matchedDays}/${benchmark.activeDays} days priced`
     : "no completed days";
   const holdDetail = benchmark.holdFrom && benchmark.holdThrough
     ? `${formatMonthDay(benchmark.holdFrom)}–${formatMonthDay(benchmark.holdThrough)}`
@@ -186,13 +186,15 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   const averageDailyCapital = benchmark.holdCapital;
   const strategyPnl = scenario ? scenario.pnl : money.pnl;
   const strategyComplete = !scenario || scenario.matchedDays === scenario.eligibleDays;
+  const unpricedOpenDays = scenario ? scenario.eligibleDays - scenario.matchedDays : 0;
+  const missingSpyDays = benchmark.activeDays - benchmark.matchedDays;
   const strategyGain = strategyComplete
     ? returnOnAverageDailyCapital(strategyPnl, averageDailyCapital) : null;
   const intradayGain = benchmark.matchedDays === benchmark.activeDays
     ? returnOnAverageDailyCapital(benchmark.intraday.pnl, averageDailyCapital) : null;
   const holdGain = returnOnAverageDailyCapital(benchmark.hold.pnl, averageDailyCapital);
   const scenarioDetail = scenario
-    ? `${scenario.matchedDays}/${scenario.eligibleDays} opens · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
+    ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days priced · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
     : "Open → close";
   return (
     <div className="view-card slice-card" aria-label={`${title} simulation total`}>
@@ -202,20 +204,20 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
           {averageDailyCapital === null ? "No completed capital" : `${formatUsd(averageDailyCapital)} avg/day`}
         </span>
       </div>
-      <table className="what-if-comparison" aria-label={`${title} strategy and S&P comparison`}>
+      <table className="what-if-comparison" aria-label={`${title} picks and S&P comparison`}>
         <thead><tr><th scope="col">Outcome</th><th scope="col">P&amp;L</th><th scope="col">Period gain</th></tr></thead>
         <tbody>
           <ComparisonRow
-            primary label={scenario ? exitLabel : "Strategy"} detail={scenarioDetail}
+            primary label="Picks" detail={scenarioDetail}
             pnl={strategyPnl} gain={strategyGain}
             emptyPnl={scenario ? "Awaiting opens" : "Awaiting close"}
-            emptyGain={strategyComplete ? "—" : "Partial"}
-            hint="Simulated strategy P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."
+            emptyGain={unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced` : "—"}
+            hint="Simulated pick P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."
           />
           <ComparisonRow
             label="S&P intraday" detail={intradayDetail}
             pnl={benchmark.intraday.pnl} gain={intradayGain}
-            emptyGain={benchmark.matchedDays < benchmark.activeDays ? "Partial" : "—"}
+            emptyGain={missingSpyDays ? `${missingSpyDays} SPY ${missingSpyDays === 1 ? "day" : "days"} missing` : "—"}
             hint={`SPY open→close on ${benchmark.matchedDays} matched completed days; ${formatUsd(benchmark.intradayCapital)} of selected daily capital. Missing SPY days are excluded.`}
           />
           <ComparisonRow
