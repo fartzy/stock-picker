@@ -59,6 +59,18 @@ def test_build_features_for_universe_adds_return_rank_and_beta_columns():
         assert "pooled_setup_seasonality" in features.columns
 
 
+def test_breadth_is_persisted_only_when_membership_history_is_supplied():
+    histories = {"AAA": synthetic_history(n=80), "BBB": synthetic_history(n=80)}
+    first_seen = {name: str(history.index[0].date()) for name, history in histories.items()}
+
+    plain = build_features_for_universe(histories)
+    guarded = build_features_for_universe(histories, first_seen_by_ticker=first_seen)
+
+    assert "market_advance_fraction" not in plain["AAA"].columns
+    assert "market_advance_fraction" in guarded["AAA"].columns
+    assert guarded["AAA"]["market_advance_fraction"].isna().all()
+
+
 def test_build_features_for_universe_ranks_are_valid_percentiles():
     histories = {
         "AAA": synthetic_history(n=40),

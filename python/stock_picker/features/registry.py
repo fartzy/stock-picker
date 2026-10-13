@@ -31,11 +31,13 @@ DEFAULT_TTL_DAYS = 2
 
 _SOURCES = {
     "cross_sectional": "PriceStore + SPY benchmark + universe peer returns",
+    "breadth": "PriceStore + point-in-time UniverseStore membership",
 }
 _DEFAULT_SOURCE = "PriceStore"
 
 _TAGS = {
     "cross_sectional": {"cross_ticker": "true"},
+    "breadth": {"cross_ticker": "true", "membership_guard": "first_seen"},
 }
 
 OWNER = "stock-picker"

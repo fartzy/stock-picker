@@ -9,6 +9,7 @@ from __future__ import annotations
 import pandas as pd
 
 from stock_picker.features import (
+    breadth,
     calendar,
     candle,
     conditional_seasonality,
@@ -94,6 +95,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     columns["conditional_seasonality"] = _conditional_seasonality_columns(sample_history)
     columns["cross_sectional"] = _cross_sectional_columns(sample_history)
     columns["regime"] = _regime_columns(sample_history)
+    columns["breadth"] = list(breadth.BREADTH_COLUMNS)
     columns["structure"] = list(structure.STRUCTURE_COLUMNS)
     columns["weather"] = list(weather.WEATHER_COLUMNS)
     return columns

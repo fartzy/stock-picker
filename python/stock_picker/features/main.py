@@ -65,6 +65,7 @@ def main() -> None:
     vix_history = completed_sessions(vix_raw) if not vix_raw.empty else pd.DataFrame()
     universe_store = UniverseStore()
     sector_by_ticker = universe_store.sector_by_ticker()
+    first_seen_by_ticker = universe_store.first_seen_by_ticker()
 
     from stock_picker.ingestion.weather import read_nyc_weather, refresh_nyc_weather
 
@@ -83,6 +84,7 @@ def main() -> None:
         vix_history=vix_history if not vix_history.empty else None,
         news_articles_by_ticker=news_by_ticker,
         nyc_weather=nyc_weather if not nyc_weather.empty else None,
+        first_seen_by_ticker=first_seen_by_ticker,
     )
 
     feature_store = FeatureStore()

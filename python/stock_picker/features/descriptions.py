@@ -635,6 +635,12 @@ _pattern(
 )
 
 
+_pattern(r"^market_advance_fraction$", lambda m: "Share of tracked stocks with a positive completed-session return.")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "Share of tracked stocks closing above their 20-session average.")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock standard deviation of completed-session returns.")
+_pattern(r"^market_up_volume_fraction$", lambda m: "Share of tracked trading volume in stocks that closed higher.")
+
+
 def describe_feature(name: str) -> str:
     """Plain-English description of a feature column, or a flagged placeholder if
     no pattern matches."""

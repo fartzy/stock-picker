@@ -457,6 +457,12 @@ _pattern(
 )
 
 
+_pattern(r"^market_advance_fraction$", lambda m: "mean_ticker(close.pct_change() > 0), first_seen <= date")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "mean_ticker(close > close.rolling(20).mean()), first_seen <= date")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "std_ticker(close.pct_change()), first_seen <= date")
+_pattern(r"^market_up_volume_fraction$", lambda m: "sum(volume where return > 0) / sum(valid volume), first_seen <= date")
+
+
 def describe_computation(name: str) -> str:
     """Short pandas-expression formula for a feature column, or a flagged
     placeholder if no pattern matches."""

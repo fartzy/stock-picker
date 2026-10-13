@@ -567,6 +567,12 @@ _pattern(
 )
 
 
+_pattern(r"^market_advance_fraction$", lambda m: "60 of 100 tracked stocks rose → 0.60.")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "55 of 100 tracked stocks closed above their 20-day average → 0.55.")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock daily return standard deviation of 2% → 0.02.")
+_pattern(r"^market_up_volume_fraction$", lambda m: "Up stocks traded 70M of 100M valid shares → 0.70.")
+
+
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if
     no pattern matches."""

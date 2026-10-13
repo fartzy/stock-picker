@@ -21,6 +21,7 @@ def test_list_feature_columns_has_all_categories():
     expected_categories = {
         "momentum",
         "volatility",
+        "breadth",
         "trend",
         "oscillators",
         "volume",

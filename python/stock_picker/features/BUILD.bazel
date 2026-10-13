@@ -4,6 +4,7 @@ py_library(
     name = "features",
     srcs = [
         "benchmark.py",
+        "breadth.py",
         "calendar.py",
         "candle.py",
         "catalog.py",
