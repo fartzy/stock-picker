@@ -59,6 +59,22 @@ _pattern(
     ),
 )
 _pattern(
+    r"^absolute_return_2d$",
+    lambda m: "Two completed daily moves of +2% and -4% → 0.03 mean absolute return.",
+)
+_pattern(
+    r"^volatility_5d_lag_(\d+)d$",
+    lambda m: f"Five-day volatility was 0.24 {m[1]} sessions ago → 0.24.",
+)
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"Only {m[1]} returns contribute to this {m[2]}-session volatility estimate.",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"Downside 0.30 and upside 0.20 over {m[1]} sessions → balance +0.20.",
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Daily ranges (including gaps) have averaged $2.30 on a $100 stock → atr_14 ≈ 2.30.",
 )

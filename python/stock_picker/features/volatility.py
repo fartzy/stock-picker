@@ -7,9 +7,11 @@ import pandas as pd
 
 TRADING_DAYS_PER_YEAR = 252
 
-REALIZED_VOL_WINDOWS = [5, 10, 20, 60, 120]
+REALIZED_VOL_WINDOWS = [5, 10, 20, 32, 60, 120]
 RANGE_VOL_WINDOWS = [10, 20, 60]
 ATR_WINDOW = 14
+SHORT_VOLATILITY_LAGS = (1, 2, 32)
+SEMIVOL_WINDOWS = (4, 5)
 # volatility_Nd's own level answers "how volatile has this stock been" --
 # these lags answer a distinct question, "is that volatility currently
 # expanding or contracting," which the level alone can't distinguish (a
@@ -68,11 +70,31 @@ def volatility_delta(volatility: pd.Series, lag: int) -> pd.Series:
     return volatility.diff(lag)
 
 
+def directional_semivolatility(returns: pd.Series, window: int, upside: bool) -> pd.Series:
+    """Annualized root mean squared positive or negative daily returns.
+
+    Clipping retains missing returns, so an incomplete window is not mistaken
+    for a run of zero-return sessions.
+    """
+    signed = returns.clip(lower=0) if upside else returns.clip(upper=0)
+    return np.sqrt(signed.pow(2).rolling(window).mean() * TRADING_DAYS_PER_YEAR)
+
+
 def build_volatility_features(history: pd.DataFrame) -> pd.DataFrame:
     daily_returns = history["Close"].pct_change()
     features = {}
     for n in REALIZED_VOL_WINDOWS:
         features[f"volatility_{n}d"] = rolling_volatility(daily_returns, n)
+    features["absolute_return_2d"] = daily_returns.abs().rolling(2).mean()
+    for lag in SHORT_VOLATILITY_LAGS:
+        features[f"volatility_5d_lag_{lag}d"] = features["volatility_5d"].shift(lag)
+    for window in SEMIVOL_WINDOWS:
+        upside = directional_semivolatility(daily_returns, window, upside=True)
+        downside = directional_semivolatility(daily_returns, window, upside=False)
+        features[f"upside_semivol_{window}d"] = upside
+        features[f"downside_semivol_{window}d"] = downside
+        total = upside + downside
+        features[f"semivol_balance_{window}d"] = ((downside - upside) / total).where(total.gt(0))
     features["atr_14"] = average_true_range(history)
     for n in RANGE_VOL_WINDOWS:
         features[f"parkinson_vol_{n}d"] = parkinson_volatility(history, n)

@@ -35,6 +35,16 @@ _pattern(
     lambda m: f"close.pct_change().rolling({m[1]}).std() * sqrt(252)",
 )
 _pattern(r"^volatility_delta_(\d+)d$", lambda m: f"volatility_20d.diff({m[1]})")
+_pattern(r"^absolute_return_2d$", lambda m: "close.pct_change().abs().rolling(2).mean()")
+_pattern(r"^volatility_5d_lag_(\d+)d$", lambda m: f"volatility_5d.shift({m[1]})")
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"sqrt(mean(clip(close.pct_change(), {'lower' if m[1] == 'upside' else 'upper'}=0)^2, {m[2]}d) * 252)",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"(downside_semivol_{m[1]}d - upside_semivol_{m[1]}d) / (downside_semivol_{m[1]}d + upside_semivol_{m[1]}d)",
+)
 _pattern(
     r"^atr_14$",
     lambda m: "max(high-low, |high-prior_close|, |low-prior_close|).rolling(14).mean()",

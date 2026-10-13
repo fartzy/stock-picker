@@ -62,6 +62,22 @@ _pattern(
     ),
 )
 _pattern(
+    r"^absolute_return_2d$",
+    lambda m: "Mean absolute close-to-close return over the last two completed sessions.",
+)
+_pattern(
+    r"^volatility_5d_lag_(\d+)d$",
+    lambda m: f"Five-day realized volatility as it stood {m[1]} completed sessions ago.",
+)
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"Annualized {m[1]}-day volatility contributed by {m[2]} completed-session returns.",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"Downside minus upside semivolatility, divided by their sum, over {m[1]} sessions.",
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Average True Range (14-day), typical daily price range, accounting for gaps.",
 )
