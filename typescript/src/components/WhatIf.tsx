@@ -155,7 +155,7 @@ function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyP
   emptyGain?: string;
 }) {
   return (
-    <tr className={primary ? "is-strategy" : undefined} title={hint}>
+    <tr className={`row-hover${primary ? " is-strategy" : ""}`} title={hint}>
       <th scope="row"><span>{label}</span><small>{detail}</small></th>
       <td><SignedDollars value={pnl} emptyLabel={emptyPnl} /></td>
       <td><SignedPercent value={gain} emptyLabel={emptyGain} /></td>
@@ -208,7 +208,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
         <thead><tr><th scope="col">Outcome</th><th scope="col">P&amp;L</th><th scope="col">Period gain</th></tr></thead>
         <tbody>
           <ComparisonRow
-            primary label="Picks" detail={scenarioDetail}
+            primary label="Stock Pickin'" detail={scenarioDetail}
             pnl={strategyPnl} gain={strategyGain}
             emptyPnl={scenario ? "Awaiting opens" : "Awaiting close"}
             emptyGain={unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced` : "—"}
@@ -218,7 +218,7 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
             label="S&P intraday" detail={intradayDetail}
             pnl={benchmark.intraday.pnl} gain={intradayGain}
             emptyGain={missingSpyDays ? `${missingSpyDays} SPY ${missingSpyDays === 1 ? "day" : "days"} missing` : "—"}
-            hint={`SPY open→close on ${benchmark.matchedDays} matched completed days; ${formatUsd(benchmark.intradayCapital)} of selected daily capital. Missing SPY days are excluded.`}
+            hint="Matched SPY open → close · same daily capital"
           />
           <ComparisonRow
             label="S&P buy & hold" detail={holdDetail}
@@ -514,7 +514,7 @@ export default function WhatIf() {
   const [fitText, setFitText] = useState("5");
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
-  const [applyNewsSkips, setApplyNewsSkips] = useState(true);
+  const [applyNewsSkips, setApplyNewsSkips] = useState(false);
   const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
   const [holdNextOpen, setHoldNextOpen] = useState(false);
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
