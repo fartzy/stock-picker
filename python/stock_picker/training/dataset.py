@@ -12,6 +12,7 @@ plus Open_t -- so leaving them unshifted is not a leak.
 
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
@@ -27,7 +28,8 @@ OPEN_KNOWN_FEATURE_COLUMNS = frozenset(
 
 def day_session_return(history: pd.DataFrame) -> pd.Series:
     """(Close_t - Open_t) / Open_t for every day."""
-    return (history["Close"] - history["Open"]) / history["Open"]
+    open_price = history["Open"].where(history["Open"].gt(0))
+    return (history["Close"] - open_price) / open_price
 
 
 def build_training_frame(history: pd.DataFrame, features: pd.DataFrame) -> pd.DataFrame:
@@ -45,7 +47,7 @@ def build_training_frame(history: pd.DataFrame, features: pd.DataFrame) -> pd.Da
     shifted[LABEL_COLUMN] = label
 
     frame = shifted.iloc[1:]
-    return frame[frame[LABEL_COLUMN].notna()]
+    return frame[np.isfinite(frame[LABEL_COLUMN])]
 
 
 def build_pooled_dataset(

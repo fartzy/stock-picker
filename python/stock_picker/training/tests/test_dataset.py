@@ -39,6 +39,17 @@ def test_label_matches_day_session_return():
     pd.testing.assert_series_equal(frame[LABEL_COLUMN], expected.iloc[1:], check_names=False)
 
 
+def test_zero_open_is_not_a_training_label():
+    history, features = _make_history_and_features()
+    bad_date = history.index[3]
+    history.loc[bad_date, "Open"] = 0.0
+
+    frame = build_training_frame(history, features)
+
+    assert bad_date not in frame.index
+    assert frame[LABEL_COLUMN].notna().all()
+
+
 def test_shifted_feature_uses_prior_day_not_same_day():
     history, features = _make_history_and_features()
 
