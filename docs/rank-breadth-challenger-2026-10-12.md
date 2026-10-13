@@ -44,7 +44,7 @@ their promotion. No post-selection future sessions are available yet.
 Reproduction command:
 
 ```sh
-bazelisk run //python/stock_picker/training:feature_challenger -- --rounds 100 --folds 3
+bazelisk run //python/stock_picker/training:feature_challenger -- --variant breadth_price --rounds 100 --folds 3
 ```
 
 The command refuses to overwrite an existing artifact; use a separate output

@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from stock_picker.features.pruning import RESEARCH_CANDIDATE_COLUMNS
 from stock_picker.training import feature_challenger as challenger
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
@@ -79,5 +80,36 @@ def test_challenger_respects_an_explicit_breadth_prune(monkeypatch):
         lambda self: {"market_advance_fraction"},
     )
 
-    with pytest.raises(ValueError, match="all three unpruned"):
+    with pytest.raises(ValueError, match="all unpruned breadth_price"):
         challenger.paired_rank_evaluation(_frame("TRAIN"), _frame("HOLDOUT"), rounds=2, folds=3)
+
+
+def test_all_variant_requires_every_research_column(monkeypatch):
+    monkeypatch.setattr(
+        challenger.UniverseStore, "first_seen_by_ticker",
+        lambda self: {"TRAIN": "2026-09-08", "HOLDOUT": "2026-09-08"},
+    )
+    monkeypatch.setattr(challenger.PrunedFeatureStore, "read", lambda self: set())
+    train, holdout = _frame("TRAIN"), _frame("HOLDOUT")
+
+    with pytest.raises(ValueError, match="all unpruned all"):
+        challenger.paired_rank_evaluation(train, holdout, variant="all", rounds=2, folds=3)
+
+    for name in RESEARCH_CANDIDATE_COLUMNS:
+        train[name] = 0.5
+        holdout[name] = 0.5
+    monkeypatch.setattr(
+        challenger, "train_lightgbm_rank",
+        lambda frame, *, included_features, **_: TrainedModel(
+            model_type="lightgbm_rank", estimator=None,
+            feature_names=sorted(included_features),
+        ),
+    )
+    monkeypatch.setattr(challenger, "predict", lambda _model, frame: frame[LABEL_COLUMN].to_numpy())
+
+    result, selected = challenger.paired_rank_evaluation(
+        train, holdout, variant="all", rounds=2, folds=3,
+    )
+
+    assert set(result["new_features"]) == RESEARCH_CANDIDATE_COLUMNS
+    assert RESEARCH_CANDIDATE_COLUMNS <= selected
