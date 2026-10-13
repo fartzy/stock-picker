@@ -165,7 +165,7 @@ export interface OvernightCurrentPriceResponse {
   fetched_at: string;
   session_open_at: string;
   session_close_at: string;
-  source: "massive_last_trade";
+  source: "massive_last_trade" | "massive_daily_close";
 }
 
 export interface CorrelationPair {

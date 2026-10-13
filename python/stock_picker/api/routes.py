@@ -139,7 +139,7 @@ def get_overnight_model() -> OvernightModelResponse:
 
 @router.get("/overnight/current-price")
 def get_overnight_current_price(ticker: str) -> OvernightCurrentPriceResponse:
-    """A fresh, timestamped trade for an editable assumed-close prefill."""
+    """A live trade during cash hours, or that session's raw close after the bell."""
     name = ticker.strip().upper()
     if not TICKER_PATTERN.fullmatch(name):
         raise HTTPException(status_code=422, detail="invalid ticker")
@@ -148,9 +148,19 @@ def get_overnight_current_price(ticker: str) -> OvernightCurrentPriceResponse:
         window = cash_session_window(now)
     except (LookupError, RuntimeError, TypeError, ValueError, OverflowError) as exc:
         raise HTTPException(status_code=503, detail="Exchange session calendar is unavailable; enter an assumed close manually") from exc
-    if window is None or not window.contains(now):
-        raise HTTPException(status_code=503, detail="Current price is available only during regular exchange hours; enter an assumed close manually")
+    if window is None or now < window.open_at:
+        raise HTTPException(status_code=503, detail="No completed cash-session close is available yet; enter an assumed close manually")
     session = now.date()
+    if now >= window.close_at:
+        try:
+            close = MassiveOvernightClient().fetch_session_close(name, session)
+        except MassiveOvernightError as exc:
+            raise HTTPException(status_code=503, detail="Today's close is not available yet; enter an assumed close manually") from exc
+        return OvernightCurrentPriceResponse(
+            ticker=name, price=close.price, observed_at=window.close_at,
+            fetched_at=close.fetched_at, session_open_at=window.open_at,
+            session_close_at=window.close_at, source="massive_daily_close",
+        )
     try:
         trade = MassiveOvernightClient().fetch_current_trade(name, session)
     except MassiveOvernightError as exc:

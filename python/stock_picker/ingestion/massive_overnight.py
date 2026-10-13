@@ -71,6 +71,15 @@ class ObservedCurrentTrade:
     fetched_at: datetime
 
 
+@dataclass(frozen=True)
+class ObservedSessionClose:
+    """Unadjusted daily close for one explicitly dated cash session."""
+
+    price: float
+    session: date
+    fetched_at: datetime
+
+
 def parse_current_trade(payload: object, ticker: str, session: date) -> tuple[float, datetime]:
     """Accept only a positive, same-session trade from the single-ticker snapshot."""
     if not isinstance(payload, dict) or payload.get("status") != "OK":
@@ -88,6 +97,15 @@ def parse_current_trade(payload: object, ticker: str, session: date) -> tuple[fl
     if observed_at.astimezone(ZoneInfo("America/New_York")).date() != session:
         raise MassiveOvernightError("single-ticker last trade is not from the current session")
     return _price(trade.get("p")), observed_at
+
+
+def parse_session_close(payload: object, ticker: str, session: date) -> float:
+    """Reject a missing or mismatched daily summary instead of using a stale close."""
+    if not isinstance(payload, dict) or payload.get("status") != "OK":
+        raise MassiveOvernightError("daily close response was not OK")
+    if payload.get("symbol") != ticker or payload.get("from") != session.isoformat():
+        raise MassiveOvernightError("daily close did not match ticker and session")
+    return _price(payload.get("close"))
 
 
 def parse_current_snapshot(payload: object, ticker: str, session: date) -> tuple[float, float, float | None, datetime | None]:
@@ -359,6 +377,15 @@ class MassiveOvernightClient:
         )
         price, observed_at = parse_current_trade(snapshot, ticker, session)
         return ObservedCurrentTrade(price, observed_at, datetime.now(timezone.utc))
+
+    def fetch_session_close(self, ticker: str, session: date) -> ObservedSessionClose:
+        """Read the raw regular-session close, never the separate after-hours price."""
+        if not TICKER_PATTERN.fullmatch(ticker):
+            raise ValueError("invalid ticker")
+        payload = self._get_payload(
+            API_ROOT + f"/v1/open-close/{ticker}/{session.isoformat()}", {"adjusted": "false"}
+        )
+        return ObservedSessionClose(parse_session_close(payload, ticker, session), session, datetime.now(timezone.utc))
 
     def fetch(self, ticker: str, start: date, end: date) -> VerifiedOvernightBars:
         """Fetch all bars and action pages; certify only after every page succeeds."""

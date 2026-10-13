@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.training.overnight_hold import ObservedNextOpen
-from stock_picker.ingestion.massive_overnight import ObservedCurrentTrade
+from stock_picker.ingestion.massive_overnight import MassiveOvernightError, ObservedCurrentTrade, ObservedSessionClose
 
 ET = ZoneInfo("America/New_York")
 
@@ -49,12 +49,17 @@ def test_current_price_prefill_requires_fresh_timestamp_and_valid_ticker():
     assert TestClient(app).get("/api/overnight/current-price?ticker=BAD/SYMBOL").status_code == 422
 
 
-def test_current_price_rejects_quotes_outside_cash_session_and_keeps_manual_entry():
+def test_current_price_uses_dated_close_after_bell_and_rejects_preopen():
     client = TestClient(app)
     with patch("stock_picker.api.routes.MassiveOvernightClient") as provider, patch("stock_picker.api.routes.datetime") as clock:
         after_close = datetime(2026, 10, 6, 16, 5, tzinfo=ET)
         clock.now.return_value = after_close
-        assert client.get("/api/overnight/current-price?ticker=BULL").status_code == 503
+        provider.return_value.fetch_session_close.return_value = ObservedSessionClose(5.99, after_close.date(), after_close)
+        closed = client.get("/api/overnight/current-price?ticker=BULL")
+        assert closed.status_code == 200
+        assert closed.json()["price"] == 5.99
+        assert closed.json()["source"] == "massive_daily_close"
+        provider.return_value.fetch_session_close.assert_called_once_with("BULL", after_close.date())
         provider.return_value.fetch_current_trade.assert_not_called()
 
         before_open = datetime(2026, 10, 6, 9, 29, tzinfo=ET)
@@ -99,9 +104,22 @@ def test_current_price_obeys_xnys_early_close():
         assert live.status_code == 200
         assert datetime.fromisoformat(live.json()["session_close_at"]).astimezone(ET) == datetime(2026, 11, 27, 13, 0, tzinfo=ET)
         clock.now.return_value = after_close
+        provider.return_value.fetch_session_close.return_value = ObservedSessionClose(42.50, after_close.date(), after_close)
         closed = client.get("/api/overnight/current-price?ticker=BULL")
-        assert closed.status_code == 503
+        assert closed.status_code == 200
+        assert closed.json()["price"] == 42.50
+        assert closed.json()["source"] == "massive_daily_close"
         provider.return_value.fetch_current_trade.assert_called_once()
+
+
+def test_unavailable_daily_close_does_not_prefill_an_older_price():
+    after_close = datetime(2026, 10, 6, 16, 20, tzinfo=ET)
+    with patch("stock_picker.api.routes.MassiveOvernightClient") as provider, patch("stock_picker.api.routes.datetime") as clock:
+        clock.now.return_value = after_close
+        provider.return_value.fetch_session_close.side_effect = MassiveOvernightError("Massive HTTP 404")
+        response = TestClient(app).get("/api/overnight/current-price?ticker=BULL")
+    assert response.status_code == 503
+    assert "not available yet" in response.json()["detail"]
 
 
 def test_forecast_rejects_invalid_symbol_and_reports_missing_model():

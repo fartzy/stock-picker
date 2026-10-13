@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { NewsCheckDetails } from "../api";
-import { newsCheckPresentation } from "../newsCheck";
+import { compactNewsCheckDetail, newsCheckPresentation } from "../newsCheck";
 import { formatUsd } from "../format";
 import { Diff } from "./Diff";
 
@@ -102,17 +102,19 @@ export function NewsCell({
   checked,
   check,
   skipLabel = "skip",
+  compactHint = false,
 }: {
   flag?: string | null;
   blocks?: boolean;
   checked?: boolean | null;
   check?: NewsCheckDetails | null;
   skipLabel?: string;
+  compactHint?: boolean;
 }) {
   const coverage = newsCheckPresentation(check, checked, flag);
   const hold = blocks && !flag;
   return (
-    <span className="news-check" title={coverage.detail}>
+    <span className="news-check" title={compactHint ? compactNewsCheckDetail(check, checked) : coverage.detail}>
       {flag && (
         <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
           {blocks ? skipLabel : "still buy"} · {flag}

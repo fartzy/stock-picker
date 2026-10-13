@@ -18,6 +18,10 @@ export interface AssumedCloseInput {
   quote: CashSessionQuoteTimes | null;
 }
 
+export function pricePrefillInput(price: CashSessionQuoteTimes & { price: number; source: "massive_last_trade" | "massive_daily_close" }): AssumedCloseInput {
+  return { value: String(price.price), quote: price.source === "massive_last_trade" ? price : null };
+}
+
 function nyParts(now: Date): { year: number; month: number; day: number; hour: number; minute: number; weekday: number } {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: NY,

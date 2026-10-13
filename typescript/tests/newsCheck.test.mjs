@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { newsCheckPresentation } from "../src/newsCheck.js";
+import { compactNewsCheckDetail, newsCheckPresentation } from "../src/newsCheck.js";
 
 const check = (status, extra = {}) => ({
   status, article_count: 5, reviewed_count: 5, sources: ["finnhub", "polygon"], issues: [], ...extra,
@@ -48,4 +48,14 @@ test("a skip decision stays on one line while its review evidence remains in the
     "district court patent infringement ruling");
   assert.equal(result.label, "");
   assert.match(result.detail, /14 of 14 articles reviewed/);
+});
+
+test("dense news-check hover keeps only the coverage signal", () => {
+  assert.equal(compactNewsCheckDetail(check("degraded", {
+    article_count: 17, reviewed_count: 17, judge: "classifier", issues: ["llm_unavailable"],
+  })), "17/17 screened locally");
+  assert.equal(compactNewsCheckDetail(check("degraded", {
+    article_count: 8, reviewed_count: 5, issues: ["polygon_unavailable"],
+  })), "5/8 reviewed · limited coverage");
+  assert.equal(compactNewsCheckDetail(null, false), "News check pending");
 });
