@@ -14,6 +14,7 @@ py_library(
         "direction_stack.py",
         "ensemble.py",
         "freshness.py",
+        "feature_challenger.py",
         "feature_family_search.py",
         "grid_search.py",
         "headline_sentiment.py",
@@ -76,6 +77,18 @@ py_library(
         "@pypi//pandas",
         "@pypi//requests",
         "@pypi//scikit_learn",
+    ],
+)
+
+py_binary(
+    name = "feature_challenger",
+    srcs = ["feature_challenger.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
     ],
 )
 
