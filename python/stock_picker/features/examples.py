@@ -571,6 +571,10 @@ _pattern(r"^market_advance_fraction$", lambda m: "60 of 100 tracked stocks rose 
 _pattern(r"^market_above_sma_20d_fraction$", lambda m: "55 of 100 tracked stocks closed above their 20-day average → 0.55.")
 _pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock daily return standard deviation of 2% → 0.02.")
 _pattern(r"^market_up_volume_fraction$", lambda m: "Up stocks traded 70M of 100M valid shares → 0.70.")
+_pattern(r"^path_cluster_distance$", lambda m: "Nearest earlier-learned path center is 1.2 standardized units away → 1.2.")
+_pattern(r"^path_cluster_margin$", lambda m: "Nearest distance 1.2, second-nearest 1.7 → margin 0.5.")
+_pattern(r"^path_cluster_crowding$", lambda m: "100 of 500 eligible stocks share this path cluster → 0.20.")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "Other stocks in this cluster averaged +1% today → 0.01.")
 
 
 def feature_example(name: str) -> str:

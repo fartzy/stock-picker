@@ -11,6 +11,16 @@ py_library(
 )
 
 py_pytest(
+    name = "test_trajectory",
+    srcs = ["test_trajectory.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_breadth",
     srcs = ["test_breadth.py"],
     imports = ["../../.."],

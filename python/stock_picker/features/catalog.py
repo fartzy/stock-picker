@@ -24,6 +24,7 @@ from stock_picker.features import (
     structure,
     weather,
     trend,
+    trajectory,
     volatility,
     volume,
 )
@@ -97,6 +98,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     columns["regime"] = _regime_columns(sample_history)
     columns["breadth"] = list(breadth.BREADTH_COLUMNS)
     columns["structure"] = list(structure.STRUCTURE_COLUMNS)
+    columns["trajectory"] = list(trajectory.PATH_COLUMNS)
     columns["weather"] = list(weather.WEATHER_COLUMNS)
     return columns
 

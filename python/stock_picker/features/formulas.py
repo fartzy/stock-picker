@@ -461,6 +461,10 @@ _pattern(r"^market_advance_fraction$", lambda m: "mean_ticker(close.pct_change()
 _pattern(r"^market_above_sma_20d_fraction$", lambda m: "mean_ticker(close > close.rolling(20).mean()), first_seen <= date")
 _pattern(r"^market_return_dispersion_1d$", lambda m: "std_ticker(close.pct_change()), first_seen <= date")
 _pattern(r"^market_up_volume_fraction$", lambda m: "sum(volume where return > 0) / sum(valid volume), first_seen <= date")
+_pattern(r"^path_cluster_distance$", lambda m: "min_k euclidean_distance(5d normalized return/volume path, prior-date center_k)")
+_pattern(r"^path_cluster_margin$", lambda m: "second-nearest path-center distance - nearest distance")
+_pattern(r"^path_cluster_crowding$", lambda m: "same-cluster tracked names / all eligible tracked names")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "mean(other same-cluster completed close-to-close returns)")
 
 
 def describe_computation(name: str) -> str:

@@ -22,6 +22,7 @@ def test_list_feature_columns_has_all_categories():
         "momentum",
         "volatility",
         "breadth",
+        "trajectory",
         "trend",
         "oscillators",
         "volume",

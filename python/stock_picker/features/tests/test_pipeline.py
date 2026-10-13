@@ -69,6 +69,8 @@ def test_breadth_is_persisted_only_when_membership_history_is_supplied():
     assert "market_advance_fraction" not in plain["AAA"].columns
     assert "market_advance_fraction" in guarded["AAA"].columns
     assert guarded["AAA"]["market_advance_fraction"].isna().all()
+    assert "path_cluster_distance" not in plain["AAA"].columns
+    assert "path_cluster_distance" in guarded["AAA"].columns
 
 
 def test_build_features_for_universe_ranks_are_valid_percentiles():

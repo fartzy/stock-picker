@@ -639,6 +639,10 @@ _pattern(r"^market_advance_fraction$", lambda m: "Share of tracked stocks with a
 _pattern(r"^market_above_sma_20d_fraction$", lambda m: "Share of tracked stocks closing above their 20-session average.")
 _pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock standard deviation of completed-session returns.")
 _pattern(r"^market_up_volume_fraction$", lambda m: "Share of tracked trading volume in stocks that closed higher.")
+_pattern(r"^path_cluster_distance$", lambda m: "Distance from this five-session return/volume path to its nearest past-trained cluster.")
+_pattern(r"^path_cluster_margin$", lambda m: "Distance to second-nearest path cluster minus distance to nearest; larger is a clearer match.")
+_pattern(r"^path_cluster_crowding$", lambda m: "Share of currently tracked stocks assigned to this path cluster.")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "Mean completed-session return of other stocks in the same past-trained path cluster.")
 
 
 def describe_feature(name: str) -> str:
