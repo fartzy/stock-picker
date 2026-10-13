@@ -54,7 +54,6 @@ function FeatureSnapshot({ value, columns }: { value: OvernightForecastCase; col
     <details className="overnight-result-details overnight-feature-snapshot">
       <summary>Model inputs · {columns.length}</summary>
       <div className="overnight-result-detail-body">
-        <p className="muted">Inputs, not explanations of cause.</p>
         {groups.map((group) => (
           <div key={group}>
             <h4>{group}</h4>
@@ -93,24 +92,24 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
         </div>
         <span className="overnight-result-from">From {quotePrice(primary.assumed_close)} assumed close · {overnightDollarText(primary.difference_per_share)}/share before costs</span>
       </div>
-      <p className="overnight-result-caution">Experimental · historical test under review</p>
+      <p className="overnight-result-caution">Experimental · accuracy under review</p>
       <details className="overnight-result-details">
         <summary>Accuracy &amp; costs</summary>
         <div className="overnight-result-detail-body">
-          <p>Historical error is provisional while morning inputs are audited. {hasComparison
-            ? `${percentage(primary.oof_model_gap_mae)} model vs ${percentage(primary.oof_zero_gap_mae)} unchanged.`
-            : "No comparable historical error is available."}</p>
-          <p>Held-out gap error from {result.evaluated_rows} rows. Historical 90th-percentile absolute open error at this price: {primary.oof_abs_open_error_p90_at_assumed_price === null ? "not measured" : formatUsd(primary.oof_abs_open_error_p90_at_assumed_price)}; not a guaranteed range.</p>
-          <p>Gross change: {overnightDollarText(primary.difference_per_share)}/share{primary.gross_difference_for_shares !== null ? ` · ${overnightDollarText(primary.gross_difference_for_shares)} for ${result.shares} shares` : ""}. {primary.after_cost_difference_per_share === null
-            ? "No execution costs entered."
-            : `After entered exit costs: ${overnightDollarText(primary.after_cost_difference_per_share)}/share${primary.after_cost_difference_for_shares !== null ? ` · ${overnightDollarText(primary.after_cost_difference_for_shares)} total` : ""}.`}</p>
-          <p>Scenario assumes today closes at the entered price; it does not predict the rest of today. Latest next-open label used: {result.model_label_observed_on}. {model.feature_columns.length} inputs.</p>
+          <p>Held-out gap error ({result.evaluated_rows} rows): {hasComparison
+            ? `${percentage(primary.oof_model_gap_mae)} model · ${percentage(primary.oof_zero_gap_mae)} unchanged`
+            : "comparison unavailable"}.</p>
+          <p>90th-percentile open error: {primary.oof_abs_open_error_p90_at_assumed_price === null ? "not measured" : formatUsd(primary.oof_abs_open_error_p90_at_assumed_price)} at this price · not guaranteed.</p>
+          <p>Gross {overnightDollarText(primary.difference_per_share)}/share{primary.gross_difference_for_shares !== null ? ` · ${overnightDollarText(primary.gross_difference_for_shares)} total` : ""}. {primary.after_cost_difference_per_share === null
+            ? "Costs not entered."
+            : `After costs ${overnightDollarText(primary.after_cost_difference_per_share)}/share${primary.after_cost_difference_for_shares !== null ? ` · ${overnightDollarText(primary.after_cost_difference_for_shares)} total` : ""}.`}</p>
+          <p>Assumed close only; no intraday forecast. Latest next-open label: {result.model_label_observed_on}.</p>
         </div>
       </details>
       <details className="overnight-result-details">
         <summary>Other close prices</summary>
         <div className="overnight-result-detail-body">
-          <p>What-if sensitivity, not an uncertainty range.</p>
+          <p>Sensitivity, not a forecast range.</p>
           {neighbors.map((item) => <CaseSummary key={item.label} value={item} />)}
         </div>
       </details>

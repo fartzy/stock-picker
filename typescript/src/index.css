@@ -1669,6 +1669,14 @@ details.view-card[open] > summary::before {
   white-space: nowrap;
 }
 
+.what-if-comparison .comparison-gain-note {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: var(--text-micro);
+  font-weight: 400;
+}
+
 .what-if-comparison tbody tr.is-strategy {
   background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
