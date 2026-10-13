@@ -325,12 +325,9 @@ function ListTable({
             { key: "ending", header: exitMode === "close" ? "End value" : "Exit value", numeric: true,
               cell: (row) => <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
                 dollarsPerTrade={dollarsPerTrade} portion={overnightPortion} mode={exitMode} custom={custom} ending /> },
-            { key: "news", header: "Saved news check", cell: (row) => <>
+            { key: "news", header: "Saved news check", cell: (row) =>
               <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked}
-                check={row.news_check} skipLabel="saved skip" />
-              {row.news_blocks && row.news_flag && row.hypothetical.status === "scored"
-                && <small className="what-if-news-included">Included here</small>}
-            </> },
+                check={row.news_check} skipLabel="saved skip" compactHint /> },
           ]}
         />
       </div>

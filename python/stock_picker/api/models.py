@@ -352,7 +352,7 @@ class OvernightCurrentPriceResponse(BaseModel):
     fetched_at: datetime
     session_open_at: datetime
     session_close_at: datetime
-    source: Literal["massive_last_trade"] = "massive_last_trade"
+    source: Literal["massive_last_trade", "massive_daily_close"] = "massive_last_trade"
 
 
 class FeatureValuesResponse(BaseModel):

@@ -54,3 +54,17 @@ export function newsCheckPresentation(check?: NewsCheckDetails | null, checked?:
     warning: !["complete", "no_news"].includes(check.status),
   };
 }
+
+/** Short hover copy for dense tables; the full coverage detail remains available elsewhere. */
+export function compactNewsCheckDetail(check?: NewsCheckDetails | null, checked?: boolean | null): string {
+  if (!check) return checked === false ? "News check pending" : "Coverage details unavailable";
+  if (check.status === "no_news") return "No recent articles";
+  if (check.status === "error") return "News check failed";
+  const count = check.article_count;
+  const reviewed = check.reviewed_count;
+  const coverage = count !== null && reviewed !== null && count > 0
+    ? `${reviewed}/${count} ${check.judge === "classifier" ? "screened locally" : "reviewed"}`
+    : check.status === "not_checked" ? "Not checked" : "Coverage not recorded";
+  const otherIssue = check.issues.some((issue) => issue !== "llm_unavailable");
+  return check.status === "degraded" && otherIssue ? `${coverage} · limited coverage` : coverage;
+}

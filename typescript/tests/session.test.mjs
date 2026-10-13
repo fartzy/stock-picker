@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { expireQuotePrefill, isCashSessionToday, isChicagoCalendarToday, isFreshCashSessionQuote, scanHasClosed } from "../src/session.js";
+import { expireQuotePrefill, isCashSessionToday, isChicagoCalendarToday, isFreshCashSessionQuote, pricePrefillInput, scanHasClosed } from "../src/session.js";
 
 test("Wednesday's saved scan stays visible after Eastern midnight but before Chicago midnight", () => {
   const lateWednesday = new Date("2026-10-01T04:15:00Z"); // 23:15 CT, 00:15 ET
@@ -32,6 +32,18 @@ test("current quote use ends at the 16:00 ET bell even while a recent quote rema
   assert.strictEqual(expireQuotePrefill(manuallyEdited, Date.parse("2026-10-06T16:05:00-04:00")), manuallyEdited);
   assert.equal(isFreshCashSessionQuote({ ...quote, observed_at: "2026-10-06T16:04:00-04:00" }, Date.parse("2026-10-06T16:05:00-04:00")), false);
   assert.equal(isFreshCashSessionQuote({ ...quote, observed_at: "2026-10-06T09:29:00-04:00" }, Date.parse("2026-10-06T09:30:00-04:00")), false);
+});
+
+test("a dated session close stays editable and does not expire like a live trade", () => {
+  const close = {
+    price: 18.765, source: "massive_daily_close",
+    observed_at: "2026-10-12T16:00:00-04:00",
+    session_open_at: "2026-10-12T09:30:00-04:00",
+    session_close_at: "2026-10-12T16:00:00-04:00",
+  };
+  const input = pricePrefillInput(close);
+  assert.deepEqual(input, { value: "18.765", quote: null });
+  assert.strictEqual(expireQuotePrefill(input, Date.parse("2026-10-12T20:40:00-04:00")), input);
 });
 
 test("exchange-provided early close expires an untouched quote at 13:00 ET", () => {

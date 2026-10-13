@@ -13,6 +13,7 @@ from stock_picker.ingestion.massive_overnight import (
     parse_action_page,
     parse_current_snapshot,
     parse_current_trade,
+    parse_session_close,
     parse_daily_bar_page,
 )
 
@@ -70,6 +71,29 @@ def test_current_trade_uses_one_snapshot_and_preserves_trade_timestamp():
     assert observed.price == 10.2
     assert observed.observed_at.date() == START
     assert len(fake.calls) == 1
+
+
+def test_session_close_uses_dated_unadjusted_summary_not_after_hours_trade():
+    fake = FakeSession([FakeResponse({
+        "status": "OK", "symbol": "AAPL", "from": START.isoformat(),
+        "close": 10.5, "afterHours": 11.25,
+    })])
+    observed = MassiveOvernightClient("test-key", session=fake).fetch_session_close("AAPL", START)
+    assert observed.price == 10.5
+    assert observed.session == START
+    assert fake.calls[0][0].endswith(f"/v1/open-close/AAPL/{START.isoformat()}")
+    assert fake.calls[0][1]["adjusted"] == "false"
+
+
+@pytest.mark.parametrize("payload", [
+    {"status": "OK", "symbol": "AAPL", "from": END.isoformat(), "close": 10.5},
+    {"status": "OK", "symbol": "MSFT", "from": START.isoformat(), "close": 10.5},
+    {"status": "OK", "symbol": "AAPL", "from": START.isoformat(), "afterHours": 11.25},
+    {"status": "OK", "symbol": "AAPL", "from": START.isoformat(), "close": 0},
+])
+def test_session_close_rejects_stale_wrong_or_missing_close(payload):
+    with pytest.raises(MassiveOvernightError):
+        parse_session_close(payload, "AAPL", START)
 
 
 @pytest.mark.parametrize("payload", [

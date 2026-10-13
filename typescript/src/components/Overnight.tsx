@@ -8,7 +8,7 @@ import { formatUsd } from "../format";
 import { overnightDirection, overnightDollarText, overnightGapText, overnightQuoteStatus } from "../overnightDisplay";
 import { OVERNIGHT_FEATURE_DESCRIPTIONS, OVERNIGHT_FEATURE_GROUPS } from "../overnightFeatures";
 import { tradedTickerSuggestions } from "../overnightTickers";
-import { expireQuotePrefill, isFreshCashSessionQuote, isWithinQuoteSession, type AssumedCloseInput } from "../session";
+import { expireQuotePrefill, isFreshCashSessionQuote, isWithinQuoteSession, pricePrefillInput, type AssumedCloseInput } from "../session";
 import { useFetchData } from "../useFetchData";
 import OvernightMorningPicks from "./OvernightMorningPicks";
 import OvernightTickerInput from "./OvernightTickerInput";
@@ -27,6 +27,9 @@ const easternTradeTime = new Intl.DateTimeFormat("en-US", {
 });
 const easternShortTime = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/New_York", hour: "numeric", minute: "2-digit",
+});
+const easternShortDay = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York", month: "short", day: "numeric",
 });
 
 function isFreshQuote(quote: OvernightCurrentPriceResponse, now: number): boolean {
@@ -178,7 +181,7 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
   }, []);
 
   useEffect(() => {
-    const activeQuote = assumedCloseInput.quote ?? quote;
+    const activeQuote = assumedCloseInput.quote ?? (quote?.source === "massive_last_trade" ? quote : null);
     if (!activeQuote) return;
     const tick = () => {
       const timestamp = Date.now();
@@ -216,8 +219,9 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
         if (cancelled || request !== quoteRequestRef.current) return;
         setQuote(current);
         setNow(Date.now());
-        if (!priceEditedRef.current && current.ticker === quoteTicker.trim().toUpperCase() && isFreshQuote(current, Date.now())) {
-          setCloseInput({ value: String(current.price), quote: current });
+        if (!priceEditedRef.current && current.ticker === quoteTicker.trim().toUpperCase()
+          && (current.source === "massive_daily_close" || isFreshQuote(current, Date.now()))) {
+          setCloseInput(pricePrefillInput(current));
           invalidateForecast();
         }
       })
@@ -238,7 +242,10 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
   );
   const openByTicker = new Map<string, number>();
   for (const position of open) openByTicker.set(position.ticker, (openByTicker.get(position.ticker) ?? 0) + position.shares);
-  const quoteIsFresh = quote !== null && quote.ticker === ticker.trim().toUpperCase() && isFreshQuote(quote, now);
+  const quoteIsFresh = quote !== null && quote.source === "massive_last_trade"
+    && quote.ticker === ticker.trim().toUpperCase() && isFreshQuote(quote, now);
+  const closeIsAvailable = quote !== null && quote.source === "massive_daily_close"
+    && quote.ticker === ticker.trim().toUpperCase();
   const quoteStatus = overnightQuoteStatus(quoteIsFresh, quote !== null && isWithinQuoteSession(quote, now));
   const quoteObservedAt = quote && Number.isFinite(Date.parse(quote.observed_at)) ? new Date(quote.observed_at) : null;
 
@@ -251,12 +258,13 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
   }
 
   function useCurrentQuote() {
-    if (!quote || !isFreshQuote(quote, Date.now()) || quote.ticker !== ticker.trim().toUpperCase()) {
+    if (!quote || quote.ticker !== ticker.trim().toUpperCase()
+      || (quote.source === "massive_last_trade" && !isFreshQuote(quote, Date.now()))) {
       setNow(Date.now());
       return;
     }
     priceEditedRef.current = false;
-    setCloseInput({ value: String(quote.price), quote });
+    setCloseInput(pricePrefillInput(quote));
     invalidateForecast();
   }
 
@@ -356,7 +364,7 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
           <div className="overnight-price-field">
             <div className="overnight-price-head"><span>Assumed close</span><span className="overnight-price-actions">
               <button type="button" disabled={quoteBusy || !ticker.trim()} onClick={refreshQuote}>{quoteBusy ? "Loading…" : "Refresh quote"}</button>
-              <button type="button" disabled={!quoteIsFresh || quoteBusy} onClick={useCurrentQuote}>Use current</button>
+              <button type="button" disabled={(!quoteIsFresh && !closeIsAvailable) || quoteBusy} onClick={useCurrentQuote}>{closeIsAvailable ? "Use close" : "Use current"}</button>
             </span></div>
             <input ref={priceInputRef} name="assumed-close" aria-label="Assumed close" className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={assumedClose} onChange={(event) => { priceEditedRef.current = true; setCloseInput({ value: event.target.value, quote: null }); invalidateForecast(); }} placeholder="$ if it closed now" required />
           </div>
@@ -365,20 +373,24 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
         </div>
         {(quoteBusy || quote || quoteError) && <div className="overnight-quote-line">
           <span className="overnight-quote-status" role="status">
-            {quoteBusy ? "Checking latest trade…" : quote
-              ? `Last ${quotePrice(quote.price)} · ${quoteObservedAt ? `${easternShortTime.format(quoteObservedAt)} ET` : "time unavailable"} · ${quoteStatus}`
-              : `No fresh trade: ${quoteError}. Enter a price manually.`}
+            {quoteBusy ? "Checking price…" : quote?.source === "massive_daily_close"
+              ? `Session close ${quotePrice(quote.price)} · ${quoteObservedAt ? easternShortDay.format(quoteObservedAt) : "date unavailable"}`
+              : quote
+                ? `Last ${quotePrice(quote.price)} · ${quoteObservedAt ? `${easternShortTime.format(quoteObservedAt)} ET` : "time unavailable"} · ${quoteStatus}`
+                : `Price unavailable: ${quoteError}`}
           </span>
           {quote && <details className="overnight-quote-source">
             <summary>Source</summary>
-            <p>Massive last trade · {quoteObservedAt ? easternTradeTime.format(quoteObservedAt) : "time unavailable"}. This is an editable closing-price assumption, not the official close.</p>
+            <p>{quote.source === "massive_daily_close"
+              ? `Massive unadjusted daily close · ${quoteObservedAt ? easternShortDay.format(quoteObservedAt) : "date unavailable"}. Editable for scenarios.`
+              : `Massive last trade · ${quoteObservedAt ? easternTradeTime.format(quoteObservedAt) : "time unavailable"}. This is an editable closing-price assumption, not the official close.`}</p>
           </details>}
         </div>}
-        <details className="overnight-costs"><summary>Adjust sensitivity & costs</summary><div>
+        <details className="overnight-costs"><summary>Adjust sensitivity & per-share costs</summary><div>
           <label>Sensitivity step<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => { setStep(event.target.value); invalidateForecast(); }} placeholder="Default 0.5%" /></label>
           <button className="overnight-nickel" type="button" onClick={() => { setStep("0.05"); invalidateForecast(); }}>Use $0.05</button>
-          <label>Close exit cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => { setExitTodayCost(event.target.value); invalidateForecast(); }} /></label>
-          <label>Next-open exit cost / share<input className="form-input" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => { setExitNextCost(event.target.value); invalidateForecast(); }} /></label>
+          <label>Close exit<input className="form-input" aria-label="Close exit cost per share" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => { setExitTodayCost(event.target.value); invalidateForecast(); }} /></label>
+          <label>Next-open exit<input className="form-input" aria-label="Next-open exit cost per share" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => { setExitNextCost(event.target.value); invalidateForecast(); }} /></label>
         </div></details>
       </form>
       {error && <p className="error" role="alert">{error}</p>}
