@@ -211,6 +211,16 @@ class ModelInfoResponse(BaseModel):
     models: list[EnsembleMemberInfo]
 
 
+class ResearchModelInfo(BaseModel):
+    name: str
+    feature_count: int
+    new_feature_count: int
+
+
+class ResearchModelsResponse(BaseModel):
+    models: list[ResearchModelInfo]
+
+
 class ModelTypeInfo(BaseModel):
     model_type: str
     display_name: str
@@ -403,6 +413,7 @@ class RegistryResponse(BaseModel):
     feature_services: list[FeatureService]
     experimental_views: list[ExperimentalFeatureView]
     model_derived_views: list[ModelDerivedFeatureView]
+    research_candidate_features: list[str] = Field(default_factory=list)
 
 
 class NewsCheckDetails(BaseModel):

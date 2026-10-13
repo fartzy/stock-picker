@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.pruning import RESEARCH_CANDIDATE_COLUMNS
 from stock_picker.features.trades import position_summaries
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
@@ -991,8 +992,24 @@ def test_get_registry(client):
     assert body["experimental_views"] == []
     assert body["model_derived_views"][0]["status"] == "production_eligible"
     assert body["model_derived_views"][0]["features"] == list(PRODUCTION_MODEL_DERIVED_COLUMNS)
+    assert set(body["research_candidate_features"]) == RESEARCH_CANDIDATE_COLUMNS
     assert "svm_derived" not in body["feature_services"][0]["feature_views"]
     assert "ttl_days" not in body["model_derived_views"][0]
+
+
+def test_research_models_are_listed_separately_from_training_history(client, tmp_path):
+    directory = tmp_path / "models" / "research"
+    store = ModelStore(data_dir=directory)
+    store.write("rank_all_full_2026-10-12", _fake_ensemble(["return_1d", "volatility_32d"]))
+    with (
+        patch("stock_picker.api.routes.data_root", lambda: tmp_path),
+        patch("stock_picker.api.routes.ModelStore", ModelStore),
+    ):
+        response = client.get("/api/research-models")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"models": [{
+        "name": "rank_all_full_2026-10-12", "feature_count": 2, "new_feature_count": 1,
+    }]}
 
 
 def test_cached_buy_signal_fills_prev_close_so_gap_down_news_skips(client):

@@ -57,6 +57,16 @@ export interface ModelInfoResponse {
   models: EnsembleMemberInfo[];
 }
 
+export interface ResearchModelInfo {
+  name: string;
+  feature_count: number;
+  new_feature_count: number;
+}
+
+export interface ResearchModelsResponse {
+  models: ResearchModelInfo[];
+}
+
 export interface ModelTypeInfo {
   model_type: string;
   display_name: string;
@@ -367,6 +377,8 @@ export interface RegistryResponse {
   // Optional while an older API process is still serving after a frontend deploy.
   experimental_views?: ExperimentalFeatureView[];
   model_derived_views?: ModelDerivedFeatureView[];
+  // Persisted inputs available in research models but withheld from automatic training.
+  research_candidate_features?: string[];
 }
 
 export interface PrunedFeatureEntry {
@@ -611,6 +623,7 @@ export async function forecastOvernight(request: OvernightForecastRequest): Prom
 }
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
+export const fetchResearchModels = () => getJson<ResearchModelsResponse>("/api/research-models");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
 export const fetchFees = () => getJson<FeesResponse>("/api/fees");

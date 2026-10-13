@@ -47,6 +47,7 @@ from stock_picker.api.models import (
     PrunedFeaturesResponse,
     QuotesResponse,
     RegistryResponse,
+    ResearchModelsResponse,
     SetLiveModelRequest,
     TradeCreate,
     TradesResponse,
@@ -87,7 +88,7 @@ from stock_picker.features.price_history import (
     intraday_price_history,
     price_series,
 )
-from stock_picker.features.pruning import pruned_features
+from stock_picker.features.pruning import RESEARCH_CANDIDATE_COLUMNS, pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import TICKER_ENTITY, build_registry, experimental_views, model_derived_views
 from stock_picker.features.selection import selected_features
@@ -101,6 +102,7 @@ from stock_picker.features.trades import (
 from stock_picker.storage.feature_exclusion_store import DEFAULT_REASON, PrunedFeatureStore
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
+from stock_picker.storage.paths import data_root
 from stock_picker.ingestion.massive_overnight import MassiveOvernightClient, MassiveOvernightError, TICKER_PATTERN
 from stock_picker.ingestion.session import cash_session_window
 from stock_picker.storage.fee_store import FeeStore
@@ -552,7 +554,7 @@ def get_positions() -> PositionsResponse:
 @router.get("/pruned-features")
 def get_pruned_features() -> PrunedFeaturesResponse:
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -562,7 +564,7 @@ def prune_feature(feature: str, body: PruneRequest | None = None) -> PrunedFeatu
     reason = (body.reason if body else None) or DEFAULT_REASON
     PrunedFeatureStore().prune(feature, reason=reason)
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -571,7 +573,7 @@ def prune_feature(feature: str, body: PruneRequest | None = None) -> PrunedFeatu
 def unprune_feature(feature: str) -> PrunedFeaturesResponse:
     PrunedFeatureStore().unprune(feature)
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -594,6 +596,25 @@ def get_model_info() -> ModelInfoResponse:
     if not store.exists(model_name):
         return ModelInfoResponse(models=[])
     return ModelInfoResponse(models=ensemble_composition(store.read(model_name)))
+
+
+@router.get("/research-models")
+def get_research_models() -> ResearchModelsResponse:
+    """Show saved Rank experiments without implying they are serving models."""
+    directory = data_root() / "models" / "research"
+    if not directory.is_dir():
+        return ResearchModelsResponse(models=[])
+    store = ModelStore(data_dir=directory)
+    models = []
+    for path in sorted(directory.glob("rank_*.pkl")):
+        ensemble = store.read(path.stem)
+        features = {name for member in ensemble.members for name in member.feature_names}
+        models.append({
+            "name": path.stem,
+            "feature_count": len(features),
+            "new_feature_count": len(features & RESEARCH_CANDIDATE_COLUMNS),
+        })
+    return ResearchModelsResponse(models=models)
 
 
 @router.get("/model-types")
@@ -842,4 +863,5 @@ def get_registry() -> RegistryResponse:
         feature_services=[asdict(service) for service in feature_services],
         experimental_views=[asdict(view) for view in experimental_views()],
         model_derived_views=[asdict(view) for view in model_derived_views()],
+        research_candidate_features=sorted(RESEARCH_CANDIDATE_COLUMNS),
     )

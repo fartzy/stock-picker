@@ -201,7 +201,7 @@ function ModelDerivedViewSection({
         )}
       </summary>
       <div className="view-features">
-        <p className="muted">{view.description} Source: {view.source}. Computed during training and scoring; not stored as market-data coverage.</p>
+        <p className="muted">Fit inputs created during training and scoring; not stored in market-data snapshots.</p>
         {view.features.map((name) => {
           const feature = features[name];
           if (!feature) return null;
@@ -238,8 +238,11 @@ function ModelDerivedViewSection({
                 </span>
               </div>
               <div className="feature-desc">{feature.description}</div>
-              <div className="feature-example"><span className="feature-example-label">How computed</span> {feature.computation}</div>
-              <div className="feature-example"><span className="feature-example-label">e.g.</span> {feature.example}</div>
+              <details className="feature-example">
+                <summary>How it works</summary>
+                <div>{feature.computation}</div>
+                <div>{feature.example}</div>
+              </details>
             </div>
           );
         })}
@@ -354,6 +357,7 @@ export default function Registry({
   }
   const allFeatureNames = registry && catalog ? selectableFeatureNames(registry, catalog) : new Set<string>();
   const marketFeatureNames = new Set((registry?.feature_views ?? []).flatMap((view) => view.features));
+  const researchCandidates = new Set(registry?.research_candidate_features ?? []);
 
   // Once the poll confirms the override matches the server, drop it and
   // trust the poll again -- otherwise a prune made elsewhere (e.g. the
@@ -476,6 +480,9 @@ export default function Registry({
   }
 
   const selectedCount = included?.size ?? allFeatureNames.size;
+  const eligibleCount = [...(included ?? allFeatureNames)].filter(
+    (feature) => !pruned.has(feature) && !researchCandidates.has(feature),
+  ).length;
 
   return (
     <div>
@@ -502,9 +509,12 @@ export default function Registry({
         )}
       </div>
       <div className="meta-row">
-        <span className="meta-label">Selected for training</span>
+        <span className="meta-label">Checked in feature selection</span>
         <span className="muted" style={{ fontSize: "var(--text-caption)" }}>
           {selectedCount} / {allFeatureNames.size}
+        </span>
+        <span className="muted" style={{ fontSize: "var(--text-caption)" }}>
+          {eligibleCount} eligible for automatic training
         </span>
         {included !== null && (
           <button type="button" className="prune-toggle" disabled={selectionPending} onClick={() => void resetSelection()}>
@@ -512,6 +522,23 @@ export default function Registry({
           </button>
         )}
       </div>
+      {researchCandidates.size > 0 && (
+        <details className="view-card registry-category">
+          <summary>
+            <strong style={{ color: "var(--accent)" }}>New price-pattern inputs</strong>
+            <span className="muted">{researchCandidates.size} stored · research models only</span>
+          </summary>
+          <div className="view-features">
+            <p className="muted">These are in the feature data and the categories below, but are not in the live model or automatic retraining yet.</p>
+            {[...researchCandidates].sort().map((name) => (
+              <div className="feature-row row-hover" key={name}>
+                <span className="feature-name">{name}</span>
+                <span className="muted"> · {registry.feature_views.find((view) => view.features.includes(name))?.name ?? "feature"}</span>
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
       {mutationError && <p className="error" role="alert">{mutationError}</p>}
       {registry.feature_views.map((view) => {
         // A signal before expanding anything -- with ~10 categories and ~97
@@ -545,6 +572,7 @@ export default function Registry({
               const pct = coverageByFeature[feature];
               const imp = importance.importance[feature];
               const isPruned = pruned.has(feature);
+              const isResearch = researchCandidates.has(feature);
               const isNegligible =
                 !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
               const correlation = !isPruned ? bestCorrelationByFeature[feature] : undefined;
@@ -565,9 +593,9 @@ export default function Registry({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        disabled={selectionPending}
+                        disabled={selectionPending || isResearch}
                         onChange={() => void toggleSelected(feature)}
-                        title="Include this feature in the next training run"
+                        title={isResearch ? "Research-only until a model is promoted" : "Include this feature in the next training run"}
                         aria-label={`Include ${feature} in the next training run`}
                       />
                       <span style={{ color: coverageColor(pct) }} aria-hidden="true">&#9679;</span>
@@ -582,6 +610,9 @@ export default function Registry({
                         >
                           pruned
                         </button>
+                      )}
+                      {isResearch && !isPruned && (
+                        <span className="feature-badge">research only</span>
                       )}
                       {isNegligible && (
                         <button
@@ -631,7 +662,9 @@ export default function Registry({
                           ? `${imp.toFixed(1)}% importance`
                           : isPruned
                             ? "excluded"
-                            : "not trained"}
+                            : isResearch
+                              ? "research only"
+                              : "not trained"}
                       </span>
                       {imp !== undefined && (
                         <span className="importance-bar" title={`${imp.toFixed(1)}% importance`}>
