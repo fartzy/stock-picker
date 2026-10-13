@@ -3,7 +3,8 @@ import test from "node:test";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
   overnightSelectionKey, selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
-  summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold, summarizeSelectedOvernightHistory,
+  returnOnAverageDailyCapital, summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold,
+  summarizeSelectedOvernightHistory,
 } from "../src/whatIf.js";
 
 const pick = (session_return, extra = {}) => ({
@@ -28,6 +29,16 @@ test("default is $10K per trade, including losses and flat trades", () => {
   assert.deepEqual(simulatePick(pick(0.02), 10_000), { status: "scored", pnl: 200, endingValue: 10_200 });
   assert.deepEqual(simulatePick(pick(-0.01), 10_000), { status: "scored", pnl: -100, endingValue: 9_900 });
   assert.deepEqual(simulatePick(pick(0), 5_000), { status: "scored", pnl: 0, endingValue: 5_000 });
+});
+
+test("period gain compares reused daily capital with one hold stake, without compounding", () => {
+  const averageDailyCapital = 50_000;
+  assert.equal(returnOnAverageDailyCapital(2858.05, averageDailyCapital), 2858.05 / 50_000);
+  assert.equal(returnOnAverageDailyCapital(354.48, averageDailyCapital), 354.48 / 50_000);
+  assert.equal(returnOnAverageDailyCapital(-1513.76, 40_000), -1513.76 / 40_000);
+  assert.equal(returnOnAverageDailyCapital(null, averageDailyCapital), null);
+  assert.equal(returnOnAverageDailyCapital(100, 0), null);
+  assert.equal(returnOnAverageDailyCapital(100, NaN), null);
 });
 
 test("holding 50% to the observed next open changes only the separate comparison", () => {
