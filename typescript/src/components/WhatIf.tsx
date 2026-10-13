@@ -17,7 +17,8 @@ import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
-  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, selectOvernightExitRows, simulateBook,
+  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, returnOnAverageDailyCapital,
+  selectOvernightExitRows, simulateBook,
   simulateOvernightHold, simulationDay, summarizeOvernightExit, summarizeSelectedOvernightHistory,
   type BenchmarkLoad,
   type LookbackDays, type MoneySummary, type OvernightExitMode, type OvernightExitRule,
@@ -122,65 +123,43 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
     { key: "scored", label: "Scored", value: stats.n_scored },
     { key: "wl", label: "W/L", value: `${stats.wins}W/${stats.losses}L` },
     ...(hit ? [{ key: "hit", label: "Hit", value: hit }] : []),
-    { key: "avg", label: "Avg", value: <Pct value={stats.avg} /> },
+    { key: "avg", label: "Avg/pick", value: <Pct value={stats.avg} /> },
     ...(stats.n_avoid
       ? [{ key: "skipped", label: "Skipped", value: `${stats.n_avoid} news skips` }]
       : []),
   ];
 }
 
-function BenchmarkLine({ label, pnl, pct, detail, hint }: {
-  label: string;
-  pnl: number | null;
-  pct: number | null;
-  detail: string;
-  hint: string;
-}) {
-  return (
-    <div className="what-if-benchmark-line" title={hint}>
-      <span className="what-if-benchmark-label">
-        <span>{label}</span>
-        <span className="what-if-benchmark-detail">{detail}</span>
-      </span>
-      <span className="what-if-benchmark-value"><Dollars value={pnl} /> <Pct value={pct} /></span>
-    </div>
-  );
+function SignedDollars({ value, emptyLabel = "—" }: { value: number | null; emptyLabel?: string }) {
+  if (value === null) return <span className="muted">{emptyLabel}</span>;
+  return <span className={value === 0 ? "muted" : value > 0 ? "quote-diff-up" : "quote-diff-down"}>
+    {value > 0 ? "+" : ""}{formatUsd(value)}
+  </span>;
 }
 
-function StrategyResult({
-  label,
-  scenario,
-  closePnl,
-}: {
+function SignedPercent({ value, emptyLabel = "—" }: { value: number | null; emptyLabel?: string }) {
+  if (value === null) return <span className="muted">{emptyLabel}</span>;
+  return <span className={value === 0 ? "muted" : value > 0 ? "quote-diff-up" : "quote-diff-down"}>
+    {value > 0 ? "+" : ""}{(value * 100).toFixed(2)}%
+  </span>;
+}
+
+function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyPnl, emptyGain }: {
   label: string;
-  scenario: SelectedOvernightHistorySummary | null;
-  closePnl: number | null;
+  pnl: number | null;
+  gain: number | null;
+  detail: string;
+  hint: string;
+  primary?: boolean;
+  emptyPnl?: string;
+  emptyGain?: string;
 }) {
   return (
-    <div className="slice-card-result">
-      <div className="slice-card-result-header">
-        <span className="slice-card-result-label">{label}</span>
-        {scenario && (
-          <span className="slice-card-result-coverage">
-            {scenario.matchedDays}/{scenario.eligibleDays} next opens priced
-          </span>
-        )}
-      </div>
-      <div className="slice-card-result-value">
-        {scenario && scenario.pnl === null
-          ? <span className="muted">Awaiting opens</span>
-          : <Dollars value={scenario ? scenario.pnl : closePnl} />}
-      </div>
-      {scenario && (
-        <div className="slice-card-result-baseline">
-          <span>Close-only P&amp;L</span>
-          <strong>{closePnl === null ? "Awaiting close" : formatUsd(closePnl)}</strong>
-          {scenario.matchedDays < scenario.eligibleDays && (
-            <span className="slice-card-result-partial">Next-open result is partial</span>
-          )}
-        </div>
-      )}
-    </div>
+    <tr className={primary ? "is-strategy" : undefined} title={hint}>
+      <th scope="row"><span>{label}</span><small>{detail}</small></th>
+      <td><SignedDollars value={pnl} emptyLabel={emptyPnl} /></td>
+      <td><SignedPercent value={gain} emptyLabel={emptyGain} /></td>
+    </tr>
   );
 }
 
@@ -197,54 +176,72 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   exitMode: OvernightExitMode;
 }) {
   const intradayDetail = benchmark.activeDays
-    ? `${benchmark.matchedDays}/${benchmark.activeDays}d`
+    ? `${benchmark.matchedDays}/${benchmark.activeDays} days${benchmark.matchedDays < benchmark.activeDays ? " · partial" : ""}`
     : "no completed days";
   const holdDetail = benchmark.holdFrom && benchmark.holdThrough
     ? `${formatMonthDay(benchmark.holdFrom)}–${formatMonthDay(benchmark.holdThrough)}`
     : "unavailable";
-  const exitLabel = exitMode === "down" ? "Down-day next-open P&L"
-    : exitMode === "custom" ? "Selected next-open P&L" : "Next-open P&L";
+  const exitLabel = exitMode === "down" ? "Down-day next open"
+    : exitMode === "custom" ? "Selected next open" : "Next open";
+  const averageDailyCapital = benchmark.holdCapital;
+  const strategyPnl = scenario ? scenario.pnl : money.pnl;
+  const strategyComplete = !scenario || scenario.matchedDays === scenario.eligibleDays;
+  const strategyGain = strategyComplete
+    ? returnOnAverageDailyCapital(strategyPnl, averageDailyCapital) : null;
+  const intradayGain = benchmark.matchedDays === benchmark.activeDays
+    ? returnOnAverageDailyCapital(benchmark.intraday.pnl, averageDailyCapital) : null;
+  const holdGain = returnOnAverageDailyCapital(benchmark.hold.pnl, averageDailyCapital);
+  const scenarioDetail = scenario
+    ? `${scenario.matchedDays}/${scenario.eligibleDays} opens · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
+    : "Open → close";
   return (
     <div className="view-card slice-card" aria-label={`${title} simulation total`}>
-      <div className="slice-card-kicker">
-        <StatStrip items={[
-          { key: "title", title: true, align: "start", value: title },
-          { key: "slice", align: "start", value: topK === undefined ? "all" : `top ${topK}` },
-          { key: "days", align: "start", value: `${days}d` },
-        ]} />
+      <div className="slice-card-header">
+        <div className="slice-card-heading"><strong>{title}</strong><span>{topK === undefined ? "All picks" : `Top ${topK}`} · {days} days</span></div>
+        <span className="slice-card-capital" title="Average capital invested on each active day; the same stake is used for the period-gain comparison.">
+          {averageDailyCapital === null ? "No completed capital" : `${formatUsd(averageDailyCapital)} avg/day`}
+        </span>
       </div>
-      <StrategyResult label={scenario ? exitLabel : "P&L"} scenario={scenario} closePnl={money.pnl} />
-      <p className="view-meta">
-        <StatStrip items={[
-          { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
-          ...statsItems(stats),
-          ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting prices` }] : []),
-        ]} />
-      </p>
-      <div className="what-if-benchmark" aria-label={`${title} S&P comparisons`}>
+      <table className="what-if-comparison" aria-label={`${title} strategy and S&P comparison`}>
+        <thead><tr><th scope="col">Outcome</th><th scope="col">P&amp;L</th><th scope="col">Period gain</th></tr></thead>
+        <tbody>
+          <ComparisonRow
+            primary label={scenario ? exitLabel : "Strategy"} detail={scenarioDetail}
+            pnl={strategyPnl} gain={strategyGain}
+            emptyPnl={scenario ? "Awaiting opens" : "Awaiting close"}
+            emptyGain={strategyComplete ? "—" : "Partial"}
+            hint="Simulated strategy P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."
+          />
+          <ComparisonRow
+            label="S&P intraday" detail={intradayDetail}
+            pnl={benchmark.intraday.pnl} gain={intradayGain}
+            emptyGain={benchmark.matchedDays < benchmark.activeDays ? "Partial" : "—"}
+            hint={`SPY open→close on ${benchmark.matchedDays} matched completed days; ${formatUsd(benchmark.intradayCapital)} of selected daily capital. Missing SPY days are excluded.`}
+          />
+          <ComparisonRow
+            label="S&P buy & hold" detail={holdDetail}
+            pnl={benchmark.hold.pnl} gain={holdGain}
+            hint="One SPY stake from the first selected day's open through the last selected day's close, including overnight exposure."
+          />
+        </tbody>
+      </table>
+      <div className="slice-card-metrics">
+        <span>{stats?.n ?? 0} picks</span>
+        <span>{stats?.n_scored ?? 0} scored</span>
+        {stats && stats.n_scored > 0 && <>
+          <span>{stats.wins}W/{stats.losses}L</span>
+          <span>{stats.hit_rate === null ? "—" : `${(stats.hit_rate * 100).toFixed(0)}%`} hit</span>
+          <span className="slice-card-avg" title="Arithmetic mean return per scored pick; not the period gain.">Avg/pick <SignedPercent value={stats.avg} /></span>
+        </>}
+        {stats && (stats.n_avoid ?? 0) > 0 && <span>{stats.n_avoid} news skips</span>}
+        {money.pending > 0 && <span>{money.pending} awaiting prices</span>}
+      </div>
+      <div className="what-if-benchmark-help">
         {benchmarkLoading && <span className="muted what-if-benchmark-loading">Loading S&P…</span>}
         {benchmarkError && <span className="error what-if-benchmark-loading" role="status">S&P unavailable: benchmark request failed.</span>}
         {!benchmarkLoading && !benchmarkError && benchmark.activeDays > 0 && benchmark.matchedDays === 0 && (
           <span className="muted what-if-benchmark-loading" role="status">S&P data unavailable for these days.</span>
         )}
-        <BenchmarkLine
-          label="S&P intraday"
-          pnl={benchmark.intraday.pnl}
-          pct={benchmark.intraday.pct}
-          detail={intradayDetail}
-          hint={`SPY open→close on ${benchmark.matchedDays} matched completed days; ${formatUsd(benchmark.intradayCapital)} of selected daily capital. Missing SPY days are excluded.`}
-        />
-        <BenchmarkLine
-          label="S&P buy & hold"
-          pnl={benchmark.hold.pnl}
-          pct={benchmark.hold.pct}
-          detail={holdDetail}
-          hint="One SPY stake from the first selected day's open through the last selected day's close."
-        />
-        <details className="what-if-benchmark-help">
-          <summary>ⓘ S&amp;P method</summary>
-          <p>Intraday matches each day’s stake. Buy &amp; hold uses one average-sized stake from the first open to the last close.</p>
-        </details>
       </div>
     </div>
   );

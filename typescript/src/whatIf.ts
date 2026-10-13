@@ -268,6 +268,20 @@ export interface StrategyBenchmark {
   holdThrough: string | null;
 }
 
+/** Simple period P&L on the average capital put to work each active day.
+ * The same denominator makes a reused intraday stake comparable in dollars
+ * with one buy-and-hold stake; this is not a compounded return.
+ */
+export function returnOnAverageDailyCapital(
+  pnl: number | null,
+  averageDailyCapital: number | null,
+): number | null {
+  if (pnl === null || averageDailyCapital === null
+    || !Number.isFinite(pnl) || !Number.isFinite(averageDailyCapital)
+    || averageDailyCapital <= 0) return null;
+  return pnl / averageDailyCapital;
+}
+
 interface SimulationOptions {
   kind: PickKind;
   fitTopK?: number;
