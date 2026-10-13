@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-  fetchOvernightCurrentPrice, fetchOvernightModel, fetchPositions, forecastOvernight,
+  fetchOvernightCurrentPrice, fetchOvernightModel, fetchPositions, fetchTrades, forecastOvernight,
   type OvernightForecastCase, type OvernightForecastResponse, type OvernightModelResponse,
-  type OvernightCurrentPriceResponse, type PositionsResponse,
+  type OvernightCurrentPriceResponse, type PositionsResponse, type TradesResponse,
 } from "../api";
 import { formatUsd } from "../format";
 import { overnightDirection, overnightDollarText, overnightGapText, overnightQuoteStatus } from "../overnightDisplay";
 import { OVERNIGHT_FEATURE_DESCRIPTIONS, OVERNIGHT_FEATURE_GROUPS } from "../overnightFeatures";
+import { tradedTickerSuggestions } from "../overnightTickers";
 import { expireQuotePrefill, isFreshCashSessionQuote, isWithinQuoteSession, type AssumedCloseInput } from "../session";
 import { useFetchData } from "../useFetchData";
 import OvernightMorningPicks from "./OvernightMorningPicks";
+import OvernightTickerInput from "./OvernightTickerInput";
 
 function percentage(value: number | null): string {
   return value === null ? "—" : `${(value * 100).toFixed(2)}%`;
@@ -117,6 +119,7 @@ function ForecastResult({ result, model }: { result: OvernightForecastResponse; 
 export default function Overnight({ initialTicker, compact = false }: { initialTicker?: string; compact?: boolean }) {
   const { data: model, error: modelError } = useFetchData<OvernightModelResponse>(fetchOvernightModel);
   const { data: positions } = useFetchData<PositionsResponse>(fetchPositions);
+  const { data: trades } = useFetchData<TradesResponse>(fetchTrades);
   const [ticker, setTicker] = useState(initialTicker ?? "");
   const [quoteTicker, setQuoteTicker] = useState(initialTicker ?? "");
   const [quoteRefresh, setQuoteRefresh] = useState(0);
@@ -229,6 +232,10 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
   }, [quoteTicker, quoteRefresh]);
 
   const open = (positions?.positions ?? []).filter((position) => !position.closed && position.shares > 0);
+  const tickerSuggestions = useMemo(
+    () => tradedTickerSuggestions(positions?.positions ?? [], trades?.trades ?? []),
+    [positions, trades],
+  );
   const openByTicker = new Map<string, number>();
   for (const position of open) openByTicker.set(position.ticker, (openByTicker.get(position.ticker) ?? 0) + position.shares);
   const quoteIsFresh = quote !== null && quote.ticker === ticker.trim().toUpperCase() && isFreshQuote(quote, now);
@@ -267,6 +274,18 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
     setQuoteTicker(name);
     setQuoteRefresh((value) => value + 1);
     priceInputRef.current?.focus();
+  }
+
+  function changeTicker(value: string) {
+    quoteRequestRef.current += 1;
+    setTicker(value);
+    setQuoteTicker("");
+    setQuote(null);
+    setQuoteError(null);
+    setCloseInput({ value: "", quote: null });
+    setShares("");
+    priceEditedRef.current = false;
+    invalidateForecast();
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -333,11 +352,7 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
       {model && model.available && !model.serving_inputs_pinned && <p className="overnight-unavailable">Forecast unavailable — this model needs its saved morning inputs.</p>}
       <form className="overnight-form" onSubmit={submit}>
         <div className="overnight-form-primary">
-          <label>Ticker<input className="form-input" value={ticker} onChange={(event) => {
-            quoteRequestRef.current += 1;
-            setTicker(event.target.value.toUpperCase()); setQuoteTicker(""); setQuote(null); setQuoteError(null);
-            setCloseInput({ value: "", quote: null }); priceEditedRef.current = false; invalidateForecast();
-          }} placeholder="Or enter any ticker" required /></label>
+          <OvernightTickerInput value={ticker} suggestions={tickerSuggestions} onChange={changeTicker} onSelect={selectTicker} />
           <div className="overnight-price-field">
             <div className="overnight-price-head"><span>Assumed close</span><span className="overnight-price-actions">
               <button type="button" disabled={quoteBusy || !ticker.trim()} onClick={refreshQuote}>{quoteBusy ? "Loading…" : "Refresh quote"}</button>
