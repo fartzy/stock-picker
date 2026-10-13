@@ -159,6 +159,7 @@ py_pytest(
     deps = [
         ":fixtures",
         "//python/stock_picker/features",
+        "@pypi//numpy",
     ],
 )
 

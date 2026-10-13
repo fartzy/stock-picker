@@ -1,3 +1,5 @@
+import numpy as np
+
 from stock_picker.features.pipeline import build_features, build_features_for_universe
 from stock_picker.features.tests.fixtures import synthetic_history
 
@@ -27,6 +29,16 @@ def test_build_features_combines_every_category():
     assert "beta_60d" not in features.columns
     assert "return_rank_5d" not in features.columns
     assert "pooled_setup_seasonality" not in features.columns
+
+
+def test_zero_open_does_not_create_infinite_features():
+    history = synthetic_history(n=140)
+    history.loc[history.index[100], "Open"] = 0.0
+
+    features = build_features(history)
+
+    assert np.isnan(features.iloc[100]["body_pct"])
+    assert not np.isinf(features.select_dtypes(include="number").to_numpy()).any()
 
 
 def test_build_features_for_universe_adds_return_rank_and_beta_columns():

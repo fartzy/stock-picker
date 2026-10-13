@@ -28,6 +28,7 @@ from stock_picker.features.trend import build_trend_features
 from stock_picker.features.volatility import build_volatility_features
 from stock_picker.features.structure import build_structure_features, merge_structure
 from stock_picker.features.volume import build_volume_features
+from stock_picker.storage.price_store import sanitize_price_history
 
 
 def build_features(
@@ -47,6 +48,7 @@ def build_features(
     `build_cross_sectional_features`/`build_conditional_seasonality_features` for
     what gets omitted when they aren't supplied.
     """
+    history = sanitize_price_history(history)
     categories = [
         build_momentum_features(history),
         build_volatility_features(history),
@@ -85,6 +87,9 @@ def build_features_for_universe(
     return-rank columns and pooled setup-seasonality average, both of which require
     the whole universe's returns together.
     """
+    histories = {
+        ticker: sanitize_price_history(history) for ticker, history in histories.items()
+    }
     n_day_returns = {
         window: pd.DataFrame(
             {
