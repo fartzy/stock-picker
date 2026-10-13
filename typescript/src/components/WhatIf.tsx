@@ -144,7 +144,7 @@ function SignedPercent({ value, emptyLabel = "—" }: { value: number | null; em
   </span>;
 }
 
-function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyPnl, emptyGain }: {
+function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyPnl, emptyGain, gainNote }: {
   label: string;
   pnl: number | null;
   gain: number | null;
@@ -153,12 +153,13 @@ function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyP
   primary?: boolean;
   emptyPnl?: string;
   emptyGain?: string;
+  gainNote?: string;
 }) {
   return (
     <tr className={`row-hover${primary ? " is-strategy" : ""}`} title={hint}>
       <th scope="row"><span>{label}</span><small>{detail}</small></th>
       <td><SignedDollars value={pnl} emptyLabel={emptyPnl} /></td>
-      <td><SignedPercent value={gain} emptyLabel={emptyGain} /></td>
+      <td><SignedPercent value={gain} emptyLabel={emptyGain} />{gainNote && <small className="comparison-gain-note">{gainNote}</small>}</td>
     </tr>
   );
 }
@@ -185,11 +186,9 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
     : exitMode === "custom" ? "Selected next open" : "Next open";
   const averageDailyCapital = benchmark.holdCapital;
   const strategyPnl = scenario ? scenario.pnl : money.pnl;
-  const strategyComplete = !scenario || scenario.matchedDays === scenario.eligibleDays;
   const unpricedOpenDays = scenario ? scenario.eligibleDays - scenario.matchedDays : 0;
   const missingSpyDays = benchmark.activeDays - benchmark.matchedDays;
-  const strategyGain = strategyComplete
-    ? returnOnAverageDailyCapital(strategyPnl, averageDailyCapital) : null;
+  const strategyGain = returnOnAverageDailyCapital(strategyPnl, averageDailyCapital);
   const intradayGain = benchmark.matchedDays === benchmark.activeDays
     ? returnOnAverageDailyCapital(benchmark.intraday.pnl, averageDailyCapital) : null;
   const holdGain = returnOnAverageDailyCapital(benchmark.hold.pnl, averageDailyCapital);
@@ -211,8 +210,11 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
             primary label="Stock Pickin'" detail={scenarioDetail}
             pnl={strategyPnl} gain={strategyGain}
             emptyPnl={scenario ? "Awaiting opens" : "Awaiting close"}
-            emptyGain={unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced` : "—"}
-            hint="Simulated pick P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."
+            emptyGain={strategyGain === null && unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced` : "—"}
+            gainNote={strategyGain !== null && unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced · partial` : undefined}
+            hint={scenario && unpricedOpenDays
+              ? `Partial: ${scenario.matchedDays}/${scenario.eligibleDays} days priced. P&L divided by average daily capital; no estimate for missing opens.`
+              : "Simulated pick P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."}
           />
           <ComparisonRow
             label="S&P intraday" detail={intradayDetail}
