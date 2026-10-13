@@ -34,3 +34,4 @@ def test_rank_screen_does_not_report_uninterpretable_regression_metrics():
     assert "mae" not in metrics
     assert "directional_accuracy" not in metrics
     assert metrics["top5_hit_rate"] == 2 / 3
+    assert metrics["top20_hit_rate"] == 2 / 3

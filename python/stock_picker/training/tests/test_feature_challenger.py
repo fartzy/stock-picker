@@ -113,3 +113,38 @@ def test_all_variant_requires_every_research_column(monkeypatch):
 
     assert set(result["new_features"]) == RESEARCH_CANDIDATE_COLUMNS
     assert RESEARCH_CANDIDATE_COLUMNS <= selected
+
+
+def test_full_scope_trains_on_older_history_but_tests_only_recent_dates(monkeypatch):
+    monkeypatch.setattr(
+        challenger.UniverseStore, "first_seen_by_ticker",
+        lambda self: {"TRAIN": "2026-09-08", "HOLDOUT": "2026-09-08"},
+    )
+    monkeypatch.setattr(challenger.PrunedFeatureStore, "read", lambda self: set())
+    recent = _frame("TRAIN")
+    older = recent.head(4).copy()
+    older["date"] = pd.bdate_range("2026-08-31", periods=4)
+    for name in challenger.CHALLENGER_VARIANTS["breadth_price"]:
+        older[name] = np.nan
+    train = pd.concat([older, recent], ignore_index=True)
+    seen = []
+
+    def fake_train(frame, *, included_features, **_):
+        seen.append((frame["date"].min(), frame["date"].max()))
+        return TrainedModel(
+            model_type="lightgbm_rank", estimator=None,
+            feature_names=sorted(included_features),
+        )
+
+    monkeypatch.setattr(challenger, "train_lightgbm_rank", fake_train)
+    monkeypatch.setattr(challenger, "predict", lambda _model, frame: frame[LABEL_COLUMN].to_numpy())
+
+    result, _ = challenger.paired_rank_evaluation(
+        train, _frame("HOLDOUT"), scope="full", rounds=2, folds=3,
+    )
+
+    assert result["scope"] == "full"
+    assert result["start"][:10] == "2026-08-31"
+    assert result["evaluation_start"][:10] == "2026-09-08"
+    assert all(start == pd.Timestamp("2026-08-31") for start, _ in seen)
+    assert result["folds"]["baseline"][0]["test_from"][:10] == "2026-09-14"

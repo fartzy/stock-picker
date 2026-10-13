@@ -96,10 +96,13 @@ def _evaluate(test: pd.DataFrame, predicted: np.ndarray, model_type: str) -> dic
     prediction = pd.Series(predicted, index=test.index)
     actual = test[LABEL_COLUMN]
     top_five = simulate_top_k(prediction, actual, test["date"], k=5)
+    top_twenty = simulate_top_k(prediction, actual, test["date"], k=20)
     metrics = {
         "rank_ic": rank_ic(prediction, actual, test["date"]),
         "top5_mean_return": float(top_five["avg_return"]),
         "top5_hit_rate": float(top_five["hit_rate"]),
+        "top20_mean_return": float(top_twenty["avg_return"]),
+        "top20_hit_rate": float(top_twenty["hit_rate"]),
     }
     if model_type == "fit":
         metrics["mae"] = float(np.mean(np.abs(predicted - actual.to_numpy())))
