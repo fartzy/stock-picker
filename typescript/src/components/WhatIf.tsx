@@ -514,7 +514,7 @@ export default function WhatIf() {
   const [fitText, setFitText] = useState("5");
   const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
-  const [applyNewsSkips, setApplyNewsSkips] = useState(true);
+  const [applyNewsSkips, setApplyNewsSkips] = useState(false);
   const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
   const [holdNextOpen, setHoldNextOpen] = useState(false);
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");

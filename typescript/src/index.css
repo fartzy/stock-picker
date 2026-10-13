@@ -1941,9 +1941,20 @@ details.view-card[open] > summary::before {
 .overnight-price-field { display: grid; gap: var(--space-1); min-width: 0; }
 .overnight-price-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-muted); }
 .overnight-price-actions { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
-.overnight-price-head button { border: 0; background: transparent; color: var(--accent); font: inherit; font-size: var(--text-caption); cursor: pointer; padding: 0; white-space: nowrap; }
-.overnight-price-head button:hover { text-decoration: underline; }
-.overnight-price-head button:disabled { color: var(--text-muted); cursor: default; text-decoration: none; }
+.overnight-price-head button {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  color: var(--accent);
+  font: inherit;
+  font-size: var(--text-caption);
+  cursor: pointer;
+  padding: 3px var(--space-2);
+  white-space: nowrap;
+}
+.overnight-price-head button:hover:not(:disabled),
+.overnight-price-head button:focus-visible { border-color: var(--accent); background: var(--row-hover); }
+.overnight-price-head button:disabled { color: var(--text-muted); cursor: default; opacity: .6; }
 .overnight-price-field .form-input { width: 100%; }
 .overnight-quote-status { margin: 0; color: var(--text-muted); font-size: var(--text-caption); }
 .overnight-quote-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); }
