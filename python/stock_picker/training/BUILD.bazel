@@ -20,6 +20,7 @@ py_library(
         "headline_sentiment.py",
         "hour_search.py",
         "importance.py",
+        "importance_prune_search.py",
         "langfuse_local.py",
         "listwise.py",
         "live_rows.py",
@@ -83,6 +84,18 @@ py_library(
 py_binary(
     name = "feature_challenger",
     srcs = ["feature_challenger.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_binary(
+    name = "importance_prune_search",
+    srcs = ["importance_prune_search.py"],
     imports = ["../.."],
     visibility = ["//python:__subpackages__"],
     deps = [
