@@ -2,10 +2,10 @@ stockpicker RANKING top 20 for 2026-10-14
 Relative scores (not percents). Not the 0.5% gate.
 
  #  ticker         score        open
- 1  TXG           0.2536       69.52  HOLD news review not checked
- 2  IONQ          0.2348       33.15  HOLD news review not checked
- 3  NN            0.2211       10.97  HOLD news review not checked
- 4  ACHR          0.2096        4.32  HOLD news review not checked
+ 1  TXG           0.2536       69.52
+ 2  IONQ          0.2348       33.15  SKIP $1.3B all-stock Elisity acquisition and share dilution
+ 3  NN            0.2211       10.97
+ 4  ACHR          0.2096        4.32
  5  RGTI          0.1751       12.36  HOLD news review not checked
  6  ERAS          0.1747       14.41  HOLD news review not checked
  7  TRVI          0.1602       12.03  HOLD news review not checked
@@ -22,3 +22,19 @@ Relative scores (not percents). Not the 0.5% gate.
 18  UEC           0.1268        8.02  HOLD news review not checked
 19  FTNT          0.1265      186.76  HOLD news review not checked
 20  PVLA          0.1237      125.53  HOLD news review not checked
+
+stockpicker picks for 2026-10-14
+Features through 2026-10-13, model trained through 2026-10-13 -- ready for this morning's opens.
+scored 1958 · 8 cleared 0.5% · showing top 8
+
+ticker      pred%        open
+MAAS        0.90%       11.85
+FRMI        0.86%        3.56  SKIP AMD credit support deal for Project Matador lease
+PGR         0.71%      206.97  HOLD news review not checked
+AAOI        0.67%       94.96  HOLD news review not checked
+SSMR        0.64%       13.11  HOLD news review not checked
+RGC         0.60%        8.20  HOLD news review not checked
+XE          0.56%       12.24  HOLD news review not checked
+INIO        0.52%       17.83  HOLD news review not checked
+
+Skipped earnings: JPM, JNJ, UNH, BAC, MS, GS, WFC, C, BLK, FAST, STT, DPZ, CBSH, HOMB, AZZ, FBK, WAFD
