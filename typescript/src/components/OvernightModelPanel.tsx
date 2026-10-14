@@ -11,23 +11,35 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
   if (!data) return <p className="muted">Loading overnight model…</p>;
   return (
     <div className="overnight-model-panel">
-      <p><strong>{data.available ? "Saved next-open model" : "No saved next-open model"}</strong> · Separate from the Rank/Fit open-to-close models.</p>
+      <div className="overnight-model-head">
+        <div>
+          <strong>Next-open forecast</strong>
+          {data.available && (
+            <p className="overnight-model-meta">{data.feature_columns.length} inputs · Trained through {data.trained_through} · {data.evaluated_rows} evaluated rows</p>
+          )}
+        </div>
+        <span className="overnight-badge">{data.available ? "Saved model" : "Not trained"}</span>
+      </div>
       {data.available ? (
         <>
-          <p>Trained through {data.trained_through}; latest next open observed {data.label_observed_on}. The model uses {data.feature_columns.length} inputs.</p>
           <div className="overnight-model-metrics">
-            <span>Held-out model gap MAE <strong>{pct(data.model_gap_mae)}</strong></span>
-            <span>Unchanged-price MAE <strong>{pct(data.unchanged_gap_mae)}</strong></span>
-            <span>Ticker-mean MAE <strong>{pct(data.ticker_mean_gap_mae)}</strong></span>
-            <span>Evaluated rows <strong>{data.evaluated_rows}</strong></span>
+            <span><small>Model error</small><strong>{pct(data.model_gap_mae)}</strong></span>
+            <span><small>No-change baseline</small><strong>{pct(data.unchanged_gap_mae)}</strong></span>
+            <span><small>Ticker baseline</small><strong>{pct(data.ticker_mean_gap_mae)}</strong></span>
           </div>
-          {data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
-            <p className="overnight-evidence">Forecasts are available. On held-out sessions, this model had more error than assuming an unchanged open.</p>
-          )}
-          {!data.serving_inputs_pinned && <p className="overnight-evidence">The saved artifact lacks pinned morning estimators. Retrain it before requesting a forecast.</p>}
         </>
-      ) : <p className="muted">The model code and its {data.feature_columns.length} inputs are available for inspection; a forecast requires a saved model. It is never trained during a request.</p>}
-      <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
+      ) : <p className="overnight-model-meta">{data.feature_columns.length} inputs defined · Save a model to forecast</p>}
+      <div className="overnight-model-footer">
+        <div>
+          {data.available && data.model_gap_mae !== null && data.unchanged_gap_mae !== null && data.model_gap_mae >= data.unchanged_gap_mae && (
+            <p className="overnight-model-caution">Historical model error exceeded the no-change baseline.</p>
+          )}
+          {data.available && !data.serving_inputs_pinned && (
+            <p className="overnight-model-caution">Morning inputs are not pinned; retrain before forecasting.</p>
+          )}
+        </div>
+        <button className="btn-primary" type="button" onClick={onOpenOvernight}>Open overnight scenario</button>
+      </div>
     </div>
   );
 }

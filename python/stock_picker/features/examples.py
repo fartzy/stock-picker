@@ -59,6 +59,22 @@ _pattern(
     ),
 )
 _pattern(
+    r"^absolute_return_2d$",
+    lambda m: "Two completed daily moves of +2% and -4% → 0.03 mean absolute return.",
+)
+_pattern(
+    r"^volatility_5d_lag_(\d+)d$",
+    lambda m: f"Five-day volatility was 0.24 {m[1]} sessions ago → 0.24.",
+)
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"Only {m[1]} returns contribute to this {m[2]}-session volatility estimate.",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"Downside 0.30 and upside 0.20 over {m[1]} sessions → balance +0.20.",
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Daily ranges (including gaps) have averaged $2.30 on a $100 stock → atr_14 ≈ 2.30.",
 )
@@ -549,6 +565,16 @@ _pattern(
     r"^weather_nyc_cdd_yday$",
     lambda m: "Mean 22C vs 18C base → 4.0 CDD.",
 )
+
+
+_pattern(r"^market_advance_fraction$", lambda m: "60 of 100 tracked stocks rose → 0.60.")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "55 of 100 tracked stocks closed above their 20-day average → 0.55.")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock daily return standard deviation of 2% → 0.02.")
+_pattern(r"^market_up_volume_fraction$", lambda m: "Up stocks traded 70M of 100M valid shares → 0.70.")
+_pattern(r"^path_cluster_distance$", lambda m: "Nearest earlier-learned path center is 1.2 standardized units away → 1.2.")
+_pattern(r"^path_cluster_margin$", lambda m: "Nearest distance 1.2, second-nearest 1.7 → margin 0.5.")
+_pattern(r"^path_cluster_crowding$", lambda m: "100 of 500 eligible stocks share this path cluster → 0.20.")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "Other stocks in this cluster averaged +1% today → 0.01.")
 
 
 def feature_example(name: str) -> str:

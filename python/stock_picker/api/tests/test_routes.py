@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.pruning import PRICE_PATTERN_COLUMNS
 from stock_picker.features.trades import position_summaries
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
@@ -325,14 +326,14 @@ def test_get_feature_importance_returns_empty_dict_without_a_trained_model(clien
     response = client.get("/api/feature-importance")
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {"importance": {}, "by_model_type": {}}
+    assert response.json() == {"importance": {}, "by_model_type": {}, "highest_known": {}}
 
 
 def test_get_model_info_returns_empty_list_without_a_trained_model(client):
     response = client.get("/api/model-info")
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {"models": []}
+    assert response.json() == {"models": [], "rank_models": [], "rank_new_feature_count": 0}
 
 
 def test_importance_and_model_info_follow_pinned_archive_not_latest(client):
@@ -349,6 +350,7 @@ def test_importance_and_model_info_follow_pinned_archive_not_latest(client):
     pinned_importance = client.get("/api/feature-importance").json()
     assert pinned_importance["importance"] == {"return_1d": 50.0, "svc_direction_margin": 50.0}
     assert set(pinned_importance["by_model_type"]) == {"lightgbm"}
+    assert pinned_importance["highest_known"] == {"return_1d": 100.0, "svc_direction_margin": 50.0}
     assert client.get("/api/model-info").json()["models"][0]["feature_count"] == 2
 
 
@@ -356,8 +358,10 @@ def test_missing_pinned_archive_never_falls_back_to_latest(client):
     _model_store.write(MODEL_NAME, _fake_ensemble(["return_1d"]))
     _training_config_state["selected_run_id"] = "missing"
 
-    assert client.get("/api/feature-importance").json() == {"importance": {}, "by_model_type": {}}
-    assert client.get("/api/model-info").json() == {"models": []}
+    assert client.get("/api/feature-importance").json() == {
+        "importance": {}, "by_model_type": {}, "highest_known": {"return_1d": 100.0},
+    }
+    assert client.get("/api/model-info").json() == {"models": [], "rank_models": [], "rank_new_feature_count": 0}
 
 
 def test_get_model_types_describes_every_known_model_type(client):
@@ -991,6 +995,7 @@ def test_get_registry(client):
     assert body["experimental_views"] == []
     assert body["model_derived_views"][0]["status"] == "production_eligible"
     assert body["model_derived_views"][0]["features"] == list(PRODUCTION_MODEL_DERIVED_COLUMNS)
+    assert set(body["new_feature_names"]) == PRICE_PATTERN_COLUMNS
     assert "svm_derived" not in body["feature_services"][0]["feature_views"]
     assert "ttl_days" not in body["model_derived_views"][0]
 

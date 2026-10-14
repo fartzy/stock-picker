@@ -147,7 +147,6 @@ export default function App() {
 
       {tab === "models" && (
         <>
-          <section><h2>Overnight model</h2><div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div></section>
           <section>
             <h2>Training</h2>
             <div className="panel">
@@ -162,6 +161,7 @@ export default function App() {
               <RunHistory />
             </div>
           </section>
+          <section><h2>Overnight model</h2><div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div></section>
         </>
       )}
 

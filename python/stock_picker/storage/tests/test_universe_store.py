@@ -46,6 +46,7 @@ def test_active_tickers_includes_ones_dropped_from_a_later_sync(tmp_path):
     store.sync({"AAPL": "market_cap"}, as_of=date(2026, 1, 2))
 
     assert set(store.active_tickers()) == {"AAPL", "MSFT"}
+    assert store.first_seen_by_ticker() == {"AAPL": "2026-01-01", "MSFT": "2026-01-01"}
 
 
 def test_all_tickers_includes_full_history(tmp_path):

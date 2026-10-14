@@ -2020,8 +2020,24 @@ details.view-card[open] > summary::before {
 .overnight-feature-row { flex-direction: column; border-top: 1px solid var(--line); padding: var(--space-2); }
 .overnight-feature-row code { color: var(--accent); overflow-wrap: anywhere; }
 .overnight-feature-row small { color: var(--text-muted); }
-.overnight-model-metrics { flex-wrap: wrap; justify-content: flex-start; }
-.overnight-model-metrics span { background: var(--surface-raised); padding: var(--space-3); border-radius: 6px; }
+.overnight-model-panel { display: grid; gap: var(--space-4); font-family: var(--sans); }
+.overnight-model-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.overnight-model-head > div { display: grid; gap: var(--space-1); }
+.overnight-model-head strong { font-size: var(--text-heading-sm); }
+.overnight-model-head > div > span, .overnight-model-meta { color: var(--text-muted); font-size: var(--text-caption); }
+.overnight-model-meta { margin: 0; }
+.overnight-model-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.overnight-model-metrics span { display: grid; gap: var(--space-1); background: var(--surface-raised); border: 1px solid var(--line); padding: var(--space-4); border-radius: 7px; }
+.overnight-model-metrics small { color: var(--text-muted); font-size: var(--text-caption); }
+.overnight-model-metrics strong { color: var(--text); font-size: var(--text-heading-sm); font-variant-numeric: tabular-nums; }
+.overnight-model-caution { color: var(--text-muted); margin: 0; font-size: var(--text-caption); }
+.overnight-model-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.overnight-model-footer > div { display: grid; gap: var(--space-1); }
+.overnight-model-footer > .btn-primary { flex-shrink: 0; min-height: 40px; padding: var(--space-3) var(--space-4); font-size: var(--text-body); }
+@media (max-width: 700px) {
+  .overnight-model-metrics { grid-template-columns: 1fr; }
+  .overnight-model-footer { align-items: flex-start; flex-direction: column; }
+}
 .overnight-ticker-action { display: inline-flex; align-items: center; gap: var(--space-1); }
 .overnight-row-link,
 .overnight-text-link { border: 0; background: none; color: var(--accent); cursor: pointer; font: inherit; }

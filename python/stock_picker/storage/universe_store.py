@@ -79,6 +79,13 @@ class UniverseStore:
         labeled = labeled[labeled.astype(str).str.len() > 0]
         return labeled.astype(str).to_dict()
 
+    def first_seen_by_ticker(self) -> dict[str, str]:
+        """Earliest recorded membership date for each active tracked name."""
+        registry = self._load()
+        if registry.empty:
+            return {}
+        return registry.loc[registry["active"], "first_seen"].astype(str).to_dict()
+
     def write_sectors(self, sectors: dict[str, str]) -> None:
         registry = self._load()
         if "sector" not in registry.columns:

@@ -62,6 +62,22 @@ _pattern(
     ),
 )
 _pattern(
+    r"^absolute_return_2d$",
+    lambda m: "Mean absolute close-to-close return over the last two completed sessions.",
+)
+_pattern(
+    r"^volatility_5d_lag_(\d+)d$",
+    lambda m: f"Five-day realized volatility as it stood {m[1]} completed sessions ago.",
+)
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"Annualized {m[1]}-day volatility contributed by {m[2]} completed-session returns.",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"Downside minus upside semivolatility, divided by their sum, over {m[1]} sessions.",
+)
+_pattern(
     r"^atr_14$",
     lambda m: "Average True Range (14-day), typical daily price range, accounting for gaps.",
 )
@@ -617,6 +633,16 @@ _pattern(
     r"^weather_nyc_cdd_yday$",
     lambda m: "NYC calendar-yesterday cooling degree-days vs 18C. Known at the open.",
 )
+
+
+_pattern(r"^market_advance_fraction$", lambda m: "Share of tracked stocks with a positive completed-session return.")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "Share of tracked stocks closing above their 20-session average.")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "Cross-stock standard deviation of completed-session returns.")
+_pattern(r"^market_up_volume_fraction$", lambda m: "Share of tracked trading volume in stocks that closed higher.")
+_pattern(r"^path_cluster_distance$", lambda m: "Distance from this five-session return/volume path to its nearest past-trained cluster.")
+_pattern(r"^path_cluster_margin$", lambda m: "Distance to second-nearest path cluster minus distance to nearest; larger is a clearer match.")
+_pattern(r"^path_cluster_crowding$", lambda m: "Share of currently tracked stocks assigned to this path cluster.")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "Mean completed-session return of other stocks in the same past-trained path cluster.")
 
 
 def describe_feature(name: str) -> str:

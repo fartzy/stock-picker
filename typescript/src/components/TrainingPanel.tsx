@@ -44,7 +44,7 @@ function formatTimestamp(isoString: string | null): string {
 // exactly as glanceable for someone who never clicks it.
 function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | null }) {
   const [expanded, setExpanded] = useState(false);
-  if (!modelInfo || modelInfo.models.length === 0) return null;
+  if (!modelInfo || (modelInfo.models.length === 0 && !modelInfo.rank_models?.length)) return null;
 
   const totalWeight = modelInfo.models.reduce((sum, m) => sum + m.weight, 0);
   const withPct = modelInfo.models.map((m) => ({
@@ -53,6 +53,8 @@ function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | nul
   }));
 
   return (
+    <>
+    {withPct.length > 0 && (
     <div className="live-model">
       <button
         type="button"
@@ -62,7 +64,7 @@ function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | nul
       >
         {expanded ? "▾" : "▸"}
       </button>{" "}
-      <span className="meta-label">Live model</span>
+      <span className="meta-label">Live Fit</span>
       <span className="muted">
         {withPct
           .map((m) => `${m.pct.toFixed(0)}% ${MODEL_TYPE_LABELS[m.model_type] ?? m.model_type}`)
@@ -89,6 +91,17 @@ function EnsembleComposition({ modelInfo }: { modelInfo: ModelInfoResponse | nul
         </table>
       )}
     </div>
+    )}
+    {!!modelInfo.rank_models?.length && (
+      <div className="live-model">
+        <span className="meta-label">Live Rank</span>
+        <span className="muted">
+          {modelInfo.rank_models.map((model) => `${MODEL_TYPE_LABELS[model.model_type] ?? model.model_type} · ${model.feature_count} inputs`).join(" + ")}
+          {!!modelInfo.rank_new_feature_count && ` · ${modelInfo.rank_new_feature_count} new`}
+        </span>
+      </div>
+    )}
+    </>
   );
 }
 

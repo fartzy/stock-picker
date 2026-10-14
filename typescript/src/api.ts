@@ -39,6 +39,7 @@ export interface ModelDerivedFeature extends ExperimentalFeature {
 
 export interface ImportanceResponse {
   importance: Record<string, number>;
+  highest_known?: Record<string, number>;
   // Per-model-type breakdown (e.g. lightgbm/random_forest/logistic_regression),
   // each its own feature -> percent-of-total map. logistic_regression is fit
   // as a standalone diagnostic model, not an ensemble member -- it never
@@ -55,6 +56,8 @@ export interface EnsembleMemberInfo {
 
 export interface ModelInfoResponse {
   models: EnsembleMemberInfo[];
+  rank_models?: EnsembleMemberInfo[];
+  rank_new_feature_count?: number;
 }
 
 export interface ModelTypeInfo {
@@ -367,6 +370,8 @@ export interface RegistryResponse {
   // Optional while an older API process is still serving after a frontend deploy.
   experimental_views?: ExperimentalFeatureView[];
   model_derived_views?: ModelDerivedFeatureView[];
+  // Recently added persisted inputs, governed by the standard selection/pruning controls.
+  new_feature_names?: string[];
 }
 
 export interface PrunedFeatureEntry {

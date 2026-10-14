@@ -87,7 +87,7 @@ from stock_picker.features.price_history import (
     intraday_price_history,
     price_series,
 )
-from stock_picker.features.pruning import pruned_features
+from stock_picker.features.pruning import PRICE_PATTERN_COLUMNS, pruned_features
 from stock_picker.features.quotes import fetch_ticker_quotes, quote_summaries
 from stock_picker.features.registry import TICKER_ENTITY, build_registry, experimental_views, model_derived_views
 from stock_picker.features.selection import selected_features
@@ -118,11 +118,12 @@ from stock_picker.training.buy_signal import DEFAULT_THRESHOLD, compute_buy_sign
 from stock_picker.training.freshness import pipeline_freshness
 from stock_picker.training.morning import load_cached_signals
 from stock_picker.training.ensemble import ensemble_composition, selected_model_specs
-from stock_picker.training.importance import model_importance
+from stock_picker.training.importance import highest_known_importance, model_importance
 from stock_picker.training.job import JobStatus
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.model import TRAINABLE_MODEL_TYPES
 from stock_picker.training.model_registry import describe_model_types
+from stock_picker.training.rank_model import RANK_MODEL_NAME
 from stock_picker.training.overnight_model import MODEL_NAME as OVERNIGHT_MODEL_NAME
 from stock_picker.training.overnight_service import model_summary, serialize_result, serve_overnight_forecast
 from stock_picker.training.overnight_hold import observed_next_open
@@ -552,7 +553,7 @@ def get_positions() -> PositionsResponse:
 @router.get("/pruned-features")
 def get_pruned_features() -> PrunedFeaturesResponse:
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -562,7 +563,7 @@ def prune_feature(feature: str, body: PruneRequest | None = None) -> PrunedFeatu
     reason = (body.reason if body else None) or DEFAULT_REASON
     PrunedFeatureStore().prune(feature, reason=reason)
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -571,7 +572,7 @@ def prune_feature(feature: str, body: PruneRequest | None = None) -> PrunedFeatu
 def unprune_feature(feature: str) -> PrunedFeaturesResponse:
     PrunedFeatureStore().unprune(feature)
     return PrunedFeaturesResponse(
-        pruned_features=sorted(pruned_features()),
+        pruned_features=sorted(PrunedFeatureStore().read()),
         archive=PrunedFeatureStore().read_all(),
     )
 
@@ -580,10 +581,14 @@ def unprune_feature(feature: str) -> PrunedFeaturesResponse:
 def get_feature_importance() -> ImportanceResponse:
     selected_run_id = TrainingConfigStore().read().selected_run_id
     model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+    store = ModelStore()
     importance = model_importance(
-        model_name, store=ModelStore(), include_diagnostic=selected_run_id is None
+        model_name, store=store, include_diagnostic=selected_run_id is None
     )
-    return ImportanceResponse(importance=importance["blended"], by_model_type=importance["by_model_type"])
+    return ImportanceResponse(
+        importance=importance["blended"], by_model_type=importance["by_model_type"],
+        highest_known=highest_known_importance(store),
+    )
 
 
 @router.get("/model-info")
@@ -591,9 +596,13 @@ def get_model_info() -> ModelInfoResponse:
     store = ModelStore()
     selected_run_id = TrainingConfigStore().read().selected_run_id
     model_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
-    if not store.exists(model_name):
-        return ModelInfoResponse(models=[])
-    return ModelInfoResponse(models=ensemble_composition(store.read(model_name)))
+    fit = ensemble_composition(store.read(model_name)) if store.exists(model_name) else []
+    rank = store.read(RANK_MODEL_NAME) if store.exists(RANK_MODEL_NAME) else None
+    rank_features = {name for member in rank.members for name in member.feature_names} if rank else set()
+    return ModelInfoResponse(
+        models=fit, rank_models=ensemble_composition(rank) if rank else [],
+        rank_new_feature_count=len(rank_features & PRICE_PATTERN_COLUMNS),
+    )
 
 
 @router.get("/model-types")
@@ -842,4 +851,5 @@ def get_registry() -> RegistryResponse:
         feature_services=[asdict(service) for service in feature_services],
         experimental_views=[asdict(view) for view in experimental_views()],
         model_derived_views=[asdict(view) for view in model_derived_views()],
+        new_feature_names=sorted(PRICE_PATTERN_COLUMNS),
     )

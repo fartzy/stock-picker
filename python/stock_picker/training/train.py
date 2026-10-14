@@ -1,8 +1,8 @@
 """Runs walk-forward training over the pooled dataset, logging each fold to MLflow.
 
 MLflow here is purely for experiment tracking/observability (params, metrics, run
-history) -- it is not the model registry. `main.py` persists the final fold's model
-via `storage.model_store.ModelStore`, so inference never depends on an MLflow server.
+history) -- it is not the model registry. Production refits on all training
+dates after validation and persists that ensemble through ModelStore.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.storage.paths import data_root
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, iter_direction_margin_folds
 from stock_picker.training.ensemble import Ensemble, ModelSpec, evaluate_ensemble, train_ensemble
-from stock_picker.training.model import EvaluationMetrics
+from stock_picker.training.model import EvaluationMetrics, fit_stacked_svm_estimators
 from stock_picker.training.splits import walk_forward_splits
 from stock_picker.training.svm_stack import iter_stacked_svm_folds
 
@@ -30,14 +30,13 @@ DEFAULT_SPECS: list[ModelSpec] = [ModelSpec("lightgbm")]
 
 @dataclass
 class FoldResult:
-    """One walk-forward fold's outcome. Chronological order; the last entry
-    is trained on the most history, and is the one main.py persists as the
-    production model."""
+    """One validation fold; the final entry may also carry the full-data refit."""
 
     fold: int
     model: Ensemble
     metrics: EvaluationMetrics
     train_rows: int
+    final_model: Ensemble | None = None
 
 
 def _configure_mlflow(tracking_dir: Path) -> None:
@@ -66,6 +65,7 @@ def run_walk_forward(
     specs: list[ModelSpec] | None = None,
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
     stack_direction_margin: bool = False,
+    refit_on_all_data: bool = False,
 ) -> list[FoldResult]:
     """Train+evaluate an ensemble across chronological folds.
 
@@ -174,5 +174,28 @@ def run_walk_forward(
             fold_results.append(
                 FoldResult(fold=fold, model=ensemble, metrics=metrics, train_rows=len(train_frame))
             )
+
+        if refit_on_all_data:
+            if selected_outputs:
+                # The last fold already contains earlier-date OOF outputs for
+                # its training rows and for the final test block. Together
+                # they cover all eligible dates through the latest close.
+                final_frame = pd.concat([train_frame, test_frame])
+                if not final_frame.index.is_unique:
+                    raise ValueError("full-data stacked refit requires unique OOF rows")
+                final_estimators = fit_stacked_svm_estimators(
+                    pooled_dataset,
+                    excluded_features=source_exclusions | set(STACKED_SVM_COLUMNS),
+                    outputs=selected_outputs,
+                )
+            else:
+                final_frame = pooled_dataset
+                final_estimators = {}
+            final_model = train_ensemble(final_frame, training_specs)
+            final_model.stacked_svm_estimators = final_estimators or None
+            final_model.direction_svc = final_estimators.get(DIRECTION_MARGIN_COLUMN)
+            fold_results[-1].final_model = final_model
+            mlflow.log_param("final_refit_rows", len(final_frame))
+            mlflow.log_param("final_refit_through", str(final_frame["date"].max()))
 
     return fold_results

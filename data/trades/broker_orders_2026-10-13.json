@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-13",
+  "source": "User-provided broker confirmations; all 33 fills additionally reconciled one-to-one against the latest broker account history export (4).",
+  "time_zone": "America/New_York",
+  "history_csv_source": {
+    "file_name": "Accounts_History (1).csv",
+    "source_lines": [
+      4,
+      27
+    ],
+    "row_count": 24,
+    "account_identifiers_retained": false
+  },
+  "note": "One row per filled order/activity. Confirmed execution prices and timestamps take precedence over rounded CSV prices. All recorded fees are confirmed by the latest CSV, including the previously inferred $0.35 REZI sale fee. One CW timestamp is estimated with user authorization and explicitly marked; one CW average price is derived from net buy amount divided by shares. Price improvement is not an extra cash flow. Per-order broker cash rounding produces a $0.03 difference between broker and price-based CW purchase totals.",
+  "filled_order_count": 33,
+  "imported_order_count": 33,
+  "import_status": "verified_in_app",
+  "orders": [
+    {
+      "order_number": "2E60BJ2K",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 10,
+      "price": 501.65,
+      "executed_at": "2026-10-13T09:38:23-04:00",
+      "broker_net_amount": 5016.5,
+      "history_csv_line": 27,
+      "history_displayed_price": 501.65,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E603TJB",
+      "ticker": "SQM",
+      "side": "buy",
+      "shares": 80,
+      "price": 62.12,
+      "executed_at": "2026-10-13T09:39:23-04:00",
+      "broker_net_amount": 4969.6,
+      "history_csv_line": 26,
+      "history_displayed_price": 62.12,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E602JCF",
+      "ticker": "AGIO",
+      "side": "buy",
+      "shares": 80,
+      "price": 30.45,
+      "executed_at": "2026-10-13T09:42:11-04:00",
+      "broker_net_amount": 2436,
+      "history_csv_line": 25,
+      "history_displayed_price": 30.45,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60K0TG",
+      "ticker": "AGIO",
+      "side": "buy",
+      "shares": 60,
+      "price": 30.29,
+      "executed_at": "2026-10-13T09:56:04-04:00",
+      "broker_net_amount": 1817.4,
+      "history_csv_line": 24,
+      "history_displayed_price": 30.29,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60GBNF",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 499.455,
+      "executed_at": "2026-10-13T09:56:40-04:00",
+      "broker_net_amount": 2497.28,
+      "history_csv_line": 23,
+      "history_displayed_price": 499.46,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60P1SZ",
+      "ticker": "SQM",
+      "side": "sell",
+      "shares": 80,
+      "price": 62.4601,
+      "executed_at": "2026-10-13T09:57:00-04:00",
+      "broker_net_amount": 4996.7,
+      "history_csv_line": 22,
+      "history_displayed_price": 62.46,
+      "manual_fee": 0.11
+    },
+    {
+      "order_number": "2E60H0QH",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 498.985,
+      "executed_at": "2026-10-13T09:57:24-04:00",
+      "broker_net_amount": 2494.93,
+      "history_csv_line": 21,
+      "history_displayed_price": 498.99,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60K2DS",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 2,
+      "price": 498.4,
+      "executed_at": "2026-10-13T09:59:54-04:00",
+      "broker_net_amount": 996.8,
+      "history_csv_line": 20,
+      "history_displayed_price": 498.4,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60M5DJ",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 497.93,
+      "executed_at": "2026-10-13T10:06:36-04:00",
+      "broker_net_amount": 2489.65,
+      "history_csv_line": 19,
+      "history_displayed_price": 497.93,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60H763",
+      "ticker": "AGIO",
+      "side": "sell",
+      "shares": 140,
+      "price": 30.435,
+      "executed_at": "2026-10-13T10:14:09-04:00",
+      "broker_net_amount": 4260.81,
+      "history_csv_line": 18,
+      "history_displayed_price": 30.44,
+      "manual_fee": 0.09
+    },
+    {
+      "order_number": null,
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 3,
+      "price": 499.05,
+      "executed_at": "2026-10-13T10:32:10-04:00",
+      "broker_net_amount": 1497.15,
+      "note": "Ticker and action confirmed by CSV line 17; exact price and time are supplied in the pasted execution fragment. Broker order number unavailable.",
+      "history_csv_line": 17,
+      "history_displayed_price": 499.05,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60HGFC",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 498.645,
+      "executed_at": "2026-10-13T10:34:48-04:00",
+      "broker_net_amount": 2493.23,
+      "history_csv_line": 16,
+      "history_displayed_price": 498.65,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60J4F5",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 497.885,
+      "executed_at": "2026-10-13T10:35:14-04:00",
+      "broker_net_amount": 2489.43,
+      "history_csv_line": 15,
+      "history_displayed_price": 497.89,
+      "manual_fee": 0
+    },
+    {
+      "order_number": null,
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 497.576,
+      "executed_at": "2026-10-13T10:35:35-04:00",
+      "broker_net_amount": 2487.88,
+      "executed_at_estimated": true,
+      "execution_time_estimate_bounds": [
+        "2026-10-13T10:35:14-04:00",
+        "2026-10-13T10:35:57-04:00"
+      ],
+      "price_derived_from_cash": true,
+      "note": "CSV line 14 confirms the missing 5-share CW buy. Price is net buy amount divided by shares (CSV displayed price is rounded to $497.58). Time estimated between adjacent confirmed CW purchases with user authorization; not a broker execution timestamp.",
+      "history_csv_line": 14,
+      "history_displayed_price": 497.58,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60Q5TK",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 496.26,
+      "executed_at": "2026-10-13T10:35:57-04:00",
+      "broker_net_amount": 2481.3,
+      "history_csv_line": 13,
+      "history_displayed_price": 496.26,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60KHNN",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 497.135,
+      "executed_at": "2026-10-13T10:36:18-04:00",
+      "broker_net_amount": 2485.68,
+      "history_csv_line": 12,
+      "history_displayed_price": 497.14,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60D4CQ",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 496.53,
+      "executed_at": "2026-10-13T10:36:44-04:00",
+      "broker_net_amount": 2482.65,
+      "history_csv_line": 11,
+      "history_displayed_price": 496.53,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60FHD6",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 496.64,
+      "executed_at": "2026-10-13T10:38:20-04:00",
+      "broker_net_amount": 2483.2,
+      "history_csv_line": 10,
+      "history_displayed_price": 496.64,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60TH8Y",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 30,
+      "price": 494.86,
+      "executed_at": "2026-10-13T11:49:48-04:00",
+      "broker_net_amount": 14845.8,
+      "history_csv_line": 9,
+      "history_displayed_price": 494.86,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E60WHPG",
+      "ticker": "CW",
+      "side": "buy",
+      "shares": 5,
+      "price": 495.785,
+      "executed_at": "2026-10-13T11:50:07-04:00",
+      "broker_net_amount": 2478.93,
+      "history_csv_line": 8,
+      "history_displayed_price": 495.79,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E6124PL",
+      "ticker": "CW",
+      "side": "sell",
+      "shares": 25,
+      "price": 498.1,
+      "executed_at": "2026-10-13T12:25:33-04:00",
+      "broker_net_amount": 12452.24,
+      "manual_fee": 0.26,
+      "history_csv_line": 7,
+      "history_displayed_price": 498.1
+    },
+    {
+      "order_number": "2E61659W",
+      "ticker": "CW",
+      "side": "sell",
+      "shares": 50,
+      "price": 499.25,
+      "executed_at": "2026-10-13T12:30:17-04:00",
+      "broker_net_amount": 24961.98,
+      "manual_fee": 0.52,
+      "history_csv_line": 6,
+      "history_displayed_price": 499.25
+    },
+    {
+      "order_number": "2E61B7NM",
+      "ticker": "CW",
+      "side": "sell",
+      "shares": 25,
+      "price": 499.125,
+      "executed_at": "2026-10-13T12:34:37-04:00",
+      "broker_net_amount": 12477.87,
+      "manual_fee": 0.26,
+      "history_csv_line": 5,
+      "history_displayed_price": 499.13
+    },
+    {
+      "order_number": "2E618Z22",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 200,
+      "price": 16.485,
+      "executed_at": "2026-10-13T12:43:04-04:00",
+      "broker_net_amount": 3297,
+      "history_csv_line": 4,
+      "history_displayed_price": 16.49,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E613MX6",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.46,
+      "executed_at": "2026-10-13T12:49:10-04:00",
+      "broker_net_amount": 1646,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E618D26",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.44,
+      "executed_at": "2026-10-13T12:58:29-04:00",
+      "broker_net_amount": 1644,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E617RD5",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 50,
+      "price": 16.45,
+      "executed_at": "2026-10-13T13:04:07-04:00",
+      "broker_net_amount": 822.5,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61420Q",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 150,
+      "price": 16.51,
+      "executed_at": "2026-10-13T13:50:39-04:00",
+      "broker_net_amount": 2476.5,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61HHGP",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.5,
+      "executed_at": "2026-10-13T13:51:32-04:00",
+      "broker_net_amount": 1650,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61KJN4",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.495,
+      "executed_at": "2026-10-13T13:52:55-04:00",
+      "broker_net_amount": 1649.5,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61KJZK",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.4886,
+      "executed_at": "2026-10-13T13:54:12-04:00",
+      "broker_net_amount": 1648.86,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61PLGL",
+      "ticker": "REZI",
+      "side": "buy",
+      "shares": 100,
+      "price": 16.485,
+      "executed_at": "2026-10-13T13:59:32-04:00",
+      "broker_net_amount": 1648.5,
+      "manual_fee": 0
+    },
+    {
+      "order_number": "2E61G7QK",
+      "ticker": "REZI",
+      "side": "sell",
+      "shares": 1000,
+      "price": 16.54,
+      "executed_at": "2026-10-13T14:06:26-04:00",
+      "broker_net_amount": 16539.65,
+      "manual_fee": 0.35,
+      "order_type": "limit",
+      "limit_price": 16.54,
+      "ordered_at": "2026-10-13T14:03:58-04:00",
+      "fee_source": "Inferred from execution notional $16,540.00 minus broker net proceeds $16,539.65"
+    }
+  ],
+  "canceled_orders": [
+    {
+      "order_number": "2E615JHR",
+      "ticker": "CW",
+      "side": "sell",
+      "shares_ordered": 25,
+      "limit_price": 500.1,
+      "ordered_at": "2026-10-13T12:31:46-04:00",
+      "filled_shares": 0,
+      "status": "verified_canceled"
+    }
+  ],
+  "open_orders": [
+    {
+      "ticker": "FCNTX",
+      "side": "buy",
+      "dollar_amount_ordered": 5000,
+      "status": "open",
+      "filled_amount": 0,
+      "missing": [
+        "order_number"
+      ]
+    }
+  ],
+  "unmatched_activity": [],
+  "deferred_orders": [],
+  "reconciliation": {
+    "CW": {
+      "starting_shares": 0,
+      "bought_shares": 100,
+      "sold_shares": 100,
+      "remaining_shares": 0,
+      "buy_cost": 49720.41,
+      "ledger_price_based_buy_cost": 49720.38,
+      "net_sale_proceeds": 49892.09,
+      "reported_sale_fees": 1.04,
+      "broker_net_realized_pnl": 171.68
+    },
+    "SQM": {
+      "starting_shares": 0,
+      "bought_shares": 80,
+      "sold_shares": 80,
+      "remaining_shares": 0,
+      "buy_cost": 4969.6,
+      "ledger_price_based_buy_cost": 4969.6,
+      "net_sale_proceeds": 4996.7,
+      "reported_sale_fees": 0.11,
+      "broker_net_realized_pnl": 27.1
+    },
+    "AGIO": {
+      "starting_shares": 0,
+      "bought_shares": 140,
+      "sold_shares": 140,
+      "remaining_shares": 0,
+      "buy_cost": 4253.4,
+      "ledger_price_based_buy_cost": 4253.4,
+      "net_sale_proceeds": 4260.81,
+      "reported_sale_fees": 0.09,
+      "broker_net_realized_pnl": 7.41
+    },
+    "REZI": {
+      "starting_shares": 0,
+      "bought_shares": 1000,
+      "sold_shares": 1000,
+      "remaining_shares": 0,
+      "buy_cost": 16482.86,
+      "ledger_price_based_buy_cost": 16482.86,
+      "average_buy_price": 16.48286,
+      "net_sale_proceeds": 16539.65,
+      "broker_net_realized_pnl": 56.79,
+      "average_cost_method": true,
+      "reported_sale_fees": 0.35
+    }
+  },
+  "closed_position_broker_net_realized_pnl": 262.98,
+  "last_import_batch": {
+    "source": "Additional user-provided REZI confirmations",
+    "new_order_numbers": [
+      "2E613MX6",
+      "2E618D26",
+      "2E617RD5",
+      "2E61420Q",
+      "2E61HHGP",
+      "2E61KJN4",
+      "2E61KJZK",
+      "2E61PLGL",
+      "2E61G7QK"
+    ],
+    "duplicate_order_numbers_skipped": [
+      "2E618Z22"
+    ],
+    "imported_order_count": 9
+  },
+  "reported_holdings_snapshot": {
+    "as_of": "2026-10-13T12:43:04-04:00",
+    "holdings": [
+      {
+        "ticker": "REZI",
+        "shares": 200,
+        "price": 16.485,
+        "buy_cost": 3297
+      }
+    ]
+  },
+  "latest_confirmed_open_holdings": [],
+  "latest_history_csv_check": {
+    "source_label": "Broker account history export (4)",
+    "source_sha256": "6e47d556fa3b4044ab33cbc4bab43ad65979934508b7044148131babb774bb74",
+    "trade_date": "2026-10-13",
+    "source_lines": [
+      4,
+      36
+    ],
+    "matched_row_count": 33,
+    "already_logged_row_count": 33,
+    "new_trades_imported": 0,
+    "fee_mismatches": 0,
+    "app_ledger_verified": true,
+    "scope": "October 13 fills only; earlier dates in this export were not imported or modified",
+    "account_identifiers_retained": false
+  }
+}

@@ -35,6 +35,16 @@ _pattern(
     lambda m: f"close.pct_change().rolling({m[1]}).std() * sqrt(252)",
 )
 _pattern(r"^volatility_delta_(\d+)d$", lambda m: f"volatility_20d.diff({m[1]})")
+_pattern(r"^absolute_return_2d$", lambda m: "close.pct_change().abs().rolling(2).mean()")
+_pattern(r"^volatility_5d_lag_(\d+)d$", lambda m: f"volatility_5d.shift({m[1]})")
+_pattern(
+    r"^(upside|downside)_semivol_(\d+)d$",
+    lambda m: f"sqrt(mean(clip(close.pct_change(), {'lower' if m[1] == 'upside' else 'upper'}=0)^2, {m[2]}d) * 252)",
+)
+_pattern(
+    r"^semivol_balance_(\d+)d$",
+    lambda m: f"(downside_semivol_{m[1]}d - upside_semivol_{m[1]}d) / (downside_semivol_{m[1]}d + upside_semivol_{m[1]}d)",
+)
 _pattern(
     r"^atr_14$",
     lambda m: "max(high-low, |high-prior_close|, |low-prior_close|).rolling(14).mean()",
@@ -445,6 +455,16 @@ _pattern(
     r"^weather_nyc_(tmax|tmin|precip|snow|hdd|cdd)_yday$",
     lambda m: "Open-Meteo daily NYC series as of calendar T-1, aligned to the feature date T",
 )
+
+
+_pattern(r"^market_advance_fraction$", lambda m: "mean_ticker(close.pct_change() > 0), first_seen <= date")
+_pattern(r"^market_above_sma_20d_fraction$", lambda m: "mean_ticker(close > close.rolling(20).mean()), first_seen <= date")
+_pattern(r"^market_return_dispersion_1d$", lambda m: "std_ticker(close.pct_change()), first_seen <= date")
+_pattern(r"^market_up_volume_fraction$", lambda m: "sum(volume where return > 0) / sum(valid volume), first_seen <= date")
+_pattern(r"^path_cluster_distance$", lambda m: "min_k euclidean_distance(5d normalized return/volume path, prior-date center_k)")
+_pattern(r"^path_cluster_margin$", lambda m: "second-nearest path-center distance - nearest distance")
+_pattern(r"^path_cluster_crowding$", lambda m: "same-cluster tracked names / all eligible tracked names")
+_pattern(r"^path_cluster_peer_return_1d$", lambda m: "mean(other same-cluster completed close-to-close returns)")
 
 
 def describe_computation(name: str) -> str:

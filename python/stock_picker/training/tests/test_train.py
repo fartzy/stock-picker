@@ -46,6 +46,48 @@ def test_run_walk_forward_returns_one_result_per_fold(tmp_path):
         assert result.model.direction_svc is not None
 
 
+@pytest.mark.parametrize("stacked", [False, True])
+def test_production_refit_uses_latest_dates_and_pairs_full_history_svm(tmp_path, monkeypatch, stacked):
+    from stock_picker.training import train as training_module
+
+    pooled = _make_pooled_dataset(n_dates=30)
+    newest = pooled["date"].max()
+    pooled["late_feature"] = np.where(pooled["date"] >= newest - pd.Timedelta(days=5), pooled["signal"], np.nan)
+    fitted = []
+    source_fits = []
+    actual_ensemble_fit = training_module.train_ensemble
+    actual_source_fit = training_module.fit_stacked_svm_estimators
+
+    def capture_ensemble(frame, specs):
+        fitted.append(frame.copy())
+        return actual_ensemble_fit(frame, specs)
+
+    def capture_sources(frame, **kwargs):
+        source_fits.append(frame["date"].max())
+        return actual_source_fit(frame, **kwargs)
+
+    monkeypatch.setattr(training_module, "train_ensemble", capture_ensemble)
+    monkeypatch.setattr(training_module, "fit_stacked_svm_estimators", capture_sources)
+    results = run_walk_forward(
+        pooled, n_splits=3, tracking_dir=tmp_path,
+        specs=[ModelSpec("lightgbm", params={"min_data_in_leaf": 2})],
+        stack_direction_margin=stacked, refit_on_all_data=True,
+    )
+
+    assert len(results) == 3
+    assert results[-1].final_model is not None
+    assert fitted[-1]["date"].max() == newest
+    assert fitted[-1]["late_feature"].notna().sum() == pooled["late_feature"].notna().sum()
+    assert all(frame["date"].max() < newest for frame in fitted[:-1])
+    if stacked:
+        assert fitted[-1].index.is_unique
+        assert np.isfinite(fitted[-1][list(STACKED_SVM_COLUMNS)].to_numpy()).all()
+        assert source_fits == [newest]
+        assert set(results[-1].final_model.stacked_svm_estimators) == set(STACKED_SVM_COLUMNS)
+    else:
+        assert not source_fits
+
+
 def test_run_walk_forward_trains_fit_and_ridge_with_shared_positive_selection(tmp_path):
     pooled = _make_pooled_dataset()
 

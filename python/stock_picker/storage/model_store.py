@@ -31,6 +31,10 @@ class ModelStore:
     def _path_for(self, name: str) -> Path:
         return self._data_dir / f"{name}.pkl"
 
+    @property
+    def data_dir(self) -> Path:
+        return self._data_dir
+
     def write(self, name: str, model: Any) -> None:
         # Publish only after serialization completes, so a failed write cannot
         # truncate the previous archive (particularly the live "latest" one).

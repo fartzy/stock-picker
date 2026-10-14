@@ -1,0 +1,32 @@
+{
+  "saved_model": {
+    "artifact": "/Users/michael.artz/dev/stock-picker/data/models/research/rank_restore_volume_full_2026-10-12.pkl",
+    "restored": [
+      "dollar_volume",
+      "obv",
+      "obv_change_20d",
+      "volume_ratio_10d",
+      "volume_ratio_20d",
+      "volume_ratio_60d",
+      "volume_zscore_20d"
+    ]
+  },
+  "ticker_holdout": {
+    "rows": 5000,
+    "tickers": 200,
+    "baseline": {
+      "rank_ic": 0.2837371360043416,
+      "top5_mean_return": 0.009594426535928626,
+      "top5_hit_rate": 0.688,
+      "top20_mean_return": 0.0069158306779507775,
+      "top20_hit_rate": 0.628
+    },
+    "candidate": {
+      "rank_ic": 0.2837028724617877,
+      "top5_mean_return": 0.012351984054386566,
+      "top5_hit_rate": 0.736,
+      "top20_mean_return": 0.0066933860764866356,
+      "top20_hit_rate": 0.626
+    }
+  }
+}

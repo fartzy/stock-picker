@@ -5,6 +5,7 @@ from __future__ import annotations
 import pandas as pd
 
 from stock_picker.features.calendar import build_calendar_features
+from stock_picker.features.breadth import build_breadth_features
 from stock_picker.features.candle import build_candle_features
 from stock_picker.features.conditional_seasonality import (
     build_conditional_seasonality_features,
@@ -25,6 +26,7 @@ from stock_picker.features.pattern_seasonality import build_pattern_features
 from stock_picker.features.regime import build_regime_features
 from stock_picker.features.weather import build_weather_features
 from stock_picker.features.trend import build_trend_features
+from stock_picker.features.trajectory import build_trajectory_features
 from stock_picker.features.volatility import build_volatility_features
 from stock_picker.features.structure import build_structure_features, merge_structure
 from stock_picker.features.volume import build_volume_features
@@ -41,6 +43,7 @@ def build_features(
     vix_history: pd.DataFrame | None = None,
     news_articles=None,
     nyc_weather: pd.DataFrame | None = None,
+    market_breadth: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Combine every feature category for a single ticker's OHLCV history.
 
@@ -68,6 +71,7 @@ def build_features(
             sector_avg_return=sector_avg_return,
         ),
         build_regime_features(history.index, spy_history=spy_history, vix_history=vix_history),
+        market_breadth.reindex(history.index) if market_breadth is not None else pd.DataFrame(index=history.index),
         build_weather_features(history.index, nyc=nyc_weather),
         build_news_features(history, articles=news_articles),
     ]
@@ -82,6 +86,7 @@ def build_features_for_universe(
     vix_history: pd.DataFrame | None = None,
     news_articles_by_ticker: dict | None = None,
     nyc_weather: pd.DataFrame | None = None,
+    first_seen_by_ticker: dict[str, str] | None = None,
 ) -> dict[str, pd.DataFrame]:
     """Compute features for every ticker in `histories`, including the cross-sectional
     return-rank columns and pooled setup-seasonality average, both of which require
@@ -109,6 +114,10 @@ def build_features_for_universe(
     }
     pooled_seasonality_by_ticker = pooled_setup_seasonality(
         daily_returns_by_ticker, buckets_by_ticker
+    )
+    market_breadth = (
+        build_breadth_features(histories, first_seen_by_ticker)
+        if first_seen_by_ticker is not None else None
     )
 
     sector_avg_returns = None
@@ -138,7 +147,15 @@ def build_features_for_universe(
             vix_history=vix_history,
             news_articles=(news_articles_by_ticker or {}).get(ticker),
             nyc_weather=nyc_weather,
+            market_breadth=market_breadth,
         )
 
     structure = build_structure_features(histories, features_by_ticker)
-    return merge_structure(features_by_ticker, structure)
+    merged = merge_structure(features_by_ticker, structure)
+    if first_seen_by_ticker is not None:
+        trajectory = build_trajectory_features(histories, first_seen_by_ticker)
+        merged = {
+            ticker: pd.concat([features, trajectory[ticker]], axis=1)
+            for ticker, features in merged.items()
+        }
+    return merged
