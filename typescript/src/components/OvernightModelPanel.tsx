@@ -14,7 +14,6 @@ export default function OvernightModelPanel({ onOpenOvernight }: { onOpenOvernig
       <div className="overnight-model-head">
         <div>
           <strong>Next-open forecast</strong>
-          <span>Separate from Rank and Fit</span>
           {data.available && (
             <p className="overnight-model-meta">{data.feature_columns.length} inputs · Trained through {data.trained_through} · {data.evaluated_rows} evaluated rows</p>
           )}

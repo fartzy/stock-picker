@@ -6,12 +6,69 @@ decisions.
 
 from __future__ import annotations
 
+import json
+import re
+
 import numpy as np
 
+from stock_picker.log import get_logger
+from stock_picker.storage.importance_store import ImportanceStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.ensemble import Ensemble
 from stock_picker.training.main import DIAGNOSTIC_MODEL_NAME, MODEL_NAME
 from stock_picker.training.model import TrainedModel
+
+logger = get_logger(__name__)
+
+
+def importance_history_store(store: ModelStore | None = None) -> ImportanceStore:
+    models = store if store is not None else ModelStore()
+    return ImportanceStore(models.data_dir / "importance_history")
+
+
+def highest_known_importance(store: ModelStore | None = None) -> dict[str, float]:
+    """Backfill saved Fit/Rank artifacts once per file version and retain peaks."""
+    models = store if store is not None else ModelStore()
+    history = importance_history_store(models)
+    state = history.snapshot()
+    artifacts = sorted(models.data_dir.glob(f"{MODEL_NAME}*.pkl"))
+    artifacts += sorted((models.data_dir / "research").glob("rank_*.pkl"))
+    observations, signatures, issues = [], {}, {}
+    for path in artifacts:
+        if path.stem == DIAGNOSTIC_MODEL_NAME:
+            continue
+        source = str(path.relative_to(models.data_dir))
+        stat = path.stat()
+        signature = [stat.st_size, stat.st_mtime_ns]
+        if state["artifacts"].get(source) == signature:
+            continue
+        try:
+            artifact = ModelStore(data_dir=path.parent).read(path.stem)
+            observations.append((source, ensemble_importance(artifact)))
+            issues[source] = None
+        except Exception as error:
+            # Keep earlier maxima if a legacy artifact cannot be loaded. A
+            # changed file version is retried; bad archives cannot erase data.
+            issues[source] = str(error)
+            logger.warning("importance history skipped %s: %s", source, error)
+        signatures[source] = signature
+    # Older pruning decisions recorded the then-current normalized
+    # importance in their reasons. Retain those known values too.
+    for path in sorted((models.data_dir.parent / "pruned_features").glob("pruned*.json")):
+        source = f"prune archive/{path.name}"
+        stat = path.stat()
+        signature = [stat.st_size, stat.st_mtime_ns]
+        if state["artifacts"].get(source) == signature:
+            continue
+        values = {}
+        for entry in json.loads(path.read_text()):
+            match = re.search(r"importance\s*\(([0-9]+(?:\.[0-9]+)?)%\)", entry.get("reason", ""))
+            if match and float(match.group(1)) <= 100:
+                values[entry["feature"]] = float(match.group(1))
+        observations.append((source, values))
+        signatures[source] = signature
+    history.record_many(observations, artifacts=signatures, issues=issues)
+    return {name: record["value"] for name, record in history.snapshot()["peaks"].items()}
 
 
 def model_type_importance(trained: TrainedModel) -> dict[str, float]:

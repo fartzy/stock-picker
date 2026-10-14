@@ -180,6 +180,7 @@ def _stub_fold_training(monkeypatch, holdout_tickers):
     result = SimpleNamespace(
         fold=0,
         model=model,
+        final_model=model,
         metrics=EvaluationMetrics(mae=0.01, directional_accuracy=0.5, n_test_rows=1),
         train_rows=1,
     )

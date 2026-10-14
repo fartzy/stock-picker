@@ -205,20 +205,13 @@ class ModelSelectionResponse(BaseModel):
 class ImportanceResponse(BaseModel):
     importance: dict[str, float]
     by_model_type: dict[str, dict[str, float]]
+    highest_known: dict[str, float] = Field(default_factory=dict)
 
 
 class ModelInfoResponse(BaseModel):
     models: list[EnsembleMemberInfo]
-
-
-class ResearchModelInfo(BaseModel):
-    name: str
-    feature_count: int
-    new_feature_count: int
-
-
-class ResearchModelsResponse(BaseModel):
-    models: list[ResearchModelInfo]
+    rank_models: list[EnsembleMemberInfo] = Field(default_factory=list)
+    rank_new_feature_count: int = 0
 
 
 class ModelTypeInfo(BaseModel):
@@ -413,7 +406,7 @@ class RegistryResponse(BaseModel):
     feature_services: list[FeatureService]
     experimental_views: list[ExperimentalFeatureView]
     model_derived_views: list[ModelDerivedFeatureView]
-    research_candidate_features: list[str] = Field(default_factory=list)
+    new_feature_names: list[str] = Field(default_factory=list)
 
 
 class NewsCheckDetails(BaseModel):

@@ -39,6 +39,7 @@ export interface ModelDerivedFeature extends ExperimentalFeature {
 
 export interface ImportanceResponse {
   importance: Record<string, number>;
+  highest_known?: Record<string, number>;
   // Per-model-type breakdown (e.g. lightgbm/random_forest/logistic_regression),
   // each its own feature -> percent-of-total map. logistic_regression is fit
   // as a standalone diagnostic model, not an ensemble member -- it never
@@ -55,16 +56,8 @@ export interface EnsembleMemberInfo {
 
 export interface ModelInfoResponse {
   models: EnsembleMemberInfo[];
-}
-
-export interface ResearchModelInfo {
-  name: string;
-  feature_count: number;
-  new_feature_count: number;
-}
-
-export interface ResearchModelsResponse {
-  models: ResearchModelInfo[];
+  rank_models?: EnsembleMemberInfo[];
+  rank_new_feature_count?: number;
 }
 
 export interface ModelTypeInfo {
@@ -377,8 +370,8 @@ export interface RegistryResponse {
   // Optional while an older API process is still serving after a frontend deploy.
   experimental_views?: ExperimentalFeatureView[];
   model_derived_views?: ModelDerivedFeatureView[];
-  // Persisted inputs available in research models but withheld from automatic training.
-  research_candidate_features?: string[];
+  // Recently added persisted inputs, governed by the standard selection/pruning controls.
+  new_feature_names?: string[];
 }
 
 export interface PrunedFeatureEntry {
@@ -623,7 +616,6 @@ export async function forecastOvernight(request: OvernightForecastRequest): Prom
 }
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
-export const fetchResearchModels = () => getJson<ResearchModelsResponse>("/api/research-models");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
 export const fetchPositions = () => getJson<PositionsResponse>("/api/positions");
 export const fetchFees = () => getJson<FeesResponse>("/api/fees");

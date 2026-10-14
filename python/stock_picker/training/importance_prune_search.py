@@ -10,6 +10,8 @@ import argparse
 import json
 from pathlib import Path
 
+import numpy as np
+
 from stock_picker.features.pruning import RESEARCH_CANDIDATE_COLUMNS
 from stock_picker.storage.feature_exclusion_store import PrunedFeatureStore
 from stock_picker.storage.model_store import ModelStore
@@ -147,6 +149,7 @@ def main() -> None:
     parser.add_argument("--save-pruned", type=int, choices=PRUNE_COUNTS[1:])
     parser.add_argument("--save-only", action="store_true", help="skip repeated folds when saving a previously evaluated count")
     parser.add_argument("--evaluate-saved", type=int, choices=PRUNE_COUNTS[1:])
+    parser.add_argument("--audit-only", action="store_true")
     parser.add_argument("--output-model-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args()
     if args.save_only and args.save_pruned is None:
@@ -155,6 +158,16 @@ def main() -> None:
         parser.error("--evaluate-saved and --save-pruned are separate steps")
     tickers = UniverseStore().active_tickers()
     holdout = select_holdout_tickers(tickers)
+    if args.audit_only:
+        pooled = _load_pooled(tickers)
+        columns = feature_columns(pooled)
+        invalid = {name: int(np.isinf(pooled[name].to_numpy()).sum()) for name in columns}
+        print(json.dumps({
+            "rows": len(pooled), "train_through": str(pooled["date"].max()),
+            "feature_count": len(columns),
+            "infinite_values": {name: count for name, count in invalid.items() if count},
+        }, indent=2))
+        return
     train = _load_pooled([ticker for ticker in tickers if ticker not in holdout])
     report = {} if args.save_only or args.evaluate_saved is not None else compare_prunes(train, rounds=args.rounds, folds=args.folds)
     if args.save_pruned is not None:

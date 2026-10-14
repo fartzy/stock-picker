@@ -2033,7 +2033,7 @@ details.view-card[open] > summary::before {
 .overnight-model-caution { color: var(--text-muted); margin: 0; font-size: var(--text-caption); }
 .overnight-model-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
 .overnight-model-footer > div { display: grid; gap: var(--space-1); }
-.overnight-model-footer > .btn-primary { flex-shrink: 0; }
+.overnight-model-footer > .btn-primary { flex-shrink: 0; min-height: 40px; padding: var(--space-3) var(--space-4); font-size: var(--text-body); }
 @media (max-width: 700px) {
   .overnight-model-metrics { grid-template-columns: 1fr; }
   .overnight-model-footer { align-items: flex-start; flex-direction: column; }

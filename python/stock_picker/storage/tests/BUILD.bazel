@@ -49,6 +49,13 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_importance_store",
+    srcs = ["test_importance_store.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/storage"],
+)
+
+py_pytest(
     name = "test_paths",
     srcs = ["test_paths.py"],
     imports = ["../../.."],

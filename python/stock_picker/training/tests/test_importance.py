@@ -1,10 +1,13 @@
+import json
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.ensemble import Ensemble
-from stock_picker.training.importance import ensemble_importance, model_type_importance
+from stock_picker.training.importance import ensemble_importance, highest_known_importance, model_type_importance
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.model import (
     train_lightgbm,
     train_logistic_regression,
@@ -126,3 +129,25 @@ def test_ensemble_importance_handles_members_with_different_feature_subsets():
     assert set(combined) == {"signal", "noise_feature"}
     assert combined["signal"] == pytest.approx(50.0)
     assert combined["noise_feature"] == pytest.approx(50.0)
+
+
+def test_history_backfills_archives_and_retains_a_feature_after_latest_model_drops_it(tmp_path):
+    store = ModelStore(tmp_path / "models")
+    frame = _make_learnable_frame(400, seed=1)
+    signal = train_lightgbm(frame, num_boost_round=5, included_features={"signal"})
+    noise = train_lightgbm(frame, num_boost_round=5, included_features={"noise_feature"})
+    store.write("day_session_return", Ensemble(members=[signal], weights=[1.0]))
+    assert highest_known_importance(store) == {"signal": 100.0}
+
+    store.write("day_session_return", Ensemble(members=[noise], weights=[1.0]))
+    assert highest_known_importance(store) == {"signal": 100.0, "noise_feature": 100.0}
+
+
+def test_history_recovers_importance_recorded_when_feature_was_pruned(tmp_path):
+    store = ModelStore(tmp_path / "models")
+    archive = tmp_path / "pruned_features"
+    archive.mkdir()
+    (archive / "pruned.json").write_text(json.dumps([
+        {"feature": "old_feature", "reason": "negligible importance (0.32%)"},
+    ]))
+    assert highest_known_importance(store) == {"old_feature": 0.32}

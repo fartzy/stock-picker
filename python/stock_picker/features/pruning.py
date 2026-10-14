@@ -1,8 +1,7 @@
 """Read-only wiring for training/eval to see excluded feature columns.
 
 Mutations (prune/unprune) go straight through PrunedFeatureStore from
-api/routes.py. New research candidates are withheld separately until a
-walk-forward result merits promotion; they are not labeled low-quality prunes.
+api/routes.py. Every persisted feature follows the same explicit prune list.
 """
 
 from __future__ import annotations
@@ -12,7 +11,7 @@ from stock_picker.features.breadth import BREADTH_COLUMNS
 from stock_picker.features.trajectory import PATH_COLUMNS
 from stock_picker.features.volatility import SEMIVOL_WINDOWS, SHORT_VOLATILITY_LAGS
 
-RESEARCH_CANDIDATE_COLUMNS = frozenset({
+PRICE_PATTERN_COLUMNS = frozenset({
     "volatility_32d",
     "absolute_return_2d",
     *(f"volatility_5d_lag_{lag}d" for lag in SHORT_VOLATILITY_LAGS),
@@ -22,6 +21,10 @@ RESEARCH_CANDIDATE_COLUMNS = frozenset({
     *PATH_COLUMNS,
 })
 
+# Historical experiment code uses this group name for paired ablations.
+# It is metadata only and does not exclude these inputs from training.
+RESEARCH_CANDIDATE_COLUMNS = PRICE_PATTERN_COLUMNS
+
 
 def pruned_features() -> set[str]:
-    return PrunedFeatureStore().read() | RESEARCH_CANDIDATE_COLUMNS
+    return PrunedFeatureStore().read()

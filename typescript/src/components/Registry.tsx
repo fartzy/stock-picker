@@ -17,7 +17,6 @@ import {
   type ExperimentalFeature,
   type ExperimentalFeatureView,
   type FeatureSelectionResponse,
-  type FeatureView,
   type ImportanceResponse,
   type ModelDerivedFeature,
   type ModelDerivedFeatureView,
@@ -52,7 +51,7 @@ type SortDirection = "asc" | "desc";
 const SORT_MODES: { id: SortMode; label: string }[] = [
   { id: "pipeline", label: "Pipeline order" },
   { id: "coverage", label: "Coverage" },
-  { id: "importance", label: "Importance" },
+  { id: "importance", label: "Highest importance" },
 ];
 
 // Coverage/importance are attributes of a feature, not a separate view -- this
@@ -78,61 +77,17 @@ function sortFeatures(
   });
 }
 
-const MODEL_TYPE_LABELS: Record<string, string> = {
-  lightgbm: "LightGBM",
-  lightgbm_rank: "LightGBM Rank",
-  random_forest: "RF",
-  logistic_regression: "LogReg",
-};
-
-// The blended `importance` number is a weighted average across ensemble
-// members -- useful as a single sortable number, but it hides how each model
-// type actually sees a feature (e.g. logistic_regression's coefficient-based
-// view is a diagnostic-only member with zero weight in the blend, so its
-// value never shows up there at all). This tooltip surfaces the breakdown.
-function formatImportanceBreakdown(
-  feature: string,
-  byModelType: Record<string, Record<string, number>> | undefined,
-): string {
-  if (!byModelType) return "Share of the trained ensemble's blended importance";
-  const parts = Object.entries(byModelType)
-    .map(([modelType, values]) => {
-      const value = values[feature];
-      if (value === undefined) return null;
-      const label = MODEL_TYPE_LABELS[modelType] ?? modelType;
-      return `${label}: ${value.toFixed(1)}%`;
-    })
-    .filter((part): part is string => part !== null);
-  return parts.length > 0 ? parts.join(" · ") : "Share of the trained ensemble's blended importance";
+function highestImportance(importance: ImportanceResponse): Record<string, number> {
+  const result = { ...importance.highest_known };
+  for (const [name, value] of Object.entries(importance.importance)) {
+    result[name] = Math.max(result[name] ?? 0, value);
+  }
+  return result;
 }
 
-function MetaGrid({ view }: { view: FeatureView }) {
-  return (
-    <div className="view-metagrid">
-      <div className="meta-item">
-        <span className="meta-key">Source</span>
-        <span className="meta-value">{view.source}</span>
-      </div>
-      <div className="meta-item">
-        <span className="meta-key">TTL</span>
-        <span className="meta-value">{view.ttl_days}d</span>
-      </div>
-      <div className="meta-item">
-        <span className="meta-key">Owner</span>
-        <span className="meta-value">{view.owner}</span>
-      </div>
-      <div className="meta-item">
-        <span className="meta-key">Features</span>
-        <span className="meta-value">{view.features.length}</span>
-      </div>
-      {Object.entries(view.tags).map(([key, value]) => (
-        <div className="meta-item" key={key}>
-          <span className="meta-key">{key}</span>
-          <span className="meta-value">{value}</span>
-        </div>
-      ))}
-    </div>
-  );
+function importanceTitle(name: string, importance: ImportanceResponse): string {
+  const current = importance.importance[name];
+  return `Highest recorded across saved Fit/Rank models. Current Fit: ${current === undefined ? "excluded" : `${current.toFixed(1)}%`}.`;
 }
 
 function ExperimentalViewSection({
@@ -157,7 +112,7 @@ function ExperimentalViewSection({
             <details className="feature-row row-hover" key={name}>
               <summary className="feature-row-header">
                 <span className="feature-name">{name}</span>
-                <span className="muted">research only</span>
+                <span className="muted">model-derived</span>
               </summary>
               <div className="feature-desc">{feature.description}</div>
               <div className="feature-example"><span className="feature-example-label">How computed</span> {feature.computation}</div>
@@ -206,7 +161,7 @@ function ModelDerivedViewSection({
           const feature = features[name];
           if (!feature) return null;
           const isPruned = pruned.has(name);
-          const imp = importance.importance[name];
+          const imp = highestImportance(importance)[name];
           return (
             <div className="feature-row row-hover" key={name}>
               <div className="feature-row-header">
@@ -232,8 +187,8 @@ function ModelDerivedViewSection({
                 </span>
                 <span className="feature-stats">
                   <span title="Created by the companion direction model, not measured from a stored market-data column">model-derived</span>
-                  <span style={{ color: importanceColor(imp) }} title={formatImportanceBreakdown(name, importance.by_model_type)}>
-                    {imp !== undefined ? `${imp.toFixed(1)}% importance` : isPruned ? "excluded" : "not trained"}
+                  <span style={{ color: importanceColor(imp) }} title={importanceTitle(name, importance)}>
+                    {imp !== undefined ? `${imp.toFixed(1)}% peak` : isPruned ? "excluded" : "not trained"}
                   </span>
                 </span>
               </div>
@@ -357,7 +312,7 @@ export default function Registry({
   }
   const allFeatureNames = registry && catalog ? selectableFeatureNames(registry, catalog) : new Set<string>();
   const marketFeatureNames = new Set((registry?.feature_views ?? []).flatMap((view) => view.features));
-  const researchCandidates = new Set(registry?.research_candidate_features ?? []);
+  const newFeatures = new Set(registry?.new_feature_names ?? []);
 
   // Once the poll confirms the override matches the server, drop it and
   // trust the poll again -- otherwise a prune made elsewhere (e.g. the
@@ -384,6 +339,7 @@ export default function Registry({
     return <p className="muted">Loading registry...</p>;
 
   const coverageByFeature = coverage?.coverage ?? {};
+  const importanceByFeature = highestImportance(importance);
 
   // Clicking the already-active mode flips direction (like a sortable table
   // header); clicking a different mode switches to it at a sensible default
@@ -481,7 +437,7 @@ export default function Registry({
 
   const selectedCount = included?.size ?? allFeatureNames.size;
   const eligibleCount = [...(included ?? allFeatureNames)].filter(
-    (feature) => !pruned.has(feature) && !researchCandidates.has(feature),
+    (feature) => !pruned.has(feature),
   ).length;
 
   return (
@@ -522,31 +478,15 @@ export default function Registry({
           </button>
         )}
       </div>
-      {researchCandidates.size > 0 && (
-        <details className="view-card registry-category">
-          <summary>
-            <strong style={{ color: "var(--accent)" }}>New price-pattern inputs</strong>
-            <span className="muted">{researchCandidates.size} stored · research models only</span>
-          </summary>
-          <div className="view-features">
-            <p className="muted">These are in the feature data and the categories below, but are not in the live model or automatic retraining yet.</p>
-            {[...researchCandidates].sort().map((name) => (
-              <div className="feature-row row-hover" key={name}>
-                <span className="feature-name">{name}</span>
-                <span className="muted"> · {registry.feature_views.find((view) => view.features.includes(name))?.name ?? "feature"}</span>
-              </div>
-            ))}
-          </div>
-        </details>
-      )}
       {mutationError && <p className="error" role="alert">{mutationError}</p>}
       {registry.feature_views.map((view) => {
         // A signal before expanding anything -- with ~10 categories and ~97
         // rows total, "what needs attention" shouldn't require opening every
         // one to find out.
         const viewPrunedCount = view.features.filter((f) => pruned.has(f)).length;
+        const viewNewCount = view.features.filter((f) => newFeatures.has(f)).length;
         const viewNegligibleCount = view.features.filter((f) => {
-          const imp = importance.importance[f];
+          const imp = importanceByFeature[f];
           return !pruned.has(f) && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
         }).length;
         return (
@@ -557,6 +497,9 @@ export default function Registry({
             if (el) detailsRefs.current.set(view.name, el);
           }}
           summaryExtra={<>
+            {viewNewCount > 0 && (
+              <span className="category-tally category-tally-negligible">{viewNewCount} new</span>
+            )}
             {viewPrunedCount > 0 && (
               <span className="category-tally category-tally-pruned">{viewPrunedCount} pruned</span>
             )}
@@ -565,14 +508,14 @@ export default function Registry({
                 {viewNegligibleCount} negligible
               </span>
             )}
-            <MetaGrid view={view} />
+            <span className="muted">{view.features.length} inputs</span>
           </>}
         >
-            {sortFeatures(view.features, sortMode, sortDirection, coverageByFeature, importance.importance).map((feature) => {
+            {sortFeatures(view.features, sortMode, sortDirection, coverageByFeature, importanceByFeature).map((feature) => {
               const pct = coverageByFeature[feature];
-              const imp = importance.importance[feature];
+              const imp = importanceByFeature[feature];
               const isPruned = pruned.has(feature);
-              const isResearch = researchCandidates.has(feature);
+              const isNew = newFeatures.has(feature);
               const isNegligible =
                 !isPruned && imp !== undefined && imp < NEGLIGIBLE_IMPORTANCE_PCT_THRESHOLD;
               const correlation = !isPruned ? bestCorrelationByFeature[feature] : undefined;
@@ -593,9 +536,9 @@ export default function Registry({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        disabled={selectionPending || isResearch}
+                        disabled={selectionPending}
                         onChange={() => void toggleSelected(feature)}
-                        title={isResearch ? "Research-only until a model is promoted" : "Include this feature in the next training run"}
+                        title="Include this feature in the next training run"
                         aria-label={`Include ${feature} in the next training run`}
                       />
                       <span style={{ color: coverageColor(pct) }} aria-hidden="true">&#9679;</span>
@@ -611,8 +554,8 @@ export default function Registry({
                           pruned
                         </button>
                       )}
-                      {isResearch && !isPruned && (
-                        <span className="feature-badge">research only</span>
+                      {isNew && !isPruned && (
+                        <span className="feature-badge">new</span>
                       )}
                       {isNegligible && (
                         <button
@@ -656,18 +599,16 @@ export default function Registry({
                       </span>
                       <span
                         style={{ color: importanceColor(imp) }}
-                        title={formatImportanceBreakdown(feature, importance.by_model_type)}
+                        title={importanceTitle(feature, importance)}
                       >
                         {imp !== undefined
-                          ? `${imp.toFixed(1)}% importance`
+                          ? `${imp.toFixed(1)}% peak`
                           : isPruned
                             ? "excluded"
-                            : isResearch
-                              ? "research only"
-                              : "not trained"}
+                            : "not trained"}
                       </span>
                       {imp !== undefined && (
-                        <span className="importance-bar" title={`${imp.toFixed(1)}% importance`}>
+                        <span className="importance-bar" title={`${imp.toFixed(1)}% highest recorded importance`}>
                           <span
                             className="importance-bar-fill"
                             style={{

@@ -29,6 +29,23 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_restored_feature_search",
+    srcs = ["test_restored_feature_search.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training"],
+)
+
+py_pytest(
+    name = "test_rank_activation",
+    srcs = ["test_rank_activation.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+        "//python/stock_picker/training",
+    ],
+)
+
+py_pytest(
     name = "test_feature_family_search",
     srcs = ["test_feature_family_search.py"],
     imports = ["../../.."],

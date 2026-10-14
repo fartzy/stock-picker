@@ -51,6 +51,7 @@ py_library(
         "rank_model.py",
         "recent_picks_demo.py",
         "replay.py",
+        "restored_feature_search.py",
         "splits.py",
         "story_prune.py",
         "svr_search.py",
@@ -100,6 +101,20 @@ py_binary(
     visibility = ["//python:__subpackages__"],
     deps = [
         ":training",
+        "//python/stock_picker/features",
+        "//python/stock_picker/storage",
+        "@pypi//numpy",
+    ],
+)
+
+py_binary(
+    name = "restored_feature_search",
+    srcs = ["restored_feature_search.py"],
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker:log",
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
     ],

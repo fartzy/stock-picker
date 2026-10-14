@@ -1,17 +1,16 @@
 from stock_picker.features import pruning
 
 
-def test_research_candidates_are_withheld_from_automatic_training(monkeypatch):
+def test_price_pattern_inputs_follow_the_same_explicit_prunes(monkeypatch):
     class FakeStore:
         def read(self):
-            return {"previous_quality_prune"}
+            return {"previous_quality_prune", "volatility_32d"}
 
     monkeypatch.setattr(pruning, "PrunedFeatureStore", FakeStore)
 
     excluded = pruning.pruned_features()
 
-    assert "previous_quality_prune" in excluded
-    assert "volatility_32d" in excluded
-    assert "market_advance_fraction" in excluded
-    assert "path_cluster_distance" in excluded
-    assert len(pruning.RESEARCH_CANDIDATE_COLUMNS) == 19
+    assert excluded == {"previous_quality_prune", "volatility_32d"}
+    assert "market_advance_fraction" not in excluded
+    assert "path_cluster_distance" not in excluded
+    assert len(pruning.PRICE_PATTERN_COLUMNS) == 19

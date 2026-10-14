@@ -9,7 +9,6 @@ import OvernightFeaturePanel from "./components/OvernightFeaturePanel";
 import PriceHistory from "./components/PriceHistory";
 import Registry from "./components/Registry";
 import RunHistory from "./components/RunHistory";
-import ResearchModels from "./components/ResearchModels";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 import WhatIf from "./components/WhatIf";
@@ -148,7 +147,6 @@ export default function App() {
 
       {tab === "models" && (
         <>
-          <section><h2>Overnight model</h2><div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div></section>
           <section>
             <h2>Training</h2>
             <div className="panel">
@@ -158,16 +156,12 @@ export default function App() {
           </section>
 
           <section>
-            <h2>Research models</h2>
-            <div className="panel"><ResearchModels /></div>
-          </section>
-
-          <section>
             <h2>Training History</h2>
             <div className="panel">
               <RunHistory />
             </div>
           </section>
+          <section><h2>Overnight model</h2><div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div></section>
         </>
       )}
 

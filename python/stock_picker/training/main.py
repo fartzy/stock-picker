@@ -201,12 +201,15 @@ def run_training(
     # Fit enables the derived features; raw-feature research
     # winners explicitly opt out so materialization matches their search.
     fold_results = run_walk_forward(
-        train_dataset, specs=specs, stack_direction_margin=stack_direction_margin
+        train_dataset, specs=specs, stack_direction_margin=stack_direction_margin,
+        refit_on_all_data=True,
     )
     for result in fold_results:
         logger.info("fold %s: %s", result.fold, result.metrics)
 
-    final_ensemble = fold_results[-1].model
+    final_ensemble = fold_results[-1].final_model
+    if final_ensemble is None:
+        raise RuntimeError("production training requires a full-data final refit")
 
     # Fit alone sees the model-derived margin, while all other members see
     # raw features only. Include the saved SVC's raw inputs too, so the run
