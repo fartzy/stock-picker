@@ -1,8 +1,8 @@
 {
   "artifacts": {
     "day_session_return.pkl": [
-      317970,
-      1791858104801871020
+      338013,
+      1792107043225870013
     ],
     "day_session_return_07adf9b3c03b4ed385968ff1e4490565.pkl": [
       313878,
@@ -27,6 +27,10 @@
     "day_session_return_17cce1e27c2649b39affb076379df71a.pkl": [
       305158,
       1791240274108005388
+    ],
+    "day_session_return_21b88a7ac8c74452b18b2df6a3915ae9.pkl": [
+      338013,
+      1792107043224341218
     ],
     "day_session_return_2bfc7bdf300649d180f77ed88b421c28.pkl": [
       252571,
@@ -64,6 +68,10 @@
       283247,
       1790416247561945828
     ],
+    "day_session_return_62ee14a4877e47828d31d69dbc235235.pkl": [
+      321059,
+      1791879839593719921
+    ],
     "day_session_return_6d5718cec9274545938f89a0f6c8c2dc.pkl": [
       317970,
       1791858104802680706
@@ -83,6 +91,10 @@
     "day_session_return_7d7ca8c07fd54f5eadffda0a7ca7cc68.pkl": [
       274809,
       1790443337097280239
+    ],
+    "day_session_return_7dd59c51dfe04686806dcc58eb283cfc.pkl": [
+      339805,
+      1791935972408272625
     ],
     "day_session_return_87a4f540609b4e268308f93ae557977c.pkl": [
       288961,
@@ -107,6 +119,10 @@
     "day_session_return_a0a120dce1604883b3525ced5d024f13.pkl": [
       265158,
       1789156795526371274
+    ],
+    "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl": [
+      338636,
+      1792020974568879419
     ],
     "day_session_return_c670d61af5ec4675b5cf3ff5370142ff.pkl": [
       262447,
@@ -145,8 +161,16 @@
       1789156795527935449
     ],
     "day_session_return_rank.pkl": [
-      375504,
-      1791876734816025378
+      376637,
+      1792107043213545899
+    ],
+    "prune archive/pruned.json": [
+      14430,
+      1791878066139705531
+    ],
+    "prune archive/pruned_before_volume_restore_2026-10-13.json": [
+      15415,
+      1791878060580958760
     ],
     "research/rank_all_2026-10-12.pkl": [
       359933,
@@ -163,6 +187,10 @@
     "research/rank_gain_prune_5_full_2026-10-12.pkl": [
       376115,
       1791873491097263041
+    ],
+    "research/rank_restore_volume_full_2026-10-12.pkl": [
+      375582,
+      1791877794081590301
     ]
   },
   "issues": {
@@ -173,6 +201,7 @@
     "day_session_return_14b7ec2393dd45cda3b2eddc802b6848.pkl": null,
     "day_session_return_14df69254ee24f789013d0adb2f5f100.pkl": null,
     "day_session_return_17cce1e27c2649b39affb076379df71a.pkl": null,
+    "day_session_return_21b88a7ac8c74452b18b2df6a3915ae9.pkl": null,
     "day_session_return_2bfc7bdf300649d180f77ed88b421c28.pkl": null,
     "day_session_return_329f0ad27f92402b843dc7aaafb54310.pkl": null,
     "day_session_return_42de1f73775048dcb092ea0633765451.pkl": null,
@@ -182,17 +211,20 @@
     "day_session_return_53de4c1d8ddd4fd69d884fb8eec1f8fc.pkl": null,
     "day_session_return_5fae8e2ec26648439ba0265e3dab32d0.pkl": null,
     "day_session_return_620720d3584c40f2872b80f0f11c0a69.pkl": null,
+    "day_session_return_62ee14a4877e47828d31d69dbc235235.pkl": null,
     "day_session_return_6d5718cec9274545938f89a0f6c8c2dc.pkl": null,
     "day_session_return_6e17d83dca3546608adc7a455777388d.pkl": null,
     "day_session_return_6fcc0009a64e490cb66c2f88698be418.pkl": null,
     "day_session_return_6fddd1f3be994fb5aa39d9ed4e981163.pkl": null,
     "day_session_return_7d7ca8c07fd54f5eadffda0a7ca7cc68.pkl": null,
+    "day_session_return_7dd59c51dfe04686806dcc58eb283cfc.pkl": null,
     "day_session_return_87a4f540609b4e268308f93ae557977c.pkl": null,
     "day_session_return_8ce5cbe4e6b743bc95e798c4b8fc245e.pkl": null,
     "day_session_return_95201f4c2d1f4bbd8e44520fd436be49.pkl": null,
     "day_session_return_9969bd70e9174e8194b1cd11b5f27928.pkl": null,
     "day_session_return_9b960dc80e2f4cf188ded5af361ccb71.pkl": null,
     "day_session_return_a0a120dce1604883b3525ced5d024f13.pkl": null,
+    "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl": null,
     "day_session_return_c670d61af5ec4675b5cf3ff5370142ff.pkl": null,
     "day_session_return_c89d545217b54966b53048884c70f97b.pkl": null,
     "day_session_return_cc52de227e2940ce8cc68ea9c2806401.pkl": null,
@@ -206,7 +238,8 @@
     "research/rank_all_2026-10-12.pkl": null,
     "research/rank_all_full_2026-10-12.pkl": null,
     "research/rank_breadth_price_2026-10-12.pkl": null,
-    "research/rank_gain_prune_5_full_2026-10-12.pkl": null
+    "research/rank_gain_prune_5_full_2026-10-12.pkl": null,
+    "research/rank_restore_volume_full_2026-10-12.pkl": null
   },
   "peaks": {
     "absolute_return_2d": {
@@ -286,16 +319,16 @@
       "value": 1.498768069462787
     },
     "day_session_streak": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.0174841836821427
+      "source": "prune archive/pruned.json",
+      "value": 0.13
     },
     "day_session_streak_seasonality": {
       "source": "restore_all through 2026-10-02",
       "value": 0.26557710056511963
     },
     "dollar_volume": {
-      "source": "restore_volume through 2026-09-16",
-      "value": 0.49596672291758104
+      "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
+      "value": 1.7100881560296826
     },
     "downside_semivol_4d": {
       "source": "restore_candle through 2026-10-02",
@@ -322,8 +355,8 @@
       "value": 0.4372331461337643
     },
     "gap_streak": {
-      "source": "restore_candle through 2026-09-16",
-      "value": 0.1685811156068606
+      "source": "prune archive/pruned.json",
+      "value": 0.48
     },
     "gap_trap_open_seasonality": {
       "source": "day_session_return_grid_shallow.pkl",
@@ -346,8 +379,8 @@
       "value": 0.52513823785473
     },
     "kurtosis_20d": {
-      "source": "restore_all through 2026-09-16",
-      "value": 0.067680633359813
+      "source": "prune archive/pruned.json",
+      "value": 0.08
     },
     "kurtosis_60d": {
       "source": "restore_all through 2026-09-16",
@@ -362,8 +395,8 @@
       "value": 0.015261650696388884
     },
     "log_return_120d": {
-      "source": "restore_all through 2026-09-16",
-      "value": 0.0568614413773896
+      "source": "prune archive/pruned.json",
+      "value": 0.12
     },
     "log_return_1d": {
       "source": "restore_all through 2026-09-24",
@@ -390,8 +423,8 @@
       "value": 0.06260313567168811
     },
     "log_return_60d": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.03672465403288583
+      "source": "prune archive/pruned.json",
+      "value": 0.09
     },
     "lower_wick_pct": {
       "source": "day_session_return_lgbm_ridge_search.pkl",
@@ -406,8 +439,8 @@
       "value": 2.169172551333167
     },
     "macd_signal": {
-      "source": "restore_trend through 2026-09-24",
-      "value": 0.15918150474005363
+      "source": "prune archive/pruned.json",
+      "value": 0.27
     },
     "market_above_sma_20d_fraction": {
       "source": "research/rank_breadth_price_2026-10-12.pkl",
@@ -502,12 +535,12 @@
       "value": 0.24749497325219416
     },
     "obv": {
-      "source": "restore_volume through 2026-09-24",
-      "value": 0.19814501346985913
+      "source": "day_session_return.pkl",
+      "value": 1.5337359677276503
     },
     "obv_change_20d": {
-      "source": "rank_restore_volume_full_2026-10-12",
-      "value": 0.3369344234263321
+      "source": "day_session_return_rank.pkl",
+      "value": 0.425999450438646
     },
     "open_in_yday_range_seasonality": {
       "source": "day_session_return_0ca7b3fb02154fd4bf4ee931239df940.pkl",
@@ -518,8 +551,8 @@
       "value": 12.519414608199758
     },
     "parkinson_vol_10d": {
-      "source": "restore_volatility through 2026-09-24",
-      "value": 0.3959815259994567
+      "source": "prune archive/pruned.json",
+      "value": 0.4
     },
     "parkinson_vol_20d": {
       "source": "day_session_return_14b7ec2393dd45cda3b2eddc802b6848.pkl",
@@ -550,8 +583,8 @@
       "value": 4.501053690830839
     },
     "pca_1": {
-      "source": "restore_candle through 2026-09-16",
-      "value": 4.444128550273631
+      "source": "day_session_return_rank.pkl",
+      "value": 5.1044214458501065
     },
     "pca_2": {
       "source": "research/rank_breadth_price_2026-10-12.pkl",
@@ -578,16 +611,16 @@
       "value": 0.22437724374022128
     },
     "price_vs_ema_12d": {
-      "source": "restore_trend through 2026-09-16",
-      "value": 0.34279125361198626
+      "source": "prune archive/pruned.json",
+      "value": 0.44
     },
     "price_vs_ema_26d": {
       "source": "restore_trend through 2026-09-16",
       "value": 1.7321914587153004
     },
     "price_vs_ema_50d": {
-      "source": "restore_trend through 2026-09-24",
-      "value": 0.27916931752366814
+      "source": "prune archive/pruned.json",
+      "value": 0.49
     },
     "price_vs_sma_100d": {
       "source": "day_session_return_620720d3584c40f2872b80f0f11c0a69.pkl",
@@ -610,12 +643,12 @@
       "value": 0.41360317702250027
     },
     "relative_strength": {
-      "source": "day_session_return_d9e924cf0f374f67b55bf0b055a07d97.pkl",
-      "value": 3.120758144553053
+      "source": "day_session_return.pkl",
+      "value": 3.581213667806123
     },
     "return_10d": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.03849069737778709
+      "source": "prune archive/pruned.json",
+      "value": 0.21
     },
     "return_120d": {
       "source": "restore_all through 2026-09-24",
@@ -638,24 +671,24 @@
       "value": 0.17656913730489507
     },
     "return_4d": {
-      "source": "restore_all through 2026-10-02",
-      "value": 0.0898667137282574
+      "source": "prune archive/pruned.json",
+      "value": 0.23
     },
     "return_5d": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.1887988047370054
+      "source": "prune archive/pruned.json",
+      "value": 0.28
     },
     "return_60d": {
       "source": "restore_all through 2026-09-24",
       "value": 0.30778881568518707
     },
     "return_autocorr_20d": {
-      "source": "restore_all through 2026-10-02",
-      "value": 0.02032656735014009
+      "source": "prune archive/pruned.json",
+      "value": 0.18
     },
     "return_autocorr_60d": {
-      "source": "restore_all through 2026-09-16",
-      "value": 0.05818698744840021
+      "source": "prune archive/pruned.json",
+      "value": 0.18
     },
     "return_rank_20d": {
       "source": "restore_top5 through 2026-09-16",
@@ -670,8 +703,8 @@
       "value": 2.1076315888405426
     },
     "rsi_2": {
-      "source": "restore_oscillators through 2026-09-24",
-      "value": 0.14991423755873523
+      "source": "prune archive/pruned.json",
+      "value": 0.32
     },
     "rsi_28": {
       "source": "day_session_return_0ca7b3fb02154fd4bf4ee931239df940.pkl",
@@ -706,8 +739,8 @@
       "value": 0.5580912872841601
     },
     "seq3_volpath_open3_seasonality": {
-      "source": "day_session_return_14b7ec2393dd45cda3b2eddc802b6848.pkl",
-      "value": 0.8712468218258957
+      "source": "day_session_return_62ee14a4877e47828d31d69dbc235235.pkl",
+      "value": 1.279754866888199
     },
     "seq4_open3_seasonality": {
       "source": "day_session_return_329f0ad27f92402b843dc7aaafb54310.pkl",
@@ -722,16 +755,16 @@
       "value": 0.8359845122831819
     },
     "sharpe_60d": {
-      "source": "restore_all through 2026-10-02",
-      "value": 0.10502924804725125
+      "source": "prune archive/pruned.json",
+      "value": 0.13
     },
     "skew_20d": {
       "source": "restore_all through 2026-09-16",
       "value": 0.10038500754053496
     },
     "skew_60d": {
-      "source": "restore_all through 2026-09-16",
-      "value": 0.0892524968433051
+      "source": "prune archive/pruned.json",
+      "value": 0.17
     },
     "spy_overnight_gap": {
       "source": "day_session_return_620720d3584c40f2872b80f0f11c0a69.pkl",
@@ -742,16 +775,16 @@
       "value": 0.2805114248973315
     },
     "stochastic_d_5d": {
-      "source": "restore_oscillators through 2026-09-16",
-      "value": 0.12018247352462655
+      "source": "prune archive/pruned.json",
+      "value": 0.23
     },
     "stochastic_k_14d": {
       "source": "restore_oscillators through 2026-09-24",
       "value": 0.12472951093509836
     },
     "stochastic_k_5d": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.07891135349792765
+      "source": "prune archive/pruned.json",
+      "value": 0.24
     },
     "story_chase_loc3_seasonality": {
       "source": "day_session_return_53de4c1d8ddd4fd69d884fb8eec1f8fc.pkl",
@@ -894,8 +927,8 @@
       "value": 6.032245980123522
     },
     "story_weak_close_open3_seasonality": {
-      "source": "day_session_return_da1e21d1d2364d3d9537d56d5536b51e.pkl",
-      "value": 0.31930317105154316
+      "source": "day_session_return.pkl",
+      "value": 0.45781972413243077
     },
     "story_week_run_loc3_seasonality": {
       "source": "day_session_return_53de4c1d8ddd4fd69d884fb8eec1f8fc.pkl",
@@ -946,16 +979,16 @@
       "value": 5.884122334324084
     },
     "svc_down_gate_margin": {
-      "source": "day_session_return_07adf9b3c03b4ed385968ff1e4490565.pkl",
-      "value": 2.281193714447699
+      "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
+      "value": 4.092841272908595
     },
     "svc_gate_margin": {
       "source": "day_session_return_17cce1e27c2649b39affb076379df71a.pkl",
       "value": 2.2874151057360153
     },
     "svc_strong_up_margin": {
-      "source": "day_session_return_c89d545217b54966b53048884c70f97b.pkl",
-      "value": 0.9254059409758479
+      "source": "day_session_return.pkl",
+      "value": 2.007134977654795
     },
     "svc_top_quintile_margin": {
       "source": "day_session_return_c89d545217b54966b53048884c70f97b.pkl",
@@ -1006,8 +1039,8 @@
       "value": 17.69264305716577
     },
     "vol_path_open3_seasonality": {
-      "source": "day_session_return_0ca7b3fb02154fd4bf4ee931239df940.pkl",
-      "value": 0.5601132589253279
+      "source": "day_session_return.pkl",
+      "value": 1.6136587626753605
     },
     "vol_path_open5_seasonality": {
       "source": "research/rank_breadth_price_2026-10-12.pkl",
@@ -1018,8 +1051,8 @@
       "value": 5.606927528470086
     },
     "volatility_10d": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.23222054276486126
+      "source": "prune archive/pruned.json",
+      "value": 0.37
     },
     "volatility_120d": {
       "source": "day_session_return_2bfc7bdf300649d180f77ed88b421c28.pkl",
@@ -1030,8 +1063,8 @@
       "value": 0.6635768108483996
     },
     "volatility_32d": {
-      "source": "restore_candle through 2026-09-16",
-      "value": 0.783940809165648
+      "source": "day_session_return_62ee14a4877e47828d31d69dbc235235.pkl",
+      "value": 1.0427992678956852
     },
     "volatility_5d": {
       "source": "day_session_return_6e17d83dca3546608adc7a455777388d.pkl",
@@ -1046,8 +1079,8 @@
       "value": 0.31908324246017666
     },
     "volatility_5d_lag_32d": {
-      "source": "research/rank_all_full_2026-10-12.pkl",
-      "value": 0.5880853815838112
+      "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
+      "value": 1.2659256882292262
     },
     "volatility_60d": {
       "source": "day_session_return_6e17d83dca3546608adc7a455777388d.pkl",
@@ -1066,24 +1099,24 @@
       "value": 3.3932269923615666
     },
     "volatility_delta_5d": {
-      "source": "day_session_return_grid_shallow.pkl",
-      "value": 1.7631624058198667
+      "source": "day_session_return.pkl",
+      "value": 2.141366918206398
     },
     "volume_ratio_10d": {
-      "source": "restore_volume through 2026-09-16",
-      "value": 0.051119815058425444
+      "source": "day_session_return.pkl",
+      "value": 0.7434771236071944
     },
     "volume_ratio_20d": {
-      "source": "restore_volume through 2026-09-16",
-      "value": 0.11720496086459521
+      "source": "day_session_return.pkl",
+      "value": 1.012915756959172
     },
     "volume_ratio_60d": {
-      "source": "restore_volume through 2026-09-16",
-      "value": 0.2471845868791691
+      "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
+      "value": 1.9840570059003266
     },
     "volume_zscore_20d": {
-      "source": "rank_restore_volume_full_2026-10-12",
-      "value": 0.0891496853349399
+      "source": "day_session_return_rank.pkl",
+      "value": 0.20147676280585725
     },
     "weather_nyc_cdd_yday": {
       "source": "day_session_return_17cce1e27c2649b39affb076379df71a.pkl",
@@ -1098,8 +1131,8 @@
       "value": 12.727849735693535
     },
     "weather_nyc_snow_yday": {
-      "source": "day_session_return_6fcc0009a64e490cb66c2f88698be418.pkl",
-      "value": 2.7358899509737595
+      "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
+      "value": 2.8172457490043845
     },
     "weather_nyc_tmax_yday": {
       "source": "day_session_return_5fae8e2ec26648439ba0265e3dab32d0.pkl",
@@ -1118,16 +1151,16 @@
       "value": 2.0723930392701573
     },
     "weekday_lag_seasonality": {
-      "source": "restore_all through 2026-10-02",
-      "value": 0.1347655172997161
+      "source": "prune archive/pruned.json",
+      "value": 0.27
     },
     "wildest_3d_open3_seasonality": {
       "source": "day_session_return_329f0ad27f92402b843dc7aaafb54310.pkl",
       "value": 0.6535693276950924
     },
     "williams_r": {
-      "source": "restore_all through 2026-09-24",
-      "value": 0.04687946393353163
+      "source": "prune archive/pruned.json",
+      "value": 0.06
     },
     "yday_range_open3_seasonality": {
       "source": "day_session_return_2bfc7bdf300649d180f77ed88b421c28.pkl",
