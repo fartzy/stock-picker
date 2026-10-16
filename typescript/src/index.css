@@ -1137,6 +1137,18 @@ details.view-card[open] > summary::before {
   white-space: nowrap;
 }
 
+.trade-time-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.premarket-sun {
+  color: #e0a106;
+  font-size: 0.95em;
+  line-height: 1;
+}
+
 .trade-ticker {
   font-weight: 600;
 }

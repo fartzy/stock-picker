@@ -98,6 +98,34 @@ function formatStamp(executedAt: string, relativeToDay?: string): string {
   return `${when} ${time}`;
 }
 
+function minutesIntoDay(executedAt: string): number {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TRADE_TIMEZONE,
+    hour: "numeric",
+    minute: "numeric",
+    hourCycle: "h23",
+  }).formatToParts(new Date(executedAt));
+  const hour = Number(parts.find((part) => part.type === "hour")?.value);
+  const minute = Number(parts.find((part) => part.type === "minute")?.value);
+  return hour * 60 + minute;
+}
+
+function isPremarket(executedAt: string): boolean {
+  return minutesIntoDay(executedAt) < 9 * 60 + 30;
+}
+
+function TradeTime({ executedAt, relativeToDay }: { executedAt: string; relativeToDay?: string }) {
+  const premarket = isPremarket(executedAt);
+  return (
+    <span className="trade-time-stamp">
+      {premarket ? (
+        <span className="premarket-sun" title="Premarket fill, before 9:30 AM ET" aria-label="Premarket">☀</span>
+      ) : null}
+      {formatStamp(executedAt, relativeToDay)}
+    </span>
+  );
+}
+
 interface PositionsSummary {
   invested: number;
   pnl: number;
@@ -191,7 +219,7 @@ function OpenRow({ position, onOpenOvernight }: { position: Position; onOpenOver
     <tr>
       <td className="trade-ticker"><span className="overnight-ticker-action">{position.ticker}<button type="button" className="overnight-row-link" title={`Open ${position.ticker} overnight quick look`} aria-label={`Open ${position.ticker} overnight quick look`} onClick={() => onOpenOvernight(position.ticker)}>↗</button></span></td>
       <td className="trade-num">{position.shares}</td>
-      <td className="trade-time">{position.buy_time ? `${formatTime(position.buy_time)} ET` : "--"}</td>
+      <td className="trade-time">{position.buy_time ? <TradeTime executedAt={position.buy_time} /> : "--"}</td>
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
       <td className="trade-num">{position.current_price !== null ? formatUsd(position.current_price) : "--"}</td>
       <PnlCell pnl={position.pnl === null ? null : roundUsd(position.pnl - (position.manual_fee ?? 0))} invested={position.invested} caption="unrealized" />
@@ -225,9 +253,9 @@ function ClosedRow({
     <tr>
       <td className="trade-ticker">{position.ticker}</td>
       <td className="trade-num">{position.shares}</td>
-      <td className="trade-time">{position.buy_time ? formatStamp(position.buy_time, position.day) : "--"}</td>
+      <td className="trade-time">{position.buy_time ? <TradeTime executedAt={position.buy_time} relativeToDay={position.day} /> : "--"}</td>
       <td className="trade-num">{position.buy_price !== null ? formatUsd(position.buy_price) : "--"}</td>
-      <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
+      <td className="trade-time">{position.sell_time ? <TradeTime executedAt={position.sell_time} relativeToDay={position.day} /> : "--"}</td>
       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
       <PnlCell pnl={netPnl} invested={position.invested} />
       <td className="trade-num lot-fees" aria-hidden={!showFees || undefined}>

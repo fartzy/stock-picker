@@ -1,4 +1,4 @@
-from stock_picker.news_skip import always_skip_news, news_blocks_buy
+from stock_picker.news_skip import always_skip_news, hard_stop_review_label, news_blocks_buy
 
 
 def test_always_skip_insider_sell_phrases():
@@ -25,3 +25,9 @@ def test_incomplete_review_holds_even_without_a_flag_or_gap():
 def test_corporate_actions_and_clinical_readouts_do_not_require_a_gap_down():
     assert news_blocks_buy("corporate action: CTVA spin-off", 11.0, 10.0)
     assert news_blocks_buy("clinical readout: NKTR Phase 2b data", 11.0, None)
+
+
+def test_hard_stops_use_a_review_label_and_other_blocks_stay_skips():
+    assert hard_stop_review_label("corporate action: TLK spinoff") == "spinoff-review"
+    assert hard_stop_review_label("clinical readout: Phase 2 data") == "clinical-readout-review"
+    assert hard_stop_review_label("CTO sold shares") is None

@@ -30,7 +30,10 @@ def _news_suffix(row: dict) -> str:
             return "  HOLD news review pending"
         return ""
     if news_blocks_buy(flag, row.get("open_price"), row.get("prev_close"), state):
-        return f"  SKIP {flag}"
+        from stock_picker.news_skip import hard_stop_review_label
+
+        label = hard_stop_review_label(flag) or "SKIP"
+        return f"  {label} {flag}"
     return f"  NEWS {flag}"
 
 
