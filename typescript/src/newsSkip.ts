@@ -25,6 +25,18 @@ const ALWAYS_SKIP_PHRASES = [
 
 const INCOMPLETE_STATUSES = ["degraded", "error", "not_checked", "unknown"] as const;
 
+const HARD_STOP_REVIEW_LABELS: ReadonlyArray<readonly [string, string]> = [
+  ["corporate action:", "spinoff-review"],
+  ["clinical readout:", "clinical-readout-review"],
+];
+
+export function hardStopReviewLabel(newsFlag: string | null | undefined): string | null {
+  if (!newsFlag) return null;
+  const text = newsFlag.toLowerCase();
+  const match = HARD_STOP_REVIEW_LABELS.find(([phrase]) => text.includes(phrase));
+  return match ? match[1] : null;
+}
+
 export function alwaysSkipNews(newsFlag: string | null | undefined): boolean {
   if (!newsFlag) return false;
   const text = newsFlag.toLowerCase();

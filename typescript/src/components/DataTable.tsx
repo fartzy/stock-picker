@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { NewsCheckDetails } from "../api";
 import { compactNewsCheckDetail, newsCheckPresentation } from "../newsCheck";
+import { hardStopReviewLabel } from "../newsSkip";
 import { formatUsd } from "../format";
 import { Diff } from "./Diff";
 
@@ -117,7 +118,7 @@ export function NewsCell({
     <span className="news-check" title={compactHint ? compactNewsCheckDetail(check, checked) : coverage.detail}>
       {flag && (
         <span className={blocks ? "quote-diff-down" : "quote-diff-up"}>
-          {blocks ? skipLabel : "still buy"} · {flag}
+          {blocks ? hardStopReviewLabel(flag) ?? skipLabel : "still buy"} · {flag}
         </span>
       )}
       {hold && <span className="news-check-warning">hold · {coverage.label || "news review incomplete"}</span>}

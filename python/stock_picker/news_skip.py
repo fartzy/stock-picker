@@ -33,6 +33,23 @@ ALWAYS_SKIP_PHRASES: tuple[str, ...] = (
 INCOMPLETE_NEWS_STATUSES = frozenset({"degraded", "error", "not_checked", "unknown"})
 
 
+HARD_STOP_REVIEW_LABELS = {
+    "corporate action:": "spinoff-review",
+    "clinical readout:": "clinical-readout-review",
+}
+
+
+def hard_stop_review_label(news_flag: str | None) -> str | None:
+    """Label for a hard stop. Ordinary news blocks stay a plain skip."""
+    if not news_flag:
+        return None
+    text = news_flag.lower()
+    for phrase, label in HARD_STOP_REVIEW_LABELS.items():
+        if phrase in text:
+            return label
+    return None
+
+
 def always_skip_news(news_flag: str | None) -> bool:
     if not news_flag:
         return False
