@@ -740,6 +740,7 @@ export default function WhatIf() {
         {blacklistError && <span className="error" role="status">
           {blacklistError.includes(": 404") ? "Restart API to enable filter" : "Couldn’t load blacklist"}
         </span>}
+
         <button
           type="button"
           className="icon-btn what-if-action-btn"
