@@ -1403,6 +1403,20 @@ details.view-card[open] > summary::before {
   opacity: 0.4;
 }
 
+.what-if-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.what-if-slider input[type="range"] {
+  width: 72px;
+  accent-color: var(--accent);
+}
+
 .what-if-toolbar .what-if-period {
   border-radius: 10px;
   background: var(--surface);
