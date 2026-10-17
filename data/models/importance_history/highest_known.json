@@ -1,8 +1,8 @@
 {
   "artifacts": {
     "day_session_return.pkl": [
-      338013,
-      1792107043225870013
+      344046,
+      1792269744302105194
     ],
     "day_session_return_07adf9b3c03b4ed385968ff1e4490565.pkl": [
       313878,
@@ -30,7 +30,7 @@
     ],
     "day_session_return_21b88a7ac8c74452b18b2df6a3915ae9.pkl": [
       338013,
-      1792107043224341218
+      1792269744303637650
     ],
     "day_session_return_2bfc7bdf300649d180f77ed88b421c28.pkl": [
       252571,
@@ -70,7 +70,7 @@
     ],
     "day_session_return_62ee14a4877e47828d31d69dbc235235.pkl": [
       321059,
-      1791879839593719921
+      1792269744305021772
     ],
     "day_session_return_6d5718cec9274545938f89a0f6c8c2dc.pkl": [
       317970,
@@ -88,13 +88,17 @@
       280337,
       1790416247567548759
     ],
+    "day_session_return_77531bddb8944843851f5eae121bbafc.pkl": [
+      344046,
+      1792269744306460395
+    ],
     "day_session_return_7d7ca8c07fd54f5eadffda0a7ca7cc68.pkl": [
       274809,
       1790443337097280239
     ],
     "day_session_return_7dd59c51dfe04686806dcc58eb283cfc.pkl": [
       339805,
-      1791935972408272625
+      1792269744307921184
     ],
     "day_session_return_87a4f540609b4e268308f93ae557977c.pkl": [
       288961,
@@ -122,7 +126,7 @@
     ],
     "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl": [
       338636,
-      1792020974568879419
+      1792269744309674264
     ],
     "day_session_return_c670d61af5ec4675b5cf3ff5370142ff.pkl": [
       262447,
@@ -161,36 +165,36 @@
       1789156795527935449
     ],
     "day_session_return_rank.pkl": [
-      376637,
-      1792107043213545899
+      375395,
+      1792269744313192675
     ],
     "prune archive/pruned.json": [
       14430,
-      1791878066139705531
+      1792269746371697968
     ],
     "prune archive/pruned_before_volume_restore_2026-10-13.json": [
       15415,
-      1791878060580958760
+      1792269746372410550
     ],
     "research/rank_all_2026-10-12.pkl": [
       359933,
-      1791864641686238741
+      1792269744317625042
     ],
     "research/rank_all_full_2026-10-12.pkl": [
       375504,
-      1791869669666903136
+      1792269744324609572
     ],
     "research/rank_breadth_price_2026-10-12.pkl": [
       352734,
-      1791864351214280718
+      1792269744326647902
     ],
     "research/rank_gain_prune_5_full_2026-10-12.pkl": [
       376115,
-      1791873491097263041
+      1792269744328907440
     ],
     "research/rank_restore_volume_full_2026-10-12.pkl": [
       375582,
-      1791877794081590301
+      1792269744331587019
     ]
   },
   "issues": {
@@ -216,6 +220,7 @@
     "day_session_return_6e17d83dca3546608adc7a455777388d.pkl": null,
     "day_session_return_6fcc0009a64e490cb66c2f88698be418.pkl": null,
     "day_session_return_6fddd1f3be994fb5aa39d9ed4e981163.pkl": null,
+    "day_session_return_77531bddb8944843851f5eae121bbafc.pkl": null,
     "day_session_return_7d7ca8c07fd54f5eadffda0a7ca7cc68.pkl": null,
     "day_session_return_7dd59c51dfe04686806dcc58eb283cfc.pkl": null,
     "day_session_return_87a4f540609b4e268308f93ae557977c.pkl": null,
@@ -447,8 +452,8 @@
       "value": 5.6637525848794485
     },
     "market_advance_fraction": {
-      "source": "research/rank_breadth_price_2026-10-12.pkl",
-      "value": 1.8386994374406933
+      "source": "day_session_return.pkl",
+      "value": 2.6770900247183307
     },
     "market_return_dispersion_1d": {
       "source": "research/rank_breadth_price_2026-10-12.pkl",
@@ -539,8 +544,8 @@
       "value": 1.5337359677276503
     },
     "obv_change_20d": {
-      "source": "day_session_return_rank.pkl",
-      "value": 0.425999450438646
+      "source": "day_session_return.pkl",
+      "value": 1.5707502589442313
     },
     "open_in_yday_range_seasonality": {
       "source": "day_session_return_0ca7b3fb02154fd4bf4ee931239df940.pkl",
@@ -715,8 +720,8 @@
       "value": 3.461716692064472
     },
     "semivol_balance_4d": {
-      "source": "research/rank_all_2026-10-12.pkl",
-      "value": 0.2210154251865633
+      "source": "day_session_return.pkl",
+      "value": 0.30707016702325407
     },
     "semivol_balance_5d": {
       "source": "research/rank_all_2026-10-12.pkl",
@@ -887,8 +892,8 @@
       "value": 0.37927106475548933
     },
     "story_streak_loc3_seasonality": {
-      "source": "day_session_return_17cce1e27c2649b39affb076379df71a.pkl",
-      "value": 0.3669226085307936
+      "source": "day_session_return.pkl",
+      "value": 0.7693111330373912
     },
     "story_strong_close_open3_seasonality": {
       "source": "research/rank_all_2026-10-12.pkl",
@@ -1019,8 +1024,8 @@
       "value": 2.5316961437346044
     },
     "upside_semivol_4d": {
-      "source": "research/rank_all_2026-10-12.pkl",
-      "value": 0.4849309132445515
+      "source": "day_session_return.pkl",
+      "value": 0.50711616071991
     },
     "upside_semivol_5d": {
       "source": "restore_top5 through 2026-09-16",
@@ -1108,7 +1113,7 @@
     },
     "volume_ratio_20d": {
       "source": "day_session_return.pkl",
-      "value": 1.012915756959172
+      "value": 1.3867401123691079
     },
     "volume_ratio_60d": {
       "source": "day_session_return_beab024531aa404c9b2a2893ceb4a9e7.pkl",
