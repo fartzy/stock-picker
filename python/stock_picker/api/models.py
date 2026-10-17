@@ -300,6 +300,34 @@ class PriceHistoryResponse(BaseModel):
     prices: list[PricePoint]
 
 
+class NewsJudgeUsage(BaseModel):
+    decided: int
+    flagged: int
+
+
+class NewsUsage(BaseModel):
+    checked: int
+    flagged: int
+    by_judge: dict[str, NewsJudgeUsage]
+    by_status: dict[str, int]
+    llm_unavailable: int
+
+
+class NewsModelInfo(BaseModel):
+    key: str
+    name: str
+    kind: str
+    role: str
+    source: str
+    detail: dict[str, str | int | bool | None]
+
+
+class NewsModelsResponse(BaseModel):
+    scan_days: list[str]
+    usage: NewsUsage
+    models: list[NewsModelInfo]
+
+
 class OvernightModelResponse(BaseModel):
     available: bool
     feature_columns: list[str]

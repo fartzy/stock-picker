@@ -611,6 +611,29 @@ export const fetchPriceHistory = (ticker: string, interval: "daily" | "hourly") 
 export const fetchFeatureValues = (ticker: string) =>
   getJson<FeatureValuesResponse>(`/api/features/${encodeURIComponent(ticker)}`);
 export const fetchOvernightModel = () => getJson<OvernightModelResponse>("/api/overnight/model");
+
+export interface NewsModelInfo {
+  key: "event_guard" | "grok" | "classifier";
+  name: string;
+  kind: string;
+  role: string;
+  source: string;
+  detail: Record<string, string | number | boolean | null>;
+}
+
+export interface NewsModelsResponse {
+  scan_days: string[];
+  usage: {
+    checked: number;
+    flagged: number;
+    by_judge: Record<string, { decided: number; flagged: number }>;
+    by_status: Record<string, number>;
+    llm_unavailable: number;
+  };
+  models: NewsModelInfo[];
+}
+
+export const fetchNewsModels = () => getJson<NewsModelsResponse>("/api/news/models");
 export async function fetchOvernightCurrentPrice(ticker: string): Promise<OvernightCurrentPriceResponse> {
   const response = await fetch(`/api/overnight/current-price?ticker=${encodeURIComponent(ticker)}`);
   if (!response.ok) {

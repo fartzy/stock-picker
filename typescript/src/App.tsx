@@ -12,6 +12,7 @@ import RunHistory from "./components/RunHistory";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 import WhatIf from "./components/WhatIf";
+import NewsModelsPanel from "./components/NewsModelsPanel";
 
 type Tab = "trading" | "overnight" | "whatif" | "testrun" | "features" | "models" | "data";
 
@@ -25,8 +26,17 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "data", label: "Data" },
 ];
 
+type ModelTab = "intraday" | "overnight" | "news";
+
+const MODEL_TABS: { id: ModelTab; label: string }[] = [
+  { id: "intraday", label: "Intraday Rank / Fit" },
+  { id: "overnight", label: "Overnight" },
+  { id: "news", label: "News" },
+];
+
 export default function App() {
   const [tab, setTab] = useState<Tab>("trading");
+  const [modelTab, setModelTab] = useState<ModelTab>("intraday");
   // One-shot handoff from the Data tab's feature columns to Registry: set,
   // switched to, then cleared once Registry has scrolled to/highlighted it.
   const [pendingFeature, setPendingFeature] = useState<string | null>(null);
@@ -147,21 +157,52 @@ export default function App() {
 
       {tab === "models" && (
         <>
-          <section>
-            <h2>Training</h2>
-            <div className="panel">
-              <ModelPicker />
-              <TrainingPanel />
-            </div>
-          </section>
+          <div className="sub-tab-bar" role="tablist" aria-label="Model groups">
+            {MODEL_TABS.map((t) => (
+              <button
+                key={t.id}
+                role="tab"
+                aria-selected={modelTab === t.id}
+                className={`sub-tab-button ${modelTab === t.id ? "active" : ""}`}
+                onClick={() => setModelTab(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
 
-          <section>
-            <h2>Training History</h2>
-            <div className="panel">
-              <RunHistory />
-            </div>
-          </section>
-          <section><h2>Overnight model</h2><div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div></section>
+          {modelTab === "intraday" && (
+            <>
+              <section>
+                <h2>Training</h2>
+                <div className="panel">
+                  <ModelPicker />
+                  <TrainingPanel />
+                </div>
+              </section>
+
+              <section>
+                <h2>Training History</h2>
+                <div className="panel">
+                  <RunHistory />
+                </div>
+              </section>
+            </>
+          )}
+
+          {modelTab === "overnight" && (
+            <section>
+              <h2>Overnight model</h2>
+              <div className="panel"><OvernightModelPanel onOpenOvernight={() => openOvernight()} /></div>
+            </section>
+          )}
+
+          {modelTab === "news" && (
+            <section>
+              <h2>News models</h2>
+              <div className="panel"><NewsModelsPanel /></div>
+            </section>
+          )}
         </>
       )}
 
