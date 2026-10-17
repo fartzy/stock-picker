@@ -713,7 +713,7 @@ export default function WhatIf() {
   }
   const rankHold = holdFor("rank");
   const fitHold = holdFor("fit");
-  const holdLabel = `Wait for +${holdGainPct}% or sell at -${holdDropPct}% within ${holdDays}d`;
+  const holdLabel = `+${holdGainPct}% / −${holdDropPct}% from close, ${holdDays}d`;
   const rankScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
     data.days, actualsCache.current, "rank", tradeSizes.rank, exitPortion / 100,
     exitRule, customSelections,
@@ -789,12 +789,12 @@ export default function WhatIf() {
         </label>
           {afterClose === "target" && <>
             <label className="what-if-slider" title="Sell when the later high reaches this far above the close.">
-              <span>Gain +{holdGainPct}%</span>
+              <span>Close +{holdGainPct}%</span>
               <input type="range" min={0} max={10} step={1} value={holdGainPct}
                 aria-label="Gain target percent" onChange={(event) => setHoldGainPct(Number(event.target.value))} />
             </label>
             <label className="what-if-slider" title="Sell if the later low falls this far below the close.">
-              <span>Stop −{holdDropPct}%</span>
+              <span>Close −{holdDropPct}%</span>
               <input type="range" min={0} max={HOLD_DROP_STOPS.length - 1} step={1}
                 value={HOLD_DROP_STOPS.indexOf(holdDropPct)}
                 aria-label="Drop stop percent"
