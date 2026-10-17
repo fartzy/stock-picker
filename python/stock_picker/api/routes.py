@@ -39,6 +39,7 @@ from stock_picker.api.models import (
     OvernightModelResponse,
     OvernightActualsRequest,
     OvernightActualsResponse,
+    HoldPathResponse,
     PaperBookResponse,
     PaperReplayRequest,
     PositionsResponse,
@@ -497,6 +498,30 @@ def get_paper_book(
             fit_top_k=fit_top_k,
             rank_top_k=rank_top_k,
         )
+    )
+
+
+@router.get("/paper-book/hold-path")
+def get_paper_book_hold_path(
+    as_of: date,
+    tickers: str,
+    days: int = 5,
+) -> HoldPathResponse:
+    """Later highs and lows for a hold-after-close check. The pick close stays in the book."""
+    from stock_picker.paper.hold_path import later_sessions
+
+    wanted = days if 1 <= days <= 10 else 5
+    names = []
+    for raw in tickers.split(","):
+        ticker = raw.strip().upper()
+        if ticker and ticker not in names:
+            names.append(ticker)
+        if len(names) == 40:
+            break
+    return HoldPathResponse(
+        as_of=as_of.isoformat(),
+        days=wanted,
+        rows=[{"ticker": ticker, "sessions": later_sessions(ticker, as_of, wanted)} for ticker in names],
     )
 
 

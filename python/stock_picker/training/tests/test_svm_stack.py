@@ -55,16 +55,23 @@ def test_oof_fits_strictly_before_every_scored_block_and_preserves_rows(monkeypa
 
 
 def test_stacked_scorer_rejects_missing_estimator_inputs_and_nonfinite(monkeypatch):
-    frame = pd.DataFrame({"signal": [1.0, 2.0]}, index=[9, 3])
-    model = SimpleNamespace(model_type="svc_gate", feature_names=["signal"])
+    frame = pd.DataFrame({"signal": [1.0, 2.0], "volume_ratio": [0.4, 0.8]}, index=[9, 3])
+    model = SimpleNamespace(
+        model_type="svc_gate", feature_names=["signal", "volume_ratio", "sector_relative_return"]
+    )
     monkeypatch.setattr(svm_stack, "decision_scores", lambda *_: np.array([0.2, -0.3]))
     assert svm_stack.score_stacked_svm(frame, {"svc_gate_margin": model}, ("svc_gate_margin",)).index.tolist() == [9, 3]
     with pytest.raises(ValueError, match="fitted SVM is missing"):
         svm_stack.score_stacked_svm(frame, {}, ("svc_gate_margin",))
-    with pytest.raises(ValueError, match="inputs are missing"):
-        svm_stack.score_stacked_svm(frame.drop(columns="signal"), {"svc_gate_margin": model}, ("svc_gate_margin",))
+    # A column the saved estimator expects but the live row never built is an
+    # empty input, not a crash. The scorer still rejects a row with no inputs.
+    aligned = svm_stack.score_stacked_svm(
+        frame.drop(columns="signal"), {"svc_gate_margin": model}, ("svc_gate_margin",)
+    )
+    assert aligned.index.tolist() == [9, 3]
     with pytest.raises(ValueError, match="all missing"):
-        svm_stack.score_stacked_svm(frame.assign(signal=[np.nan, 2.0]), {"svc_gate_margin": model}, ("svc_gate_margin",))
+        empty = frame.assign(signal=[np.nan, np.nan], volume_ratio=[np.nan, np.nan])
+        svm_stack.score_stacked_svm(empty, {"svc_gate_margin": model}, ("svc_gate_margin",))
     monkeypatch.setattr(svm_stack, "decision_scores", lambda *_: np.array([np.nan, 0.2]))
     with pytest.raises(ValueError, match="finite and row-aligned"):
         svm_stack.score_stacked_svm(frame, {"svc_gate_margin": model}, ("svc_gate_margin",))

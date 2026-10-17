@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   fetchBenchmarkReturns,
   fetchBlacklistedTickers,
+  fetchHoldPath,
   fetchOvernightActuals,
   fetchPaperBook,
   fetchTrainingRuns,
@@ -26,6 +27,11 @@ import {
   type StrategyBenchmark, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
+import { summarizeHold, type HoldBar } from "../whatIfHold";
+
+const HOLD_GAIN_OPTIONS = [1, 2, 3, 5];
+const HOLD_DROP_OPTIONS = [5, 10, 15, 20];
+const HOLD_DAY_OPTIONS = [1, 2, 3, 4, 5];
 import TogglePill from "./TogglePill";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
@@ -349,6 +355,7 @@ function DayCard({
   fitAsked,
   modelLabel,
   tradeSizes,
+  hold,
   actuals,
   overnightPortion,
   exitMode,
@@ -361,6 +368,7 @@ function DayCard({
   fitAsked: number | undefined;
   modelLabel?: string;
   tradeSizes: TradeSizes;
+  hold?: { gainPct: number; dropPct: number; days: number; paths: ReadonlyMap<string, readonly HoldBar[]> } | null;
   actuals?: ReadonlyMap<string, OvernightActualRow>;
   overnightPortion: number;
   exitMode: OvernightExitMode;
@@ -376,6 +384,12 @@ function DayCard({
   }
   const rankExitPnl = kind !== "fit" ? exitPnl("rank") : null;
   const fitExitPnl = kind !== "rank" ? exitPnl("fit") : null;
+  function holdResult(strategy: StrategyKind) {
+    if (!hold) return null;
+    return summarizeHold(day[strategy], hold.paths, hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy]);
+  }
+  const rankHold = kind !== "fit" ? holdResult("rank") : null;
+  const fitHold = kind !== "rank" ? holdResult("fit") : null;
   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
   return (
@@ -419,6 +433,20 @@ function DayCard({
                   },
                 ]
               : []),
+            ...(rankHold ? [{
+              key: "rank-hold",
+              label: `Rank ${hold?.gainPct}% / ${hold?.days}d`,
+              value: rankHold.n === 0
+                ? <span className="muted">{rankHold.pending} awaiting</span>
+                : <><Pct value={rankHold.avg} /> · <Dollars value={rankHold.pnl} /></>,
+            }] : []),
+            ...(fitHold ? [{
+              key: "fit-hold",
+              label: `Fit ${hold?.gainPct}% / ${hold?.days}d`,
+              value: fitHold.n === 0
+                ? <span className="muted">{fitHold.pending} awaiting</span>
+                : <><Pct value={fitHold.avg} /> · <Dollars value={fitHold.pnl} /></>,
+            }] : []),
             ...(rankNote ? [{ key: "rank-note", align: "start" as const, value: rankNote }] : []),
             ...(fitNote ? [{ key: "fit-note", align: "start" as const, value: fitNote }] : []),
           ]}
@@ -516,6 +544,11 @@ export default function WhatIf() {
   const [applyNewsSkips, setApplyNewsSkips] = useState(false);
   const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
   const [holdNextOpen, setHoldNextOpen] = useState(false);
+  const [holdAfterClose, setHoldAfterClose] = useState(false);
+  const [holdGainPct, setHoldGainPct] = useState(1);
+  const [holdDropPct, setHoldDropPct] = useState(10);
+  const [holdDays, setHoldDays] = useState(1);
+  const [holdPaths, setHoldPaths] = useState<ReadonlyMap<string, readonly HoldBar[]>>(() => new Map());
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
   const [overnightPortion, setOvernightPortion] = useState(100);
   const [openRefresh, setOpenRefresh] = useState(0);
@@ -613,6 +646,32 @@ export default function WhatIf() {
     return () => { active = false; };
   }, [holdNextOpen, historyJobsKey, loadActuals, openRefresh]);
 
+  const holdJobs = new Map<string, string[]>();
+  if (data && holdAfterClose) for (const day of data.days) {
+    if (day.scan_id) continue;
+    const tickers = [...(rankOn ? day.rank : []), ...(fitOn ? day.fit : [])]
+      .filter((row) => row.close_price !== null)
+      .map((row) => row.ticker);
+    if (tickers.length) holdJobs.set(day.as_of, [...new Set(tickers)]);
+  }
+  const holdJobsKey = JSON.stringify([...holdJobs]);
+  useEffect(() => {
+    const jobs = JSON.parse(holdJobsKey) as Array<[string, string[]]>;
+    if (!holdAfterClose || jobs.length === 0) return;
+    let active = true;
+    void Promise.all(jobs.map(([asOf, tickers]) => fetchHoldPath(asOf, tickers, 5))).then((responses) => {
+      if (!active) return;
+      const merged = new Map<string, readonly HoldBar[]>();
+      responses.forEach((response) => response.rows.forEach((row) => {
+        merged.set(`${response.as_of}:${row.ticker}`, row.sessions);
+      }));
+      setHoldPaths(merged);
+    }).catch(() => {
+      if (active) setHoldPaths(new Map());
+    });
+    return () => { active = false; };
+  }, [holdAfterClose, holdJobsKey]);
+
   function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
     setCustomSelections((current) => {
       const next = new Map(current);
@@ -665,6 +724,25 @@ export default function WhatIf() {
         {blacklistError && <span className="error" role="status">
           {blacklistError.includes(": 404") ? "Restart API to enable filter" : "Couldn’t load blacklist"}
         </span>}
+        <div className="what-if-exit-control" aria-label="Hold after close">
+          <label className="what-if-news-toggle" title="After the close, sell if the later high reaches the gain, sell if the low reaches the drop, or sell at the close when the wait ends.">
+            <input type="checkbox" checked={holdAfterClose}
+              onChange={(event) => setHoldAfterClose(event.target.checked)} />
+            <span>Hold after close</span>
+          </label>
+          <select className="form-select" aria-label="Gain target percent" disabled={!holdAfterClose}
+            value={holdGainPct} onChange={(event) => setHoldGainPct(Number(event.target.value))}>
+            {HOLD_GAIN_OPTIONS.map((value) => <option key={value} value={value}>Sell at +{value}%</option>)}
+          </select>
+          <select className="form-select" aria-label="Drop stop percent" disabled={!holdAfterClose}
+            value={holdDropPct} onChange={(event) => setHoldDropPct(Number(event.target.value))}>
+            {HOLD_DROP_OPTIONS.map((value) => <option key={value} value={value}>Sell at -{value}%</option>)}
+          </select>
+          <select className="form-select" aria-label="Days to wait" disabled={!holdAfterClose}
+            value={holdDays} onChange={(event) => setHoldDays(Number(event.target.value))}>
+            {HOLD_DAY_OPTIONS.map((value) => <option key={value} value={value}>Wait {value} {value === 1 ? "day" : "days"}</option>)}
+          </select>
+        </div>
         <div className="what-if-exit-control" aria-label="Exit scenario">
           <label className="what-if-news-toggle" title="Compare selling at the close with exits at the verified next-session open.">
             <input type="checkbox" checked={holdNextOpen}
@@ -796,6 +874,15 @@ export default function WhatIf() {
               rankAsked={rankAsked}
               fitAsked={fitAsked}
               tradeSizes={tradeSizes}
+              hold={holdAfterClose ? {
+                gainPct: holdGainPct,
+                dropPct: holdDropPct,
+                days: holdDays,
+                paths: new Map([...holdPaths].flatMap(([key, sessions]) => {
+                  const [asOf, ticker] = key.split(":");
+                  return asOf === day.as_of ? [[ticker, sessions] as const] : [];
+                })),
+              } : null}
               actuals={actualsCache.current.get(day.as_of)}
               overnightPortion={overnightPortion}
               exitMode={exitMode}

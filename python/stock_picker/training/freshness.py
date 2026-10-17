@@ -107,24 +107,15 @@ def pipeline_freshness(
 
     ready = features_ok and model_ok
     if snapshot is None:
-        detail = "No feature snapshot on disk -- run the nightly job (prices + features + retrain)."
+        detail = "No feature snapshot."
     elif not features_ok:
-        detail = (
-            f"Features stop at {snapshot.isoformat()}, last completed session is "
-            f"{last_session.isoformat()} -- rebuild features before scoring."
-        )
+        detail = "Features need a rebuild."
     elif trained_through is None:
-        detail = "No completed training run -- train a model before scoring."
+        detail = "No completed training run."
     elif not model_ok:
-        detail = (
-            f"Live model was trained through {trained_through.isoformat()}, last completed "
-            f"session is {last_session.isoformat()} -- full retrain (not a patch) before scoring."
-        )
+        detail = "Model needs a retrain."
     else:
-        detail = (
-            f"Features through {snapshot.isoformat()}, model trained through "
-            f"{trained_through.isoformat()} -- ready for this morning's opens."
-        )
+        detail = "Ready for this morning's opens."
 
     return PipelineFreshness(
         as_of=as_of.isoformat(),

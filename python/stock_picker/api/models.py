@@ -503,6 +503,24 @@ class PaperBookDay(BaseModel):
     rank_stats: PaperListStats = PaperListStats()
 
 
+class HoldPathBar(BaseModel):
+    date: str
+    high: float
+    low: float
+    close: float
+
+
+class HoldPathRow(BaseModel):
+    ticker: str
+    sessions: list[HoldPathBar] = []
+
+
+class HoldPathResponse(BaseModel):
+    as_of: str
+    days: int
+    rows: list[HoldPathRow] = []
+
+
 class PaperBookResponse(BaseModel):
     days: list[PaperBookDay]
     fit_compound: float | None = None

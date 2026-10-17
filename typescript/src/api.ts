@@ -289,6 +289,24 @@ export interface PaperListStats {
   avg_ex_news?: number | null;
 }
 
+export interface HoldPathBar {
+  date: string;
+  high: number;
+  low: number;
+  close: number;
+}
+
+export interface HoldPathResponse {
+  as_of: string;
+  days: number;
+  rows: Array<{ ticker: string; sessions: HoldPathBar[] }>;
+}
+
+export const fetchHoldPath = (asOf: string, tickers: string[], days: number) => {
+  const params = new URLSearchParams({ as_of: asOf, tickers: tickers.join(","), days: String(days) });
+  return getJson<HoldPathResponse>(`/api/paper-book/hold-path?${params.toString()}`);
+};
+
 export interface PaperBookResponse {
   days: PaperBookDay[];
   fit_compound: number | null;

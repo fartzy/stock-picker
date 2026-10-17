@@ -43,15 +43,18 @@ def score_stacked_svm(
         expected_type = "svr" if name == "svr_oof_pred" else name.removesuffix("_margin")
         if estimator.model_type != expected_type:
             raise ValueError(f"{name} requires a fitted {expected_type} estimator")
-        missing = set(estimator.feature_names) - set(frame.columns)
-        if missing:
-            raise ValueError(f"{name} inputs are missing: {sorted(missing)}")
+        # A live row can omit a column the saved SVM was trained on. The
+        # production example is sector_relative_return: it only exists for a
+        # ticker with a persisted sector label. Align the row and leave the
+        # gap empty, matching predict() in model.py. A row whose inputs are
+        # all empty still fails below.
+        aligned = frame.reindex(columns=estimator.feature_names)
         if set(estimator.feature_names) & set(STACKED_SVM_COLUMNS):
             raise ValueError(f"{name} SVM cannot consume stacked SVM outputs")
-        if frame[estimator.feature_names].isna().all(axis=1).any():
+        if aligned.isna().all(axis=1).any():
             raise ValueError(f"{name} inputs are all missing for at least one row")
         values = np.asarray(
-            predict(estimator, frame) if name == "svr_oof_pred" else decision_scores(estimator, frame),
+            predict(estimator, aligned) if name == "svr_oof_pred" else decision_scores(estimator, aligned),
             dtype=float,
         )
         if values.shape != (len(frame),) or not np.isfinite(values).all():
