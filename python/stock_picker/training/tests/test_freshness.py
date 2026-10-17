@@ -77,4 +77,4 @@ def test_stale_model_trained_through_monday_cannot_score_thursday(tmp_path, monk
     assert result.features_ok
     assert not result.model_ok
     assert not result.ready_for_inference
-    assert "full retrain" in result.detail
+    assert result.detail == "Model needs a retrain."
