@@ -400,3 +400,10 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_news_models",
+    srcs = ["test_news_models.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training"],
+)

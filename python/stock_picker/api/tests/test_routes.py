@@ -1107,3 +1107,19 @@ def test_get_buy_signal_scores_active_tickers_and_serializes_the_full_shape(clie
     assert signal_row["predicted_return"] > 0.005
     assert signal_row["open_price"] == 101.0
     assert body["top_drivers"][0]["feature"] == "signal"
+
+
+def test_news_models_reads_recent_scan_decisions(tmp_path):
+    from stock_picker.storage.scan_store import ScanStore
+
+    store = ScanStore(data_dir=tmp_path)
+    store.write("2026-10-16", "rank", {"as_of": "2026-10-16", "signals": [
+        {"ticker": "AAA", "news_check": {"judge": "grok", "flag": "takeover", "status": "complete"}},
+    ]})
+    with patch("stock_picker.storage.scan_store.ScanStore", return_value=store):
+        response = TestClient(app).get("/api/news/models")
+    assert response.status_code == status.HTTP_200_OK
+    body = response.json()
+    assert body["scan_days"] == ["2026-10-16"]
+    assert body["usage"]["by_judge"]["grok"] == {"decided": 1, "flagged": 1}
+    assert [model["key"] for model in body["models"]] == ["event_guard", "grok", "classifier"]

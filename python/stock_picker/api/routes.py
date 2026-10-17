@@ -36,6 +36,7 @@ from stock_picker.api.models import (
     OvernightForecastRequest,
     OvernightForecastResponse,
     OvernightCurrentPriceResponse,
+    NewsModelsResponse,
     OvernightModelResponse,
     OvernightActualsRequest,
     OvernightActualsResponse,
@@ -137,6 +138,18 @@ def get_overnight_model() -> OvernightModelResponse:
     store = ModelStore()
     model = store.read(OVERNIGHT_MODEL_NAME) if store.exists(OVERNIGHT_MODEL_NAME) else None
     return OvernightModelResponse(**model_summary(model))
+
+
+@router.get("/news/models")
+def get_news_models() -> NewsModelsResponse:
+    """The news deciders that gate picks, with decision counts from recent scans."""
+    from stock_picker.storage.scan_store import ScanStore
+    from stock_picker.training.news_models import RECENT_SCAN_DAYS, news_model_status
+
+    store = ScanStore()
+    days = store.days()[-RECENT_SCAN_DAYS:]
+    payloads = [payload for day in days for kind in ("rank", "fit") if (payload := store.read(day, kind))]
+    return NewsModelsResponse(**news_model_status(payloads, days))
 
 
 @router.get("/overnight/current-price")
