@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { holdExit } from "../src/whatIfHold.js";
+import { addHoldSummaries, holdExit } from "../src/whatIfHold.js";
 
 const achr = [
   { date: "2026-10-15", high: 4.29, low: 3.97, close: 4.27 },
@@ -26,6 +26,17 @@ test("neither level sells at the deadline close", () => {
   assert.equal(exit.reason, "deadline");
   assert.equal(exit.day, 2);
   assert.ok(Math.abs(exit.returnPct) < 1e-12);
+});
+
+test("strategy totals add the priced days and keep the pending count", () => {
+  const total = addHoldSummaries([
+    { pnl: 100, avg: 0.01, n: 2, pending: 0 },
+    { pnl: -50, avg: -0.01, n: 1, pending: 3 },
+  ]);
+  assert.equal(total.pnl, 50);
+  assert.equal(total.n, 3);
+  assert.equal(total.pending, 3);
+  assert.ok(Math.abs(total.avg - (0.02 - 0.01) / 3) < 1e-12);
 });
 
 test("a wait longer than the saved bars stays pending", () => {

@@ -27,11 +27,10 @@ import {
   type StrategyBenchmark, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
-import { summarizeHold, type HoldBar } from "../whatIfHold";
+import { addHoldSummaries, summarizeHold, type HoldBar, type HoldSummary } from "../whatIfHold";
 
-const HOLD_GAIN_OPTIONS = [1, 2, 3, 5];
-const HOLD_DROP_OPTIONS = [5, 10, 15, 20];
-const HOLD_DAY_OPTIONS = [1, 2, 3, 4, 5];
+type AfterCloseMode = "close" | "next-open" | "target";
+const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
 import TogglePill from "./TogglePill";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
@@ -170,7 +169,7 @@ function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyP
   );
 }
 
-function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, scenario, exitMode }: {
+function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, scenario, exitMode, holdSummary, holdLabel }: {
   title: string;
   topK: number | undefined;
   days: number;
@@ -181,6 +180,8 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   benchmarkError: string | null;
   scenario: SelectedOvernightHistorySummary | null;
   exitMode: OvernightExitMode;
+  holdSummary?: HoldSummary | null;
+  holdLabel?: string;
 }) {
   const intradayDetail = benchmark.activeDays
     ? `${benchmark.matchedDays}/${benchmark.activeDays} days priced`
@@ -191,14 +192,16 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   const exitLabel = exitMode === "down" ? "Down-day next open"
     : exitMode === "custom" ? "Selected next open" : "Next open";
   const averageDailyCapital = benchmark.holdCapital;
-  const strategyPnl = scenario ? scenario.pnl : money.pnl;
+  const strategyPnl = holdSummary ? holdSummary.pnl : scenario ? scenario.pnl : money.pnl;
   const unpricedOpenDays = scenario ? scenario.eligibleDays - scenario.matchedDays : 0;
   const missingSpyDays = benchmark.activeDays - benchmark.matchedDays;
   const strategyGain = returnOnAverageDailyCapital(strategyPnl, averageDailyCapital);
   const intradayGain = benchmark.matchedDays === benchmark.activeDays
     ? returnOnAverageDailyCapital(benchmark.intraday.pnl, averageDailyCapital) : null;
   const holdGain = returnOnAverageDailyCapital(benchmark.hold.pnl, averageDailyCapital);
-  const scenarioDetail = scenario
+  const scenarioDetail = holdSummary
+    ? `${holdLabel} · ${holdSummary.n} priced${holdSummary.pending ? ` · ${holdSummary.pending} awaiting` : ""} · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
+    : scenario
     ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days priced · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
     : "Open → close";
   return (
@@ -544,7 +547,7 @@ export default function WhatIf() {
   const [applyNewsSkips, setApplyNewsSkips] = useState(false);
   const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
   const [holdNextOpen, setHoldNextOpen] = useState(false);
-  const [holdAfterClose, setHoldAfterClose] = useState(false);
+  const [afterClose, setAfterClose] = useState<AfterCloseMode>("close");
   const [holdGainPct, setHoldGainPct] = useState(1);
   const [holdDropPct, setHoldDropPct] = useState(10);
   const [holdDays, setHoldDays] = useState(1);
@@ -647,7 +650,7 @@ export default function WhatIf() {
   }, [holdNextOpen, historyJobsKey, loadActuals, openRefresh]);
 
   const holdJobs = new Map<string, string[]>();
-  if (data && holdAfterClose) for (const day of data.days) {
+  if (data && afterClose === "target") for (const day of data.days) {
     if (day.scan_id) continue;
     const tickers = [...(rankOn ? day.rank : []), ...(fitOn ? day.fit : [])]
       .filter((row) => row.close_price !== null)
@@ -657,7 +660,7 @@ export default function WhatIf() {
   const holdJobsKey = JSON.stringify([...holdJobs]);
   useEffect(() => {
     const jobs = JSON.parse(holdJobsKey) as Array<[string, string[]]>;
-    if (!holdAfterClose || jobs.length === 0) return;
+    if (afterClose !== "target" || jobs.length === 0) return;
     let active = true;
     void Promise.all(jobs.map(([asOf, tickers]) => fetchHoldPath(asOf, tickers, 5))).then((responses) => {
       if (!active) return;
@@ -670,7 +673,7 @@ export default function WhatIf() {
       if (active) setHoldPaths(new Map());
     });
     return () => { active = false; };
-  }, [holdAfterClose, holdJobsKey]);
+  }, [afterClose, holdJobsKey]);
 
   function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
     setCustomSelections((current) => {
@@ -690,6 +693,23 @@ export default function WhatIf() {
     && benchmarkData.fitKey === fitKey ? benchmarkData : null;
   const rankBenchmark = currentBenchmarks?.rank ?? null;
   const fitBenchmark = currentBenchmarks?.fit ?? null;
+  function holdFor(strategy: "rank" | "fit"): HoldSummary | null {
+    if (afterClose !== "target" || !data) return null;
+    return addHoldSummaries(data.days.filter((day) => !day.scan_id).map((day) => summarizeHold(
+      day[strategy],
+      new Map([...holdPaths].flatMap(([key, sessions]) => {
+        const [asOf, ticker] = key.split(":");
+        return asOf === day.as_of ? [[ticker, sessions] as const] : [];
+      })),
+      holdGainPct,
+      holdDropPct,
+      holdDays,
+      tradeSizes[strategy],
+    )));
+  }
+  const rankHold = holdFor("rank");
+  const fitHold = holdFor("fit");
+  const holdLabel = `Wait for +${holdGainPct}% or sell at -${holdDropPct}% within ${holdDays}d`;
   const rankScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
     data.days, actualsCache.current, "rank", tradeSizes.rank, overnightPortion / 100,
     overnightRule, customSelections,
@@ -724,32 +744,38 @@ export default function WhatIf() {
         {blacklistError && <span className="error" role="status">
           {blacklistError.includes(": 404") ? "Restart API to enable filter" : "Couldn’t load blacklist"}
         </span>}
-        <div className="what-if-exit-control" aria-label="Hold after close">
-          <label className="what-if-news-toggle" title="After the close, sell if the later high reaches the gain, sell if the low reaches the drop, or sell at the close when the wait ends.">
-            <input type="checkbox" checked={holdAfterClose}
-              onChange={(event) => setHoldAfterClose(event.target.checked)} />
-            <span>Hold after close</span>
-          </label>
-          <select className="form-select" aria-label="Gain target percent" disabled={!holdAfterClose}
-            value={holdGainPct} onChange={(event) => setHoldGainPct(Number(event.target.value))}>
-            {HOLD_GAIN_OPTIONS.map((value) => <option key={value} value={value}>Sell at +{value}%</option>)}
+        <div className="what-if-exit-control" aria-label="After the close">
+          <select className="form-select" aria-label="After the close" value={afterClose}
+            onChange={(event) => {
+              const mode = event.target.value as AfterCloseMode;
+              setAfterClose(mode);
+              setHoldNextOpen(mode === "next-open");
+            }}>
+            <option value="close">Sell at the close</option>
+            <option value="next-open">Next morning open</option>
+            <option value="target">Wait for a gain</option>
           </select>
-          <select className="form-select" aria-label="Drop stop percent" disabled={!holdAfterClose}
-            value={holdDropPct} onChange={(event) => setHoldDropPct(Number(event.target.value))}>
-            {HOLD_DROP_OPTIONS.map((value) => <option key={value} value={value}>Sell at -{value}%</option>)}
-          </select>
-          <select className="form-select" aria-label="Days to wait" disabled={!holdAfterClose}
-            value={holdDays} onChange={(event) => setHoldDays(Number(event.target.value))}>
-            {HOLD_DAY_OPTIONS.map((value) => <option key={value} value={value}>Wait {value} {value === 1 ? "day" : "days"}</option>)}
-          </select>
+          {afterClose === "target" && <>
+            <label className="what-if-slider" title="Sell when the later high reaches this far above the close.">
+              <span>+{holdGainPct}%</span>
+              <input type="range" min={1} max={10} step={1} value={holdGainPct}
+                aria-label="Gain target percent" onChange={(event) => setHoldGainPct(Number(event.target.value))} />
+            </label>
+            <label className="what-if-slider" title="Sell if the later low falls this far below the close.">
+              <span>-{holdDropPct}%</span>
+              <input type="range" min={0} max={HOLD_DROP_STOPS.length - 1} step={1}
+                value={HOLD_DROP_STOPS.indexOf(holdDropPct)}
+                aria-label="Drop stop percent"
+                onChange={(event) => setHoldDropPct(HOLD_DROP_STOPS[Number(event.target.value)])} />
+            </label>
+            <label className="what-if-slider" title="Sell at the close if neither level prints by this day.">
+              <span>{holdDays}d</span>
+              <input type="range" min={1} max={5} step={1} value={holdDays}
+                aria-label="Days to wait" onChange={(event) => setHoldDays(Number(event.target.value))} />
+            </label>
+          </>}
         </div>
-        <div className="what-if-exit-control" aria-label="Exit scenario">
-          <label className="what-if-news-toggle" title="Compare selling at the close with exits at the verified next-session open.">
-            <input type="checkbox" checked={holdNextOpen}
-              onChange={(event) => setHoldNextOpen(event.target.checked)} />
-            <span>Hold to next open</span>
-          </label>
-          {holdNextOpen && <>
+        {afterClose === "next-open" && <div className="what-if-exit-control" aria-label="Next morning open">
             <select className="form-select" value={overnightRule} aria-label="Stocks held to next open"
               onChange={(event) => setOvernightRule(event.target.value as OvernightExitRule)}>
               <option value="all">All included</option>
@@ -763,8 +789,7 @@ export default function WhatIf() {
             <button type="button" className="icon-btn what-if-action-btn" title="Refresh actual next opens"
               disabled={historyBusy}
               onClick={() => setOpenRefresh((value) => value + 1)}>Refresh opens</button>
-          </>}
-        </div>
+        </div>}
         {historyBusy && holdNextOpen && <span className="muted">Checking opens…</span>}
         {historyError && holdNextOpen && <span className="error" role="status">{historyError}</span>}
         <button
@@ -793,7 +818,7 @@ export default function WhatIf() {
         <details className="what-if-help">
           <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
           <div className="what-if-help-body">
-            <p>Close exits are the default. “Hold to next open” uses actual next-session prices; forecasts are separate.</p>
+            <p>Sell at the close is the default. Next morning open uses the actual next open. Wait for a gain sells at that level, at the drop stop, or at the close when the wait ends.</p>
             <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
             <p>Turn off news skips to include priced picks from the original Rank/Fit lists in hypothetical totals. Missing prices stay pending; saved news checks and live decisions stay the same.</p>
             <p>Exclude blacklisted removes current blacklist names from historical comparisons without replacing them with lower-ranked picks.</p>
@@ -854,6 +879,7 @@ export default function WhatIf() {
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
                 stats={data.rank_stats} money={data.rank_money}
                 scenario={rankScenario} exitMode={exitMode}
+                holdSummary={rankHold} holdLabel={holdLabel}
                 benchmark={compareStrategyToBenchmark(data, "rank", rankBenchmark?.response ?? null)}
                 benchmarkLoading={rankDates.length > 0 && !rankBenchmark}
                 benchmarkError={rankBenchmark?.error ?? null} />
@@ -862,6 +888,7 @@ export default function WhatIf() {
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
                 stats={data.fit_stats} money={data.fit_money}
                 scenario={fitScenario} exitMode={exitMode}
+                holdSummary={fitHold} holdLabel={holdLabel}
                 benchmark={compareStrategyToBenchmark(data, "fit", fitBenchmark?.response ?? null)}
                 benchmarkLoading={fitDates.length > 0 && !fitBenchmark}
                 benchmarkError={fitBenchmark?.error ?? null} />
@@ -874,7 +901,7 @@ export default function WhatIf() {
               rankAsked={rankAsked}
               fitAsked={fitAsked}
               tradeSizes={tradeSizes}
-              hold={holdAfterClose ? {
+              hold={afterClose === "target" ? {
                 gainPct: holdGainPct,
                 dropPct: holdDropPct,
                 days: holdDays,

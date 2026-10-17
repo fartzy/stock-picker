@@ -32,6 +32,28 @@ export function holdExit(
   return { returnPct: last.close / close - 1, reason: "deadline", day: window.length };
 }
 
+export interface HoldSummary {
+  pnl: number;
+  avg: number;
+  n: number;
+  pending: number;
+}
+
+export function addHoldSummaries(parts: Array<HoldSummary | null>): HoldSummary | null {
+  const present = parts.filter((part): part is HoldSummary => part !== null);
+  if (present.length === 0) return null;
+  const n = present.reduce((total, part) => total + part.n, 0);
+  const pending = present.reduce((total, part) => total + part.pending, 0);
+  const pnl = present.reduce((total, part) => total + part.pnl, 0);
+  const weighted = present.reduce((total, part) => total + part.avg * part.n, 0);
+  return {
+    pnl: Math.round(pnl * 100) / 100,
+    avg: n ? weighted / n : 0,
+    n,
+    pending,
+  };
+}
+
 export function summarizeHold(
   rows: ReadonlyArray<{ close_price: number | null }>,
   paths: ReadonlyMap<string, readonly HoldBar[]>,
