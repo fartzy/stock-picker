@@ -19,6 +19,7 @@ def test_later_sessions_start_the_day_after_the_pick(tmp_path):
     rows = later_sessions("ACHR", pd.Timestamp("2026-10-14").date(), 5, store)
 
     assert [row["date"] for row in rows] == ["2026-10-15", "2026-10-16"]
+    assert rows[0]["open"] == 4.01
     assert rows[0]["high"] == 4.29
     assert rows[0]["low"] == 3.97
 

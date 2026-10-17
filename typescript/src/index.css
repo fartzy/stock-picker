@@ -1380,7 +1380,19 @@ details.view-card[open] > summary::before {
   margin-bottom: var(--space-4);
 }
 
+.what-if-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.what-if-controls .what-if-toolbar {
+  margin-bottom: 0;
+}
+
 .what-if-toolbar {
+  align-items: center;
   gap: var(--space-2);
 }
 
@@ -1403,17 +1415,65 @@ details.view-card[open] > summary::before {
   opacity: 0.4;
 }
 
+.what-if-exit-group {
+  display: inline-flex;
+  align-items: center;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  line-height: 1;
+}
+
+.what-if-exit-group > span {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 12px;
+  border-right: 1px solid var(--line);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.what-if-exit-group select {
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 1;
+  padding: 0 28px 0 12px;
+  cursor: pointer;
+}
+
+.what-if-exit-group select:focus {
+  outline: none;
+  background: var(--surface-raised);
+}
+
 .what-if-slider {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  color: var(--text-muted);
+  gap: 8px;
+  min-width: 132px;
+  color: var(--text);
+  font-family: var(--sans);
   font-size: var(--text-label);
   font-variant-numeric: tabular-nums;
 }
 
+.what-if-slider span {
+  min-width: 72px;
+  color: var(--text);
+  font-weight: 600;
+}
+
 .what-if-slider input[type="range"] {
-  width: 72px;
+  width: 84px;
   accent-color: var(--accent);
 }
 
@@ -1737,6 +1797,7 @@ details.view-card[open] > summary::before {
 
 .what-if-benchmark-help {
   margin-top: var(--space-2);
+  min-height: 0;
   color: var(--text-muted);
   font-size: var(--text-micro);
 }

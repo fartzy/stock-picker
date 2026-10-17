@@ -149,12 +149,12 @@ function SignedPercent({ value, emptyLabel = "—" }: { value: number | null; em
   </span>;
 }
 
-function ComparisonRow({ label, pnl, gain, detail, hint, primary = false, emptyPnl, emptyGain, gainNote }: {
+function ComparisonRow({ label, pnl, gain, detail, hint = "", primary = false, emptyPnl, emptyGain, gainNote }: {
   label: string;
   pnl: number | null;
   gain: number | null;
   detail: string;
-  hint: string;
+  hint?: string;
   primary?: boolean;
   emptyPnl?: string;
   emptyGain?: string;
@@ -221,20 +221,15 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
             emptyPnl={scenario ? "Awaiting opens" : "Awaiting close"}
             emptyGain={strategyGain === null && unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced` : "—"}
             gainNote={strategyGain !== null && unpricedOpenDays ? `${unpricedOpenDays} ${unpricedOpenDays === 1 ? "day" : "days"} unpriced · partial` : undefined}
-            hint={scenario && unpricedOpenDays
-              ? `Partial: ${scenario.matchedDays}/${scenario.eligibleDays} days priced. P&L divided by average daily capital; no estimate for missing opens.`
-              : "Simulated pick P&L divided by average active-day capital. Fixed-size trades; no compounding or trading costs."}
           />
           <ComparisonRow
             label="S&P intraday" detail={intradayDetail}
             pnl={benchmark.intraday.pnl} gain={intradayGain}
             emptyGain={missingSpyDays ? `${missingSpyDays} SPY ${missingSpyDays === 1 ? "day" : "days"} missing` : "—"}
-            hint="Matched SPY open → close · same daily capital"
           />
           <ComparisonRow
             label="S&P buy & hold" detail={holdDetail}
             pnl={benchmark.hold.pnl} gain={holdGain}
-            hint="One SPY stake from the first selected day's open through the last selected day's close, including overnight exposure."
           />
         </tbody>
       </table>
@@ -720,7 +715,8 @@ export default function WhatIf() {
   ) : null;
 
   return (
-    <div>
+    <>
+      <div className="what-if-controls">
       <div className="slice-bar what-if-toolbar">
         <StrategyControl label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText}
           dollarsPerTrade={tradeSizes.rank} onTradeSize={(rank) => setTradeSizes((sizes) => ({ ...sizes, rank }))} />
@@ -744,54 +740,6 @@ export default function WhatIf() {
         {blacklistError && <span className="error" role="status">
           {blacklistError.includes(": 404") ? "Restart API to enable filter" : "Couldn’t load blacklist"}
         </span>}
-        <div className="what-if-exit-control" aria-label="After the close">
-          <select className="form-select" aria-label="After the close" value={afterClose}
-            onChange={(event) => {
-              const mode = event.target.value as AfterCloseMode;
-              setAfterClose(mode);
-              setHoldNextOpen(mode === "next-open");
-            }}>
-            <option value="close">Sell at the close</option>
-            <option value="next-open">Next morning open</option>
-            <option value="target">Wait for a gain</option>
-          </select>
-          {afterClose === "target" && <>
-            <label className="what-if-slider" title="Sell when the later high reaches this far above the close.">
-              <span>+{holdGainPct}%</span>
-              <input type="range" min={1} max={10} step={1} value={holdGainPct}
-                aria-label="Gain target percent" onChange={(event) => setHoldGainPct(Number(event.target.value))} />
-            </label>
-            <label className="what-if-slider" title="Sell if the later low falls this far below the close.">
-              <span>-{holdDropPct}%</span>
-              <input type="range" min={0} max={HOLD_DROP_STOPS.length - 1} step={1}
-                value={HOLD_DROP_STOPS.indexOf(holdDropPct)}
-                aria-label="Drop stop percent"
-                onChange={(event) => setHoldDropPct(HOLD_DROP_STOPS[Number(event.target.value)])} />
-            </label>
-            <label className="what-if-slider" title="Sell at the close if neither level prints by this day.">
-              <span>{holdDays}d</span>
-              <input type="range" min={1} max={5} step={1} value={holdDays}
-                aria-label="Days to wait" onChange={(event) => setHoldDays(Number(event.target.value))} />
-            </label>
-          </>}
-        </div>
-        {afterClose === "next-open" && <div className="what-if-exit-control" aria-label="Next morning open">
-            <select className="form-select" value={overnightRule} aria-label="Stocks held to next open"
-              onChange={(event) => setOvernightRule(event.target.value as OvernightExitRule)}>
-              <option value="all">All included</option>
-              <option value="down">Down today</option>
-              <option value="custom">Pick stocks</option>
-            </select>
-            <select className="form-select what-if-hold-portion" value={overnightPortion} aria-label="Portion held to next open"
-              onChange={(event) => setOvernightPortion(Number(event.target.value))}>
-              {[100, 50, 30, 10].map((value) => <option key={value} value={value}>{value}% held</option>)}
-            </select>
-            <button type="button" className="icon-btn what-if-action-btn" title="Refresh actual next opens"
-              disabled={historyBusy}
-              onClick={() => setOpenRefresh((value) => value + 1)}>Refresh opens</button>
-        </div>}
-        {historyBusy && holdNextOpen && <span className="muted">Checking opens…</span>}
-        {historyError && holdNextOpen && <span className="error" role="status">{historyError}</span>}
         <button
           type="button"
           className="icon-btn what-if-action-btn"
@@ -815,17 +763,59 @@ export default function WhatIf() {
         >
           {busy ? "Updating…" : "Update closes"}
         </button>
-        <details className="what-if-help">
-          <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
-          <div className="what-if-help-body">
-            <p>Sell at the close is the default. Next morning open uses the actual next open. Wait for a gain sells at that level, at the drop stop, or at the close when the wait ends.</p>
-            <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
-            <p>Turn off news skips to include priced picks from the original Rank/Fit lists in hypothetical totals. Missing prices stay pending; saved news checks and live decisions stay the same.</p>
-            <p>Exclude blacklisted removes current blacklist names from historical comparisons without replacing them with lower-ranked picks.</p>
-            <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
-          </div>
-        </details>
+      </div>
+      <div className="slice-bar what-if-toolbar">
+        <label className="what-if-exit-group">
+          <span>After the close</span>
+          <select aria-label="After the close" value={afterClose}
+            onChange={(event) => {
+              const mode = event.target.value as AfterCloseMode;
+              setAfterClose(mode);
+              setHoldNextOpen(mode === "next-open");
+            }}>
+            <option value="close">Sell at the close</option>
+            <option value="next-open">Next morning open</option>
+            <option value="target">Wait for a gain</option>
+          </select>
+        </label>
+          {afterClose === "target" && <>
+            <label className="what-if-slider" title="Sell when the later high reaches this far above the close.">
+              <span>Gain +{holdGainPct}%</span>
+              <input type="range" min={0} max={10} step={1} value={holdGainPct}
+                aria-label="Gain target percent" onChange={(event) => setHoldGainPct(Number(event.target.value))} />
+            </label>
+            <label className="what-if-slider" title="Sell if the later low falls this far below the close.">
+              <span>Stop −{holdDropPct}%</span>
+              <input type="range" min={0} max={HOLD_DROP_STOPS.length - 1} step={1}
+                value={HOLD_DROP_STOPS.indexOf(holdDropPct)}
+                aria-label="Drop stop percent"
+                onChange={(event) => setHoldDropPct(HOLD_DROP_STOPS[Number(event.target.value)])} />
+            </label>
+            <label className="what-if-slider" title="Sell at the close if neither level prints by this day.">
+              <span>Wait {holdDays}d</span>
+              <input type="range" min={1} max={5} step={1} value={holdDays}
+                aria-label="Days to wait" onChange={(event) => setHoldDays(Number(event.target.value))} />
+            </label>
+          </>}
+        {afterClose === "next-open" && <>
+            <select className="form-select" value={overnightRule} aria-label="Stocks held to next open"
+              onChange={(event) => setOvernightRule(event.target.value as OvernightExitRule)}>
+              <option value="all">All included</option>
+              <option value="down">Down today</option>
+              <option value="custom">Pick stocks</option>
+            </select>
+            <select className="form-select what-if-hold-portion" value={overnightPortion} aria-label="Portion held to next open"
+              onChange={(event) => setOvernightPortion(Number(event.target.value))}>
+              {[100, 50, 30, 10].map((value) => <option key={value} value={value}>{value}% held</option>)}
+            </select>
+            <button type="button" className="icon-btn what-if-action-btn" title="Refresh actual next opens"
+              disabled={historyBusy}
+              onClick={() => setOpenRefresh((value) => value + 1)}>Refresh opens</button>
+        </>}
+        {historyBusy && holdNextOpen && <span className="muted">Checking opens…</span>}
+        {historyError && holdNextOpen && <span className="error" role="status">{historyError}</span>}
         {rebuildError && <span className="error">{rebuildError}</span>}
+      </div>
       </div>
       <div className="slice-bar">
         <input
@@ -935,6 +925,6 @@ export default function WhatIf() {
           ))}
         </>
       )}
-    </div>
+    </>
   );
 }
