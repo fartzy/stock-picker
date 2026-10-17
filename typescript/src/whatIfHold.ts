@@ -1,3 +1,5 @@
+import type { OvernightExitRule } from "./whatIf";
+
 export interface HoldBar {
   date: string;
   open: number;
@@ -21,13 +23,6 @@ export function holdExit(
 ): HoldExit | null {
   const window = sessions.slice(0, days);
   if (!close || window.length < days) return null;
-  // A 0% gain with a one-day wait is the next morning's open. The open is
-  // already the fill, so the day's later high and low do not replace it.
-  if (gainPct === 0 && days === 1) {
-    const open = window[0].open;
-    if (!open) return null;
-    return { returnPct: open / close - 1, reason: "target", day: 1 };
-  }
   const target = close * (1 + gainPct / 100);
   const stop = close * (1 - dropPct / 100);
   for (const [index, bar] of window.entries()) {
@@ -63,7 +58,7 @@ export function addHoldSummaries(parts: Array<HoldSummary | null>): HoldSummary 
 }
 
 export function summarizeHold(
-  rows: ReadonlyArray<{ close_price: number | null; open_price?: number | null; hypothetical?: { endingValue: number | null } }>,
+  rows: ReadonlyArray<{ close_price: number | null }>,
   paths: ReadonlyMap<string, readonly HoldBar[]>,
   gainPct: number,
   dropPct: number,
@@ -74,27 +69,10 @@ export function summarizeHold(
   let total = 0;
   let n = 0;
   let pending = 0;
-  const nextMorning = gainPct === 0 && days === 1;
   for (const row of rows) {
     if (row.close_price === null) continue;
     const ticker = "ticker" in row ? String(row.ticker) : "";
     const sessions = paths.get(ticker) ?? [];
-    if (nextMorning) {
-      const nextOpen = sessions[0]?.open;
-      const open = row.open_price;
-      const ending = row.hypothetical?.endingValue;
-      if (!nextOpen || !open || ending === null || ending === undefined) {
-        pending += 1;
-        continue;
-      }
-      // Same sale as Next morning open: keep the day's open-to-close trade,
-      // then add the move from that close to the next morning's open.
-      const overnight = dollarsPerTrade / open * (nextOpen - row.close_price);
-      pnl += ending + overnight - dollarsPerTrade;
-      total += (ending + overnight) / dollarsPerTrade - 1;
-      n += 1;
-      continue;
-    }
     const exit = holdExit(row.close_price, sessions, gainPct, dropPct, days);
     if (!exit) {
       pending += 1;
@@ -111,4 +89,33 @@ export function summarizeHold(
     n,
     pending,
   };
+}
+
+export type AfterCloseMode = "close" | "next-open" | "target";
+
+export interface AfterCloseChoice {
+  mode: AfterCloseMode;
+  gainPct: number;
+  dropPct: number;
+  days: number;
+  rule: OvernightExitRule;
+  portion: number;
+}
+
+export interface ResolvedAfterClose {
+  nextOpen: { rule: OvernightExitRule; portion: number } | null;
+  hold: { gainPct: number; dropPct: number; days: number } | null;
+}
+
+/** A +0% target with a one-day wait sells at the next morning's open: the open
+ * is the first price after the close and already meets a 0% target, so the stop
+ * never gets a turn. Route it through the Next morning open calculation (all
+ * picks, 100% held) so both settings share one formula, one price source, and
+ * one set of priced picks.
+ */
+export function resolveAfterClose(choice: AfterCloseChoice): ResolvedAfterClose {
+  if (choice.mode === "next-open") return { nextOpen: { rule: choice.rule, portion: choice.portion }, hold: null };
+  if (choice.mode !== "target") return { nextOpen: null, hold: null };
+  if (choice.gainPct === 0 && choice.days === 1) return { nextOpen: { rule: "all", portion: 100 }, hold: null };
+  return { nextOpen: null, hold: { gainPct: choice.gainPct, dropPct: choice.dropPct, days: choice.days } };
 }

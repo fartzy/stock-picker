@@ -27,9 +27,10 @@ import {
   type StrategyBenchmark, type StrategyKind, type TradeSizes,
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
-import { addHoldSummaries, summarizeHold, type HoldBar, type HoldSummary } from "../whatIfHold";
+import {
+  addHoldSummaries, resolveAfterClose, summarizeHold, type AfterCloseMode, type HoldBar, type HoldSummary,
+} from "../whatIfHold";
 
-type AfterCloseMode = "close" | "next-open" | "target";
 const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
 import TogglePill from "./TogglePill";
 
@@ -541,7 +542,6 @@ export default function WhatIf() {
   const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
   const [applyNewsSkips, setApplyNewsSkips] = useState(false);
   const [excludeBlacklisted, setExcludeBlacklisted] = useState(false);
-  const [holdNextOpen, setHoldNextOpen] = useState(false);
   const [afterClose, setAfterClose] = useState<AfterCloseMode>("close");
   const [holdGainPct, setHoldGainPct] = useState(1);
   const [holdDropPct, setHoldDropPct] = useState(10);
@@ -571,7 +571,15 @@ export default function WhatIf() {
   const rankAsked = rankOn ? parseTop(rankText) : undefined;
   const fitAsked = fitOn ? parseTop(fitText) : undefined;
   const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
-  const exitMode: OvernightExitMode = holdNextOpen ? overnightRule : "close";
+  // +0% / 1d resolves to Next morning open, so both settings share one calculation.
+  const afterCloseRule = resolveAfterClose({
+    mode: afterClose, gainPct: holdGainPct, dropPct: holdDropPct, days: holdDays,
+    rule: overnightRule, portion: overnightPortion,
+  });
+  const holdNextOpen = afterCloseRule.nextOpen !== null;
+  const exitRule = afterCloseRule.nextOpen?.rule ?? overnightRule;
+  const exitPortion = afterCloseRule.nextOpen?.portion ?? overnightPortion;
+  const exitMode: OvernightExitMode = holdNextOpen ? exitRule : "close";
   const excludedTickers = excludeBlacklisted && blacklistedTickers
     ? new Set(blacklistedTickers) : undefined;
   const data = raw ? simulateBook(raw, {
@@ -611,7 +619,7 @@ export default function WhatIf() {
         || day[`${strategy}_money`].invested <= 0) continue;
       const selected = customSelections.get(overnightSelectionKey(day, strategy)) ?? EMPTY_CUSTOM;
       const tickers = historyJobs.get(day.as_of) ?? new Set<string>();
-      selectOvernightExitRows(day[strategy], overnightRule, selected)
+      selectOvernightExitRows(day[strategy], exitRule, selected)
         .forEach((row) => tickers.add(row.ticker));
       if (tickers.size) historyJobs.set(day.as_of, tickers);
     }
@@ -645,7 +653,7 @@ export default function WhatIf() {
   }, [holdNextOpen, historyJobsKey, loadActuals, openRefresh]);
 
   const holdJobs = new Map<string, string[]>();
-  if (data && afterClose === "target") for (const day of data.days) {
+  if (data && afterCloseRule.hold) for (const day of data.days) {
     if (day.scan_id) continue;
     const tickers = [...(rankOn ? day.rank : []), ...(fitOn ? day.fit : [])]
       .filter((row) => row.close_price !== null)
@@ -655,7 +663,7 @@ export default function WhatIf() {
   const holdJobsKey = JSON.stringify([...holdJobs]);
   useEffect(() => {
     const jobs = JSON.parse(holdJobsKey) as Array<[string, string[]]>;
-    if (afterClose !== "target" || jobs.length === 0) return;
+    if (jobs.length === 0) return;
     let active = true;
     void Promise.all(jobs.map(([asOf, tickers]) => fetchHoldPath(asOf, tickers, 5))).then((responses) => {
       if (!active) return;
@@ -668,7 +676,7 @@ export default function WhatIf() {
       if (active) setHoldPaths(new Map());
     });
     return () => { active = false; };
-  }, [afterClose, holdJobsKey]);
+  }, [holdJobsKey]);
 
   function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
     setCustomSelections((current) => {
@@ -689,16 +697,17 @@ export default function WhatIf() {
   const rankBenchmark = currentBenchmarks?.rank ?? null;
   const fitBenchmark = currentBenchmarks?.fit ?? null;
   function holdFor(strategy: "rank" | "fit"): HoldSummary | null {
-    if (afterClose !== "target" || !data) return null;
+    const hold = afterCloseRule.hold;
+    if (!hold || !data) return null;
     return addHoldSummaries(data.days.filter((day) => !day.scan_id).map((day) => summarizeHold(
       day[strategy],
       new Map([...holdPaths].flatMap(([key, sessions]) => {
         const [asOf, ticker] = key.split(":");
         return asOf === day.as_of ? [[ticker, sessions] as const] : [];
       })),
-      holdGainPct,
-      holdDropPct,
-      holdDays,
+      hold.gainPct,
+      hold.dropPct,
+      hold.days,
       tradeSizes[strategy],
     )));
   }
@@ -706,12 +715,12 @@ export default function WhatIf() {
   const fitHold = holdFor("fit");
   const holdLabel = `Wait for +${holdGainPct}% or sell at -${holdDropPct}% within ${holdDays}d`;
   const rankScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
-    data.days, actualsCache.current, "rank", tradeSizes.rank, overnightPortion / 100,
-    overnightRule, customSelections,
+    data.days, actualsCache.current, "rank", tradeSizes.rank, exitPortion / 100,
+    exitRule, customSelections,
   ) : null;
   const fitScenario = holdNextOpen ? summarizeSelectedOvernightHistory(
-    data.days, actualsCache.current, "fit", tradeSizes.fit, overnightPortion / 100,
-    overnightRule, customSelections,
+    data.days, actualsCache.current, "fit", tradeSizes.fit, exitPortion / 100,
+    exitRule, customSelections,
   ) : null;
 
   return (
@@ -772,7 +781,6 @@ export default function WhatIf() {
             onChange={(event) => {
               const mode = event.target.value as AfterCloseMode;
               setAfterClose(mode);
-              setHoldNextOpen(mode === "next-open");
             }}>
             <option value="close">Sell at the close</option>
             <option value="next-open">Next morning open</option>
@@ -892,7 +900,7 @@ export default function WhatIf() {
               rankAsked={rankAsked}
               fitAsked={fitAsked}
               tradeSizes={tradeSizes}
-              hold={afterClose === "target" ? {
+              hold={afterCloseRule.hold ? {
                 gainPct: holdGainPct,
                 dropPct: holdDropPct,
                 days: holdDays,
@@ -902,7 +910,7 @@ export default function WhatIf() {
                 })),
               } : null}
               actuals={actualsCache.current.get(day.as_of)}
-              overnightPortion={overnightPortion}
+              overnightPortion={exitPortion}
               exitMode={exitMode}
               custom={{
                 rank: customSelections.get(overnightSelectionKey(day, "rank")) ?? EMPTY_CUSTOM,
