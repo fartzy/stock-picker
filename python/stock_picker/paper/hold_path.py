@@ -34,13 +34,15 @@ def later_sessions(
     later = history.loc[stamps > cutoff].head(days)
     rows = []
     for stamp, row in later.iterrows():
+        open_price = row.get("Open")
         high = row.get("High")
         low = row.get("Low")
         close = row.get("Close")
-        if pd.isna(high) or pd.isna(low) or pd.isna(close):
+        if pd.isna(open_price) or pd.isna(high) or pd.isna(low) or pd.isna(close):
             continue
         rows.append({
             "date": pd.Timestamp(stamp).date().isoformat(),
+            "open": float(open_price),
             "high": float(high),
             "low": float(low),
             "close": float(close),

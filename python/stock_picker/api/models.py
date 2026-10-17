@@ -505,6 +505,7 @@ class PaperBookDay(BaseModel):
 
 class HoldPathBar(BaseModel):
     date: str
+    open: float
     high: float
     low: float
     close: float
