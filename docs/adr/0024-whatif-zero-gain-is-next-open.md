@@ -31,13 +31,15 @@ the Next morning open calculation (rule `all`, 100% held). Both settings now
 go through `summarizeSelectedOvernightHistory` with the same actuals, so the
 dollars, average and priced count are the same by construction.
 
-All other gain/wait combinations keep the hold rule in `holdExit`: sell at
-the target if the high reaches it, sell at the stop if the low reaches it,
-the stop wins when both print on the same day, and otherwise sell at the
-deadline close.
+All other gain/wait combinations go through `holdExit`, and the total is
+the whole trade: the day's open-to-close result plus the after-close move on
+the same shares, over the same scored/held picks as the close-only baseline.
+Each later session checks its open first, so a gap through the target or the
+stop fills at the open. Within a session the stop wins when both levels
+print. If neither prints, the pick sells at the deadline close, and it stays
+pending only until it exits.
 
-## Known gap
-
-For gains above 0%, `summarizeHold` counts only the close-to-exit return. It
-leaves out the day's own open-to-close trade, so those totals can't be
-compared directly with Sell at the close or Next morning open.
+Before this, the hold total counted only the close-to-exit leg, let the stop
+override an open that had already filled the target, filled gap-downs at the
+stop price, and counted skipped picks. On 2026-10-17 that showed Rank +0% / 5d
+at -$7,298 against +$2,692 close-only. The corrected figure is +$2,157.
