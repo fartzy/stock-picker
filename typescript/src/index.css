@@ -2195,4 +2195,4 @@ details.view-card[open] > summary::before {
 .jev-cell { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .model-tag { opacity: 0.85; }
-.news-inputs { display: grid; gap: var(--space-1); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); font-size: var(--text-caption); }
+.news-inputs { margin: 0 0 var(--space-3); font-size: var(--text-caption); }
