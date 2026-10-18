@@ -322,6 +322,22 @@ class NewsModelInfo(BaseModel):
     detail: dict[str, str | int | bool | None]
 
 
+class NewsOutcomeGroup(BaseModel):
+    n: int
+    avg: float | None
+    win_rate: float | None
+    drop_rate: float | None
+
+
+class NewsOutcomesResponse(BaseModel):
+    days: int
+    flagged: NewsOutcomeGroup
+    clear: NewsOutcomeGroup
+    # Share of (flagged, clear) pairs where the flagged pick did worse. 0.5 = no skill.
+    flag_right_rate: float | None
+    drop_threshold: float
+
+
 class NewsModelsResponse(BaseModel):
     scan_days: list[str]
     usage: NewsUsage

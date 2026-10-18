@@ -1123,3 +1123,18 @@ def test_news_models_reads_recent_scan_decisions(tmp_path):
     assert body["scan_days"] == ["2026-10-16"]
     assert body["usage"]["by_judge"]["grok"] == {"decided": 1, "flagged": 1}
     assert [model["key"] for model in body["models"]] == ["event_guard", "grok", "classifier"]
+
+
+def test_news_outcomes_scores_flag_direction():
+    from stock_picker.storage.paper_book_store import PaperPick
+
+    def pick(ticker, ret, flag):
+        return PaperPick("2026-10-16", "rank", 1, ticker, 0.1, 10.0, None, ret,
+                         news_check={"judge": "grok", "flag": flag, "articles": []})
+
+    picks = [pick("A", -0.08, "dilution"), pick("B", 0.02, None)]
+    with patch("stock_picker.api.routes.load_paper_book", return_value=picks):
+        body = TestClient(app).get("/api/paper-book/news-outcomes").json()
+    assert body["flagged"]["n"] == 1 and body["clear"]["n"] == 1
+    assert body["flag_right_rate"] == 1.0
+    assert body["flagged"]["drop_rate"] == 1.0
