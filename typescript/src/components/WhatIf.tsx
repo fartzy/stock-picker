@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   fetchBenchmarkReturns,
   fetchBlacklistedTickers,
+  fetchFirstTouch,
   fetchHoldPath,
   fetchOvernightActuals,
   fetchPaperBook,
@@ -28,7 +29,8 @@ import {
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import {
-  addHoldSummaries, resolveAfterClose, summarizeHold, type AfterCloseMode, type HoldBar, type HoldSummary,
+  addHoldSummaries, resolveAfterClose, summarizeHold, tieCases, tieKey,
+  type AfterCloseMode, type FirstTouch, type HoldBar, type HoldSummary,
 } from "../whatIfHold";
 
 const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
@@ -368,7 +370,10 @@ function DayCard({
   fitAsked: number | undefined;
   modelLabel?: string;
   tradeSizes: TradeSizes;
-  hold?: { gainPct: number; dropPct: number; days: number; paths: ReadonlyMap<string, readonly HoldBar[]> } | null;
+  hold?: {
+    gainPct: number; dropPct: number; days: number;
+    paths: ReadonlyMap<string, readonly HoldBar[]>; ties: ReadonlyMap<string, FirstTouch>;
+  } | null;
   actuals?: ReadonlyMap<string, OvernightActualRow>;
   overnightPortion: number;
   exitMode: OvernightExitMode;
@@ -386,7 +391,7 @@ function DayCard({
   const fitExitPnl = kind !== "rank" ? exitPnl("fit") : null;
   function holdResult(strategy: StrategyKind) {
     if (!hold) return null;
-    return summarizeHold(day[strategy], hold.paths, hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy]);
+    return summarizeHold(day[strategy], hold.paths, hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy], hold.ties);
   }
   const rankHold = kind !== "fit" ? holdResult("rank") : null;
   const fitHold = kind !== "rank" ? holdResult("fit") : null;
@@ -548,6 +553,7 @@ export default function WhatIf() {
   const [holdDropPct, setHoldDropPct] = useState(10);
   const [holdDays, setHoldDays] = useState(1);
   const [holdPaths, setHoldPaths] = useState<ReadonlyMap<string, readonly HoldBar[]>>(() => new Map());
+  const [tieAnswers, setTieAnswers] = useState<ReadonlyMap<string, FirstTouch>>(() => new Map());
   const [overnightRule, setOvernightRule] = useState<OvernightExitRule>("all");
   const [overnightPortion, setOvernightPortion] = useState(100);
   const [openRefresh, setOpenRefresh] = useState(0);
@@ -679,6 +685,39 @@ export default function WhatIf() {
     return () => { active = false; };
   }, [holdJobsKey]);
 
+  function holdPathsFor(asOf: string): ReadonlyMap<string, readonly HoldBar[]> {
+    return new Map([...holdPaths].flatMap(([key, sessions]) => {
+      const [day, ticker] = key.split(":");
+      return day === asOf ? [[ticker, sessions] as const] : [];
+    }));
+  }
+
+  // Sessions where both hold levels printed: ask minute bars which came first.
+  const holdRule = afterCloseRule.hold;
+  const tieJobs = data && holdRule ? data.days.filter((day) => !day.scan_id).flatMap((day) =>
+    (["rank", "fit"] as const).filter((strategy) => (strategy === "rank" ? rankOn : fitOn)).flatMap((strategy) =>
+      tieCases(day[strategy], holdPathsFor(day.as_of), holdRule.gainPct, holdRule.dropPct, holdRule.days)))
+    .filter((c) => !tieAnswers.has(tieKey(c.ticker, c.session, c.target, c.stop))) : [];
+  const tieJobsKey = JSON.stringify(tieJobs.map((c) => tieKey(c.ticker, c.session, c.target, c.stop)).sort());
+  useEffect(() => {
+    if (tieJobs.length === 0) return;
+    let active = true;
+    const cases = [...new Map(tieJobs.map((c) => [tieKey(c.ticker, c.session, c.target, c.stop), c])).values()];
+    void fetchFirstTouch(cases).then(({ results }) => {
+      if (!active) return;
+      setTieAnswers((current) => {
+        const next = new Map(current);
+        results.forEach((r) => next.set(tieKey(r.ticker, r.session, r.target, r.stop), r.first));
+        return next;
+      });
+    }).catch(() => {
+      // Unresolved ties keep the stop-first fallback.
+    });
+    return () => { active = false; };
+    // tieJobsKey captures the case list; tieJobs itself is rebuilt every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tieJobsKey]);
+
   function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
     setCustomSelections((current) => {
       const next = new Map(current);
@@ -701,15 +740,7 @@ export default function WhatIf() {
     const hold = afterCloseRule.hold;
     if (!hold || !data) return null;
     return addHoldSummaries(data.days.filter((day) => !day.scan_id).map((day) => summarizeHold(
-      day[strategy],
-      new Map([...holdPaths].flatMap(([key, sessions]) => {
-        const [asOf, ticker] = key.split(":");
-        return asOf === day.as_of ? [[ticker, sessions] as const] : [];
-      })),
-      hold.gainPct,
-      hold.dropPct,
-      hold.days,
-      tradeSizes[strategy],
+      day[strategy], holdPathsFor(day.as_of), hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy], tieAnswers,
     )));
   }
   const rankHold = holdFor("rank");
@@ -906,10 +937,8 @@ export default function WhatIf() {
                 gainPct: holdGainPct,
                 dropPct: holdDropPct,
                 days: holdDays,
-                paths: new Map([...holdPaths].flatMap(([key, sessions]) => {
-                  const [asOf, ticker] = key.split(":");
-                  return asOf === day.as_of ? [[ticker, sessions] as const] : [];
-                })),
+                paths: holdPathsFor(day.as_of),
+                ties: tieAnswers,
               } : null}
               actuals={actualsCache.current.get(day.as_of)}
               overnightPortion={exitPortion}

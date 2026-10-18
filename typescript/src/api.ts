@@ -320,6 +320,19 @@ export interface NewsOutcomesResponse {
 
 export const fetchNewsOutcomes = () => getJson<NewsOutcomesResponse>("/api/paper-book/news-outcomes");
 
+/** Which hold level a session reached first, from minute bars. */
+export type FirstTouch = "target" | "stop" | "same_minute" | "neither" | "unavailable";
+
+export interface FirstTouchCase {
+  ticker: string;
+  session: string;
+  target: number;
+  stop: number;
+}
+
+export const fetchFirstTouch = (cases: FirstTouchCase[]) =>
+  mutate<{ results: Array<FirstTouchCase & { first: FirstTouch }> }>("POST", "/api/paper-book/first-touch", { cases });
+
 export const fetchHoldPath = (asOf: string, tickers: string[], days: number) => {
   const params = new URLSearchParams({ as_of: asOf, tickers: tickers.join(","), days: String(days) });
   return getJson<HoldPathResponse>(`/api/paper-book/hold-path?${params.toString()}`);

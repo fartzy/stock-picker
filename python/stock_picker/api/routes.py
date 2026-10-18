@@ -43,6 +43,8 @@ from stock_picker.api.models import (
     OvernightActualsRequest,
     OvernightActualsResponse,
     HoldPathResponse,
+    FirstTouchRequest,
+    FirstTouchResponse,
     PaperBookResponse,
     PaperReplayRequest,
     PositionsResponse,
@@ -568,6 +570,35 @@ def get_paper_book_hold_path(
         days=wanted,
         rows=[{"ticker": ticker, "sessions": later_sessions(ticker, as_of, wanted)} for ticker in names],
     )
+
+
+# Ties per request: the browser only sends days where both levels printed.
+MAX_FIRST_TOUCH_CASES = 200
+
+
+@router.post("/paper-book/first-touch")
+def post_first_touch(body: FirstTouchRequest) -> FirstTouchResponse:
+    """Which hold level a session reached first, from cached Massive minute bars."""
+    from stock_picker.paper.first_touch import MinuteBarCache, first_touch
+
+    if len(body.cases) > MAX_FIRST_TOUCH_CASES:
+        raise HTTPException(status_code=422, detail=f"at most {MAX_FIRST_TOUCH_CASES} cases")
+    if any(not TICKER_PATTERN.fullmatch(case.ticker.upper()) for case in body.cases):
+        raise HTTPException(status_code=422, detail="invalid ticker")
+    client = MassiveOvernightClient()
+
+    def fetch(ticker: str, session: date) -> list[dict]:
+        try:
+            return client.fetch_minute_bars(ticker, session)
+        except MassiveOvernightError:
+            # Messages are scrubbed of the key; an unavailable day stays unresolved.
+            return []
+
+    cache = MinuteBarCache(fetch)
+    return FirstTouchResponse(results=[
+        {**case.model_dump(), "first": first_touch(cache.bars(case.ticker.upper(), case.session), case.target, case.stop)}
+        for case in body.cases
+    ])
 
 
 @router.post("/paper-book/rebuild")
