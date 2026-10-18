@@ -417,3 +417,13 @@ py_pytest(
         "@pypi//requests",
     ],
 )
+
+py_pytest(
+    name = "test_model_features",
+    srcs = ["test_model_features.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/training",
+    ],
+)

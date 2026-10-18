@@ -1138,3 +1138,10 @@ def test_news_outcomes_scores_flag_direction():
     assert body["flagged"]["n"] == 1 and body["clear"]["n"] == 1
     assert body["flag_right_rate"] == 1.0
     assert body["flagged"]["drop_rate"] == 1.0
+
+
+def test_model_features_lists_every_model():
+    body = TestClient(app).get("/api/model-features").json()
+    assert [model["key"] for model in body["models"]] == ["fit", "rank", "overnight", "news"]
+    news = body["models"][3]
+    assert news["articles"]["fields"] == ["headline", "summary"]

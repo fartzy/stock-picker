@@ -13,6 +13,9 @@ import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 import WhatIf from "./components/WhatIf";
 import NewsModelsPanel from "./components/NewsModelsPanel";
+import { ModelFilterBar, NewsInputs, type ModelFilter } from "./components/ModelFilter";
+import { fetchModelFeatures } from "./api";
+import { useFetchData } from "./useFetchData";
 
 type Tab = "trading" | "overnight" | "whatif" | "testrun" | "features" | "models" | "data";
 
@@ -37,6 +40,8 @@ const MODEL_TABS: { id: ModelTab; label: string }[] = [
 export default function App() {
   const [tab, setTab] = useState<Tab>("trading");
   const [modelTab, setModelTab] = useState<ModelTab>("intraday");
+  const [modelFilter, setModelFilter] = useState<ModelFilter>("all");
+  const { data: modelFeatures } = useFetchData(fetchModelFeatures, { deps: [tab === "features"] });
   // One-shot handoff from the Data tab's feature columns to Registry: set,
   // switched to, then cleared once Registry has scrolled to/highlighted it.
   const [pendingFeature, setPendingFeature] = useState<string | null>(null);
@@ -148,10 +153,15 @@ export default function App() {
         <section>
           <h2>Registry</h2>
           <p className="muted">Pruned features are excluded from training, not just hidden here.</p>
-          <OvernightFeaturePanel />
-          <div className="panel">
-            <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)} />
-          </div>
+          <ModelFilterBar value={modelFilter} onChange={setModelFilter} models={modelFeatures?.models ?? null} />
+          {modelFilter === "news" && <NewsInputs model={modelFeatures?.models.find((model) => model.key === "news")} />}
+          {(modelFilter === "all" || modelFilter === "overnight") && <OvernightFeaturePanel />}
+          {modelFilter !== "overnight" && (
+            <div className="panel">
+              <Registry pendingFeature={pendingFeature} onFeatureFocused={() => setPendingFeature(null)}
+                modelFilter={modelFilter} models={modelFeatures?.models ?? null} />
+            </div>
+          )}
         </section>
       )}
 

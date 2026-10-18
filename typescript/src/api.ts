@@ -683,6 +683,19 @@ export async function forecastOvernight(request: OvernightForecastRequest): Prom
   }
   return response.json() as Promise<OvernightForecastResponse>;
 }
+export type ModelKey = "fit" | "rank" | "overnight" | "news";
+
+export interface ModelFeatures {
+  key: ModelKey;
+  label: string;
+  saved: boolean;
+  features: string[];
+  model_outputs: string[];
+  articles: { fields: string[]; max_articles: number; feature_sources: string[] } | null;
+}
+
+export const fetchModelFeatures = () => getJson<{ models: ModelFeatures[] }>("/api/model-features");
+
 export const fetchCorrelation = () => getJson<CorrelationResponse>("/api/correlation");
 export const fetchRegistry = () => getJson<RegistryResponse>("/api/registry");
 export const fetchTrades = () => getJson<TradesResponse>("/api/trades");
