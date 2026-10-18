@@ -36,6 +36,7 @@ from stock_picker.api.models import (
     OvernightForecastRequest,
     OvernightForecastResponse,
     OvernightCurrentPriceResponse,
+    ModelFeaturesResponse,
     NewsModelsResponse,
     NewsOutcomesResponse,
     OvernightModelResponse,
@@ -672,6 +673,23 @@ def get_model_info() -> ModelInfoResponse:
         models=fit, rank_models=ensemble_composition(rank) if rank else [],
         rank_new_feature_count=len(rank_features & PRICE_PATTERN_COLUMNS),
     )
+
+
+@router.get("/model-features")
+def get_model_features() -> ModelFeaturesResponse:
+    """Each model's saved input names, so the Feature Store can group by model."""
+    from stock_picker.training.model_features import model_inputs
+
+    store = ModelStore()
+    selected_run_id = TrainingConfigStore().read().selected_run_id
+    fit_name = f"{MODEL_NAME}_{selected_run_id}" if selected_run_id else MODEL_NAME
+
+    def saved(name):
+        return store.read(name) if store.exists(name) else None
+
+    return ModelFeaturesResponse(models=model_inputs(
+        fit=saved(fit_name), rank=saved(RANK_MODEL_NAME), overnight=saved(OVERNIGHT_MODEL_NAME),
+    ))
 
 
 @router.get("/model-types")

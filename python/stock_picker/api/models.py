@@ -322,6 +322,26 @@ class NewsModelInfo(BaseModel):
     detail: dict[str, str | int | bool | None]
 
 
+class NewsArticleInputs(BaseModel):
+    fields: list[str]
+    max_articles: int
+    feature_sources: list[str]
+
+
+class ModelFeatures(BaseModel):
+    key: str
+    label: str
+    saved: bool
+    features: list[str]
+    # Inputs that are another model's prediction (SVM stack, day_* outputs).
+    model_outputs: list[str]
+    articles: NewsArticleInputs | None = None
+
+
+class ModelFeaturesResponse(BaseModel):
+    models: list[ModelFeatures]
+
+
 class NewsOutcomeGroup(BaseModel):
     n: int
     avg: float | None

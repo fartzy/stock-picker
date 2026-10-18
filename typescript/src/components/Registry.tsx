@@ -22,6 +22,7 @@ import {
   type ModelDerivedFeatureView,
   type PrunedFeaturesResponse,
   type RegistryResponse,
+  type ModelFeatures,
 } from "../api";
 import {
   coverageColor,
@@ -38,6 +39,7 @@ import {
 } from "../modelDerivedRegistry";
 import { useFetchData } from "../useFetchData";
 import { FeatureCategory, FeatureRow } from "./FeaturePresentation";
+import { ModelTags, modelsByFeature, type ModelFilter } from "./ModelFilter";
 
 // Prunes can also happen from CorrelationHeatmap (a sibling tab section) --
 // poll rather than fetch-once so a prune made there shows up here too, same
@@ -209,9 +211,13 @@ function ModelDerivedViewSection({
 export default function Registry({
   pendingFeature,
   onFeatureFocused,
+  modelFilter = "all",
+  models = null,
 }: {
   pendingFeature?: string | null;
   onFeatureFocused?: () => void;
+  modelFilter?: ModelFilter;
+  models?: ModelFeatures[] | null;
 } = {}) {
   const { data: registry, error: registryError } = useFetchData<RegistryResponse>(fetchRegistry);
   const { data: catalog, error: catalogError } = useFetchData<CatalogResponse>(fetchCatalog);
@@ -440,6 +446,12 @@ export default function Registry({
     (feature) => !pruned.has(feature),
   ).length;
 
+  const usedBy = modelsByFeature(models);
+  const filterSet = modelFilter === "all" || !models
+    ? null
+    : new Set(models.find((model) => model.key === modelFilter)?.features ?? []);
+  const inFilter = (feature: string) => filterSet === null || filterSet.has(feature);
+
   return (
     <div>
       <div className="meta-row">
@@ -479,7 +491,9 @@ export default function Registry({
         )}
       </div>
       {mutationError && <p className="error" role="alert">{mutationError}</p>}
-      {registry.feature_views.map((view) => {
+      {registry.feature_views.map((view) => ({ ...view, features: view.features.filter(inFilter) }))
+        .filter((view) => view.features.length > 0)
+        .map((view) => {
         // A signal before expanding anything -- with ~10 categories and ~97
         // rows total, "what needs attention" shouldn't require opening every
         // one to find out.
@@ -544,6 +558,7 @@ export default function Registry({
                       <span style={{ color: coverageColor(pct) }} aria-hidden="true">&#9679;</span>
                   </>}
                   actions={<>
+                      <ModelTags feature={feature} usedBy={usedBy} />
                       {isPruned && (
                         <button
                           type="button"
@@ -631,7 +646,9 @@ export default function Registry({
         </FeatureCategory>
         );
       })}
-      {modelDerivedRegistrySections(registry, catalog).map(({ view, features }) => (
+      {modelDerivedRegistrySections(registry, catalog)
+        .filter(({ view }) => view.features.some(inFilter))
+        .map(({ view, features }) => (
         <ModelDerivedViewSection
           key={view.name}
           view={view}
@@ -644,7 +661,7 @@ export default function Registry({
           togglePrune={togglePrune}
         />
       ))}
-      {experimentalRegistrySections(registry, catalog).map(({ view, features }) => (
+      {modelFilter === "all" && experimentalRegistrySections(registry, catalog).map(({ view, features }) => (
         <ExperimentalViewSection
           key={view.name}
           view={view}
