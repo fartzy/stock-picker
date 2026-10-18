@@ -61,12 +61,5 @@ export function ModelFilterBar({
 /** What the news deciders read: article text, not feature columns. */
 export function NewsInputs({ model }: { model: ModelFeatures | undefined }) {
   if (!model?.articles) return null;
-  const { fields, max_articles: max, feature_sources: sources } = model.articles;
-  return (
-    <div className="view-card news-inputs">
-      <strong>News models read</strong>
-      <span>{fields.join(" + ")} of up to {max} articles per pick</span>
-      <span className="muted">The news features below are built from {sources.join(", ")}</span>
-    </div>
-  );
+  return <p className="muted news-inputs">Reads headline + summary, up to {model.articles.max_articles} articles</p>;
 }
