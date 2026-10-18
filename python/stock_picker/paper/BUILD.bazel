@@ -6,6 +6,7 @@ py_library(
         "__init__.py",
         "book.py",
         "hold_path.py",
+        "news_outcomes.py",
     ],
     imports = ["../.."],
     visibility = ["//visibility:public"],

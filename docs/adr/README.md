@@ -37,3 +37,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0023](0023-all-svm-outputs-as-fit-features.md) | 2026-10-04 | Keep all seven SVM outputs as selectable, prunable Fit features; train chronologically and save paired estimators |
 | [0024](0024-whatif-zero-gain-is-next-open.md) | 2026-10-17 | What If +0% / 1-day wait resolves to the Next morning open calculation so both settings share one formula, price source and population |
 | [0025](0025-jev-shadow-confidences.md) | 2026-10-18 | Record shadow Jev buy / hold / news-skip confidences on every morning pick; display only until forward outcomes justify more |
+| [0026](0026-news-flag-scored-on-outcomes.md) | 2026-10-18 | Score the news flag on outcomes in What If; export labelled news-outcome rows for a future learned drop model |

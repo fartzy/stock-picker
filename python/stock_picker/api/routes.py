@@ -37,6 +37,7 @@ from stock_picker.api.models import (
     OvernightForecastResponse,
     OvernightCurrentPriceResponse,
     NewsModelsResponse,
+    NewsOutcomesResponse,
     OvernightModelResponse,
     OvernightActualsRequest,
     OvernightActualsResponse,
@@ -475,6 +476,36 @@ def get_benchmark_returns(dates: str) -> BenchmarkReturnsResponse:
 def get_ticker_blacklist() -> list[str]:
     """Current scoring exclusions, available for optional historical comparisons."""
     return sorted(blacklisted_tickers())
+
+
+def _jev_by_pick() -> dict:
+    """Saved shadow Jev scores, keyed (as_of, kind, ticker), from the morning scans."""
+    from stock_picker.storage.scan_store import ScanStore
+
+    store = ScanStore()
+    found = {}
+    for day in store.days():
+        for kind in ("rank", "fit"):
+            for signal in (store.read(day, kind) or {}).get("signals") or []:
+                if signal.get("jev"):
+                    found[(day, kind, signal["ticker"])] = signal["jev"]
+    return found
+
+
+@router.get("/paper-book/news-outcomes")
+def get_news_outcomes() -> NewsOutcomesResponse:
+    """Did news-flagged picks have worse days than clear ones? Live picks only."""
+    from stock_picker.paper.news_outcomes import news_outcome_rows, summarize_news_outcomes
+
+    return NewsOutcomesResponse(**summarize_news_outcomes(news_outcome_rows(load_paper_book())))
+
+
+@router.get("/paper-book/news-outcomes/rows")
+def get_news_outcome_rows() -> list[dict]:
+    """Labelled training rows for a future learned news model (ADR 0026)."""
+    from stock_picker.paper.news_outcomes import news_outcome_rows
+
+    return news_outcome_rows(load_paper_book(), _jev_by_pick())
 
 
 @router.get("/paper-book")

@@ -303,6 +303,23 @@ export interface HoldPathResponse {
   rows: Array<{ ticker: string; sessions: HoldPathBar[] }>;
 }
 
+export interface NewsOutcomeGroup {
+  n: number;
+  avg: number | null;
+  win_rate: number | null;
+  drop_rate: number | null;
+}
+
+export interface NewsOutcomesResponse {
+  days: number;
+  flagged: NewsOutcomeGroup;
+  clear: NewsOutcomeGroup;
+  flag_right_rate: number | null;
+  drop_threshold: number;
+}
+
+export const fetchNewsOutcomes = () => getJson<NewsOutcomesResponse>("/api/paper-book/news-outcomes");
+
 export const fetchHoldPath = (asOf: string, tickers: string[], days: number) => {
   const params = new URLSearchParams({ as_of: asOf, tickers: tickers.join(","), days: String(days) });
   return getJson<HoldPathResponse>(`/api/paper-book/hold-path?${params.toString()}`);
