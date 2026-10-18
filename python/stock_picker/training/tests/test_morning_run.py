@@ -115,6 +115,40 @@ def test_later_successful_news_batches_are_saved_even_without_flags(monkeypatch)
     assert all(row["news_check"]["status"] == "no_news" for row in ranks[-1]["signals"])
 
 
+def test_jev_shadow_scores_saved_on_every_pick_after_news(monkeypatch):
+    freshness = SimpleNamespace(feature_snapshot_date="2026-09-29", model_trained_through="2026-09-29",
+                                ready_for_inference=True, detail="ready")
+    monkeypatch.setattr(m, "pipeline_freshness", lambda: freshness)
+    monkeypatch.setattr("stock_picker.storage.ticker_blacklist_store.blacklisted_tickers", lambda: set())
+    monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: []))
+    monkeypatch.setattr(m, "TrainingConfigStore", lambda: SimpleNamespace(read=lambda: SimpleNamespace(selected_run_id=None)))
+    monkeypatch.setattr(m, "ModelStore", lambda: SimpleNamespace(exists=lambda name: False))
+    monkeypatch.setattr(m, "FeatureStore", lambda: None)
+    monkeypatch.setattr(m, "PriceStore", lambda: None)
+    monkeypatch.setattr(m, "prepare_live_rows", lambda **kwargs: [])
+    def result(n):
+        return BuySignalResult("2026-09-30", 0.005, [BuySignal(f"T{i}", 0.01, 10, "2026-09-29") for i in range(n)])
+    monkeypatch.setattr(m, "compute_rank_signals", lambda **kwargs: result(12))
+    monkeypatch.setattr(m, "compute_buy_signals", lambda **kwargs: result(3))
+    saved = []
+    monkeypatch.setattr(m, "_write_signals", lambda payload, *args: saved.append(payload))
+    monkeypatch.setattr(m, "write_picks_files", lambda *args: None)
+    monkeypatch.setattr(m, "publish_picks", lambda *args: None)
+    asked = []
+
+    def scorer(picks):
+        asked.extend((kind, signal.ticker, rank, signal.news_checked) for signal, kind, rank in picks)
+        return {(kind, signal.ticker): {"buy_today": 0.6} for signal, kind, _rank in picks}
+
+    m.score_from_quotes({}, as_of=date(2026, 9, 30), earnings_fetcher=lambda *args: set(),
+                        news_fetcher=lambda names, day: {name: NewsCheck(status="no_news", article_count=0, reviewed_count=0) for name in names},
+                        jev_scorer=scorer)
+    assert len(asked) == 12 + 3
+    assert all(checked for *_rest, checked in asked)  # Jev runs after news, so it sees the headlines.
+    assert ("rank", "T0", 1, True) in asked
+    final = {payload.get("kind", "fit"): payload for payload in saved}
+    assert all(row["jev"] == {"buy_today": 0.6} for row in final["rank"]["signals"] + final["fit"]["signals"])
+
 def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
     current = datetime(2026, 10, 6, 8, 39, tzinfo=m.CHICAGO_TIMEZONE)
 

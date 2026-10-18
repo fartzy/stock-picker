@@ -449,6 +449,18 @@ class NewsCheckDetails(BaseModel):
     articles: list[dict] = Field(default_factory=list)
 
 
+class JevShadowScores(BaseModel):
+    """Shadow Jev confidences saved with a morning pick. Display only."""
+
+    news_skip: float | None = None
+    buy_today: float | None = None
+    hold_overnight: float | None = None
+    model: str | None = None
+    tokens: int | None = None
+    issue: str | None = None
+    asked_at: str | None = None
+
+
 class BuySignalRow(BaseModel):
     ticker: str
     predicted_return: float
@@ -461,6 +473,7 @@ class BuySignalRow(BaseModel):
     news_check: NewsCheckDetails | None = None
     prev_close: float | None = None
     news_blocks: bool = False
+    jev: JevShadowScores | None = None
 
 
 class SkippedTicker(BaseModel):
