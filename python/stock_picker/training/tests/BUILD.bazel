@@ -407,3 +407,13 @@ py_pytest(
     imports = ["../../.."],
     deps = ["//python/stock_picker/training"],
 )
+
+py_pytest(
+    name = "test_jev_shadow",
+    srcs = ["test_jev_shadow.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "@pypi//requests",
+    ],
+)

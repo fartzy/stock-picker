@@ -66,6 +66,8 @@ class BuySignal:
     news_checked: bool = False
     prev_close: float | None = None
     news_check: dict | None = None
+    # Shadow Jev confidences (jev_shadow.py); recorded only, never read back.
+    jev: dict | None = None
 
 
 @dataclass

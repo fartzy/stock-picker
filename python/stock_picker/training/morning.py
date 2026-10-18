@@ -46,6 +46,7 @@ from stock_picker.training.notify import (
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.news_ingest import ingest_universe_news
+from stock_picker.training.jev_shadow import CONTEXT_COLUMNS, shadow_scores
 from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_NEWS_TOP_K, RANK_TOP_K
 
 logger = get_logger(__name__)
@@ -146,6 +147,7 @@ def _payload_from(result, freshness, model_run_id: str | None = None) -> dict:
                     status="unknown" if signal.news_checked else "not_checked"
                 )),
                 "prev_close": signal.prev_close,
+                "jev": signal.jev,
             }
             for signal in result.signals
         ],
@@ -172,6 +174,7 @@ def score_from_quotes(
     as_of: date | None = None,
     model_run_id: str | None = None,
     on_progress=None,
+    jev_scorer=None,
 ):
     """Build open-known rows once, then Rank + Fit only predict.
 
@@ -183,6 +186,10 @@ def score_from_quotes(
     news-checked) for viewing while later batches keep judging. The real
     morning path passes nothing and instead surfaces the same staging via its
     existing GitHub/cache publish points below.
+
+    `jev_scorer(picks)`, if given, records shadow Jev confidences on the
+    published picks after news (see `jev_shadow.py`). Only the live 8:30 run
+    passes it, so replays and test runs spend no tokens.
     """
     t0 = time.perf_counter()
     freshness = pipeline_freshness()
@@ -384,8 +391,33 @@ def score_from_quotes(
                 logger.info("republish GitHub after %s news", label)
         if on_progress is not None:
             on_progress(rank_result, result)
+    if jev_scorer is not None:
+        picks = [(s, "rank", i + 1) for i, s in enumerate(rank_signals[:RANK_TOP_K])]
+        picks += [(s, "fit", i + 1) for i, s in enumerate(fit_signals)]
+        t_jev = time.perf_counter()
+        try:
+            scores = jev_scorer(picks)
+        except Exception:
+            logger.exception("jev shadow skipped")
+            scores = {}
+        for signal, kind, _rank in picks:
+            signal.jev = scores.get((kind, signal.ticker))
+        logger.info("jev shadow %.1fs scored=%s", time.perf_counter() - t_jev, len(scores))
+        if persist and scores:
+            _publish(first=False)
     logger.info("score done %.1fs", time.perf_counter() - t0)
     return freshness, rank_result, result, rank_n, rank_text
+
+
+def _latest_context(ticker: str) -> dict:
+    frame = FeatureStore().read(ticker)
+    present = [name for name in CONTEXT_COLUMNS if name in frame.columns]
+    return frame[present].iloc[-1].to_dict() if present and not frame.empty else {}
+
+
+def live_jev_scorer(picks):
+    """Shadow Jev confidences for the live run, from each ticker's last feature row."""
+    return shadow_scores(picks, _latest_context)
 
 
 def recover_missing_morning_quotes(
@@ -523,7 +555,8 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         logger.info("quotes=%s", len(quotes))
         model_run_id = TrainingConfigStore().read().selected_run_id
         freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
-            quotes, threshold=threshold, persist=True, model_run_id=model_run_id
+            quotes, threshold=threshold, persist=True, model_run_id=model_run_id,
+            jev_scorer=live_jev_scorer,
         )
         payload = _payload_from(result, freshness)
         path = DEFAULT_SIGNAL_DIR / f"{result.as_of}.json"

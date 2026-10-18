@@ -24,6 +24,7 @@ import { useQuotes } from "../useQuotes";
 import { ColumnTitle, DataTable, NewsCell, QuoteLoadingCell, ScoreCell, TickerCell, UsdCell, UsdDiffCell } from "./DataTable";
 import FreshnessBadge from "./FreshnessBadge";
 import { StatStrip } from "./stats";
+import JevCell from "./JevCell";
 import TogglePill from "./TogglePill";
 
 const LATEST_OPTION_VALUE = "";
@@ -148,6 +149,12 @@ function MorningList({
                     />
                   );
                 },
+              },
+              {
+                key: "jev",
+                header: <ColumnTitle label="Jev" hint="buy · hold · skip" />,
+                when: list.signals.some((signal) => signal.jev),
+                cell: (signal) => <JevCell scores={signal.jev} />,
               },
             ]}
           />

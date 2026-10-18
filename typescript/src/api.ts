@@ -539,6 +539,16 @@ export interface BuySignalRow {
   news_check?: NewsCheckDetails | null;
   prev_close?: number | null;
   news_blocks?: boolean;
+  jev?: JevShadowScores | null;
+}
+
+/** Shadow Jev confidences on a morning pick (0-1). Recorded, not acted on. */
+export interface JevShadowScores {
+  news_skip: number | null;
+  buy_today: number | null;
+  hold_overnight: number | null;
+  model: string | null;
+  issue: string | null;
 }
 
 export interface SkippedTicker {
