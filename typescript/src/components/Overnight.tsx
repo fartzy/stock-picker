@@ -385,11 +385,11 @@ export default function Overnight({ initialTicker, compact = false }: { initialT
               : `Massive last trade · ${quoteObservedAt ? easternTradeTime.format(quoteObservedAt) : "time unavailable"}. This is an editable closing-price assumption, not the official close.`}</p>
           </details>}
         </div>}
-        <details className="overnight-costs"><summary>Adjust sensitivity & per-share costs</summary><div>
-          <label>Sensitivity step<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => { setStep(event.target.value); invalidateForecast(); }} placeholder="Default 0.5%" /></label>
+        <details className="overnight-costs"><summary>Costs & close range</summary><div>
+          <label>Close ± $<input className="form-input" type="number" inputMode="decimal" step="any" min="0.0001" value={step} onChange={(event) => { setStep(event.target.value); invalidateForecast(); }} placeholder="0.5% of close" /></label>
           <button className="overnight-nickel" type="button" onClick={() => { setStep("0.05"); invalidateForecast(); }}>Use $0.05</button>
-          <label>Close exit<input className="form-input" aria-label="Close exit cost per share" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => { setExitTodayCost(event.target.value); invalidateForecast(); }} /></label>
-          <label>Next-open exit<input className="form-input" aria-label="Next-open exit cost per share" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => { setExitNextCost(event.target.value); invalidateForecast(); }} /></label>
+          <label>Fee at close<input className="form-input" aria-label="Fee per share at close" type="number" inputMode="decimal" step="any" min="0" value={exitTodayCost} onChange={(event) => { setExitTodayCost(event.target.value); invalidateForecast(); }} /></label>
+          <label>Fee at open<input className="form-input" aria-label="Fee per share at next open" type="number" inputMode="decimal" step="any" min="0" value={exitNextCost} onChange={(event) => { setExitNextCost(event.target.value); invalidateForecast(); }} /></label>
         </div></details>
       </form>
       {error && <p className="error" role="alert">{error}</p>}
