@@ -1145,3 +1145,26 @@ def test_model_features_lists_every_model():
     assert [model["key"] for model in body["models"]] == ["fit", "rank", "overnight", "news"]
     news = body["models"][3]
     assert news["articles"]["fields"] == ["headline", "summary"]
+
+
+def test_first_touch_reads_minute_order(tmp_path):
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    stamp = lambda hh, mm: int(datetime(2026, 10, 15, hh, mm, tzinfo=ZoneInfo("America/New_York")).timestamp() * 1000)
+    bars = [{"t": stamp(9, 30), "h": 10.0, "l": 9.7}, {"t": stamp(9, 31), "h": 10.2, "l": 10.0}]
+    client = type("C", (), {"fetch_minute_bars": lambda self, ticker, session: bars})()
+    with patch("stock_picker.api.routes.MassiveOvernightClient", return_value=client), \
+         patch("stock_picker.paper.first_touch.DEFAULT_CACHE_DIR", tmp_path):
+        body = TestClient(app).post("/api/paper-book/first-touch", json={
+            "cases": [{"ticker": "aaa", "session": "2026-10-15", "target": 10.1, "stop": 9.8}],
+        }).json()
+    assert (tmp_path / "AAA" / "2026-10-15.json").is_file()
+    assert body["results"][0]["first"] == "stop"
+
+
+def test_first_touch_rejects_bad_ticker():
+    response = TestClient(app).post("/api/paper-book/first-touch", json={
+        "cases": [{"ticker": "../x", "session": "2026-10-15", "target": 1, "stop": 0.5}],
+    })
+    assert response.status_code == 422

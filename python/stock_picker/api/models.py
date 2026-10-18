@@ -599,6 +599,26 @@ class HoldPathResponse(BaseModel):
     rows: list[HoldPathRow] = []
 
 
+class FirstTouchCase(BaseModel):
+    ticker: str
+    session: date
+    target: float
+    stop: float
+
+
+class FirstTouchRequest(BaseModel):
+    cases: list[FirstTouchCase]
+
+
+class FirstTouchResult(FirstTouchCase):
+    # target | stop | same_minute | neither | unavailable
+    first: str
+
+
+class FirstTouchResponse(BaseModel):
+    results: list[FirstTouchResult]
+
+
 class PaperBookResponse(BaseModel):
     days: list[PaperBookDay]
     fit_compound: float | None = None

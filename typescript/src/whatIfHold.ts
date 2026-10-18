@@ -1,3 +1,4 @@
+import type { FirstTouch } from "./api";
 import type { OvernightExitRule } from "./whatIf";
 
 export interface HoldBar {
@@ -14,12 +15,28 @@ export interface HoldExit {
   day: number;
 }
 
+export type { FirstTouch };
+
+/** Looks up the minute-bar answer for a session where both levels printed. */
+export type TieBreak = (session: string, target: number, stop: number) => FirstTouch | undefined;
+
+/** Session where the daily high reached `target` and the low reached `stop`, after an
+ * open between them: the only case daily bars cannot order. */
+export function isTie(bar: HoldBar, target: number, stop: number): boolean {
+  return bar.open > stop && bar.open < target && bar.high >= target && bar.low <= stop;
+}
+
+export function holdLevels(close: number, gainPct: number, dropPct: number): { target: number; stop: number } {
+  return { target: close * (1 + gainPct / 100), stop: close * (1 - dropPct / 100) };
+}
+
 /** Exit for shares still held at `close`. Each later session checks its open
  * first: an open at or past either level fills at the open, so a gap through the
  * target sells there and a gap through the stop sells at the open, not the stop.
- * Inside a session the order of high and low is unknown, so the stop wins when
- * both print. If neither prints, sell at the last session's close; until that
- * session exists the pick stays pending.
+ * When both levels print inside one session, `tieBreak` (minute bars) decides; if
+ * it has no answer, or both printed in the same minute, the stop wins. If neither
+ * prints, sell at the last session's close; until that session exists the pick
+ * stays pending.
  */
 export function holdExit(
   close: number,
@@ -27,23 +44,56 @@ export function holdExit(
   gainPct: number,
   dropPct: number,
   days: number,
+  tieBreak?: TieBreak,
 ): HoldExit | null {
   if (!close) return null;
   const window = sessions.slice(0, days);
-  const target = close * (1 + gainPct / 100);
-  const stop = close * (1 - dropPct / 100);
+  const { target, stop } = holdLevels(close, gainPct, dropPct);
   const exit = (price: number, reason: HoldExit["reason"], index: number): HoldExit => (
     { returnPct: price / close - 1, reason, day: index + 1 }
   );
   for (const [index, bar] of window.entries()) {
     if (bar.open <= stop) return exit(bar.open, "stop", index);
     if (bar.open >= target) return exit(bar.open, "target", index);
+    if (isTie(bar, target, stop) && tieBreak?.(bar.date, target, stop) === "target") {
+      return exit(target, "target", index);
+    }
     if (bar.low <= stop) return exit(stop, "stop", index);
     if (bar.high >= target) return exit(target, "target", index);
   }
   // No exit yet; the deadline close needs every session in the wait.
   if (window.length < days) return null;
   return exit(window[window.length - 1].close, "deadline", window.length - 1);
+}
+
+/** Key for one tie lookup. Prices are rounded so browser and API floats agree. */
+export function tieKey(ticker: string, session: string, target: number, stop: number): string {
+  return `${ticker}:${session}:${target.toFixed(4)}:${stop.toFixed(4)}`;
+}
+
+/** Every (ticker, session, target, stop) where daily bars cannot order the levels. */
+export function tieCases(
+  rows: readonly HoldRow[],
+  paths: ReadonlyMap<string, readonly HoldBar[]>,
+  gainPct: number,
+  dropPct: number,
+  days: number,
+): Array<{ ticker: string; session: string; target: number; stop: number }> {
+  const cases = [];
+  for (const row of rows) {
+    if (row.hypothetical.status !== "scored" && row.hypothetical.status !== "held") continue;
+    if (!row.close_price) continue;
+    const { target, stop } = holdLevels(row.close_price, gainPct, dropPct);
+    for (const bar of (paths.get(row.ticker) ?? []).slice(0, days)) {
+      if (bar.open <= stop || bar.open >= target) break;
+      if (isTie(bar, target, stop)) {
+        cases.push({ ticker: row.ticker, session: bar.date, target, stop });
+        break;
+      }
+      if (bar.low <= stop || bar.high >= target) break;
+    }
+  }
+  return cases;
 }
 
 export interface HoldSummary {
@@ -86,6 +136,7 @@ export function summarizeHold(
   dropPct: number,
   days: number,
   dollarsPerTrade: number,
+  tieBreaks?: ReadonlyMap<string, FirstTouch>,
 ): HoldSummary | null {
   let pnlCents = 0;
   let total = 0;
@@ -96,7 +147,8 @@ export function summarizeHold(
     const { open_price: open, close_price: close } = row;
     const ending = row.hypothetical.endingValue;
     const exit = open && close && ending !== null
-      ? holdExit(close, paths.get(row.ticker) ?? [], gainPct, dropPct, days)
+      ? holdExit(close, paths.get(row.ticker) ?? [], gainPct, dropPct, days,
+        tieBreaks && ((session, target, stop) => tieBreaks.get(tieKey(row.ticker, session, target, stop))))
       : null;
     if (!exit || !open || !close || ending === null) {
       pending += 1;

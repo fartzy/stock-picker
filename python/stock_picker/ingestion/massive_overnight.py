@@ -378,6 +378,17 @@ class MassiveOvernightClient:
         price, observed_at = parse_current_trade(snapshot, ticker, session)
         return ObservedCurrentTrade(price, observed_at, datetime.now(timezone.utc))
 
+    def fetch_minute_bars(self, ticker: str, session: date) -> list[dict]:
+        """Raw one-minute bars for one session, including extended hours, in time order."""
+        if not TICKER_PATTERN.fullmatch(ticker):
+            raise ValueError("invalid ticker")
+        day = session.isoformat()
+        path = f"/v2/aggs/ticker/{ticker}/range/1/minute/{day}/{day}"
+        bars: list[dict] = []
+        for page in self._pages(path, {"adjusted": "false", "sort": "asc", "limit": 50000}):
+            bars.extend(row for row in page.get("results") or [] if isinstance(row, dict))
+        return bars
+
     def fetch_session_close(self, ticker: str, session: date) -> ObservedSessionClose:
         """Read the raw regular-session close, never the separate after-hours price."""
         if not TICKER_PATTERN.fullmatch(ticker):
