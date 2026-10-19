@@ -1,5 +1,6 @@
 import { fetchNewsModels, type NewsModelInfo, type NewsModelsResponse } from "../api";
 import { useFetchData } from "../useFetchData";
+import NewsFlagOutcome from "./NewsFlagOutcome";
 
 // Judge label the API uses when no model decided a check.
 const NO_JUDGE = "none";
@@ -65,6 +66,7 @@ export default function NewsModelsPanel() {
   const range = days.length ? `${days[0]} to ${days[days.length - 1]}` : "no saved scans";
   return (
     <div className="overnight-model-panel">
+      <NewsFlagOutcome />
       <p className="overnight-model-meta">
         Run in order on every pick: event guard, then Grok, then the classifier if Grok is unavailable.
         {" "}{judged} picks judged over {days.length} scan days ({range}) · {usage.flagged} flagged · {unjudged} never reached a model
