@@ -2196,3 +2196,5 @@ details.view-card[open] > summary::before {
 
 .model-tag { opacity: 0.85; }
 .news-inputs { margin: 0 0 var(--space-3); font-size: var(--text-caption); }
+
+.news-flag-outcome { display: flex; gap: var(--space-2); align-items: baseline; margin: var(--space-2) 0; font-size: var(--text-caption); }
