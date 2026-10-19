@@ -34,7 +34,6 @@ import {
 } from "../whatIfHold";
 
 const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
-import NewsFlagOutcome from "./NewsFlagOutcome";
 import TogglePill from "./TogglePill";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
@@ -959,7 +958,6 @@ export default function WhatIf() {
                 benchmarkError={fitBenchmark?.error ?? null} />
             )}
           </div>
-          <NewsFlagOutcome />
           {data.days.map((day) => (
             <DayCard
               day={day}
