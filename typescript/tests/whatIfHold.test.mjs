@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { addHoldSummaries, holdExit, resolveAfterClose, summarizeHold, tieCases, tieKey } from "../src/whatIfHold.js";
+import { addHoldSummaries, holdExit, holdPickResult, resolveAfterClose, summarizeHold, tieCases, tieKey } from "../src/whatIfHold.js";
 
 const achr = [
   { date: "2026-10-15", open: 4.01, high: 4.29, low: 3.97, close: 4.27 },
@@ -138,4 +138,19 @@ test("summarizeHold applies resolved ties by key", () => {
   const targetFirst = summarizeHold([row], paths, 3, 10, 1, 10000, resolved);
   assert.equal(stopFirst.pnl, -1000);
   assert.equal(targetFirst.pnl, 300);
+});
+
+test("row results add up to the strategy total", () => {
+  const rows = [
+    held({ ticker: "ACHR" }),
+    held({ ticker: "TIE", open_price: 10, close_price: 10, hypothetical: { status: "scored", endingValue: 10000 } }),
+  ];
+  const paths = new Map([["ACHR", achr], ["TIE", tieDay]]);
+  const total = summarizeHold(rows, paths, 1, 10, 1, 10000);
+  const sum = rows.reduce((acc, row) => acc + holdPickResult(row, paths.get(row.ticker), 1, 10, 1, 10000).pnl, 0);
+  assert.ok(Math.abs(total.pnl - sum) < 0.02);
+  const achrRow = holdPickResult(rows[0], achr, 1, 10, 1, 10000);
+  assert.equal(achrRow.reason, "target");
+  assert.equal(achrRow.date, "2026-10-15");
+  assert.ok(Math.abs(achrRow.price - 4.07 * 1.01) < 1e-9);
 });
