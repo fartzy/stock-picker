@@ -1,36 +1,19 @@
-import { fetchNewsOutcomes, type NewsOutcomeGroup, type NewsOutcomesResponse } from "../api";
+import { fetchNewsOutcomes, type NewsOutcomesResponse } from "../api";
 import { useFetchData } from "../useFetchData";
-import { StatStrip } from "./StatStrip";
 
-function pct(value: number | null, signed = false): string {
-  if (value === null) return "None yet";
-  const text = `${(value * 100).toFixed(signed ? 2 : 0)}%`;
-  return signed && value > 0 ? `+${text}` : text;
+function Avg({ value }: { value: number | null }) {
+  if (value === null) return <span className="muted">None yet</span>;
+  const up = value >= 0;
+  return <span className={up ? "quote-diff-up" : "quote-diff-down"}>{up ? "▲" : "▼"} {(Math.abs(value) * 100).toFixed(2)}%</span>;
 }
 
-function group(label: string, g: NewsOutcomeGroup, dropLabel: string): string {
-  return `${label} ${g.n} · ${pct(g.avg, true)} avg · ${pct(g.win_rate)} up · ${pct(g.drop_rate)} ${dropLabel}`;
-}
-
-/** Did the news flag point at the worse days? Scored on every judged live pick. */
+/** Average day for news-flagged picks vs clear ones. Flagged should be lower. */
 export default function NewsFlagOutcome() {
   const { data } = useFetchData<NewsOutcomesResponse>(fetchNewsOutcomes, { deps: [] });
-  if (!data || data.flagged.n + data.clear.n === 0) return null;
-  const right = data.flag_right_rate;
-  const dropLabel = `fell ${Math.round(Math.abs(data.drop_threshold) * 100)}%+`;
+  if (!data || data.flagged.n === 0) return null;
   return (
-    <StatStrip className="news-flag-outcome" items={[
-      { key: "title", title: true, align: "start", value: <strong>News flag</strong> },
-      { key: "flagged", align: "start", value: group("Flagged", data.flagged, dropLabel) },
-      { key: "clear", align: "start", value: group("Clear", data.clear, dropLabel) },
-      {
-        key: "right",
-        value: right === null ? "Not enough picks" : (
-          <span className={right > 0.5 ? "quote-diff-up" : "quote-diff-down"}>
-            Right {pct(right)} of the time
-          </span>
-        ),
-      },
-    ]} />
+    <p className="news-flag-outcome">
+      <strong>News flag</strong> Flagged <Avg value={data.flagged.avg} /> · Clear <Avg value={data.clear.avg} />
+    </p>
   );
 }
