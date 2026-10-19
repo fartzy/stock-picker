@@ -29,8 +29,8 @@ import {
 } from "../whatIf";
 import { StatStrip, type StatItem } from "./StatStrip";
 import {
-  addHoldSummaries, resolveAfterClose, summarizeHold, tieCases, tieKey,
-  type AfterCloseMode, type FirstTouch, type HoldBar, type HoldSummary,
+  addHoldSummaries, holdPickResult, resolveAfterClose, summarizeHold, tieCases, tieKey,
+  type AfterCloseMode, type FirstTouch, type HoldBar, type HoldPickResult, type HoldSummary,
 } from "../whatIfHold";
 
 const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
@@ -259,6 +259,30 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   );
 }
 
+const HOLD_REASON_LABELS: Record<HoldPickResult["reason"], string> = {
+  target: "Gain",
+  stop: "Stop",
+  deadline: "Close",
+};
+
+function holdEligible(row: SimulatedPick): boolean {
+  return row.hypothetical.status === "scored" || row.hypothetical.status === "held";
+}
+
+function HoldExitCell({ result, row }: { result: HoldPickResult | null | undefined; row: SimulatedPick }) {
+  if (!holdEligible(row)) return <span className="muted">Excluded</span>;
+  if (!result) return <span className="muted">Awaiting</span>;
+  return <span title={result.date}>
+    {HOLD_REASON_LABELS[result.reason]} <UsdCell value={result.price} /> {formatMonthDay(result.date)}
+  </span>;
+}
+
+function HoldMoney({ result, row, ending = false }: { result: HoldPickResult | null | undefined; row: SimulatedPick; ending?: boolean }) {
+  if (!holdEligible(row)) return <PickMoney outcome={row.hypothetical} ending={ending} />;
+  if (!result) return <span className="muted">Awaiting</span>;
+  return ending ? <UsdCell value={result.endingValue} /> : <Diff value={result.pnl} pct={null} />;
+}
+
 function ListTable({
   title,
   rows,
@@ -271,6 +295,7 @@ function ListTable({
   exitMode,
   custom,
   onToggleHold,
+  holdRows,
 }: {
   title: string;
   rows: SimulatedPick[];
@@ -283,6 +308,8 @@ function ListTable({
   exitMode: OvernightExitMode;
   custom: ReadonlySet<string>;
   onToggleHold: (ticker: string) => void;
+  /** Wait-for-a-gain result per ticker; when set, Exit and the money columns show it. */
+  holdRows?: ReadonlyMap<string, HoldPickResult | null> | null;
 }) {
   if (rows.length === 0) {
     return <p className="muted">{title}: no list that morning</p>;
@@ -315,7 +342,8 @@ function ListTable({
             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
             { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
-            { key: "exit", header: "Exit", when: exitMode !== "close", cell: (row) => {
+            { key: "hold-exit", header: "Exit", when: !!holdRows, cell: (row) => <HoldExitCell result={holdRows?.get(row.ticker)} row={row} /> },
+            { key: "exit", header: "Exit", when: exitMode !== "close" && !holdRows, cell: (row) => {
               const eligible = row.hypothetical.status === "scored" || row.hypothetical.status === "held";
               if (!eligible) return <span className="muted">Excluded</span>;
               if (exitMode === "custom") return <label className="what-if-exit-choice">
@@ -328,12 +356,12 @@ function ListTable({
                 {heldUntilOpen(row, exitMode, custom) ? "Next open" : "Close"}
               </span>;
             } },
-            { key: "pnl", header: <ColumnTitle label={exitMode === "close" ? "P&L" : "Exit P&L"}
+            { key: "pnl", header: <ColumnTitle label={exitMode === "close" && !holdRows ? "P&L" : "Exit P&L"}
               hint={`${formatUsd(dollarsPerTrade)} / trade`} />, numeric: true,
-              cell: (row) => <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
+              cell: (row) => holdRows ? <HoldMoney result={holdRows.get(row.ticker)} row={row} /> : <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
                 dollarsPerTrade={dollarsPerTrade} portion={overnightPortion} mode={exitMode} custom={custom} /> },
-            { key: "ending", header: exitMode === "close" ? "End value" : "Exit value", numeric: true,
-              cell: (row) => <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
+            { key: "ending", header: exitMode === "close" && !holdRows ? "End value" : "Exit value", numeric: true,
+              cell: (row) => holdRows ? <HoldMoney result={holdRows.get(row.ticker)} row={row} ending /> : <ScenarioPickMoney row={row} actual={actuals?.get(row.ticker)}
                 dollarsPerTrade={dollarsPerTrade} portion={overnightPortion} mode={exitMode} custom={custom} ending /> },
             { key: "news", header: "Saved news check", cell: (row) =>
               <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked}
@@ -392,6 +420,12 @@ function DayCard({
   function holdResult(strategy: StrategyKind) {
     if (!hold) return null;
     return summarizeHold(day[strategy], hold.paths, hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy], hold.ties);
+  }
+  function holdRowsFor(strategy: StrategyKind): ReadonlyMap<string, HoldPickResult | null> | null {
+    if (!hold) return null;
+    return new Map(day[strategy].map((row) => [row.ticker, holdPickResult(
+      row, hold.paths.get(row.ticker) ?? [], hold.gainPct, hold.dropPct, hold.days, tradeSizes[strategy], hold.ties,
+    )]));
   }
   const rankHold = kind !== "fit" ? holdResult("rank") : null;
   const fitHold = kind !== "rank" ? holdResult("fit") : null;
@@ -462,13 +496,13 @@ function DayCard({
           <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
             money={day.fit_money} dollarsPerTrade={tradeSizes.fit} actuals={actuals}
             overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.fit}
-            onToggleHold={(ticker) => onToggleHold("fit", ticker)} />
+            onToggleHold={(ticker) => onToggleHold("fit", ticker)} holdRows={holdRowsFor("fit")} />
         )}
         {kind !== "fit" && (
           <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
             money={day.rank_money} dollarsPerTrade={tradeSizes.rank} actuals={actuals}
             overnightPortion={overnightPortion} exitMode={exitMode} custom={custom.rank}
-            onToggleHold={(ticker) => onToggleHold("rank", ticker)} />
+            onToggleHold={(ticker) => onToggleHold("rank", ticker)} holdRows={holdRowsFor("rank")} />
         )}
       </div>}
     </details>

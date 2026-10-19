@@ -125,6 +125,42 @@ interface HoldRow {
   hypothetical: { status: string; endingValue: number | null };
 }
 
+export interface HoldPickResult extends HoldExit {
+  /** Price the held shares sold at. */
+  price: number;
+  /** Session the sale happened in. */
+  date: string;
+  pnl: number;
+  endingValue: number;
+}
+
+/** One pick's whole trade under the hold rule: the day's open->close result plus
+ * the after-close move on the same shares. Null while the exit is not known yet. */
+export function holdPickResult(
+  row: HoldRow,
+  sessions: readonly HoldBar[],
+  gainPct: number,
+  dropPct: number,
+  days: number,
+  dollarsPerTrade: number,
+  tieBreaks?: ReadonlyMap<string, FirstTouch>,
+): HoldPickResult | null {
+  const { open_price: open, close_price: close } = row;
+  const ending = row.hypothetical.endingValue;
+  if (!open || !close || ending === null) return null;
+  const exit = holdExit(close, sessions, gainPct, dropPct, days,
+    tieBreaks && ((session, target, stop) => tieBreaks.get(tieKey(row.ticker, session, target, stop))));
+  if (!exit) return null;
+  const endingValue = ending + dollarsPerTrade / open * close * exit.returnPct;
+  return {
+    ...exit,
+    price: close * (1 + exit.returnPct),
+    date: sessions[exit.day - 1].date,
+    pnl: endingValue - dollarsPerTrade,
+    endingValue,
+  };
+}
+
 /** Whole-trade result: buy at the day's open, hold through the close, then
  * exit by `holdExit`. Same scored/held picks as the close-only baseline, so
  * the two totals compare directly.
@@ -144,18 +180,12 @@ export function summarizeHold(
   let pending = 0;
   for (const row of rows) {
     if (row.hypothetical.status !== "scored" && row.hypothetical.status !== "held") continue;
-    const { open_price: open, close_price: close } = row;
-    const ending = row.hypothetical.endingValue;
-    const exit = open && close && ending !== null
-      ? holdExit(close, paths.get(row.ticker) ?? [], gainPct, dropPct, days,
-        tieBreaks && ((session, target, stop) => tieBreaks.get(tieKey(row.ticker, session, target, stop))))
-      : null;
-    if (!exit || !open || !close || ending === null) {
+    const result = holdPickResult(row, paths.get(row.ticker) ?? [], gainPct, dropPct, days, dollarsPerTrade, tieBreaks);
+    if (!result) {
       pending += 1;
       continue;
     }
-    const value = ending + dollarsPerTrade / open * close * exit.returnPct;
-    const pnl = Math.round((value - dollarsPerTrade) * 100);
+    const pnl = Math.round(result.pnl * 100);
     pnlCents += pnl;
     total += pnl / 100 / dollarsPerTrade;
     n += 1;
