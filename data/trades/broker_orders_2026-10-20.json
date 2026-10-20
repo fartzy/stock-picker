@@ -4,8 +4,8 @@
   "source": "User-pasted Fidelity order confirmation; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. Confirmation net is before the fee. No CSV was available, so the fee is shares times price minus the confirmation net.",
-  "filled_order_count": 30,
-  "imported_order_count": 30,
+  "filled_order_count": 31,
+  "imported_order_count": 31,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -735,6 +735,30 @@
           "shares": 15.0,
           "price": 160.475,
           "broker_net_amount": 2407.08
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0WXTM",
+      "ticker": "ECO",
+      "side": "buy",
+      "shares": 35.0,
+      "price": 87.045,
+      "executed_at": "2026-10-20T11:27:12-04:00",
+      "broker_net_amount": 3046.58,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T11:27:11-04:00",
+      "price_improvement": 1.05,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T11:27:12-04:00",
+          "shares": 35.0,
+          "price": 87.045,
+          "broker_net_amount": 3046.58
         }
       ]
     }
