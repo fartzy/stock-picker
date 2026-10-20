@@ -1,0 +1,742 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-20",
+  "source": "User-pasted Fidelity order confirmation; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Each confirmation is one order. Confirmation net is before the fee. No CSV was available, so the fee is shares times price minus the confirmation net.",
+  "filled_order_count": 30,
+  "imported_order_count": 30,
+  "import_status": "logged_in_trade_store",
+  "orders": [
+    {
+      "order_number": "2ED003D6",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 700.0,
+      "price": 18.35,
+      "executed_at": "2026-10-20T08:04:38-04:00",
+      "broker_net_amount": 12844.73,
+      "manual_fee": 0.27,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $18.35",
+      "order_date": "2026-10-20T08:03:34-04:00",
+      "order_expiration": "2026-10-20T09:28:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T08:03:34-04:00",
+          "shares": 76.0,
+          "price": 18.35,
+          "broker_net_amount": 1394.57
+        },
+        {
+          "executed_at": "2026-10-20T08:04:38-04:00",
+          "shares": 624.0,
+          "price": 18.35,
+          "broker_net_amount": 11450.16
+        }
+      ]
+    },
+    {
+      "order_number": "2ED08V0H",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 300.0,
+      "price": 18.42,
+      "executed_at": "2026-10-20T08:18:21-04:00",
+      "broker_net_amount": 5525.88,
+      "manual_fee": 0.12,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $18.42",
+      "order_date": "2026-10-20T08:07:08-04:00",
+      "order_expiration": "2026-10-20T09:28:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T08:18:21-04:00",
+          "shares": 300.0,
+          "price": 18.42,
+          "broker_net_amount": 5525.88
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0052S",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 18.41,
+      "executed_at": "2026-10-20T09:04:13-04:00",
+      "broker_net_amount": 3681.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $18.41",
+      "order_date": "2026-10-20T08:50:41-04:00",
+      "order_expiration": "2026-10-20T09:28:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:04:13-04:00",
+          "shares": 200.0,
+          "price": 18.41,
+          "broker_net_amount": 3681.92
+        }
+      ]
+    },
+    {
+      "order_number": "2ED03L0D",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 18.38,
+      "executed_at": "2026-10-20T09:26:19-04:00",
+      "broker_net_amount": 1837.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $18.38",
+      "order_date": "2026-10-20T09:26:18-04:00",
+      "order_expiration": "2026-10-20T09:28:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:26:19-04:00",
+          "shares": 48.0,
+          "price": 18.38,
+          "broker_net_amount": 882.22
+        },
+        {
+          "executed_at": "2026-10-20T09:26:19-04:00",
+          "shares": 52.0,
+          "price": 18.38,
+          "broker_net_amount": 955.74
+        }
+      ]
+    },
+    {
+      "order_number": "2ED068D6",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 18.38,
+      "executed_at": "2026-10-20T09:27:43-04:00",
+      "broker_net_amount": 1837.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $18.38",
+      "order_date": "2026-10-20T09:27:43-04:00",
+      "order_expiration": "2026-10-20T09:28:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:27:43-04:00",
+          "shares": 100.0,
+          "price": 18.38,
+          "broker_net_amount": 1837.96
+        }
+      ]
+    },
+    {
+      "order_number": "2ED03LFV",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 18.43,
+      "executed_at": "2026-10-20T09:30:26-04:00",
+      "broker_net_amount": 1842.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:30:25-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:30:26-04:00",
+          "shares": 100.0,
+          "price": 18.43,
+          "broker_net_amount": 1842.96
+        }
+      ]
+    },
+    {
+      "order_number": "2ED07MFX",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 18.45,
+      "executed_at": "2026-10-20T09:31:03-04:00",
+      "broker_net_amount": 1844.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:31:02-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:31:03-04:00",
+          "shares": 100.0,
+          "price": 18.45,
+          "broker_net_amount": 1844.96
+        }
+      ]
+    },
+    {
+      "order_number": "2ED048KB",
+      "ticker": "SFD",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 18.425,
+      "executed_at": "2026-10-20T09:31:19-04:00",
+      "broker_net_amount": 1842.46,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:31:19-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:31:19-04:00",
+          "shares": 100.0,
+          "price": 18.425,
+          "broker_net_amount": 1842.46
+        }
+      ]
+    },
+    {
+      "order_number": "2ED08CBG",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 55.0,
+      "price": 158.9,
+      "executed_at": "2026-10-20T09:35:02-04:00",
+      "broker_net_amount": 8739.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:35:02-04:00",
+      "price_improvement": 4.68,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:35:02-04:00",
+          "shares": 55.0,
+          "price": 158.9,
+          "broker_net_amount": 8739.5
+        }
+      ]
+    },
+    {
+      "order_number": "2ED05PB2",
+      "ticker": "IBRX",
+      "side": "buy",
+      "shares": 600.0,
+      "price": 8.3699,
+      "executed_at": "2026-10-20T09:35:37-04:00",
+      "broker_net_amount": 5021.94,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:35:37-04:00",
+      "price_improvement": 6.06,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:35:37-04:00",
+          "shares": 600.0,
+          "price": 8.3699,
+          "broker_net_amount": 5021.94
+        }
+      ]
+    },
+    {
+      "order_number": "2ED00ZVX",
+      "ticker": "AAPL",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 341.76,
+      "executed_at": "2026-10-20T09:35:59-04:00",
+      "broker_net_amount": 3417.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:35:58-04:00",
+      "price_improvement": 0.5,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:35:59-04:00",
+          "shares": 10.0,
+          "price": 341.76,
+          "broker_net_amount": 3417.6
+        }
+      ]
+    },
+    {
+      "order_number": "2ED09QT3",
+      "ticker": "DAVE",
+      "side": "buy",
+      "shares": 8.0,
+      "price": 363.375,
+      "executed_at": "2026-10-20T09:36:23-04:00",
+      "broker_net_amount": 2907.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:36:23-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:36:23-04:00",
+          "shares": 8.0,
+          "price": 363.375,
+          "broker_net_amount": 2907.0
+        }
+      ]
+    },
+    {
+      "order_number": "2ED03PVF",
+      "ticker": "DAVE",
+      "side": "buy",
+      "shares": 2.0,
+      "price": 359.47,
+      "executed_at": "2026-10-20T09:37:28-04:00",
+      "broker_net_amount": 718.94,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:37:28-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:37:28-04:00",
+          "shares": 2.0,
+          "price": 359.47,
+          "broker_net_amount": 718.94
+        }
+      ]
+    },
+    {
+      "order_number": "2ED00CHB",
+      "ticker": "IBRX",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 8.33,
+      "executed_at": "2026-10-20T09:38:43-04:00",
+      "broker_net_amount": 833.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:38:43-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:38:43-04:00",
+          "shares": 100.0,
+          "price": 8.33,
+          "broker_net_amount": 833.0
+        }
+      ]
+    },
+    {
+      "order_number": "2ED08GPT",
+      "ticker": "IBRX",
+      "side": "buy",
+      "shares": 700.0,
+      "price": 8.415,
+      "executed_at": "2026-10-20T09:42:11-04:00",
+      "broker_net_amount": 5890.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:42:11-04:00",
+      "price_improvement": 3.5,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:42:11-04:00",
+          "shares": 700.0,
+          "price": 8.415,
+          "broker_net_amount": 5890.5
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0547S",
+      "ticker": "IBRX",
+      "side": "sell",
+      "shares": 1400.0,
+      "price": 8.4101,
+      "executed_at": "2026-10-20T09:42:41-04:00",
+      "broker_net_amount": 11773.89,
+      "manual_fee": 0.25,
+      "execution_lot_count": 3,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:42:41-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:42:41-04:00",
+          "shares": 400.0,
+          "price": 8.4101,
+          "broker_net_amount": 3363.97
+        },
+        {
+          "executed_at": "2026-10-20T09:42:41-04:00",
+          "shares": 800.0,
+          "price": 8.4101,
+          "broker_net_amount": 6727.94
+        },
+        {
+          "executed_at": "2026-10-20T09:42:41-04:00",
+          "shares": 200.0,
+          "price": 8.4101,
+          "broker_net_amount": 1681.98
+        }
+      ]
+    },
+    {
+      "order_number": "2ED095CM",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 158.65,
+      "executed_at": "2026-10-20T09:43:18-04:00",
+      "broker_net_amount": 1586.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:43:18-04:00",
+      "price_improvement": 0.38,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:43:18-04:00",
+          "shares": 10.0,
+          "price": 158.65,
+          "broker_net_amount": 1586.5
+        }
+      ]
+    },
+    {
+      "order_number": "2ED00H24",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 157.97,
+      "executed_at": "2026-10-20T09:45:50-04:00",
+      "broker_net_amount": 789.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:45:49-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:45:50-04:00",
+          "shares": 5.0,
+          "price": 157.97,
+          "broker_net_amount": 789.85
+        }
+      ]
+    },
+    {
+      "order_number": "2ED01X2P",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 157.035,
+      "executed_at": "2026-10-20T09:50:54-04:00",
+      "broker_net_amount": 785.18,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:50:54-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:50:54-04:00",
+          "shares": 5.0,
+          "price": 157.035,
+          "broker_net_amount": 785.18
+        }
+      ]
+    },
+    {
+      "order_number": "2ED02L3S",
+      "ticker": "DAVE",
+      "side": "sell",
+      "shares": 8.0,
+      "price": 369.5901,
+      "executed_at": "2026-10-20T09:51:31-04:00",
+      "broker_net_amount": 2956.65,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:51:31-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:51:31-04:00",
+          "shares": 8.0,
+          "price": 369.5901,
+          "broker_net_amount": 2956.65
+        }
+      ]
+    },
+    {
+      "order_number": "2ED01XHH",
+      "ticker": "DAVE",
+      "side": "sell",
+      "shares": 2.0,
+      "price": 370.335,
+      "executed_at": "2026-10-20T09:51:47-04:00",
+      "broker_net_amount": 740.65,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:51:47-04:00",
+      "price_improvement": 0.67,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:51:47-04:00",
+          "shares": 2.0,
+          "price": 370.335,
+          "broker_net_amount": 740.65
+        }
+      ]
+    },
+    {
+      "order_number": "2ED05YMD",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 157.48,
+      "executed_at": "2026-10-20T09:52:20-04:00",
+      "broker_net_amount": 787.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:52:20-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:52:20-04:00",
+          "shares": 5.0,
+          "price": 157.48,
+          "broker_net_amount": 787.4
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0HMS4",
+      "ticker": "AAPL",
+      "side": "buy",
+      "shares": 2.0,
+      "price": 341.6,
+      "executed_at": "2026-10-20T09:59:51-04:00",
+      "broker_net_amount": 683.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T09:59:50-04:00",
+      "price_improvement": 0.03,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T09:59:51-04:00",
+          "shares": 2.0,
+          "price": 341.6,
+          "broker_net_amount": 683.2
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0DCM5",
+      "ticker": "AAPL",
+      "side": "buy",
+      "shares": 3.0,
+      "price": 342.62,
+      "executed_at": "2026-10-20T10:06:45-04:00",
+      "broker_net_amount": 1027.86,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:06:44-04:00",
+      "price_improvement": 0.36,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:06:45-04:00",
+          "shares": 3.0,
+          "price": 342.62,
+          "broker_net_amount": 1027.86
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0GDQZ",
+      "ticker": "AAPL",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 342.34,
+      "executed_at": "2026-10-20T10:09:44-04:00",
+      "broker_net_amount": 1711.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:09:44-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:09:44-04:00",
+          "shares": 5.0,
+          "price": 342.34,
+          "broker_net_amount": 1711.7
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0KT89",
+      "ticker": "AAPL",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 343.03,
+      "executed_at": "2026-10-20T10:13:21-04:00",
+      "broker_net_amount": 6860.45,
+      "manual_fee": 0.15,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:13:20-04:00",
+      "price_improvement": 1.2,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:13:21-04:00",
+          "shares": 20.0,
+          "price": 343.03,
+          "broker_net_amount": 6860.45
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0KFTZ",
+      "ticker": "EMR",
+      "side": "sell",
+      "shares": 40.0,
+      "price": 160.15,
+      "executed_at": "2026-10-20T10:40:47-04:00",
+      "broker_net_amount": 6405.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:40:47-04:00",
+      "price_improvement": 6.0,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:40:47-04:00",
+          "shares": 40.0,
+          "price": 160.15,
+          "broker_net_amount": 6405.86
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0PH7G",
+      "ticker": "EMR",
+      "side": "sell",
+      "shares": 40.0,
+      "price": 159.935,
+      "executed_at": "2026-10-20T10:42:56-04:00",
+      "broker_net_amount": 6397.26,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:42:56-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:42:56-04:00",
+          "shares": 40.0,
+          "price": 159.935,
+          "broker_net_amount": 6397.26
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0MH9M",
+      "ticker": "EMR",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 159.9499,
+      "executed_at": "2026-10-20T10:44:00-04:00",
+      "broker_net_amount": 2399.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:43:59-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:44:00-04:00",
+          "shares": 15.0,
+          "price": 159.9499,
+          "broker_net_amount": 2399.25
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0D6FV",
+      "ticker": "EMR",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 160.475,
+      "executed_at": "2026-10-20T10:53:03-04:00",
+      "broker_net_amount": 2407.08,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T10:53:03-04:00",
+      "price_improvement": 0.23,
+      "executions": [
+        {
+          "executed_at": "2026-10-20T10:53:03-04:00",
+          "shares": 15.0,
+          "price": 160.475,
+          "broker_net_amount": 2407.08
+        }
+      ]
+    }
+  ]
+}
