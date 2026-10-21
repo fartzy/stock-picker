@@ -110,16 +110,27 @@ function minutesIntoDay(executedAt: string): number {
   return hour * 60 + minute;
 }
 
+const REGULAR_OPEN_MINUTE = 9 * 60 + 30;
+const REGULAR_CLOSE_MINUTE = 16 * 60;
+
 function isPremarket(executedAt: string): boolean {
-  return minutesIntoDay(executedAt) < 9 * 60 + 30;
+  return minutesIntoDay(executedAt) < REGULAR_OPEN_MINUTE;
+}
+
+function isAfterHours(executedAt: string): boolean {
+  return minutesIntoDay(executedAt) >= REGULAR_CLOSE_MINUTE;
 }
 
 function TradeTime({ executedAt, relativeToDay }: { executedAt: string; relativeToDay?: string }) {
   const premarket = isPremarket(executedAt);
+  const afterHours = isAfterHours(executedAt);
   return (
     <span className="trade-time-stamp">
       {premarket ? (
         <span className="premarket-sun" title="Premarket fill, before 9:30 AM ET" aria-label="Premarket">☀</span>
+      ) : null}
+      {afterHours ? (
+        <span className="after-hours-moon" title="After-hours fill, 4:00 PM ET or later" aria-label="After hours">☾</span>
       ) : null}
       {formatStamp(executedAt, relativeToDay)}
     </span>

@@ -4,8 +4,8 @@
   "source": "User-pasted Fidelity order confirmation; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. Confirmation net is before the fee. No CSV was available, so the fee is shares times price minus the confirmation net.",
-  "filled_order_count": 31,
-  "imported_order_count": 31,
+  "filled_order_count": 39,
+  "imported_order_count": 39,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -759,6 +759,190 @@
           "shares": 35.0,
           "price": 87.045,
           "broker_net_amount": 3046.58
+        }
+      ]
+    },
+    {
+      "order_number": "2ED0X0SK",
+      "ticker": "ECO",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 87.0,
+      "executed_at": "2026-10-20T11:42:12-04:00",
+      "broker_net_amount": 435.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T11:42:11-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T11:42:12-04:00",
+          "shares": 5.0,
+          "price": 87.0,
+          "broker_net_amount": 435.0
+        }
+      ]
+    },
+    {
+      "order_number": "2ED15JFK",
+      "ticker": "ECO",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 86.6599,
+      "executed_at": "2026-10-20T13:04:33-04:00",
+      "broker_net_amount": 433.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T13:04:32-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T13:04:33-04:00",
+          "shares": 5.0,
+          "price": 86.6599,
+          "broker_net_amount": 433.3
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1991P",
+      "ticker": "ECO",
+      "side": "sell",
+      "shares": 45.0,
+      "price": 87.635,
+      "executed_at": "2026-10-20T14:04:20-04:00",
+      "broker_net_amount": 3943.49,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T14:04:20-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T14:04:20-04:00",
+          "shares": 45.0,
+          "price": 87.635,
+          "broker_net_amount": 3943.49
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1Q7S5",
+      "ticker": "ELAN",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 22.7499,
+      "executed_at": "2026-10-20T14:46:18-04:00",
+      "broker_net_amount": 3412.49,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T14:46:17-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T14:46:18-04:00",
+          "shares": 150.0,
+          "price": 22.7499,
+          "broker_net_amount": 3412.49
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1QC3D",
+      "ticker": "ELAN",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 22.595,
+      "executed_at": "2026-10-20T15:08:09-04:00",
+      "broker_net_amount": 1129.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T15:08:09-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T15:08:09-04:00",
+          "shares": 50.0,
+          "price": 22.595,
+          "broker_net_amount": 1129.75
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1M0H8",
+      "ticker": "ELAN",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 22.575,
+      "executed_at": "2026-10-20T15:09:35-04:00",
+      "broker_net_amount": 1128.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T15:09:35-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T15:09:35-04:00",
+          "shares": 50.0,
+          "price": 22.575,
+          "broker_net_amount": 1128.75
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1JM3K",
+      "ticker": "ELAN",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 22.647,
+      "executed_at": "2026-10-20T15:53:03-04:00",
+      "broker_net_amount": 1132.35,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T15:53:02-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T15:53:03-04:00",
+          "shares": 50.0,
+          "price": 22.647,
+          "broker_net_amount": 1132.35
+        }
+      ]
+    },
+    {
+      "order_number": "2ED1H8WP",
+      "ticker": "ELAN",
+      "side": "buy",
+      "shares": 25.0,
+      "price": 22.655,
+      "executed_at": "2026-10-20T15:54:27-04:00",
+      "broker_net_amount": 566.38,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-20T15:54:27-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-20T15:54:27-04:00",
+          "shares": 25.0,
+          "price": 22.655,
+          "broker_net_amount": 566.38
         }
       ]
     }
