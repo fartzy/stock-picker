@@ -31,7 +31,7 @@ import {
   type StatValues,
 } from "./stats";
 import { useFetchData } from "../useFetchData";
-import { groupHistoryPeriods, HISTORY_GROUPINGS, isWeekToDate, type HistoryGrouping } from "../tradeHistoryPeriods";
+import { groupHistoryPeriods, groupMonthWeeks, HISTORY_GROUPINGS, isWeekToDate, type HistoryGrouping, type HistoryPeriod } from "../tradeHistoryPeriods";
 
 const TRADE_TIMEZONE = "America/New_York";
 // Session closes and imported fills can change while this view stays open.
@@ -302,6 +302,7 @@ function ClosedDayGroup({
   day,
   positions,
   nested = true,
+  depth,
   onBooks,
   sessionReturn,
   overnightReturn,
@@ -313,6 +314,7 @@ function ClosedDayGroup({
   day: string;
   positions: Position[];
   nested?: boolean;
+  depth?: 0 | 1 | 2;
   onBooks: number;
   sessionReturn?: number;
   overnightReturn?: number;
@@ -325,6 +327,7 @@ function ClosedDayGroup({
   return (
     <StatExpand
       nested={nested}
+      depth={depth}
       open={expanded}
       onToggle={onToggle}
       values={dayValues(day, positions, onBooks, sessionReturn, overnightReturn, fees, showFees)}
@@ -474,6 +477,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
   const [periodOpen, setPeriodOpen] = useState<Record<string, boolean>>({});
   const [grouping, setGrouping] = useState<HistoryGrouping>("weeks");
+  const [includeWeeks, setIncludeWeeks] = useState(true);
   const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
@@ -528,6 +532,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
       day={day}
       positions={dayPositions}
       nested={grouping !== "days"}
+      depth={grouping === "days" ? 0 : grouping === "months" && includeWeeks ? 2 : 1}
       onBooks={onBooks[day] ?? 0}
       sessionReturn={benchmarkData?.returns[day]}
       overnightReturn={benchmarkData?.overnight?.[day]}
@@ -544,6 +549,31 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
       showFees={showFees}
     />
   );
+
+  const renderPeriod = (period: HistoryPeriod<Position>, index: number, nestedWeek = false) => {
+    const periodLots = period.days.flatMap(([, lots]) => lots);
+    const isOpen = period.key in periodOpen ? periodOpen[period.key] : index === 0;
+    return (
+      <StatExpand
+        key={period.key}
+        className={nestedWeek ? "is-period-summary is-month-week" : "is-period-summary"}
+        depth={nestedWeek ? 1 : 0}
+        open={isOpen}
+        onToggle={() => setPeriodOpen((current) => ({ ...current, [period.key]: !isOpen }))}
+        values={periodValues(
+          period.label,
+          windowSummary(periodLots, spySessions, onBooks),
+          holdPctForDays(periodLots.map((p) => p.day), overnight),
+          feeSum(fees, periodLots.map((p) => p.day)),
+          showFees,
+        )}
+      >
+        {grouping === "months" && includeWeeks && !nestedWeek
+          ? groupMonthWeeks(period).map((week, weekIndex) => renderPeriod(week, weekIndex, true))
+          : period.days.map(renderClosedDay)}
+      </StatExpand>
+    );
+  };
 
   return (
     <div className="trade-history">
@@ -609,6 +639,18 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
                   </label>
                 ))}
               </div>
+              {grouping === "months" && (
+                <label className="trade-history-weeks-toggle">
+                  <input
+                    type="checkbox"
+                    role="switch"
+                    checked={includeWeeks}
+                    onChange={(event) => setIncludeWeeks(event.currentTarget.checked)}
+                  />
+                  <span className="trade-history-switch-track" aria-hidden="true" />
+                  <span>Include weeks</span>
+                </label>
+              )}
             </div>
           )}
           <StatTable
@@ -669,29 +711,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
               />
             </StatBody>
             {grouping !== "days"
-              ? groupHistoryPeriods(dayGroups, grouping).map((period, periodIndex) => {
-                  const periodLots = period.days.flatMap(([, lots]) => lots);
-                  const summary = windowSummary(periodLots, spySessions, onBooks);
-                  const hold = holdPctForDays(periodLots.map((p) => p.day), overnight);
-                  const isOpen = period.key in periodOpen ? periodOpen[period.key] : periodIndex === 0;
-                  return (
-                    <StatExpand
-                      key={period.key}
-                      className="is-period-summary"
-                      open={isOpen}
-                      onToggle={() => setPeriodOpen((current) => ({ ...current, [period.key]: !isOpen }))}
-                      values={periodValues(
-                        period.label,
-                        summary,
-                        hold,
-                        feeSum(fees, periodLots.map((p) => p.day)),
-                        showFees,
-                      )}
-                    >
-                      {period.days.map(renderClosedDay)}
-                    </StatExpand>
-                  );
-                })
+              ? groupHistoryPeriods(dayGroups, grouping).map((period, index) => renderPeriod(period, index))
               : dayGroups.map(renderClosedDay)}
           </StatTable>
           </div>

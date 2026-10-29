@@ -165,6 +165,7 @@ export function StatExpand({
   open,
   onToggle,
   nested = false,
+  depth = nested ? 1 : 0,
   className,
   children,
 }: {
@@ -172,6 +173,7 @@ export function StatExpand({
   open: boolean;
   onToggle: () => void;
   nested?: boolean;
+  depth?: 0 | 1 | 2;
   className?: string;
   children?: ReactNode;
 }) {
@@ -179,7 +181,8 @@ export function StatExpand({
     <>
       <tbody>
         <tr
-          className={cx("is-expandable", nested && "is-nested", className)}
+          className={cx("is-expandable", depth > 0 && "is-nested", className)}
+          data-depth={depth}
           aria-expanded={open}
           tabIndex={0}
           onClick={onToggle}

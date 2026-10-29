@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { groupHistoryPeriods, isWeekToDate } from "../src/tradeHistoryPeriods.js";
+import { groupHistoryPeriods, groupMonthWeeks, isWeekToDate } from "../src/tradeHistoryPeriods.js";
 
 const days = (...dates) => dates.map((day, index) => [day, [{ pnl: index + 1 }]]);
 
@@ -16,10 +16,33 @@ test("calendar months partition a crossing week without losing or double-countin
   assert.equal(weeks.length, 1);
   assert.equal(weeks[0].label, "Week Sep 28–Oct 2");
   assert.equal(weeks[0].days.length, 4);
-  // Future month -> partial-week drill-down must stay inside its parent month.
-  const children = groupHistoryPeriods(months[0].days, "weeks");
+  const children = groupMonthWeeks(months[0]);
   assert.deepEqual(children.flatMap((p) => p.days), months[0].days);
+  assert.equal(children[0].label, "Week Oct 1–Oct 2");
+  const september = groupMonthWeeks(months[1]);
+  assert.equal(september[0].label, "Week Sep 28–Sep 30");
+  assert.notEqual(children[0].key, september[0].key);
+  assert.notEqual(children[0].key, weeks[0].key);
   assert.deepEqual(input.map(([day]) => day), ["2026-09-28", "2026-10-02", "2026-09-30", "2026-10-01"]);
+});
+
+test("month weeks preserve all lots and use calendar boundaries, not sparse trade dates", () => {
+  const input = days("2026-10-29", "2026-10-26", "2026-10-13", "2026-10-02");
+  const [month] = groupHistoryPeriods(input, "months");
+  const weeks = groupMonthWeeks(month);
+  assert.deepEqual(weeks.map((w) => w.label), [
+    "Week Oct 26–Oct 30", "Week Oct 12–Oct 16", "Week Oct 1–Oct 2",
+  ]);
+  assert.deepEqual(weeks.flatMap((w) => w.days), month.days);
+  assert.equal(new Set(weeks.flatMap((w) => w.days.map(([day]) => day))).size, input.length);
+});
+
+test("partial weeks handle year transitions and leap-month endings", () => {
+  const months = groupHistoryPeriods(days("2025-12-31", "2026-01-02", "2024-02-29"), "months");
+  assert.deepEqual(months.flatMap((month) => groupMonthWeeks(month).map((w) => w.label)), [
+    "Week Jan 1–Jan 2", "Week Dec 29–Dec 31", "Week Feb 26–Feb 29",
+  ]);
+  assert.deepEqual(groupMonthWeeks({ key: "months:2026-01-01", label: "January 2026", days: [] }), []);
 });
 
 test("months remain distinct across years and include leap day", () => {

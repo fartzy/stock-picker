@@ -771,7 +771,10 @@ section + section {
 
 .trade-history-toolbar {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
   margin-bottom: var(--space-1);
 }
 
@@ -792,7 +795,8 @@ section + section {
   cursor: pointer;
 }
 
-.trade-history-grouping input {
+.trade-history-grouping input,
+.trade-history-weeks-toggle input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -824,8 +828,58 @@ section + section {
   outline-offset: 2px;
 }
 
+.trade-history-weeks-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 34px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: var(--text-micro);
+  white-space: nowrap;
+}
+
+.trade-history-switch-track {
+  width: 28px;
+  height: 16px;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background-color 120ms ease;
+}
+
+.trade-history-switch-track::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform 120ms ease;
+}
+
+.trade-history-weeks-toggle input:checked + .trade-history-switch-track {
+  background: var(--accent);
+}
+
+.trade-history-weeks-toggle input:checked + .trade-history-switch-track::before {
+  transform: translateX(12px);
+  background: var(--ink);
+}
+
+.trade-history-weeks-toggle:hover { color: var(--text); }
+
+.trade-history-weeks-toggle input:focus-visible + .trade-history-switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .trade-history-grouping span { transition: none; }
+  .trade-history-grouping span,
+  .trade-history-switch-track,
+  .trade-history-switch-track::before { transition: none; }
 }
 
 .trade-history-table {
@@ -873,6 +927,18 @@ section + section {
   padding-left: 1.25rem;
   font-weight: 600;
   font-size: var(--text-caption);
+}
+
+.stat-table tr[data-depth="2"] td.is-title {
+  padding-left: 2.25rem;
+}
+
+.trade-history-table > tbody > tr.is-month-week > td {
+  background: color-mix(in srgb, var(--accent) 2%, var(--surface-raised));
+}
+
+.trade-history-table tr.is-month-week td.is-title strong {
+  font-weight: 600;
 }
 
 
