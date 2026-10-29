@@ -13,9 +13,9 @@ from stock_picker.ingestion.session import cash_session_date
 from stock_picker.training import morning as m
 from stock_picker.training.job import JobStatus
 
-# Monday. launchd has fired; script is still in the 10s sleep until 8:30:10.
-# Tests that hold the lock simulate scoring already underway (click or a
-# slightly early score) so the button must not start a second run.
+# Monday. launchd has prestarted Python, which gates collection to 8:30:05.
+# Tests that hold the lock simulate a scan already underway, so the button
+# must not start a second run.
 MONDAY_83005 = datetime(2026, 9, 28, 8, 30, 5, tzinfo=ZoneInfo("America/Chicago"))
 
 # Keep in lockstep with typescript/src/morningScanUi.ts
@@ -77,7 +77,7 @@ def test_post_morning_scan_is_409_when_lock_held_at_monday_open(tmp_path, monkey
         held.close()
 
 
-def test_morning_sh_sleeps_ten_seconds_not_fifteen():
+def test_morning_launcher_delegates_open_timing_to_python():
     candidates = [
         Path("scripts/morning.sh"),
         Path(__file__).resolve().parents[4] / "scripts" / "morning.sh",
@@ -86,5 +86,5 @@ def test_morning_sh_sleeps_ten_seconds_not_fifteen():
     if script is None:
         return
     text = script.read_text()
-    assert "sleep 10" in text
-    assert "sleep 15" not in text
+    assert "bazelisk run //python/stock_picker/training:morning" in text
+    assert not any(line.strip().startswith("sleep ") for line in text.splitlines())

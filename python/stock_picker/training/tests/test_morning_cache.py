@@ -85,16 +85,17 @@ def test_write_signals_lands_under_the_app_data_dir(tmp_path):
 def test_payload_from_keeps_prev_close_for_the_gap_skip():
     from types import SimpleNamespace
 
+    from stock_picker.training.buy_signal import BuySignal, BuySignalResult
     from stock_picker.training.morning import _payload_from
 
-    result = SimpleNamespace(
+    result = BuySignalResult(
         as_of="2026-09-28",
         threshold=0.005,
         scored_count=1,
         skipped=[],
         top_drivers=[],
         signals=[
-            SimpleNamespace(
+            BuySignal(
                 ticker="TWLO",
                 predicted_return=0.4,
                 open_price=267.59,
