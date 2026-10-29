@@ -4,8 +4,8 @@
   "source": "Fidelity order confirmations from user-pasted text; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy. Price improvement is informational and is already reflected in the fill price.",
-  "filled_order_count": 15,
-  "imported_order_count": 15,
+  "filled_order_count": 29,
+  "imported_order_count": 29,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -402,6 +402,374 @@
           "shares": 700.0,
           "price": 28.89,
           "broker_net_amount": 20222.58
+        }
+      ]
+    },
+    {
+      "order_number": "2F20STXS",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 9.3797,
+      "executed_at": "2026-10-29T11:18:34-04:00",
+      "broker_net_amount": 1406.96,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:18:34-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:18:34-04:00",
+          "shares": 150.0,
+          "price": 9.3797,
+          "broker_net_amount": 1406.96
+        }
+      ],
+      "note": "Broker net rounds the $1,406.955 gross to $1,406.96; no fee inferred from half-cent rounding."
+    },
+    {
+      "order_number": "2F21185Q",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 9.365,
+      "executed_at": "2026-10-29T11:23:09-04:00",
+      "broker_net_amount": 468.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:23:09-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:23:09-04:00",
+          "shares": 50.0,
+          "price": 9.365,
+          "broker_net_amount": 468.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F20WKS4",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 9.37,
+      "executed_at": "2026-10-29T11:23:33-04:00",
+      "broker_net_amount": 468.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:23:32-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:23:33-04:00",
+          "shares": 50.0,
+          "price": 9.37,
+          "broker_net_amount": 468.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F20WL0D",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 9.365,
+      "executed_at": "2026-10-29T11:24:31-04:00",
+      "broker_net_amount": 468.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:24:31-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:24:31-04:00",
+          "shares": 50.0,
+          "price": 9.365,
+          "broker_net_amount": 468.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F20TL6F",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 9.36,
+      "executed_at": "2026-10-29T11:26:13-04:00",
+      "broker_net_amount": 468.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:26:12-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:26:13-04:00",
+          "shares": 50.0,
+          "price": 9.36,
+          "broker_net_amount": 468.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F20WPFJ",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 9.345,
+      "executed_at": "2026-10-29T11:37:06-04:00",
+      "broker_net_amount": 1401.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:37:05-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:37:06-04:00",
+          "shares": 150.0,
+          "price": 9.345,
+          "broker_net_amount": 1401.75
+        }
+      ],
+      "price_improvement": 0.75
+    },
+    {
+      "order_number": "2F21BTDL",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.345,
+      "executed_at": "2026-10-29T11:42:03-04:00",
+      "broker_net_amount": 934.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:42:03-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:42:03-04:00",
+          "shares": 100.0,
+          "price": 9.345,
+          "broker_net_amount": 934.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F218V8Q",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.335,
+      "executed_at": "2026-10-29T11:46:03-04:00",
+      "broker_net_amount": 933.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:46:03-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:46:03-04:00",
+          "shares": 100.0,
+          "price": 9.335,
+          "broker_net_amount": 933.5
+        }
+      ],
+      "price_improvement": 0.5
+    },
+    {
+      "order_number": "2F21BVRD",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.3381,
+      "executed_at": "2026-10-29T11:46:53-04:00",
+      "broker_net_amount": 933.81,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:46:52-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:46:53-04:00",
+          "shares": 100.0,
+          "price": 9.3381,
+          "broker_net_amount": 933.81
+        }
+      ]
+    },
+    {
+      "order_number": "2F213JCS",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 9.325,
+      "executed_at": "2026-10-29T11:50:02-04:00",
+      "broker_net_amount": 1865.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:50:02-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:50:02-04:00",
+          "shares": 200.0,
+          "price": 9.325,
+          "broker_net_amount": 1865.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F21465V",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 9.315,
+      "executed_at": "2026-10-29T11:51:13-04:00",
+      "broker_net_amount": 1863.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:51:12-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:51:13-04:00",
+          "shares": 200.0,
+          "price": 9.315,
+          "broker_net_amount": 1863.0
+        }
+      ],
+      "price_improvement": 0.98
+    },
+    {
+      "order_number": "2F217KGC",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.315,
+      "executed_at": "2026-10-29T11:51:44-04:00",
+      "broker_net_amount": 931.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T11:51:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T11:51:44-04:00",
+          "shares": 100.0,
+          "price": 9.315,
+          "broker_net_amount": 931.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F219MRQ",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.315,
+      "executed_at": "2026-10-29T12:05:14-04:00",
+      "broker_net_amount": 931.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T12:05:13-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T12:05:14-04:00",
+          "shares": 100.0,
+          "price": 9.315,
+          "broker_net_amount": 931.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F218CNR",
+      "ticker": "RITM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 9.315,
+      "executed_at": "2026-10-29T12:11:20-04:00",
+      "broker_net_amount": 931.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T12:11:19-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T12:11:20-04:00",
+          "shares": 100.0,
+          "price": 9.315,
+          "broker_net_amount": 931.5
         }
       ]
     }
