@@ -188,7 +188,7 @@ def test_direction_margin_requires_matching_estimator_and_raw_inputs():
     ensemble.direction_svc = train_svc_direction(
         _make_learnable_frame(400, seed=10), included_features={"signal"}
     )
-    with pytest.raises(ValueError, match="inputs are missing"):
+    with pytest.raises(ValueError, match="inputs are all missing"):
         predict_ensemble(ensemble, raw.drop(columns="signal"))
 
 
