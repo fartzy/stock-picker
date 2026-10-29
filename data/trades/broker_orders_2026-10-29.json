@@ -4,8 +4,8 @@
   "source": "Fidelity order confirmations from user-pasted text; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy. Price improvement is informational and is already reflected in the fill price.",
-  "filled_order_count": 29,
-  "imported_order_count": 29,
+  "filled_order_count": 31,
+  "imported_order_count": 31,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -770,6 +770,59 @@
           "shares": 100.0,
           "price": 9.315,
           "broker_net_amount": 931.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F21QC10",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 21.585,
+      "executed_at": "2026-10-29T13:32:44-04:00",
+      "broker_net_amount": 1079.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T13:32:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T13:32:44-04:00",
+          "shares": 50.0,
+          "price": 21.585,
+          "broker_net_amount": 1079.25
+        }
+      ],
+      "price_improvement": 0.25
+    },
+    {
+      "order_number": "2F21R0VT",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 21.56,
+      "executed_at": "2026-10-29T13:33:07-04:00",
+      "broker_net_amount": 1078.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T13:33:06-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T13:33:07-04:00",
+          "shares": 50.0,
+          "price": 21.56,
+          "broker_net_amount": 1078.0
         }
       ]
     }
