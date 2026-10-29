@@ -1,9 +1,13 @@
+import { HISTORY_GROUPINGS, type HistoryGrouping } from "./tradeHistoryPeriods.js";
+
 export interface HistoryDefaults {
+  grouping: HistoryGrouping;
   keepRecentWeekOpen: boolean;
   keepRecentMonthOpen: boolean;
 }
 
 export const DEFAULT_HISTORY_SETTINGS: HistoryDefaults = {
+  grouping: "months",
   keepRecentWeekOpen: false,
   keepRecentMonthOpen: true,
 };
@@ -17,6 +21,8 @@ export function parseHistoryDefaults(raw: string | null): HistoryDefaults {
     if (!value || typeof value !== "object") return { ...DEFAULT_HISTORY_SETTINGS };
     const saved = value as Partial<HistoryDefaults>;
     return {
+      grouping: HISTORY_GROUPINGS.find((option) => option.value === saved.grouping)?.value
+        ?? DEFAULT_HISTORY_SETTINGS.grouping,
       keepRecentWeekOpen: typeof saved.keepRecentWeekOpen === "boolean"
         ? saved.keepRecentWeekOpen : DEFAULT_HISTORY_SETTINGS.keepRecentWeekOpen,
       keepRecentMonthOpen: typeof saved.keepRecentMonthOpen === "boolean"

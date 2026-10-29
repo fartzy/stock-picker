@@ -8,6 +8,7 @@ npm_link_all_packages()
 ts_project(
     name = "app_settings",
     srcs = ["src/appSettings.ts"],
+    deps = [":trade_history_periods"],
     declaration = False,
     transpiler = "tsc",
     tsconfig = {"compilerOptions": {
@@ -28,7 +29,7 @@ js_test(
 ts_project(
     name = "trade_history_periods",
     srcs = ["src/tradeHistoryPeriods.ts"],
-    declaration = False,
+    declaration = True,
     transpiler = "tsc",
     tsconfig = {"compilerOptions": {
         "target": "ES2022",
