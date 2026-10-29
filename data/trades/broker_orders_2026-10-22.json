@@ -1,0 +1,1920 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-22",
+  "source": "Saved Fidelity activity page; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Each page order is one row. A two-price lot uses the share-weighted price. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy.",
+  "filled_order_count": 81,
+  "imported_order_count": 81,
+  "import_status": "logged_in_trade_store",
+  "orders": [
+    {
+      "order_number": "2EF09MZQ",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 300.0,
+      "status": "open",
+      "order_type": "Limit at $5.55",
+      "order_date": "2026-10-22T09:01:04-04:00",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF00N24",
+      "ticker": "WING",
+      "side": "buy",
+      "shares": 60.0,
+      "price": 121.75,
+      "executed_at": "2026-10-22T09:45:52-04:00",
+      "broker_net_amount": 7305.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:45:52-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:45:52-04:00",
+          "shares": 60.0,
+          "price": 121.75,
+          "broker_net_amount": 7305.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF07C92",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 550.0,
+      "price": 17.385,
+      "executed_at": "2026-10-22T09:46:34-04:00",
+      "broker_net_amount": 9561.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:46:33-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:46:34-04:00",
+          "shares": 550.0,
+          "price": 17.385,
+          "broker_net_amount": 9561.75
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0B25D",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 5.23,
+      "executed_at": "2026-10-22T09:47:36-04:00",
+      "broker_net_amount": 1046.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:47:36-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:47:36-04:00",
+          "shares": 200.0,
+          "price": 5.23,
+          "broker_net_amount": 1046.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0D86R",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.36,
+      "executed_at": "2026-10-22T09:48:10-04:00",
+      "broker_net_amount": 868.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:48:10-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:48:10-04:00",
+          "shares": 50.0,
+          "price": 17.36,
+          "broker_net_amount": 868.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0P0M7",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.29406,
+      "executed_at": "2026-10-22T09:50:02-04:00",
+      "broker_net_amount": 864.71,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:50:01-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:50:02-04:00",
+          "shares": 3.0,
+          "price": 17.295,
+          "broker_net_amount": 51.89
+        },
+        {
+          "executed_at": "2026-10-22T09:50:02-04:00",
+          "shares": 47.0,
+          "price": 17.294,
+          "broker_net_amount": 812.82
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0CMVW",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.315,
+      "executed_at": "2026-10-22T09:50:31-04:00",
+      "broker_net_amount": 865.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:50:31-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:50:31-04:00",
+          "shares": 50.0,
+          "price": 17.315,
+          "broker_net_amount": 865.75
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0JBB1",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.275,
+      "executed_at": "2026-10-22T09:51:02-04:00",
+      "broker_net_amount": 263.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:51:01-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:51:02-04:00",
+          "shares": 50.0,
+          "price": 5.275,
+          "broker_net_amount": 263.75
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0NCMJ",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.265,
+      "executed_at": "2026-10-22T09:51:28-04:00",
+      "broker_net_amount": 863.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:51:28-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:51:28-04:00",
+          "shares": 50.0,
+          "price": 17.265,
+          "broker_net_amount": 863.25
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0PQG7",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.245,
+      "executed_at": "2026-10-22T09:52:09-04:00",
+      "broker_net_amount": 862.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:52:09-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:52:09-04:00",
+          "shares": 50.0,
+          "price": 17.245,
+          "broker_net_amount": 862.25
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0CPB2",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.22,
+      "executed_at": "2026-10-22T09:53:13-04:00",
+      "broker_net_amount": 261.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:53:13-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:53:13-04:00",
+          "shares": 50.0,
+          "price": 5.22,
+          "broker_net_amount": 261.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0CQXR",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 17.225,
+      "executed_at": "2026-10-22T09:56:17-04:00",
+      "broker_net_amount": 3445.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:56:17-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:56:17-04:00",
+          "shares": 200.0,
+          "price": 17.225,
+          "broker_net_amount": 3445.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0GFP0",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.22,
+      "executed_at": "2026-10-22T09:57:48-04:00",
+      "broker_net_amount": 1722.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:57:48-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:57:48-04:00",
+          "shares": 100.0,
+          "price": 17.22,
+          "broker_net_amount": 1722.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0NJ3B",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.2099,
+      "executed_at": "2026-10-22T09:59:55-04:00",
+      "broker_net_amount": 1720.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T09:59:55-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T09:59:55-04:00",
+          "shares": 100.0,
+          "price": 17.2099,
+          "broker_net_amount": 1720.99
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0H50X",
+      "ticker": "WING",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 121.705,
+      "executed_at": "2026-10-22T10:00:46-04:00",
+      "broker_net_amount": 1217.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:00:46-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:00:46-04:00",
+          "shares": 10.0,
+          "price": 121.705,
+          "broker_net_amount": 1217.05
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0MXND",
+      "ticker": "WING",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 121.235,
+      "executed_at": "2026-10-22T10:04:50-04:00",
+      "broker_net_amount": 1212.35,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:04:50-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:04:50-04:00",
+          "shares": 10.0,
+          "price": 121.235,
+          "broker_net_amount": 1212.35
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0KZHG",
+      "ticker": "WING",
+      "side": "sell",
+      "shares": 80.0,
+      "price": 122.2001,
+      "executed_at": "2026-10-22T10:10:44-04:00",
+      "broker_net_amount": 9775.8,
+      "manual_fee": 0.21,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:10:43-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:10:44-04:00",
+          "shares": 80.0,
+          "price": 122.2001,
+          "broker_net_amount": 9775.8
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0L17R",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.265,
+      "executed_at": "2026-10-22T10:14:58-04:00",
+      "broker_net_amount": 1726.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:14:57-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:14:58-04:00",
+          "shares": 100.0,
+          "price": 17.265,
+          "broker_net_amount": 1726.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0Q2HV",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.275,
+      "executed_at": "2026-10-22T10:15:54-04:00",
+      "broker_net_amount": 527.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:15:54-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:15:54-04:00",
+          "shares": 100.0,
+          "price": 5.275,
+          "broker_net_amount": 527.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0GQ2Z",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 26.29,
+      "executed_at": "2026-10-22T10:16:41-04:00",
+      "broker_net_amount": 2629.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:16:41-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:16:41-04:00",
+          "shares": 100.0,
+          "price": 26.29,
+          "broker_net_amount": 2629.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0PG6Z",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 600.0,
+      "price": 17.335,
+      "executed_at": "2026-10-22T10:19:02-04:00",
+      "broker_net_amount": 10400.78,
+      "manual_fee": 0.22,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:19:02-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:19:02-04:00",
+          "shares": 600.0,
+          "price": 17.335,
+          "broker_net_amount": 10400.78
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0L37B",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 26.32,
+      "executed_at": "2026-10-22T10:20:02-04:00",
+      "broker_net_amount": 1316.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:20:01-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:20:02-04:00",
+          "shares": 50.0,
+          "price": 26.32,
+          "broker_net_amount": 1316.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0J41W",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.235,
+      "executed_at": "2026-10-22T10:22:22-04:00",
+      "broker_net_amount": 1723.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:22:21-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:22:22-04:00",
+          "shares": 100.0,
+          "price": 17.235,
+          "broker_net_amount": 1723.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0HHQ1",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.24,
+      "executed_at": "2026-10-22T10:25:43-04:00",
+      "broker_net_amount": 262.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:25:43-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:25:43-04:00",
+          "shares": 50.0,
+          "price": 5.24,
+          "broker_net_amount": 262.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0J5S5",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.2256,
+      "executed_at": "2026-10-22T10:26:15-04:00",
+      "broker_net_amount": 861.28,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:26:15-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:26:15-04:00",
+          "shares": 50.0,
+          "price": 17.2256,
+          "broker_net_amount": 861.28
+        }
+      ]
+    },
+    {
+      "order_number": "2EF102KX",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.225,
+      "executed_at": "2026-10-22T10:34:16-04:00",
+      "broker_net_amount": 522.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:34:16-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:34:16-04:00",
+          "shares": 100.0,
+          "price": 5.225,
+          "broker_net_amount": 522.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0VD8W",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.1899,
+      "executed_at": "2026-10-22T10:34:41-04:00",
+      "broker_net_amount": 1718.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:34:41-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:34:41-04:00",
+          "shares": 100.0,
+          "price": 17.1899,
+          "broker_net_amount": 1718.99
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0XDQT",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 25.998,
+      "executed_at": "2026-10-22T10:35:09-04:00",
+      "broker_net_amount": 1299.9,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:35:08-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:35:09-04:00",
+          "shares": 50.0,
+          "price": 25.998,
+          "broker_net_amount": 1299.9
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0ZFD0",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 17.185,
+      "executed_at": "2026-10-22T10:35:36-04:00",
+      "broker_net_amount": 2577.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:35:36-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:35:36-04:00",
+          "shares": 150.0,
+          "price": 17.185,
+          "broker_net_amount": 2577.75
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0XF4M",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.18,
+      "executed_at": "2026-10-22T10:36:09-04:00",
+      "broker_net_amount": 1718.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:36:09-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:36:09-04:00",
+          "shares": 100.0,
+          "price": 17.18,
+          "broker_net_amount": 1718.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0WS0S",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.1799,
+      "executed_at": "2026-10-22T10:37:26-04:00",
+      "broker_net_amount": 859.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:37:26-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:37:26-04:00",
+          "shares": 50.0,
+          "price": 17.1799,
+          "broker_net_amount": 859.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0Y3YG",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.2152,
+      "executed_at": "2026-10-22T10:37:56-04:00",
+      "broker_net_amount": 260.76,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:37:56-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:37:56-04:00",
+          "shares": 50.0,
+          "price": 5.2152,
+          "broker_net_amount": 260.76
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0RRWJ",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 17.1599,
+      "executed_at": "2026-10-22T10:38:22-04:00",
+      "broker_net_amount": 858.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:38:21-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:38:22-04:00",
+          "shares": 50.0,
+          "price": 17.1599,
+          "broker_net_amount": 858.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0XGGY",
+      "ticker": "VKTX",
+      "side": "sell",
+      "shares": 200.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $26.40",
+      "order_date": "2026-10-22T10:39:10-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-22"
+    },
+    {
+      "order_number": "2EF11HTZ",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 800.0,
+      "status": "open",
+      "order_type": "Limit at $5.36",
+      "order_date": "2026-10-22T10:39:58-04:00",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF0W4QW",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 1000.0,
+      "status": "open",
+      "order_type": "Limit at $17.30",
+      "order_date": "2026-10-22T10:40:35-04:00",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF0V22W",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.235,
+      "executed_at": "2026-10-22T10:59:01-04:00",
+      "broker_net_amount": 523.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T10:59:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T10:59:01-04:00",
+          "shares": 100.0,
+          "price": 5.235,
+          "broker_net_amount": 523.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF0YFZP",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.16,
+      "executed_at": "2026-10-22T11:00:57-04:00",
+      "broker_net_amount": 1716.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:00:57-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:00:57-04:00",
+          "shares": 100.0,
+          "price": 17.16,
+          "broker_net_amount": 1716.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF11422",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.1699,
+      "executed_at": "2026-10-22T11:01:14-04:00",
+      "broker_net_amount": 1716.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:01:14-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:01:14-04:00",
+          "shares": 100.0,
+          "price": 17.1699,
+          "broker_net_amount": 1716.99
+        }
+      ]
+    },
+    {
+      "order_number": "2EF13LR7",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 500.0,
+      "price": 17.055,
+      "executed_at": "2026-10-22T11:36:28-04:00",
+      "broker_net_amount": 8527.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:36:27-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:36:28-04:00",
+          "shares": 500.0,
+          "price": 17.055,
+          "broker_net_amount": 8527.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF188WY",
+      "ticker": "VKTX",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 26.32,
+      "executed_at": "2026-10-22T11:36:44-04:00",
+      "broker_net_amount": 5263.89,
+      "manual_fee": 0.11,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $26.32",
+      "order_date": "2026-10-22T11:35:56-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:36:44-04:00",
+          "shares": 200.0,
+          "price": 26.32,
+          "broker_net_amount": 5263.89
+        }
+      ]
+    },
+    {
+      "order_number": "2EF14ZCL",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.075,
+      "executed_at": "2026-10-22T11:39:57-04:00",
+      "broker_net_amount": 1707.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:39:56-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:39:57-04:00",
+          "shares": 100.0,
+          "price": 17.075,
+          "broker_net_amount": 1707.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF192P9",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 900.0,
+      "price": 17.195,
+      "executed_at": "2026-10-22T11:48:20-04:00",
+      "broker_net_amount": 15475.18,
+      "manual_fee": 0.32,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:48:19-04:00",
+      "price_improvement": 4.5,
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:48:20-04:00",
+          "shares": 900.0,
+          "price": 17.195,
+          "broker_net_amount": 15475.18
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1DGGJ",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 17.23,
+      "executed_at": "2026-10-22T11:51:17-04:00",
+      "broker_net_amount": 3445.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:51:17-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:51:17-04:00",
+          "shares": 200.0,
+          "price": 17.23,
+          "broker_net_amount": 3445.92
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1C4F0",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 500.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $17.28",
+      "time_in_force": "Day",
+      "order_expiration": "2026-10-22T16:00:00-04:00",
+      "order_date": "2026-10-22T11:51:45-04:00",
+      "cancel_date": "2026-10-22",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF132ZT",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 17.222,
+      "executed_at": "2026-10-22T11:52:09-04:00",
+      "broker_net_amount": 3444.32,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:52:09-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:52:09-04:00",
+          "shares": 200.0,
+          "price": 17.222,
+          "broker_net_amount": 3444.32
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1BH18",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 17.25,
+      "executed_at": "2026-10-22T11:53:14-04:00",
+      "broker_net_amount": 1724.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:53:13-04:00",
+      "price_improvement": 0.5,
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:53:14-04:00",
+          "shares": 100.0,
+          "price": 17.25,
+          "broker_net_amount": 1724.96
+        }
+      ]
+    },
+    {
+      "order_number": "2EF16G9Z",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 600.0,
+      "price": 17.27,
+      "executed_at": "2026-10-22T11:53:39-04:00",
+      "broker_net_amount": 10361.78,
+      "manual_fee": 0.22,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $17.27",
+      "order_date": "2026-10-22T11:52:44-04:00",
+      "order_expiration": "2026-10-22T16:00:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:53:39-04:00",
+          "shares": 600.0,
+          "price": 17.27,
+          "broker_net_amount": 10361.78
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1CVVY",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 17.275,
+      "executed_at": "2026-10-22T11:57:42-04:00",
+      "broker_net_amount": 1727.46,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:57:41-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:57:42-04:00",
+          "shares": 100.0,
+          "price": 17.275,
+          "broker_net_amount": 1727.46
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1DK17",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.285,
+      "executed_at": "2026-10-22T11:59:04-04:00",
+      "broker_net_amount": 264.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T11:59:03-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T11:59:04-04:00",
+          "shares": 50.0,
+          "price": 5.285,
+          "broker_net_amount": 264.25
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1DRP3",
+      "ticker": "SNAP",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 6.465,
+      "executed_at": "2026-10-22T12:22:02-04:00",
+      "broker_net_amount": 646.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T12:22:01-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T12:22:02-04:00",
+          "shares": 100.0,
+          "price": 6.465,
+          "broker_net_amount": 646.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1F4Q8",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $5.25",
+      "order_date": "2026-10-22T13:01:22-04:00",
+      "order_expiration": "",
+      "cancel_date": "2026-10-22",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF1LK11",
+      "ticker": "SNAP",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 6.44,
+      "executed_at": "2026-10-22T13:05:15-04:00",
+      "broker_net_amount": 644.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:05:14-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:05:15-04:00",
+          "shares": 100.0,
+          "price": 6.44,
+          "broker_net_amount": 644.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1M9D7",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.255,
+      "executed_at": "2026-10-22T13:14:43-04:00",
+      "broker_net_amount": 525.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:14:43-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:14:43-04:00",
+          "shares": 100.0,
+          "price": 5.255,
+          "broker_net_amount": 525.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1RBXG",
+      "ticker": "WING",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 118.65,
+      "executed_at": "2026-10-22T13:16:17-04:00",
+      "broker_net_amount": 2373.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:16:17-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:16:17-04:00",
+          "shares": 20.0,
+          "price": 118.65,
+          "broker_net_amount": 2373.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1FZGC",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 26.03,
+      "executed_at": "2026-10-22T13:18:29-04:00",
+      "broker_net_amount": 1301.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:18:29-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:18:29-04:00",
+          "shares": 50.0,
+          "price": 26.03,
+          "broker_net_amount": 1301.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1L0C1",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 26.0399,
+      "executed_at": "2026-10-22T13:19:12-04:00",
+      "broker_net_amount": 1302.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:19:12-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:19:12-04:00",
+          "shares": 50.0,
+          "price": 26.0399,
+          "broker_net_amount": 1302.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1N001",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.24,
+      "executed_at": "2026-10-22T13:24:43-04:00",
+      "broker_net_amount": 524.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $5.24",
+      "order_date": "2026-10-22T13:17:04-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:24:43-04:00",
+          "shares": 100.0,
+          "price": 5.24,
+          "broker_net_amount": 524.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1G2DW",
+      "ticker": "WING",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 120.395,
+      "executed_at": "2026-10-22T13:29:28-04:00",
+      "broker_net_amount": 1203.95,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:29:28-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:29:28-04:00",
+          "shares": 10.0,
+          "price": 120.395,
+          "broker_net_amount": 1203.95
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1QSHD",
+      "ticker": "WING",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 121.03,
+      "executed_at": "2026-10-22T13:29:48-04:00",
+      "broker_net_amount": 3630.82,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:29:48-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:29:48-04:00",
+          "shares": 30.0,
+          "price": 121.03,
+          "broker_net_amount": 3630.82
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1GS0H",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 300.0,
+      "price": 5.225,
+      "executed_at": "2026-10-22T13:31:54-04:00",
+      "broker_net_amount": 1567.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:31:54-04:00",
+      "price_improvement": 1.5,
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:31:54-04:00",
+          "shares": 300.0,
+          "price": 5.225,
+          "broker_net_amount": 1567.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1LSLH",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 25.89,
+      "executed_at": "2026-10-22T13:32:19-04:00",
+      "broker_net_amount": 1294.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:32:19-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:32:19-04:00",
+          "shares": 50.0,
+          "price": 25.89,
+          "broker_net_amount": 1294.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1KFVG",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 5.2282,
+      "executed_at": "2026-10-22T13:32:49-04:00",
+      "broker_net_amount": 784.23,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:32:49-04:00",
+      "price_improvement": 0.27,
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:32:49-04:00",
+          "shares": 150.0,
+          "price": 5.2282,
+          "broker_net_amount": 784.23
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1NSZC",
+      "ticker": "SNAP",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 6.482,
+      "executed_at": "2026-10-22T13:33:17-04:00",
+      "broker_net_amount": 1296.37,
+      "manual_fee": 0.03,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:33:17-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:33:17-04:00",
+          "shares": 200.0,
+          "price": 6.482,
+          "broker_net_amount": 1296.37
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1JT59",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.235,
+      "executed_at": "2026-10-22T13:36:04-04:00",
+      "broker_net_amount": 523.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:36:04-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:36:04-04:00",
+          "shares": 100.0,
+          "price": 5.235,
+          "broker_net_amount": 523.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1WNTW",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.2299,
+      "executed_at": "2026-10-22T13:47:58-04:00",
+      "broker_net_amount": 522.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:47:57-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:47:58-04:00",
+          "shares": 100.0,
+          "price": 5.2299,
+          "broker_net_amount": 522.99
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1W4LW",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.225,
+      "executed_at": "2026-10-22T13:55:43-04:00",
+      "broker_net_amount": 522.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:55:42-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:55:43-04:00",
+          "shares": 100.0,
+          "price": 5.225,
+          "broker_net_amount": 522.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1XHGS",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 25.0,
+      "price": 25.915,
+      "executed_at": "2026-10-22T13:56:38-04:00",
+      "broker_net_amount": 647.88,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:56:38-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:56:38-04:00",
+          "shares": 25.0,
+          "price": 25.915,
+          "broker_net_amount": 647.88
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1TTTS",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.215,
+      "executed_at": "2026-10-22T13:59:11-04:00",
+      "broker_net_amount": 521.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T13:59:11-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T13:59:11-04:00",
+          "shares": 100.0,
+          "price": 5.215,
+          "broker_net_amount": 521.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF17692",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.26,
+      "executed_at": "2026-10-22T14:07:18-04:00",
+      "broker_net_amount": 1726.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $17.26",
+      "order_date": "2026-10-22T12:00:20-04:00",
+      "order_expiration": "2026-10-22T16:00:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:07:18-04:00",
+          "shares": 100.0,
+          "price": 17.26,
+          "broker_net_amount": 1726.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1CWWM",
+      "ticker": "MOS",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.26,
+      "executed_at": "2026-10-22T14:07:18-04:00",
+      "broker_net_amount": 1726.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $17.26",
+      "order_date": "2026-10-22T12:00:46-04:00",
+      "order_expiration": "2026-10-22T16:00:00-04:00",
+      "note": "Filled at the same second as 2EF17692. The trade log stores this row one second later so both 100-share buys count.",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:07:18-04:00",
+          "shares": 100.0,
+          "price": 17.26,
+          "broker_net_amount": 1726.0
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1Z1JB",
+      "ticker": "MOS",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 17.32,
+      "executed_at": "2026-10-22T14:20:52-04:00",
+      "broker_net_amount": 3463.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T14:20:51-04:00",
+      "price_improvement": 1.0,
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:20:52-04:00",
+          "shares": 200.0,
+          "price": 17.32,
+          "broker_net_amount": 3463.92
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1VS1Z",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.2172,
+      "executed_at": "2026-10-22T14:30:00-04:00",
+      "broker_net_amount": 521.72,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T14:30:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:30:00-04:00",
+          "shares": 100.0,
+          "price": 5.2172,
+          "broker_net_amount": 521.72
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1Z3YX",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.215,
+      "executed_at": "2026-10-22T14:30:16-04:00",
+      "broker_net_amount": 521.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T14:30:15-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:30:16-04:00",
+          "shares": 100.0,
+          "price": 5.215,
+          "broker_net_amount": 521.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF1ZT4W",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 25.0,
+      "price": 25.86,
+      "executed_at": "2026-10-22T14:31:14-04:00",
+      "broker_net_amount": 646.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T14:31:14-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T14:31:14-04:00",
+          "shares": 25.0,
+          "price": 25.86,
+          "broker_net_amount": 646.5
+        }
+      ]
+    },
+    {
+      "order_number": "2EF28SXZ",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 25.805,
+      "executed_at": "2026-10-22T15:02:59-04:00",
+      "broker_net_amount": 1290.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:02:59-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:02:59-04:00",
+          "shares": 50.0,
+          "price": 25.805,
+          "broker_net_amount": 1290.25
+        }
+      ]
+    },
+    {
+      "order_number": "2EF24X1P",
+      "ticker": "CRL",
+      "side": "buy",
+      "shares": 7.0,
+      "price": 341.41,
+      "executed_at": "2026-10-22T15:15:15-04:00",
+      "broker_net_amount": 2389.87,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:15:15-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:15:15-04:00",
+          "shares": 7.0,
+          "price": 341.41,
+          "broker_net_amount": 2389.87
+        }
+      ]
+    },
+    {
+      "order_number": "2EF24Y6L",
+      "ticker": "CRL",
+      "side": "sell",
+      "shares": 7.0,
+      "status": "open",
+      "order_type": "Limit at $343.00",
+      "order_date": "2026-10-22T15:19:11-04:00",
+      "order_expiration": "",
+      "market_session": "standard"
+    },
+    {
+      "order_number": "2EF26Z32",
+      "ticker": "CRL",
+      "side": "buy",
+      "shares": 3.0,
+      "price": 340.6699,
+      "executed_at": "2026-10-22T15:21:30-04:00",
+      "broker_net_amount": 1022.01,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:21:29-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:21:30-04:00",
+          "shares": 3.0,
+          "price": 340.6699,
+          "broker_net_amount": 1022.01
+        }
+      ]
+    },
+    {
+      "order_number": "2EF2BD5W",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 5.2032,
+      "executed_at": "2026-10-22T15:27:48-04:00",
+      "broker_net_amount": 1040.64,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:27:48-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:27:48-04:00",
+          "shares": 200.0,
+          "price": 5.2032,
+          "broker_net_amount": 1040.64
+        }
+      ]
+    },
+    {
+      "order_number": "2EF23PYG",
+      "ticker": "CRL",
+      "side": "buy",
+      "shares": 2.0,
+      "price": 340.2266,
+      "executed_at": "2026-10-22T15:28:13-04:00",
+      "broker_net_amount": 680.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:28:13-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:28:13-04:00",
+          "shares": 2.0,
+          "price": 340.2266,
+          "broker_net_amount": 680.45
+        }
+      ]
+    },
+    {
+      "order_number": "2EF2CQRY",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.208,
+      "executed_at": "2026-10-22T15:28:57-04:00",
+      "broker_net_amount": 520.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-22T15:28:56-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-22T15:28:57-04:00",
+          "shares": 100.0,
+          "price": 5.208,
+          "broker_net_amount": 520.8
+        }
+      ]
+    }
+    ,
+    {
+      "order_number": "csv-2026-10-22-unit-100-5.19-518.50-a",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.19,
+      "executed_at": "2026-10-22T15:29:01-04:00",
+      "broker_net_amount": 518.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market",
+      "note": "CSV price is rounded. No order number or execution time."
+    },
+    {
+      "order_number": "csv-2026-10-22-unit-100-5.19-518.50-b",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.19,
+      "executed_at": "2026-10-22T15:29:02-04:00",
+      "broker_net_amount": 518.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market",
+      "note": "CSV price is rounded. No order number or execution time."
+    },
+    {
+      "order_number": "csv-2026-10-22-unit-100-5.19-518.50-c",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.19,
+      "executed_at": "2026-10-22T15:29:03-04:00",
+      "broker_net_amount": 518.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market",
+      "note": "CSV price is rounded. No order number or execution time."
+    },
+    {
+      "order_number": "csv-2026-10-22-unit-50-5.17-258.50",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.17,
+      "executed_at": "2026-10-22T15:29:04-04:00",
+      "broker_net_amount": 258.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market"
+    },
+    {
+      "order_number": "csv-2026-10-22-unit-50-5.174-258.70",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.174,
+      "executed_at": "2026-10-22T15:29:05-04:00",
+      "broker_net_amount": 258.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market",
+      "note": "Price is the confirmation net divided by shares. The CSV rounded it to 5.17."
+    },
+    {
+      "order_number": "csv-2026-10-22-vktx-50-25.75-1287.50",
+      "ticker": "VKTX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 25.75,
+      "executed_at": "2026-10-22T15:29:06-04:00",
+      "broker_net_amount": 1287.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv, no clock time",
+      "market_session": "standard",
+      "order_type": "Market"
+    }
+  ],
+  "canceled_order_count": 3,
+  "open_order_count": 4
+}

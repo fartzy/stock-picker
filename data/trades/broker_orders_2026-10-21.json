@@ -3,10 +3,10 @@
   "trade_date": "2026-10-21",
   "source": "User-pasted Fidelity order confirmation; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "Each confirmation is one order. Confirmation net is before the fee. No CSV was available, so the fee is shares times price minus the confirmation net.",
-  "filled_order_count": 44,
-  "imported_order_count": 44,
-  "canceled_order_count": 4,
+  "note": "Each confirmation is one order. Fills added from the saved activity page use the execution-lot price and time. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy.",
+  "filled_order_count": 54,
+  "imported_order_count": 54,
+  "canceled_order_count": 6,
   "open_order_count": 2,
   "import_status": "logged_in_trade_store",
   "orders": [
@@ -520,6 +520,75 @@
       ]
     },
     {
+      "order_number": "2EE0K3NF",
+      "ticker": "MBLY",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 7.0485,
+      "executed_at": "2026-10-21T10:08:59-04:00",
+      "broker_net_amount": 352.43,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T10:08:59-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T10:08:59-04:00",
+          "shares": 50.0,
+          "price": 7.0485,
+          "broker_net_amount": 352.43
+        }
+      ]
+    },
+    {
+      "order_number": "2EE0LHC7",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.3985,
+      "executed_at": "2026-10-21T10:11:19-04:00",
+      "broker_net_amount": 269.93,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T10:11:19-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T10:11:19-04:00",
+          "shares": 50.0,
+          "price": 5.3985,
+          "broker_net_amount": 269.93
+        }
+      ]
+    },
+    {
+      "order_number": "2EE0JGST",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 5.395,
+      "executed_at": "2026-10-21T10:12:11-04:00",
+      "broker_net_amount": 269.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T10:12:11-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T10:12:11-04:00",
+          "shares": 50.0,
+          "price": 5.395,
+          "broker_net_amount": 269.75
+        }
+      ]
+    },
+    {
       "order_number": "2EE0GGRM",
       "ticker": "MBLY",
       "side": "buy",
@@ -1001,6 +1070,167 @@
       ]
     },
     {
+      "order_number": "2EE13NPX",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 43.4199,
+      "executed_at": "2026-10-21T13:22:50-04:00",
+      "broker_net_amount": 434.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:22:50-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:22:50-04:00",
+          "shares": 10.0,
+          "price": 43.4199,
+          "broker_net_amount": 434.2
+        }
+      ]
+    },
+    {
+      "order_number": "2EE170RC",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 43.405,
+      "executed_at": "2026-10-21T13:24:34-04:00",
+      "broker_net_amount": 434.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:24:34-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:24:34-04:00",
+          "shares": 10.0,
+          "price": 43.405,
+          "broker_net_amount": 434.05
+        }
+      ]
+    },
+    {
+      "order_number": "2EE1BCVM",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 43.37,
+      "executed_at": "2026-10-21T13:25:06-04:00",
+      "broker_net_amount": 1301.1,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:25:06-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:25:06-04:00",
+          "shares": 30.0,
+          "price": 43.37,
+          "broker_net_amount": 1301.1
+        }
+      ]
+    },
+    {
+      "order_number": "2EE19QWC",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 43.37,
+      "executed_at": "2026-10-21T13:30:28-04:00",
+      "broker_net_amount": 433.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:30:27-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:30:28-04:00",
+          "shares": 10.0,
+          "price": 43.37,
+          "broker_net_amount": 433.7
+        }
+      ]
+    },
+    {
+      "order_number": "2EE1DFTF",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 43.335,
+      "executed_at": "2026-10-21T13:35:57-04:00",
+      "broker_net_amount": 433.35,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:35:57-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:35:57-04:00",
+          "shares": 10.0,
+          "price": 43.335,
+          "broker_net_amount": 433.35
+        }
+      ]
+    },
+    {
+      "order_number": "2EE173X6",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 43.34,
+      "executed_at": "2026-10-21T13:42:27-04:00",
+      "broker_net_amount": 866.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:42:27-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:42:27-04:00",
+          "shares": 20.0,
+          "price": 43.34,
+          "broker_net_amount": 866.8
+        }
+      ]
+    },
+    {
+      "order_number": "2EE153T1",
+      "ticker": "VZ",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 43.345,
+      "executed_at": "2026-10-21T13:43:44-04:00",
+      "broker_net_amount": 433.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-21T13:43:44-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-21T13:43:44-04:00",
+          "shares": 10.0,
+          "price": 43.345,
+          "broker_net_amount": 433.45
+        }
+      ]
+    },
+    {
       "order_number": "2EE1J6BD",
       "ticker": "UNIT",
       "side": "sell",
@@ -1129,6 +1359,28 @@
           "broker_net_amount": 536.99
         }
       ]
+    },
+    {
+      "order_number": "2EE20S0D",
+      "ticker": "UNIT",
+      "side": "buy",
+      "shares": 100.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $5.30",
+      "order_date": "2026-10-21T17:35:36-04:00",
+      "market_session": "after hours",
+      "cancel_date": "2026-10-21"
+    },
+    {
+      "order_number": "2EE1T2GH",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 700.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $5.48",
+      "order_date": "2026-10-21T17:36:18-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-21"
     }
   ]
 }
