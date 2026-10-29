@@ -13,8 +13,8 @@
     "file_name": "Portfolio Activity & Orders_bd.html"
   },
   "note": "One row per filled order, excluding SPYM. Two later ACHR sales, 5,000 and 1,000 shares at 4.13, come from the 12:41 account CSV and have no execution time in either saved file. Their stored times are 1:30 PM Eastern placeholders. One earlier 4,000-share ACHR sale also has a noon placeholder.",
-  "filled_order_count": 84,
-  "imported_order_count": 84,
+  "filled_order_count": 83,
+  "imported_order_count": 83,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -900,20 +900,6 @@
       "timestamp_source": "earliest webpage execution lot"
     },
     {
-      "order_number": "2E7062S4",
-      "ticker": "BETZ",
-      "side": "sell",
-      "shares": 100.0,
-      "price": 16.6,
-      "executed_at": "2026-10-14T09:30:00-04:00",
-      "broker_net_amount": 1659.96,
-      "history_csv_line": 71,
-      "history_displayed_price": 16.6,
-      "manual_fee": 0.04,
-      "execution_lot_count": 4,
-      "timestamp_source": "earliest webpage execution lot"
-    },
-    {
       "order_number": "2E70XYBN",
       "ticker": "ACHR",
       "side": "buy",
@@ -1356,5 +1342,23 @@
         "note": "October 14 fill present in the October 15 combined export and absent from the earlier logged orders."
       }
     ]
-  }
+  },
+  "excluded_orders": [
+    {
+      "order_number": "2E7062S4",
+      "ticker": "BETZ",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 16.6,
+      "executed_at": "2026-10-14T09:30:00-04:00",
+      "broker_net_amount": 1659.96,
+      "history_csv_line": 71,
+      "history_displayed_price": 16.6,
+      "manual_fee": 0.04,
+      "execution_lot_count": 4,
+      "timestamp_source": "earliest webpage execution lot",
+      "excluded_on": "2026-10-29",
+      "exclusion_reason": "User requested removing BETZ from the trading log; opening buy is not available in the recorded history."
+    }
+  ]
 }
