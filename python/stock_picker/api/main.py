@@ -5,6 +5,7 @@ Run with: bazel run //python/stock_picker/api:main
 
 from __future__ import annotations
 
+import os
 import socket
 
 import uvicorn
@@ -12,8 +13,9 @@ import uvicorn
 from stock_picker.api.app import app
 from stock_picker.log import get_logger
 
-# 0.0.0.0 so an iPhone on the same Wi-Fi can open the hosted UI. Vite still
-# proxies /api to this port on loopback.
+# 0.0.0.0 so an iPhone on the same Wi-Fi can open the hosted UI. Set
+# STOCK_PICKER_API_HOST=127.0.0.1 for a local-only session with private data.
+# Vite still proxies /api to this port on loopback.
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_PORT = 8000  # kept in sync with typescript/vite.config.ts's API_PROXY_TARGET
 
@@ -32,8 +34,10 @@ def _lan_ip() -> str:
 
 
 def main() -> None:
-    logger.info("phone Home Screen: http://%s:%s", _lan_ip(), DEFAULT_PORT)
-    uvicorn.run(app, host=DEFAULT_HOST, port=DEFAULT_PORT)
+    host = os.environ.get("STOCK_PICKER_API_HOST", DEFAULT_HOST)
+    if host == DEFAULT_HOST:
+        logger.info("phone Home Screen: http://%s:%s", _lan_ip(), DEFAULT_PORT)
+    uvicorn.run(app, host=host, port=DEFAULT_PORT)
 
 
 if __name__ == "__main__":
