@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
-  overnightSelectionKey, selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
+  overnightSelectionKey, overnightTradeReturn, selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
   returnOnAverageDailyCapital, summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold,
   summarizeSelectedOvernightHistory,
 } from "../src/whatIf.js";
@@ -70,6 +70,36 @@ test("pending next opens and skipped names cannot silently enter a basket total"
   assert.equal(simulateOvernightHold(row, { status: "observed", verified_close: 101, next_open: 103 }, 10_000, 1).status, "price_mismatch");
 });
 
+test("overnight wins compare sale proceeds with the purchase cost, without changing P&L", () => {
+  const data = simulateBook(book([day("2026-09-29", [pick(-0.10, { close_price: 90 })])]), options);
+  const simulated = data.days[0];
+  const row = simulated.rank[0];
+  for (const [nextOpen, fraction, expectedReturn, expectedPnl] of [
+    [95, 1, -0.05, -500], // Overnight recovery still sells below the $100 purchase.
+    [100, 1, 0, 0],
+    [105, 1, 0.05, 500],
+    [105, 0.5, -0.025, -250], // Half sold at $90 outweighs half sold at $105.
+    [110, 0.5, 0, 0],
+  ]) {
+    const actual = { status: "observed", verified_close: 90, next_open: nextOpen };
+    assert.equal(overnightTradeReturn(row, actual, 10_000, fraction), expectedReturn);
+    const summary = summarizeOvernightExit(simulated.rank, new Map([["AAA", actual]]),
+      10_000, simulated.rank_money, fraction, "down");
+    assert.equal(summary.pnl, expectedPnl);
+    assert.equal(summary.endingValue, 10_000 + expectedPnl);
+  }
+  assert.equal(row.hypothetical.pnl, -1000);
+});
+
+test("unobserved or mismatched overnight exits cannot become trade wins", () => {
+  const base = pick(-0.10, { close_price: 90 });
+  const row = { ...base, hypothetical: simulatePick(base, 10_000) };
+  for (const actual of [undefined, { status: "awaiting_next_open" }, { status: "unavailable" },
+    { status: "observed", verified_close: 80, next_open: 110 }]) {
+    assert.equal(overnightTradeReturn(row, actual, 10_000, 1), null);
+  }
+});
+
 test("all, down-today, and custom exits use the same eligible shares and close baseline", () => {
   const flagged = { news_blocks: true, news_flag: "corporate action" };
   const data = simulateBook(book([day("2026-09-29", [
@@ -96,7 +126,7 @@ test("all, down-today, and custom exits use the same eligible shares and close b
   assert.equal(simulated.rank_money.pnl, 0);
 });
 
-test("missing selected opens and incomplete close baskets never show a scenario total", () => {
+test("a past missing open stays at the close while an incomplete close basket stays blank", () => {
   const data = simulateBook(book([day("2026-09-29", [
     pick(-0.02, { ticker: "AAA", close_price: 98 }),
     pick(0.02, { ticker: "BBB", rank: 2, close_price: 102 }),
@@ -104,7 +134,7 @@ test("missing selected opens and incomplete close baskets never show a scenario 
   const simulated = data.days[0];
   const actuals = new Map([["AAA", { status: "observed", verified_close: 98, next_open: 100 }]]);
   assert.deepEqual(summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, 1, "all"),
-    { selected: 2, observed: 1, pnl: null, endingValue: null, extraPnl: null });
+    { selected: 2, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 });
   assert.equal(summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, 0.5, "down").pnl, 100);
   const incomplete = simulateBook(book([day("2026-09-29", [
     pick(-0.02, { ticker: "AAA", close_price: 98 }),
@@ -112,7 +142,7 @@ test("missing selected opens and incomplete close baskets never show a scenario 
   ])]), options).days[0];
   assert.equal(summarizeOvernightExit(incomplete.rank, actuals, 10_000, incomplete.rank_money, 1, "down").pnl, null);
   const mismatch = new Map([["AAA", { status: "observed", verified_close: 97, next_open: 100 }]]);
-  assert.equal(summarizeOvernightExit(simulated.rank, mismatch, 10_000, simulated.rank_money, 1, "down").pnl, null);
+  assert.equal(summarizeOvernightExit(simulated.rank, mismatch, 10_000, simulated.rank_money, 1, "down").pnl, 0);
   assert.throws(() => summarizeOvernightExit(simulated.rank, actuals, 10_000, simulated.rank_money, NaN, "custom"),
     /Hold fraction/);
 });
@@ -131,9 +161,9 @@ test("history compares repeatable rules on matched complete live days only", () 
     ["BBB", { status: "observed", verified_close: 102, next_open: 99 }],
   ])]]);
   assert.deepEqual(summarizeOvernightHistory(simulated.days, actuals, "rank", 10_000, 1), {
-    eligibleDays: 2, matchedDays: 1, baselinePnl: 0, baselineEndingValue: 20_000,
-    all: { selected: 2, observed: 2, pnl: -100, endingValue: 19_900, extraPnl: -100 },
-    down: { selected: 1, observed: 1, pnl: 200, endingValue: 20_200, extraPnl: 200 },
+    eligibleDays: 2, matchedDays: 2, baselinePnl: -100, baselineEndingValue: 29_900,
+    all: { selected: 3, observed: 2, pnl: -200, endingValue: 29_800, extraPnl: -100 },
+    down: { selected: 2, observed: 1, pnl: 100, endingValue: 30_100, extraPnl: 200 },
   });
 });
 
@@ -151,8 +181,8 @@ test("top aggregate follows the selected exit rule without requiring other rules
   const selected = (rule, choices) => summarizeSelectedOvernightHistory(
     simulated.days, actuals, "rank", 10_000, 1, rule, choices,
   );
-  assert.deepEqual(selected("down"), { eligibleDays: 2, matchedDays: 1, pnl: 200, endingValue: 20_200 });
-  assert.deepEqual(selected("all"), { eligibleDays: 2, matchedDays: 0, pnl: null, endingValue: null });
+  assert.deepEqual(selected("down"), { eligibleDays: 2, matchedDays: 2, pnl: 100, endingValue: 30_100 });
+  assert.deepEqual(selected("all"), { eligibleDays: 2, matchedDays: 2, pnl: 100, endingValue: 30_100 });
   const custom = new Map([[overnightSelectionKey(simulated.days[0], "rank"), new Set(["AAA"])]]);
   assert.deepEqual(selected("custom", custom), { eligibleDays: 2, matchedDays: 2, pnl: 100, endingValue: 30_100 });
 });
@@ -274,7 +304,7 @@ test("excluding current blacklist removes historical Rank/Fit picks without back
   assert.deepEqual(summarizeSelectedOvernightHistory(filtered.days, actuals, "rank", 10_000, 1, "all"), {
     eligibleDays: 2, matchedDays: 2, pnl: 400, endingValue: 20_400,
   });
-  assert.equal(summarizeSelectedOvernightHistory(original.days, actuals, "rank", 10_000, 1, "all").matchedDays, 1);
+  assert.equal(summarizeSelectedOvernightHistory(original.days, actuals, "rank", 10_000, 1, "all").matchedDays, 2);
   assert.equal(source.days[0].rank.length, 3); // The stored historical list is untouched.
 });
 
