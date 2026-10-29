@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_OPTIONS,
+  benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks, TRADE_SIZE_RANGE,
   overnightSelectionKey, overnightTradeReturn, selectOvernightExitRows, simulateBook, simulateOvernightHold, simulatePick, simulationDay,
   returnOnAverageDailyCapital, summarizeOvernightExit, summarizeOvernightHistory, summarizeOvernightHold,
   summarizeSelectedOvernightHistory,
@@ -187,10 +187,9 @@ test("top aggregate follows the selected exit rule without requiring other rules
   assert.deepEqual(selected("custom", custom), { eligibleDays: 2, matchedDays: 2, pnl: 100, endingValue: 30_100 });
 });
 
-test("shared trade-size choices support all requested amounts", () => {
-  assert.deepEqual(TRADE_SIZE_OPTIONS, [3_000, 4_000, 5_000, 6_000, 8_000, 10_000, 15_000, 20_000]);
-  assert.ok(TRADE_SIZE_OPTIONS.includes(DEFAULT_TRADE_SIZE));
-  for (const amount of TRADE_SIZE_OPTIONS) {
+test("trade-size slider scales returns through $100K", () => {
+  assert.ok(DEFAULT_TRADE_SIZE >= TRADE_SIZE_RANGE.min && DEFAULT_TRADE_SIZE <= TRADE_SIZE_RANGE.max);
+  for (const amount of [TRADE_SIZE_RANGE.min, 20_000, 57_000, TRADE_SIZE_RANGE.max]) {
     assert.deepEqual(simulatePick(pick(0.01), amount), {
       status: "scored", pnl: amount / 100, endingValue: amount + amount / 100,
     });

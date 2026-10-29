@@ -19,7 +19,7 @@ import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
-  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, overnightTradeReturn, returnOnAverageDailyCapital,
+  LOOKBACK_OPTIONS, TRADE_SIZE_RANGE, overnightSelectionKey, overnightTradeReturn, returnOnAverageDailyCapital,
   selectOvernightExitRows, simulateBook,
   simulateOvernightHold, simulationDay, summarizeOvernightExit, summarizeSelectedOvernightHistory,
   type BenchmarkLoad,
@@ -661,18 +661,21 @@ function StrategyControl({
             aria-label={`${label} top`}
             title="Number of top picks"
           />
-          <select
-            className="form-select what-if-trade-size"
-            value={dollarsPerTrade}
-            disabled={!enabled}
-            onChange={(event) => onTradeSize(Number(event.target.value))}
-            aria-label={`${label} dollars per trade`}
-            title={`${label}: amount per trade`}
-          >
-            {TRADE_SIZE_OPTIONS.map((amount) => (
-              <option key={amount} value={amount}>${amount / 1_000}K / trade</option>
-            ))}
-          </select>
+          <label className="what-if-trade-size">
+            <input
+              type="range"
+              min={TRADE_SIZE_RANGE.min}
+              max={TRADE_SIZE_RANGE.max}
+              step={TRADE_SIZE_RANGE.step}
+              value={dollarsPerTrade}
+              disabled={!enabled}
+              onChange={(event) => onTradeSize(event.currentTarget.valueAsNumber)}
+              aria-label={`${label} dollars per trade`}
+              aria-valuetext={`${formatUsd(dollarsPerTrade)} per trade`}
+              title={`${label}: $1K–$100K per trade`}
+            />
+            <span>${dollarsPerTrade / 1_000}K / trade</span>
+          </label>
         </>
       }
     >
