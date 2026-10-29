@@ -19,7 +19,7 @@ import { Diff } from "./Diff";
 import { formatUsd } from "../format";
 import {
   benchmarkDates, compareStrategyToBenchmark, DEFAULT_TRADE_SIZE, loadStrategyBenchmarks,
-  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, returnOnAverageDailyCapital,
+  LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, overnightSelectionKey, overnightTradeReturn, returnOnAverageDailyCapital,
   selectOvernightExitRows, simulateBook,
   simulateOvernightHold, simulationDay, summarizeOvernightExit, summarizeSelectedOvernightHistory,
   type BenchmarkLoad,
@@ -33,7 +33,7 @@ import {
   type AfterCloseMode, type FirstTouch, type HoldBar, type HoldPickResult, type HoldSummary,
 } from "../whatIfHold";
 
-const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10];
+const HOLD_DROP_STOPS = [1, 2, 3, 4, 5, 8, 10, 15, 20];
 import TogglePill from "./TogglePill";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
@@ -95,6 +95,15 @@ function heldUntilOpen(row: SimulatedPick, mode: OvernightExitMode, custom: Read
   return mode !== "close" && selectOvernightExitRows([row], mode, custom).length > 0;
 }
 
+function exitGapLabel(actual: OvernightActualRow | undefined): string {
+  if (!actual) return "Open not loaded";
+  if (actual.status === "awaiting_next_open") return "Awaiting open";
+  if (actual.status === "corporate_action") return actual.reason ? `No open · ${actual.reason}` : "No open · corporate action";
+  if (actual.status === "unavailable") return "Open unavailable";
+  if (actual.status === "observed") return "Close mismatch";
+  return "Price mismatch";
+}
+
 function ScenarioPickMoney({ row, actual, dollarsPerTrade, portion, mode, custom, ending = false }: {
   row: SimulatedPick;
   actual?: OvernightActualRow;
@@ -107,8 +116,7 @@ function ScenarioPickMoney({ row, actual, dollarsPerTrade, portion, mode, custom
   if (!heldUntilOpen(row, mode, custom)) return <PickMoney outcome={row.hypothetical} ending={ending} />;
   const outcome = simulateOvernightHold(row, actual, dollarsPerTrade, portion / 100);
   if (outcome.status !== "observed" || row.hypothetical.pnl === null) {
-    const label = outcome.status === "price_mismatch" ? "Price mismatch" : "Awaiting open";
-    return <span className="muted">{label}</span>;
+    return <span className="muted">{exitGapLabel(actual)}</span>;
   }
   if (ending) return <UsdCell value={outcome.endingValue} />;
   const pnl = Math.round((row.hypothetical.pnl + outcome.incrementalPnl!) * 100) / 100;
@@ -136,6 +144,79 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
       ? [{ key: "skipped", label: "Skipped", value: `${stats.n_avoid} news skips` }]
       : []),
   ];
+}
+
+/** Score the complete trade from its entry to the selected exit.
+ * A missing open stays out of the win/loss count.
+ */
+function exitReturn(
+  row: SimulatedPick,
+  mode: OvernightExitMode,
+  actual: OvernightActualRow | undefined,
+  custom: ReadonlySet<string>,
+  dollarsPerTrade: number,
+  portion: number,
+): number | null {
+  if (mode === "close" || !heldUntilOpen(row, mode, custom)) return row.session_return;
+  return overnightTradeReturn(row, actual, dollarsPerTrade, portion / 100);
+}
+
+function recordFromReturns(n: number, returns: readonly number[], skipped = 0): PaperListStats {
+  const wins = returns.filter((value) => value > 0).length;
+  const losses = returns.filter((value) => value < 0).length;
+  return {
+    n,
+    n_scored: returns.length,
+    wins,
+    losses,
+    flats: returns.length - wins - losses,
+    hit_rate: returns.length ? wins / returns.length : null,
+    avg: returns.length ? returns.reduce((sum, value) => sum + value, 0) / returns.length : null,
+    avg_ex_news: null,
+    n_avoid: skipped,
+  };
+}
+
+/** Every scored pick under the selected exit. A held name uses its full trade return.
+ * A name the rule sells at the close uses the close. A missing open stays out.
+ */
+function outcomeStats(
+  rows: readonly SimulatedPick[],
+  mode: OvernightExitMode,
+  actuals: ReadonlyMap<string, OvernightActualRow> | undefined,
+  custom: ReadonlySet<string>,
+  dollarsPerTrade: number,
+  portion: number,
+): PaperListStats | undefined {
+  const scored = rows.filter((row) => row.hypothetical.status === "scored" || row.hypothetical.status === "held");
+  if (scored.length === 0) return undefined;
+  const returns = scored.flatMap((row) => {
+    const value = exitReturn(row, mode, actuals?.get(row.ticker), custom, dollarsPerTrade, portion);
+    return value === null ? [] : [value];
+  });
+  return recordFromReturns(scored.length, returns);
+}
+
+/** Count entry-to-exit outcomes for the trades held to the next open.
+ * A name whose next open is already knowable but unusable stays out of the count.
+ */
+function exitStats(
+  rows: readonly SimulatedPick[],
+  mode: OvernightExitMode,
+  actuals: ReadonlyMap<string, OvernightActualRow> | undefined,
+  custom: ReadonlySet<string>,
+  dollarsPerTrade: number,
+  portion: number,
+): PaperListStats | undefined {
+  if (mode === "close") return undefined;
+  const held = rows.filter((row) => heldUntilOpen(row, mode, custom)
+    && (row.hypothetical.status === "scored" || row.hypothetical.status === "held"));
+  if (held.length === 0) return undefined;
+  const returns = held.flatMap((row) => {
+    const value = exitReturn(row, mode, actuals?.get(row.ticker), custom, dollarsPerTrade, portion);
+    return value === null ? [] : [value];
+  });
+  return recordFromReturns(held.length, returns);
 }
 
 function SignedDollars({ value, emptyLabel = "—" }: { value: number | null; emptyLabel?: string }) {
@@ -172,11 +253,15 @@ function ComparisonRow({ label, pnl, gain, detail, hint = "", primary = false, e
   );
 }
 
-function StrategySummary({ title, topK, days, stats, money, benchmark, benchmarkLoading, benchmarkError, scenario, exitMode, holdSummary, holdLabel }: {
+function StrategySummary({ title, topK, days, stats, exitRecord, outcomeRecord, money, benchmark, benchmarkLoading, benchmarkError, scenario, exitMode, holdSummary, holdLabel }: {
   title: string;
   topK: number | undefined;
   days: number;
   stats: PaperListStats | undefined;
+  /** Names the rule held overnight. */
+  exitRecord?: PaperListStats;
+  /** Every pick under the selected exit, including names sold at the close. */
+  outcomeRecord?: PaperListStats;
   money: MoneySummary;
   benchmark: StrategyBenchmark;
   benchmarkLoading: boolean;
@@ -202,10 +287,12 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
   const intradayGain = benchmark.matchedDays === benchmark.activeDays
     ? returnOnAverageDailyCapital(benchmark.intraday.pnl, averageDailyCapital) : null;
   const holdGain = returnOnAverageDailyCapital(benchmark.hold.pnl, averageDailyCapital);
+  const record = outcomeRecord ?? exitRecord ?? stats;
+  const heldOvernight = exitRecord && outcomeRecord && exitRecord.n !== outcomeRecord.n;
   const scenarioDetail = holdSummary
-    ? `${holdLabel} · ${holdSummary.n} priced${holdSummary.pending ? ` · ${holdSummary.pending} awaiting` : ""} · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
+    ? `${holdLabel} · ${holdSummary.n} priced${holdSummary.pending ? ` · ${holdSummary.pending} awaiting` : ""}`
     : scenario
-    ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days priced · close-only ${money.pnl === null ? "awaiting" : formatUsd(money.pnl)}`
+    ? `${exitLabel} · ${scenario.matchedDays}/${scenario.eligibleDays} days priced`
     : "Open → close";
   return (
     <div className="view-card slice-card" aria-label={`${title} simulation total`}>
@@ -237,13 +324,16 @@ function StrategySummary({ title, topK, days, stats, money, benchmark, benchmark
         </tbody>
       </table>
       <div className="slice-card-metrics">
-        <span>{stats?.n ?? 0} picks</span>
-        <span>{stats?.n_scored ?? 0} scored</span>
-        {stats && stats.n_scored > 0 && <>
-          <span>{stats.wins}W/{stats.losses}L</span>
-          <span>{stats.hit_rate === null ? "—" : `${(stats.hit_rate * 100).toFixed(0)}%`} hit</span>
-          <span className="slice-card-avg" title="Arithmetic mean return per scored pick; not the period gain.">Avg/pick <SignedPercent value={stats.avg} /></span>
+        <span>{record?.n ?? 0} picks</span>
+        <span>{record?.n_scored ?? 0} scored</span>
+        {record && record.n_scored > 0 && <>
+          <span title="Wins and losses compare the selected exit proceeds with the original purchase cost.">{record.wins} wins / {record.losses} losses</span>
+          <span>{record.hit_rate === null ? "—" : `${(record.hit_rate * 100).toFixed(0)}%`} win rate</span>
+          <span className="slice-card-avg" title="Arithmetic mean return per scored pick; not the period gain.">Avg/pick <SignedPercent value={record.avg} /></span>
         </>}
+        {heldOvernight && exitRecord && exitRecord.n_scored > 0 && (
+          <span title="Entry-to-exit results for trades the rule held overnight.">{exitRecord.n_scored} held overnight, {exitRecord.wins} wins / {exitRecord.losses} losses</span>
+        )}
         {stats && (stats.n_avoid ?? 0) > 0 && <span>{stats.n_avoid} news skips</span>}
         {money.pending > 0 && <span>{money.pending} awaiting prices</span>}
       </div>
@@ -274,6 +364,11 @@ function HoldExitCell({ result, row }: { result: HoldPickResult | null | undefin
   return <span title={result.date}>
     {HOLD_REASON_LABELS[result.reason]} <UsdCell value={result.price} /> {formatMonthDay(result.date)}
   </span>;
+}
+
+function HoldMove({ result, row }: { result: HoldPickResult | null | undefined; row: SimulatedPick }) {
+  if (!holdEligible(row) || !result || row.close_price === null) return <span className="muted">—</span>;
+  return <Pct value={result.price / row.close_price - 1} />;
 }
 
 function HoldMoney({ result, row, ending = false }: { result: HoldPickResult | null | undefined; row: SimulatedPick; ending?: boolean }) {
@@ -320,7 +415,7 @@ function ListTable({
           items={[
             { key: "title", title: true, align: "start", value: <strong>{title}</strong> },
             { key: "names", align: "start", value: `${rows.length} names` },
-            ...statsItems(stats),
+            ...statsItems(exitStats(rows, exitMode, actuals, custom, dollarsPerTrade, overnightPortion) ?? stats),
           ]}
         />
       </p>
@@ -340,7 +435,10 @@ function ListTable({
             },
             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
-            { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
+            { key: "session", header: exitMode === "close" && !holdRows ? "Session" : "Exit move", numeric: true,
+              cell: (row) => holdRows
+                ? <HoldMove result={holdRows.get(row.ticker)} row={row} />
+                : <Pct value={exitReturn(row, exitMode, actuals?.get(row.ticker), custom, dollarsPerTrade, overnightPortion)} /> },
             { key: "hold-exit", header: "Exit", when: !!holdRows, cell: (row) => <HoldExitCell result={holdRows?.get(row.ticker)} row={row} /> },
             { key: "exit", header: "Exit", when: exitMode !== "close" && !holdRows, cell: (row) => {
               const eligible = row.hypothetical.status === "scored" || row.hypothetical.status === "held";
@@ -411,7 +509,18 @@ function DayCard({
   function exitPnl(strategy: StrategyKind): number | null {
     const money = day[`${strategy}_money`];
     if (exitMode === "close") return money.pnl;
-    return summarizeOvernightExit(day[strategy], actuals ?? EMPTY_OVERNIGHT_ACTUALS,
+    const actualsForDay = actuals ?? EMPTY_OVERNIGHT_ACTUALS;
+    const held = selectOvernightExitRows(day[strategy], exitMode, custom[strategy]);
+    // The row arrow matches the card: up means the next open beat the close.
+    if (held.length > 0 && held.every((row) => {
+      const outcome = simulateOvernightHold(row, actualsForDay.get(row.ticker), tradeSizes[strategy], overnightPortion / 100);
+      return outcome.status === "observed" && outcome.incrementalPnl !== null;
+    })) {
+      return held.reduce((sum, row) => sum + simulateOvernightHold(
+        row, actualsForDay.get(row.ticker), tradeSizes[strategy], overnightPortion / 100,
+      ).incrementalPnl!, 0);
+    }
+    return summarizeOvernightExit(day[strategy], actualsForDay,
       tradeSizes[strategy], money, overnightPortion / 100, exitMode, custom[strategy]).pnl;
   }
   const rankExitPnl = kind !== "fit" ? exitPnl("rank") : null;
@@ -596,7 +705,7 @@ export default function WhatIf() {
   const [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false);
   const [rebuildError, setRebuildError] = useState<string | null>(null);
-  const [replayDay, setReplayDay] = useState("");
+  const [replayDay, setReplayDay] = useState<string | null>(null);
   const [replayModel, setReplayModel] = useState("live");
   const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
   const actualsCache = useRef(new Map<string, Map<string, OvernightActualRow>>());
@@ -604,6 +713,7 @@ export default function WhatIf() {
   const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
     deps: [refresh], intervalMs: 60_000,
   });
+  const selectedReplayDay = replayDay ?? raw?.days[0]?.as_of ?? "";
   const { data: blacklistedTickers, error: blacklistError } = useFetchData(fetchBlacklistedTickers, {
     deps: [refresh], intervalMs: 60_000,
   });
@@ -657,10 +767,9 @@ export default function WhatIf() {
     for (const strategy of (["rank", "fit"] as const)) {
       if ((strategy === "rank" && !rankOn) || (strategy === "fit" && !fitOn)
         || day[`${strategy}_money`].invested <= 0) continue;
-      const selected = customSelections.get(overnightSelectionKey(day, strategy)) ?? EMPTY_CUSTOM;
       const tickers = historyJobs.get(day.as_of) ?? new Set<string>();
-      selectOvernightExitRows(day[strategy], exitRule, selected)
-        .forEach((row) => tickers.add(row.ticker));
+      // Load every name. A rule change must not leave yesterday's exit unpriced.
+      day[strategy].forEach((row) => tickers.add(row.ticker));
       if (tickers.size) historyJobs.set(day.as_of, tickers);
     }
   }
@@ -750,6 +859,31 @@ export default function WhatIf() {
     // tieJobsKey captures the case list; tieJobs itself is rebuilt every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tieJobsKey]);
+
+  function combinedRecord(parts: Array<PaperListStats | undefined>): PaperListStats | undefined {
+    const present = parts.filter((part): part is PaperListStats => part !== undefined && part.n_scored > 0);
+    if (present.length === 0) return undefined;
+    const n = present.reduce((sum, part) => sum + part.n, 0);
+    const scored = present.reduce((sum, part) => sum + part.n_scored, 0);
+    const wins = present.reduce((sum, part) => sum + part.wins, 0);
+    const losses = present.reduce((sum, part) => sum + part.losses, 0);
+    const weighted = present.reduce((sum, part) => sum + (part.avg ?? 0) * part.n_scored, 0);
+    return {
+      n, n_scored: scored, wins, losses, flats: scored - wins - losses,
+      hit_rate: scored ? wins / scored : null,
+      avg: scored ? weighted / scored : null,
+      avg_ex_news: null, n_avoid: 0,
+    };
+  }
+
+  function recordsFor(strategy: StrategyKind, count: typeof exitStats): PaperListStats | undefined {
+    if (exitMode === "close" || !data) return undefined;
+    return combinedRecord(data.days.filter((day) => !day.scan_id).map((day) => count(
+      day[strategy], exitMode, actualsCache.current.get(day.as_of),
+      customSelections.get(overnightSelectionKey(day, strategy)) ?? EMPTY_CUSTOM,
+      tradeSizes[strategy], exitPortion,
+    )));
+  }
 
   function toggleCustom(day: SimulatedDay, strategy: StrategyKind, ticker: string) {
     setCustomSelections((current) => {
@@ -895,7 +1029,7 @@ export default function WhatIf() {
         <input
           className="form-input"
           type="date"
-          value={replayDay || raw.days[0]?.as_of || ""}
+          value={selectedReplayDay}
           onChange={(event) => setReplayDay(event.target.value)}
           aria-label="Replay day"
         />
@@ -917,12 +1051,12 @@ export default function WhatIf() {
         <button
           type="button"
           className="icon-btn"
-          disabled={busy || !replayDay}
+          disabled={busy || !selectedReplayDay}
           onClick={async () => {
             setBusy(true);
             setRebuildError(null);
             try {
-              await replayPaperBook(replayDay, replayModel === "live" ? null : replayModel);
+              await replayPaperBook(selectedReplayDay, replayModel === "live" ? null : replayModel);
               setRefresh((n) => n + 1);
             } catch (err) {
               setRebuildError(String(err));
@@ -941,7 +1075,7 @@ export default function WhatIf() {
           <div className="slice-result">
             {rankOn && (
               <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
-                stats={data.rank_stats} money={data.rank_money}
+                stats={data.rank_stats} exitRecord={recordsFor("rank", exitStats)} outcomeRecord={recordsFor("rank", outcomeStats)} money={data.rank_money}
                 scenario={rankScenario} exitMode={exitMode}
                 holdSummary={rankHold} holdLabel={holdLabel}
                 benchmark={compareStrategyToBenchmark(data, "rank", rankBenchmark?.response ?? null)}
@@ -950,7 +1084,7 @@ export default function WhatIf() {
             )}
             {fitOn && (
               <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
-                stats={data.fit_stats} money={data.fit_money}
+                stats={data.fit_stats} exitRecord={recordsFor("fit", exitStats)} outcomeRecord={recordsFor("fit", outcomeStats)} money={data.fit_money}
                 scenario={fitScenario} exitMode={exitMode}
                 holdSummary={fitHold} holdLabel={holdLabel}
                 benchmark={compareStrategyToBenchmark(data, "fit", fitBenchmark?.response ?? null)}

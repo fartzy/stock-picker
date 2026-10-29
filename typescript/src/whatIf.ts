@@ -60,6 +60,19 @@ export function simulateOvernightHold(
     includedInTotals };
 }
 
+/** Entry-to-exit return for the entire trade, including shares sold at the close.
+ * An overnight recovery is a win only when the total trade P&L is positive.
+ */
+export function overnightTradeReturn(
+  row: SimulatedPick, actual: OvernightActualRow | undefined,
+  dollarsPerTrade: number, holdFraction: number,
+): number | null {
+  if (row.hypothetical.pnl === null) return null;
+  const outcome = simulateOvernightHold(row, actual, dollarsPerTrade, holdFraction);
+  if (outcome.status !== "observed" || outcome.incrementalPnl === null) return null;
+  return (cents(row.hypothetical.pnl) + cents(outcome.incrementalPnl)) / cents(dollarsPerTrade);
+}
+
 export function summarizeOvernightHold(outcomes: OvernightHoldOutcome[], baselinePnl: number | null) {
   const included = outcomes.filter((outcome) => outcome.includedInTotals);
   const observed = included.filter((outcome) => outcome.status === "observed");
@@ -110,10 +123,11 @@ export function summarizeOvernightExit(
     row, actuals.get(row.ticker), dollarsPerTrade, holdFraction,
   ));
   const observed = outcomes.filter((outcome) => outcome.status === "observed").length;
-  const complete = baseline.pending === 0 && baseline.pnl !== null && baseline.endingValue !== null
-    && observed === selectedRows.length;
+  const waiting = outcomes.some((outcome) => outcome.status === "awaiting_next_open" || outcome.status === "awaiting_close");
+  const complete = baseline.pending === 0 && baseline.pnl !== null && baseline.endingValue !== null && !waiting;
   if (!complete) return { selected: selectedRows.length, observed, pnl: null, endingValue: null, extraPnl: null };
-  const extraCents = outcomes.reduce((sum, outcome) => sum + cents(outcome.incrementalPnl!), 0);
+  // A past open that cannot be compared stays at the close. Waiting for this morning blanks the day.
+  const extraCents = outcomes.reduce((sum, outcome) => sum + cents(outcome.incrementalPnl ?? 0), 0);
   return {
     selected: selectedRows.length,
     observed,
@@ -186,7 +200,9 @@ export function summarizeOvernightHistory(
   let downEndingCents = 0;
   let downExtraCents = 0;
   let allSelected = 0;
+  let allObserved = 0;
   let downSelected = 0;
+  let downObserved = 0;
   const noActuals = new Map<string, OvernightActualRow>();
   for (const day of days) {
     if (day.scan_id) continue;
@@ -208,10 +224,12 @@ export function summarizeOvernightHistory(
     downEndingCents += cents(down.endingValue!);
     downExtraCents += cents(down.extraPnl!);
     allSelected += all.selected;
+    allObserved += all.observed;
     downSelected += down.selected;
+    downObserved += down.observed;
   }
-  const summary = (selected: number, pnlCents: number, endingCents: number, extraCents: number): OvernightExitSummary => ({
-    selected, observed: selected,
+  const summary = (selected: number, observed: number, pnlCents: number, endingCents: number, extraCents: number): OvernightExitSummary => ({
+    selected, observed,
     pnl: matchedDays ? pnlCents / 100 : null,
     endingValue: matchedDays ? endingCents / 100 : null,
     extraPnl: matchedDays ? extraCents / 100 : null,
@@ -220,8 +238,8 @@ export function summarizeOvernightHistory(
     eligibleDays, matchedDays,
     baselinePnl: matchedDays ? baselineCents / 100 : null,
     baselineEndingValue: matchedDays ? baselineEndingCents / 100 : null,
-    all: summary(allSelected, allPnlCents, allEndingCents, allExtraCents),
-    down: summary(downSelected, downPnlCents, downEndingCents, downExtraCents),
+    all: summary(allSelected, allObserved, allPnlCents, allEndingCents, allExtraCents),
+    down: summary(downSelected, downObserved, downPnlCents, downEndingCents, downExtraCents),
   };
 }
 
