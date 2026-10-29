@@ -31,6 +31,7 @@ import {
   type StatValues,
 } from "./stats";
 import { useFetchData } from "../useFetchData";
+import { groupHistoryPeriods, HISTORY_GROUPINGS, isWeekToDate, type HistoryGrouping } from "../tradeHistoryPeriods";
 
 const TRADE_TIMEZONE = "America/New_York";
 // Session closes and imported fills can change while this view stays open.
@@ -54,33 +55,6 @@ function formatDay(day: string): string {
     month: "short",
     day: "numeric",
   });
-}
-
-function mondayOfDay(day: string): string {
-  const [year, month, date] = day.split("-").map(Number);
-  const utc = new Date(Date.UTC(year, month - 1, date));
-  const weekday = utc.getUTCDay();
-  utc.setUTCDate(utc.getUTCDate() - (weekday === 0 ? 6 : weekday - 1));
-  return utc.toISOString().slice(0, 10);
-}
-
-function addDaysIso(day: string, days: number): string {
-  const [year, month, date] = day.split("-").map(Number);
-  const utc = new Date(Date.UTC(year, month - 1, date + days));
-  return utc.toISOString().slice(0, 10);
-}
-
-function formatWeekRange(monday: string): string {
-  const friday = addDaysIso(monday, 4);
-  const start = new Date(`${monday}T12:00:00`).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-  const end = new Date(`${friday}T12:00:00`).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-  return `Week ${start}–${end}`;
 }
 
 function sessionDay(executedAt: string): string {
@@ -401,27 +375,8 @@ function groupClosedByDay(positions: Position[]): [string, Position[]][] {
   return [...byDay.entries()].sort(([a], [b]) => (a < b ? 1 : -1));
 }
 
-function groupClosedByWeek(dayGroups: [string, Position[]][]): [string, [string, Position[]][]][] {
-  const byWeek = new Map<string, [string, Position[]][]>();
-  for (const group of dayGroups) {
-    const monday = mondayOfDay(group[0]);
-    const week = byWeek.get(monday) ?? [];
-    week.push(group);
-    byWeek.set(monday, week);
-  }
-  return [...byWeek.entries()].sort(([a], [b]) => (a < b ? 1 : -1));
-}
-
 function isUnmatchedSell(position: Position): boolean {
   return position.closed && position.shares === 0 && position.buy_price === null;
-}
-
-function inCalendarMonth(day: string, now: Date): boolean {
-  return day.startsWith(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
-}
-
-function inCalendarYear(day: string, now: Date): boolean {
-  return day.startsWith(`${now.getFullYear()}-`);
 }
 
 function holdPctForDays(days: string[], overnight: Record<string, number>): number | null {
@@ -517,8 +472,8 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   const [refreshCount, setRefreshCount] = useState(0);
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
-  const [weekOpen, setWeekOpen] = useState<Record<string, boolean>>({});
-  const [showWeeks, setShowWeeks] = useState(true);
+  const [periodOpen, setPeriodOpen] = useState<Record<string, boolean>>({});
+  const [grouping, setGrouping] = useState<HistoryGrouping>("weeks");
   const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {
     deps: [refreshCount],
@@ -552,12 +507,14 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
   if (!data) return <p className="muted">Loading trade history...</p>;
 
   const nothing = openPositions.length === 0 && closedLots.length === 0 && unmatchedSells.length === 0;
-  const now = new Date();
+  const today = sessionDay(new Date().toISOString());
   const spySessions = benchmarkData?.returns ?? {};
   const overnight = benchmarkData?.overnight ?? {};
-  const monthLots = closedLots.filter((p) => inCalendarMonth(p.day, now));
-  const yearLots = closedLots.filter((p) => inCalendarYear(p.day, now));
+  const weekLots = closedLots.filter((p) => isWeekToDate(p.day, today));
+  const monthLots = closedLots.filter((p) => p.day.startsWith(today.slice(0, 7)) && p.day <= today);
+  const yearLots = closedLots.filter((p) => p.day.startsWith(today.slice(0, 4)) && p.day <= today);
   const onBooks = data.peak_working ?? {};
+  const week = windowSummary(weekLots, spySessions, onBooks);
   const month = windowSummary(monthLots, spySessions, onBooks);
   const year = windowSummary(yearLots, spySessions, onBooks);
   const allTime = windowSummary(closedLots, spySessions, onBooks);
@@ -570,7 +527,7 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
       key={day}
       day={day}
       positions={dayPositions}
-      nested={showWeeks}
+      nested={grouping !== "days"}
       onBooks={onBooks[day] ?? 0}
       sessionReturn={benchmarkData?.returns[day]}
       overnightReturn={benchmarkData?.overnight?.[day]}
@@ -638,14 +595,20 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
           >
           {dayGroups.length > 0 && (
             <div className="trade-history-toolbar">
-              <label className="trade-history-week-toggle">
-                <input
-                  type="checkbox"
-                  checked={showWeeks}
-                  onChange={(event) => setShowWeeks(event.currentTarget.checked)}
-                />
-                Show weeks
-              </label>
+              <div className="trade-history-grouping" role="radiogroup" aria-label="Group trade history">
+                {HISTORY_GROUPINGS.map((option) => (
+                  <label key={option.value}>
+                    <input
+                      type="radio"
+                      name="trade-history-grouping"
+                      value={option.value}
+                      checked={grouping === option.value}
+                      onChange={() => setGrouping(option.value)}
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           )}
           <StatTable
@@ -668,6 +631,15 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
           >
             <StatHead />
             <StatBody>
+              <StatRow
+                values={periodValues(
+                  "WTD",
+                  week,
+                  holdPctForDays(weekLots.map((p) => p.day), overnight),
+                  feeSum(fees, weekLots.map((p) => p.day)),
+                  showFees,
+                )}
+              />
               <StatRow
                 values={periodValues(
                   "MTD",
@@ -696,27 +668,27 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
                 )}
               />
             </StatBody>
-            {showWeeks
-              ? groupClosedByWeek(dayGroups).map(([monday, weekDays], weekIndex) => {
-                  const lotsThisWeek = weekDays.flatMap(([, lots]) => lots);
-                  const weekSummary = windowSummary(lotsThisWeek, spySessions, onBooks);
-                  const weekHold = holdPctForDays(lotsThisWeek.map((p) => p.day), overnight);
-                  const isOpen = monday in weekOpen ? weekOpen[monday] : weekIndex === 0;
+            {grouping !== "days"
+              ? groupHistoryPeriods(dayGroups, grouping).map((period, periodIndex) => {
+                  const periodLots = period.days.flatMap(([, lots]) => lots);
+                  const summary = windowSummary(periodLots, spySessions, onBooks);
+                  const hold = holdPctForDays(periodLots.map((p) => p.day), overnight);
+                  const isOpen = period.key in periodOpen ? periodOpen[period.key] : periodIndex === 0;
                   return (
                     <StatExpand
-                      key={monday}
-                      className="is-week-summary"
+                      key={period.key}
+                      className="is-period-summary"
                       open={isOpen}
-                      onToggle={() => setWeekOpen((current) => ({ ...current, [monday]: !isOpen }))}
+                      onToggle={() => setPeriodOpen((current) => ({ ...current, [period.key]: !isOpen }))}
                       values={periodValues(
-                        formatWeekRange(monday),
-                        weekSummary,
-                        weekHold,
-                        feeSum(fees, lotsThisWeek.map((p) => p.day)),
+                        period.label,
+                        summary,
+                        hold,
+                        feeSum(fees, periodLots.map((p) => p.day)),
                         showFees,
                       )}
                     >
-                      {weekDays.map(renderClosedDay)}
+                      {period.days.map(renderClosedDay)}
                     </StatExpand>
                   );
                 })
