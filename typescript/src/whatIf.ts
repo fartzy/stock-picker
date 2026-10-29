@@ -1,7 +1,7 @@
 import type { BenchmarkReturnsResponse, OvernightActualRow, PaperBookDay, PaperBookResponse, PaperListStats, PaperPickRow } from "./api";
 
 export const DEFAULT_TRADE_SIZE = 10_000;
-export const TRADE_SIZE_OPTIONS = [3_000, 4_000, 5_000, 6_000, 8_000, 10_000, 15_000, 20_000] as const;
+export const TRADE_SIZE_RANGE = { min: 1_000, max: 100_000, step: 1_000 } as const;
 export const LOOKBACK_OPTIONS = [
   { days: null, label: "All history" },
   { days: 14, label: "Past 2 weeks" },
