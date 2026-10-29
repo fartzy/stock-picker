@@ -1184,9 +1184,11 @@ details.view-card[open] > summary::before {
 }
 
 .after-hours-moon {
-  color: #7f93b8;
-  font-size: 0.95em;
-  line-height: 1;
+  width: 0.82em;
+  height: 0.82em;
+  background: #f4f7fb;
+  border-radius: 50%;
+  box-shadow: inset -0.28em -0.04em 0 0.04em var(--ink);
 }
 
 .trade-ticker {

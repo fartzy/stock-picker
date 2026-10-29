@@ -130,7 +130,7 @@ function TradeTime({ executedAt, relativeToDay }: { executedAt: string; relative
         <span className="premarket-sun" title="Premarket fill, before 9:30 AM ET" aria-label="Premarket">☀</span>
       ) : null}
       {afterHours ? (
-        <span className="after-hours-moon" title="After-hours fill, 4:00 PM ET or later" aria-label="After hours">☾</span>
+        <span className="after-hours-moon" title="After-hours fill, 4:00 PM ET or later" aria-label="After hours" />
       ) : null}
       {formatStamp(executedAt, relativeToDay)}
     </span>
