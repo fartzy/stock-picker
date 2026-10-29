@@ -73,6 +73,99 @@ h1 {
   margin: 0;
 }
 
+.app-header { display: flex; align-items: center; justify-content: space-between; }
+.app-settings { position: relative; font-family: var(--sans); }
+
+.settings-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 24px;
+  cursor: pointer;
+}
+.settings-icon-button:is(:hover, [aria-expanded="true"]) {
+  color: var(--text);
+  border-color: var(--line);
+  background: var(--surface-raised);
+}
+.app-settings > .settings-icon-button { width: 40px; height: 40px; }
+.app-settings button:focus-visible, .settings-dialog button:focus-visible,
+.settings-dialog input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.settings-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 210px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 12px 32px #0006;
+}
+.settings-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  font-size: var(--text-body);
+  cursor: pointer;
+}
+.settings-menu button:hover { background: var(--row-hover); }
+
+.settings-dialog {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--sans);
+  box-shadow: 0 24px 80px #0008;
+}
+.settings-dialog::backdrop { background: #05081799; }
+.settings-dialog-inner { padding: var(--space-6); }
+.settings-dialog-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); }
+.settings-dialog-heading h2 { margin: 0; }
+.settings-dialog-heading h2:focus { outline: none; }
+.settings-back { display: block; margin: 0 0 var(--space-2); padding: 0; border: 0; background: transparent; color: var(--text-muted); font: inherit; font-size: var(--text-caption); cursor: pointer; }
+.settings-back:hover { color: var(--text); }
+.settings-category { display: flex; flex-direction: column; gap: var(--space-1); width: 100%; padding: var(--space-4); border: 1px solid var(--line); border-radius: 8px; background: var(--surface-raised); color: var(--text); text-align: left; font: inherit; cursor: pointer; }
+.settings-category:hover { border-color: var(--accent); }
+.settings-category strong { font-size: var(--text-label); font-weight: 600; }
+.settings-category span { font-size: var(--text-caption); color: var(--text-muted); }
+.settings-default-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(100px, .5fr); gap: var(--space-8); padding: var(--space-4) 0; border-top: 1px solid var(--line); }
+.settings-default-row h3 { margin: 0; font-size: var(--text-label); font-weight: 600; }
+.settings-default-row p { margin: var(--space-2) 0 0; color: var(--text-muted); font-size: var(--text-caption); }
+.settings-checkboxes { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: var(--space-3); }
+.settings-checkboxes label { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; font-size: var(--text-label); }
+.settings-checkboxes input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
+.settings-dialog-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.settings-dialog-footer p { margin: 0; color: var(--text-muted); font-size: var(--text-micro); }
+.settings-done { border: 0; border-radius: 6px; padding: 8px 18px; background: var(--accent); color: var(--ink); font: inherit; font-size: var(--text-caption); font-weight: 600; cursor: pointer; }
+.settings-done:hover { filter: brightness(1.08); }
+@media (max-width: 480px) {
+  .settings-default-row { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+
 .tab-bar {
   display: flex;
   gap: var(--space-6);

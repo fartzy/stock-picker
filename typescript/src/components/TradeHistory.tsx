@@ -32,6 +32,7 @@ import {
 } from "./stats";
 import { useFetchData } from "../useFetchData";
 import { groupHistoryPeriods, groupMonthWeeks, HISTORY_GROUPINGS, isWeekToDate, type HistoryGrouping, type HistoryPeriod } from "../tradeHistoryPeriods";
+import type { HistoryDefaults } from "../appSettings";
 
 const TRADE_TIMEZONE = "America/New_York";
 // Session closes and imported fills can change while this view stays open.
@@ -471,7 +472,10 @@ function periodValues(
   };
 }
 
-export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ticker: string) => void }) {
+export default function TradeHistory({ onOpenOvernight, defaults }: {
+  onOpenOvernight: (ticker: string) => void;
+  defaults: HistoryDefaults;
+}) {
   const [refreshCount, setRefreshCount] = useState(0);
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
@@ -552,7 +556,9 @@ export default function TradeHistory({ onOpenOvernight }: { onOpenOvernight: (ti
 
   const renderPeriod = (period: HistoryPeriod<Position>, index: number, nestedWeek = false) => {
     const periodLots = period.days.flatMap(([, lots]) => lots);
-    const isOpen = period.key in periodOpen ? periodOpen[period.key] : index === 0;
+    const keepRecentOpen = nestedWeek || grouping === "weeks"
+      ? defaults.keepRecentWeekOpen : defaults.keepRecentMonthOpen;
+    const isOpen = period.key in periodOpen ? periodOpen[period.key] : index === 0 && keepRecentOpen;
     return (
       <StatExpand
         key={period.key}

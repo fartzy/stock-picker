@@ -16,6 +16,8 @@ import NewsModelsPanel from "./components/NewsModelsPanel";
 import { ModelFilterBar, NewsInputs, type ModelFilter } from "./components/ModelFilter";
 import { fetchModelFeatures } from "./api";
 import { useFetchData } from "./useFetchData";
+import AppSettings from "./components/AppSettings";
+import { loadHistoryDefaults, saveHistoryDefaults, type HistoryDefaults } from "./appSettings";
 
 type Tab = "trading" | "overnight" | "whatif" | "testrun" | "features" | "models" | "data";
 
@@ -38,6 +40,8 @@ const MODEL_TABS: { id: ModelTab; label: string }[] = [
 ];
 
 export default function App() {
+  const [historyDefaults, setHistoryDefaults] = useState(loadHistoryDefaults);
+  const [settingsSaved, setSettingsSaved] = useState(true);
   const [tab, setTab] = useState<Tab>("trading");
   const [modelTab, setModelTab] = useState<ModelTab>("intraday");
   const [modelFilter, setModelFilter] = useState<ModelFilter>("all");
@@ -71,10 +75,14 @@ export default function App() {
 
   return (
     <div className="page">
-      <header>
+      <header className="app-header">
         <h1>
           stock<span style={{ color: "var(--accent)" }}>picker</span>
         </h1>
+        <AppSettings defaults={historyDefaults} saved={settingsSaved} onChange={(next: HistoryDefaults) => {
+          setHistoryDefaults(next);
+          setSettingsSaved(saveHistoryDefaults(next));
+        }} />
       </header>
 
       <div className="tab-bar">
@@ -104,7 +112,7 @@ export default function App() {
           <section>
             <h2>Trade History</h2>
             <div className="panel">
-              <TradeHistory onOpenOvernight={openOvernight} />
+              <TradeHistory onOpenOvernight={openOvernight} defaults={historyDefaults} />
             </div>
           </section>
         </>
