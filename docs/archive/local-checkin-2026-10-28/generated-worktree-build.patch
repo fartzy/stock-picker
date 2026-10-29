@@ -1,0 +1,488 @@
+diff --git a/python/stock_picker/api/BUILD.bazel b/python/stock_picker/api/BUILD.bazel
+index 82bbff1b7..2ce35bfaa 100644
+--- a/python/stock_picker/api/BUILD.bazel
++++ b/python/stock_picker/api/BUILD.bazel
+@@ -17,8 +17,9 @@ py_library(
+     imports = ["../.."],
+     visibility = ["//visibility:public"],
+     deps = [
+-        "//python/stock_picker/features",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "//python/stock_picker/training",
+         "@pypi//fastapi",
+         "@pypi//pydantic",
+diff --git a/python/stock_picker/api/tests/BUILD.bazel b/python/stock_picker/api/tests/BUILD.bazel
+index c89db812f..4d6311a31 100644
+--- a/python/stock_picker/api/tests/BUILD.bazel
++++ b/python/stock_picker/api/tests/BUILD.bazel
+@@ -6,9 +6,9 @@ py_pytest(
+     srcs = ["test_routes.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/api",
+-        "//python/stock_picker/features/tests:fixtures",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/api",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features/tests:fixtures",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//fastapi",
+         "@pypi//httpx",  # keep: FastAPI's TestClient needs httpx as its transport, no direct import
+         "@pypi//pandas",
+diff --git a/python/stock_picker/features/BUILD.bazel b/python/stock_picker/features/BUILD.bazel
+index 638119293..2dfa71ed7 100644
+--- a/python/stock_picker/features/BUILD.bazel
++++ b/python/stock_picker/features/BUILD.bazel
+@@ -32,8 +32,8 @@ py_library(
+     imports = ["../.."],
+     visibility = ["//visibility:public"],
+     deps = [
+-        "//python/stock_picker/ingestion",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/ingestion",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -46,8 +46,8 @@ py_binary(
+     visibility = ["//python:__subpackages__"],
+     deps = [
+         ":features",
+-        "//python/stock_picker/ingestion",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/ingestion",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+     ],
+ )
+ 
+@@ -69,6 +69,6 @@ py_binary(
+     main = "log_trade_main.py",
+     visibility = ["//python:__subpackages__"],
+     deps = [
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+     ],
+ )
+diff --git a/python/stock_picker/features/tests/BUILD.bazel b/python/stock_picker/features/tests/BUILD.bazel
+index 5b7129bbb..f38f26083 100644
+--- a/python/stock_picker/features/tests/BUILD.bazel
++++ b/python/stock_picker/features/tests/BUILD.bazel
+@@ -16,7 +16,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -27,7 +27,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -38,7 +38,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+     ],
+ )
+ 
+@@ -48,7 +48,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+     ],
+ )
+ 
+@@ -57,7 +57,7 @@ py_pytest(
+     srcs = ["test_calendar.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -68,7 +68,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -79,7 +79,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -90,7 +90,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -101,7 +101,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -112,7 +112,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+     ],
+ )
+ 
+@@ -122,7 +122,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -133,7 +133,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -142,7 +142,7 @@ py_pytest(
+     name = "test_quotes",
+     srcs = ["test_quotes.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/features"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features"],
+ )
+ 
+ py_pytest(
+@@ -150,7 +150,7 @@ py_pytest(
+     srcs = ["test_trades.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -161,7 +161,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -172,7 +172,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+     ],
+ )
+ 
+@@ -181,7 +181,7 @@ py_pytest(
+     srcs = ["test_price_history.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -193,7 +193,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+@@ -204,7 +204,7 @@ py_pytest(
+     imports = ["../../.."],
+     deps = [
+         ":fixtures",
+-        "//python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
+         "@pypi//pandas",
+     ],
+ )
+diff --git a/python/stock_picker/ingestion/BUILD.bazel b/python/stock_picker/ingestion/BUILD.bazel
+index 6d598afc4..7d8243022 100644
+--- a/python/stock_picker/ingestion/BUILD.bazel
++++ b/python/stock_picker/ingestion/BUILD.bazel
+@@ -9,8 +9,8 @@ py_library(
+     imports = ["../.."],
+     visibility = ["//visibility:public"],
+     deps = [
+-        "//python/stock_picker/storage",
+-        "//python/stock_picker/tickers",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/tickers",
+         "@pypi//pandas",
+         "@pypi//yfinance",
+     ],
+@@ -23,8 +23,8 @@ py_binary(
+     visibility = ["//python:__subpackages__"],
+     deps = [
+         ":ingestion",
+-        "//python/stock_picker/storage",
+-        "//python/stock_picker/tickers",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/tickers",
+         "@pypi//yfinance",
+     ],
+ )
+diff --git a/python/stock_picker/ingestion/tests/BUILD.bazel b/python/stock_picker/ingestion/tests/BUILD.bazel
+index 98042d310..534333b0b 100644
+--- a/python/stock_picker/ingestion/tests/BUILD.bazel
++++ b/python/stock_picker/ingestion/tests/BUILD.bazel
+@@ -6,7 +6,7 @@ py_pytest(
+     srcs = ["test_yfinance_client.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/ingestion",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/ingestion",
+         "@pypi//pandas",
+     ],
+ )
+diff --git a/python/stock_picker/storage/tests/BUILD.bazel b/python/stock_picker/storage/tests/BUILD.bazel
+index 9e22f3cd0..8ae46c3eb 100644
+--- a/python/stock_picker/storage/tests/BUILD.bazel
++++ b/python/stock_picker/storage/tests/BUILD.bazel
+@@ -5,7 +5,7 @@ py_pytest(
+     name = "test_feature_exclusion_store",
+     srcs = ["test_feature_exclusion_store.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+ 
+ py_pytest(
+@@ -13,7 +13,7 @@ py_pytest(
+     srcs = ["test_feature_store.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//pandas",
+     ],
+ )
+@@ -23,8 +23,8 @@ py_pytest(
+     srcs = ["test_model_store.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/storage",
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -34,7 +34,7 @@ py_pytest(
+     name = "test_paths",
+     srcs = ["test_paths.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+ 
+ py_pytest(
+@@ -42,7 +42,7 @@ py_pytest(
+     srcs = ["test_price_store.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//pandas",
+     ],
+ )
+@@ -51,26 +51,26 @@ py_pytest(
+     name = "test_trade_store",
+     srcs = ["test_trade_store.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+ 
+ py_pytest(
+     name = "test_universe_store",
+     srcs = ["test_universe_store.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+ 
+ py_pytest(
+     name = "test_training_config_store",
+     srcs = ["test_training_config_store.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+ 
+ py_pytest(
+     name = "test_training_run_store",
+     srcs = ["test_training_run_store.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/storage"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage"],
+ )
+diff --git a/python/stock_picker/tickers/tests/BUILD.bazel b/python/stock_picker/tickers/tests/BUILD.bazel
+index 0451b3db8..f1fe48928 100644
+--- a/python/stock_picker/tickers/tests/BUILD.bazel
++++ b/python/stock_picker/tickers/tests/BUILD.bazel
+@@ -5,5 +5,5 @@ py_pytest(
+     name = "test_universe",
+     srcs = ["test_universe.py"],
+     imports = ["../../.."],
+-    deps = ["//python/stock_picker/tickers"],
++    deps = ["//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/tickers"],
+ )
+diff --git a/python/stock_picker/training/BUILD.bazel b/python/stock_picker/training/BUILD.bazel
+index 4b3444c47..67b35625f 100644
+--- a/python/stock_picker/training/BUILD.bazel
++++ b/python/stock_picker/training/BUILD.bazel
+@@ -23,8 +23,8 @@ py_library(
+     imports = ["../.."],
+     visibility = ["//visibility:public"],
+     deps = [
+-        "//python/stock_picker/features",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//lightgbm",
+         "@pypi//mlflow",
+         "@pypi//numpy",
+@@ -40,8 +40,8 @@ py_binary(
+     visibility = ["//python:__subpackages__"],
+     deps = [
+         ":training",
+-        "//python/stock_picker/features",
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/features",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
+         "@pypi//pandas",
+     ],
+ )
+diff --git a/python/stock_picker/training/tests/BUILD.bazel b/python/stock_picker/training/tests/BUILD.bazel
+index bc08f1478..875719ad4 100644
+--- a/python/stock_picker/training/tests/BUILD.bazel
++++ b/python/stock_picker/training/tests/BUILD.bazel
+@@ -11,7 +11,7 @@ py_pytest(
+     srcs = ["test_backtest.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//pandas",
+     ],
+ )
+@@ -21,7 +21,7 @@ py_pytest(
+     srcs = ["test_dataset.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//pandas",
+     ],
+ )
+@@ -31,7 +31,7 @@ py_pytest(
+     srcs = ["test_splits.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//pandas",
+     ],
+ )
+@@ -41,7 +41,7 @@ py_pytest(
+     srcs = ["test_model.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -52,7 +52,7 @@ py_pytest(
+     srcs = ["test_train.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -63,7 +63,7 @@ py_pytest(
+     srcs = ["test_inference.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//pandas",
+     ],
+ )
+@@ -73,7 +73,7 @@ py_pytest(
+     srcs = ["test_importance.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -84,8 +84,8 @@ py_pytest(
+     srcs = ["test_ensemble.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/storage",
+-        "//python/stock_picker/training",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "@pypi//numpy",
+         "@pypi//pandas",
+     ],
+@@ -96,7 +96,8 @@ py_pytest(
+     srcs = ["test_job.py"],
+     imports = ["../../.."],
+     deps = [
+-        "//python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/storage",
++        "//.claude/worktrees/feature+models-tab-run-history/python/stock_picker/training",
+         "//python/stock_picker/training",
+     ],
+ )
