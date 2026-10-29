@@ -4,8 +4,8 @@
   "source": "Fidelity order confirmations from user-pasted text; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy. Price improvement is informational and is already reflected in the fill price.",
-  "filled_order_count": 10,
-  "imported_order_count": 10,
+  "filled_order_count": 13,
+  "imported_order_count": 13,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -269,6 +269,86 @@
           "shares": 50.0,
           "price": 28.775,
           "broker_net_amount": 1438.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F20XJQM",
+      "ticker": "AGI",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 28.7899,
+      "executed_at": "2026-10-29T10:44:15-04:00",
+      "broker_net_amount": 1439.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T10:44:14-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T10:44:15-04:00",
+          "shares": 50.0,
+          "price": 28.7899,
+          "broker_net_amount": 1439.5
+        }
+      ],
+      "note": "Broker net rounds the $1,439.495 gross to $1,439.50; no fee inferred from half-cent rounding."
+    },
+    {
+      "order_number": "2F20SLPW",
+      "ticker": "AGI",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 28.715,
+      "executed_at": "2026-10-29T10:53:20-04:00",
+      "broker_net_amount": 4307.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T10:53:20-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T10:53:20-04:00",
+          "shares": 150.0,
+          "price": 28.715,
+          "broker_net_amount": 4307.25
+        }
+      ],
+      "price_improvement": 0.75
+    },
+    {
+      "order_number": "2F20WZ8B",
+      "ticker": "AGI",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 28.735,
+      "executed_at": "2026-10-29T10:53:51-04:00",
+      "broker_net_amount": 1436.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T10:53:51-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T10:53:51-04:00",
+          "shares": 50.0,
+          "price": 28.735,
+          "broker_net_amount": 1436.75
         }
       ]
     }
