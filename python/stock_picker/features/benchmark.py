@@ -14,11 +14,14 @@ from stock_picker.ingestion.yfinance_client import download_price_history
 BENCHMARK_TICKER = "SPY"
 
 
-def _spy_history():
+def fetch_benchmark_history() -> pd.DataFrame | None:
+    """Fetch one daily SPY history for all comparisons in an API response."""
     return download_price_history([BENCHMARK_TICKER]).get(BENCHMARK_TICKER)
 
 
-def fetch_benchmark_returns(dates: list[str]) -> dict[str, float]:
+def fetch_benchmark_returns(
+    dates: list[str], *, history: pd.DataFrame | None = None
+) -> dict[str, float]:
     """Day-session (open->close) return for SPY on each requested date
     (ISO "YYYY-MM-DD"). Dates with no matching trading day (weekends,
     holidays, or older than the fetch window) are simply omitted, not
@@ -27,8 +30,9 @@ def fetch_benchmark_returns(dates: list[str]) -> dict[str, float]:
     if not dates:
         return {}
 
-    history = _spy_history()
     if history is None:
+        history = fetch_benchmark_history()
+    if history is None or history.empty or not {"Open", "Close"}.issubset(history.columns):
         return {}
 
     day_strings = history.index.strftime("%Y-%m-%d")
@@ -38,11 +42,16 @@ def fetch_benchmark_returns(dates: list[str]) -> dict[str, float]:
         if matches.empty:
             continue
         row = matches.iloc[0]
-        returns[requested_date] = float((row["Close"] - row["Open"]) / row["Open"])
+        open_price, close_price = row["Open"], row["Close"]
+        if pd.isna(open_price) or pd.isna(close_price) or open_price <= 0 or close_price <= 0:
+            continue
+        returns[requested_date] = float((close_price - open_price) / open_price)
     return returns
 
 
-def fetch_benchmark_overnight(dates: list[str]) -> dict[str, float]:
+def fetch_benchmark_overnight(
+    dates: list[str], *, history: pd.DataFrame | None = None
+) -> dict[str, float]:
     """Close-to-close if you did not sell: prior session close -> this close.
 
     Includes the overnight gap plus the cash session. Dates with no prior
@@ -50,12 +59,13 @@ def fetch_benchmark_overnight(dates: list[str]) -> dict[str, float]:
     """
     if not dates:
         return {}
-    history = _spy_history()
+    if history is None:
+        history = fetch_benchmark_history()
     if history is None or history.empty or "Close" not in history.columns:
         return {}
-    closes = history["Close"].copy()
-    closes.index = history.index.strftime("%Y-%m-%d")
-    closes = closes[closes.notna() & (closes > 0)]
+    sorted_history = history.sort_index()
+    closes = sorted_history["Close"].copy()
+    closes.index = sorted_history.index.strftime("%Y-%m-%d")
     if closes.empty:
         return {}
     prior = closes.shift(1)
@@ -65,31 +75,29 @@ def fetch_benchmark_overnight(dates: list[str]) -> dict[str, float]:
             continue
         prev = prior.loc[requested_date]
         today = closes.loc[requested_date]
-        if pd.isna(prev) or float(prev) <= 0:
+        if pd.isna(prev) or pd.isna(today) or float(prev) <= 0 or float(today) <= 0:
             continue
         overnight[requested_date] = float(today / prev) - 1.0
     return overnight
 
 
-def fetch_benchmark_hold(start: str, end: str) -> dict | None:
+def fetch_benchmark_hold(
+    start: str, end: str, *, history: pd.DataFrame | None = None
+) -> dict | None:
     """SPY close-to-close if you bought at the first day's close and held
     through the last day's close. Not an average of session returns."""
     if not start or not end:
         return None
-    history = _spy_history()
+    if history is None:
+        history = fetch_benchmark_history()
     if history is None or history.empty or "Close" not in history.columns:
         return None
-    closes = history["Close"].copy()
-    closes.index = history.index.strftime("%Y-%m-%d")
-    closes = closes[closes.notna() & (closes > 0)]
-    if closes.empty:
+    sorted_history = history.sort_index()
+    closes = sorted_history["Close"].copy()
+    closes.index = sorted_history.index.strftime("%Y-%m-%d")
+    if start not in closes.index or end not in closes.index:
         return None
-    on_or_after_start = closes[closes.index >= start]
-    on_or_before_end = closes[closes.index <= end]
-    if on_or_after_start.empty or on_or_before_end.empty:
+    start_close, end_close = closes.loc[start], closes.loc[end]
+    if pd.isna(start_close) or pd.isna(end_close) or start_close <= 0 or end_close <= 0:
         return None
-    start_close = float(on_or_after_start.iloc[0])
-    end_close = float(on_or_before_end.iloc[-1])
-    start_day = str(on_or_after_start.index[0])
-    end_day = str(on_or_before_end.index[-1])
-    return {"from": start_day, "to": end_day, "return": (end_close / start_close) - 1.0}
+    return {"from": start, "to": end, "return": float(end_close / start_close) - 1.0}
