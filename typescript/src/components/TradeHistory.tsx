@@ -480,7 +480,7 @@ export default function TradeHistory({ onOpenOvernight, defaults }: {
   const [openNowExpanded, setOpenNowExpanded] = useState(true);
   const [expandedDays, setExpandedDays] = useState<Set<string>>(() => new Set());
   const [periodOpen, setPeriodOpen] = useState<Record<string, boolean>>({});
-  const [grouping, setGrouping] = useState<HistoryGrouping>("weeks");
+  const [grouping, setGrouping] = useState<HistoryGrouping>(defaults.grouping);
   const [includeWeeks, setIncludeWeeks] = useState(true);
   const [showFees, setShowFees] = useState(false);
   const { data, error } = useFetchData<PositionsResponse>(fetchPositions, {

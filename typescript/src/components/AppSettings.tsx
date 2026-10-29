@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { HistoryDefaults } from "../appSettings";
+import { HISTORY_GROUPINGS } from "../tradeHistoryPeriods";
 
 type SettingsProps = {
   defaults: HistoryDefaults;
@@ -43,15 +44,29 @@ function SettingsDialog({ defaults, onChange, saved, onClose }: SettingsProps & 
         {section === "settings" ? (
           <button ref={defaultsButtonRef} type="button" className="settings-category" onClick={() => setSection("defaults")}>
             <strong>Defaults</strong>
-            <span>Choose how Trade History opens.</span>
           </button>
         ) : (
+          <>
+          <section className="settings-default-row" aria-labelledby="history-view-label">
+            <div>
+              <h3 id="history-view-label">Default view</h3>
+            </div>
+            <div className="settings-checkboxes" role="radiogroup" aria-labelledby="history-view-label">
+              {HISTORY_GROUPINGS.map((option) => (
+                <label key={option.value}>
+                  <input type="radio" name="default-history-view" value={option.value}
+                    checked={defaults.grouping === option.value}
+                    onChange={() => onChange({ ...defaults, grouping: option.value })} />
+                  {option.label}
+                </label>
+              ))}
+            </div>
+          </section>
           <section className="settings-default-row" aria-labelledby="history-defaults-label">
             <div>
               <h3 id="history-defaults-label">Keep most recent open</h3>
-              <p id="history-defaults-help">Automatically expand the latest period in Trade History.</p>
             </div>
-            <div className="settings-checkboxes" role="group" aria-labelledby="history-defaults-label" aria-describedby="history-defaults-help">
+            <div className="settings-checkboxes" role="group" aria-labelledby="history-defaults-label">
               <label>
                 <input type="checkbox" checked={defaults.keepRecentWeekOpen}
                   onChange={(event) => onChange({ ...defaults, keepRecentWeekOpen: event.currentTarget.checked })} />
@@ -64,6 +79,7 @@ function SettingsDialog({ defaults, onChange, saved, onClose }: SettingsProps & 
               </label>
             </div>
           </section>
+          </>
         )}
         <div className="settings-dialog-footer">
           <p role="status">{!saved ? "Applied for now. Browser settings could not be saved."
