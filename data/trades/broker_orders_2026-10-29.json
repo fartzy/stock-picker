@@ -4,8 +4,8 @@
   "source": "Fidelity order confirmations from user-pasted text; one row per filled order",
   "time_zone": "America/New_York",
   "note": "Each confirmation is one order. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy. Price improvement is informational and is already reflected in the fill price.",
-  "filled_order_count": 31,
-  "imported_order_count": 31,
+  "filled_order_count": 32,
+  "imported_order_count": 32,
   "import_status": "logged_in_trade_store",
   "orders": [
     {
@@ -825,6 +825,34 @@
           "broker_net_amount": 1078.0
         }
       ]
+    },
+    {
+      "order_number": "2F21KNYF",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 21.5579,
+      "executed_at": "2026-10-29T13:34:52-04:00",
+      "broker_net_amount": 1077.9,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T13:34:52-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T13:34:52-04:00",
+          "shares": 50.0,
+          "price": 21.5579,
+          "broker_net_amount": 1077.9
+        }
+      ],
+      "price_improvement": 0.11,
+      "note": "Broker net rounds the $1,077.895 gross to $1,077.90; no fee inferred from half-cent rounding."
     }
   ]
 }
