@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-29",
+  "source": "Fidelity order confirmations from user-pasted text; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Each confirmation is one order. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy. Price improvement is informational and is already reflected in the fill price.",
+  "filled_order_count": 8,
+  "imported_order_count": 8,
+  "import_status": "logged_in_trade_store",
+  "orders": [
+    {
+      "order_number": "2F2055SM",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 21.46,
+      "executed_at": "2026-10-29T09:37:29-04:00",
+      "broker_net_amount": 8584.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $21.52",
+      "order_date": "2026-10-29T09:37:28-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:37:29-04:00",
+          "shares": 400.0,
+          "price": 21.46,
+          "broker_net_amount": 8584.0
+        }
+      ],
+      "order_expiration": "2026-10-29T16:00:00-04:00",
+      "price_improvement": 6.0
+    },
+    {
+      "order_number": "2F2015LL",
+      "ticker": "AGI",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 28.975,
+      "executed_at": "2026-10-29T09:38:19-04:00",
+      "broker_net_amount": 5795.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:38:19-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:38:19-04:00",
+          "shares": 200.0,
+          "price": 28.975,
+          "broker_net_amount": 5795.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F2036CQ",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 21.5948,
+      "executed_at": "2026-10-29T09:38:42-04:00",
+      "broker_net_amount": 1079.74,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:38:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:38:42-04:00",
+          "shares": 50.0,
+          "price": 21.5948,
+          "broker_net_amount": 1079.74
+        }
+      ],
+      "price_improvement": 0.26
+    },
+    {
+      "order_number": "2F206KZS",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 21.63,
+      "executed_at": "2026-10-29T09:39:39-04:00",
+      "broker_net_amount": 1081.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:39:39-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:39:39-04:00",
+          "shares": 50.0,
+          "price": 21.63,
+          "broker_net_amount": 1081.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F201ZRB",
+      "ticker": "KGC",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 21.705,
+      "executed_at": "2026-10-29T09:44:29-04:00",
+      "broker_net_amount": 4340.91,
+      "manual_fee": 0.09,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:44:28-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:44:29-04:00",
+          "shares": 200.0,
+          "price": 21.705,
+          "broker_net_amount": 4340.91
+        }
+      ]
+    },
+    {
+      "order_number": "2F205C44",
+      "ticker": "KGC",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 21.7,
+      "executed_at": "2026-10-29T09:44:55-04:00",
+      "broker_net_amount": 2170.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:44:55-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:44:55-04:00",
+          "shares": 100.0,
+          "price": 21.7,
+          "broker_net_amount": 2170.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F20D9Z0",
+      "ticker": "AGI",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 28.8398,
+      "executed_at": "2026-10-29T09:48:34-04:00",
+      "broker_net_amount": 1441.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T09:48:34-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T09:48:34-04:00",
+          "shares": 50.0,
+          "price": 28.8398,
+          "broker_net_amount": 1441.99
+        }
+      ]
+    },
+    {
+      "order_number": "2F20DKHH",
+      "ticker": "KGC",
+      "side": "sell",
+      "shares": 300.0,
+      "price": 21.775,
+      "executed_at": "2026-10-29T10:02:43-04:00",
+      "broker_net_amount": 6532.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-29T10:02:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-29T10:02:43-04:00",
+          "shares": 300.0,
+          "price": 21.775,
+          "broker_net_amount": 6532.36
+        }
+      ]
+    }
+  ]
+}
