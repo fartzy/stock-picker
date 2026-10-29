@@ -1,0 +1,1025 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-27",
+  "source": "User-pasted Fidelity order confirmation; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Each confirmation is one order. Confirmation net is before the fee. The fee is shares times price minus the confirmation net for a sell, and the reverse for a buy.",
+  "filled_order_count": 41,
+  "imported_order_count": 41,
+  "incomplete_order_count": 0,
+  "import_status": "logged_in_trade_store",
+  "orders": [
+    {
+      "order_number": "2EJ04VWW",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 5000.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $5.25",
+      "order_date": "2026-10-26T09:05:55-04:00",
+      "market_session": "premarket",
+      "cancel_date": "2026-10-26"
+    },
+    {
+      "order_number": "2EJ05JLX",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 3000.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $5.22",
+      "order_date": "2026-10-26T09:06:52-04:00",
+      "market_session": "premarket",
+      "cancel_date": "2026-10-26"
+    },
+    {
+      "order_number": "2F00F8N9",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 70.0,
+      "price": 145.39,
+      "executed_at": "2026-10-27T10:34:42-04:00",
+      "broker_net_amount": 10177.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T10:34:42-04:00",
+      "price_improvement": 9.1,
+      "executions": [
+        {
+          "executed_at": "2026-10-27T10:34:42-04:00",
+          "shares": 70.0,
+          "price": 145.39,
+          "broker_net_amount": 10177.3
+        }
+      ]
+    },
+    {
+      "order_number": "2F00RTX5",
+      "ticker": "UNIT",
+      "side": "sell",
+      "shares": 150.0,
+      "price": 5.085,
+      "executed_at": "2026-10-27T11:29:26-04:00",
+      "broker_net_amount": 762.73,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T11:29:26-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T11:29:26-04:00",
+          "shares": 150.0,
+          "price": 5.085,
+          "broker_net_amount": 762.73
+        }
+      ]
+    },
+    {
+      "order_number": "2F00VJGS",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 130.0,
+      "price": 36.42,
+      "executed_at": "2026-10-27T11:30:25-04:00",
+      "broker_net_amount": 4734.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T11:30:25-04:00",
+      "price_improvement": 1.3,
+      "executions": [
+        {
+          "executed_at": "2026-10-27T11:30:25-04:00",
+          "shares": 130.0,
+          "price": 36.42,
+          "broker_net_amount": 4734.6
+        }
+      ]
+    },
+    {
+      "order_number": "2F00WW3N",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 11.935,
+      "executed_at": "2026-10-27T11:31:26-04:00",
+      "broker_net_amount": 2387.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T11:31:25-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T11:31:26-04:00",
+          "shares": 200.0,
+          "price": 11.935,
+          "broker_net_amount": 2387.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F00ZPV8",
+      "ticker": "EPRT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 26.775,
+      "executed_at": "2026-10-27T11:50:29-04:00",
+      "broker_net_amount": 1338.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T11:50:29-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T11:50:29-04:00",
+          "shares": 50.0,
+          "price": 26.775,
+          "broker_net_amount": 1338.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F00SQ2Y",
+      "ticker": "BCO",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 107.785333,
+      "executed_at": "2026-10-27T11:55:42-04:00",
+      "broker_net_amount": 1616.78,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "account history csv net; no execution clock, so the order time is used",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T11:55:42-04:00",
+      "price_improvement": 2.18,
+      "note": "The confirmation had no execution line. The CSV has 15 shares, net 1616.78. The price is that net divided by shares."
+    },
+    {
+      "order_number": "2F017F3M",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 70.0,
+      "price": 36.1599,
+      "executed_at": "2026-10-27T14:10:36-04:00",
+      "broker_net_amount": 2531.19,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:10:35-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:10:36-04:00",
+          "shares": 70.0,
+          "price": 36.1599,
+          "broker_net_amount": 2531.19
+        }
+      ]
+    },
+    {
+      "order_number": "2F01Q6FR",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 11.9,
+      "executed_at": "2026-10-27T14:12:43-04:00",
+      "broker_net_amount": 1190.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:12:42-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:12:43-04:00",
+          "shares": 100.0,
+          "price": 11.9,
+          "broker_net_amount": 1190.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F01N646",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 40.0,
+      "price": 144.82,
+      "executed_at": "2026-10-27T14:14:02-04:00",
+      "broker_net_amount": 5792.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:14:02-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:14:02-04:00",
+          "shares": 40.0,
+          "price": 144.82,
+          "broker_net_amount": 5792.8
+        }
+      ]
+    },
+    {
+      "order_number": "2F01KL2S",
+      "ticker": "EPRT",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 27.005,
+      "executed_at": "2026-10-27T14:28:12-04:00",
+      "broker_net_amount": 1350.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:28:12-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:28:12-04:00",
+          "shares": 50.0,
+          "price": 27.005,
+          "broker_net_amount": 1350.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F01PM1T",
+      "ticker": "EPRT",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 26.985,
+      "executed_at": "2026-10-27T14:29:02-04:00",
+      "broker_net_amount": 2698.44,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:29:01-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:29:02-04:00",
+          "shares": 100.0,
+          "price": 26.985,
+          "broker_net_amount": 2698.44
+        }
+      ]
+    },
+    {
+      "order_number": "2F01Q96P",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 50.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $145.50",
+      "order_date": "2026-10-27T14:30:47-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-27"
+    },
+    {
+      "order_number": "2F01NYQH",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 144.765,
+      "executed_at": "2026-10-27T14:31:57-04:00",
+      "broker_net_amount": 7238.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:31:57-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:31:57-04:00",
+          "shares": 50.0,
+          "price": 144.765,
+          "broker_net_amount": 7238.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F01J851",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 36.045,
+      "executed_at": "2026-10-27T14:32:17-04:00",
+      "broker_net_amount": 3604.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:32:16-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:32:17-04:00",
+          "shares": 100.0,
+          "price": 36.045,
+          "broker_net_amount": 3604.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F01KM0G",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 144.62,
+      "executed_at": "2026-10-27T14:34:16-04:00",
+      "broker_net_amount": 1446.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:34:15-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:34:16-04:00",
+          "shares": 10.0,
+          "price": 144.62,
+          "broker_net_amount": 1446.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F01PN18",
+      "ticker": "BCO",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 107.08,
+      "executed_at": "2026-10-27T14:35:10-04:00",
+      "broker_net_amount": 1606.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:35:10-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:35:10-04:00",
+          "shares": 15.0,
+          "price": 107.08,
+          "broker_net_amount": 1606.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F01LBGB",
+      "ticker": "CLBT",
+      "side": "sell",
+      "shares": 300.0,
+      "price": 11.9344,
+      "executed_at": "2026-10-27T14:45:35-04:00",
+      "broker_net_amount": 3580.24,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:45:34-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:45:35-04:00",
+          "shares": 300.0,
+          "price": 11.9344,
+          "broker_net_amount": 3580.24
+        }
+      ]
+    },
+    {
+      "order_number": "2F01M0S8",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 145.025,
+      "executed_at": "2026-10-27T14:48:44-04:00",
+      "broker_net_amount": 2900.44,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:48:44-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:48:44-04:00",
+          "shares": 20.0,
+          "price": 145.025,
+          "broker_net_amount": 2900.44
+        }
+      ]
+    },
+    {
+      "order_number": "2F01HNJS",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 145.1,
+      "executed_at": "2026-10-27T14:49:09-04:00",
+      "broker_net_amount": 14509.7,
+      "manual_fee": 0.3,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $145.10",
+      "order_date": "2026-10-27T14:46:45-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:49:09-04:00",
+          "shares": 100.0,
+          "price": 145.1,
+          "broker_net_amount": 14509.7
+        }
+      ]
+    },
+    {
+      "order_number": "2F01JBVP",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 36.095,
+      "executed_at": "2026-10-27T14:50:44-04:00",
+      "broker_net_amount": 7219.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:50:44-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:50:44-04:00",
+          "shares": 200.0,
+          "price": 36.095,
+          "broker_net_amount": 7219.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F01NCT3",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 30.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $145.50",
+      "order_date": "2026-10-27T14:51:19-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-27"
+    },
+    {
+      "order_number": "2F01K0Y8",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 145.07,
+      "executed_at": "2026-10-27T14:51:42-04:00",
+      "broker_net_amount": 2901.34,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:51:42-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:51:42-04:00",
+          "shares": 20.0,
+          "price": 145.07,
+          "broker_net_amount": 2901.34
+        }
+      ]
+    },
+    {
+      "order_number": "2F01R20H",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 36.035,
+      "executed_at": "2026-10-27T14:52:10-04:00",
+      "broker_net_amount": 3603.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:52:10-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:52:10-04:00",
+          "shares": 100.0,
+          "price": 36.035,
+          "broker_net_amount": 3603.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F01GC09",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 36.025,
+      "executed_at": "2026-10-27T14:53:06-04:00",
+      "broker_net_amount": 1801.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:53:05-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:53:06-04:00",
+          "shares": 50.0,
+          "price": 36.025,
+          "broker_net_amount": 1801.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F01FP8R",
+      "ticker": "BCO",
+      "side": "sell",
+      "shares": 30.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $107.50",
+      "order_date": "2026-10-27T14:54:50-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-27"
+    },
+    {
+      "order_number": "2F01QDW2",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 36.01,
+      "executed_at": "2026-10-27T14:55:19-04:00",
+      "broker_net_amount": 5401.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:55:19-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:55:19-04:00",
+          "shares": 150.0,
+          "price": 36.01,
+          "broker_net_amount": 5401.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F01QDY8",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 36.02,
+      "executed_at": "2026-10-27T14:56:00-04:00",
+      "broker_net_amount": 3602.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:56:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:56:00-04:00",
+          "shares": 100.0,
+          "price": 36.02,
+          "broker_net_amount": 3602.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F01QF0L",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 36.025,
+      "executed_at": "2026-10-27T14:56:23-04:00",
+      "broker_net_amount": 3602.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T14:56:22-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T14:56:23-04:00",
+          "shares": 100.0,
+          "price": 36.025,
+          "broker_net_amount": 3602.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F01PRTC",
+      "ticker": "BCO",
+      "side": "sell",
+      "shares": 10.0,
+      "status": "verified_canceled",
+      "order_type": "Limit at $107.40",
+      "order_date": "2026-10-27T15:00:03-04:00",
+      "market_session": "standard",
+      "cancel_date": "2026-10-27"
+    },
+    {
+      "order_number": "2F01K29F",
+      "ticker": "BCO",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 107.5,
+      "executed_at": "2026-10-27T15:38:36-04:00",
+      "broker_net_amount": 3224.93,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $107.50",
+      "order_date": "2026-10-27T15:00:24-04:00",
+      "order_expiration": "2026-10-27T16:00:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:38:36-04:00",
+          "shares": 30.0,
+          "price": 107.5,
+          "broker_net_amount": 3224.93
+        }
+      ]
+    },
+    {
+      "order_number": "2F01LDSK",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 145.17,
+      "executed_at": "2026-10-27T15:01:15-04:00",
+      "broker_net_amount": 2177.5,
+      "manual_fee": 0.05,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:01:14-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:01:15-04:00",
+          "shares": 15.0,
+          "price": 145.17,
+          "broker_net_amount": 2177.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F01QFZ8",
+      "ticker": "CTRE",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 36.04,
+      "executed_at": "2026-10-27T15:02:12-04:00",
+      "broker_net_amount": 3604.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:02:11-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:02:12-04:00",
+          "shares": 100.0,
+          "price": 36.04,
+          "broker_net_amount": 3604.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F01M35H",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 500.0,
+      "price": 36.09,
+      "executed_at": "2026-10-27T15:03:48-04:00",
+      "broker_net_amount": 18044.62,
+      "manual_fee": 0.38,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:03:47-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:03:48-04:00",
+          "shares": 500.0,
+          "price": 36.09,
+          "broker_net_amount": 18044.62
+        }
+      ]
+    },
+    {
+      "order_number": "2F01F28F",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 36.09,
+      "executed_at": "2026-10-27T15:04:00-04:00",
+      "broker_net_amount": 3608.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:03:59-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:04:00-04:00",
+          "shares": 100.0,
+          "price": 36.09,
+          "broker_net_amount": 3608.92
+        }
+      ]
+    },
+    {
+      "order_number": "2F01JDXF",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 36.09,
+      "executed_at": "2026-10-27T15:04:14-04:00",
+      "broker_net_amount": 3608.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:04:13-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:04:14-04:00",
+          "shares": 100.0,
+          "price": 36.09,
+          "broker_net_amount": 3608.92
+        }
+      ]
+    },
+    {
+      "order_number": "2F01NG0X",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 36.08,
+      "executed_at": "2026-10-27T15:05:38-04:00",
+      "broker_net_amount": 7215.85,
+      "manual_fee": 0.15,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:05:37-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:05:38-04:00",
+          "shares": 200.0,
+          "price": 36.08,
+          "broker_net_amount": 7215.85
+        }
+      ]
+    },
+    {
+      "order_number": "2F01K3F5",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 36.09,
+      "executed_at": "2026-10-27T15:06:58-04:00",
+      "broker_net_amount": 3608.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:06:58-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:06:58-04:00",
+          "shares": 100.0,
+          "price": 36.09,
+          "broker_net_amount": 3608.92
+        }
+      ]
+    },
+    {
+      "order_number": "2F01K2CB",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 145.3,
+      "executed_at": "2026-10-27T15:09:41-04:00",
+      "broker_net_amount": 2179.45,
+      "manual_fee": 0.05,
+      "execution_lot_count": 1,
+      "timestamp_source": "saved activity page execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $145.30",
+      "order_date": "2026-10-27T15:00:48-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:09:41-04:00",
+          "shares": 15.0,
+          "price": 145.3,
+          "broker_net_amount": 2179.45
+        }
+      ]
+    },
+    {
+      "order_number": "2F01PB60",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 36.11,
+      "executed_at": "2026-10-27T15:39:13-04:00",
+      "broker_net_amount": 3610.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $36.11",
+      "order_date": "2026-10-27T15:38:36-04:00",
+      "order_expiration": "2026-10-27T16:00:00-04:00",
+      "executions": [
+        {
+          "executed_at": "2026-10-27T15:39:13-04:00",
+          "shares": 100.0,
+          "price": 36.11,
+          "broker_net_amount": 3610.92
+        }
+      ]
+    },
+    {
+      "order_number": "2F01MB8X",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 146.005,
+      "executed_at": "2026-10-27T15:40:37-04:00",
+      "broker_net_amount": 2190.08,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:40:37-04:00",
+      "price_improvement": 0.15,
+      "executions": [
+        {"executed_at": "2026-10-27T15:40:37-04:00", "shares": 15.0, "price": 146.005, "broker_net_amount": 2190.08}
+      ]
+    },
+    {
+      "order_number": "2F01HZKQ",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 11.9142,
+      "executed_at": "2026-10-27T15:41:29-04:00",
+      "broker_net_amount": 1787.13,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:41:29-04:00",
+      "price_improvement": 0.12,
+      "note": "100 shares at 11.915 and 50 at 11.9126. The logged price is the share-weighted average.",
+      "executions": [
+        {"executed_at": "2026-10-27T15:41:29-04:00", "shares": 100.0, "price": 11.915, "broker_net_amount": 1191.5},
+        {"executed_at": "2026-10-27T15:41:29-04:00", "shares": 50.0, "price": 11.9126, "broker_net_amount": 595.63}
+      ]
+    },
+    {
+      "order_number": "2F01H9P4",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 11.915,
+      "executed_at": "2026-10-27T15:41:41-04:00",
+      "broker_net_amount": 1191.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:41:41-04:00",
+      "executions": [
+        {"executed_at": "2026-10-27T15:41:41-04:00", "shares": 100.0, "price": 11.915, "broker_net_amount": 1191.5}
+      ]
+    },
+    {
+      "order_number": "2F01N0XN",
+      "ticker": "NBIX",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 145.92,
+      "executed_at": "2026-10-27T15:44:20-04:00",
+      "broker_net_amount": 729.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:44:19-04:00",
+      "executions": [
+        {"executed_at": "2026-10-27T15:44:20-04:00", "shares": 5.0, "price": 145.92, "broker_net_amount": 729.6}
+      ]
+    },
+    {
+      "order_number": "2F01KF4K",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 11.895,
+      "executed_at": "2026-10-27T15:52:28-04:00",
+      "broker_net_amount": 1784.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:52:27-04:00",
+      "executions": [
+        {"executed_at": "2026-10-27T15:52:28-04:00", "shares": 150.0, "price": 11.895, "broker_net_amount": 1784.25}
+      ]
+    },
+    {
+      "order_number": "2F01HDRL",
+      "ticker": "CLBT",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 11.885,
+      "executed_at": "2026-10-27T15:52:57-04:00",
+      "broker_net_amount": 1782.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:52:57-04:00",
+      "executions": [
+        {"executed_at": "2026-10-27T15:52:57-04:00", "shares": 150.0, "price": 11.885, "broker_net_amount": 1782.75}
+      ]
+    },
+    {
+      "order_number": "2F01PG2T",
+      "ticker": "NBIX",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 146.39,
+      "executed_at": "2026-10-27T15:53:47-04:00",
+      "broker_net_amount": 2927.73,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-27T15:53:47-04:00",
+      "price_improvement": 0.6,
+      "executions": [
+        {"executed_at": "2026-10-27T15:53:47-04:00", "shares": 20.0, "price": 146.39, "broker_net_amount": 2927.73}
+      ]
+    },
+    {
+      "order_number": "2F01R5PX",
+      "ticker": "CTRE",
+      "side": "sell",
+      "shares": 100.0,
+      "status": "open",
+      "order_type": "Limit at $36.13",
+      "order_date": "2026-10-27T15:14:45-04:00",
+      "market_session": "standard"
+    }
+  ],
+  "canceled_order_count": 6,
+  "open_order_count": 1
+}
