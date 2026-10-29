@@ -1,7 +1,7 @@
 """Repository for the paper book: morning-list names held Open->Close.
 
 Same DI as TradeStore / ScanStore. SQLite only -- this is not a feature
-column and not a Fidelity fill. One row per (day, list kind, rank).
+column and not a Fidelity fill. One row per (day, scan, list kind, rank).
 """
 
 from __future__ import annotations
@@ -70,6 +70,8 @@ class PaperBookStore:
         return conn
 
     def _migrate(self, conn: sqlite3.Connection) -> None:
+        # Serialize upgrades and keep the column/key changes in one transaction.
+        conn.execute("BEGIN IMMEDIATE")
         columns = {row[1] for row in conn.execute("PRAGMA table_info(paper_picks)")}
         if "news_flag" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN news_flag TEXT")
@@ -83,6 +85,27 @@ class PaperBookStore:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN scan_id TEXT NOT NULL DEFAULT ''")
         if "model_run_id" not in columns:
             conn.execute("ALTER TABLE paper_picks ADD COLUMN model_run_id TEXT")
+
+        info = list(conn.execute("PRAGMA table_info(paper_picks)"))
+        primary_key = tuple(row["name"] for row in sorted(info, key=lambda row: row["pk"]) if row["pk"])
+        if primary_key == ("as_of", "scan_id", "kind", "rank"):
+            return
+        if primary_key != ("as_of", "kind", "rank"):
+            raise ValueError(f"Unexpected paper-book primary key: {primary_key}")
+
+        # ADD COLUMN never changes an existing primary key. Rebuild the legacy
+        # table so a replay can coexist with the live picks for the same day.
+        schema_objects = conn.execute(
+            "SELECT sql FROM sqlite_master WHERE tbl_name = 'paper_picks' "
+            "AND type IN ('index', 'trigger') AND sql IS NOT NULL"
+        ).fetchall()
+        conn.execute(_SCHEMA.replace("paper_picks", "paper_picks_migrated", 1))
+        names = ", ".join(f'"{row["name"]}"' for row in info)
+        conn.execute(f"INSERT INTO paper_picks_migrated ({names}) SELECT {names} FROM paper_picks")
+        conn.execute("DROP TABLE paper_picks")
+        conn.execute("ALTER TABLE paper_picks_migrated RENAME TO paper_picks")
+        for row in schema_objects:
+            conn.execute(row["sql"])
 
     def replace_all(self, picks: list[PaperPick]) -> None:
         with self._connect() as conn:
