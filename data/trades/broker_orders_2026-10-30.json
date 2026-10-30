@@ -1,0 +1,2269 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-10-30",
+  "source": "Fidelity user-pasted confirmations and saved Profile and Activity.html; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Each confirmation is one order. Price improvement is informational and already reflected in the fill price.",
+  "orders": [
+    {
+      "order_number": "2F309CHT",
+      "ticker": "IMO",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 130.865,
+      "executed_at": "2026-10-30T09:37:13-04:00",
+      "broker_net_amount": 1308.65,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $131.30",
+      "order_date": "2026-10-30T09:37:13-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:37:13-04:00",
+          "shares": 10.0,
+          "price": 130.865,
+          "broker_net_amount": 1308.65
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00",
+      "price_improvement": 3.65
+    },
+    {
+      "order_number": "2F30CLNY",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 155.59,
+      "executed_at": "2026-10-30T09:38:42-04:00",
+      "broker_net_amount": 7779.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $156.60",
+      "order_date": "2026-10-30T09:38:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:38:42-04:00",
+          "shares": 50.0,
+          "price": 155.59,
+          "broker_net_amount": 7779.5
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30KPM9",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 70.0,
+      "price": 64.734,
+      "executed_at": "2026-10-30T09:40:29-04:00",
+      "broker_net_amount": 4531.38,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:40:29-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:40:29-04:00",
+          "shares": 70.0,
+          "price": 64.734,
+          "broker_net_amount": 4531.38
+        }
+      ],
+      "price_improvement": 42.42
+    },
+    {
+      "order_number": "2F30K4KM",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 155.025,
+      "executed_at": "2026-10-30T09:45:07-04:00",
+      "broker_net_amount": 1550.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:45:07-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:45:07-04:00",
+          "shares": 10.0,
+          "price": 155.025,
+          "broker_net_amount": 1550.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F30LJZP",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 153.785,
+      "executed_at": "2026-10-30T09:47:22-04:00",
+      "broker_net_amount": 1537.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $154.20",
+      "order_date": "2026-10-30T09:47:22-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Cash",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:47:22-04:00",
+          "shares": 10.0,
+          "price": 153.785,
+          "broker_net_amount": 1537.85
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30NLC7",
+      "ticker": "IMO",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 132.465,
+      "executed_at": "2026-10-30T09:48:53-04:00",
+      "broker_net_amount": 662.33,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $133.00",
+      "order_date": "2026-10-30T09:48:53-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:48:53-04:00",
+          "shares": 5.0,
+          "price": 132.465,
+          "broker_net_amount": 662.33
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30KXTJ",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 153.0,
+      "executed_at": "2026-10-30T09:49:32-04:00",
+      "broker_net_amount": 765.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $153.00",
+      "order_date": "2026-10-30T09:49:31-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:49:32-04:00",
+          "shares": 5.0,
+          "price": 153.0,
+          "broker_net_amount": 765.0
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30LM8G",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 152.225,
+      "executed_at": "2026-10-30T09:50:23-04:00",
+      "broker_net_amount": 1522.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $153.00",
+      "order_date": "2026-10-30T09:50:23-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:50:23-04:00",
+          "shares": 10.0,
+          "price": 152.225,
+          "broker_net_amount": 1522.25
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30HZ28",
+      "ticker": "IMO",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 132.79,
+      "executed_at": "2026-10-30T09:51:50-04:00",
+      "broker_net_amount": 1991.8,
+      "manual_fee": 0.05,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:51:50-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:51:50-04:00",
+          "shares": 15.0,
+          "price": 132.79,
+          "broker_net_amount": 1991.8
+        }
+      ]
+    },
+    {
+      "order_number": "2F30F9KG",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 151.745,
+      "executed_at": "2026-10-30T09:53:03-04:00",
+      "broker_net_amount": 1517.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:53:02-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:53:03-04:00",
+          "shares": 10.0,
+          "price": 151.745,
+          "broker_net_amount": 1517.45
+        }
+      ]
+    },
+    {
+      "order_number": "2F30Q1GN",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 151.345,
+      "executed_at": "2026-10-30T09:53:42-04:00",
+      "broker_net_amount": 756.73,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $152.00",
+      "order_date": "2026-10-30T09:53:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Cash",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:53:42-04:00",
+          "shares": 5.0,
+          "price": 151.345,
+          "broker_net_amount": 756.73
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30PDBP",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 151.205,
+      "executed_at": "2026-10-30T09:54:54-04:00",
+      "broker_net_amount": 1512.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:54:54-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:54:54-04:00",
+          "shares": 10.0,
+          "price": 151.205,
+          "broker_net_amount": 1512.05
+        }
+      ]
+    },
+    {
+      "order_number": "2F30DP2H",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 150.58,
+      "executed_at": "2026-10-30T09:55:11-04:00",
+      "broker_net_amount": 752.9,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:55:11-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:55:11-04:00",
+          "shares": 5.0,
+          "price": 150.58,
+          "broker_net_amount": 752.9
+        }
+      ],
+      "price_improvement": 0.68
+    },
+    {
+      "order_number": "2F30GQ9T",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 150.815,
+      "executed_at": "2026-10-30T09:55:38-04:00",
+      "broker_net_amount": 1508.15,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:55:37-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:55:38-04:00",
+          "shares": 10.0,
+          "price": 150.815,
+          "broker_net_amount": 1508.15
+        }
+      ]
+    },
+    {
+      "order_number": "2F30D1L7",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 149.71,
+      "executed_at": "2026-10-30T09:56:52-04:00",
+      "broker_net_amount": 2994.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $150.00",
+      "order_date": "2026-10-30T09:56:52-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:56:52-04:00",
+          "shares": 20.0,
+          "price": 149.71,
+          "broker_net_amount": 2994.2
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30DR2P",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 150.69,
+      "executed_at": "2026-10-30T09:58:24-04:00",
+      "broker_net_amount": 753.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:58:24-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:58:24-04:00",
+          "shares": 5.0,
+          "price": 150.69,
+          "broker_net_amount": 753.45
+        }
+      ]
+    },
+    {
+      "order_number": "2F30G3ZH",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 150.54,
+      "executed_at": "2026-10-30T09:59:57-04:00",
+      "broker_net_amount": 752.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T09:59:56-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T09:59:57-04:00",
+          "shares": 5.0,
+          "price": 150.54,
+          "broker_net_amount": 752.7
+        }
+      ]
+    },
+    {
+      "order_number": "2F30FH6X",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 149.98,
+      "executed_at": "2026-10-30T10:01:45-04:00",
+      "broker_net_amount": 749.9,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:01:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:01:45-04:00",
+          "shares": 5.0,
+          "price": 149.98,
+          "broker_net_amount": 749.9
+        }
+      ],
+      "price_improvement": 1.05
+    },
+    {
+      "order_number": "2F30DXBH",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 150.27,
+      "executed_at": "2026-10-30T10:06:49-04:00",
+      "broker_net_amount": 751.35,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:06:49-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:06:49-04:00",
+          "shares": 5.0,
+          "price": 150.27,
+          "broker_net_amount": 751.35
+        }
+      ]
+    },
+    {
+      "order_number": "2F30LWS8",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 149.9,
+      "executed_at": "2026-10-30T10:09:19-04:00",
+      "broker_net_amount": 2248.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $149.90",
+      "order_date": "2026-10-30T10:03:06-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:09:19-04:00",
+          "shares": 15.0,
+          "price": 149.9,
+          "broker_net_amount": 2248.5
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30QHCM",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 149.7599,
+      "executed_at": "2026-10-30T10:16:06-04:00",
+      "broker_net_amount": 2246.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:16:06-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:16:06-04:00",
+          "shares": 15.0,
+          "price": 149.7599,
+          "broker_net_amount": 2246.4
+        }
+      ],
+      "price_improvement": 1.64
+    },
+    {
+      "order_number": "2F30XK07",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 149.265,
+      "executed_at": "2026-10-30T10:16:56-04:00",
+      "broker_net_amount": 746.33,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:16:55-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:16:56-04:00",
+          "shares": 5.0,
+          "price": 149.265,
+          "broker_net_amount": 746.33
+        }
+      ]
+    },
+    {
+      "order_number": "2F30TXZB",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 149.8,
+      "executed_at": "2026-10-30T10:20:33-04:00",
+      "broker_net_amount": 1498.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $149.80",
+      "order_date": "2026-10-30T10:20:33-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:20:33-04:00",
+          "shares": 10.0,
+          "price": 149.8,
+          "broker_net_amount": 1498.0
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F30WC6D",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 148.1997,
+      "executed_at": "2026-10-30T10:25:29-04:00",
+      "broker_net_amount": 7409.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:25:29-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:25:29-04:00",
+          "shares": 50.0,
+          "price": 148.1997,
+          "broker_net_amount": 7409.99
+        }
+      ]
+    },
+    {
+      "order_number": "2F310HK0",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 146.2754,
+      "executed_at": "2026-10-30T10:31:52-04:00",
+      "broker_net_amount": 1462.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $147.00",
+      "order_date": "2026-10-30T10:31:51-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:31:52-04:00",
+          "shares": 10.0,
+          "price": 146.2754,
+          "broker_net_amount": 1462.75
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F317JRC",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 147.035,
+      "executed_at": "2026-10-30T10:51:22-04:00",
+      "broker_net_amount": 1470.35,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $148.00",
+      "order_date": "2026-10-30T10:51:21-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:51:22-04:00",
+          "shares": 10.0,
+          "price": 147.035,
+          "broker_net_amount": 1470.35
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F317L1S",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 146.669,
+      "executed_at": "2026-10-30T10:54:23-04:00",
+      "broker_net_amount": 1466.69,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $146.70",
+      "order_date": "2026-10-30T10:54:23-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:54:23-04:00",
+          "shares": 1.0,
+          "price": 146.66,
+          "broker_net_amount": 146.66
+        },
+        {
+          "executed_at": "2026-10-30T10:54:23-04:00",
+          "shares": 9.0,
+          "price": 146.67,
+          "broker_net_amount": 1320.03
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F31696X",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 60.0,
+      "price": 149.53,
+      "executed_at": "2026-10-30T10:59:33-04:00",
+      "broker_net_amount": 8971.61,
+      "manual_fee": 0.19,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T10:59:32-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T10:59:33-04:00",
+          "shares": 60.0,
+          "price": 149.53,
+          "broker_net_amount": 8971.61
+        }
+      ],
+      "price_improvement": 13.2
+    },
+    {
+      "order_number": "2F313MJY",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 148.72,
+      "executed_at": "2026-10-30T11:00:29-04:00",
+      "broker_net_amount": 4461.5,
+      "manual_fee": 0.1,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:00:28-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:00:29-04:00",
+          "shares": 30.0,
+          "price": 148.72,
+          "broker_net_amount": 4461.5
+        }
+      ],
+      "price_improvement": 0.9
+    },
+    {
+      "order_number": "2F3153P9",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 147.32,
+      "executed_at": "2026-10-30T11:12:01-04:00",
+      "broker_net_amount": 4419.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:12:00-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:12:01-04:00",
+          "shares": 30.0,
+          "price": 147.32,
+          "broker_net_amount": 4419.6
+        }
+      ]
+    },
+    {
+      "order_number": "2F3154CY",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 147.48,
+      "executed_at": "2026-10-30T11:13:56-04:00",
+      "broker_net_amount": 1474.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:13:55-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:13:56-04:00",
+          "shares": 10.0,
+          "price": 147.48,
+          "broker_net_amount": 1474.8
+        }
+      ]
+    },
+    {
+      "order_number": "2F31CWGN",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 147.6,
+      "executed_at": "2026-10-30T11:17:45-04:00",
+      "broker_net_amount": 1476.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:17:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:17:45-04:00",
+          "shares": 10.0,
+          "price": 147.6,
+          "broker_net_amount": 1476.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F3196T4",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 147.455,
+      "executed_at": "2026-10-30T11:19:03-04:00",
+      "broker_net_amount": 1474.55,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $147.50",
+      "order_date": "2026-10-30T11:19:02-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:19:03-04:00",
+          "shares": 10.0,
+          "price": 147.455,
+          "broker_net_amount": 1474.55
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F319TZD",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 147.0,
+      "executed_at": "2026-10-30T11:19:55-04:00",
+      "broker_net_amount": 735.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $147.00",
+      "order_date": "2026-10-30T11:14:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:19:55-04:00",
+          "shares": 5.0,
+          "price": 147.0,
+          "broker_net_amount": 735.0
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F31DLD6",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 146.55,
+      "executed_at": "2026-10-30T11:20:51-04:00",
+      "broker_net_amount": 4396.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:20:50-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:20:51-04:00",
+          "shares": 30.0,
+          "price": 146.55,
+          "broker_net_amount": 4396.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F31BL96",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 146.625,
+      "executed_at": "2026-10-30T11:21:27-04:00",
+      "broker_net_amount": 2199.38,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:21:26-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:21:27-04:00",
+          "shares": 15.0,
+          "price": 146.625,
+          "broker_net_amount": 2199.38
+        }
+      ]
+    },
+    {
+      "order_number": "2F31BMC8",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 146.69,
+      "executed_at": "2026-10-30T11:24:22-04:00",
+      "broker_net_amount": 4400.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:24:22-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:24:22-04:00",
+          "shares": 30.0,
+          "price": 146.69,
+          "broker_net_amount": 4400.7
+        }
+      ]
+    },
+    {
+      "order_number": "2F3178KT",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 146.51,
+      "executed_at": "2026-10-30T11:25:17-04:00",
+      "broker_net_amount": 2930.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:25:17-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:25:17-04:00",
+          "shares": 20.0,
+          "price": 146.51,
+          "broker_net_amount": 2930.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F312Q59",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 145.43,
+      "executed_at": "2026-10-30T11:35:46-04:00",
+      "broker_net_amount": 14543.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:35:45-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:35:46-04:00",
+          "shares": 100.0,
+          "price": 145.43,
+          "broker_net_amount": 14543.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F31LVTK",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 144.8801,
+      "executed_at": "2026-10-30T11:40:48-04:00",
+      "broker_net_amount": 1448.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:40:47-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:40:48-04:00",
+          "shares": 10.0,
+          "price": 144.8801,
+          "broker_net_amount": 1448.8
+        }
+      ],
+      "price_improvement": 2.9
+    },
+    {
+      "order_number": "2F31GVXP",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 144.5601,
+      "executed_at": "2026-10-30T11:42:22-04:00",
+      "broker_net_amount": 1445.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:42:22-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:42:22-04:00",
+          "shares": 10.0,
+          "price": 144.5601,
+          "broker_net_amount": 1445.6
+        }
+      ],
+      "price_improvement": 1.65
+    },
+    {
+      "order_number": "2F31DXWX",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 40.0,
+      "price": 145.18,
+      "executed_at": "2026-10-30T11:47:34-04:00",
+      "broker_net_amount": 5807.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:47:34-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:47:34-04:00",
+          "shares": 40.0,
+          "price": 145.18,
+          "broker_net_amount": 5807.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F31NDXQ",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 145.938,
+      "executed_at": "2026-10-30T11:58:33-04:00",
+      "broker_net_amount": 1459.38,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:58:32-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:58:33-04:00",
+          "shares": 10.0,
+          "price": 145.938,
+          "broker_net_amount": 1459.38
+        }
+      ]
+    },
+    {
+      "order_number": "2F31KR78",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 145.6901,
+      "executed_at": "2026-10-30T11:59:45-04:00",
+      "broker_net_amount": 1456.9,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T11:59:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T11:59:45-04:00",
+          "shares": 10.0,
+          "price": 145.6901,
+          "broker_net_amount": 1456.9
+        }
+      ],
+      "price_improvement": 1.05
+    },
+    {
+      "order_number": "2F31MS3F",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 145.405,
+      "executed_at": "2026-10-30T12:00:46-04:00",
+      "broker_net_amount": 1454.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T12:00:45-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:00:46-04:00",
+          "shares": 10.0,
+          "price": 145.405,
+          "broker_net_amount": 1454.05
+        }
+      ],
+      "price_improvement": 0.05
+    },
+    {
+      "order_number": "2F31MSFG",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 145.0001,
+      "executed_at": "2026-10-30T12:01:39-04:00",
+      "broker_net_amount": 1450.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T12:01:39-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:01:39-04:00",
+          "shares": 10.0,
+          "price": 145.0001,
+          "broker_net_amount": 1450.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F31M3MX",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 145.5519,
+      "executed_at": "2026-10-30T12:02:55-04:00",
+      "broker_net_amount": 727.76,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T12:02:54-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:02:55-04:00",
+          "shares": 5.0,
+          "price": 145.5519,
+          "broker_net_amount": 727.76
+        }
+      ]
+    },
+    {
+      "order_number": "2F31F3VM",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 146.7,
+      "executed_at": "2026-10-30T12:15:01-04:00",
+      "broker_net_amount": 14669.69,
+      "manual_fee": 0.31,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $146.70",
+      "order_date": "2026-10-30T12:04:14-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:15:01-04:00",
+          "shares": 100.0,
+          "price": 146.7,
+          "broker_net_amount": 14669.69
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F31NQ9D",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 146.825,
+      "executed_at": "2026-10-30T12:25:32-04:00",
+      "broker_net_amount": 4404.65,
+      "manual_fee": 0.1,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T12:25:31-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:25:32-04:00",
+          "shares": 30.0,
+          "price": 146.825,
+          "broker_net_amount": 4404.65
+        }
+      ]
+    },
+    {
+      "order_number": "2F31RCSF",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 147.6,
+      "executed_at": "2026-10-30T12:34:41-04:00",
+      "broker_net_amount": 14759.69,
+      "manual_fee": 0.31,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $147.60",
+      "order_date": "2026-10-30T12:22:50-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T12:34:41-04:00",
+          "shares": 100.0,
+          "price": 147.6,
+          "broker_net_amount": 14759.69
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F31SS4T",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 148.185,
+      "executed_at": "2026-10-30T13:27:01-04:00",
+      "broker_net_amount": 2963.63,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T13:27:00-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T13:27:01-04:00",
+          "shares": 20.0,
+          "price": 148.185,
+          "broker_net_amount": 2963.63
+        }
+      ],
+      "price_improvement": 0.1
+    },
+    {
+      "order_number": "2F3293HY",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 147.5628,
+      "executed_at": "2026-10-30T14:01:21-04:00",
+      "broker_net_amount": 1475.59,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:01:21-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:01:21-04:00",
+          "shares": 10.0,
+          "price": 147.5628,
+          "broker_net_amount": 1475.59
+        }
+      ]
+    },
+    {
+      "order_number": "2F329VH7",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 147.8,
+      "executed_at": "2026-10-30T14:08:31-04:00",
+      "broker_net_amount": 1477.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:08:31-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:08:31-04:00",
+          "shares": 10.0,
+          "price": 147.8,
+          "broker_net_amount": 1477.96
+        }
+      ]
+    },
+    {
+      "order_number": "2F3257NV",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 148.1,
+      "executed_at": "2026-10-30T14:14:50-04:00",
+      "broker_net_amount": 1480.96,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:14:50-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:14:50-04:00",
+          "shares": 10.0,
+          "price": 148.1,
+          "broker_net_amount": 1480.96
+        }
+      ],
+      "price_improvement": 1.35
+    },
+    {
+      "order_number": "2F32F8XN",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 147.983,
+      "executed_at": "2026-10-30T14:15:49-04:00",
+      "broker_net_amount": 1479.79,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:15:48-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:15:49-04:00",
+          "shares": 10.0,
+          "price": 147.983,
+          "broker_net_amount": 1479.79
+        }
+      ]
+    },
+    {
+      "order_number": "2F328M2G",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.11,
+      "executed_at": "2026-10-30T14:16:43-04:00",
+      "broker_net_amount": 740.53,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:16:43-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.25,
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:16:43-04:00",
+          "shares": 5.0,
+          "price": 148.11,
+          "broker_net_amount": 740.53
+        }
+      ]
+    },
+    {
+      "order_number": "2F32L2CB",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 148.1,
+      "executed_at": "2026-10-30T14:21:17-04:00",
+      "broker_net_amount": 2221.45,
+      "manual_fee": 0.05,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $148.10",
+      "order_date": "2026-10-30T14:20:52-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Cash",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:21:17-04:00",
+          "shares": 15.0,
+          "price": 148.1,
+          "broker_net_amount": 2221.45
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F32JQRR",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.18,
+      "executed_at": "2026-10-30T14:21:39-04:00",
+      "broker_net_amount": 740.88,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:21:38-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:21:39-04:00",
+          "shares": 5.0,
+          "price": 148.18,
+          "broker_net_amount": 740.88
+        }
+      ],
+      "price_improvement": 1.0
+    },
+    {
+      "order_number": "2F32HG96",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 148.1101,
+      "executed_at": "2026-10-30T14:26:06-04:00",
+      "broker_net_amount": 1481.06,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:26:05-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:26:06-04:00",
+          "shares": 10.0,
+          "price": 148.1101,
+          "broker_net_amount": 1481.06
+        }
+      ]
+    },
+    {
+      "order_number": "2F32S5FY",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 148.29,
+      "executed_at": "2026-10-30T14:27:52-04:00",
+      "broker_net_amount": 1482.86,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:27:52-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:27:52-04:00",
+          "shares": 10.0,
+          "price": 148.29,
+          "broker_net_amount": 1482.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F32J5VZ",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.27,
+      "executed_at": "2026-10-30T14:30:46-04:00",
+      "broker_net_amount": 741.33,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:30:45-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.9,
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:30:46-04:00",
+          "shares": 5.0,
+          "price": 148.27,
+          "broker_net_amount": 741.33
+        }
+      ]
+    },
+    {
+      "order_number": "2F32Q7CL",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 147.8301,
+      "executed_at": "2026-10-30T14:32:44-04:00",
+      "broker_net_amount": 739.13,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:32:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:32:44-04:00",
+          "shares": 5.0,
+          "price": 147.8301,
+          "broker_net_amount": 739.13
+        }
+      ]
+    },
+    {
+      "order_number": "2F32MKM0",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.138,
+      "executed_at": "2026-10-30T14:33:32-04:00",
+      "broker_net_amount": 740.67,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:33:32-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.64,
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:33:32-04:00",
+          "shares": 5.0,
+          "price": 148.138,
+          "broker_net_amount": 740.67
+        }
+      ]
+    },
+    {
+      "order_number": "2F32N85X",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 147.84,
+      "executed_at": "2026-10-30T14:35:40-04:00",
+      "broker_net_amount": 739.18,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:35:39-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:35:40-04:00",
+          "shares": 5.0,
+          "price": 147.84,
+          "broker_net_amount": 739.18
+        }
+      ]
+    },
+    {
+      "order_number": "2F32NYGS",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.14,
+      "executed_at": "2026-10-30T14:37:18-04:00",
+      "broker_net_amount": 740.68,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:37:17-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:37:18-04:00",
+          "shares": 5.0,
+          "price": 148.14,
+          "broker_net_amount": 740.68
+        }
+      ]
+    },
+    {
+      "order_number": "2F32NYQS",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.105,
+      "executed_at": "2026-10-30T14:37:55-04:00",
+      "broker_net_amount": 740.51,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:37:54-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:37:55-04:00",
+          "shares": 5.0,
+          "price": 148.105,
+          "broker_net_amount": 740.51
+        }
+      ]
+    },
+    {
+      "order_number": "2F32NZRS",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 148.545,
+      "executed_at": "2026-10-30T14:40:20-04:00",
+      "broker_net_amount": 2970.83,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:40:20-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.9,
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:40:20-04:00",
+          "shares": 20.0,
+          "price": 148.545,
+          "broker_net_amount": 2970.83
+        }
+      ]
+    },
+    {
+      "order_number": "2F32RPGQ",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 130.0,
+      "price": 148.8,
+      "executed_at": "2026-10-30T14:42:03-04:00",
+      "broker_net_amount": 19343.6,
+      "manual_fee": 0.4,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $148.80",
+      "order_date": "2026-10-30T14:41:40-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:42:03-04:00",
+          "shares": 130.0,
+          "price": 148.8,
+          "broker_net_amount": 19343.6
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F32M0HS",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 10.0,
+      "price": 148.95,
+      "executed_at": "2026-10-30T14:42:22-04:00",
+      "broker_net_amount": 1489.46,
+      "manual_fee": 0.04,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:42:22-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:42:22-04:00",
+          "shares": 10.0,
+          "price": 148.95,
+          "broker_net_amount": 1489.46
+        }
+      ],
+      "price_improvement": 1.4
+    },
+    {
+      "order_number": "2F32LD1M",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 63.985,
+      "executed_at": "2026-10-30T14:44:43-04:00",
+      "broker_net_amount": 1919.55,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:44:42-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:44:43-04:00",
+          "shares": 30.0,
+          "price": 63.985,
+          "broker_net_amount": 1919.55
+        }
+      ]
+    },
+    {
+      "order_number": "2F32GD92",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 148.835,
+      "executed_at": "2026-10-30T14:46:44-04:00",
+      "broker_net_amount": 744.16,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:46:44-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:46:44-04:00",
+          "shares": 5.0,
+          "price": 148.835,
+          "broker_net_amount": 744.16
+        }
+      ]
+    },
+    {
+      "order_number": "2F32RRDP",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 1.0,
+      "price": 149.4,
+      "executed_at": "2026-10-30T14:50:10-04:00",
+      "broker_net_amount": 149.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $149.40",
+      "order_date": "2026-10-30T14:46:14-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "order_expiration": "2026-10-30T16:00:00-04:00",
+      "order_status": "Verified Cancelled/Partially Filled",
+      "requested_shares": 35.0,
+      "filled_shares": 1.0,
+      "canceled_shares": 34.0,
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:50:10-04:00",
+          "shares": 1.0,
+          "price": 149.4,
+          "broker_net_amount": 149.4
+        }
+      ]
+    },
+    {
+      "order_number": "2F32NGJ2",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 25.0,
+      "price": 149.4,
+      "executed_at": "2026-10-30T14:51:06-04:00",
+      "broker_net_amount": 3734.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $149.40",
+      "order_date": "2026-10-30T14:51:02-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:51:06-04:00",
+          "shares": 25.0,
+          "price": 149.4,
+          "broker_net_amount": 3734.92
+        }
+      ],
+      "order_expiration": "2026-10-30T16:00:00-04:00"
+    },
+    {
+      "order_number": "2F32RTGZ",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 149.35,
+      "executed_at": "2026-10-30T14:51:41-04:00",
+      "broker_net_amount": 746.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:51:41-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:51:41-04:00",
+          "shares": 3.0,
+          "price": 149.35,
+          "broker_net_amount": 448.05
+        },
+        {
+          "executed_at": "2026-10-30T14:51:41-04:00",
+          "shares": 2.0,
+          "price": 149.35,
+          "broker_net_amount": 298.7
+        }
+      ],
+      "price_improvement": 0.2
+    },
+    {
+      "order_number": "2F32K4NB",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 4.0,
+      "price": 149.72,
+      "executed_at": "2026-10-30T14:53:50-04:00",
+      "broker_net_amount": 598.86,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:53:49-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:53:50-04:00",
+          "shares": 4.0,
+          "price": 149.72,
+          "broker_net_amount": 598.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F32H4L7",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 64.0594,
+      "executed_at": "2026-10-30T14:54:20-04:00",
+      "broker_net_amount": 640.59,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:54:19-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:54:20-04:00",
+          "shares": 10.0,
+          "price": 64.0594,
+          "broker_net_amount": 640.59
+        }
+      ]
+    },
+    {
+      "order_number": "2F32H5WQ",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 63.875,
+      "executed_at": "2026-10-30T14:57:26-04:00",
+      "broker_net_amount": 638.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:57:26-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:57:26-04:00",
+          "shares": 10.0,
+          "price": 63.875,
+          "broker_net_amount": 638.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F32M6Z0",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 63.46,
+      "executed_at": "2026-10-30T14:58:11-04:00",
+      "broker_net_amount": 634.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T14:58:10-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T14:58:11-04:00",
+          "shares": 10.0,
+          "price": 63.46,
+          "broker_net_amount": 634.6
+        }
+      ],
+      "price_improvement": 2.3
+    },
+    {
+      "order_number": "2F32RYBF",
+      "ticker": "KEN",
+      "side": "buy",
+      "shares": 40.0,
+      "price": 63.46,
+      "executed_at": "2026-10-30T15:00:55-04:00",
+      "broker_net_amount": 2538.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T15:00:54-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T15:00:55-04:00",
+          "shares": 40.0,
+          "price": 63.46,
+          "broker_net_amount": 2538.4
+        }
+      ],
+      "price_improvement": 9.2
+    },
+    {
+      "order_number": "2F32WWY3",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 152.645,
+      "executed_at": "2026-10-30T15:41:50-04:00",
+      "broker_net_amount": 1526.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T15:41:49-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T15:41:50-04:00",
+          "shares": 10.0,
+          "price": 152.645,
+          "broker_net_amount": 1526.45
+        }
+      ],
+      "price_improvement": 0.25
+    },
+    {
+      "order_number": "2F32VL83",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 152.53,
+      "executed_at": "2026-10-30T15:43:31-04:00",
+      "broker_net_amount": 762.65,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T15:43:31-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T15:43:31-04:00",
+          "shares": 5.0,
+          "price": 152.53,
+          "broker_net_amount": 762.65
+        }
+      ]
+    },
+    {
+      "order_number": "2F332YVT",
+      "ticker": "CDW",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 152.55,
+      "executed_at": "2026-10-30T15:44:10-04:00",
+      "broker_net_amount": 762.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T15:44:07-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T15:44:10-04:00",
+          "shares": 5.0,
+          "price": 152.55,
+          "broker_net_amount": 762.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F32XQ2Q",
+      "ticker": "CDW",
+      "side": "sell",
+      "shares": 20.0,
+      "price": 153.175,
+      "executed_at": "2026-10-30T15:50:14-04:00",
+      "broker_net_amount": 3063.43,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-10-30T15:50:13-04:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-10-30T15:50:14-04:00",
+          "shares": 20.0,
+          "price": 153.175,
+          "broker_net_amount": 3063.43
+        }
+      ],
+      "price_improvement": 0.5
+    }
+  ],
+  "filled_order_count": 83,
+  "imported_order_count": 83,
+  "import_status": "logged_in_trade_store",
+  "html_reconciliation": {
+    "source_file": "Profile and Activity.html",
+    "source_sha256": "a54be72fcec7a12f806d11a43de12ea0117677771f40bf231ea44b94897933f2",
+    "new_order_count": 47,
+    "existing_order_count": 4,
+    "excluded_orders": [
+      {
+        "order_number": "2F31GD3G",
+        "status": "Verified Canceled",
+        "ticker": "CDW"
+      },
+      {
+        "order_number": "2F31H27X",
+        "status": "Verified Canceled",
+        "ticker": "CDW"
+      },
+      {
+        "order_number": "2F321M1Z",
+        "status": "Verified Canceled",
+        "ticker": "CDW"
+      },
+      {
+        "order_number": "2F31Y977",
+        "status": "Verified Canceled",
+        "ticker": "CDW"
+      },
+      {
+        "order_number": "2F31X40K",
+        "status": "Open",
+        "ticker": "CDW"
+      },
+      {
+        "order_number": "2F32350S",
+        "status": "Open",
+        "ticker": "CDW"
+      }
+    ]
+  }
+}
