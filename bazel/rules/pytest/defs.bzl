@@ -20,7 +20,8 @@ def py_pytest(name, srcs, deps = [], args = [], **kwargs):
         args: Additional arguments to pass to pytest
         **kwargs: Additional py_test arguments (env, tags, timeout, size, etc.)
     """
-    env = kwargs.get("env", {})
+    # Caller dictionaries may be reused or frozen after loading another .bzl.
+    env = dict(kwargs.get("env", {}))
     if "TZ" not in env:
         env["TZ"] = "UTC"
     kwargs["env"] = env
