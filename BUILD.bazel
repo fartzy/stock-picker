@@ -4,6 +4,8 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
+# This hashed lockfile also feeds pip.parse in MODULE.bazel; keep its output
+# reproducible rather than resolving packages independently in each build.
 compile_pip_requirements(
     name = "requirements",
     timeout = "moderate",
@@ -30,8 +32,9 @@ modules_mapping(
     wheels = all_whl_requirements,
 )
 
-# `bazel run //:gazelle_python_manifest.update` regenerates gazelle_python.yaml
-# whenever requirements.txt changes.
+# `bazelisk run //:gazelle_python_manifest.update` regenerates gazelle_python.yaml
+# whenever requirements.txt changes. Supplying requirements also enables the
+# manifest's integrity check, avoiding a full wheel scan in its test target.
 gazelle_python_manifest(
     name = "gazelle_python_manifest",
     modules_mapping = ":modules_map",
