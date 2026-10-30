@@ -1028,8 +1028,12 @@ section + section {
   background: color-mix(in srgb, var(--accent) 2%, var(--surface-raised));
 }
 
-.trade-history-table tr.is-month-week td.is-title strong {
+.trade-history-table > tbody > tr.is-week-summary > td {
   font-weight: 600;
+}
+
+.trade-history-table tr.is-week-summary td.is-title strong {
+  font-weight: 700;
 }
 
 
