@@ -6,6 +6,8 @@ bazel_dep(name = "aspect_rules_ts", version = "3.10.1")
 bazel_dep(name = "gazelle", version = "0.47.0", repo_name = "bazel_gazelle")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "2.3.2")
 
+# Keep the toolchain and pip.parse Python versions aligned: wheel selection must
+# match the interpreter that runs the application and tests.
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.12")
 
@@ -21,6 +23,7 @@ pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 pnpm.pnpm(name = "pnpm")
 use_repo(pnpm, "pnpm")
 
+# Resolve frontend packages from the checked-in pnpm lockfile.
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "npm",
@@ -30,6 +33,7 @@ npm.npm_translate_lock(
 )
 use_repo(npm, "npm")
 
+# Use the frontend package's compiler version for Bazel type checks as well.
 typescript = use_extension("@aspect_rules_ts//ts:extensions.bzl", "typescript", dev_dependency = True)
 typescript.deps(version_from = "//typescript:package.json")
 use_repo(typescript, "npm_typescript")
