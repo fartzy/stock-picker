@@ -562,7 +562,7 @@ export default function TradeHistory({ onOpenOvernight, defaults }: {
     return (
       <StatExpand
         key={period.key}
-        className={nestedWeek ? "is-period-summary is-month-week" : "is-period-summary"}
+        className={`is-period-summary${nestedWeek ? " is-month-week" : ""}${nestedWeek || grouping === "weeks" ? " is-week-summary" : ""}`}
         depth={nestedWeek ? 1 : 0}
         open={isOpen}
         onToggle={() => setPeriodOpen((current) => ({ ...current, [period.key]: !isOpen }))}
