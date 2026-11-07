@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from datetime import date
+from math import isfinite
 
 import pandas as pd
 
@@ -50,13 +51,20 @@ def _prior_close(history: pd.DataFrame | None, day: str) -> float | None:
     return float(close)
 
 
+def _positive_price(value) -> float | None:
+    try:
+        price = float(value)
+    except (TypeError, ValueError):
+        return None
+    return price if isfinite(price) and price > 0 else None
+
+
 def _session_from_bar(bar: pd.Series | None) -> tuple[float | None, float | None, float | None]:
     if bar is None or "Open" not in bar.index or "Close" not in bar.index:
         return None, None, None
-    o, c = bar["Open"], bar["Close"]
-    if pd.isna(o) or pd.isna(c) or float(o) <= 0:
+    open_px, close_px = _positive_price(bar["Open"]), _positive_price(bar["Close"])
+    if open_px is None or close_px is None:
         return None, None, None
-    open_px, close_px = float(o), float(c)
     return open_px, close_px, (close_px / open_px) - 1.0
 
 
@@ -169,8 +177,7 @@ def rebuild_paper_book(
             for rank, signal in enumerate(signals, start=1):
                 ticker = signal["ticker"]
                 predicted = signal.get("predicted_return")
-                scan_open = signal.get("open_price")
-                open_px = float(scan_open) if scan_open else None
+                open_px = _positive_price(signal.get("open_price"))
                 close_px = session_return = prev_close = None
                 history = None
                 if session_done:
@@ -178,22 +185,20 @@ def rebuild_paper_book(
                         history = prices.read(ticker)
                     except FileNotFoundError:
                         history = None
-                    bar_open, bar_close, _ = _session_from_bar(
+                    # A saved scan quote is a model input, not an executed fill.
+                    # Value completed sessions from a same-session price pair;
+                    # keep the original quote unchanged in ScanStore for audit.
+                    open_px, close_px, session_return = _session_from_bar(
                         _bar(history, day) if history is not None else None
                     )
                     prev_close = _prior_close(history, day)
-                    if open_px is None:
-                        open_px = bar_open
-                    close_px = bar_close
-                    if close_px is None and ticker in live:
+                    if session_return is None and ticker in live:
                         quote = live[ticker]
-                        if open_px is None and quote.get("open"):
-                            open_px = float(quote["open"])
-                        if quote.get("last"):
-                            close_px = float(quote["last"])
+                        open_px = _positive_price(quote.get("open"))
+                        close_px = _positive_price(quote.get("last"))
                         if prev_close is None and quote.get("prev_close"):
                             prev_close = float(quote["prev_close"])
-                    if open_px and close_px and open_px > 0:
+                    if open_px is not None and close_px is not None:
                         session_return = (close_px / open_px) - 1.0
                 cached_flag = signal.get("news_flag")
                 news_flag = cached_flag or fetched_news.get(ticker)
@@ -282,8 +287,9 @@ def with_current_close_quotes(
 ) -> list[PaperPick]:
     """Overlay post-bell closes on today's live picks without rewriting history.
 
-    Replay rows and prior sessions must keep their stored outcomes. The scan's
-    recorded opening price wins over the quote's open.
+    Replay rows and prior sessions keep their stored outcomes. Pending live
+    picks use the dated closing quote's open and close together, never a
+    potentially stale scan open paired with a newly fetched close.
     """
     today = as_of.isoformat()
     updated = []
@@ -292,9 +298,9 @@ def with_current_close_quotes(
             updated.append(pick)
             continue
         quote = quotes.get(pick.ticker) or {}
-        open_price = pick.open_price or quote.get("open")
-        close_price = pick.close_price or quote.get("last")
-        if not open_price or not close_price or open_price <= 0 or close_price <= 0:
+        open_price = _positive_price(quote.get("open"))
+        close_price = _positive_price(quote.get("last"))
+        if open_price is None or close_price is None:
             updated.append(pick)
             continue
         updated.append(replace(
