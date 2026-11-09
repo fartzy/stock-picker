@@ -1,6 +1,6 @@
 {
   "reviewer": "dip_feature_audit",
-  "verified_at_utc": "2026-11-09T21:48:54.174205+00:00",
+  "verified_at_utc": "2026-11-09T21:51:04.165461+00:00",
   "status": "passed_with_documented_limitations",
   "protocol_version": 2,
   "amendment_provenance": {
@@ -16,7 +16,9 @@
     "protocol.json": "658b96c2c7bcaecb700d04cb4a4f8125e7c133131a0df086f506e1cf18f4e29a",
     "results.json": "3a5bf4bf29ccc98f1ac081dcff589e3d63f0886f013b67b19afab5e4c77618b2",
     "daily_results.json": "a39118cae1782f7cdf17b9b8b35af055e28eae84f078e3867c0a1a727f8d7ec2",
-    "mrcy_inclusion_comparison.json": "1e62650ca24697d397bf0dcc544d90adc021cb5330ecfa8c9d653b33b092d8cd"
+    "mrcy_inclusion_comparison.json": "1e62650ca24697d397bf0dcc544d90adc021cb5330ecfa8c9d653b33b092d8cd",
+    "implementation_plan.json": "c8ed6bab606ddca2752a15ecdfae4ce8169c415d3d306ce7117d1a7ba1fccc37",
+    "trigger_candidates.json": "c8f703473fbb542782eb05304d78d6010467ca36cd7f34a81e73718e2780d249"
   },
   "checks": [
     {
@@ -1038,6 +1040,13 @@
       "check": "primary_universe_row_delta995",
       "passed": true,
       "detail": null
+    },
+    {
+      "check": "final_html_embedded68summaries_match_amended_results",
+      "passed": true,
+      "detail": {
+        "rows": 68
+      }
     }
   ],
   "independent_main_cohort_metrics": [
@@ -1292,8 +1301,13 @@
     ]
   },
   "implementation_plan_review": {
-    "status": "Awaiting root final revised report/plan for separate final factcheck. The numerical verification above is complete.",
-    "purpose": "Evaluate incremental model features, not impose a standalone buy gate; weak univariate cohort evidence does not establish zero incremental model value."
+    "status": "passed",
+    "purpose": "Incremental Rank/Fit feature value alongside existing inputs, not a standalone buy gate. Weak univariate averages do not reject untested conditional model contribution.",
+    "trigger_definitions": "Four precise proposed flags plus continuous measurements; thresholds explicitly untested and any refinement confined to training dates.",
+    "timing": "Deep-dip recovery and reclaimed-support hold flags require observed opening price and later executable-entry validation. Pressure and trend flags use completed sessions only.",
+    "indexing": "Support min(L[t-21:t-1]) uses20 lows before yesterday; SMA50[t-1]>SMA50[t-11] compares10sessions and requires60priorcloses.252low excludescurrentLow.",
+    "missing_inputs": "Required missinghistory/support/denominators yield unknown plusvalidity/coverage, not false. Future implementation must enforce this contract explicitly.",
+    "files": "Plan includes training/inference.py:37 plus inference/dataset focusedtests; no productionimplementation performed."
   },
   "limitations": [
     "Amendment explicitly occurred after initial results at user request; all995eligibleMRCYdates are included, not just its rebound.",
@@ -1305,5 +1319,12 @@
     "Meanreturns weight activedates equally; rowwinrates/medians weight stockdays; no inactivecash/compounding portfolio simulation.",
     "Descriptive pattern screen cannot determine incremental value of continuous/interacting model features; candidate thresholds remain untested unless evaluated separately."
   ],
-  "production_mutations_by_reviewer": false
+  "production_mutations_by_reviewer": false,
+  "final_report_review": {
+    "status": "passed",
+    "numerical_payload": "All68 rendered-data summaries match amendedresults exactly; prose counts,percentageconversion,erameans,matchedexcess,CIs andMRCYcase figures checked.",
+    "provenance": "Report explicitly includes all995MRCYrows and discloses inclusion amendment afterinitialoutcomes; originalversion remains referenced byimmutablecommit andhashes.",
+    "interpretation": "Proposedflags andcontinuousfeatures explicitly untested forincrementalmodelvalue; no positiveedgeorfeature-rejectionclaim inferred fromstandalonecohortmeans.",
+    "minor_terminology_note_to_parent": "Use standalone setup comparisons in place of unconditional setup comparisons; actual cohorts condition on rules and matched comparisons on date/volatility."
+  }
 }
