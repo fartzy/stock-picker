@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "trade_date": "2026-11-09",
-  "source": "Fidelity user-pasted confirmations; one row per filled order",
+  "source": "Fidelity user-pasted confirmations and downloaded Activity & Orders HTML; one row per filled order",
   "time_zone": "America/New_York",
-  "note": "Only executed shares are logged. Manual fee is the difference between gross execution proceeds and broker net proceeds. Price improvement is informational and already reflected in execution prices.",
+  "note": "Only executed shares are logged. Manual fee compares broker net amounts with gross execution amounts rounded to cents; sub-cent cash rounding is not a fee. Price improvement is informational and already reflected in execution prices.",
   "orders": [
     {
       "order_number": "2FD02F27",
@@ -77,7 +77,6 @@
       "time_in_force": "Day",
       "trade_type": "Margin",
       "conditions": "None",
-      "price_improvement": 0.87,
       "executions": [
         {
           "executed_at": "2026-11-09T10:12:51-05:00",
@@ -85,6 +84,281 @@
           "price": 27.89,
           "broker_net_amount": 2788.94
         }
+      ],
+      "price_improvement": 0.87
+    },
+    {
+      "order_number": "2FD0GX56",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 28.285,
+      "executed_at": "2026-11-09T10:14:34-05:00",
+      "broker_net_amount": 2828.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T10:14:33-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T10:14:34-05:00",
+          "shares": 100.0,
+          "price": 28.285,
+          "broker_net_amount": 2828.5
+        }
+      ]
+    },
+    {
+      "order_number": "2FD0TN9Q",
+      "ticker": "ARWR",
+      "symbol_description": "ARROWHEAD PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 49.605,
+      "executed_at": "2026-11-09T11:04:55-05:00",
+      "broker_net_amount": 2480.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T11:04:55-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T11:04:55-05:00",
+          "shares": 50.0,
+          "price": 49.605,
+          "broker_net_amount": 2480.25
+        }
+      ],
+      "price_improvement": 2.25
+    },
+    {
+      "order_number": "2FD19MDR",
+      "ticker": "ARWR",
+      "symbol_description": "ARROWHEAD PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 47.285,
+      "executed_at": "2026-11-09T11:23:08-05:00",
+      "broker_net_amount": 472.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T11:23:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T11:23:08-05:00",
+          "shares": 10.0,
+          "price": 47.285,
+          "broker_net_amount": 472.85
+        }
+      ],
+      "price_improvement": 0.35
+    },
+    {
+      "order_number": "2FD1DBHG",
+      "ticker": "ARWR",
+      "symbol_description": "ARROWHEAD PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 47.885,
+      "executed_at": "2026-11-09T11:28:10-05:00",
+      "broker_net_amount": 478.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T11:28:10-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T11:28:10-05:00",
+          "shares": 10.0,
+          "price": 47.885,
+          "broker_net_amount": 478.85
+        }
+      ]
+    },
+    {
+      "order_number": "2FD1C5SB",
+      "ticker": "NVDA",
+      "symbol_description": "NVIDIA CORPORATION COM",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 175.6,
+      "executed_at": "2026-11-09T11:44:32-05:00",
+      "broker_net_amount": 1756.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T11:44:31-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T11:44:32-05:00",
+          "shares": 10.0,
+          "price": 175.6,
+          "broker_net_amount": 1756.0
+        }
+      ],
+      "price_improvement": 0.1
+    },
+    {
+      "order_number": "2FD1KLD9",
+      "ticker": "ARWR",
+      "symbol_description": "ARROWHEAD PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 47.43,
+      "executed_at": "2026-11-09T12:26:45-05:00",
+      "broker_net_amount": 474.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T12:26:45-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T12:26:45-05:00",
+          "shares": 10.0,
+          "price": 47.43,
+          "broker_net_amount": 474.3
+        }
+      ]
+    },
+    {
+      "order_number": "2FD1DXDB",
+      "ticker": "NVDA",
+      "symbol_description": "NVIDIA CORPORATION COM",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 177.68,
+      "executed_at": "2026-11-09T12:27:19-05:00",
+      "broker_net_amount": 888.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T12:27:19-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T12:27:19-05:00",
+          "shares": 5.0,
+          "price": 177.68,
+          "broker_net_amount": 888.4
+        }
+      ]
+    },
+    {
+      "order_number": "2FD1QYP3",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 25.0,
+      "price": 29.062,
+      "executed_at": "2026-11-09T12:29:26-05:00",
+      "broker_net_amount": 726.55,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T12:29:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T12:29:26-05:00",
+          "shares": 25.0,
+          "price": 29.062,
+          "broker_net_amount": 726.55
+        }
+      ],
+      "price_improvement": 0.08
+    },
+    {
+      "order_number": "2FD1FS94",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 25.0,
+      "price": 29.8699,
+      "executed_at": "2026-11-09T12:56:02-05:00",
+      "broker_net_amount": 746.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T12:56:01-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T12:56:02-05:00",
+          "shares": 25.0,
+          "price": 29.8699,
+          "broker_net_amount": 746.75
+        }
+      ]
+    }
+  ],
+  "imports": [
+    {
+      "source_filename": "Portfolio Activity & Orders.html",
+      "source_sha256": "b074dbe123607c5ee24e709c71033bee09981c48ba65dcada5044ca8c2e54d0c",
+      "source_modified_at": "2026-11-09T18:44:09.975366+00:00",
+      "imported_at": "2026-11-09T18:50:05.818221+00:00",
+      "filled_orders_found": 12,
+      "new_orders_added": 9,
+      "already_logged_orders": 3,
+      "added_order_numbers": [
+        "2FD0GX56",
+        "2FD0TN9Q",
+        "2FD19MDR",
+        "2FD1DBHG",
+        "2FD1C5SB",
+        "2FD1KLD9",
+        "2FD1DXDB",
+        "2FD1QYP3",
+        "2FD1FS94"
+      ],
+      "existing_order_numbers": [
+        "2FD02F27",
+        "2FD0G55J",
+        "2FD0N7NR"
       ]
     }
   ]
