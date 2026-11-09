@@ -4,20 +4,23 @@
     "nonpositive_finite": 0,
     "ohlc_range_violation_finite_positive": 0,
     "source_validity_mask_disagreements": 0,
-    "rows_with_valid252_history": 1605305,
+    "rows_with_valid252_history": 1606313,
     "prior_eligible_missing_or_invalid_open": 25,
     "prior_eligible_positive_open_below5": 20345,
-    "entry_eligible_rows": 1420276,
+    "entry_eligible_rows": 1421271,
     "entry_eligible_invalid_current_outcome": 0,
-    "evaluated_rows": 1420276,
-    "evaluated_tickers": 1690,
-    "evaluated_dates": 1008
+    "evaluated_rows": 1421271,
+    "evaluated_tickers": 1691,
+    "evaluated_dates": 1008,
+    "evaluated_mrcy_rows": 995,
+    "evaluated_mrcy_dates": 995
   },
   "checks_passed": [
     "synthetic past-only feature indexing",
     "source hash",
-    "excluded production holdout and MRCY",
-    "frozen discovery row count",
+    "excluded production holdout and SPY",
+    "included all 995 eligible MRCY rows",
+    "amended discovery row count",
     "disjoint recovery and open-low bin partitions"
   ],
   "extreme_rows_retained": [

@@ -1,4 +1,4 @@
-"""Frozen retrospective morning-dip screen; never writes production data.
+"""User-amended retrospective morning-dip screen; never writes production data.
 
 Run from the repository root with its existing hermetic Python:
 bazel-bin/python/stock_picker/api/main.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_patterns_2026_11_09/run_screen.py
@@ -11,6 +11,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import subprocess
 import sys
 from collections import Counter
 from datetime import datetime, timezone
@@ -31,6 +32,43 @@ def digest(path: Path) -> str:
 
 def write_json(name: str, value: object) -> None:
     (OUT / name).write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
+
+
+def original_artifact(protocol: dict, name: str) -> bytes:
+    """Read the immutable pre-amendment result without duplicating large files."""
+    amendment = protocol["mrcy_inclusion_amendment"]
+    path = Path(amendment["original_artifact_directory"]) / name
+    result = subprocess.run(
+        ["git", "show", f"{amendment['original_commit']}:{path.as_posix()}"],
+        cwd=ROOT, check=True, capture_output=True,
+    ).stdout
+    assert hashlib.sha256(result).hexdigest() == amendment["original_artifact_sha256"][name]
+    return result
+
+
+def inclusion_comparison(protocol: dict, summaries: list[dict], mrcy_counts: dict[str, int]) -> dict:
+    """Preserve every original/revised cohort and era, not just favorable changes."""
+    original = json.loads(original_artifact(protocol, "results.json"))
+    previous = {(row["cohort"], row["era"]): row for row in original["summaries"]}
+    keys = ["rows", "tickers", "dates", "gross_mean_equal_date", "matched_excess_equal_date",
+            "matched_excess_bootstrap", "net_mean_equal_date_by_roundtrip_bps",
+            "gross_winsor01_equal_date", "matched_excess_winsor01_equal_date"]
+    comparisons = []
+    for row in summaries:
+        before = previous[(row["cohort"], row["era"])]
+        change = {key: row[key] - before[key] for key in ["rows", "tickers", "dates", "gross_mean_equal_date"]}
+        change["matched_excess_equal_date"] = (
+            row["matched_excess_equal_date"] - before["matched_excess_equal_date"]
+            if row["matched_excess_equal_date"] is not None else None
+        )
+        comparisons.append({"cohort": row["cohort"], "era": row["era"],
+                            "before_mrcy_excluded": {key: before[key] for key in keys},
+                            "after_mrcy_included": {key: row[key] for key in keys}, "change": change})
+    assert len(comparisons) == len(previous) == 68
+    return {"protocol_version": protocol["protocol_version"], "unit": "fraction",
+            "amendment": protocol["mrcy_inclusion_amendment"],
+            "comparison_status": "User-directed inclusion sensitivity after original outcomes; revised primary screen includes all eligible MRCY history.",
+            "mrcy_rows_by_full_period_cohort": mrcy_counts, "comparisons": comparisons}
 
 
 def valid_bars(bars: np.ndarray) -> tuple[np.ndarray, dict[str, int]]:
@@ -186,7 +224,7 @@ def mrcy_case(arrays: dict) -> dict:
     first7 = m[(m.index >= "2026-11-06 09:30:00-05:00") & (m.index < "2026-11-06 09:37:00-05:00")]
     lowest = first7.l.idxmin()
     return {
-        "role": "Separate retrospective motivating example, excluded from broad screen", "entry_date": "2026-11-06",
+        "role": "Separate retrospective motivating illustration; MRCY's full eligible history is included in the primary screen", "entry_date": "2026-11-06",
         "source": str(source.relative_to(ROOT)), "source_sha256": digest(source),
         "minute_source": str(minute.relative_to(ROOT)), "minute_source_sha256": digest(minute),
         "previous_dates": [str(x.date()) for x in dates[t - 3:t]], "previous_closes": c[t - 3:t].tolist(),
@@ -211,14 +249,21 @@ def main() -> None:
     started = datetime.now(timezone.utc).isoformat()
     protocol = json.loads((OUT / "protocol.json").read_text())
     snapshot = json.loads((OUT / "input_snapshot.json").read_text())
-    assert protocol["status"] == "frozen_before_outcome_calculation"
+    assert protocol["protocol_version"] == 2
+    assert protocol["status"] == "amended_after_initial_outcomes_user_requested_mrcy_inclusion"
+    original_protocol = json.loads(original_artifact(protocol, "protocol.json"))
+    for field in ["cohorts", "history_sessions", "minimum_open", "minimum_prior20_dollar_volume",
+                  "shock_main", "shock_secondary", "shock_definition", "new_low", "near_low", "near_high",
+                  "open_low_bins", "recovery_fraction", "recovery_bins", "eras", "target", "matching",
+                  "cost_roundtrip_bps", "bootstrap", "winsorization", "source_cutoff"]:
+        assert protocol[field] == original_protocol[field], f"Unrequested analytical change: {field}"
     source = ROOT / snapshot["arrays_source"]
     assert digest(source) == snapshot["arrays_sha256"], "immutable array hash changed"
     check_indexing()
     arrays = pd.read_pickle(source)
     registry = set(snapshot["registry_tickers"])
     held = set(snapshot["registry_holdout"])
-    tickers = sorted(registry & arrays.keys() - held - {"MRCY", "SPY"})
+    tickers = sorted(registry & arrays.keys() - held - {"SPY"})
     assert len(held) == 200 and len(registry) == 2000
     dates = pd.DatetimeIndex(arrays["SPY"]["dates"])
     assert dates.max().date().isoformat() == protocol["source_cutoff"]
@@ -247,7 +292,8 @@ def main() -> None:
                      "return": c[i] / o[i] - 1, "adverse": l[i] / o[i] - 1})
         pieces.append(pd.DataFrame(rows))
     panel = pd.concat(pieces, ignore_index=True)
-    assert not panel.ticker.isin(held | {"MRCY", "SPY"}).any()
+    assert not panel.ticker.isin(held | {"SPY"}).any()
+    assert "MRCY" in set(panel.ticker)
     assert panel.pre_shock_vol.notna().all()
     ranks = panel.groupby("date").pre_shock_vol.rank(method="first") - 1
     totals = panel.groupby("date").ticker.transform("size")
@@ -255,10 +301,13 @@ def main() -> None:
     panel = panel.loc[panel.outcome_valid].copy()
     panel["ticker"] = panel.ticker.astype("category")
     assert panel["return"].notna().all() and (panel["return"] > -1).all()
-    assert len(panel) == 1420276, "Frozen discovery cohort count changed; investigate before proceeding"
+    assert len(panel) == 1421271, "Amended discovery cohort count changed; investigate before proceeding"
+    assert int((panel.ticker == "MRCY").sum()) == 995, "Full eligible MRCY history must be included"
     quality["evaluated_rows"] = len(panel)
     quality["evaluated_tickers"] = int(panel.ticker.nunique())
     quality["evaluated_dates"] = int(panel.date.nunique())
+    quality["evaluated_mrcy_rows"] = int((panel.ticker == "MRCY").sum())
+    quality["evaluated_mrcy_dates"] = int(panel.loc[panel.ticker == "MRCY", "date"].nunique())
     shock = (panel.r1 <= -.02) & (panel.r2 <= -.02)
     near = shock & panel.near_low
     recovery = panel.recovery_numerator / panel.recovery_denominator.where(shock)
@@ -284,9 +333,10 @@ def main() -> None:
     assert sum(int(masks[k].sum()) for k in ["shock_2pct_recovery_negative", "shock_2pct_recovery_0_to_25pct", "shock_2pct_recovery_gt25pct"]) == int(shock.sum())
     stats = panel.groupby(["date", "q"])["return"].agg(["sum", "count"])
     daily_all = panel.groupby("date")["return"].agg(["sum", "count"])
-    summaries, daily_records = [], []
+    summaries, daily_records, mrcy_counts = [], [], {}
     for name, mask in masks.items():
         a = panel.loc[mask, ["date", "q", "ticker", "return", "adverse"]].copy()
+        mrcy_counts[name] = int((a.ticker == "MRCY").sum())
         group = a.groupby(["date", "q"])["return"].agg(["sum", "count"])
         control = stats.subtract(group.reindex(stats.index, fill_value=0))
         control["matched_mean"] = (control["sum"] / control["count"]).where(control["count"] >= 5)
@@ -307,8 +357,9 @@ def main() -> None:
         print(json.dumps({"cohort_complete": name, "rows": len(a), "dates": len(daily)}), flush=True)
     extreme = panel.loc[panel["return"].abs().nlargest(20).index, ["date", "ticker", "return", "adverse"]]
     write_json("results.json", {"protocol_sha256": digest(OUT / "protocol.json"), "unit": "fraction", "summaries": summaries})
+    write_json("mrcy_inclusion_comparison.json", inclusion_comparison(protocol, summaries, mrcy_counts))
     write_json("daily_results.json", daily_records)
-    write_json("data_quality.json", {"counts": dict(quality), "checks_passed": ["synthetic past-only feature indexing", "source hash", "excluded production holdout and MRCY", "frozen discovery row count", "disjoint recovery and open-low bin partitions"], "extreme_rows_retained": json.loads(extreme.to_json(orient="records", date_format="iso"))})
+    write_json("data_quality.json", {"counts": dict(quality), "checks_passed": ["synthetic past-only feature indexing", "source hash", "excluded production holdout and SPY", "included all 995 eligible MRCY rows", "amended discovery row count", "disjoint recovery and open-low bin partitions"], "extreme_rows_retained": json.loads(extreme.to_json(orient="records", date_format="iso"))})
     write_json("mrcy_case.json", mrcy_case(arrays))
     write_json("run_manifest.json", {"started_at_utc": started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
                "python": sys.version, "pandas": pd.__version__, "numpy": np.__version__,
@@ -316,6 +367,9 @@ def main() -> None:
                "script_sha256": digest(Path(__file__)), "protocol_sha256": digest(OUT / "protocol.json"),
                "snapshot_sha256": digest(OUT / "input_snapshot.json"), "array_sha256": digest(source),
                "production_mutations": False, "holdout_tickers_evaluated": 0,
+               "protocol_version": protocol["protocol_version"], "mrcy_included_in_primary": True,
+               "mrcy_eligible_rows": quality["evaluated_mrcy_rows"],
+               "original_results_commit": protocol["mrcy_inclusion_amendment"]["original_commit"],
                "method_verification": "Inspected signatures and installed source locations for pandas2.3.3 rolling,shift,rank,quantile,clip,GroupBy aggregate/mean/sum and NumPy2.5.2 RNG integers/percentile before calculation."})
     print("COMPLETE", flush=True)
 

@@ -1,0 +1,3897 @@
+{
+  "protocol_version": 2,
+  "unit": "fraction",
+  "amendment": {
+    "amended_at_utc": "2026-11-09T21:45:59.893932+00:00",
+    "reason": "User explicitly requested MRCY be included in the primary analysis after seeing the initial MRCY-excluded results. Include its entire eligible history, not just the motivating rebound date.",
+    "timing": "After original outcomes were calculated and reviewed; this amendment is not represented as prospectively frozen before the original results.",
+    "original_commit": "07a4b3021a7eec5b242f67e823cfef7a5ef4347a",
+    "original_artifact_directory": "research/morning_dip_patterns_2026_11_09",
+    "original_artifact_sha256": {
+      "protocol.json": "1accb60b02704552ea8e3b55d654d7b219040452876928fba574dff5beab3e70",
+      "results.json": "f7b0a10e2c152445a82b7bc0742718da5a4b6c44ebc8eb07315810fa159308dc",
+      "daily_results.json": "2b6fcafb509157e401c79952433754110dd729910cac9a9e5c30698dab05f7e4",
+      "run_screen.py": "5a6ea10737c635bbbfe3d05ce89b738fe33c996827ee036cdec836dea9c77195",
+      "run_manifest.json": "e9ac69e87624f3e7373eaf2a1e0fd41af99abc9d259f184f29a3ec6ed66f4731"
+    },
+    "expected_added_eligible_rows": 995,
+    "expected_primary_rows": 1421271,
+    "expected_primary_tickers": 1691,
+    "unchanged": "All 17 cohort definitions, eligibility thresholds, cost scenarios, matching algorithm, weekly bootstrap, date cutoff, and production ticker holdout. Recompute date-volatility quintiles and controls on the MRCY-inclusive eligible universe.",
+    "interpretation": "User-directed inclusion sensitivity and revised primary universe; neither version is an untouched confirmatory test. These descriptive trigger screens do not determine whether continuous features help the existing model."
+  },
+  "comparison_status": "User-directed inclusion sensitivity after original outcomes; revised primary screen includes all eligible MRCY history.",
+  "mrcy_rows_by_full_period_cohort": {
+    "all_eligible": 995,
+    "shock_2pct": 32,
+    "shock_2pct_new252low": 3,
+    "shock_2pct_close_near252low": 1,
+    "shock_2pct_nearlow_open_below_low": 0,
+    "shock_2pct_nearlow_open_0_to_1pct_above_low": 0,
+    "shock_2pct_nearlow_open_gt1pct_above_low": 1,
+    "shock_2pct_recovery_negative": 12,
+    "shock_2pct_recovery_0_to_25pct": 20,
+    "shock_2pct_recovery_gt25pct": 0,
+    "all_eligible_close_near252high": 42,
+    "secondary_shock_1pct": 110,
+    "secondary_shock_1pct_close_near252low": 1,
+    "secondary_shock_3pct": 18,
+    "secondary_shock_3pct_close_near252low": 1,
+    "all_eligible_close_near252low": 1,
+    "all_eligible_new252low": 4
+  },
+  "comparisons": [
+    {
+      "cohort": "all_eligible",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 1420276,
+        "tickers": 1690,
+        "dates": 1008,
+        "gross_mean_equal_date": 0.0002131360658932145,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0002131360658932145,
+          "10": -0.0007868639341067855,
+          "25": -0.0022868639341067855,
+          "50": -0.0047868639341067856
+        },
+        "gross_winsor01_equal_date": 0.00013637013226336123,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "after_mrcy_included": {
+        "rows": 1421271,
+        "tickers": 1691,
+        "dates": 1008,
+        "gross_mean_equal_date": 0.0002128309403865072,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0002128309403865072,
+          "10": -0.0007871690596134929,
+          "25": -0.002287169059613493,
+          "50": -0.004787169059613493
+        },
+        "gross_winsor01_equal_date": 0.00013599544242693683,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "change": {
+        "rows": 995,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -3.0512550670729944e-07,
+        "matched_excess_equal_date": null
+      }
+    },
+    {
+      "cohort": "all_eligible",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 706628,
+        "tickers": 1515,
+        "dates": 544,
+        "gross_mean_equal_date": 0.0001314266803597318,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0001314266803597318,
+          "10": -0.0008685733196402682,
+          "25": -0.0023685733196402684,
+          "50": -0.004868573319640268
+        },
+        "gross_winsor01_equal_date": 7.905201113922206e-05,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "after_mrcy_included": {
+        "rows": 707159,
+        "tickers": 1516,
+        "dates": 544,
+        "gross_mean_equal_date": 0.00013097831902551907,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00013097831902551907,
+          "10": -0.000869021680974481,
+          "25": -0.002369021680974481,
+          "50": -0.004869021680974481
+        },
+        "gross_winsor01_equal_date": 7.851713458775536e-05,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "change": {
+        "rows": 531,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -4.4836133421272e-07,
+        "matched_excess_equal_date": null
+      }
+    },
+    {
+      "cohort": "all_eligible",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 370386,
+        "tickers": 1597,
+        "dates": 250,
+        "gross_mean_equal_date": 0.0004803778136924413,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0004803778136924413,
+          "10": -0.0005196221863075588,
+          "25": -0.002019622186307559,
+          "50": -0.004519622186307559
+        },
+        "gross_winsor01_equal_date": 0.0003412578566568392,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "after_mrcy_included": {
+        "rows": 370636,
+        "tickers": 1598,
+        "dates": 250,
+        "gross_mean_equal_date": 0.0004807452128245012,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0004807452128245012,
+          "10": -0.0005192547871754989,
+          "25": -0.0020192547871754987,
+          "50": -0.004519254787175499
+        },
+        "gross_winsor01_equal_date": 0.00034151984296570666,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "change": {
+        "rows": 250,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.6739913205990037e-07,
+        "matched_excess_equal_date": null
+      }
+    },
+    {
+      "cohort": "all_eligible",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 343262,
+        "tickers": 1681,
+        "dates": 214,
+        "gross_mean_equal_date": 0.00010864760225026103,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00010864760225026103,
+          "10": -0.000891352397749739,
+          "25": -0.002391352397749739,
+          "50": -0.004891352397749739
+        },
+        "gross_winsor01_equal_date": 5.890220927188236e-05,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "after_mrcy_included": {
+        "rows": 343476,
+        "tickers": 1682,
+        "dates": 214,
+        "gross_mean_equal_date": 0.00010792093062425963,
+        "matched_excess_equal_date": null,
+        "matched_excess_bootstrap": {
+          "weeks": 0,
+          "ci95": null,
+          "sparse": true
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00010792093062425963,
+          "10": -0.0008920790693757404,
+          "25": -0.0023920790693757405,
+          "50": -0.00489207906937574
+        },
+        "gross_winsor01_equal_date": 5.795374074826458e-05,
+        "matched_excess_winsor01_equal_date": null
+      },
+      "change": {
+        "rows": 214,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -7.266716260014022e-07,
+        "matched_excess_equal_date": null
+      }
+    },
+    {
+      "cohort": "shock_2pct",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 36563,
+        "tickers": 1654,
+        "dates": 990,
+        "gross_mean_equal_date": 0.000708819322598075,
+        "matched_excess_equal_date": 0.0004141465854282467,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.00046785139774632175,
+            0.0013881190002997257
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.000708819322598075,
+          "10": -0.00029118067740192507,
+          "25": -0.0017911806774019252,
+          "50": -0.004291180677401925
+        },
+        "gross_winsor01_equal_date": 0.0005400115489245969,
+        "matched_excess_winsor01_equal_date": 0.00010646536682414741
+      },
+      "after_mrcy_included": {
+        "rows": 36595,
+        "tickers": 1655,
+        "dates": 990,
+        "gross_mean_equal_date": 0.0007180260785936093,
+        "matched_excess_equal_date": 0.0004249735212219656,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0004595908295631851,
+            0.0014029821193972734
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007180260785936093,
+          "10": -0.00028197392140639067,
+          "25": -0.0017819739214063907,
+          "50": -0.004281973921406391
+        },
+        "gross_winsor01_equal_date": 0.0005492029172418197,
+        "matched_excess_winsor01_equal_date": 0.00011709473570208703
+      },
+      "change": {
+        "rows": 32,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 9.206755995534396e-06,
+        "matched_excess_equal_date": 1.0826935793718903e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 15206,
+        "tickers": 1407,
+        "dates": 528,
+        "gross_mean_equal_date": 0.0016381768318726704,
+        "matched_excess_equal_date": 0.0014142532134620931,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            7.993921559528336e-05,
+            0.0028063347512262147
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0016381768318726704,
+          "10": 0.0006381768318726704,
+          "25": -0.0008618231681273296,
+          "50": -0.0033618231681273297
+        },
+        "gross_winsor01_equal_date": 0.0011864309805191295,
+        "matched_excess_winsor01_equal_date": 0.0009093777740253884
+      },
+      "after_mrcy_included": {
+        "rows": 15221,
+        "tickers": 1408,
+        "dates": 528,
+        "gross_mean_equal_date": 0.0016510000510642682,
+        "matched_excess_equal_date": 0.0014306390411894833,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            9.163052396321768e-05,
+            0.0028193596350502247
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0016510000510642682,
+          "10": 0.0006510000510642682,
+          "25": -0.0008489999489357319,
+          "50": -0.003348999948935732
+        },
+        "gross_winsor01_equal_date": 0.0011995876424554415,
+        "matched_excess_winsor01_equal_date": 0.000934632087708378
+      },
+      "change": {
+        "rows": 15,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.282321919159773e-05,
+        "matched_excess_equal_date": 1.6385827727390155e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 9450,
+        "tickers": 1506,
+        "dates": 248,
+        "gross_mean_equal_date": -0.0002282356714500326,
+        "matched_excess_equal_date": -0.000746961152640813,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0024092212709355193,
+            0.0011115097170055852
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0002282356714500326,
+          "10": -0.0012282356714500326,
+          "25": -0.0027282356714500326,
+          "50": -0.005228235671450033
+        },
+        "gross_winsor01_equal_date": -8.09426831224366e-05,
+        "matched_excess_winsor01_equal_date": -0.0008589919983058917
+      },
+      "after_mrcy_included": {
+        "rows": 9455,
+        "tickers": 1507,
+        "dates": 248,
+        "gross_mean_equal_date": -0.00022154763686222853,
+        "matched_excess_equal_date": -0.0007443592624923426,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.002405930627855798,
+            0.001112489041119356
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00022154763686222853,
+          "10": -0.0012215476368622287,
+          "25": -0.0027215476368622287,
+          "50": -0.005221547636862229
+        },
+        "gross_winsor01_equal_date": -7.418390855767136e-05,
+        "matched_excess_winsor01_equal_date": -0.0008547595264337889
+      },
+      "change": {
+        "rows": 5,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 6.688034587804057e-06,
+        "matched_excess_equal_date": 2.6018901484703124e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 11907,
+        "tickers": 1450,
+        "dates": 214,
+        "gross_mean_equal_date": -0.0004982420155937744,
+        "matched_excess_equal_date": -0.0007078234171920522,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002372669104822945,
+            0.0009303186353488106
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0004982420155937744,
+          "10": -0.0014982420155937744,
+          "25": -0.0029982420155937745,
+          "50": -0.005498242015593775
+        },
+        "gross_winsor01_equal_date": -0.0005633207859758276,
+        "matched_excess_winsor01_equal_date": -0.0008106479588307651
+      },
+      "after_mrcy_included": {
+        "rows": 11919,
+        "tickers": 1451,
+        "dates": 214,
+        "gross_mean_equal_date": -0.0004950392299646159,
+        "matched_excess_equal_date": -0.0007011800497205627,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002358186376257082,
+            0.0009312473968181175
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0004950392299646159,
+          "10": -0.001495039229964616,
+          "25": -0.002995039229964616,
+          "50": -0.005495039229964616
+        },
+        "gross_winsor01_equal_date": -0.0005606498212516734,
+        "matched_excess_winsor01_equal_date": -0.0008035090357959718
+      },
+      "change": {
+        "rows": 12,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.2027856291585175e-06,
+        "matched_excess_equal_date": 6.643367471489514e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_new252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 3855,
+        "tickers": 1088,
+        "dates": 634,
+        "gross_mean_equal_date": 0.00033010020871881003,
+        "matched_excess_equal_date": -4.0555871441618e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 195,
+          "ci95": [
+            -0.0020907730344442263,
+            0.0021098874532561305
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00033010020871881003,
+          "10": -0.0006698997912811899,
+          "25": -0.00216989979128119,
+          "50": -0.00466989979128119
+        },
+        "gross_winsor01_equal_date": 0.0003811041473471975,
+        "matched_excess_winsor01_equal_date": -0.00030540546792632894
+      },
+      "after_mrcy_included": {
+        "rows": 3858,
+        "tickers": 1089,
+        "dates": 634,
+        "gross_mean_equal_date": 0.00039900037671142567,
+        "matched_excess_equal_date": 3.704743225992896e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 195,
+          "ci95": [
+            -0.002011293918421184,
+            0.0022067229918089296
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00039900037671142567,
+          "10": -0.0006009996232885744,
+          "25": -0.0021009996232885745,
+          "50": -0.004600999623288574
+        },
+        "gross_winsor01_equal_date": 0.0004499674616455527,
+        "matched_excess_winsor01_equal_date": -0.0002226662506735513
+      },
+      "change": {
+        "rows": 3,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 6.890016799261564e-05,
+        "matched_excess_equal_date": 7.760330370154697e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_new252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 1388,
+        "tickers": 523,
+        "dates": 309,
+        "gross_mean_equal_date": -0.0009388313299440922,
+        "matched_excess_equal_date": -0.0010622018655223175,
+        "matched_excess_bootstrap": {
+          "weeks": 104,
+          "ci95": [
+            -0.004153538617796142,
+            0.0022401808833706262
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0009388313299440922,
+          "10": -0.0019388313299440922,
+          "25": -0.0034388313299440923,
+          "50": -0.005938831329944092
+        },
+        "gross_winsor01_equal_date": -0.001459984496424529,
+        "matched_excess_winsor01_equal_date": -0.0015345338626694934
+      },
+      "after_mrcy_included": {
+        "rows": 1390,
+        "tickers": 524,
+        "dates": 309,
+        "gross_mean_equal_date": -0.0008025828009490299,
+        "matched_excess_equal_date": -0.000908735851193951,
+        "matched_excess_bootstrap": {
+          "weeks": 104,
+          "ci95": [
+            -0.003975705580491558,
+            0.002334751631984883
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0008025828009490299,
+          "10": -0.0018025828009490298,
+          "25": -0.00330258280094903,
+          "50": -0.00580258280094903
+        },
+        "gross_winsor01_equal_date": -0.001323427889088637,
+        "matched_excess_winsor01_equal_date": -0.0013808634397911056
+      },
+      "change": {
+        "rows": 2,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 0.00013624852899506233,
+        "matched_excess_equal_date": 0.0001534660143283665
+      }
+    },
+    {
+      "cohort": "shock_2pct_new252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 1404,
+        "tickers": 644,
+        "dates": 151,
+        "gross_mean_equal_date": 0.0028279361369260153,
+        "matched_excess_equal_date": 0.002192102685408679,
+        "matched_excess_bootstrap": {
+          "weeks": 47,
+          "ci95": [
+            -0.0015447172257891367,
+            0.006234522551511488
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0028279361369260153,
+          "10": 0.0018279361369260153,
+          "25": 0.00032793613692601526,
+          "50": -0.002172063863073985
+        },
+        "gross_winsor01_equal_date": 0.0028405166105231056,
+        "matched_excess_winsor01_equal_date": 0.001774152429224071
+      },
+      "after_mrcy_included": {
+        "rows": 1404,
+        "tickers": 644,
+        "dates": 151,
+        "gross_mean_equal_date": 0.0028279361369260153,
+        "matched_excess_equal_date": 0.002187145321744958,
+        "matched_excess_bootstrap": {
+          "weeks": 47,
+          "ci95": [
+            -0.001547435932707811,
+            0.006222433504478871
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0028279361369260153,
+          "10": 0.0018279361369260153,
+          "25": 0.00032793613692601526,
+          "50": -0.002172063863073985
+        },
+        "gross_winsor01_equal_date": 0.0028405166105231056,
+        "matched_excess_winsor01_equal_date": 0.001770997624192587
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -4.957363663720977e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_new252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 1063,
+        "tickers": 423,
+        "dates": 174,
+        "gross_mean_equal_date": 0.0004158853827851828,
+        "matched_excess_equal_date": -0.00016379052611666863,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.003621028602169653,
+            0.0033083262246315992
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0004158853827851828,
+          "10": -0.0005841146172148172,
+          "25": -0.002084114617214817,
+          "50": -0.004584114617214818
+        },
+        "gross_winsor01_equal_date": 0.0006678055880319226,
+        "matched_excess_winsor01_equal_date": 0.00010819345943410031
+      },
+      "after_mrcy_included": {
+        "rows": 1064,
+        "tickers": 424,
+        "dates": 174,
+        "gross_mean_equal_date": 0.00042497682558888424,
+        "matched_excess_equal_date": -0.00014926145696415378,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.003614295539082173,
+            0.0033166788291896718
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00042497682558888424,
+          "10": -0.0005750231744111158,
+          "25": -0.002075023174411116,
+          "50": -0.004575023174411116
+        },
+        "gross_winsor01_equal_date": 0.0006770214343005845,
+        "matched_excess_winsor01_equal_date": 0.00012256642652527187
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 9.091442803701446e-06,
+        "matched_excess_equal_date": 1.4529069152514846e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_close_near252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 3154,
+        "tickers": 1028,
+        "dates": 611,
+        "gross_mean_equal_date": -0.00036460907682139495,
+        "matched_excess_equal_date": -0.0010109206908686158,
+        "matched_excess_bootstrap": {
+          "weeks": 199,
+          "ci95": [
+            -0.0025663133323776182,
+            0.0005770218177277622
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00036460907682139495,
+          "10": -0.0013646090768213949,
+          "25": -0.002864609076821395,
+          "50": -0.005364609076821395
+        },
+        "gross_winsor01_equal_date": -8.572018659206957e-05,
+        "matched_excess_winsor01_equal_date": -0.0008734005541068942
+      },
+      "after_mrcy_included": {
+        "rows": 3155,
+        "tickers": 1029,
+        "dates": 611,
+        "gross_mean_equal_date": -0.00035702280013978974,
+        "matched_excess_equal_date": -0.0009998867274178577,
+        "matched_excess_bootstrap": {
+          "weeks": 199,
+          "ci95": [
+            -0.0025588895569984746,
+            0.0005917144637684077
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00035702280013978974,
+          "10": -0.0013570228001397898,
+          "25": -0.00285702280013979,
+          "50": -0.00535702280013979
+        },
+        "gross_winsor01_equal_date": -7.814819115273014e-05,
+        "matched_excess_winsor01_equal_date": -0.000859729428019014
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 7.586276681605217e-06,
+        "matched_excess_equal_date": 1.1033963450758112e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_close_near252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 1262,
+        "tickers": 506,
+        "dates": 300,
+        "gross_mean_equal_date": -0.0016421864177698518,
+        "matched_excess_equal_date": -0.0018036626206245502,
+        "matched_excess_bootstrap": {
+          "weeks": 107,
+          "ci95": [
+            -0.00393748174023681,
+            0.0003415829009083504
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016421864177698518,
+          "10": -0.002642186417769852,
+          "25": -0.004142186417769852,
+          "50": -0.006642186417769852
+        },
+        "gross_winsor01_equal_date": -0.0015340725858361617,
+        "matched_excess_winsor01_equal_date": -0.0017658284530727953
+      },
+      "after_mrcy_included": {
+        "rows": 1262,
+        "tickers": 506,
+        "dates": 300,
+        "gross_mean_equal_date": -0.0016421864177698518,
+        "matched_excess_equal_date": -0.0017964207745704553,
+        "matched_excess_bootstrap": {
+          "weeks": 107,
+          "ci95": [
+            -0.003932854037606648,
+            0.0003512554778594424
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016421864177698518,
+          "10": -0.002642186417769852,
+          "25": -0.004142186417769852,
+          "50": -0.006642186417769852
+        },
+        "gross_winsor01_equal_date": -0.0015340725858361617,
+        "matched_excess_winsor01_equal_date": -0.001757897659255021
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 7.2418460540949e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_close_near252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 961,
+        "tickers": 523,
+        "dates": 145,
+        "gross_mean_equal_date": 0.001231466699289245,
+        "matched_excess_equal_date": 0.00019739657397286145,
+        "matched_excess_bootstrap": {
+          "weeks": 48,
+          "ci95": [
+            -0.002800498102632042,
+            0.0032748950004247135
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.001231466699289245,
+          "10": 0.00023146669928924505,
+          "25": -0.001268533300710755,
+          "50": -0.003768533300710755
+        },
+        "gross_winsor01_equal_date": 0.0012898041560194095,
+        "matched_excess_winsor01_equal_date": 6.96989910857543e-05
+      },
+      "after_mrcy_included": {
+        "rows": 961,
+        "tickers": 523,
+        "dates": 145,
+        "gross_mean_equal_date": 0.001231466699289245,
+        "matched_excess_equal_date": 0.00019429899246940362,
+        "matched_excess_bootstrap": {
+          "weeks": 48,
+          "ci95": [
+            -0.0027991730796864934,
+            0.003265094784731378
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.001231466699289245,
+          "10": 0.00023146669928924505,
+          "25": -0.001268533300710755,
+          "50": -0.003768533300710755
+        },
+        "gross_winsor01_equal_date": 0.0012898041560194095,
+        "matched_excess_winsor01_equal_date": 6.706390929637686e-05
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -3.0975815034578274e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_close_near252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 931,
+        "tickers": 407,
+        "dates": 166,
+        "gross_mean_equal_date": 0.0005501030602177263,
+        "matched_excess_equal_date": -0.0006337124045748443,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0037899804325370935,
+            0.002627605014596506
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005501030602177263,
+          "10": -0.0004498969397822737,
+          "25": -0.0019498969397822737,
+          "50": -0.004449896939782274
+        },
+        "gross_winsor01_equal_date": 0.0008943956084824588,
+        "matched_excess_winsor01_equal_date": -0.0003180476435801925
+      },
+      "after_mrcy_included": {
+        "rows": 932,
+        "tickers": 408,
+        "dates": 166,
+        "gross_mean_equal_date": 0.0005780260424614659,
+        "matched_excess_equal_date": -0.00060348139752553,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0037547820117213512,
+            0.0026555289805582933
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005780260424614659,
+          "10": -0.0004219739575385341,
+          "25": -0.0019219739575385341,
+          "50": -0.004421973957538534
+        },
+        "gross_winsor01_equal_date": 0.0009287326208091578,
+        "matched_excess_winsor01_equal_date": -0.00027625235194449123
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.7922982243739573e-05,
+        "matched_excess_equal_date": 3.0231007049314287e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_below_low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 851,
+        "tickers": 579,
+        "dates": 264,
+        "gross_mean_equal_date": 0.0005467275781896125,
+        "matched_excess_equal_date": -0.0005292681513761339,
+        "matched_excess_bootstrap": {
+          "weeks": 137,
+          "ci95": [
+            -0.003627329999765418,
+            0.0024486674911211232
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005467275781896125,
+          "10": -0.0004532724218103875,
+          "25": -0.0019532724218103877,
+          "50": -0.004453272421810387
+        },
+        "gross_winsor01_equal_date": 0.0010024028338534137,
+        "matched_excess_winsor01_equal_date": -0.0003805695524331573
+      },
+      "after_mrcy_included": {
+        "rows": 851,
+        "tickers": 579,
+        "dates": 264,
+        "gross_mean_equal_date": 0.0005467275781896125,
+        "matched_excess_equal_date": -0.0005270851037144729,
+        "matched_excess_bootstrap": {
+          "weeks": 137,
+          "ci95": [
+            -0.0036278265159192125,
+            0.002452435949900681
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005467275781896125,
+          "10": -0.0004532724218103875,
+          "25": -0.0019532724218103877,
+          "50": -0.004453272421810387
+        },
+        "gross_winsor01_equal_date": 0.0010024028338534137,
+        "matched_excess_winsor01_equal_date": -0.00037704348708786497
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 2.1830476616609704e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_below_low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 312,
+        "tickers": 224,
+        "dates": 114,
+        "gross_mean_equal_date": -0.0013393377354979266,
+        "matched_excess_equal_date": -0.0009527748228740944,
+        "matched_excess_bootstrap": {
+          "weeks": 66,
+          "ci95": [
+            -0.005846270444400611,
+            0.003693547523466416
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0013393377354979266,
+          "10": -0.002339337735497927,
+          "25": -0.0038393377354979264,
+          "50": -0.006339337735497927
+        },
+        "gross_winsor01_equal_date": -0.0009382042469661427,
+        "matched_excess_winsor01_equal_date": -0.0008382540660742742
+      },
+      "after_mrcy_included": {
+        "rows": 312,
+        "tickers": 224,
+        "dates": 114,
+        "gross_mean_equal_date": -0.0013393377354979266,
+        "matched_excess_equal_date": -0.0009485036103439942,
+        "matched_excess_bootstrap": {
+          "weeks": 66,
+          "ci95": [
+            -0.005830971240409504,
+            0.0037064702129036404
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0013393377354979266,
+          "10": -0.002339337735497927,
+          "25": -0.0038393377354979264,
+          "50": -0.006339337735497927
+        },
+        "gross_winsor01_equal_date": -0.0009382042469661427,
+        "matched_excess_winsor01_equal_date": -0.0008345712185477924
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 4.2712125301002084e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_below_low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 348,
+        "tickers": 289,
+        "dates": 62,
+        "gross_mean_equal_date": 0.0038457550435258645,
+        "matched_excess_equal_date": -0.00038626014889161717,
+        "matched_excess_bootstrap": {
+          "weeks": 32,
+          "ci95": [
+            -0.005850157832024854,
+            0.004857817054957187
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0038457550435258645,
+          "10": 0.0028457550435258645,
+          "25": 0.0013457550435258645,
+          "50": -0.0011542449564741356
+        },
+        "gross_winsor01_equal_date": 0.004580213861247357,
+        "matched_excess_winsor01_equal_date": -5.409976046008853e-05
+      },
+      "after_mrcy_included": {
+        "rows": 348,
+        "tickers": 289,
+        "dates": 62,
+        "gross_mean_equal_date": 0.0038457550435258645,
+        "matched_excess_equal_date": -0.0003900648019810924,
+        "matched_excess_bootstrap": {
+          "weeks": 32,
+          "ci95": [
+            -0.005851343422751286,
+            0.004860192901486603
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0038457550435258645,
+          "10": 0.0028457550435258645,
+          "25": 0.0013457550435258645,
+          "50": -0.0011542449564741356
+        },
+        "gross_winsor01_equal_date": 0.004580213861247357,
+        "matched_excess_winsor01_equal_date": -5.727124972542292e-05
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -3.8046530894752335e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_below_low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 191,
+        "tickers": 145,
+        "dates": 88,
+        "gross_mean_equal_date": 0.00066572465670702,
+        "matched_excess_equal_date": -8.139014686786809e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 39,
+          "ci95": [
+            -0.005883590081163107,
+            0.005859347998069571
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00066572465670702,
+          "10": -0.00033427534329298007,
+          "25": -0.0018342753432929802,
+          "50": -0.00433427534329298
+        },
+        "gross_winsor01_equal_date": 0.0009022890333486682,
+        "matched_excess_winsor01_equal_date": 9.395605476550557e-06
+      },
+      "after_mrcy_included": {
+        "rows": 191,
+        "tickers": 145,
+        "dates": 88,
+        "gross_mean_equal_date": 0.00066572465670702,
+        "matched_excess_equal_date": -7.769361452929272e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 39,
+          "ci95": [
+            -0.00588573804594821,
+            0.0058660547073616795
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00066572465670702,
+          "10": -0.00033427534329298007,
+          "25": -0.0018342753432929802,
+          "50": -0.00433427534329298
+        },
+        "gross_winsor01_equal_date": 0.0009022890333486682,
+        "matched_excess_winsor01_equal_date": 1.3825946381698918e-05
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 3.6965323385753745e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_0_to_1pct_above_low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 938,
+        "tickers": 549,
+        "dates": 371,
+        "gross_mean_equal_date": -0.0016966055113461446,
+        "matched_excess_equal_date": -0.0019593129583254155,
+        "matched_excess_bootstrap": {
+          "weeks": 165,
+          "ci95": [
+            -0.0040376721279445854,
+            0.00014104517257645884
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016966055113461446,
+          "10": -0.0026966055113461446,
+          "25": -0.004196605511346145,
+          "50": -0.006696605511346145
+        },
+        "gross_winsor01_equal_date": -0.0014434895437815077,
+        "matched_excess_winsor01_equal_date": -0.0018230012273679733
+      },
+      "after_mrcy_included": {
+        "rows": 938,
+        "tickers": 549,
+        "dates": 371,
+        "gross_mean_equal_date": -0.0016966055113461446,
+        "matched_excess_equal_date": -0.0019554598022488738,
+        "matched_excess_bootstrap": {
+          "weeks": 165,
+          "ci95": [
+            -0.004045885017586818,
+            0.00014077356644300357
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016966055113461446,
+          "10": -0.0026966055113461446,
+          "25": -0.004196605511346145,
+          "50": -0.006696605511346145
+        },
+        "gross_winsor01_equal_date": -0.0014434895437815077,
+        "matched_excess_winsor01_equal_date": -0.0018190285087673632
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 3.853156076541724e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_0_to_1pct_above_low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 408,
+        "tickers": 256,
+        "dates": 180,
+        "gross_mean_equal_date": -0.0028339754886229037,
+        "matched_excess_equal_date": -0.0023167472280085483,
+        "matched_excess_bootstrap": {
+          "weeks": 84,
+          "ci95": [
+            -0.005553786934752834,
+            0.0008653683385798423
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0028339754886229037,
+          "10": -0.0038339754886229037,
+          "25": -0.005333975488622904,
+          "50": -0.007833975488622904
+        },
+        "gross_winsor01_equal_date": -0.0025967758149722043,
+        "matched_excess_winsor01_equal_date": -0.0021214288432889533
+      },
+      "after_mrcy_included": {
+        "rows": 408,
+        "tickers": 256,
+        "dates": 180,
+        "gross_mean_equal_date": -0.0028339754886229037,
+        "matched_excess_equal_date": -0.0023090134087108637,
+        "matched_excess_bootstrap": {
+          "weeks": 84,
+          "ci95": [
+            -0.005542128953282087,
+            0.0008877203165193018
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0028339754886229037,
+          "10": -0.0038339754886229037,
+          "25": -0.005333975488622904,
+          "50": -0.007833975488622904
+        },
+        "gross_winsor01_equal_date": -0.0025967758149722043,
+        "matched_excess_winsor01_equal_date": -0.00211319559046055
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 7.733819297684602e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_0_to_1pct_above_low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 273,
+        "tickers": 200,
+        "dates": 87,
+        "gross_mean_equal_date": 0.002158336088114048,
+        "matched_excess_equal_date": -0.00021963410461431625,
+        "matched_excess_bootstrap": {
+          "weeks": 38,
+          "ci95": [
+            -0.004036167365227934,
+            0.004751475956363442
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.002158336088114048,
+          "10": 0.001158336088114048,
+          "25": -0.00034166391188595203,
+          "50": -0.002841663911885952
+        },
+        "gross_winsor01_equal_date": 0.002198043377187709,
+        "matched_excess_winsor01_equal_date": -0.00040137422401149807
+      },
+      "after_mrcy_included": {
+        "rows": 273,
+        "tickers": 200,
+        "dates": 87,
+        "gross_mean_equal_date": 0.002158336088114048,
+        "matched_excess_equal_date": -0.0002227746261767299,
+        "matched_excess_bootstrap": {
+          "weeks": 38,
+          "ci95": [
+            -0.0040379681693836775,
+            0.00474901791892487
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.002158336088114048,
+          "10": 0.001158336088114048,
+          "25": -0.00034166391188595203,
+          "50": -0.002841663911885952
+        },
+        "gross_winsor01_equal_date": 0.002198043377187709,
+        "matched_excess_winsor01_equal_date": -0.00040504782422603563
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -3.1405215624136468e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_0_to_1pct_above_low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 257,
+        "tickers": 187,
+        "dates": 104,
+        "gross_mean_equal_date": -0.002952887465607877,
+        "matched_excess_equal_date": -0.0027959849941898564,
+        "matched_excess_bootstrap": {
+          "weeks": 43,
+          "ci95": [
+            -0.006308849945554413,
+            0.001127607373721367
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.002952887465607877,
+          "10": -0.003952887465607877,
+          "25": -0.005452887465607877,
+          "50": -0.007952887465607877
+        },
+        "gross_winsor01_equal_date": -0.002969810266819405,
+        "matched_excess_winsor01_equal_date": -0.0027062940435861487
+      },
+      "after_mrcy_included": {
+        "rows": 257,
+        "tickers": 187,
+        "dates": 104,
+        "gross_mean_equal_date": -0.002952887465607877,
+        "matched_excess_equal_date": -0.002792997890278857,
+        "matched_excess_bootstrap": {
+          "weeks": 43,
+          "ci95": [
+            -0.006313750756829024,
+            0.0011273128332502198
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.002952887465607877,
+          "10": -0.003952887465607877,
+          "25": -0.005452887465607877,
+          "50": -0.007952887465607877
+        },
+        "gross_winsor01_equal_date": -0.002969810266819405,
+        "matched_excess_winsor01_equal_date": -0.002704069474104956
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 2.9871039109994647e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_gt1pct_above_low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 1365,
+        "tickers": 730,
+        "dates": 413,
+        "gross_mean_equal_date": 9.291911293879609e-05,
+        "matched_excess_equal_date": -0.0011303287271165526,
+        "matched_excess_bootstrap": {
+          "weeks": 177,
+          "ci95": [
+            -0.003379363274099026,
+            0.0010713608028984733
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 9.291911293879609e-05,
+          "10": -0.0009070808870612039,
+          "25": -0.002407080887061204,
+          "50": -0.004907080887061204
+        },
+        "gross_winsor01_equal_date": 0.00033836979594467913,
+        "matched_excess_winsor01_equal_date": -0.0008482030404085308
+      },
+      "after_mrcy_included": {
+        "rows": 1366,
+        "tickers": 731,
+        "dates": 413,
+        "gross_mean_equal_date": 0.00010481661447755343,
+        "matched_excess_equal_date": -0.0011170865892070542,
+        "matched_excess_bootstrap": {
+          "weeks": 177,
+          "ci95": [
+            -0.0033762617268505387,
+            0.0010866364888716487
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00010481661447755343,
+          "10": -0.0008951833855224466,
+          "25": -0.002395183385522447,
+          "50": -0.004895183385522446
+        },
+        "gross_winsor01_equal_date": 0.00035764391597542327,
+        "matched_excess_winsor01_equal_date": -0.0008226563983851049
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.1897501538757341e-05,
+        "matched_excess_equal_date": 1.3242137909498389e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_gt1pct_above_low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 542,
+        "tickers": 338,
+        "dates": 188,
+        "gross_mean_equal_date": -0.0008370303744667729,
+        "matched_excess_equal_date": -0.0018761772870793825,
+        "matched_excess_bootstrap": {
+          "weeks": 92,
+          "ci95": [
+            -0.004863588958831909,
+            0.0009413465656114042
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0008370303744667729,
+          "10": -0.001837030374466773,
+          "25": -0.003337030374466773,
+          "50": -0.005837030374466773
+        },
+        "gross_winsor01_equal_date": -0.0006713645368031165,
+        "matched_excess_winsor01_equal_date": -0.001691389820021921
+      },
+      "after_mrcy_included": {
+        "rows": 542,
+        "tickers": 338,
+        "dates": 188,
+        "gross_mean_equal_date": -0.0008370303744667729,
+        "matched_excess_equal_date": -0.0018726243662663023,
+        "matched_excess_bootstrap": {
+          "weeks": 92,
+          "ci95": [
+            -0.0048614845773943,
+            0.0009432770481128351
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0008370303744667729,
+          "10": -0.001837030374466773,
+          "25": -0.003337030374466773,
+          "50": -0.005837030374466773
+        },
+        "gross_winsor01_equal_date": -0.0006713645368031165,
+        "matched_excess_winsor01_equal_date": -0.0016872277877315945
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 3.5529208130802813e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_gt1pct_above_low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 340,
+        "tickers": 247,
+        "dates": 100,
+        "gross_mean_equal_date": 0.0013345235704609515,
+        "matched_excess_equal_date": -0.0007910912737592254,
+        "matched_excess_bootstrap": {
+          "weeks": 41,
+          "ci95": [
+            -0.004873903327937148,
+            0.003127917671394994
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0013345235704609515,
+          "10": 0.00033452357046095146,
+          "25": -0.0011654764295390486,
+          "50": -0.0036654764295390484
+        },
+        "gross_winsor01_equal_date": 0.0013090432437406314,
+        "matched_excess_winsor01_equal_date": -0.0009685026706961233
+      },
+      "after_mrcy_included": {
+        "rows": 340,
+        "tickers": 247,
+        "dates": 100,
+        "gross_mean_equal_date": 0.0013345235704609515,
+        "matched_excess_equal_date": -0.0007948116218668441,
+        "matched_excess_bootstrap": {
+          "weeks": 41,
+          "ci95": [
+            -0.004878335275630818,
+            0.0031236883554173877
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0013345235704609515,
+          "10": 0.00033452357046095146,
+          "25": -0.0011654764295390486,
+          "50": -0.0036654764295390484
+        },
+        "gross_winsor01_equal_date": 0.0013090432437406314,
+        "matched_excess_winsor01_equal_date": -0.0009713828102090821
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -3.720348107618711e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_nearlow_open_gt1pct_above_low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 483,
+        "tickers": 315,
+        "dates": 125,
+        "gross_mean_equal_date": 0.0004982795759790476,
+        "matched_excess_equal_date": -0.0002799624556183194,
+        "matched_excess_bootstrap": {
+          "weeks": 44,
+          "ci95": [
+            -0.005507674423502215,
+            0.005196696370960608
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0004982795759790476,
+          "10": -0.0005017204240209525,
+          "25": -0.0020017204240209523,
+          "50": -0.004501720424020953
+        },
+        "gross_winsor01_equal_date": 0.0012794727211494553,
+        "matched_excess_winsor01_equal_date": 0.00033435255709969943
+      },
+      "after_mrcy_included": {
+        "rows": 484,
+        "tickers": 316,
+        "dates": 125,
+        "gross_mean_equal_date": 0.0005375889210631017,
+        "matched_excess_equal_date": -0.00023857774638211306,
+        "matched_excess_bootstrap": {
+          "weeks": 44,
+          "ci95": [
+            -0.005441226334295185,
+            0.005261966249536773
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005375889210631017,
+          "10": -0.0004624110789368983,
+          "25": -0.0019624110789368985,
+          "50": -0.004462411078936898
+        },
+        "gross_winsor01_equal_date": 0.001331241540076899,
+        "matched_excess_winsor01_equal_date": 0.0003800946848383331
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.930934508405417e-05,
+        "matched_excess_equal_date": 4.1384709236206354e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_negative",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 16245,
+        "tickers": 1595,
+        "dates": 910,
+        "gross_mean_equal_date": 0.0014115523619698273,
+        "matched_excess_equal_date": 0.0010164987896653065,
+        "matched_excess_bootstrap": {
+          "weeks": 208,
+          "ci95": [
+            -0.0003206603265765462,
+            0.0025197943933592255
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0014115523619698273,
+          "10": 0.0004115523619698273,
+          "25": -0.0010884476380301727,
+          "50": -0.0035884476380301728
+        },
+        "gross_winsor01_equal_date": 0.0011969863034908398,
+        "matched_excess_winsor01_equal_date": 0.0005610566675800032
+      },
+      "after_mrcy_included": {
+        "rows": 16257,
+        "tickers": 1596,
+        "dates": 910,
+        "gross_mean_equal_date": 0.0014275512333235753,
+        "matched_excess_equal_date": 0.0010359940521800727,
+        "matched_excess_bootstrap": {
+          "weeks": 208,
+          "ci95": [
+            -0.0003020352490932561,
+            0.002533414823045229
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0014275512333235753,
+          "10": 0.0004275512333235753,
+          "25": -0.0010724487666764248,
+          "50": -0.003572448766676425
+        },
+        "gross_winsor01_equal_date": 0.0012087892015810648,
+        "matched_excess_winsor01_equal_date": 0.0005752491819167484
+      },
+      "change": {
+        "rows": 12,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.5998871353747977e-05,
+        "matched_excess_equal_date": 1.9495262514766234e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_negative",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 7036,
+        "tickers": 1282,
+        "dates": 468,
+        "gross_mean_equal_date": 0.0015924741316816603,
+        "matched_excess_equal_date": 0.0012691226140421263,
+        "matched_excess_bootstrap": {
+          "weeks": 112,
+          "ci95": [
+            -0.00020734060943883474,
+            0.0029761390395067694
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0015924741316816603,
+          "10": 0.0005924741316816603,
+          "25": -0.0009075258683183397,
+          "50": -0.0034075258683183398
+        },
+        "gross_winsor01_equal_date": 0.001356780768249067,
+        "matched_excess_winsor01_equal_date": 0.0009564875097141724
+      },
+      "after_mrcy_included": {
+        "rows": 7043,
+        "tickers": 1283,
+        "dates": 468,
+        "gross_mean_equal_date": 0.0016208369788145419,
+        "matched_excess_equal_date": 0.0013025035131259278,
+        "matched_excess_bootstrap": {
+          "weeks": 112,
+          "ci95": [
+            -0.00015649339110902568,
+            0.002990075126791879
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0016208369788145419,
+          "10": 0.0006208369788145418,
+          "25": -0.0008791630211854582,
+          "50": -0.003379163021185458
+        },
+        "gross_winsor01_equal_date": 0.0013765177421751686,
+        "matched_excess_winsor01_equal_date": 0.0009803532126861489
+      },
+      "change": {
+        "rows": 7,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.8362847132881513e-05,
+        "matched_excess_equal_date": 3.3380899083801504e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_negative",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 4482,
+        "tickers": 1350,
+        "dates": 232,
+        "gross_mean_equal_date": 0.0007492157779371909,
+        "matched_excess_equal_date": -0.00010342233642730118,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0023157956909792567,
+            0.0021710358493343624
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007492157779371909,
+          "10": -0.0002507842220628091,
+          "25": -0.0017507842220628091,
+          "50": -0.00425078422206281
+        },
+        "gross_winsor01_equal_date": 0.0011536542126844344,
+        "matched_excess_winsor01_equal_date": 0.00016887614850652296
+      },
+      "after_mrcy_included": {
+        "rows": 4483,
+        "tickers": 1351,
+        "dates": 232,
+        "gross_mean_equal_date": 0.0007496015671368527,
+        "matched_excess_equal_date": -0.00010382541891444556,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.002322301955861531,
+            0.0021729824426340028
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007496015671368527,
+          "10": -0.00025039843286314733,
+          "25": -0.0017503984328631475,
+          "50": -0.004250398432863147
+        },
+        "gross_winsor01_equal_date": 0.0011540527431114127,
+        "matched_excess_winsor01_equal_date": 0.0001663264369002745
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.8578919966177506e-07,
+        "matched_excess_equal_date": -4.030824871443828e-07
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_negative",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 4727,
+        "tickers": 1235,
+        "dates": 210,
+        "gross_mean_equal_date": 0.0017400795013528456,
+        "matched_excess_equal_date": 0.0016907547489278458,
+        "matched_excess_bootstrap": {
+          "weeks": 44,
+          "ci95": [
+            -0.001679727064411445,
+            0.006668816532577011
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0017400795013528456,
+          "10": 0.0007400795013528456,
+          "25": -0.0007599204986471545,
+          "50": -0.0032599204986471543
+        },
+        "gross_winsor01_equal_date": 0.00016941399534011338,
+        "matched_excess_winsor01_equal_date": 8.570276147549843e-05
+      },
+      "after_mrcy_included": {
+        "rows": 4731,
+        "tickers": 1236,
+        "dates": 210,
+        "gross_mean_equal_date": 0.0017457731079214198,
+        "matched_excess_equal_date": 0.0017012878120432535,
+        "matched_excess_bootstrap": {
+          "weeks": 44,
+          "ci95": [
+            -0.0016723046218217906,
+            0.006679752303251671
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0017457731079214198,
+          "10": 0.0007457731079214198,
+          "25": -0.0007542268920785803,
+          "50": -0.00325422689207858
+        },
+        "gross_winsor01_equal_date": 0.0001748593546538006,
+        "matched_excess_winsor01_equal_date": 9.849846331696433e-05
+      },
+      "change": {
+        "rows": 4,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 5.6936065685742054e-06,
+        "matched_excess_equal_date": 1.0533063115407719e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_0_to_25pct",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 16289,
+        "tickers": 1608,
+        "dates": 929,
+        "gross_mean_equal_date": 9.765388184244743e-05,
+        "matched_excess_equal_date": -0.0001156774941385872,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0012473172194462738,
+            0.0010645491389355806
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 9.765388184244743e-05,
+          "10": -0.0009023461181575526,
+          "25": -0.002402346118157553,
+          "50": -0.0049023461181575525
+        },
+        "gross_winsor01_equal_date": -0.000283292526043432,
+        "matched_excess_winsor01_equal_date": -0.0004881972339013921
+      },
+      "after_mrcy_included": {
+        "rows": 16309,
+        "tickers": 1609,
+        "dates": 930,
+        "gross_mean_equal_date": 8.880551800633405e-05,
+        "matched_excess_equal_date": -0.00013568943858744605,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0012665908900213886,
+            0.001050179563871527
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 8.880551800633405e-05,
+          "10": -0.0009111944819936659,
+          "25": -0.002411194481993666,
+          "50": -0.004911194481993666
+        },
+        "gross_winsor01_equal_date": -0.0002913095580581391,
+        "matched_excess_winsor01_equal_date": -0.0005086281565130627
+      },
+      "change": {
+        "rows": 20,
+        "tickers": 1,
+        "dates": 1,
+        "gross_mean_equal_date": -8.848363836113385e-06,
+        "matched_excess_equal_date": -2.001194444885885e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_0_to_25pct",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 6804,
+        "tickers": 1291,
+        "dates": 482,
+        "gross_mean_equal_date": 0.0007705808681788635,
+        "matched_excess_equal_date": 0.0008324878290936957,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.0008049648909415524,
+            0.00249057112482709
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007705808681788635,
+          "10": -0.0002294191318211365,
+          "25": -0.0017294191318211365,
+          "50": -0.004229419131821136
+        },
+        "gross_winsor01_equal_date": 0.00020648874012671817,
+        "matched_excess_winsor01_equal_date": 0.00029329924491976265
+      },
+      "after_mrcy_included": {
+        "rows": 6812,
+        "tickers": 1292,
+        "dates": 483,
+        "gross_mean_equal_date": 0.0007486708081172846,
+        "matched_excess_equal_date": 0.0007877130649667017,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.0008103404728514233,
+            0.0024689295359859495
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007486708081172846,
+          "10": -0.00025132919188271545,
+          "25": -0.0017513291918827155,
+          "50": -0.004251329191882715
+        },
+        "gross_winsor01_equal_date": 0.00018107094350279084,
+        "matched_excess_winsor01_equal_date": 0.0002443706889017864
+      },
+      "change": {
+        "rows": 8,
+        "tickers": 1,
+        "dates": 1,
+        "gross_mean_equal_date": -2.191006006157896e-05,
+        "matched_excess_equal_date": -4.477476412699402e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_0_to_25pct",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 4042,
+        "tickers": 1238,
+        "dates": 235,
+        "gross_mean_equal_date": -0.0008811175717709155,
+        "matched_excess_equal_date": -0.0016790007096184445,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.004027753078703133,
+            0.0007754164602309598
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0008811175717709155,
+          "10": -0.0018811175717709156,
+          "25": -0.0033811175717709157,
+          "50": -0.005881117571770915
+        },
+        "gross_winsor01_equal_date": -0.0012668777050619986,
+        "matched_excess_winsor01_equal_date": -0.002172641243318072
+      },
+      "after_mrcy_included": {
+        "rows": 4046,
+        "tickers": 1239,
+        "dates": 235,
+        "gross_mean_equal_date": -0.0008777253175204569,
+        "matched_excess_equal_date": -0.0016784474984292417,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.004026882338443332,
+            0.0007787984559891535
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0008777253175204569,
+          "10": -0.0018777253175204568,
+          "25": -0.003377725317520457,
+          "50": -0.005877725317520457
+        },
+        "gross_winsor01_equal_date": -0.001263483736889939,
+        "matched_excess_winsor01_equal_date": -0.002171269471733157
+      },
+      "change": {
+        "rows": 4,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.3922542504586425e-06,
+        "matched_excess_equal_date": 5.532111892027694e-07
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_0_to_25pct",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 5443,
+        "tickers": 1312,
+        "dates": 212,
+        "gross_mean_equal_date": -0.0003473438342661002,
+        "matched_excess_equal_date": -0.0005384828250828979,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002433468055603807,
+            0.0014238820146390385
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0003473438342661002,
+          "10": -0.0013473438342661002,
+          "25": -0.0028473438342661002,
+          "50": -0.005347343834266101
+        },
+        "gross_winsor01_equal_date": -0.00039357400294218783,
+        "matched_excess_winsor01_equal_date": -0.000608912681570085
+      },
+      "after_mrcy_included": {
+        "rows": 5451,
+        "tickers": 1313,
+        "dates": 212,
+        "gross_mean_equal_date": -0.000343176504516275,
+        "matched_excess_equal_date": -0.0005293463496904247,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0024300407687145396,
+            0.0014264168674175
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.000343176504516275,
+          "10": -0.001343176504516275,
+          "25": -0.002843176504516275,
+          "50": -0.005343176504516275
+        },
+        "gross_winsor01_equal_date": -0.0003843379598648647,
+        "matched_excess_winsor01_equal_date": -0.0005969594796231969
+      },
+      "change": {
+        "rows": 8,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 4.167329749825226e-06,
+        "matched_excess_equal_date": 9.136475392473192e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_gt25pct",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 4029,
+        "tickers": 1192,
+        "dates": 578,
+        "gross_mean_equal_date": -0.00017408397491728463,
+        "matched_excess_equal_date": -0.00042509730834265494,
+        "matched_excess_bootstrap": {
+          "weeks": 199,
+          "ci95": [
+            -0.00336533356760542,
+            0.0026954760908867595
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00017408397491728463,
+          "10": -0.0011740839749172847,
+          "25": -0.0026740839749172848,
+          "50": -0.005174083974917284
+        },
+        "gross_winsor01_equal_date": -0.0008250124247894139,
+        "matched_excess_winsor01_equal_date": -0.0009459015323270658
+      },
+      "after_mrcy_included": {
+        "rows": 4029,
+        "tickers": 1192,
+        "dates": 578,
+        "gross_mean_equal_date": -0.00017408397491728463,
+        "matched_excess_equal_date": -0.0004286177606949755,
+        "matched_excess_bootstrap": {
+          "weeks": 199,
+          "ci95": [
+            -0.003378333645537229,
+            0.0026908730614027595
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00017408397491728463,
+          "10": -0.0011740839749172847,
+          "25": -0.0026740839749172848,
+          "50": -0.005174083974917284
+        },
+        "gross_winsor01_equal_date": -0.0008250124247894139,
+        "matched_excess_winsor01_equal_date": -0.000952463483826118
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -3.5204523523205524e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_gt25pct",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 1366,
+        "tickers": 700,
+        "dates": 259,
+        "gross_mean_equal_date": 0.0021519456963843414,
+        "matched_excess_equal_date": 0.0022756727361624455,
+        "matched_excess_bootstrap": {
+          "weeks": 106,
+          "ci95": [
+            -0.0029183165203586366,
+            0.0075493174660841616
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0021519456963843414,
+          "10": 0.0011519456963843414,
+          "25": -0.00034805430361565864,
+          "50": -0.0028480543036156587
+        },
+        "gross_winsor01_equal_date": 0.0009159184382648927,
+        "matched_excess_winsor01_equal_date": 0.0009927033667890355
+      },
+      "after_mrcy_included": {
+        "rows": 1366,
+        "tickers": 700,
+        "dates": 259,
+        "gross_mean_equal_date": 0.0021519456963843414,
+        "matched_excess_equal_date": 0.002262508769830867,
+        "matched_excess_bootstrap": {
+          "weeks": 106,
+          "ci95": [
+            -0.0029479344330804284,
+            0.007524759454227478
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0021519456963843414,
+          "10": 0.0011519456963843414,
+          "25": -0.00034805430361565864,
+          "50": -0.0028480543036156587
+        },
+        "gross_winsor01_equal_date": 0.0009159184382648927,
+        "matched_excess_winsor01_equal_date": 0.0009781093130349684
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -1.3163966331578621e-05
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_gt25pct",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 926,
+        "tickers": 642,
+        "dates": 152,
+        "gross_mean_equal_date": -0.0009438880139456236,
+        "matched_excess_equal_date": -0.0021115564488252882,
+        "matched_excess_bootstrap": {
+          "weeks": 50,
+          "ci95": [
+            -0.007042282320877548,
+            0.0032705262763588734
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0009438880139456236,
+          "10": -0.0019438880139456237,
+          "25": -0.0034438880139456237,
+          "50": -0.005943888013945624
+        },
+        "gross_winsor01_equal_date": -0.0018107872434446502,
+        "matched_excess_winsor01_equal_date": -0.002591231245148542
+      },
+      "after_mrcy_included": {
+        "rows": 926,
+        "tickers": 642,
+        "dates": 152,
+        "gross_mean_equal_date": -0.0009438880139456236,
+        "matched_excess_equal_date": -0.0021102600883781656,
+        "matched_excess_bootstrap": {
+          "weeks": 50,
+          "ci95": [
+            -0.007035701404838961,
+            0.0032720573104696622
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0009438880139456236,
+          "10": -0.0019438880139456237,
+          "25": -0.0034438880139456237,
+          "50": -0.005943888013945624
+        },
+        "gross_winsor01_equal_date": -0.0018107872434446502,
+        "matched_excess_winsor01_equal_date": -0.0025902417156171346
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 1.296360447122693e-06
+      }
+    },
+    {
+      "cohort": "shock_2pct_recovery_gt25pct",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 1737,
+        "tickers": 714,
+        "dates": 167,
+        "gross_mean_equal_date": -0.0030808592499760486,
+        "matched_excess_equal_date": -0.00307873594411188,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.008182572639333455,
+            0.002426490500300101
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0030808592499760486,
+          "10": -0.004080859249976049,
+          "25": -0.005580859249976049,
+          "50": -0.00808085924997605
+        },
+        "gross_winsor01_equal_date": -0.0024779249233838818,
+        "matched_excess_winsor01_equal_date": -0.0026030082998535157
+      },
+      "after_mrcy_included": {
+        "rows": 1737,
+        "tickers": 714,
+        "dates": 167,
+        "gross_mean_equal_date": -0.0030808592499760486,
+        "matched_excess_equal_date": -0.003071684452900654,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.008182030033269134,
+            0.002439198111758531
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0030808592499760486,
+          "10": -0.004080859249976049,
+          "25": -0.005580859249976049,
+          "50": -0.00808085924997605
+        },
+        "gross_winsor01_equal_date": -0.0024779249233838818,
+        "matched_excess_winsor01_equal_date": -0.002599000168795122
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 7.0514912112258805e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252high",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 115854,
+        "tickers": 1615,
+        "dates": 1004,
+        "gross_mean_equal_date": 5.444993245665183e-06,
+        "matched_excess_equal_date": -1.613525226075687e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.000322389698496887,
+            0.0002858459196313546
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 5.444993245665183e-06,
+          "10": -0.0009945550067543348,
+          "25": -0.002494555006754335,
+          "50": -0.004994555006754335
+        },
+        "gross_winsor01_equal_date": -2.764356541397641e-05,
+        "matched_excess_winsor01_equal_date": -5.880767912121616e-05
+      },
+      "after_mrcy_included": {
+        "rows": 115896,
+        "tickers": 1616,
+        "dates": 1004,
+        "gross_mean_equal_date": 4.67955546091081e-06,
+        "matched_excess_equal_date": -1.629980816025738e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0003228352228823458,
+            0.0002863970094022709
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 4.67955546091081e-06,
+          "10": -0.0009953204445390892,
+          "25": -0.0024953204445390892,
+          "50": -0.00499532044453909
+        },
+        "gross_winsor01_equal_date": -2.8517493745582022e-05,
+        "matched_excess_winsor01_equal_date": -5.9422882717312766e-05
+      },
+      "change": {
+        "rows": 42,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -7.654377847543728e-07,
+        "matched_excess_equal_date": -1.6455589950051122e-07
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252high",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 66111,
+        "tickers": 1388,
+        "dates": 543,
+        "gross_mean_equal_date": 2.952910177366475e-05,
+        "matched_excess_equal_date": -4.522525680630984e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.0004041502300345797,
+            0.000327384205001642
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 2.952910177366475e-05,
+          "10": -0.0009704708982263353,
+          "25": -0.002470470898226335,
+          "50": -0.004970470898226336
+        },
+        "gross_winsor01_equal_date": -8.527751502117647e-06,
+        "matched_excess_winsor01_equal_date": -7.955866690795434e-05
+      },
+      "after_mrcy_included": {
+        "rows": 66115,
+        "tickers": 1389,
+        "dates": 543,
+        "gross_mean_equal_date": 2.935133178015185e-05,
+        "matched_excess_equal_date": -4.381707359660902e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.00040234907329567577,
+            0.0003282531807018587
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 2.935133178015185e-05,
+          "10": -0.0009706486682198482,
+          "25": -0.002470648668219848,
+          "50": -0.004970648668219849
+        },
+        "gross_winsor01_equal_date": -8.725059025857527e-06,
+        "matched_excess_winsor01_equal_date": -7.828351843137125e-05
+      },
+      "change": {
+        "rows": 4,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -1.7776999351290144e-07,
+        "matched_excess_equal_date": 1.4081832097008189e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252high",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 24690,
+        "tickers": 1087,
+        "dates": 247,
+        "gross_mean_equal_date": 0.00014843692292210273,
+        "matched_excess_equal_date": 0.00020819533837029814,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.00031252993786702696,
+            0.0007427516393037225
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00014843692292210273,
+          "10": -0.0008515630770778973,
+          "25": -0.002351563077077897,
+          "50": -0.004851563077077898
+        },
+        "gross_winsor01_equal_date": 0.00012696874891184704,
+        "matched_excess_winsor01_equal_date": 0.0001801253909682118
+      },
+      "after_mrcy_included": {
+        "rows": 24711,
+        "tickers": 1088,
+        "dates": 247,
+        "gross_mean_equal_date": 0.00014598759881688308,
+        "matched_excess_equal_date": 0.00020483638541310292,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0003150644143573474,
+            0.0007401654066082788
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00014598759881688308,
+          "10": -0.0008540124011831169,
+          "25": -0.002354012401183117,
+          "50": -0.004854012401183117
+        },
+        "gross_winsor01_equal_date": 0.0001242777657506849,
+        "matched_excess_winsor01_equal_date": 0.00017598412205352155
+      },
+      "change": {
+        "rows": 21,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -2.4493241052196484e-06,
+        "matched_excess_equal_date": -3.3589529571952147e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252high",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 25053,
+        "tickers": 1259,
+        "dates": 214,
+        "gross_mean_equal_date": -0.00022070770563650246,
+        "matched_excess_equal_date": -0.00020124638972634273,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0010491301856677474,
+            0.0006907718712188052
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00022070770563650246,
+          "10": -0.0012207077056365025,
+          "25": -0.0027207077056365025,
+          "50": -0.005220707705636502
+        },
+        "gross_winsor01_equal_date": -0.0002802888445127354,
+        "matched_excess_winsor01_equal_date": -0.00026516871527149745
+      },
+      "after_mrcy_included": {
+        "rows": 25070,
+        "tickers": 1260,
+        "dates": 214,
+        "gross_mean_equal_date": -0.00022102073075531834,
+        "matched_excess_equal_date": -0.00020171459638773884,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0010469022483875156,
+            0.0006967540085979903
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00022102073075531834,
+          "10": -0.0012210207307553184,
+          "25": -0.0027210207307553184,
+          "50": -0.005221020730755318
+        },
+        "gross_winsor01_equal_date": -0.0002804704801052129,
+        "matched_excess_winsor01_equal_date": -0.0002651099817386351
+      },
+      "change": {
+        "rows": 17,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -3.130251188158766e-07,
+        "matched_excess_equal_date": -4.6820666139610854e-07
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 108602,
+        "tickers": 1681,
+        "dates": 1007,
+        "gross_mean_equal_date": 0.00045273879164738686,
+        "matched_excess_equal_date": 0.00018148472514372982,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0003231884906221242,
+            0.0007229801472536164
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00045273879164738686,
+          "10": -0.0005472612083526132,
+          "25": -0.0020472612083526132,
+          "50": -0.004547261208352613
+        },
+        "gross_winsor01_equal_date": 0.00039716544250958447,
+        "matched_excess_winsor01_equal_date": 5.14868097155263e-05
+      },
+      "after_mrcy_included": {
+        "rows": 108712,
+        "tickers": 1682,
+        "dates": 1007,
+        "gross_mean_equal_date": 0.00045503856674940116,
+        "matched_excess_equal_date": 0.0001838045934403655,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0003226685479545628,
+            0.0007261010693550778
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00045503856674940116,
+          "10": -0.0005449614332505989,
+          "25": -0.002044961433250599,
+          "50": -0.004544961433250599
+        },
+        "gross_winsor01_equal_date": 0.0003991501225904519,
+        "matched_excess_winsor01_equal_date": 5.3628351502132565e-05
+      },
+      "change": {
+        "rows": 110,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.2997751020142963e-06,
+        "matched_excess_equal_date": 2.3198682966356853e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 50275,
+        "tickers": 1500,
+        "dates": 544,
+        "gross_mean_equal_date": 0.0006605310754312307,
+        "matched_excess_equal_date": 0.00045486882876197624,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.00022560842851439514,
+            0.0011389642639766792
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0006605310754312307,
+          "10": -0.0003394689245687693,
+          "25": -0.0018394689245687693,
+          "50": -0.00433946892456877
+        },
+        "gross_winsor01_equal_date": 0.0005132968032309247,
+        "matched_excess_winsor01_equal_date": 0.0002779142314954931
+      },
+      "after_mrcy_included": {
+        "rows": 50333,
+        "tickers": 1501,
+        "dates": 544,
+        "gross_mean_equal_date": 0.0006656484047554153,
+        "matched_excess_equal_date": 0.00045983411066597866,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.0002147188104632149,
+            0.0011473140276531436
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0006656484047554153,
+          "10": -0.0003343515952445847,
+          "25": -0.0018343515952445846,
+          "50": -0.004334351595244585
+        },
+        "gross_winsor01_equal_date": 0.0005195933337013055,
+        "matched_excess_winsor01_equal_date": 0.00028043073756871587
+      },
+      "change": {
+        "rows": 58,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 5.11732932418458e-06,
+        "matched_excess_equal_date": 4.965281904002424e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 27266,
+        "tickers": 1587,
+        "dates": 249,
+        "gross_mean_equal_date": 0.0007270088621506209,
+        "matched_excess_equal_date": 0.00028592822092000973,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0007327153285129757,
+            0.0015216162622968261
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007270088621506209,
+          "10": -0.00027299113784937914,
+          "25": -0.0017729911378493793,
+          "50": -0.004272991137849379
+        },
+        "gross_winsor01_equal_date": 0.0007590078753874358,
+        "matched_excess_winsor01_equal_date": 0.00014438729416313946
+      },
+      "after_mrcy_included": {
+        "rows": 27284,
+        "tickers": 1588,
+        "dates": 249,
+        "gross_mean_equal_date": 0.0007242027288423879,
+        "matched_excess_equal_date": 0.0002828466285731385,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0007282181356554342,
+            0.001512293874598698
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0007242027288423879,
+          "10": -0.00027579727115761214,
+          "25": -0.0017757972711576122,
+          "50": -0.0042757972711576124
+        },
+        "gross_winsor01_equal_date": 0.0007565292382529402,
+        "matched_excess_winsor01_equal_date": 0.00014214206260209877
+      },
+      "change": {
+        "rows": 18,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -2.806133308232996e-06,
+        "matched_excess_equal_date": -3.0815923468712533e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 31061,
+        "tickers": 1662,
+        "dates": 214,
+        "gross_mean_equal_date": -0.00039460817065969966,
+        "matched_excess_equal_date": -0.0006349983721301939,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0018074011130950916,
+            0.000680154988075039
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00039460817065969966,
+          "10": -0.0013946081706596998,
+          "25": -0.0028946081706597,
+          "50": -0.0053946081706596994
+        },
+        "gross_winsor01_equal_date": -0.0004188984509845033,
+        "matched_excess_winsor01_equal_date": -0.0006708419284420762
+      },
+      "after_mrcy_included": {
+        "rows": 31095,
+        "tickers": 1663,
+        "dates": 214,
+        "gross_mean_equal_date": -0.00039352978949557736,
+        "matched_excess_equal_date": -0.0006331184164605411,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0018021397108561562,
+            0.000688757755164149
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00039352978949557736,
+          "10": -0.0013935297894955773,
+          "25": -0.0028935297894955776,
+          "50": -0.005393529789495578
+        },
+        "gross_winsor01_equal_date": -0.0004166332452658269,
+        "matched_excess_winsor01_equal_date": -0.000667196777616584
+      },
+      "change": {
+        "rows": 34,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.0783811641222976e-06,
+        "matched_excess_equal_date": 1.879955669652775e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct_close_near252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 7542,
+        "tickers": 1221,
+        "dates": 808,
+        "gross_mean_equal_date": 0.00022043220045616505,
+        "matched_excess_equal_date": -0.0002228497390150502,
+        "matched_excess_bootstrap": {
+          "weeks": 208,
+          "ci95": [
+            -0.001222431912071331,
+            0.0007590698411669652
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00022043220045616505,
+          "10": -0.000779567799543835,
+          "25": -0.002279567799543835,
+          "50": -0.004779567799543835
+        },
+        "gross_winsor01_equal_date": 0.00031383348953902836,
+        "matched_excess_winsor01_equal_date": -0.000317070235530436
+      },
+      "after_mrcy_included": {
+        "rows": 7543,
+        "tickers": 1222,
+        "dates": 808,
+        "gross_mean_equal_date": 0.00022546632062451876,
+        "matched_excess_equal_date": -0.00021961973874239682,
+        "matched_excess_bootstrap": {
+          "weeks": 208,
+          "ci95": [
+            -0.0012232130503883846,
+            0.0007659551209927341
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00022546632062451876,
+          "10": -0.0007745336793754812,
+          "25": -0.0022745336793754812,
+          "50": -0.004774533679375481
+        },
+        "gross_winsor01_equal_date": 0.0003188378595911468,
+        "matched_excess_winsor01_equal_date": -0.00031366906518555545
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 5.034120168353708e-06,
+        "matched_excess_equal_date": 3.2300002726533814e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct_close_near252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 3233,
+        "tickers": 731,
+        "dates": 408,
+        "gross_mean_equal_date": 0.00017594342999569727,
+        "matched_excess_equal_date": -0.00027983809570342264,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.0015884259195802681,
+            0.0011101871902106373
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00017594342999569727,
+          "10": -0.0008240565700043027,
+          "25": -0.002324056570004303,
+          "50": -0.004824056570004303
+        },
+        "gross_winsor01_equal_date": 7.528717697326073e-06,
+        "matched_excess_winsor01_equal_date": -0.00045848283504755825
+      },
+      "after_mrcy_included": {
+        "rows": 3233,
+        "tickers": 731,
+        "dates": 408,
+        "gross_mean_equal_date": 0.00017594342999569727,
+        "matched_excess_equal_date": -0.0002796277788319193,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.0015868848843247462,
+            0.001109210531228256
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00017594342999569727,
+          "10": -0.0008240565700043027,
+          "25": -0.002324056570004303,
+          "50": -0.004824056570004303
+        },
+        "gross_winsor01_equal_date": 7.528717697326073e-06,
+        "matched_excess_winsor01_equal_date": -0.0004584241247306484
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 2.1031687150331992e-07
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct_close_near252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 2074,
+        "tickers": 668,
+        "dates": 198,
+        "gross_mean_equal_date": 0.0011210094459378572,
+        "matched_excess_equal_date": 0.000438139516232348,
+        "matched_excess_bootstrap": {
+          "weeks": 52,
+          "ci95": [
+            -0.0016379368447936343,
+            0.0023868661830294667
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0011210094459378572,
+          "10": 0.00012100944593785722,
+          "25": -0.0013789905540621428,
+          "50": -0.003878990554062143
+        },
+        "gross_winsor01_equal_date": 0.0011828356006299205,
+        "matched_excess_winsor01_equal_date": 0.0003513827517406129
+      },
+      "after_mrcy_included": {
+        "rows": 2074,
+        "tickers": 668,
+        "dates": 198,
+        "gross_mean_equal_date": 0.0011210094459378572,
+        "matched_excess_equal_date": 0.0004290900700133112,
+        "matched_excess_bootstrap": {
+          "weeks": 52,
+          "ci95": [
+            -0.0016382414895682448,
+            0.002381133840797369
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0011210094459378572,
+          "10": 0.00012100944593785722,
+          "25": -0.0013789905540621428,
+          "50": -0.003878990554062143
+        },
+        "gross_winsor01_equal_date": 0.0011828356006299205,
+        "matched_excess_winsor01_equal_date": 0.0003425694067560519
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -9.049446219036778e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_1pct_close_near252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 2235,
+        "tickers": 590,
+        "dates": 202,
+        "gross_mean_equal_date": -0.0005724533255710841,
+        "matched_excess_equal_date": -0.0007556449024315299,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002931366000976852,
+            0.001479337559658225
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0005724533255710841,
+          "10": -0.0015724533255710841,
+          "25": -0.003072453325571084,
+          "50": -0.005572453325571084
+        },
+        "gross_winsor01_equal_date": -0.0005329554203246177,
+        "matched_excess_winsor01_equal_date": -0.000793351806442676
+      },
+      "after_mrcy_included": {
+        "rows": 2236,
+        "tickers": 591,
+        "dates": 202,
+        "gross_mean_equal_date": -0.0005523168448976692,
+        "matched_excess_equal_date": -0.000734279450510243,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002920108075799391,
+            0.001499888981926082
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0005523168448976692,
+          "10": -0.0015523168448976692,
+          "25": -0.0030523168448976694,
+          "50": -0.005552316844897669
+        },
+        "gross_winsor01_equal_date": -0.0005131272502068276,
+        "matched_excess_winsor01_equal_date": -0.0007724702571795005
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.0136480673414942e-05,
+        "matched_excess_equal_date": 2.136545192128682e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 14645,
+        "tickers": 1504,
+        "dates": 927,
+        "gross_mean_equal_date": -0.00038654728462314807,
+        "matched_excess_equal_date": -0.0006966846424234876,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0023127265405631084,
+            0.0011208820149717922
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00038654728462314807,
+          "10": -0.001386547284623148,
+          "25": -0.002886547284623148,
+          "50": -0.005386547284623148
+        },
+        "gross_winsor01_equal_date": -0.0006710733228974361,
+        "matched_excess_winsor01_equal_date": -0.0012735391592703061
+      },
+      "after_mrcy_included": {
+        "rows": 14663,
+        "tickers": 1505,
+        "dates": 927,
+        "gross_mean_equal_date": -0.0003651956081068218,
+        "matched_excess_equal_date": -0.0006761367348343414,
+        "matched_excess_bootstrap": {
+          "weeks": 210,
+          "ci95": [
+            -0.0022941789121490542,
+            0.0011499098916623294
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0003651956081068218,
+          "10": -0.0013651956081068219,
+          "25": -0.002865195608106822,
+          "50": -0.0053651956081068215
+        },
+        "gross_winsor01_equal_date": -0.0006496088541348382,
+        "matched_excess_winsor01_equal_date": -0.0012523564797706215
+      },
+      "change": {
+        "rows": 18,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.135167651632627e-05,
+        "matched_excess_equal_date": 2.054790758914619e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 5366,
+        "tickers": 1053,
+        "dates": 480,
+        "gross_mean_equal_date": 0.0004222646867952012,
+        "matched_excess_equal_date": 0.0001628150049219323,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.002553995306271282,
+            0.0032571276478743968
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0004222646867952012,
+          "10": -0.0005777353132047988,
+          "25": -0.0020777353132047987,
+          "50": -0.004577735313204799
+        },
+        "gross_winsor01_equal_date": -0.0006234485683332206,
+        "matched_excess_winsor01_equal_date": -0.0010720147786817747
+      },
+      "after_mrcy_included": {
+        "rows": 5371,
+        "tickers": 1054,
+        "dates": 480,
+        "gross_mean_equal_date": 0.00043279855633197064,
+        "matched_excess_equal_date": 0.0001768536524353131,
+        "matched_excess_bootstrap": {
+          "weeks": 114,
+          "ci95": [
+            -0.0025415197221014935,
+            0.003244951545592364
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.00043279855633197064,
+          "10": -0.0005672014436680294,
+          "25": -0.0020672014436680292,
+          "50": -0.004567201443668029
+        },
+        "gross_winsor01_equal_date": -0.0006130801438511707,
+        "matched_excess_winsor01_equal_date": -0.001057064721980544
+      },
+      "change": {
+        "rows": 5,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.0533869536769427e-05,
+        "matched_excess_equal_date": 1.4038647513380794e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 4017,
+        "tickers": 1257,
+        "dates": 237,
+        "gross_mean_equal_date": -0.0016883482370495496,
+        "matched_excess_equal_date": -0.002315748850221905,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.005073306741568139,
+            0.0004668523870218798
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016883482370495496,
+          "10": -0.0026883482370495494,
+          "25": -0.00418834823704955,
+          "50": -0.0066883482370495495
+        },
+        "gross_winsor01_equal_date": -0.0012308992756551386,
+        "matched_excess_winsor01_equal_date": -0.002091601574840291
+      },
+      "after_mrcy_included": {
+        "rows": 4021,
+        "tickers": 1258,
+        "dates": 237,
+        "gross_mean_equal_date": -0.0016082936102861573,
+        "matched_excess_equal_date": -0.002251245539186357,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.005025674257065117,
+            0.0005044223354838986
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0016082936102861573,
+          "10": -0.0026082936102861574,
+          "25": -0.004108293610286157,
+          "50": -0.006608293610286158
+        },
+        "gross_winsor01_equal_date": -0.0011504359687229907,
+        "matched_excess_winsor01_equal_date": -0.0020257812333757765
+      },
+      "change": {
+        "rows": 4,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 8.005462676339225e-05,
+        "matched_excess_equal_date": 6.450331103554805e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 5262,
+        "tickers": 1075,
+        "dates": 210,
+        "gross_mean_equal_date": -0.0007660850015552941,
+        "matched_excess_equal_date": -0.0008340256589833752,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0028244375144383664,
+            0.001306739553650314
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0007660850015552941,
+          "10": -0.0017660850015552942,
+          "25": -0.0032660850015552943,
+          "50": -0.005766085001555294
+        },
+        "gross_winsor01_equal_date": -0.0009123789534808457,
+        "matched_excess_winsor01_equal_date": -0.0010265761904246862
+      },
+      "after_mrcy_included": {
+        "rows": 5271,
+        "tickers": 1076,
+        "dates": 210,
+        "gross_mean_equal_date": -0.0007862573815073829,
+        "matched_excess_equal_date": -0.0008482062551105626,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0028214737798333274,
+            0.0012643430630342335
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0007862573815073829,
+          "10": -0.0017862573815073828,
+          "25": -0.003286257381507383,
+          "50": -0.005786257381507383
+        },
+        "gross_winsor01_equal_date": -0.0009333691731814261,
+        "matched_excess_winsor01_equal_date": -0.001043400031145601
+      },
+      "change": {
+        "rows": 9,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": -2.017237995208883e-05,
+        "matched_excess_equal_date": -1.4180596127187357e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct_close_near252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 1392,
+        "tickers": 713,
+        "dates": 414,
+        "gross_mean_equal_date": -0.0021387813192740887,
+        "matched_excess_equal_date": -0.003123459026870541,
+        "matched_excess_bootstrap": {
+          "weeks": 170,
+          "ci95": [
+            -0.00578167284669332,
+            -0.0005863000491766752
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0021387813192740887,
+          "10": -0.0031387813192740887,
+          "25": -0.004638781319274089,
+          "50": -0.007138781319274088
+        },
+        "gross_winsor01_equal_date": -0.0017850537486640253,
+        "matched_excess_winsor01_equal_date": -0.0029477251089139477
+      },
+      "after_mrcy_included": {
+        "rows": 1393,
+        "tickers": 714,
+        "dates": 414,
+        "gross_mean_equal_date": -0.0021267132878827633,
+        "matched_excess_equal_date": -0.0031124569669530176,
+        "matched_excess_bootstrap": {
+          "weeks": 170,
+          "ci95": [
+            -0.005762555524552036,
+            -0.0005747701944502918
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0021267132878827633,
+          "10": -0.0031267132878827633,
+          "25": -0.004626713287882764,
+          "50": -0.007126713287882763
+        },
+        "gross_winsor01_equal_date": -0.0017728727173068792,
+        "matched_excess_winsor01_equal_date": -0.0029333898709520824
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.2068031391325364e-05,
+        "matched_excess_equal_date": 1.1002059917523174e-05
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct_close_near252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 505,
+        "tickers": 289,
+        "dates": 188,
+        "gross_mean_equal_date": -0.006224867550562029,
+        "matched_excess_equal_date": -0.00619954219313475,
+        "matched_excess_bootstrap": {
+          "weeks": 87,
+          "ci95": [
+            -0.009885812690928386,
+            -0.002451136858117913
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.006224867550562029,
+          "10": -0.007224867550562029,
+          "25": -0.008724867550562029,
+          "50": -0.01122486755056203
+        },
+        "gross_winsor01_equal_date": -0.006061191285636402,
+        "matched_excess_winsor01_equal_date": -0.00619677624174588
+      },
+      "after_mrcy_included": {
+        "rows": 505,
+        "tickers": 289,
+        "dates": 188,
+        "gross_mean_equal_date": -0.006224867550562029,
+        "matched_excess_equal_date": -0.006194481296462757,
+        "matched_excess_bootstrap": {
+          "weeks": 87,
+          "ci95": [
+            -0.00988257259769463,
+            -0.002442563709193191
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.006224867550562029,
+          "10": -0.007224867550562029,
+          "25": -0.008724867550562029,
+          "50": -0.01122486755056203
+        },
+        "gross_winsor01_equal_date": -0.006061191285636402,
+        "matched_excess_winsor01_equal_date": -0.006193124522352051
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 5.06089667199304e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct_close_near252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 473,
+        "tickers": 344,
+        "dates": 103,
+        "gross_mean_equal_date": 0.000502162427744332,
+        "matched_excess_equal_date": -0.0010882181028693458,
+        "matched_excess_bootstrap": {
+          "weeks": 42,
+          "ci95": [
+            -0.005392875084335045,
+            0.003195808293736525
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.000502162427744332,
+          "10": -0.000497837572255668,
+          "25": -0.001997837572255668,
+          "50": -0.004497837572255668
+        },
+        "gross_winsor01_equal_date": 0.0005236850810700665,
+        "matched_excess_winsor01_equal_date": -0.0011610323091506088
+      },
+      "after_mrcy_included": {
+        "rows": 473,
+        "tickers": 344,
+        "dates": 103,
+        "gross_mean_equal_date": 0.000502162427744332,
+        "matched_excess_equal_date": -0.0010943334530174667,
+        "matched_excess_bootstrap": {
+          "weeks": 42,
+          "ci95": [
+            -0.005391682798329589,
+            0.003187436973206108
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.000502162427744332,
+          "10": -0.000497837572255668,
+          "25": -0.001997837572255668,
+          "50": -0.004497837572255668
+        },
+        "gross_winsor01_equal_date": 0.0005236850810700665,
+        "matched_excess_winsor01_equal_date": -0.001166539747023705
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -6.115350148120898e-06
+      }
+    },
+    {
+      "cohort": "secondary_shock_3pct_close_near252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 414,
+        "tickers": 248,
+        "dates": 123,
+        "gross_mean_equal_date": 0.0018950967745408338,
+        "matched_excess_equal_date": -0.00012611089609372456,
+        "matched_excess_bootstrap": {
+          "weeks": 41,
+          "ci95": [
+            -0.005007282935653559,
+            0.005005794126130273
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0018950967745408338,
+          "10": 0.0008950967745408338,
+          "25": -0.0006049032254591663,
+          "50": -0.003104903225459166
+        },
+        "gross_winsor01_equal_date": 0.002436843612698776,
+        "matched_excess_winsor01_equal_date": 0.00041256382821837595
+      },
+      "after_mrcy_included": {
+        "rows": 415,
+        "tickers": 249,
+        "dates": 123,
+        "gross_mean_equal_date": 0.001935716002150662,
+        "matched_excess_equal_date": -9.169394246139863e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 41,
+          "ci95": [
+            -0.004995820829508127,
+            0.005042973879043912
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.001935716002150662,
+          "10": 0.0009357160021506619,
+          "25": -0.0005642839978493382,
+          "50": -0.003064283997849338
+        },
+        "gross_winsor01_equal_date": 0.002477942451419886,
+        "matched_excess_winsor01_equal_date": 0.0004480108781833849
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 4.0619227609828105e-05,
+        "matched_excess_equal_date": 3.441695363232593e-05
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 27258,
+        "tickers": 1322,
+        "dates": 993,
+        "gross_mean_equal_date": -0.00014095386041471203,
+        "matched_excess_equal_date": -0.000453799588974584,
+        "matched_excess_bootstrap": {
+          "weeks": 209,
+          "ci95": [
+            -0.0010114330577111227,
+            0.00011810274326729507
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00014095386041471203,
+          "10": -0.001140953860414712,
+          "25": -0.0026409538604147123,
+          "50": -0.005140953860414712
+        },
+        "gross_winsor01_equal_date": -2.2840792981613118e-05,
+        "matched_excess_winsor01_equal_date": -0.00042459557557467
+      },
+      "after_mrcy_included": {
+        "rows": 27259,
+        "tickers": 1323,
+        "dates": 993,
+        "gross_mean_equal_date": -0.00013820330834944447,
+        "matched_excess_equal_date": -0.0004497156442535167,
+        "matched_excess_bootstrap": {
+          "weeks": 209,
+          "ci95": [
+            -0.0010070263615177117,
+            0.00012106824410566006
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00013820330834944447,
+          "10": -0.0011382033083494445,
+          "25": -0.0026382033083494445,
+          "50": -0.005138203308349445
+        },
+        "gross_winsor01_equal_date": -2.0341609963562536e-05,
+        "matched_excess_winsor01_equal_date": -0.0004201902534940032
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 2.7505520652675638e-06,
+        "matched_excess_equal_date": 4.08394472106732e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 11968,
+        "tickers": 833,
+        "dates": 532,
+        "gross_mean_equal_date": -0.0003328060782041544,
+        "matched_excess_equal_date": -0.0005101654637284633,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.0012779032068488175,
+            0.00031144557693623705
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0003328060782041544,
+          "10": -0.0013328060782041545,
+          "25": -0.0028328060782041543,
+          "50": -0.005332806078204155
+        },
+        "gross_winsor01_equal_date": -0.0002905655745134914,
+        "matched_excess_winsor01_equal_date": -0.0004630246574579789
+      },
+      "after_mrcy_included": {
+        "rows": 11968,
+        "tickers": 833,
+        "dates": 532,
+        "gross_mean_equal_date": -0.0003328060782041544,
+        "matched_excess_equal_date": -0.0005093998241183934,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.0012742571824322468,
+            0.00031254067467821286
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0003328060782041544,
+          "10": -0.0013328060782041545,
+          "25": -0.0028328060782041543,
+          "50": -0.005332806078204155
+        },
+        "gross_winsor01_equal_date": -0.0002905655745134914,
+        "matched_excess_winsor01_equal_date": -0.0004609277171071303
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 7.656396100698881e-07
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 7672,
+        "tickers": 777,
+        "dates": 247,
+        "gross_mean_equal_date": 0.0005982004635575282,
+        "matched_excess_equal_date": -6.652341878121973e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0011235691362740015,
+            0.0008509100671843419
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005982004635575282,
+          "10": -0.0004017995364424718,
+          "25": -0.0019017995364424718,
+          "50": -0.004401799536442472
+        },
+        "gross_winsor01_equal_date": 0.000667710228761634,
+        "matched_excess_winsor01_equal_date": -6.228321191091248e-05
+      },
+      "after_mrcy_included": {
+        "rows": 7672,
+        "tickers": 777,
+        "dates": 247,
+        "gross_mean_equal_date": 0.0005982004635575282,
+        "matched_excess_equal_date": -6.545329335303418e-05,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0011210782972593239,
+            0.0008558014814659161
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005982004635575282,
+          "10": -0.0004017995364424718,
+          "25": -0.0019017995364424718,
+          "50": -0.004401799536442472
+        },
+        "gross_winsor01_equal_date": 0.000667710228761634,
+        "matched_excess_winsor01_equal_date": -6.122110799810463e-05
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": 1.0701254281855532e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_close_near252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 7618,
+        "tickers": 684,
+        "dates": 214,
+        "gross_mean_equal_date": -0.0005171488985322823,
+        "matched_excess_equal_date": -0.0007606714051834498,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002234161998236835,
+            0.0006047915721052968
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0005171488985322823,
+          "10": -0.0015171488985322823,
+          "25": -0.0030171488985322823,
+          "50": -0.005517148898532283
+        },
+        "gross_winsor01_equal_date": -0.0004902877911551927,
+        "matched_excess_winsor01_equal_date": -0.0007400393204995234
+      },
+      "after_mrcy_included": {
+        "rows": 7619,
+        "tickers": 685,
+        "dates": 214,
+        "gross_mean_equal_date": -0.0005043858228275593,
+        "matched_excess_equal_date": -0.0007448596488530718,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.002206961202926666,
+            0.0006197116703421026
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0005043858228275593,
+          "10": -0.0015043858228275594,
+          "25": -0.0030043858228275596,
+          "50": -0.005504385822827559
+        },
+        "gross_winsor01_equal_date": -0.00047629472218678725,
+        "matched_excess_winsor01_equal_date": -0.0007243971633558096
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 1.2763075704722926e-05,
+        "matched_excess_equal_date": 1.5811756330378008e-05
+      }
+    },
+    {
+      "cohort": "all_eligible_new252low",
+      "era": "all",
+      "before_mrcy_excluded": {
+        "rows": 22715,
+        "tickers": 1378,
+        "dates": 983,
+        "gross_mean_equal_date": -0.00012593293248011232,
+        "matched_excess_equal_date": -0.0004773977084851313,
+        "matched_excess_bootstrap": {
+          "weeks": 209,
+          "ci95": [
+            -0.001237037122243908,
+            0.0003203142247595056
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00012593293248011232,
+          "10": -0.0011259329324801123,
+          "25": -0.0026259329324801123,
+          "50": -0.005125932932480113
+        },
+        "gross_winsor01_equal_date": -0.00015769975586768512,
+        "matched_excess_winsor01_equal_date": -0.0005875890913533846
+      },
+      "after_mrcy_included": {
+        "rows": 22719,
+        "tickers": 1379,
+        "dates": 983,
+        "gross_mean_equal_date": -0.00012235355854467228,
+        "matched_excess_equal_date": -0.0004712358733541241,
+        "matched_excess_bootstrap": {
+          "weeks": 209,
+          "ci95": [
+            -0.0012306731664790945,
+            0.0003263987720850577
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.00012235355854467228,
+          "10": -0.0011223535585446723,
+          "25": -0.0026223535585446723,
+          "50": -0.005122353558544672
+        },
+        "gross_winsor01_equal_date": -0.00015411802078526293,
+        "matched_excess_winsor01_equal_date": -0.0005796625577176216
+      },
+      "change": {
+        "rows": 4,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 3.5793739354400404e-06,
+        "matched_excess_equal_date": 6.161835131007179e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_new252low",
+      "era": "2022_2024",
+      "before_mrcy_excluded": {
+        "rows": 9088,
+        "tickers": 855,
+        "dates": 523,
+        "gross_mean_equal_date": -0.0007420864382198102,
+        "matched_excess_equal_date": -0.0009614633844971103,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.0021015969055240545,
+            0.00024073039060285424
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0007420864382198102,
+          "10": -0.0017420864382198102,
+          "25": -0.00324208643821981,
+          "50": -0.005742086438219811
+        },
+        "gross_winsor01_equal_date": -0.0009186196706002346,
+        "matched_excess_winsor01_equal_date": -0.0011655901393815248
+      },
+      "after_mrcy_included": {
+        "rows": 9091,
+        "tickers": 856,
+        "dates": 523,
+        "gross_mean_equal_date": -0.0007372376732544566,
+        "matched_excess_equal_date": -0.000953441870899106,
+        "matched_excess_bootstrap": {
+          "weeks": 113,
+          "ci95": [
+            -0.002099906750804098,
+            0.0002410304534716365
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": -0.0007372376732544566,
+          "10": -0.0017372376732544565,
+          "25": -0.0032372376732544565,
+          "50": -0.005737237673254457
+        },
+        "gross_winsor01_equal_date": -0.0009137540735949474,
+        "matched_excess_winsor01_equal_date": -0.0011579504430416399
+      },
+      "change": {
+        "rows": 3,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 4.848764965353653e-06,
+        "matched_excess_equal_date": 8.021513598004278e-06
+      }
+    },
+    {
+      "cohort": "all_eligible_new252low",
+      "era": "2025",
+      "before_mrcy_excluded": {
+        "rows": 7193,
+        "tickers": 888,
+        "dates": 246,
+        "gross_mean_equal_date": 0.0005258870645276623,
+        "matched_excess_equal_date": -0.000273649530307244,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.0014005389589941803,
+            0.0008275746205433706
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005258870645276623,
+          "10": -0.00047411293547233767,
+          "25": -0.0019741129354723377,
+          "50": -0.004474112935472337
+        },
+        "gross_winsor01_equal_date": 0.0005165448084270342,
+        "matched_excess_winsor01_equal_date": -0.0003322244268289929
+      },
+      "after_mrcy_included": {
+        "rows": 7193,
+        "tickers": 888,
+        "dates": 246,
+        "gross_mean_equal_date": 0.0005258870645276623,
+        "matched_excess_equal_date": -0.0002737043760974955,
+        "matched_excess_bootstrap": {
+          "weeks": 53,
+          "ci95": [
+            -0.001401327783938022,
+            0.000829266949197504
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0005258870645276623,
+          "10": -0.00047411293547233767,
+          "25": -0.0019741129354723377,
+          "50": -0.004474112935472337
+        },
+        "gross_winsor01_equal_date": 0.0005165448084270342,
+        "matched_excess_winsor01_equal_date": -0.0003322885077650265
+      },
+      "change": {
+        "rows": 0,
+        "tickers": 0,
+        "dates": 0,
+        "gross_mean_equal_date": 0.0,
+        "matched_excess_equal_date": -5.4845790251458e-08
+      }
+    },
+    {
+      "cohort": "all_eligible_new252low",
+      "era": "2026",
+      "before_mrcy_excluded": {
+        "rows": 6434,
+        "tickers": 701,
+        "dates": 214,
+        "gross_mean_equal_date": 0.0006306117602205858,
+        "matched_excess_equal_date": 0.0004714074163863864,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0011912314676967388,
+            0.0021342497545801405
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0006306117602205858,
+          "10": -0.0003693882397794142,
+          "25": -0.0018693882397794142,
+          "50": -0.004369388239779414
+        },
+        "gross_winsor01_equal_date": 0.0006228956399657697,
+        "matched_excess_winsor01_equal_date": 0.0004314429000670468
+      },
+      "after_mrcy_included": {
+        "rows": 6435,
+        "tickers": 702,
+        "dates": 214,
+        "gross_mean_equal_date": 0.0006352034448077707,
+        "matched_excess_equal_date": 0.000480170614453796,
+        "matched_excess_bootstrap": {
+          "weeks": 45,
+          "ci95": [
+            -0.0011844415919558611,
+            0.0021444925729123066
+          ],
+          "sparse": false
+        },
+        "net_mean_equal_date_by_roundtrip_bps": {
+          "0": 0.0006352034448077707,
+          "10": -0.00036479655519222934,
+          "25": -0.0018647965551922294,
+          "50": -0.00436479655519223
+        },
+        "gross_winsor01_equal_date": 0.0006291056413360725,
+        "matched_excess_winsor01_equal_date": 0.0004415074490803579
+      },
+      "change": {
+        "rows": 1,
+        "tickers": 1,
+        "dates": 0,
+        "gross_mean_equal_date": 4.5916845871848706e-06,
+        "matched_excess_equal_date": 8.763198067409598e-06
+      }
+    }
+  ]
+}
