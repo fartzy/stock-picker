@@ -1,0 +1,19 @@
+{
+  "events": 3908,
+  "tickers": 1300,
+  "entry_dates": 169,
+  "split_counts": {
+    "development": 2431,
+    "holdout": 1477
+  },
+  "first_entry": "2026-02-05",
+  "last_entry": "2026-10-08",
+  "exclusions": {
+    "adjustment_factor_change": 1901,
+    "cooldown": 5722,
+    "incomplete_or_invalid_window": 503,
+    "price_or_liquidity": 539
+  },
+  "minute_sample": 240,
+  "available_tickers": 2000
+}

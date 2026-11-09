@@ -60,6 +60,37 @@ class OvernightForecastRequest(BaseModel):
     exit_next_open_cost_per_share: float | None = None
 
 
+class JevAssessmentRequest(BaseModel):
+    ticker: str
+    kind: Literal["rank", "fit"]
+    mode: Literal["entry", "overnight"] = "entry"
+    entry_price: float | None = Field(default=None, gt=0, allow_inf_nan=False, strict=True)
+    round_trip_cost_per_share: float = Field(default=0, ge=0, allow_inf_nan=False, strict=True)
+    downside_fraction: float = Field(default=0.03, gt=0, lt=1, allow_inf_nan=False, strict=True)
+
+
+class JevForecastRecord(BaseModel):
+    id: str
+    schema_version: int
+    question_set_version: Literal["morning_v1", "entry_v1", "overnight_v1"]
+    ticker: str
+    session: str
+    kind: Literal["rank", "fit"]
+    list_rank: int
+    score: float | None
+    requested_at: str
+    completed_at: str
+    evidence_as_of: str
+    target: dict[str, object]
+    state: dict[str, object]
+    questions: dict[str, object]
+    answers: dict[str, float | None]
+    model: str | None
+    tokens: int | None
+    issue: str | None
+    coverage: dict[str, object]
+
+
 # ---- responses ----
 
 
@@ -495,6 +526,10 @@ class JevShadowScores(BaseModel):
     tokens: int | None = None
     issue: str | None = None
     asked_at: str | None = None
+    forecast_id: str | None = None
+    requested_at: str | None = None
+    completed_at: str | None = None
+    question_set_version: str = "morning_v1"
 
 
 class BuySignalRow(BaseModel):

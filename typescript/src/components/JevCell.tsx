@@ -9,7 +9,7 @@ function pct(value: number | null): string {
   return value === null ? "?" : `${Math.round(value * 100)}`;
 }
 
-/** Shadow Jev confidences as buy · hold · skip percentages. Display only. */
+/** Original open-based questions retain their meaning when entry moves later. */
 export default function JevCell({ scores }: { scores?: JevShadowScores | null }) {
   if (!scores) return <span className="muted">Not asked</span>;
   if (scores.issue) {
@@ -17,7 +17,7 @@ export default function JevCell({ scores }: { scores?: JevShadowScores | null })
     return <span className="muted" title={scores.issue}>{label}</span>;
   }
   return (
-    <span className="jev-cell" title={scores.model ?? undefined}>
+    <span className="jev-cell" title={`Close above morning open · next open above close · material news. Experimental probabilities. ${scores.model ?? ""}`}>
       {pct(scores.buy_today)} · {pct(scores.hold_overnight)} · {pct(scores.news_skip)}
     </span>
   );

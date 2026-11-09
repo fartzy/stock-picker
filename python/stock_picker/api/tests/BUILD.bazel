@@ -41,3 +41,17 @@ py_pytest(
         "@pypi//pandas",
     ],
 )
+
+py_pytest(
+    name = "test_jev_routes",
+    srcs = ["test_jev_routes.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/api",
+        "//python/stock_picker/paper",
+        "//python/stock_picker/storage",
+        "//python/stock_picker/training",
+        "@pypi//fastapi",
+        "@pypi//httpx",
+    ],
+)

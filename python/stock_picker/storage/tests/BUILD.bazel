@@ -127,3 +127,21 @@ py_pytest(
     imports = ["../../.."],
     deps = ["//python/stock_picker/storage"],
 )
+
+py_pytest(
+    name = "test_jev_forecast_store",
+    srcs = ["test_jev_forecast_store.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+    ],
+)
+
+py_pytest(
+    name = "test_jev_outcome_store",
+    srcs = ["test_jev_outcome_store.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/storage",
+    ],
+)

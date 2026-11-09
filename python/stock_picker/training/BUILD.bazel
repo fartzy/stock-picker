@@ -8,6 +8,7 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "training",
     srcs = [
+        "jev_assessment.py",
         "backtest.py",
         "buy_signal.py",
         "dataset.py",

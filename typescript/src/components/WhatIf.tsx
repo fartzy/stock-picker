@@ -510,16 +510,8 @@ function DayCard({
     const money = day[`${strategy}_money`];
     if (exitMode === "close") return money.pnl;
     const actualsForDay = actuals ?? EMPTY_OVERNIGHT_ACTUALS;
-    const held = selectOvernightExitRows(day[strategy], exitMode, custom[strategy]);
-    // The row arrow matches the card: up means the next open beat the close.
-    if (held.length > 0 && held.every((row) => {
-      const outcome = simulateOvernightHold(row, actualsForDay.get(row.ticker), tradeSizes[strategy], overnightPortion / 100);
-      return outcome.status === "observed" && outcome.incrementalPnl !== null;
-    })) {
-      return held.reduce((sum, row) => sum + simulateOvernightHold(
-        row, actualsForDay.get(row.ticker), tradeSizes[strategy], overnightPortion / 100,
-      ).incrementalPnl!, 0);
-    }
+    // Match the headline and trade details: purchase to the selected sale,
+    // including positions the rule sells at the close.
     return summarizeOvernightExit(day[strategy], actualsForDay,
       tradeSizes[strategy], money, overnightPortion / 100, exitMode, custom[strategy]).pnl;
   }

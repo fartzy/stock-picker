@@ -427,3 +427,15 @@ py_pytest(
         "//python/stock_picker/training",
     ],
 )
+
+py_pytest(
+    name = "test_jev_assessment",
+    srcs = ["test_jev_assessment.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/training",
+        "//python/stock_picker/storage",
+        "//python/stock_picker/ingestion",
+        "@pypi//pandas",
+    ],
+)

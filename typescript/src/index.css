@@ -2413,3 +2413,29 @@ details.view-card[open] > summary::before {
 .news-inputs { margin: 0 0 var(--space-3); font-size: var(--text-caption); }
 
 .news-flag-outcome { display: flex; gap: var(--space-2); align-items: baseline; margin: var(--space-2) 0; font-size: var(--text-caption); }
+
+.jev-dialog { max-width: 760px; }
+.overnight-row-link.jev-assess-action { width: auto; min-width: 58px; padding: 4px 8px; }
+.jev-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3, 12px); }
+.jev-form-grid label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; }
+.jev-form-grid input, .jev-form-grid select { width: 100%; box-sizing: border-box; }
+.jev-note { font-size: 0.8rem; line-height: 1.55; }
+.jev-result { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border, #343957); }
+.jev-probabilities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.jev-probability { border: 1px solid var(--border, #343957); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.jev-probability span { font-size: 0.85rem; }
+.jev-probability strong { color: var(--accent, #a29bfe); font-size: 1.8rem; }
+.jev-coverage { border-left: 3px solid #cfa866; padding-left: 12px; font-size: 0.85rem; }
+.jev-evaluation { margin-top: 24px; border-top: 1px solid var(--border, #343957); padding-top: 20px; }
+.jev-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.jev-empty { border: 1px solid var(--border, #343957); padding: 16px; border-radius: 10px; background: #9290ff0a; }
+.jev-empty p { margin-bottom: 0; }
+.jev-cohort { padding: 12px; margin-block: 12px; }
+.jev-cohort summary, .jev-ledger summary { cursor: pointer; }
+.jev-target { padding-block: 8px; border-bottom: 1px solid var(--border, #343957); }
+.jev-table-scroll { max-width: 100%; overflow-x: auto; }
+.jev-evaluation-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.jev-evaluation-table th, .jev-evaluation-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border, #343957); }
+.jev-evaluation-table th { color: var(--muted, #a2a8cc); font-weight: 500; }
+.jev-ledger { margin-block: 16px; }
+@media (max-width: 600px) { .jev-form-grid, .jev-probabilities { grid-template-columns: 1fr; } }

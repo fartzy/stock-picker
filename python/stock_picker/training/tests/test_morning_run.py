@@ -160,7 +160,8 @@ def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
         current += timedelta(seconds=seconds)
 
     checked = asdict(NewsCheck(status="no_news", article_count=0, reviewed_count=0))
-    old_signal = BuySignal("AAA", 0.3, 10.0, "2026-10-05", news_check=checked)
+    original_jev = {"buy_today": 0.7, "forecast_id": "original", "asked_at": "2026-10-06T13:35:00+00:00"}
+    old_signal = BuySignal("AAA", 0.3, 10.0, "2026-10-05", news_check=checked, jev=original_jev)
     skipped = [
         {"ticker": "BBB", "reason": "no live quote available"},
         {"ticker": "CCC", "reason": "earnings on or since the prior session -- news day, not a pattern day"},
@@ -183,8 +184,10 @@ def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
         assert checks["AAA"].status == "no_news"
         assert checks["BBB"].status == "no_news"
         fresh_signal = BuySignal("BBB", 0.4, 20.0, "2026-10-05", news_check=asdict(checks["BBB"]))
-        rank = BuySignalResult("2026-10-06", 0, [fresh_signal, old_signal], 2, skipped[1:])
-        fit = BuySignalResult("2026-10-06", 0.005, [fresh_signal, old_signal], 2, skipped[1:])
+        # Production creates new objects; reusing old_signal masked the Jev loss.
+        rebuilt = BuySignal("AAA", 0.2, 10.0, "2026-10-05", news_check=checked)
+        rank = BuySignalResult("2026-10-06", 0, [fresh_signal, rebuilt], 2, skipped[1:])
+        fit = BuySignalResult("2026-10-06", 0.005, [fresh_signal, rebuilt], 2, skipped[1:])
         freshness = SimpleNamespace(feature_snapshot_date="2026-10-05",
                                     model_trained_through="2026-10-05",
                                     ready_for_inference=True, detail="ready")
@@ -199,6 +202,8 @@ def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
     m.recover_missing_morning_quotes(
         {"AAA": {"open": 10.0, "last": 10.0, "prev_close": 11.0}},
         old_rank, old_fit, 0.005, model_run_id="run-1", now_fn=now, sleep_fn=sleep,
+        jev_scorer=lambda picks: {(kind, item.ticker): {"forecast_id": "new", "buy_today": 0.4}
+                                  for item, kind, _ in picks},
     )
 
     assert fetched == [["BBB"]]
@@ -210,6 +215,8 @@ def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
     assert saved[1]["scored_count"] == 2
     assert saved[1]["skipped"] == skipped[1:]
     assert len(published) == 1
+    assert all(payload["signals"][1]["jev"] == original_jev for payload in saved)
+    assert all(payload["signals"][0]["jev"]["forecast_id"] == "new" for payload in saved)
 
 
 def test_quote_recovery_does_not_retry_earnings_exclusions(monkeypatch):

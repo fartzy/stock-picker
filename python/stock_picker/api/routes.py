@@ -18,6 +18,8 @@ from stock_picker.api.models import (
     CatalogResponse,
     CorrelationResponse,
     CoverageResponse,
+    JevAssessmentRequest,
+    JevForecastRecord,
     FeatureSelectionRequest,
     FeatureSelectionResponse,
     FeatureValuesResponse,
@@ -134,8 +136,34 @@ from stock_picker.training.rank_model import RANK_MODEL_NAME
 from stock_picker.training.overnight_model import MODEL_NAME as OVERNIGHT_MODEL_NAME
 from stock_picker.training.overnight_service import model_summary, serialize_result, serve_overnight_forecast
 from stock_picker.training.overnight_hold import observed_next_open
+from stock_picker.storage.jev_forecast_store import JevForecastStore
+from stock_picker.training.jev_assessment import assess_jev
+from stock_picker.paper.jev_outcomes import load_jev_evaluation
 
 router = APIRouter(prefix="/api")
+
+
+@router.post("/jev/assess")
+def post_jev_assessment(body: JevAssessmentRequest) -> JevForecastRecord:
+    try:
+        return JevForecastRecord(**assess_jev(**body.model_dump()))
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@router.get("/jev/forecasts")
+def get_jev_forecasts(ticker: str | None = None, session: str | None = None) -> list[JevForecastRecord]:
+    return [JevForecastRecord(**record) for record in JevForecastStore().list_records(ticker=ticker, session=session)]
+
+
+@router.get("/jev/evaluation")
+def get_jev_evaluation() -> dict:
+    return load_jev_evaluation(JevForecastStore().list_records())
+
+
+@router.post("/jev/evaluation/refresh")
+def refresh_jev_evaluation() -> dict:
+    return load_jev_evaluation(JevForecastStore().list_records(), refresh=True)
 
 
 @router.get("/overnight/model")

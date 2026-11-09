@@ -1,0 +1,117 @@
+{
+  "version": "Illustrative V1, exploratory follow-up after viewing the initial study",
+  "profit_pool_assumption": 3000,
+  "budget_fraction": 0.5,
+  "idea_loss_budget": 1500,
+  "decision_loss_trigger": 1200,
+  "execution_buffer": 300,
+  "cash_per_purchase": 2500,
+  "maximum_purchases": 4,
+  "maximum_cash_deployed": 10000,
+  "maximum_trading_sessions": 10,
+  "maximum_calendar_days": 14,
+  "addition_step_candidates": [
+    0.05,
+    0.075
+  ],
+  "target_return_candidates": [
+    0.02,
+    0.04
+  ],
+  "cost_per_side_bps": [
+    11,
+    26
+  ],
+  "notes": [
+    "The 3000 input is assumed to be accumulated net trading profits, not total account equity or buying power.",
+    "The numerical example assumes sufficient unborrowed cash and one active stock idea; concurrent ideas must share the budget.",
+    "Freeze the profit pool and loss budget when opening the idea. Recalculate for the next idea; never reset after partial exits or re-entry.",
+    "An exit trigger and buffer cannot guarantee an absolute loss ceiling through gaps, halts, or execution failures.",
+    "Fixed policy comparisons are exploratory. The earlier evaluation data have already been inspected and are not a fresh holdout.",
+    "The price-only entry cohort is not the app's morning selection model. No policy is represented as a validated ideal strategy."
+  ],
+  "policies": [
+    {
+      "name": "single2500_target2_gate3pct",
+      "max_tranches": 1,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": 600,
+      "overnight_loss_fraction": 0.03
+    },
+    {
+      "name": "upfront10000_target2_gate3pct",
+      "max_tranches": 4,
+      "initial_tranches": 4,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": 600,
+      "overnight_loss_fraction": 0.03
+    },
+    {
+      "name": "ladder5_target2_no_gate",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": null,
+      "overnight_loss_fraction": null
+    },
+    {
+      "name": "ladder5_target2_gate600",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": 600,
+      "overnight_loss_fraction": null
+    },
+    {
+      "name": "ladder5_target2_gate3pct",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": 600,
+      "overnight_loss_fraction": 0.03
+    },
+    {
+      "name": "ladder5_target4_gate3pct",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.04,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false,
+      "overnight_loss_limit": 600,
+      "overnight_loss_fraction": 0.03
+    }
+  ],
+  "holding_intent": "Exit on the first profit, risk, overnight-eligibility or time condition; two weeks is only the outer limit.",
+  "default_policy": "ladder5_target2_gate3pct",
+  "overnight_review": "Completed minute close near 15:55 ET (15:50\u201315:58 if needed), with a same-session next-open execution available within two minutes.",
+  "overnight_gate": "Marked whole-idea loss must be no worse than the smaller of $600 and 3% of total dollars purchased."
+}

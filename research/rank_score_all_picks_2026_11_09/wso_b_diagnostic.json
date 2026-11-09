@@ -1,0 +1,68 @@
+[
+  {
+    "endpoint": "/v1/open-close/WSO.B/2026-10-13",
+    "error": "Massive HTTP 404"
+  },
+  {
+    "endpoint": "/v3/reference/tickers",
+    "payload": {
+      "results": [
+        {
+          "ticker": "WSO",
+          "name": "Watsco, Inc.",
+          "market": "stocks",
+          "locale": "us",
+          "primary_exchange": "XNYS",
+          "type": "CS",
+          "active": true,
+          "currency_name": "usd",
+          "cik": "0000105016",
+          "composite_figi": "BBG000DJN7L9",
+          "share_class_figi": "BBG001S82CQ2",
+          "last_updated_utc": "2026-10-14T06:12:47.195362478Z"
+        },
+        {
+          "ticker": "WSO.B",
+          "name": "Watsco, Inc. Class B",
+          "market": "stocks",
+          "locale": "us",
+          "primary_exchange": "XNYS",
+          "type": "CS",
+          "active": true,
+          "currency_name": "usd",
+          "cik": "0000105016",
+          "composite_figi": "BBG000BX1R49",
+          "share_class_figi": "BBG001S5XK13",
+          "last_updated_utc": "2026-10-14T06:12:47.195362568Z"
+        }
+      ],
+      "status": "OK",
+      "request_id": "d0a58b8583a4a9434914290a51e60dcf",
+      "count": 2
+    }
+  },
+  {
+    "endpoint": "/v2/aggs/ticker/WSO.B/range/1/day/2026-10-12/2026-10-14",
+    "payload": {
+      "ticker": "WSO.B",
+      "queryCount": 1,
+      "resultsCount": 1,
+      "adjusted": false,
+      "results": [
+        {
+          "v": 298.580781,
+          "vw": 286.6897,
+          "o": 285.84,
+          "c": 287.5,
+          "h": 287.5,
+          "l": 285.84,
+          "t": 1791777600000,
+          "n": 43
+        }
+      ],
+      "status": "OK",
+      "request_id": "4ca3ab90781716f9a71ab215a371a3e3",
+      "count": 1
+    }
+  }
+]

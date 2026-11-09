@@ -1,0 +1,25 @@
+FFF...                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-21-PS] _
+research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py:72: in test_historical_entry_cannot_be_below_the_entire_sessions_range
+    assert daily["low"] <= picks[0].open_price <= daily["high"], (
+E   AssertionError: 2026-09-21 PS: book uses $43.9200; the entire session traded $46.5268–$50.9000, with a verified open of $50.6100
+E   assert 46.5268 <= 43.92
+E    +  where 43.92 = PaperPick(as_of='2026-09-21', kind='rank', rank=1, ticker='PS', predicted=1.5949153798342648, open_price=43.92, close_...n=0.09813296903460822, news_flag=None, news_checked=1, prev_close=None, scan_id='', model_run_id=None, news_check=None).open_price
+_ test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-22-HHH] _
+research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py:72: in test_historical_entry_cannot_be_below_the_entire_sessions_range
+    assert daily["low"] <= picks[0].open_price <= daily["high"], (
+E   AssertionError: 2026-09-22 HHH: book uses $61.0000; the entire session traded $64.8300–$66.4600, with a verified open of $65.9600
+E   assert 64.83 <= 61.0
+E    +  where 61.0 = PaperPick(as_of='2026-09-22', kind='rank', rank=1, ticker='HHH', predicted=0.9608478983289136, open_price=61.0, close_...n=0.08344262295081983, news_flag=None, news_checked=1, prev_close=None, scan_id='', model_run_id=None, news_check=None).open_price
+_ test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-23-TRLV] _
+research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py:72: in test_historical_entry_cannot_be_below_the_entire_sessions_range
+    assert daily["low"] <= picks[0].open_price <= daily["high"], (
+E   AssertionError: 2026-09-23 TRLV: book uses $11.5000; the entire session traded $12.2600–$12.9300, with a verified open of $12.4000
+E   assert 12.26 <= 11.5
+E    +  where 11.5 = PaperPick(as_of='2026-09-23', kind='rank', rank=1, ticker='TRLV', predicted=1.0119708649447516, open_price=11.5, close...n=0.09043478260869553, news_flag=None, news_checked=1, prev_close=None, scan_id='', model_run_id=None, news_check=None).open_price
+=========================== short test summary info ============================
+FAILED research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py::test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-21-PS]
+FAILED research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py::test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-22-HHH]
+FAILED research/averaging_down_2026_11_06/rank_reconciliation/regressions_price_integrity.py::test_historical_entry_cannot_be_below_the_entire_sessions_range[stale-2026-09-23-TRLV]
+3 failed, 3 passed in 0.96s

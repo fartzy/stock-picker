@@ -1,6 +1,7 @@
 from datetime import date
 
 import pandas as pd
+import pytest
 
 from stock_picker.paper.book import (
     load_paper_book, paper_book_view, rebuild_paper_book, with_current_close_quotes,
@@ -123,14 +124,25 @@ def test_current_close_overlay_only_updates_pending_live_picks():
 
     result = with_current_close_quotes(
         [pending, replay, prior, settled], today,
-        {"KOD": {"open": 999.0, "last": 93.10}, "WDC": {"open": 426.6, "last": 411.04}},
+        {"KOD": {"open": 93.0, "last": 93.10}, "WDC": {"open": 426.6, "last": 411.04}},
     )
 
-    assert result[0].open_price == 92.86  # Keep the actual scan open.
+    assert result[0].open_price == 93.0
     assert result[0].close_price == 93.10
-    assert result[0].session_return == 93.10 / 92.86 - 1
+    assert result[0].session_return == 93.10 / 93.0 - 1
     assert result[1:] == [replay, prior, settled]
     assert pending.close_price is None  # Do not mutate the stored pick.
+    assert pending.open_price == 92.86
+
+
+@pytest.mark.parametrize("quote", [
+    {"last": 93.10}, {"open": 93.0},
+    {"open": float("inf"), "last": 93.10}, {"open": 93.0, "last": float("nan")},
+    {"open": 0, "last": 93.10}, {"open": 93.0, "last": -1},
+])
+def test_close_overlay_requires_a_complete_valid_price_pair(quote):
+    pending = PaperPick("2026-10-06", "fit", 1, "KOD", 0.01, 92.86, None, None)
+    assert with_current_close_quotes([pending], date(2026, 10, 6), {"KOD": quote}) == [pending]
 
 
 def test_rebuild_one_completed_day_preserves_history_and_replays(tmp_path):
@@ -251,27 +263,31 @@ def test_session_quotes_from_prices_uses_the_daily_bar(tmp_path):
     assert quotes["WRBY"]["last"] == 26.71
 
 
-def test_rebuild_uses_scan_open_not_daily_bar(tmp_path):
+@pytest.mark.parametrize("day,ticker,scan_open,session_open,session_close", [
+    ("2026-09-21", "PS", 43.92, 50.61, 48.23),
+    ("2026-09-22", "HHH", 61.0, 65.96, 66.09),
+    ("2026-09-23", "TRLV", 11.5, 12.4, 12.54),
+    ("2026-09-25", "WRBY", 23.18, 26.27, 26.71),
+])
+def test_completed_returns_use_session_prices_and_preserve_scan(
+    tmp_path, day, ticker, scan_open, session_open, session_close,
+):
     scans = ScanStore(data_dir=tmp_path / "scans")
-    scans.write(
-        "2026-09-25",
-        "rank",
-        {
-            "as_of": "2026-09-25",
-            "kind": "rank",
-            "signals": [{"ticker": "WRBY", "predicted_return": 0.99, "open_price": 23.18}],
-        },
-    )
+    payload = {
+        "as_of": day, "kind": "rank",
+        "signals": [{"ticker": ticker, "predicted_return": 0.99, "open_price": scan_open}],
+    }
+    scans.write(day, "rank", payload)
     prices = PriceStore(data_dir=tmp_path / "prices")
     prices.write(
-        "WRBY",
+        ticker,
         pd.DataFrame(
-            {"Open": [26.27], "High": [27.0], "Low": [23.0], "Close": [26.71], "Volume": [1.0]},
-            index=pd.DatetimeIndex(["2026-09-25"]),
+            {"Open": [session_open], "Close": [session_close]},
+            index=pd.DatetimeIndex([day]),
         ),
     )
     picks = rebuild_paper_book(
-        completed_through=date(2026, 9, 25),
+        completed_through=date.fromisoformat(day),
         scan_store=scans,
         price_store=prices,
         paper_store=PaperBookStore(data_dir=tmp_path / "paper"),
@@ -279,9 +295,58 @@ def test_rebuild_uses_scan_open_not_daily_bar(tmp_path):
         news_fetcher=lambda tickers, as_of: {},
     )
 
-    assert picks[0].open_price == 23.18
-    assert picks[0].close_price == 26.71
-    assert picks[0].session_return == (26.71 / 23.18) - 1
+    assert picks[0].open_price == session_open
+    assert picks[0].close_price == session_close
+    assert picks[0].session_return == (session_close / session_open) - 1
+    assert scans.read(day, "rank") == payload
+
+
+@pytest.mark.parametrize("quote,expected", [
+    ({}, None),
+    ({"last": 41.0}, None),
+    ({"open": 40.0, "last": 41.0}, 41.0 / 40.0 - 1),
+])
+def test_missing_session_bar_never_pairs_a_scan_open_with_a_new_close(tmp_path, quote, expected):
+    scans = ScanStore(data_dir=tmp_path / "scans")
+    scans.write("2026-09-18", "rank", {
+        "as_of": "2026-09-18", "kind": "rank",
+        "signals": [{"ticker": "XENE", "open_price": 30.0}],
+    })
+    prices = PriceStore(data_dir=tmp_path / "prices")
+    prices.write("XENE", pd.DataFrame(
+        {"Open": [30.0], "Close": [35.0]}, index=pd.DatetimeIndex(["2026-09-17"]),
+    ))
+    picks = rebuild_paper_book(
+        completed_through=date(2026, 9, 18), scan_store=scans, price_store=prices,
+        paper_store=PaperBookStore(data_dir=tmp_path / "paper"),
+        quote_fetcher=lambda *_: {"XENE": quote}, news_fetcher=lambda *_: {},
+    )
+    assert picks[0].session_return == expected
+    assert picks[0].open_price == quote.get("open")
+
+
+@pytest.mark.parametrize("open_price,close_price", [
+    (0, 11), (float("inf"), 11), (10, float("nan")), (10, -1),
+])
+def test_invalid_completed_bar_stays_pending_instead_of_using_scan_price(
+    tmp_path, open_price, close_price,
+):
+    scans = ScanStore(data_dir=tmp_path / "scans")
+    scans.write("2026-09-18", "rank", {
+        "as_of": "2026-09-18", "kind": "rank",
+        "signals": [{"ticker": "BAD", "open_price": 9.0}],
+    })
+    prices = PriceStore(data_dir=tmp_path / "prices")
+    prices.write("BAD", pd.DataFrame(
+        {"Open": [open_price], "Close": [close_price]}, index=pd.DatetimeIndex(["2026-09-18"]),
+    ))
+    picks = rebuild_paper_book(
+        completed_through=date(2026, 9, 18), scan_store=scans, price_store=prices,
+        paper_store=PaperBookStore(data_dir=tmp_path / "paper"),
+        quote_fetcher=lambda *_: {}, news_fetcher=lambda *_: {},
+    )
+    assert picks[0].session_return is None
+    assert picks[0].open_price is None
 
 
 def test_live_quote_fills_a_missing_daily_bar(tmp_path):

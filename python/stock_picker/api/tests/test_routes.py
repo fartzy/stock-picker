@@ -931,13 +931,15 @@ def test_get_paper_book_fills_todays_close_without_rebuilding(client):
         patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=True),
         patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 6)),
         patch("stock_picker.ingestion.polygon_client.fetch_polygon_closing_quotes",
-              return_value={"KOD": {"open": 92.86, "last": 93.10}}) as closing_quotes,
+              return_value={"KOD": {"open": 93.0, "last": 93.10}}) as closing_quotes,
     ):
         response = client.get("/api/paper-book", params={"kind": "fit", "top_k": 5})
 
     assert response.status_code == status.HTTP_200_OK
     rows = {day["as_of"]: day["fit"] for day in response.json()["days"]}
+    assert rows["2026-10-06"][0]["open_price"] == 93.0
     assert rows["2026-10-06"][0]["close_price"] == 93.10
+    assert rows["2026-10-06"][0]["session_return"] == pytest.approx(93.10 / 93.0 - 1)
     assert rows["2026-10-05"][0]["close_price"] == 11.0
     closing_quotes.assert_called_once_with(["KOD"], as_of=date(2026, 10, 6))
 

@@ -1,0 +1,1241 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-11-05",
+  "source": "Fidelity user-pasted confirmations and saved Portfolio Activity & Orders.html; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Only executed shares are logged. Price improvement is informational and already reflected in execution prices.",
+  "orders": [
+    {
+      "order_number": "2F900MV7",
+      "ticker": "TEM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 70.04,
+      "executed_at": "2026-11-05T09:38:18-05:00",
+      "broker_net_amount": 7004.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T09:38:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:38:18-05:00",
+          "shares": 100.0,
+          "price": 70.04,
+          "broker_net_amount": 7004.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F90P4S9",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 70.14,
+      "executed_at": "2026-11-05T09:45:16-05:00",
+      "broker_net_amount": 7014.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T09:45:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:45:16-05:00",
+          "shares": 100.0,
+          "price": 70.14,
+          "broker_net_amount": 7014.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F90MVQ9",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 69.515,
+      "executed_at": "2026-11-05T09:46:39-05:00",
+      "broker_net_amount": 6951.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T09:46:38-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:46:39-05:00",
+          "shares": 100.0,
+          "price": 69.515,
+          "broker_net_amount": 6951.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F90P81M",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 69.54,
+      "executed_at": "2026-11-05T09:48:54-05:00",
+      "broker_net_amount": 6954.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $69.60",
+      "order_date": "2026-11-05T09:48:53-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:48:54-05:00",
+          "shares": 100.0,
+          "price": 69.54,
+          "broker_net_amount": 6954.0
+        }
+      ],
+      "order_expiration": "2026-11-05T16:00:00-05:00",
+      "price_improvement": 0.5
+    },
+    {
+      "order_number": "2F90M7MJ",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 69.0,
+      "executed_at": "2026-11-05T09:51:00-05:00",
+      "broker_net_amount": 6900.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $69.00",
+      "order_date": "2026-11-05T09:48:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:51:00-05:00",
+          "shares": 100.0,
+          "price": 69.0,
+          "broker_net_amount": 6900.0
+        }
+      ],
+      "order_expiration": "2026-11-05T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F90HGJP",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 69.055,
+      "executed_at": "2026-11-05T09:56:56-05:00",
+      "broker_net_amount": 6905.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T09:56:56-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T09:56:56-05:00",
+          "shares": 100.0,
+          "price": 69.055,
+          "broker_net_amount": 6905.5
+        }
+      ],
+      "price_improvement": 12.5
+    },
+    {
+      "order_number": "2F90MLZN",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 68.97,
+      "executed_at": "2026-11-05T10:01:32-05:00",
+      "broker_net_amount": 6897.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:01:32-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:01:32-05:00",
+          "shares": 100.0,
+          "price": 68.97,
+          "broker_net_amount": 6897.0
+        }
+      ],
+      "price_improvement": 28.0
+    },
+    {
+      "order_number": "2F90SL4K",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 69.295,
+      "executed_at": "2026-11-05T10:11:47-05:00",
+      "broker_net_amount": 6929.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:11:47-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:11:47-05:00",
+          "shares": 100.0,
+          "price": 69.295,
+          "broker_net_amount": 6929.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F90N6SL",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 68.5,
+      "executed_at": "2026-11-05T10:27:16-05:00",
+      "broker_net_amount": 13700.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $68.50",
+      "order_date": "2026-11-05T09:58:53-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:27:16-05:00",
+          "shares": 200.0,
+          "price": 68.5,
+          "broker_net_amount": 13700.0
+        }
+      ],
+      "order_expiration": "2026-11-05T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F919GBS",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 68.7401,
+      "executed_at": "2026-11-05T10:28:36-05:00",
+      "broker_net_amount": 13747.73,
+      "manual_fee": 0.29,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:28:36-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:28:36-05:00",
+          "shares": 200.0,
+          "price": 68.7401,
+          "broker_net_amount": 13747.73
+        }
+      ],
+      "price_improvement": 29.02
+    },
+    {
+      "order_number": "2F914SSQ",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 68.34,
+      "executed_at": "2026-11-05T10:29:36-05:00",
+      "broker_net_amount": 13668.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:29:36-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:29:36-05:00",
+          "shares": 200.0,
+          "price": 68.34,
+          "broker_net_amount": 13668.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F916TMC",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 68.4537,
+      "executed_at": "2026-11-05T10:30:13-05:00",
+      "broker_net_amount": 13690.47,
+      "manual_fee": 0.27,
+      "execution_lot_count": 4,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:30:13-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:30:13-05:00",
+          "shares": 1.0,
+          "price": 68.445,
+          "broker_net_amount": 68.45
+        },
+        {
+          "executed_at": "2026-11-05T10:30:13-05:00",
+          "shares": 5.0,
+          "price": 68.445,
+          "broker_net_amount": 342.23
+        },
+        {
+          "executed_at": "2026-11-05T10:30:13-05:00",
+          "shares": 134.0,
+          "price": 68.445,
+          "broker_net_amount": 9171.44
+        },
+        {
+          "executed_at": "2026-11-05T10:30:13-05:00",
+          "shares": 60.0,
+          "price": 68.474,
+          "broker_net_amount": 4108.35
+        }
+      ],
+      "price_improvement": 0.73
+    },
+    {
+      "order_number": "2F91D6FL",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 68.0,
+      "executed_at": "2026-11-05T10:30:52-05:00",
+      "broker_net_amount": 27200.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $68.00",
+      "order_date": "2026-11-05T10:30:52-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:30:52-05:00",
+          "shares": 400.0,
+          "price": 68.0,
+          "broker_net_amount": 27200.0
+        }
+      ],
+      "order_expiration": "2026-11-05T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F91CJZG",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 500.0,
+      "price": 68.2,
+      "executed_at": "2026-11-05T10:31:24-05:00",
+      "broker_net_amount": 34099.29,
+      "manual_fee": 0.71,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:31:23-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:31:24-05:00",
+          "shares": 500.0,
+          "price": 68.2,
+          "broker_net_amount": 34099.29
+        }
+      ]
+    },
+    {
+      "order_number": "2F91BZ7S",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 67.73,
+      "executed_at": "2026-11-05T10:34:51-05:00",
+      "broker_net_amount": 27092.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:34:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:34:51-05:00",
+          "shares": 400.0,
+          "price": 67.73,
+          "broker_net_amount": 27092.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F9134RB",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 67.57,
+      "executed_at": "2026-11-05T10:44:51-05:00",
+      "broker_net_amount": 13514.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:44:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:44:51-05:00",
+          "shares": 200.0,
+          "price": 67.57,
+          "broker_net_amount": 13514.0
+        }
+      ],
+      "price_improvement": 1.0
+    },
+    {
+      "order_number": "2F916JJ3",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 67.25,
+      "executed_at": "2026-11-05T10:46:02-05:00",
+      "broker_net_amount": 13450.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:46:01-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:46:02-05:00",
+          "shares": 200.0,
+          "price": 67.25,
+          "broker_net_amount": 13450.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F9177ZM",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 67.23,
+      "executed_at": "2026-11-05T10:48:12-05:00",
+      "broker_net_amount": 26892.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:48:12-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:48:12-05:00",
+          "shares": 400.0,
+          "price": 67.23,
+          "broker_net_amount": 26892.0
+        }
+      ],
+      "price_improvement": 40.0
+    },
+    {
+      "order_number": "2F917CMT",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.7,
+      "executed_at": "2026-11-05T10:52:47-05:00",
+      "broker_net_amount": 6669.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:52:46-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:52:47-05:00",
+          "shares": 100.0,
+          "price": 66.7,
+          "broker_net_amount": 6669.86
+        }
+      ],
+      "price_improvement": 21.0
+    },
+    {
+      "order_number": "2F9181PY",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.28,
+      "executed_at": "2026-11-05T10:53:14-05:00",
+      "broker_net_amount": 6627.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:53:13-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:53:14-05:00",
+          "shares": 100.0,
+          "price": 66.28,
+          "broker_net_amount": 6627.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F91CDXP",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.21,
+      "executed_at": "2026-11-05T10:53:23-05:00",
+      "broker_net_amount": 6620.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:53:23-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:53:23-05:00",
+          "shares": 100.0,
+          "price": 66.21,
+          "broker_net_amount": 6620.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F9141FT",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.525,
+      "executed_at": "2026-11-05T10:53:48-05:00",
+      "broker_net_amount": 6652.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:53:47-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:53:48-05:00",
+          "shares": 100.0,
+          "price": 66.525,
+          "broker_net_amount": 6652.36
+        }
+      ]
+    },
+    {
+      "order_number": "2F918R64",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.545,
+      "executed_at": "2026-11-05T10:54:09-05:00",
+      "broker_net_amount": 6654.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:54:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:54:09-05:00",
+          "shares": 100.0,
+          "price": 66.545,
+          "broker_net_amount": 6654.36
+        }
+      ],
+      "price_improvement": 2.0
+    },
+    {
+      "order_number": "2F91B3LR",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.57,
+      "executed_at": "2026-11-05T10:54:51-05:00",
+      "broker_net_amount": 6656.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:54:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:54:51-05:00",
+          "shares": 100.0,
+          "price": 66.57,
+          "broker_net_amount": 6656.86
+        }
+      ],
+      "price_improvement": 7.0
+    },
+    {
+      "order_number": "2F91GTJX",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.5701,
+      "executed_at": "2026-11-05T10:55:09-05:00",
+      "broker_net_amount": 6656.87,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:55:09-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:55:09-05:00",
+          "shares": 100.0,
+          "price": 66.5701,
+          "broker_net_amount": 6656.87
+        }
+      ],
+      "price_improvement": 0.01
+    },
+    {
+      "order_number": "2F91FGR1",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.57,
+      "executed_at": "2026-11-05T10:55:33-05:00",
+      "broker_net_amount": 6656.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:55:32-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:55:33-05:00",
+          "shares": 100.0,
+          "price": 66.57,
+          "broker_net_amount": 6656.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F91J7B0",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 67.1151,
+      "executed_at": "2026-11-05T10:57:22-05:00",
+      "broker_net_amount": 6711.37,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T10:57:22-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T10:57:22-05:00",
+          "shares": 100.0,
+          "price": 67.1151,
+          "broker_net_amount": 6711.37
+        }
+      ]
+    },
+    {
+      "order_number": "2F91NBH3",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 66.66,
+      "executed_at": "2026-11-05T11:00:40-05:00",
+      "broker_net_amount": 26664.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T11:00:40-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T11:00:40-05:00",
+          "shares": 400.0,
+          "price": 66.66,
+          "broker_net_amount": 26664.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F91LFBR",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 500.0,
+      "price": 66.04,
+      "executed_at": "2026-11-05T11:05:18-05:00",
+      "broker_net_amount": 33019.31,
+      "manual_fee": 0.69,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T11:05:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T11:05:18-05:00",
+          "shares": 500.0,
+          "price": 66.04,
+          "broker_net_amount": 33019.31
+        }
+      ]
+    },
+    {
+      "order_number": "2F91M42P",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 66.225,
+      "executed_at": "2026-11-05T11:06:40-05:00",
+      "broker_net_amount": 6622.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T11:06:40-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T11:06:40-05:00",
+          "shares": 100.0,
+          "price": 66.225,
+          "broker_net_amount": 6622.36
+        }
+      ]
+    },
+    {
+      "order_number": "2F91M4XF",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 65.98,
+      "executed_at": "2026-11-05T11:07:54-05:00",
+      "broker_net_amount": 13195.72,
+      "manual_fee": 0.28,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T11:07:54-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T11:07:54-05:00",
+          "shares": 200.0,
+          "price": 65.98,
+          "broker_net_amount": 13195.72
+        }
+      ]
+    },
+    {
+      "order_number": "2F921F66",
+      "ticker": "TEM",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 71.0,
+      "executed_at": "2026-11-05T11:30:07-05:00",
+      "broker_net_amount": 7099.85,
+      "manual_fee": 0.15,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $71.00",
+      "order_date": "2026-11-05T11:29:42-05:00",
+      "order_expiration": "2026-11-05T16:00:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T11:30:07-05:00",
+          "shares": 100.0,
+          "price": 71.0,
+          "broker_net_amount": 7099.85
+        }
+      ]
+    },
+    {
+      "order_number": "2F928D3S",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 65.73,
+      "executed_at": "2026-11-05T12:33:09-05:00",
+      "broker_net_amount": 3286.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T12:33:09-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T12:33:09-05:00",
+          "shares": 50.0,
+          "price": 65.73,
+          "broker_net_amount": 3286.5
+        }
+      ],
+      "price_improvement": 4.5
+    },
+    {
+      "order_number": "2F925PT6",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 65.6801,
+      "executed_at": "2026-11-05T12:33:23-05:00",
+      "broker_net_amount": 3284.01,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T12:33:22-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T12:33:23-05:00",
+          "shares": 50.0,
+          "price": 65.6801,
+          "broker_net_amount": 3284.01
+        }
+      ],
+      "price_improvement": 7.0
+    },
+    {
+      "order_number": "2F924CXS",
+      "ticker": "MRCY",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 65.9599,
+      "executed_at": "2026-11-05T12:34:00-05:00",
+      "broker_net_amount": 6595.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T12:33:59-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T12:34:00-05:00",
+          "shares": 100.0,
+          "price": 65.9599,
+          "broker_net_amount": 6595.99
+        }
+      ]
+    },
+    {
+      "order_number": "2F93SWQ1",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.72,
+      "executed_at": "2026-11-05T15:52:29-05:00",
+      "broker_net_amount": 6571.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:52:28-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:52:29-05:00",
+          "shares": 100.0,
+          "price": 65.72,
+          "broker_net_amount": 6571.86
+        }
+      ],
+      "price_improvement": 1.0
+    },
+    {
+      "order_number": "2F93S7M4",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.83,
+      "executed_at": "2026-11-05T15:53:16-05:00",
+      "broker_net_amount": 6582.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:53:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:53:16-05:00",
+          "shares": 100.0,
+          "price": 65.83,
+          "broker_net_amount": 6582.86
+        }
+      ],
+      "price_improvement": 12.0
+    },
+    {
+      "order_number": "2F93PL98",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.78,
+      "executed_at": "2026-11-05T15:54:36-05:00",
+      "broker_net_amount": 6577.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:54:35-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:54:36-05:00",
+          "shares": 100.0,
+          "price": 65.78,
+          "broker_net_amount": 6577.86
+        }
+      ],
+      "price_improvement": 10.0
+    },
+    {
+      "order_number": "2F93N8LJ",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.585,
+      "executed_at": "2026-11-05T15:55:24-05:00",
+      "broker_net_amount": 6558.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": null,
+      "timestamp_source": "User-authorized provisional timestamp from broker order date; execution panel unavailable",
+      "timestamp_is_provisional": true,
+      "broker_execution_time": null,
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:55:24-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [],
+      "source_file": "Portfolio Activity & Orders.html",
+      "source_sha256": "3add0ed880e601ee5261ff0549643d56479b5a915151d5a5d269ff0a62956a11",
+      "reconciliation_note": "Filled quantity and average price from order status; net amount from order summary. Replace provisional timestamp and populate execution lots when the broker execution table is available; do not append another trade."
+    },
+    {
+      "order_number": "2F93S9WZ",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.66,
+      "executed_at": "2026-11-05T15:56:51-05:00",
+      "broker_net_amount": 6565.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:56:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:56:51-05:00",
+          "shares": 100.0,
+          "price": 65.66,
+          "broker_net_amount": 6565.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F93VBLV",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.77,
+      "executed_at": "2026-11-05T15:57:18-05:00",
+      "broker_net_amount": 6576.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:57:17-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:57:18-05:00",
+          "shares": 100.0,
+          "price": 65.77,
+          "broker_net_amount": 6576.86
+        }
+      ],
+      "price_improvement": 0.5
+    },
+    {
+      "order_number": "2F93JZW4",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.615,
+      "executed_at": "2026-11-05T15:57:37-05:00",
+      "broker_net_amount": 6561.36,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:57:37-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:57:37-05:00",
+          "shares": 100.0,
+          "price": 65.615,
+          "broker_net_amount": 6561.36
+        }
+      ]
+    },
+    {
+      "order_number": "2F93VCHK",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.6,
+      "executed_at": "2026-11-05T15:58:26-05:00",
+      "broker_net_amount": 6559.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:58:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:58:26-05:00",
+          "shares": 100.0,
+          "price": 65.6,
+          "broker_net_amount": 6559.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F93JC1X",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 65.66,
+      "executed_at": "2026-11-05T15:58:44-05:00",
+      "broker_net_amount": 6565.86,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:58:44-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:58:44-05:00",
+          "shares": 100.0,
+          "price": 65.66,
+          "broker_net_amount": 6565.86
+        }
+      ],
+      "price_improvement": 3.0
+    },
+    {
+      "order_number": "2F93R1SD",
+      "ticker": "MRCY",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 65.48,
+      "executed_at": "2026-11-05T15:59:35-05:00",
+      "broker_net_amount": 13095.73,
+      "manual_fee": 0.27,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-05T15:59:35-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-05T15:59:35-05:00",
+          "shares": 200.0,
+          "price": 65.48,
+          "broker_net_amount": 13095.73
+        }
+      ],
+      "price_improvement": 10.0
+    }
+  ],
+  "filled_order_count": 45,
+  "imported_order_count": 45,
+  "html_reconciliation": {
+    "source_file": "Portfolio Activity & Orders.html",
+    "source_sha256": "3add0ed880e601ee5261ff0549643d56479b5a915151d5a5d269ff0a62956a11",
+    "new_order_count": 10,
+    "existing_order_count": 4,
+    "provisional_execution_orders": [
+      "2F93N8LJ"
+    ],
+    "excluded_canceled_order_numbers": [
+      "2F929902",
+      "2F9279NW",
+      "2F93QWDL",
+      "2F93S8Q7",
+      "2F93KM38"
+    ],
+    "excluded_open_order_numbers": [
+      "2F93QD6N"
+    ],
+    "cash_reconciled_to_history": true
+  }
+}

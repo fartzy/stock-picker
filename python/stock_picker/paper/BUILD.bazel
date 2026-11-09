@@ -7,6 +7,7 @@ py_library(
         "book.py",
         "first_touch.py",
         "hold_path.py",
+        "jev_outcomes.py",
         "news_outcomes.py",
     ],
     imports = ["../.."],

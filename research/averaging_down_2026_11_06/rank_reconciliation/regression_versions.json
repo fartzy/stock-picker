@@ -1,0 +1,20 @@
+[
+  {
+    "version": "before",
+    "commit": "f19475578ee225feb7b56651957d576fe4363fac",
+    "exit_code": 0,
+    "result": "6 passed in 1.23s"
+  },
+  {
+    "version": "introduced",
+    "commit": "37357d24651d906ab9afe081c789081a3e4dbfdd",
+    "exit_code": 1,
+    "result": "3 failed, 3 passed in 0.96s"
+  },
+  {
+    "version": "current",
+    "commit": "1adf18e0bf115794c6ac9912ec9479d6f5cb804f",
+    "exit_code": 1,
+    "result": "3 failed, 3 passed in 0.94s"
+  }
+]

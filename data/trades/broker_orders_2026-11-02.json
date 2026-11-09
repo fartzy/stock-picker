@@ -1,0 +1,1368 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-11-02",
+  "source": "Fidelity user-pasted confirmations and saved Portfolio Activity & Orders.html; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Only executed shares are logged. Canceled quantities are retained in metadata. Price improvement is informational and already reflected in execution prices.",
+  "orders": [
+    {
+      "order_number": "2F604VW6",
+      "ticker": "KEN",
+      "side": "sell",
+      "shares": 8.0,
+      "price": 66.0,
+      "executed_at": "2026-11-02T08:58:30-05:00",
+      "broker_net_amount": 528.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 5,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "premarket",
+      "order_type": "Limit at $66.00",
+      "order_date": "2026-11-02T08:34:56-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T08:58:30-05:00",
+          "shares": 2.0,
+          "price": 66.0,
+          "broker_net_amount": 132.0
+        },
+        {
+          "executed_at": "2026-11-02T08:58:30-05:00",
+          "shares": 2.0,
+          "price": 66.0,
+          "broker_net_amount": 132.0
+        },
+        {
+          "executed_at": "2026-11-02T08:58:30-05:00",
+          "shares": 2.0,
+          "price": 66.0,
+          "broker_net_amount": 132.0
+        },
+        {
+          "executed_at": "2026-11-02T08:58:30-05:00",
+          "shares": 1.0,
+          "price": 66.0,
+          "broker_net_amount": 66.0
+        },
+        {
+          "executed_at": "2026-11-02T08:58:30-05:00",
+          "shares": 1.0,
+          "price": 66.0,
+          "broker_net_amount": 66.0
+        }
+      ],
+      "order_status": "Verified Cancelled/Partially Filled",
+      "requested_shares": 50.0,
+      "filled_shares": 8.0,
+      "canceled_shares": 42.0,
+      "order_expiration": "2026-11-02T09:28:00-05:00"
+    },
+    {
+      "order_number": "2F604BHB",
+      "ticker": "KEN",
+      "side": "sell",
+      "shares": 162.0,
+      "price": 65.93,
+      "executed_at": "2026-11-02T09:30:20-05:00",
+      "broker_net_amount": 10680.43,
+      "manual_fee": 0.23,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:30:20-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:30:20-05:00",
+          "shares": 162.0,
+          "price": 65.93,
+          "broker_net_amount": 10680.43
+        }
+      ]
+    },
+    {
+      "order_number": "2F609W57",
+      "ticker": "PGEN",
+      "side": "buy",
+      "shares": 400.0,
+      "price": 5.135,
+      "executed_at": "2026-11-02T09:38:33-05:00",
+      "broker_net_amount": 2054.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:38:32-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:38:33-05:00",
+          "shares": 400.0,
+          "price": 5.135,
+          "broker_net_amount": 2054.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F60560P",
+      "ticker": "LITE",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 754.005,
+      "executed_at": "2026-11-02T09:39:22-05:00",
+      "broker_net_amount": 7540.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:39:21-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:39:22-05:00",
+          "shares": 10.0,
+          "price": 754.005,
+          "broker_net_amount": 7540.05
+        }
+      ],
+      "price_improvement": 9.95
+    },
+    {
+      "order_number": "2F603W92",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 100.9717,
+      "executed_at": "2026-11-02T09:40:33-05:00",
+      "broker_net_amount": 5048.59,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:40:33-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:40:33-05:00",
+          "shares": 50.0,
+          "price": 100.9717,
+          "broker_net_amount": 5048.59
+        }
+      ],
+      "price_improvement": 1.04
+    },
+    {
+      "order_number": "2F6099KZ",
+      "ticker": "LITE",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 769.99,
+      "executed_at": "2026-11-02T09:43:24-05:00",
+      "broker_net_amount": 3849.87,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:43:24-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:43:24-05:00",
+          "shares": 5.0,
+          "price": 769.99,
+          "broker_net_amount": 3849.87
+        }
+      ],
+      "price_improvement": 4.9
+    },
+    {
+      "order_number": "2F609ZTR",
+      "ticker": "PGEN",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.045,
+      "executed_at": "2026-11-02T09:44:15-05:00",
+      "broker_net_amount": 504.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:44:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:44:15-05:00",
+          "shares": 100.0,
+          "price": 5.045,
+          "broker_net_amount": 504.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F60BNYT",
+      "ticker": "PGEN",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 4.945,
+      "executed_at": "2026-11-02T09:45:32-05:00",
+      "broker_net_amount": 494.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:45:31-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:45:32-05:00",
+          "shares": 100.0,
+          "price": 4.945,
+          "broker_net_amount": 494.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F607BQY",
+      "ticker": "PGEN",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 4.945,
+      "executed_at": "2026-11-02T09:46:19-05:00",
+      "broker_net_amount": 494.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:46:19-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:46:19-05:00",
+          "shares": 100.0,
+          "price": 4.945,
+          "broker_net_amount": 494.5
+        }
+      ],
+      "price_improvement": 0.09
+    },
+    {
+      "order_number": "2F6040JG",
+      "ticker": "PGEN",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 5.075,
+      "executed_at": "2026-11-02T09:47:42-05:00",
+      "broker_net_amount": 507.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:47:42-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:47:42-05:00",
+          "shares": 100.0,
+          "price": 5.075,
+          "broker_net_amount": 507.5
+        }
+      ],
+      "price_improvement": 0.5
+    },
+    {
+      "order_number": "2F60KQNH",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 98.655,
+      "executed_at": "2026-11-02T09:53:41-05:00",
+      "broker_net_amount": 4932.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:53:41-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:53:41-05:00",
+          "shares": 50.0,
+          "price": 98.655,
+          "broker_net_amount": 4932.75
+        }
+      ],
+      "price_improvement": 0.5
+    },
+    {
+      "order_number": "2F60LGP3",
+      "ticker": "PGEN",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 5.125,
+      "executed_at": "2026-11-02T09:57:59-05:00",
+      "broker_net_amount": 1024.97,
+      "manual_fee": 0.03,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T09:57:58-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T09:57:59-05:00",
+          "shares": 200.0,
+          "price": 5.125,
+          "broker_net_amount": 1024.97
+        }
+      ]
+    },
+    {
+      "order_number": "2F60FKVL",
+      "ticker": "CBRS",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 101.05,
+      "executed_at": "2026-11-02T10:30:09-05:00",
+      "broker_net_amount": 10104.79,
+      "manual_fee": 0.21,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T10:30:09-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T10:30:09-05:00",
+          "shares": 100.0,
+          "price": 101.05,
+          "broker_net_amount": 10104.79
+        }
+      ]
+    },
+    {
+      "order_number": "2F60GXZL",
+      "ticker": "PGEN",
+      "side": "sell",
+      "shares": 600.0,
+      "price": 5.235,
+      "executed_at": "2026-11-02T10:30:24-05:00",
+      "broker_net_amount": 3140.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 5,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T10:30:23-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T10:30:24-05:00",
+          "shares": 100.0,
+          "price": 5.235,
+          "broker_net_amount": 523.48
+        },
+        {
+          "executed_at": "2026-11-02T10:30:24-05:00",
+          "shares": 249.0,
+          "price": 5.235,
+          "broker_net_amount": 1303.49
+        },
+        {
+          "executed_at": "2026-11-02T10:30:24-05:00",
+          "shares": 100.0,
+          "price": 5.235,
+          "broker_net_amount": 523.48
+        },
+        {
+          "executed_at": "2026-11-02T10:30:24-05:00",
+          "shares": 100.0,
+          "price": 5.235,
+          "broker_net_amount": 523.48
+        },
+        {
+          "executed_at": "2026-11-02T10:30:24-05:00",
+          "shares": 51.0,
+          "price": 5.235,
+          "broker_net_amount": 266.99
+        }
+      ]
+    },
+    {
+      "order_number": "2F60LYRM",
+      "ticker": "LITE",
+      "side": "sell",
+      "shares": 5.0,
+      "price": 756.925,
+      "executed_at": "2026-11-02T10:30:45-05:00",
+      "broker_net_amount": 3784.55,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T10:30:44-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T10:30:45-05:00",
+          "shares": 5.0,
+          "price": 756.925,
+          "broker_net_amount": 3784.55
+        }
+      ]
+    },
+    {
+      "order_number": "2F615DSX",
+      "ticker": "LITE",
+      "side": "buy",
+      "shares": 3.0,
+      "price": 713.095,
+      "executed_at": "2026-11-02T13:03:51-05:00",
+      "broker_net_amount": 2139.29,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:03:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:03:51-05:00",
+          "shares": 3.0,
+          "price": 713.095,
+          "broker_net_amount": 2139.29
+        }
+      ]
+    },
+    {
+      "order_number": "2F61Q6RM",
+      "ticker": "LITE",
+      "side": "sell",
+      "shares": 3.0,
+      "price": 717.37,
+      "executed_at": "2026-11-02T13:07:18-05:00",
+      "broker_net_amount": 2152.06,
+      "manual_fee": 0.05,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:07:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.36,
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:07:18-05:00",
+          "shares": 3.0,
+          "price": 717.37,
+          "broker_net_amount": 2152.06
+        }
+      ]
+    },
+    {
+      "order_number": "2F61L6KM",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 98.285,
+      "executed_at": "2026-11-02T13:08:56-05:00",
+      "broker_net_amount": 1965.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:08:55-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.4,
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:08:56-05:00",
+          "shares": 20.0,
+          "price": 98.285,
+          "broker_net_amount": 1965.7
+        }
+      ]
+    },
+    {
+      "order_number": "2F61NWV2",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 97.9,
+      "executed_at": "2026-11-02T13:10:36-05:00",
+      "broker_net_amount": 979.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:10:35-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:10:36-05:00",
+          "shares": 10.0,
+          "price": 97.9,
+          "broker_net_amount": 979.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F61J6DG",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 98.0999,
+      "executed_at": "2026-11-02T13:11:15-05:00",
+      "broker_net_amount": 490.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:11:14-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:11:15-05:00",
+          "shares": 5.0,
+          "price": 98.0999,
+          "broker_net_amount": 490.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F61JWQJ",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 15.0,
+      "price": 97.805,
+      "executed_at": "2026-11-02T13:12:36-05:00",
+      "broker_net_amount": 1467.08,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:12:35-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:12:36-05:00",
+          "shares": 15.0,
+          "price": 97.805,
+          "broker_net_amount": 1467.08
+        }
+      ]
+    },
+    {
+      "order_number": "2F61HK5H",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 97.694,
+      "executed_at": "2026-11-02T13:13:43-05:00",
+      "broker_net_amount": 488.47,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:13:43-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:13:43-05:00",
+          "shares": 5.0,
+          "price": 97.694,
+          "broker_net_amount": 488.47
+        }
+      ]
+    },
+    {
+      "order_number": "2F61N7TC",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 97.6899,
+      "executed_at": "2026-11-02T13:14:03-05:00",
+      "broker_net_amount": 488.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:14:03-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:14:03-05:00",
+          "shares": 5.0,
+          "price": 97.6899,
+          "broker_net_amount": 488.45
+        }
+      ]
+    },
+    {
+      "order_number": "2F61FK4F",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 97.726,
+      "executed_at": "2026-11-02T13:14:57-05:00",
+      "broker_net_amount": 488.63,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:14:57-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:14:57-05:00",
+          "shares": 5.0,
+          "price": 97.726,
+          "broker_net_amount": 488.63
+        }
+      ]
+    },
+    {
+      "order_number": "2F61MT0D",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 97.601,
+      "executed_at": "2026-11-02T13:47:08-05:00",
+      "broker_net_amount": 976.01,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:47:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 1.13,
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:47:08-05:00",
+          "shares": 10.0,
+          "price": 97.601,
+          "broker_net_amount": 976.01
+        }
+      ]
+    },
+    {
+      "order_number": "2F61HSF0",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 97.5861,
+      "executed_at": "2026-11-02T13:47:43-05:00",
+      "broker_net_amount": 975.86,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:47:43-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:47:43-05:00",
+          "shares": 10.0,
+          "price": 97.5861,
+          "broker_net_amount": 975.86
+        }
+      ]
+    },
+    {
+      "order_number": "2F61GFZH",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 97.71,
+      "executed_at": "2026-11-02T13:48:09-05:00",
+      "broker_net_amount": 488.55,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T13:48:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T13:48:09-05:00",
+          "shares": 5.0,
+          "price": 97.71,
+          "broker_net_amount": 488.55
+        }
+      ]
+    },
+    {
+      "order_number": "2F61L38Z",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 96.64,
+      "executed_at": "2026-11-02T14:17:16-05:00",
+      "broker_net_amount": 4832.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:17:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:17:16-05:00",
+          "shares": 28.0,
+          "price": 96.64,
+          "broker_net_amount": 2705.92
+        },
+        {
+          "executed_at": "2026-11-02T14:17:16-05:00",
+          "shares": 22.0,
+          "price": 96.64,
+          "broker_net_amount": 2126.08
+        }
+      ]
+    },
+    {
+      "order_number": "2F61QTMR",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.58,
+      "executed_at": "2026-11-02T14:18:27-05:00",
+      "broker_net_amount": 965.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $96.60",
+      "order_date": "2026-11-02T14:18:27-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:18:27-05:00",
+          "shares": 10.0,
+          "price": 96.58,
+          "broker_net_amount": 965.8
+        }
+      ],
+      "order_expiration": "2026-11-02T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F61VDY5",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 96.585,
+      "executed_at": "2026-11-02T14:31:51-05:00",
+      "broker_net_amount": 1931.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:31:50-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:31:51-05:00",
+          "shares": 20.0,
+          "price": 96.585,
+          "broker_net_amount": 1931.7
+        }
+      ],
+      "price_improvement": 0.1
+    },
+    {
+      "order_number": "2F61TR4X",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.57,
+      "executed_at": "2026-11-02T14:32:19-05:00",
+      "broker_net_amount": 965.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:32:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:32:19-05:00",
+          "shares": 10.0,
+          "price": 96.57,
+          "broker_net_amount": 965.7
+        }
+      ]
+    },
+    {
+      "order_number": "2F61YSGK",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.445,
+      "executed_at": "2026-11-02T14:33:43-05:00",
+      "broker_net_amount": 964.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:33:43-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:33:43-05:00",
+          "shares": 10.0,
+          "price": 96.445,
+          "broker_net_amount": 964.45
+        }
+      ],
+      "price_improvement": 0.45
+    },
+    {
+      "order_number": "2F61TRY3",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.5629,
+      "executed_at": "2026-11-02T14:34:04-05:00",
+      "broker_net_amount": 965.63,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:34:04-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:34:04-05:00",
+          "shares": 10.0,
+          "price": 96.5629,
+          "broker_net_amount": 965.63
+        }
+      ]
+    },
+    {
+      "order_number": "2F61YV3X",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 60.0,
+      "price": 96.22,
+      "executed_at": "2026-11-02T14:37:08-05:00",
+      "broker_net_amount": 5773.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:37:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:37:08-05:00",
+          "shares": 60.0,
+          "price": 96.22,
+          "broker_net_amount": 5773.2
+        }
+      ],
+      "price_improvement": 2.4
+    },
+    {
+      "order_number": "2F61Y5P2",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 60.0,
+      "price": 96.1441,
+      "executed_at": "2026-11-02T14:37:37-05:00",
+      "broker_net_amount": 5768.65,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:37:37-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:37:37-05:00",
+          "shares": 60.0,
+          "price": 96.1441,
+          "broker_net_amount": 5768.65
+        }
+      ],
+      "price_improvement": 0.35
+    },
+    {
+      "order_number": "2F61WV9F",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 96.12,
+      "executed_at": "2026-11-02T14:37:55-05:00",
+      "broker_net_amount": 2883.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:37:54-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:37:55-05:00",
+          "shares": 30.0,
+          "price": 96.12,
+          "broker_net_amount": 2883.6
+        }
+      ]
+    },
+    {
+      "order_number": "2F61RVN8",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 96.0601,
+      "executed_at": "2026-11-02T14:38:19-05:00",
+      "broker_net_amount": 1921.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:38:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:38:19-05:00",
+          "shares": 20.0,
+          "price": 96.0601,
+          "broker_net_amount": 1921.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F61Y6FQ",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 96.02,
+      "executed_at": "2026-11-02T14:39:00-05:00",
+      "broker_net_amount": 4801.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:39:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:39:00-05:00",
+          "shares": 50.0,
+          "price": 96.02,
+          "broker_net_amount": 4801.0
+        }
+      ],
+      "price_improvement": 1.75
+    },
+    {
+      "order_number": "2F6227K9",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.046,
+      "executed_at": "2026-11-02T14:40:15-05:00",
+      "broker_net_amount": 960.46,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:40:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:40:15-05:00",
+          "shares": 10.0,
+          "price": 96.046,
+          "broker_net_amount": 960.46
+        }
+      ]
+    },
+    {
+      "order_number": "2F622XS5",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 96.1178,
+      "executed_at": "2026-11-02T14:40:46-05:00",
+      "broker_net_amount": 961.18,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:40:46-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:40:46-05:00",
+          "shares": 10.0,
+          "price": 96.1178,
+          "broker_net_amount": 961.18
+        }
+      ]
+    },
+    {
+      "order_number": "2F61S0SC",
+      "ticker": "CBRS",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 95.88,
+      "executed_at": "2026-11-02T14:48:16-05:00",
+      "broker_net_amount": 4794.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:48:16-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:48:16-05:00",
+          "shares": 50.0,
+          "price": 95.88,
+          "broker_net_amount": 4794.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F61SRGH",
+      "ticker": "CBRS",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 96.43,
+      "executed_at": "2026-11-02T14:56:12-05:00",
+      "broker_net_amount": 9642.8,
+      "manual_fee": 0.2,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:56:11-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:56:12-05:00",
+          "shares": 100.0,
+          "price": 96.43,
+          "broker_net_amount": 9642.8
+        }
+      ]
+    },
+    {
+      "order_number": "2F61TFFP",
+      "ticker": "CBRS",
+      "side": "sell",
+      "shares": 50.0,
+      "price": 96.75,
+      "executed_at": "2026-11-02T14:56:44-05:00",
+      "broker_net_amount": 4837.4,
+      "manual_fee": 0.1,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:56:44-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:56:44-05:00",
+          "shares": 50.0,
+          "price": 96.75,
+          "broker_net_amount": 4837.4
+        }
+      ],
+      "price_improvement": 6.0
+    },
+    {
+      "order_number": "2F61XSD1",
+      "ticker": "CBRS",
+      "side": "sell",
+      "shares": 250.0,
+      "price": 96.8,
+      "executed_at": "2026-11-02T14:57:42-05:00",
+      "broker_net_amount": 24199.5,
+      "manual_fee": 0.5,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $96.80",
+      "order_date": "2026-11-02T14:57:19-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:57:42-05:00",
+          "shares": 250.0,
+          "price": 96.8,
+          "broker_net_amount": 24199.5
+        }
+      ],
+      "order_expiration": "2026-11-02T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F6214GS",
+      "ticker": "CBRS",
+      "side": "sell",
+      "shares": 90.0,
+      "price": 97.03,
+      "executed_at": "2026-11-02T14:58:29-05:00",
+      "broker_net_amount": 8732.52,
+      "manual_fee": 0.18,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T14:58:29-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T14:58:29-05:00",
+          "shares": 90.0,
+          "price": 97.03,
+          "broker_net_amount": 8732.52
+        }
+      ],
+      "price_improvement": 2.7
+    },
+    {
+      "order_number": "2F625CD1",
+      "ticker": "RSI",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 11.525,
+      "executed_at": "2026-11-02T15:20:22-05:00",
+      "broker_net_amount": 1152.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $11.54",
+      "order_date": "2026-11-02T15:20:22-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T15:20:22-05:00",
+          "shares": 100.0,
+          "price": 11.525,
+          "broker_net_amount": 1152.5
+        }
+      ],
+      "order_expiration": "2026-11-02T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F62BQD5",
+      "ticker": "RSI",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 11.54,
+      "executed_at": "2026-11-02T15:21:13-05:00",
+      "broker_net_amount": 1154.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $11.54",
+      "order_date": "2026-11-02T15:21:13-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T15:21:13-05:00",
+          "shares": 100.0,
+          "price": 11.54,
+          "broker_net_amount": 1154.0
+        }
+      ],
+      "order_expiration": "2026-11-02T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F629MLZ",
+      "ticker": "RSI",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 11.515,
+      "executed_at": "2026-11-02T15:45:42-05:00",
+      "broker_net_amount": 1151.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-02T15:45:42-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-02T15:45:42-05:00",
+          "shares": 100.0,
+          "price": 11.515,
+          "broker_net_amount": 1151.5
+        }
+      ]
+    }
+  ],
+  "filled_order_count": 48,
+  "imported_order_count": 48,
+  "html_reconciliation": {
+    "source_file": "Portfolio Activity & Orders.html",
+    "source_sha256": "a2c9086fceccb2d32a81d88f41219ce28b47ba1cec262e6eaa4343f0abdc2a29",
+    "new_order_count": 18,
+    "existing_order_count": 27,
+    "excluded_orders": [
+      {
+        "order_number": "2F603Q1Q",
+        "status": "Filled at $324.91",
+        "ticker": "AVGO",
+        "reason": "user-excluded ticker"
+      },
+      {
+        "order_number": "2F608F4K",
+        "status": "Filled at $16.815",
+        "ticker": "BETZ",
+        "reason": "user-excluded ticker"
+      },
+      {
+        "order_number": "2F61SQDW",
+        "status": "Verified Canceled",
+        "ticker": "CBRS"
+      }
+    ],
+    "excluded_tickers": [
+      "AVGO",
+      "BETZ"
+    ],
+    "summary_only_sales_pending_details": {}
+  }
+}

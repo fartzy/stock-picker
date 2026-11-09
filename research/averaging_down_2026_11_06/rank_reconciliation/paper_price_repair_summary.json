@@ -1,0 +1,27 @@
+{
+  "applied": true,
+  "cutoff": "2026-11-06",
+  "total_rows": 6656,
+  "changed_rows": 5733,
+  "changed_by_kind": {
+    "fit": 5101,
+    "rank": 632
+  },
+  "replay_rows_unchanged": 232,
+  "missing_session_prices": [
+    {
+      "as_of": "2026-09-11",
+      "kind": "fit",
+      "rank": 313,
+      "ticker": "CSAN"
+    },
+    {
+      "as_of": "2026-09-11",
+      "kind": "fit",
+      "rank": 499,
+      "ticker": "GBTG"
+    }
+  ],
+  "scan_digest": "c9de65041c8f5d3209bd6e596ad16c1d557190f831c3762bdd0161e033087ab3",
+  "backup": "/Users/michael.artz/dev/stock-picker/research/averaging_down_2026_11_06/rank_reconciliation/paper_book_before_repair_20261107T052611Z.db"
+}

@@ -1,0 +1,277 @@
+{
+  "meaning": "Same saved selections, verified daily open/close and the same down-day next-open rule. This is a price sensitivity, not a rerun of historical selection models.",
+  "saved": {
+    "n": 70,
+    "total_pnl": 5882.93,
+    "mean_per_position": 84.04185714285715,
+    "period_gain_on_20000": 0.29414650000000003,
+    "win_pct": 67.14285714285714,
+    "median": 98.31,
+    "worst": -1777.7800000000002,
+    "best": 1655.22
+  },
+  "verified_gross": {
+    "n": 70,
+    "total_pnl": 2454.0511445654574,
+    "mean_per_position": 35.05787349379225,
+    "period_gain_on_20000": 0.12270255722827288,
+    "win_pct": 64.28571428571429,
+    "median": 77.33791632096754,
+    "worst": -2085.5614973262036,
+    "best": 1681.9699499165263
+  },
+  "verified_net11": {
+    "n": 70,
+    "total_pnl": 910.3503029731037,
+    "mean_per_position": 13.005004328187196,
+    "period_gain_on_20000": 0.04551751514865519,
+    "win_pct": 62.857142857142854,
+    "median": 55.1921332664207,
+    "worst": -2102.9541301359955,
+    "best": 1656.2978553307528
+  },
+  "verified_net26": {
+    "n": 70,
+    "total_pnl": -1189.237371245176,
+    "mean_per_position": -16.989105303502516,
+    "period_gain_on_20000": -0.0594618685622588,
+    "win_pct": 58.57142857142858,
+    "median": 25.071651444775746,
+    "worst": -2126.609851818427,
+    "best": 1621.381236830981
+  },
+  "verified_per_rank": [
+    {
+      "rank": 1,
+      "n": 35,
+      "total_pnl": 2012.0419393016768,
+      "mean_per_position": 57.48691255147648,
+      "period_gain_on_20000": 0.10060209696508385,
+      "win_pct": 68.57142857142857,
+      "median": 108.20783883514595,
+      "worst": -2085.5614973262036,
+      "best": 1423.6082388948623,
+      "net11_total": 1238.4663801502525,
+      "net11_mean": 35.384753718578644
+    },
+    {
+      "rank": 2,
+      "n": 35,
+      "total_pnl": 442.00920526378115,
+      "mean_per_position": 12.628834436108033,
+      "period_gain_on_20000": 0.022100460263189056,
+      "win_pct": 60.0,
+      "median": 56.084126189284156,
+      "worst": -1514.4227773970465,
+      "best": 1681.9699499165263,
+      "net11_total": -328.1160771771485,
+      "net11_mean": -9.374745062204243
+    }
+  ],
+  "significant_open_mismatches": [
+    {
+      "date": "2026-09-30",
+      "entry_date": "2026-09-30",
+      "rank": 2,
+      "ticker": "CBRS",
+      "saved_open": 180.52000427246094,
+      "verified_open": 183.685,
+      "saved_close": 177.64999389648438,
+      "verified_close": 177.65,
+      "held_overnight_after_verification": true,
+      "exit_price": 181.93,
+      "saved_pnl": 78.1,
+      "pnl": -95.54400195987634,
+      "net11": -117.3098627087421,
+      "net26": -146.91361216315647,
+      "prior_session_open": 200.85000610351562,
+      "saved_matches_prior_open": false
+    },
+    {
+      "date": "2026-09-29",
+      "entry_date": "2026-09-29",
+      "rank": 1,
+      "ticker": "RBLX",
+      "saved_open": 41.415000915527344,
+      "verified_open": 41.9,
+      "saved_close": 41.18000030517578,
+      "verified_close": 41.18,
+      "held_overnight_after_verification": true,
+      "exit_price": 41.21,
+      "saved_pnl": -49.5,
+      "pnl": -164.6778042959418,
+      "net11": -186.2917377996376,
+      "net26": -215.6888509921928,
+      "prior_session_open": 43.599998474121094,
+      "saved_matches_prior_open": false
+    },
+    {
+      "date": "2026-09-28",
+      "entry_date": "2026-09-28",
+      "rank": 2,
+      "ticker": "RBLX",
+      "saved_open": 44.36000061035156,
+      "verified_open": 43.6,
+      "saved_close": 41.86000061035156,
+      "verified_close": 41.86,
+      "held_overnight_after_verification": true,
+      "exit_price": 41.9,
+      "saved_pnl": -554.5500000000001,
+      "pnl": -389.90825688073437,
+      "net11": -411.0272278475347,
+      "net26": -439.7511424424938,
+      "prior_session_open": 48.189998626708984,
+      "saved_matches_prior_open": false
+    },
+    {
+      "date": "2026-09-25",
+      "entry_date": "2026-09-25",
+      "rank": 1,
+      "ticker": "TDTH",
+      "saved_open": 1.8,
+      "verified_open": 1.87,
+      "saved_close": 1.4600000381469727,
+      "verified_close": 1.46,
+      "held_overnight_after_verification": true,
+      "exit_price": 1.48,
+      "saved_pnl": -1777.7800000000002,
+      "pnl": -2085.5614973262036,
+      "net11": -2102.9541301359955,
+      "net26": -2126.609851818427,
+      "prior_session_open": 1.899999976158142,
+      "saved_matches_prior_open": false
+    },
+    {
+      "date": "2026-09-23",
+      "entry_date": "2026-09-23",
+      "rank": 1,
+      "ticker": "TRLV",
+      "saved_open": 11.5,
+      "verified_open": 12.4,
+      "saved_close": 12.539999961853027,
+      "verified_close": 12.54,
+      "held_overnight_after_verification": false,
+      "exit_price": 12.54,
+      "saved_pnl": 904.35,
+      "pnl": 112.90322580645108,
+      "net11": 90.67928504451484,
+      "net26": 60.45250091696985,
+      "prior_session_open": 11.5,
+      "saved_matches_prior_open": true
+    },
+    {
+      "date": "2026-09-23",
+      "entry_date": "2026-09-23",
+      "rank": 2,
+      "ticker": "ALKT",
+      "saved_open": 15.6,
+      "verified_open": 15.69,
+      "saved_close": 14.600000381469727,
+      "verified_close": 14.6,
+      "held_overnight_after_verification": true,
+      "exit_price": 14.17,
+      "saved_pnl": -916.67,
+      "pnl": -968.7699171446784,
+      "net11": -988.6167917648792,
+      "net26": -1015.610527987334,
+      "prior_session_open": 18.860000610351562,
+      "saved_matches_prior_open": false
+    },
+    {
+      "date": "2026-09-22",
+      "entry_date": "2026-09-22",
+      "rank": 1,
+      "ticker": "HHH",
+      "saved_open": 61,
+      "verified_open": 65.96,
+      "saved_close": 66.08999633789062,
+      "verified_close": 66.09,
+      "held_overnight_after_verification": false,
+      "exit_price": 66.09,
+      "saved_pnl": 834.43,
+      "pnl": 19.708914493634655,
+      "net11": -2.310224065836808,
+      "net26": -32.25845669663774,
+      "prior_session_open": 61.0,
+      "saved_matches_prior_open": true
+    },
+    {
+      "date": "2026-09-21",
+      "entry_date": "2026-09-21",
+      "rank": 1,
+      "ticker": "PS",
+      "saved_open": 43.92,
+      "verified_open": 50.61,
+      "saved_close": 48.22999954223633,
+      "verified_close": 48.23,
+      "held_overnight_after_verification": true,
+      "exit_price": 49.23,
+      "saved_pnl": 981.33,
+      "pnl": -272.6733847065799,
+      "net11": -294.0499889955084,
+      "net26": -323.1243106985271,
+      "prior_session_open": 43.91999816894531,
+      "saved_matches_prior_open": true
+    }
+  ],
+  "prior_open_matches": 3,
+  "saved_cluster_bootstrap_95pct_mean": {
+    "ticker": [
+      -58.437457564026225,
+      225.02215379185154
+    ],
+    "entry_date": [
+      -56.53589642857144,
+      210.559
+    ],
+    "envelope": [
+      -58.437457564026225,
+      225.02215379185154
+    ]
+  },
+  "verified_cluster_bootstrap_95pct_mean": {
+    "ticker": [
+      -102.78342497497088,
+      175.46464925614075
+    ],
+    "entry_date": [
+      -104.42169111844048,
+      160.60096784956733
+    ],
+    "envelope": [
+      -104.42169111844048,
+      175.46464925614075
+    ]
+  },
+  "saved_closed_day_max_drawdown": 2620.539999999999,
+  "saved_top3_winners": 4060.16,
+  "saved_top5_winners": 5908.26,
+  "saved_without_top5": -25.329999999999927,
+  "saved_worst_positions": [
+    {
+      "date": "2026-09-25",
+      "ticker": "TDTH",
+      "pnl": -1777.7800000000002
+    },
+    {
+      "date": "2026-11-02",
+      "ticker": "LITE",
+      "pnl": -1514.42
+    },
+    {
+      "date": "2026-10-01",
+      "ticker": "CTVA",
+      "pnl": -1423.13
+    },
+    {
+      "date": "2026-11-04",
+      "ticker": "MRCY",
+      "pnl": -1170.2
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "ALKT",
+      "pnl": -916.67
+    }
+  ]
+}

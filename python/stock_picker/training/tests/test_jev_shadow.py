@@ -3,8 +3,10 @@
 from types import SimpleNamespace
 
 import requests
+import pytest
 
 from stock_picker.training import jev_shadow
+from stock_picker.storage.jev_forecast_store import JevForecastStore
 
 
 def signal(ticker="AAA", **extra):
@@ -95,3 +97,52 @@ def test_jev_url_uses_proxy_host_not_v1_base(monkeypatch):
     assert jev_shadow.jev_url() == "https://proxy.example/typesafe/v1/systemone"
     monkeypatch.setattr(jev_shadow, "llm_chat_url", lambda: jev_shadow.XAI_CHAT_URL)
     assert jev_shadow.jev_url() is None
+
+
+@pytest.mark.parametrize("probability", [-0.1, 1.1, float("nan"), float("inf"), True, "0.6", None])
+def test_invalid_probabilities_never_become_confidences(probability):
+    body = {**ANSWERS, "answers": {**ANSWERS["answers"], "buy_today": {"type": "noul", "noul": probability}}}
+    result = jev_shadow.ask_jev({}, url="u", api_key="k", session=FakeSession(FakeResponse(body)))
+    assert result.issue == "request_failed"
+    assert result.buy_today is None
+
+
+def test_morning_forecast_archives_exact_request_before_scan_can_replace_it(tmp_path):
+    store = JevForecastStore(tmp_path)
+    session = FakeSession(FakeResponse(ANSWERS))
+    scores = jev_shadow.shadow_scores([(signal(snapshot_date="2026-11-06"), "rank", 1)], lambda ticker: {},
+                                      url="u", api_key="k", session=session, forecast_store=store)
+    embedded = scores[("rank", "AAA")]
+    record = store.read(embedded["forecast_id"])
+    assert record["questions"] == session.calls[0][1]["json"]["questions"]
+    assert record["state"] == session.calls[0][1]["json"]["state"]
+    assert record["answers"]["buy_today"] == 0.61
+    assert record["target"]["entry_basis"] == "session_open"
+    assert record["target"]["entry_price"] == 10.5
+    assert record["requested_at"] <= record["completed_at"]
+    assert record["question_set_version"] == "morning_v1"
+
+
+@pytest.mark.parametrize("metadata", [
+    {"model": {"unexpected": "object"}}, {"model": []}, {"model": True}, {"model": ""}, {"model": "  "},
+    {"usage": []}, {"usage": "930"}, {"usage": False},
+    *({"usage": {"input_tokens": value, "output_tokens": 30}} for value in
+      (True, "900", {}, -1, 1.5, 1.0, float("nan"), float("inf"), None)),
+    {"usage": {"input_tokens": 900, "output_tokens": -1}},
+])
+def test_malformed_metadata_is_rejected_before_any_answer_is_returned(metadata):
+    result = jev_shadow.ask_questions({}, jev_shadow.QUESTIONS, url="u", api_key="k",
+                                     session=FakeSession(FakeResponse({**ANSWERS, **metadata})))
+    assert result["issue"] == "request_failed"
+    assert result["model"] is None and result["tokens"] is None
+    assert all(value is None for value in result["answers"].values())
+
+
+@pytest.mark.parametrize("metadata", [{}, {"model": None, "usage": None},
+                                      {"usage": {}}, {"usage": {"input_tokens": 900}}])
+def test_optional_metadata_stays_unknown_without_inventing_token_totals(metadata):
+    result = jev_shadow.ask_questions({}, jev_shadow.QUESTIONS, url="u", api_key="k",
+                                     session=FakeSession(FakeResponse({"answers": ANSWERS["answers"], **metadata})))
+    assert result["issue"] is None
+    assert result["model"] is None and result["tokens"] is None
+    assert result["answers"]["buy_today"] == 0.61

@@ -25,6 +25,7 @@ import { ColumnTitle, DataTable, NewsCell, QuoteLoadingCell, ScoreCell, TickerCe
 import FreshnessBadge from "./FreshnessBadge";
 import { StatStrip } from "./stats";
 import JevCell from "./JevCell";
+import JevAssessment from "./JevAssessment";
 import TogglePill from "./TogglePill";
 
 const LATEST_OPTION_VALUE = "";
@@ -61,6 +62,7 @@ function MorningList({
   onOpenOvernight: (ticker: string) => void;
 }) {
   const [open, setOpen] = useState(true);
+  const [assessTicker, setAssessTicker] = useState<string | null>(null);
   const tickers = list?.signals.map((s) => s.ticker) ?? [];
   const { quotes, loading: quotesLoading } = useQuotes(tickers, {
     enabled: showLive && open && tickers.length > 0,
@@ -73,7 +75,7 @@ function MorningList({
   if (list.signals.length === 0 && list.scored_count === 0) return null;
   const liveLabel = closed ? "Close" : "Last";
   return (
-    <details
+    <><details
       className="view-card morning-list"
       onToggle={(event) => setOpen((event.currentTarget as HTMLDetailsElement).open)}
     >
@@ -152,15 +154,23 @@ function MorningList({
               },
               {
                 key: "jev",
-                header: <ColumnTitle label="Jev" hint="buy · hold · skip" />,
+                header: <ColumnTitle label="Morning Jev" hint="day · overnight · news" />,
                 when: list.signals.some((signal) => signal.jev),
                 cell: (signal) => <JevCell scores={signal.jev} />,
+              },
+              {
+                key: "jev-assess",
+                header: "From here",
+                when: showLive && !closed,
+                cell: (signal) => <button type="button" className="overnight-row-link jev-assess-action" aria-label={`Assess ${signal.ticker} with Jev`} onClick={() => setAssessTicker(signal.ticker)}>Assess</button>,
               },
             ]}
           />
         </div>
       )}
     </details>
+      {assessTicker && <JevAssessment key={assessTicker} ticker={assessTicker} kind={isRank ? "rank" : "fit"} onClose={() => setAssessTicker(null)} />}
+    </>
   );
 }
 

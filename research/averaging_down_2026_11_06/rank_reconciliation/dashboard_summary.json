@@ -1,0 +1,168 @@
+{
+  "headline": {
+    "eligibleDays": 36,
+    "matchedDays": 35,
+    "pnl": 5882.93,
+    "endingValue": 705882.93,
+    "average_daily_capital": 20000,
+    "period_gain": 0.29414650000000003,
+    "positions": 70,
+    "average_per_position": 84.04185714285715,
+    "average_per_day": 168.0837142857143
+  },
+  "footer": {
+    "picks": 72,
+    "priced": 71,
+    "pnl": 6579.900063763265,
+    "mean_pnl": 92.6746487853981,
+    "mean_return": 0.00926746487853981,
+    "wins": 48,
+    "losses": 23
+  },
+  "footer_held": {
+    "picks": 31,
+    "priced": 30,
+    "pnl": -11384.940000000002,
+    "mean_pnl": -379.4980000000001,
+    "mean_return": -0.03794980000000001,
+    "wins": 7,
+    "losses": 23
+  },
+  "completed": {
+    "picks": 70,
+    "priced": 70,
+    "pnl": 5882.9267736891725,
+    "mean_pnl": 84.04181105270247,
+    "mean_return": 0.008404181105270248,
+    "wins": 47,
+    "losses": 23
+  },
+  "completed_close_only_pnl": 4327.469999999999,
+  "completed_overnight_increment": 1555.4599999999998,
+  "per_rank": [
+    {
+      "rank": 1,
+      "picks": 35,
+      "priced": 35,
+      "pnl": 5352.37617659202,
+      "mean_pnl": 152.92503361691485,
+      "mean_return": 0.015292503361691485,
+      "wins": 25,
+      "losses": 10
+    },
+    {
+      "rank": 2,
+      "picks": 35,
+      "priced": 35,
+      "pnl": 530.5505970971533,
+      "mean_pnl": 15.158588488490095,
+      "mean_return": 0.0015158588488490094,
+      "wins": 22,
+      "losses": 13
+    }
+  ],
+  "costs": [
+    {
+      "bps_per_side": 0,
+      "pnl": 5882.9299999999985,
+      "average_per_position": 84.04185714285713,
+      "at_2500_per_position": 21.01046428571428,
+      "period_gain": 0.2941464999999999
+    },
+    {
+      "bps_per_side": 11,
+      "pnl": 4331.693913694871,
+      "average_per_position": 61.881341624212446,
+      "at_2500_per_position": 15.470335406053112,
+      "period_gain": 0.21658469568474356
+    },
+    {
+      "bps_per_side": 26,
+      "pnl": 2221.8575523638674,
+      "average_per_position": 31.740822176626676,
+      "at_2500_per_position": 7.935205544156669,
+      "period_gain": 0.11109287761819336
+    }
+  ],
+  "latest_day": {
+    "date": "2026-11-06",
+    "complete": false,
+    "close_pnl": 594.58,
+    "selected": 1,
+    "observed": 0,
+    "pnl": null,
+    "endingValue": null,
+    "extraPnl": null
+  },
+  "latest_rows": [
+    {
+      "date": "2026-11-06",
+      "rank": 1,
+      "ticker": "KOD",
+      "entry_price": 92.83,
+      "close_price": 99.30000305175781,
+      "next_open": null,
+      "next_session": "2026-11-09",
+      "close_pnl": 696.97,
+      "held_overnight": false,
+      "overnight_status": "awaiting_next_open",
+      "overnight_extra": 0,
+      "final_pnl": 696.9732900740944,
+      "display_total_pnl": null,
+      "final_return": 0.06969732900740944,
+      "included_in_headline": false,
+      "news_flag": null,
+      "news_checked": true
+    },
+    {
+      "date": "2026-11-06",
+      "rank": 2,
+      "ticker": "SLF",
+      "entry_price": 72.27,
+      "close_price": 71.52999877929688,
+      "next_open": null,
+      "next_session": "2026-11-09",
+      "close_pnl": -102.39,
+      "held_overnight": true,
+      "overnight_status": "awaiting_next_open",
+      "overnight_extra": null,
+      "final_pnl": null,
+      "display_total_pnl": null,
+      "final_return": null,
+      "included_in_headline": false,
+      "news_flag": "Q3 showed $26.9B MFS net outflows; shares sank 10% with downgrades",
+      "news_checked": true
+    }
+  ],
+  "missing_or_mismatched": [
+    {
+      "date": "2026-09-22",
+      "rank": 2,
+      "ticker": "GRAL",
+      "entry_price": 106.75,
+      "close_price": 108.5199966430664,
+      "next_open": null,
+      "next_session": "2026-09-23",
+      "close_pnl": 165.81,
+      "held_overnight": false,
+      "overnight_status": "unavailable",
+      "overnight_extra": 0,
+      "final_pnl": 165.80764806242598,
+      "display_total_pnl": 165.81,
+      "final_return": 0.0165807648062426,
+      "included_in_headline": true,
+      "news_flag": null,
+      "news_checked": false
+    }
+  ],
+  "replay_days_excluded": [
+    {
+      "date": "2026-10-28",
+      "scan_id": "40a03847e2d6"
+    },
+    {
+      "date": "2026-10-28",
+      "scan_id": "364d97b0aed7"
+    }
+  ]
+}

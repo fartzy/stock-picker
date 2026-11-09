@@ -7,6 +7,7 @@ Rank is published as soon as Rank finishes (target ~8:35 CT).
 from __future__ import annotations
 
 import fcntl
+from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
 import time
 from datetime import date, datetime, time as clock_time, timedelta
@@ -24,6 +25,7 @@ from stock_picker.training.news_day_judge import fetch_recent_news_checks
 from stock_picker.news_check import NewsCheck, apply_news_checks, news_check_payload
 from stock_picker.storage.paths import data_root
 from stock_picker.storage.scan_store import ScanStore
+from stock_picker.storage.jev_forecast_store import JevForecastStore
 from stock_picker.training.buy_signal import (
     DEFAULT_THRESHOLD,
     OPEN_KNOWN_COLUMNS_SET,
@@ -46,7 +48,8 @@ from stock_picker.training.notify import (
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.training.news_ingest import ingest_universe_news
-from stock_picker.training.jev_shadow import CONTEXT_COLUMNS, shadow_scores
+from stock_picker.training.jev_shadow import shadow_scores
+from stock_picker.training.jev_assessment import prior_feature_context
 from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_NEWS_TOP_K, RANK_TOP_K
 
 logger = get_logger(__name__)
@@ -410,14 +413,13 @@ def score_from_quotes(
 
 
 def _latest_context(ticker: str) -> dict:
-    frame = FeatureStore().read(ticker)
-    present = [name for name in CONTEXT_COLUMNS if name in frame.columns]
-    return frame[present].iloc[-1].to_dict() if present and not frame.empty else {}
+    context, _, _ = prior_feature_context(ticker, datetime.now(CHICAGO_TIMEZONE).date())
+    return context
 
 
 def live_jev_scorer(picks):
     """Shadow Jev confidences for the live run, from each ticker's last feature row."""
-    return shadow_scores(picks, _latest_context)
+    return shadow_scores(picks, _latest_context, forecast_store=JevForecastStore())
 
 
 def recover_missing_morning_quotes(
@@ -429,6 +431,7 @@ def recover_missing_morning_quotes(
     model_run_id: str | None = None,
     now_fn=None,
     sleep_fn=time.sleep,
+    jev_scorer=None,
 ) -> None:
     """Retry only quote gaps after first publication, then rescore all names.
 
@@ -454,6 +457,13 @@ def recover_missing_morning_quotes(
         signal.ticker: NewsCheck(**signal.news_check)
         for signal in [*(rank_result.signals if rank_result else []), *fit_result.signals]
         if signal.news_check
+    }
+    # Scan rows can be replaced, but a forecast remains tied to its original
+    # rank, score, evidence and timestamp. Recovery must not rewrite that past.
+    jev_cache = {
+        (kind, signal.ticker): deepcopy(signal.jev)
+        for kind, result in (("rank", rank_result), ("fit", fit_result)) if result is not None
+        for signal in result.signals if signal.jev is not None
     }
 
     def cached_news_fetcher(names: list[str], day: date) -> dict[str, NewsCheck]:
@@ -497,6 +507,18 @@ def recover_missing_morning_quotes(
         if next_rank is None and rank_result is not None:
             logger.warning("morning quote recovery rank failed; retaining original scan")
             continue
+
+        picks = [(signal, kind, index + 1)
+                 for kind, result in (("rank", next_rank), ("fit", next_fit)) if result is not None
+                 for index, signal in enumerate(result.signals[:RANK_TOP_K] if kind == "rank" else result.signals)]
+        fresh = [pick for pick in picks if (pick[1], pick[0].ticker) not in jev_cache]
+        if fresh and jev_scorer is not None:
+            try:
+                jev_cache.update(jev_scorer(fresh))
+            except Exception:
+                logger.exception("jev shadow unavailable for recovered picks")
+        for signal, kind, _ in picks:
+            signal.jev = deepcopy(jev_cache.get((kind, signal.ticker)))
 
         rank_text = ""
         if next_rank is not None:
@@ -576,7 +598,8 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
         )
         try:
             recover_missing_morning_quotes(
-                quotes, rank_result, result, threshold, model_run_id=model_run_id
+                quotes, rank_result, result, threshold, model_run_id=model_run_id,
+                jev_scorer=live_jev_scorer,
             )
         except Exception:
             logger.exception("morning quote recovery failed after the initial publish")

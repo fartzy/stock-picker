@@ -1,0 +1,373 @@
+{
+  "previous": true,
+  "checks": 50,
+  "failures": [
+    {
+      "label": "rank: overnight recovery remains a loss",
+      "expected": -500,
+      "text": "Thursday, Nov 5liveRank exit1  · ▲$500.00",
+      "pnl": 500
+    },
+    {
+      "label": "rank: down-only includes close-sale winners",
+      "expected": 0,
+      "text": "Thursday, Nov 5liveRank exit2  · ▲$500.00",
+      "pnl": 500
+    },
+    {
+      "label": "rank: all at next open",
+      "expected": 200,
+      "text": "Thursday, Nov 5liveRank exit2  · ▲$700.00",
+      "pnl": 700
+    },
+    {
+      "label": "rank: custom next-open sale",
+      "expected": -300,
+      "text": "Thursday, Nov 5liveRank exit2  · ▲$200.00",
+      "pnl": 200
+    },
+    {
+      "label": "rank: partial overnight holding",
+      "expected": -375,
+      "text": "Thursday, Nov 5liveRank exit2  · ▲$125.00",
+      "pnl": 125
+    },
+    {
+      "label": "fit: overnight recovery remains a loss",
+      "expected": -500,
+      "text": "Thursday, Nov 5liveFit exit1  · ▲$500.00",
+      "pnl": 500
+    },
+    {
+      "label": "fit: down-only includes close-sale winners",
+      "expected": 0,
+      "text": "Thursday, Nov 5liveFit exit2  · ▲$500.00",
+      "pnl": 500
+    },
+    {
+      "label": "fit: all at next open",
+      "expected": 200,
+      "text": "Thursday, Nov 5liveFit exit2  · ▲$700.00",
+      "pnl": 700
+    },
+    {
+      "label": "fit: custom next-open sale",
+      "expected": -300,
+      "text": "Thursday, Nov 5liveFit exit2  · ▲$200.00",
+      "pnl": 200
+    },
+    {
+      "label": "fit: partial overnight holding",
+      "expected": -375,
+      "text": "Thursday, Nov 5liveFit exit2  · ▲$125.00",
+      "pnl": 125
+    },
+    {
+      "label": "2026-11-05",
+      "expected": -194.2,
+      "text": "Thursday, Nov 5liveRank exit1  · ▲$71.18",
+      "pnl": 71.18
+    },
+    {
+      "label": "2026-11-04",
+      "expected": -521.42,
+      "text": "Wednesday, Nov 4liveRank exit1  · ▼$399.36",
+      "pnl": -399.36
+    },
+    {
+      "label": "2026-11-02",
+      "expected": -46.64,
+      "text": "Monday, Nov 2liveRank exit1  · ▲$363.81",
+      "pnl": 363.81
+    },
+    {
+      "label": "2026-10-21",
+      "expected": -311.93,
+      "text": "Wednesday, Oct 21liveRank exit1  · ▼$128.44",
+      "pnl": -128.44
+    },
+    {
+      "label": "2026-10-12",
+      "expected": 737.46,
+      "text": "Monday, Oct 12liveRank exit1  · ▲$1,150.44",
+      "pnl": 1150.44
+    },
+    {
+      "label": "2026-10-08",
+      "expected": 84.74,
+      "text": "Thursday, Oct 8liveRank exit1  · ▲$279.66",
+      "pnl": 279.66
+    },
+    {
+      "label": "2026-10-06",
+      "expected": -429.88,
+      "text": "Tuesday, Oct 6liveRank exit1  · ▼$230.52",
+      "pnl": -230.52
+    },
+    {
+      "label": "2026-10-05",
+      "expected": -42.75,
+      "text": "Monday, Oct 5liveRank exit1  · ▲$110.44",
+      "pnl": 110.44
+    },
+    {
+      "label": "2026-10-01",
+      "expected": -1423.13,
+      "text": "Thursday, Oct 1liveRank exit1  · ▼$128.12",
+      "pnl": -128.12
+    },
+    {
+      "label": "2026-09-29",
+      "expected": -164.68,
+      "text": "Tuesday, Sep 29liveRank exit1  · ▲$7.16",
+      "pnl": 7.16
+    },
+    {
+      "label": "2026-09-25",
+      "expected": -2085.56,
+      "text": "Friday, Sep 25liveRank exit1  · ▲$106.95",
+      "pnl": 106.95
+    },
+    {
+      "label": "2026-09-24",
+      "expected": 125.9,
+      "text": "Thursday, Sep 24liveRank exit1  · ▲$528.78",
+      "pnl": 528.78
+    },
+    {
+      "label": "2026-09-21",
+      "expected": -272.67,
+      "text": "Monday, Sep 21liveRank exit1  · ▲$197.59",
+      "pnl": 197.59
+    },
+    {
+      "label": "2026-09-18",
+      "expected": -913.22,
+      "text": "Friday, Sep 18liveRank exit1  · ▲$56.79",
+      "pnl": 56.79
+    }
+  ],
+  "total": 10153.21,
+  "headline": 2708.87,
+  "days": 36,
+  "wins": 32,
+  "losses": 4,
+  "rows": [
+    {
+      "date": "2026-11-06",
+      "ticker": "KOD",
+      "text": "Friday, Nov 6liveRank exit1  · ▲$696.97",
+      "pnl": 696.97
+    },
+    {
+      "date": "2026-11-05",
+      "ticker": "TEM",
+      "text": "Thursday, Nov 5liveRank exit1  · ▲$71.18",
+      "pnl": 71.18
+    },
+    {
+      "date": "2026-11-04",
+      "ticker": "TSM",
+      "text": "Wednesday, Nov 4liveRank exit1  · ▼$399.36",
+      "pnl": -399.36
+    },
+    {
+      "date": "2026-11-03",
+      "ticker": "DDOG",
+      "text": "Tuesday, Nov 3liveRank exit1  · ▲$353.05",
+      "pnl": 353.05
+    },
+    {
+      "date": "2026-11-02",
+      "ticker": "PGEN",
+      "text": "Monday, Nov 2liveRank exit1  · ▲$363.81",
+      "pnl": 363.81
+    },
+    {
+      "date": "2026-10-30",
+      "ticker": "IMO",
+      "text": "Friday, Oct 30liveRank exit1  · ▲$1,423.61",
+      "pnl": 1423.61
+    },
+    {
+      "date": "2026-10-29",
+      "ticker": "KGC",
+      "text": "Thursday, Oct 29liveRank exit1  · ▲$69.93",
+      "pnl": 69.93
+    },
+    {
+      "date": "2026-10-28",
+      "ticker": "CRWV",
+      "text": "Wednesday, Oct 28liveRank exit1  · ▲$558.22",
+      "pnl": 558.22
+    },
+    {
+      "date": "2026-10-27",
+      "ticker": "NBIX",
+      "text": "Tuesday, Oct 27liveRank exit1  · ▲$68.27",
+      "pnl": 68.27
+    },
+    {
+      "date": "2026-10-26",
+      "ticker": "QH",
+      "text": "Monday, Oct 26liveRank exit1  · ▲$883.39",
+      "pnl": 883.39
+    },
+    {
+      "date": "2026-10-23",
+      "ticker": "BELFA",
+      "text": "Friday, Oct 23liveRank exit1  · ▲$26.19",
+      "pnl": 26.19
+    },
+    {
+      "date": "2026-10-22",
+      "ticker": "WING",
+      "text": "Thursday, Oct 22liveRank exit1  · ▲$140.95",
+      "pnl": 140.95
+    },
+    {
+      "date": "2026-10-21",
+      "ticker": "UNIT",
+      "text": "Wednesday, Oct 21liveRank exit1  · ▼$128.44",
+      "pnl": -128.44
+    },
+    {
+      "date": "2026-10-20",
+      "ticker": "EMR",
+      "text": "Tuesday, Oct 20liveRank exit1  · ▲$137.73",
+      "pnl": 137.73
+    },
+    {
+      "date": "2026-10-19",
+      "ticker": "TLK",
+      "text": "Monday, Oct 19liveRank exit1  · ▲$245.10",
+      "pnl": 245.1
+    },
+    {
+      "date": "2026-10-16",
+      "ticker": "TLK",
+      "text": "Friday, Oct 16liveRank exit1  · ▲$156.54",
+      "pnl": 156.54
+    },
+    {
+      "date": "2026-10-15",
+      "ticker": "LASR",
+      "text": "Thursday, Oct 15liveRank exit1  · ▲$263.23",
+      "pnl": 263.23
+    },
+    {
+      "date": "2026-10-14",
+      "ticker": "TXG",
+      "text": "Wednesday, Oct 14liveRank exit1  · ▲$514.96",
+      "pnl": 514.96
+    },
+    {
+      "date": "2026-10-13",
+      "ticker": "CC",
+      "text": "Tuesday, Oct 13liveRank exit1  · ▲$146.04",
+      "pnl": 146.04
+    },
+    {
+      "date": "2026-10-12",
+      "ticker": "FRMI",
+      "text": "Monday, Oct 12liveRank exit1  · ▲$1,150.44",
+      "pnl": 1150.44
+    },
+    {
+      "date": "2026-10-09",
+      "ticker": "ALHC",
+      "text": "Friday, Oct 9liveRank exit1  · ▲$879.60",
+      "pnl": 879.6
+    },
+    {
+      "date": "2026-10-08",
+      "ticker": "ALM",
+      "text": "Thursday, Oct 8liveRank exit1  · ▲$279.66",
+      "pnl": 279.66
+    },
+    {
+      "date": "2026-10-07",
+      "ticker": "WDC",
+      "text": "Wednesday, Oct 7liveRank exit1  · ▲$108.21",
+      "pnl": 108.21
+    },
+    {
+      "date": "2026-10-06",
+      "ticker": "LAD",
+      "text": "Tuesday, Oct 6liveRank exit1  · ▼$230.52",
+      "pnl": -230.52
+    },
+    {
+      "date": "2026-10-05",
+      "ticker": "LQDA",
+      "text": "Monday, Oct 5liveRank exit1  · ▲$110.44",
+      "pnl": 110.44
+    },
+    {
+      "date": "2026-10-02",
+      "ticker": "FICO",
+      "text": "Friday, Oct 2liveRank exit1  · ▲$769.54",
+      "pnl": 769.54
+    },
+    {
+      "date": "2026-10-01",
+      "ticker": "CTVA",
+      "text": "Thursday, Oct 1liveRank exit1  · ▼$128.12",
+      "pnl": -128.12
+    },
+    {
+      "date": "2026-09-30",
+      "ticker": "TRLV",
+      "text": "Wednesday, Sep 30liveRank exit1  · ▲$36.83",
+      "pnl": 36.83
+    },
+    {
+      "date": "2026-09-29",
+      "ticker": "RBLX",
+      "text": "Tuesday, Sep 29liveRank exit1  · ▲$7.16",
+      "pnl": 7.16
+    },
+    {
+      "date": "2026-09-28",
+      "ticker": "ZS",
+      "text": "Monday, Sep 28liveRank exit1  · ▲$555.88",
+      "pnl": 555.88
+    },
+    {
+      "date": "2026-09-25",
+      "ticker": "TDTH",
+      "text": "Friday, Sep 25liveRank exit1  · ▲$106.95",
+      "pnl": 106.95
+    },
+    {
+      "date": "2026-09-24",
+      "ticker": "FSLY",
+      "text": "Thursday, Sep 24liveRank exit1  · ▲$528.78",
+      "pnl": 528.78
+    },
+    {
+      "date": "2026-09-23",
+      "ticker": "TRLV",
+      "text": "Wednesday, Sep 23liveRank exit1  · ▲$112.90",
+      "pnl": 112.9
+    },
+    {
+      "date": "2026-09-22",
+      "ticker": "HHH",
+      "text": "Tuesday, Sep 22liveRank exit1  · ▲$19.71",
+      "pnl": 19.71
+    },
+    {
+      "date": "2026-09-21",
+      "ticker": "PS",
+      "text": "Monday, Sep 21liveRank exit1  · ▲$197.59",
+      "pnl": 197.59
+    },
+    {
+      "date": "2026-09-18",
+      "ticker": "XENE",
+      "text": "Friday, Sep 18liveRank exit1  · ▲$56.79",
+      "pnl": 56.79
+    }
+  ]
+}
