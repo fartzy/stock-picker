@@ -1,0 +1,42 @@
+{
+  "role": "Separate retrospective motivating example, excluded from broad screen",
+  "entry_date": "2026-11-06",
+  "source": "research/averaging_down_2026_11_06/source_data/daily_five_year/MRCY.json.gz",
+  "source_sha256": "61155cc94f493d1e9ff4415862ed8b3b5a1f282f1caf414c446695aadd7ab258",
+  "minute_source": "research/averaging_down_2026_11_06/source_data/MRCY_2026-11-06_minute.json",
+  "minute_source_sha256": "69923664ead16cc08f294b3da2716bb9ea851d3f57ce2e8cd590b0cfe971feda",
+  "previous_dates": [
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05"
+  ],
+  "previous_closes": [
+    80.32,
+    71.76,
+    65.55
+  ],
+  "prior_close_returns": [
+    -0.10657370517928277,
+    -0.08653846153846168
+  ],
+  "two_day_close_return": -0.18388944223107562,
+  "prior252_low": 64.695,
+  "prior252_low_date": "2026-11-05",
+  "prior_low_before_nov5": 65.04,
+  "prior_low_before_nov5_date": "2025-11-21",
+  "prior_close_near_low": true,
+  "prior_session_new252low": true,
+  "open": 66.93,
+  "open_gap": 0.021052631578947434,
+  "open_distance_above_prior252low": 0.03454671922096009,
+  "fraction_close_loss_recovered": 0.09343263371699459,
+  "close": 73.55,
+  "hypothetical_open_close_return": 0.09890930823248145,
+  "session_low": 64.3706,
+  "open_to_low_adverse_excursion": -0.03823995218885423,
+  "low_minute_start_et": "2026-11-06T09:36:00-05:00",
+  "minute_low": 64.3706,
+  "first_seven_clock_minutes_observed_bars": 6,
+  "timing_note": "Low occurs in minute starting09:36, six minutes after09:30; exact tick time unknown. Missing09:33 aggregate is not filled. Low is outcome-only, never morning input.",
+  "actual_trade_note": "No November6 buys; remaining500 shares sold09:35\u201310:12. Actual campaign loss differs from hypothetical opening purchase. See existing mrcy_summary and latest_csv_reconciliation."
+}

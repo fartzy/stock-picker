@@ -1,0 +1,15 @@
+{
+  "started_at_utc": "2026-11-09T21:33:28.598515+00:00",
+  "finished_at_utc": "2026-11-09T21:33:32.168968+00:00",
+  "python": "3.12.12 (main, Oct 14 2025, 21:38:21) [Clang 20.1.4 ]",
+  "pandas": "2.3.3",
+  "numpy": "2.5.2",
+  "command": "bazel-bin/python/stock_picker/api/main.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_patterns_2026_11_09/run_screen.py",
+  "script_sha256": "5a6ea10737c635bbbfe3d05ce89b738fe33c996827ee036cdec836dea9c77195",
+  "protocol_sha256": "1accb60b02704552ea8e3b55d654d7b219040452876928fba574dff5beab3e70",
+  "snapshot_sha256": "a03f159d853e75205b58d4e444e7a6b25f336278f2cad930b789bc220fa193b7",
+  "array_sha256": "d8d84a24cae4572c22c8e96bfd4dd7c5ddaa7c43e465918b77d5c8fed6a243e2",
+  "production_mutations": false,
+  "holdout_tickers_evaluated": 0,
+  "method_verification": "Inspected signatures and installed source locations for pandas2.3.3 rolling,shift,rank,quantile,clip,GroupBy aggregate/mean/sum and NumPy2.5.2 RNG integers/percentile before calculation."
+}

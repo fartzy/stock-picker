@@ -1,0 +1,105 @@
+{
+  "protocol_version": 1,
+  "frozen_at_utc": "2026-11-09T21:29:34.064251+00:00",
+  "status": "frozen_before_outcome_calculation",
+  "purpose": "Retrospective hypothesis screen for morning entry and same-session close; not validation of a trading rule",
+  "input_snapshot": "input_snapshot.json",
+  "source_cutoff": "2026-11-06",
+  "main_exclusions": [
+    "SPY",
+    "MRCY",
+    "all 200 production holdout tickers frozen from full registry"
+  ],
+  "history_sessions": 252,
+  "minimum_open": 5.0,
+  "minimum_prior20_dollar_volume": 10000000.0,
+  "prior_validity": "252 preceding SPY-calendar sessions have finite positive OHLCV with low<=open,close<=high and low<=high; tolerance 1e-5 to align cache construction",
+  "evaluation_validity": "Current open must be finite positive and >=5 for entry eligibility. Current valid OHLCV required for outcome availability; missing/invalid outcome counts are separate. No forward-horizon completeness or cooldown. No price-return magnitude rejection.",
+  "shock_main": 0.02,
+  "shock_secondary": [
+    0.01,
+    0.03
+  ],
+  "shock_definition": "Both C[t-1]/C[t-2]-1 and C[t-2]/C[t-3]-1 <= -threshold",
+  "prior252_low": "min(L[t-252:t]); Python right endpoint t is exclusive",
+  "new_low": "L[t-1] <= min(L[t-252:t-1]) (251 previous lows), plus 1e-10 relative numeric tolerance",
+  "near_low": "0 <= C[t-1]/prior252_low - 1 <= 0.02 (1e-10 numeric tolerance)",
+  "near_high": "0 <= 1-C[t-1]/max(H[t-252:t]) <= 0.02 (1e-10 numeric tolerance)",
+  "open_low_bins": [
+    "O[t]<prior252_low",
+    "0<=O[t]/prior252_low-1<=0.01",
+    "O[t]/prior252_low-1>0.01"
+  ],
+  "recovery_fraction": "(O[t]-C[t-1])/(C[t-3]-C[t-1]); used only when both prior returns meet main shock",
+  "recovery_bins": [
+    "f<0",
+    "0<=f<=0.25",
+    "f>0.25"
+  ],
+  "cohorts": [
+    "all_eligible",
+    "shock_2pct",
+    "shock_2pct_new252low",
+    "shock_2pct_close_near252low",
+    "shock_2pct_nearlow_open_below_low",
+    "shock_2pct_nearlow_open_0_to_1pct_above_low",
+    "shock_2pct_nearlow_open_gt1pct_above_low",
+    "shock_2pct_recovery_negative",
+    "shock_2pct_recovery_0_to_25pct",
+    "shock_2pct_recovery_gt25pct",
+    "all_eligible_close_near252high",
+    "secondary_shock_1pct",
+    "secondary_shock_1pct_close_near252low",
+    "secondary_shock_3pct",
+    "secondary_shock_3pct_close_near252low",
+    "all_eligible_close_near252low",
+    "all_eligible_new252low"
+  ],
+  "eras": {
+    "all": "2022-11-01 through 2026-11-06",
+    "2022_2024": "2022-11-01 through 2024-12-31",
+    "2025": "2025-01-01 through 2025-12-31",
+    "2026": "2026-01-01 through 2026-11-06"
+  },
+  "target": "C[t]/O[t]-1",
+  "same_date_baseline": "Mean of all evaluated eligible names that date, plus separate mean excluding cohort members with at least five remaining controls",
+  "matching": "On each date, entry-eligible names ranked before current-outcome availability filtering by pre-shock volatility with ticker-sorted stable tie-breaking; quintile=floor(zero-based rank*5/N). std20 of daily close-close returns ending t-3 uses ddof=1. Match each cohort member to same-date,same-quintile eligible names excluding all members of that cohort. Require >=5 controls per stratum. Residuals first averaged within date, then equally across active covered dates. All-eligible matched excess is undefined.",
+  "return_aggregation": "Equal-weight stocks within cohort/date, then equal-weight active dates. Median, positive fraction, adverse-excursion mean/p05 are row-level descriptive metrics.",
+  "cost_roundtrip_bps": [
+    0,
+    10,
+    25,
+    50
+  ],
+  "cost_model": "Net return=gross return-roundtrip_bps/10000, constant arithmetic sensitivity not measured execution costs",
+  "bootstrap": {
+    "replications": 2000,
+    "seed": 20261109,
+    "unit": "ISO calendar week",
+    "method": "Sample the observed active ISO weeks with replacement preserving every active date in each sampled week; mean equals sum of sampled weekly sums divided by sum of sampled weekly active-date counts",
+    "interval": "2.5th/97.5th bootstrap percentiles of equal-active-date matched excess",
+    "limitations": "Retrospective dependence sensitivity; not multiple-testing-corrected discovery and not a genuinely untouched holdout"
+  },
+  "winsorization": "Within each reported cohort/era, clip row returns at 1st/99th percentiles then equal-date aggregate. For matched residual sensitivity, clip covered row residuals at their 1st/99th percentiles before equal-date aggregation. Descriptive, never selects cohorts.",
+  "sparse_label": "fewer than100 rows OR20 active dates OR10 active weeks; matched uncertainty sparse if fewer than10 covered weeks",
+  "quality_counters": "Missing/nonfinite bars, nonpositive prices/volume, OHLC-range inconsistencies; absolute return>20%,>50%,>100% retained and counted; minimum/maximum return and busiest-date concentration",
+  "limitations": [
+    "Current registry has survivorship and present-day size selection bias",
+    "Current static sectors are not historical classifications; matching only date and volatility",
+    "Split-adjusted daily cache excludes dividends and lacks full five-year corporate-action certification",
+    "Absolute $5 historical filter uses retrospectively adjusted price basis",
+    "MRCY-inspired hypotheses and previously studied history are retrospective; later eras are temporal diagnostics, not untouched confirmatory holdout",
+    "Daily open/close are benchmark prices, not guaranteed executable fills",
+    "No overnight holding, averaging down, exit optimization, model training or production feature modification"
+  ],
+  "pre_outcome_clarifications": [
+    {
+      "at_utc": "2026-11-09T21:33:05.297010+00:00",
+      "detail": "Quintiles use entry-eligible names before invalid-current-outcome exclusion. Open-conditioned cohorts are an idealized open-mark study; observing the open does not guarantee a fill at that open. Recovery bins describe overnight recovery of the prior two-close loss, not recovery from the intraday low."
+    },
+    {
+      "at_utc": "2026-11-09T21:33:27.905706+00:00",
+      "detail": "Parent approved two standalone low-context cohorts before any outcome calculation: all eligible prior close near252low, and all eligible yesterday new/tied252low. These isolate low context from the double-shock conjunction. No additional cohorts or optimization."
+    }
+  ]
+}
