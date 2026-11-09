@@ -12,6 +12,7 @@ import RunHistory from "./components/RunHistory";
 import TradeHistory from "./components/TradeHistory";
 import TrainingPanel from "./components/TrainingPanel";
 import WhatIf from "./components/WhatIf";
+import JevEvaluation from "./components/JevEvaluation";
 import NewsModelsPanel from "./components/NewsModelsPanel";
 import { ModelFilterBar, NewsInputs, type ModelFilter } from "./components/ModelFilter";
 import { fetchModelFeatures } from "./api";
@@ -142,6 +143,7 @@ export default function App() {
           </div>
           <div className="panel">
             <WhatIf />
+            <JevEvaluation />
           </div>
         </section>
       )}

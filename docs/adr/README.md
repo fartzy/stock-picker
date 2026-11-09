@@ -38,3 +38,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0024](0024-whatif-zero-gain-is-next-open.md) | 2026-10-17 | What If +0% / 1-day wait resolves to the Next morning open calculation so both settings share one formula, price source and population |
 | [0025](0025-jev-shadow-confidences.md) | 2026-10-18 | Record shadow Jev buy / hold / news-skip confidences on every morning pick; display only until forward outcomes justify more |
 | [0026](0026-news-flag-scored-on-outcomes.md) | 2026-10-18 | Score the news flag on outcomes in What If; export labelled news-outcome rows for a future learned drop model |
+| [0027](0027-jev-decision-time-forecasts.md) | 2026-11-09 | Preserve immutable Jev evidence; separate current-entry risk and near-close overnight assessments, then evaluate forward outcomes |

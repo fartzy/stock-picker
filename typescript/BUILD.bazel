@@ -6,6 +6,26 @@ load("@npm//typescript:vite/package_json.bzl", vite_bin = "bin")
 npm_link_all_packages()
 
 ts_project(
+    name = "jev_display_helpers",
+    srcs = ["src/jevDisplay.ts"],
+    declaration = False,
+    transpiler = "tsc",
+    tsconfig = {"compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": True,
+        "types": [],
+    }},
+)
+
+js_test(
+    name = "jev_display_test",
+    entry_point = "tests/jevDisplay.test.mjs",
+    data = [":jev_display_helpers", "package.json"],
+)
+
+ts_project(
     name = "app_settings",
     srcs = ["src/appSettings.ts"],
     deps = [":trade_history_periods"],
