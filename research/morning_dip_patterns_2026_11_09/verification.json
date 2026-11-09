@@ -1,12 +1,24 @@
 {
   "reviewer": "dip_feature_audit",
-  "verified_at_utc": "2026-11-09T21:38:10.587598+00:00",
+  "verified_at_utc": "2026-11-09T21:51:04.165461+00:00",
   "status": "passed_with_documented_limitations",
+  "protocol_version": 2,
+  "amendment_provenance": {
+    "user_requested_after_initial_results": true,
+    "original_commit": "07a4b3021a7eec5b242f67e823cfef7a5ef4347a",
+    "original_protocol_sha256": "1accb60b02704552ea8e3b55d654d7b219040452876928fba574dff5beab3e70",
+    "original_results_sha256": "f7b0a10e2c152445a82b7bc0742718da5a4b6c44ebc8eb07315810fa159308dc",
+    "amended_at_utc": "2026-11-09T21:45:59.893932+00:00",
+    "change": "Include every eligible MRCY date (995), recompute matching/controls on revised universe; all17 cohort definitions and numerical methodology unchanged. Neither version is an untouched confirmatory test."
+  },
   "reviewed_artifact_hashes": {
-    "run_screen.py": "5a6ea10737c635bbbfe3d05ce89b738fe33c996827ee036cdec836dea9c77195",
-    "protocol.json": "1accb60b02704552ea8e3b55d654d7b219040452876928fba574dff5beab3e70",
-    "results.json": "f7b0a10e2c152445a82b7bc0742718da5a4b6c44ebc8eb07315810fa159308dc",
-    "implementation_plan.json": "66dff0f5a5c908cc4bdc2280de0ce723875c9387c7d6d23bf3f94f872a539d93"
+    "run_screen.py": "fce49ab4fc6d785b05449d1af46c2260cfe489eca1ab738f1265925129c81aaa",
+    "protocol.json": "658b96c2c7bcaecb700d04cb4a4f8125e7c133131a0df086f506e1cf18f4e29a",
+    "results.json": "3a5bf4bf29ccc98f1ac081dcff589e3d63f0886f013b67b19afab5e4c77618b2",
+    "daily_results.json": "a39118cae1782f7cdf17b9b8b35af055e28eae84f078e3867c0a1a727f8d7ec2",
+    "mrcy_inclusion_comparison.json": "1e62650ca24697d397bf0dcc544d90adc021cb5330ecfa8c9d653b33b092d8cd",
+    "implementation_plan.json": "c8ed6bab606ddca2752a15ecdfae4ce8169c415d3d306ce7117d1a7ba1fccc37",
+    "trigger_candidates.json": "c8f703473fbb542782eb05304d78d6010467ca36cd7f34a81e73718e2780d249"
   },
   "checks": [
     {
@@ -30,6 +42,51 @@
       "detail": null
     },
     {
+      "check": "original_git_artifact_protocol.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "original_git_artifact_results.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "original_git_artifact_daily_results.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "original_git_artifact_run_screen.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "original_git_artifact_run_manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "amendment_after_original_results_explicit",
+      "passed": true,
+      "detail": {
+        "original_commit": "07a4b3021a7eec5b242f67e823cfef7a5ef4347a",
+        "amended_at_utc": "2026-11-09T21:45:59.893932+00:00",
+        "original_finished_at_utc": "2026-11-09T21:33:32.168968+00:00"
+      }
+    },
+    {
+      "check": "only_universe_and_provenance_protocol_fields_changed",
+      "passed": true,
+      "detail": {
+        "changed_existing_fields": [
+          "main_exclusions",
+          "protocol_version",
+          "status"
+        ]
+      }
+    },
+    {
       "check": "holdout_from_full_registry_seed42",
       "passed": true,
       "detail": {
@@ -38,243 +95,235 @@
       }
     },
     {
-      "check": "independent_numpy_entry_count",
+      "check": "independent_numpy_primary_cohort_count",
       "passed": true,
       "detail": {
-        "rows": 1420276,
-        "tickers": 1690,
+        "rows": 1421271,
+        "tickers": 1691,
         "dates": 1008,
         "first_date": "2022-11-01",
         "last_date": "2026-11-06"
       }
     },
     {
-      "check": "no_excluded_tickers_evaluated",
+      "check": "full_995_eligible_mrcy_history_included",
+      "passed": true,
+      "detail": {
+        "mrcy_rows": 995,
+        "first_eligible_mrcy_date": "2022-11-01",
+        "last_eligible_mrcy_date": "2026-11-06"
+      }
+    },
+    {
+      "check": "production_holdout_and_spy_excluded",
       "passed": true,
       "detail": null
     },
     {
-      "check": "raw_reconstruction_all_eligible_all",
+      "check": "numpy_reconstruction_all_eligible_all",
       "passed": true,
       "detail": {
-        "rows": 1420276,
+        "rows": 1421271,
         "dates": 1008,
-        "gross_equal_date": 0.0002131360658932145,
+        "gross_equal_date": 0.0002128309403865072,
         "matched_excess_equal_date": null
       }
     },
     {
-      "check": "raw_reconstruction_all_eligible_2022_2024",
+      "check": "numpy_reconstruction_all_eligible_2022_2024",
       "passed": true,
       "detail": {
-        "rows": 706628,
+        "rows": 707159,
         "dates": 544,
-        "gross_equal_date": 0.0001314266803597318,
+        "gross_equal_date": 0.00013097831902551907,
         "matched_excess_equal_date": null
       }
     },
     {
-      "check": "raw_reconstruction_all_eligible_2025",
+      "check": "numpy_reconstruction_all_eligible_2025",
       "passed": true,
       "detail": {
-        "rows": 370386,
+        "rows": 370636,
         "dates": 250,
-        "gross_equal_date": 0.0004803778136924413,
+        "gross_equal_date": 0.0004807452128245012,
         "matched_excess_equal_date": null
       }
     },
     {
-      "check": "raw_reconstruction_all_eligible_2026",
+      "check": "numpy_reconstruction_all_eligible_2026",
       "passed": true,
       "detail": {
-        "rows": 343262,
+        "rows": 343476,
         "dates": 214,
-        "gross_equal_date": 0.00010864760225026103,
+        "gross_equal_date": 0.00010792093062425963,
         "matched_excess_equal_date": null
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_all",
+      "check": "numpy_reconstruction_shock_2pct_all",
       "passed": true,
       "detail": {
-        "rows": 36563,
+        "rows": 36595,
         "dates": 990,
-        "gross_equal_date": 0.000708819322598075,
-        "matched_excess_equal_date": 0.00041414658542824684
+        "gross_equal_date": 0.0007180260785936093,
+        "matched_excess_equal_date": 0.0004249735212219656
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_2022_2024",
+      "check": "numpy_reconstruction_shock_2pct_2022_2024",
       "passed": true,
       "detail": {
-        "rows": 15206,
+        "rows": 15221,
         "dates": 528,
-        "gross_equal_date": 0.0016381768318726704,
-        "matched_excess_equal_date": 0.0014142532134620931
+        "gross_equal_date": 0.0016510000510642682,
+        "matched_excess_equal_date": 0.0014306390411894833
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_2025",
+      "check": "numpy_reconstruction_shock_2pct_2025",
       "passed": true,
       "detail": {
-        "rows": 9450,
+        "rows": 9455,
         "dates": 248,
-        "gross_equal_date": -0.0002282356714500326,
-        "matched_excess_equal_date": -0.000746961152640813
+        "gross_equal_date": -0.00022154763686222853,
+        "matched_excess_equal_date": -0.0007443592624923426
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_2026",
+      "check": "numpy_reconstruction_shock_2pct_2026",
       "passed": true,
       "detail": {
-        "rows": 11907,
+        "rows": 11919,
         "dates": 214,
-        "gross_equal_date": -0.0004982420155937744,
-        "matched_excess_equal_date": -0.0007078234171920522
+        "gross_equal_date": -0.0004950392299646159,
+        "matched_excess_equal_date": -0.0007011800497205627
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_new252low_all",
+      "check": "numpy_reconstruction_shock_2pct_new252low_all",
       "passed": true,
       "detail": {
-        "rows": 3855,
+        "rows": 3858,
         "dates": 634,
-        "gross_equal_date": 0.00033010020871881003,
-        "matched_excess_equal_date": -4.0555871441618e-05
+        "gross_equal_date": 0.00039900037671142567,
+        "matched_excess_equal_date": 3.704743225992896e-05
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_new252low_2022_2024",
+      "check": "numpy_reconstruction_shock_2pct_new252low_2022_2024",
       "passed": true,
       "detail": {
-        "rows": 1388,
+        "rows": 1390,
         "dates": 309,
-        "gross_equal_date": -0.0009388313299440922,
-        "matched_excess_equal_date": -0.0010622018655223173
+        "gross_equal_date": -0.0008025828009490299,
+        "matched_excess_equal_date": -0.000908735851193951
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_new252low_2025",
+      "check": "numpy_reconstruction_shock_2pct_new252low_2025",
       "passed": true,
       "detail": {
         "rows": 1404,
         "dates": 151,
         "gross_equal_date": 0.0028279361369260153,
-        "matched_excess_equal_date": 0.00219210268540868
+        "matched_excess_equal_date": 0.002187145321744958
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_new252low_2026",
+      "check": "numpy_reconstruction_shock_2pct_new252low_2026",
       "passed": true,
       "detail": {
-        "rows": 1063,
+        "rows": 1064,
         "dates": 174,
-        "gross_equal_date": 0.0004158853827851828,
-        "matched_excess_equal_date": -0.0001637905261166683
+        "gross_equal_date": 0.00042497682558888424,
+        "matched_excess_equal_date": -0.00014926145696415378
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_close_near252low_all",
+      "check": "numpy_reconstruction_shock_2pct_close_near252low_all",
       "passed": true,
       "detail": {
-        "rows": 3154,
+        "rows": 3155,
         "dates": 611,
-        "gross_equal_date": -0.00036460907682139495,
-        "matched_excess_equal_date": -0.0010109206908686158
+        "gross_equal_date": -0.00035702280013978974,
+        "matched_excess_equal_date": -0.0009998867274178577
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_close_near252low_2022_2024",
+      "check": "numpy_reconstruction_shock_2pct_close_near252low_2022_2024",
       "passed": true,
       "detail": {
         "rows": 1262,
         "dates": 300,
         "gross_equal_date": -0.0016421864177698518,
-        "matched_excess_equal_date": -0.0018036626206245502
+        "matched_excess_equal_date": -0.0017964207745704553
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_close_near252low_2025",
+      "check": "numpy_reconstruction_shock_2pct_close_near252low_2025",
       "passed": true,
       "detail": {
         "rows": 961,
         "dates": 145,
         "gross_equal_date": 0.001231466699289245,
-        "matched_excess_equal_date": 0.00019739657397286145
+        "matched_excess_equal_date": 0.00019429899246940362
       }
     },
     {
-      "check": "raw_reconstruction_shock_2pct_close_near252low_2026",
+      "check": "numpy_reconstruction_shock_2pct_close_near252low_2026",
       "passed": true,
       "detail": {
-        "rows": 931,
+        "rows": 932,
         "dates": 166,
-        "gross_equal_date": 0.0005501030602177263,
-        "matched_excess_equal_date": -0.0006337124045748439
+        "gross_equal_date": 0.0005780260424614659,
+        "matched_excess_equal_date": -0.00060348139752553
       }
     },
     {
-      "check": "source_gzip_A_2023-10-26",
+      "check": "all_mrcy_cohort_contributions_from_source_gzip",
       "passed": true,
-      "detail": null
+      "detail": {
+        "all_eligible": 995,
+        "shock_2pct": 32,
+        "shock_2pct_new252low": 3,
+        "shock_2pct_close_near252low": 1,
+        "shock_2pct_nearlow_open_below_low": 0,
+        "shock_2pct_nearlow_open_0_to_1pct_above_low": 0,
+        "shock_2pct_nearlow_open_gt1pct_above_low": 1,
+        "shock_2pct_recovery_negative": 12,
+        "shock_2pct_recovery_0_to_25pct": 20,
+        "shock_2pct_recovery_gt25pct": 0,
+        "all_eligible_close_near252high": 42,
+        "secondary_shock_1pct": 110,
+        "secondary_shock_1pct_close_near252low": 1,
+        "secondary_shock_3pct": 18,
+        "secondary_shock_3pct_close_near252low": 1,
+        "all_eligible_close_near252low": 1,
+        "all_eligible_new252low": 4
+      }
     },
     {
-      "check": "source_gzip_A_2025-04-07",
+      "check": "motivating_nov6_in_primary_conjunctions",
       "passed": true,
-      "detail": null
+      "detail": {
+        "cohorts": [
+          "all_eligible",
+          "shock_2pct",
+          "shock_2pct_new252low",
+          "shock_2pct_close_near252low",
+          "shock_2pct_nearlow_open_gt1pct_above_low",
+          "shock_2pct_recovery_0_to_25pct",
+          "all_eligible_close_near252low",
+          "all_eligible_new252low",
+          "secondary_shock_1pct",
+          "secondary_shock_1pct_close_near252low",
+          "secondary_shock_3pct",
+          "secondary_shock_3pct_close_near252low"
+        ]
+      }
     },
     {
-      "check": "source_gzip_AA_2023-06-01",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AA_2023-08-17",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AA_2023-09-27",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AA_2023-10-20",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AA_2025-04-07",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AAL_2023-10-16",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AAL_2024-08-05",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AAL_2024-08-06",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AAP_2022-11-18",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "source_gzip_AAP_2023-03-15",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "check": "all_prespecified_cohorts_and_eras",
+      "check": "all17cohorts_by4eras_present",
       "passed": true,
       "detail": {
         "cohorts": 17,
@@ -625,18 +674,378 @@
       "check": "all_summary_equal_active_date_weighting",
       "passed": true,
       "detail": {
-        "max_absolute_error_from_serializeddaily": 7.651395142471706e-12,
-        "serialization_rounding_tolerance": 1e-10
+        "max_absolute_error_from_serializeddaily": 5.9252526387991444e-12
       }
     },
     {
-      "check": "independent_iso_week_sum_count_bootstrap",
+      "check": "all64_nonbaseline_weekly_CIs_independently_recomputed",
       "passed": true,
       "detail": {
-        "max_absolute_ci_error": 5.453569019986393e-12,
-        "replications": 2000,
-        "seed": 20261109,
+        "intervals": 64,
+        "max_absolute_ci_error": 7.578336395919205e-12,
         "pointwise_not_multiplicity_adjusted": true
+      }
+    },
+    {
+      "check": "all68_before_after_comparisons",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_new252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_new252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_new252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_new252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_close_near252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_close_near252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_close_near252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_close_near252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_below_low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_below_low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_below_low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_below_low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_0_to_1pct_above_low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_0_to_1pct_above_low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_0_to_1pct_above_low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_0_to_1pct_above_low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_gt1pct_above_low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_gt1pct_above_low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_gt1pct_above_low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_nearlow_open_gt1pct_above_low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_negative_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_negative_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_negative_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_negative_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_0_to_25pct_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_0_to_25pct_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_0_to_25pct_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_0_to_25pct_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_gt25pct_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_gt25pct_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_gt25pct_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_shock_2pct_recovery_gt25pct_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252high_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252high_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252high_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252high_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_close_near252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_close_near252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_close_near252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_1pct_close_near252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_close_near252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_close_near252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_close_near252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_secondary_shock_3pct_close_near252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_close_near252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_new252low_all",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_new252low_2022_2024",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_new252low_2025",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "comparison_all_eligible_new252low_2026",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "mrcy_case_role_included",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "primary_universe_row_delta995",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "final_html_embedded68summaries_match_amended_results",
+      "passed": true,
+      "detail": {
+        "rows": 68
       }
     }
   ],
@@ -644,298 +1053,278 @@
     {
       "cohort": "all_eligible",
       "era": "all",
-      "rows": 1420276,
-      "gross_equal_date": 0.0002131360658932145,
+      "rows": 1421271,
+      "gross_equal_date": 0.0002128309403865072,
       "matched_excess_equal_date": null
     },
     {
       "cohort": "all_eligible",
       "era": "2022_2024",
-      "rows": 706628,
-      "gross_equal_date": 0.0001314266803597318,
+      "rows": 707159,
+      "gross_equal_date": 0.00013097831902551907,
       "matched_excess_equal_date": null
     },
     {
       "cohort": "all_eligible",
       "era": "2025",
-      "rows": 370386,
-      "gross_equal_date": 0.0004803778136924413,
+      "rows": 370636,
+      "gross_equal_date": 0.0004807452128245012,
       "matched_excess_equal_date": null
     },
     {
       "cohort": "all_eligible",
       "era": "2026",
-      "rows": 343262,
-      "gross_equal_date": 0.00010864760225026103,
+      "rows": 343476,
+      "gross_equal_date": 0.00010792093062425963,
       "matched_excess_equal_date": null
     },
     {
       "cohort": "shock_2pct",
       "era": "all",
-      "rows": 36563,
-      "gross_equal_date": 0.000708819322598075,
-      "matched_excess_equal_date": 0.00041414658542824684
+      "rows": 36595,
+      "gross_equal_date": 0.0007180260785936093,
+      "matched_excess_equal_date": 0.0004249735212219656
     },
     {
       "cohort": "shock_2pct",
       "era": "2022_2024",
-      "rows": 15206,
-      "gross_equal_date": 0.0016381768318726704,
-      "matched_excess_equal_date": 0.0014142532134620931
+      "rows": 15221,
+      "gross_equal_date": 0.0016510000510642682,
+      "matched_excess_equal_date": 0.0014306390411894833
     },
     {
       "cohort": "shock_2pct",
       "era": "2025",
-      "rows": 9450,
-      "gross_equal_date": -0.0002282356714500326,
-      "matched_excess_equal_date": -0.000746961152640813
+      "rows": 9455,
+      "gross_equal_date": -0.00022154763686222853,
+      "matched_excess_equal_date": -0.0007443592624923426
     },
     {
       "cohort": "shock_2pct",
       "era": "2026",
-      "rows": 11907,
-      "gross_equal_date": -0.0004982420155937744,
-      "matched_excess_equal_date": -0.0007078234171920522
+      "rows": 11919,
+      "gross_equal_date": -0.0004950392299646159,
+      "matched_excess_equal_date": -0.0007011800497205627
     },
     {
       "cohort": "shock_2pct_new252low",
       "era": "all",
-      "rows": 3855,
-      "gross_equal_date": 0.00033010020871881003,
-      "matched_excess_equal_date": -4.0555871441618e-05
+      "rows": 3858,
+      "gross_equal_date": 0.00039900037671142567,
+      "matched_excess_equal_date": 3.704743225992896e-05
     },
     {
       "cohort": "shock_2pct_new252low",
       "era": "2022_2024",
-      "rows": 1388,
-      "gross_equal_date": -0.0009388313299440922,
-      "matched_excess_equal_date": -0.0010622018655223173
+      "rows": 1390,
+      "gross_equal_date": -0.0008025828009490299,
+      "matched_excess_equal_date": -0.000908735851193951
     },
     {
       "cohort": "shock_2pct_new252low",
       "era": "2025",
       "rows": 1404,
       "gross_equal_date": 0.0028279361369260153,
-      "matched_excess_equal_date": 0.00219210268540868
+      "matched_excess_equal_date": 0.002187145321744958
     },
     {
       "cohort": "shock_2pct_new252low",
       "era": "2026",
-      "rows": 1063,
-      "gross_equal_date": 0.0004158853827851828,
-      "matched_excess_equal_date": -0.0001637905261166683
+      "rows": 1064,
+      "gross_equal_date": 0.00042497682558888424,
+      "matched_excess_equal_date": -0.00014926145696415378
     },
     {
       "cohort": "shock_2pct_close_near252low",
       "era": "all",
-      "rows": 3154,
-      "gross_equal_date": -0.00036460907682139495,
-      "matched_excess_equal_date": -0.0010109206908686158
+      "rows": 3155,
+      "gross_equal_date": -0.00035702280013978974,
+      "matched_excess_equal_date": -0.0009998867274178577
     },
     {
       "cohort": "shock_2pct_close_near252low",
       "era": "2022_2024",
       "rows": 1262,
       "gross_equal_date": -0.0016421864177698518,
-      "matched_excess_equal_date": -0.0018036626206245502
+      "matched_excess_equal_date": -0.0017964207745704553
     },
     {
       "cohort": "shock_2pct_close_near252low",
       "era": "2025",
       "rows": 961,
       "gross_equal_date": 0.001231466699289245,
-      "matched_excess_equal_date": 0.00019739657397286145
+      "matched_excess_equal_date": 0.00019429899246940362
     },
     {
       "cohort": "shock_2pct_close_near252low",
       "era": "2026",
-      "rows": 931,
-      "gross_equal_date": 0.0005501030602177263,
-      "matched_excess_equal_date": -0.0006337124045748439
+      "rows": 932,
+      "gross_equal_date": 0.0005780260424614659,
+      "matched_excess_equal_date": -0.00060348139752553
     }
   ],
-  "raw_source_spot_checks": [
-    {
-      "ticker": "A",
-      "date": "2023-10-26",
-      "prior_returns": [
-        -0.033839400036583145,
-        -0.021204089360090772
-      ],
-      "prior252_low": 100.08,
-      "prior_close_near_low": false,
-      "prior_session_new_low": true,
-      "open_close_return": 0.008118295158016764,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/A.json.gz",
-      "source_sha256": "bb31895a90ef60e5641df64ded8165b3ee69333bb8da6efbd08e8cf10e61eb71"
+  "independent_mrcy_source_verification": {
+    "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/MRCY.json.gz",
+    "source_sha256": "61155cc94f493d1e9ff4415862ed8b3b5a1f282f1caf414c446695aadd7ab258",
+    "eligible_dates": 995,
+    "cohort_contributions": {
+      "all_eligible": 995,
+      "shock_2pct": 32,
+      "shock_2pct_new252low": 3,
+      "shock_2pct_close_near252low": 1,
+      "shock_2pct_nearlow_open_below_low": 0,
+      "shock_2pct_nearlow_open_0_to_1pct_above_low": 0,
+      "shock_2pct_nearlow_open_gt1pct_above_low": 1,
+      "shock_2pct_recovery_negative": 12,
+      "shock_2pct_recovery_0_to_25pct": 20,
+      "shock_2pct_recovery_gt25pct": 0,
+      "all_eligible_close_near252high": 42,
+      "secondary_shock_1pct": 110,
+      "secondary_shock_1pct_close_near252low": 1,
+      "secondary_shock_3pct": 18,
+      "secondary_shock_3pct_close_near252low": 1,
+      "all_eligible_close_near252low": 1,
+      "all_eligible_new252low": 4
     },
-    {
-      "ticker": "A",
-      "date": "2025-04-07",
-      "prior_returns": [
-        -0.05448745581515646,
-        -0.060818820096653625
-      ],
-      "prior252_low": 102.85,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.009353990061385709,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/A.json.gz",
-      "source_sha256": "bb31895a90ef60e5641df64ded8165b3ee69333bb8da6efbd08e8cf10e61eb71"
-    },
-    {
-      "ticker": "AA",
-      "date": "2023-06-01",
-      "prior_returns": [
-        -0.026417334520629332,
-        -0.0329268292682926
-      ],
-      "prior252_low": 31.14,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.02187500000000009,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AA.json.gz",
-      "source_sha256": "d30116a01b53110ba3b94ecf6622762876add020dd647f7b8b4b67d07fe630a4"
-    },
-    {
-      "ticker": "AA",
-      "date": "2023-08-17",
-      "prior_returns": [
-        -0.04380712259691144,
-        -0.03394858272907053
-      ],
-      "prior252_low": 29.095,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": -0.02707219251336901,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AA.json.gz",
-      "source_sha256": "d30116a01b53110ba3b94ecf6622762876add020dd647f7b8b4b67d07fe630a4"
-    },
-    {
-      "ticker": "AA",
-      "date": "2023-09-27",
-      "prior_returns": [
-        -0.06067019400352747,
-        -0.028914757791963952
-      ],
-      "prior252_low": 25.59,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.004986574606827832,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AA.json.gz",
-      "source_sha256": "d30116a01b53110ba3b94ecf6622762876add020dd647f7b8b4b67d07fe630a4"
-    },
-    {
-      "ticker": "AA",
-      "date": "2023-10-20",
-      "prior_returns": [
-        -0.04501260352898817,
-        -0.08597285067873306
-      ],
-      "prior252_low": 24.215,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.021702127659574577,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AA.json.gz",
-      "source_sha256": "d30116a01b53110ba3b94ecf6622762876add020dd647f7b8b4b67d07fe630a4"
-    },
-    {
-      "ticker": "AA",
-      "date": "2025-04-07",
-      "prior_returns": [
-        -0.11381322957198448,
-        -0.09220636663007686
-      ],
-      "prior252_low": 23.62,
-      "prior_close_near_low": false,
-      "prior_session_new_low": true,
-      "open_close_return": 0.028010033444815896,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AA.json.gz",
-      "source_sha256": "d30116a01b53110ba3b94ecf6622762876add020dd647f7b8b4b67d07fe630a4"
-    },
-    {
-      "ticker": "AAL",
-      "date": "2023-10-16",
-      "prior_returns": [
-        -0.033653846153846145,
-        -0.028192371475953548
-      ],
-      "prior252_low": 11.68,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.010152284263959421,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AAL.json.gz",
-      "source_sha256": "432ab1cdbb541929706663b12daefe814e3190ff9cf20e067d55aea8ab33282b"
-    },
-    {
-      "ticker": "AAL",
-      "date": "2024-08-05",
-      "prior_returns": [
-        -0.046992481203007475,
-        -0.050295857988165604
-      ],
-      "prior252_low": 9.59,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.01978021978021971,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AAL.json.gz",
-      "source_sha256": "432ab1cdbb541929706663b12daefe814e3190ff9cf20e067d55aea8ab33282b"
-    },
-    {
-      "ticker": "AAL",
-      "date": "2024-08-06",
-      "prior_returns": [
-        -0.050295857988165604,
-        -0.03634475597092435
-      ],
-      "prior252_low": 9.07,
-      "prior_close_near_low": false,
-      "prior_session_new_low": true,
-      "open_close_return": -0.015856236786469413,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AAL.json.gz",
-      "source_sha256": "432ab1cdbb541929706663b12daefe814e3190ff9cf20e067d55aea8ab33282b"
-    },
-    {
-      "ticker": "AAP",
-      "date": "2022-11-18",
-      "prior_returns": [
-        -0.15059258453843638,
-        -0.05075524833589351
-      ],
-      "prior252_low": 147.48,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": -0.014564404061998992,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AAP.json.gz",
-      "source_sha256": "3fab60ea38435445ba7b9b335965a557b0eb90b19c74225e18a5991be5cb034f"
-    },
-    {
-      "ticker": "AAP",
-      "date": "2023-03-15",
-      "prior_returns": [
-        -0.02874101843174004,
-        -0.021389514313283953
-      ],
-      "prior252_low": 121.05,
-      "prior_close_near_low": true,
-      "prior_session_new_low": true,
-      "open_close_return": 0.015257628814407287,
-      "source_path": "research/averaging_down_2026_11_06/source_data/daily_five_year/AAP.json.gz",
-      "source_sha256": "3fab60ea38435445ba7b9b335965a557b0eb90b19c74225e18a5991be5cb034f"
-    }
-  ],
+    "motivating_date_cohorts": [
+      "all_eligible",
+      "shock_2pct",
+      "shock_2pct_new252low",
+      "shock_2pct_close_near252low",
+      "shock_2pct_nearlow_open_gt1pct_above_low",
+      "shock_2pct_recovery_0_to_25pct",
+      "all_eligible_close_near252low",
+      "all_eligible_new252low",
+      "secondary_shock_1pct",
+      "secondary_shock_1pct_close_near252low",
+      "secondary_shock_3pct",
+      "secondary_shock_3pct_close_near252low"
+    ],
+    "illustrative_raw_source_rows": [
+      {
+        "ticker": "MRCY",
+        "date": "2023-05-04",
+        "prior_returns": [
+          -0.028534649216906183,
+          -0.17314487632508846
+        ],
+        "prior252_low": 34.13,
+        "prior_close_near_low": false,
+        "prior_session_new_low": true,
+        "open_close_return": 0.054104979811574694,
+        "cohorts": [
+          "all_eligible",
+          "shock_2pct",
+          "shock_2pct_new252low",
+          "shock_2pct_recovery_negative",
+          "all_eligible_new252low",
+          "secondary_shock_1pct"
+        ]
+      },
+      {
+        "ticker": "MRCY",
+        "date": "2023-06-27",
+        "prior_returns": [
+          -0.04229607250755285,
+          -0.09664468024089468
+        ],
+        "prior252_low": 28.9,
+        "prior_close_near_low": false,
+        "prior_session_new_low": true,
+        "open_close_return": 0.04919073310060296,
+        "cohorts": [
+          "all_eligible",
+          "shock_2pct",
+          "shock_2pct_new252low",
+          "shock_2pct_recovery_0_to_25pct",
+          "all_eligible_new252low",
+          "secondary_shock_1pct",
+          "secondary_shock_3pct"
+        ]
+      },
+      {
+        "ticker": "MRCY",
+        "date": "2026-11-04",
+        "prior_returns": [
+          -0.0021924168171266745,
+          0.03812847356856652
+        ],
+        "prior252_low": 65.04,
+        "prior_close_near_low": false,
+        "prior_session_new_low": false,
+        "open_close_return": -0.09996237300890498,
+        "cohorts": [
+          "all_eligible"
+        ]
+      },
+      {
+        "ticker": "MRCY",
+        "date": "2026-11-05",
+        "prior_returns": [
+          0.03812847356856652,
+          -0.10657370517928277
+        ],
+        "prior252_low": 65.04,
+        "prior_close_near_low": false,
+        "prior_session_new_low": false,
+        "open_close_return": -0.06889204545454553,
+        "cohorts": [
+          "all_eligible"
+        ]
+      },
+      {
+        "ticker": "MRCY",
+        "date": "2026-11-06",
+        "prior_returns": [
+          -0.10657370517928277,
+          -0.08653846153846168
+        ],
+        "prior252_low": 64.695,
+        "prior_close_near_low": true,
+        "prior_session_new_low": true,
+        "open_close_return": 0.09890930823248145,
+        "cohorts": [
+          "all_eligible",
+          "shock_2pct",
+          "shock_2pct_new252low",
+          "shock_2pct_close_near252low",
+          "shock_2pct_nearlow_open_gt1pct_above_low",
+          "shock_2pct_recovery_0_to_25pct",
+          "all_eligible_close_near252low",
+          "all_eligible_new252low",
+          "secondary_shock_1pct",
+          "secondary_shock_1pct_close_near252low",
+          "secondary_shock_3pct",
+          "secondary_shock_3pct_close_near252low"
+        ]
+      }
+    ]
+  },
   "implementation_plan_review": {
-    "formulas": "Timing and formulas are consistent; closing-loss recovery differs explicitly from low-based recovery.252-session context is new; other primitives already exist.",
-    "file_list_review": "Phase1 now explicitly includes training/inference.py:37 plus inference/dataset focused tests for new open-known recomputation. No production implementation approved or performed."
+    "status": "passed",
+    "purpose": "Incremental Rank/Fit feature value alongside existing inputs, not a standalone buy gate. Weak univariate averages do not reject untested conditional model contribution.",
+    "trigger_definitions": "Four precise proposed flags plus continuous measurements; thresholds explicitly untested and any refinement confined to training dates.",
+    "timing": "Deep-dip recovery and reclaimed-support hold flags require observed opening price and later executable-entry validation. Pressure and trend flags use completed sessions only.",
+    "indexing": "Support min(L[t-21:t-1]) uses20 lows before yesterday; SMA50[t-1]>SMA50[t-11] compares10sessions and requires60priorcloses.252low excludescurrentLow.",
+    "missing_inputs": "Required missinghistory/support/denominators yield unknown plusvalidity/coverage, not false. Future implementation must enforce this contract explicitly.",
+    "files": "Plan includes training/inference.py:37 plus inference/dataset focusedtests; no productionimplementation performed."
   },
   "limitations": [
-    "Retrospective current-registry/survivorship-conditioned panel; excluded production tickerholdout is not a fresh temporal confirmation.",
-    "Dailyopen is an idealized mark; open-conditioned feature known only after opening print requires later executable-entry validation.",
-    "ISOweek bootstrap intervals are pointwise and do not adjust17cohorts/multipleeras; weeks may remain serially dependent.",
-    "Same-date volatility matching is descriptive and does not control liquidity,sector,earnings/news or identify causality.",
-    "252 valid historical sessions excludes young,interrupted and missinghistory names; raw/adjusted actions need certification.",
-    "Means are equal-active-date returns; rowmedians/hitrates are rowweighted; no inactive-day cash or compounding portfolio model.",
-    "MRCY is excluded and illustrative; no rankmodelincrementaltest or productionfeaturepromotion occurred."
+    "Amendment explicitly occurred after initial results at user request; all995eligibleMRCYdates are included, not just its rebound.",
+    "Current-registry survivorship and historical size selection; productiontickerholdout still excluded, not fresh future confirmation.",
+    "Dailyopen is idealized; open-conditioned features require later executable-entry validation.",
+    "Weeklybootstrap intervals are pointwise, not17cohort/multipleera corrected; serial dependence can spanweeks.",
+    "Date/volatility controls do not control all liquidity,sector,earnings/news differences or establish causality.",
+    "252valid historical sessions exclude young/interrupted/missinghistorynames; provider corporateactions not fullycertified.",
+    "Meanreturns weight activedates equally; rowwinrates/medians weight stockdays; no inactivecash/compounding portfolio simulation.",
+    "Descriptive pattern screen cannot determine incremental value of continuous/interacting model features; candidate thresholds remain untested unless evaluated separately."
   ],
-  "production_mutations_by_reviewer": false
+  "production_mutations_by_reviewer": false,
+  "final_report_review": {
+    "status": "passed",
+    "numerical_payload": "All68 rendered-data summaries match amendedresults exactly; prose counts,percentageconversion,erameans,matchedexcess,CIs andMRCYcase figures checked.",
+    "provenance": "Report explicitly includes all995MRCYrows and discloses inclusion amendment afterinitialoutcomes; originalversion remains referenced byimmutablecommit andhashes.",
+    "interpretation": "Proposedflags andcontinuousfeatures explicitly untested forincrementalmodelvalue; no positiveedgeorfeature-rejectionclaim inferred fromstandalonecohortmeans.",
+    "minor_terminology_note_to_parent": "Use standalone setup comparisons in place of unconditional setup comparisons; actual cohorts condition on rules and matched comparisons on date/volatility."
+  }
 }

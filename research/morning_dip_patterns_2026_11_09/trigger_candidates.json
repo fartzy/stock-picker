@@ -1,0 +1,52 @@
+{
+  "status": "Proposed feature definitions after the initial descriptive screen. These exact combinations have not been evaluated for incremental model value or approved as buy rules.",
+  "user_intent": "Track measurable dip conditions alongside the existing feature set, and research precise, predictive morning-entry conditions for a same-day exit.",
+  "notation": "t is the intended entry session; r1=C[t-1]/C[t-2]-1; r2=C[t-2]/C[t-3]-1. Every historical series ends before t. O[t] is observable only once that security opens.",
+  "design": "Retain continuous measurements and a deterministic flag for each candidate setup. The current model and all its other features remain the comparison baseline. A flat unconditional return does not reject a feature whose conditional contribution is untested.",
+  "missing_input_policy": "If required history, a support level or a valid denominator is unavailable, mark the flag unknown rather than silently false. Keep an explicit validity/coverage field.",
+  "candidates": [
+    {
+      "name": "Deep dip with little recovery",
+      "flag": "r1 <= -0.02 AND r2 <= -0.02 AND 0 <= C[t-1]/low252-1 <= 0.02 AND 0 <= recovery_fraction <= 0.25",
+      "definitions": "low252=min(L[t-252:t]); recovery_fraction=(O[t]-C[t-1])/(C[t-3]-C[t-1]), requiring a positive denominator.",
+      "measurements": ["Both prior daily returns", "Two-day loss in units of pre-shock volatility", "Distance to prior 252-session low", "Age of prior low", "Fraction of closing loss recovered"],
+      "purpose": "Represent the user's two-down-days, low-location, largely-unrecovered setup as model inputs. Recovery below zero is a continued-breakdown state; recovery over 25% is a more-recovered state. Both remain separate observations with continuous values.",
+      "decision_time": "After the current opening price is observed; benchmark-open results alone cannot prove executable entry performance.",
+      "novelty": "252-session low context and recovery fraction are missing; the existing two-day return is reused."
+    },
+    {
+      "name": "Selling pressure eases",
+      "flag": "r1 < 0 AND r2 < 0 AND abs(r1) < abs(r2) AND V[t-1] < V[t-2] AND close_location[t-1] >= 0.5",
+      "definitions": "close_location=(C-L)/(H-L), defined only when H>L. Also retain volatility-scaled loss change, range change and volume ratios, rather than only the Boolean.",
+      "measurements": ["Second loss relative to first loss", "Range contraction", "Volume change", "Close location and lower wick"],
+      "purpose": "Test whether reduced downward movement and an improved close identify a different dip state. Smaller volume can also mean weak demand, so the direction must be learned from data.",
+      "decision_time": "Before the open; all inputs use completed sessions.",
+      "novelty": "Most components already exist. The candidate is a conditional combination whose added value may be zero."
+    },
+    {
+      "name": "Failed breakdown holds its reclaimed level",
+      "flag": "L[t-1] < S AND C[t-1] >= S AND O[t] >= S",
+      "definitions": "S=min(L[t-21:t-1]), the 20 completed lows before yesterday. The support reference is fixed before the attempted break; yesterday's low is not included in it.",
+      "measurements": ["Distance below the old support at yesterday's low", "Yesterday's close above support", "Current open distance above support", "Rebound already consumed"],
+      "purpose": "Test a failed selloff and subsequent hold as a separate pattern from simply being near a low. Keep distance and rebound size to distinguish a modest reclaim from an already extended opening price.",
+      "decision_time": "After the current opening price is observed; validate entry after the observation.",
+      "novelty": "Reuses candle/short-range ingredients with an explicitly pre-break support reference. This exact flag is a new hypothesis, not an empirically established edge."
+    },
+    {
+      "name": "Pullback inside a rising trend",
+      "flag": "C[t-1]/C[t-3]-1 <= -0.02 AND C[t-1] > SMA50[t-1] AND SMA50[t-1] > SMA50[t-11]",
+      "definitions": "SMA50 is the mean of the latest 50 completed closes at its indexed date. The slope comparison spans 10 sessions. Retain drawdown from the prior 20-session high and distance to the moving average as continuous measurements.",
+      "measurements": ["Short-term decline", "Longer-term trend slope", "Distance above moving average", "Distance below recent high"],
+      "purpose": "Cover a different kind of dip: a pullback within a stronger trend, which need not be anywhere near a 52-week low.",
+      "decision_time": "Before the open; current open/actual entry distance can be tested as separate inputs.",
+      "novelty": "Trend and return components already exist. Test the interaction against those existing inputs rather than duplicate them."
+    }
+  ],
+  "validation": {
+    "comparison": "Existing Rank/Fit baseline versus baseline plus each family, plus a small predeclared combined candidate, using identical rows and chronological folds.",
+    "selection": "The stated thresholds are rigid initial hypotheses, not optimized or validated cutoffs. Any threshold changes must be selected within training dates and assessed on later dates.",
+    "metrics": "Incremental Rank IC and top-k entry-to-close return after realistic costs, coverage, downside, stability by era and a subsequent prospective paper period.",
+    "execution": "Pre-open flags can be tested for opening-auction participation with explicit fill assumptions. Open-conditioned flags need an executable later entry. First-five-minute confirmation is a distinct timestamped feature with its own entry-to-close label.",
+    "interpretation": "A rigid trigger is reproducible; it is predictive only if later-date evidence demonstrates added value. Flags are candidate inputs first, not automatic execution instructions."
+  }
+}

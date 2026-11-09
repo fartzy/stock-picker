@@ -1,13 +1,11 @@
 {
-  "protocol_version": 1,
-  "frozen_at_utc": "2026-11-09T21:29:34.064251+00:00",
-  "status": "frozen_before_outcome_calculation",
+  "protocol_version": 2,
+  "status": "amended_after_initial_outcomes_user_requested_mrcy_inclusion",
   "purpose": "Retrospective hypothesis screen for morning entry and same-session close; not validation of a trading rule",
   "input_snapshot": "input_snapshot.json",
   "source_cutoff": "2026-11-06",
   "main_exclusions": [
     "SPY",
-    "MRCY",
     "all 200 production holdout tickers frozen from full registry"
   ],
   "history_sessions": 252,
@@ -101,5 +99,25 @@
       "at_utc": "2026-11-09T21:33:27.905706+00:00",
       "detail": "Parent approved two standalone low-context cohorts before any outcome calculation: all eligible prior close near252low, and all eligible yesterday new/tied252low. These isolate low context from the double-shock conjunction. No additional cohorts or optimization."
     }
-  ]
+  ],
+  "original_frozen_at_utc": "2026-11-09T21:29:34.064251+00:00",
+  "mrcy_inclusion_amendment": {
+    "amended_at_utc": "2026-11-09T21:45:59.893932+00:00",
+    "reason": "User explicitly requested MRCY be included in the primary analysis after seeing the initial MRCY-excluded results. Include its entire eligible history, not just the motivating rebound date.",
+    "timing": "After original outcomes were calculated and reviewed; this amendment is not represented as prospectively frozen before the original results.",
+    "original_commit": "07a4b3021a7eec5b242f67e823cfef7a5ef4347a",
+    "original_artifact_directory": "research/morning_dip_patterns_2026_11_09",
+    "original_artifact_sha256": {
+      "protocol.json": "1accb60b02704552ea8e3b55d654d7b219040452876928fba574dff5beab3e70",
+      "results.json": "f7b0a10e2c152445a82b7bc0742718da5a4b6c44ebc8eb07315810fa159308dc",
+      "daily_results.json": "2b6fcafb509157e401c79952433754110dd729910cac9a9e5c30698dab05f7e4",
+      "run_screen.py": "5a6ea10737c635bbbfe3d05ce89b738fe33c996827ee036cdec836dea9c77195",
+      "run_manifest.json": "e9ac69e87624f3e7373eaf2a1e0fd41af99abc9d259f184f29a3ec6ed66f4731"
+    },
+    "expected_added_eligible_rows": 995,
+    "expected_primary_rows": 1421271,
+    "expected_primary_tickers": 1691,
+    "unchanged": "All 17 cohort definitions, eligibility thresholds, cost scenarios, matching algorithm, weekly bootstrap, date cutoff, and production ticker holdout. Recompute date-volatility quintiles and controls on the MRCY-inclusive eligible universe.",
+    "interpretation": "User-directed inclusion sensitivity and revised primary universe; neither version is an untouched confirmatory test. These descriptive trigger screens do not determine whether continuous features help the existing model."
+  }
 }

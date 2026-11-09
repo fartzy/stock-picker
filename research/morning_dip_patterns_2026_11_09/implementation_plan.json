@@ -1,6 +1,7 @@
 {
   "status": "Proposed research-to-feature plan; production implementation has not been started or approved by this report.",
   "objective": "Improve prediction of executable morning-entry to same-day-close returns after a selloff, rather than identify an exact future bottom.",
+  "user_clarification": "The aim is feature iteration alongside the existing feature set. Standalone cohort averages do not establish whether a feature adds predictive information to Rank or Fit. Precise candidate flags and their underlying continuous measurements are defined in trigger_candidates.json.",
   "priority_features": [
     {
       "name": "Long-term low location and fresh break",
@@ -57,7 +58,7 @@
     {
       "phase": 1,
       "name": "Build small, continuous candidate families in isolation",
-      "work": "Implement one pure dip-context feature module, using the existing pipeline and metadata registration patterns. Classify every column as pre-open/close-known or open-known, and mirror open-known recomputation in live rows. Keep candidate artifacts separate until the incremental experiment is assessed.",
+      "work": "Implement one pure dip-context feature module, using the existing pipeline and metadata registration patterns. Keep continuous measurements plus the precise candidate flags in trigger_candidates.json; reuse existing components instead of duplicating them. Classify every column as pre-open/close-known or open-known, and mirror open-known recomputation in live rows. Keep candidate artifacts separate until the incremental experiment is assessed.",
       "files_to_touch_if_approved": [
         "python/stock_picker/features/dip_context.py (new)",
         "python/stock_picker/features/pipeline.py:36",
