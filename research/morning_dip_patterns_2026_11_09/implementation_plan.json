@@ -1,0 +1,104 @@
+{
+  "status": "Proposed research-to-feature plan; production implementation has not been started or approved by this report.",
+  "objective": "Improve prediction of executable morning-entry to same-day-close returns after a selloff, rather than identify an exact future bottom.",
+  "priority_features": [
+    {
+      "name": "Long-term low location and fresh break",
+      "question": "Is the entry near a previously observed floor, or below it?",
+      "formula": "low252 = min(L[t-252:t]); distance = O[t] / low252 - 1; breach = O[t] < low252; low_age = sessions since the most recent occurrence of low252.",
+      "timing": "Prior low and its age are pre-open; distance and breach require the observed opening price.",
+      "novelty": "The current pipeline has short-range patterns and trailing-peak drawdowns, but no genuine 252-session low context.",
+      "guard": "Do not use today's eventual low. Require 252 completed valid sessions and distinguish missing history from a neutral value."
+    },
+    {
+      "name": "Selloff severity and recovery already consumed",
+      "question": "How unusually large was the decline, and how much has recovered before entry?",
+      "formula": "two_day_return = C[t-1] / C[t-3] - 1; severity = two_day_return / (std20(returns ending t-3) * sqrt(2)); close_loss_recovered = (O[t] - C[t-1]) / (C[t-3] - C[t-1]), defined only for a positive prior closing loss.",
+      "timing": "Severity is pre-open; recovery fraction requires the observed open.",
+      "novelty": "The two-day return already exists. The proposed addition is recovery fraction and its interaction with long-term low context, using volatility measured before the shock.",
+      "guard": "Negative fractions mean continued decline; values above one mean more than the closing loss recovered. Do not clip these cases together. A separate low-based recovery fraction uses a different denominator and must have a different name."
+    },
+    {
+      "name": "Selling-pressure change during the decline",
+      "question": "Was the second down day less forceful, and did buyers lift the price away from its low?",
+      "formula": "Compare absolute prior daily losses, true ranges and dollar volumes between t-2 and t-1, scaled by baselines ending t-3; retain yesterday's close location (C-L)/(H-L) and lower-wick fraction as interaction inputs.",
+      "timing": "All inputs stop at yesterday's close.",
+      "novelty": "Volume, candle shapes and volatility already exist. Test incremental interactions conditional on selloff/low location rather than add duplicate indicators.",
+      "guard": "High volume can reflect new information as well as temporary selling. No current-day full-session volume. Zero-range bars and missing denominators need explicit handling."
+    },
+    {
+      "name": "Current gap and previous selling volume",
+      "question": "Does the market open stronger after heavy selling, or continue to break down?",
+      "formula": "gap[t] = O[t] / C[t-1] - 1; gap_previous_volume = gap[t] * volume_zscore[t-1], optionally interacted with prior selloff severity.",
+      "timing": "Open-known; must be calculated identically in historical rows and live inference.",
+      "novelty": "Existing gap_volume_interaction uses same-day completed volume and is shifted as a whole. It therefore represents yesterday's gap times yesterday's volume, not this interaction.",
+      "guard": "An opening gap does not establish that a bottom has formed. Observing the open does not guarantee an execution at that exact price."
+    }
+  ],
+  "secondary_hypotheses": [
+    "Separate the prior two-day loss into overnight and regular-session components. The timing literature gives a strong reason to avoid treating them as interchangeable; overlap with existing session-pattern features needs ablation.",
+    "Distinguish a market-wide decline from stock-specific residual selling, using lagged SPY exposure and, if point-in-time data become available, sector and timestamped news context.",
+    "A 09:35 or 09:45 stabilization/reclaim feature is a separate delayed-entry experiment. Use only completed bars, enter after the signal, and retain same-day close as the exit."
+  ],
+  "phases": [
+    {
+      "phase": 0,
+      "name": "Freeze compatible historical inputs",
+      "work": "Resolve production one-year history versus the required 252-session warmup. Preserve a frozen provider/basis/universe snapshot; obtain at least 504 completed sessions, preferably a five-year research panel, before feature evaluation. Certify actions and raw/adjusted price compatibility, symbol mapping, and missing bars. Keep this separate from live stores.",
+      "files_to_review": [
+        "python/stock_picker/ingestion/yfinance_client.py:47",
+        "python/stock_picker/ingestion/refresh_prices.py:76",
+        "python/stock_picker/ingestion/massive_overnight.py:401",
+        "research/averaging_down_2026_11_06/fetch_daily_history.py:9"
+      ],
+      "verification": "Check split/ex-dividend/spinoff examples, history warmup, provider symbol mappings, as-of universe coverage, and reproducible hashes.",
+      "guards": "Do not silently substitute 251 sessions for a 252-session low, assume five-year corporate-action certification, or call current-universe data point-in-time."
+    },
+    {
+      "phase": 1,
+      "name": "Build small, continuous candidate families in isolation",
+      "work": "Implement one pure dip-context feature module, using the existing pipeline and metadata registration patterns. Classify every column as pre-open/close-known or open-known, and mirror open-known recomputation in live rows. Keep candidate artifacts separate until the incremental experiment is assessed.",
+      "files_to_touch_if_approved": [
+        "python/stock_picker/features/dip_context.py (new)",
+        "python/stock_picker/features/pipeline.py:36",
+        "python/stock_picker/features/descriptions.py",
+        "python/stock_picker/features/formulas.py",
+        "python/stock_picker/features/examples.py",
+        "python/stock_picker/features/registry.py",
+        "python/stock_picker/training/dataset.py:24",
+        "python/stock_picker/training/live_rows.py:77",
+        "python/stock_picker/training/inference.py:37",
+        "python/stock_picker/features/tests/test_dip_context.py (new)",
+        "python/stock_picker/training/tests/test_inference.py",
+        "python/stock_picker/training/tests/test_dataset.py"
+      ],
+      "verification": "Use hand-calculated examples, missing-history and zero-denominator cases; perturb current/future HLCV and prove morning inputs unchanged; assert historical and live rows match. Run metadata completeness and focused feature/dataset tests, then required build checks.",
+      "guards": "No current high/low/close/full-day volume in a morning input; no accidental double shifting; no new per-ticker return-mean buckets without sample-count and shrinkage treatment."
+    },
+    {
+      "phase": 2,
+      "name": "Measure incremental value against current Rank and Fit",
+      "work": "Compare baseline, each candidate family, and a predeclared small combined set on identical chronological folds and eligible rows. Track Rank IC, top-20 and top-5 gross/net returns, turnover, downside, and coverage by era/regime. Test thresholds and choices within training dates only. Keep the fixed production ticker exclusion out of feature search; an already-consulted ticker sample is not pristine validation.",
+      "references": [
+        "python/stock_picker/training/feature_family_search.py:83",
+        "python/stock_picker/training/backtest.py:146",
+        "docs/adr/0004-walk-forward-and-ticker-holdout.md:13",
+        "docs/restored-features-2026-10-13.md:10"
+      ],
+      "verification": "Paired date/weekly uncertainty; several strictly later date blocks; full results including failures; realistic cost sensitivity and a registered forward paper period. Confirm improvement is incremental to existing returns/volume/candle features.",
+      "guards": "No shuffled k-fold, no tuning on held-out ticker outcomes, no promoting a family based only on MRCY, a positive pooled average, or one favorable fold. Do not turn raw Rank scores into probabilities."
+    },
+    {
+      "phase": 3,
+      "name": "Validate executable morning entry and then decide on production",
+      "work": "For open-conditioned rules, freeze a new representative minute-bar sample and test the first executable entry after the decision, including delayed individual stock openings. Compare 09:35/09:45 candidates only in their own entry-to-close experiments. After validation, present the concrete feature/model changes and results for a production decision.",
+      "references": [
+        "python/stock_picker/ingestion/massive_overnight.py:381",
+        "docs/intraday-timing-todo.md:22",
+        "docs/adr/0003-open-close-label-lookahead-safety.md:15"
+      ],
+      "verification": "Decision precedes execution; early closes, DST, halts, delayed opens, missing bars, spreads/slippage, and sell-before-close timing are explicit. Report participation and all rejected observations.",
+      "guards": "Do not use the hindsight daily minimum as the purchase price or carry a failed same-day setup overnight to improve the label."
+    }
+  ]
+}

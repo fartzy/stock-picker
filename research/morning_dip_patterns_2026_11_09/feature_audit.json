@@ -1,0 +1,1328 @@
+{
+  "schema_version": 1,
+  "study_date": "2026-11-09",
+  "scope": "Read-only discovery of existing features and proposed research-only additions for morning entry to same-day close. No production change or model promotion.",
+  "source_notation": "Paths are repository-relative; start_line/end_line refer to the working tree inspected on 2026-11-09.",
+  "conclusion": "Long-horizon low context is absent. Existing models already represent many short-horizon down-run, crash, rebound, volatility, volume, and candle patterns. Test new continuous interactions against the current served baseline, rather than relabeling existing inputs as novel.",
+  "timing_contract": {
+    "decision_time": "Immediately after observed regular-session opening print; later intraday confirmation would require a separately timestamped strategy.",
+    "label": "(Close[t] - Open[t]) / Open[t]",
+    "ordinary_feature_timing": "Build using completed day d; dataset shifts one row so prediction day t receives d=t-1.",
+    "open_known_timing": "overnight_gap, spy_overnight_gap, cluster_overnight_gap, open-pattern family, and weather family are not shifted by build_training_frame.",
+    "live_path": "prepare_one restricts snapshots and raw history to dates strictly less than as_of; build_inference_row replaces current opening gap and open-pattern seasonalities.",
+    "saved_input_contract": "Each TrainedModel archives feature_names; prediction reindexes the incoming frame to those names.",
+    "sources": [
+      {
+        "path": "python/stock_picker/training/dataset.py",
+        "start_line": 24,
+        "end_line": 50
+      },
+      {
+        "path": "python/stock_picker/training/live_rows.py",
+        "start_line": 77,
+        "end_line": 109
+      },
+      {
+        "path": "python/stock_picker/training/inference.py",
+        "start_line": 68,
+        "end_line": 88
+      },
+      {
+        "path": "python/stock_picker/training/model.py",
+        "start_line": 162,
+        "end_line": 168
+      },
+      {
+        "path": "python/stock_picker/training/model.py",
+        "start_line": 618,
+        "end_line": 622
+      }
+    ]
+  },
+  "model_snapshot": {
+    "observed_before_nightly_refresh": true,
+    "observed_fit_input_count": 139,
+    "observed_rank_input_count": 132,
+    "common_price_pattern_inputs_count": 19,
+    "open_pattern_engineered_count": 76,
+    "open_pattern_served_count": 57,
+    "explicit_pruned_input_count": 93,
+    "positive_selection": null,
+    "caveat": "These are counts from saved pickle feature_names, not old day_session_return.txt. A nightly run may subsequently replace the model artifacts.",
+    "policy": "Persisted features are included by default subject to ordinary per-run selection and explicit pruning. There is no special gate for the 19 price-pattern inputs.",
+    "sources": [
+      {
+        "path": "docs/feature-training-policy.md",
+        "start_line": 3,
+        "end_line": 17
+      },
+      {
+        "path": "data/feature_selection/selection.json",
+        "start_line": 1,
+        "end_line": 3
+      },
+      {
+        "path": "python/stock_picker/features/pruning.py",
+        "start_line": 14,
+        "end_line": 26
+      }
+    ],
+    "artifact_inspection_at_utc": "2026-11-09T21:31:01.427832+00:00",
+    "artifacts": {
+      "day_session_return": {
+        "path": "data/models/day_session_return.pkl",
+        "sha256": "bb527bebb63f39e11630f0d771c4139136e8967c07eaac90e4b89e50caa089ce",
+        "mtime_utc": "2026-11-07T00:34:56.670591+00:00",
+        "members": [
+          {
+            "model_type": "lightgbm",
+            "feature_count": 139,
+            "feature_names": [
+              "return_1d",
+              "return_2d",
+              "momentum_spread_3_5d",
+              "momentum_spread_5_20d",
+              "momentum_spread_10_60d",
+              "momentum_spread_20_120d",
+              "volatility_32d",
+              "volatility_120d",
+              "absolute_return_2d",
+              "volatility_5d_lag_1d",
+              "volatility_5d_lag_2d",
+              "volatility_5d_lag_32d",
+              "upside_semivol_4d",
+              "downside_semivol_4d",
+              "semivol_balance_4d",
+              "upside_semivol_5d",
+              "downside_semivol_5d",
+              "semivol_balance_5d",
+              "parkinson_vol_20d",
+              "parkinson_vol_60d",
+              "volatility_delta_1d",
+              "volatility_delta_3d",
+              "volatility_delta_5d",
+              "volatility_delta_10d",
+              "price_vs_sma_100d",
+              "macd_line",
+              "rsi_28",
+              "volume_ratio_10d",
+              "volume_ratio_20d",
+              "volume_ratio_60d",
+              "dollar_volume",
+              "obv",
+              "obv_change_20d",
+              "volume_zscore_20d",
+              "overnight_gap",
+              "day_range_pct",
+              "body_pct",
+              "upper_wick_pct",
+              "lower_wick_pct",
+              "close_location",
+              "var_5pct_20d",
+              "var_5pct_60d",
+              "pattern_sequence_seasonality_3d",
+              "seq2_open3_seasonality",
+              "seq3_open3_seasonality",
+              "seq4_open3_seasonality",
+              "seq3_open5_seasonality",
+              "streak_open3_seasonality",
+              "streak_open5_seasonality",
+              "flips_3d_open3_seasonality",
+              "flips_5d_open3_seasonality",
+              "late_reversal_open3_seasonality",
+              "continuation_open3_seasonality",
+              "yday_swing_open5_seasonality",
+              "two_day_swing_open3_seasonality",
+              "big_down_run_open3_seasonality",
+              "net3_swing_open3_seasonality",
+              "wildest_3d_open3_seasonality",
+              "vol_path_open3_seasonality",
+              "vol_path_open5_seasonality",
+              "yday_range_open3_seasonality",
+              "vol_regime_open3_seasonality",
+              "seq3_volpath_open3_seasonality",
+              "swing_volpath_open3_seasonality",
+              "streak_vol_open3_seasonality",
+              "open_in_yday_range_seasonality",
+              "seq3_openloc_seasonality",
+              "gap_seq3_open3_seasonality",
+              "gap_trap_open_seasonality",
+              "streak_crash_open_seasonality",
+              "multi_crash_bounce_open_seasonality",
+              "week_run_open3_seasonality",
+              "chase_then_fade_open3_seasonality",
+              "three_up_open3_seasonality",
+              "dump_then_quiet_open3_seasonality",
+              "story_seq2_open5_seasonality",
+              "story_seq2_loc3_seasonality",
+              "story_seq4_loc3_seasonality",
+              "story_week_run_loc3_seasonality",
+              "story_week_run_open5_seasonality",
+              "story_month_crash_loc3_seasonality",
+              "story_three_up_loc3_seasonality",
+              "story_three_up_open5_seasonality",
+              "story_dump_quiet_loc3_seasonality",
+              "story_reversal_open5_seasonality",
+              "story_reversal_loc3_seasonality",
+              "story_yday_swing_loc3_seasonality",
+              "story_streak_loc3_seasonality",
+              "story_vol_regime_loc3_seasonality",
+              "story_wildest_loc3_seasonality",
+              "story_net3_loc3_seasonality",
+              "story_seq3_week_open3_seasonality",
+              "story_outside_day_open3_seasonality",
+              "story_weak_close_open3_seasonality",
+              "story_strong_close_open3_seasonality",
+              "story_two_gap_down_open3_seasonality",
+              "story_open_vs_5d_high_seasonality",
+              "story_two_day_run_open3_seasonality",
+              "story_three_same_gap_open3_seasonality",
+              "story_yday_range_week_open3_seasonality",
+              "pooled_setup_seasonality",
+              "beta_60d",
+              "relative_strength",
+              "sector_relative_return",
+              "market_advance_fraction",
+              "market_above_sma_20d_fraction",
+              "market_return_dispersion_1d",
+              "market_up_volume_fraction",
+              "weather_nyc_tmax_yday",
+              "weather_nyc_tmin_yday",
+              "weather_nyc_precip_yday",
+              "weather_nyc_snow_yday",
+              "weather_nyc_hdd_yday",
+              "weather_nyc_cdd_yday",
+              "news_article_count_1d",
+              "news_max_material_score_1d",
+              "news_has_material_1d",
+              "news_article_count_3d",
+              "news_max_material_score_3d",
+              "news_has_material_3d",
+              "news_has_insider_sell_3d",
+              "pca_1",
+              "pca_2",
+              "pca_3",
+              "pca_4",
+              "pca_5",
+              "cluster_id",
+              "cluster_overnight_gap",
+              "path_cluster_distance",
+              "path_cluster_margin",
+              "path_cluster_crowding",
+              "path_cluster_peer_return_1d",
+              "svr_oof_pred",
+              "svc_direction_margin",
+              "svc_gate_margin",
+              "svc_down_gate_margin",
+              "svc_strong_up_margin",
+              "svc_top_quintile_margin",
+              "svc_bottom_quintile_margin"
+            ]
+          }
+        ]
+      },
+      "day_session_return_rank": {
+        "path": "data/models/day_session_return_rank.pkl",
+        "sha256": "6ed900ef464e2146eac78b1063f128e2d8e5289353793d90ade0a2840171d0c7",
+        "mtime_utc": "2026-11-07T00:34:56.657638+00:00",
+        "members": [
+          {
+            "model_type": "lightgbm_rank",
+            "feature_count": 132,
+            "feature_names": [
+              "return_1d",
+              "return_2d",
+              "momentum_spread_3_5d",
+              "momentum_spread_5_20d",
+              "momentum_spread_10_60d",
+              "momentum_spread_20_120d",
+              "volatility_32d",
+              "volatility_120d",
+              "absolute_return_2d",
+              "volatility_5d_lag_1d",
+              "volatility_5d_lag_2d",
+              "volatility_5d_lag_32d",
+              "upside_semivol_4d",
+              "downside_semivol_4d",
+              "semivol_balance_4d",
+              "upside_semivol_5d",
+              "downside_semivol_5d",
+              "semivol_balance_5d",
+              "parkinson_vol_20d",
+              "parkinson_vol_60d",
+              "volatility_delta_1d",
+              "volatility_delta_3d",
+              "volatility_delta_5d",
+              "volatility_delta_10d",
+              "price_vs_sma_100d",
+              "macd_line",
+              "rsi_28",
+              "volume_ratio_10d",
+              "volume_ratio_20d",
+              "volume_ratio_60d",
+              "dollar_volume",
+              "obv",
+              "obv_change_20d",
+              "volume_zscore_20d",
+              "overnight_gap",
+              "day_range_pct",
+              "body_pct",
+              "upper_wick_pct",
+              "lower_wick_pct",
+              "close_location",
+              "var_5pct_20d",
+              "var_5pct_60d",
+              "pattern_sequence_seasonality_3d",
+              "seq2_open3_seasonality",
+              "seq3_open3_seasonality",
+              "seq4_open3_seasonality",
+              "seq3_open5_seasonality",
+              "streak_open3_seasonality",
+              "streak_open5_seasonality",
+              "flips_3d_open3_seasonality",
+              "flips_5d_open3_seasonality",
+              "late_reversal_open3_seasonality",
+              "continuation_open3_seasonality",
+              "yday_swing_open5_seasonality",
+              "two_day_swing_open3_seasonality",
+              "big_down_run_open3_seasonality",
+              "net3_swing_open3_seasonality",
+              "wildest_3d_open3_seasonality",
+              "vol_path_open3_seasonality",
+              "vol_path_open5_seasonality",
+              "yday_range_open3_seasonality",
+              "vol_regime_open3_seasonality",
+              "seq3_volpath_open3_seasonality",
+              "swing_volpath_open3_seasonality",
+              "streak_vol_open3_seasonality",
+              "open_in_yday_range_seasonality",
+              "seq3_openloc_seasonality",
+              "gap_seq3_open3_seasonality",
+              "gap_trap_open_seasonality",
+              "streak_crash_open_seasonality",
+              "multi_crash_bounce_open_seasonality",
+              "week_run_open3_seasonality",
+              "chase_then_fade_open3_seasonality",
+              "three_up_open3_seasonality",
+              "dump_then_quiet_open3_seasonality",
+              "story_seq2_open5_seasonality",
+              "story_seq2_loc3_seasonality",
+              "story_seq4_loc3_seasonality",
+              "story_week_run_loc3_seasonality",
+              "story_week_run_open5_seasonality",
+              "story_month_crash_loc3_seasonality",
+              "story_three_up_loc3_seasonality",
+              "story_three_up_open5_seasonality",
+              "story_dump_quiet_loc3_seasonality",
+              "story_reversal_open5_seasonality",
+              "story_reversal_loc3_seasonality",
+              "story_yday_swing_loc3_seasonality",
+              "story_streak_loc3_seasonality",
+              "story_vol_regime_loc3_seasonality",
+              "story_wildest_loc3_seasonality",
+              "story_net3_loc3_seasonality",
+              "story_seq3_week_open3_seasonality",
+              "story_outside_day_open3_seasonality",
+              "story_weak_close_open3_seasonality",
+              "story_strong_close_open3_seasonality",
+              "story_two_gap_down_open3_seasonality",
+              "story_open_vs_5d_high_seasonality",
+              "story_two_day_run_open3_seasonality",
+              "story_three_same_gap_open3_seasonality",
+              "story_yday_range_week_open3_seasonality",
+              "pooled_setup_seasonality",
+              "beta_60d",
+              "relative_strength",
+              "sector_relative_return",
+              "market_advance_fraction",
+              "market_above_sma_20d_fraction",
+              "market_return_dispersion_1d",
+              "market_up_volume_fraction",
+              "weather_nyc_tmax_yday",
+              "weather_nyc_tmin_yday",
+              "weather_nyc_precip_yday",
+              "weather_nyc_snow_yday",
+              "weather_nyc_hdd_yday",
+              "weather_nyc_cdd_yday",
+              "news_article_count_1d",
+              "news_max_material_score_1d",
+              "news_has_material_1d",
+              "news_article_count_3d",
+              "news_max_material_score_3d",
+              "news_has_material_3d",
+              "news_has_insider_sell_3d",
+              "pca_1",
+              "pca_2",
+              "pca_3",
+              "pca_4",
+              "pca_5",
+              "cluster_id",
+              "cluster_overnight_gap",
+              "path_cluster_distance",
+              "path_cluster_margin",
+              "path_cluster_crowding",
+              "path_cluster_peer_return_1d"
+            ]
+          }
+        ]
+      }
+    },
+    "explicit_prunes": [
+      {
+        "feature": "stochastic_k_14d",
+        "reason": "high correlation to williams_r (r=1.000)",
+        "pruned_at": "2026-09-06T15:25:33.546086-05:00"
+      },
+      {
+        "feature": "garman_klass_vol_60d",
+        "reason": "high correlation to parkinson_vol_60d (r=0.997)",
+        "pruned_at": "2026-09-06T15:25:33.546535-05:00"
+      },
+      {
+        "feature": "log_return_2d",
+        "reason": "high correlation to return_2d (r=0.996)",
+        "pruned_at": "2026-09-06T15:25:33.546818-05:00"
+      },
+      {
+        "feature": "log_return_3d",
+        "reason": "high correlation to return_3d (r=0.996)",
+        "pruned_at": "2026-09-06T15:25:33.547082-05:00"
+      },
+      {
+        "feature": "log_return_4d",
+        "reason": "high correlation to return_4d (r=0.996)",
+        "pruned_at": "2026-09-06T15:25:33.547316-05:00"
+      },
+      {
+        "feature": "log_return_5d",
+        "reason": "high correlation to return_5d (r=0.995)",
+        "pruned_at": "2026-09-06T15:25:33.547549-05:00"
+      },
+      {
+        "feature": "log_return_1d",
+        "reason": "high correlation to return_1d (r=0.995)",
+        "pruned_at": "2026-09-06T15:25:33.547769-05:00"
+      },
+      {
+        "feature": "log_return_10d",
+        "reason": "high correlation to return_10d (r=0.994)",
+        "pruned_at": "2026-09-06T15:25:33.547987-05:00"
+      },
+      {
+        "feature": "garman_klass_vol_20d",
+        "reason": "high correlation to parkinson_vol_20d (r=0.992)",
+        "pruned_at": "2026-09-06T15:25:33.548219-05:00"
+      },
+      {
+        "feature": "log_return_20d",
+        "reason": "high correlation to return_20d (r=0.990)",
+        "pruned_at": "2026-09-06T15:25:33.548566-05:00"
+      },
+      {
+        "feature": "price_vs_ema_100d",
+        "reason": "high correlation to price_vs_sma_100d (r=0.987)",
+        "pruned_at": "2026-09-06T15:25:33.548883-05:00"
+      },
+      {
+        "feature": "garman_klass_vol_10d",
+        "reason": "high correlation to parkinson_vol_10d (r=0.987)",
+        "pruned_at": "2026-09-06T15:25:33.549151-05:00"
+      },
+      {
+        "feature": "price_vs_sma_50d",
+        "reason": "high correlation to price_vs_ema_50d (r=0.985)",
+        "pruned_at": "2026-09-06T15:25:33.549404-05:00"
+      },
+      {
+        "feature": "bollinger_pct_b",
+        "reason": "high correlation to cci (r=0.982)",
+        "pruned_at": "2026-09-06T15:25:33.549648-05:00"
+      },
+      {
+        "feature": "return_60d",
+        "reason": "high correlation to log_return_60d (r=0.974)",
+        "pruned_at": "2026-09-06T15:25:33.549885-05:00"
+      },
+      {
+        "feature": "price_vs_sma_10d",
+        "reason": "high correlation to price_vs_ema_12d (r=0.970)",
+        "pruned_at": "2026-09-06T15:25:33.550099-05:00"
+      },
+      {
+        "feature": "consecutive_day_streak",
+        "reason": "negligible importance (0.00%)",
+        "pruned_at": "2026-09-06T15:25:33.550347-05:00"
+      },
+      {
+        "feature": "sharpe_20d",
+        "reason": "negligible importance (0.00%)",
+        "pruned_at": "2026-09-06T15:25:33.550583-05:00"
+      },
+      {
+        "feature": "kurtosis_60d",
+        "reason": "negligible importance (0.02%)",
+        "pruned_at": "2026-09-06T15:25:33.550812-05:00"
+      },
+      {
+        "feature": "max_drawdown_60d",
+        "reason": "negligible importance (0.03%)",
+        "pruned_at": "2026-09-06T15:25:33.551104-05:00"
+      },
+      {
+        "feature": "cci",
+        "reason": "negligible importance (0.04%)",
+        "pruned_at": "2026-09-06T15:25:33.551328-05:00"
+      },
+      {
+        "feature": "williams_r",
+        "reason": "negligible importance (0.06%)",
+        "pruned_at": "2026-09-06T15:25:33.551564-05:00"
+      },
+      {
+        "feature": "stochastic_d_14d",
+        "reason": "negligible importance (0.06%)",
+        "pruned_at": "2026-09-06T15:25:33.551865-05:00"
+      },
+      {
+        "feature": "return_rank_5d",
+        "reason": "negligible importance (0.06%)",
+        "pruned_at": "2026-09-06T15:25:33.552100-05:00"
+      },
+      {
+        "feature": "max_drawdown_20d",
+        "reason": "negligible importance (0.08%)",
+        "pruned_at": "2026-09-06T15:25:33.552340-05:00"
+      },
+      {
+        "feature": "kurtosis_20d",
+        "reason": "negligible importance (0.08%)",
+        "pruned_at": "2026-09-06T15:25:33.552614-05:00"
+      },
+      {
+        "feature": "correlation_60d",
+        "reason": "negligible importance (0.09%)",
+        "pruned_at": "2026-09-06T15:25:33.552857-05:00"
+      },
+      {
+        "feature": "rsi_14",
+        "reason": "negligible importance (0.09%)",
+        "pruned_at": "2026-09-06T15:25:33.553091-05:00"
+      },
+      {
+        "feature": "log_return_60d",
+        "reason": "negligible importance (0.09%)",
+        "pruned_at": "2026-09-06T15:25:33.553359-05:00"
+      },
+      {
+        "feature": "skew_20d",
+        "reason": "negligible importance (0.09%)",
+        "pruned_at": "2026-09-06T15:25:33.553629-05:00"
+      },
+      {
+        "feature": "macd_hist",
+        "reason": "negligible importance (0.11%)",
+        "pruned_at": "2026-09-06T15:25:33.554150-05:00"
+      },
+      {
+        "feature": "log_return_120d",
+        "reason": "negligible importance (0.12%)",
+        "pruned_at": "2026-09-06T15:25:33.554666-05:00"
+      },
+      {
+        "feature": "atr_14",
+        "reason": "negligible importance (0.12%)",
+        "pruned_at": "2026-09-06T15:25:33.555101-05:00"
+      },
+      {
+        "feature": "sharpe_60d",
+        "reason": "negligible importance (0.13%)",
+        "pruned_at": "2026-09-06T15:25:33.555869-05:00"
+      },
+      {
+        "feature": "return_rank_20d",
+        "reason": "negligible importance (0.15%)",
+        "pruned_at": "2026-09-06T15:25:33.556378-05:00"
+      },
+      {
+        "feature": "bollinger_bandwidth",
+        "reason": "negligible importance (0.16%)",
+        "pruned_at": "2026-09-06T15:25:33.556635-05:00"
+      },
+      {
+        "feature": "skew_60d",
+        "reason": "negligible importance (0.17%)",
+        "pruned_at": "2026-09-06T15:25:33.556900-05:00"
+      },
+      {
+        "feature": "return_3d",
+        "reason": "negligible importance (0.17%)",
+        "pruned_at": "2026-09-06T15:25:33.557166-05:00"
+      },
+      {
+        "feature": "return_autocorr_20d",
+        "reason": "negligible importance (0.18%)",
+        "pruned_at": "2026-09-06T15:25:33.557439-05:00"
+      },
+      {
+        "feature": "return_autocorr_60d",
+        "reason": "negligible importance (0.18%)",
+        "pruned_at": "2026-09-06T15:25:33.557702-05:00"
+      },
+      {
+        "feature": "return_20d",
+        "reason": "negligible importance (0.21%)",
+        "pruned_at": "2026-09-06T15:25:33.558007-05:00"
+      },
+      {
+        "feature": "return_10d",
+        "reason": "negligible importance (0.21%)",
+        "pruned_at": "2026-09-06T15:25:33.558270-05:00"
+      },
+      {
+        "feature": "return_4d",
+        "reason": "negligible importance (0.23%)",
+        "pruned_at": "2026-09-06T15:25:33.558531-05:00"
+      },
+      {
+        "feature": "stochastic_d_5d",
+        "reason": "negligible importance (0.23%)",
+        "pruned_at": "2026-09-06T15:25:33.558823-05:00"
+      },
+      {
+        "feature": "stochastic_k_5d",
+        "reason": "negligible importance (0.24%)",
+        "pruned_at": "2026-09-06T15:25:33.559092-05:00"
+      },
+      {
+        "feature": "macd_signal",
+        "reason": "negligible importance (0.27%)",
+        "pruned_at": "2026-09-06T15:25:33.559364-05:00"
+      },
+      {
+        "feature": "volatility_20d",
+        "reason": "negligible importance (0.28%)",
+        "pruned_at": "2026-09-06T15:25:33.559635-05:00"
+      },
+      {
+        "feature": "return_5d",
+        "reason": "negligible importance (0.28%)",
+        "pruned_at": "2026-09-06T15:25:33.559914-05:00"
+      },
+      {
+        "feature": "return_120d",
+        "reason": "negligible importance (0.32%)",
+        "pruned_at": "2026-09-06T15:25:33.560203-05:00"
+      },
+      {
+        "feature": "rsi_2",
+        "reason": "negligible importance (0.32%)",
+        "pruned_at": "2026-09-06T15:25:33.560504-05:00"
+      },
+      {
+        "feature": "price_vs_sma_20d",
+        "reason": "negligible importance (0.32%)",
+        "pruned_at": "2026-09-06T15:25:33.560787-05:00"
+      },
+      {
+        "feature": "momentum_spread_2_4d",
+        "reason": "negligible importance (0.32%)",
+        "pruned_at": "2026-09-06T15:25:33.561083-05:00"
+      },
+      {
+        "feature": "volatility_10d",
+        "reason": "negligible importance (0.37%)",
+        "pruned_at": "2026-09-06T15:25:33.561676-05:00"
+      },
+      {
+        "feature": "parkinson_vol_10d",
+        "reason": "negligible importance (0.40%)",
+        "pruned_at": "2026-09-06T15:25:33.562250-05:00"
+      },
+      {
+        "feature": "price_vs_ema_12d",
+        "reason": "negligible importance (0.44%)",
+        "pruned_at": "2026-09-06T15:25:33.562535-05:00"
+      },
+      {
+        "feature": "price_vs_ema_50d",
+        "reason": "negligible importance (0.49%)",
+        "pruned_at": "2026-09-06T15:25:33.562823-05:00"
+      },
+      {
+        "feature": "day_session_streak_seasonality",
+        "reason": "high correlation to pattern_sequence_seasonality_3d (r=0.980)",
+        "pruned_at": "2026-09-06T20:50:08.622689-05:00"
+      },
+      {
+        "feature": "day_session_streak",
+        "reason": "negligible importance (0.13%)",
+        "pruned_at": "2026-09-06T20:50:08.623181-05:00"
+      },
+      {
+        "feature": "weekday_lag_seasonality",
+        "reason": "negligible importance (0.27%)",
+        "pruned_at": "2026-09-06T20:50:08.623529-05:00"
+      },
+      {
+        "feature": "gap_streak",
+        "reason": "negligible importance (0.48%)",
+        "pruned_at": "2026-09-06T20:50:08.623827-05:00"
+      },
+      {
+        "feature": "gap_volume_interaction",
+        "reason": "negligible importance (0.16%)",
+        "pruned_at": "2026-09-08T17:15:29.964316-05:00"
+      },
+      {
+        "feature": "setup_seasonality",
+        "reason": "negligible importance (0.21%)",
+        "pruned_at": "2026-09-08T17:15:29.965228-05:00"
+      },
+      {
+        "feature": "volatility_5d",
+        "reason": "negligible importance (0.28%)",
+        "pruned_at": "2026-09-08T17:15:29.965542-05:00"
+      },
+      {
+        "feature": "day_of_week_seasonality",
+        "reason": "negligible importance (0.31%)",
+        "pruned_at": "2026-09-08T17:15:29.965803-05:00"
+      },
+      {
+        "feature": "price_vs_sma_5d",
+        "reason": "negligible importance (0.38%)",
+        "pruned_at": "2026-09-08T17:15:29.966160-05:00"
+      },
+      {
+        "feature": "momentum_spread_1_3d",
+        "reason": "negligible importance (0.43%)",
+        "pruned_at": "2026-09-08T17:15:29.966575-05:00"
+      },
+      {
+        "feature": "price_vs_ema_26d",
+        "reason": "negligible importance (0.46%)",
+        "pruned_at": "2026-09-08T17:15:29.966871-05:00"
+      },
+      {
+        "feature": "weekday_lag_return",
+        "reason": "negligible importance (0.48%)",
+        "pruned_at": "2026-09-08T17:15:29.967198-05:00"
+      },
+      {
+        "feature": "volatility_60d",
+        "reason": "negligible importance (0.50%)",
+        "pruned_at": "2026-09-08T17:15:29.967459-05:00"
+      },
+      {
+        "feature": "vix_close",
+        "reason": "market-wide (identical on every ticker) -- collapsed 0.5% gate onto same cheap high-vol names (TDTH/XNDU)",
+        "pruned_at": "2026-09-17T09:45:13.866386-04:00"
+      },
+      {
+        "feature": "day_of_month",
+        "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+        "pruned_at": "2026-09-18T09:09:42.228907-05:00"
+      },
+      {
+        "feature": "day_of_week",
+        "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+        "pruned_at": "2026-09-18T09:09:42.230510-05:00"
+      },
+      {
+        "feature": "month",
+        "reason": "identical on every ticker this morning -- same as day_of_month",
+        "pruned_at": "2026-09-18T09:09:54.232999-05:00"
+      },
+      {
+        "feature": "spy_overnight_gap",
+        "reason": "manually pruned from Registry",
+        "pruned_at": "2026-09-18T21:53:08.931960-05:00"
+      },
+      {
+        "feature": "story_open_vs_5d_low_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.553655-05:00"
+      },
+      {
+        "feature": "story_two_big_fade_loc3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.554436-05:00"
+      },
+      {
+        "feature": "story_down_run_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.554935-05:00"
+      },
+      {
+        "feature": "story_seq2_week_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.555473-05:00"
+      },
+      {
+        "feature": "story_seq4_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.556050-05:00"
+      },
+      {
+        "feature": "story_chase_loc3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.556670-05:00"
+      },
+      {
+        "feature": "story_down_run_loc3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.557363-05:00"
+      },
+      {
+        "feature": "two_big_then_fade_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.558139-05:00"
+      },
+      {
+        "feature": "story_two_big_fade_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.558655-05:00"
+      },
+      {
+        "feature": "story_continuation_loc3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.559141-05:00"
+      },
+      {
+        "feature": "month_crash_yday_up_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.559603-05:00"
+      },
+      {
+        "feature": "story_month_crash_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.560062-05:00"
+      },
+      {
+        "feature": "story_chase_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.560527-05:00"
+      },
+      {
+        "feature": "story_dump_quiet_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.560977-05:00"
+      },
+      {
+        "feature": "story_continuation_open5_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.561489-05:00"
+      },
+      {
+        "feature": "story_yday_swing_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.561964-05:00"
+      },
+      {
+        "feature": "story_flips3_loc3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.562439-05:00"
+      },
+      {
+        "feature": "story_inside_day_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.563099-05:00"
+      },
+      {
+        "feature": "story_failed_bounce_open3_seasonality",
+        "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+        "pruned_at": "2026-09-23T22:02:48.563659-05:00"
+      }
+    ]
+  },
+  "existing_families": [
+    {
+      "family": "close_returns_and_momentum",
+      "formula": "return_nd[d]=Close[d]/Close[d-n]-1; log_return_nd[d]=log(Close[d]/Close[d-n]); momentum_spread_s_ld=return_sd-return_ld; signed consecutive close-change streak.",
+      "windows": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        20,
+        60,
+        120
+      ],
+      "served": [
+        "return_1d",
+        "return_2d",
+        "momentum_spread_3_5d",
+        "momentum_spread_5_20d",
+        "momentum_spread_10_60d",
+        "momentum_spread_20_120d"
+      ],
+      "pruned_examples": [
+        "consecutive_day_streak",
+        "return_3d",
+        "return_4d",
+        "return_5d",
+        "return_10d",
+        "return_20d",
+        "return_60d",
+        "return_120d"
+      ],
+      "timing": "Close-known; shifted once by dataset.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/momentum.py",
+          "start_line": 8,
+          "end_line": 62
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 83,
+          "end_line": 85
+        }
+      ]
+    },
+    {
+      "family": "oscillators_and_range",
+      "formula": "RSI uses exponentially averaged positive and negative price changes with alpha=1/n; stochastic=100*(Close-rolling_low)/(rolling_high-rolling_low); Bollinger %B uses rolling20 mean +/-2 standard deviations; Williams %R=-100*(rolling_high-Close)/(rolling_high-rolling_low).",
+      "engineered": "RSI2/14/28, stochastic5/14 and three-day signal, Bollinger20, Williams14, CCI20.",
+      "served": [
+        "rsi_28"
+      ],
+      "pruned_examples": [
+        "rsi_2",
+        "rsi_14",
+        "stochastic_k_5d",
+        "stochastic_k_14d",
+        "bollinger_pct_b",
+        "bollinger_bandwidth"
+      ],
+      "timing": "Close-known; shifted once by dataset.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/oscillators.py",
+          "start_line": 7,
+          "end_line": 85
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 138,
+          "end_line": 140
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 248,
+          "end_line": 250
+        }
+      ]
+    },
+    {
+      "family": "drawdowns",
+      "formula": "max_drawdown_nd[d]=Close[d]/max(Close[d-n+1:d])-1 for n=20,60.",
+      "clarification": "Despite its name, this is current distance from a trailing close peak, not maximum peak-to-trough drawdown. No252-session low or low-age input was found.",
+      "served": [],
+      "pruned_examples": [
+        "max_drawdown_20d",
+        "max_drawdown_60d"
+      ],
+      "sources": [
+        {
+          "path": "python/stock_picker/features/distributional.py",
+          "start_line": 21,
+          "end_line": 24
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 98,
+          "end_line": 100
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 123,
+          "end_line": 125
+        }
+      ]
+    },
+    {
+      "family": "volume",
+      "formula": "volume_ratio_nd[d]=Volume[d]/rolling_mean(Volume,n)[d], n=10/20/60; dollar_volume=Close*Volume; obv=cumsum(sign(diff(Close))*Volume); obv_change_20d=obv.diff(20); volume_zscore_20d=(Volume-mean20)/std20.",
+      "served": [
+        "volume_ratio_10d",
+        "volume_ratio_20d",
+        "volume_ratio_60d",
+        "dollar_volume",
+        "obv",
+        "obv_change_20d",
+        "volume_zscore_20d"
+      ],
+      "timing": "Denominators include completed feature day; dataset shifts to yesterday.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/volume.py",
+          "start_line": 8,
+          "end_line": 47
+        }
+      ]
+    },
+    {
+      "family": "candle_and_gap",
+      "formula": "gap=(Open-Close.shift(1))/Close.shift(1); day_range=(High-Low)/Close; body=(Close-Open)/Open; upper_wick=(High-max(Open,Close))/Open; lower_wick=(min(Open,Close)-Low)/Open; close_location=(Close-Low)/(High-Low).",
+      "served": [
+        "overnight_gap",
+        "day_range_pct",
+        "body_pct",
+        "upper_wick_pct",
+        "lower_wick_pct",
+        "close_location"
+      ],
+      "pruned_examples": [
+        "gap_streak",
+        "gap_volume_interaction"
+      ],
+      "timing": "Only overnight_gap is current/open-known. gap_volume_interaction uses its feature day's completed volume and is shifted; it is yesterday_gap*yesterday_volume_zscore, not today's gap times yesterday's volume.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/candle.py",
+          "start_line": 11,
+          "end_line": 28
+        },
+        {
+          "path": "python/stock_picker/features/candle.py",
+          "start_line": 54,
+          "end_line": 94
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 298,
+          "end_line": 305
+        }
+      ]
+    },
+    {
+      "family": "volatility_and_direction",
+      "formula": "volatility_nd=rolling_std(Close.pct_change(),n)*sqrt(252); true_range=max(H-L,abs(H-priorC),abs(L-priorC)); ATR14=rolling_mean(TR,14); Parkinson=sqrt(mean(log(H/L)^2)/(4log2))*sqrt252; GarmanKlass=sqrt(mean(0.5log(H/L)^2-(2log2-1)log(C/O)^2))*sqrt252; volatility_delta_lagd=vol20.diff(lag).",
+      "new_19_volatility_subset": [
+        "volatility_32d",
+        "absolute_return_2d",
+        "volatility_5d_lag_1d",
+        "volatility_5d_lag_2d",
+        "volatility_5d_lag_32d",
+        "upside_semivol_4d",
+        "downside_semivol_4d",
+        "semivol_balance_4d",
+        "upside_semivol_5d",
+        "downside_semivol_5d",
+        "semivol_balance_5d"
+      ],
+      "new_subset_formula": "absolute_return_2d=mean(abs(close-to-close return),2); semivol=sqrt(mean(positive_or_negative_clipped_return^2,n)*252), n=4,5; balance=(downside-upside)/(downside+upside).",
+      "served_summary": "All11 new volatility inputs, volatility120, Parkinson20/60, volatility delta1/3/5/10. ATR14 is computed but pruned.",
+      "timing": "All close-known and shifted once.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/volatility.py",
+          "start_line": 8,
+          "end_line": 105
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 163,
+          "end_line": 165
+        }
+      ]
+    },
+    {
+      "family": "breadth",
+      "formula": "Per-date advance fraction; fraction above ownSMA20; cross-sectional std of daily returns; up-volume/total-volume. Require40names; ignore each ticker before registry first_seen.",
+      "served": [
+        "market_advance_fraction",
+        "market_above_sma_20d_fraction",
+        "market_return_dispersion_1d",
+        "market_up_volume_fraction"
+      ],
+      "timing": "Close-known; shifted once.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/breadth.py",
+          "start_line": 25,
+          "end_line": 71
+        }
+      ]
+    },
+    {
+      "family": "trajectory",
+      "formula": "Ten-dimensional five-session path: dailyreturn/std20 clipped[-5,5], log(volume/mean20) clipped[-3,3], at lags0..4. KMeans6 trained only through earlier dates; score current path then partial_fit current date. Four outputs are nearest-center distance, second-minus-first distance, cluster crowding and leave-self-out mean peer return.",
+      "served": [
+        "path_cluster_distance",
+        "path_cluster_margin",
+        "path_cluster_crowding",
+        "path_cluster_peer_return_1d"
+      ],
+      "timing": "Centers are chronological; resulting completed-day columns shift once. first_seen membership applies.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/trajectory.py",
+          "start_line": 14,
+          "end_line": 38
+        },
+        {
+          "path": "python/stock_picker/features/trajectory.py",
+          "start_line": 64,
+          "end_line": 95
+        }
+      ]
+    },
+    {
+      "family": "open_known_story_seasonality",
+      "formula": "Each input is a per-ticker expanding mean of strictly prior same-bucket open-to-close returns: values.groupby(bucket).transform(expanding.mean.shift(1)). Buckets use completed sessions and current open. They are not raw flags.",
+      "existing_overlaps": [
+        "Two consecutive large negative open-to-close sessions, where absolute session return exceeds that day's close-to-close rolling20 standard deviation; capped count combined with current gap.",
+        "Yesterday session/ATR14 below-2 combined with prior capped streak and current gap.",
+        "Four negative sessions plus final absolute session/ATR14 above2.5 combined with current five-way gap.",
+        "Prior21-session decline below-30% and yesterday session above1%; or decline below-20% and yesterday absolute session below1%.",
+        "Current open at/below previous5-session low (pruned); negative-positive-negative session pattern (pruned); weak/strong previous close; inside/outside day; two negative gaps; two same-direction sessions."
+      ],
+      "served_examples": [
+        "big_down_run_open3_seasonality",
+        "multi_crash_bounce_open_seasonality",
+        "streak_crash_open_seasonality",
+        "dump_then_quiet_open3_seasonality",
+        "story_two_day_run_open3_seasonality"
+      ],
+      "pruned_examples": [
+        "story_open_vs_5d_low_seasonality",
+        "story_failed_bounce_open3_seasonality",
+        "story_down_run_open5_seasonality",
+        "story_down_run_loc3_seasonality"
+      ],
+      "uncertainty_gap": "No accompanying same-bucket support-count or uncertainty feature; a sparse mean may have one prior occurrence.",
+      "sources": [
+        {
+          "path": "python/stock_picker/features/open_pattern_seasonality.py",
+          "start_line": 134,
+          "end_line": 137
+        },
+        {
+          "path": "python/stock_picker/features/open_pattern_seasonality.py",
+          "start_line": 371,
+          "end_line": 392
+        },
+        {
+          "path": "python/stock_picker/features/open_pattern_seasonality.py",
+          "start_line": 447,
+          "end_line": 491
+        },
+        {
+          "path": "python/stock_picker/features/open_pattern_seasonality.py",
+          "start_line": 528,
+          "end_line": 575
+        },
+        {
+          "path": "python/stock_picker/features/open_pattern_seasonality.py",
+          "start_line": 717,
+          "end_line": 737
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 373,
+          "end_line": 375
+        },
+        {
+          "path": "data/pruned_features/pruned.json",
+          "start_line": 463,
+          "end_line": 465
+        }
+      ]
+    }
+  ],
+  "proposed_new_families": [
+    {
+      "name": "252_session_low_context",
+      "novelty": "No252-session low distance, breach or low-age feature found; distinct from prior5-day low seasonality and20/60-day distance from close peaks.",
+      "formulas": [
+        "low252[t]=min(Low[t-252],...,Low[t-1]) using252 completed valid exchange sessions",
+        "open_low_distance[t]=Open[t]/low252[t]-1",
+        "low_breach[t]=1(Open[t]<low252[t])",
+        "low_age[t]=sessions since most recent occurrence of low252 among completed252 sessions"
+      ],
+      "contract": "Open distance/breach open-known; age as of prior close; require a complete specified warmup and explicitly handle tied lows."
+    },
+    {
+      "name": "two_close_selloff_low_and_rebound",
+      "novelty": "Interactions add long-term low context and continuous rebound-consumed information. Current model has return1/2 and session-down buckets, so test incrementally rather than claiming two-day losses alone are new.",
+      "formulas": [
+        "r1[t]=Close[t-1]/Close[t-2]-1; r2[t]=Close[t-2]/Close[t-3]-1",
+        "pre_shock_sigma[t]=std(close-to-close daily returns ending t-3,20sessions)",
+        "shock1=r1/pre_shock_sigma; shock2=r2/pre_shock_sigma",
+        "floor2[t]=min(Low[t-2],Low[t-1]); denominator=Close[t-3]-floor2[t]",
+        "rebound_fraction[t]=(Open[t]-floor2[t])/denominator where denominator>0",
+        "Interact shock1,shock2 with open_low_distance and rebound_fraction; retain separate continuation-below-floor and rebound-above-pre-drop-price states"
+      ],
+      "contract": "No current High/Low/Close. Do not clip negative or above-one rebound fractions into the ordinary near-low group. Frozen pre-shock sigma prevents the shock itself inflating its comparison denominator."
+    },
+    {
+      "name": "selling_pressure_exhaustion",
+      "novelty": "Existing volume/candle primitives are already served; new question is their conditional change across the two-day decline, standardized to a pre-shock baseline.",
+      "formulas": [
+        "volume_change=log(Volume[t-1]/Volume[t-2]) for positive volumes",
+        "range_change=(High[t-1]-Low[t-1])/(High[t-2]-Low[t-2]) where denominator>0",
+        "pre_shock_relative_volume=Volume[t-1]/mean(Volume through t-3 over20sessions)",
+        "Combine with previous close_location, two_close_selloff and current opening gap"
+      ],
+      "contract": "Close-known components shifted exactly once. These are exhaustion hypotheses; high volume can represent continuing information-driven repricing."
+    },
+    {
+      "name": "current_gap_prior_liquidation_interaction",
+      "novelty": "Existing gap_volume_interaction is previous gap multiplied by previous full-day volume zscore, then shifted; this uses current opening gap.",
+      "formulas": [
+        "current_gap[t]=Open[t]/Close[t-1]-1",
+        "prior_volume_z[t]=(Volume[t-1]-mean20(Volume)[t-1])/std20(Volume)[t-1]",
+        "gap_prior_volume[t]=current_gap[t]*prior_volume_z[t]",
+        "Compare interaction conditional on two_close_selloff and low252 distance"
+      ],
+      "contract": "Explicitly open-known in training and recomputed in live inference; never substitute today's final volume."
+    }
+  ],
+  "prior_evidence": [
+    {
+      "finding": "Full-history volatility additions were essentially neutral; trajectory mixed; price breadth promising on only25post-registry dates.",
+      "source": {
+        "path": "docs/feature-family-screen-2026-10-12.md",
+        "start_line": 24,
+        "end_line": 62
+      }
+    },
+    {
+      "finding": "Corrected full-history all19 improved top20 across3forward blocks, but meanIC fell0.1176to0.1149. Previously consulted ticker holdout shares dates and is not fresh future evidence.",
+      "source": {
+        "path": "docs/rank-all-features-challenger-2026-10-12.md",
+        "start_line": 48,
+        "end_line": 69
+      }
+    },
+    {
+      "finding": "Seven restored volume inputs improved top20 all3forward blocks; mean0.223%to0.425%, IC0.1149to0.1123.132-input Rank activated. Oscillator restoration barely changed mean return and worsenedIC; candle restoration hurt.",
+      "source": {
+        "path": "docs/restored-features-2026-10-13.md",
+        "start_line": 10,
+        "end_line": 38
+      }
+    },
+    {
+      "finding": "Dropping5zero-gain inputs improved meanforward top20 but worsenedIC/holdout top20; not promoted.",
+      "source": {
+        "path": "docs/rank-gain-pruning-2026-10-13.md",
+        "start_line": 13,
+        "end_line": 39
+      }
+    },
+    {
+      "finding": "Volatility-normalized confidence gate exists diagnostically; stability benefit was not demonstrated.",
+      "source": {
+        "path": "docs/adr/0011-confidence-gated-buy-list.md",
+        "start_line": 14,
+        "end_line": 19
+      }
+    }
+  ],
+  "production_history_gap": {
+    "finding": "Default production daily pull is1year; merged refresh truncates to max(existing,incoming)rowcount. A252-session feature has almost no usable training horizon until ingestion retains additional warmup and target history.",
+    "consequence": "Research may use the separate5year panel, but production adoption requires explicitly extending history, recomputing snapshots and validating train/serve parity. Do not modify production during this research.",
+    "sources": [
+      {
+        "path": "python/stock_picker/ingestion/yfinance_client.py",
+        "start_line": 95,
+        "end_line": 98
+      },
+      {
+        "path": "python/stock_picker/ingestion/refresh_prices.py",
+        "start_line": 76,
+        "end_line": 85
+      }
+    ]
+  },
+  "reusable_data_and_validation": {
+    "raw_panel": "research/averaging_down_2026_11_06/source_data/daily_five_year/*.json.gz",
+    "cached_arrays": "research/averaging_down_2026_11_06/five_year_arrays.pkl",
+    "data_provenance": "Massive split-adjusted daily bars fetched for2021-11-01through2026-11-06 using current registry names plusSPY.",
+    "do_not_reuse_old_event_cohort": "Old prepare_five_year.py filters one>=5%drop, excludesMRCY, imposes21sessioncooldown, and requires future21daysvalid. Use rawpanel for fresh morning-only eligibility.",
+    "current_universe_limitation": "Five-year panel projects current registry names backward; it is survivor/current-universe-conditioned, not a historical investable universe.",
+    "live_eligibility_gap": "Live scoring skips earnings-on-or-since-prior-session names. Unrestricted historical large-loss events may differ materially.",
+    "price_quality": "Production sanitizer checks positive finiteOHLC but not all bar-consistency/corporate-action issues. Use reproducible invalid-bar and split audits.",
+    "sources": [
+      {
+        "path": "research/averaging_down_2026_11_06/fetch_daily_history.py",
+        "start_line": 9,
+        "end_line": 19
+      },
+      {
+        "path": "research/averaging_down_2026_11_06/prepare_five_year.py",
+        "start_line": 26,
+        "end_line": 47
+      },
+      {
+        "path": "python/stock_picker/training/feature_family_search.py",
+        "start_line": 83,
+        "end_line": 158
+      },
+      {
+        "path": "python/stock_picker/training/backtest.py",
+        "start_line": 146,
+        "end_line": 184
+      },
+      {
+        "path": "python/stock_picker/training/live_rows.py",
+        "start_line": 59,
+        "end_line": 65
+      },
+      {
+        "path": "python/stock_picker/storage/price_store.py",
+        "start_line": 15,
+        "end_line": 28
+      },
+      {
+        "path": "docs/intraday-timing-todo.md",
+        "start_line": 27,
+        "end_line": 31
+      }
+    ]
+  },
+  "incremental_validation_plan": [
+    "Freeze pattern definitions, price/liquidity eligibility,252sessionwarmup, outcome and missing-data exclusions before reading results. Publish all specified cohorts, including losing/sparse ones.",
+    "Use completed-session features plus currentopen only. Require valid currentOpen/Close for outcome, not future multi-day availability. Never infer the time of a low from dailyOHLC.",
+    "Keep repository deterministic tickerholdout excluded from discovery; record exacttickerlist and selectionmethod. Previously examined dates/holdouts must not be called untouched.",
+    "Report uniqueeventdates,tickers,events,meandailyreturn,eventweightedreturn,median,positivefraction,tailrisk,and fixed cost scenarios. Make weighting and costunits explicit.",
+    "For uncertainty, use date/weeklyclusterresampling of complete dateclusters, recompute the estimand in each replicate, preserve serial dependence and never call repeated ticker-days independent trials.",
+    "Compare eras separately using explicit dateboundaries; distinguish pooled eventweighted results from equalera or equalday estimates. Disclose current-universe and event/news eligibility limitations.",
+    "Only after descriptive evidence: matched walkforward challenger versus savedservedfeaturebaseline, one family at a time, selected within trainingfolds. Evaluate top20return,RankIC,FitMAE,tailrisk,costs and matched tradecount.",
+    "Maintain negativecontrols and sensitivity checks for52low alone,two-drop alone,rebound stage and simpleexistingfeatures. MRCY remains illustrative, not a selected validation target.",
+    "Do not promote or change serving/configuration based on this audit or descriptive historical screen; require separately reviewed forward incremental evidence and production lookback support."
+  ],
+  "confidence": "High for source formulas, current saved-input snapshot, prune state, and documented experiment outcomes. No new predictive-effect claim is made by this audit.",
+  "consulted_policy_sources": [
+    {
+      "path": "CLAUDE.md",
+      "start_line": 54,
+      "end_line": 100
+    },
+    {
+      "path": "docs/delegation-briefing.md",
+      "start_line": 19,
+      "end_line": 58
+    },
+    {
+      "path": "docs/feature-training-policy.md",
+      "start_line": 1,
+      "end_line": 23
+    },
+    {
+      "path": "docs/adr/0003-open-close-label-lookahead-safety.md",
+      "start_line": 15,
+      "end_line": 29
+    },
+    {
+      "path": "docs/adr/0004-walk-forward-and-ticker-holdout.md",
+      "start_line": 14,
+      "end_line": 27
+    }
+  ]
+}

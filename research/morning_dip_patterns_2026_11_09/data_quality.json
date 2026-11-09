@@ -1,0 +1,145 @@
+{
+  "counts": {
+    "missing_or_nonfinite": 188523,
+    "nonpositive_finite": 0,
+    "ohlc_range_violation_finite_positive": 0,
+    "source_validity_mask_disagreements": 0,
+    "rows_with_valid252_history": 1605305,
+    "prior_eligible_missing_or_invalid_open": 25,
+    "prior_eligible_positive_open_below5": 20345,
+    "entry_eligible_rows": 1420276,
+    "entry_eligible_invalid_current_outcome": 0,
+    "evaluated_rows": 1420276,
+    "evaluated_tickers": 1690,
+    "evaluated_dates": 1008
+  },
+  "checks_passed": [
+    "synthetic past-only feature indexing",
+    "source hash",
+    "excluded production holdout and MRCY",
+    "frozen discovery row count",
+    "disjoint recovery and open-low bin partitions"
+  ],
+  "extreme_rows_retained": [
+    {
+      "date": "2023-03-13T00:00:00.000",
+      "ticker": "WAL",
+      "return": 1.0263770365,
+      "adverse": -0.4212567882
+    },
+    {
+      "date": "2026-09-30T00:00:00.000",
+      "ticker": "LQDA",
+      "return": -0.5710235327,
+      "adverse": -0.5766940743
+    },
+    {
+      "date": "2025-05-15T00:00:00.000",
+      "ticker": "ASST",
+      "return": 0.5403587444,
+      "adverse": -0.1233183857
+    },
+    {
+      "date": "2024-07-10T00:00:00.000",
+      "ticker": "QURE",
+      "return": 0.5218045113,
+      "adverse": -0.0045112782
+    },
+    {
+      "date": "2025-06-12T00:00:00.000",
+      "ticker": "URGN",
+      "return": 0.5115961801,
+      "adverse": -0.0559345157
+    },
+    {
+      "date": "2026-08-19T00:00:00.000",
+      "ticker": "MRNA",
+      "return": 0.5030167213,
+      "adverse": -0.0134459576
+    },
+    {
+      "date": "2025-07-07T00:00:00.000",
+      "ticker": "ASST",
+      "return": 0.5010752688,
+      "adverse": -0.1161290323
+    },
+    {
+      "date": "2026-01-07T00:00:00.000",
+      "ticker": "RGC",
+      "return": 0.4984414848,
+      "adverse": 0.0
+    },
+    {
+      "date": "2025-11-03T00:00:00.000",
+      "ticker": "QURE",
+      "return": 0.4876355748,
+      "adverse": -0.0086767896
+    },
+    {
+      "date": "2024-06-06T00:00:00.000",
+      "ticker": "GME",
+      "return": 0.4745011086,
+      "adverse": -0.009185936
+    },
+    {
+      "date": "2024-05-29T00:00:00.000",
+      "ticker": "ASTS",
+      "return": 0.4619124797,
+      "adverse": -0.0794165316
+    },
+    {
+      "date": "2026-09-28T00:00:00.000",
+      "ticker": "KOD",
+      "return": 0.4572563001,
+      "adverse": -0.0196904627
+    },
+    {
+      "date": "2025-12-05T00:00:00.000",
+      "ticker": "DBRG",
+      "return": 0.4556701031,
+      "adverse": -0.0051546392
+    },
+    {
+      "date": "2024-02-13T00:00:00.000",
+      "ticker": "SSRM",
+      "return": -0.4545454545,
+      "adverse": -0.5442424242
+    },
+    {
+      "date": "2022-11-10T00:00:00.000",
+      "ticker": "TGTX",
+      "return": 0.4459691252,
+      "adverse": -0.0017152659
+    },
+    {
+      "date": "2024-08-15T00:00:00.000",
+      "ticker": "ASTS",
+      "return": 0.4385321101,
+      "adverse": -0.0100917431
+    },
+    {
+      "date": "2024-04-26T00:00:00.000",
+      "ticker": "IBRX",
+      "return": 0.4383561644,
+      "adverse": -0.0371624266
+    },
+    {
+      "date": "2026-04-23T00:00:00.000",
+      "ticker": "CAR",
+      "return": -0.4300070895,
+      "adverse": -0.4834890113
+    },
+    {
+      "date": "2023-07-20T00:00:00.000",
+      "ticker": "SIRI",
+      "return": 0.4277879342,
+      "adverse": -0.0073126143
+    },
+    {
+      "date": "2026-04-22T00:00:00.000",
+      "ticker": "CAR",
+      "return": -0.4271668022,
+      "adverse": -0.4477477129
+    }
+  ]
+}

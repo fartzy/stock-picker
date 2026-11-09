@@ -1,0 +1,64 @@
+{
+  "checked_at_utc": "2026-11-09T21:35:12.335410+00:00",
+  "web_tool_status": "web__run HTTP404; sandbox urllib DNS unavailable; direct public-documentation access requested via escalation",
+  "pages": [
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.shift.html",
+      "http_status": 200,
+      "sha256": "5f53c1acd16be194f63719d86f9d3e241718b2a4bc2a376b4b952af5e4fc15b9",
+      "title": [
+        "pandas.Series.shift &#8212; pandas 3.1.1 documentation"
+      ],
+      "verified_term": "without realigning",
+      "term_present": true
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.rolling.html",
+      "http_status": 200,
+      "sha256": "d9c5f64ff4deb65a983e5113c7ed429920b78fde2500fd418b65c59e65fb18bb",
+      "title": [
+        "pandas.Series.rolling &#8212; pandas 3.1.1 documentation"
+      ],
+      "verified_term": "minimum number of observations",
+      "term_present": true
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.window.rolling.Rolling.std.html",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.rank.html",
+      "http_status": 200,
+      "sha256": "b506a7f5af6ce2042b3c2671fbd49cbb0835eabcd866a8afe9e2816cd2b86f4b",
+      "title": [
+        "pandas.Series.rank &#8212; pandas 3.1.1 documentation"
+      ],
+      "verified_term": "first",
+      "term_present": true
+    },
+    {
+      "url": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.integers.html",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://numpy.org/doc/stable/reference/random/generator.html",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://pandas.pydata.org/pandas-docs/version/2.3.3/reference/api/pandas.core.window.rolling.Rolling.std.html",
+      "http_status": 200,
+      "sha256": "5c6a042641bb535be6bebc7107cee9512ce1d2b8e6db80b77004cbbd7b9b7961",
+      "verified_term": "ddof",
+      "term_present": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/numpy/numpy/main/numpy/random/_generator.pyx",
+      "http_status": 200,
+      "sha256": "27e173c29676e458871e6704af74ce9d3ff0ab8d47a8531e8189200d683b20c6",
+      "verified_term": "def integers(",
+      "term_present": true
+    }
+  ],
+  "method_changed": false,
+  "last_checked_at_utc": "2026-11-09T21:36:02.811697+00:00"
+}

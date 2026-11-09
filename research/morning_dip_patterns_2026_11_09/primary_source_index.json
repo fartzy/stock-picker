@@ -1,0 +1,319 @@
+{
+  "research_date": "2026-11-09",
+  "question": "Do prior price dips and low proximity predict positive same-day open-to-close returns?",
+  "scope": "Primary-source literature review and hypotheses; no trading recommendation or production-model change.",
+  "retrieval_note": "web__run returned 404. Sources retrieved directly from author/university/institution/publisher URLs using urllib; Crossref/OpenAlex used for discovery and bibliographic confirmation. This was selective literature retrieval, not a comprehensive current search. Five primary PDFs inspected; two additional studies reviewed at publisher-abstract level only.",
+  "key_conclusion": "Temporary selling pressure is a plausible reversal mechanism, but the user’s exact two-down-days + 52-week-low + unrebounded-at-entry conjunction remains an unvalidated intraday hypothesis. Separating information-driven decline, session timing, rebound already consumed, trend and execution costs is essential.",
+  "lookahead_rules": [
+    "Historical return/range/volume/trend features stop at t−1.",
+    "Current open is observable only after it occurs; a decision based on that price must use an executable subsequent entry or explicitly documented opening-auction assumption.",
+    "A signal using the first 5/15/30 minutes requires a delayed-entry label, not official-open-to-close.",
+    "Current-day low/high/volume and hindsight article sentiment must not enter morning features."
+  ],
+  "sources": [
+    {
+      "id": "lou_polk_skouras_2019",
+      "title": "A tug of war: Overnight versus intraday expected returns",
+      "authors": [
+        "Dong Lou",
+        "Christopher Polk",
+        "Spyros Skouras"
+      ],
+      "year": 2019,
+      "publication": "Journal of Financial Economics 134, 192–213",
+      "url": "https://personal.lse.ac.uk/polk/research/tugofwar.pdf",
+      "doi": "10.1016/j.jfineco.2019.03.011",
+      "verified_content": "Published PDF, author-hosted at LSE; relevant abstract, methods, tables and discussion read.",
+      "pages": {
+        "summary": "printed pp.192–194 (PDF pp.1–3)",
+        "data_and_open_proxy": "printed p.195 (PDF p.4)",
+        "monthly_return_component_sorts": "printed p.197, Table 1 (PDF p.6)",
+        "regressions": "printed p.202, Table 4 (PDF p.11)"
+      },
+      "sample": "Core US CRSP/Compustat/TAQ sample 1993–2013; robustness includes nine large non-US equity markets.",
+      "horizon": "Monthly sorting signals and subsequent monthly aggregates of daily overnight and intraday returns. Main open proxy is 9:30–10:00 VWAP, with robustness to actual opening prices and bid-ask midpoint.",
+      "findings": [
+        "Past overnight returns predict subsequent overnight continuation and intraday reversal; past intraday returns predict subsequent intraday continuation and overnight reversal.",
+        "The conventional short-term reversal premium and four momentum-strategy premia accrue overnight in their decomposition; close-to-close success cannot be assumed to survive an open-to-close strategy."
+      ],
+      "limitations": [
+        "This is not a test of two down days followed by one open-to-close trade.",
+        "Published long-short gross portfolio alphas do not establish the user’s executable long-only net edge; 30-minute VWAP is not the opening auction."
+      ],
+      "feature_hypotheses": [
+        "Separate lagged overnight from lagged session losses; retain longer session-specific history rather than aggregating everything into close-to-close return.",
+        "Measure how much of the prior selloff has already rebounded by the intended entry."
+      ],
+      "access": "Direct public author PDF retrieved with urllib; bibliographic DOI independently corroborated through OpenAlex metadata.",
+      "local_review_copy": "/tmp/dip-literature/polk_tug.dat",
+      "retrieved_at_utc": "2026-11-09T21:22:24+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "caa7108ca3571d20cc06bf976b20ccc0b105870bce2edb67827932cb72b36f43",
+      "retrieved_content_format": "PDF"
+    },
+    {
+      "id": "da_liu_schaumburg_2011",
+      "title": "Decomposing Short-Term Return Reversal",
+      "authors": [
+        "Zhi Da",
+        "Qianqiu Liu",
+        "Ernst Schaumburg"
+      ],
+      "year": 2011,
+      "publication": "Federal Reserve Bank of New York Staff Report 513, September 2011 (version actually reviewed)",
+      "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr513.pdf",
+      "pages": {
+        "sample_and_decomposition": "printed p.3 (PDF p.5)",
+        "strategy_and_costs": "printed p.4 (PDF p.6)",
+        "liquidity_vs_sentiment": "printed p.5 (PDF p.7)"
+      },
+      "verified_content": "Primary institutional PDF; abstract, sample, strategy, decomposition and robustness discussion read.",
+      "sample": "January 1982–March 2009; non-penny stocks with sufficient analyst forecasts, relatively large/liquid and about 75% of US equity capitalization.",
+      "horizon": "Previous-month signals and following-month returns; original analysis uses I/B/E/S-month timing, with calendar-month robustness.",
+      "findings": [
+        "Within-industry residual price changes unexplained by cash-flow news drive reversal; industry momentum and underreaction to cash-flow news offset indiscriminate reversal.",
+        "Buying residual losers is associated with liquidity shocks; selling residual winners with sentiment.",
+        "The authors report midpoint-return robustness and explicitly estimate trading costs."
+      ],
+      "limitations": [
+        "Their residual is not simply stock minus sector: expected returns and analyst forecast revisions also enter.",
+        "Monthly forecast revisions and monthly holding evidence do not validate a next-morning intraday rule.",
+        "A news flag is only an implementable approximation to this economic distinction, not a replication."
+      ],
+      "feature_hypotheses": [
+        "Volatility-scaled idiosyncratic drawdown relative to market/sector, interacted with timestamped news or earnings shocks."
+      ],
+      "access": "Direct NY Fed PDF retrieved with urllib.",
+      "local_review_copy": "/tmp/dip-literature/da_liu_schaumburg.pdf",
+      "retrieved_at_utc": "2026-11-09T21:21:32+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "4c8636a52b940acb4ec09649cefad88032b838e08935981761b75e3e3d85f85f",
+      "retrieved_content_format": "PDF"
+    },
+    {
+      "id": "nagel_2011",
+      "title": "Evaporating Liquidity",
+      "authors": [
+        "Stefan Nagel"
+      ],
+      "year": 2011,
+      "publication": "NBER Working Paper 17653, December 2011 (version reviewed)",
+      "url": "https://www.nber.org/papers/w17653",
+      "pdf_url": "https://www.nber.org/system/files/working_papers/w17653/w17653.pdf",
+      "doi": "10.3386/w17653",
+      "pages": {
+        "implementation": "printed pp.15–18 (PDF pp.17–20)",
+        "returns_and_period": "Table 1, PDF p.22",
+        "VIX_predictability": "printed p.22 (PDF p.24)",
+        "data": "Appendix B, printed p.43 (PDF p.45)"
+      },
+      "verified_content": "Primary NBER PDF; abstract, empirical construction, sample, quote controls and VIX discussion read.",
+      "sample": "US NYSE/AMEX/Nasdaq CRSP stocks, January 1998–December 2010.",
+      "horizon": "Daily close-to-close reversal portfolios averaging five sub-strategies using lagged returns from t−1 through t−5.",
+      "findings": [
+        "Expected short-term reversal returns rise with VIX, consistent with compensation for supplying liquidity when intermediaries withdraw.",
+        "Both transaction-price and quote-midpoint returns are studied; quote data are available for Nasdaq stocks."
+      ],
+      "limitations": [
+        "Transaction-price returns model a hypothetical liquidity supplier executing at the closing print; a market-order user pays execution costs.",
+        "This is close-to-close evidence, not a demonstrated next-open-to-close edge.",
+        "Market turmoil, execution frictions and institutional changes matter; high expected reversal is not a guarantee of a safe individual trade."
+      ],
+      "feature_hypotheses": [
+        "Interact residual selloff with lagged market volatility and lagged liquidity/dollar-volume measures; evaluate net results by regime."
+      ],
+      "access": "Direct NBER PDF retrieved with urllib.",
+      "local_review_copy": "/tmp/dip-literature/nagel.pdf",
+      "retrieved_at_utc": "2026-11-09T21:21:33+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "88f670eafd30c0396018bca55bf90fc050378d23d4d2518dc57421e7248a5294",
+      "retrieved_content_format": "PDF"
+    },
+    {
+      "id": "george_hwang_2004",
+      "title": "The 52-Week High and Momentum Investing",
+      "authors": [
+        "Thomas J. George",
+        "Chuan-Yang Hwang"
+      ],
+      "year": 2004,
+      "publication": "Journal of Finance LIX(5), October 2004, pp.2145–2176",
+      "url": "https://www.bauer.uh.edu/tgeorge/papers/gh4-paper.pdf",
+      "pages": {
+        "interpretation": "printed pp.2146–2147 (PDF pp.2–3)",
+        "sample_strategy": "printed pp.2148–2149 (PDF pp.4–5)",
+        "controls": "printed p.2154 (PDF p.10)"
+      },
+      "verified_content": "Published author-hosted PDF; abstract, interpretation, sample and strategy methodology read.",
+      "sample": "CRSP stocks, July 1963–December 2001.",
+      "horizon": "Portfolios formed monthly using price relative to the preceding 12-month high; held six months. Regression tests skip one month to reduce bid-ask effects.",
+      "findings": [
+        "Nearness to a 52-week high predicts stronger subsequent returns and accounts for much conventional momentum.",
+        "Their anchoring interpretation allows bad-news stocks far below prior highs to continue falling."
+      ],
+      "limitations": [
+        "This is six-month momentum evidence, not evidence that buying today’s high beats today’s dip.",
+        "Far below a 52-week high is not equivalent to hitting a fresh 52-week low.",
+        "No automatic positive intraday effect of a fresh 52-week low is established here."
+      ],
+      "feature_hypotheses": [
+        "Keep long-trend/high-proximity context alongside low-proximity and drawdown; test pullbacks within strength separately from continuing downtrends."
+      ],
+      "access": "Direct primary author PDF retrieved with urllib.",
+      "local_review_copy": "/tmp/dip-literature/george_hwang.pdf",
+      "retrieved_at_utc": "2026-11-09T21:21:32+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "b6e80dd8a7355d29358240fe2df60a0fa2f47eac45b5de4b51a1a8e5380becaf",
+      "retrieved_content_format": "PDF"
+    },
+    {
+      "id": "campbell_grossman_wang_1992",
+      "title": "Trading Volume and Serial Correlation in Stock Returns",
+      "authors": [
+        "John Y. Campbell",
+        "Sanford J. Grossman",
+        "Jiang Wang"
+      ],
+      "year": 1992,
+      "publication": "NBER Working Paper 4193, October 1992; published Quarterly Journal of Economics 108(4), November 1993, pp. 905–939",
+      "url": "https://www.nber.org/papers/w4193",
+      "pdf_url": "https://www.nber.org/system/files/working_papers/w4193/w4193.pdf",
+      "doi": "10.3386/w4193",
+      "pages": {
+        "mechanism": "printed p.1 (PDF p.3)",
+        "sample": "printed p.3 (PDF p.5)",
+        "one_day_regressions": "printed pp.5–6 (PDF pp.7–8)"
+      },
+      "verified_content": "NBER abstract and scanned primary PDF; pages 3–5 and 7–8 rendered locally and visually read because text extraction was blank.",
+      "sample": "Main CRSP NYSE/AMEX value-weighted index sample July 3, 1962–September 30, 1987; robustness through December 30, 1988, earlier index data, DJIA and 32 large stocks.",
+      "horizon": "Daily returns; regressions of the next day’s return on lagged return interacted with detrended volume. No overnight/session separation.",
+      "findings": [
+        "Return autocorrelation declines as volume rises; in the model, high-volume declines are more consistent with noninformational selling pressure and subsequently higher expected returns."
+      ],
+      "limitations": [
+        "Primarily aggregate-market evidence from an older market structure, not a modern stock-specific intraday entry test.",
+        "Volume can also accompany information events; this source does not justify treating every high-volume selloff as capitulation.",
+        "This is explanatory/statistical evidence, not an executable after-cost strategy estimate."
+      ],
+      "feature_hypotheses": [
+        "Prior-day abnormal dollar volume × residual decline, conditioned on news and market regime."
+      ],
+      "access": "Direct NBER page and scanned PDF retrieved with urllib; selected pages visually inspected.",
+      "local_review_copy": "/tmp/dip-literature/campbell_grossman_wang.pdf",
+      "retrieved_at_utc": "2026-11-09T21:21:34+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "3d31fd4e0e701a3794bee0dbecd5a8e026876893002e641431248d45b2e2d994",
+      "retrieved_content_format": "PDF"
+    },
+    {
+      "id": "berkman_koch_tuttle_zhang_2012",
+      "title": "Paying Attention: Overnight Returns and the Hidden Cost of Buying at the Open",
+      "authors": [
+        "Henk Berkman",
+        "Paul D. Koch",
+        "Laura Tuttle",
+        "Ying Jenny Zhang"
+      ],
+      "year": 2012,
+      "publication": "Journal of Financial and Quantitative Analysis 47(4), pp.715–741",
+      "url": "https://doi.org/10.1017/S0022109012000270",
+      "publisher_url": "https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/paying-attention-overnight-returns-and-the-hidden-cost-of-buying-at-the-open/F9AAD159B512C651F09D5D52011D88E0",
+      "verified_content": "Publisher abstract verified on Cambridge page and publisher-deposited Crossref abstract; full text not obtained.",
+      "sample": "Not verified from accessible abstract; do not state a sample period.",
+      "horizon": "Overnight returns versus the following trading day.",
+      "findings": [
+        "Positive overnight returns followed by trading-day reversals are concentrated in stocks recently attracting retail attention.",
+        "The authors attribute this to relatively high opening prices and describe implicit buying-at-open costs beyond the effective half-spread."
+      ],
+      "limitations": [
+        "Abstract-only review; no exact sample period, entry timing or magnitude should be inferred.",
+        "It does not prove symmetry for negative gaps or validate buying after two down days."
+      ],
+      "feature_hypotheses": [
+        "Flag gap-up/attention-driven opening overextension and measure rebound already consumed before entry."
+      ],
+      "access": "Direct Cambridge publisher HTML and Crossref metadata retrieved with urllib; Cambridge PDF redirected to abstract, university full-text route unavailable.",
+      "retrieved_at_utc": "2026-11-09T21:24:29+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "12ebf3704e9170c64cc96ed64a24ae404a8087065c2e90e2eaab5583daf8103e",
+      "retrieved_content_format": "HTML"
+    },
+    {
+      "id": "heston_korajczyk_sadka_2010",
+      "title": "Intraday Patterns in the Cross-Section of Stock Returns",
+      "authors": [
+        "Steven L. Heston",
+        "Robert A. Korajczyk",
+        "Ronnie Sadka"
+      ],
+      "year": 2010,
+      "publication": "Journal of Finance 65(4), pp.1369–1407",
+      "url": "https://doi.org/10.1111/j.1540-6261.2010.01573.x",
+      "verified_content": "Publisher-deposited abstract retrieved through Crossref; full text not obtained.",
+      "sample": "Not verified from accessible abstract; do not state a sample period.",
+      "horizon": "Half-hour intraday intervals, including lags at exact multiples of a trading day.",
+      "findings": [
+        "Same-time-of-day return continuation persists across at least 40 trading days.",
+        "Very short reversal reflects temporary liquidity imbalances lasting less than one hour and bid-ask bounce."
+      ],
+      "limitations": [
+        "Abstract-only review; cannot infer exact sample or replicable net trading profits.",
+        "Half-hour continuation and subhour reversal are different hypotheses from a two-day dip followed by full-session return."
+      ],
+      "feature_hypotheses": [
+        "If future research uses opening-range confirmation, define a later entry and score its actual entry-to-close return."
+      ],
+      "access": "Direct Crossref API retrieved publisher-deposited abstract; Wiley PDF and SSRN download returned 403.",
+      "retrieved_at_utc": "2026-11-09T21:22:23+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "4be96364cbcc54c6adb1c1d85a0e04e2c0d1213e90953644a6cefd79946b041b",
+      "retrieved_content_format": "Crossref JSON"
+    },
+    {
+      "id": "nasdaq_opening_cross_official",
+      "title": "Opening and Closing Crosses",
+      "authors": [
+        "Nasdaq Trader"
+      ],
+      "year": "accessed 2026-11-09",
+      "url": "https://www.nasdaqtrader.com/Trader.aspx?id=OpenClose",
+      "section": "Nasdaq Opening and Closing Cross Times; On-Open Orders; Imbalance Data",
+      "verified_content": "Official exchange HTML directly retrieved and inspected.",
+      "findings": [
+        "Nasdaq states that the Opening Cross occurs at 9:30 a.m. Eastern.",
+        "On-open orders request execution at the opening price; indicative imbalance and likely price information is disseminated before the cross."
+      ],
+      "inference": "An entry rule conditioned on the final opening print is decided after that print is known, so a backtest cannot assume the same auction fill without an explicitly feasible pre-auction rule. Indicative auction price and final open are distinct.",
+      "feature_hypotheses": [
+        "Use prior-close/pre-auction inputs for an auction-entry strategy, or observe the opening signal then test next-executable-price-to-close returns with timestamps and slippage."
+      ],
+      "access": "Direct official Nasdaq Trader HTML retrieved with urllib; cited timing is Eastern.",
+      "retrieved_at_utc": "2026-11-09T21:30:40+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "48e0b9753b11c48ea9ca8165570eb3de4b8de406a3672fe8776b6161ba1093b2",
+      "retrieved_content_format": "HTML"
+    },
+    {
+      "id": "nyse_auction_official",
+      "title": "Opening and Closing Auctions",
+      "authors": [
+        "New York Stock Exchange"
+      ],
+      "year": "accessed 2026-11-09",
+      "url": "https://www.nyse.com/trade/auctions",
+      "section": "Auction Timelines (All Eastern Times): NYSE Opening Auction; NYSE Arca Opening Auction",
+      "verified_content": "Official exchange HTML directly retrieved and inspected.",
+      "findings": [
+        "NYSE’s opening-auction process starts at 9:30 a.m. Eastern; a particular security may be opened later by its DMM.",
+        "NYSE Arca specifies its core opening auction at 9:30 a.m., with an order freeze before the auction."
+      ],
+      "inference": "A generic 9:31/9:35 entry test must also confirm the individual security has actually opened; observing an official opening gap is not identical to participating in that opening auction.",
+      "access": "Direct official NYSE HTML retrieved with urllib; distinguish NYSE primary-auction timing from NYSE Arca rules.",
+      "retrieved_at_utc": "2026-11-09T21:30:40+00:00",
+      "retrieved_timestamp_provenance": "Download file modification time recorded immediately after retrieval.",
+      "retrieved_content_sha256": "9065cf45a5e5e2cce15c70df011a52990d29c7d2edbc00947c12082b22cc3d52",
+      "retrieved_content_format": "HTML"
+    }
+  ],
+  "quotes": []
+}
