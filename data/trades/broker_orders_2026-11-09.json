@@ -333,6 +333,61 @@
           "broker_net_amount": 746.75
         }
       ]
+    },
+    {
+      "order_number": "2FD2HLNX",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "sell",
+      "shares": 150.0,
+      "price": 30.81,
+      "executed_at": "2026-11-09T15:56:29-05:00",
+      "order_date": "2026-11-09T15:56:29-05:00",
+      "broker_net_amount": 4621.4,
+      "manual_fee": 0.1,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T15:56:29-05:00",
+          "shares": 150.0,
+          "price": 30.81,
+          "broker_net_amount": 4621.4
+        }
+      ]
+    },
+    {
+      "order_number": "2FD2QZ32",
+      "ticker": "NVDA",
+      "symbol_description": "NVIDIA CORPORATION COM",
+      "side": "sell",
+      "shares": 15.0,
+      "price": 178.94,
+      "executed_at": "2026-11-09T15:56:48-05:00",
+      "order_date": "2026-11-09T15:56:47-05:00",
+      "broker_net_amount": 2684.04,
+      "price_improvement": 0.08,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T15:56:48-05:00",
+          "shares": 15.0,
+          "price": 178.94,
+          "broker_net_amount": 2684.04
+        }
+      ]
     }
   ],
   "imports": [
@@ -360,6 +415,18 @@
         "2FD0G55J",
         "2FD0N7NR"
       ]
+    }
+  ],
+  "confirmation_imports": [
+    {
+      "source": "User-pasted Fidelity filled-order confirmations",
+      "imported_at": "2026-11-09T21:11:35.083689+00:00",
+      "order_numbers": [
+        "2FD2HLNX",
+        "2FD2QZ32"
+      ],
+      "new_orders_added": 2,
+      "already_logged_orders": 0
     }
   ]
 }
