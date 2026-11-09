@@ -1,0 +1,61 @@
+{
+  "updated_at_utc": "2026-11-09T23:28:45.731792+00:00",
+  "original_entries": 93,
+  "final_entries": 95,
+  "original_sha256": "2ca9278bd57ab8d232b5654ddeb7e117344560a96ec25c322bdd39d20f6e3885",
+  "final_sha256": "be2d797133d19350175c517d0220fe546768a0092b3db78e28f4e97b0c4e7afa",
+  "added": [
+    {
+      "feature": "dip_recovery_fraction",
+      "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population (443,570 rows): the recovery fraction divides by a prior closing loss that can approach zero. Median-imputed standardized magnitude reaches 404.01; one row contributes 36.80% and the top10 contribute 66.27% of centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json.",
+      "pruned_at": "2026-11-09T17:21:41.647208-06:00"
+    },
+    {
+      "feature": "dip_volume_change_1d",
+      "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+      "pruned_at": "2026-11-09T17:28:45.728718-06:00"
+    }
+  ],
+  "removed": [],
+  "modified_original_entries": [],
+  "steps": [
+    "ordinary_prune_change.json",
+    "ordinary_volume_prune_change.json"
+  ],
+  "persisted_and_cataloged_dip_fields": 21,
+  "active_new_dip_fields": 19,
+  "ordinary_pruned_dip_fields": [
+    "dip_recovery_fraction",
+    "dip_volume_change_1d"
+  ],
+  "return_improvement_claim": false,
+  "support_fields_pruned": false,
+  "limitations": [
+    "QH price-basis discontinuity remains unresolved; no invented adjustment or support-family prune was applied."
+  ],
+  "configuration_verified_at_utc": "2026-11-09T23:29:26.962139+00:00",
+  "expected_raw_inputs": 151,
+  "expected_fit_head_inputs": 158,
+  "remaining_dip_inputs": [
+    "dip_close_to_low_252d",
+    "dip_deep_unrecovered",
+    "dip_gap_previous_volume_zscore",
+    "dip_loss_2d_sigma",
+    "dip_loss_change_sigma",
+    "dip_low_age_252d",
+    "dip_low_history_valid",
+    "dip_open_below_low_252d",
+    "dip_open_to_low_252d",
+    "dip_pressure_easing",
+    "dip_prior_new_low_252d",
+    "dip_range_change_1d",
+    "dip_recovery_valid",
+    "dip_sma50_slope_10d",
+    "dip_support_break_depth_20d",
+    "dip_support_close_distance_20d",
+    "dip_support_open_distance_20d",
+    "dip_support_reclaim_20d",
+    "dip_trend_pullback"
+  ],
+  "default_fit_and_rank": true
+}

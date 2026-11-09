@@ -24,6 +24,7 @@ from stock_picker.features.dip_context import DIP_COLUMNS, complete_dip_history,
 from stock_picker.ingestion.session import last_completed_session_date
 from stock_picker.training.dataset import build_training_frame
 from stock_picker.training.inference import build_inference_row
+from stock_picker.training.splits import select_holdout_tickers
 
 
 def main():
@@ -31,8 +32,11 @@ def main():
     lower = (pd.Timestamp(cutoff) - pd.DateOffset(years=1)).date()
     registry = pd.read_parquet(ROOT / "data/universe/registry.parquet")
     names = sorted(registry.index[registry.active].astype(str))
+    held = set(select_holdout_tickers(names))
     records, failures = [], []
     total_rows = 0
+    training_rows = 0
+    training_dates = set()
     nonmissing = {column: 0 for column in DIP_COLUMNS}
     latest_valid = 0
     for ticker in names:
@@ -53,6 +57,10 @@ def main():
         if np.isinf(values.to_numpy()).any():
             failures.append({"ticker": ticker, "infinite_dip_values": True})
         total_rows += len(features)
+        training_frame = build_training_frame(prices, features)
+        if ticker not in held:
+            training_rows += len(training_frame)
+            training_dates.update(training_frame.index.date)
         for column in DIP_COLUMNS:
             nonmissing[column] += int(values[column].notna().sum())
         if len(features):
@@ -60,6 +68,7 @@ def main():
         ohlc = prices[["Open", "High", "Low", "Close"]]
         records.append({
             "ticker": ticker, "price_rows": len(prices), "feature_rows": len(features),
+            "eligible_training_rows": len(training_frame), "heldout_ticker": ticker in held,
             "last_price_date": str(prices.index.max().date()) if len(prices) else None,
             "first_feature_date": str(features.index.min().date()) if len(features) else None,
             "last_feature_date": str(features.index.max().date()) if len(features) else None,
@@ -84,14 +93,18 @@ def main():
     )
     np.testing.assert_allclose(served[list(DIP_COLUMNS)].iloc[0], aligned.loc[entry, list(DIP_COLUMNS)], equal_nan=True, rtol=1e-10, atol=1e-12)
     pruned = json.loads((ROOT / "data/pruned_features/pruned.json").read_text())
-    unexpectedly_pruned = sorted(set(DIP_COLUMNS) & {record["feature"] for record in pruned})
-    if unexpectedly_pruned:
-        failures.append({"unexpectedly_pruned_dip_columns": unexpectedly_pruned})
+    pruned_dip_columns = sorted(set(DIP_COLUMNS) & {record["feature"] for record in pruned})
     result = {
         "checked_at_utc": datetime.now(timezone.utc).isoformat(), "cutoff": str(cutoff),
         "feature_lower_exclusive": str(lower), "active_tickers": len(names),
         "feature_rows": total_rows, "dip_columns": list(DIP_COLUMNS), "nonmissing_counts": nonmissing,
+        "normal_training_rows_excluding_holdout": training_rows,
+        "normal_training_dates": len(training_dates),
+        "normal_training_from": str(min(training_dates)) if training_dates else None,
+        "normal_training_through": str(max(training_dates)) if training_dates else None,
+        "heldout_tickers": len(held), "mrcy_heldout": "MRCY" in held,
         "latest_valid_low_history_tickers": latest_valid, "failures": failures,
+        "ordinary_pruned_dip_columns": pruned_dip_columns,
         "mrcy": {"price_rows": len(mrcy_prices), "feature_rows": len(mrcy_features),
                  "latest_low_history_valid": float(mrcy_features.iloc[-1].dip_low_history_valid),
                  "training_historical_parity_last5": True, "live_training_parity_date": str(entry.date())},

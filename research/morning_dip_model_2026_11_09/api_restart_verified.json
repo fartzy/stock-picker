@@ -1,0 +1,27 @@
+{
+  "checked_at_utc": "2026-11-09T23:29:07.895782+00:00",
+  "api_status": 200,
+  "ui_status": 200,
+  "ordinary_catalog_columns": 246,
+  "dip_columns": 21,
+  "dip_experimental_columns": 0,
+  "mrcy_rows": 251,
+  "mrcy_latest_low_history_valid": 1,
+  "training_status": {
+    "status": "idle",
+    "started_at": null,
+    "completed_at": null,
+    "result": null,
+    "error": null
+  },
+  "pruned_dip_columns": [
+    "dip_recovery_fraction",
+    "dip_volume_change_1d"
+  ],
+  "recovery_prune_reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population (443,570 rows): the recovery fraction divides by a prior closing loss that can approach zero. Median-imputed standardized magnitude reaches 404.01; one row contributes 36.80% and the top10 contribute 66.27% of centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json.",
+  "volume_prune_reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+  "active_new_dip_inputs": 19,
+  "expected_raw_inputs": 151,
+  "expected_fit_head_inputs": 158,
+  "training_post": false
+}

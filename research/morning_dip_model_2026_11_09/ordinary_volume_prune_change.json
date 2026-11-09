@@ -1,0 +1,27 @@
+{
+  "applied_at_utc": "2026-11-09T23:28:45.731792+00:00",
+  "authorization": "Explicit orchestrator GO for exactly the second ordinary reversible data-quality prune.",
+  "before_sha256": "9d05bed51e71b1e0f0dcdf808bb89b50ca4f681744381b2bd7a3755b2f15ec5f",
+  "after_sha256": "be2d797133d19350175c517d0220fe546768a0092b3db78e28f4e97b0c4e7afa",
+  "before_backup": "research/morning_dip_model_2026_11_09/cache/deployment_before/pruned_after_recovery.json",
+  "previous_entries": 94,
+  "after_entries": 95,
+  "added": [
+    {
+      "feature": "dip_volume_change_1d",
+      "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+      "pruned_at": "2026-11-09T17:28:45.728718-06:00"
+    }
+  ],
+  "removed": [],
+  "modified_previous_entries": [],
+  "evidence": "research/morning_dip_model_2026_11_09/input_anomaly_verification.json",
+  "evidence_sha256": "74b67ab9e1818a5c88d1bdaec78d0138f87c3f78b853f557ada20af31770cb40",
+  "return_improvement_claim": false,
+  "source_changes": false,
+  "frozen_experiment_changes": false,
+  "support_fields_pruned": false,
+  "limitations": [
+    "QH price-basis discontinuity remains unresolved; no invented adjustment or support-family prune was applied."
+  ]
+}
