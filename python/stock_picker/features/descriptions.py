@@ -12,6 +12,8 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 
+from stock_picker.features.dip_context_metadata import DIP_FEATURE_METADATA
+
 UNKNOWN_DESCRIPTION = "No description available for '{name}'. Add a pattern to descriptions.py."
 
 _PATTERNS: list[tuple[re.Pattern, Callable[[re.Match], str]]] = []
@@ -648,6 +650,8 @@ _pattern(r"^path_cluster_peer_return_1d$", lambda m: "Mean completed-session ret
 def describe_feature(name: str) -> str:
     """Plain-English description of a feature column, or a flagged placeholder if
     no pattern matches."""
+    if name in DIP_FEATURE_METADATA:
+        return DIP_FEATURE_METADATA[name].description
     for pattern, template in _PATTERNS:
         match = pattern.match(name)
         if match:

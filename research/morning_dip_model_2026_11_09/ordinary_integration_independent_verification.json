@@ -1,0 +1,215 @@
+{
+  "status": "approved_for_source_milestone_and_ordinary_refresh_features_training",
+  "verified_at_utc": "2026-11-09T22:53:47.631682+00:00",
+  "reviewer": "dip_phase1_verify, independent of ordinary integration author",
+  "supersedes": "phase1_independent_verification.json experimental-only scope; ordinary inclusion is now explicitly authorized and verified",
+  "numerical_evidence": {
+    "status": "passed",
+    "completed_at_utc": "2026-11-09T22:50:32.803387+00:00",
+    "frozen_panel_sha256": "f8668c4c5acb52ba66d8c7515ee9d8d5b10818022340952d32c330e08056852e",
+    "mrcy_rows": 1008,
+    "columns": 21,
+    "ordinary_vs_frozen_cells": 21168,
+    "max_absolute_error": 0.0,
+    "live_and_current_future_mutation_dates": [
+      "2022-11-01",
+      "2022-11-02",
+      "2024-03-22",
+      "2025-10-27",
+      "2026-11-04",
+      "2026-11-05",
+      "2026-11-06"
+    ],
+    "missing_session_checks": [
+      {
+        "removed": [
+          "2024-03-22"
+        ],
+        "compared_rows": 1258,
+        "live_low_history_valid": 1.0
+      },
+      {
+        "removed": [
+          "2026-11-05"
+        ],
+        "compared_rows": 1258,
+        "live_low_history_valid": 0.0
+      },
+      {
+        "removed": [
+          "2024-03-22",
+          "2026-11-05"
+        ],
+        "compared_rows": 1257,
+        "live_low_history_valid": 0.0
+      }
+    ],
+    "all_existing_feature_values_labels_rows_preserved_in_gap_checks": true,
+    "history_policy": {
+      "price_period": "2y",
+      "snapshot_years": 1,
+      "input_rows": 501,
+      "retained_rows": 251,
+      "training_rows": 250,
+      "retained_from": "2025-11-07",
+      "retained_through": "2026-11-06",
+      "retained_columns": 216,
+      "all_families_computed_before_trimming": true,
+      "earliest_rows_without_252_prior_sessions": [
+        "2025-11-10"
+      ],
+      "warmup_note": "Two calendar years do not guarantee 252 preceding sessions for every row in a retained calendar year; unavailable low history remains explicitly unknown, with validity 0."
+    },
+    "ordinary_catalog_service_and_pruning": true,
+    "source_hashes": {
+      "python/stock_picker/features/dip_context.py": "8f9633f1508022c0bb31c9d208b9959f32b659c56d18a7516c603727ff55593a",
+      "python/stock_picker/features/pipeline.py": "4fcbbe706b7cfdd2497a7a9e1dab05e6dc89130ac7d781b9d5e185477f30a10c",
+      "python/stock_picker/features/main.py": "405b2b2a73c5f1ab78659cff44c5ec4287cff592269a16f14e459b5a3dfed2b5",
+      "python/stock_picker/training/dataset.py": "9fcf95fae3b9d21e618682a70cefd9bf19637253076cc27b785c9882c0cccf57",
+      "python/stock_picker/training/inference.py": "4e71202b087548c32d603640cead19d112eafceb01b6ba6d838ccaf3beb614e0"
+    },
+    "production_writes": false
+  },
+  "reproduction": {
+    "script": "research/morning_dip_model_2026_11_09/verify_ordinary_integration_independent.py",
+    "sha256": "4b24269b34c77adde11f576a9d90cdd2aced38c1a4960f843eeb703b5c6ee260",
+    "command": "bazel-bin/python/stock_picker/api/main.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/verify_ordinary_integration_independent.py",
+    "expected_output": "/tmp/dip-integration-numerical.json"
+  },
+  "ordinary_integration_review": {
+    "status": "approved",
+    "checks": [
+      "All 21 columns are produced by ordinary pipeline, listed under dip_context, included in ordinary FeatureService, and absent from experimental metadata.",
+      "Default trainers consume ordinary dataframe inputs through feature_columns; no new whitelist or implicit prune excludes the dip fields.",
+      "Normal SVM source trainers use all unpruned raw columns; no ordinary-path 132-column freeze was introduced. The isolated research runner retains its separately declared fixed schema.",
+      "Eight Open-known fields bypass the ordinary dataset shift. Thirteen close-known fields use canonical prior-session alignment, preserving legacy feature and label behavior.",
+      "Live rebuilding uses the same morning core for every present, unpruned dip field; excluded fields are omitted by model selection as for other ordinary features.",
+      "MRCY is retained in ordinary source fixtures and all 1,008 frozen panel model dates. No MRCY-specific exclusion added."
+    ],
+    "sources": [
+      "python/stock_picker/features/pipeline.py:64",
+      "python/stock_picker/features/catalog.py:50",
+      "python/stock_picker/features/registry.py:106",
+      "python/stock_picker/features/pruning.py:32",
+      "python/stock_picker/training/dataset.py:46",
+      "python/stock_picker/training/inference.py:79",
+      "python/stock_picker/training/model.py:185",
+      "python/stock_picker/training/svm_stack.py:68",
+      "python/stock_picker/training/train.py:134"
+    ]
+  },
+  "calendar_and_timing_review": {
+    "status": "approved",
+    "checks": [
+      "Shared XNYS adapter inserts absent exchange sessions with NaNs; supplied original row keys are retained.",
+      "The research decision-aligned core remains unchanged; ordinary snapshot adapter advances close-known fields once using an empty future placeholder, without using future HLCV.",
+      "Dataset canonical shift marks missing-session low-history coverage as 0, while other unavailable measurements remain NaN.",
+      "Scalar helper validates full history before retaining only the required 252 canonical rows and extends missing dates through the day before entry.",
+      "Seven real-date pipeline mutations of current/future HLCV and future Open do not alter current inputs; seven live rows agree with frozen research values.",
+      "Holiday/timezone/DST contracts have focused tests; market basis and supplied non-XNYS rows remain explicit caller responsibilities."
+    ],
+    "sources": [
+      "python/stock_picker/features/dip_context.py:96",
+      "python/stock_picker/features/dip_context.py:102",
+      "python/stock_picker/features/dip_context.py:243",
+      "python/stock_picker/features/dip_context.py:270",
+      "python/stock_picker/training/dataset.py:49",
+      "python/stock_picker/training/tests/test_inference.py:97"
+    ]
+  },
+  "history_retention_review": {
+    "status": "approved_with_explicit_calendar_year_warmup_limit",
+    "checks": [
+      "Shared Yahoo default and nightly stock refresh request 2y with existing auto_adjust=False. SPY/VIX refresh explicitly uses the same period.",
+      "Every family computes on full available price history; one calendar year of completed snapshots is retained only after composition, across every column together.",
+      "Ordinary price files are not replaced with the isolated five-year research cache.",
+      "Independent actual-calendar fixture has 501 input sessions, 251 retained snapshot rows, 250 labeled rows. Retained output equals untrimmed computation exactly."
+    ],
+    "limitation": "Two calendar years can leave a few earliest retained dates with fewer than 252 preceding sessions. In this MRCY fixture only the first labeled day 2025-11-10 lacks 252-bar coverage; validity stays 0 and long-low fields remain NaN. New listings/provider gaps can have more unknown history.",
+    "sources": [
+      "python/stock_picker/ingestion/history_policy.py:5",
+      "python/stock_picker/ingestion/yfinance_client.py:98",
+      "python/stock_picker/ingestion/refresh_prices.py:146",
+      "python/stock_picker/features/main.py:25",
+      "python/stock_picker/features/main.py:68",
+      "python/stock_picker/features/main.py:93",
+      "python/stock_picker/features/main.py:106",
+      "docs/feature-training-policy.md:7"
+    ]
+  },
+  "anti_pattern_review": {
+    "status": "passed",
+    "checks": [
+      "No standalone mandatory dip buy gate or experimental exclusion remains in ordinary path.",
+      "No double shift, current/future HLCV leak, compressed missing-session lookback or unknown-flag false fill.",
+      "No research-price splice, extension of stored training span to two years, hidden source whitelist or bypass of explicit prune list.",
+      "No verifier production data/model writes or intervention in scheduled nightly."
+    ]
+  },
+  "code_quality_review": {
+    "status": "passed",
+    "checks": [
+      "Core formulas shared across research/snapshot/live adapters; timing conversion remains explicit and bounded.",
+      "Calendar insertion is isolated and cached, with normalization and full-index validation.",
+      "Retention policy centralized for all feature families; narrow dataset special handling is limited to new dip close-known columns.",
+      "Focused tests check causal mutation, missing actual sessions, live/dataset parity, default/pruned selection and retention; independent frozen-panel and raw-price evidence avoids relying only on self-referential tests."
+    ],
+    "nonblocking_observation": "Existing pandas dataframe fragmentation PerformanceWarnings appear during full pipeline dataset assembly; numerical checks succeed and no unrelated performance refactor was introduced."
+  },
+  "deployment_review": {
+    "scheduled_process_observed": {
+      "pid": 58725,
+      "parent_pid": 58722,
+      "command": "training/nightly bootstrap",
+      "child_processes_observed": 0,
+      "action": "read-only process inspection; no stop/restart/write"
+    },
+    "startup_import_boundary": "nightly.py imports rebuild_features and persist_training before run_nightly, so the already-running process retains previously imported schema modules.",
+    "termination_behavior": "During fitting, previous live model files remain intact. ModelStore serializes to a temporary file, fsyncs, then atomically replaces each destination; termination during serialization can leave a temporary file but not truncate latest. Rank/Fit publication is separate, not a multi-model transaction.",
+    "sources": [
+      "python/stock_picker/training/nightly.py:16",
+      "python/stock_picker/training/main.py:249",
+      "python/stock_picker/training/main.py:263",
+      "python/stock_picker/storage/model_store.py:38"
+    ],
+    "authorization_scope": "Root coordinates any deliberate supersession of obsolete nightly and subsequent same-provider refresh/features/normal training after test signoff. This verifier performs neither."
+  },
+  "production_preservation": "Scheduled nightly legitimately changed production prices/features/context since original audit; earlier 4,007-file equality is historical evidence only. This review made no production writes and did not revert scheduled changes or unrelated Jev data.",
+  "limitations": [
+    "Entirely absent live price history retains the 13 close-known values of the TTL-validated snapshot and clears eight Open-known values; sparse available history receives full canonical recomputation.",
+    "Existing raw-price adjustment/corporate-action and universe-survivorship limitations remain.",
+    "No full production training or broker actions were performed; saved-model inclusion requires the subsequent normal refresh/retrain.",
+    "Official-open feature benchmark does not certify execution at that already observed opening price."
+  ],
+  "full_suite": {
+    "status": "passed",
+    "command": "bazelisk test //... --jobs=6 --local_test_jobs=4 --test_output=errors",
+    "log": "/tmp/morning-dip-integration-full-suite.log",
+    "exit_code": 0,
+    "passed_targets": 136,
+    "executed_targets": 92,
+    "cached_targets": 44,
+    "elapsed_seconds": 176.019,
+    "log_sha256": "b3b6e5ad6a9410d1652ecdd990bc0199093c7f9bdf7578bc3488f3f97d45c44d",
+    "dip_cases": 52,
+    "dataset_cases": 11,
+    "inference_cases": 14,
+    "snapshot_retention_cases": 3
+  },
+  "source_hashes": {
+    "python/stock_picker/features/dip_context.py": "8f9633f1508022c0bb31c9d208b9959f32b659c56d18a7516c603727ff55593a",
+    "python/stock_picker/features/pipeline.py": "4fcbbe706b7cfdd2497a7a9e1dab05e6dc89130ac7d781b9d5e185477f30a10c",
+    "python/stock_picker/features/main.py": "405b2b2a73c5f1ab78659cff44c5ec4287cff592269a16f14e459b5a3dfed2b5",
+    "python/stock_picker/training/dataset.py": "9fcf95fae3b9d21e618682a70cefd9bf19637253076cc27b785c9882c0cccf57",
+    "python/stock_picker/training/inference.py": "4e71202b087548c32d603640cead19d112eafceb01b6ba6d838ccaf3beb614e0",
+    "python/stock_picker/features/dip_context_metadata.py": "df198554ed2b295f2aaa54e771d79f1c5e1529e785c2cfe7228f4e1bb493f55b",
+    "python/stock_picker/features/catalog.py": "62bbccea82668ebb68c2fbcde0771ed2532d6d8da7ba1f0391d5d06f39e13120",
+    "python/stock_picker/features/registry.py": "79dd5dbdc7a3bce3d7aa46bfb75cfae9c333db343ccb697a218aed295b97973c",
+    "python/stock_picker/ingestion/history_policy.py": "0adcd7cfa5de591f894000984d5040ac6007b733b8297a534487503b399d3011",
+    "python/stock_picker/ingestion/refresh_prices.py": "7d791cec7625b9241280ab3b96578f01d870e79c5217e11c67290face508d638",
+    "python/stock_picker/ingestion/yfinance_client.py": "7f8a5325d71145439ba5d0f905428e607b11e290a2466ae52db641cb76e18177",
+    "python/stock_picker/features/pruning.py": "8c85138a8288c98e60f038f490da5b6be578036dd2ebcaec8242792ae02985fd"
+  },
+  "remaining_blockers": [],
+  "signoff": "Source implementation, numerical/calendar timing, ordinary integration, anti-pattern and code-quality reviews pass. Full repository suite passes. Ready for the source milestone commit and root-coordinated same-provider two-year refresh, one-year feature snapshots, and normal retraining. Successful refresh coverage and final model artifacts must be verified after those operational steps; no predictive-value guarantee is implied."
+}

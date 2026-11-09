@@ -1,0 +1,29 @@
+{
+  "completed_at_utc": "2026-11-09T22:36:19.387001+00:00",
+  "path": "research/morning_dip_model_2026_11_09/evaluation_outcomes.parquet",
+  "sha256": "16f42b9eddbbd7db6e9b2ca8c3ea19ab9fc582655b1da242634a19b3085ea1bf",
+  "bytes": 25010479,
+  "baseline_sha256": "08c55aaf1e0f4ca22ac680babd545c13999e645d878e2331fff952a6451f2abb",
+  "input_manifest_sha256": "6cc0ecee6dbb1ebc28a816215fa53eecea1964165c2defb91cbf7a0723f84d40",
+  "context_sha256": "a8dd175a3379b1412e25fef2e5206c181e2e2a577a20d098a7d02bcc2451df38",
+  "rows": 1671673,
+  "mrcy_rows": 1008,
+  "valid_low_rows": 1671673,
+  "valid_high_rows": 1671673,
+  "source_consistent_ohlc_rows": 1671673,
+  "columns": [
+    "ticker",
+    "date",
+    "open_to_low_return",
+    "open_to_high_return",
+    "low_outcome_valid",
+    "high_outcome_valid",
+    "source_ohlc_consistent"
+  ],
+  "use": "Evaluation only: join after predictions are cached; these realized future-session outcomes must never become training inputs.",
+  "formulas": {
+    "open_to_low_return": "Low/Open - 1 when finite positive Open and Low with Low <= Open; otherwise NaN.",
+    "open_to_high_return": "High/Open - 1 when finite positive Open and High with High >= Open; otherwise NaN.",
+    "source_ohlc_consistent": "All OHLC finite positive, High >= max(Open,Close), Low <= min(Open,Close), High >= Low; strict comparisons."
+  }
+}

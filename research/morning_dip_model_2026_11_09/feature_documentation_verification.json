@@ -1,0 +1,50 @@
+{
+  "note": "web tool returned404; direct official documentation fallback",
+  "sources": [
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shift.html",
+      "status": 200,
+      "sha256": "925112b2d5eb4e5f27f9ba344ba66c79a846e623288c7daf4bdc62bf91dbe7b1",
+      "retrieved_at_utc": "2026-11-09T22:07:29.778768+00:00"
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.window.rolling.Rolling.apply.html",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.core.window.rolling.Rolling.std.html",
+      "status": 200,
+      "sha256": "5c6a042641bb535be6bebc7107cee9512ce1d2b8e6db80b77004cbbd7b9b7961",
+      "retrieved_at_utc": "2026-11-09T22:07:30.151872+00:00"
+    },
+    {
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.argmin.html",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.core.window.rolling.Rolling.apply.html",
+      "status": 200,
+      "sha256": "20800f265c45a2b6fc9ad0bdf60ec28dd67f871675fe19c7992a97d005ebe14f",
+      "retrieved_at_utc": "2026-11-09T22:07:47.246261+00:00"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/numpy/numpy/main/numpy/_core/fromnumeric.py",
+      "status": 200,
+      "sha256": "841a7e610405c21e58d2fe9a3e9693aa21f7a2b697c41d55a6c25c5a07a5a152",
+      "retrieved_at_utc": "2026-11-09T22:07:47.512258+00:00"
+    }
+  ],
+  "ordinary_integration_docs": {
+    "verified_at_utc": "2026-11-09T22:49:17.270623+00:00",
+    "method": "web search tool returned404; direct urllib GET official docs returned200 and API signatures/semantics read before implementation.",
+    "sources": [
+      "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.DataFrame.shift.html",
+      "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.DataFrame.tail.html",
+      "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.Timestamp.tz_localize.html",
+      "https://pandas.pydata.org/pandas-docs/version/2.3/reference/api/pandas.concat.html",
+      "https://raw.githubusercontent.com/gerrymanoim/exchange_calendars/master/README.md",
+      "https://raw.githubusercontent.com/gerrymanoim/exchange_calendars/master/exchange_calendars/calendar_utils.py"
+    ],
+    "verified_usage": "shift accepts negative periods; tail keeps last n rows; tz_localize attaches timezone; concat aligns rows; XNYS sessions_in_range uses inclusive bounds; get_calendar accepts explicit start/end bounds."
+  }
+}

@@ -18,6 +18,24 @@ py_pytest(
 )
 
 py_pytest(
+    name = "test_snapshot_retention",
+    srcs = ["test_snapshot_retention.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/features", "@pypi//pandas"],
+)
+
+py_pytest(
+    name = "test_dip_context",
+    srcs = ["test_dip_context.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_trajectory",
     srcs = ["test_trajectory.py"],
     imports = ["../../.."],
@@ -66,6 +84,7 @@ py_pytest(
         ":fixtures",
         "//python/stock_picker/features",
         "//python/stock_picker/training",
+        "@pypi//numpy",
         "@pypi//pandas",
     ],
 )
@@ -187,6 +206,7 @@ py_pytest(
         ":fixtures",
         "//python/stock_picker/features",
         "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 

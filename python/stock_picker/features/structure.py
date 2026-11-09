@@ -8,8 +8,9 @@ Clusters: MiniBatchKMeans (k=8) on (return_20d, volatility_20d, rsi_14)
 as of that date. Recency is the rolling windows already in those columns.
 
 cluster_overnight_gap is open-known: mean peer (Open_t / Close_{t-1} - 1)
-in the same cluster, excluding self. PCA and cluster_id are close-based
-and get shift(1) in the training frame.
+using each ticker's prior completed-row cluster, excluding self. Today's
+close-derived membership cannot be known at today's open. PCA and cluster_id
+are close-based and get shift(1) in the training frame.
 """
 
 from __future__ import annotations
@@ -69,19 +70,44 @@ def _align_pca_signs(components: np.ndarray, previous: np.ndarray | None) -> np.
     return aligned
 
 
-def _overnight_gap(history: pd.DataFrame, when) -> float | None:
-    if when not in history.index or "Open" not in history.columns or "Close" not in history.columns:
-        return None
-    loc = history.index.get_loc(when)
-    if isinstance(loc, slice) or isinstance(loc, np.ndarray):
-        return None
-    if loc == 0:
-        return None
-    prev_close = history.iloc[loc - 1]["Close"]
-    today_open = history.loc[when]["Open"]
-    if pd.isna(prev_close) or pd.isna(today_open) or float(prev_close) <= 0:
-        return None
-    return (float(today_open) - float(prev_close)) / float(prev_close)
+def _peer_opening_gaps(membership: pd.Series, gaps: pd.Series) -> pd.Series:
+    """Leave-self-out peer means; unknown membership or no peer stays missing."""
+    membership = membership.where(np.isfinite(membership))
+    gaps = gaps.reindex(membership.index).where(lambda values: np.isfinite(values))
+    present = gaps.notna().astype(int)
+    # Group sums/counts avoid the former quadratic per-ticker peer scan.
+    totals = gaps.groupby(membership).transform("sum")
+    counts = present.groupby(membership).transform("sum") - present
+    return ((totals - gaps.fillna(0)) / counts).where(counts > 0)
+
+
+def lagged_cluster_overnight_gaps(
+    histories: dict[str, pd.DataFrame],
+    structure_by_ticker: dict[str, pd.DataFrame],
+) -> dict[str, pd.Series]:
+    """Current gaps grouped by prior-row labels, matching dataset/live timing.
+
+    Shift each ticker before calendar alignment. Missing prior labels remain
+    missing; a later available label must never backfill an earlier open.
+    """
+    if not structure_by_ticker:
+        return {}
+    membership = pd.DataFrame({
+        ticker: table[CLUSTER_ID_COLUMN].shift(1)
+        for ticker, table in structure_by_ticker.items()
+    })
+    gaps = pd.DataFrame({
+        ticker: (history["Open"] / history["Close"].shift(1).where(lambda value: value > 0) - 1)
+        for ticker, history in histories.items()
+        if ticker in structure_by_ticker
+    }).reindex(index=membership.index, columns=membership.columns)
+    values = pd.DataFrame(index=membership.index, columns=membership.columns, dtype=float)
+    for when in membership.index:
+        values.loc[when] = _peer_opening_gaps(membership.loc[when], gaps.loc[when])
+    return {
+        ticker: values[ticker].reindex(table.index).rename(CLUSTER_GAP_COLUMN)
+        for ticker, table in structure_by_ticker.items()
+    }
 
 
 def build_structure_features(
@@ -121,23 +147,8 @@ def build_structure_features(
             label_by_ticker = dict(zip(cluster_frame.index, labels.astype(float)))
             for ticker, label in label_by_ticker.items():
                 extra[ticker].at[when, CLUSTER_ID_COLUMN] = label
-            gaps: dict[str, float] = {}
-            for ticker in label_by_ticker:
-                history = histories.get(ticker)
-                if history is None:
-                    continue
-                gap = _overnight_gap(history, when)
-                if gap is not None:
-                    gaps[ticker] = gap
-            for ticker, label in label_by_ticker.items():
-                peers = [
-                    gaps[name]
-                    for name, peer_label in label_by_ticker.items()
-                    if peer_label == label and name != ticker and name in gaps
-                ]
-                if peers:
-                    extra[ticker].at[when, CLUSTER_GAP_COLUMN] = float(np.mean(peers))
-
+    for ticker, gaps in lagged_cluster_overnight_gaps(histories, extra).items():
+        extra[ticker][CLUSTER_GAP_COLUMN] = gaps
     return extra
 
 
@@ -175,16 +186,8 @@ def fill_cluster_overnight_gaps(
         if open_px is None or prev is None or float(prev) <= 0:
             continue
         gaps[ticker] = (float(open_px) - float(prev)) / float(prev)
+    peer_gaps = _peer_opening_gaps(pd.Series(membership, dtype=float), pd.Series(gaps, dtype=float))
     for item in rows:
-        if item.ticker not in membership or item.row is None:
-            continue
-        if CLUSTER_GAP_COLUMN not in item.row.columns:
-            continue
-        label = membership[item.ticker]
-        peers = [
-            gaps[name]
-            for name, peer_label in membership.items()
-            if peer_label == label and name != item.ticker and name in gaps
-        ]
-        if peers:
-            item.row.iloc[0, item.row.columns.get_loc(CLUSTER_GAP_COLUMN)] = float(np.mean(peers))
+        if item.row is not None and CLUSTER_GAP_COLUMN in item.row.columns:
+            # A missing current peer must not leave yesterday's gap on the row.
+            item.row.iloc[0, item.row.columns.get_loc(CLUSTER_GAP_COLUMN)] = peer_gaps.get(item.ticker, np.nan)

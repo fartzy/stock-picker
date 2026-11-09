@@ -1,0 +1,175 @@
+{
+  "frozen_at_utc": "2026-11-09T22:30:14.090118+00:00",
+  "source_commit": "9e6073d4fe1cb2f0e47cdec2ecfd57f73ad7faf8",
+  "files": {
+    "python/stock_picker/features/benchmark.py": {
+      "sha256": "3a9ce74e03ba1fad8a238086e41adb4f35c73dfb046769b3a0f59be7ccd4c871",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/benchmark.py"
+    },
+    "python/stock_picker/features/breadth.py": {
+      "sha256": "7e361218bdf95eb4a97962afe8f9a6f8c27b272331aedec5972d3fc447f56103",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/breadth.py"
+    },
+    "python/stock_picker/features/calendar.py": {
+      "sha256": "a1c657fc3b59bb74708d6ca7ce8fb4fb4561820fe74360944b6dd0b2f82a05b1",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/calendar.py"
+    },
+    "python/stock_picker/features/candle.py": {
+      "sha256": "4ab42c49bc1ede7f5502cb1a9d0ad6491c66268ad052d6f29c8e109b5a3aa0be",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/candle.py"
+    },
+    "python/stock_picker/features/catalog.py": {
+      "sha256": "ec4e5ca126afc18cdc9c2cc247525b3fceee39fe5627de874cb83add8d050ebe",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/catalog.py"
+    },
+    "python/stock_picker/features/catalog_loader.py": {
+      "sha256": "115c86d8992d901ba70559813e57ee1107d3c9ceea9d555f8cf715971bfc9cc0",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/catalog_loader.py"
+    },
+    "python/stock_picker/features/catalog_main.py": {
+      "sha256": "27322deab3aaa97a22d47adc79157aa52f475f8ab3c5586db9bf886ebc8f0450",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/catalog_main.py"
+    },
+    "python/stock_picker/features/conditional_seasonality.py": {
+      "sha256": "3d47c9ba23e3d09558fe1b533a5a0b14081735e65a452ae4e28da81cc332e730",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/conditional_seasonality.py"
+    },
+    "python/stock_picker/features/cross_sectional.py": {
+      "sha256": "d47fef26b5ddaeb3dbfac82490ab47af5f128556e182d7f8eb9fa04573cd5d45",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/cross_sectional.py"
+    },
+    "python/stock_picker/features/descriptions.py": {
+      "sha256": "f26a0692b6a0b71ed2d949289051f060bec154b78d77e55b9e1a1a4c5b640b8d",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/descriptions.py"
+    },
+    "python/stock_picker/features/dip_context.py": {
+      "sha256": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/dip_context.py"
+    },
+    "python/stock_picker/features/dip_context_metadata.py": {
+      "sha256": "c6ff4ef4f78d795210ebe4dc4724f5d9ce0f2b48adb09e5a86832b68d4342c81",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/dip_context_metadata.py"
+    },
+    "python/stock_picker/features/distributional.py": {
+      "sha256": "54a96396e0ebe690ae3fbb5cb8b6b6b1d99cad94dfc0033fb2b96dc57a3075a1",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/distributional.py"
+    },
+    "python/stock_picker/features/earnings.py": {
+      "sha256": "03727d3d9ca5eb3ce8b05c1d5a05246a67664261f9d6c612d0bbac0457f1ddc0",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/earnings.py"
+    },
+    "python/stock_picker/features/examples.py": {
+      "sha256": "066054d84ee1052b12ea0c43f47e9744d6a1c005dd7336d813be213194ce4d69",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/examples.py"
+    },
+    "python/stock_picker/features/formulas.py": {
+      "sha256": "d152b9bc9963ecd23e5007b3e08e928c2e71988d9fefb10dd898fde296dcdb51",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/formulas.py"
+    },
+    "python/stock_picker/features/hold_to_close.py": {
+      "sha256": "cc260256dfd832db28c11b6cb16a45cdb28fa9445c3e470d68b74476b2c86740",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/hold_to_close.py"
+    },
+    "python/stock_picker/features/log_trade_main.py": {
+      "sha256": "c3ed4d7818fd2b4d9609d2fdf7c4abef8ca68c7c29fc876bac486795863f079a",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/log_trade_main.py"
+    },
+    "python/stock_picker/features/main.py": {
+      "sha256": "bdea0e300521e9e7952ce5d6420a33521fed8ce8e82adeb3e6618420b1552d4b",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/main.py"
+    },
+    "python/stock_picker/features/momentum.py": {
+      "sha256": "ddf7fe82ae062cfe2956950de1530a519ccbe0855b855348b6ea6da8f9f4ff11",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/momentum.py"
+    },
+    "python/stock_picker/features/news.py": {
+      "sha256": "a711f49f25b6c5af72c9e003260c5bc90202576045fb4cef2d45d8eaf7770455",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/news.py"
+    },
+    "python/stock_picker/features/open_pattern_seasonality.py": {
+      "sha256": "ef180e323510dd19fd63aeb771eb7e9ecb448a126588ab7fc2937a1f11b8a653",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/open_pattern_seasonality.py"
+    },
+    "python/stock_picker/features/oscillators.py": {
+      "sha256": "3edd290b02eb447d507dd275180467cec269acd3f9166d43b4a7fabe2e2a17f4",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/oscillators.py"
+    },
+    "python/stock_picker/features/pattern_seasonality.py": {
+      "sha256": "66e26431f15c1331148d6c177748d30e4485e7c787c0737e3a1204895c867e35",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/pattern_seasonality.py"
+    },
+    "python/stock_picker/features/pipeline.py": {
+      "sha256": "e33aee58c68f3cfcda937f579ebe6f7fab65b23b3ffa7d490e251fe71f917266",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/pipeline.py"
+    },
+    "python/stock_picker/features/price_history.py": {
+      "sha256": "b8139226cbf18b429b7927b3ebb9abe85185a213c4a3dfb887e10f2584ff07c6",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/price_history.py"
+    },
+    "python/stock_picker/features/pruning.py": {
+      "sha256": "8c85138a8288c98e60f038f490da5b6be578036dd2ebcaec8242792ae02985fd",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/pruning.py"
+    },
+    "python/stock_picker/features/quotes.py": {
+      "sha256": "dc81aec0dccbe044aa17c552087c4d49ae5896c062eac10588f0c1e0aaa8851a",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/quotes.py"
+    },
+    "python/stock_picker/features/regime.py": {
+      "sha256": "fc0624cd686d2656f2c8f1a4bbdd5f49bec1c114d6827de580c9c213884a3bcc",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/regime.py"
+    },
+    "python/stock_picker/features/registry.py": {
+      "sha256": "bd8d114128dc70da6bf1978420518f868f1a0a01c7459c2736dcd85cd77a80dd",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/registry.py"
+    },
+    "python/stock_picker/features/selection.py": {
+      "sha256": "5eb2baeb43d6259a9844e8d00edee561e5b029146e40f459c04e8c60ea226fa9",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/selection.py"
+    },
+    "python/stock_picker/features/stacked_svm.py": {
+      "sha256": "97caf0d199420a52458b2b9fe888df04cb875f2d4ab6e4901dd64c5ca6d10131",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/stacked_svm.py"
+    },
+    "python/stock_picker/features/structure.py": {
+      "sha256": "9e080b325d43511752532cae92da7ee7cbcd7d84b27a42947b20e85c46e1c897",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/structure.py"
+    },
+    "python/stock_picker/features/trades.py": {
+      "sha256": "6de0cde6c4f63da3fe27de0ee4a09f15d944221d4759c71867af1f46905d587b",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/trades.py"
+    },
+    "python/stock_picker/features/trajectory.py": {
+      "sha256": "8179a144cac7d8683d6c229dafecee8105164da51d3b5aabbc2d2e3829447717",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/trajectory.py"
+    },
+    "python/stock_picker/features/trend.py": {
+      "sha256": "789478d72d3a7c9d5f3c100f1209028b0ae82eaa3bb46be77ad0c77dc9d33dca",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/trend.py"
+    },
+    "python/stock_picker/features/volatility.py": {
+      "sha256": "08341a3a240653b63431bff2ef9df71fa78ca3526949e917983417cb5ba9fbba",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/volatility.py"
+    },
+    "python/stock_picker/features/volume.py": {
+      "sha256": "8d6fc206e28d549d69acbda1827f4fd298471f1d40bc90a64f6fddf30336ed33",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/volume.py"
+    },
+    "python/stock_picker/features/weather.py": {
+      "sha256": "f8b0b5468c02003665f20df7e4eb832a4d1ad0adcca85d29c4a5ce54c2ee75f9",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/features/weather.py"
+    },
+    "python/stock_picker/storage/price_store.py": {
+      "sha256": "769181d6ad4f52646acec972a420fb6ba8ef5655fbe6b0708775698b41c685a9",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/storage/price_store.py"
+    },
+    "python/stock_picker/storage/universe_store.py": {
+      "sha256": "916cda589cb068ad5fa3a692222875227d9a9a3c2770e043e0e7f4032d400453",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/storage/universe_store.py"
+    },
+    "python/stock_picker/training/dataset.py": {
+      "sha256": "c82b54ce3db9283ebb6ecfeb838e9a4d4916a60f69fc4d3921b0a25e9f2371f5",
+      "copy": "research/morning_dip_model_2026_11_09/context_inputs/baseline_source/python/stock_picker/training/dataset.py"
+    }
+  },
+  "purpose": "Freeze original132-input baseline dependencies before ordinary dip-pipeline integration; metadata/dip files included for provenance but were not imported by the original baseline build_features. Cluster timing correction is active."
+}

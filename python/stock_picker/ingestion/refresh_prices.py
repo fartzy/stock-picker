@@ -12,6 +12,7 @@ from stock_picker.ingestion.finnhub_client import (
     fetch_finnhub_candles,
 )
 from stock_picker.ingestion.session import completed_sessions, last_completed_session_date
+from stock_picker.ingestion.history_policy import PRICE_HISTORY_PERIOD
 from stock_picker.ingestion.yfinance_client import download_price_history
 from stock_picker.log import get_logger
 from stock_picker.storage.price_store import PriceStore
@@ -92,7 +93,7 @@ def backfill_missing_sessions(
     fetch_candles=fetch_finnhub_candles,
     sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
 ) -> dict[str, int]:
-    """Finnhub daily candles for names Yahoo still omitted after the 1y pull.
+    """Finnhub daily candles for names Yahoo still omitted after the Yahoo pull.
 
     One leftover name is one call. A 429/`None` fetch is skipped so a later
     nightly can retry. Written bars are dated on or before `cutoff`.
@@ -142,7 +143,7 @@ def backfill_missing_sessions(
 def refresh_prices() -> None:
     tickers = UniverseStore().active_tickers()
     logger.info("refreshing prices for %s tickers", len(tickers))
-    history = download_price_history(tickers, period="1y", interval="1d")
+    history = download_price_history(tickers, period=PRICE_HISTORY_PERIOD, interval="1d")
     logger.info("downloaded %s", len(history))
     store = PriceStore()
     cutoff = last_completed_session_date()

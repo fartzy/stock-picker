@@ -4,6 +4,15 @@ Persisted pipeline inputs are ordinary model features. They are included by
 default, subject to the normal per-run selection and explicit prune list.
 There is no additional gate for newly created features.
 
+Ordinary Yahoo daily-price history covers two years with the existing explicit
+`auto_adjust=False` convention; benchmark/SPY/VIX history uses the same horizon.
+Every feature family computes on that full history for warmup. Feature Store
+snapshots then retain only the latest completed calendar year, for every column
+together, preserving the existing training span and avoiding an accidental
+doubling of SVM training rows. Missing history remains unknown for new listings
+or incomplete provider coverage. The isolated five-year research cache is not
+copied into production prices and does not set the ordinary training horizon.
+
 The 19 price-pattern inputs are stored in the usual feature snapshots:
 11 volatility inputs, four breadth inputs, and four trajectory inputs. They
 appear in those Feature Store categories with the standard selection and

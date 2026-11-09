@@ -1,0 +1,18 @@
+{
+  "frozen_at_utc": "2026-11-09T22:11:06.638672+00:00",
+  "files": {
+    "registry": {
+      "path": "research/morning_dip_model_2026_11_09/context_inputs/registry.parquet",
+      "sha256": "c52f3d6f3de3ace8397be608bca9a10294445762cdc32d638018a8b8e99f5e08"
+    },
+    "weather": {
+      "path": "research/morning_dip_model_2026_11_09/context_inputs/weather.parquet",
+      "sha256": "239b0994be3e84c7644eafce1ce54ca27702dd8fea5da7960d6b1c0cd92ece4a"
+    },
+    "news": {
+      "path": "research/morning_dip_model_2026_11_09/context_inputs/news_features.parquet",
+      "sha256": "86fd712c3553ddce3907602b0902f9cb2364c8bf539062b17195b5192d349f69"
+    }
+  },
+  "news_policy": "Use frozen completed-session feature values on their recorded dates; zero before the news archive begins, matching existing empty-store semantics. No production NewsStore constructor or database writes."
+}

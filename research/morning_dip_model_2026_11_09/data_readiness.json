@@ -1,0 +1,188 @@
+{
+  "phase": 0,
+  "status": "ready_for_approved_consistent_source_baseline_reconstruction",
+  "completed_at_utc": "2026-11-09T22:06:26.296186+00:00",
+  "decision": "Use the immutable five-year split-adjusted cache for both baseline price features/labels and candidate dip inputs. Reuse exact current feature functions and current132 raw input names. Do not silently join native unadjusted baseline features to the different-source long dip history.",
+  "source": {
+    "path": "research/averaging_down_2026_11_06/five_year_arrays.pkl",
+    "sha256": "d8d84a24cae4572c22c8e96bfd4dd7c5ddaa7c43e465918b77d5c8fed6a243e2",
+    "sessions": 1260,
+    "start": "2021-11-01",
+    "end": "2026-11-06",
+    "cached_symbols": 1984,
+    "cached_registry_names": 1983,
+    "active_registry_names": 2000,
+    "frozen_holdout_names": 200,
+    "mrcy_in_training_universe": true,
+    "research_names_excluding_holdout_and_spy": 1784,
+    "known_eligible_descriptive_mrcy_days": 995,
+    "note": "The earlier995 MRCY eligibility count used252warmup,price>=5 andADV>=10m. Final model fold counts depend on its explicitly shared eligibility and dates; no MRCY-specific exclusion is permitted."
+  },
+  "native_snapshot": {
+    "typical_dates": "2025-11-07 through2026-11-06",
+    "typical_sessions": 251,
+    "feature_columns": 225,
+    "nonholdout_native_tickers": 1800,
+    "native_rows": 445395,
+    "cache_common_nonholdout_tickers": 1784,
+    "common_rows": 439250,
+    "volatility120_nonmissing_typical": 131,
+    "breadth_nonmissing_typical": 46,
+    "trajectory_nonmissing_typical": "44\u201345",
+    "snapshot_input_manifest": "input_manifest.json"
+  },
+  "basis_comparison": {
+    "artifact": "price_basis_comparison.json",
+    "label_abs_diff_quantiles": {
+      "p0": 0.0,
+      "p50": 2.5194542008222243e-08,
+      "p90": 6.408610727648429e-08,
+      "p99": 9.087924208585537e-05,
+      "p999": 0.0017915095965710874,
+      "max": 0.06204609980221887
+    },
+    "label_diff_gt1bp": 4150,
+    "label_diff_gt10bp": 567,
+    "price_ratio_quantiles": {
+      "p0": 0.15003672915133354,
+      "p01": 0.9999818545448779,
+      "p50": 1.0,
+      "p99": 1.000255305212555,
+      "max": 12.222448702380454
+    },
+    "interpretation": "Most rows match withinfloatprecision; outliers are material and notall explained/certified. Shared-source reconstruction avoids introducing two-provider differences as candidatefeature gains. It does not prove the chosen vendor iscorrect."
+  },
+  "timing_adjustments": [
+    {
+      "column": "cluster_overnight_gap",
+      "finding": "Historical structure.py fits currentdate cluster labels from currentdate close-known returns/volatility/RSI, then builds unshifted opening peer gap using those labels. Live uses priorcluster_id.",
+      "action": "For both baseline and candidates, overwrite historical opening peer gap using prior completed-date membership and current opening gaps, excluding self. Keep all other existing model inputs; use identical correction in every comparison.",
+      "sources": [
+        "python/stock_picker/features/structure.py:112",
+        "python/stock_picker/features/structure.py:132",
+        "python/stock_picker/features/structure.py:163",
+        "python/stock_picker/training/dataset.py:24"
+      ]
+    },
+    {
+      "columns": "six weather inputs",
+      "finding": "Values are calendar yesterday or earlier fallback, legitimately available by morning. Mutating current/futureweather didnotchange current input.",
+      "action": "Preserve semantics; precomputeonce oncommoncalendar andreindex to eachticker.",
+      "sources": [
+        "python/stock_picker/features/weather.py:30",
+        "python/stock_picker/features/weather.py:51"
+      ]
+    },
+    {
+      "columns": "84 available per-ticker open-known inputs",
+      "finding": "Perturbing current/futureHLCV and futureopens on3MRCYdates producedzero currentfeature mismatches; this excludes separatelyaudited crosssectioncluster gap.",
+      "artifact": "open_known_timing_audit.json"
+    }
+  ],
+  "context_inputs": {
+    "weather": {
+      "path": "data/weather/nyc.parquet",
+      "rows": 3231,
+      "start": "2018-01-01",
+      "end": "2026-11-05"
+    },
+    "news": {
+      "native_db_articles": 232961,
+      "earliest_published": "2026-09-20T20:02:44-04:00",
+      "latest_published_at_audit": "2026-11-09T09:32:26-05:00",
+      "recommendation": "Reuse frozen precomputed NEWS_FEATURE_COLUMNS from per-ticker native feature snapshots for overlapping dates and zeros before the archive begins, matching existing empty-store semantics. No future collected article may alter a target-date input. If reconstructing fromarticles, freeze database separately and retain publication-time cutoff; do not call NewsStore constructor against production because it issues schema/journal writes."
+    },
+    "first_seen": "Read frozen registry first_seen; keep breadth/trajectory unavailable before observation dates. Do not backfill current membership as historical availability for these features.",
+    "sector": "Current registry sector isstatic and not point-in-time. Use identical mapping for both variants and report this limitation.",
+    "spy": "Fullfiveyear SPYcache available for benchmark and regime features.",
+    "vix": "Fiveyear VIXnotavailable inthiscache; none of the current132 served raw inputs is VIX-specific, so no VIXfetch is required for their reproduction."
+  },
+  "construction_recipe": [
+    "Load current132 baseline input names from verified savedmodel snapshot; derive200heldoutnames from full2000registry, keepMRCY. Do not train or choose features on heldoutlabels.",
+    "Construct OHLCV histories on frozenSPYcalendar fromimmutablecache. Declare missing-bar eligibility explicitly; do not ffill gaps or invent bars. Use current sanitization for baselinefeaturefunctions, but preserve canonicalcalendar validity for252dipcoverage.",
+    "Copy preprocessing composition from pipeline.py:100\u2013151: returnranks, pooledsetup seasonality, sectorreturns, first_seen-awarebreadth, per-ticker build_features. Precompute identical weather once; reuse frozennewscolumns. Build ordinarypricefamilies consistently fromlonghistory forbaselineandcandidate.",
+    "Build current PCA/cluster features and first_seen-awaretrajectory with existingfunctions. Replace only openingcluster gap with lagged-membership calculation. Dataset build_training_frame shifts ordinaryfeatures exactlyonce; new decision-aligned dip columns willbe appended afterward by the separateimplementation.",
+    "Drop nonmodel columns beyond date/ticker/label; persist isolated baseline panel andfeaturecoverage. Reserve>=252prior completedbars forlonglow features; retainunknowncandidate values andexplicitcoverage ratherthanfalse flags unlessprotocolrequirescommonwarmup.",
+    "Use modeldesignagent frozenchronologicalfolds. Source supports comparisonperiod2022-11-01..2026-11-06 after252warmup. Existinghistories alreadyseen inpriorresearch, so dontcall eras untouchedprospectivevalidation."
+  ],
+  "allowed_apis": [
+    {
+      "api": "build_features(history, benchmark_history=None, peer_return_ranks=None, sector_avg_return=None, pooled_seasonality=None, spy_history=None, vix_history=None, news_articles=None, nyc_weather=None, market_breadth=None)",
+      "source": "python/stock_picker/features/pipeline.py:36"
+    },
+    {
+      "api": "build_features_for_universe(histories, benchmark_history=None, sector_by_ticker=None, spy_history=None, vix_history=None, news_articles_by_ticker=None, nyc_weather=None, first_seen_by_ticker=None)",
+      "source": "python/stock_picker/features/pipeline.py:81"
+    },
+    {
+      "api": "build_training_frame(history, features)",
+      "source": "python/stock_picker/training/dataset.py:35"
+    },
+    {
+      "api": "build_structure_features(histories, features_by_ticker)",
+      "source": "python/stock_picker/features/structure.py:87"
+    },
+    {
+      "api": "build_trajectory_features(histories, first_seen_by_ticker)",
+      "source": "python/stock_picker/features/trajectory.py:43"
+    },
+    {
+      "api": "build_weather_features(index, nyc=None)",
+      "source": "python/stock_picker/features/weather.py:51"
+    },
+    {
+      "api": "select_holdout_tickers(tickers,fraction=0.1,seed=42)",
+      "source": "python/stock_picker/training/splits.py:18"
+    }
+  ],
+  "resources": {
+    "memory_bytes": 51539607552,
+    "memory_gib": 48,
+    "logical_cpus": 14,
+    "workers_recommended": 4,
+    "blas_threads_per_worker": 1,
+    "single_ticker_full1260_withweather_seconds": [
+      0.4172,
+      0.4644,
+      0.4265
+    ],
+    "single_ticker_without_redundantweather_seconds": 0.2096,
+    "feature_frame_bytes_per_ticker": 2061360,
+    "allbaseline_features_rough_bytes": 4100000000,
+    "runtime_note": "Per-tickerbuild roughly7minserial withoutrepeatedweather or~2minideal4worker, plus crosssection/PCA/clustering and serialization. Fulluniverse structure loops can dominate; logprogress/cache outputs and avoid unconstrainednestedthreads. No fullbuild ortraining launched inPhase0."
+  },
+  "limitations": [
+    "Currentuniverse survivor/present-size bias and17missing shareclasssymbols remain.",
+    "Fiveyear cache splitadjusted, excludesdividends andlackscomplete actioncertification; absolute$5filteronadjustedbasis isapproximate.",
+    "NativevsMassive discrepancies unresolvedfor some tickers; consistent source avoidsmixing, notmeasurementerror.",
+    "News/breadth/trajectory have onlyrecentcoverage; keepmissingness semantics andreport byera.",
+    "Existingstockholdoutsharesdates andhaspreviouslybeenconsulted; featureselection mustremain insidechronologicaltrainingdates.",
+    "Officialopen/close arebenchmark marks. Observedopen featuresneedseparateexecutableentry validation beforepromotion."
+  ],
+  "sources_consulted": [
+    "CLAUDE.md",
+    "docs/delegation-briefing.md",
+    "research/morning_dip_patterns_2026_11_09/implementation_plan.json",
+    "research/morning_dip_patterns_2026_11_09/trigger_candidates.json",
+    "research/morning_dip_patterns_2026_11_09/feature_audit.json",
+    "research/morning_dip_patterns_2026_11_09/protocol.json",
+    "python/stock_picker/features/pipeline.py",
+    "python/stock_picker/features/structure.py",
+    "python/stock_picker/features/weather.py",
+    "python/stock_picker/features/news.py",
+    "python/stock_picker/features/trajectory.py",
+    "python/stock_picker/features/breadth.py",
+    "python/stock_picker/training/feature_family_search.py",
+    "python/stock_picker/training/svr_stack_search.py",
+    "python/stock_picker/training/main.py",
+    "python/stock_picker/training/splits.py"
+  ],
+  "external_docs": "data_docs_verification.json verifies official pandasread_parquet/reindex/shift pages viaHTTP200",
+  "confidence": "High on coverage,currentinputcolumns,timingmismatch andcomparabilitydecision. Hardwarebenchmark givesroughbounds, notguaranteed fullpipeline runtime. Actionhistory/sourcepricequality remainsuncertified.",
+  "model_eligibility": {
+    "primary": "Use normal production eligibility: finite positive prices and finite same-day label for common cached names, excluding the frozen ticker holdout. Do not inherit the descriptive screen's $5/$10m liquidity gates.",
+    "warmup": "Start the global experiment after 252 calendar sessions; per-ticker insufficient history remains unknown candidate values/coverage flags, not a reason to remove that stock from baseline.",
+    "mrcy": "Include every shared model-eligible MRCY row. Its count may exceed the descriptive study's 995 liquidity-filtered rows.",
+    "comparability": "All variants must use identical training and test rows; any stricter coverage/liquidity slice is separately labeled and shared across variants."
+  }
+}

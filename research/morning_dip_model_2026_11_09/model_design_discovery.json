@@ -1,0 +1,158 @@
+{
+  "status": "Phase 0 accepted by orchestrator; experiment_protocol.json freezes the approved implementation and statistical design before any model fits.",
+  "objective": "Measure incremental value of precise dip measurements and candidate flags alongside the existing Rank and Fit feature sets, retaining MRCY throughout the eligible universe.",
+  "baseline": {
+    "snapshot": "saved_model_snapshot.json",
+    "rank": "One ListFold-exp LightGBM member, 132 saved raw input names, 100 boosting rounds.",
+    "fit": "One LightGBM member, 132 raw inputs plus all seven chronological SVM outputs, 139 total input names, 100 boosting rounds. All seven saved companion SVM estimators use the same 132 raw inputs.",
+    "objective_correction": "Actual Fit objective is regression (L2), with metric=mae. The repository briefing's description of an MAE objective is inaccurate. Preserve the saved objective rather than switching to regression_l1.",
+    "parameters": "Preserve num_leaves31, max_depth5, min_data_in_leaf30, learning_rate0.03, feature_fraction0.8, bagging_fraction0.8, bagging_freq5, seed0 and100 rounds. A recorded thread cap is a resource choice shared by baseline/candidates, not a statistical search dimension.",
+    "svm_parameters": "Preserve actual saved/project LinearSVR and six LinearSVC parameters, including max_iter10000. Do not reduce iterations or replace SVR to claim a production Fit comparison.",
+    "sources": [
+      "python/stock_picker/training/model.py:37",
+      "python/stock_picker/training/model.py:205",
+      "python/stock_picker/training/model.py:220",
+      "python/stock_picker/training/svm_stack.py:82",
+      "python/stock_picker/training/train.py:57"
+    ]
+  },
+  "data_recommendation": {
+    "basis": "Reconstruct baseline and candidates from the same frozen five-year adjusted cache, rather than splice native Yahoo baseline labels and Massive dip history. Data agent found 4,150 common rows with provider label differences above1bp and raw/cache OHLC ratios0.15\u201312.22.",
+    "warmup": "Use the same five-year history to compute baseline and candidate inputs. Apply only a global252-calendar-session warmup, starting2022-11-01. Keep all ordinary finite positive open/close and finite-label rows thereafter, including newer stocks with missing252-session candidate values. Do not impose the earlier descriptive$5/ADV gates or drop rows for candidate NaNs.",
+    "nonprice_features": "Preserve actual timestamp/history availability of news, weather, registry membership, breadth and trajectory. No fabricated pre-registry breadth/trajectory, sector history or historic news. Missing baseline columns remain explicit and identically represented for every variant.",
+    "comparison_label": "Current model configurations and saved input schemas refitted on consistent research data. These are not replayed historical production predictions or measured live fills.",
+    "exclusions": "Use the frozen full-registry200-name production holdout; excludeSPY as benchmark only. Include all eligible MRCY history. Keep current-universe survivorship, incomplete action certification and missing share-class symbols explicit.",
+    "training_lookback": "Use the most recent252 common panel dates strictly before each evaluation block; all baseline/candidate variants within a model use identical fitting and evaluation row identities."
+  },
+  "confirmed_baseline_timing_issue": {
+    "column": "cluster_overnight_gap",
+    "proof": "cluster_gap_timing_probe.json changes only current-day close-derived cluster source inputs while holding opens and prior closes fixed; all80 synthetic historical open-known gaps change.",
+    "cause": "structure.py builds current-day cluster membership from current close-derived return20/volatility20/RSI14, then computes that same day's peer opening gaps. dataset.py restores this gap unshifted. Live inference instead groups by yesterday's cluster_id.",
+    "required_repair": "Recompute historical peer gaps using the preceding common session's cluster assignments and current opens/prior closes, excluding self. Do not simply shift the gap (that would use yesterday's opening prices). Apply the identical repair to baseline and candidates, and add a current-HLC-invariance/live-parity test.",
+    "sources": [
+      "python/stock_picker/features/structure.py:112",
+      "python/stock_picker/features/structure.py:124",
+      "python/stock_picker/features/structure.py:155",
+      "python/stock_picker/training/dataset.py:24",
+      "python/stock_picker/training/dataset.py:44"
+    ]
+  },
+  "proposed_chronology": {
+    "inner_blocks_for_selection": [
+      {
+        "from": "2024-07-01",
+        "through": "2024-12-31"
+      },
+      {
+        "from": "2025-01-02",
+        "through": "2025-06-30"
+      }
+    ],
+    "rank_outer_blocks_once_after_selection": [
+      {
+        "from": "2025-07-01",
+        "through": "2025-12-31"
+      },
+      {
+        "from": "2026-01-02",
+        "through": "2026-06-30"
+      },
+      {
+        "from": "2026-07-01",
+        "through": "2026-11-06"
+      }
+    ],
+    "fit_outer_block": {
+      "from": "2026-07-01",
+      "through": "2026-11-06"
+    },
+    "calendar_rule": "Use observed source trading dates within each inclusive interval; record exact first/last dates and row hashes after construction. Each fitting window ends strictly before the first scored date.",
+    "selection_rule": "Predeclare the comparator and tie-breaking before fits. Recommended conservative winner: positive paired Rank IC and top20 mean-return changes on both inner blocks; among qualifying variants choose highest mean top20 change, then Rank IC, then fewer new inputs and name. If none qualifies, retain baseline as selected algorithm and report all candidates.",
+    "refinement": "One bounded inner-only refinement round: all continuous dip measurements without setup flags; and a compact variant retaining all four setup flags plus up to8 new continuous inputs selected by positive training-model gain. Gain selection is repeated using each fitting window only, never its test labels. Report the exact selected inputs per fold. Do not add arbitrary threshold searches after inspecting outer metrics.",
+    "outer_use": "Freeze selection using only dates through2025-06-30, then evaluate outer blocks once. No tightening or winner changes using outer outcomes. These are chronological diagnostics, not pristine untouched market history: earlier descriptive studies already examined these dates.",
+    "initial_variants": "Baseline; four predeclared dip families using the implementation's exact named columns; all families combined. A separate all-flags diagnostic may be registered before fits if the final feature grouping needs it; no ad hoc later variants."
+  },
+  "fit_cost_bound_and_oof": {
+    "scope": "One predeclared recent outer block initially. Rank gets broader chronological testing; do not imply identical fold coverage or claim full Fit validation from one block.",
+    "source_projection": "Project the raw source frame to saved132rawinputs plus ticker/date/label before SVM fitting. This prevents new dip inputs from silently changing the seven SVM estimators. Join their cached outputs and candidate inputs by immutable unique row index.",
+    "oof_construction": "For the final252-session LightGBM training window before2026-07-01, create historical SVM outputs using the2025H2 and2026H1 blocks. Each block's SVMs fit only the preceding252 sessions; then fit the paired scoring SVMs on the final252 sessions through2026-06-30 and score the outer block. Assert every fitting date precedes every scored date. If the first training date falls just before2025H2, add the necessary earlier causal block or omit that warmup row from all Fit variants consistently; never fill it in-sample.",
+    "comparison": "Fit the baseline139-column LightGBM and candidate LightGBMs on identical OOF-covered training rows; keep the same paired SVM outputs and raw source inputs across variants. Fit outer results are confirmation/descriptive comparisons, never feature selection.",
+    "production_limit": "This specifically tests adding dip inputs to the LightGBM head while holding SVM source columns fixed. Ordinary future training would feed newly persisted unpruned inputs into SVMs too. That full-stack change requires separate confirmation or an explicitly paired artifact preserving frozen SVM inputs before activation.",
+    "runtime_evidence": "Recent production runs take6193\u20138091seconds (~1.7\u20132.25hours) for the full Fit training path. The old stacked-search doc estimates35\u201345minutes perSVR fit. Do not silently substitute raw LightGBM or truncated-SVR settings to meet a short runtime.",
+    "checkpoints": "Checkpoint each SVM block and fitted result under the new research directory with ordered row IDs, fit/score dates, feature lists, parameter/data/code hashes. Resume only exact matching contexts. Existing ResearchRun is an optional numeric-only NPZ/SQLite pattern, not a live model store."
+  },
+  "allowed_apis_and_copy_locations": [
+    {
+      "api": "train_lightgbm(train_frame, params=None, num_boost_round=100, excluded_features=None, included_features=None)",
+      "source": "python/stock_picker/training/model.py:205",
+      "note": "Pure in-memory trainer. Use exact saved baseline columns plus the selected candidate set; do not discover baseline columns from the augmented frame."
+    },
+    {
+      "api": "train_lightgbm_rank(train_frame, params=None, num_boost_round=100, excluded_features=None, included_features=None)",
+      "source": "python/stock_picker/training/model.py:220",
+      "note": "Pure ListFold trainer; date column required. Custom objective belongs inparams, not deprecatedfobj."
+    },
+    {
+      "api": "predict(trained, frame)",
+      "source": "python/stock_picker/training/model.py:618",
+      "note": "Aligns to the trained model's feature names."
+    },
+    {
+      "api": "fit_stacked_svm_estimators(train_frame, excluded_features=None, included_features=None, outputs=None)",
+      "source": "python/stock_picker/training/model.py:546",
+      "note": "Pure seven-estimator builder. Projection to baseline raw inputs is the simplest fail-closed schema guard."
+    },
+    {
+      "api": "score_stacked_svm(frame, estimators, outputs)",
+      "source": "python/stock_picker/training/svm_stack.py:32",
+      "note": "Checks estimator types, raw-feature alignment and finite row-aligned outputs; refuses caller-supplied stack values."
+    },
+    {
+      "api": "iter_stacked_svm_folds(pooled_dataset, *, outputs, excluded_features=None, n_splits=4, oof_seed_splits=3)",
+      "source": "python/stock_picker/training/svm_stack.py:82",
+      "note": "Existing chronological OOF pattern; automatic equal-date blocks do not exactly implement the proposed explicit calendar blocks. Reuse its fit-before-score guard and indexed joins when making an explicit scheduler."
+    },
+    {
+      "api": "ResearchRun(run_dir, manifest, *, resume)",
+      "source": "python/stock_picker/training/svr_stack_run.py:218",
+      "note": "Isolated checkpoint pattern. Constructor refuses existing output unless matchingresume; source_identity has a fixedsource list so a newexperiment must pass its own complete source provenance."
+    },
+    {
+      "api": "rank_ic(predicted, actual, dates); simulate_top_k(predicted, actual, dates, k=20)",
+      "source": "python/stock_picker/training/backtest.py:146",
+      "note": "Use daily paired output records for cost/downside/bootstrap metrics; built-in top-k mean weights selected stock-days and is gross."
+    }
+  ],
+  "feature_contract": {
+    "recommended_api": "A pure decision-date-aligned build_morning_dip_features(history) plus morning_dip_row(prior_history, today_open). Keep these out of the ordinary persisted pipeline for the research phase; join the output AFTER build_training_frame to avoid a secondshift.",
+    "timing": "Open-derived distance, recovery and reclaim use only currentO plus strictly priorbars; prior-session pressure/trend state use completed data. All require explicit missing-history/invalid-denominator handling; unknownflags areNaN rather thanFalse.",
+    "future_integration": "Before production integration, either adopt the existing mixed snapshot/openknown convention with explicitdatasetcolumnset andinference recomputation, or use a consciously separate adapter. Never mix decision-aligned data into the ordinary shift-one-day path.",
+    "metadata": "Experimental registry/catalog entries can document candidate inputs without adding them to FeatureService or automaticnightly training. Ordinary pipeline integration would automatically make unpruned features eligible under existingpolicy, so it is not a harmless metadata edit.",
+    "sources": [
+      "python/stock_picker/features/pipeline.py:36",
+      "python/stock_picker/features/catalog.py:39",
+      "python/stock_picker/features/registry.py:137",
+      "python/stock_picker/training/dataset.py:44",
+      "python/stock_picker/training/inference.py:37",
+      "docs/feature-training-policy.md:3"
+    ]
+  },
+  "verification_requirements": [
+    "Hand-calculated low252 distance/age with latest tie;252 valid priorbars and missing-history states; positive/negative/>1 recovery fractions; support excludesyesterday; risingSMA50 slope over10sessions.",
+    "Perturb current/future HLCV and confirm all morningfeaturevalues unchanged whenO isheldfixed; perturb currentO andconfirm onlyappropriateopenknown values change.",
+    "Scalar live-style row equals the last historical decision row using identical priorhistory/open. No globaldatasetlabel orshift semanticchanges.",
+    "Correctedcluster gaps are invariant to currentHLC and match live laggedmembership/leave-self-out grouping.",
+    "AssertMRCY included, frozen200holdout absent, nofuturecompletenessfilter, exactpairedtrain/test identities, baseline132/139schemas, sevenSVMoutputs builtstrictlyearlier, and sourcehashes unchanged.",
+    "Reportperfold RankIC, top5/top20gross/net at0/10/25/50bps, dailyselectioncoverage, Fitfixed0.5%gate metrics andcash-day-aware outcomes, adverseexcursion tails, pairedweekly uncertainty, andeverylosingvariant.",
+    "No productionModelStore writes, pruning/selection/config mutations, MLflow defaultstore writes, or servingactivation. FullBazeltests are required before shippingproductionlibrary code; existingresearchscripts may be tested with focused numerical/provenance checks."
+  ],
+  "forbidden_entrypoints": [
+    "training.main.run_training: writes live Fit/Rank/diagnostic models and evaluatesholdout.",
+    "rank_model.train_and_persist_rank_model / activate_rank_artifact: live/researchartifact persistence and activation, not pureablation helpers.",
+    "feature_family_search.screen: its currentbaseline drops the19alreadyservedinputs and its Fit is rawLightGBM40rounds; copying it unchanged wouldnot answerthisquestion.",
+    "train.run_walk_forward with defaulttracking_dir: writes data/mlruns. Use puretrainers or explicitlyisolatedtracking.",
+    "feature_challenger.paired_rank_evaluation: automaticallyevaluatesholdout; do notuseinsidefeatureselection."
+  ],
+  "docs_verified": "model_api_docs.json records officialLightGBMv4.6.0source andscikit-learndocs retrieved directly after webtool404/LightGBMdocs403. Actualsavedmodelparameters wereinspected read-only.",
+  "confidence": "High on savedbaselineconfig, APIs, timingflaw and isolationboundaries. Exactfoldcalendar/coverage andmodelruntimeawait reconstructedpanel andorchestratorfreeze; no performanceclaim ormodeltrainingresult exists yet."
+}

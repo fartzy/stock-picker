@@ -1,0 +1,66 @@
+{
+  "findings": [
+    {
+      "date": "2026-05-01",
+      "rows": 1969,
+      "stored_vs_recomputed_same_day_cluster_max_abs": 2.1250362580715887e-17,
+      "stored_vs_recomputed_same_day_cluster_median_abs": 2.6020852139652106e-18,
+      "same_vs_lagged_gap_diff_median_abs": 0.002762454201981668,
+      "same_vs_lagged_gap_diff_max_abs": 0.014274072366136556,
+      "same_vs_lagged_gap_diff_gt1bp": 1963,
+      "mrcy": [
+        {
+          "ticker": "MRCY",
+          "gap": 0.010391581000749106,
+          "current_cluster": 2.0,
+          "prior_cluster": 5.0,
+          "stored_gap": 0.0037973051830289006,
+          "current_gap": 0.0037973051830289075,
+          "prior_gap": 0.006566715063097652
+        }
+      ]
+    },
+    {
+      "date": "2026-08-03",
+      "rows": 1994,
+      "stored_vs_recomputed_same_day_cluster_max_abs": 1.3877787807814457e-17,
+      "stored_vs_recomputed_same_day_cluster_median_abs": 2.6020852139652106e-18,
+      "same_vs_lagged_gap_diff_median_abs": 0.0024055904144667396,
+      "same_vs_lagged_gap_diff_max_abs": 0.02790604532534805,
+      "same_vs_lagged_gap_diff_gt1bp": 1989,
+      "mrcy": [
+        {
+          "ticker": "MRCY",
+          "gap": 0.03213185165408183,
+          "current_cluster": 0.0,
+          "prior_cluster": 0.0,
+          "stored_gap": -0.0039853789426627624,
+          "current_gap": -0.003985378942662766,
+          "prior_gap": -0.0012535883815058943
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "rows": 1981,
+      "stored_vs_recomputed_same_day_cluster_max_abs": 1.3877787807814457e-17,
+      "stored_vs_recomputed_same_day_cluster_median_abs": 8.673617379884035e-19,
+      "same_vs_lagged_gap_diff_median_abs": 0.005686472400806412,
+      "same_vs_lagged_gap_diff_max_abs": 0.0764004256676335,
+      "same_vs_lagged_gap_diff_gt1bp": 1981,
+      "mrcy": [
+        {
+          "ticker": "MRCY",
+          "gap": 0.021052588698254215,
+          "current_cluster": 1.0,
+          "prior_cluster": 1.0,
+          "stored_gap": 0.015364602909005808,
+          "current_gap": 0.01536460290900581,
+          "prior_gap": 0.007762272944841242
+        }
+      ]
+    }
+  ],
+  "conclusion": "Current snapshot gap is reproduced by same-day close-known membership; use previous completed-date membership for a morning-safe experimental baseline.",
+  "scope": "Read-only numerical diagnosis; no production source or stored features changed."
+}

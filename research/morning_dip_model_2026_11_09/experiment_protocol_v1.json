@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "status": "frozen_before_model_fits",
+  "frozen_at_utc": "2026-11-09T22:11:23.386796+00:00",
+  "authorization": "User approved next implementation/model comparison step; orchestrator approved explicit dates and design after Phase0.",
+  "objective": "Incremental dip-feature value alongside saved Rank132 and Fit139 input schemas; morning entry to same-day close; MRCY included.",
+  "global_start": "2022-11-01",
+  "source_cutoff": "2026-11-06",
+  "eligibility": "All ordinary finite positive Open/Close and finite target rows on the shared reconstructed panel after global warmup. No $5/ADV gate, no candidate-NaN or per-ticker252-history row deletion. Exclude only frozen production200holdout andSPY benchmark; keepMRCY.",
+  "training_sessions": 252,
+  "rounds": 100,
+  "lightgbm_threads": 4,
+  "svm_block_workers": 3,
+  "maximum_busy_cores": 8,
+  "lightgbm_params": {
+    "objective": "regression",
+    "metric": "mae",
+    "num_leaves": 31,
+    "max_depth": 5,
+    "min_data_in_leaf": 30,
+    "learning_rate": 0.03,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 5,
+    "seed": 0,
+    "verbosity": -1,
+    "num_threads": 4
+  },
+  "rank_objective": "Existing make_listfold_objective through train_lightgbm_rank; never storedobjective none as a replacement.",
+  "svm_params": "Use unmodified model.SVR_DEFAULT_PARAMS and SVC_DEFAULT_PARAMS, saved in execution manifest; all7outputs,132frozenrawsources. Thread-bound BLAS perSVMworker.",
+  "inner_blocks": [
+    {
+      "name": "inner_2024h2",
+      "from": "2024-07-01",
+      "through": "2024-12-31"
+    },
+    {
+      "name": "inner_2025h1",
+      "from": "2025-01-02",
+      "through": "2025-06-30"
+    }
+  ],
+  "rank_outer_blocks": [
+    {
+      "name": "outer_2025h2",
+      "from": "2025-07-01",
+      "through": "2025-12-31"
+    },
+    {
+      "name": "outer_2026h1",
+      "from": "2026-01-02",
+      "through": "2026-06-30"
+    },
+    {
+      "name": "outer_2026h2",
+      "from": "2026-07-01",
+      "through": "2026-11-06"
+    }
+  ],
+  "fit_outer_block": {
+    "name": "outer_2026h2",
+    "from": "2026-07-01",
+    "through": "2026-11-06"
+  },
+  "fit_oof_blocks": [
+    {
+      "name": "oof_2025h2",
+      "from": "2025-07-01",
+      "through": "2025-12-31"
+    },
+    {
+      "name": "oof_2026h1",
+      "from": "2026-01-02",
+      "through": "2026-06-30"
+    }
+  ],
+  "families": {
+    "low_context": [
+      "dip_close_to_low_252d",
+      "dip_open_to_low_252d",
+      "dip_low_age_252d",
+      "dip_prior_new_low_252d",
+      "dip_open_below_low_252d",
+      "dip_low_history_valid"
+    ],
+    "recovery": [
+      "dip_loss_2d_sigma",
+      "dip_recovery_fraction",
+      "dip_recovery_valid",
+      "dip_deep_unrecovered"
+    ],
+    "pressure": [
+      "dip_loss_change_sigma",
+      "dip_range_change_1d",
+      "dip_volume_change_1d",
+      "dip_pressure_easing",
+      "dip_gap_previous_volume_zscore"
+    ],
+    "support_and_trend": [
+      "dip_support_break_depth_20d",
+      "dip_support_close_distance_20d",
+      "dip_support_open_distance_20d",
+      "dip_support_reclaim_20d",
+      "dip_sma50_slope_10d",
+      "dip_trend_pullback"
+    ]
+  },
+  "flags": [
+    "dip_deep_unrecovered",
+    "dip_pressure_easing",
+    "dip_support_reclaim_20d",
+    "dip_trend_pullback"
+  ],
+  "initial_variants": [
+    "baseline",
+    "low_context",
+    "recovery",
+    "pressure",
+    "support_and_trend",
+    "flags_only",
+    "all"
+  ],
+  "refinement_variants": [
+    "continuous_only",
+    "compact"
+  ],
+  "compact_rule": "Keepall4setupflags plus up to8newnonflaginputs with positivegain from the all-candidate model fitted on that same training window. Order by descendinggain thenname. Never use scored-period labels orimportance.",
+  "selection_rule": "Only Rank inner results select. A candidate qualifies only if RankIC andtop20meanreturn both strictly improve versusbaseline in eachinnerblock. Amongqualifiers choosehighestmeanpairedtop20gain, thenmeanpairedICgain, thenfeweraddedcolumns, thenname. Ifnonequalifies, baseline remainsselected.",
+  "refinement_rule": "One predeclared refinement round afterinitialinnerresults: continuous_only andcompact. Sameinnerdatesmayguideiteration; outerdatesremainunread untilselection.json is atomicallyfrozen. No additionalcutoff/modelparametersearch.",
+  "outer_rule": "Evaluateall9registeredvariants on all3Rankouterblocks and theoneFitouterblock once. Do not change selectedalgorithm or refineusingouterresults. If a future iteration uses these outcomes it requires newforward validation.",
+  "fit_rule": "Use identical OOF-covered trainingrows and currentoutertestrows acrossallFitvariants. Omit/report any tinyearly part of252trainingwindow not covered by the2OOFblocks; no in-samplefill. FitpairedSVMscorer on fullprior252sessions. Newdipinputs affectLightGBM only; baselineSVMsources remainfrozen132.",
+  "target": "label_day_session_return=(Close-Open)/Open",
+  "cost_roundtrip_bps": [
+    0,
+    10,
+    25,
+    50
+  ],
+  "fit_gate": 0.005,
+  "top_k": [
+    5,
+    20
+  ],
+  "uncertainty": {
+    "bootstrap_replications": 2000,
+    "seed": 20261109,
+    "cluster": "ISOcalendarweek",
+    "statistic": "paired active-date net/gross selected-return difference",
+    "note": "pointwise exploratory intervals, not multiplicity-corrected confirmation"
+  },
+  "baseline_timing_repair": "Historicalcluster_overnight_gap uses eachtickerpreviouscompletedrowcluster_id andcurrentpeeropeninggaps, excludingitself; samecorrection forallvariants.",
+  "isolation": "No ModelStore/productiondata/pruning/config/MLflow writes. All models/checkpoints/results onlyundernewresearchoutput. No holdoutscoring.",
+  "limitations": [
+    "Currentuniverse survivorship andstaticsectors",
+    "Splitadjusted source with incomplete5yactioncertification",
+    "Publicationtime-limited news andfirst_seen-restricted breadth/trajectory",
+    "Currentconfigrefits onresearchdata, not historicalproductionreplay",
+    "Officialopen benchmark isnot guaranteedexecutableafterobservingO",
+    "OneFitouterblock; fixedSVMsourceheads, not validatedfull-stackfeaturepromotion",
+    "Dates werealreadyexamined indescriptivestudies; not pristineuntouchedhistory"
+  ],
+  "model_snapshot_sha256": "4150093e970c78f798ab2baa367d09b17095d4fa1eacdbfdfffe8e7cdef59b2e"
+}

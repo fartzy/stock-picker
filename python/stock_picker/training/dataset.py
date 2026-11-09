@@ -4,8 +4,8 @@ The label for day t is the same-day open->close ("day session") return. Predicti
 using day t's own feature row would leak the label -- most feature columns are computed
 from day t's full OHLCV, including Close_t, which is exactly what we're predicting. The
 fix: use features computed through day t-1 (features.shift(1)), except the
-open-known columns (overnight_gap plus the recency-pattern seasonality
-family), which are legitimately knowable at day t's open and must NOT be
+open-known columns (including overnight_gap, recency-pattern seasonality and
+the open-dependent dip fields), which are knowable at day t's open and must NOT be
 shifted. Those columns never use Close_t -- they key off completed days
 plus Open_t -- so leaving them unshifted is not a leak.
 """
@@ -15,6 +15,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from stock_picker.features.dip_context import DIP_CLOSE_KNOWN_COLUMNS, DIP_OPEN_KNOWN_COLUMNS, complete_dip_history
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 from stock_picker.features.structure import CLUSTER_GAP_COLUMN
 from stock_picker.features.weather import WEATHER_COLUMNS
@@ -22,7 +23,8 @@ from stock_picker.features.weather import WEATHER_COLUMNS
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
 OPEN_KNOWN_FEATURE_COLUMNS = frozenset(
-    {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS, *WEATHER_COLUMNS}
+    {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS,
+     *DIP_OPEN_KNOWN_COLUMNS, *WEATHER_COLUMNS}
 )
 
 
@@ -44,6 +46,16 @@ def build_training_frame(history: pd.DataFrame, features: pd.DataFrame) -> pd.Da
     shifted = features.shift(1)
     present = [column for column in OPEN_KNOWN_FEATURE_COLUMNS if column in features.columns]
     shifted[present] = features[present]
+    dip_close = [column for column in DIP_CLOSE_KNOWN_COLUMNS if column in features.columns]
+    if dip_close:
+        calendar_index = complete_dip_history(history).index
+        dip_snapshots = features[dip_close].reindex(calendar_index)
+        missing_sessions = calendar_index.difference(history.index)
+        # A missing completed bar makes every close-known dip measurement
+        # unknown; the explicit coverage flag is known to be false.
+        if "dip_low_history_valid" in dip_close:
+            dip_snapshots.loc[missing_sessions, "dip_low_history_valid"] = 0.0
+        shifted[dip_close] = dip_snapshots.shift(1).reindex(features.index)
     shifted[LABEL_COLUMN] = label
 
     frame = shifted.iloc[1:]

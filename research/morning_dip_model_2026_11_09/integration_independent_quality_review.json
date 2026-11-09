@@ -1,0 +1,104 @@
+{
+  "reviewer": "independent dip_runner_audit agent",
+  "reviewed_at_utc": "2026-11-09T22:50:33.172002+00:00",
+  "decision": "PASS: no ordinary-integration code-quality or history-policy blockers found",
+  "scope": "Independent anti-pattern and data-flow review, distinct from feature mathematics/full-suite verification. No implementation edits or model fits.",
+  "source_sha256": {
+    "python/stock_picker/features/dip_context.py": "8f9633f1508022c0bb31c9d208b9959f32b659c56d18a7516c603727ff55593a",
+    "python/stock_picker/features/dip_context_metadata.py": "df198554ed2b295f2aaa54e771d79f1c5e1529e785c2cfe7228f4e1bb493f55b",
+    "python/stock_picker/features/pipeline.py": "4fcbbe706b7cfdd2497a7a9e1dab05e6dc89130ac7d781b9d5e185477f30a10c",
+    "python/stock_picker/features/catalog.py": "62bbccea82668ebb68c2fbcde0771ed2532d6d8da7ba1f0391d5d06f39e13120",
+    "python/stock_picker/features/main.py": "405b2b2a73c5f1ab78659cff44c5ec4287cff592269a16f14e459b5a3dfed2b5",
+    "python/stock_picker/ingestion/history_policy.py": "0adcd7cfa5de591f894000984d5040ac6007b733b8297a534487503b399d3011",
+    "python/stock_picker/ingestion/yfinance_client.py": "7f8a5325d71145439ba5d0f905428e607b11e290a2466ae52db641cb76e18177",
+    "python/stock_picker/ingestion/refresh_prices.py": "7d791cec7625b9241280ab3b96578f01d870e79c5217e11c67290face508d638",
+    "python/stock_picker/training/dataset.py": "9fcf95fae3b9d21e618682a70cefd9bf19637253076cc27b785c9882c0cccf57",
+    "python/stock_picker/training/inference.py": "4e71202b087548c32d603640cead19d112eafceb01b6ba6d838ccaf3beb614e0",
+    "python/stock_picker/training/train.py": "a9568fce36287af3f777495d3588978794ab8b9cabeaf30232430fd07094af53",
+    "python/stock_picker/training/svm_stack.py": "03d6cc8b4974a9d4a8540d7e6ab7bbe8a79f1eed529853e9f0a8db521bde97d8"
+  },
+  "checks": [
+    {
+      "name": "ordinary_catalog_and_feature_service",
+      "result": "PASS: dip_context is registered in the same single-ticker builder catalog and standard pipeline. Existing dynamic registry includes that category in the normal FeatureService. UI iterates ordinary views. No experimental-feature gate or special activation path.",
+      "citations": [
+        "python/stock_picker/features/pipeline.py:63",
+        "python/stock_picker/features/catalog.py:50",
+        "python/stock_picker/features/registry.py:107",
+        "typescript/src/components/Registry.tsx:494"
+      ]
+    },
+    {
+      "name": "ordinary_selection_and_pruning",
+      "result": "PASS: model feature_columns accepts ordinary dip columns by default. Existing explicit prune/inclusion logic remains authoritative; no implicit dip exclusions or separate promotion logic.",
+      "citations": [
+        "python/stock_picker/features/pruning.py:29",
+        "python/stock_picker/training/model.py:183",
+        "python/stock_picker/training/main.py:153"
+      ]
+    },
+    {
+      "name": "normal_svm_inputs",
+      "result": "PASS: next ordinary Fit sends all unpruned raw dip inputs to OOF and final SVM estimators, not only LightGBM. No fixed132 source schema exists in the ordinary path. A no-fit dispatch probe verified all seven trainers receive20 dip fields when one is explicitly pruned.",
+      "citations": [
+        "python/stock_picker/training/main.py:189",
+        "python/stock_picker/training/train.py:140",
+        "python/stock_picker/training/svm_stack.py:74",
+        "python/stock_picker/training/train.py:186"
+      ]
+    },
+    {
+      "name": "calendar_and_timing_scope",
+      "result": "PASS: only dip adapters complete XNYS missing sessions. Dataset applies canonical shift only to13 close-known dip fields;8 open-known fields stay current-open aligned. Legacy feature rows/labels and timing remain unchanged for identical supplied history. Live rebuilds present unpruned dip fields from strictly prior history.",
+      "citations": [
+        "python/stock_picker/features/dip_context.py:102",
+        "python/stock_picker/features/dip_context.py:270",
+        "python/stock_picker/training/dataset.py:46",
+        "python/stock_picker/training/inference.py:79",
+        "python/stock_picker/training/live_rows.py:87"
+      ]
+    },
+    {
+      "name": "history_policy",
+      "result": "PASS: ordinary provider request horizon is2y, adjustment convention stays auto_adjust=False, benchmarks share the horizon. All families compute on available history; one-calendar-year retention applies to every persisted feature column together. This preserves bounded training span while providing252-session warmup. Research cache is not imported into production. Longer warmup can legitimately alter old feature values; their timing logic remains unchanged.",
+      "citations": [
+        "python/stock_picker/ingestion/history_policy.py:1",
+        "python/stock_picker/ingestion/yfinance_client.py:62",
+        "python/stock_picker/ingestion/refresh_prices.py:146",
+        "python/stock_picker/features/main.py:24",
+        "python/stock_picker/features/main.py:68",
+        "python/stock_picker/features/main.py:106"
+      ]
+    },
+    {
+      "name": "metadata_and_scope",
+      "result": "PASS: descriptions/formulas/examples cover all21 inputs and reflect entry-time formulas, sign conventions, support reference, validity flags and inclusive versus strict comparisons. Module docs now accurately distinguish canonical research core from ordinary XNYS adapters. No unrelated refactor found; cluster-gap repair remains the separately reviewed deliberate baseline timing change.",
+      "citations": [
+        "python/stock_picker/features/dip_context_metadata.py:1",
+        "python/stock_picker/features/dip_context.py:1",
+        "python/stock_picker/features/structure.py:84"
+      ]
+    }
+  ],
+  "independent_probes": [
+    {
+      "name": "legacy parity",
+      "result": "PASS:349 supplied bars with an omitted exchange session; all195 legacy single-ticker pipeline columns and all348 training rows/labels exactly equal HEAD implementations via pandas assert_frame_equal(check_exact=True)."
+    },
+    {
+      "name": "normal SVM dispatch",
+      "result": "PASS: actual ordinary svm_stack._fit_and_score routed all seven production trainer functions (stubbed to inspect inputs, no fits). Each received all20 unpruned dip fields and omitted the one explicit prune."
+    }
+  ],
+  "temporary_probe_script": "/tmp/dip_integration_reference_probe.py",
+  "author_test_evidence": "Author reports52 dip,11 dataset,14 inference cases and pipeline target passed after calendar amendment. Full-suite verification belongs to dip_phase1_verify.",
+  "findings": [],
+  "limitations": [
+    "Review does not certify model predictive benefit.",
+    "Complete full-suite result is tracked separately.",
+    "No changes to live refresh data, models, or configuration were made by this reviewer."
+  ],
+  "model_fits": 0,
+  "implementation_edits": false,
+  "production_writes": false
+}

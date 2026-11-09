@@ -1,0 +1,18 @@
+{
+  "checked_utc": "2026-11-09T22:40:14.873508+00:00",
+  "documents": [
+    {
+      "url": "https://raw.githubusercontent.com/ranaroussi/yfinance/main/yfinance/multi.py",
+      "status": 200,
+      "sha256": "3d806fb6de745e4d2db9867983e566b292db8773c83fed5392696ceb504c6e77",
+      "bytes": 16756
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.tseries.offsets.DateOffset.html",
+      "status": 200,
+      "sha256": "66a6960b68c48b4cf3955b63d1190c3fd6999afa4396e7aeddd8c20439934aa8",
+      "bytes": 55943
+    }
+  ],
+  "usage": "yf.download period=2y and auto_adjust=False; pandas.DateOffset(years=1) for calendar-year snapshot retention"
+}

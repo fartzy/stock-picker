@@ -1,0 +1,84 @@
+{
+  "phase": 1,
+  "status": "Implementation and floating-boundary correction reviewed; full-suite verification and commit approval pending.",
+  "module_api": [
+    "morning_dip_features(history: pd.DataFrame) -> pd.DataFrame",
+    "morning_dip_row(prior_history: pd.DataFrame, today_open: float, as_of_date: date) -> pd.Series"
+  ],
+  "column_count": 21,
+  "families": [
+    "low_context",
+    "recovery",
+    "pressure",
+    "support_and_trend"
+  ],
+  "setup_flag_columns": [
+    "dip_deep_unrecovered",
+    "dip_pressure_easing",
+    "dip_support_reclaim_20d",
+    "dip_trend_pullback"
+  ],
+  "isolation": "No default pipeline, global dataset-shift, production inference or persisted data/model changes. Experimental catalog/registry metadata only; UI already renders it without selection/prune controls.",
+  "timing_contract": "Outputs are already aligned to entry date. Caller must provide canonical session rows, retaining missing internal bars as NaN; index validation cannot certify exchange-calendar completeness. Experiment uses SPY calendar.",
+  "verification": [
+    {
+      "command": "bazelisk test //python/stock_picker/features/tests:test_dip_context //python/stock_picker/features/tests:test_catalog //python/stock_picker/features/tests:test_registry //python/stock_picker/features/tests:test_descriptions //python/stock_picker/features/tests:test_formulas //python/stock_picker/features/tests:test_examples --test_output=errors",
+      "result": "Initial6/6 targets passed. Independent reviewer then reran the focused dip target after boundary correction:40 test cases passed."
+    },
+    {
+      "command": "bazelisk test //python/stock_picker/api/tests:test_routes --test_output=errors",
+      "result": "Passed;71 API test cases."
+    },
+    {
+      "command": "git diff --check",
+      "result": "Passed"
+    },
+    {
+      "command": "Independent direct numerical boundary checks using the repository hermetic Python and final module",
+      "result": "8/8 checks passed: exact and 1e-8-outside low distance, shock return and recovery fraction; equal-volume pressure and support-touch strictness."
+    }
+  ],
+  "tested_properties": [
+    "Hand-calculated measurements and four exact candidate setups",
+    "252 valid preceding sessions; latest tied-low age",
+    "Pre-shock volatility ending t-3",
+    "Current/future HLCV invariance and current-open field classification",
+    "Scalar/historical parity including America/New_York timezone",
+    "NaN/zero/negative/infinite prior bars and invalid OHLC ranges",
+    "Unknown flags for invalid denominators and zero range",
+    "Strict date ordering, duplicate rejection, missing-schema rejection",
+    "Consistent split-basis rescaling invariance; no automatic corporate-action repair",
+    "Complete descriptions/formulas/examples, API research metadata, absence from default pipeline/service",
+    "Inclusive dimensionless boundaries tolerate floating representation noise; meaningful just-outside values and strict pressure/support comparisons remain distinct."
+  ],
+  "library_docs": "feature_documentation_verification.json",
+  "diagnostics": "No LSP diagnostic/navigation tool is exposed; focused Bazel compilation and tests verified imports/types at runtime.",
+  "source_sha256": {
+    "python/stock_picker/features/dip_context.py": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+    "python/stock_picker/features/dip_context_metadata.py": "c6ff4ef4f78d795210ebe4dc4724f5d9ce0f2b48adb09e5a86832b68d4342c81",
+    "python/stock_picker/features/catalog.py": "ec4e5ca126afc18cdc9c2cc247525b3fceee39fe5627de874cb83add8d050ebe",
+    "python/stock_picker/features/registry.py": "bd8d114128dc70da6bf1978420518f868f1a0a01c7459c2736dcd85cd77a80dd",
+    "python/stock_picker/features/descriptions.py": "f26a0692b6a0b71ed2d949289051f060bec154b78d77e55b9e1a1a4c5b640b8d",
+    "python/stock_picker/features/formulas.py": "d152b9bc9963ecd23e5007b3e08e928c2e71988d9fefb10dd898fde296dcdb51",
+    "python/stock_picker/features/examples.py": "066054d84ee1052b12ea0c43f47e9744d6a1c005dd7336d813be213194ce4d69",
+    "python/stock_picker/features/BUILD.bazel": "0afa60daa404f99f250e187fde066bac1aadd10cd50c88ee04783ecf0f7c8811",
+    "python/stock_picker/features/tests/BUILD.bazel": "3d901ca9633dd1039abc4ce8b96923049b446d080c2277c0966ee5f257a33275",
+    "python/stock_picker/features/tests/test_dip_context.py": "c51ede93e7ce0aa3be54039dfe15294e2a463e8362920b71b5a58da5c0292518",
+    "python/stock_picker/features/tests/test_catalog.py": "1d41c85a4f7fd3e196c8afc7885e3bbc7306d136065a1f159204b9f80119d0dd",
+    "python/stock_picker/features/tests/test_registry.py": "9f0c25bffa721dca027ee132d5de243f7a3a5d2df5c202155016eaf077f0bc69",
+    "python/stock_picker/api/tests/test_routes.py": "c1ae964daf57fcaf7dc8141468da6e9c075563af1fcebb7f1167347203a975c2"
+  },
+  "coordination": "Added NumPy dependency to existing test_structure target for design agent; structure.py/test_structure.py changes belong to that agent, not this implementation.",
+  "commits_made": false,
+  "post_review_correction": {
+    "reviewed_at_utc": "2026-11-09T22:25:20.135343+00:00",
+    "initial_module_sha256": "b5d565a008894f65f3e1948b94b3998decda438cf230adacf0de9af59e280432",
+    "final_module_sha256": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+    "reason": "Independent review showed 102/100-1 can exceed0.02 and3.43/3.5-1 can exceed-0.02 by binary rounding, incorrectly rejecting exact inclusive cutoffs.",
+    "change": "Named1e-12 dimensionless tolerance on inclusive shock, near-low, recovery and close-location comparisons. Raw measurements and strict return/volume/price comparisons are unchanged.",
+    "outside_checks": "Independent checks use1e-8 offsets, four orders of magnitude larger than the numerical tolerance.",
+    "reviewer_test_cases": 40,
+    "independent_manual_checks": 8,
+    "source_files_modified_by_this_review": []
+  }
+}

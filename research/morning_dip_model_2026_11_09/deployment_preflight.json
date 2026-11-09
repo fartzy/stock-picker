@@ -1,0 +1,39 @@
+{
+  "captured_at_utc": "2026-11-09T22:51:35.391201+00:00",
+  "models": {
+    "data/models/day_session_return.pkl": {
+      "sha256": "bb527bebb63f39e11630f0d771c4139136e8967c07eaac90e4b89e50caa089ce",
+      "bytes": 352490,
+      "mtime_utc": "2026-11-07T00:34:56.670591+00:00",
+      "backup": "research/morning_dip_model_2026_11_09/cache/deployment_before/day_session_return.pkl"
+    },
+    "data/models/day_session_return_rank.pkl": {
+      "sha256": "6ed900ef464e2146eac78b1063f128e2d8e5289353793d90ade0a2840171d0c7",
+      "bytes": 371770,
+      "mtime_utc": "2026-11-07T00:34:56.657638+00:00",
+      "backup": "research/morning_dip_model_2026_11_09/cache/deployment_before/day_session_return_rank.pkl"
+    },
+    "data/models/day_session_return_logistic_diagnostic.pkl": {
+      "sha256": "b2b2a980f6f50f05e61d234793a7e214e640b77be86db7d234b8d6a98ad28eba",
+      "bytes": 10480,
+      "mtime_utc": "2026-11-07T00:34:56.666886+00:00",
+      "backup": "research/morning_dip_model_2026_11_09/cache/deployment_before/day_session_return_logistic_diagnostic.pkl"
+    }
+  },
+  "training_config": {
+    "included_features": null,
+    "model_choices": null,
+    "selected_run_id": null,
+    "morning_job_enabled": true
+  },
+  "training_config_sha256": "7810d707c3916768ddaa9fc2ad1a09c7abe7a2e97f4ba8c3b22343b1af7ee2b9",
+  "expected_nightly": {
+    "pid": 58725,
+    "ppid": 58722,
+    "started": "Mon Nov  9 16:30:05 2026",
+    "command_suffix": "training/nightly.runfiles/_main/python/stock_picker/training/_nightly_stage2_bootstrap.py"
+  },
+  "api_pid": 59356,
+  "ui_pid": 59357,
+  "authorization": "Preparation only; no process terminated and no live files changed. Await root full-suite signoff."
+}

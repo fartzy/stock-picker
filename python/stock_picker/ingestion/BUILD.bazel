@@ -5,6 +5,7 @@ py_library(
     srcs = [
         "finnhub_client.py",
         "fundamentals.py",
+        "history_policy.py",
         "main.py",
         "massive_overnight.py",
         "news_sources.py",

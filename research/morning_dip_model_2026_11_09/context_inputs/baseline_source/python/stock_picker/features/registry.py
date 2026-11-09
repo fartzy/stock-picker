@@ -1,0 +1,200 @@
+"""A lightweight feature registry, modeled on Feast's object vocabulary (Entity,
+FeatureView, FeatureService) -- metadata over the existing pipeline, not a new
+storage backend. `storage.feature_store.FeatureStore` remains the actual values
+store; this just describes it the way a real feature store's registry would.
+
+Derived from the real pipeline (catalog.list_feature_columns +
+descriptions.describe_feature), not a hand-maintained object list that can drift.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from datetime import date, timedelta
+
+import pandas as pd
+
+from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.dip_context import DIP_COLUMNS
+from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS
+
+TICKER_ENTITY_NAME = "ticker"
+
+# How many trading days old a feature snapshot can be before it's untrustworthy
+# for inference -- every view here depends on the prior trading day's close, so
+# a snapshot older than that is stale. This is the concept the pipeline was
+# missing when a live inference run nearly used an in-progress row as a
+# finalized one. 2, not 1: a Friday snapshot is exactly 1 trading day old on
+# the following Monday, and 2 on a Tuesday after a Monday market holiday --
+# both are the most recent close available and shouldn't be flagged, only
+# something actually stale (the pipeline having failed to run for real) should.
+DEFAULT_TTL_DAYS = 2
+
+_SOURCES = {
+    "cross_sectional": "PriceStore + SPY benchmark + universe peer returns",
+    "breadth": "PriceStore + point-in-time UniverseStore membership",
+    "trajectory": "PriceStore + past-only online path clusters + point-in-time membership",
+}
+_DEFAULT_SOURCE = "PriceStore"
+
+_TAGS = {
+    "cross_sectional": {"cross_ticker": "true"},
+    "breadth": {"cross_ticker": "true", "membership_guard": "first_seen"},
+    "trajectory": {"cross_ticker": "true", "membership_guard": "first_seen", "fit_order": "past_only"},
+}
+
+OWNER = "stock-picker"
+
+
+@dataclass
+class Entity:
+    name: str
+    description: str
+
+
+@dataclass
+class FeatureView:
+    name: str
+    entities: list[str]
+    features: list[str]
+    source: str
+    ttl_days: int
+    tags: dict[str, str] = field(default_factory=dict)
+    owner: str = OWNER
+
+
+@dataclass
+class FeatureService:
+    name: str
+    feature_views: list[str]
+    description: str
+
+
+@dataclass
+class ExperimentalFeatureView:
+    """Research metadata, intentionally not a persisted production FeatureView."""
+
+    name: str
+    features: list[str]
+    source: str
+    status: str
+    description: str
+
+
+@dataclass
+class ModelDerivedFeatureView:
+    """Fitted production input, distinct from persisted pipeline FeatureViews."""
+
+    name: str
+    features: list[str]
+    source: str
+    status: str
+    description: str
+
+
+@dataclass
+class FreshnessResult:
+    ok: bool
+    age_days: int
+    ttl_days: int
+
+
+TICKER_ENTITY = Entity(
+    name=TICKER_ENTITY_NAME,
+    description="A single publicly traded stock ticker (e.g. AAPL), the join key every feature view is keyed on.",
+)
+
+
+def build_registry(sample_history: pd.DataFrame) -> tuple[list[FeatureView], list[FeatureService]]:
+    """Assemble the registry from the real pipeline: one FeatureView per category
+    in catalog.list_feature_columns, plus the one FeatureService that consumes all
+    of them (today's single model, day_session_return)."""
+    catalog = list_feature_columns(sample_history)
+
+    feature_views = [
+        FeatureView(
+            name=category,
+            entities=[TICKER_ENTITY_NAME],
+            features=columns,
+            source=_SOURCES.get(category, _DEFAULT_SOURCE),
+            ttl_days=DEFAULT_TTL_DAYS,
+            tags=_TAGS.get(category, {}),
+        )
+        for category, columns in catalog.items()
+    ]
+
+    feature_services = [
+        FeatureService(
+            name="day_session_return_model",
+            feature_views=[view.name for view in feature_views],
+            description="Feeds training.dataset.build_training_frame for the day-session (open->close) return model.",
+        )
+    ]
+
+    return feature_views, feature_services
+
+
+def experimental_views() -> list[ExperimentalFeatureView]:
+    """Research-only views, if any; never attach them to FeatureService."""
+    views = []
+    if RESEARCH_SVM_COLUMNS:
+        views.append(ExperimentalFeatureView(
+            name="svm_derived",
+            features=list(RESEARCH_SVM_COLUMNS),
+            source="Walk-forward SVM estimators in training research",
+            status="experimental",
+            description="Research-only SVM outputs, not persisted pipeline features or production LightGBM inputs.",
+        ))
+    views.append(ExperimentalFeatureView(
+        name="morning_dip_context",
+        features=list(DIP_COLUMNS),
+        source="Earlier completed OHLCV plus observed entry-session Open in isolated research",
+        status="experimental",
+        description="Dip location, recovery, selling pressure and support/trend candidates; not persisted or used by default training/serving.",
+    ))
+    return views
+
+
+def model_derived_views() -> list[ModelDerivedFeatureView]:
+    """Fitted model outputs; never attach them to a market FeatureService."""
+    return [
+        ModelDerivedFeatureView(
+            name="stacked_svm",
+            features=list(PRODUCTION_MODEL_DERIVED_COLUMNS),
+            source="Chronological out-of-fold LinearSVR/LinearSVC in Fit training; paired estimators at inference",
+            status="production_eligible",
+            description="Seven removable SVM summaries consumed by Fit LightGBM when unpruned. Saved estimators generate live values; these are not feature-parquet columns.",
+        )
+    ]
+
+
+def _weekdays_elapsed(start: date, end: date) -> int:
+    """Count Mon-Fri days strictly after `start` up to and including `end`.
+
+    Raw calendar-day age treats every weekend as 2-3 days of staleness, so a
+    perfectly current Friday snapshot reads as stale on the very next trading
+    day (Monday). Markets are closed weekends (and the occasional holiday,
+    which this doesn't special-case, but DEFAULT_TTL_DAYS leaves a day of
+    slack for that) -- no new data could possibly exist yet, so those days
+    shouldn't count against freshness.
+    """
+    elapsed = 0
+    current = start
+    while current < end:
+        current += timedelta(days=1)
+        if current.weekday() < 5:
+            elapsed += 1
+    return elapsed
+
+
+def check_freshness(ttl_days: int, snapshot_date: date, as_of_date: date) -> FreshnessResult:
+    """Is `snapshot_date` (the date a feature snapshot is from) fresh enough to use
+    for inference as of `as_of_date`, given `ttl_days`?
+
+    Takes a bare `ttl_days` rather than a whole `FeatureView` -- freshness only ever
+    depends on that one field, and every view uses the same `DEFAULT_TTL_DAYS` today
+    anyway (inference.py's row spans every category at once, so there's no single
+    "the" view to hand this function regardless).
+    """
+    age_days = _weekdays_elapsed(snapshot_date, as_of_date)
+    return FreshnessResult(ok=age_days <= ttl_days, age_days=age_days, ttl_days=ttl_days)

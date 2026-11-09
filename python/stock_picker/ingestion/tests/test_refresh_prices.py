@@ -98,3 +98,15 @@ def test_sparse_refresh_keeps_prior_history_and_adds_new_bar(tmp_path):
     history = store.read("TCBI")
     assert list(history["Close"]) == [11.0, 12.0, 13.0]
     assert history.index[-1] == pd.Timestamp("2026-10-08")
+
+
+def test_longer_same_provider_refresh_extends_history_past_old_window(tmp_path):
+    store = PriceStore(data_dir=tmp_path)
+    dates = pd.bdate_range("2024-11-01", periods=504)
+    incoming = pd.DataFrame({"Close": range(1, 505)}, index=dates)
+    store.write("MRCY", incoming.iloc[-251:])
+
+    write_refreshed_history(store, "MRCY", incoming)
+
+    restored = store.read("MRCY")
+    pd.testing.assert_frame_equal(restored, incoming, check_freq=False)

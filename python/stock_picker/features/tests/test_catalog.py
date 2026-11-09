@@ -10,6 +10,7 @@ from stock_picker.features.catalog import (
     top_correlated_pairs,
 )
 from stock_picker.features.tests.fixtures import synthetic_history
+from stock_picker.features.dip_context import DIP_COLUMNS
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
 
 
@@ -27,6 +28,7 @@ def test_list_feature_columns_has_all_categories():
         "oscillators",
         "volume",
         "candle",
+        "dip_context",
         "distributional",
         "calendar",
         "conditional_seasonality",
@@ -54,6 +56,7 @@ def test_experimental_features_are_described_without_pipeline_formulas():
     experimental = experimental_features()
 
     assert tuple(experimental) == RESEARCH_SVM_COLUMNS
+    assert list_feature_columns(synthetic_history(n=140))["dip_context"] == list(DIP_COLUMNS)
     for name, feature in experimental.items():
         assert feature.name == name
         assert feature.description and feature.computation and feature.example
