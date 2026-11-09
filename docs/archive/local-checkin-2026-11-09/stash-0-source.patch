@@ -1,0 +1,709 @@
+diff --git a/python/stock_picker/api/routes.py b/python/stock_picker/api/routes.py
+index 6bddf0e33..ef945172e 100644
+--- a/python/stock_picker/api/routes.py
++++ b/python/stock_picker/api/routes.py
+@@ -55,7 +55,12 @@ from stock_picker.features.benchmark import (
+     fetch_benchmark_returns,
+ )
+ from stock_picker.features.hold_to_close import apply_hold_to_close
+-from stock_picker.paper.book import load_paper_book, paper_book_view, refresh_paper_book
++from stock_picker.paper.book import (
++    load_paper_book,
++    paper_book_view,
++    refresh_paper_book,
++    with_current_close_quotes,
++)
+ from stock_picker.training.replay import replay_morning
+ from stock_picker.features.catalog import (
+     compute_formulas_all,
+@@ -368,6 +373,20 @@ def get_paper_book(
+             status_code=status.HTTP_400_BAD_REQUEST, detail="kind must be fit, rank, or both"
+         )
+     picks = load_paper_book()
++    from stock_picker.ingestion.session import cash_session_date, cash_session_has_ended
++
++    if cash_session_has_ended():
++        from stock_picker.ingestion.polygon_client import fetch_polygon_closing_quotes
++
++        today = cash_session_date()
++        missing = sorted({
++            pick.ticker for pick in picks
++            if pick.as_of == today.isoformat() and not pick.scan_id
++            and pick.session_return is None
++        })
++        if missing:
++            closes = fetch_polygon_closing_quotes(missing, as_of=today)
++            picks = with_current_close_quotes(picks, today, closes)
+     return PaperBookResponse(
+         **paper_book_view(
+             picks,
+@@ -405,18 +424,22 @@ def get_positions() -> PositionsResponse:
+         {row["ticker"] for row in summaries if not row["closed"] and row["shares"] > 0}
+     )
+     quotes = fetch_ticker_quotes(open_tickers) if open_tickers else {}
+-    from stock_picker.ingestion.session import last_completed_session_date, session_has_closed
++    from stock_picker.ingestion.polygon_client import fetch_polygon_closing_quotes
++    from stock_picker.ingestion.session import cash_session_date, cash_session_has_ended
+ 
+     hold_quotes: dict[str, dict] = {}
+-    if session_has_closed():
+-        today = last_completed_session_date().isoformat()
++    hold_through = None
++    if cash_session_has_ended():
++        hold_through = cash_session_date()
++        today = hold_through.isoformat()
+         closed_today = sorted(
+             {row["ticker"] for row in summaries if row.get("day") == today}
+         )
+         if closed_today:
+-            hold_quotes = fetch_ticker_quotes(closed_today)
++            hold_quotes = fetch_polygon_closing_quotes(closed_today, as_of=hold_through)
+     positions = apply_hold_to_close(
+         summaries if not quotes else position_summaries(trades, quotes),
++        completed_through=hold_through,
+         live_quotes=hold_quotes or None,
+     )
+     return PositionsResponse(
+diff --git a/python/stock_picker/api/tests/test_routes.py b/python/stock_picker/api/tests/test_routes.py
+index 54755176e..f8bb331df 100644
+--- a/python/stock_picker/api/tests/test_routes.py
++++ b/python/stock_picker/api/tests/test_routes.py
+@@ -794,6 +794,53 @@ def test_get_positions(client):
+     assert positions["BBB"]["pnl"] is None
+ 
+ 
++def test_get_positions_fills_todays_close_at_the_bell(client, tmp_path):
++    from stock_picker.storage.price_store import PriceStore
++
++    trades = pd.DataFrame([
++        {"ticker": "AAA", "side": "buy", "shares": 10, "price": 10.0,
++         "executed_at": "2026-10-06T09:35:00-04:00"},
++        {"ticker": "AAA", "side": "sell", "shares": 10, "price": 10.5,
++         "executed_at": "2026-10-06T10:00:00-04:00"},
++    ])
++    with (
++        patch("stock_picker.api.routes.trade_log", return_value=trades),
++        patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=True),
++        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 6)),
++        patch("stock_picker.ingestion.polygon_client.fetch_polygon_closing_quotes",
++              return_value={"AAA": {"open": 10.0, "last": 11.0}}) as closing_quotes,
++        patch("stock_picker.features.hold_to_close.PriceStore", return_value=PriceStore(tmp_path)),
++    ):
++        response = client.get("/api/positions")
++
++    assert response.status_code == status.HTTP_200_OK
++    assert response.json()["positions"][0]["hold_close_price"] == 11.0
++    closing_quotes.assert_called_once_with(["AAA"], as_of=date(2026, 10, 6))
++
++
++def test_get_paper_book_fills_todays_close_without_rebuilding(client):
++    from stock_picker.storage.paper_book_store import PaperPick
++
++    picks = [
++        PaperPick("2026-10-06", "fit", 1, "KOD", 0.0177, 92.86, None, None),
++        PaperPick("2026-10-05", "fit", 1, "OLD", 0.01, 10.0, 11.0, 0.1),
++    ]
++    with (
++        patch("stock_picker.api.routes.load_paper_book", return_value=picks),
++        patch("stock_picker.ingestion.session.cash_session_has_ended", return_value=True),
++        patch("stock_picker.ingestion.session.cash_session_date", return_value=date(2026, 10, 6)),
++        patch("stock_picker.ingestion.polygon_client.fetch_polygon_closing_quotes",
++              return_value={"KOD": {"open": 92.86, "last": 93.10}}) as closing_quotes,
++    ):
++        response = client.get("/api/paper-book", params={"kind": "fit", "top_k": 5})
++
++    assert response.status_code == status.HTTP_200_OK
++    rows = {day["as_of"]: day["fit"] for day in response.json()["days"]}
++    assert rows["2026-10-06"][0]["close_price"] == 93.10
++    assert rows["2026-10-05"][0]["close_price"] == 11.0
++    closing_quotes.assert_called_once_with(["KOD"], as_of=date(2026, 10, 6))
++
++
+ def test_get_price_history_daily(client):
+     response = client.get("/api/prices/AAA")
+ 
+diff --git a/python/stock_picker/features/hold_to_close.py b/python/stock_picker/features/hold_to_close.py
+index d63185878..545e6e996 100644
+--- a/python/stock_picker/features/hold_to_close.py
++++ b/python/stock_picker/features/hold_to_close.py
+@@ -4,8 +4,8 @@ Not "your fill vs the close". 8:40 CT is 9:40 ET (ten minutes after the
+ bell); 2:55 CT is 15:55 ET (five minutes before the close). Daily Open and
+ Close are the stored prints for that window -- we do not refetch 1-minute
+ bars. Only shares bought before 9:00 AM CT qualify. In-progress today stays blank until
+-the session settles; after the bell, a live snapshot fills until nightly
+-writes today's bar.
++the cash session ends; today's aggregate close fills until nightly writes
++the settled bar.
+ """
+ 
+ from __future__ import annotations
+@@ -86,7 +86,7 @@ def apply_hold_to_close(
+ 
+     Only pre-9 AM CT buys count; prices from each buy session's Open and Close,
+     not the actual fill. In-progress sessions stay None. After the bell,
+-    if today's bar is not on disk yet, `live_quotes` (open/last) fills
++    if today's bar is not on disk yet, `live_quotes` (open/day close) fills
+     the same cells until nightly writes the bar. Close remains visible even
+     for excluded lots; only the counterfactual P&L and its capital are filtered.
+     """
+diff --git a/python/stock_picker/ingestion/polygon_client.py b/python/stock_picker/ingestion/polygon_client.py
+index 0d3e4d9a8..a6b86a948 100644
+--- a/python/stock_picker/ingestion/polygon_client.py
++++ b/python/stock_picker/ingestion/polygon_client.py
+@@ -171,6 +171,31 @@ def quotes_from_polygon_snapshot(
+     return quotes
+ 
+ 
++def closing_quotes_from_polygon_snapshot(
++    raw_tickers: list[dict], wanted: set[str], as_of: date
++) -> dict[str, dict]:
++    """Use today's aggregate close, never a later after-hours last trade."""
++    quotes = {}
++    for item in raw_tickers:
++        ticker = _matched_ticker(item, wanted)
++        if ticker is None or _item_session_date(item) != as_of:
++            continue
++        day = item.get("day") or {}
++        open_price = _finite_positive(day.get("o"))
++        close_price = _finite_positive(day.get("c"))
++        if open_price is not None and close_price is not None:
++            quotes[ticker] = {"open": open_price, "last": close_price}
++    return quotes
++
++
++def fetch_polygon_closing_quotes(tickers: list[str], as_of: date) -> dict[str, dict]:
++    """One paid snapshot for post-bell display until the settled bar is stored."""
++    key = polygon_api_key()
++    if not key or not tickers:
++        return {}
++    return closing_quotes_from_polygon_snapshot(fetch_polygon_snapshot(key), set(tickers), as_of)
++
++
+ def snapshot_rejection_counts(raw_tickers: list[dict], wanted: set[str], as_of: date) -> dict[str, int]:
+     """Explain why a nonempty paid snapshot did not fill the requested names."""
+     matched = {}
+diff --git a/python/stock_picker/ingestion/session.py b/python/stock_picker/ingestion/session.py
+index 56eb6634a..775d8c071 100644
+--- a/python/stock_picker/ingestion/session.py
++++ b/python/stock_picker/ingestion/session.py
+@@ -7,7 +7,7 @@ Features and training must stop at the last *finished* session -- after
+ 
+ from __future__ import annotations
+ 
+-from datetime import date, datetime, timedelta
++from datetime import date, datetime, time, timedelta
+ from zoneinfo import ZoneInfo
+ 
+ import pandas as pd
+@@ -45,6 +45,15 @@ def session_has_closed(now: datetime | None = None) -> bool:
+     )
+ 
+ 
++def cash_session_has_ended(now: datetime | None = None) -> bool:
++    """True at the 16:00 ET bell; display-only closes need not wait for settlement.
++
++    Training and stored daily bars still use the stricter `session_has_closed`.
++    """
++    clock = _eastern(now)
++    return clock.date().weekday() >= 5 or clock.time() >= time(SESSION_CLOSE_HOUR)
++
++
+ def last_completed_session_date(now: datetime | None = None) -> date:
+     """Most recent weekday whose regular session has closed (plus settle)."""
+     clock = _eastern(now)
+diff --git a/python/stock_picker/ingestion/tests/test_polygon_client.py b/python/stock_picker/ingestion/tests/test_polygon_client.py
+index 1baa92089..095420845 100644
+--- a/python/stock_picker/ingestion/tests/test_polygon_client.py
++++ b/python/stock_picker/ingestion/tests/test_polygon_client.py
+@@ -3,6 +3,7 @@ from unittest.mock import patch
+ from zoneinfo import ZoneInfo
+ 
+ from stock_picker.ingestion.polygon_client import (
++    closing_quotes_from_polygon_snapshot,
+     fetch_polygon_quotes,
+     polygon_api_key,
+     quotes_from_polygon_snapshot,
+@@ -39,6 +40,26 @@ def test_quotes_from_polygon_snapshot_uses_today_day_open():
+     assert quotes == {"SIG": {"open": 103.47, "last": 96.07, "prev_close": 102.48}}
+ 
+ 
++def test_closing_snapshot_uses_day_close_not_after_hours_last_trade():
++    raw = [
++        {
++            "ticker": "WDC",
++            "updated": _ns(2026, 10, 6, 16, 11),
++            "day": {"o": 426.60, "c": 411.04},
++            "lastTrade": {"p": 411.60, "t": _ns(2026, 10, 6, 16, 11)},
++        },
++        {
++            "ticker": "ALHC",
++            "updated": _ns(2026, 10, 5, 16, 11),
++            "day": {"o": 8.44, "c": 8.37},
++        },
++    ]
++
++    assert closing_quotes_from_polygon_snapshot(raw, {"WDC", "ALHC"}, date(2026, 10, 6)) == {
++        "WDC": {"open": 426.60, "last": 411.04}
++    }
++
++
+ def test_quotes_from_polygon_snapshot_maps_class_shares_to_universe_symbols():
+     raw = [
+         {
+diff --git a/python/stock_picker/ingestion/tests/test_session.py b/python/stock_picker/ingestion/tests/test_session.py
+index f3265dd80..47c5ee926 100644
+--- a/python/stock_picker/ingestion/tests/test_session.py
++++ b/python/stock_picker/ingestion/tests/test_session.py
+@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
+ import pandas as pd
+ 
+ from stock_picker.ingestion.session import (
++    cash_session_has_ended,
+     cash_session_date,
+     completed_sessions,
+     last_completed_session_date,
+@@ -32,6 +33,14 @@ def test_session_has_closed_after_settle():
+     assert session_has_closed(datetime(2026, 9, 24, 15, 59, tzinfo=ET)) is False
+ 
+ 
++def test_display_close_starts_at_bell_without_advancing_training_cutoff():
++    before = datetime(2026, 9, 24, 15, 59, tzinfo=ET)
++    at_bell = datetime(2026, 9, 24, 16, 0, tzinfo=ET)
++    assert cash_session_has_ended(before) is False
++    assert cash_session_has_ended(at_bell) is True
++    assert session_has_closed(at_bell) is False
++
++
+ def test_before_the_bell_uses_the_previous_weekday():
+     # Thursday 08:47 ET -- today's bar is still in progress.
+     now = datetime(2026, 9, 10, 8, 47, tzinfo=ET)
+diff --git a/python/stock_picker/paper/book.py b/python/stock_picker/paper/book.py
+index 3eacce925..2086dfedb 100644
+--- a/python/stock_picker/paper/book.py
++++ b/python/stock_picker/paper/book.py
+@@ -7,6 +7,7 @@ list so the What if tab can slice without another rebuild.
+ 
+ from __future__ import annotations
+ 
++from dataclasses import replace
+ from datetime import date
+ 
+ import pandas as pd
+@@ -271,11 +272,40 @@ def _missing_prev_close_for_news(picks: list[PaperPick]) -> bool:
+ 
+ 
+ def load_paper_book(paper_store: PaperBookStore | None = None) -> list[PaperPick]:
+-    """SQLite only. Never Yahoo on a GET -- 990 names would hang What if."""
++    """Read stored picks; live current-day close enrichment happens in the API."""
+     book = paper_store if paper_store is not None else PaperBookStore()
+     return book.read()
+ 
+ 
++def with_current_close_quotes(
++    picks: list[PaperPick], as_of: date, quotes: dict[str, dict]
++) -> list[PaperPick]:
++    """Overlay post-bell closes on today's live picks without rewriting history.
++
++    Replay rows and prior sessions must keep their stored outcomes. The scan's
++    recorded opening price wins over the quote's open.
++    """
++    today = as_of.isoformat()
++    updated = []
++    for pick in picks:
++        if pick.as_of != today or pick.scan_id or pick.session_return is not None:
++            updated.append(pick)
++            continue
++        quote = quotes.get(pick.ticker) or {}
++        open_price = pick.open_price or quote.get("open")
++        close_price = pick.close_price or quote.get("last")
++        if not open_price or not close_price or open_price <= 0 or close_price <= 0:
++            updated.append(pick)
++            continue
++        updated.append(replace(
++            pick,
++            open_price=float(open_price),
++            close_price=float(close_price),
++            session_return=float(close_price) / float(open_price) - 1.0,
++        ))
++    return updated
++
++
+ def refresh_paper_book(
+     scan_store: ScanStore | None = None,
+     price_store: PriceStore | None = None,
+diff --git a/python/stock_picker/paper/tests/test_book.py b/python/stock_picker/paper/tests/test_book.py
+index e3bd81b84..0758f30ec 100644
+--- a/python/stock_picker/paper/tests/test_book.py
++++ b/python/stock_picker/paper/tests/test_book.py
+@@ -2,7 +2,9 @@ from datetime import date
+ 
+ import pandas as pd
+ 
+-from stock_picker.paper.book import load_paper_book, paper_book_view, rebuild_paper_book
++from stock_picker.paper.book import (
++    load_paper_book, paper_book_view, rebuild_paper_book, with_current_close_quotes,
++)
+ from stock_picker.storage.paper_book_store import PaperBookStore, PaperPick
+ from stock_picker.storage.price_store import PriceStore
+ from stock_picker.storage.scan_store import ScanStore
+@@ -110,6 +112,27 @@ def test_load_paper_book_does_not_rebuild(tmp_path):
+     assert load_paper_book(paper_store=book) == []
+ 
+ 
++def test_current_close_overlay_only_updates_pending_live_picks():
++    today = date(2026, 10, 6)
++    pending = PaperPick("2026-10-06", "fit", 1, "KOD", 0.01, 92.86, None, None)
++    replay = PaperPick("2026-10-06", "fit", 1, "KOD", 0.01, 92.86, None, None,
++                       scan_id="replay-1")
++    prior = PaperPick("2026-10-05", "fit", 1, "KOD", 0.01, 90.0, None, None)
++    settled = PaperPick("2026-10-06", "rank", 1, "WDC", 0.02, 426.6, 410.0,
++                        410.0 / 426.6 - 1)
++
++    result = with_current_close_quotes(
++        [pending, replay, prior, settled], today,
++        {"KOD": {"open": 999.0, "last": 93.10}, "WDC": {"open": 426.6, "last": 411.04}},
++    )
++
++    assert result[0].open_price == 92.86  # Keep the actual scan open.
++    assert result[0].close_price == 93.10
++    assert result[0].session_return == 93.10 / 92.86 - 1
++    assert result[1:] == [replay, prior, settled]
++    assert pending.close_price is None  # Do not mutate the stored pick.
++
++
+ def test_rebuild_one_completed_day_preserves_history_and_replays(tmp_path):
+     scans = ScanStore(data_dir=tmp_path / "scans")
+     scans.write(
+diff --git a/python/stock_picker/training/morning.py b/python/stock_picker/training/morning.py
+index 4af396330..bbe2ecfe3 100644
+--- a/python/stock_picker/training/morning.py
++++ b/python/stock_picker/training/morning.py
+@@ -9,14 +9,14 @@ from __future__ import annotations
+ import fcntl
+ from concurrent.futures import ThreadPoolExecutor
+ import time
+-from datetime import date, datetime
++from datetime import date, datetime, time as clock_time, timedelta
+ from pathlib import Path
+ 
+ from stock_picker.ingestion.session import CHICAGO_TIMEZONE, session_has_closed
+ from stock_picker.log import get_logger
+ 
+ from stock_picker.features.earnings import fetch_recent_earnings_tickers
+-from stock_picker.ingestion.quote_providers import fetch_morning_quotes, wait_for_morning_snapshot
++from stock_picker.ingestion.quote_providers import fetch_morning_quotes, fetch_quotes, wait_for_morning_snapshot
+ from stock_picker.storage.feature_store import FeatureStore
+ from stock_picker.storage.price_store import PriceStore
+ from stock_picker.storage.universe_store import UniverseStore
+@@ -59,6 +59,8 @@ _LOCK_PATH = data_root() / "buy_signals" / "morning.lock"
+ # paint costs one parallel news wave (~5s), not one covering every pick.
+ RANK_FIRST_NEWS = 4
+ FIT_FIRST_NEWS = 2
++MORNING_RECOVERY_TIMES = (clock_time(8, 40), clock_time(8, 45))
++RECOVERABLE_SKIP_REASONS = frozenset({"no live quote available", "no previous close available"})
+ 
+ 
+ def _try_lock_morning():
+@@ -386,6 +388,106 @@ def score_from_quotes(
+     return freshness, rank_result, result, rank_n, rank_text
+ 
+ 
++def recover_missing_morning_quotes(
++    quotes: dict[str, dict],
++    rank_result,
++    fit_result,
++    threshold: float,
++    *,
++    model_run_id: str | None = None,
++    now_fn=None,
++    sleep_fn=time.sleep,
++) -> None:
++    """Retry only quote gaps after first publication, then rescore all names.
++
++    Rescoring the full open-known matrix keeps cross-sectional features and
++    rank positions comparable. The first result remains visible throughout;
++    only a completed second result is written. Earnings and other deliberate
++    exclusions are never retried as quote failures.
++    """
++    now = now_fn or (lambda: datetime.now(CHICAGO_TIMEZONE))
++    as_of = date.fromisoformat(fit_result.as_of)
++    if as_of != now().date():
++        return
++    missing = {
++        item["ticker"] for item in fit_result.skipped
++        if item.get("reason") in RECOVERABLE_SKIP_REASONS and item.get("ticker")
++    }
++    if not missing:
++        return
++
++    # The initial checks are decisions made at morning time. Reuse them when
++    # rescoring so a later feed/LLM failure cannot silently change old picks.
++    news_cache = {
++        signal.ticker: NewsCheck(**signal.news_check)
++        for signal in [*(rank_result.signals if rank_result else []), *fit_result.signals]
++        if signal.news_check
++    }
++
++    def cached_news_fetcher(names: list[str], day: date) -> dict[str, NewsCheck]:
++        fresh = [name for name in names if name not in news_cache]
++        if fresh:
++            news_cache.update(fetch_recent_news_checks(fresh, day) or {})
++        return {name: news_cache[name] for name in names if name in news_cache}
++
++    final_at = datetime.combine(as_of, MORNING_RECOVERY_TIMES[-1], CHICAGO_TIMEZONE) + timedelta(minutes=1)
++    for retry_time in MORNING_RECOVERY_TIMES:
++        if not missing or now() > final_at:
++            break
++        target = datetime.combine(as_of, retry_time, CHICAGO_TIMEZONE)
++        remaining = (target - now()).total_seconds()
++        if remaining > 0:
++            sleep_fn(remaining)
++        if now() > final_at:
++            break
++        try:
++            recovered = fetch_quotes(sorted(missing), as_of=as_of)
++        except Exception:
++            logger.exception("morning quote recovery failed")
++            continue
++        recovered = {ticker: quote for ticker, quote in recovered.items() if ticker in missing}
++        if not recovered:
++            logger.info("morning quote recovery found no new opens; missing=%s", len(missing))
++            continue
++        candidate_quotes = {**quotes, **recovered}
++        try:
++            freshness, next_rank, next_fit, _, _ = score_from_quotes(
++                candidate_quotes,
++                threshold=threshold,
++                persist=False,
++                news_fetcher=cached_news_fetcher,
++                as_of=as_of,
++                model_run_id=model_run_id,
++            )
++        except Exception:
++            logger.exception("morning quote recovery rescore failed")
++            continue
++        if next_rank is None and rank_result is not None:
++            logger.warning("morning quote recovery rank failed; retaining original scan")
++            continue
++
++        rank_text = ""
++        if next_rank is not None:
++            rank_payload = _payload_from(next_rank, freshness)
++            rank_payload["kind"] = "rank"
++            _write_signals(rank_payload, next_rank.as_of)
++            rank_text = format_rank_picks(rank_payload, k=RANK_TOP_K)
++        fit_payload = _payload_from(next_fit, freshness)
++        _write_signals(fit_payload, next_fit.as_of)
++        _, fit_body = format_picks_email(fit_payload)
++        publish_picks(as_of.isoformat(), rank_text + "\n" + fit_body if rank_text else fit_body)
++        quotes = candidate_quotes
++        rank_result, fit_result = next_rank, next_fit
++        missing = {
++            item["ticker"] for item in fit_result.skipped
++            if item.get("reason") in RECOVERABLE_SKIP_REASONS and item.get("ticker")
++        }
++        logger.info(
++            "morning recovery added=%s scored=%s still_missing=%s",
++            len(recovered), fit_result.scored_count, len(missing),
++        )
++
++
+ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = False) -> int:
+     started = datetime.now(CHICAGO_TIMEZONE)
+     logger.info("morning start %s", started.isoformat())
+@@ -419,8 +521,9 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
+     try:
+         quotes = fetch_morning_quotes(UniverseStore().active_tickers())
+         logger.info("quotes=%s", len(quotes))
++        model_run_id = TrainingConfigStore().read().selected_run_id
+         freshness, rank_result, result, rank_n, rank_text = score_from_quotes(
+-            quotes, threshold=threshold, persist=True
++            quotes, threshold=threshold, persist=True, model_run_id=model_run_id
+         )
+         payload = _payload_from(result, freshness)
+         path = DEFAULT_SIGNAL_DIR / f"{result.as_of}.json"
+@@ -438,6 +541,12 @@ def run_morning(threshold: float = DEFAULT_THRESHOLD, ignore_disabled: bool = Fa
+             published,
+             mailed,
+         )
++        try:
++            recover_missing_morning_quotes(
++                quotes, rank_result, result, threshold, model_run_id=model_run_id
++            )
++        except Exception:
++            logger.exception("morning quote recovery failed after the initial publish")
+         logger.info("morning done %s", datetime.now(CHICAGO_TIMEZONE).isoformat())
+     finally:
+         lock.close()
+diff --git a/python/stock_picker/training/tests/test_morning_run.py b/python/stock_picker/training/tests/test_morning_run.py
+index 117c94b67..a0736883d 100644
+--- a/python/stock_picker/training/tests/test_morning_run.py
++++ b/python/stock_picker/training/tests/test_morning_run.py
+@@ -1,5 +1,6 @@
++from dataclasses import asdict
+ from types import SimpleNamespace
+-from datetime import date
++from datetime import date, datetime, timedelta
+ 
+ from stock_picker.training import morning as m
+ from stock_picker.news_check import NewsCheck
+@@ -44,6 +45,7 @@ def test_run_morning_skips_when_8_32_job_is_disabled(tmp_path, monkeypatch):
+ 
+ def test_run_morning_skips_scheduled_run_when_today_already_scored(tmp_path, monkeypatch):
+     monkeypatch.setattr(m, "_LOCK_PATH", tmp_path / "morning.lock")
++    monkeypatch.setattr(m, "wait_for_morning_snapshot", lambda: None)
+     monkeypatch.setattr(
+         m,
+         "pipeline_freshness",
+@@ -52,7 +54,7 @@ def test_run_morning_skips_scheduled_run_when_today_already_scored(tmp_path, mon
+     monkeypatch.setattr(
+         m,
+         "TrainingConfigStore",
+-        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
++        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True, selected_run_id=None)),
+     )
+     monkeypatch.setattr(m, "load_cached_signals", lambda kind="fit": {"as_of": "2026-09-25"} if kind == "rank" else None)
+     quotes_called = []
+@@ -72,7 +74,7 @@ def test_run_morning_skips_when_a_scan_is_already_running(tmp_path, monkeypatch)
+     monkeypatch.setattr(
+         m,
+         "TrainingConfigStore",
+-        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
++        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True, selected_run_id=None)),
+     )
+     monkeypatch.setattr(m, "load_cached_signals", lambda **k: None)
+     quotes_called = []
+@@ -113,6 +115,81 @@ def test_later_successful_news_batches_are_saved_even_without_flags(monkeypatch)
+     assert all(row["news_check"]["status"] == "no_news" for row in ranks[-1]["signals"])
+ 
+ 
++def test_quote_recovery_rescores_full_universe_and_preserves_news(monkeypatch):
++    current = datetime(2026, 10, 6, 8, 39, tzinfo=m.CHICAGO_TIMEZONE)
++
++    def now():
++        return current
++
++    def sleep(seconds):
++        nonlocal current
++        current += timedelta(seconds=seconds)
++
++    checked = asdict(NewsCheck(status="no_news", article_count=0, reviewed_count=0))
++    old_signal = BuySignal("AAA", 0.3, 10.0, "2026-10-05", news_check=checked)
++    skipped = [
++        {"ticker": "BBB", "reason": "no live quote available"},
++        {"ticker": "CCC", "reason": "earnings on or since the prior session -- news day, not a pattern day"},
++    ]
++    old_rank = BuySignalResult("2026-10-06", 0, [old_signal], 1, skipped)
++    old_fit = BuySignalResult("2026-10-06", 0.005, [old_signal], 1, skipped)
++    fetched = []
++    monkeypatch.setattr(m, "fetch_quotes", lambda names, as_of: fetched.append(names) or {
++        "BBB": {"open": 20.0, "last": 20.0, "prev_close": 21.0}
++    })
++    new_news = []
++    monkeypatch.setattr(m, "fetch_recent_news_checks", lambda names, day: (
++        new_news.extend(names) or {name: NewsCheck(status="no_news") for name in names}
++    ))
++    rescored = []
++
++    def score(quotes, **kwargs):
++        rescored.append((quotes, kwargs))
++        checks = kwargs["news_fetcher"](["AAA", "BBB"], date(2026, 10, 6))
++        assert checks["AAA"].status == "no_news"
++        assert checks["BBB"].status == "no_news"
++        fresh_signal = BuySignal("BBB", 0.4, 20.0, "2026-10-05", news_check=asdict(checks["BBB"]))
++        rank = BuySignalResult("2026-10-06", 0, [fresh_signal, old_signal], 2, skipped[1:])
++        fit = BuySignalResult("2026-10-06", 0.005, [fresh_signal, old_signal], 2, skipped[1:])
++        freshness = SimpleNamespace(feature_snapshot_date="2026-10-05",
++                                    model_trained_through="2026-10-05",
++                                    ready_for_inference=True, detail="ready")
++        return freshness, rank, fit, 2, ""
++
++    monkeypatch.setattr(m, "score_from_quotes", score)
++    saved = []
++    monkeypatch.setattr(m, "_write_signals", lambda payload, *_: saved.append(payload))
++    published = []
++    monkeypatch.setattr(m, "publish_picks", lambda day, body: published.append((day, body)))
++
++    m.recover_missing_morning_quotes(
++        {"AAA": {"open": 10.0, "last": 10.0, "prev_close": 11.0}},
++        old_rank, old_fit, 0.005, model_run_id="run-1", now_fn=now, sleep_fn=sleep,
++    )
++
++    assert fetched == [["BBB"]]
++    assert new_news == ["BBB"]
++    assert rescored[0][1]["persist"] is False
++    assert rescored[0][1]["model_run_id"] == "run-1"
++    assert set(rescored[0][0]) == {"AAA", "BBB"}
++    assert [row["ticker"] for row in saved[0]["signals"]] == ["BBB", "AAA"]
++    assert saved[1]["scored_count"] == 2
++    assert saved[1]["skipped"] == skipped[1:]
++    assert len(published) == 1
++
++
++def test_quote_recovery_does_not_retry_earnings_exclusions(monkeypatch):
++    result = BuySignalResult("2026-10-06", 0.005, [], 1, [
++        {"ticker": "CCC", "reason": "earnings on or since the prior session -- news day, not a pattern day"}
++    ])
++    monkeypatch.setattr(m, "fetch_quotes", lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError()))
++    m.recover_missing_morning_quotes(
++        {}, result, result, 0.005,
++        now_fn=lambda: datetime(2026, 10, 6, 8, 39, tzinfo=m.CHICAGO_TIMEZONE),
++        sleep_fn=lambda _: (_ for _ in ()).throw(AssertionError()),
++    )
++
++
+ 
+ def test_run_morning_ingests_universe_news_after_releasing_the_lock(tmp_path, monkeypatch):
+     monkeypatch.setattr(m, "_LOCK_PATH", tmp_path / "morning.lock")
+@@ -124,7 +201,7 @@ def test_run_morning_ingests_universe_news_after_releasing_the_lock(tmp_path, mo
+     monkeypatch.setattr(
+         m,
+         "TrainingConfigStore",
+-        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
++        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True, selected_run_id=None)),
+     )
+     monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: ["AAPL"]))
+     monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
+@@ -166,7 +243,7 @@ def test_run_morning_still_succeeds_if_universe_news_ingest_fails(tmp_path, monk
+     monkeypatch.setattr(
+         m,
+         "TrainingConfigStore",
+-        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True)),
++        lambda: SimpleNamespace(read=lambda: SimpleNamespace(morning_job_enabled=True, selected_run_id=None)),
+     )
+     monkeypatch.setattr(m, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: ["AAPL"]))
+     monkeypatch.setattr(m, "fetch_morning_quotes", lambda *a, **k: {"AAPL": {"open": 1}})
+diff --git a/typescript/src/components/BuySignal.tsx b/typescript/src/components/BuySignal.tsx
+index 7956869e6..0d716266e 100644
+--- a/typescript/src/components/BuySignal.tsx
++++ b/typescript/src/components/BuySignal.tsx
+@@ -202,10 +202,12 @@ export default function BuySignal() {
+         .catch(() => undefined);
+     }
+     load();
+-    const intervalId = scanStatus?.status === "running" ? setInterval(load, 2000) : undefined;
++    // The scheduled scan runs in a separate process, so its status here can
++    // stay idle while a late valid open is merged into the published ranking.
++    const intervalId = setInterval(load, scanStatus?.status === "running" ? 2000 : 60_000);
+     return () => {
+       cancelled = true;
+-      if (intervalId) clearInterval(intervalId);
++      clearInterval(intervalId);
+     };
+   }, [thresholdPct, scanStatus?.status, scanStatus?.completed_at]);
+ 
+diff --git a/typescript/src/components/WhatIf.tsx b/typescript/src/components/WhatIf.tsx
+index 2c18392c1..5fa2cab89 100644
+--- a/typescript/src/components/WhatIf.tsx
++++ b/typescript/src/components/WhatIf.tsx
+@@ -381,7 +381,9 @@ export default function WhatIf() {
+   const [replayDay, setReplayDay] = useState("");
+   const [replayModel, setReplayModel] = useState("live");
+   const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
+-  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), { deps: [refresh] });
++  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
++    deps: [refresh], intervalMs: 60_000,
++  });
+   const { data: trainingRuns } = useFetchData(fetchTrainingRuns, { deps: [] });
+   const rankAsked = rankOn ? parseTop(rankText) : undefined;
+   const fitAsked = fitOn ? parseTop(fitText) : undefined;

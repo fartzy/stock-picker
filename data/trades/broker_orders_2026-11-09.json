@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-11-09",
+  "source": "Fidelity user-pasted confirmations; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Only executed shares are logged. Manual fee is the difference between gross execution proceeds and broker net proceeds. Price improvement is informational and already reflected in execution prices.",
+  "orders": [
+    {
+      "order_number": "2FD02F27",
+      "ticker": "SLF",
+      "symbol_description": "SUN LIFE FINANCIAL INC COM NPV",
+      "side": "sell",
+      "shares": 120.0,
+      "price": 72.615,
+      "executed_at": "2026-11-09T09:32:23-05:00",
+      "broker_net_amount": 8713.62,
+      "manual_fee": 0.18,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T09:32:22-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T09:32:23-05:00",
+          "shares": 120.0,
+          "price": 72.615,
+          "broker_net_amount": 8713.62
+        }
+      ]
+    },
+    {
+      "order_number": "2FD0G55J",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 28.12,
+      "executed_at": "2026-11-09T10:10:46-05:00",
+      "broker_net_amount": 2812.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T10:10:46-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-09T10:10:46-05:00",
+          "shares": 100.0,
+          "price": 28.12,
+          "broker_net_amount": 2812.0
+        }
+      ]
+    },
+    {
+      "order_number": "2FD0N7NR",
+      "ticker": "IONS",
+      "symbol_description": "IONIS PHARMACEUTICALS INC COM",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 27.89,
+      "executed_at": "2026-11-09T10:12:51-05:00",
+      "broker_net_amount": 2788.94,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-09T10:12:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.87,
+      "executions": [
+        {
+          "executed_at": "2026-11-09T10:12:51-05:00",
+          "shares": 100.0,
+          "price": 27.89,
+          "broker_net_amount": 2788.94
+        }
+      ]
+    }
+  ]
+}

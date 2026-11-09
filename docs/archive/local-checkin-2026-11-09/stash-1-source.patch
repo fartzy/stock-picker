@@ -1,0 +1,1811 @@
+diff --git a/python/stock_picker/api/models.py b/python/stock_picker/api/models.py
+index df86a8e0b..2feb4ef7b 100644
+--- a/python/stock_picker/api/models.py
++++ b/python/stock_picker/api/models.py
+@@ -108,9 +108,13 @@ class Position(BaseModel):
+     pnl: float | None
+     # 8:40 AM CT Open -> 2:55 PM CT Close on the buy's session. None if
+     # the session is still in progress or PriceStore has no bar that day.
++    # P&L also stays None when no original buys qualify for the comparison.
+     hold_open_price: float | None = None
+     hold_close_price: float | None = None
+     hold_close_pnl: float | None = None
++    # Only original buys strictly before 9:00 AM America/Chicago qualify.
++    hold_eligible_shares: float = 0
++    hold_eligible_invested: float = 0
+ 
+ 
+ class FeeRecord(BaseModel):
+diff --git a/python/stock_picker/features/hold_to_close.py b/python/stock_picker/features/hold_to_close.py
+index 16a87bb15..d63185878 100644
+--- a/python/stock_picker/features/hold_to_close.py
++++ b/python/stock_picker/features/hold_to_close.py
+@@ -3,14 +3,14 @@
+ Not "your fill vs the close". 8:40 CT is 9:40 ET (ten minutes after the
+ bell); 2:55 CT is 15:55 ET (five minutes before the close). Daily Open and
+ Close are the stored prints for that window -- we do not refetch 1-minute
+-bars. Same share count as the lot. In-progress today stays blank until
++bars. Only shares bought before 9:00 AM CT qualify. In-progress today stays blank until
+ the session settles; after the bell, a live snapshot fills until nightly
+ writes today's bar.
+ """
+ 
+ from __future__ import annotations
+ 
+-from datetime import date
++from datetime import date, time
+ from zoneinfo import ZoneInfo
+ 
+ import pandas as pd
+@@ -18,6 +18,8 @@ import pandas as pd
+ from stock_picker.storage.price_store import PriceStore
+ 
+ _NY = ZoneInfo("America/New_York")
++_CHICAGO = ZoneInfo("America/Chicago")
++HOLD_ENTRY_CUTOFF = time(9, 0)
+ NOTIONAL_DECIMAL_PLACES = 2
+ 
+ 
+@@ -28,6 +30,19 @@ def _buy_session_day(buy_time: str | None) -> str | None:
+     return stamp.tz_convert(_NY).date().isoformat()
+ 
+ 
++def _eligible_buys(position: dict) -> list[dict]:
++    """Filter original entries in Chicago time, including DST and split exits."""
++    buys = position.get("_buy_allocations", [position])
++    eligible = []
++    for buy in buys:
++        if not buy.get("buy_time") or (buy.get("shares") or 0) <= 0:
++            continue
++        stamp = pd.to_datetime(buy["buy_time"], utc=True, format="ISO8601")
++        if stamp.tz_convert(_CHICAGO).time() < HOLD_ENTRY_CUTOFF:
++            eligible.append(buy)
++    return eligible
++
++
+ def _bar_on(history: pd.DataFrame, day: str) -> pd.Series | None:
+     if history.empty:
+         return None
+@@ -69,10 +84,11 @@ def apply_hold_to_close(
+ ) -> list[dict]:
+     """Add 8:40 CT Open / 2:55 CT Close P&L on each lot.
+ 
+-    Share count from the lot; prices from that session's Open and Close,
++    Only pre-9 AM CT buys count; prices from each buy session's Open and Close,
+     not the actual fill. In-progress sessions stay None. After the bell,
+     if today's bar is not on disk yet, `live_quotes` (open/last) fills
+-    the same cells until nightly writes the bar.
++    the same cells until nightly writes the bar. Close remains visible even
++    for excluded lots; only the counterfactual P&L and its capital are filtered.
+     """
+     store = price_store if price_store is not None else PriceStore()
+     if completed_through is None:
+@@ -83,36 +99,50 @@ def apply_hold_to_close(
+         cutoff = completed_through
+     quotes = live_quotes or {}
+     cache: dict[tuple[str, str], tuple[float | None, float | None]] = {}
++
++    def prices_for(ticker: str, buy_day: str) -> tuple[float | None, float | None]:
++        if date.fromisoformat(buy_day) > cutoff:
++            return None, None
++        key = (ticker, buy_day)
++        if key not in cache:
++            open_px, close_px = session_open_close(ticker, buy_day, store)
++            if (open_px is None or close_px is None) and buy_day == cutoff.isoformat():
++                quote = quotes.get(ticker) or {}
++                live_open, live_last = quote.get("open"), quote.get("last")
++                if live_open and live_last:
++                    open_px, close_px = float(live_open), float(live_last)
++            cache[key] = (open_px, close_px)
++        return cache[key]
++
+     annotated = []
+     for position in positions:
+         row = dict(position)
++        row.pop("_buy_allocations", None)
+         row["hold_open_price"] = None
+         row["hold_close_price"] = None
+         row["hold_close_pnl"] = None
++        eligible = _eligible_buys(position)
++        row["hold_eligible_shares"] = sum(buy["shares"] for buy in eligible)
++        row["hold_eligible_invested"] = round(
++            sum(buy.get("invested", 0) for buy in eligible), NOTIONAL_DECIMAL_PLACES
++        )
+         buy_day = _buy_session_day(position.get("buy_time"))
+         shares = position.get("shares") or 0.0
+         if not buy_day or shares <= 0:
+             annotated.append(row)
+             continue
+-        if cutoff is not None and date.fromisoformat(buy_day) > cutoff:
+-            annotated.append(row)
+-            continue
+-        key = (position["ticker"], buy_day)
+-        if key not in cache:
+-            open_px, close_px = session_open_close(position["ticker"], buy_day, store)
+-            if (open_px is None or close_px is None) and quotes:
+-                quote = quotes.get(position["ticker"]) or {}
+-                live_open = quote.get("open")
+-                live_last = quote.get("last")
+-                if live_open and live_last:
+-                    open_px, close_px = float(live_open), float(live_last)
+-            cache[key] = (open_px, close_px)
+-        open_px, close_px = cache[key]
+-        if open_px is None or close_px is None:
+-            annotated.append(row)
+-            continue
+-        row["hold_open_price"] = round(open_px, NOTIONAL_DECIMAL_PLACES)
+-        row["hold_close_price"] = round(close_px, NOTIONAL_DECIMAL_PLACES)
+-        row["hold_close_pnl"] = round((close_px - open_px) * shares, NOTIONAL_DECIMAL_PLACES)
++        open_px, close_px = prices_for(position["ticker"], buy_day)
++        row["hold_open_price"] = round(open_px, NOTIONAL_DECIMAL_PLACES) if open_px is not None else None
++        row["hold_close_price"] = round(close_px, NOTIONAL_DECIMAL_PLACES) if close_px is not None else None
++        pnl = 0.0
++        for buy in eligible:
++            entry_day = _buy_session_day(buy["buy_time"])
++            entry_open, entry_close = prices_for(position["ticker"], entry_day)
++            if entry_open is None or entry_close is None:
++                break  # Never publish a partial result for an incompletely priced lot.
++            pnl += (entry_close - entry_open) * buy["shares"]
++        else:
++            if eligible:
++                row["hold_close_pnl"] = round(pnl, NOTIONAL_DECIMAL_PLACES)
+         annotated.append(row)
+     return annotated
+diff --git a/python/stock_picker/features/tests/test_hold_to_close.py b/python/stock_picker/features/tests/test_hold_to_close.py
+index 97d17f620..b5b1e9b53 100644
+--- a/python/stock_picker/features/tests/test_hold_to_close.py
++++ b/python/stock_picker/features/tests/test_hold_to_close.py
+@@ -1,8 +1,10 @@
+ from datetime import date
++from math import isclose
+ 
+ import pandas as pd
+ 
+ from stock_picker.features.hold_to_close import apply_hold_to_close
++from stock_picker.features.trades import position_summaries
+ from stock_picker.storage.price_store import PriceStore
+ 
+ 
+@@ -22,7 +24,7 @@ def test_hold_to_close_is_open_to_close_not_the_actual_fill(tmp_path):
+         {
+             "ticker": "XNDU",
+             "shares": 10800,
+-            "buy_time": "2026-09-17T11:26:00-04:00",
++            "buy_time": "2026-09-17T09:40:00-04:00",
+             "buy_price": 7.65,
+             "sell_price": 7.65,
+             "pnl": 11.91,
+@@ -43,7 +45,7 @@ def test_in_progress_session_stays_blank(tmp_path):
+         {
+             "ticker": "BHVN",
+             "shares": 5790,
+-            "buy_time": "2026-09-18T10:11:00-04:00",
++            "buy_time": "2026-09-18T09:41:00-04:00",
+             "buy_price": 13.67,
+             "pnl": 427.23,
+         }
+@@ -61,7 +63,7 @@ def test_stored_bar_wins_over_live_quotes(tmp_path):
+         {
+             "ticker": "ZS",
+             "shares": 25,
+-            "buy_time": "2026-09-25T10:35:00-04:00",
++            "buy_time": "2026-09-25T09:35:00-04:00",
+             "buy_price": 194.52,
+             "pnl": 55.0,
+         }
+@@ -84,7 +86,7 @@ def test_live_quotes_fill_after_close_when_todays_bar_is_missing(tmp_path):
+         {
+             "ticker": "ZS",
+             "shares": 25,
+-            "buy_time": "2026-09-28T10:35:00-04:00",
++            "buy_time": "2026-09-28T09:35:00-04:00",
+             "buy_price": 194.52,
+             "pnl": 55.0,
+         }
+@@ -108,7 +110,7 @@ def test_missing_price_file_is_blank_not_an_error(tmp_path):
+         {
+             "ticker": "ZZZZ",
+             "shares": 10,
+-            "buy_time": "2026-09-17T10:00:00-04:00",
++            "buy_time": "2026-09-17T09:59:00-04:00",
+             "buy_price": 1.0,
+             "pnl": 0.0,
+         }
+@@ -118,3 +120,87 @@ def test_missing_price_file_is_blank_not_an_error(tmp_path):
+ 
+     assert annotated[0]["hold_close_price"] is None
+     assert annotated[0]["hold_close_pnl"] is None
++
++
++def test_cutoff_is_strictly_before_nine_chicago_in_any_offset(tmp_path):
++    store = _prices(tmp_path, "AAA", "2026-09-29", 10.0, 11.0)
++    cases = [
++        ("2026-09-29T09:59:59-04:00", True),
++        ("2026-09-29T08:59:59-05:00", True),
++        ("2026-09-29T13:59:59Z", True),
++        ("2026-09-29T10:00:00-04:00", False),
++        ("2026-09-29T09:00:00-05:00", False),
++        ("2026-09-29T14:00:00Z", False),
++        ("2026-09-29T12:25:19-04:00", False),
++    ]
++    for stamp, eligible in cases:
++        lot = {"ticker": "AAA", "shares": 10, "invested": 105, "buy_time": stamp, "pnl": 7.25}
++        row = apply_hold_to_close([lot], store, date(2026, 9, 29))[0]
++        assert row["hold_close_pnl"] == (10 if eligible else None), stamp
++        assert row["hold_eligible_shares"] == (10 if eligible else 0), stamp
++        assert row["hold_eligible_invested"] == (105 if eligible else 0), stamp
++        assert row["hold_close_price"] == 11  # Exclusion doesn't hide the Close column.
++        assert row["pnl"] == lot["pnl"]
++        assert row["invested"] == lot["invested"]
++        assert "hold_close_pnl" not in lot  # Annotation does not mutate the input.
++
++
++def test_cutoff_observes_winter_central_time(tmp_path):
++    store = _prices(tmp_path, "AAA", "2026-01-15", 10.0, 11.0)
++    for stamp, expected in [("2026-01-15T14:59:59Z", 10), ("2026-01-15T15:00:00Z", None)]:
++        lot = {"ticker": "AAA", "shares": 10, "buy_time": stamp}
++        row = apply_hold_to_close([lot], store, date(2026, 1, 15))[0]
++        assert row["hold_close_pnl"] == expected
++
++
++def test_late_overnight_entry_is_not_eligible_on_the_sell_day(tmp_path):
++    store = _prices(tmp_path, "VCYT", "2026-09-28", 45.04, 45.23)
++    lot = {
++        "ticker": "VCYT", "shares": 120, "buy_time": "2026-09-28T12:00:00-04:00",
++        "sell_time": "2026-09-29T09:36:49-04:00", "pnl": 179.4,
++    }
++    row = apply_hold_to_close([lot], store, date(2026, 9, 29))[0]
++    assert row["hold_close_pnl"] is None
++    assert row["hold_eligible_shares"] == 0
++    assert row["pnl"] == 179.4
++
++
++def test_late_add_on_preserves_early_shares_across_partial_exits(tmp_path):
++    store = _prices(tmp_path, "AAA", "2026-09-29", 10.0, 12.0)
++    trades = pd.DataFrame([
++        {"ticker": "AAA", "side": "buy", "shares": 100, "price": 10, "executed_at": "2026-09-29T09:35:00-04:00"},
++        {"ticker": "AAA", "side": "buy", "shares": 100, "price": 8, "executed_at": "2026-09-29T12:30:00-04:00"},
++        {"ticker": "AAA", "side": "sell", "shares": 50, "price": 11, "executed_at": "2026-09-29T13:00:00-04:00"},
++        {"ticker": "AAA", "side": "sell", "shares": 50, "price": 12, "executed_at": "2026-09-29T14:00:00-04:00"},
++    ])
++    positions = position_summaries(trades, {"AAA": {"last": 12}})
++    rows = apply_hold_to_close(positions, store, date(2026, 9, 29))
++    assert all(isclose(r["hold_eligible_shares"], expected) for r, expected in zip(rows, [25, 25, 50]))
++    assert [r["hold_eligible_invested"] for r in rows] == [250, 250, 500]
++    assert [r["hold_close_pnl"] for r in rows] == [50, 50, 100]
++    assert [r["pnl"] for r in rows] == [100, 150, 300]
++    for position, row in zip(positions, rows):
++        assert {key: row[key] for key in position if key != "_buy_allocations"} == {
++            key: value for key, value in position.items() if key != "_buy_allocations"
++        }
++        assert "_buy_allocations" not in row
++
++
++def test_late_reentry_after_flat_is_excluded(tmp_path):
++    store = _prices(tmp_path, "GRDN", "2026-09-29", 40.48, 40.68)
++    trades = pd.DataFrame([
++        {"ticker": "GRDN", "side": "buy", "shares": 200, "price": 40.51, "executed_at": "2026-09-29T09:35:07-04:00"},
++        {"ticker": "GRDN", "side": "sell", "shares": 200, "price": 40.765, "executed_at": "2026-09-29T10:21:13-04:00"},
++        {"ticker": "GRDN", "side": "buy", "shares": 125, "price": 40.505, "executed_at": "2026-09-29T12:25:19-04:00"},
++        {"ticker": "GRDN", "side": "sell", "shares": 125, "price": 40.71, "executed_at": "2026-09-29T12:56:42-04:00"},
++    ])
++    rows = apply_hold_to_close(position_summaries(trades, {}), store, date(2026, 9, 29))
++    assert [r["hold_close_pnl"] for r in rows] == [40, None]
++    assert [r["hold_eligible_shares"] for r in rows] == [200, 0]
++
++
++def test_unknown_entry_time_is_excluded(tmp_path):
++    lot = {"ticker": "AAA", "shares": 10, "buy_time": None}
++    row = apply_hold_to_close([lot], PriceStore(tmp_path), date(2026, 9, 29))[0]
++    assert row["hold_close_pnl"] is None
++    assert row["hold_eligible_shares"] == 0
+diff --git a/python/stock_picker/features/trades.py b/python/stock_picker/features/trades.py
+index 653bd4daf..e3af5bcfe 100644
+--- a/python/stock_picker/features/trades.py
++++ b/python/stock_picker/features/trades.py
+@@ -183,6 +183,18 @@ def trade_history(trades: pd.DataFrame) -> list[dict]:
+     return enriched
+ 
+ 
++def _allocate_buys(buys: list[dict], fraction: float) -> list[dict]:
++    """Keep entry provenance proportional to this book's average-cost matching.
++
++    Comparison rules need the original buy times, not just the latest add-on
++    shown in the table. This metadata never changes realized P&L or cost basis.
++    """
++    return [
++        {**buy, "shares": buy["shares"] * fraction, "invested": buy["invested"] * fraction}
++        for buy in buys
++    ]
++
++
+ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[dict]:
+     """One row per closed lot plus leftover open shares, walking the log in
+     time so a buy on Monday sold Tuesday is closed -- not an empty "open"
+@@ -224,6 +236,11 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
+     for row in chronological.itertuples():
+         ticker = row.ticker
+         if row.side == "buy":
++            buy = {
++                "buy_time": row.executed_at,
++                "shares": float(row.shares),
++                "invested": float(row.shares) * float(row.price),
++            }
+             lot = open_lots.get(ticker)
+             if lot is None:
+                 open_lots[ticker] = {
+@@ -231,12 +248,14 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
+                     "cost": float(row.shares) * float(row.price),
+                     "buy_time": row.executed_at,
+                     "buy_dt": row.executed_dt,
++                    "buys": [buy],
+                 }
+             else:
+                 lot["shares"] += float(row.shares)
+                 lot["cost"] += float(row.shares) * float(row.price)
+                 lot["buy_time"] = row.executed_at
+                 lot["buy_dt"] = row.executed_dt
++                lot["buys"].append(buy)
+             continue
+ 
+         lot = open_lots.get(ticker)
+@@ -262,6 +281,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
+ 
+         avg_cost = lot["cost"] / lot["shares"]
+         matched = min(sell_shares, lot["shares"])
++        fraction = matched / lot["shares"]
+         invested = avg_cost * matched
+         pnl = round((float(row.price) - avg_cost) * matched, NOTIONAL_DECIMAL_PLACES)
+         rows.append(
+@@ -281,8 +301,10 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
+                 "current_price": None,
+                 "closed": True,
+                 "pnl": pnl,
++                "_buy_allocations": _allocate_buys(lot["buys"], fraction),
+             }
+         )
++        lot["buys"] = _allocate_buys(lot["buys"], 1 - fraction)
+         lot["shares"] -= matched
+         lot["cost"] -= invested
+         if lot["shares"] <= 1e-9:
+@@ -312,6 +334,7 @@ def position_summaries(trades: pd.DataFrame, quotes: dict[str, dict]) -> list[di
+                 "sell_price": None,
+                 "closed": False,
+                 "pnl": pnl,
++                "_buy_allocations": lot["buys"],
+             }
+         )
+ 
+diff --git a/python/stock_picker/training/svr_stack_search.py b/python/stock_picker/training/svr_stack_search.py
+index 660385871..67be15ff0 100644
+--- a/python/stock_picker/training/svr_stack_search.py
++++ b/python/stock_picker/training/svr_stack_search.py
+@@ -16,19 +16,26 @@ each ask a different question. Extra SVRs are not in this search -- each
+ would add ~35-45 min nightly for a correlated return forecast.
+ 
+ Each fold fits the seven estimators on TRAIN only, attaches their
+-outputs to the TEST frame, then fits LightGBM with and without those
+-columns. Holdout tickers are never touched. Does not write production
+-pickles or touch PrunedFeatureStore.
++outputs to the TEST frame, then fits LightGBM with the full set and two
++ablations against a same-fold solo baseline. The optional --oof-train
++comparison also makes the LightGBM training columns temporal OOF: inner
++walk-forward SVM fits seed the first fold, and each outer fold's OOF test
++columns become training rows for the next fold. Both LightGBM candidates
++use the same eligible training rows in that comparison. Holdout tickers
++are never touched. Does not write production pickles or touch
++PrunedFeatureStore.
+ 
+ Promotion bar (ADR 0021): LightGBM-with-the-stacked-columns beats solo
+ LightGBM in >=3 of 4 folds on both acc and rank IC. Per-fold lists, not
+ just means. Holdout is a later, separate step if this clears.
+ 
+ Run: bazelisk run //python/stock_picker/training:svr_stack_search
++Follow-up: bazelisk run //python/stock_picker/training:svr_stack_search -- --oof-train
+ """
+ 
+ from __future__ import annotations
+ 
++import argparse
+ import time
+ 
+ import numpy as np
+@@ -53,7 +60,13 @@ from stock_picker.training.splits import select_holdout_tickers, walk_forward_sp
+ logger = get_logger(__name__)
+ 
+ N_SPLITS = 4
++OOF_SEED_SPLITS = 3
+ FIT_THRESHOLD = 0.005
++CANDIDATE_COLUMNS = {
++    "all_seven": STACKED_SVM_COLUMNS,
++    "svr_only": ("svr_oof_pred",),
++    "svc_planes_only": STACKED_SVM_COLUMNS[1:],
++}
+ 
+ 
+ def _load_pooled(tickers, price_store, feature_store):
+@@ -82,7 +95,28 @@ def _fold_metrics(pred, actual, dates):
+     }
+ 
+ 
+-def main() -> None:
++def _require_earlier_dates(fitted_on: pd.DataFrame, scored: pd.DataFrame) -> None:
++    """A stacked block can only use an SVM fitted before its first scored date."""
++    if fitted_on.empty or scored.empty or fitted_on["date"].max() >= scored["date"].min():
++        raise ValueError("stacked SVM values require strictly earlier fitting dates")
++
++
++def _oof_training_views(
++    train_frame: pd.DataFrame, oof_blocks: list[pd.DataFrame]
++) -> tuple[pd.DataFrame, pd.DataFrame]:
++    """Align solo and stacked LightGBM fits on the same historical rows."""
++    if not oof_blocks:
++        raise ValueError("OOF training requires at least one scored historical block")
++    stacked_train = pd.concat(oof_blocks)
++    if not stacked_train.index.is_unique or not stacked_train.index.isin(train_frame.index).all():
++        raise ValueError("OOF training rows must be a unique subset of the outer training frame")
++    baseline_train = train_frame.loc[stacked_train.index]
++    if not baseline_train["date"].equals(stacked_train["date"]):
++        raise ValueError("OOF training dates do not match the outer training frame")
++    return baseline_train, stacked_train
++
++
++def main(train_side_oof: bool = False) -> None:
+     started = time.time()
+     tickers = UniverseStore().active_tickers()
+     holdout = select_holdout_tickers(tickers)
+@@ -90,45 +124,116 @@ def main() -> None:
+     logger.info("train tickers=%s holdout=%s (holdout untouched)", len(train_tickers), len(holdout))
+     pooled = _load_pooled(train_tickers, PriceStore(), FeatureStore())
+     excluded = pruned_features()
+-    logger.info("rows=%s (%.1fs)", len(pooled), time.time() - started)
++    logger.info("rows=%s train_side_oof=%s (%.1fs)", len(pooled), train_side_oof, time.time() - started)
+ 
+     splits = walk_forward_splits(pooled["date"], n_splits=N_SPLITS)
++    oof_training_blocks = []
++    if train_side_oof:
++        # The first outer training block has no earlier outer fold to supply
++        # stacked columns. Three smaller chronological fits cover its later
++        # 75%; the first quarter is warm-up and is excluded from BOTH
++        # LightGBM candidates in every outer fold.
++        first_train = pooled[splits[0][0]]
++        seed_splits = walk_forward_splits(first_train["date"], n_splits=OOF_SEED_SPLITS)
++        for seed_fold, (seed_train_mask, seed_test_mask) in enumerate(seed_splits, start=1):
++            seed_train = first_train[seed_train_mask]
++            seed_test = first_train[seed_test_mask]
++            _require_earlier_dates(seed_train, seed_test)
++            logger.info(
++                "OOF seed %s/%s fit=%s through %s, score=%s from %s",
++                seed_fold,
++                OOF_SEED_SPLITS,
++                len(seed_train),
++                seed_train["date"].max(),
++                len(seed_test),
++                seed_test["date"].min(),
++            )
++            seed_estimators = fit_stacked_svm_estimators(seed_train, excluded_features=excluded)
++            oof_training_blocks.append(attach_stacked_svm_columns(seed_test, seed_estimators))
++
+     baseline_folds = []
+-    stacked_folds = []
++    candidate_folds = {name: [] for name in CANDIDATE_COLUMNS}
+     for fold, (train_mask, test_mask) in enumerate(splits, start=1):
+         train_frame = pooled[train_mask]
+         test_frame = pooled[test_mask]
++        _require_earlier_dates(train_frame, test_frame)
++        if train_side_oof:
++            baseline_train, stacked_train = _oof_training_views(train_frame, oof_training_blocks)
++        else:
++            baseline_train = train_frame
+         t0 = time.time()
+-        estimators = fit_stacked_svm_estimators(train_frame, excluded_features=excluded)
+-        t_svm = time.time()
+         logger.info(
+-            "fold %s fitted %s SVM estimators (train=%s, %.1fs)",
++            "fold %s/%s train=%s/%s through %s, test=%s from %s",
+             fold,
+-            len(estimators),
++            N_SPLITS,
++            len(baseline_train),
+             len(train_frame),
+-            t_svm - t0,
++            train_frame["date"].max(),
++            len(test_frame),
++            test_frame["date"].min(),
+         )
+-
+-        baseline = train_lightgbm(train_frame, excluded_features=excluded)
+-        stacked_train = attach_stacked_svm_columns(train_frame, estimators)
+-        stacked_test = attach_stacked_svm_columns(test_frame, estimators)
+-        # Train-side stacked columns are in-sample (same-fold SVM). LightGBM
+-        # only *sees* them at fit time so it has a column to split on; the
+-        # scored test columns are OOF (SVM fit on earlier dates). Do not
+-        # read train-side stacked metrics -- they leak.
+-        stacked = train_lightgbm(stacked_train, excluded_features=excluded)
+-
++        baseline = train_lightgbm(baseline_train, excluded_features=excluded)
+         actual = test_frame[LABEL_COLUMN]
+         dates = test_frame["date"]
+-        baseline_folds.append(_fold_metrics(pd.Series(predict(baseline, test_frame), index=test_frame.index), actual, dates))
+-        stacked_folds.append(_fold_metrics(pd.Series(predict(stacked, stacked_test), index=test_frame.index), actual, dates))
++        baseline_metrics = _fold_metrics(
++            pd.Series(predict(baseline, test_frame), index=test_frame.index), actual, dates
++        )
++        baseline_folds.append(baseline_metrics)
+         logger.info(
+-            "fold %s lightgbm baseline vs stacked (%.1fs svm, %.1fs total)",
++            "fold %s baseline acc=%.6f rank_ic=%.6f gated_n=%s gated_hit=%.6f gated_avg=%.6f (%.1fs)",
+             fold,
+-            t_svm - t0,
++            baseline_metrics["acc"],
++            baseline_metrics["rank_ic"],
++            baseline_metrics["gated_n"],
++            baseline_metrics["gated_hit"],
++            baseline_metrics["gated_avg"],
+             time.time() - t0,
+         )
+ 
++        estimators = fit_stacked_svm_estimators(train_frame, excluded_features=excluded)
++        t_svm = time.time()
++        logger.info(
++            "fold %s fitted %s SVM estimators (%.1fs elapsed)",
++            fold,
++            len(estimators),
++            t_svm - t0,
++        )
++
++        stacked_test = attach_stacked_svm_columns(test_frame, estimators)
++        if not train_side_oof:
++            # Default bake-off uses in-sample train-side SVM values so
++            # LightGBM has columns to split on. Only test-side metrics count.
++            stacked_train = attach_stacked_svm_columns(train_frame, estimators)
++        base_features = set(baseline.feature_names)
++        for name, columns in CANDIDATE_COLUMNS.items():
++            expected_features = base_features | set(columns)
++            stacked = train_lightgbm(
++                stacked_train,
++                excluded_features=excluded,
++                included_features=expected_features,
++            )
++            if set(stacked.feature_names) != expected_features:
++                raise ValueError(f"{name} did not train on its intended feature set")
++            metrics = _fold_metrics(
++                pd.Series(predict(stacked, stacked_test), index=test_frame.index), actual, dates
++            )
++            candidate_folds[name].append(metrics)
++            logger.info(
++                "fold %s %s acc=%.6f rank_ic=%.6f gated_n=%s gated_hit=%.6f gated_avg=%.6f (%.1fs total)",
++                fold,
++                name,
++                metrics["acc"],
++                metrics["rank_ic"],
++                metrics["gated_n"],
++                metrics["gated_hit"],
++                metrics["gated_avg"],
++                time.time() - t0,
++            )
++        if train_side_oof:
++            # This test block becomes historical training data next fold;
++            # its SVM values were generated from strictly earlier dates.
++            oof_training_blocks.append(stacked_test)
++
+     def _summarize(name, folds):
+         accs = [f["acc"] for f in folds]
+         ics = [f["rank_ic"] for f in folds]
+@@ -151,17 +256,24 @@ def main() -> None:
+         return accs, ics
+ 
+     base_acc, base_ic = _summarize("baseline", baseline_folds)
+-    stack_acc, stack_ic = _summarize("stacked", stacked_folds)
+-    acc_wins = sum(s > b for s, b in zip(stack_acc, base_acc))
+-    ic_wins = sum(s > b for s, b in zip(stack_ic, base_ic))
+-    logger.info(
+-        "stacked vs baseline: acc wins %s/4, rank_ic wins %s/4 (bar is >=3/4 both)",
+-        acc_wins,
+-        ic_wins,
+-    )
++    for name, folds in candidate_folds.items():
++        candidate_acc, candidate_ic = _summarize(name, folds)
++        acc_wins = sum(s > b for s, b in zip(candidate_acc, base_acc))
++        ic_wins = sum(s > b for s, b in zip(candidate_ic, base_ic))
++        logger.info(
++            "%s vs baseline: acc wins %s/%s, rank_ic wins %s/%s (bar %s)",
++            name,
++            acc_wins,
++            N_SPLITS,
++            ic_wins,
++            N_SPLITS,
++            "cleared" if acc_wins >= 3 and ic_wins >= 3 else "failed",
++        )
+     logger.info("stacked columns=%s", STACKED_SVM_COLUMNS)
+     logger.info("done %.1fs", time.time() - started)
+ 
+ 
+ if __name__ == "__main__":
+-    main()
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--oof-train", action="store_true", help="use chronological OOF SVM columns for LightGBM training rows")
++    main(train_side_oof=parser.parse_args().oof_train)
+diff --git a/python/stock_picker/training/tests/BUILD.bazel b/python/stock_picker/training/tests/BUILD.bazel
+index 0a8d98dec..538e19fd8 100644
+--- a/python/stock_picker/training/tests/BUILD.bazel
++++ b/python/stock_picker/training/tests/BUILD.bazel
+@@ -140,6 +140,16 @@ py_pytest(
+     ],
+ )
+ 
++py_pytest(
++    name = "test_svr_stack_search",
++    srcs = ["test_svr_stack_search.py"],
++    imports = ["../../.."],
++    deps = [
++        "//python/stock_picker/training",
++        "@pypi//pandas",
++    ],
++)
++
+ py_pytest(
+     name = "test_train",
+     srcs = ["test_train.py"],
+diff --git a/typescript/BUILD.bazel b/typescript/BUILD.bazel
+index 345aeddf2..e00339b26 100644
+--- a/typescript/BUILD.bazel
++++ b/typescript/BUILD.bazel
+@@ -1,10 +1,31 @@
+-load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
++load("@aspect_rules_js//js:defs.bzl", "js_run_devserver", "js_test")
+ load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+ load("@npm//:defs.bzl", "npm_link_all_packages")
+ load("@npm//typescript:vite/package_json.bzl", vite_bin = "bin")
+ 
+ npm_link_all_packages()
+ 
++# Pure calculations run with Bazel's Node toolchain; no test-framework install.
++ts_project(
++    name = "what_if_calculations",
++    srcs = ["src/api.ts", "src/whatIf.ts"],
++    declaration = False,
++    transpiler = "tsc",
++    tsconfig = {"compilerOptions": {
++        "target": "ES2022",
++        "module": "ESNext",
++        "moduleResolution": "bundler",
++        "strict": True,
++        "types": [],
++    }},
++)
++
++js_test(
++    name = "what_if_test",
++    entry_point = "tests/whatIf.test.mjs",
++    data = [":what_if_calculations", "package.json"],
++)
++
+ ts_project(
+     name = "typecheck",
+     srcs = glob([
+diff --git a/typescript/src/api.ts b/typescript/src/api.ts
+index 28bca8ee9..0188f552f 100644
+--- a/typescript/src/api.ts
++++ b/typescript/src/api.ts
+@@ -133,6 +133,8 @@ export interface Position {
+   hold_open_price?: number | null;
+   hold_close_price: number | null;
+   hold_close_pnl: number | null;
++  hold_eligible_shares: number;
++  hold_eligible_invested: number;
+ }
+ 
+ export interface PositionsResponse {
+diff --git a/typescript/src/components/StatTable.tsx b/typescript/src/components/StatTable.tsx
+index 9c895bd3b..6d3a275c8 100644
+--- a/typescript/src/components/StatTable.tsx
++++ b/typescript/src/components/StatTable.tsx
+@@ -1,4 +1,4 @@
+-import { createContext, useContext, type KeyboardEvent, type ReactNode } from "react";
++import { createContext, useContext, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+ 
+ /** Look lives in CSS: `data-appearance` plus `tone` classes. */
+ export type StatColumn = {
+@@ -10,6 +10,9 @@ export type StatColumn = {
+   hug?: boolean;
+   /** `bench` = S&P / session band; `pnl` = outer box around P&L. */
+   tone?: "bench" | "pnl";
++  /** Physical columns covered by a summary cell in a shared layout. */
++  colSpan?: number;
++  width?: CSSProperties["width"];
+ };
+ 
+ export type StatAppearance = "period" | "weeks" | "days" | (string & {});
+@@ -57,6 +60,7 @@ function Cells({
+             className={columnClass(column)}
+             data-align={columnAlign(column)}
+             data-col={column.key}
++            colSpan={column.colSpan}
+           >
+             {first === "expand" && index === 0 ? (
+               <span className="stat-expand" aria-hidden="true">
+@@ -72,13 +76,32 @@ function Cells({
+   );
+ }
+ 
++/** Reuse the same physical widths in summary and expanded detail tables. */
++export function StatColGroup({ columns }: { columns: StatColumn[] }) {
++  return (
++    <colgroup>
++      {columns.map((column) => (
++        <col
++          key={column.key}
++          className={columnClass(column)}
++          data-col={column.key}
++          span={column.colSpan}
++          style={{ width: column.width }}
++        />
++      ))}
++    </colgroup>
++  );
++}
++
+ export function StatTable({
+   columns,
++  layoutColumns = columns,
+   appearance = "period",
+   className,
+   children,
+ }: {
+   columns: StatColumn[];
++  layoutColumns?: StatColumn[];
+   appearance?: StatAppearance;
+   className?: string;
+   children: ReactNode;
+@@ -86,11 +109,7 @@ export function StatTable({
+   return (
+     <TableCtx.Provider value={columns}>
+       <table className={cx("stat-table", className)} data-appearance={appearance}>
+-        <colgroup>
+-          {columns.map((column) => (
+-            <col key={column.key} className={columnClass(column)} data-col={column.key} />
+-          ))}
+-        </colgroup>
++        <StatColGroup columns={layoutColumns} />
+         {children}
+       </table>
+     </TableCtx.Provider>
+@@ -125,7 +144,9 @@ export function StatDetail({ children }: { children: ReactNode }) {
+   return (
+     <tbody>
+       <tr className="stat-expand-body">
+-        <td colSpan={columns.length}>{children}</td>
++        <td colSpan={columns.reduce((total, column) => total + (column.colSpan ?? 1), 0)}>
++          {children}
++        </td>
+       </tr>
+     </tbody>
+   );
+diff --git a/typescript/src/components/TradeHistory.tsx b/typescript/src/components/TradeHistory.tsx
+index 10959ff84..7e289b6fa 100644
+--- a/typescript/src/components/TradeHistory.tsx
++++ b/typescript/src/components/TradeHistory.tsx
+@@ -18,6 +18,7 @@ import {
+   OPEN_LOT_COLUMNS,
+   SignedPct,
+   StatBody,
++  StatColGroup,
+   StatDetail,
+   StatExpand,
+   StatHead,
+@@ -132,12 +133,14 @@ function openNowItems(count: number, summary: PositionsSummary): StatItem[] {
+   ];
+ }
+ 
+-function holdToCloseTotal(positions: Position[]): { pnl: number; invested: number } | null {
++function holdToCloseTotal(positions: Position[]): { pnl: number; typicalInvested: number } | null {
+   const priced = positions.filter((p) => p.hold_close_pnl !== null);
+   if (priced.length === 0) return null;
+   return {
+     pnl: priced.reduce((sum, p) => sum + (p.hold_close_pnl ?? 0), 0),
+-    invested: priced.reduce((sum, p) => sum + p.invested, 0),
++    // This comparison has its own capital base: late buys must not dilute it.
++    typicalInvested: priced.reduce((sum, p) => sum + p.hold_eligible_invested, 0)
++      / new Set(priced.map((p) => p.day)).size,
+   };
+ }
+ 
+@@ -171,7 +174,7 @@ function PnlCell({
+   caption?: string;
+ }) {
+   return (
+-    <td className="trade-num">
++    <td className="trade-num lot-pnl">
+       {pnl !== null ? <Diff value={pnl} pct={invested ? pnl / invested : null} /> : "--"}
+       {caption ? <div className="muted">{caption}</div> : null}
+     </td>
+@@ -209,7 +212,8 @@ function ClosedRow({
+   const holdClosePnl = position.hold_close_pnl ?? null;
+   const holdClosePrice = position.hold_close_price ?? null;
+   const holdPct =
+-    holdClosePnl !== null && position.invested ? holdClosePnl / position.invested : null;
++    holdClosePnl !== null && position.hold_eligible_invested
++      ? holdClosePnl / position.hold_eligible_invested : null;
+   const netPnl = position.pnl !== null ? roundUsd(position.pnl - fee) : null;
+   return (
+     <tr>
+@@ -220,26 +224,28 @@ function ClosedRow({
+       <td className="trade-time">{position.sell_time ? formatStamp(position.sell_time, position.day) : "--"}</td>
+       <td className="trade-num">{position.sell_price !== null ? formatUsd(position.sell_price) : "--"}</td>
+       <PnlCell pnl={netPnl} invested={position.invested} />
+-      {showFees ? <td className="trade-num lot-fees">{fee ? formatUsd(fee) : "—"}</td> : null}
++      <td className="trade-num lot-fees" aria-hidden={!showFees || undefined}>
++        {feeAmount(fee, showFees)}
++      </td>
+       <td className="trade-num">
+         {holdClosePrice !== null ? formatUsd(holdClosePrice) : "--"}
+       </td>
+-      <td className="trade-num">
++      <td className="trade-num">{formatUsd(position.invested)}</td>
++      <td className="trade-num" title={`${position.hold_eligible_shares.toLocaleString()} shares bought before 9:00 AM CT`}>
+         {holdClosePnl !== null ? (
+           <Diff value={holdClosePnl} pct={holdPct} />
+         ) : (
+-          <span className="muted">session open</span>
++          <span className="muted">{position.hold_eligible_shares === 0 ? "Excluded" : "Awaiting close"}</span>
+         )}
+       </td>
+-      <td className="trade-num">{formatUsd(position.invested)}</td>
+     </tr>
+   );
+ }
+ 
+-function holdToCloseItem(positions: Position[], typicalOn?: number): StatItem | null {
++function holdToCloseItem(positions: Position[]): StatItem | null {
+   const total = holdToCloseTotal(positions);
+   if (total === null) return null;
+-  const denom = typicalOn || total.invested;
++  const denom = total.typicalInvested;
+   return {
+     key: "hold",
+     label: HOLD_WINDOW_LABEL,
+@@ -257,7 +263,7 @@ function dayValues(
+   showFees = false,
+ ): StatValues {
+   const summary = summarizePositions(positions);
+-  const session = holdToCloseTotal(positions);
++  const session = holdToCloseItem(positions);
+   const denom = onBooks || summary.invested;
+   const tickets = feeSum(fees, [day]);
+   const netPnl = roundUsd(summary.pnl - tickets);
+@@ -269,12 +275,7 @@ function dayValues(
+     fees: feeAmount(tickets, showFees),
+     intraday: sessionReturn !== undefined ? <SignedPct value={sessionReturn} /> : "",
+     bh: overnightReturn !== undefined ? <SignedPct value={overnightReturn} /> : "",
+-    hold:
+-      session !== null ? (
+-        <Diff value={session.pnl} pct={denom ? session.pnl / denom : null} />
+-      ) : (
+-        ""
+-      ),
++    hold: session?.value ?? "—",
+   };
+ }
+ 
+@@ -300,9 +301,6 @@ function ClosedDayGroup({
+   showFees?: boolean;
+ }) {
+   const { lotFees } = assignLotFees(positions, fees.filter((fee) => fee.day === day));
+-  const lotColumns = showFees
+-    ? CLOSED_LOT_COLUMNS
+-    : CLOSED_LOT_COLUMNS.filter((column) => column !== "Fees");
+   return (
+     <StatExpand
+       nested
+@@ -313,11 +311,18 @@ function ClosedDayGroup({
+       <StatDetail>
+         <div className="day-lots">
+           <table className="trade-table">
++            <StatColGroup columns={CLOSED_LOT_COLUMNS} />
+             <thead>
+               <tr>
+-                {lotColumns.map((column) => (
+-                  <th key={column} className={lotColumnClass(column)}>
+-                    {column}
++                {CLOSED_LOT_COLUMNS.map((column) => (
++                  <th
++                    key={column.key}
++                    scope="col"
++                    data-col={column.key}
++                    className={lotColumnClass(column.label)}
++                    aria-hidden={(column.key === "fees" && !showFees) || undefined}
++                  >
++                    {column.key === "fees" && !showFees ? "" : column.label}
+                   </th>
+                 ))}
+               </tr>
+@@ -445,7 +450,7 @@ function periodValues(
+   showFees = false,
+ ): StatValues {
+   const pctDenom = summary.typicalOn;
+-  const hold = holdToCloseItem(summary.lots, pctDenom);
++  const hold = holdToCloseItem(summary.lots);
+   const netPnl = roundUsd(summary.pnl - tickets);
+   return {
+     title: <strong>{label}</strong>,
+@@ -547,8 +552,14 @@ export default function TradeHistory() {
+             )}
+           </details>
+ 
+-          <div className="view-card">
++          <div
++            className="view-card trade-history-scroll"
++            role="region"
++            aria-label="Closed trade history"
++            tabIndex={0}
++          >
+           <StatTable
++            layoutColumns={CLOSED_LOT_COLUMNS}
+             columns={periodColumns(
+               <button
+                 type="button"
+@@ -563,7 +574,7 @@ export default function TradeHistory() {
+                 Fees
+               </button>,
+             )}
+-            className={showFees ? "is-fees-open" : "is-fees-closed"}
++            className={`trade-history-table ${showFees ? "is-fees-open" : "is-fees-closed"}`}
+           >
+             <StatHead />
+             <StatBody>
+diff --git a/typescript/src/components/WhatIf.tsx b/typescript/src/components/WhatIf.tsx
+index 0ab48f8ad..719ad2a5e 100644
+--- a/typescript/src/components/WhatIf.tsx
++++ b/typescript/src/components/WhatIf.tsx
+@@ -4,89 +4,21 @@ import {
+   fetchTrainingRuns,
+   rebuildPaperBook,
+   replayPaperBook,
+-  type PaperBookDay,
+-  type PaperBookResponse,
+   type PaperListStats,
+-  type PaperPickRow,
+   type TrainingRunRecord,
+ } from "../api";
+ import { useFetchData } from "../useFetchData";
+-import { DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
++import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
++import { Diff } from "./Diff";
++import { formatUsd } from "../format";
++import {
++  DEFAULT_TRADE_SIZE, LOOKBACK_OPTIONS, TRADE_SIZE_OPTIONS, simulateBook, simulationDay,
++  type LookbackDays, type MoneySummary, type PickKind, type PickOutcome,
++  type SimulatedDay, type SimulatedPick, type TradeSizes,
++} from "../whatIf";
+ import { StatStrip, type StatItem } from "./StatStrip";
+ import TogglePill from "./TogglePill";
+ 
+-type Kind = "fit" | "rank" | "both";
+-
+-function listStats(rows: PaperPickRow[]): PaperListStats {
+-  const flagged = rows.filter((row) => row.news_blocks);
+-  const kept = rows.filter((row) => !row.news_blocks);
+-  const rets = kept.map((row) => row.session_return).filter((value): value is number => value !== null);
+-  const nScored = rets.length;
+-  const wins = rets.filter((value) => value > 0).length;
+-  const losses = rets.filter((value) => value < 0).length;
+-  const avg = nScored ? rets.reduce((sum, value) => sum + value, 0) / nScored : null;
+-  return {
+-    n: rows.length,
+-    n_scored: nScored,
+-    wins,
+-    losses,
+-    flats: nScored - wins - losses,
+-    hit_rate: nScored ? wins / nScored : null,
+-    avg,
+-    n_avoid: flagged.length,
+-    avg_ex_news: avg,
+-  };
+-}
+-
+-function compound(avgs: number[]): number | null {
+-  if (avgs.length === 0) return null;
+-  return avgs.reduceRight((wealth, avg) => wealth * (1 + avg), 1) - 1;
+-}
+-
+-function takeTop(rows: PaperPickRow[], topK: number | undefined): PaperPickRow[] {
+-  if (topK === undefined) return rows;
+-  return rows.filter((row) => row.rank <= topK);
+-}
+-
+-function sliceBook(
+-  data: PaperBookResponse,
+-  kind: Kind,
+-  fitTopK: number | undefined,
+-  rankTopK: number | undefined,
+-): PaperBookResponse {
+-  const days = data.days.map((day) => {
+-    const fit = kind === "rank" ? [] : takeTop(day.fit, fitTopK);
+-    const rank = kind === "fit" ? [] : takeTop(day.rank, rankTopK);
+-    const fitStats = listStats(fit);
+-    const rankStats = listStats(rank);
+-    return {
+-      ...day,
+-      fit,
+-      rank,
+-      fit_avg: fitStats.avg,
+-      rank_avg: rankStats.avg,
+-      fit_stats: fitStats,
+-      rank_stats: rankStats,
+-    };
+-  });
+-  const fitRows = days.flatMap((day) => day.fit);
+-  const rankRows = days.flatMap((day) => day.rank);
+-  const fitAvgs = days.map((day) => day.fit_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
+-  const rankAvgs = days.map((day) => day.rank_stats?.avg).filter((value): value is number => value !== null && value !== undefined);
+-  return {
+-    ...data,
+-    days,
+-    fit_compound: compound(fitAvgs),
+-    rank_compound: compound(rankAvgs),
+-    fit_days: fitAvgs.length,
+-    rank_days: rankAvgs.length,
+-    fit_stats: listStats(fitRows),
+-    rank_stats: listStats(rankRows),
+-    kind,
+-    n_picks: fitRows.length + rankRows.length,
+-  };
+-}
+-
+ function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
+   const when = new Date(startedAt).toLocaleString(undefined, {
+     month: "short",
+@@ -115,6 +47,26 @@ function Pct({ value }: { value: number | null | undefined }) {
+   );
+ }
+ 
++function Dollars({ value }: { value: number | null }) {
++  return value === null ? <span className="muted">—</span> : <Diff value={value} pct={null} />;
++}
++
++function PickMoney({ outcome, ending = false }: { outcome: PickOutcome; ending?: boolean }) {
++  if (outcome.status !== "scored") {
++    return <span className="muted">{outcome.status === "skipped" ? "Skipped" : "Awaiting close"}</span>;
++  }
++  return ending ? <UsdCell value={outcome.endingValue} /> : <Dollars value={outcome.pnl} />;
++}
++
++function moneyItems(money: MoneySummary): StatItem[] {
++  return [
++    { key: "capital", label: "Completed capital", value: formatUsd(money.invested) },
++    { key: "pnl", label: "P&L", value: <Dollars value={money.pnl} /> },
++    { key: "ending", label: "End value", value: <UsdCell value={money.endingValue} /> },
++    ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
++  ];
++}
++
+ function statsItems(stats: PaperListStats | undefined): StatItem[] {
+   if (!stats || stats.n_scored === 0) return [];
+   const hit = stats.hit_rate !== null ? `${(stats.hit_rate * 100).toFixed(0)}% hit` : null;
+@@ -129,16 +81,48 @@ function statsItems(stats: PaperListStats | undefined): StatItem[] {
+   ];
+ }
+ 
++function StrategySummary({ title, topK, days, stats, money }: {
++  title: string;
++  topK: number | undefined;
++  days: number;
++  stats: PaperListStats | undefined;
++  money: MoneySummary;
++}) {
++  return (
++    <div className="view-card slice-card" aria-label={`${title} simulation total`}>
++      <div className="slice-card-kicker">
++        <StatStrip items={[
++          { key: "title", title: true, align: "start", value: title },
++          { key: "slice", align: "start", value: topK === undefined ? "all" : `top ${topK}` },
++          { key: "days", align: "start", value: `${days}d` },
++        ]} />
++      </div>
++      <div className="slice-card-avg"><Dollars value={money.pnl} /> <span className="muted">P&L</span></div>
++      <p className="view-meta">
++        <StatStrip items={[
++          { key: "names", align: "start", value: `${stats?.n ?? 0} names` },
++          ...statsItems(stats),
++          ...(money.pending ? [{ key: "pending", value: `${money.pending} awaiting close` }] : []),
++        ]} />
++      </p>
++    </div>
++  );
++}
++
+ function ListTable({
+   title,
+   rows,
+   stats,
+   isRank,
++  money,
++  dollarsPerTrade,
+ }: {
+   title: string;
+-  rows: PaperPickRow[];
++  rows: SimulatedPick[];
+   stats: PaperListStats | undefined;
+   isRank: boolean;
++  money: MoneySummary;
++  dollarsPerTrade: number;
+ }) {
+   if (rows.length === 0) {
+     return <p className="muted">{title}: no list that morning</p>;
+@@ -154,6 +138,7 @@ function ListTable({
+           ]}
+         />
+       </p>
++      <p className="view-meta"><StatStrip items={moneyItems(money)} /></p>
+       <div style={{ overflowX: "auto" }}>
+         <DataTable
+           rows={rows}
+@@ -170,6 +155,10 @@ function ListTable({
+             { key: "open", header: "Open", numeric: true, cell: (row) => <UsdCell value={row.open_price} /> },
+             { key: "close", header: "Close", numeric: true, cell: (row) => <UsdCell value={row.close_price} /> },
+             { key: "session", header: "Session", numeric: true, cell: (row) => <Pct value={row.session_return} /> },
++            { key: "pnl", header: <ColumnTitle label="P&L" hint={`${formatUsd(dollarsPerTrade)} / trade`} />, numeric: true,
++              cell: (row) => <PickMoney outcome={row.hypothetical} /> },
++            { key: "ending", header: "End value", numeric: true,
++              cell: (row) => <PickMoney outcome={row.hypothetical} ending /> },
+             { key: "news", header: "News", cell: (row) => <NewsCell flag={row.news_flag} blocks={row.news_blocks} checked={row.news_checked} /> },
+           ]}
+         />
+@@ -189,12 +178,14 @@ function DayCard({
+   rankAsked,
+   fitAsked,
+   modelLabel,
++  tradeSizes,
+ }: {
+-  day: PaperBookDay;
+-  kind: Kind;
++  day: SimulatedDay;
++  kind: PickKind;
+   rankAsked: number | undefined;
+   fitAsked: number | undefined;
+   modelLabel?: string;
++  tradeSizes: TradeSizes;
+ }) {
+   const rankNote = kind !== "fit" ? shortfallNote(rankAsked, day.rank.length, "Rank") : null;
+   const fitNote = kind !== "rank" ? shortfallNote(fitAsked, day.fit.length, "Fit") : null;
+@@ -218,7 +209,7 @@ function DayCard({
+                     label: "Rank",
+                     value: (
+                       <>
+-                        {day.rank.length} <Pct value={day.rank_avg} />
++                        {day.rank.length} <Pct value={day.rank_avg} /> · <Dollars value={day.rank_money.pnl} />
+                       </>
+                     ),
+                   },
+@@ -231,7 +222,7 @@ function DayCard({
+                     label: "Fit",
+                     value: (
+                       <>
+-                        {day.fit.length} <Pct value={day.fit_avg} />
++                        {day.fit.length} <Pct value={day.fit_avg} /> · <Dollars value={day.fit_money.pnl} />
+                       </>
+                     ),
+                   },
+@@ -242,12 +233,14 @@ function DayCard({
+           ]}
+         />
+       </summary>
+-      <div style={{ display: "grid", gap: "var(--space-4)", marginTop: "var(--space-3)" }}>
++      <div className="what-if-day-lists">
+         {kind !== "rank" && (
+-          <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false} />
++          <ListTable title="Fit" rows={day.fit} stats={day.fit_stats} isRank={false}
++            money={day.fit_money} dollarsPerTrade={tradeSizes.fit} />
+         )}
+         {kind !== "fit" && (
+-          <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true} />
++          <ListTable title="Rank" rows={day.rank} stats={day.rank_stats} isRank={true}
++            money={day.rank_money} dollarsPerTrade={tradeSizes.rank} />
+         )}
+       </div>
+     </details>
+@@ -262,36 +255,55 @@ function parseTop(raw: string): number | undefined {
+   return Math.floor(n);
+ }
+ 
+-function TopField({
++function StrategyControl({
+   label,
+   enabled,
+   onEnabled,
+   value,
+   onValue,
++  dollarsPerTrade,
++  onTradeSize,
+ }: {
+   label: string;
+   enabled: boolean;
+   onEnabled: (on: boolean) => void;
+   value: string;
+   onValue: (value: string) => void;
++  dollarsPerTrade: number;
++  onTradeSize: (amount: number) => void;
+ }) {
+   return (
+     <TogglePill
+       on={enabled}
+       onToggle={() => onEnabled(!enabled)}
+       extra={
+-        <input
+-          className="form-input slice-input"
+-          type="number"
+-          min={1}
+-          step={1}
+-          inputMode="numeric"
+-          placeholder="all"
+-          disabled={!enabled}
+-          value={value}
+-          onChange={(event) => onValue(event.target.value)}
+-          aria-label={`${label} top`}
+-        />
++        <>
++          <input
++            className="form-input slice-input"
++            type="number"
++            min={1}
++            step={1}
++            inputMode="numeric"
++            placeholder="all"
++            disabled={!enabled}
++            value={value}
++            onChange={(event) => onValue(event.target.value)}
++            aria-label={`${label} top`}
++            title="Number of top picks"
++          />
++          <select
++            className="form-select what-if-trade-size"
++            value={dollarsPerTrade}
++            disabled={!enabled}
++            onChange={(event) => onTradeSize(Number(event.target.value))}
++            aria-label={`${label} dollars per trade`}
++            title={`${label}: amount per trade`}
++          >
++            {TRADE_SIZE_OPTIONS.map((amount) => (
++              <option key={amount} value={amount}>${amount / 1_000}K / trade</option>
++            ))}
++          </select>
++        </>
+       }
+     >
+       {label}
+@@ -304,6 +316,8 @@ export default function WhatIf() {
+   const [fitOn, setFitOn] = useState(true);
+   const [rankText, setRankText] = useState("5");
+   const [fitText, setFitText] = useState("5");
++  const [tradeSizes, setTradeSizes] = useState<TradeSizes>({ rank: DEFAULT_TRADE_SIZE, fit: DEFAULT_TRADE_SIZE });
++  const [lookbackDays, setLookbackDays] = useState<LookbackDays>(null);
+   const [refresh, setRefresh] = useState(0);
+   const [busy, setBusy] = useState(false);
+   const [rebuildError, setRebuildError] = useState<string | null>(null);
+@@ -317,14 +331,23 @@ export default function WhatIf() {
+ 
+   const rankAsked = rankOn ? parseTop(rankText) : undefined;
+   const fitAsked = fitOn ? parseTop(fitText) : undefined;
+-  const kind: Kind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
+-  const data = sliceBook(raw, kind, fitOn ? fitAsked : undefined, rankOn ? rankAsked : undefined);
++  const kind: PickKind = rankOn && fitOn ? "both" : rankOn ? "rank" : "fit";
++  const data = simulateBook(raw, {
++    kind, fitTopK: fitAsked, rankTopK: rankAsked, tradeSizes, lookbackDays, asOf: simulationDay(),
++  });
+ 
+   return (
+     <div>
+-      <div className="slice-bar">
+-        <TopField label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText} />
+-        <TopField label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText} />
++      <div className="slice-bar what-if-toolbar">
++        <StrategyControl label="Rank" enabled={rankOn} onEnabled={setRankOn} value={rankText} onValue={setRankText}
++          dollarsPerTrade={tradeSizes.rank} onTradeSize={(rank) => setTradeSizes((sizes) => ({ ...sizes, rank }))} />
++        <StrategyControl label="Fit" enabled={fitOn} onEnabled={setFitOn} value={fitText} onValue={setFitText}
++          dollarsPerTrade={tradeSizes.fit} onTradeSize={(fit) => setTradeSizes((sizes) => ({ ...sizes, fit }))} />
++        <select className="form-select what-if-period" value={lookbackDays ?? "all"}
++          aria-label="Simulation period"
++          onChange={(event) => setLookbackDays(LOOKBACK_OPTIONS.find((option) => String(option.days ?? "all") === event.target.value)?.days ?? null)}>
++          {LOOKBACK_OPTIONS.map((option) => <option key={option.label} value={option.days ?? "all"}>{option.label}</option>)}
++        </select>
+         <button
+           type="button"
+           className="icon-btn"
+@@ -346,6 +369,13 @@ export default function WhatIf() {
+         >
+           {busy ? "Updating…" : "↻"}
+         </button>
++        <details className="what-if-help">
++          <summary aria-label="Simulation details" title="Simulation details">ⓘ</summary>
++          <div className="what-if-help-body">
++            <p>Each pick uses its strategy’s selected amount every day. Fractional shares; fees and slippage excluded. Totals include live lists only, not replays.</p>
++            <p>{data.from ? `${data.from} – ${data.through} (rolling calendar weeks).` : `All recorded days through ${data.through}.`}</p>
++          </div>
++        </details>
+         {rebuildError && <span className="error">{rebuildError}</span>}
+       </div>
+       <div className="slice-bar">
+@@ -392,57 +422,17 @@ export default function WhatIf() {
+         </button>
+       </div>
+       {data.days.length === 0 || (!rankOn && !fitOn) ? (
+-        <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists yet."}</p>
++        <p className="muted">{!rankOn && !fitOn ? "Turn on Rank or Fit." : "No morning lists in this period."}</p>
+       ) : (
+         <>
+           <div className="slice-result">
+             {rankOn && (
+-              <div className="view-card slice-card">
+-                <div className="slice-card-kicker">
+-                  <StatStrip
+-                    items={[
+-                      { key: "title", title: true, align: "start", value: "Rank" },
+-                      { key: "slice", align: "start", value: rankAsked === undefined ? "all" : `top ${rankAsked}` },
+-                      { key: "days", align: "start", value: `${data.rank_days}d` },
+-                    ]}
+-                  />
+-                </div>
+-                <div className="slice-card-avg">
+-                  <Pct value={data.rank_compound} /> compound
+-                </div>
+-                <p className="view-meta" style={{ marginTop: 4 }}>
+-                  <StatStrip
+-                    items={[
+-                      { key: "names", align: "start", value: `${data.rank_stats?.n ?? 0} names` },
+-                      ...statsItems(data.rank_stats),
+-                    ]}
+-                  />
+-                </p>
+-              </div>
++              <StrategySummary title="Rank" topK={rankAsked} days={data.rank_days}
++                stats={data.rank_stats} money={data.rank_money} />
+             )}
+             {fitOn && (
+-              <div className="view-card slice-card">
+-                <div className="slice-card-kicker">
+-                  <StatStrip
+-                    items={[
+-                      { key: "title", title: true, align: "start", value: "Fit" },
+-                      { key: "slice", align: "start", value: fitAsked === undefined ? "all" : `top ${fitAsked}` },
+-                      { key: "days", align: "start", value: `${data.fit_days}d` },
+-                    ]}
+-                  />
+-                </div>
+-                <div className="slice-card-avg">
+-                  <Pct value={data.fit_compound} /> compound
+-                </div>
+-                <p className="view-meta" style={{ marginTop: 4 }}>
+-                  <StatStrip
+-                    items={[
+-                      { key: "names", align: "start", value: `${data.fit_stats?.n ?? 0} names` },
+-                      ...statsItems(data.fit_stats),
+-                    ]}
+-                  />
+-                </p>
+-              </div>
++              <StrategySummary title="Fit" topK={fitAsked} days={data.fit_days}
++                stats={data.fit_stats} money={data.fit_money} />
+             )}
+           </div>
+           {data.days.map((day) => (
+@@ -451,6 +441,7 @@ export default function WhatIf() {
+               kind={kind}
+               rankAsked={rankAsked}
+               fitAsked={fitAsked}
++              tradeSizes={tradeSizes}
+               modelLabel={
+                 day.model_run_id
+                   ? (() => {
+diff --git a/typescript/src/components/statColumns.ts b/typescript/src/components/statColumns.ts
+index cc7b5aae0..00fb708cd 100644
+--- a/typescript/src/components/statColumns.ts
++++ b/typescript/src/components/statColumns.ts
+@@ -18,6 +18,8 @@ export function col(
+     align: extras.align ?? (title ? "start" : "end"),
+     hug: extras.hug,
+     tone: extras.tone,
++    colSpan: extras.colSpan,
++    width: extras.width,
+   };
+ }
+ 
+@@ -36,7 +38,47 @@ export const PeriodCol = {
+   hold: col("hold", HOLD_WINDOW_LABEL, { tone: "bench" }),
+ } as const;
+ 
+-export const PERIOD_COLUMNS: StatColumn[] = Object.values(PeriodCol);
++/** The fee track stays reserved so toggling it never shifts the other columns. */
++const FEES_PERCENT = 4;
++const lotWidth = (percent: number) => `${(percent * (100 - FEES_PERCENT)) / 100}%`;
++
++/**
++ * One physical layout for the summary and lot tables. Summary cells span their
++ * constituent lot columns; P&L, fees and hold-to-close share identical tracks.
++ * Lot widths divide the space remaining after the reserved fee column.
++ */
++const HISTORY_COLUMN_GROUPS = [
++  {
++    summary: PeriodCol.title,
++    lots: [
++      { key: "ticker", label: "Ticker", width: lotWidth(6) },
++      { key: "shares", label: "Shares", width: lotWidth(6) },
++      { key: "bought", label: "Bought", width: lotWidth(13) },
++    ],
++  },
++  {
++    summary: PeriodCol.days,
++    lots: [{ key: "buy-price", label: "Buy Price", width: lotWidth(7) }],
++  },
++  {
++    summary: PeriodCol.typical,
++    lots: [
++      { key: "sold", label: "Sold", width: lotWidth(10) },
++      { key: "sell-price", label: "Sell Price", width: lotWidth(8) },
++    ],
++  },
++  { summary: PeriodCol.pnl, lots: [{ key: "pnl", label: "P&L", width: lotWidth(17) }] },
++  { summary: PeriodCol.fees, lots: [{ key: "fees", label: "Fees", width: `${FEES_PERCENT}%` }] },
++  { summary: PeriodCol.intraday, lots: [{ key: "close", label: "Close", width: lotWidth(8) }] },
++  { summary: PeriodCol.bh, lots: [{ key: "invested", label: "Invested", width: lotWidth(10) }] },
++  { summary: PeriodCol.hold, lots: [{ key: "hold", label: HOLD_WINDOW_LABEL, width: lotWidth(15) }] },
++];
++
++export const CLOSED_LOT_COLUMNS = HISTORY_COLUMN_GROUPS.flatMap(({ lots }) => lots);
++export const PERIOD_COLUMNS: StatColumn[] = HISTORY_COLUMN_GROUPS.map(({ summary, lots }) => ({
++  ...summary,
++  colSpan: lots.length,
++}));
+ 
+ export function periodColumns(feesLabel: ReactNode): StatColumn[] {
+   return PERIOD_COLUMNS.map((column) =>
+@@ -54,22 +96,9 @@ export const OPEN_LOT_COLUMNS = [
+   "Invested",
+ ] as const;
+ 
+-export const CLOSED_LOT_COLUMNS = [
+-  "Ticker",
+-  "Shares",
+-  "Bought",
+-  "Buy Price",
+-  "Sold",
+-  "Sell Price",
+-  "P&L",
+-  "Fees",
+-  "Close",
+-  HOLD_WINDOW_LABEL,
+-  "Invested",
+-] as const;
+-
+ export function lotColumnClass(column: string): string | undefined {
+   if (column === "Ticker" || column === "Bought" || column === "Sold") return undefined;
++  if (column === "P&L") return "trade-num lot-pnl";
+   if (column === "Fees") return "trade-num lot-fees";
+   return "trade-num";
+ }
+diff --git a/typescript/src/components/stats.ts b/typescript/src/components/stats.ts
+index 82a132aed..65f02ccd6 100644
+--- a/typescript/src/components/stats.ts
++++ b/typescript/src/components/stats.ts
+@@ -10,6 +10,7 @@ export { Diff, SignedPct } from "./Diff";
+ export { StatStrip, type StatItem } from "./StatStrip";
+ export {
+   StatBody,
++  StatColGroup,
+   StatDetail,
+   StatExpand,
+   StatHead,
+diff --git a/typescript/src/index.css b/typescript/src/index.css
+index bee87c1fe..e907785c4 100644
+--- a/typescript/src/index.css
++++ b/typescript/src/index.css
+@@ -454,16 +454,14 @@ section + section {
+   width: 4.25rem;
+ }
+ 
+-.stat-table th[data-col="fees"],
+-.stat-table td[data-col="fees"] {
++/* One compact cell style for summary and transaction fee columns. */
++.stat-table > :is(thead, tbody) > tr > [data-col="fees"],
++.trade-table :is(th, td).lot-fees {
+   color: var(--text-muted);
+-  padding-left: 12px;
+-  padding-right: 12px;
+-  overflow: visible;
+-}
+-
+-.stat-table td[data-col="fees"] {
++  padding-left: var(--space-1);
++  padding-right: var(--space-1);
+   font-size: var(--text-micro);
++  overflow: visible;
+ }
+ 
+ .fees-toggle {
+@@ -499,22 +497,21 @@ section + section {
+   color: var(--accent);
+ }
+ 
+-.stat-table thead {
++.stat-table > thead {
+   display: table-header-group;
+ }
+ 
+-.stat-table tbody {
++.stat-table > tbody {
+   display: table-row-group;
+ }
+ 
+-.stat-table tr {
++.stat-table > :is(thead, tbody) > tr {
+   display: table-row;
+ }
+ 
+-.stat-table th,
+-.stat-table td {
++.stat-table > :is(thead, tbody) > tr > :is(th, td) {
+   display: table-cell;
+-  padding: 8px 24px 8px 0;
++  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+   vertical-align: baseline;
+   white-space: nowrap;
+ }
+@@ -530,12 +527,12 @@ section + section {
+   overflow: hidden;
+ }
+ 
+-.stat-table tbody tr:hover td {
++.stat-table > tbody > tr:hover > td {
+   background: var(--row-hover);
+ }
+ 
+-.stat-table tbody tr.stat-expand-body:hover td,
+-.stat-table tbody tr.stat-expand-body td {
++.stat-table > tbody > tr.stat-expand-body:hover > td,
++.stat-table > tbody > tr.stat-expand-body > td {
+   background: transparent;
+ }
+ 
+@@ -547,16 +544,15 @@ section + section {
+   outline: none;
+ }
+ 
+-.stat-table tr.is-expandable:focus-visible td {
++.stat-table tr.is-expandable:focus-visible > td {
+   background: var(--row-hover);
+ }
+ 
+-.stat-table th:last-child,
+-.stat-table td:last-child {
++.stat-table > :is(thead, tbody) > tr > :is(th, td):last-child {
+   padding-right: 10px;
+ }
+ 
+-.stat-table th {
++.stat-table > thead > tr > th {
+   font-size: var(--text-caption);
+   font-weight: 600;
+   color: var(--text-muted);
+@@ -564,7 +560,7 @@ section + section {
+   text-align: left;
+ }
+ 
+-.stat-table td {
++.stat-table > tbody > tr > td {
+   color: var(--text);
+ }
+ 
+@@ -598,19 +594,18 @@ section + section {
+   padding-right: 16px;
+ }
+ 
+-.stat-table th[data-col="fees"],
+-.stat-table td[data-col="fees"] {
++.stat-table > :is(thead, tbody) > tr > [data-col="fees"] {
+   border-left: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+   border-right: var(--stat-pnl-edge);
+ }
+ 
+-.stat-table thead th.stat-tone-pnl {
++.stat-table > thead > tr > th.stat-tone-pnl {
+   border-top: var(--stat-pnl-edge);
+   border-top-left-radius: 5px;
+   box-shadow: var(--stat-pnl-glow);
+ }
+ 
+-.stat-table thead th[data-col="fees"] {
++.stat-table > thead > tr > th[data-col="fees"] {
+   border-top: var(--stat-pnl-edge);
+   border-top-right-radius: 5px;
+   box-shadow: var(--stat-pnl-glow);
+@@ -628,11 +623,11 @@ section + section {
+   box-shadow: var(--stat-pnl-glow);
+ }
+ 
+-.stat-table tbody + tbody tr:first-child td {
++.stat-table > tbody + tbody > tr:first-child > td {
+   border-top: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+ }
+ 
+-.stat-table tbody:nth-of-type(2) tr:first-child td {
++.stat-table > tbody:nth-of-type(2) > tr:first-child > td {
+   border-top: 1px solid var(--line);
+   padding-top: 10px;
+ }
+@@ -657,20 +652,38 @@ section + section {
+   content: "▼";
+ }
+ 
+-.stat-expand-body td {
+-  padding: 6px 0 10px 8px;
++.stat-table > tbody > tr.stat-expand-body > td {
++  padding: 6px 0 10px;
+   white-space: normal;
+ }
+ 
++.trade-history-scroll {
++  overflow-x: auto;
++}
++
++.trade-history-scroll:focus-visible {
++  outline: 2px solid var(--accent);
++  outline-offset: 2px;
++}
++
++.trade-history-table {
++  min-width: 84rem;
++}
++
+ .day-lots {
+   background: color-mix(in srgb, var(--ink) 28%, var(--surface-raised));
+-  border: 1px solid var(--line);
++  /* An inset outline preserves the shared tables' exact column positions. */
++  box-shadow: inset 0 0 0 1px var(--line);
+   border-radius: 6px;
+   overflow: hidden;
+ }
+ 
+ .day-lots .trade-table {
+   margin: 0;
++  table-layout: fixed;
++  border-collapse: separate;
++  border-spacing: 0;
++  font-size: inherit;
+ }
+ 
+ .day-lots .trade-table thead th {
+@@ -969,10 +982,27 @@ details.view-card[open] > summary::before {
+   font-variant-numeric: tabular-nums;
+ }
+ 
+-.trade-table th.lot-fees,
+-.trade-table td.lot-fees {
+-  color: var(--text-muted);
+-  font-size: var(--text-micro);
++.trade-history .trade-table :is(th, td).trade-num {
++  text-align: right;
++}
++
++.day-lots .trade-table :is(th, td) {
++  white-space: nowrap;
++  vertical-align: baseline;
++}
++
++.day-lots .trade-table :is(th, td).lot-pnl {
++  border-left: var(--stat-pnl-edge);
++  padding-right: 16px;
++}
++
++.day-lots .trade-table :is(th, td).lot-fees {
++  border-left: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
++  border-right: var(--stat-pnl-edge);
++}
++
++.day-lots .trade-table :is(th, td):last-child {
++  padding-right: 10px;
+ }
+ 
+ .trade-time {
+@@ -1193,6 +1223,102 @@ details.view-card[open] > summary::before {
+   margin-bottom: var(--space-4);
+ }
+ 
++.what-if-toolbar {
++  gap: var(--space-2);
++}
++
++.what-if-toolbar .form-select,
++.what-if-toolbar .slice-input {
++  font-family: var(--sans);
++  font-size: var(--text-label);
++  font-variant-numeric: tabular-nums;
++}
++
++.what-if-toolbar .what-if-trade-size {
++  border: 0;
++  border-left: 1px solid var(--line);
++  border-radius: 0;
++  background: transparent;
++  padding: 8px 10px;
++}
++
++.what-if-trade-size:disabled {
++  opacity: 0.4;
++}
++
++.what-if-toolbar .what-if-period {
++  border-radius: 10px;
++  background: var(--surface);
++  padding: 8px 12px;
++}
++
++.what-if-help {
++  position: relative;
++  align-self: center;
++  color: var(--text-muted);
++}
++
++.what-if-help > summary {
++  cursor: pointer;
++  list-style: none;
++  padding: 8px;
++  border-radius: 8px;
++}
++
++.what-if-help > summary::-webkit-details-marker {
++  display: none;
++}
++
++.what-if-help > summary:hover,
++.what-if-help > summary:focus-visible {
++  color: var(--text);
++  background: var(--surface-raised);
++}
++
++.what-if-help-body {
++  position: absolute;
++  right: 0;
++  z-index: 2;
++  width: 320px;
++  padding: var(--space-3);
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: var(--surface);
++  font-family: var(--sans);
++  font-size: var(--text-caption);
++  line-height: 1.5;
++}
++
++.what-if-help-body p {
++  margin: 0;
++}
++
++.what-if-help-body p + p {
++  margin-top: var(--space-2);
++}
++
++@media (max-width: 720px) {
++  .what-if-help[open] {
++    flex-basis: 100%;
++  }
++
++  .what-if-help-body {
++    position: static;
++    width: auto;
++  }
++}
++
++.what-if-day-lists {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr);
++  gap: var(--space-4);
++  margin-top: var(--space-3);
++}
++
++.what-if-day-lists > div {
++  min-width: 0;
++}
++
+ .toggle-pill {
+   display: flex;
+   align-items: stretch;

@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-11-09T10:49:21.819533-06:00",
+  "today_excluded": "2026-11-09",
+  "db_rank_scans": 37,
+  "rank_rows": 740,
+  "completed_rank_rows": 720,
+  "completed_trade_matched_rows": 137,
+  "completed_untraded_rows": 583,
+  "trade_match_definition": "At least one logged buy or sell for the ticker on the same New York calendar date; used for descriptive strata only.",
+  "fit_scan_count": 43,
+  "note": "Rank stores retain only published top-20 scores, not all scored universe predictions. Fit scores have different units and are not pooled.",
+  "files_sha256": {
+    "rank_scan_snapshot.json": "af04f0fe1fdd5b3c91c06ae426852122192de7a781930260a551fdcc1e482380",
+    "input_rows.json": "63635021c698baa7aceb3bd9875180a786a9ce636c242533ced4ad35c5523424"
+  },
+  "trade_csv_sha256": "5c359135bf7663c38325cc061b0fc1777f9192c570a0e949e6f159eccd167975"
+}

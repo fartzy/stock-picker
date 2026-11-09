@@ -1,0 +1,210 @@
+{
+  "scenario": "Repaired Rank 1, $10K, sell winners at close and losers at next open",
+  "population": {
+    "first_date": "2026-09-18",
+    "last_date": "2026-11-06",
+    "positions": 36,
+    "calendar_weeks": 8,
+    "tickers": {
+      "XENE": 1,
+      "PS": 1,
+      "HHH": 1,
+      "TRLV": 2,
+      "FSLY": 1,
+      "TDTH": 1,
+      "ZS": 1,
+      "RBLX": 1,
+      "CTVA": 1,
+      "FICO": 1,
+      "LQDA": 1,
+      "LAD": 1,
+      "WDC": 1,
+      "ALM": 1,
+      "ALHC": 1,
+      "FRMI": 1,
+      "CC": 1,
+      "TXG": 1,
+      "LASR": 1,
+      "TLK": 2,
+      "EMR": 1,
+      "UNIT": 1,
+      "WING": 1,
+      "BELFA": 1,
+      "QH": 1,
+      "NBIX": 1,
+      "CRWV": 1,
+      "KGC": 1,
+      "IMO": 1,
+      "PGEN": 1,
+      "DDOG": 1,
+      "TSM": 1,
+      "TEM": 1,
+      "KOD": 1
+    }
+  },
+  "gross": {
+    "n": 36,
+    "pnl": 2708.87,
+    "mean": 75.24638888888889,
+    "sd": 636.7023690824141,
+    "median": 110.555,
+    "wins": 25,
+    "losses": 11,
+    "mean_win": 364.59799999999996,
+    "mean_loss": -582.3709090909091,
+    "t_statistic": 0.7090885086292091,
+    "df": 35.0,
+    "p_two_sided": 0.48296651942916463,
+    "p_positive_mean_one_sided": 0.24148325971458232,
+    "mean_95pct_t_interval": [
+      -140.18269901277523,
+      290.675476790553
+    ]
+  },
+  "assumed_11bps_each_way": {
+    "n": 36,
+    "pnl": 1911.816000637336,
+    "mean": 53.10600001770378,
+    "sd": 635.30315575509,
+    "median": 88.33722653564303,
+    "wins": 24,
+    "losses": 12,
+    "mean_win": 356.1604023388849,
+    "mean_loss": -553.0028046246583,
+    "t_statistic": 0.5015495314634596,
+    "df": 35.0,
+    "p_two_sided": 0.6191247913910523,
+    "p_positive_mean_one_sided": 0.3095623956955261,
+    "mean_95pct_t_interval": [
+      -161.84966220577462,
+      268.06166224118215
+    ]
+  },
+  "assumed_26bps_each_way": {
+    "n": 36,
+    "pnl": 827.7036206440415,
+    "mean": 22.991767240112264,
+    "sd": 633.4000954355514,
+    "median": 58.11745808018243,
+    "wins": 22,
+    "losses": 14,
+    "mean_win": 356.5617208784677,
+    "mean_loss": -501.1895884773036,
+    "t_statistic": 0.2177937837944486,
+    "df": 35.0,
+    "p_two_sided": 0.8288545900019735,
+    "p_positive_mean_one_sided": 0.41442729500098674,
+    "mean_95pct_t_interval": [
+      -191.3199920095938,
+      237.30352648981832
+    ]
+  },
+  "bootstrap": {
+    "repetitions": 200000,
+    "seed": 20261106,
+    "iid_percentile_mean_95pct_interval": [
+      -138.97363194444446,
+      269.8675694444445
+    ],
+    "centered_iid_null_one_sided_p": 0.2375038124809376,
+    "calendar_week_cluster_mean_95pct_interval": [
+      -158.62499999999997,
+      292.4352777777778
+    ],
+    "week_note": "Resample whole weeks with replacement; eight clusters are too few for precise inference."
+  },
+  "win_frequency_only": {
+    "null_win_probability": 0.5,
+    "p_one_sided": 0.014408359827939423,
+    "note": "Tests win frequency, not profitable expectancy; ignores unequal win/loss sizes."
+  },
+  "tail_sensitivity": {
+    "top_three": [
+      {
+        "date": "2026-10-30",
+        "ticker": "IMO",
+        "entry": 120.88999938964844,
+        "close": 138.10000610351562,
+        "exit": 138.10000610351562,
+        "heldOvernight": false,
+        "pnl": 1423.61,
+        "return": 0.142361,
+        "net11": 1398.504476846214,
+        "net26": 1364.3600823544455
+      },
+      {
+        "date": "2026-10-26",
+        "ticker": "QH",
+        "entry": 2.8299999237060547,
+        "close": 3.0799999237060547,
+        "exit": 3.0799999237060547,
+        "heldOvernight": false,
+        "pnl": 883.39,
+        "return": 0.088339,
+        "net11": 859.475095883342,
+        "net26": 826.9453721462883
+      },
+      {
+        "date": "2026-10-09",
+        "ticker": "ALHC",
+        "entry": 6.934999942779541,
+        "close": 7.545000076293945,
+        "exit": 7.545000076293945,
+        "heldOvernight": false,
+        "pnl": 879.6,
+        "return": 0.08796,
+        "net11": 855.6876381835665,
+        "net26": 823.1692598339802
+      }
+    ],
+    "bottom_three": [
+      {
+        "date": "2026-09-25",
+        "ticker": "TDTH",
+        "entry": 1.8700000047683716,
+        "close": 1.4600000381469727,
+        "exit": 1.48,
+        "heldOvernight": true,
+        "pnl": -2085.56,
+        "return": -0.208556,
+        "net11": -2102.954150272921,
+        "net26": -2126.609871895031
+      },
+      {
+        "date": "2026-10-01",
+        "ticker": "CTVA",
+        "entry": 14.4399995803833,
+        "close": 12.569999694824219,
+        "exit": 12.385,
+        "heldOvernight": true,
+        "pnl": -1423.13,
+        "return": -0.14231300000000002,
+        "net11": -1441.9783255704742,
+        "net26": -1467.6140103845992
+      },
+      {
+        "date": "2026-09-18",
+        "ticker": "XENE",
+        "entry": 44.02000045776367,
+        "close": 39.75,
+        "exit": 40,
+        "heldOvernight": true,
+        "pnl": -913.22,
+        "return": -0.091322,
+        "net11": -933.1903047270806,
+        "net26": -960.3500718391645
+      }
+    ],
+    "top_three_pnl": 3186.6,
+    "remaining_33_pnl": -477.73,
+    "note": "Diagnostic only; deleting winners is not a proposed trading strategy."
+  },
+  "limits": [
+    "Exploratory result: Rank size and exit alternatives have already been examined on these dates.",
+    "Opening-price entries occur before the morning selections are published; actual fills are unverified.",
+    "A zero-mean test is not a risk-adjusted alpha test or a comparison against random stocks.",
+    "Assumed trading costs are not measured execution costs; financing and taxes are excluded.",
+    "Short sample, repeated names and shared market conditions can invalidate independence assumptions.",
+    "A p-value is not the probability that the strategy has no edge or that the result was just luck."
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "as_of": "2026-11-06",
+  "purpose": "Exploratory risk study, separate from production models and trade records",
+  "broad_universe": "Current 2000-name registry, MRCY excluded from broad results",
+  "event": "First close-to-close decline of at least 5% after a 21-session cooldown per ticker",
+  "eligibility": {
+    "minimum_price": 5,
+    "prior_20_session_mean_dollar_volume": 10000000,
+    "prior_sessions": 60,
+    "forward_sessions": 21
+  },
+  "holdout_start": "2025-01-01",
+  "entry": "Next regular-session open after the event; signal is fully known before entry",
+  "tranche_dollars": 10000,
+  "maximum_tranches": 4,
+  "additional_entry_thresholds_relative_to_first_entry": [
+    0.95,
+    0.9025,
+    0.857375
+  ],
+  "per_side_slippage_bps": 10,
+  "additional_per_side_fee_bps": 1,
+  "minute_validation_target_events": 480,
+  "minute_validation_seed": 20261106,
+  "minute_horizon_sessions": 5,
+  "maximum_idea_loss_dollars_scenarios": [
+    1000,
+    2000,
+    4000
+  ],
+  "profit_exit_scenarios": [
+    "time",
+    "net_break_even",
+    "2_percent_of_deployed_cost",
+    "4_percent_of_deployed_cost"
+  ],
+  "notes": [
+    "No claim that a 5% drop is a validated entry signal; compare matched policies on the same events.",
+    "Daily decisions use completed closes and execute at the following open; no invented intraday order.",
+    "Minute decisions use completed one-minute bars and execute at the next available minute open; gaps and missing bars are retained.",
+    "Unused reserved cash earns zero in comparisons; 40000 is the common capital reservation for ladder strategies.",
+    "Events and policy grid are fixed before inspecting policy results; MRCY is a separate retrospective case.",
+    "Current-universe survivorship, five-year regime coverage, uncertain corporate-action provenance, transaction-cost assumptions and clustered events limit inference."
+  ],
+  "expanded_before_policy_evaluation": true,
+  "daily_source": "Massive split-adjusted daily bars; cash dividends excluded",
+  "study_start": "2021-11-01",
+  "study_end": "2026-11-06",
+  "policies": [
+    {
+      "name": "single_10k",
+      "max_tranches": 1,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": null,
+      "target": null,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "full_40k",
+      "max_tranches": 4,
+      "initial_tranches": 4,
+      "step": 0.05,
+      "loss_limit": null,
+      "target": null,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": null,
+      "target": null,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop2k",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": null,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop2k_be",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop2k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop2k_take4",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0.04,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop1k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_5_stop4k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 4000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_stable_stop2k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": true,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "single_stop500_take2",
+      "max_tranches": 1,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 500,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_3_stop2k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.03,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_7p5_stop2k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.075,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder_vol_stop2k_take2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": true
+    },
+    {
+      "name": "ladder_partial2_trail2",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 2000,
+      "target": 0.02,
+      "stability": false,
+      "partial_trail": true,
+      "volatility_step": false
+    }
+  ]
+}

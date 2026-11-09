@@ -1,0 +1,1902 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-11-03",
+  "source": "Fidelity user-pasted confirmations and saved Portfolio Activity & Orders.html; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Only executed shares are logged. Price improvement is informational and already reflected in execution prices.",
+  "orders": [
+    {
+      "order_number": "2F70BD3V",
+      "ticker": "RSI",
+      "side": "sell",
+      "shares": 300.0,
+      "price": 11.94,
+      "executed_at": "2026-11-03T09:32:05-05:00",
+      "broker_net_amount": 3581.92,
+      "manual_fee": 0.08,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:31:14-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:32:05-05:00",
+          "shares": 300.0,
+          "price": 11.94,
+          "broker_net_amount": 3581.92
+        }
+      ]
+    },
+    {
+      "order_number": "2F707SCL",
+      "ticker": "DDOG",
+      "side": "buy",
+      "shares": 30.0,
+      "price": 216.14,
+      "executed_at": "2026-11-03T09:35:09-05:00",
+      "broker_net_amount": 6484.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:35:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 2.4,
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:35:09-05:00",
+          "shares": 30.0,
+          "price": 216.14,
+          "broker_net_amount": 6484.2
+        }
+      ]
+    },
+    {
+      "order_number": "2F70BGSN",
+      "ticker": "MNDY",
+      "side": "buy",
+      "shares": 110.0,
+      "price": 89.03,
+      "executed_at": "2026-11-03T09:35:53-05:00",
+      "broker_net_amount": 9793.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:35:53-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 26.95,
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:35:53-05:00",
+          "shares": 110.0,
+          "price": 89.03,
+          "broker_net_amount": 9793.3
+        }
+      ]
+    },
+    {
+      "order_number": "2F707V7S",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 14.4999,
+      "executed_at": "2026-11-03T09:38:19-05:00",
+      "broker_net_amount": 2899.98,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:38:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:38:19-05:00",
+          "shares": 200.0,
+          "price": 14.4999,
+          "broker_net_amount": 2899.98
+        }
+      ]
+    },
+    {
+      "order_number": "2F702JFS",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.3155,
+      "executed_at": "2026-11-03T09:41:19-05:00",
+      "broker_net_amount": 715.78,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:41:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:41:19-05:00",
+          "shares": 50.0,
+          "price": 14.3155,
+          "broker_net_amount": 715.78
+        }
+      ]
+    },
+    {
+      "order_number": "2F703WW6",
+      "ticker": "DDOG",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 220.57,
+      "executed_at": "2026-11-03T09:43:05-05:00",
+      "broker_net_amount": 6616.96,
+      "manual_fee": 0.14,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:43:04-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:43:05-05:00",
+          "shares": 30.0,
+          "price": 220.57,
+          "broker_net_amount": 6616.96
+        }
+      ]
+    },
+    {
+      "order_number": "2F701X3M",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.055,
+      "executed_at": "2026-11-03T09:43:55-05:00",
+      "broker_net_amount": 702.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:43:55-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:43:55-05:00",
+          "shares": 50.0,
+          "price": 14.055,
+          "broker_net_amount": 702.75
+        }
+      ],
+      "price_improvement": 1.38
+    },
+    {
+      "order_number": "2F706MB9",
+      "ticker": "MNDY",
+      "side": "sell",
+      "shares": 50.0,
+      "price": 90.015,
+      "executed_at": "2026-11-03T09:45:12-05:00",
+      "broker_net_amount": 4500.65,
+      "manual_fee": 0.1,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:45:11-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:45:12-05:00",
+          "shares": 50.0,
+          "price": 90.015,
+          "broker_net_amount": 4500.65
+        }
+      ],
+      "price_improvement": 8.0
+    },
+    {
+      "order_number": "2F701Z3H",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 14.145,
+      "executed_at": "2026-11-03T09:47:40-05:00",
+      "broker_net_amount": 1414.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:47:40-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 2.5,
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:47:40-05:00",
+          "shares": 100.0,
+          "price": 14.145,
+          "broker_net_amount": 1414.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F706PP3",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.255,
+      "executed_at": "2026-11-03T09:49:38-05:00",
+      "broker_net_amount": 712.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:49:38-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.75,
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:49:38-05:00",
+          "shares": 50.0,
+          "price": 14.255,
+          "broker_net_amount": 712.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F70D9HG",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 14.2262,
+      "executed_at": "2026-11-03T09:53:49-05:00",
+      "broker_net_amount": 2133.93,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:53:49-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:53:49-05:00",
+          "shares": 150.0,
+          "price": 14.2262,
+          "broker_net_amount": 2133.93
+        }
+      ]
+    },
+    {
+      "order_number": "2F70NBZK",
+      "ticker": "MNDY",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 90.4103,
+      "executed_at": "2026-11-03T09:54:10-05:00",
+      "broker_net_amount": 2712.25,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:54:09-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:54:10-05:00",
+          "shares": 30.0,
+          "price": 90.4103,
+          "broker_net_amount": 2712.25
+        }
+      ],
+      "price_improvement": 1.36
+    },
+    {
+      "order_number": "2F70H02J",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.2,
+      "executed_at": "2026-11-03T09:54:48-05:00",
+      "broker_net_amount": 710.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:54:48-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:54:48-05:00",
+          "shares": 50.0,
+          "price": 14.2,
+          "broker_net_amount": 710.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F70P1B9",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.12,
+      "executed_at": "2026-11-03T09:55:26-05:00",
+      "broker_net_amount": 706.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:55:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:55:26-05:00",
+          "shares": 50.0,
+          "price": 14.12,
+          "broker_net_amount": 706.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F70GBVN",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 14.2114,
+      "executed_at": "2026-11-03T09:56:18-05:00",
+      "broker_net_amount": 710.57,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:56:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:56:18-05:00",
+          "shares": 50.0,
+          "price": 14.2114,
+          "broker_net_amount": 710.57
+        }
+      ]
+    },
+    {
+      "order_number": "2F70NDLB",
+      "ticker": "MNDY",
+      "side": "sell",
+      "shares": 30.0,
+      "price": 90.2,
+      "executed_at": "2026-11-03T09:57:48-05:00",
+      "broker_net_amount": 2705.94,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:57:48-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "price_improvement": 0.15,
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:57:48-05:00",
+          "shares": 30.0,
+          "price": 90.2,
+          "broker_net_amount": 2705.94
+        }
+      ]
+    },
+    {
+      "order_number": "2F70H1KM",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 14.2099,
+      "executed_at": "2026-11-03T09:58:20-05:00",
+      "broker_net_amount": 2131.49,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T09:58:20-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T09:58:20-05:00",
+          "shares": 150.0,
+          "price": 14.2099,
+          "broker_net_amount": 2131.49
+        }
+      ]
+    },
+    {
+      "order_number": "2F70MRT7",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 14.05,
+      "executed_at": "2026-11-03T10:04:11-05:00",
+      "broker_net_amount": 2810.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $14.05",
+      "order_date": "2026-11-03T10:00:26-05:00",
+      "order_expiration": "2026-11-03T16:00:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:04:11-05:00",
+          "shares": 200.0,
+          "price": 14.05,
+          "broker_net_amount": 2810.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F70KT6G",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 14.04,
+      "executed_at": "2026-11-03T10:05:08-05:00",
+      "broker_net_amount": 1404.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $14.04",
+      "order_date": "2026-11-03T10:05:07-05:00",
+      "order_expiration": "2026-11-03T16:00:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:05:08-05:00",
+          "shares": 100.0,
+          "price": 14.04,
+          "broker_net_amount": 1404.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F70HVZS",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 800.0,
+      "price": 14.26,
+      "executed_at": "2026-11-03T10:14:21-05:00",
+      "broker_net_amount": 11407.75,
+      "manual_fee": 0.25,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $14.26",
+      "order_date": "2026-11-03T10:10:52-05:00",
+      "order_expiration": "2026-11-03T16:00:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:14:21-05:00",
+          "shares": 456.0,
+          "price": 14.26,
+          "broker_net_amount": 6502.42
+        },
+        {
+          "executed_at": "2026-11-03T10:14:21-05:00",
+          "shares": 344.0,
+          "price": 14.26,
+          "broker_net_amount": 4905.33
+        }
+      ]
+    },
+    {
+      "order_number": "2F70FYQ5",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 400.0,
+      "price": 14.36,
+      "executed_at": "2026-11-03T10:19:27-05:00",
+      "broker_net_amount": 5743.88,
+      "manual_fee": 0.12,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $14.36",
+      "order_date": "2026-11-03T10:19:27-05:00",
+      "order_expiration": "2026-11-03T16:00:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:19:27-05:00",
+          "shares": 400.0,
+          "price": 14.36,
+          "broker_net_amount": 5743.88
+        }
+      ]
+    },
+    {
+      "order_number": "2F70Q882",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.835,
+      "executed_at": "2026-11-03T10:46:08-05:00",
+      "broker_net_amount": 1383.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T10:46:08-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:46:08-05:00",
+          "shares": 100.0,
+          "price": 13.835,
+          "broker_net_amount": 1383.5
+        }
+      ],
+      "price_improvement": 1.5
+    },
+    {
+      "order_number": "2F70GX35",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.8599,
+      "executed_at": "2026-11-03T10:46:37-05:00",
+      "broker_net_amount": 693.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T10:46:36-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:46:37-05:00",
+          "shares": 50.0,
+          "price": 13.8599,
+          "broker_net_amount": 693.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F70NY92",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.895,
+      "executed_at": "2026-11-03T10:48:28-05:00",
+      "broker_net_amount": 694.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T10:48:28-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T10:48:28-05:00",
+          "shares": 50.0,
+          "price": 13.895,
+          "broker_net_amount": 694.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F70RSWY",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 13.67,
+      "executed_at": "2026-11-03T11:05:54-05:00",
+      "broker_net_amount": 2050.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T11:05:54-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T11:05:54-05:00",
+          "shares": 150.0,
+          "price": 13.67,
+          "broker_net_amount": 2050.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F70Z16J",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 250.0,
+      "price": 13.141996,
+      "executed_at": "2026-11-03T11:33:06-05:00",
+      "broker_net_amount": 3285.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T11:33:05-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T11:33:06-05:00",
+          "shares": 181.0,
+          "price": 13.15,
+          "broker_net_amount": 2380.15
+        },
+        {
+          "executed_at": "2026-11-03T11:33:06-05:00",
+          "shares": 69.0,
+          "price": 13.121,
+          "broker_net_amount": 905.35
+        }
+      ],
+      "price_improvement": 7.0
+    },
+    {
+      "order_number": "2F70V0N6",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.1708,
+      "executed_at": "2026-11-03T11:33:40-05:00",
+      "broker_net_amount": 658.54,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T11:33:39-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T11:33:40-05:00",
+          "shares": 50.0,
+          "price": 13.1708,
+          "broker_net_amount": 658.54
+        }
+      ]
+    },
+    {
+      "order_number": "2F71286F",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.3,
+      "executed_at": "2026-11-03T12:59:17-05:00",
+      "broker_net_amount": 665.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $13.30",
+      "order_date": "2026-11-03T12:59:16-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Cash",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T12:59:17-05:00",
+          "shares": 50.0,
+          "price": 13.3,
+          "broker_net_amount": 665.0
+        }
+      ],
+      "order_expiration": "2026-11-03T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F71B9FZ",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.3137,
+      "executed_at": "2026-11-03T12:59:49-05:00",
+      "broker_net_amount": 1331.37,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T12:59:49-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T12:59:49-05:00",
+          "shares": 100.0,
+          "price": 13.3137,
+          "broker_net_amount": 1331.37
+        }
+      ]
+    },
+    {
+      "order_number": "2F716ZR3",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.335,
+      "executed_at": "2026-11-03T13:06:25-05:00",
+      "broker_net_amount": 666.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:06:25-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:06:25-05:00",
+          "shares": 50.0,
+          "price": 13.335,
+          "broker_net_amount": 666.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F7129MQ",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.1,
+      "executed_at": "2026-11-03T13:19:44-05:00",
+      "broker_net_amount": 2620.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $13.10",
+      "order_date": "2026-11-03T13:07:41-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:19:44-05:00",
+          "shares": 200.0,
+          "price": 13.1,
+          "broker_net_amount": 2620.0
+        }
+      ],
+      "order_expiration": "2026-11-03T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F717R8T",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.065,
+      "executed_at": "2026-11-03T13:21:26-05:00",
+      "broker_net_amount": 2613.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:21:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:21:26-05:00",
+          "shares": 200.0,
+          "price": 13.065,
+          "broker_net_amount": 2613.0
+        }
+      ],
+      "price_improvement": 1.0
+    },
+    {
+      "order_number": "2F71526V",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 300.0,
+      "price": 13.055,
+      "executed_at": "2026-11-03T13:21:52-05:00",
+      "broker_net_amount": 3916.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:21:52-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:21:52-05:00",
+          "shares": 300.0,
+          "price": 13.055,
+          "broker_net_amount": 3916.5
+        }
+      ],
+      "price_improvement": 1.5
+    },
+    {
+      "order_number": "2F71DFLM",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.0699,
+      "executed_at": "2026-11-03T13:22:16-05:00",
+      "broker_net_amount": 2613.98,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:22:15-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:22:16-05:00",
+          "shares": 200.0,
+          "price": 13.0699,
+          "broker_net_amount": 2613.98
+        }
+      ]
+    },
+    {
+      "order_number": "2F7192TP",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.0901,
+      "executed_at": "2026-11-03T13:22:56-05:00",
+      "broker_net_amount": 2618.02,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:22:55-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:22:56-05:00",
+          "shares": 200.0,
+          "price": 13.0901,
+          "broker_net_amount": 2618.02
+        }
+      ],
+      "price_improvement": 1.98
+    },
+    {
+      "order_number": "2F7192WZ",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.12,
+      "executed_at": "2026-11-03T13:23:14-05:00",
+      "broker_net_amount": 1312.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:23:13-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:23:14-05:00",
+          "shares": 100.0,
+          "price": 13.12,
+          "broker_net_amount": 1312.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71322S",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 13.12,
+      "executed_at": "2026-11-03T13:23:34-05:00",
+      "broker_net_amount": 656.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:23:33-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:23:34-05:00",
+          "shares": 50.0,
+          "price": 13.12,
+          "broker_net_amount": 656.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F717RQN",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.12,
+      "executed_at": "2026-11-03T13:24:11-05:00",
+      "broker_net_amount": 1312.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:24:10-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:24:11-05:00",
+          "shares": 100.0,
+          "price": 13.12,
+          "broker_net_amount": 1312.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71C3HW",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.0953,
+      "executed_at": "2026-11-03T13:25:18-05:00",
+      "broker_net_amount": 2619.06,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:25:18-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:25:18-05:00",
+          "shares": 200.0,
+          "price": 13.0953,
+          "broker_net_amount": 2619.06
+        }
+      ]
+    },
+    {
+      "order_number": "2F713R1T",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 13.075,
+      "executed_at": "2026-11-03T13:26:00-05:00",
+      "broker_net_amount": 2615.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:25:59-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:26:00-05:00",
+          "shares": 200.0,
+          "price": 13.075,
+          "broker_net_amount": 2615.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71530Z",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 1000.0,
+      "price": 13.04,
+      "executed_at": "2026-11-03T13:26:35-05:00",
+      "broker_net_amount": 13040.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:26:35-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:26:35-05:00",
+          "shares": 1000.0,
+          "price": 13.04,
+          "broker_net_amount": 13040.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71533Y",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 300.0,
+      "price": 13.0395,
+      "executed_at": "2026-11-03T13:27:05-05:00",
+      "broker_net_amount": 3911.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:27:05-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:27:05-05:00",
+          "shares": 300.0,
+          "price": 13.0395,
+          "broker_net_amount": 3911.85
+        }
+      ]
+    },
+    {
+      "order_number": "2F713RHY",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.025,
+      "executed_at": "2026-11-03T13:28:58-05:00",
+      "broker_net_amount": 1302.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:28:58-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:28:58-05:00",
+          "shares": 100.0,
+          "price": 13.025,
+          "broker_net_amount": 1302.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F716HLW",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 500.0,
+      "price": 13.0196,
+      "executed_at": "2026-11-03T13:39:26-05:00",
+      "broker_net_amount": 6509.8,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:39:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:39:26-05:00",
+          "shares": 500.0,
+          "price": 13.0196,
+          "broker_net_amount": 6509.8
+        }
+      ]
+    },
+    {
+      "order_number": "2F717VC5",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 500.0,
+      "price": 13.005,
+      "executed_at": "2026-11-03T13:39:48-05:00",
+      "broker_net_amount": 6502.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:39:48-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:39:48-05:00",
+          "shares": 108.0,
+          "price": 13.005,
+          "broker_net_amount": 1404.54
+        },
+        {
+          "executed_at": "2026-11-03T13:39:48-05:00",
+          "shares": 392.0,
+          "price": 13.005,
+          "broker_net_amount": 5097.96
+        }
+      ]
+    },
+    {
+      "order_number": "2F717VJF",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 500.0,
+      "price": 13.005,
+      "executed_at": "2026-11-03T13:40:57-05:00",
+      "broker_net_amount": 6502.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:40:56-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:40:57-05:00",
+          "shares": 500.0,
+          "price": 13.005,
+          "broker_net_amount": 6502.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F71CVX7",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 12.9888,
+      "executed_at": "2026-11-03T13:41:18-05:00",
+      "broker_net_amount": 2597.76,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:41:17-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:41:18-05:00",
+          "shares": 200.0,
+          "price": 12.9888,
+          "broker_net_amount": 2597.76
+        }
+      ]
+    },
+    {
+      "order_number": "2F714HL6",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 12.985,
+      "executed_at": "2026-11-03T13:41:38-05:00",
+      "broker_net_amount": 1298.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:41:38-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:41:38-05:00",
+          "shares": 100.0,
+          "price": 12.985,
+          "broker_net_amount": 1298.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F7175YD",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 1000.0,
+      "price": 12.8596018,
+      "executed_at": "2026-11-03T13:42:22-05:00",
+      "broker_net_amount": 12859.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 6,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:42:21-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 300.0,
+          "price": 12.845,
+          "broker_net_amount": 3853.5
+        },
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 78.0,
+          "price": 12.845,
+          "broker_net_amount": 1001.91
+        },
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 9.0,
+          "price": 12.86,
+          "broker_net_amount": 115.74
+        },
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 108.0,
+          "price": 12.8686,
+          "broker_net_amount": 1389.81
+        },
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 392.0,
+          "price": 12.8686,
+          "broker_net_amount": 5044.49
+        },
+        {
+          "executed_at": "2026-11-03T13:42:22-05:00",
+          "shares": 113.0,
+          "price": 12.8686,
+          "broker_net_amount": 1454.15
+        }
+      ]
+    },
+    {
+      "order_number": "2F71CW9D",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 1000.0,
+      "price": 12.91,
+      "executed_at": "2026-11-03T13:43:44-05:00",
+      "broker_net_amount": 12910.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T13:43:43-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T13:43:44-05:00",
+          "shares": 1000.0,
+          "price": 12.91,
+          "broker_net_amount": 12910.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71L6D3",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 2000.0,
+      "price": 12.89,
+      "executed_at": "2026-11-03T14:11:35-05:00",
+      "broker_net_amount": 25779.46,
+      "manual_fee": 0.54,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:11:34-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:11:35-05:00",
+          "shares": 2000.0,
+          "price": 12.89,
+          "broker_net_amount": 25779.46
+        }
+      ],
+      "price_improvement": 20.0
+    },
+    {
+      "order_number": "2F71C6T4",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 2000.0,
+      "price": 13.05,
+      "executed_at": "2026-11-03T14:17:53-05:00",
+      "broker_net_amount": 26099.46,
+      "manual_fee": 0.54,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $13.05",
+      "order_date": "2026-11-03T13:45:07-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:17:53-05:00",
+          "shares": 2000.0,
+          "price": 13.05,
+          "broker_net_amount": 26099.46
+        }
+      ],
+      "order_expiration": "2026-11-03T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F71PKHQ",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 3500.0,
+      "price": 13.08,
+      "executed_at": "2026-11-03T14:18:07-05:00",
+      "broker_net_amount": 45779.04,
+      "manual_fee": 0.96,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit at $13.08",
+      "order_date": "2026-11-03T14:12:29-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:17:53-05:00",
+          "shares": 3047.0,
+          "price": 13.08,
+          "broker_net_amount": 39853.93
+        },
+        {
+          "executed_at": "2026-11-03T14:18:07-05:00",
+          "shares": 453.0,
+          "price": 13.08,
+          "broker_net_amount": 5925.11
+        }
+      ],
+      "order_expiration": "2026-11-03T16:00:00-05:00"
+    },
+    {
+      "order_number": "2F71JXH9",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 250.0,
+      "price": 13.145,
+      "executed_at": "2026-11-03T14:19:55-05:00",
+      "broker_net_amount": 3286.18,
+      "manual_fee": 0.07,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:19:54-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:19:55-05:00",
+          "shares": 250.0,
+          "price": 13.145,
+          "broker_net_amount": 3286.18
+        }
+      ]
+    },
+    {
+      "order_number": "2F71HL28",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 50.0,
+      "price": 13.13,
+      "executed_at": "2026-11-03T14:20:17-05:00",
+      "broker_net_amount": 656.48,
+      "manual_fee": 0.02,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:20:16-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Cash",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:20:17-05:00",
+          "shares": 50.0,
+          "price": 13.13,
+          "broker_net_amount": 656.48
+        }
+      ]
+    },
+    {
+      "order_number": "2F71QZZS",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.286,
+      "executed_at": "2026-11-03T14:30:16-05:00",
+      "broker_net_amount": 1328.6,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:30:16-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:30:16-05:00",
+          "shares": 100.0,
+          "price": 13.286,
+          "broker_net_amount": 1328.6
+        }
+      ]
+    },
+    {
+      "order_number": "2F71PNDB",
+      "ticker": "XPRO",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 13.2999,
+      "executed_at": "2026-11-03T14:30:37-05:00",
+      "broker_net_amount": 1329.99,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:30:36-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:30:37-05:00",
+          "shares": 100.0,
+          "price": 13.2999,
+          "broker_net_amount": 1329.99
+        }
+      ]
+    },
+    {
+      "order_number": "2F71KNBD",
+      "ticker": "XPRO",
+      "side": "sell",
+      "shares": 200.0,
+      "price": 13.695,
+      "executed_at": "2026-11-03T14:33:06-05:00",
+      "broker_net_amount": 2738.94,
+      "manual_fee": 0.06,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T14:33:05-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T14:33:06-05:00",
+          "shares": 200.0,
+          "price": 13.695,
+          "broker_net_amount": 2738.94
+        }
+      ],
+      "price_improvement": 5.0
+    },
+    {
+      "order_number": "2F71R68H",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 150.0,
+      "price": 10.495,
+      "executed_at": "2026-11-03T15:08:34-05:00",
+      "broker_net_amount": 1574.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:08:34-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:08:34-05:00",
+          "shares": 150.0,
+          "price": 10.495,
+          "broker_net_amount": 1574.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F71HVNV",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 10.4685,
+      "executed_at": "2026-11-03T15:12:49-05:00",
+      "broker_net_amount": 1046.85,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:12:48-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:12:49-05:00",
+          "shares": 100.0,
+          "price": 10.4685,
+          "broker_net_amount": 1046.85
+        }
+      ],
+      "price_improvement": 0.15
+    },
+    {
+      "order_number": "2F71FVN8",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 10.464,
+      "executed_at": "2026-11-03T15:15:37-05:00",
+      "broker_net_amount": 523.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:15:37-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:15:37-05:00",
+          "shares": 50.0,
+          "price": 10.464,
+          "broker_net_amount": 523.2
+        }
+      ],
+      "price_improvement": 0.05
+    },
+    {
+      "order_number": "2F71R94M",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 10.435,
+      "executed_at": "2026-11-03T15:24:47-05:00",
+      "broker_net_amount": 2087.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:24:46-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:24:47-05:00",
+          "shares": 200.0,
+          "price": 10.435,
+          "broker_net_amount": 2087.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71R9CV",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 10.445,
+      "executed_at": "2026-11-03T15:26:07-05:00",
+      "broker_net_amount": 1044.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:26:07-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:26:07-05:00",
+          "shares": 100.0,
+          "price": 10.445,
+          "broker_net_amount": 1044.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F71K8NT",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 10.435,
+      "executed_at": "2026-11-03T15:26:37-05:00",
+      "broker_net_amount": 521.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:26:37-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:26:37-05:00",
+          "shares": 50.0,
+          "price": 10.435,
+          "broker_net_amount": 521.75
+        }
+      ]
+    },
+    {
+      "order_number": "2F71K93N",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 10.425,
+      "executed_at": "2026-11-03T15:30:31-05:00",
+      "broker_net_amount": 521.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:30:31-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:30:31-05:00",
+          "shares": 50.0,
+          "price": 10.425,
+          "broker_net_amount": 521.25
+        }
+      ]
+    },
+    {
+      "order_number": "2F71F9ZK",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 10.4199,
+      "executed_at": "2026-11-03T15:36:29-05:00",
+      "broker_net_amount": 2083.98,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:36:29-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:36:29-05:00",
+          "shares": 200.0,
+          "price": 10.4199,
+          "broker_net_amount": 2083.98
+        }
+      ]
+    },
+    {
+      "order_number": "2F71L29J",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 200.0,
+      "price": 10.415,
+      "executed_at": "2026-11-03T15:45:59-05:00",
+      "broker_net_amount": 2083.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:45:59-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:45:59-05:00",
+          "shares": 200.0,
+          "price": 10.415,
+          "broker_net_amount": 2083.0
+        }
+      ]
+    },
+    {
+      "order_number": "2F71Q321",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 10.415,
+      "executed_at": "2026-11-03T15:46:28-05:00",
+      "broker_net_amount": 1041.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:46:27-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:46:28-05:00",
+          "shares": 100.0,
+          "price": 10.415,
+          "broker_net_amount": 1041.5
+        }
+      ]
+    },
+    {
+      "order_number": "2F71YLZG",
+      "ticker": "TLK",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 10.395,
+      "executed_at": "2026-11-03T15:59:21-05:00",
+      "broker_net_amount": 1039.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-03T15:59:20-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-03T15:59:21-05:00",
+          "shares": 100.0,
+          "price": 10.395,
+          "broker_net_amount": 1039.5
+        }
+      ],
+      "price_improvement": 0.5
+    }
+  ],
+  "filled_order_count": 69,
+  "imported_order_count": 69,
+  "html_reconciliation": {
+    "source_file": "Portfolio Activity & Orders.html",
+    "source_sha256": "7dfbdbcf058c70451a39999f9786c72457048d180e2cf7c8907bc2f0db135bba",
+    "new_order_count": 3,
+    "existing_order_count": 8,
+    "excluded_orders": [],
+    "pending_execution_details": [],
+    "excluded_tickers": [
+      "AVGO",
+      "BETZ"
+    ],
+    "summary_only_sales_pending_details": {
+      "VNQ": 2843.4,
+      "FDIS": 4618.7,
+      "XLP": 4497.89
+    }
+  }
+}

@@ -1,0 +1,1750 @@
+{
+  "origin_main": "1adf18e0bf115794c6ac9912ec9479d6f5cb804f",
+  "local_branches": 130,
+  "ancestor_of_main": 5,
+  "exact_merged_pr_heads": 109,
+  "remaining_reviewed": 16,
+  "open_prs": 0,
+  "branches": [
+    {
+      "name": "backup/overnight-live-root-20261009",
+      "sha": "1e967b1395261956b80bb2b8b6736b6da0945dd7",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Earlier market snapshots and October 8 trades; reconciled by PRs #209, #210, #213 and the current later data snapshot."
+    },
+    {
+      "name": "bazelignore-worktrees",
+      "sha": "d690e624c2faf859eed9f08f196ba10a66643cf8",
+      "PRs": [
+        {
+          "number": 36,
+          "state": "MERGED",
+          "headRefOid": "d690e624c2faf859eed9f08f196ba10a66643cf8",
+          "title": "Exclude .claude/worktrees from bazel's package scan"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "chore/sync-local-data-2026-10-09",
+      "sha": "2e7d0ae55cab4a2e674a3ef7c61cf864cf983012",
+      "PRs": [
+        {
+          "number": 213,
+          "state": "MERGED",
+          "headRefOid": "2e7d0ae55cab4a2e674a3ef7c61cf864cf983012",
+          "title": "Sync local data snapshots and protect sparse price refreshes"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "codex/guard-invalid-ohlc-and-rebuild-features",
+      "sha": "6ada9f7ebae2d5b00b96edd6f603a92d9d12729e",
+      "PRs": [
+        {
+          "number": 234,
+          "state": "MERGED",
+          "headRefOid": "6ada9f7ebae2d5b00b96edd6f603a92d9d12729e",
+          "title": "Guard invalid OHLC and repair feature snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "codex/model-run-state-oct12",
+      "sha": "ab9e1445d95cd6049e39fb65c8f79f5d251cf7a9",
+      "PRs": [
+        {
+          "number": 232,
+          "state": "MERGED",
+          "headRefOid": "ab9e1445d95cd6049e39fb65c8f79f5d251cf7a9",
+          "title": "Publish model artifacts and training run state"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "codex/oct12-feature-snapshot",
+      "sha": "adeb457f27f46dac6b376bfb6429d714bba28605",
+      "PRs": [
+        {
+          "number": 231,
+          "state": "MERGED",
+          "headRefOid": "adeb457f27f46dac6b376bfb6429d714bba28605",
+          "title": "Publish October 12 feature snapshot before repair"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "codex/paper-book-snapshot-oct12",
+      "sha": "08939c4a1cddfa84e4129a774c660584e1164f81",
+      "PRs": [
+        {
+          "number": 233,
+          "state": "MERGED",
+          "headRefOid": "08939c4a1cddfa84e4129a774c660584e1164f81",
+          "title": "Publish October 12 paper book snapshot"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "codex/price-pattern-feature-families",
+      "sha": "7bf83fc2ec91e822cf841975c57dfa5524434201",
+      "PRs": [
+        {
+          "number": 241,
+          "state": "MERGED",
+          "headRefOid": "7bf83fc2ec91e822cf841975c57dfa5524434201",
+          "title": "Align the zero-gain wait with the next morning open"
+        },
+        {
+          "number": 240,
+          "state": "MERGED",
+          "headRefOid": "5ef2abc9f90a59fc0b93884d5e0ad8c694ccf8f6",
+          "title": "Put the after-close exit into the What If totals"
+        },
+        {
+          "number": 239,
+          "state": "MERGED",
+          "headRefOid": "62016057d4aefa1fb08f8cccf18de7497f16d97e",
+          "title": "Publish the October 17 market and trade snapshot"
+        },
+        {
+          "number": 238,
+          "state": "MERGED",
+          "headRefOid": "7fca2a7607db978069b26cf364bdcf8230caf1e5",
+          "title": "Add hold-after-close What If controls"
+        },
+        {
+          "number": 237,
+          "state": "MERGED",
+          "headRefOid": "6f4bc11d630f3e740cea37386e21d95a0dbc3412",
+          "title": "Publish the October 16 market and trade snapshot"
+        },
+        {
+          "number": 236,
+          "state": "MERGED",
+          "headRefOid": "02b9c5678d5947b465fdc393dc2e92ad6a89ad8b",
+          "title": "Label hard-stop news reviews and record October fills"
+        },
+        {
+          "number": 235,
+          "state": "MERGED",
+          "headRefOid": "b4f7cd6a405dd2da656e99dbcc2cc585e3f2120b",
+          "title": "Publish price-pattern features and October 13 snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/add-crgy-afternoon-fills-2026-10-09",
+      "sha": "120605e3d3d43bde3eec6c922cacd03b38423bf0",
+      "PRs": [
+        {
+          "number": 219,
+          "state": "MERGED",
+          "headRefOid": "120605e3d3d43bde3eec6c922cacd03b38423bf0",
+          "title": "Record CRGY afternoon fills and remaining position"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/add-hpq-orders-2026-10-09-afternoon",
+      "sha": "9aef997fc4f79c6757cf385e469f126ca4b174ca",
+      "PRs": [
+        {
+          "number": 217,
+          "state": "MERGED",
+          "headRefOid": "9aef997fc4f79c6757cf385e469f126ca4b174ca",
+          "title": "Archive afternoon HPQ broker fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/broker-ledger-20261028",
+      "sha": "941bbe9904a68580690203b71676db0601266c5e",
+      "PRs": [
+        {
+          "number": 266,
+          "state": "MERGED",
+          "headRefOid": "941bbe9904a68580690203b71676db0601266c5e",
+          "title": "Publish reconciled brokerage ledger and October 29 morning picks"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/catch-up-20261009",
+      "sha": "50e2059b7c1e7d2988f4daf233c36515f22c5bc9",
+      "PRs": [
+        {
+          "number": 212,
+          "state": "MERGED",
+          "headRefOid": "50e2059b7c1e7d2988f4daf233c36515f22c5bc9",
+          "title": "Refresh October 8 prices, features, and model runs"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/close-xxi-2026-09-29",
+      "sha": "9f1f0581cc425ab55ed3e51d1c7ee000dbf8d0cc",
+      "PRs": [
+        {
+          "number": 145,
+          "state": "MERGED",
+          "headRefOid": "9f1f0581cc425ab55ed3e51d1c7ee000dbf8d0cc",
+          "title": "Record final XXI buy and close the 2,900-share position"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/complete-crgy-oct-09-fills",
+      "sha": "a35edca17b9973b6030f2ed4a0b7fdd81fb65292",
+      "PRs": [
+        {
+          "number": 220,
+          "state": "MERGED",
+          "headRefOid": "a35edca17b9973b6030f2ed4a0b7fdd81fb65292",
+          "title": "Complete Oct 9 CRGY fills and close position"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/feature-snapshot-20261030",
+      "sha": "5c2132637d2deca1cd66712b0468f3794c8169ec",
+      "PRs": [
+        {
+          "number": 285,
+          "state": "MERGED",
+          "headRefOid": "5c2132637d2deca1cd66712b0468f3794c8169ec",
+          "title": "Publish refreshed universe feature snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/log-fills-2026-09-29",
+      "sha": "9f011e9d1264fc8014c8cbbc0239fdcace9be11c",
+      "PRs": [
+        {
+          "number": 144,
+          "state": "MERGED",
+          "headRefOid": "9f011e9d1264fc8014c8cbbc0239fdcace9be11c",
+          "title": "Data/log fills 2026 09 29"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/market-feature-snapshot-20261028",
+      "sha": "a4ea3af0b492ca1ad91aab518dc4cf541fb391ff",
+      "PRs": [
+        {
+          "number": 262,
+          "state": "MERGED",
+          "headRefOid": "a4ea3af0b492ca1ad91aab518dc4cf541fb391ff",
+          "title": "Publish October 28 market and feature snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/model-training-snapshot-20261028",
+      "sha": "0afeddb64fcabf290ee4d60cd81bbc668050ac0f",
+      "PRs": [
+        {
+          "number": 263,
+          "state": "MERGED",
+          "headRefOid": "0afeddb64fcabf290ee4d60cd81bbc668050ac0f",
+          "title": "Publish model artifacts and training history through October 28"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/model-training-snapshot-20261030",
+      "sha": "6db08d799f9232710fe0d4108a9a6e013eb17804",
+      "PRs": [
+        {
+          "number": 283,
+          "state": "MERGED",
+          "headRefOid": "6db08d799f9232710fe0d4108a9a6e013eb17804",
+          "title": "Publish completed training models and run history"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/morning-picks-20261030",
+      "sha": "551fb880b719d2e384831954db4072313f48a1bf",
+      "PRs": [
+        {
+          "number": 281,
+          "state": "MERGED",
+          "headRefOid": "551fb880b719d2e384831954db4072313f48a1bf",
+          "title": "Publish October 30 morning scoring results"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/morning-trades-2026-09-30",
+      "sha": "081966f872a8c6202521da005a02871c0b22af38",
+      "PRs": [
+        {
+          "number": 158,
+          "state": "MERGED",
+          "headRefOid": "09b4e0b75702443cc57589827a7befe35a033133",
+          "title": "Publish September 30 scans, trades, market data, and models"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "September 30 data merged in #158; later news clarification merged in #160; subsequent dated picks are already present."
+    },
+    {
+      "name": "data/oct-01-broker-import",
+      "sha": "35e79b645959463649bb6847746f33296eb90f68",
+      "PRs": [
+        {
+          "number": 161,
+          "state": "MERGED",
+          "headRefOid": "35e79b645959463649bb6847746f33296eb90f68",
+          "title": "Record October 1 broker order reconciliation"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/oct-01-closes",
+      "sha": "caf85516ca97fd715b7b553fe0fad1dbfacabd7f",
+      "PRs": [
+        {
+          "number": 162,
+          "state": "MERGED",
+          "headRefOid": "caf85516ca97fd715b7b553fe0fad1dbfacabd7f",
+          "title": "Record Oct 1 closes and keep partial quote coverage"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/oct-05-completed-closes",
+      "sha": "72d2541198fc8ad5266e17edb8ab9224fd9da1e9",
+      "PRs": [
+        {
+          "number": 175,
+          "state": "MERGED",
+          "headRefOid": "72d2541198fc8ad5266e17edb8ab9224fd9da1e9",
+          "title": "Record completed Oct 5 closes and What if picks"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/oct29-kgc-agi-morning",
+      "sha": "9632803ea35915cfe88dd5e3de25c2d4b63fa45c",
+      "PRs": [
+        {
+          "number": 267,
+          "state": "MERGED",
+          "headRefOid": "9632803ea35915cfe88dd5e3de25c2d4b63fa45c",
+          "title": "Record October 29 KGC and AGI fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/oct30-broker-ledger",
+      "sha": "3e673d5ecdd93f71eb17bdb01bf9578bc62aebb9",
+      "PRs": [
+        {
+          "number": 282,
+          "state": "MERGED",
+          "headRefOid": "3e673d5ecdd93f71eb17bdb01bf9578bc62aebb9",
+          "title": "Record October 30 broker executions and reconciled ledger"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/oct8-ledger-20261009",
+      "sha": "ef8072586a59866fcbc0c38d65119d9a3797f4b9",
+      "PRs": [
+        {
+          "number": 210,
+          "state": "MERGED",
+          "headRefOid": "ef8072586a59866fcbc0c38d65119d9a3797f4b9",
+          "title": "Reconcile full October 8 broker ledger (79 fills)"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/overnight-model-only-2026-10-08",
+      "sha": "afe9e5e42fe0a40a16a72b5e8d3b06aecdeb0826",
+      "PRs": [
+        {
+          "number": 209,
+          "state": "MERGED",
+          "headRefOid": "afe9e5e42fe0a40a16a72b5e8d3b06aecdeb0826",
+          "title": "Publish available overnight forecast artifact"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/overnight-model-trades-2026-10-08",
+      "sha": "151c171aadf415dbc9c794842d70692b1ba2d042",
+      "PRs": [
+        {
+          "number": 208,
+          "state": "CLOSED",
+          "headRefOid": "151c171aadf415dbc9c794842d70692b1ba2d042",
+          "title": "Publish available overnight model and October 8 broker fills"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Closed #208 split into merged model #209 and reconciled trade #210/#213 publications."
+    },
+    {
+      "name": "data/paper-book-2026-09-29",
+      "sha": "2af186b436ef4c922d6a317b16ca4494328656fc",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Superseded historical database snapshot; October 28 reconciliation and current paper book preserve later outcomes."
+    },
+    {
+      "name": "data/paper-book-snapshot-20261028",
+      "sha": "6d7db5cac3b1d883b6edb1e14013ebf3b3368a63",
+      "PRs": [
+        {
+          "number": 264,
+          "state": "MERGED",
+          "headRefOid": "6d7db5cac3b1d883b6edb1e14013ebf3b3368a63",
+          "title": "Publish October 28 paper-book results and saved replays"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/paper-book-snapshot-20261030",
+      "sha": "58d31740f9c2cbb4f81ce49d5c13a2d7c1f499e7",
+      "PRs": [
+        {
+          "number": 284,
+          "state": "MERGED",
+          "headRefOid": "58d31740f9c2cbb4f81ce49d5c13a2d7c1f499e7",
+          "title": "Publish October 30 paper-book outcomes"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/price-weather-snapshot-20261030",
+      "sha": "0c9a27566c007d9bcb2999d0fa5a8e0d47584f74",
+      "PRs": [
+        {
+          "number": 286,
+          "state": "MERGED",
+          "headRefOid": "0c9a27566c007d9bcb2999d0fa5a8e0d47584f74",
+          "title": "Publish refreshed price and weather snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/reconcile-hpq-add-crgy-2026-10-09",
+      "sha": "2915320a4aac0c137f29b147ac663a7e39e047a8",
+      "PRs": [
+        {
+          "number": 218,
+          "state": "MERGED",
+          "headRefOid": "2915320a4aac0c137f29b147ac663a7e39e047a8",
+          "title": "Reconcile HPQ afternoon fills and add CRGY buy"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/refresh-market-2026-09-29",
+      "sha": "de176b5d5a50c95c47c632e89d1cf5b4287a3f15",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Superseded market/model snapshots; current data is newer. September 29 dated picks were recovered in the October 28 reconciliation."
+    },
+    {
+      "name": "data/svm-seven-model-2026-10-04",
+      "sha": "f2a0ea2a78e6acacc0f8a336570345f2c36eb97c",
+      "PRs": [
+        {
+          "number": 167,
+          "state": "MERGED",
+          "headRefOid": "f2a0ea2a78e6acacc0f8a336570345f2c36eb97c",
+          "title": "Record all-seven SVM Fit model"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-01",
+      "sha": "b36038fff1704ed676d7d4faed6076da98acf29b",
+      "PRs": [
+        {
+          "number": 164,
+          "state": "MERGED",
+          "headRefOid": "b36038fff1704ed676d7d4faed6076da98acf29b",
+          "title": "Record October 2 market data and broker trades"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-05",
+      "sha": "36da55bef6bff9bbe66aa4deba61eaf3cf5f4a5b",
+      "PRs": [
+        {
+          "number": 168,
+          "state": "MERGED",
+          "headRefOid": "36da55bef6bff9bbe66aa4deba61eaf3cf5f4a5b",
+          "title": "Record Oct 5 BMY and LQDA broker fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-05-additional",
+      "sha": "74537b30204e3b32beb0d949a5a89d1851cc490d",
+      "PRs": [
+        {
+          "number": 169,
+          "state": "MERGED",
+          "headRefOid": "74537b30204e3b32beb0d949a5a89d1851cc490d",
+          "title": "Record two additional Oct 5 BMY fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-05-afternoon",
+      "sha": "cdd6b56002142134c01f3f2384da46d7509b650b",
+      "PRs": [
+        {
+          "number": 170,
+          "state": "MERGED",
+          "headRefOid": "cdd6b56002142134c01f3f2384da46d7509b650b",
+          "title": "Record additional Oct 5 BMY buys and sale"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-05-close",
+      "sha": "f5cc428470ea1259f317c36a8c3995bdf1a2e276",
+      "PRs": [
+        {
+          "number": 171,
+          "state": "MERGED",
+          "headRefOid": "f5cc428470ea1259f317c36a8c3995bdf1a2e276",
+          "title": "Record final Oct 5 BMY sales"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-06",
+      "sha": "7020887e4122c3d489730716b0704134bc25459b",
+      "PRs": [
+        {
+          "number": 178,
+          "state": "MERGED",
+          "headRefOid": "7020887e4122c3d489730716b0704134bc25459b",
+          "title": "Record Oct 6 WDC and ALHC fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/trades-2026-10-06-closes",
+      "sha": "1954a52996da03f27aa57cf4d3c3e4b390d6c02f",
+      "PRs": [
+        {
+          "number": 179,
+          "state": "MERGED",
+          "headRefOid": "1954a52996da03f27aa57cf4d3c3e4b390d6c02f",
+          "title": "Close Oct 6 WDC and ALHC positions"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "data/wern-final-2026-10-06",
+      "sha": "f27d49e62824b366abeab6f0c6939e632483e92f",
+      "PRs": [
+        {
+          "number": 183,
+          "state": "MERGED",
+          "headRefOid": "f27d49e62824b366abeab6f0c6939e632483e92f",
+          "title": "Reconcile final Oct 6 WERN fills and flat position"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/adr-and-delegation-briefing",
+      "sha": "714a1fc04c693859756474c319109729f6d199c5",
+      "PRs": [
+        {
+          "number": 130,
+          "state": "MERGED",
+          "headRefOid": "c5047367598bd9082f89edfcaec46d0cdd325780",
+          "title": "Add ADR log (backfilled) and a cheap-model delegation briefing"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "SVR result documented by #137 and current ADR0020/0021 briefing; do not restore the superseded pending experiment wording."
+    },
+    {
+      "name": "docs/archive-local-work-20261028",
+      "sha": "80839c4ec7d3fc4152d9e4b6ffd74bb422cbd973",
+      "PRs": [
+        {
+          "number": 265,
+          "state": "MERGED",
+          "headRefOid": "80839c4ec7d3fc4152d9e4b6ffd74bb422cbd973",
+          "title": "Preserve historical handoff and obsolete generated build diff"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/bazel-toolchain-invariants",
+      "sha": "b6a55f5ce0f74e789591447a6abfbc38a873553a",
+      "PRs": [
+        {
+          "number": 276,
+          "state": "MERGED",
+          "headRefOid": "b6a55f5ce0f74e789591447a6abfbc38a873553a",
+          "title": "Explain Bazel toolchain version alignment"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/generated-build-integrity",
+      "sha": "2bea145e43b719f451b3e0a40e839af379279665",
+      "PRs": [
+        {
+          "number": 277,
+          "state": "MERGED",
+          "headRefOid": "2bea145e43b719f451b3e0a40e839af379279665",
+          "title": "Document generated dependency integrity checks"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/logistic-regression-done",
+      "sha": "799d6d284d0c89d4eb165773c4bbd8fe08c219da",
+      "PRs": [
+        {
+          "number": 17,
+          "state": "MERGED",
+          "headRefOid": "799d6d284d0c89d4eb165773c4bbd8fe08c219da",
+          "title": "Shorten roadmap wording, stop marking items done"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/overnight-plan-review",
+      "sha": "3ed668f9a7bff8a67654d37e2e444ae1f7b3fdb6",
+      "PRs": [
+        {
+          "number": 173,
+          "state": "MERGED",
+          "headRefOid": "3ed668f9a7bff8a67654d37e2e444ae1f7b3fdb6",
+          "title": "Tighten overnight forecast plan after review"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/python-dependency-workflow",
+      "sha": "c1fa8356246d7304d95eb0e235f74d5515e346f2",
+      "PRs": [
+        {
+          "number": 275,
+          "state": "MERGED",
+          "headRefOid": "c1fa8356246d7304d95eb0e235f74d5515e346f2",
+          "title": "Document Python dependency regeneration workflow"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/readme-trim",
+      "sha": "6a1e15b039e92b77696cef44a564f89c292b160a",
+      "PRs": [
+        {
+          "number": 107,
+          "state": "MERGED",
+          "headRefOid": "6a1e15b039e92b77696cef44a564f89c292b160a",
+          "title": "Trim README: bullets, tables, and current news/price facts"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "docs/session-handoff-2026-09-29",
+      "sha": "4d0d238f05e4842e0a423f0174034836d946ee77",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Exact handoff preserved by merged #265 at docs/archive/local-checkin-2026-10-28/session-handoff-2026-09-29.md."
+    },
+    {
+      "name": "experiment/svm-stacked-features",
+      "sha": "c7bae2cf0d12f51ecaabbf3f38d84970bcc77409",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Dated September 29 picks recovered by October 28 reconciliation; SVM implementation merged separately in #150."
+    },
+    {
+      "name": "feat/all-svm-stacked-features",
+      "sha": "b190967dbcae512479d0742c17fc7bca17222919",
+      "PRs": [
+        {
+          "number": 166,
+          "state": "MERGED",
+          "headRefOid": "b190967dbcae512479d0742c17fc7bca17222919",
+          "title": "Use all seven SVM outputs as removable Fit features"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/consolidation-ui-20261007",
+      "sha": "626095b546f5621e737a02a324cc48f72ce8a35f",
+      "PRs": [
+        {
+          "number": 198,
+          "state": "MERGED",
+          "headRefOid": "626095b546f5621e737a02a324cc48f72ce8a35f",
+          "title": "Add overnight quote prefill and fill-linked trade fees"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/data-snapshot-20261007",
+      "sha": "acd838b66db7358e3a2050bbccc7209116082277",
+      "PRs": [
+        {
+          "number": 199,
+          "state": "MERGED",
+          "headRefOid": "acd838b66db7358e3a2050bbccc7209116082277",
+          "title": "Refresh October 7 data and model snapshots"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/morning-email-picks",
+      "sha": "b19906c30b27ea1e745dc9ed5f5c04adf682afe7",
+      "PRs": [
+        {
+          "number": 86,
+          "state": "MERGED",
+          "headRefOid": "b19906c30b27ea1e745dc9ed5f5c04adf682afe7",
+          "title": "Email this morning's top 20 picks after the 8:32 job"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/overnight-feature-comparison",
+      "sha": "588b0240500e58514e0f94d72bd054b2aed881d8",
+      "PRs": [
+        {
+          "number": 188,
+          "state": "MERGED",
+          "headRefOid": "588b0240500e58514e0f94d72bd054b2aed881d8",
+          "title": "Compare overnight feature sets on held-out sessions"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/overnight-phase1",
+      "sha": "646f789b953a4167408286ac9a71b5b220df1cbc",
+      "PRs": [
+        {
+          "number": 180,
+          "state": "MERGED",
+          "headRefOid": "646f789b953a4167408286ac9a71b5b220df1cbc",
+          "title": "Add provenance-gated overnight Phase 1 dataset"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/overnight-phase2a",
+      "sha": "f23bea117af2f23b5b911db5ece86fee2a57a5c5",
+      "PRs": [
+        {
+          "number": 182,
+          "state": "MERGED",
+          "headRefOid": "f23bea117af2f23b5b911db5ece86fee2a57a5c5",
+          "title": "Add bounded Massive overnight ingestion and Parquet price store"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/overnight-quicklook-ui",
+      "sha": "a7a26a4c398b68c5e08433ef986611b3296401a9",
+      "PRs": [
+        {
+          "number": 196,
+          "state": "MERGED",
+          "headRefOid": "a7a26a4c398b68c5e08433ef986611b3296401a9",
+          "title": "Add one-click Overnight quick look and simplify hold controls"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/overnight-ranked-stack",
+      "sha": "807b0c7a52a63070aaf7c1f9c8f68da6daa87b24",
+      "PRs": [
+        {
+          "number": 207,
+          "state": "MERGED",
+          "headRefOid": "fce90980fe4c42f0edee470ae9ce5234cb2bbfa6",
+          "title": "Rank-only overnight cohort, cost evaluation, and compact direction UI"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "One later localhost-host commit has exact patch equivalent 03ca295fe on main (merged #261)."
+    },
+    {
+      "name": "feat/overnight-same-day-pipeline",
+      "sha": "95a3c4d7b9ccef4796ebf88e1138877eab3c8b2e",
+      "PRs": [
+        {
+          "number": 187,
+          "state": "MERGED",
+          "headRefOid": "95a3c4d7b9ccef4796ebf88e1138877eab3c8b2e",
+          "title": "Add close-conditioned overnight model pipeline with same-day scores"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/polygon-realtime-opens",
+      "sha": "d261d2351b6ef195118c7cb56ff5657bcf5b9e6b",
+      "PRs": [
+        {
+          "number": 177,
+          "state": "MERGED",
+          "headRefOid": "038625697353ff0907621cbb8579b49452c8a9f8",
+          "title": "Use real-time Polygon official-open stream in morning scan"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Opening diagnostics/stream merged #176/#177; later dated pick/data snapshots superseded by current data."
+    },
+    {
+      "name": "feat/svm-derived-features",
+      "sha": "bcf847d6e057a08bf66a01ed1a5456e5a51a7227",
+      "PRs": [
+        {
+          "number": 150,
+          "state": "MERGED",
+          "headRefOid": "bcf847d6e057a08bf66a01ed1a5456e5a51a7227",
+          "title": "Add direction SVC margin as a model-derived Fit feature"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/universe-news-store",
+      "sha": "c9b9bb4e2676e3b2b8d4fa5b5493543e86ff3dfc",
+      "PRs": [
+        {
+          "number": 106,
+          "state": "MERGED",
+          "headRefOid": "c9b9bb4e2676e3b2b8d4fa5b5493543e86ff3dfc",
+          "title": "Persist universe news and backfill leftover evening prices"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/what-if-exclude-blacklisted",
+      "sha": "3103d7c970316930f33c03aa0cedf8030b3549f6",
+      "PRs": [
+        {
+          "number": 221,
+          "state": "MERGED",
+          "headRefOid": "3103d7c970316930f33c03aa0cedf8030b3549f6",
+          "title": "Add blacklist exclusion to What If comparisons"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/whatif-news-toggle-20261007",
+      "sha": "6a03fece3001f0350d49c18c527402844eeda24a",
+      "PRs": [
+        {
+          "number": 197,
+          "state": "MERGED",
+          "headRefOid": "6a03fece3001f0350d49c18c527402844eeda24a",
+          "title": "Add What If news skip scenario toggle"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feat/whatif-spy-comparison",
+      "sha": "17019149bff5acf8d11c42f89d4d3e405c2204b3",
+      "PRs": [
+        {
+          "number": 147,
+          "state": "MERGED",
+          "headRefOid": "17019149bff5acf8d11c42f89d4d3e405c2204b3",
+          "title": "Compare What If strategies with S&P 500 benchmarks"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feature/overnight-scenarios",
+      "sha": "2d22bea699597773d92d9a02c4419fb7809afa59",
+      "PRs": [
+        {
+          "number": 172,
+          "state": "MERGED",
+          "headRefOid": "2d22bea699597773d92d9a02c4419fb7809afa59",
+          "title": "Plan overnight open forecast and scenario tab"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feature/price-history",
+      "sha": "e1919eea2af08377e8d867fff1ffedc2f9392dfd",
+      "PRs": [
+        {
+          "number": 11,
+          "state": "MERGED",
+          "headRefOid": "e1919eea2af08377e8d867fff1ffedc2f9392dfd",
+          "title": "Add a Prices tab: daily + hourly OHLCV history with a line chart"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "feature/registry-inline-prune",
+      "sha": "763b30316849b6d53352ab99ba2ae46327655756",
+      "PRs": [
+        {
+          "number": 18,
+          "state": "MERGED",
+          "headRefOid": "763b30316849b6d53352ab99ba2ae46327655756",
+          "title": "Fold pruned status into Registry as an inline per-feature attribute"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/after-hours-scan-date",
+      "sha": "bf9942cfc3b7a7694f2e8648bc333badcc938913",
+      "PRs": [
+        {
+          "number": 153,
+          "state": "MERGED",
+          "headRefOid": "bf9942cfc3b7a7694f2e8648bc333badcc938913",
+          "title": "Keep current Chicago scan visible after Eastern midnight"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/configurable-api-host-20261028",
+      "sha": "438546c4d777d9149eb0297478e4d3515c65953a",
+      "PRs": [
+        {
+          "number": 261,
+          "state": "MERGED",
+          "headRefOid": "438546c4d777d9149eb0297478e4d3515c65953a",
+          "title": "Allow localhost-only API sessions"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/lighten-trade-history-weeks",
+      "sha": "25092c0b70fea4521cdeb1629cd826de5e98cab3",
+      "PRs": [
+        {
+          "number": 214,
+          "state": "MERGED",
+          "headRefOid": "25092c0b70fea4521cdeb1629cd826de5e98cab3",
+          "title": "Lighten weekly rows in trade history"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/morning-snapshot-retry",
+      "sha": "68ed4e7a94ea68df29152a904cfa3da1720db5f1",
+      "PRs": [
+        {
+          "number": 152,
+          "state": "MERGED",
+          "headRefOid": "68ed4e7a94ea68df29152a904cfa3da1720db5f1",
+          "title": "Retry morning Polygon snapshots from 8:30:05"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/morning-snapshot-test-20261009",
+      "sha": "0de858c4cf0001bb87e0ce5894395d027c748cb9",
+      "PRs": [
+        {
+          "number": 211,
+          "state": "MERGED",
+          "headRefOid": "0de858c4cf0001bb87e0ce5894395d027c748cb9",
+          "title": "test: bypass snapshot wait in already-scored morning run case"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/news-cell-clarity",
+      "sha": "5a860aeace49a519ae66c6dc6c68ece3d9ec4d12",
+      "PRs": [
+        {
+          "number": 160,
+          "state": "MERGED",
+          "headRefOid": "5a860aeace49a519ae66c6dc6c68ece3d9ec4d12",
+          "title": "Clarify news screening and avoid duplicate skip status"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/news-check-coverage",
+      "sha": "a8fe44425b9152585fba5ff5f7c364bddc11cd7e",
+      "PRs": [
+        {
+          "number": 149,
+          "state": "MERGED",
+          "headRefOid": "a8fe44425b9152585fba5ff5f7c364bddc11cd7e",
+          "title": "Make news checks use local Grok auth and report coverage"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/news-event-guard",
+      "sha": "2bd92d71ac262ed08bea7ce887994ade204a68e5",
+      "PRs": [
+        {
+          "number": 163,
+          "state": "MERGED",
+          "headRefOid": "2bd92d71ac262ed08bea7ce887994ade204a68e5",
+          "title": "Hold incomplete news checks and skip corporate or clinical catalysts"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/nightly-paper-book-day",
+      "sha": "38d543121ddc8ca226f39c069a4566aaa55904de",
+      "PRs": [
+        {
+          "number": 157,
+          "state": "MERGED",
+          "headRefOid": "38d543121ddc8ca226f39c069a4566aaa55904de",
+          "title": "Add each completed session to What If after prices refresh"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/oct-02-live-app",
+      "sha": "909d203453dc9543bbc5d503e9d76dae7b2a63b6",
+      "PRs": [
+        {
+          "number": 165,
+          "state": "MERGED",
+          "headRefOid": "909d203453dc9543bbc5d503e9d76dae7b2a63b6",
+          "title": "Restore live quote and news safeguards in October app"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/overnight-morning-display",
+      "sha": "e41bd1397bd9d428ec50601424c44b26bbbfa9e3",
+      "PRs": [
+        {
+          "number": 154,
+          "state": "MERGED",
+          "headRefOid": "e41bd1397bd9d428ec50601424c44b26bbbfa9e3",
+          "title": "Keep overnight scan prices and clarify legacy news checks"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/paper-book-replay-primary-key",
+      "sha": "43602285bd0126b9cce9147536b1e2a6ec0843d4",
+      "PRs": [
+        {
+          "number": 256,
+          "state": "MERGED",
+          "headRefOid": "43602285bd0126b9cce9147536b1e2a6ec0843d4",
+          "title": "Fix saved-model replay on legacy paper books"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/polygon-class-share-symbols",
+      "sha": "e28e60949c1570ab21c474e110c901f00d178e41",
+      "PRs": [
+        {
+          "number": 151,
+          "state": "MERGED",
+          "headRefOid": "e28e60949c1570ab21c474e110c901f00d178e41",
+          "title": "Map Polygon class-share symbols to universe tickers"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/polygon-opening-diagnostics",
+      "sha": "43d0b4caa798af2d70c178fc3158027b4852b1e0",
+      "PRs": [
+        {
+          "number": 176,
+          "state": "MERGED",
+          "headRefOid": "43d0b4caa798af2d70c178fc3158027b4852b1e0",
+          "title": "Diagnose Polygon opening snapshot coverage"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/post-close-trade-history",
+      "sha": "96bcc2cdd2fc0dd3abccf9fa3d64d99f5976887d",
+      "PRs": [
+        {
+          "number": 184,
+          "state": "MERGED",
+          "headRefOid": "96bcc2cdd2fc0dd3abccf9fa3d64d99f5976887d",
+          "title": "Show trade fees and post-bell closing prices automatically"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/pytest-environment-isolation",
+      "sha": "be59e239ae49f846edbf5ed5f9fa4229632fe770",
+      "PRs": [
+        {
+          "number": 278,
+          "state": "MERGED",
+          "headRefOid": "be59e239ae49f846edbf5ed5f9fa4229632fe770",
+          "title": "Preserve caller environments in pytest targets"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/shared-spy-history-20261028",
+      "sha": "9e983e49c80d3218267aa04d275001dcc779e164",
+      "PRs": [
+        {
+          "number": 260,
+          "state": "MERGED",
+          "headRefOid": "9e983e49c80d3218267aa04d275001dcc779e164",
+          "title": "Use one SPY history for each benchmark response"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/spy-benchmark-history",
+      "sha": "a85781f9da5635d95daac43af757d9ed9bfce21c",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Exact source patch equivalent dba78a3ca on main; benchmark implementation/tests remain byte-identical."
+    },
+    {
+      "name": "fix/trade-history-auto-refresh",
+      "sha": "475fb9a2d3117fea8ef5c2f88dedd1d52021a142",
+      "PRs": [
+        {
+          "number": 148,
+          "state": "MERGED",
+          "headRefOid": "475fb9a2d3117fea8ef5c2f88dedd1d52021a142",
+          "title": "Refresh trade history as session prices settle"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/training-panel-spacing",
+      "sha": "d58d4633da66940c3d173e05d57f62c760e579ad",
+      "PRs": [
+        {
+          "number": 34,
+          "state": "MERGED",
+          "headRefOid": "d58d4633da66940c3d173e05d57f62c760e579ad",
+          "title": "Fix cramped spacing in the Models tab's Training panel"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/tune-week-row-tint",
+      "sha": "bb7e0957f04492f2a7758bc388f0154ac528abe0",
+      "PRs": [
+        {
+          "number": 215,
+          "state": "MERGED",
+          "headRefOid": "bb7e0957f04492f2a7758bc388f0154ac528abe0",
+          "title": "Fine-tune weekly trade history tint"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/what-if-completed-session-prices",
+      "sha": "e346ee4db0457dda07bc0877a01fbdedf7af50cd",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "include_active",
+      "evidence": "ACTIVE: two commits 17556d830 and e346ee4db are the base of this publication branch and will be included in the Jev PR."
+    },
+    {
+      "name": "fix/what-if-exit-results-20261028",
+      "sha": "3acefe348a7e57f48bd4813342d1f9b322ac8e0d",
+      "PRs": [
+        {
+          "number": 258,
+          "state": "MERGED",
+          "headRefOid": "3acefe348a7e57f48bd4813342d1f9b322ac8e0d",
+          "title": "Count What If wins from purchase to selected exit"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "fix/whatif-zero-gain-matches-next-open",
+      "sha": "ebbbce0e8615e85d98d6d3f0f6cf21dbcdd2ab57",
+      "PRs": [
+        {
+          "number": 242,
+          "state": "MERGED",
+          "headRefOid": "d0266e4a96ea7f72d2193ab8ef9150d2b84ebd19",
+          "title": "Route the What If +0% / 1-day wait through the next-open calculation"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Follow-on whole-trade gain and close-relative labels merged in #244; later behavior refined by #258."
+    },
+    {
+      "name": "maintenance/pytest-exit-contract",
+      "sha": "71eb046f1514c1aecd4a4afa2dfc33029a11a932",
+      "PRs": [
+        {
+          "number": 279,
+          "state": "MERGED",
+          "headRefOid": "71eb046f1514c1aecd4a4afa2dfc33029a11a932",
+          "title": "Declare pytest runner exit semantics"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "maintenance/pytest-helper-exports",
+      "sha": "d6e25d375168747597e829a3eb63072f417f349e",
+      "PRs": [
+        {
+          "number": 280,
+          "state": "MERGED",
+          "headRefOid": "584be150f65017903e84b43884d31c7dbc6bdd69",
+          "title": "Make pytest helper export visibility explicit"
+        }
+      ],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Source merged #280; additional dated October30 morning picks already on main."
+    },
+    {
+      "name": "overnight-current-price-prefill",
+      "sha": "0e2944735a72085321d5df64a838d8303be0b723",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Quote prefill consolidated into merged #198."
+    },
+    {
+      "name": "parse-bull-roundtrip-20261007",
+      "sha": "3d02924136edac20506b6ac85d7fd0fac3bc7276",
+      "PRs": [],
+      "exact_merged": false,
+      "disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Quote prefill and fee UI consolidated into merged #198; reconciled BULL fills are in the current ledger."
+    },
+    {
+      "name": "polish/trading-page-copy",
+      "sha": "f51c25ce9f3b85a9ad9411e605250a3e2207ca84",
+      "PRs": [
+        {
+          "number": 216,
+          "state": "MERGED",
+          "headRefOid": "f51c25ce9f3b85a9ad9411e605250a3e2207ca84",
+          "title": "Polish Trading page copy and empty state"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "readme-refresh",
+      "sha": "8d86e5dc32ae0a6cb0233c5135c6f29675a8a9e9",
+      "PRs": [
+        {
+          "number": 35,
+          "state": "MERGED",
+          "headRefOid": "8d86e5dc32ae0a6cb0233c5135c6f29675a8a9e9",
+          "title": "Refresh README: fix stale counts, prefer bullets over paragraphs"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "test/live-buy-signal-routes",
+      "sha": "bdf409ceceb76dbe66212b829ae3c388c0e679de",
+      "PRs": [
+        {
+          "number": 156,
+          "state": "MERGED",
+          "headRefOid": "bdf409ceceb76dbe66212b829ae3c388c0e679de",
+          "title": "Make live buy-signal route tests independent of saved scans"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "test/refresh-morning-regressions-20261028",
+      "sha": "df615f9c1ded431b0efa75dbcbaff49149a4858e",
+      "PRs": [
+        {
+          "number": 257,
+          "state": "MERGED",
+          "headRefOid": "df615f9c1ded431b0efa75dbcbaff49149a4858e",
+          "title": "Update stale morning and model test fixtures"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trade-log-csv",
+      "sha": "466475c50e3c75765c09269d561ae6f8d024476e",
+      "PRs": [
+        {
+          "number": 83,
+          "state": "MERGED",
+          "headRefOid": "466475c50e3c75765c09269d561ae6f8d024476e",
+          "title": "Human-readable trades.csv next to the parquet log"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trades/oct12-broker-fills",
+      "sha": "9e64a093a13444b006479c06eefbeacbf40c55a3",
+      "PRs": [
+        {
+          "number": 222,
+          "state": "MERGED",
+          "headRefOid": "9e64a093a13444b006479c06eefbeacbf40c55a3",
+          "title": "Record October 12 FRMI, MMED, and MAN broker fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trades/oct12-frmi-closing-sales",
+      "sha": "a78c3509dfb0bb9a44df47f69e17510a4a002e10",
+      "PRs": [
+        {
+          "number": 223,
+          "state": "MERGED",
+          "headRefOid": "a78c3509dfb0bb9a44df47f69e17510a4a002e10",
+          "title": "Record October 12 FRMI closing sales"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trades/oct12-fsly-fills",
+      "sha": "f12f7e1e6b35d0feb7d59a7e570d5831d7971295",
+      "PRs": [
+        {
+          "number": 224,
+          "state": "MERGED",
+          "headRefOid": "f12f7e1e6b35d0feb7d59a7e570d5831d7971295",
+          "title": "Record October 12 FSLY broker fills"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trades/oct29-kgc-exit-agi-add",
+      "sha": "7a5e3621999c0f3a595bfd87c964a08ebfd5d9a6",
+      "PRs": [
+        {
+          "number": 269,
+          "state": "MERGED",
+          "headRefOid": "7a5e3621999c0f3a595bfd87c964a08ebfd5d9a6",
+          "title": "Reconcile brokerage fills through October 29"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "training/listwise-and-consensus-research",
+      "sha": "9fa2f26b6de0c979a58e4d4110196e0fc2f3bcbe",
+      "PRs": [
+        {
+          "number": 129,
+          "state": "MERGED",
+          "headRefOid": "9fa2f26b6de0c979a58e4d4110196e0fc2f3bcbe",
+          "title": "Promote Rank to ListFold; add listwise objectives and a consensus bake-off"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "training/svr-family",
+      "sha": "d654a7604158b1bbc47a71c984edd654a4e35a23",
+      "PRs": [
+        {
+          "number": 131,
+          "state": "MERGED",
+          "headRefOid": "d654a7604158b1bbc47a71c984edd654a4e35a23",
+          "title": "Add LinearSVR family and its solo-vs-blend search"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "trim-registry-copy",
+      "sha": "7b3c3c7798d707a653a238d75e3043f108e2cdea",
+      "PRs": [
+        {
+          "number": 37,
+          "state": "MERGED",
+          "headRefOid": "7b3c3c7798d707a653a238d75e3043f108e2cdea",
+          "title": "Trim wordy Registry section description"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/after-hours-moon-20261028",
+      "sha": "8b870d973ef66ee7304598e0b3e90e1adb346bc9",
+      "PRs": [
+        {
+          "number": 259,
+          "state": "MERGED",
+          "headRefOid": "8b870d973ef66ee7304598e0b3e90e1adb346bc9",
+          "title": "Draw a consistent crescent for after-hours trades"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/align-trade-history-columns",
+      "sha": "71071c00c9e1d507523cb16ded3cd10f677c2488",
+      "PRs": [
+        {
+          "number": 146,
+          "state": "MERGED",
+          "headRefOid": "71071c00c9e1d507523cb16ded3cd10f677c2488",
+          "title": "Polish trade history and add independently sized What if simulations"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/compact-what-if-summary",
+      "sha": "7726abb13fab80573fffc52b2992af0a0c1702af",
+      "PRs": [
+        {
+          "number": 155,
+          "state": "MERGED",
+          "headRefOid": "7726abb13fab80573fffc52b2992af0a0c1702af",
+          "title": "Condense S&P explanation in What If"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/default-history-view",
+      "sha": "81d9756828f6f44c8c4b3df504b349b9a6c8d958",
+      "PRs": [
+        {
+          "number": 273,
+          "state": "MERGED",
+          "headRefOid": "81d9756828f6f44c8c4b3df504b349b9a6c8d958",
+          "title": "Add default Trade History view with Months selected"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/history-default-settings",
+      "sha": "9c07d1e524e709c053951ec0a1418872686f8913",
+      "PRs": [
+        {
+          "number": 272,
+          "state": "MERGED",
+          "headRefOid": "9c07d1e524e709c053951ec0a1418872686f8913",
+          "title": "Add settings for trade history expansion defaults"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/log-trade-form-type",
+      "sha": "097994e4400b29ed9007c7e05de38a068688b83a",
+      "PRs": [
+        {
+          "number": 85,
+          "state": "MERGED",
+          "headRefOid": "097994e4400b29ed9007c7e05de38a068688b83a",
+          "title": "Slightly larger log-a-trade inputs, via --text-form"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/month-week-drilldown",
+      "sha": "2301a25bd68a6a7292dc09ff20b2040abdfd7d8b",
+      "PRs": [
+        {
+          "number": 271,
+          "state": "MERGED",
+          "headRefOid": "2301a25bd68a6a7292dc09ff20b2040abdfd7d8b",
+          "title": "Add optional weeks inside trade history months"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/trade-history-months-wtd",
+      "sha": "9f86f16d2922790653eeaa6d2d9915dc7052c0d2",
+      "PRs": [
+        {
+          "number": 270,
+          "state": "MERGED",
+          "headRefOid": "9f86f16d2922790653eeaa6d2d9915dc7052c0d2",
+          "title": "Add month grouping and WTD to Trade History"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/week-summary-emphasis",
+      "sha": "02d799e8f104d5d5afed4311b310fd2bacd8219f",
+      "PRs": [
+        {
+          "number": 274,
+          "state": "MERGED",
+          "headRefOid": "02d799e8f104d5d5afed4311b310fd2bacd8219f",
+          "title": "Improve visual hierarchy of weekly trade summaries"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/what-if-period-gain-comparison",
+      "sha": "31750ce5c17e9f75e6be87824fca6fc4a49dea6b",
+      "PRs": [
+        {
+          "number": 225,
+          "state": "MERGED",
+          "headRefOid": "31750ce5c17e9f75e6be87824fca6fc4a49dea6b",
+          "title": "Align What if strategy and S&P period gains"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/what-if-trade-size-slider",
+      "sha": "ffbd1aafcb9c2ef9cca4a6561fc8243b71a194e1",
+      "PRs": [
+        {
+          "number": 268,
+          "state": "MERGED",
+          "headRefOid": "ffbd1aafcb9c2ef9cca4a6561fc8243b71a194e1",
+          "title": "Add What If trade-size sliders up to $100K"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    },
+    {
+      "name": "ui/what-if-unpriced-days",
+      "sha": "d9917ee9df69b1d3efd7ceb690dace789c0cc791",
+      "PRs": [
+        {
+          "number": 226,
+          "state": "MERGED",
+          "headRefOid": "d9917ee9df69b1d3efd7ceb690dace789c0cc791",
+          "title": "Show unpriced days in What if comparisons"
+        }
+      ],
+      "exact_merged": true,
+      "disposition": "already_merged"
+    }
+  ],
+  "audit_date": "2026-11-09"
+}

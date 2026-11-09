@@ -1,0 +1,111 @@
+<div id="risk-plan-v1">
+  <h3>V1 purchase and exit levels</h3>
+  <div class="viz-controls">
+    <label class="form-label" for="rp-profit">Profits at the start of the idea ($)
+      <input class="form-control" id="rp-profit" type="number" min="0" max="1000000" step="100" value="3000">
+    </label>
+    <label class="form-label" for="rp-price">Hypothetical first price ($)
+      <input class="form-control" id="rp-price" type="number" min="0.01" max="100000" step="0.01" value="80">
+    </label>
+    <label class="form-label" for="rp-step">Decline between purchases
+      <select class="form-select" id="rp-step"><option value="0.05">5%</option><option value="0.075">7.5%</option></select>
+    </label>
+    <label class="form-label" for="rp-target">Profit exit, net return on purchases
+      <select class="form-select" id="rp-target"><option value="0.02" selected>2%</option><option value="0.04">4%</option></select>
+    </label>
+  </div>
+  <p id="rp-error" role="alert" class="text-destructive" hidden></p>
+  <div id="rp-results" aria-live="polite">
+    <div class="viz-grid">
+      <div class="card viz-stat"><div class="text-muted">Planned loss budget</div><div class="viz-stat-value tabular-nums" id="rp-budget"></div><div class="text-small">50% of starting profits</div></div>
+      <div class="card viz-stat"><div class="text-muted">Exit trigger</div><div class="viz-stat-value tabular-nums" id="rp-trigger"></div><div class="text-small" id="rp-buffer"></div></div>
+      <div class="card viz-stat"><div class="text-muted">Cash ceiling</div><div class="viz-stat-value tabular-nums" id="rp-cap"></div><div class="text-small" id="rp-tranche"></div></div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <caption class="text-small">Whole shares, assuming every addition fills at its level</caption>
+        <thead><tr><th scope="col">Purchase</th><th scope="col" class="text-end">Price</th><th scope="col" class="text-end">New shares</th><th scope="col" class="text-end">Total cash spent</th></tr></thead>
+        <tbody id="rp-purchases"></tbody>
+      </table>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <caption id="rp-position" class="text-small"></caption>
+        <thead><tr><th scope="col">Exit condition</th><th scope="col" class="text-end">Estimated price</th><th scope="col" class="text-end">Net P&amp;L</th></tr></thead>
+        <tbody id="rp-exits"></tbody>
+      </table>
+    </div>
+    <div class="viz-row text-small text-muted"><span>Cost estimate: 0.11% per side</span><span>Cash funded</span><span>Overnight review: about 3:55 PM ET</span><span>Maximum hold only: 10 sessions or 14 days, whichever comes first</span></div>
+    <p class="text-small text-muted">Sizing estimates only. Gaps can exceed the loss budget. Controls do not rerun historical tests.</p>
+  </div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('risk-plan-v1');
+  const ids = ['profit', 'price', 'step', 'target'];
+  const controls = Object.fromEntries(ids.map(id => [id, root.querySelector('#rp-' + id)]));
+  const cost = 0.0011;
+  const money = value => new Intl.NumberFormat('en-US', {style:'currency', currency:'USD', minimumFractionDigits:2, maximumFractionDigits:2}).format(value);
+  const wholeMoney = value => new Intl.NumberFormat('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0}).format(value);
+  const set = (id, value) => { root.querySelector('#rp-' + id).textContent = value; };
+  function values() { return Object.fromEntries(ids.map(id => [id, Number(controls[id].value)])); }
+  function render() {
+    const state = values();
+    const invalid = !Number.isFinite(state.profit) || state.profit <= 0 || state.profit > 1000000 || !Number.isFinite(state.price) || state.price < 0.01 || state.price > 100000;
+    root.querySelector('#rp-error').hidden = !invalid;
+    root.querySelector('#rp-results').hidden = invalid;
+    if (invalid) { set('error', 'Enter a positive profit pool and share price.'); return; }
+    const budget = state.profit * 0.5;
+    const trigger = budget * 0.8;
+    const tranche = budget * 5 / 3;
+    set('budget', wholeMoney(budget));
+    set('trigger', wholeMoney(trigger));
+    set('buffer', wholeMoney(budget - trigger) + ' execution buffer');
+    set('cap', wholeMoney(tranche * 4));
+    set('tranche', '4 purchases, up to ' + wholeMoney(tranche) + ' each');
+    let shares = 0;
+    let spent = 0;
+    const rows = [];
+    for (let i = 0; i < 4; i++) {
+      const price = Math.max(0.01, Math.round(state.price * (1 - state.step) ** i * 100) / 100);
+      const quantity = Math.floor(tranche / (price * (1 + cost)));
+      shares += quantity;
+      spent += quantity * price * (1 + cost);
+      rows.push('<tr><th scope="row">' + (i === 0 ? 'Initial' : 'Addition ' + i) + '</th><td class="text-end">' + money(price) + '</td><td class="text-end">' + quantity + '</td><td class="text-end">' + money(spent) + '</td></tr>');
+    }
+    root.querySelector('#rp-purchases').innerHTML = rows.join('');
+    set('position', 'After all four purchases: ' + shares + ' shares; ' + money(spent) + ' spent including modeled entry costs');
+    if (!shares) {
+      root.querySelector('#rp-exits').innerHTML = '<tr><td colspan="3">Purchase budget is too small for one whole share at these prices.</td></tr>';
+      return;
+    }
+    const exitPrice = pnl => Math.max(0, (spent + pnl) / (shares * (1 - cost)));
+    const exits = [
+      ['Take profit (' + Math.round(state.target * 100) + '%)', spent * state.target],
+      ['Break-even reference', 0],
+      ['Minimum for overnight hold (−3%)', -Math.min(budget * 0.4, spent * 0.03)],
+      ['Loss exit trigger', -Math.min(trigger, spent)]
+    ];
+    root.querySelector('#rp-exits').innerHTML = exits.map(([label, pnl]) => '<tr><th scope="row">' + label + '</th><td class="text-end">' + money(exitPrice(pnl)) + '</td><td class="text-end">' + money(pnl) + '</td></tr>').join('');
+  }
+  function apply(saved) {
+    const data = saved?.modelContent;
+    if (!data || data.version !== 2) return;
+    for (const id of ids) {
+      if (typeof data[id] !== 'number' || !Number.isFinite(data[id])) continue;
+      if (id === 'step' && ![0.05, 0.075].includes(data[id])) continue;
+      if (id === 'target' && ![0.02, 0.04].includes(data[id])) continue;
+      controls[id].value = String(data[id]);
+    }
+  }
+  apply(window.openai?.widgetState);
+  render();
+  for (const id of ids) controls[id].addEventListener('input', () => {
+    render();
+    if (window.openai?.setWidgetState) window.openai.setWidgetState({modelContent: {version:2, ...values()}, privateContent:null}).catch(() => {});
+  });
+  window.addEventListener('openai:set_globals', event => {
+    if (event.detail?.globals?.widgetState) { apply(event.detail.globals.widgetState); render(); }
+  });
+})();
+</script>

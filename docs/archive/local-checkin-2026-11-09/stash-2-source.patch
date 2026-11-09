@@ -1,0 +1,143 @@
+diff --git a/python/stock_picker/training/BUILD.bazel b/python/stock_picker/training/BUILD.bazel
+index 380e4900d..da76f0c88 100644
+--- a/python/stock_picker/training/BUILD.bazel
++++ b/python/stock_picker/training/BUILD.bazel
+@@ -24,6 +24,7 @@ py_library(
+         "nightly.py",
+         "notify.py",
+         "model_registry.py",
++        "rank_search.py",
+         "recent_picks_demo.py",
+         "splits.py",
+         "train.py",
+@@ -83,6 +84,20 @@ py_binary(
+     ],
+ )
+ 
++py_binary(
++    name = "rank_search",
++    srcs = ["rank_search.py"],
++    imports = ["../.."],
++    visibility = ["//python:__subpackages__"],
++    deps = [
++        ":training",
++        "//python/stock_picker/features",
++        "//python/stock_picker/storage",
++        "@pypi//numpy",
++        "@pypi//pandas",
++    ],
++)
++
+ py_binary(
+     name = "tune_experiment",
+     srcs = ["tune_experiment.py"],
+diff --git a/python/stock_picker/training/model.py b/python/stock_picker/training/model.py
+index e685e53f8..c97b04803 100644
+--- a/python/stock_picker/training/model.py
++++ b/python/stock_picker/training/model.py
+@@ -61,6 +61,10 @@ LIGHTGBM_DEFAULT_PARAMS = {
+     "num_threads": os.cpu_count() or 4,
+ }
+ DEFAULT_NUM_BOOST_ROUND = 100
++# lambdarank NDCG gain table only covers grades 0-30, so within-day
++# returns are bucketed into this many relevance levels instead of a dense
++# 1..N rank (a day has ~2000 names).
++LIGHTGBM_RANK_GRADES = 10
+ 
+ RANDOM_FOREST_DEFAULT_PARAMS = {
+     "n_estimators": 200,
+@@ -165,6 +169,45 @@ def train_lightgbm(
+     return TrainedModel(model_type="lightgbm", estimator=booster, feature_names=columns)
+ 
+ 
++def train_lightgbm_rank(
++    train_frame: pd.DataFrame,
++    params: dict | None = None,
++    num_boost_round: int = DEFAULT_NUM_BOOST_ROUND,
++    excluded_features: set[str] | None = None,
++    included_features: set[str] | None = None,
++    relevance_grades: int = LIGHTGBM_RANK_GRADES,
++) -> TrainedModel:
++    """LightGBM lambdarank: order tickers within each day, not fit the return.
++
++    Label is a 0..grades-1 relevance bucket from that day's return quantiles.
++    Predict() is a same-day relative score -- not a percent. Do not blend
++    with regression members or gate at 0.5%; use Rank IC / top-K.
++    """
++    if "date" not in train_frame.columns:
++        raise ValueError("lambdarank needs a date column to group same-day peers")
++    columns = feature_columns(train_frame, excluded_features, included_features)
++    sorted_frame = train_frame.sort_values("date")
++
++    def _grades(day: pd.Series) -> pd.Series:
++        ranked = day.rank(method="first")
++        n = min(relevance_grades, max(2, int(ranked.nunique())))
++        return pd.qcut(ranked, n, labels=False, duplicates="drop")
++
++    relevance = sorted_frame.groupby("date")[LABEL_COLUMN].transform(_grades)
++    relevance = relevance.fillna(0).astype(int)
++    group_sizes = sorted_frame.groupby("date").size().to_numpy()
++    dataset = lgb.Dataset(sorted_frame[columns], label=relevance, group=group_sizes)
++    merged = {
++        **LIGHTGBM_DEFAULT_PARAMS,
++        **(params or {}),
++        "objective": "lambdarank",
++        "metric": "ndcg",
++    }
++    rounds = int(merged.pop("num_boost_round", num_boost_round))
++    booster = lgb.train(merged, dataset, num_boost_round=rounds)
++    return TrainedModel(model_type="lightgbm_rank", estimator=booster, feature_names=columns)
++
++
+ def train_random_forest(
+     train_frame: pd.DataFrame,
+     params: dict | None = None,
+@@ -283,6 +326,7 @@ def train_ridge(
+ 
+ MODEL_TRAINERS = {
+     "lightgbm": train_lightgbm,
++    "lightgbm_rank": train_lightgbm_rank,
+     "random_forest": train_random_forest,
+     "logistic_regression": train_logistic_regression,
+     "neural_net": train_neural_net,
+diff --git a/python/stock_picker/training/tests/test_model.py b/python/stock_picker/training/tests/test_model.py
+index 96d89c20a..f3241838c 100644
+--- a/python/stock_picker/training/tests/test_model.py
++++ b/python/stock_picker/training/tests/test_model.py
+@@ -6,6 +6,7 @@ from stock_picker.training.model import (
+     evaluate,
+     feature_columns,
+     train_lightgbm,
++    train_lightgbm_rank,
+     train_logistic_regression,
+     train_neural_net,
+     train_random_forest,
+@@ -49,6 +50,28 @@ def test_train_lightgbm_is_reproducible_across_runs():
+     assert np.array_equal(first_predictions, second_predictions)
+ 
+ 
++def test_train_lightgbm_rank_orders_same_day_names():
++    dates = pd.to_datetime(["2026-01-02"] * 40 + ["2026-01-03"] * 40)
++    rng = np.random.default_rng(0)
++    signal = rng.normal(size=80)
++    frame = pd.DataFrame(
++        {
++            "signal": signal,
++            "date": dates,
++            LABEL_COLUMN: 0.04 * signal + rng.normal(scale=0.002, size=80),
++        }
++    )
++    train = frame.iloc[:60]
++    test = frame.iloc[60:]
++
++    model = train_lightgbm_rank(train, params={"min_data_in_leaf": 5}, num_boost_round=40)
++    pred = pd.Series(model.estimator.predict(test[feature_columns(test)]), index=test.index)
++    ic = pred.corr(test[LABEL_COLUMN], method="spearman")
++
++    assert model.model_type == "lightgbm_rank"
++    assert ic > 0.5
++
++
+ def test_train_random_forest_learns_a_clear_signal():
+     train_frame = _make_learnable_frame(400, seed=1)
+     test_frame = _make_learnable_frame(200, seed=2)

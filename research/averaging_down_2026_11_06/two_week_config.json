@@ -1,0 +1,124 @@
+{
+  "version": "Illustrative V1, exploratory follow-up after viewing the initial study",
+  "profit_pool_assumption": 3000,
+  "budget_fraction": 0.5,
+  "idea_loss_budget": 1500,
+  "decision_loss_trigger": 1200,
+  "execution_buffer": 300,
+  "cash_per_purchase": 2500,
+  "maximum_purchases": 4,
+  "maximum_cash_deployed": 10000,
+  "maximum_trading_sessions": 10,
+  "maximum_calendar_days": 14,
+  "addition_step_candidates": [
+    0.05,
+    0.075
+  ],
+  "target_return_candidates": [
+    0.04,
+    0.08,
+    0.12
+  ],
+  "cost_per_side_bps": [
+    11,
+    26
+  ],
+  "notes": [
+    "The 3000 input is assumed to be accumulated net trading profits, not total account equity or buying power.",
+    "The numerical example assumes sufficient unborrowed cash and one active stock idea; concurrent ideas must share the budget.",
+    "Freeze the profit pool and loss budget when opening the idea. Recalculate for the next idea; never reset after partial exits or re-entry.",
+    "An exit trigger and buffer cannot guarantee an absolute loss ceiling through gaps, halts, or execution failures.",
+    "Fixed policy comparisons are exploratory. The earlier evaluation data have already been inspected and are not a fresh holdout.",
+    "The price-only entry cohort is not the app's morning selection model. No policy is represented as a validated ideal strategy."
+  ],
+  "policies": [
+    {
+      "name": "single_2500_target8",
+      "max_tranches": 1,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.08,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "upfront_10000_target8",
+      "max_tranches": 4,
+      "initial_tranches": 4,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.08,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder5_time",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": null,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder5_target4",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.04,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder5_target8",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.08,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder5_target12",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.12,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder7p5_target8",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.075,
+      "loss_limit": 1200,
+      "target": 0.08,
+      "stability": false,
+      "partial_trail": false,
+      "volatility_step": false
+    },
+    {
+      "name": "ladder5_stable_target8",
+      "max_tranches": 4,
+      "initial_tranches": 1,
+      "step": 0.05,
+      "loss_limit": 1200,
+      "target": 0.08,
+      "stability": true,
+      "partial_trail": false,
+      "volatility_step": false
+    }
+  ]
+}

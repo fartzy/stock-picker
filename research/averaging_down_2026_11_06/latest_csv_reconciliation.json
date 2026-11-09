@@ -1,0 +1,70 @@
+{
+  "source_path": "/Users/michael.artz/Downloads/Accounts_History (13).csv",
+  "sha256": "7ec5220230ffa2649408f922a6485a4ca75d74d8dd0ea35e5eea0df060cae696",
+  "header_line": 3,
+  "columns": [
+    "Run Date",
+    "Account",
+    "Account Number",
+    "Action",
+    "Symbol",
+    "Description",
+    "Type",
+    "Price ($)",
+    "Quantity",
+    "Commission ($)",
+    "Fees ($)",
+    "Accrued Interest ($)",
+    "Amount ($)",
+    "Settlement Date"
+  ],
+  "has_execution_time_column": false,
+  "only_time_text": [
+    "Date downloaded 11/06/2026 05:03 pm"
+  ],
+  "mrcy_csv_rows": 94,
+  "mrcy_ledger_orders": 93,
+  "mrcy_csv_cash_pnl": -9227.47,
+  "mrcy_net_shares": 0.0,
+  "by_day": [
+    {
+      "date": "2026-11-04",
+      "rows": 45,
+      "bought": 1860.0,
+      "sold": 960.0,
+      "net_cash": -64740.62
+    },
+    {
+      "date": "2026-11-05",
+      "rows": 44,
+      "bought": 3300.0,
+      "sold": 3700.0,
+      "net_cash": 22600.6
+    },
+    {
+      "date": "2026-11-06",
+      "rows": 5,
+      "bought": 0.0,
+      "sold": 500.0,
+      "net_cash": 32912.55
+    }
+  ],
+  "csv_unmatched": [
+    [
+      "('2026-11-05', Decimal('-60'), Decimal('4108.35'))",
+      1
+    ],
+    [
+      "('2026-11-05', Decimal('-140'), Decimal('9582.11'))",
+      1
+    ]
+  ],
+  "ledger_unmatched": [
+    [
+      "('2026-11-05', Decimal('-200.0'), Decimal('13690.47'))",
+      1
+    ]
+  ],
+  "unresolved_provisional_timestamps": 17,
+  "note": "CSV records one 200-share sale as 60 and 140 shares; their net proceeds total one cent less. No timestamps or ledger entries changed."
+}
