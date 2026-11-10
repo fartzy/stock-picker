@@ -1,0 +1,403 @@
+{
+  "avoided_mutating_endpoint": "GET /api/feature-importance calls highest_known_importance and records importance history; this audit did not call that endpoint.",
+  "created_at_utc": "2026-11-10T02:29:04.126682+00:00",
+  "existing_facility": "python/stock_picker/training/importance.py:model_type_importance",
+  "features": [
+    {
+      "feature": "dip_close_to_low_252d",
+      "fit": {
+        "gain": 0.7554533490911126,
+        "gain_percent": 0.20315304266030382,
+        "included_as_input": true,
+        "split_count": 28,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 1096.659797668457,
+        "gain_percent": 0.6554968309174829,
+        "included_as_input": true,
+        "split_count": 22,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_deep_unrecovered",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_gap_previous_volume_zscore",
+      "fit": {
+        "gain": 9.178918788209558,
+        "gain_percent": 2.4683526552633,
+        "included_as_input": true,
+        "split_count": 30,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 369.8801975250244,
+        "gain_percent": 0.22108524249020142,
+        "included_as_input": true,
+        "split_count": 12,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_loss_2d_sigma",
+      "fit": {
+        "gain": 0.42809946928173304,
+        "gain_percent": 0.11512254178299527,
+        "included_as_input": true,
+        "split_count": 14,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 1073.8331956863403,
+        "gain_percent": 0.6418528865587093,
+        "included_as_input": true,
+        "split_count": 22,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_loss_change_sigma",
+      "fit": {
+        "gain": 0.11017709970474243,
+        "gain_percent": 0.02962831929123736,
+        "included_as_input": true,
+        "split_count": 4,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 637.6846027374268,
+        "gain_percent": 0.3811576179850329,
+        "included_as_input": true,
+        "split_count": 19,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_low_age_252d",
+      "fit": {
+        "gain": 2.569048718549311,
+        "gain_percent": 0.6908567743378966,
+        "included_as_input": true,
+        "split_count": 29,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 491.42599964141846,
+        "gain_percent": 0.29373574747634895,
+        "included_as_input": true,
+        "split_count": 12,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_low_history_valid",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_open_below_low_252d",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_open_to_low_252d",
+      "fit": {
+        "gain": 1.0465425848960876,
+        "gain_percent": 0.2814314221401083,
+        "included_as_input": true,
+        "split_count": 15,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 1012.3860950469971,
+        "gain_percent": 0.60512465067025,
+        "included_as_input": true,
+        "split_count": 23,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_pressure_easing",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_prior_new_low_252d",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_range_change_1d",
+      "fit": {
+        "gain": 2.241985259577632,
+        "gain_percent": 0.6029043720975215,
+        "included_as_input": true,
+        "split_count": 10,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 441.5968990325928,
+        "gain_percent": 0.2639518367266378,
+        "included_as_input": true,
+        "split_count": 6,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_recovery_valid",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_sma50_slope_10d",
+      "fit": {
+        "gain": 2.973170322366059,
+        "gain_percent": 0.7995312987395781,
+        "included_as_input": true,
+        "split_count": 16,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 1061.6492238044739,
+        "gain_percent": 0.6345702680351426,
+        "included_as_input": true,
+        "split_count": 21,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_support_break_depth_20d",
+      "fit": {
+        "gain": 0.5158204734325409,
+        "gain_percent": 0.138712071063518,
+        "included_as_input": true,
+        "split_count": 12,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 157.8386993408203,
+        "gain_percent": 0.0943435397504414,
+        "included_as_input": true,
+        "split_count": 4,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_support_close_distance_20d",
+      "fit": {
+        "gain": 0.21359580382704735,
+        "gain_percent": 0.057439201903259546,
+        "included_as_input": true,
+        "split_count": 2,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 230.36949729919434,
+        "gain_percent": 0.1376967367097083,
+        "included_as_input": true,
+        "split_count": 6,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_support_open_distance_20d",
+      "fit": {
+        "gain": 1.9168693688698113,
+        "gain_percent": 0.515475700963862,
+        "included_as_input": true,
+        "split_count": 12,
+        "used_by_a_tree": true
+      },
+      "rank": {
+        "gain": 371.0967044830322,
+        "gain_percent": 0.22181237451187175,
+        "included_as_input": true,
+        "split_count": 8,
+        "used_by_a_tree": true
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_support_reclaim_20d",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    },
+    {
+      "feature": "dip_trend_pullback",
+      "fit": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "rank": {
+        "gain": 0.0,
+        "gain_percent": 0.0,
+        "included_as_input": true,
+        "split_count": 0,
+        "used_by_a_tree": false
+      },
+      "svm_source_schema_count": 7
+    }
+  ],
+  "interpretation": [
+    "Gain is normalized within each model; raw gain magnitudes from Fit and Rank are not comparable because their objectives differ.",
+    "A saved input can have zero tree splits. All 19 new dip inputs remain in every one of the seven SVM source schemas, each containing 151 total raw inputs; schema inclusion does not by itself quantify their coefficient contribution.",
+    "Tree usage does not establish out-of-sample predictive benefit or justify a new prune. No fit, parameter change, or prune was performed."
+  ],
+  "model_hashes": {
+    "data/models/day_session_return.pkl": "2f11699e2aa813ef87b91d55ab08c67b317a7c88a49b211e27d7211441912636",
+    "data/models/day_session_return_rank.pkl": "5237873fa815f048560020419f7d18e45b33bba0d5f56736e4723d1bebf06f79"
+  },
+  "official_reference": {
+    "scope": "Read-only feature_importance(importance_type=split or gain) after ordinary model publication.",
+    "sha256": "16eb54cb4d392254383545d7c50434fe10354981721032027bdd248bf68c4444",
+    "url": "https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.Booster.html",
+    "verified_terms": [
+      "lightgbm.Booster.feature_importance",
+      "importance_type",
+      "split",
+      "gain"
+    ]
+  },
+  "run_id": "1bd4a6c807504fb48a293b22d99bbb2c",
+  "scope": "Descriptive read-only inspection of the published ordinary Fit/Rank artifacts with 19 new dip inputs added to 132 existing raw inputs (151 total raw inputs; 158 Fit-head inputs including seven SVM outputs); separate from schema correctness and predictive-performance evidence.",
+  "summary": {
+    "fit": {
+      "dip_inputs_used_by_a_tree": 11,
+      "included_dip_inputs": 19,
+      "total_dip_gain_percent": 5.90260740024358,
+      "zero_tree_split_features": [
+        "dip_deep_unrecovered",
+        "dip_low_history_valid",
+        "dip_open_below_low_252d",
+        "dip_pressure_easing",
+        "dip_prior_new_low_252d",
+        "dip_recovery_valid",
+        "dip_support_reclaim_20d",
+        "dip_trend_pullback"
+      ]
+    },
+    "rank": {
+      "dip_inputs_used_by_a_tree": 11,
+      "included_dip_inputs": 19,
+      "total_dip_gain_percent": 4.150827731831828,
+      "zero_tree_split_features": [
+        "dip_deep_unrecovered",
+        "dip_low_history_valid",
+        "dip_open_below_low_252d",
+        "dip_pressure_easing",
+        "dip_prior_new_low_252d",
+        "dip_recovery_valid",
+        "dip_support_reclaim_20d",
+        "dip_trend_pullback"
+      ]
+    }
+  }
+}

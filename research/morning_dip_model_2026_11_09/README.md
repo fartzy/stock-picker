@@ -1,10 +1,18 @@
 # Morning dip features — November 9, 2026
 
-**21 measurements are integrated as ordinary features; 19 are active after two ordinary quality prunes.** `dip_recovery_fraction` and `dip_volume_change_1d` remain calculated, persisted and cataloged, with normal unprune controls. The training configuration has **151 raw inputs / 158 Fit-head inputs**, including seven SVM outputs. Improvement remains unproven. See [ordinary_prune_final.json:25](ordinary_prune_final.json#L25).
+**21 new dip measurements are integrated as ordinary features; 19 new dip inputs are active after two quality prunes.** The published ordinary models retain **132 existing raw inputs + 19 new dip inputs = 151 total raw inputs** for Rank and each SVM source model. Fit adds seven SVM outputs, giving **158 total Fit-head inputs**. Publication completed on November 9 at 20:27:55 CST; the API and UI passed readiness checks. `dip_recovery_fraction` and `dip_volume_change_1d` remain calculated, persisted and cataloged, with normal unprune controls. Improvement remains unproven. [Pruning configuration:25](ordinary_prune_final.json#L25).
+
+| Configuration | Existing raw inputs | New dip inputs | Total raw inputs: Rank / each SVM | Total Fit-head inputs |
+|---|---:|---:|---:|---:|
+| Frozen research baseline | 132 | 0 | 132 | 139 |
+| Frozen baseline + all new dip inputs | 132 | 21 | 153 | 160 |
+| Published ordinary models | 132 | 19 | 151 | 158 |
+
+“19” and “21” count the **new dip inputs only**. “All 21” below means the existing baseline plus all 21 new dip inputs. [Schema distinction:1](production_schema_distinction.json#L1).
 
 These model inputs target morning entry and same-day exit. A setup “flag” is an ordinary feature: **1 = condition present, 0 = absent, NaN = unknown** when required observations are unavailable. Separate validity indicators report availability as 1/0. Flags neither order a purchase nor bypass normal learning/pruning. Formulas and examples: [dip_context_metadata.py:19](../../python/stock_picker/features/dip_context_metadata.py#L19).
 
-| Family | Inputs | What the model can learn from |
+| Family | New dip inputs | What the model can learn from |
 |---|---:|---|
 | Low context | 6 | Distance to the previous 252-session low, its age, new-low events and history availability |
 | Recovery | 4 | Two-day loss relative to prior volatility, opening recovery, validity and unrecovered-selloff context |
@@ -44,7 +52,7 @@ Both exclusions are reversible quality judgments, **not demonstrated return impr
 
 **Source limitations.** Dated provider metadata confirms frozen SPCX history joins an older ETF and a different June 2026 common-stock listing. Its extreme recovery value affects research scaling; ordinary Yahoo begins at the new listing. QH’s April price-basis discontinuity remains unresolved, not a confirmed split. No invented adjustments or retrospective row deletions were applied. Current-universe survivorship, incomplete action certification and observing an open before assuming execution there also limit interpretation. These are reproducible exploratory comparisons, not certified executable profits. [Source findings:572](pruning_review.json#L572); [protocol limitations:153](experiment_protocol.json#L153).
 
-**Completed full Fit comparison.** The independent audit passed all **47 model results and 42 SVM outputs**. The fixed July–November 6, 2026 outer period contains 91 sessions and 161,943 matched stock-days. Each pipeline trained its own SVMs: baseline 132 raw → 139 head inputs versus all 21, 153 raw → 160 head. Both heads used the same 433,356 OOF-covered rows over 251 sessions; the one uncovered session's 1,686 rows were consistently omitted from the 252-session head window. [Final audit:1](final_independent_result_audit.json#L1); [coverage:1](model_run/fit_oof_coverage.json#L1).
+**Completed full Fit comparison.** The independent audit passed all **47 model results and 42 SVM outputs**. The fixed July–November 6, 2026 outer period contains 91 sessions and 161,943 matched stock-days. Each pipeline trained its own SVMs: the existing baseline has 132 total raw → 139 Fit-head inputs; adding all 21 new dip inputs gives 153 total raw → 160 Fit-head inputs. Both heads used the same 433,356 OOF-covered rows over 251 sessions; the one uncovered session's 1,686 rows were consistently omitted from the 252-session head window. [Final audit:1](final_independent_result_audit.json#L1); [coverage:1](model_run/fit_oof_coverage.json#L1).
 
 | Fit policy | Baseline gross/day | All 21 gross/day | Difference, bps/day | Pointwise 95% interval, bps |
 |---|---:|---:|---:|---:|
@@ -60,7 +68,13 @@ The Top5 decline is partly concentrated: changes in SNDK, TDTH, AAOI, PLBL and I
 
 All **six SVR fits emitted convergence warnings** under the unchanged 10,000-iteration limit; convergence was not established. This remains a fixed-budget, like-for-like exploratory comparison with one Fit outer block and the source limitations above. [Checkpoint and warning audit:1](final_independent_result_audit.json#L1).
 
-**Ordinary training remains pending.** Its 19 active new inputs use 151 raw → 158 head inputs. The frozen full-21 study cannot validate that separate production configuration. Saved-schema, normal validation and deployment evidence will be added after ordinary training completes. [Schema distinction:1](production_schema_distinction.json#L1).
+**Ordinary training and publication completed.** Run `1bd4a6c807504fb48a293b22d99bbb2c` finished four normal chronological validation folds and its full-data refit at 20:27:55 CST on November 9. The saved models contain the 132 existing raw inputs plus 19 new dip inputs: **151 total raw inputs** for Rank and all seven SVM source models, and **158 Fit-head inputs** after adding their seven outputs. Saved-schema, finite-inference, API and UI checks passed. [Publication audit:1](ordinary_training_completion_verification.json#L1).
+
+Both fitted heads used **11 of the 19 new dip inputs** in tree splits; the new dip inputs account for 5.90% of Fit gain and 4.15% of Rank gain, each normalized within its own model. All 19 remain in every SVM source schema. Normal-fold directional accuracies were 50.86%, 50.68%, 49.55% and 50.07%; the existing ticker holdout scored 57.84% on 49,282 rows. Tree usage and these normal validation metrics describe this published run; they do not isolate the effect of adding the 19 new inputs against a matched baseline. The frozen study adding all 21 new dip inputs cannot validate this different configuration. [Tree usage:1](ordinary_dip_tree_usage.md#L1); [schema distinction:1](production_schema_distinction.json#L1).
+
+The ordinary job logged **eight Liblinear convergence warnings**; its final SVR reached the unchanged 10,000-iteration cap. The final six SVCs stopped in 6–42 iterations, and the logistic diagnostic in 36 of 2,000 iterations. Publication and finite predictions do not establish convergence of that SVR or improved returns. [Estimator and warning audit:1](ordinary_training_completion_verification.json#L1).
+
+**Runtime snapshots verified.** JEV forecasts, MLflow and Paper Book each have a transaction-consistent SQLite backup, including committed WAL contents, captured after publication. All three passed integrity and foreign-key checks. Backup bytes are used for Git staging while the live databases remain in place; later app activity may leave those live files modified. The three backups have separate snapshot times. [Snapshot manifest:1](final_sqlite_snapshot_manifest.json#L1); [snapshot procedure:1](sqlite_snapshot_plan.md#L1).
 
 The original [pruning review:1](pruning_review.json#L1) remains an unchanged, hash-bound decision snapshot. The [completed Fit audit:1](final_independent_result_audit.json#L1) supplies its final follow-up; it provides no evidence to claim either quality prune improved returns.
 

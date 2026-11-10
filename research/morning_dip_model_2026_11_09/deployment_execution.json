@@ -1,0 +1,138 @@
+{
+  "started_at_utc": "2026-11-09T22:56:41.610676+00:00",
+  "git_commit_at_feature_start": "5b8c338fe1a2de1fa689472280718598fc7a2692",
+  "source_sha256": {
+    "python/stock_picker/features/main.py": "405b2b2a73c5f1ab78659cff44c5ec4287cff592269a16f14e459b5a3dfed2b5",
+    "python/stock_picker/features/pipeline.py": "4fcbbe706b7cfdd2497a7a9e1dab05e6dc89130ac7d781b9d5e185477f30a10c",
+    "python/stock_picker/features/dip_context.py": "8f9633f1508022c0bb31c9d208b9959f32b659c56d18a7516c603727ff55593a",
+    "python/stock_picker/training/dataset.py": "9fcf95fae3b9d21e618682a70cefd9bf19637253076cc27b785c9882c0cccf57",
+    "python/stock_picker/training/inference.py": "4e71202b087548c32d603640cead19d112eafceb01b6ba6d838ccaf3beb614e0",
+    "python/stock_picker/ingestion/history_policy.py": "0adcd7cfa5de591f894000984d5040ac6007b733b8297a534487503b399d3011",
+    "python/stock_picker/ingestion/yfinance_client.py": "7f8a5325d71145439ba5d0f905428e607b11e290a2466ae52db641cb76e18177",
+    "python/stock_picker/ingestion/refresh_prices.py": "7d791cec7625b9241280ab3b96578f01d870e79c5217e11c67290face508d638"
+  },
+  "superseded_nightly": "nightly_superseded.json",
+  "launchd": "Registered and not disabled; launcher exited143 after childSIGTERM; unchanged weekday16:30 schedule; no lock/marker in scripts.",
+  "stages": [
+    {
+      "stage": "prices",
+      "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 bazelisk run //python/stock_picker/ingestion:refresh_prices",
+      "log": "cache/deployment_logs/01_prices.log",
+      "exit_code": 0,
+      "downloaded_tickers": 2000,
+      "written_tickers": 2000,
+      "still_missing_current_session": 21,
+      "sample_aapl_price_rows": 500
+    },
+    {
+      "stage": "features",
+      "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 LOKY_MAX_CPU_COUNT=4 bazelisk run //python/stock_picker/features:main",
+      "log": "cache/deployment_logs/02_features.log",
+      "status": "completed",
+      "exit_code": 0,
+      "observed_complete_at_utc": "2026-11-09T23:16:45.058969+00:00"
+    },
+    {
+      "stage": "verification",
+      "command": "hermetic api Python research/morning_dip_model_2026_11_09/verify_ordinary_data.py",
+      "log": "cache/deployment_logs/03_verify.log",
+      "status": "completed",
+      "exit_code": 0,
+      "verification": "ordinary_data_verification.json",
+      "completed_at_utc": "2026-11-09T23:17:14.646037+00:00"
+    },
+    {
+      "stage": "normal_training",
+      "status": "completed",
+      "run_id": "1bd4a6c807504fb48a293b22d99bbb2c",
+      "started_at": "2026-11-09T17:31:06.433141-06:00",
+      "completed_at": "2026-11-09T20:27:55.815188-06:00",
+      "duration_seconds": 10609.382047,
+      "source_launch_record": "ordinary_training_start.json"
+    },
+    {
+      "stage": "publication_verification",
+      "status": "verified",
+      "completed_at_utc": "2026-11-10T02:29:04.128672+00:00",
+      "record": "ordinary_training_completion_verification.json"
+    },
+    {
+      "stage": "consistent_runtime_snapshots",
+      "status": "verified",
+      "completed_at_utc": "2026-11-10T02:29:42.070718+00:00",
+      "record": "final_sqlite_snapshot_manifest.json",
+      "live_files_replaced": false
+    }
+  ],
+  "model_training": "COMPLETED and verified: run 1bd4a6c807504fb48a293b22d99bbb2c finished 2026-11-09T20:27:55.815188-06:00 after 10609.382 seconds. Fit and Rank use 151 total raw inputs, including 19 new dip inputs; the Fit head adds seven SVM outputs for 158 total inputs.",
+  "serving_models_after_features": {
+    "data/models/day_session_return.pkl": "bb527bebb63f39e11630f0d771c4139136e8967c07eaac90e4b89e50caa089ce",
+    "data/models/day_session_return_rank.pkl": "6ed900ef464e2146eac78b1063f128e2d8e5289353793d90ade0a2840171d0c7",
+    "data/models/day_session_return_logistic_diagnostic.pkl": "b2b2a980f6f50f05e61d234793a7e214e640b77be86db7d234b8d6a98ad28eba"
+  },
+  "serving_models_unchanged_after_features": true,
+  "data_checkpoint": "ordinary_store_manifest.json",
+  "quality_summary": {
+    "missing_stores": 0,
+    "empty_feature_frames": 0,
+    "invalid_ohlc_rows": 2,
+    "stale_feature_tickers": 21,
+    "current_valid_low_history_tickers": 1843
+  },
+  "api_restart": "Root restartedAPI as detachedPID24925; API/UI/catalog/registry checks passed in api_restart_verified.json.",
+  "source_hashes_stable_after_features": true,
+  "ordinary_pruning_change": "ordinary_prune_final.json",
+  "model_hashes_at_handoff": {
+    "data/models/day_session_return.pkl": "bb527bebb63f39e11630f0d771c4139136e8967c07eaac90e4b89e50caa089ce",
+    "data/models/day_session_return_rank.pkl": "6ed900ef464e2146eac78b1063f128e2d8e5289353793d90ade0a2840171d0c7",
+    "data/models/day_session_return_logistic_diagnostic.pkl": "b2b2a980f6f50f05e61d234793a7e214e640b77be86db7d234b8d6a98ad28eba"
+  },
+  "handoff_at_utc": "2026-11-09T23:22:46.483761+00:00",
+  "expected_raw_inputs": 151,
+  "expected_fit_head_inputs": 158,
+  "active_new_dip_inputs": 19,
+  "root_api_launcher": "cache/root_restart_api.py uses subprocess.Popen(start_new_session=True,stdin=DEVNULL,stdout=log,stderr=STDOUT,cwd=ROOT,env=environment) and records child_api_pid",
+  "quality_limitations": [
+    "QH price-basis discontinuity remains unresolved; support fields are not pruned.",
+    "The frozen research comparison adding all 21 new dip inputs does not validate this production configuration adding 19 new dip inputs (151 total raw inputs; 158 Fit-head inputs). Successful publication and tree usage do not establish improved returns.",
+    "The final LinearSVR reached its configured 10,000-iteration cap. The six final LinearSVCs and diagnostic LogisticRegression finished below their iteration caps; no tuning or additional fit was performed."
+  ],
+  "training_start_record": "ordinary_training_start.json",
+  "current_status": "completed and verified",
+  "completed_at_utc": "2026-11-10T02:29:42.070718+00:00",
+  "training_completion_verification": "ordinary_training_completion_verification.json",
+  "dip_tree_usage": "ordinary_dip_tree_usage.json",
+  "serving_and_run_archive_hashes_after_training": {
+    "data/models/day_session_return.pkl": "2f11699e2aa813ef87b91d55ab08c67b317a7c88a49b211e27d7211441912636",
+    "data/models/day_session_return_1bd4a6c807504fb48a293b22d99bbb2c.pkl": "2f11699e2aa813ef87b91d55ab08c67b317a7c88a49b211e27d7211441912636",
+    "data/models/day_session_return_logistic_diagnostic.pkl": "157663706ec2968b2ab40160f7b91910121a630ae856b0415ddebfd355aaeeb1",
+    "data/models/day_session_return_rank.pkl": "5237873fa815f048560020419f7d18e45b33bba0d5f56736e4723d1bebf06f79"
+  },
+  "final_sqlite_snapshot_manifest": "final_sqlite_snapshot_manifest.json",
+  "final_sqlite_snapshot_manifest_sha256": "980c0d0dfb0b5b1784c6ca11d63a47543b7ca5e64ae3f6b61018ac36839d2319",
+  "live_databases_replaced": false,
+  "git_staging": "Not performed by this deployment audit. Final allowlist approval and snapshot-backed index staging are coordinated separately.",
+  "training_log_summary": {
+    "warning_categories": {
+      "PerformanceWarning": 1800,
+      "UserWarning": 126,
+      "ConvergenceWarning": 8,
+      "shared_log_error": 3
+    },
+    "performance_warning_context": "Repeated pandas DataFrame fragmentation warnings during pooled-frame assembly; numerical/schema verification passed.",
+    "imputation_warning_context": "Historical fits warned about eight existing breadth/trajectory columns with no observed values in those fitting windows; these are not the new dip inputs.",
+    "imputation_warning_existing_columns": [
+      "market_advance_fraction",
+      "market_above_sma_20d_fraction",
+      "market_return_dispersion_1d",
+      "market_up_volume_fraction",
+      "path_cluster_distance",
+      "path_cluster_margin",
+      "path_cluster_crowding",
+      "path_cluster_peer_return_1d"
+    ],
+    "recovered_quote_error_context": "Three concurrent Yahoo ARWR error lines at 19:42:32 were followed by retry recovery at 19:42:33 (filled=1, still_missing=0) and HTTP200 quote/position responses; training job error remained null.",
+    "credential_redacted_log_lines": 0,
+    "read_only_audit_warning": "The MRCY prediction smoke check also emitted a pandas fragmentation PerformanceWarning; it passed with finite predictions."
+  }
+}

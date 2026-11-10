@@ -1,0 +1,105 @@
+{
+  "lightgbm_importance": {
+    "scope": "Read-only feature_importance(importance_type=split or gain) after ordinary model publication.",
+    "sha256": "16eb54cb4d392254383545d7c50434fe10354981721032027bdd248bf68c4444",
+    "url": "https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.Booster.html",
+    "verified_terms": [
+      "lightgbm.Booster.feature_importance",
+      "importance_type",
+      "split",
+      "gain"
+    ]
+  },
+  "mlflow_termination": [
+    {
+      "resolved_url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.client.html",
+      "sha256": "40c29435725dc6a5a97c908003f2f8c9e357cf776e836a959cc917386c523cf2",
+      "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.client.html"
+    },
+    {
+      "resolved_url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/client.py",
+      "sha256": "79d77a29f4b8c8a2c0445a89413f34b6646ee51d2073c4c7b257acb7e64d60f9",
+      "url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/client.py"
+    },
+    {
+      "resolved_url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/_tracking_service/client.py",
+      "sha256": "ba4bb071e4beefab2ed9537ec3f68c6430a19ab294bc987a33a0bb634669a58e",
+      "url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/_tracking_service/client.py"
+    }
+  ],
+  "retrieval_note": "The web tool returned404; these official references were fetched directly over HTTPS. Full page contents and credentials are not stored here.",
+  "sklearn_convergence": [
+    {
+      "sha256": "9bfe616dc48df1706d4c2963a5e412d7934a066b0181baf6f362030e782a1193",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVR.html",
+      "verified_terms": {
+        "max_iter": true,
+        "n_iter_": true
+      }
+    },
+    {
+      "sha256": "22e699e36968c642ea85b4937fbb903a82e65ef549cc819ac4e64549ef2f2f38",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html",
+      "verified_terms": {
+        "max_iter": true,
+        "n_iter_": true
+      }
+    },
+    {
+      "sha256": "976aa1a8b3661c484b0f91f30b8f69c814ceb0b23ebdf2b01108c928bb395cd7",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html",
+      "verified_terms": {
+        "named_steps": true,
+        "steps": true
+      }
+    }
+  ],
+  "sqlite_backup_and_git_staging": [
+    {
+      "resolved_url": "https://docs.python.org/3/library/sqlite3.html",
+      "sha256": "76c1e1cf891babb4fa842703e895133ec4698480baade010059be87613422e5a",
+      "url": "https://docs.python.org/3/library/sqlite3.html",
+      "verified_terms": {
+        "concurrently": true,
+        "sqlite3.Connection.backup": true
+      }
+    },
+    {
+      "resolved_url": "https://www.sqlite.org/backup.html",
+      "sha256": "306b6cca5c7c2f93b648040ae139f14d7d3221c0d16d79b5749e69d808382e04",
+      "url": "https://www.sqlite.org/backup.html",
+      "verified_terms": {
+        "incremental": true,
+        "snapshot": true
+      }
+    },
+    {
+      "resolved_url": "https://www.sqlite.org/wal.html",
+      "sha256": "f3467b530b883d4a00574fe1a898b3d121ed72764ae28cf66941080ac0badb9e",
+      "url": "https://www.sqlite.org/wal.html",
+      "verified_terms": {
+        "WAL": true,
+        "read": true
+      }
+    },
+    {
+      "resolved_url": "https://git-scm.com/docs/git-update-index",
+      "sha256": "ecaa637b1f39acc4a5a19729c2119b7a4a92cb9e1a2b4335d9557d0844143fb8",
+      "url": "https://git-scm.com/docs/git-update-index",
+      "verified_terms": {
+        "cacheinfo": true,
+        "object database": true
+      }
+    },
+    {
+      "resolved_url": "https://git-scm.com/docs/git-hash-object",
+      "sha256": "b7e8f95355c38df94c9355d31b0ed985d5c22cb5ca7c4d640364c801100eb798",
+      "url": "https://git-scm.com/docs/git-hash-object",
+      "verified_terms": {
+        "-w": true,
+        "object": true
+      }
+    }
+  ],
+  "verified_at_utc": "2026-11-10T01:17:20.576536+00:00"
+}
