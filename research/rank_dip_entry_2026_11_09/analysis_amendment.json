@@ -1,0 +1,18 @@
+{
+  "recorded_at_utc": "2026-11-10T03:26:06.701382+00:00",
+  "authority": "Explicit user correction: trading expense is negligible; remove the modeled deduction.",
+  "original_protocol_sha256": "499f1030c38b52e3f7c78833f24b094d75e695e8ee212299aee6aed1fa311fee",
+  "active_trading_cost_fraction": 0,
+  "active_return_definition": "exit_price / entry_price - 1",
+  "reporting_scope": "All active summaries and individual outcomes report price returns only; no alternative cost scenarios or invented deductions.",
+  "unchanged": [
+    "cohort",
+    "threshold",
+    "entry and exit rules",
+    "price sources",
+    "availability sensitivities",
+    "bootstrap method"
+  ],
+  "historical_record": "Original protocol remains unchanged for provenance; this user-directed amendment supersedes its cost-scenario setting.",
+  "execution_uncertainty": "Minute-bar prices remain execution proxies; no fixed deduction is used to represent that uncertainty."
+}

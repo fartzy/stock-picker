@@ -26,6 +26,9 @@ OLD = REPO / "research/averaging_down_2026_11_06/rank_reconciliation"
 ET = ZoneInfo("America/New_York")
 MINUTE_MS = 60_000
 PROTOCOL = json.loads((ROOT / "protocol.json").read_text())
+ANALYSIS_AMENDMENT = json.loads((ROOT / "analysis_amendment.json").read_text())
+if ANALYSIS_AMENDMENT["active_trading_cost_fraction"] != 0:
+    raise ValueError("This user-directed study reports price returns without modeled deductions")
 
 
 def repo_imports():
@@ -229,11 +232,11 @@ def evaluate(bars, anchor, opened, closed, publication=None, before_noon=True):
     if close_ms - MINUTE_MS not in valid:
         return {**result, "reason": "missing_expected_final_exit_minute"}
     exit_price = valid[close_ms - MINUTE_MS]["c"]
-    gross = exit_price / entry_price - 1
+    price_return = exit_price / entry_price - 1
     result.update(status="completed", reason=None, exit_price=exit_price,
                   exit_at=datetime.fromtimestamp((close_ms - MINUTE_MS) / 1000, ET).isoformat(),
                   exit_close_observed_at=closed.astimezone(ET).isoformat(),
-                  gross_return=gross, net_return_10bps=gross - 0.001, net_return_25bps=gross - 0.0025,
+                  price_return=price_return,
                   matched_open_return=exit_price / valid[open_ms]["o"] - 1)
     return result
 
@@ -245,20 +248,19 @@ def summarize(rows):
            "completed": len(done), "no_entry": no_entry,
            "unavailable": sum(r["status"] == "unavailable" for r in rows),
            "unavailable_reasons": dict(Counter(r["reason"] for r in rows if r["status"] == "unavailable"))}
-    for cost in PROTOCOL["cost_round_trip_bps"]:
-        values = [r["gross_return"] - cost / 10_000 for r in done]
-        rng = random.Random(PROTOCOL["bootstrap"]["seed"])
-        means = sorted(statistics.fmean(rng.choices(values, k=len(values))) for _ in range(PROTOCOL["bootstrap"]["resamples"])) if values else []
-        out[f"round_trip_{cost}bps"] = {
-            "mean_return": statistics.fmean(values) if values else None,
-            "median_return": statistics.median(values) if values else None,
-            "wins": sum(v > 0 for v in values), "losses": sum(v < 0 for v in values),
-            "win_rate": sum(v > 0 for v in values) / len(values) if values else None,
-            "worst_return": min(values) if values else None,
-            "bootstrap_mean_95pct_interval": [means[249], means[9749]] if means else None,
-            "known_opportunity_mean_return": sum(values) / (len(done) + no_entry) if len(done) + no_entry else None,
-            "known_opportunity_denominator": len(done) + no_entry,
-        }
+    values = [r["price_return"] for r in done]
+    rng = random.Random(PROTOCOL["bootstrap"]["seed"])
+    means = sorted(statistics.fmean(rng.choices(values, k=len(values))) for _ in range(PROTOCOL["bootstrap"]["resamples"])) if values else []
+    out["price_returns"] = {
+        "mean_return": statistics.fmean(values) if values else None,
+        "median_return": statistics.median(values) if values else None,
+        "wins": sum(v > 0 for v in values), "losses": sum(v < 0 for v in values),
+        "win_rate": sum(v > 0 for v in values) / len(values) if values else None,
+        "worst_return": min(values) if values else None,
+        "bootstrap_mean_95pct_interval": [means[249], means[9749]] if means else None,
+        "known_opportunity_mean_return": sum(values) / (len(done) + no_entry) if len(done) + no_entry else None,
+        "known_opportunity_denominator": len(done) + no_entry,
+    }
     return out
 
 
@@ -316,6 +318,9 @@ def analyze():
                 chosen = [r for r in cases if (r["anchor"], r["availability"], r["window"]) == (anchor, availability, window)]
                 summaries.append({"anchor": anchor, "availability": availability, "window": window, **summarize(chosen)})
     dump(ROOT / "results.json", {"protocol_sha256": digest(ROOT / "protocol.json"),
+         "analysis_amendment_sha256": digest(ROOT / "analysis_amendment.json"),
+         "return_definition": ANALYSIS_AMENDMENT["active_return_definition"],
+         "modeled_trading_cost_fraction": 0,
          "cohort_sha256": digest(ROOT / "cohort.json"),
          "minute_manifest_sha256": digest(ROOT / "minute_manifest.json"),
          "script_sha256": digest(Path(__file__)),
@@ -324,7 +329,7 @@ def analyze():
          "split_metadata_sha256": digest(ROOT / "sources/split_metadata.json"),
          "generated_at_utc": datetime.now(timezone.utc).isoformat(), "summaries": summaries, "cases": cases})
     for row in summaries:
-        print(json.dumps({k: row[k] for k in ("anchor", "availability", "window", "candidates", "signals", "completed", "no_entry", "unavailable", "round_trip_0bps")}))
+        print(json.dumps({k: row[k] for k in ("anchor", "availability", "window", "candidates", "signals", "completed", "no_entry", "unavailable", "price_returns")}))
 
 
 if __name__ == "__main__":

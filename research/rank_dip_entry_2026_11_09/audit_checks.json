@@ -2,8 +2,11 @@
   "summary_count": 8,
   "case_count": 296,
   "all_counts_reconcile": true,
-  "all_25bps_costs_match": true,
-  "synthetic_execution_rule_checks": 9,
+  "all_price_returns_match_execution_prices": true,
+  "all_original_price_only_results_preserved": true,
+  "historical_protocol_unchanged": true,
+  "modeled_trading_cost_fraction": 0,
+  "synthetic_execution_rule_checks": 10,
   "synthetic_check_command": "python3 research/rank_dip_entry_2026_11_09/test_study.py",
   "synthetic_checks_passed": true,
   "production_files_or_models_written": false,
@@ -14,13 +17,15 @@
   "source_hashes": {
     "protocol.json": "499f1030c38b52e3f7c78833f24b094d75e695e8ee212299aee6aed1fa311fee",
     "protocol_clarification.json": "1aad8e0a0e25d2eb56b98fbd11e9ca1a2b5d7347c805fc9671d149b1947faa4d",
+    "analysis_amendment.json": "ebc0794b3af24b75b7926f9d62a30977eca41af014c5a7eb553d23929f8d9044",
     "cohort.json": "d50ac4d73ffd487b594c1bb45e9de8770537838b627816f17bd6f3d7b6af6d46",
     "daily_prices.json": "5c7812875342ff683b8f6a15e36bbe4752209eafc94e6ce3e3854442ed82171e",
     "minute_manifest.json": "db797d7cd524ab5b7fe23ab80c8da99c93260cac11e723501fa30041b10eb7fe",
     "source_manifest.json": "b21641435d64f76f64b58bb43957ece038331706bcc5ad04fd18e5af6e1c5600",
     "sources/split_metadata.json": "48b54614297aada8c36f734b2a21ebc53c21fadf71d2dc6c7d17f7be369d8560",
-    "study.py": "d65167f4090548df166489bd40602d4f78175bff2ddb13b698c5220ee5326714",
-    "test_study.py": "4d5d9f404c965041af46b887a51e21a6ad25bcbbf6e66b613a947d49c21fbed2",
-    "results.json": "a8b745e0e19994e30ef6bcc6b93473a8afac99233d224f6f339718575b4b8c3e"
+    "study.py": "0209ae294d12fb031b5b2e597b708b3fd55253bd3dac6fb9baeaedf00634ec64",
+    "test_study.py": "08721560615857dbb587cffa7cd91dec4f10cbc1d07b5477a0ab6a168f554f11",
+    "results.json": "a68650d074dee2c9abe2ec5a7ce67771b7c4f466049bc3d26266f4db91094bbf",
+    "README.md": "c6c980f98ad867d7a0e3b83980367a9398ea3e3ca4e8088cf7e9dc3e04dde929"
   }
 }
