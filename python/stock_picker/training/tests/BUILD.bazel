@@ -7,6 +7,34 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_intraday_entry_job",
+    srcs = ["test_intraday_entry_job.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training", "//python/stock_picker/storage"],
+)
+
+py_pytest(
+    name = "test_intraday_entry_model",
+    srcs = ["test_intraday_entry_model.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training", "//python/stock_picker/features", "@pypi//numpy", "@pypi//pandas"],
+)
+
+py_pytest(
+    name = "test_intraday_entry_service",
+    srcs = ["test_intraday_entry_service.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training", "//python/stock_picker/storage", "//python/stock_picker/ingestion", "@pypi//numpy", "@pypi//pandas"],
+)
+
+py_pytest(
+    name = "test_intraday_entry_dataset",
+    srcs = ["test_intraday_entry_dataset.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training", "//python/stock_picker/features", "@pypi//numpy", "@pypi//pandas"],
+)
+
+py_pytest(
     name = "test_dip_feature_experiment",
     srcs = ["test_dip_feature_experiment.py"],
     imports = ["../../.."],
