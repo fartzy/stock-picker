@@ -109,7 +109,7 @@ def test_download_price_history_excludes_a_failed_ticker():
     assert set(result.keys()) == {"AAPL"}
 
 
-def test_download_price_history_defaults_to_one_year():
+def test_download_price_history_defaults_to_two_years_without_adjustment_change():
     columns = pd.MultiIndex.from_product([["AAPL"], ["Open", "Close"]])
     raw = pd.DataFrame([[1.0, 2.0]], index=pd.date_range("2026-01-01", periods=1), columns=columns)
 
@@ -118,7 +118,8 @@ def test_download_price_history_defaults_to_one_year():
     ) as mock_download:
         download_price_history(["AAPL"])
 
-    assert mock_download.call_args.kwargs["period"] == "1y"
+    assert mock_download.call_args.kwargs["period"] == "2y"
+    assert mock_download.call_args.kwargs["auto_adjust"] is False
 
 
 def _daily(rows, start="2026-09-08"):

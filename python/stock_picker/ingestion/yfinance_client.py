@@ -21,6 +21,7 @@ from yfinance.const import _QUERY1_URL_
 from yfinance.data import YfData
 
 from stock_picker.log import get_logger
+from stock_picker.ingestion.history_policy import PRICE_HISTORY_PERIOD
 from stock_picker.parallel import BUCKET_SIZE, WORKERS, run_buckets
 
 # Yahoo's v7 quote URL is a comma-separated list; 200 names is the same
@@ -94,7 +95,7 @@ def _retry_missing_histories(
 
 def download_price_history(
     tickers: list[str],
-    period: str = "1y",
+    period: str = PRICE_HISTORY_PERIOD,
     interval: str = "1d",
 ) -> dict[str, pd.DataFrame]:
     """Download OHLCV history for a batch of tickers.

@@ -1,4 +1,4 @@
-"""Entrypoint: pull the top-2000-by-market-cap universe and store 6mo OHLCV history."""
+"""Entrypoint: pull the top-2000 universe and store two years of Yahoo OHLCV."""
 
 from __future__ import annotations
 

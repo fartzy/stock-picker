@@ -2,7 +2,7 @@
 
 Mirrors training.dataset.build_training_frame's row construction: the prior
 day's full feature snapshot (computed through yesterday's close), with the
-open-known columns (overnight_gap plus recency-pattern seasonality) replaced
+open-known columns (overnight_gap, recency-pattern seasonality and dip context) replaced
 by values computed from today's just-observed open -- otherwise train/serve
 rows would be built by two different code paths that could silently drift
 apart.
@@ -14,6 +14,7 @@ from datetime import date
 
 import pandas as pd
 
+from stock_picker.features.dip_context import DIP_COLUMNS, DIP_OPEN_KNOWN_COLUMNS, morning_dip_row
 from stock_picker.features.open_pattern_seasonality import (
     OPEN_KNOWN_COLUMNS,
     open_known_feature_row,
@@ -75,6 +76,18 @@ def build_inference_row(
         for column in OPEN_KNOWN_COLUMNS:
             if column in row.index and column in open_known.index:
                 row[column] = open_known[column]
+    dip_columns = set(DIP_COLUMNS).intersection(row.index)
+    # Yesterday's open-dependent values cannot stand in for this morning's.
+    # Missing history leaves explicit unknowns; pruned fields need no compute.
+    for column in DIP_OPEN_KNOWN_COLUMNS.intersection(dip_columns):
+        row[column] = float("nan")
+    active_dip_columns = dip_columns.difference(excluded_features or ())
+    if active_dip_columns and prior_history is not None and not prior_history.empty:
+        # Rebuild close-known dip fields too: a missing prior exchange session
+        # must not leave values from an older otherwise-TTL-valid snapshot.
+        dip_values = morning_dip_row(prior_history, today_open, as_of_date)
+        for column in active_dip_columns:
+            row[column] = dip_values[column]
     return row.to_frame().T
 
 

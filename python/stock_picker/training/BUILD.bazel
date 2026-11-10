@@ -13,6 +13,7 @@ py_library(
         "buy_signal.py",
         "dataset.py",
         "direction_stack.py",
+        "dip_feature_experiment.py",
         "ensemble.py",
         "freshness.py",
         "feature_challenger.py",
@@ -83,6 +84,21 @@ py_library(
         "@pypi//pandas",
         "@pypi//requests",
         "@pypi//scikit_learn",
+    ],
+)
+
+py_binary(
+    name = "morning_dip_experiment",
+    srcs = ["dip_feature_experiment.py"],
+    main = "dip_feature_experiment.py",
+    imports = ["../.."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        ":training",
+        "//python/stock_picker/features",
+        "@pypi//numpy",
+        "@pypi//pandas",
+        "@pypi//pyarrow",
     ],
 )
 

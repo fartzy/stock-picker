@@ -4,6 +4,7 @@ from stock_picker.features.catalog import list_feature_columns
 from stock_picker.features.registry import DEFAULT_TTL_DAYS, build_registry, check_freshness, experimental_views, model_derived_views
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS
 from stock_picker.features.tests.fixtures import synthetic_history
+from stock_picker.features.dip_context import DIP_COLUMNS
 
 
 def test_build_registry_has_one_feature_view_per_category():
@@ -33,6 +34,9 @@ def test_experimental_view_is_separate_from_production_service():
     views = experimental_views()
 
     assert views == []
+    production, services = build_registry(synthetic_history(n=140))
+    assert next(view for view in production if view.name == "dip_context").features == list(DIP_COLUMNS)
+    assert "dip_context" in services[0].feature_views
     assert RESEARCH_SVM_COLUMNS == ()
 
 

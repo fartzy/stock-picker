@@ -1,0 +1,161 @@
+"""Orchestrates all feature categories into a single per-ticker feature DataFrame."""
+
+from __future__ import annotations
+
+import pandas as pd
+
+from stock_picker.features.calendar import build_calendar_features
+from stock_picker.features.breadth import build_breadth_features
+from stock_picker.features.candle import build_candle_features
+from stock_picker.features.conditional_seasonality import (
+    build_conditional_seasonality_features,
+    pooled_setup_seasonality,
+    ticker_setup_bucket,
+)
+from stock_picker.features.cross_sectional import (
+    RETURN_RANK_WINDOWS,
+    build_cross_sectional_features,
+    return_rank,
+)
+from stock_picker.features.distributional import build_distributional_features
+from stock_picker.features.momentum import build_momentum_features
+from stock_picker.features.news import build_news_features
+from stock_picker.features.open_pattern_seasonality import build_open_pattern_features
+from stock_picker.features.oscillators import build_oscillator_features
+from stock_picker.features.pattern_seasonality import build_pattern_features
+from stock_picker.features.regime import build_regime_features
+from stock_picker.features.weather import build_weather_features
+from stock_picker.features.trend import build_trend_features
+from stock_picker.features.trajectory import build_trajectory_features
+from stock_picker.features.volatility import build_volatility_features
+from stock_picker.features.structure import build_structure_features, merge_structure
+from stock_picker.features.volume import build_volume_features
+from stock_picker.storage.price_store import sanitize_price_history
+
+
+def build_features(
+    history: pd.DataFrame,
+    benchmark_history: pd.DataFrame | None = None,
+    peer_return_ranks: dict[int, pd.Series] | None = None,
+    sector_avg_return: pd.Series | None = None,
+    pooled_seasonality: pd.Series | None = None,
+    spy_history: pd.DataFrame | None = None,
+    vix_history: pd.DataFrame | None = None,
+    news_articles=None,
+    nyc_weather: pd.DataFrame | None = None,
+    market_breadth: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Combine every feature category for a single ticker's OHLCV history.
+
+    Cross-sectional inputs and `pooled_seasonality` are optional -- see
+    `build_cross_sectional_features`/`build_conditional_seasonality_features` for
+    what gets omitted when they aren't supplied.
+    """
+    history = sanitize_price_history(history)
+    categories = [
+        build_momentum_features(history),
+        build_volatility_features(history),
+        build_trend_features(history),
+        build_oscillator_features(history),
+        build_volume_features(history),
+        build_candle_features(history),
+        build_distributional_features(history),
+        build_calendar_features(history),
+        build_pattern_features(history),
+        build_open_pattern_features(history),
+        build_conditional_seasonality_features(history, pooled_seasonality=pooled_seasonality),
+        build_cross_sectional_features(
+            history,
+            benchmark_history=benchmark_history,
+            peer_return_ranks=peer_return_ranks,
+            sector_avg_return=sector_avg_return,
+        ),
+        build_regime_features(history.index, spy_history=spy_history, vix_history=vix_history),
+        market_breadth.reindex(history.index) if market_breadth is not None else pd.DataFrame(index=history.index),
+        build_weather_features(history.index, nyc=nyc_weather),
+        build_news_features(history, articles=news_articles),
+    ]
+    return pd.concat(categories, axis=1)
+
+
+def build_features_for_universe(
+    histories: dict[str, pd.DataFrame],
+    benchmark_history: pd.DataFrame | None = None,
+    sector_by_ticker: dict[str, str] | None = None,
+    spy_history: pd.DataFrame | None = None,
+    vix_history: pd.DataFrame | None = None,
+    news_articles_by_ticker: dict | None = None,
+    nyc_weather: pd.DataFrame | None = None,
+    first_seen_by_ticker: dict[str, str] | None = None,
+) -> dict[str, pd.DataFrame]:
+    """Compute features for every ticker in `histories`, including the cross-sectional
+    return-rank columns and pooled setup-seasonality average, both of which require
+    the whole universe's returns together.
+    """
+    histories = {
+        ticker: sanitize_price_history(history) for ticker, history in histories.items()
+    }
+    n_day_returns = {
+        window: pd.DataFrame(
+            {
+                ticker: history["Close"].pct_change(window)
+                for ticker, history in histories.items()
+            }
+        )
+        for window in RETURN_RANK_WINDOWS
+    }
+    rank_by_window = {window: return_rank(returns) for window, returns in n_day_returns.items()}
+
+    daily_returns_by_ticker = {
+        ticker: history["Close"].pct_change() for ticker, history in histories.items()
+    }
+    buckets_by_ticker = {
+        ticker: ticker_setup_bucket(history) for ticker, history in histories.items()
+    }
+    pooled_seasonality_by_ticker = pooled_setup_seasonality(
+        daily_returns_by_ticker, buckets_by_ticker
+    )
+    market_breadth = (
+        build_breadth_features(histories, first_seen_by_ticker)
+        if first_seen_by_ticker is not None else None
+    )
+
+    sector_avg_returns = None
+    if sector_by_ticker:
+        daily_returns = pd.DataFrame(daily_returns_by_ticker)
+        sector_avg_returns = {
+            sector: daily_returns[
+                [t for t, s in sector_by_ticker.items() if s == sector and t in daily_returns]
+            ].mean(axis=1)
+            for sector in set(sector_by_ticker.values())
+        }
+
+    features_by_ticker = {}
+    for ticker, history in histories.items():
+        peer_return_ranks = {window: ranks[ticker] for window, ranks in rank_by_window.items()}
+        sector_avg_return = None
+        if sector_avg_returns and ticker in (sector_by_ticker or {}):
+            sector_avg_return = sector_avg_returns[sector_by_ticker[ticker]]
+
+        features_by_ticker[ticker] = build_features(
+            history,
+            benchmark_history=benchmark_history,
+            peer_return_ranks=peer_return_ranks,
+            sector_avg_return=sector_avg_return,
+            pooled_seasonality=pooled_seasonality_by_ticker[ticker],
+            spy_history=spy_history if spy_history is not None else benchmark_history,
+            vix_history=vix_history,
+            news_articles=(news_articles_by_ticker or {}).get(ticker),
+            nyc_weather=nyc_weather,
+            market_breadth=market_breadth,
+        )
+
+    structure = build_structure_features(histories, features_by_ticker)
+    merged = merge_structure(features_by_ticker, structure)
+    if first_seen_by_ticker is not None:
+        trajectory = build_trajectory_features(histories, first_seen_by_ticker)
+        merged = {
+            ticker: pd.concat([features, trajectory[ticker]], axis=1)
+            for ticker, features in merged.items()
+        }
+    return merged

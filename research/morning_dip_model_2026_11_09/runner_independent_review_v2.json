@@ -1,0 +1,109 @@
+{
+  "reviewer": "independent dip_runner_audit agent",
+  "reviewed_at_utc": "2026-11-09T22:44:49.797400+00:00",
+  "protocol_version": 2,
+  "decision": "PASS: no runner launch blockers found for the predeclared bounded comparison",
+  "scope": "Independent source, protocol, trainer API, focused-test and real-spawn review. Normal feature integration and complete data assembly are separate reviews.",
+  "source_sha256": {
+    "python/stock_picker/training/dip_feature_experiment.py": "36c6424c979103ac3048db44bb9b55fc6414a7287b65ff371faf5ee10fa17737",
+    "python/stock_picker/training/tests/test_dip_feature_experiment.py": "344b19626fc7f3df5c561573bd7cee931c700a018a993e10e5235a81c8035c8d",
+    "research/morning_dip_model_2026_11_09/experiment_protocol.json": "cfbf88189b786adf174bee7de320837ea8b52700ae4e1603f1187880081c60f1"
+  },
+  "implementation_artifact_hashes_match": true,
+  "checks": [
+    {
+      "name": "distinct_full_fit_sources",
+      "result": "PASS: baseline132 and candidate153 are projected before each of seven SVM fits. Separate variant keys and schema contexts prevent cache reuse across variants. Heads use139 and160 inputs respectively.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:375",
+        "python/stock_picker/training/dip_feature_experiment.py:377",
+        "python/stock_picker/training/dip_feature_experiment.py:380",
+        "python/stock_picker/training/dip_feature_experiment.py:387",
+        "python/stock_picker/training/dip_feature_experiment.py:322"
+      ]
+    },
+    {
+      "name": "chronology_and_pairing",
+      "result": "PASS: workers select252 sessions strictly before scored block; six jobs share one3-worker spawn pool. Two prior OOF blocks form head training, never in-sample fills. Baseline/candidate train and test identities must match.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:364",
+        "python/stock_picker/training/dip_feature_experiment.py:400",
+        "python/stock_picker/training/dip_feature_experiment.py:414",
+        "python/stock_picker/training/dip_feature_experiment.py:429"
+      ]
+    },
+    {
+      "name": "no_label_leakage",
+      "result": "PASS: training target excluded from explicit raw/input projections; prediction projects only feature names. Inner selection still freezes before outer reads; compact gains remain from the matching training fit. No current HLCV evaluation sidecar is read.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:279",
+        "python/stock_picker/training/dip_feature_experiment.py:308",
+        "python/stock_picker/training/dip_feature_experiment.py:375",
+        "python/stock_picker/training/dip_feature_experiment.py:498"
+      ]
+    },
+    {
+      "name": "undefined_ic_guard",
+      "result": "PASS: None and nonfinite deltas disqualify candidates and serialize safely; previous reproduced crash is fixed.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:264",
+        "python/stock_picker/training/tests/test_dip_feature_experiment.py:94"
+      ]
+    },
+    {
+      "name": "cash_day_net_intervals",
+      "result": "PASS: per-cost paired difference subtracts candidate active cost minus baseline active cost, retaining all matched cash days. Whole-week bootstrap uses sum/count weighting; explicit days, cost and exploratory labels accompany nonempty intervals.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:225",
+        "python/stock_picker/training/dip_feature_experiment.py:339",
+        "python/stock_picker/training/tests/test_dip_feature_experiment.py:140"
+      ]
+    },
+    {
+      "name": "frozen_provenance",
+      "result": "PASS: input hashes, required baseline/dip manifest hashes, source files, dependencies, protocol and both schemas bind checkpoints. Required provenance filenames exist. Live files are not consulted.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:450"
+      ]
+    },
+    {
+      "name": "resources",
+      "result": "PASS: three spawned workers at single-thread BLAS; LightGBM four threads. Concurrent Rank and Fit phases stay within documented eight busy cores. Worker input reads are limited to its training/scoring interval.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:362",
+        "python/stock_picker/training/dip_feature_experiment.py:410",
+        "research/morning_dip_model_2026_11_09/experiment_protocol.json:12"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "command": "bazelisk test //python/stock_picker/training/tests:test_dip_feature_experiment --test_output=errors",
+      "result": "PASS: 10 tests, pytest5.44s, Bazel9.68s",
+      "log": "bazel-testlogs/python/stock_picker/training/tests/test_dip_feature_experiment/test.log"
+    },
+    {
+      "probe": "Real ProcessPoolExecutor spawn, six jobs, max_workers3, actual132/153 source schemas, actual Parquet filters and alignment,42 preseeded numeric checkpoints",
+      "result": "PASS: all42 outputs reused,20 identical OOF head rows and10 identical outer rows for each variant; separate132/153 sentinel scores survived joining. Temporary probe performed zero model fits.",
+      "temporary_script": "/tmp/dip_runner_v2_spawn_probe.py"
+    },
+    {
+      "probe": "SHA256 runner/protocol versus model_runner_implementation.json",
+      "result": "PASS: exact matches"
+    }
+  ],
+  "previous_findings": {
+    "undefined_ic": "fixed and regression tested",
+    "cash_day_net_gate_intervals": "implemented and analytically tested",
+    "full_normal_fit_scope": "protocol transparently amended before fits; augmented SVM path implemented"
+  },
+  "limitations": [
+    "One full Fit outer block and two Fit variants, as predeclared. Rank refinement results do not constitute full Fit confirmation.",
+    "No expensive model fits, convergence measurements or final statistical outcomes were performed by this reviewer.",
+    "Evaluation-only intraday adverse-excursion sidecar is not consumed by this runner."
+  ],
+  "production_writes": false,
+  "source_edits": false,
+  "full_suite_run": false,
+  "model_fits": 0
+}

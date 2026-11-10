@@ -1,0 +1,81 @@
+{
+  "completed_at_utc": "2026-11-09T22:44:10.880545+00:00",
+  "rows": 1671673,
+  "tickers": 1784,
+  "dates": 1008,
+  "date_start": "2022-11-01",
+  "date_end": "2026-11-06",
+  "mrcy_rows": 1008,
+  "baseline_features": 132,
+  "candidate_features": 21,
+  "daily_rows": {
+    "min": 1555,
+    "median": 1653,
+    "max": 1784
+  },
+  "low252_valid_fraction": 0.9608775161170875,
+  "keys": "All three panels have exactly the same unique sorted date/ticker keys. No new candidate-based eligibility filter.",
+  "artifacts": {
+    "research/morning_dip_model_2026_11_09/baseline.parquet": {
+      "sha256": "08c55aaf1e0f4ca22ac680babd545c13999e645d878e2331fff952a6451f2abb",
+      "bytes": 1408727168
+    },
+    "research/morning_dip_model_2026_11_09/dip_panel.parquet": {
+      "sha256": "f8668c4c5acb52ba66d8c7515ee9d8d5b10818022340952d32c330e08056852e",
+      "bytes": 151087201
+    },
+    "research/morning_dip_model_2026_11_09/evaluation_outcomes.parquet": {
+      "sha256": "16f42b9eddbbd7db6e9b2ca8c3ea19ab9fc582655b1da242634a19b3085ea1bf",
+      "bytes": 25010479
+    }
+  },
+  "source_policy": "Frozen five-year split-adjusted research cache; copied news/weather/registry and original baseline source dependencies. Replay resolver loads frozen numerical modules before current ordinary-pipeline modules.",
+  "live_reference_divergences": 1986,
+  "live_reference_policy": "Original pins retained; scheduled refresh changed live files after the actual inputs were frozen. No live files were written by preparation.",
+  "missing_sector_columns": [
+    {
+      "ticker": "FISV",
+      "columns": [
+        "sector_relative_return"
+      ]
+    },
+    {
+      "ticker": "LION",
+      "columns": [
+        "sector_relative_return"
+      ]
+    },
+    {
+      "ticker": "NIQ",
+      "columns": [
+        "sector_relative_return"
+      ]
+    }
+  ],
+  "baseline_infinite_values": 0,
+  "ordinary_history_policy": {
+    "price_history": "Yahoo2y with explicit auto_adjust=False unchanged; benchmark/SPY/VIX use same period.",
+    "snapshot_retention": "Compute all features on full history, persist latest completed calendar year for every column; retain existing normal training span.",
+    "new_listing_or_missing_history": "Unknown values/validity flags remain; no eligibility removal.",
+    "live_backfill": "Not run; requires integration signoff and no active nightly writer.",
+    "documentation": "docs/feature-training-policy.md",
+    "tests": {
+      "targets": [
+        "//python/stock_picker/ingestion/tests:test_yfinance_client",
+        "//python/stock_picker/ingestion/tests:test_refresh_prices",
+        "//python/stock_picker/features/tests:test_snapshot_retention"
+      ],
+      "result": "All3passed; git diff --check passed."
+    }
+  },
+  "operational_observation": {
+    "nightly_pid": 58725,
+    "launcher_pid": 58722,
+    "api_pid": 59356,
+    "nightly_stage": "6/7 rebuild features began2026-11-09 16:31:21 local log time; still active about13min into job at inspection. No reliable completion ETA.",
+    "log": "/Users/michael.artz/Library/Logs/stock-picker/nightly.log",
+    "api_status_limitation": "training/job.py stores process-local in-memory status; API idle does not describe the separate nightly process."
+  },
+  "no_model_training_by_data_agent": true,
+  "no_commits_by_data_agent": true
+}

@@ -1,0 +1,298 @@
+{
+  "phase": 1,
+  "status": "passed_for_prior_experimental_state_normal_pipeline_integration_pending",
+  "reviewer": "dip_phase1_verify; independent of feature, structure and runner authors except the explicitly assigned boundary correction",
+  "completed_at_utc": "2026-11-09T22:30:03.846974+00:00",
+  "scope": "Verification covers the experimental implementation and isolated runner as they existed before the user requested ordinary pipeline/train/live/pruning integration. This is not approval of that pending integration or a claim of predictive value.",
+  "numerical_reconstruction": {
+    "status": "passed",
+    "completed_at_utc": "2026-11-09T22:28:27.987589+00:00",
+    "source": "research/averaging_down_2026_11_06/source_data/daily_five_year/MRCY.json.gz",
+    "source_sha256": "61155cc94f493d1e9ff4415862ed8b3b5a1f282f1caf414c446695aadd7ab258",
+    "script_sha256": "adb4aff995112c19024530025faef4bc76b910dfa9149f7c191d12c8c7b6e60e",
+    "module_sha256": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+    "ticker": "MRCY",
+    "raw_bars": 1260,
+    "tested_decision_rows": 1008,
+    "decision_from": "2022-11-01",
+    "decision_through": "2026-11-06",
+    "cell_comparisons": 21168,
+    "manual_method": "Raw JSON floats, scalar list slices, statistics.mean/stdev; no production rolling/formula helpers in expected values.",
+    "max_absolute_errors": {
+      "dip_close_to_low_252d": 0.0,
+      "dip_open_to_low_252d": 0.0,
+      "dip_low_age_252d": 0.0,
+      "dip_prior_new_low_252d": 0.0,
+      "dip_open_below_low_252d": 0.0,
+      "dip_low_history_valid": 0.0,
+      "dip_loss_2d_sigma": 1.2434497875801753e-14,
+      "dip_recovery_fraction": 0.0,
+      "dip_recovery_valid": 0.0,
+      "dip_deep_unrecovered": 0.0,
+      "dip_loss_change_sigma": 1.0658141036401503e-14,
+      "dip_range_change_1d": 0.0,
+      "dip_volume_change_1d": 0.0,
+      "dip_pressure_easing": 0.0,
+      "dip_gap_previous_volume_zscore": 5.762057497804562e-14,
+      "dip_support_break_depth_20d": 0.0,
+      "dip_support_close_distance_20d": 0.0,
+      "dip_support_open_distance_20d": 0.0,
+      "dip_support_reclaim_20d": 0.0,
+      "dip_sma50_slope_10d": 4.440892098500626e-16,
+      "dip_trend_pullback": 0.0
+    },
+    "tolerance": {
+      "absolute": 1e-10,
+      "relative": 1e-10
+    },
+    "scalar_and_mutation_dates": [
+      "2022-11-01",
+      "2022-11-02",
+      "2024-03-22",
+      "2025-10-27",
+      "2026-11-04",
+      "2026-11-05",
+      "2026-11-06"
+    ],
+    "current_future_hlcv_and_future_open_mutation": "all 21 current features unchanged on seven raw MRCY dates",
+    "current_open_mutation": "all 13 prior-only columns unchanged on seven dates",
+    "synthetic_checks": [
+      "252 bars required; 251 insufficient",
+      "internal missing row remains unknown for full window",
+      "low validity recovers exactly when missing bar exits",
+      "latest tied low has age one",
+      "today low excluded"
+    ],
+    "protocol_schema": "21 unique names, four ordered families and four flags match exactly",
+    "examples": {
+      "2026-11-04": {
+        "dip_close_to_low_252d": 0.23493234932349294,
+        "dip_open_to_low_252d": 0.22586100861008607,
+        "dip_low_age_252d": 238.0,
+        "dip_prior_new_low_252d": 0.0,
+        "dip_open_below_low_252d": 0.0,
+        "dip_low_history_valid": 1.0,
+        "dip_loss_2d_sigma": 0.9480502705374593,
+        "dip_recovery_fraction": null,
+        "dip_recovery_valid": 0.0,
+        "dip_deep_unrecovered": null,
+        "dip_loss_change_sigma": 1.3438716291169734,
+        "dip_range_change_1d": 0.3419354838709723,
+        "dip_volume_change_1d": 0.32281451246708337,
+        "dip_pressure_easing": 0.0,
+        "dip_gap_previous_volume_zscore": -0.0008069150750536127,
+        "dip_support_break_depth_20d": -0.08050551598938696,
+        "dip_support_close_distance_20d": 0.12163105711492794,
+        "dip_support_open_distance_20d": 0.11339198435972642,
+        "dip_support_reclaim_20d": 0.0,
+        "dip_sma50_slope_10d": -0.05925785709091702,
+        "dip_trend_pullback": 0.0
+      },
+      "2026-11-05": {
+        "dip_close_to_low_252d": 0.10332103321033204,
+        "dip_open_to_low_252d": 0.08241082410824108,
+        "dip_low_age_252d": 239.0,
+        "dip_prior_new_low_252d": 0.0,
+        "dip_open_below_low_252d": 0.0,
+        "dip_low_history_valid": 1.0,
+        "dip_loss_2d_sigma": -1.9434284462213147,
+        "dip_recovery_fraction": -0.24242424242424235,
+        "dip_recovery_valid": 1.0,
+        "dip_deep_unrecovered": 0.0,
+        "dip_loss_change_sigma": 2.594397314575257,
+        "dip_range_change_1d": 1.8571428571428545,
+        "dip_volume_change_1d": 0.869032240643745,
+        "dip_pressure_easing": 0.0,
+        "dip_gap_previous_volume_zscore": -0.040639295161399795,
+        "dip_support_break_depth_20d": 0.023600055858120344,
+        "dip_support_close_distance_20d": 0.0020946795140344143,
+        "dip_support_open_distance_20d": -0.016897081413210335,
+        "dip_support_reclaim_20d": 0.0,
+        "dip_sma50_slope_10d": -0.05560861326282407,
+        "dip_trend_pullback": 0.0
+      },
+      "2026-11-06": {
+        "dip_close_to_low_252d": 0.013215859030837107,
+        "dip_open_to_low_252d": 0.03454671922096009,
+        "dip_low_age_252d": 1.0,
+        "dip_prior_new_low_252d": 1.0,
+        "dip_open_below_low_252d": 0.0,
+        "dip_low_history_valid": 1.0,
+        "dip_loss_2d_sigma": -4.651725271633526,
+        "dip_recovery_fraction": 0.09343263371699459,
+        "dip_recovery_valid": 1.0,
+        "dip_deep_unrecovered": 1.0,
+        "dip_loss_change_sigma": -0.7167486572664242,
+        "dip_range_change_1d": -0.2725961538461521,
+        "dip_volume_change_1d": 0.2363235242885633,
+        "dip_pressure_easing": 0.0,
+        "dip_gap_previous_volume_zscore": 0.0528768697080895,
+        "dip_support_break_depth_20d": 0.07472826086956534,
+        "dip_support_close_distance_20d": -0.06250000000000011,
+        "dip_support_open_distance_20d": -0.042763157894736725,
+        "dip_support_reclaim_20d": 0.0,
+        "dip_sma50_slope_10d": -0.053294386082223144,
+        "dip_trend_pullback": 0.0
+      }
+    },
+    "reproduction_script": "research/morning_dip_model_2026_11_09/verify_phase1_independent.py",
+    "reproduction_script_sha256": "c1a95cf1aeea06e972f99d78f61838a26d7e0a2ee2284982c820c0dc50fdf3d5"
+  },
+  "source_sha256": {
+    "python/stock_picker/features/dip_context.py": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+    "python/stock_picker/features/structure.py": "9e080b325d43511752532cae92da7ee7cbcd7d84b27a42947b20e85c46e1c897",
+    "python/stock_picker/training/dip_feature_experiment.py": "0262497c748d29d6e024a1dacfbffb9657bf745e6cbb99ad6065d3b215f30603",
+    "research/morning_dip_model_2026_11_09/experiment_protocol.json": "31dc452659f82ff74d7db6f498c6e19d993c8336b540afebab938877209f0e87"
+  },
+  "production_preservation": {
+    "files_checked": 4007,
+    "files_matching": 4007,
+    "mismatches": [],
+    "five_year_cache_matches": true,
+    "manifest_sha256": "6cc0ecee6dbb1ebc28a816215fa53eecea1964165c2defb91cbf7a0723f84d40"
+  },
+  "tests": {
+    "full_command": "bazelisk test //... --jobs=6 --local_test_jobs=4 --test_output=errors",
+    "exit_code": 0,
+    "passed_targets": 135,
+    "executed_targets": 77,
+    "cached_targets": 58,
+    "elapsed_seconds": 164.437,
+    "dip_target": "//python/stock_picker/features/tests:test_dip_context",
+    "dip_cases": 40,
+    "runner_target": "//python/stock_picker/training/tests:test_dip_feature_experiment",
+    "runner_test_functions": 7,
+    "runner_seconds": 5.8,
+    "raw_log": "/tmp/morning-dip-full-suite.log",
+    "log_sha256": "01b292a4ddc63f45cb7f5de8d4a4a8b7dfb618d6fb9b72583db308ebd0085977",
+    "note": "Final runner chronology/snapshot/warning guards are included. Full-suite dip target reused the immediately preceding successful boundary-patch test."
+  },
+  "resolved_defects": [
+    {
+      "finding": "Inclusive ratio thresholds could reject mathematically exact decimal-price boundaries due to binary rounding.",
+      "example": "102/100 - 1 produces 0.020000000000000018 and incorrectly rejected exact 2% near-low; 3.43/3.5 - 1 produces -0.019999999999999907 and incorrectly rejected exact 2% decline.",
+      "fix": "Named dimensionless 1e-12 comparison tolerance for inclusive 2% decline, 0..2% low distance, 0..25% recovery and >=50% closing location only. Strict support/pressure/trend comparisons remain strict.",
+      "approval": "Parent explicitly assigned this narrow fix after discovery; original author independently reviewing patch.",
+      "sources": [
+        "python/stock_picker/features/dip_context.py:35",
+        "python/stock_picker/features/dip_context.py:154",
+        "python/stock_picker/features/dip_context.py:170",
+        "python/stock_picker/features/dip_context.py:186",
+        "python/stock_picker/features/tests/test_dip_context.py:188"
+      ],
+      "validation": "Ten added exact-versus-1e-8-outside cases; all 40 cases pass."
+    }
+  ],
+  "feature_review": {
+    "status": "approved",
+    "checks": [
+      "All 21 names and four families match frozen protocol exactly; four flags match.",
+      "Prior low uses exactly 252 completed canonical bars, newest tie gets age one; invalid bars retained as NaN.",
+      "Pre-shock sigma uses twenty returns ending t-3; neither shock return enters denominator.",
+      "Support uses t-21 through t-2; yesterday cannot move its own support level.",
+      "No current/future HLCV or current volume is read by current decision fields. Eight Open-known fields are explicitly classified.",
+      "Unknown setup inputs remain NaN; validity indicators are intentionally 0/1.",
+      "Scalar helper and historical builder share computation and reject invalid/future dates.",
+      "Complete calendar and common adjustment basis are explicit caller contracts, not silently inferred."
+    ],
+    "sources": [
+      "python/stock_picker/features/dip_context.py:1",
+      "python/stock_picker/features/dip_context.py:110",
+      "python/stock_picker/features/dip_context.py:136",
+      "python/stock_picker/features/dip_context.py:149",
+      "python/stock_picker/features/dip_context.py:177",
+      "python/stock_picker/features/dip_context.py:216"
+    ]
+  },
+  "cluster_repair_review": {
+    "status": "approved",
+    "artifact": "research/morning_dip_model_2026_11_09/cluster_fix_independent_verification.json",
+    "independent_data_agent_results": "1,981 real tickers, manual leave-self-out error <=2.0816681711721685e-17; current-close/current-cluster mutation invariant; live parity.",
+    "checks": [
+      "Prior membership shifts within each ticker before aligning calendar.",
+      "Current peer gaps exclude self and nonfinite values; missing prior label and no peers produce NaN.",
+      "Live fill clears stale prior gap when current peers unavailable.",
+      "Historical/live public helpers preserve indexes and use the same aggregation."
+    ],
+    "sources": [
+      "python/stock_picker/features/structure.py:73",
+      "python/stock_picker/features/structure.py:84",
+      "python/stock_picker/features/structure.py:150",
+      "python/stock_picker/features/structure.py:166"
+    ]
+  },
+  "runner_review": {
+    "status": "approved_for_isolated_frozen_protocol_experiment",
+    "checks": [
+      "Aligns by immutable date/ticker, exact schemas, rejects holdout/SPY, keeps candidate NaNs and MRCY.",
+      "252 prior sessions only; explicit chronology guard again at model fit.",
+      "Positive projection keeps label/metadata/unselected candidates out of inputs; actual Rank custom objective retained.",
+      "Compact columns chosen only from same-window training gain.",
+      "Inner-only results select algorithm; outer phases require run-bound frozen selection. Inner parquet reads exclude later labels.",
+      "All nine variants share identical rows and current-configuration baseline; SVM source inputs frozen at 132.",
+      "OOF Fit scores are strictly prior-trained, joined by row digest; uncovered early rows are omitted/reported rather than filled in sample.",
+      "Atomic finite numeric checkpoints bind source/input/dependency manifests, identity/order, column schema and chronology; checksum/context mismatches fail.",
+      "Research-only outputs, no ModelStore/save/pruning/production writes; processes and numerical thread counts bounded."
+    ],
+    "sources": [
+      "python/stock_picker/training/dip_feature_experiment.py:80",
+      "python/stock_picker/training/dip_feature_experiment.py:135",
+      "python/stock_picker/training/dip_feature_experiment.py:159",
+      "python/stock_picker/training/dip_feature_experiment.py:241",
+      "python/stock_picker/training/dip_feature_experiment.py:266",
+      "python/stock_picker/training/dip_feature_experiment.py:329",
+      "python/stock_picker/training/dip_feature_experiment.py:363",
+      "python/stock_picker/training/dip_feature_experiment.py:400",
+      "python/stock_picker/training/dip_feature_experiment.py:411",
+      "python/stock_picker/training/model.py:252"
+    ]
+  },
+  "anti_pattern_review": {
+    "status": "passed",
+    "checked": [
+      "No standalone mandatory buy gate introduced; continuous measurements and flags remain incremental experimental inputs.",
+      "No MRCY-specific exclusion, candidate-NaN row deletion, or test-period threshold tuning.",
+      "No current-close cluster membership used for an Open-known peer feature after repair.",
+      "No future values smuggled through flag validity, zero-filled unknown setup flags, or double shift of decision-aligned candidates.",
+      "No silent activation in persisted features, default FeatureService, live inference or saved model schema.",
+      "No duplicated live formula path, unbounded SVM process pool, in-sample SVM replacement or unversioned checkpoint reuse."
+    ],
+    "sources": [
+      "python/stock_picker/features/registry.py:108",
+      "python/stock_picker/features/registry.py:137",
+      "python/stock_picker/features/catalog.py:90",
+      "python/stock_picker/features/catalog.py:138",
+      "python/stock_picker/features/tests/test_dip_context.py:291"
+    ]
+  },
+  "code_quality_review": {
+    "status": "passed",
+    "checks": [
+      "Focused pure feature module and scalar adapter; economic constants and ordered schemas are explicit.",
+      "Metadata separated from numeric computation; existing candle/trend/volume helpers reused.",
+      "Structure aggregation is shared and vectorized by group rather than duplicated live logic.",
+      "Runner separates alignment, temporal slicing, metric calculation, selection and checkpoints.",
+      "Tests target causal mutation, unknown history, precise thresholds, row identity, cache corruption and chronology.",
+      "No unnecessary refactor of existing model/pipeline production behavior; explicit narrow cluster timing repair applies equally to baseline and candidates."
+    ],
+    "diagnostics": "No LSP was available; final Bazel import/type/runtime tests and git diff --check are the applicable verification."
+  },
+  "limitations": [
+    "Implementation verification does not establish trading efficacy; Phase2 model comparisons are still required.",
+    "Raw reconstruction checks MRCY across all its model-eligible dates and representative causal mutations; not every ticker/source corporate action was independently certified.",
+    "Historical current-universe/static-sector/source-adjustment limitations remain as frozen in protocol.",
+    "Complete exchange-calendar alignment is enforced by panel construction, not inferable from the low-level OHLCV helper.",
+    "Full-data model training and multiprocessing SVM runtime were not performed by this verifier; fake-model unit tests validate projection/checkpoint mechanics.",
+    "Official-open feature benchmark is not guaranteed executable after observing that same opening price.",
+    "The unrelated existing Jev database change remains dirty and was not altered; it is outside the 4,007-file frozen source manifest."
+  ],
+  "remaining_blockers": [
+    "Ordinary pipeline/train/live/catalog/pruning integration is newly authorized and pending separate implementation and verification."
+  ],
+  "user_steering_after_review": {
+    "requirement": "User now explicitly requires ordinary features in the normal pipeline, training, live scoring, catalog and pruning, and authorizes integration.",
+    "prior_isolation_findings": "The catalog/FeatureService/default-path isolation checks describe the reviewed prior state only; they are not requirements for the revised task.",
+    "next_verification": "Reverify feature calendar/warmup, normal dataset Open-known alignment, live parity, normal SVM path/schema/pruning, and run focused/full checks after integration.",
+    "integration_verified": false
+  }
+}

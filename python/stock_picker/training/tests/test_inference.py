@@ -3,6 +3,10 @@ from datetime import date
 import pandas as pd
 import pytest
 
+from stock_picker.features.dip_context import (
+    DIP_CLOSE_KNOWN_COLUMNS, DIP_COLUMNS, DIP_OPEN_KNOWN_COLUMNS,
+    build_dip_context_features, complete_dip_history, morning_dip_features,
+)
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS, build_open_pattern_features
 from stock_picker.features.tests.fixtures import synthetic_history
 from stock_picker.training.dataset import GAP_COLUMN, LABEL_COLUMN, build_training_frame
@@ -13,7 +17,89 @@ from stock_picker.training.inference import (
     compute_overnight_gap,
     predict_signal,
 )
-from stock_picker.training.model import train_lightgbm
+from stock_picker.training.model import feature_columns, train_lightgbm
+
+
+def _dip_live_row(history, snapshot, *, excluded=None, prior_history=None):
+    return build_inference_row(
+        snapshot, float(history.Open.iloc[-1]), float(history.Close.iloc[-2]),
+        history.index[-2].date(), history.index[-1].date(),
+        prior_history=prior_history, excluded_features=excluded,
+    )
+
+
+def test_dip_live_row_matches_dataset_and_decision_helper_from_final_snapshot():
+    history = synthetic_history(n=320)
+    snapshots = build_dip_context_features(history)
+    # Build yesterday's final snapshot without today's price row present.
+    snapshot = build_dip_context_features(history.iloc[:-1]).iloc[-1]
+    actual = _dip_live_row(history, snapshot, prior_history=history.iloc[:-1]).iloc[0][list(DIP_COLUMNS)]
+    expected = build_training_frame(history, snapshots).iloc[-1][list(DIP_COLUMNS)]
+    pd.testing.assert_series_equal(actual, expected, check_names=False)
+    pd.testing.assert_series_equal(actual, morning_dip_features(history).iloc[-1], check_names=False)
+
+
+@pytest.mark.parametrize("empty", [False, True])
+def test_dip_live_missing_history_clears_stale_open_values_and_keeps_close_fields(empty):
+    history = synthetic_history(n=320)
+    snapshot = build_dip_context_features(history.iloc[:-1]).iloc[-1]
+    snapshot.loc[list(DIP_OPEN_KNOWN_COLUMNS)] = 123.0
+    row = _dip_live_row(history, snapshot, prior_history=history.iloc[:0] if empty else None).iloc[0]
+    assert row[list(DIP_OPEN_KNOWN_COLUMNS)].isna().all()
+    pd.testing.assert_series_equal(row[list(DIP_CLOSE_KNOWN_COLUMNS)], snapshot[list(DIP_CLOSE_KNOWN_COLUMNS)])
+
+
+def test_dip_live_all_pruned_skips_helper_and_does_not_add_absent_fields(monkeypatch):
+    from stock_picker.training import inference
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("pruned dip inputs must not be recomputed")
+
+    monkeypatch.setattr(inference, "morning_dip_row", forbidden)
+    history = synthetic_history(n=320)
+    snapshot = build_dip_context_features(history.iloc[:-1]).iloc[-1]
+    actual = _dip_live_row(history, snapshot, excluded=frozenset(DIP_COLUMNS), prior_history=history.iloc[:-1])
+    assert actual[list(DIP_OPEN_KNOWN_COLUMNS)].isna().all().all()
+    assert feature_columns(actual, excluded_features=set(DIP_COLUMNS)) == [GAP_COLUMN]
+    actual = _dip_live_row(history, pd.Series({"ordinary_feature": 1.}), prior_history=history.iloc[:-1])
+    assert not set(DIP_COLUMNS) & set(actual.columns)
+
+
+def test_dip_live_partial_prune_recomputes_only_selected_open_fields():
+    history = synthetic_history(n=320)
+    snapshot = build_dip_context_features(history.iloc[:-1]).iloc[-1]
+    excluded = frozenset({"dip_recovery_fraction", "dip_deep_unrecovered"})
+    actual = _dip_live_row(history, snapshot, excluded=excluded, prior_history=history.iloc[:-1]).iloc[0]
+    expected = morning_dip_features(history).iloc[-1]
+    assert actual[list(excluded)].isna().all()
+    included = sorted(DIP_OPEN_KNOWN_COLUMNS - excluded)
+    pd.testing.assert_series_equal(actual[included], expected[included], check_names=False)
+
+
+def test_dip_columns_follow_ordinary_default_selection_and_explicit_pruning():
+    frame = build_dip_context_features(synthetic_history(n=320))
+    assert feature_columns(frame) == list(DIP_COLUMNS)
+    excluded = {"dip_deep_unrecovered", "dip_open_to_low_252d"}
+    assert feature_columns(frame, excluded_features=excluded) == [c for c in DIP_COLUMNS if c not in excluded]
+    selected = {"dip_deep_unrecovered", "dip_pressure_easing"}
+    assert feature_columns(frame, included_features=selected, excluded_features=excluded) == ["dip_pressure_easing"]
+
+
+@pytest.mark.parametrize("missing_offset", [1, 12])
+def test_dip_live_and_dataset_agree_when_an_exchange_session_is_absent(missing_offset):
+    history = synthetic_history(n=320)
+    # Use a known run of ordinary exchange sessions ending Dec 3, 2026.
+    history.index = pd.bdate_range(end="2026-12-03", periods=len(history))
+    missing_date = history.index[-1 - missing_offset]
+    history = history.drop(index=missing_date)
+    snapshots = build_dip_context_features(history)
+    snapshot = build_dip_context_features(history.iloc[:-1]).iloc[-1]
+    actual = _dip_live_row(history, snapshot, prior_history=history.iloc[:-1]).iloc[0][list(DIP_COLUMNS)]
+    expected = morning_dip_features(complete_dip_history(history)).iloc[-1]
+    training = build_training_frame(history, snapshots).iloc[-1][list(DIP_COLUMNS)]
+    pd.testing.assert_series_equal(actual, expected, check_names=False)
+    pd.testing.assert_series_equal(actual, training, check_names=False)
+    assert actual.dip_low_history_valid == 0
 
 # Arbitrary but fixed dates a day apart, so "fresh" is the default across every
 # test unless a test is specifically about staleness.

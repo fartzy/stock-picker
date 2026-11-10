@@ -15,6 +15,7 @@ import re
 from collections.abc import Callable
 
 from stock_picker.features.descriptions import _day_plural
+from stock_picker.features.dip_context_metadata import DIP_FEATURE_METADATA
 
 UNKNOWN_EXAMPLE = "No example available for '{name}'. Add a pattern to examples.py."
 
@@ -580,6 +581,8 @@ _pattern(r"^path_cluster_peer_return_1d$", lambda m: "Other stocks in this clust
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if
     no pattern matches."""
+    if name in DIP_FEATURE_METADATA:
+        return DIP_FEATURE_METADATA[name].example
     for pattern, template in _PATTERNS:
         match = pattern.match(name)
         if match:

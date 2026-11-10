@@ -1,5 +1,7 @@
 import numpy as np
+import pandas as pd
 
+from stock_picker.features.dip_context import DIP_COLUMNS, build_dip_context_features
 from stock_picker.features.pipeline import build_features, build_features_for_universe
 from stock_picker.features.tests.fixtures import synthetic_history
 
@@ -21,6 +23,8 @@ def test_build_features_combines_every_category():
         "seq3_open3_seasonality",
         "news_article_count_1d",
         "news_has_insider_sell_3d",
+        "dip_open_to_low_252d",
+        "dip_pressure_easing",
     ]:
         assert column in features.columns
 
@@ -29,6 +33,12 @@ def test_build_features_combines_every_category():
     assert "beta_60d" not in features.columns
     assert "return_rank_5d" not in features.columns
     assert "pooled_setup_seasonality" not in features.columns
+
+
+def test_pipeline_dip_values_use_ordinary_snapshot_timing():
+    history = synthetic_history(n=320)
+    actual = build_features(history).loc[:, list(DIP_COLUMNS)]
+    pd.testing.assert_frame_equal(actual, build_dip_context_features(history))
 
 
 def test_zero_open_does_not_create_infinite_features():

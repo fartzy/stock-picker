@@ -1,0 +1,382 @@
+{
+  "verified_at_utc": "2026-11-09T23:44:56.013687+00:00",
+  "status": "passed",
+  "completed": 21,
+  "expected": 21,
+  "missing": [],
+  "method": "Match exact baseline schema and same-period Rank train/test row hashes/dates; verify numeric-only checkpoint checksum, finite values and exact row counts; enforce fit_end before score_start.",
+  "fixed_iteration_limit": 10000,
+  "convergence_warnings_retained": true,
+  "records": [
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svr_oof_pred",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 2497.8934063330016,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        },
+        {
+          "category": "ConvergenceWarning",
+          "message": "Liblinear failed to converge, increase the number of iterations."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_direction_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 13.528038750002452,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_gate_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 12.582781625002099,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_down_gate_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 11.771802208000736,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_strong_up_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 12.210251707998395,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_top_quintile_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 11.111954375002824,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2025h2_svc_bottom_quintile_margin",
+      "rows": 218450,
+      "schema_columns": 132,
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "fit_end": "2025-06-30 00:00:00",
+      "score_start": "2025-07-01 00:00:00",
+      "seconds": 12.238664708005672,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svr_oof_pred",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 2527.4400917919993,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        },
+        {
+          "category": "ConvergenceWarning",
+          "message": "Liblinear failed to converge, increase the number of iterations."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_direction_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 13.263287957997818,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_gate_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 11.474969957998837,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_down_gate_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 13.549011666000297,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_strong_up_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 13.23147116600012,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_top_quintile_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 12.886772666999605,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_oof_2026h1_svc_bottom_quintile_margin",
+      "rows": 214906,
+      "schema_columns": 132,
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "fit_end": "2025-12-31 00:00:00",
+      "score_start": "2026-01-02 00:00:00",
+      "seconds": 11.701607417002378,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svr_oof_pred",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 2562.333004292006,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        },
+        {
+          "category": "ConvergenceWarning",
+          "message": "Liblinear failed to converge, increase the number of iterations."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_direction_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 20.570885542001633,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_gate_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 19.26385258299706,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_down_gate_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 18.65832437499921,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_strong_up_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 20.978955833001237,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_top_quintile_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 17.64389358399785,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "checkpoint": "svm_baseline_outer_2026h2_svc_bottom_quintile_margin",
+      "rows": 161943,
+      "schema_columns": 132,
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "fit_end": "2026-06-30 00:00:00",
+      "score_start": "2026-07-01 00:00:00",
+      "seconds": 16.608764290998806,
+      "warnings": [
+        {
+          "category": "UserWarning",
+          "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "source_or_settings_changed": false
+}

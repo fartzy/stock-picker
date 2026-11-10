@@ -1,0 +1,78 @@
+{
+  "status": "amended_full_normal_fit_implemented_focused_tests_pass_pending_independent_review",
+  "model_fits_started": false,
+  "protocol_sha256": "cfbf88189b786adf174bee7de320837ea8b52700ae4e1603f1187880081c60f1",
+  "runner": "python/stock_picker/training/dip_feature_experiment.py",
+  "target": "//python/stock_picker/training:morning_dip_experiment",
+  "entrypoint_line": 466,
+  "phases": [
+    "rank-inner",
+    "rank-outer",
+    "fit"
+  ],
+  "inputs": {
+    "baseline": "research/morning_dip_model_2026_11_09/baseline.parquet",
+    "dips": "research/morning_dip_model_2026_11_09/dip_panel.parquet",
+    "protocol": "research/morning_dip_model_2026_11_09/experiment_protocol.json",
+    "snapshot": "research/morning_dip_model_2026_11_09/saved_model_snapshot.json",
+    "input_manifest": "research/morning_dip_model_2026_11_09/input_manifest.json"
+  },
+  "suggested_output": "research/morning_dip_model_2026_11_09/model_run",
+  "execution": "Run rank-inner first without --resume; its selection.json is mandatory before rank-outer or fit. Later phases use --resume. Separate rank-outer and fit processes can run concurrently after inner selection. Exact source/input/dependency manifest equality is required for every resume.",
+  "core_contracts": {
+    "align_panels_line": 136,
+    "temporal_window_line": 160,
+    "inner_selection_line": 252,
+    "model_projection_line": 279,
+    "svm_block_line": 358,
+    "fit_oof_line": 400,
+    "checkpoint_line": 81,
+    "source_manifest_line": 450
+  },
+  "checks_completed": [
+    "bazelisk test //python/stock_picker/features/tests:test_structure --test_output=errors PASSED",
+    "bazelisk test //python/stock_picker/training/tests:test_dip_feature_experiment --test_output=errors PASSED (seven test functions)",
+    "Data agent independently verified corrected cluster gap on 1,981 real tickers, current-close mutation invariance, and live parity",
+    "Amended test_dip_feature_experiment PASSED with ten tests: unknown IC disqualification, analytical cash-day net intervals, distinct SVM schemas/caches, six jobs under one cap, identical OOF-covered head rows. Final optional provenance hashing added after this run; no statistical behavior changed."
+  ],
+  "checks_pending": [
+    "Independent amended-runner review and integrated full suite",
+    "Baseline and dip parquet input verification",
+    "Root Phase2 model-training authorization"
+  ],
+  "cluster_repair": {
+    "source": "python/stock_picker/features/structure.py:84",
+    "semantics": "Shift each ticker's cluster_id before calendar alignment. Current opening gaps use prior membership, leave-self-out finite peer means, unknown remains NaN. Historical builder and live fill share the peer aggregation; live unavailable peers clear stale values.",
+    "complexity": "Replaces per-date quadratic peer scans with grouped sums/counts. PCA/cluster labeling algorithms remain unchanged."
+  },
+  "limitations": [
+    "One full normal Fit outer block for baseline and all21; three Rank outer blocks for nine variants. Research selection does not gate ordinary feature integration or normal pruning.",
+    "Closing-return downside and selected-stock tails are measured by this runner. Intraday adverse excursion is available in a separate sidecar but is not yet used by this runner.",
+    "Fitted model objects are not persisted; checkpoints hold numeric predictions and provenance. An interrupted individual SVM output restarts that output."
+  ],
+  "protocol_version": 2,
+  "full_normal_fit": {
+    "variants": [
+      "baseline",
+      "all"
+    ],
+    "raw_source_counts": [
+      132,
+      153
+    ],
+    "head_input_counts": [
+      139,
+      160
+    ],
+    "svm_outputs_each": 7,
+    "chronological_block_tasks": 6,
+    "maximum_parallel_workers": 3,
+    "rank_only_refinements": [
+      "continuous_only",
+      "compact"
+    ],
+    "cash_day_cost_intervals": true
+  },
+  "input_authority": "Frozen research parquet panels and their manifests are authoritative. Live scheduled refresh divergence is recorded by the data manifest; the runner neither reads newer live values nor requires live file hashes to stay unchanged.",
+  "runner_sha256": "36c6424c979103ac3048db44bb9b55fc6414a7287b65ff371faf5ee10fa17737"
+}

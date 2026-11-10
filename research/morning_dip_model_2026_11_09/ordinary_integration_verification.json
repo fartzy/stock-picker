@@ -1,0 +1,50 @@
+{
+  "verified_at_utc": "2026-11-09T22:48:33.481098+00:00",
+  "frozen_core_module_sha256": "918709ea1f90633a7901306a0af5b38525dc0f036f42c70c6ef36113c8f507c2",
+  "ordinary_module_sha256": "8f9633f1508022c0bb31c9d208b9959f32b659c56d18a7516c603727ff55593a",
+  "core_function_ast_identical": true,
+  "core_functions": [
+    "morning_dip_features",
+    "_positive_ratio",
+    "_flag",
+    "_most_recent_low_age"
+  ],
+  "exact_core_parity": {
+    "rows": 1000,
+    "columns": 21,
+    "cell_comparisons": 21000,
+    "includes_missing_prior_bar": true,
+    "comparison": "pandas assert_frame_equal(check_exact=True)"
+  },
+  "ordinary_catalog_columns": 246,
+  "ordinary_active_columns": 153,
+  "dip_default_active_count": 21,
+  "dip_explicitly_pruned": [],
+  "positive_selection": null,
+  "close_known_columns": [
+    "dip_close_to_low_252d",
+    "dip_low_age_252d",
+    "dip_prior_new_low_252d",
+    "dip_low_history_valid",
+    "dip_loss_2d_sigma",
+    "dip_loss_change_sigma",
+    "dip_range_change_1d",
+    "dip_volume_change_1d",
+    "dip_pressure_easing",
+    "dip_support_break_depth_20d",
+    "dip_support_close_distance_20d",
+    "dip_sma50_slope_10d",
+    "dip_trend_pullback"
+  ],
+  "open_known_columns": [
+    "dip_deep_unrecovered",
+    "dip_gap_previous_volume_zscore",
+    "dip_open_below_low_252d",
+    "dip_open_to_low_252d",
+    "dip_recovery_fraction",
+    "dip_recovery_valid",
+    "dip_support_open_distance_20d",
+    "dip_support_reclaim_20d"
+  ],
+  "missing_session_contract": "Ordinary snapshot/scalar helpers insert absent XNYS sessions, preserve original output row keys, and retain supplied non-XNYS rows without silently discarding source data. Dataset aligns only dip close-known fields on that calendar; missing snapshot rows have unknown measurements and dip_low_history_valid=0. Live recomputes all present unpruned dip fields through the last completed session. Other features and labels retain their original timing."
+}

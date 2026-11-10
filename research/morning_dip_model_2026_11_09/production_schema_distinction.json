@@ -1,0 +1,44 @@
+{
+  "recorded_at_utc": "2026-11-09T23:20:29.478464+00:00",
+  "decision_authority": "Root reported approved production-only ordinary prune after independent input-scale audit",
+  "production_new_inputs_remaining": 19,
+  "research_new_inputs": 21,
+  "research_raw_svm_schemas": [
+    132,
+    153
+  ],
+  "research_recovery_fraction_retained": true,
+  "research_uses_global_prune_store": false,
+  "source_changed": false,
+  "interpretation": "The frozen full21 research comparison is qualified exploratory evidence, not clean promotion evidence and not performance validation of the pruned19 production schema. Ordinary training/evaluation uses a separate data window and input schema.",
+  "reported_production_audit": {
+    "rows": 443570,
+    "largest_standardized_absolute_value_approx": 404,
+    "largest_row_variance_share_pct": 36.8,
+    "top10_variance_share_pct": 66.27
+  },
+  "amended_at_utc": "2026-11-09T23:27:42.994669+00:00",
+  "previous_production_new_inputs_remaining": 20,
+  "production_pruned_features": [
+    "dip_recovery_fraction",
+    "dip_volume_change_1d"
+  ],
+  "production_raw_svm_inputs": 151,
+  "production_head_inputs": 158,
+  "pruned_features_still_computed_and_cataloged": true,
+  "additional_reported_input_quality_findings": {
+    "volume_change_top10_variance_share_pct": 99.79,
+    "ordinary_yahoo_previous_volume_vs_massive": {
+      "HUBB": [
+        30,
+        367726
+      ],
+      "UHAL-B": [
+        32,
+        330327
+      ]
+    },
+    "SPCX": "Frozen research source spans distinct ETF and new-common-stock FIGIs; ordinary Yahoo history correctly begins at the new listing. Frozen research rows are unchanged.",
+    "QH": "Price-basis discontinuity remains unresolved; no invented adjustment was applied."
+  }
+}

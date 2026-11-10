@@ -1,0 +1,150 @@
+{
+  "reviewed_at_utc": "2026-11-09T22:31:17.454661+00:00",
+  "reviewer": "independent dip_runner_audit agent",
+  "scope": "Runner, frozen protocol, trainer APIs, saved schema/parameters, no-fit runtime probes. Feature mathematics and full Bazel suite reviewed separately.",
+  "source_sha256": {
+    "python/stock_picker/training/dip_feature_experiment.py": "0262497c748d29d6e024a1dacfbffb9657bf745e6cbb99ad6065d3b215f30603",
+    "research/morning_dip_model_2026_11_09/experiment_protocol.json": "31dc452659f82ff74d7db6f498c6e19d993c8336b540afebab938877209f0e87",
+    "python/stock_picker/training/model.py": "6a51040df0b754b02cf7d2280d84889ad9737ea3e49e51302522f5bb7cfbbfe8",
+    "python/stock_picker/training/tests/test_dip_feature_experiment.py": "2faf964fc5750b540af778c967c69144b98beabb3db5d04fda54c588a0f606b8"
+  },
+  "critical_review": {
+    "head_only_ablation": "No critical leakage, schema, chronology, or checkpoint defect found. Safe to execute original bounded head-only diagnostic after ordinary data-readiness checks; robustness and reporting issues below should be addressed before final reporting.",
+    "full_normal_pipeline_confirmation": "Not approved by this head-only review. User subsequently authorized normal feature integration; amend frozen protocol transparently before any fits and test augmented SVM sources for candidate Fit. Preserve raw132 shared-SVM run only as a separately named diagnostic.",
+    "model_fits_started_by_reviewer": false,
+    "full_bazel_suite_run_by_reviewer": false,
+    "production_writes": false,
+    "source_edits": false
+  },
+  "checks": [
+    {
+      "name": "frozen_schema",
+      "status": "pass",
+      "evidence": "Saved raw132 and Fit139 have exact order raw132 + seven existing SVM outputs. Positive projection protects trainer inputs; baseline rejects extra columns; candidate missingness retains baseline identities and MRCY.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:135",
+        "python/stock_picker/training/dip_feature_experiment.py:266",
+        "python/stock_picker/training/dip_feature_experiment.py:436"
+      ]
+    },
+    {
+      "name": "trainer_parameters",
+      "status": "pass",
+      "evidence": "Frozen LightGBM settings equal current defaults except explicit 4-thread bound versus saved14. Saved num_iterations100 is passed through num_boost_round100. Existing Rank trainer correctly replaces serialized objective none with callable ListFold and metric None. SVM helpers use unchanged production defaults and seven labels.",
+      "citations": [
+        "python/stock_picker/training/model.py:130",
+        "python/stock_picker/training/model.py:205",
+        "python/stock_picker/training/model.py:250",
+        "python/stock_picker/training/model.py:445",
+        "python/stock_picker/training/model.py:515",
+        "python/stock_picker/training/model.py:546",
+        "research/morning_dip_model_2026_11_09/experiment_protocol.json:11"
+      ]
+    },
+    {
+      "name": "gate_equality",
+      "status": "pass",
+      "evidence": "Score exactly0.005 is excluded, matching production strict > threshold. Runtime two-row equality probe selected zero rows.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:194",
+        "python/stock_picker/training/buy_signal.py:105",
+        "python/stock_picker/training/backtest.py:29"
+      ]
+    },
+    {
+      "name": "chronological_oof",
+      "status": "pass",
+      "evidence": "Every block fits latest252 strictly earlier dates. Each SVM projects only raw132; head train contains only prior scored OOF dates and reports omitted early coverage without in-sample fill. Parent/worker date-ticker hashes guard row order.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:159",
+        "python/stock_picker/training/dip_feature_experiment.py:329",
+        "python/stock_picker/training/dip_feature_experiment.py:363"
+      ]
+    },
+    {
+      "name": "inner_outer_freeze_and_compact",
+      "status": "pass",
+      "evidence": "Inner Parquet filter excludes later dates. Outer requires matching frozen selection run identity. Compact uses positive gains from each block all-candidate training fit only; no scored labels feed that selection.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:171",
+        "python/stock_picker/training/dip_feature_experiment.py:241",
+        "python/stock_picker/training/dip_feature_experiment.py:295",
+        "python/stock_picker/training/dip_feature_experiment.py:443"
+      ]
+    },
+    {
+      "name": "portfolio_metrics",
+      "status": "pass_with_reporting_gap",
+      "evidence": "Daily equal-weight means include zero cash days; trade-weighted mean and active-day mean are separate. Round-trip cost deducted once per invested dollar on active days. Bootstrap clusters paired differences by ISO year/week and labels pointwise exploratory. See gate interval wording gap below.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:182",
+        "python/stock_picker/training/dip_feature_experiment.py:205",
+        "python/stock_picker/training/dip_feature_experiment.py:224"
+      ]
+    },
+    {
+      "name": "resume_identity",
+      "status": "pass",
+      "evidence": "Input/content hashes plus source/dependency/protocol manifest bind run. Numeric-only arrays are SHA256 checked and require exact row/schema/context match. Interrupted two-file checkpoint replacement fails closed.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:73",
+        "python/stock_picker/training/dip_feature_experiment.py:80",
+        "python/stock_picker/training/dip_feature_experiment.py:400"
+      ]
+    },
+    {
+      "name": "runtime_and_resource_bounds",
+      "status": "pass",
+      "evidence": "Actual built Bazel launcher --help exited0. Hermetic Bazel runfiles interpreter launched spawn child which read synthetic Parquet, reconstructed252 prior sessions, matched row identities and reused all7 preseeded numeric caches without model fits. Full main multiprocessing training was not run. BLAS env1 inherited by spawned workers;3 worker processes and4 LightGBM threads are explicit. Use absolute --root/input/output paths when invoking Bazel.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:329",
+        "python/stock_picker/training/dip_feature_experiment.py:363",
+        "python/stock_picker/training/BUILD.bazel:90"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "severity": "low",
+      "status": "reproduced_unfixed",
+      "issue": "select_inner crashes on undefined full-block Rank IC instead of treating it as ineligible. daily_metrics/summarize serialize all-constant IC to None, then selection subtracts None.",
+      "reproduction": "Two declared inner blocks with rank_ic=None for all variants raise TypeError: unsupported operand type(s) for -: NoneType and NoneType. No fits performed.",
+      "recommendation": "Treat missing/nonfinite metric deltas as disqualifying; add a regression test.",
+      "citations": [
+        "python/stock_picker/training/dip_feature_experiment.py:191",
+        "python/stock_picker/training/dip_feature_experiment.py:207",
+        "python/stock_picker/training/dip_feature_experiment.py:253"
+      ]
+    },
+    {
+      "severity": "reporting",
+      "status": "unfixed",
+      "issue": "Protocol uncertainty description says active-date net/gross selected-return difference, while paired output uses gross all-date means (including cash days). For top-k every day trades and fixed cost cancels; for variable Fit gate activity, net paired intervals can differ.",
+      "recommendation": "Add explicit per-cost cash-day-aware gate paired intervals, or transparently amend protocol wording before fits and label existing intervals gross/all-date. Do not call these cost-adjusted gate confidence intervals.",
+      "citations": [
+        "research/morning_dip_model_2026_11_09/experiment_protocol.json:148",
+        "python/stock_picker/training/dip_feature_experiment.py:219",
+        "python/stock_picker/training/dip_feature_experiment.py:315"
+      ]
+    },
+    {
+      "severity": "scope_amendment_required",
+      "status": "new_user_scope",
+      "issue": "Raw132 shared SVMs correctly implement frozen head-only design but cannot demonstrate full normal-pipeline candidate Fit behavior.",
+      "recommendation": "Amend protocol before fits, retain baseline132/Fit139 comparator, and add separate candidate augmented-source SVM OOF/full-head confirmation with identical chronology/pruning. Review normal catalog/live integration separately.",
+      "citations": [
+        "research/morning_dip_model_2026_11_09/experiment_protocol.json:30",
+        "research/morning_dip_model_2026_11_09/experiment_protocol.json:131",
+        "python/stock_picker/training/dip_feature_experiment.py:338"
+      ]
+    }
+  ],
+  "not_assessed": [
+    "Full expensive model runtime and convergence",
+    "Final assembled panel quantitative readiness",
+    "Evaluation-only intraday adverse excursion sidecar",
+    "New ordinary feature integration and candidate full-stack Fit path"
+  ],
+  "superseded_by": "runner_independent_review_v2.json",
+  "superseded_note": "The v1 findings were addressed in protocol/runner v2 and independently re-reviewed. Consult v2 for current launch signoff."
+}

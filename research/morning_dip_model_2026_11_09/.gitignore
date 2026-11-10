@@ -1,0 +1,8 @@
+# Rebuildable research caches; provenance and compact results are tracked.
+cache/
+baseline.parquet
+dip_panel.parquet
+evaluation_outcomes.parquet
+__pycache__/
+# Numeric prediction checkpoints are reproducible from the committed manifests.
+model_run/checkpoints/*.npy

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "date": "2026-11-06",
+  "tickers_checked": 1981,
+  "independent_numpy_leave_self_out_max_abs_error": 2.0816681711721685e-17,
+  "current_close_and_cluster_mutation_invariant": true,
+  "live_parity": true,
+  "mrcy_gap": 0.007762272944841242,
+  "structure_source_sha256": "9e080b325d43511752532cae92da7ee7cbcd7d84b27a42947b20e85c46e1c897",
+  "missingness_review": "Per-ticker membership shifts before alignment; NaN prior labels stayNaN; singleton/no valid peers yieldsNaN; no current label fallback."
+}

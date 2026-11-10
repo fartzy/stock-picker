@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date
+
 import pandas as pd
 
 from stock_picker.features.news import articles_by_ticker
@@ -9,6 +11,7 @@ from stock_picker.features.pipeline import build_features_for_universe
 from stock_picker.features.regime import VIX_TICKER
 from stock_picker.log import get_logger
 from stock_picker.ingestion.session import completed_sessions, last_completed_session_date
+from stock_picker.ingestion.history_policy import FEATURE_SNAPSHOT_YEARS, PRICE_HISTORY_PERIOD
 from stock_picker.ingestion.yfinance_client import download_price_history
 from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
@@ -17,6 +20,17 @@ from stock_picker.storage.universe_store import UniverseStore
 BENCHMARK_TICKER = "SPY"
 
 logger = get_logger(__name__)
+
+
+def feature_snapshot_window(features: pd.DataFrame, through: date) -> pd.DataFrame:
+    """Persist the existing one-year training span after all-family warmup.
+
+    Retention applies to every column together. Compute on the full price
+    history first, so the earliest retained row can use its preceding year.
+    """
+    lower = (pd.Timestamp(through) - pd.DateOffset(years=FEATURE_SNAPSHOT_YEARS)).date()
+    dates = pd.DatetimeIndex(features.index).date
+    return features.loc[(dates > lower) & (dates <= pd.Timestamp(through).date())]
 
 
 def main() -> None:
@@ -51,7 +65,7 @@ def main() -> None:
             ", ".join(missing_prices[:20]),
         )
 
-    downloaded = download_price_history([BENCHMARK_TICKER, VIX_TICKER])
+    downloaded = download_price_history([BENCHMARK_TICKER, VIX_TICKER], period=PRICE_HISTORY_PERIOD)
     spy = downloaded.get(BENCHMARK_TICKER)
     if spy is None or spy.empty:
         try:
@@ -89,7 +103,7 @@ def main() -> None:
 
     feature_store = FeatureStore()
     for ticker, features in features_by_ticker.items():
-        feature_store.write(ticker, features)
+        feature_store.write(ticker, feature_snapshot_window(features, cutoff))
 
 
 if __name__ == "__main__":

@@ -463,5 +463,15 @@
     "feature": "story_failed_bounce_open3_seasonality",
     "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
     "pruned_at": "2026-09-23T22:02:48.563659-05:00"
+  },
+  {
+    "feature": "dip_recovery_fraction",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population (443,570 rows): the recovery fraction divides by a prior closing loss that can approach zero. Median-imputed standardized magnitude reaches 404.01; one row contributes 36.80% and the top10 contribute 66.27% of centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json.",
+    "pruned_at": "2026-11-09T17:21:41.647208-06:00"
+  },
+  {
+    "feature": "dip_volume_change_1d",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+    "pruned_at": "2026-11-09T17:28:45.728718-06:00"
   }
 ]

@@ -1,0 +1,77 @@
+{
+  "status": "prepared_not_started",
+  "cwd": "/Users/michael.artz/dev/stock-picker",
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "order": "rank-inner first; after selection.json freezes, rank-outer and fit may run concurrently",
+  "commands": {
+    "rank-inner": [
+      "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/training/morning_dip_experiment",
+      "--root",
+      "/Users/michael.artz/dev/stock-picker",
+      "--baseline",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/baseline.parquet",
+      "--dips",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/dip_panel.parquet",
+      "--protocol",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/experiment_protocol.json",
+      "--snapshot",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/saved_model_snapshot.json",
+      "--input-manifest",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/input_manifest.json",
+      "--output",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/model_run",
+      "--phase",
+      "rank-inner"
+    ],
+    "rank-outer": [
+      "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/training/morning_dip_experiment",
+      "--root",
+      "/Users/michael.artz/dev/stock-picker",
+      "--baseline",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/baseline.parquet",
+      "--dips",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/dip_panel.parquet",
+      "--protocol",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/experiment_protocol.json",
+      "--snapshot",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/saved_model_snapshot.json",
+      "--input-manifest",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/input_manifest.json",
+      "--output",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/model_run",
+      "--phase",
+      "rank-outer",
+      "--resume"
+    ],
+    "fit": [
+      "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/training/morning_dip_experiment",
+      "--root",
+      "/Users/michael.artz/dev/stock-picker",
+      "--baseline",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/baseline.parquet",
+      "--dips",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/dip_panel.parquet",
+      "--protocol",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/experiment_protocol.json",
+      "--snapshot",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/saved_model_snapshot.json",
+      "--input-manifest",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/input_manifest.json",
+      "--output",
+      "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/model_run",
+      "--phase",
+      "fit",
+      "--resume"
+    ]
+  },
+  "logs": {
+    "rank-inner": "/tmp/morning-dip-rank-inner.log",
+    "rank-outer": "/tmp/morning-dip-rank-outer.log",
+    "fit": "/tmp/morning-dip-fit.log"
+  }
+}

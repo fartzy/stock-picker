@@ -7,6 +7,18 @@
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
 py_pytest(
+    name = "test_dip_feature_experiment",
+    srcs = ["test_dip_feature_experiment.py"],
+    imports = ["../../.."],
+    deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)
+
+py_pytest(
     name = "test_feature_challenger",
     srcs = ["test_feature_challenger.py"],
     imports = ["../../.."],
@@ -238,6 +250,7 @@ py_pytest(
     srcs = ["test_dataset.py"],
     imports = ["../../.."],
     deps = [
+        "//python/stock_picker/features",
         "//python/stock_picker/training",
         "@pypi//pandas",
     ],

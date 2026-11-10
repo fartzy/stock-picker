@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from stock_picker.api.app import app
 from stock_picker.features.catalog import list_feature_columns
+from stock_picker.features.dip_context import DIP_COLUMNS
 from stock_picker.features.pruning import PRICE_PATTERN_COLUMNS
 from stock_picker.features.trades import position_summaries
 from stock_picker.features.stacked_svm import PRODUCTION_MODEL_DERIVED_COLUMNS, RESEARCH_SVM_COLUMNS, STACKED_SVM_COLUMNS
@@ -238,7 +239,8 @@ def test_get_catalog(client):
     assert "return_1d" in body["descriptions"]
     assert "return_1d" in body["formulas"]
     assert set(body["experimental_features"]) == set(RESEARCH_SVM_COLUMNS)
-    assert all(body["experimental_features"][name]["computation"] for name in RESEARCH_SVM_COLUMNS)
+    assert body["catalog"]["dip_context"] == list(DIP_COLUMNS)
+    assert all(body["formulas"][name] for name in DIP_COLUMNS)
     assert set(body["model_derived_features"]) == set(PRODUCTION_MODEL_DERIVED_COLUMNS)
     assert body["model_derived_features"]["svc_direction_margin"]["status"] == "production_eligible"
     assert not set(STACKED_SVM_COLUMNS).intersection(body["formulas"])
@@ -1000,6 +1002,7 @@ def test_get_registry(client):
     assert body["model_derived_views"][0]["features"] == list(PRODUCTION_MODEL_DERIVED_COLUMNS)
     assert set(body["new_feature_names"]) == PRICE_PATTERN_COLUMNS
     assert "svm_derived" not in body["feature_services"][0]["feature_views"]
+    assert "dip_context" in body["feature_services"][0]["feature_views"]
     assert "ttl_days" not in body["model_derived_views"][0]
 
 

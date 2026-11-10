@@ -1,0 +1,633 @@
+{
+  "reviewed_at_utc": "2026-11-09T23:34:37.580785+00:00",
+  "status": "Final independent Rank and input-quality review. The parent applied the two recommended ordinary quality prunes; this reviewer made no prune-store, model, source-feature or live-data mutations. The frozen full Fit comparison remains pending.",
+  "conclusion": "Production now has 19 active new dip inputs, 151 raw inputs and 158 Fit-head inputs. All 21 measurements remain calculated and cataloged; the recovery fraction and one-day volume ratio are temporarily excluded through normal pruning for documented input-quality reasons. The full 21-feature batch has not demonstrated a Rank improvement. The unchanged frozen 21-input Fit experiment cannot validate the separate 19-input production configuration.",
+  "current_production_state": {
+    "new_features_calculated_and_cataloged": 21,
+    "active_new_features": 19,
+    "raw_inputs": 151,
+    "fit_head_inputs": 158,
+    "ordinary_pruned_features": [
+      "dip_recovery_fraction",
+      "dip_volume_change_1d"
+    ],
+    "verified_at_utc": "2026-11-09T23:29:26.962139+00:00",
+    "action_owner": "Parent and production-data agent; this review is read-only except for research artifacts.",
+    "scope": "Ordinary pruning applies to both Fit and Rank. There is no separate dip buy gate. MRCY remains included.",
+    "performance_claim": "No return improvement from these two prunes has been established. The active 19-input production configuration needs its own ordinary training/evaluation evidence."
+  },
+  "recommended_ordinary_temporary_prunes": [
+    {
+      "feature": "dip_recovery_fraction",
+      "reason": "On 443,570 actual ordinary training rows, one row contributes 36.80% of median-imputed centered sum squares and the top 10 contribute 66.27%. DKS on 2026-08-25 has a roughly $0.0099945 preceding two-day closing loss and a −$36.9700 opening change, yielding −3699.03. The ratio exactly follows its definition but is unstable when the net loss is almost zero. This is an engineering representation judgment, not proof of return improvement from pruning.",
+      "implementation_status": "Applied by the parent through the ordinary prune store; reversible and still computed/cataloged."
+    },
+    {
+      "feature": "dip_volume_change_1d",
+      "reason": "On the same persisted ordinary rows, one row contributes 69.06% of median-imputed centered sum squares and the top 10 contribute 99.79%. HUBB on 2026-02-25 has Yahoo volume 30 versus Massive volume 367,726.304487; UHAL-B has Yahoo volume 32 versus Massive volume 330,326.87178. Tiny bad denominators amplify these errors into feature values of 15,620.47 and 9,631.19 on February 27. Temporary pruning contains this amplification while source quality is investigated; it does not correct the bars or prove return improvement.",
+      "implementation_status": "Applied by the parent through the ordinary prune store; reversible and still computed/cataloged."
+    }
+  ],
+  "prune_mechanics": "The existing global PrunedFeatureStore now excludes the two fields with explicit quality reasons, preserving calculation, persistence, catalog entries and normal unprune controls. Saved models retain their own schemas until ordinary retraining. No hidden dip-family gate or bespoke selector was introduced.",
+  "broad_pruning_recommendation": "Do not blanket-prune all 21 or declare the best-looking outer subset a new winner. Low-context and the four setup flags are ordinary high-priority pruning-review candidates. Current family-only additions cannot establish which columns are harmful or whether removing a group from all 21 helps. Normal input-quality pruning above is independently justified and remains reversible.",
+  "rank_evidence": {
+    "outer_days": 342,
+    "baseline_top20_gross_daily_mean": 0.003258969464999903,
+    "all21_top20_gross_daily_mean": 0.0025209220285433258,
+    "frozen_inner_winner": "all",
+    "all21_top20_underperformed_all_three_blocks": true,
+    "variants": [
+      {
+        "variant": "low_context",
+        "top20_delta_bps_per_day": -8.512718128199454,
+        "pointwise_ci95_bps": [
+          -15.59194583649612,
+          -1.5924877096638197
+        ],
+        "rank_ic_delta": 0.00029688181013172514,
+        "blocks_top20_improved": 0,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "recovery",
+        "top20_delta_bps_per_day": -6.457122095465306,
+        "pointwise_ci95_bps": [
+          -13.814597798159072,
+          1.4813572873298422
+        ],
+        "rank_ic_delta": 0.0006027139173304481,
+        "blocks_top20_improved": 0,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "pressure",
+        "top20_delta_bps_per_day": -2.0006416033031735,
+        "pointwise_ci95_bps": [
+          -10.530957749980601,
+          6.7268605392334555
+        ],
+        "rank_ic_delta": -0.00018556754075748852,
+        "blocks_top20_improved": 1,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "support_and_trend",
+        "top20_delta_bps_per_day": -0.9935325911650988,
+        "pointwise_ci95_bps": [
+          -9.713953881622654,
+          7.699718820920184
+        ],
+        "rank_ic_delta": -0.00098576567730549,
+        "blocks_top20_improved": 1,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "flags_only",
+        "top20_delta_bps_per_day": -6.53895304613587,
+        "pointwise_ci95_bps": [
+          -16.269245187144392,
+          3.5594102787923316
+        ],
+        "rank_ic_delta": -0.0009327186218039352,
+        "blocks_top20_improved": 0,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "all",
+        "top20_delta_bps_per_day": -7.380474364565773,
+        "pointwise_ci95_bps": [
+          -16.28739822862336,
+          2.12201153986538
+        ],
+        "rank_ic_delta": -0.0007519769728900624,
+        "blocks_top20_improved": 0,
+        "blocks_both_ic_top20_improved": 0
+      },
+      {
+        "variant": "continuous_only",
+        "top20_delta_bps_per_day": -2.431869295253539,
+        "pointwise_ci95_bps": [
+          -11.654656384199756,
+          6.372122347321125
+        ],
+        "rank_ic_delta": -0.0011097548350901946,
+        "blocks_top20_improved": 1,
+        "blocks_both_ic_top20_improved": 1
+      },
+      {
+        "variant": "compact",
+        "top20_delta_bps_per_day": -0.9704298295211669,
+        "pointwise_ci95_bps": [
+          -10.039827188682503,
+          9.09967049575246
+        ],
+        "rank_ic_delta": -0.00028671013110201864,
+        "blocks_top20_improved": 1,
+        "blocks_both_ic_top20_improved": 0
+      }
+    ]
+  },
+  "feature_reviews": [
+    {
+      "feature": "dip_close_to_low_252d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.5935626522676847,
+        0.5068525931360263,
+        0.9577298872823994
+      ],
+      "rank_outer_nonmissing_percent": [
+        96.02426184481575,
+        95.1583483011177,
+        95.03467269347857
+      ],
+      "ordinary_max_abs_standardized": 139.6765852059898,
+      "ordinary_top1_variance_fraction": 0.0439830206163765,
+      "ordinary_top10_variance_fraction": 0.23569601895219253,
+      "assessment": "Used in all three Rank heads, but the low-context addition has the strongest negative top 20 family evidence. Family-addition tests do not identify this column as harmful or establish its removal effect from the full set."
+    },
+    {
+      "feature": "dip_open_to_low_252d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.28876889561897395,
+        0.4800747975862477,
+        0.8391691792611101
+      ],
+      "rank_outer_nonmissing_percent": [
+        96.02426184481575,
+        95.1583483011177,
+        95.03467269347857
+      ],
+      "ordinary_max_abs_standardized": 162.34075712187143,
+      "ordinary_top1_variance_fraction": 0.05941457137070237,
+      "ordinary_top10_variance_fraction": 0.2467112527791682,
+      "assessment": "Used in all three Rank heads, but the low-context addition has the strongest negative top 20 family evidence. Family-addition tests do not identify this column as harmful or establish its removal effect from the full set."
+    },
+    {
+      "feature": "dip_low_age_252d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.6908305721105257,
+        0.749723084724939,
+        1.2938113772496314
+      ],
+      "rank_outer_nonmissing_percent": [
+        96.02426184481575,
+        95.1583483011177,
+        95.03467269347857
+      ],
+      "ordinary_max_abs_standardized": 1.9454025277188607,
+      "ordinary_top1_variance_fraction": 8.532116677987539e-06,
+      "ordinary_top10_variance_fraction": 8.532116677987538e-05,
+      "assessment": "Used in all three Rank heads, but the low-context addition has the strongest negative top 20 family evidence. Family-addition tests do not identify this column as harmful or establish its removal effect from the full set."
+    },
+    {
+      "feature": "dip_prior_new_low_252d",
+      "positive_gain_rank_windows": 0,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        96.02426184481575,
+        95.1583483011177,
+        95.03467269347857
+      ],
+      "ordinary_max_abs_standardized": 7.481812672974018,
+      "ordinary_top1_variance_fraction": 0.00012619771597149182,
+      "ordinary_top10_variance_fraction": 0.0012619771597149182,
+      "assessment": "Zero gain in all three all-input Rank heads: a normal redundancy/complexity-review candidate, not proven harmful or unused by the seven SVMs. No immediate prune solely from this statistic."
+    },
+    {
+      "feature": "dip_open_below_low_252d",
+      "positive_gain_rank_windows": 0,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        96.02426184481575,
+        95.1583483011177,
+        95.03467269347857
+      ],
+      "ordinary_max_abs_standardized": 16.909009976044928,
+      "ordinary_top1_variance_fraction": 0.0006445760947989877,
+      "ordinary_top10_variance_fraction": 0.006445760947989877,
+      "assessment": "Zero gain in all three all-input Rank heads: a normal redundancy/complexity-review candidate, not proven harmful or unused by the seven SVMs. No immediate prune solely from this statistic."
+    },
+    {
+      "feature": "dip_low_history_valid",
+      "positive_gain_rank_windows": 0,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "ordinary_max_abs_standardized": 4.26766645838722,
+      "ordinary_top1_variance_fraction": 4.105998376816132e-05,
+      "ordinary_top10_variance_fraction": 0.00041059983768161325,
+      "assessment": "Zero gain in all three all-input Rank heads: a normal redundancy/complexity-review candidate, not proven harmful or unused by the seven SVMs. No immediate prune solely from this statistic."
+    },
+    {
+      "feature": "dip_loss_2d_sigma",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.45985560855354773,
+        0.4880998179413556,
+        0.7336660245590413
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.487296864271,
+        99.31086149293179,
+        99.69310189387625
+      ],
+      "ordinary_max_abs_standardized": 95.16251394725965,
+      "ordinary_top1_variance_fraction": 0.020415952523304977,
+      "ordinary_top10_variance_fraction": 0.06460874538262237,
+      "assessment": "Used in all three Rank heads. Training gain shows split usage only; individual incremental out-of-time usefulness remains unmeasured."
+    },
+    {
+      "feature": "dip_recovery_fraction",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.9431983039190566,
+        1.360361997786744,
+        0.7319011812707511
+      ],
+      "rank_outer_nonmissing_percent": [
+        47.99496452277409,
+        47.86883567699366,
+        50.12195649086407
+      ],
+      "ordinary_max_abs_standardized": 404.0128998560657,
+      "ordinary_top1_variance_fraction": 0.3679834597698388,
+      "ordinary_top10_variance_fraction": 0.6627022998867811,
+      "assessment": "Recommend reversible ordinary quality prune: almost-zero net closing loss makes the unbounded ratio dominate standardization. Correct arithmetic, poor representation for this data; no pruning-return uplift established."
+    },
+    {
+      "feature": "dip_recovery_valid",
+      "positive_gain_rank_windows": 0,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        100.0,
+        100.0,
+        100.0
+      ],
+      "ordinary_max_abs_standardized": 1.0297778865135352,
+      "ordinary_top1_variance_fraction": 2.3906993158966644e-06,
+      "ordinary_top10_variance_fraction": 2.390699315896664e-05,
+      "assessment": "Zero gain in all three all-input Rank heads: a normal redundancy/complexity-review candidate, not proven harmful or unused by the seven SVMs. No immediate prune solely from this statistic."
+    },
+    {
+      "feature": "dip_deep_unrecovered",
+      "positive_gain_rank_windows": 0,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        46.054474708171206,
+        45.49617041869469,
+        47.54450640040014
+      ],
+      "ordinary_max_abs_standardized": 27.805011664221066,
+      "ordinary_top1_variance_fraction": 0.0017429462624782325,
+      "ordinary_top10_variance_fraction": 0.017429462624782323,
+      "assessment": "Zero gain in all three all-input Rank heads: a normal redundancy/complexity-review candidate, not proven harmful or unused by the seven SVMs. No immediate prune solely from this statistic.",
+      "frozen_panel_setup_flag": {
+        "true_rows": 1801,
+        "false_rows": 770472,
+        "unknown_rows": 899400,
+        "true_fraction_of_all_rows": 0.0010773638145737832,
+        "true_fraction_of_known_rows": 0.0023320768691900405
+      }
+    },
+    {
+      "feature": "dip_loss_change_sigma",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.5853167103786817,
+        0.252523823055741,
+        0.5742400747146015
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.4868390936141,
+        99.30900021404707,
+        99.69063188899798
+      ],
+      "ordinary_max_abs_standardized": 130.9004453776381,
+      "ordinary_top1_variance_fraction": 0.03862958856564696,
+      "ordinary_top10_variance_fraction": 0.12262672505488767,
+      "assessment": "Used in all three Rank heads. Training gain shows split usage only; individual incremental out-of-time usefulness remains unmeasured."
+    },
+    {
+      "feature": "dip_range_change_1d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.3013015758815277,
+        0.14749136052155434,
+        0.2441668090597865
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.90936140993362,
+        99.88134347109899,
+        99.93330986828698
+      ],
+      "ordinary_max_abs_standardized": 190.47315411725154,
+      "ordinary_top1_variance_fraction": 0.08179097423039039,
+      "ordinary_top10_variance_fraction": 0.14077020261247858,
+      "assessment": "Used in all three Rank heads. Training gain shows split usage only; individual incremental out-of-time usefulness remains unmeasured."
+    },
+    {
+      "feature": "dip_volume_change_1d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.2975209636065001,
+        0.1259867946823333,
+        0.12552557205253934
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.93728542000457,
+        99.92275692628405,
+        99.95183490487393
+      ],
+      "ordinary_max_abs_standardized": 553.4868248338098,
+      "ordinary_top1_variance_fraction": 0.6906410831765277,
+      "ordinary_top10_variance_fraction": 0.9978907307181173,
+      "assessment": "Recommend reversible ordinary quality prune while invalid/incomplete volume bars are repaired: tiny denominators are contradicted by independent provider volumes. Transforming or pruning does not itself repair source data."
+    },
+    {
+      "feature": "dip_pressure_easing",
+      "positive_gain_rank_windows": 1,
+      "rank_gain_fraction_percent": [
+        0.016925246418553405,
+        0.0,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.89105058365759,
+        99.8645919611365,
+        99.92404734999351
+      ],
+      "ordinary_max_abs_standardized": 7.558265355237675,
+      "ordinary_top1_variance_fraction": 0.00012878998845770924,
+      "ordinary_top10_variance_fraction": 0.0012878998845770925,
+      "assessment": "Used in only one Rank training window at small gain. Check normal pruning with full-stack removal evidence; sparse or redundant flags are not established useful or harmful.",
+      "frozen_panel_setup_flag": {
+        "true_rows": 30654,
+        "false_rows": 1638709,
+        "unknown_rows": 2310,
+        "true_fraction_of_all_rows": 0.01833731836310092,
+        "true_fraction_of_known_rows": 0.01836269283553068
+      }
+    },
+    {
+      "feature": "dip_gap_previous_volume_zscore",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.5199648168594124,
+        0.3405097035534352,
+        0.5388006285764494
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.54863813229572,
+        99.37926349194531,
+        99.73817948290447
+      ],
+      "ordinary_max_abs_standardized": 275.83415737965976,
+      "ordinary_top1_variance_fraction": 0.17152756583481055,
+      "ordinary_top10_variance_fraction": 0.2904694593788069,
+      "assessment": "Used in all three Rank heads. Training gain shows split usage only; individual incremental out-of-time usefulness remains unmeasured."
+    },
+    {
+      "feature": "dip_support_break_depth_20d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.38011884614422814,
+        0.5141122389494888,
+        0.5545470469486768
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.52803845273517,
+        99.35506686644393,
+        99.72274195241536
+      ],
+      "ordinary_max_abs_standardized": 223.99939368969805,
+      "ordinary_top1_variance_fraction": 0.1131179484035267,
+      "ordinary_top10_variance_fraction": 0.9044538329051133,
+      "assessment": "Used in all three Rank heads; concentrated ordinary tails mostly involve unresolved QH price-basis discontinuity. Investigate source/action continuity rather than pruning the support concept to hide that issue."
+    },
+    {
+      "feature": "dip_support_close_distance_20d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.16884098533299452,
+        0.2052302850819226,
+        0.22786941169457828
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.52803845273517,
+        99.35506686644393,
+        99.72274195241536
+      ],
+      "ordinary_max_abs_standardized": 193.62217153342337,
+      "ordinary_top1_variance_fraction": 0.0845177656498826,
+      "ordinary_top10_variance_fraction": 0.7928951273489164,
+      "assessment": "Used in all three Rank heads; concentrated ordinary tails mostly involve unresolved QH price-basis discontinuity. Investigate source/action continuity rather than pruning the support concept to hide that issue."
+    },
+    {
+      "feature": "dip_support_open_distance_20d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        1.7349947489820776,
+        0.9551714877635185,
+        0.5404140340979386
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.52849622339208,
+        99.35692814532867,
+        99.72521195729361
+      ],
+      "ordinary_max_abs_standardized": 222.60410815255145,
+      "ordinary_top1_variance_fraction": 0.11171312073943872,
+      "ordinary_top10_variance_fraction": 0.7706599010206643,
+      "assessment": "Used in all three Rank heads; concentrated ordinary tails mostly involve unresolved QH price-basis discontinuity. Investigate source/action continuity rather than pruning the support concept to hide that issue."
+    },
+    {
+      "feature": "dip_support_reclaim_20d",
+      "positive_gain_rank_windows": 1,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.025925137544928038,
+        0.0
+      ],
+      "rank_outer_nonmissing_percent": [
+        99.52803845273517,
+        99.35506686644393,
+        99.72274195241536
+      ],
+      "ordinary_max_abs_standardized": 4.723757642058505,
+      "ordinary_top1_variance_fraction": 5.03052196066148e-05,
+      "ordinary_top10_variance_fraction": 0.0005030521960661479,
+      "assessment": "Used in only one Rank training window at small gain. Check normal pruning with full-stack removal evidence; sparse or redundant flags are not established useful or harmful.",
+      "frozen_panel_setup_flag": {
+        "true_rows": 68767,
+        "false_rows": 1595308,
+        "unknown_rows": 7598,
+        "true_fraction_of_all_rows": 0.04113663377945328,
+        "true_fraction_of_known_rows": 0.041324459534576266
+      }
+    },
+    {
+      "feature": "dip_sma50_slope_10d",
+      "positive_gain_rank_windows": 3,
+      "rank_gain_fraction_percent": [
+        0.32586668804450486,
+        0.8181362304149195,
+        0.9267734141920411
+      ],
+      "rank_outer_nonmissing_percent": [
+        98.71091783016709,
+        98.57286441513963,
+        98.93048788771358
+      ],
+      "ordinary_max_abs_standardized": 41.52914126091836,
+      "ordinary_top1_variance_fraction": 0.0038881564890982517,
+      "ordinary_top10_variance_fraction": 0.01743095176407451,
+      "assessment": "Used in all three Rank heads. Training gain shows split usage only; individual incremental out-of-time usefulness remains unmeasured."
+    },
+    {
+      "feature": "dip_trend_pullback",
+      "positive_gain_rank_windows": 1,
+      "rank_gain_fraction_percent": [
+        0.0,
+        0.0,
+        0.1633799278757175
+      ],
+      "rank_outer_nonmissing_percent": [
+        98.71091783016709,
+        98.57286441513963,
+        98.93048788771358
+      ],
+      "ordinary_max_abs_standardized": 3.6025870643236044,
+      "ordinary_top1_variance_fraction": 2.9259493554640224e-05,
+      "ordinary_top10_variance_fraction": 0.00029259493554640225,
+      "assessment": "Used in only one Rank training window at small gain. Check normal pruning with full-stack removal evidence; sparse or redundant flags are not established useful or harmful.",
+      "frozen_panel_setup_flag": {
+        "true_rows": 110628,
+        "false_rows": 1542829,
+        "unknown_rows": 18216,
+        "true_fraction_of_all_rows": 0.06617801448010466,
+        "true_fraction_of_known_rows": 0.06690709223160929
+      }
+    }
+  ],
+  "interpretation_limits": [
+    "The pointwise 95% low-context interval excludes zero, but it is exploratory and unadjusted for the nine variants, multiple metrics/periods and prior feature exploration. It is a serious consistency warning, not definitive proof of population harm.",
+    "The all 21 top 20 difference is negative in all three blocks, while its pooled 95% interval includes zero. Failure to establish improvement is not equivalence and does not prove every new feature is bad.",
+    "Gain is in-training split usage, not conditional causal contribution or test-period profit. Correlated features can substitute for one another; validity bits can be redundant for native-missing-value trees yet useful to median-imputed SVMs.",
+    "Five inputs have zero all-model Rank gain in all three windows. This proves only non-use by those fitted tree heads. Their SVM influence remains possible, and removing columns can change the 0.8 feature-subsampling path even at seed 0.",
+    "The continuous_only variant removes only four setup conjunction flags; it still includes the other binary validity/new-low indicators. It is not literally an all-continuous feature set.",
+    "Single fixed seed/configuration and repeated historical exploration leave algorithmic and selection uncertainty unmeasured. Do not tune new cutoffs on these outer outcomes or promote compact because it lost least.",
+    "Rank IC averages the full cross-section and does not guarantee better returns in the purchased top 20. Low-context mildly improved pooled IC while reducing top 20 returns.",
+    "The official-open benchmark is not guaranteed executable after observing the open. Constituent Low/Open statistics are not portfolio drawdown or an executable stop strategy."
+  ],
+  "what_pending_fit_resolves": {
+    "can_resolve": "Whether the predeclared full 153-raw-input normal Fit pipeline, including separate SVMs, improved over 132 raw inputs on its one outer block. Examine the actual 0.5% Fit gate on all matched dates including cash days, cost sensitivity, coverage and concentration, alongside top 20/IC.",
+    "cannot_resolve": [
+      "The isolated contribution of recovery, volume change, or any other individual input.",
+      "The performance of the production configuration with 19 active new inputs after the two quality prunes.",
+      "Whether low-context removal from the full set helps Fit.",
+      "Whether the Rank-only compact/refinement variant improves full Fit.",
+      "The correctness of ticker/security identity and price/action adjustment in the historical source."
+    ],
+    "decision_guidance": "Finish the unchanged full 21-feature study honestly. A positive result would support only that full Fit configuration in that period, subject to source-quality qualifications; it would not reverse the Rank finding or validate the production configuration with 19 active new inputs. A negative or uncertain result gives no basis to claim a model improvement. Continue ordinary review and pruning without selecting a new winner from already observed outer outcomes. The two input-quality prunes do not require individual return attribution, which this experiment does not measure."
+  },
+  "representation_findings": {
+    "ordinary_rows": 443570,
+    "ordinary_training_tickers": 1800,
+    "ordinary_dates": [
+      "2025-11-11",
+      "2026-11-09"
+    ],
+    "ordinary_all21_infinite_values": 0,
+    "frozen_all21_infinite_values": 0,
+    "raw_formula_checks": "All 15 frozen extreme examples reconstructed from original price bars to numerical tolerance. No demonstrated arithmetic bug. The ordinary persisted recovery distribution exactly matches the separately recomputed ordinary-price distribution.",
+    "recovery_source_caveat": "The frozen SPCX ratio of 7,250 comes from a different ETF security before June 2026 and is absent from ordinary Yahoo history. The actual ordinary DKS extreme independently establishes the same representation problem.",
+    "volatility_normalization": "Frozen largest two-day sigma value 171.42 and loss-change value 91.96 occur on recorded ASST price jumps with pre-shock volatility around 4.8–4.9%, not tiny denominators. A volatility floor is not established as the remedy by these examples. Confirm economic/corporate-action continuity before treating all extreme recorded moves as genuine."
+  },
+  "data_quality_findings": [
+    {
+      "issue": "Confirmed reused ticker in frozen research history",
+      "evidence": "Massive SPCX metadata on 2026-02-09 names The SPAC and New Issue ETF, type ETF, FIGI BBG00YJ8L8T5; on 2026-06-15 it names Space Exploration Technologies Class A, type CS, FIGI BBG000NQF3Z5, listing 2026-06-12. Ordinary Yahoo starts 2026-06-12 correctly.",
+      "severity": "Historical entity continuity is not certified. The largest frozen recovery input comes from the old security and materially dominates one SVM training-window scale. This blocks treating the comparison as security-clean confirmatory evidence; deterministic same-panel comparisons remain reproducible exploratory results. Do not silently delete the row or rerun under the same frozen identity."
+    },
+    {
+      "issue": "Confirmed ordinary volume discrepancy",
+      "evidence": "HUBB and UHAL-B on 2026-02-25 volumes are 30/32 in ordinary Yahoo versus 367726.304487/330326.87178 in the independent Massive daily aggregate. Adjacent-session volumes closely agree.",
+      "severity": "Concrete upstream data-quality problem that can affect existing volume features too. Temporary ratio pruning contains amplification but is not a source repair. No price or volume correction was applied."
+    },
+    {
+      "issue": "Unresolved QH price-basis discontinuity",
+      "evidence": "Ordinary QH prior close 0.12 becomes Open 3.60 on 2026-04-27, with a preceding support near 0.017. Yahoo identifies Quhuo/NasdaqCM and reports the same 52-week low but no split-event entry in April 1–May 15. Massive returned no daily/action rows, dated reference 404 and no inactive Quhuo matches; issuer IR 403.",
+      "severity": "Suspected action/security/adjustment issue, not a confirmed split. Do not invent a ratio adjustment, automatically remove QH, or prune all support fields to hide it. Limits economic interpretation of affected support/low examples and requires a separate data-quality resolution."
+    }
+  ],
+  "next_iteration_hypotheses": [
+    {
+      "priority": 1,
+      "hypothesis": "Replace the raw recovery fraction with one predeclared signed-log/asinh or bounded monotone representation and retain meaningful loss-depth context/raw components.",
+      "why": "Direct input-tail concentration establishes numerical-conditioning concern without using outcomes. A monotone remapping preserves order, so this chiefly targets SVM representation and should not be sold as a demonstrated cure for Rank performance. Verify both engines on new forward validation."
+    },
+    {
+      "priority": 2,
+      "hypothesis": "After correcting or marking bad volume observations, test log volume ratio or a bounded change representation rather than an unbounded previous-day denominator.",
+      "why": "Confirmed bad tiny-volume bars cause nearly all variance in the current raw ratio. Compression alone cannot certify a corrupt observation."
+    },
+    {
+      "priority": 3,
+      "hypothesis": "Use ordinary training-only gain/redundancy pruning candidates, followed by matched full-stack removal comparisons on genuinely new validation periods.",
+      "why": "Five zero-gain fields and sparse setup flags merit attention but current family-addition tests do not establish per-column effects. No special protection because a feature is new and no automatic rejection based on standalone cohort averages."
+    }
+  ],
+  "references": {
+    "definitions": "python/stock_picker/features/dip_context.py:141",
+    "metadata": "python/stock_picker/features/dip_context_metadata.py:19",
+    "normal_svm_preprocessing": "python/stock_picker/training/model.py:403",
+    "ordinary_prune_store": "python/stock_picker/features/pruning.py:29",
+    "selection_and_outer_freeze": "research/morning_dip_model_2026_11_09/experiment_protocol.json:128",
+    "source_anomalies": "research/morning_dip_model_2026_11_09/input_anomaly_verification.json:1",
+    "ordinary_persisted_diagnostics": "research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json:1",
+    "frozen_diagnostics": "research/morning_dip_model_2026_11_09/input_representation_review.json:1",
+    "scaler_documentation": "https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html",
+    "current_production_pruning": "research/morning_dip_model_2026_11_09/ordinary_prune_final.json:1",
+    "research_production_schema_distinction": "research/morning_dip_model_2026_11_09/production_schema_distinction.json:1"
+  },
+  "verification": [
+    "Frozen ratio extrema independently reconstructed from raw public-price bars; no outcome values used to choose cutoffs.",
+    "Analytic median-imputation/variance check on [0, 0, 1, NaN]: mean 0.25,std sqrt(0.1875),largest centered sum-square share 0.75 and max absolute z sqrt(3).",
+    "Ordinary persisted features aligned through the real dataset function; standard label-finiteness eligibility only, target values discarded without outcome analysis.",
+    "No feature/training code, protocol, frozen input, pruning store, production price, model or configuration mutations by this review."
+  ],
+  "artifact_sha256": {
+    "rank_results_summary.json": "f32ccb3ae8a94104d02bc4df63cef20630403c1aed42a31e818d59e0c4864a82",
+    "input_representation_review.json": "1397846480d647292e46e84eb4b9e1c3efa74636533e1951523485b7cbed166e",
+    "ordinary_persisted_input_representation_review.json": "0dbd6bc6306328e9aa7f4719b0b16c85ae4450b0065f5da315133d246502d5af",
+    "input_anomaly_verification.json": "74b67ab9e1818a5c88d1bdaec78d0138f87c3f78b853f557ada20af31770cb40",
+    "ordinary_prune_final.json": "911c8d9a5e656f5f7eda1211d244031cf16b4b4c008aed8c8efdec4716aafd8e",
+    "production_schema_distinction.json": "99890c34c6f3e96fba1f7fb9acdefd039a5b20c202f20c0c4240c834b5d14665"
+  }
+}

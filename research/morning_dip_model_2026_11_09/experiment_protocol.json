@@ -1,0 +1,178 @@
+{
+  "version": 2,
+  "status": "frozen_before_model_fits",
+  "frozen_at_utc": "2026-11-09T22:11:23.386796+00:00",
+  "authorization": "User approved implementation and iteration, then explicitly requested ordinary feature integration and normal pruning. Orchestrator approved the amended bounded full normal Fit comparison before any model fit.",
+  "objective": "Measure incremental value of 21 ordinary dip inputs alongside the saved Rank132 and Fit139 baseline schemas. Morning entry to same-day close; MRCY included; features participate in normal feature generation, inference, and pruning.",
+  "global_start": "2022-11-01",
+  "source_cutoff": "2026-11-06",
+  "eligibility": "All ordinary finite positive Open/Close and finite target rows on the shared reconstructed panel after global warmup. No $5/ADV gate, no candidate-NaN or per-ticker252-history row deletion. Exclude only frozen production200holdout andSPY benchmark; keepMRCY.",
+  "training_sessions": 252,
+  "rounds": 100,
+  "lightgbm_threads": 4,
+  "svm_block_workers": 3,
+  "maximum_busy_cores": 8,
+  "lightgbm_params": {
+    "objective": "regression",
+    "metric": "mae",
+    "num_leaves": 31,
+    "max_depth": 5,
+    "min_data_in_leaf": 30,
+    "learning_rate": 0.03,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 5,
+    "seed": 0,
+    "verbosity": -1,
+    "num_threads": 4
+  },
+  "rank_objective": "Existing make_listfold_objective through train_lightgbm_rank; never storedobjective none as a replacement.",
+  "svm_params": "Use unmodified model.SVR_DEFAULT_PARAMS and SVC_DEFAULT_PARAMS, recorded in the execution manifest. Seven outputs per variant: baseline SVMs use 132 raw inputs; augmented SVMs use those 132 plus all 21 dip inputs. No shared fitted estimators across different schemas. At most three block workers total, with single-thread BLAS.",
+  "inner_blocks": [
+    {
+      "name": "inner_2024h2",
+      "from": "2024-07-01",
+      "through": "2024-12-31"
+    },
+    {
+      "name": "inner_2025h1",
+      "from": "2025-01-02",
+      "through": "2025-06-30"
+    }
+  ],
+  "rank_outer_blocks": [
+    {
+      "name": "outer_2025h2",
+      "from": "2025-07-01",
+      "through": "2025-12-31"
+    },
+    {
+      "name": "outer_2026h1",
+      "from": "2026-01-02",
+      "through": "2026-06-30"
+    },
+    {
+      "name": "outer_2026h2",
+      "from": "2026-07-01",
+      "through": "2026-11-06"
+    }
+  ],
+  "fit_outer_block": {
+    "name": "outer_2026h2",
+    "from": "2026-07-01",
+    "through": "2026-11-06"
+  },
+  "fit_oof_blocks": [
+    {
+      "name": "oof_2025h2",
+      "from": "2025-07-01",
+      "through": "2025-12-31"
+    },
+    {
+      "name": "oof_2026h1",
+      "from": "2026-01-02",
+      "through": "2026-06-30"
+    }
+  ],
+  "families": {
+    "low_context": [
+      "dip_close_to_low_252d",
+      "dip_open_to_low_252d",
+      "dip_low_age_252d",
+      "dip_prior_new_low_252d",
+      "dip_open_below_low_252d",
+      "dip_low_history_valid"
+    ],
+    "recovery": [
+      "dip_loss_2d_sigma",
+      "dip_recovery_fraction",
+      "dip_recovery_valid",
+      "dip_deep_unrecovered"
+    ],
+    "pressure": [
+      "dip_loss_change_sigma",
+      "dip_range_change_1d",
+      "dip_volume_change_1d",
+      "dip_pressure_easing",
+      "dip_gap_previous_volume_zscore"
+    ],
+    "support_and_trend": [
+      "dip_support_break_depth_20d",
+      "dip_support_close_distance_20d",
+      "dip_support_open_distance_20d",
+      "dip_support_reclaim_20d",
+      "dip_sma50_slope_10d",
+      "dip_trend_pullback"
+    ]
+  },
+  "flags": [
+    "dip_deep_unrecovered",
+    "dip_pressure_easing",
+    "dip_support_reclaim_20d",
+    "dip_trend_pullback"
+  ],
+  "initial_variants": [
+    "baseline",
+    "low_context",
+    "recovery",
+    "pressure",
+    "support_and_trend",
+    "flags_only",
+    "all"
+  ],
+  "refinement_variants": [
+    "continuous_only",
+    "compact"
+  ],
+  "compact_rule": "Keepall4setupflags plus up to8newnonflaginputs with positivegain from the all-candidate model fitted on that same training window. Order by descendinggain thenname. Never use scored-period labels orimportance.",
+  "selection_rule": "Only Rank inner results select. A candidate qualifies only if finite Rank IC and top20 daily mean return both strictly improve versus baseline in each inner block. Undefined metrics disqualify that candidate. Among qualifiers choose highest mean paired top20 gain, then mean IC gain, then fewer added columns, then name. If none qualifies, baseline remains selected. This research selection does not gate ordinary feature integration or replace normal pruning.",
+  "refinement_rule": "One predeclared refinement round afterinitialinnerresults: continuous_only andcompact. Sameinnerdatesmayguideiteration; outerdatesremainunread untilselection.json is atomicallyfrozen. No additionalcutoff/modelparametersearch.",
+  "outer_rule": "Evaluate all nine registered Rank variants on all three Rank outer blocks once. Compare baseline and all21 through the full normal Fit path on the single Fit outer block. Rank refinements receive Rank evaluation only in this bounded iteration. Do not change the selected algorithm or refine using outer results. Later iterations using these outcomes require new forward validation.",
+  "fit_rule": "Use identical OOF-covered training rows and identical outer test rows for baseline and all21. Omit and report the early part of the 252-session head window not covered by the two OOF blocks; never fill with in-sample predictions. Each variant trains all seven SVMs on its own raw input schema for each OOF block and on the full prior 252 sessions for outer scoring. Baseline uses 132 raw plus seven SVM head inputs; all21 uses 153 raw plus seven SVM head inputs. Cache keys and contexts bind variant, schema, and row identities. Six independent block tasks share a maximum of three workers; no estimator parameter reductions.",
+  "target": "label_day_session_return=(Close-Open)/Open",
+  "cost_roundtrip_bps": [
+    0,
+    10,
+    25,
+    50
+  ],
+  "fit_gate": 0.005,
+  "top_k": [
+    5,
+    20
+  ],
+  "uncertainty": {
+    "bootstrap_replications": 2000,
+    "seed": 20261109,
+    "cluster": "ISO calendar week; resample whole weeks and weight each included date equally",
+    "statistic": "Paired daily portfolio-return difference on all matched evaluation dates, including zero-return cash days. For each 0/10/25/50 bps cost, subtract cost only on dates that each strategy trades. Undefined daily Rank IC pairs are omitted and their paired count is reported.",
+    "note": "pointwise exploratory intervals, not multiplicity-corrected confirmation"
+  },
+  "baseline_timing_repair": "Historicalcluster_overnight_gap uses eachtickerpreviouscompletedrowcluster_id andcurrentpeeropeninggaps, excludingitself; samecorrection forallvariants.",
+  "isolation": "The research runner writes only new research outputs and performs no ModelStore, production data, pruning, config, MLflow or holdout writes. Source feature integration is ordinary production functionality. Frozen research copies remain authoritative if the separately scheduled live refresh changes live files; record divergence without importing newer observations into this experiment.",
+  "limitations": [
+    "Currentuniverse survivorship andstaticsectors",
+    "Splitadjusted source with incomplete5yactioncertification",
+    "Publicationtime-limited news andfirst_seen-restricted breadth/trajectory",
+    "Currentconfigrefits onresearchdata, not historicalproductionreplay",
+    "Officialopen benchmark isnot guaranteedexecutableafterobservingO",
+    "Dates werealreadyexamined indescriptivestudies; not pristineuntouchedhistory",
+    "One full normal Fit outer block; only baseline and all21 Fit variants. Compact and other refinements have Rank-only evidence in this iteration."
+  ],
+  "model_snapshot_sha256": "4150093e970c78f798ab2baa367d09b17095d4fa1eacdbfdfffe8e7cdef59b2e",
+  "amended_at_utc": "2026-11-09T22:37:00.728883+00:00",
+  "amendments": [
+    {
+      "previous_version": 1,
+      "previous_sha256": "31dc452659f82ff74d7db6f498c6e19d993c8336b540afebab938877209f0e87",
+      "before_any_model_fits": true,
+      "reason": "User explicitly requested ordinary feature integration and normal pruning. Compare the augmented normal Fit path, including dip inputs to its SVM sources; retain a bounded two-variant Fit comparison. Clarify cash-day weighting and reject undefined selection metrics."
+    }
+  ],
+  "fit_variants": [
+    "baseline",
+    "all"
+  ],
+  "fit_task_count": 6,
+  "feature_integration": "All21 are ordinary available inputs in feature generation, dataset timing, live inference, metadata and existing pruning/importance paths. The comparison freezes the saved 132-input baseline pruning result and adds21; it does not invent a separate activation or experimental-feature gate. Saved artifacts remain schema-aligned until normal retraining includes new inputs."
+}

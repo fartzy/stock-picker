@@ -1,5 +1,8 @@
 import pandas as pd
 
+from stock_picker.features.dip_context import (
+    DIP_COLUMNS, build_dip_context_features, complete_dip_history, morning_dip_features,
+)
 from stock_picker.training.dataset import (
     LABEL_COLUMN,
     build_pooled_dataset,
@@ -28,6 +31,43 @@ def _make_history_and_features(n=10):
         index=dates,
     )
     return history, features
+
+
+def test_dip_snapshot_dataset_alignment_matches_decision_helper_for_all_rows():
+    history, _ = _make_history_and_features(n=320)
+    history.iloc[275] = [150, 151, 148, 149, 2000]
+    history.iloc[276] = [147, 148, 144, 145, 1500]
+    history.iloc[110] = float("nan")  # Missing bars must remain missing after alignment.
+    snapshots = build_dip_context_features(history)
+    actual = build_training_frame(history, snapshots).loc[:, list(DIP_COLUMNS)]
+    expected = morning_dip_features(history).loc[actual.index]
+    pd.testing.assert_frame_equal(actual, expected)
+
+
+def test_dip_training_inputs_are_invariant_to_current_and_future_outcomes():
+    history, _ = _make_history_and_features(n=320)
+    cutoff = history.index[290]
+    expected = build_training_frame(history, build_dip_context_features(history)).loc[cutoff, list(DIP_COLUMNS)]
+    changed = history.copy()
+    changed.loc[cutoff:, ["High", "Low", "Close", "Volume"]] = [1e8, .01, 1e6, 1e12]
+    changed.loc[changed.index[291]:, "Open"] = 1e7
+    actual = build_training_frame(changed, build_dip_context_features(changed)).loc[cutoff, list(DIP_COLUMNS)]
+    pd.testing.assert_series_equal(actual, expected)
+
+
+def test_missing_exchange_date_preserves_labels_and_old_features_but_not_dip_shift():
+    history, old_features = _make_history_and_features(n=320)
+    missing = pd.Timestamp("2026-12-01")  # An ordinary Tuesday session.
+    history = history.drop(index=missing)
+    old_features = old_features.loc[history.index]
+    features = pd.concat([old_features, build_dip_context_features(history)], axis=1)
+    actual = build_training_frame(history, features)
+    original = build_training_frame(history, old_features)
+    pd.testing.assert_frame_equal(actual[original.columns], original)
+    expected = morning_dip_features(complete_dip_history(history)).loc[actual.index]
+    pd.testing.assert_frame_equal(actual[list(DIP_COLUMNS)], expected)
+    assert actual.loc["2026-12-02", "dip_low_history_valid"] == 0
+    assert pd.isna(actual.loc["2026-12-02", "dip_loss_2d_sigma"])
 
 
 def test_label_matches_day_session_return():

@@ -1,0 +1,81 @@
+{
+  "phase": 0,
+  "status": "Discovery complete; implementation awaits orchestrator signoff.",
+  "branch": "feature/dip-context-experiment-2026-11-09",
+  "base_commit": "9e6073d4f",
+  "sync": "Fresh git fetch origin showed main...origin/main = 0 0 before branch creation.",
+  "preserved_worktree_change": "data/jev/forecasts.db",
+  "sources": [
+    {"path": "CLAUDE.md:54", "finding": "Layering and persistence conventions; features are computed then stored, models consume stored inputs."},
+    {"path": "docs/delegation-briefing.md:21", "finding": "Lookahead, held-out tickers, no live model writes, PR and full Bazel test requirements."},
+    {"path": "docs/delegation-briefing.md:61", "finding": "Gazelle is known broken; copy existing manual BUILD patterns."},
+    {"path": "docs/feature-training-policy.md:3", "finding": "Persisted pipeline inputs automatically become ordinary candidate model inputs; there is no separate new-feature activation gate."},
+    {"path": "python/stock_picker/features/pipeline.py:36", "finding": "build_features explicitly concatenates category builders; a new module can exist without being called or persisted."},
+    {"path": "python/stock_picker/features/pruning.py:24", "finding": "RESEARCH_CANDIDATE_COLUMNS is historical experiment metadata, not an opt-in restriction."},
+    {"path": "python/stock_picker/features/registry.py:73", "finding": "ExperimentalFeatureView is distinct from production FeatureView."},
+    {"path": "python/stock_picker/features/registry.py:136", "finding": "experimental_views() is explicitly separate from FeatureService; currently empty because all SVM outputs were promoted."},
+    {"path": "python/stock_picker/features/catalog.py:137", "finding": "experimental_features() exposes description/computation/example metadata without adding pipeline columns."},
+    {"path": "python/stock_picker/features/stacked_svm.py:11", "finding": "Existing immutable ExperimentalFeature dataclass has name, description, computation, example fields."},
+    {"path": "python/stock_picker/training/dataset.py:35", "finding": "build_training_frame shifts all ordinary inputs once and restores only explicitly open-known columns."},
+    {"path": "python/stock_picker/training/inference.py:37", "finding": "build_inference_row copies prior snapshot and recomputes known current-opening values only; current serving need not call experimental dip calculations."},
+    {"path": "python/stock_picker/training/feature_family_search.py:115", "finding": "Existing isolated train/evaluate loop accepts included_features; never saves model/pruning/configuration state."}
+  ],
+  "recommended_isolation": {
+    "module": "Add a pure features/dip_context.py module that returns explicitly morning-decision-aligned values and documents every dependency date.",
+    "research_adapter": "An explicit experimental adapter joins those rows by ticker/date after the existing build_training_frame has aligned the baseline and label. Do not pass already shifted candidates through that builder again.",
+    "live_parity": "Provide a helper taking completed prior history plus an observed current opening price and reuse the same calculations. Test equivalence to the historical row while leaving production inference callers unchanged.",
+    "metadata": "Reuse experimental metadata catalog/registry paths if discovery in the feature UI is desired. Keep candidates out of production FeatureService and catalog.list_feature_columns(). Alternatively keep metadata local to the research module until promotion; this is an orchestrator choice.",
+    "production_activation": "Do not add the module to pipeline.build_features or modify production snapshots/selection/prunes. Current model input lists and default nightly training stay unchanged. Later promotion must deliberately settle pipeline format and live recomputation.",
+    "alternative": "A raw mixed close-known/open-known builder plus optional dataset/inference arguments is possible, but changes core signatures and raises double-shift and default-activation risk. Do not take that path without explicit review."
+  },
+  "proposed_feature_contract": {
+    "status": "Proposed for phase-1 signoff; not implemented.",
+    "signatures": [
+      "morning_dip_features(history: pd.DataFrame) -> pd.DataFrame",
+      "morning_dip_row(prior_history: pd.DataFrame, today_open: float, as_of_date: date) -> pd.Series"
+    ],
+    "alignment": "The output index is the prediction/entry date. All historical dependencies stop at t-1. Current opening price may enter open-conditioned columns. Research must join these outputs after baseline build_training_frame; never shift this output again.",
+    "input_contract": "Require unique ascending session dates and explicit OHLCV columns. The caller supplies the complete relevant session calendar, representing unavailable bars as NaN rather than silently dropping sessions. The experimental SPY-aligned cache already follows that shape. Do not sanitize away an Open-only current placeholder row.",
+    "row_helper": "Reject prior-history dates at or after as_of_date. Append one current-date row with only Open populated, then call the same vector builder and select that row. This proves shared calculation semantics without connecting production inference.",
+    "validity": "Use floating 0/1/NaN flags; NaN means required inputs are unknown. Validity fields explicitly report availability. A252-session low requires252 preceding complete valid bars. Missing history must not become a false signal or an artificially shorter window.",
+    "strict_timing_details": [
+      "Most recent tied prior low determines age; yesterday's low has age1.",
+      "Pre-shock volatility uses20 daily returns ending t-3, excluding both selloff days.",
+      "Reclaim support is min(L[t-21:t-1]), exactly20 completed lows before yesterday.",
+      "Current/future HLCV changes may alter later feature rows but never the current decision row.",
+      "Volume z-score in current-gap interaction ends t-1; existing candle gap_volume_interaction is a different shifted input.",
+      "All prices must have one documented compatible adjustment basis; the module does not repair corporate actions or provider histories."
+    ],
+    "families": {
+      "low_context": ["dip_close_to_low_252d", "dip_open_to_low_252d", "dip_low_age_252d", "dip_prior_new_low_252d", "dip_open_below_low_252d", "dip_low_history_valid"],
+      "recovery": ["dip_loss_2d_sigma", "dip_recovery_fraction", "dip_recovery_valid", "dip_deep_unrecovered"],
+      "pressure": ["dip_loss_change_sigma", "dip_range_change_1d", "dip_volume_change_1d", "dip_pressure_easing", "dip_gap_previous_volume_zscore"],
+      "support_and_trend": ["dip_support_break_depth_20d", "dip_support_close_distance_20d", "dip_support_open_distance_20d", "dip_support_reclaim_20d", "dip_sma50_slope_10d", "dip_trend_pullback"]
+    },
+    "avoid_duplicate_outputs": ["return_1d", "return_2d", "close_location", "lower_wick_pct", "price_vs_sma_50d", "volume_zscore_20d"],
+    "reusable_helper_sources": ["python/stock_picker/features/candle.py:72", "python/stock_picker/features/volume.py:30", "python/stock_picker/features/trend.py:14"],
+    "metadata_scope": "Orchestrator approved experimental_views/catalog.experimental_features integration; keep ordinary pipeline catalog and production FeatureService unchanged. Descriptions, formulas and examples must cover every new candidate."
+  },
+  "build_patterns": [
+    {"path": "python/stock_picker/features/BUILD.bazel:3", "change": "Add dip_context.py (and a separate metadata file if used) to existing features py_library srcs; NumPy/pandas dependencies already exist."},
+    {"path": "python/stock_picker/features/tests/BUILD.bazel:28", "change": "Copy the py_pytest declaration style for a focused test_dip_context target; use features plus pandas/numpy dependencies, and training only if baseline-join tests need it."},
+    {"path": "python/stock_picker/training/BUILD.bazel:139", "change": "Copy feature_family_search py_binary pattern for a permanent research experiment runner. Manually list its source/dependencies; avoid unrelated Gazelle repair."},
+    {"path": "python/stock_picker/features/tests/test_registry.py:32", "change": "If registering experimental metadata, replace the currently empty-view expectation with checks that dip candidates are experimental and absent from the production service."},
+    {"path": "python/stock_picker/features/tests/test_descriptions.py:1", "change": "Existing completeness tests cover production catalog columns; add explicit experimental metadata completeness checks rather than weakening them."}
+  ],
+  "verification_plan": [
+    "Hand-calculated low-distance, recovery fraction, pressure, reclaimed-level and rising-trend examples.",
+    "Perturb current/future high/low/close/volume and prove current morning features unchanged.",
+    "Require complete warmup and explicit unknown flags for missing history or invalid denominators.",
+    "Compare historical decision row with scalar prior-history/current-open helper exactly.",
+    "Verify experimental columns are absent from default build_features, persisted snapshot catalog and production FeatureService.",
+    "Run focused Bazel tests followed by bazelisk test //... before delivery; never refresh production models as a test side effect."
+  ],
+  "commands_run": [
+    "git status --short",
+    "git fetch origin",
+    "git rev-list --left-right --count main...origin/main",
+    "git switch -c feature/dip-context-experiment-2026-11-09"
+  ],
+  "confidence": "High for current infrastructure and default-activation risk. Exact feature API and baseline data compatibility remain phase-0 coordination decisions; no feature code, metadata integration or tests implemented in this phase."
+}

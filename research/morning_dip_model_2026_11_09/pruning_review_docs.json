@@ -1,0 +1,31 @@
+{
+  "retrieved_at_utc": "2026-11-09T23:09:56.003766+00:00",
+  "web_tool": "Unavailable HTTP404; fetched official documentation directly.",
+  "sources": [
+    {
+      "name": "standard_scaler",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html",
+      "status": 200,
+      "sha256": "4740c4c33148c0c73cd96d88624cd7ae182043e08aadb58b96ad93855f2bcb91",
+      "local_copy": "/tmp/dip_review_standard_scaler.html"
+    },
+    {
+      "name": "numpy_quantile",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.quantile.html",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "name": "pandas_read_parquet",
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html",
+      "status": 200,
+      "sha256": "bc6bbc31acf6d074954951c54fa52590f54c91209a779c29d9c0621f15887fda",
+      "local_copy": "/tmp/dip_review_pandas_read_parquet.html"
+    },
+    {
+      "name": "numpy_quantile_source",
+      "url": "https://raw.githubusercontent.com/numpy/numpy/main/numpy/lib/_function_base_impl.py",
+      "sha256": "f42553cebd6c6ccdf536e9c2bb09b0e1c49b542db7b30ea24f1344d04560e50a",
+      "local_copy": "/tmp/dip_review_numpy_quantile_source.py"
+    }
+  ]
+}
