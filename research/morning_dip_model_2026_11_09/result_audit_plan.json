@@ -6,7 +6,8 @@
   "commands": {
     "focused_checks": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/test_postprocess_results.py",
     "partial_progress_audit": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/postprocess_results.py --allow-partial",
-    "final_complete_audit": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/postprocess_results.py"
+    "final_complete_audit": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/postprocess_results.py",
+    "build_final_summary": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/build_final_audit_summary.py"
   },
   "output": "research/morning_dip_model_2026_11_09/result_audit/result_audit.json",
   "expected_evidence": {
@@ -42,5 +43,20 @@
   ],
   "initial_validation": "Five independent small tests pass, including analytical Fit-only MAE and rejection of misaligned vectors.45 actual Rank results were previously audited; both Fit heads remain pending.",
   "implementation_scope": "Only research/postprocessing files created; hash-frozen feature/training source remains unchanged.",
-  "updated_at_utc": "2026-11-09T23:51:53.070817+00:00"
+  "updated_at_utc": "2026-11-09T23:51:53.070817+00:00",
+  "final_validation": {
+    "verified_at_utc": "2026-11-10T00:37:45.396381+00:00",
+    "state": "complete",
+    "model_results_verified": 47,
+    "svm_outputs_verified": 42,
+    "missing_results": 0,
+    "mrcy_eligible_rows": 1008,
+    "fit_scored_stock_days_each": 161943,
+    "convergence_warning_outputs": 6,
+    "final_complete_audit_exit_code": 0,
+    "focused_postprocessor_tests_passed": 5,
+    "summary_artifact": "research/morning_dip_model_2026_11_09/final_independent_result_audit.json",
+    "summary_sha256": "87fa9460078d430347124274eeb796ed0d9381f97fd2d61b1945058ff1f8b72b",
+    "attribution": "All-minus-baseline Top5 ticker contribution deltas independently reconcile exactly to the paired daily-return difference; no exclusions or new fits."
+  }
 }

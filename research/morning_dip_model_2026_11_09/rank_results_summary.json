@@ -1205,6 +1205,6 @@
     "artifact": "final_independent_result_audit.json",
     "status": "Independent complete audit passed 47 model results and 42 SVM outputs.",
     "rank_results_and_frozen_selection_unchanged": true,
-    "interpretation": "Full 21-input Fit portfolio point estimates worsened despite slightly lower MAE; uncertainty includes zero. No outer reselection. The separate ordinary 19-input model remains pending and is not validated by the full 21-input study."
+    "interpretation": "Fit with 21 new dip inputs added to the existing 132 raw inputs (153 total raw/160 Fit-head inputs) had worse portfolio point estimates despite slightly lower MAE; uncertainty includes zero. No outer reselection. The separate ordinary configuration with 19 new dip inputs (151 total raw/158 Fit-head inputs) completed publication; its schema and readiness audit is ordinary_training_completion_verification.json. Completion and normal validation do not provide a matched causal test of the added inputs, and that configuration is not validated by the frozen study."
   }
 }
