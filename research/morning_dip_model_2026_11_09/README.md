@@ -44,16 +44,25 @@ Both exclusions are reversible quality judgments, **not demonstrated return impr
 
 **Source limitations.** Dated provider metadata confirms frozen SPCX history joins an older ETF and a different June 2026 common-stock listing. Its extreme recovery value affects research scaling; ordinary Yahoo begins at the new listing. QH’s April price-basis discontinuity remains unresolved, not a confirmed split. No invented adjustments or retrospective row deletions were applied. Current-universe survivorship, incomplete action certification and observing an open before assuming execution there also limit interpretation. These are reproducible exploratory comparisons, not certified executable profits. [Source findings:572](pruning_review.json#L572); [protocol limitations:153](experiment_protocol.json#L153).
 
-**Pending final audits — fill only after completion.**
+**Completed full Fit comparison.** The independent audit passed all **47 model results and 42 SVM outputs**. The fixed July–November 6, 2026 outer period contains 91 sessions and 161,943 matched stock-days. Each pipeline trained its own SVMs: baseline 132 raw → 139 head inputs versus all 21, 153 raw → 160 head. Both heads used the same 433,356 OOF-covered rows over 251 sessions; the one uncovered session's 1,686 rows were consistently omitted from the 252-session head window. [Final audit:1](final_independent_result_audit.json#L1); [coverage:1](model_run/fit_oof_coverage.json#L1).
 
-| Work | Current status | Required final entry |
-|---|---|---|
-| Frozen full Fit | Pending: baseline 132 raw → 139 head versus all 21, 153 raw → 160 head; two OOF blocks, one July–November 2026 outer block | Matched-row/schema audit; Top5/Top20, MAE, actual 0.5% gate with cash days/costs; concentration, uncertainty and convergence warnings |
-| Ordinary training | Pending: 19 active new inputs, 151 raw → 158 head | Saved schemas, normal fold/holdout evidence and readiness checks |
+| Fit policy | Baseline gross/day | All 21 gross/day | Difference, bps/day | Pointwise 95% interval, bps |
+|---|---:|---:|---:|---:|
+| Top five | +0.0732% | −0.4026% | −47.58 | [−111.40, +14.39] |
+| Top 20 | −0.3087% | −0.4949% | −18.62 | [−45.71, +7.13] |
+| Predicted return > 0.5% | +0.0802% | +0.0274% | −5.28 | [−50.70, +41.00] |
 
-The 21 baseline SVM output checkpoints passed schema, row-identity, checksum and finite-value checks. All three baseline SVR fits emitted convergence warnings under the unchanged 10,000-iteration limit: convergence was not established. The augmented SVM fits remain running. [Baseline checkpoint audit:1](baseline_svm_checkpoint_audit.json#L1).
+All portfolio point estimates worsened; the wide paired intervals include zero. The fixed gate includes every matched date, including **13 baseline / 16 all-21 cash days**, and selected 17,044 / 13,697 stock-days. At assumed 10 / 25 / 50 bps round-trip costs, baseline gate daily means become **−0.0055% / −0.1340% / −0.3483%**; all 21 become **−0.0550% / −0.1786% / −0.3846%**. Cost is charged only on invested days; cash earns zero. These sensitivities are assumptions, not measured execution costs. [Checked policy and cost results:1](final_independent_result_audit.json#L1).
 
-The frozen full-21 Fit experiment cannot validate the separate 19-input production configuration. [Schema distinction:1](production_schema_distinction.json#L1); [Fit protocol:130](experiment_protocol.json#L130).
+Across all scored stocks, Fit MAE improved slightly from **1.7348 to 1.7316 percentage points** (0.32 basis points less error), while mean ranking correlation remained negative: **−0.00877 → −0.00699**. This small average-error improvement did not translate into better selected portfolios. No model, feature subset or threshold was reselected from these outcomes.
+
+The Top5 decline is partly concentrated: changes in SNDK, TDTH, AAOI, PLBL and IOVA contributions total **−36.65 bps/day**, about **77% of the net decline**. Across the 256-name union of selected stocks, 123 ticker contributions worsened and 98 improved. This is descriptive attribution; all original selections remain included. [Paired contribution audit:382](final_independent_result_audit.json#L382).
+
+All **six SVR fits emitted convergence warnings** under the unchanged 10,000-iteration limit; convergence was not established. This remains a fixed-budget, like-for-like exploratory comparison with one Fit outer block and the source limitations above. [Checkpoint and warning audit:1](final_independent_result_audit.json#L1).
+
+**Ordinary training remains pending.** Its 19 active new inputs use 151 raw → 158 head inputs. The frozen full-21 study cannot validate that separate production configuration. Saved-schema, normal validation and deployment evidence will be added after ordinary training completes. [Schema distinction:1](production_schema_distinction.json#L1).
+
+The original [pruning review:1](pruning_review.json#L1) remains an unchanged, hash-bound decision snapshot. The [completed Fit audit:1](final_independent_result_audit.json#L1) supplies its final follow-up; it provides no evidence to claim either quality prune improved returns.
 
 Next iteration: predeclare one bounded or signed-log recovery representation with loss-depth components; after repairing/marking bad volume bars, test a log-volume ratio. These are **untested hypotheses**, requiring new forward validation and normal full-model pruning comparisons, not tuned fixes selected from these outer results.
 

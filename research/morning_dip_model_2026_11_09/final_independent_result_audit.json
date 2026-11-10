@@ -1,0 +1,710 @@
+{
+  "status": "complete_independently_verified",
+  "generated_at_utc": "2026-11-10T00:37:07.215720+00:00",
+  "audited_model_results": 47,
+  "audited_svm_outputs": 42,
+  "run_identity": "cb05802badb974d6fc0c1ee98e223ba6e25fd3fc406a9a1985cc0fcca6ff1243",
+  "source_report": "result_audit/result_audit.json",
+  "source_report_sha256": "0f7ee5de9b60b3bf74339a0024289ec197f915e1a786c51a98baa6eaca3dd975",
+  "summary_script_sha256": "437ba57f9c09dd43f00e173a1fa058e503914e6fa7ea6aa41311f4a110f8dd26",
+  "fit_phase_exit_code": 0,
+  "fit_phase_completed_at_utc": "2026-11-10T00:33:34.246472+00:00",
+  "mrcy_eligible_rows": 1008,
+  "frozen_inner_selection": "all",
+  "interpretation": "The frozen all21 comparison does not establish better morning-to-close stock selection. Small Fit MAE improvement accompanies worse Top5/Top20/gate point estimates; exploratory paired return intervals span zero. It does not validate the separately pruned ordinary19 configuration.",
+  "units": "Means below are percent per evaluation day; paired changes and confidence intervals are basis points per day. MAE is percentage-point error per equally weighted scored stock-day. All intervals are pointwise exploratory.",
+  "fit": {
+    "outer_from": "2026-07-01",
+    "outer_through": "2026-11-06",
+    "evaluation_days": 91,
+    "scored_stock_days_each": 161943,
+    "oof_coverage": {
+      "all": {
+        "covered_sessions": 251,
+        "first_covered_date": "2025-07-01 00:00:00",
+        "full_training_rows": 435042,
+        "full_training_sessions": 252,
+        "omitted_rows": 1686,
+        "oof_covered_rows": 433356,
+        "svm_raw_sources": 153,
+        "test_rows": 161943
+      },
+      "baseline": {
+        "covered_sessions": 251,
+        "first_covered_date": "2025-07-01 00:00:00",
+        "full_training_rows": 435042,
+        "full_training_sessions": 252,
+        "omitted_rows": 1686,
+        "oof_covered_rows": 433356,
+        "svm_raw_sources": 132,
+        "test_rows": 161943
+      }
+    },
+    "rank_ic": {
+      "baseline": -0.00876926922791316,
+      "all21": -0.006991510171326282
+    },
+    "stock_day_mae_percentage_points": {
+      "baseline": 1.7348365178274465,
+      "all21": 1.7316344806990756,
+      "all_minus_baseline": -0.00320203712837093,
+      "lower_is_better": true,
+      "includes_unselected_stocks": true
+    },
+    "policies": {
+      "top5": {
+        "baseline_gross_daily_percent": 0.07320952217748997,
+        "all21_gross_daily_percent": -0.4026010507784538,
+        "cash_days": {
+          "baseline": 0,
+          "all21": 0
+        },
+        "selected_stock_days": {
+          "baseline": 455,
+          "all21": 455
+        },
+        "gate_rule": "fixed top count each day",
+        "cost_scenarios": {
+          "0": {
+            "baseline_daily_percent": 0.07320952217748997,
+            "all21_daily_percent": -0.4026010507784538,
+            "all_minus_baseline_bps_per_day": -47.58105729559435,
+            "ci95_bps_per_day": [
+              -111.39817143761898,
+              14.388103445591751
+            ]
+          },
+          "10": {
+            "baseline_daily_percent": -0.026790477822510185,
+            "all21_daily_percent": -0.502601050778454,
+            "all_minus_baseline_bps_per_day": -47.58105729559435,
+            "ci95_bps_per_day": [
+              -111.39817143761898,
+              14.388103445591751
+            ]
+          },
+          "25": {
+            "baseline_daily_percent": -0.17679047782251012,
+            "all21_daily_percent": -0.6526010507784539,
+            "all_minus_baseline_bps_per_day": -47.58105729559435,
+            "ci95_bps_per_day": [
+              -111.39817143761898,
+              14.388103445591751
+            ]
+          },
+          "50": {
+            "baseline_daily_percent": -0.4267904778225103,
+            "all21_daily_percent": -0.9026010507784535,
+            "all_minus_baseline_bps_per_day": -47.58105729559435,
+            "ci95_bps_per_day": [
+              -111.39817143761898,
+              14.388103445591751
+            ]
+          }
+        },
+        "mrcy_selected_days": {
+          "baseline": 0,
+          "all21": 0
+        },
+        "constituent_excursions": {
+          "baseline": {
+            "selected_stock_days": 455,
+            "valid_low_stock_days": 455,
+            "valid_high_stock_days": 455,
+            "source_ohlc_consistent_stock_days": 455,
+            "mean_constituent_open_to_low": -0.040675463833235365,
+            "median_constituent_open_to_low": -0.03154528274458501,
+            "p05_constituent_open_to_low": -0.11540275322464477,
+            "worst_constituent_open_to_low": -0.21963499056010072,
+            "mean_constituent_open_to_high": 0.0454456504648912,
+            "daily_mean_constituent_open_to_low_including_cash": -0.04067546383323536,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          },
+          "all": {
+            "selected_stock_days": 455,
+            "valid_low_stock_days": 455,
+            "valid_high_stock_days": 455,
+            "source_ohlc_consistent_stock_days": 455,
+            "mean_constituent_open_to_low": -0.04366638115005592,
+            "median_constituent_open_to_low": -0.03310014426872099,
+            "p05_constituent_open_to_low": -0.12197818962117797,
+            "worst_constituent_open_to_low": -0.22459893048128354,
+            "mean_constituent_open_to_high": 0.04356291183965412,
+            "daily_mean_constituent_open_to_low_including_cash": -0.04366638115005592,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          }
+        }
+      },
+      "top20": {
+        "baseline_gross_daily_percent": -0.3086944637322569,
+        "all21_gross_daily_percent": -0.4948963842305601,
+        "cash_days": {
+          "baseline": 0,
+          "all21": 0
+        },
+        "selected_stock_days": {
+          "baseline": 1820,
+          "all21": 1820
+        },
+        "gate_rule": "fixed top count each day",
+        "cost_scenarios": {
+          "0": {
+            "baseline_daily_percent": -0.3086944637322569,
+            "all21_daily_percent": -0.4948963842305601,
+            "all_minus_baseline_bps_per_day": -18.620192049830322,
+            "ci95_bps_per_day": [
+              -45.706130916313434,
+              7.125456008501558
+            ]
+          },
+          "10": {
+            "baseline_daily_percent": -0.40869446373225693,
+            "all21_daily_percent": -0.5948963842305601,
+            "all_minus_baseline_bps_per_day": -18.620192049830322,
+            "ci95_bps_per_day": [
+              -45.706130916313434,
+              7.125456008501558
+            ]
+          },
+          "25": {
+            "baseline_daily_percent": -0.5586944637322568,
+            "all21_daily_percent": -0.74489638423056,
+            "all_minus_baseline_bps_per_day": -18.620192049830322,
+            "ci95_bps_per_day": [
+              -45.706130916313434,
+              7.125456008501558
+            ]
+          },
+          "50": {
+            "baseline_daily_percent": -0.8086944637322568,
+            "all21_daily_percent": -0.9948963842305601,
+            "all_minus_baseline_bps_per_day": -18.620192049830322,
+            "ci95_bps_per_day": [
+              -45.706130916313434,
+              7.125456008501558
+            ]
+          }
+        },
+        "mrcy_selected_days": {
+          "baseline": 1,
+          "all21": 2
+        },
+        "constituent_excursions": {
+          "baseline": {
+            "selected_stock_days": 1820,
+            "valid_low_stock_days": 1820,
+            "valid_high_stock_days": 1820,
+            "source_ohlc_consistent_stock_days": 1820,
+            "mean_constituent_open_to_low": -0.03841543628967051,
+            "median_constituent_open_to_low": -0.02878151457095185,
+            "p05_constituent_open_to_low": -0.1049234699820758,
+            "worst_constituent_open_to_low": -0.23076923076923084,
+            "mean_constituent_open_to_high": 0.037877430028850585,
+            "daily_mean_constituent_open_to_low_including_cash": -0.0384154362896705,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          },
+          "all": {
+            "selected_stock_days": 1820,
+            "valid_low_stock_days": 1820,
+            "valid_high_stock_days": 1820,
+            "source_ohlc_consistent_stock_days": 1820,
+            "mean_constituent_open_to_low": -0.03940210153476999,
+            "median_constituent_open_to_low": -0.029758662451527862,
+            "p05_constituent_open_to_low": -0.1049123839745392,
+            "worst_constituent_open_to_low": -0.22459893048128354,
+            "mean_constituent_open_to_high": 0.03704577712144739,
+            "daily_mean_constituent_open_to_low_including_cash": -0.039402101534769994,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          }
+        }
+      },
+      "gate": {
+        "baseline_gross_daily_percent": 0.08024682850532903,
+        "all21_gross_daily_percent": 0.027447561330970753,
+        "cash_days": {
+          "baseline": 13,
+          "all21": 16
+        },
+        "selected_stock_days": {
+          "baseline": 17044,
+          "all21": 13697
+        },
+        "gate_rule": "score strictly greater than0.005",
+        "cost_scenarios": {
+          "0": {
+            "baseline_daily_percent": 0.08024682850532903,
+            "all21_daily_percent": 0.027447561330970753,
+            "all_minus_baseline_bps_per_day": -5.279926717435834,
+            "ci95_bps_per_day": [
+              -50.704807824659355,
+              40.99707194235551
+            ]
+          },
+          "10": {
+            "baseline_daily_percent": -0.00546745720895673,
+            "all21_daily_percent": -0.054970021086611684,
+            "all_minus_baseline_bps_per_day": -4.950256387765504,
+            "ci95_bps_per_day": [
+              -50.52347821000086,
+              41.104214799498386
+            ]
+          },
+          "25": {
+            "baseline_daily_percent": -0.13403888578038523,
+            "all21_daily_percent": -0.17859639471298538,
+            "all_minus_baseline_bps_per_day": -4.455750893260009,
+            "ci95_bps_per_day": [
+              -49.120446415890655,
+              41.459589657107
+            ]
+          },
+          "50": {
+            "baseline_daily_percent": -0.34832460006609955,
+            "all21_daily_percent": -0.3846403507569414,
+            "all_minus_baseline_bps_per_day": -3.6315750690841844,
+            "ci95_bps_per_day": [
+              -49.11262005411744,
+              42.06269328337064
+            ]
+          }
+        },
+        "mrcy_selected_days": {
+          "baseline": 13,
+          "all21": 9
+        },
+        "constituent_excursions": {
+          "baseline": {
+            "selected_stock_days": 17044,
+            "valid_low_stock_days": 17044,
+            "valid_high_stock_days": 17044,
+            "source_ohlc_consistent_stock_days": 17044,
+            "mean_constituent_open_to_low": -0.023850395824001603,
+            "median_constituent_open_to_low": -0.01625628705839005,
+            "p05_constituent_open_to_low": -0.0733772958410833,
+            "worst_constituent_open_to_low": -0.2618837380426784,
+            "mean_constituent_open_to_high": 0.02267277589838013,
+            "daily_mean_constituent_open_to_low_including_cash": -0.029817710626706462,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          },
+          "all": {
+            "selected_stock_days": 13697,
+            "valid_low_stock_days": 13697,
+            "valid_high_stock_days": 13697,
+            "source_ohlc_consistent_stock_days": 13697,
+            "mean_constituent_open_to_low": -0.025630018688190728,
+            "median_constituent_open_to_low": -0.017375565610859733,
+            "p05_constituent_open_to_low": -0.07886032307991726,
+            "worst_constituent_open_to_low": -0.28378378378378377,
+            "mean_constituent_open_to_high": 0.02414814228132445,
+            "daily_mean_constituent_open_to_low_including_cash": -0.028957428428132842,
+            "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+          }
+        }
+      }
+    }
+  },
+  "rank_outer": {
+    "top5": {
+      "days": 342,
+      "baseline_gross_daily_percent": 0.5374247652846573,
+      "all21_gross_daily_percent": 0.4705180069533645,
+      "all_minus_baseline_bps_per_day": -6.690675833129286,
+      "ci95_bps_per_day": [
+        -26.153198392670625,
+        12.709757480577329
+      ]
+    },
+    "top20": {
+      "days": 342,
+      "baseline_gross_daily_percent": 0.3258969464999903,
+      "all21_gross_daily_percent": 0.25209220285433265,
+      "all_minus_baseline_bps_per_day": -7.380474364565775,
+      "ci95_bps_per_day": [
+        -16.287398228623363,
+        2.122011539865379
+      ]
+    }
+  },
+  "svm_convergence": {
+    "convergence_warning_outputs": [
+      "svm_baseline_oof_2025h2_svr_oof_pred",
+      "svm_baseline_oof_2026h1_svr_oof_pred",
+      "svm_baseline_outer_2026h2_svr_oof_pred",
+      "svm_all_oof_2025h2_svr_oof_pred",
+      "svm_all_oof_2026h1_svr_oof_pred",
+      "svm_all_outer_2026h2_svr_oof_pred"
+    ],
+    "svr_max_iter": 10000,
+    "svc_max_iter": 10000,
+    "convergence_qualification": "Recorded ConvergenceWarnings mean convergence was not established within the unchanged iteration limit; this audit does not refit or suppress warnings."
+  },
+  "reviewed_context": {
+    "review_artifact_sha256": {
+      "pruning_review.json": "09e55ad88b0092c665a37d7e8e2cad0778b39fbbe8c7aba48f0dd8b2a35068a3",
+      "ordinary_prune_final.json": "911c8d9a5e656f5f7eda1211d244031cf16b4b4c008aed8c8efdec4716aafd8e"
+    },
+    "source_qualifications": [
+      {
+        "issue": "Confirmed reused ticker in frozen research history",
+        "evidence": "Massive SPCX metadata on 2026-02-09 names The SPAC and New Issue ETF, type ETF, FIGI BBG00YJ8L8T5; on 2026-06-15 it names Space Exploration Technologies Class A, type CS, FIGI BBG000NQF3Z5, listing 2026-06-12. Ordinary Yahoo starts 2026-06-12 correctly.",
+        "severity": "Historical entity continuity is not certified. The largest frozen recovery input comes from the old security and materially dominates one SVM training-window scale. This blocks treating the comparison as security-clean confirmatory evidence; deterministic same-panel comparisons remain reproducible exploratory results. Do not silently delete the row or rerun under the same frozen identity."
+      },
+      {
+        "issue": "Confirmed ordinary volume discrepancy",
+        "evidence": "HUBB and UHAL-B on 2026-02-25 volumes are 30/32 in ordinary Yahoo versus 367726.304487/330326.87178 in the independent Massive daily aggregate. Adjacent-session volumes closely agree.",
+        "severity": "Concrete upstream data-quality problem that can affect existing volume features too. Temporary ratio pruning contains amplification but is not a source repair. No price or volume correction was applied."
+      },
+      {
+        "issue": "Unresolved QH price-basis discontinuity",
+        "evidence": "Ordinary QH prior close 0.12 becomes Open 3.60 on 2026-04-27, with a preceding support near 0.017. Yahoo identifies Quhuo/NasdaqCM and reports the same 52-week low but no split-event entry in April 1\u2013May 15. Massive returned no daily/action rows, dated reference 404 and no inactive Quhuo matches; issuer IR 403.",
+        "severity": "Suspected action/security/adjustment issue, not a confirmed split. Do not invent a ratio adjustment, automatically remove QH, or prune all support fields to hide it. Limits economic interpretation of affected support/low examples and requires a separate data-quality resolution."
+      }
+    ],
+    "ordinary_configuration_snapshot": {
+      "recorded_at_utc": "2026-11-09T23:29:26.962139+00:00",
+      "active_new_dip_fields": 19,
+      "ordinary_pruned_dip_fields": [
+        "dip_recovery_fraction",
+        "dip_volume_change_1d"
+      ],
+      "raw_inputs": 151,
+      "fit_head_inputs": 158,
+      "source": "ordinary_prune_final.json; a recorded configuration snapshot, not a live-store read"
+    },
+    "frozen_research_configuration": {
+      "new_dip_fields": 21,
+      "baseline_raw_inputs": 132,
+      "all_raw_inputs": 153,
+      "all_fit_head_inputs": 160
+    },
+    "interpretation": "Frozen all21 research includes both ordinarily pruned ratio fields. Its153-raw/160-head Fit result does not validate the separate ordinary19-new-input,151-raw/158-head configuration. Source identity/price/volume qualifications limit confirmatory interpretation; no frozen rows were silently removed or adjusted."
+  },
+  "fit_top5_paired_ticker_attribution": {
+    "largest_negative_changes": [
+      {
+        "ticker": "SNDK",
+        "baseline_bps_per_day": 4.184097515745765,
+        "all_bps_per_day": -6.819214026726513,
+        "delta_bps_per_day": -11.003311542472279
+      },
+      {
+        "ticker": "TDTH",
+        "baseline_bps_per_day": 13.156915579489912,
+        "all_bps_per_day": 5.853594301072478,
+        "delta_bps_per_day": -7.3033212784174335
+      },
+      {
+        "ticker": "AAOI",
+        "baseline_bps_per_day": 0.033111407022653076,
+        "all_bps_per_day": -6.629045400439899,
+        "delta_bps_per_day": -6.662156807462552
+      },
+      {
+        "ticker": "PLBL",
+        "baseline_bps_per_day": 6.790823357523105,
+        "all_bps_per_day": 0.6224935900159585,
+        "delta_bps_per_day": -6.168329767507147
+      },
+      {
+        "ticker": "IOVA",
+        "baseline_bps_per_day": 0.313474164504278,
+        "all_bps_per_day": -5.19702251073642,
+        "delta_bps_per_day": -5.510496675240697
+      }
+    ],
+    "largest_positive_changes": [
+      {
+        "ticker": "XMTR",
+        "baseline_bps_per_day": 0.0,
+        "all_bps_per_day": 5.879996996170118,
+        "delta_bps_per_day": 5.879996996170118
+      },
+      {
+        "ticker": "GLXY",
+        "baseline_bps_per_day": -4.167832206339598,
+        "all_bps_per_day": 1.1536506198427903,
+        "delta_bps_per_day": 5.321482826182388
+      },
+      {
+        "ticker": "ALMR",
+        "baseline_bps_per_day": -3.4875263050224845,
+        "all_bps_per_day": 1.1314129657324938,
+        "delta_bps_per_day": 4.618939270754979
+      },
+      {
+        "ticker": "COHU",
+        "baseline_bps_per_day": -3.6985544784504927,
+        "all_bps_per_day": 0.8331807166836748,
+        "delta_bps_per_day": 4.531735195134168
+      },
+      {
+        "ticker": "DYN",
+        "baseline_bps_per_day": -0.2608259947422988,
+        "all_bps_per_day": 3.8954392856447626,
+        "delta_bps_per_day": 4.1562652803870614
+      }
+    ],
+    "five_negative_changes_sum_bps_per_day": -36.6476160711001,
+    "net_all_minus_baseline_bps_per_day": -47.58105729559435,
+    "negative_five_sum_divided_by_net_delta": 0.7702144120806118,
+    "tickers_with_negative_delta": 123,
+    "tickers_with_positive_delta": 98,
+    "union_of_selected_tickers": 256,
+    "interpretation": "Exact descriptive attribution of the fixed paired Top5 result, not a causal feature effect or a new stock-selection rule. The ratio to the net decline can exceed100% because positive changes offset negative changes. No stock or day is removed."
+  },
+  "fit_top5_per_variant_concentration": {
+    "baseline": {
+      "unique_tickers": 198,
+      "largest_absolute_ticker_contribution_fraction": 0.05347590596561868,
+      "largest_positive_contributors": [
+        {
+          "ticker": "TDTH",
+          "daily_mean_return_contribution": 0.0013156915579489912,
+          "selected_stock_days": 21
+        },
+        {
+          "ticker": "BVC",
+          "daily_mean_return_contribution": 0.0009590003375724485,
+          "selected_stock_days": 17
+        },
+        {
+          "ticker": "SLS",
+          "daily_mean_return_contribution": 0.0006800222550376299,
+          "selected_stock_days": 8
+        },
+        {
+          "ticker": "PLBL",
+          "daily_mean_return_contribution": 0.0006790823357523105,
+          "selected_stock_days": 6
+        },
+        {
+          "ticker": "LBTYB",
+          "daily_mean_return_contribution": 0.0005943142508728169,
+          "selected_stock_days": 8
+        }
+      ],
+      "largest_negative_contributors": [
+        {
+          "ticker": "MXL",
+          "daily_mean_return_contribution": -0.0005882537946137348,
+          "selected_stock_days": 10
+        },
+        {
+          "ticker": "CBRS",
+          "daily_mean_return_contribution": -0.0005551601122582837,
+          "selected_stock_days": 9
+        },
+        {
+          "ticker": "KEEL",
+          "daily_mean_return_contribution": -0.0004288184933346225,
+          "selected_stock_days": 4
+        },
+        {
+          "ticker": "GLXY",
+          "daily_mean_return_contribution": -0.0004167832206339597,
+          "selected_stock_days": 4
+        },
+        {
+          "ticker": "COHU",
+          "daily_mean_return_contribution": -0.0003698554478450493,
+          "selected_stock_days": 1
+        }
+      ],
+      "highest_return_selected_stock_days": [
+        {
+          "date": "2026-07-10",
+          "ticker": "PLBL",
+          "label_day_session_return": 0.29712460063897755,
+          "score": 0.014310888380748787
+        },
+        {
+          "date": "2026-07-13",
+          "ticker": "BVC",
+          "label_day_session_return": 0.2910694597574422,
+          "score": 0.021078470581609516
+        },
+        {
+          "date": "2026-07-24",
+          "ticker": "QH",
+          "label_day_session_return": 0.21444695259593685,
+          "score": 0.005731214808416841
+        },
+        {
+          "date": "2026-07-06",
+          "ticker": "TDTH",
+          "label_day_session_return": 0.21333333333333337,
+          "score": 0.017833917651362375
+        },
+        {
+          "date": "2026-08-03",
+          "ticker": "AXTI",
+          "label_day_session_return": 0.20706626823694851,
+          "score": 0.01676668328165009
+        }
+      ],
+      "lowest_return_selected_stock_days": [
+        {
+          "date": "2026-08-10",
+          "ticker": "BTDR",
+          "label_day_session_return": -0.21828643351613766,
+          "score": 0.010185383581614674
+        },
+        {
+          "date": "2026-07-31",
+          "ticker": "COHU",
+          "label_day_session_return": -0.16828422876949742,
+          "score": 0.007959361145051667
+        },
+        {
+          "date": "2026-10-06",
+          "ticker": "ALMR",
+          "label_day_session_return": -0.16726897263810026,
+          "score": 0.0024591491836460267
+        },
+        {
+          "date": "2026-07-13",
+          "ticker": "RGC",
+          "label_day_session_return": -0.15692821368948254,
+          "score": 0.012461059068103634
+        },
+        {
+          "date": "2026-11-05",
+          "ticker": "MXL",
+          "label_day_session_return": -0.15082407052510535,
+          "score": 0.030049260154868727
+        }
+      ],
+      "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+    },
+    "all": {
+      "unique_tickers": 196,
+      "largest_absolute_ticker_contribution_fraction": 0.030011529748732082,
+      "largest_positive_contributors": [
+        {
+          "ticker": "BVC",
+          "daily_mean_return_contribution": 0.0007775152307039519,
+          "selected_stock_days": 17
+        },
+        {
+          "ticker": "XMTR",
+          "daily_mean_return_contribution": 0.0005879996996170119,
+          "selected_stock_days": 1
+        },
+        {
+          "ticker": "SHAZ",
+          "daily_mean_return_contribution": 0.0005864369024788214,
+          "selected_stock_days": 11
+        },
+        {
+          "ticker": "TDTH",
+          "daily_mean_return_contribution": 0.0005853594301072478,
+          "selected_stock_days": 19
+        },
+        {
+          "ticker": "LBTYB",
+          "daily_mean_return_contribution": 0.0004483877396291846,
+          "selected_stock_days": 12
+        }
+      ],
+      "largest_negative_contributors": [
+        {
+          "ticker": "FRMI",
+          "daily_mean_return_contribution": -0.0007701928478647172,
+          "selected_stock_days": 5
+        },
+        {
+          "ticker": "BTDR",
+          "daily_mean_return_contribution": -0.0007251746457573803,
+          "selected_stock_days": 4
+        },
+        {
+          "ticker": "SNDK",
+          "daily_mean_return_contribution": -0.0006819214026726513,
+          "selected_stock_days": 12
+        },
+        {
+          "ticker": "AAOI",
+          "daily_mean_return_contribution": -0.0006629045400439899,
+          "selected_stock_days": 7
+        },
+        {
+          "ticker": "IOVA",
+          "daily_mean_return_contribution": -0.0005197022510736419,
+          "selected_stock_days": 3
+        }
+      ],
+      "highest_return_selected_stock_days": [
+        {
+          "date": "2026-07-13",
+          "ticker": "BVC",
+          "label_day_session_return": 0.2910694597574422,
+          "score": 0.014207411987043284
+        },
+        {
+          "date": "2026-11-03",
+          "ticker": "XMTR",
+          "label_day_session_return": 0.2675398633257404,
+          "score": 0.010725315106026635
+        },
+        {
+          "date": "2026-07-06",
+          "ticker": "TDTH",
+          "label_day_session_return": 0.21333333333333337,
+          "score": 0.024776317465945975
+        },
+        {
+          "date": "2026-08-03",
+          "ticker": "AXTI",
+          "label_day_session_return": 0.20706626823694851,
+          "score": 0.020321824531181434
+        },
+        {
+          "date": "2026-09-08",
+          "ticker": "DYN",
+          "label_day_session_return": 0.18911007025761128,
+          "score": 0.003800633540966242
+        }
+      ],
+      "lowest_return_selected_stock_days": [
+        {
+          "date": "2026-09-25",
+          "ticker": "TDTH",
+          "label_day_session_return": -0.2192513368983958,
+          "score": 0.002100931498411407
+        },
+        {
+          "date": "2026-08-10",
+          "ticker": "BTDR",
+          "label_day_session_return": -0.21828643351613766,
+          "score": 0.010202296006382734
+        },
+        {
+          "date": "2026-11-05",
+          "ticker": "AXTI",
+          "label_day_session_return": -0.16583371194911412,
+          "score": 0.02972972634435894
+        },
+        {
+          "date": "2026-11-05",
+          "ticker": "SNDK",
+          "label_day_session_return": -0.16193122770844948,
+          "score": 0.03135282146860812
+        },
+        {
+          "date": "2026-10-01",
+          "ticker": "NKTR",
+          "label_day_session_return": -0.15188159913365218,
+          "score": 0.0017881812310312998
+        }
+      ],
+      "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+    }
+  },
+  "cautions": [
+    "Six SVRs reached the unchanged iteration cap without establishing convergence;36 SVC outputs had no recorded ConvergenceWarning.",
+    "Source qualifications include confirmed SPCX ticker reuse, unresolved QH price-basis discontinuity and confirmed ordinary tiny-volume errors; no retrospective row filtering or invented adjustments.",
+    "Stock Low/Open aggregates are constituent excursions, not simultaneous portfolio drawdown or executable stop-loss returns.",
+    "One Fit outer block versus three Rank outer blocks; current-universe survivorship and incomplete corporate-action certification remain.",
+    "Frozen research all21 has153 raw/160 head inputs; ordinary19 has151 raw/158 head inputs. Ordinary configuration performance requires its own evidence."
+  ]
+}

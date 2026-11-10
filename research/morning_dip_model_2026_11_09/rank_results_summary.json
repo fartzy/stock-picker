@@ -450,7 +450,7 @@
   "selected_before_outer": "all",
   "selection_frozen_at_utc": "2026-11-09T22:58:14.233637+00:00",
   "source_commit": "5b8c338fe1a2de1fa689472280718598fc7a2692",
-  "status": "rank_complete_fit_pending",
+  "status": "rank_and_full21_fit_complete_qualified_exploratory",
   "variants": {
     "all": {
       "blocks_both_ic_and_top20_improved": 0,
@@ -1200,5 +1200,11 @@
       }
     },
     "interpretation": "One of three blocks improved, but pooled Top5 return was lower. This does not reverse the exploratory conclusion or change the frozen selection."
+  },
+  "fit_followup": {
+    "artifact": "final_independent_result_audit.json",
+    "status": "Independent complete audit passed 47 model results and 42 SVM outputs.",
+    "rank_results_and_frozen_selection_unchanged": true,
+    "interpretation": "Full 21-input Fit portfolio point estimates worsened despite slightly lower MAE; uncertainty includes zero. No outer reselection. The separate ordinary 19-input model remains pending and is not validated by the full 21-input study."
   }
 }

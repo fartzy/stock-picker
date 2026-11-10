@@ -1,0 +1,32 @@
+{
+  "phase": "fit",
+  "state": "completed",
+  "command": [
+    "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/training/morning_dip_experiment",
+    "--root",
+    "/Users/michael.artz/dev/stock-picker",
+    "--baseline",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/baseline.parquet",
+    "--dips",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/dip_panel.parquet",
+    "--protocol",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/experiment_protocol.json",
+    "--snapshot",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/saved_model_snapshot.json",
+    "--input-manifest",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/input_manifest.json",
+    "--output",
+    "/Users/michael.artz/dev/stock-picker/research/morning_dip_model_2026_11_09/model_run",
+    "--phase",
+    "fit",
+    "--resume"
+  ],
+  "source_commit": "5b8c338fe1a2de1fa689472280718598fc7a2692",
+  "started_at_utc": "2026-11-09T22:58:33.795339+00:00",
+  "log": "/tmp/morning-dip-fit.log",
+  "launcher_pid": 4041,
+  "pid": 4045,
+  "updated_at_utc": "2026-11-10T00:33:34.246491+00:00",
+  "exit_code": 0,
+  "completed_at_utc": "2026-11-10T00:33:34.246472+00:00"
+}

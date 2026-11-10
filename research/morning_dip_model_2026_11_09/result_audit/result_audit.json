@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-09T23:51:52.595589+00:00",
+  "generated_at_utc": "2026-11-10T00:33:56.430626+00:00",
   "run_identity": "cb05802badb974d6fc0c1ee98e223ba6e25fd3fc406a9a1985cc0fcca6ff1243",
   "audit_script_sha256": "d304595264dab72c075d7b158cd2eaa4f236a7e06906dcd9a17de480a2019ee3",
   "outcome_manifest_sha256": "4a7ee533e431e895c90beb3527a980671b3215c5e6586658738d6b6fc769d524",
@@ -118,10 +118,7 @@
   },
   "eligible_rows": 1671673,
   "mrcy_eligible_rows": 1008,
-  "missing_results": [
-    "fit_outer_2026h2/baseline",
-    "fit_outer_2026h2/all"
-  ],
+  "missing_results": [],
   "blocks": {
     "rank_inner_2024h2": {
       "baseline": {
@@ -28418,7 +28415,1565 @@
         }
       }
     },
-    "fit_outer_2026h2": {}
+    "fit_outer_2026h2": {
+      "baseline": {
+        "summary": {
+          "days": 91,
+          "gate": {
+            "active_daily_mean": 0.0009362129992288391,
+            "active_days": 78,
+            "cash_days": 13,
+            "cost_sensitivity": {
+              "0": 0.0008024682850532904,
+              "10": -5.46745720895673e-05,
+              "25": -0.0013403888578038523,
+              "50": -0.0034832460006609953
+            },
+            "daily_mean": 0.0008024682850532904,
+            "daily_q05": -0.042572132035150284,
+            "hit_rate": 0.48233982633184697,
+            "trade_weighted_mean": -0.0005102795691757881,
+            "trades": 17044,
+            "worst_day": -0.07828487572655353,
+            "worst_selected_stock": -0.2222222222222223
+          },
+          "rank_ic": -0.00876926922791316,
+          "rows": 161943,
+          "top20": {
+            "active_daily_mean": -0.0030869446373225687,
+            "active_days": 91,
+            "cash_days": 0,
+            "cost_sensitivity": {
+              "0": -0.0030869446373225687,
+              "10": -0.004086944637322569,
+              "25": -0.005586944637322569,
+              "50": -0.008086944637322568
+            },
+            "daily_mean": -0.0030869446373225687,
+            "daily_q05": -0.04665726859358231,
+            "hit_rate": 0.4703296703296703,
+            "trade_weighted_mean": -0.0030869446373225683,
+            "trades": 1820,
+            "worst_day": -0.09651223638947642,
+            "worst_selected_stock": -0.21828643351613766
+          },
+          "top5": {
+            "active_daily_mean": 0.0007320952217748996,
+            "active_days": 91,
+            "cash_days": 0,
+            "cost_sensitivity": {
+              "0": 0.0007320952217748996,
+              "10": -0.00026790477822510183,
+              "25": -0.0017679047782251012,
+              "50": -0.004267904778225103
+            },
+            "daily_mean": 0.0007320952217748996,
+            "daily_q05": -0.05144957758705793,
+            "hit_rate": 0.5054945054945055,
+            "trade_weighted_mean": 0.0007320952217748993,
+            "trades": 455,
+            "worst_day": -0.10790458535068168,
+            "worst_selected_stock": -0.21828643351613766
+          }
+        },
+        "added_columns": [],
+        "mrcy_eligible_rows": 91,
+        "policies": {
+          "top5": {
+            "mrcy_selected_days": 0,
+            "mrcy_mean_open_to_close": null,
+            "intraday_excursion": {
+              "selected_stock_days": 455,
+              "valid_low_stock_days": 455,
+              "valid_high_stock_days": 455,
+              "source_ohlc_consistent_stock_days": 455,
+              "mean_constituent_open_to_low": -0.040675463833235365,
+              "median_constituent_open_to_low": -0.03154528274458501,
+              "p05_constituent_open_to_low": -0.11540275322464477,
+              "worst_constituent_open_to_low": -0.21963499056010072,
+              "mean_constituent_open_to_high": 0.0454456504648912,
+              "daily_mean_constituent_open_to_low_including_cash": -0.04067546383323536,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 198,
+              "largest_absolute_ticker_contribution_fraction": 0.05347590596561868,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.0013156915579489912,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "BVC",
+                  "daily_mean_return_contribution": 0.0009590003375724485,
+                  "selected_stock_days": 17
+                },
+                {
+                  "ticker": "SLS",
+                  "daily_mean_return_contribution": 0.0006800222550376299,
+                  "selected_stock_days": 8
+                },
+                {
+                  "ticker": "PLBL",
+                  "daily_mean_return_contribution": 0.0006790823357523105,
+                  "selected_stock_days": 6
+                },
+                {
+                  "ticker": "LBTYB",
+                  "daily_mean_return_contribution": 0.0005943142508728169,
+                  "selected_stock_days": 8
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "MXL",
+                  "daily_mean_return_contribution": -0.0005882537946137348,
+                  "selected_stock_days": 10
+                },
+                {
+                  "ticker": "CBRS",
+                  "daily_mean_return_contribution": -0.0005551601122582837,
+                  "selected_stock_days": 9
+                },
+                {
+                  "ticker": "KEEL",
+                  "daily_mean_return_contribution": -0.0004288184933346225,
+                  "selected_stock_days": 4
+                },
+                {
+                  "ticker": "GLXY",
+                  "daily_mean_return_contribution": -0.0004167832206339597,
+                  "selected_stock_days": 4
+                },
+                {
+                  "ticker": "COHU",
+                  "daily_mean_return_contribution": -0.0003698554478450493,
+                  "selected_stock_days": 1
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-07-10",
+                  "ticker": "PLBL",
+                  "label_day_session_return": 0.29712460063897755,
+                  "score": 0.014310888380748787
+                },
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.021078470581609516
+                },
+                {
+                  "date": "2026-07-24",
+                  "ticker": "QH",
+                  "label_day_session_return": 0.21444695259593685,
+                  "score": 0.005731214808416841
+                },
+                {
+                  "date": "2026-07-06",
+                  "ticker": "TDTH",
+                  "label_day_session_return": 0.21333333333333337,
+                  "score": 0.017833917651362375
+                },
+                {
+                  "date": "2026-08-03",
+                  "ticker": "AXTI",
+                  "label_day_session_return": 0.20706626823694851,
+                  "score": 0.01676668328165009
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010185383581614674
+                },
+                {
+                  "date": "2026-07-31",
+                  "ticker": "COHU",
+                  "label_day_session_return": -0.16828422876949742,
+                  "score": 0.007959361145051667
+                },
+                {
+                  "date": "2026-10-06",
+                  "ticker": "ALMR",
+                  "label_day_session_return": -0.16726897263810026,
+                  "score": 0.0024591491836460267
+                },
+                {
+                  "date": "2026-07-13",
+                  "ticker": "RGC",
+                  "label_day_session_return": -0.15692821368948254,
+                  "score": 0.012461059068103634
+                },
+                {
+                  "date": "2026-11-05",
+                  "ticker": "MXL",
+                  "label_day_session_return": -0.15082407052510535,
+                  "score": 0.030049260154868727
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          },
+          "top20": {
+            "mrcy_selected_days": 1,
+            "mrcy_mean_open_to_close": -0.07284393281751272,
+            "intraday_excursion": {
+              "selected_stock_days": 1820,
+              "valid_low_stock_days": 1820,
+              "valid_high_stock_days": 1820,
+              "source_ohlc_consistent_stock_days": 1820,
+              "mean_constituent_open_to_low": -0.03841543628967051,
+              "median_constituent_open_to_low": -0.02878151457095185,
+              "p05_constituent_open_to_low": -0.1049234699820758,
+              "worst_constituent_open_to_low": -0.23076923076923084,
+              "mean_constituent_open_to_high": 0.037877430028850585,
+              "daily_mean_constituent_open_to_low_including_cash": -0.0384154362896705,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 493,
+              "largest_absolute_ticker_contribution_fraction": 0.02336981239578077,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.00038626961341782674,
+                  "selected_stock_days": 29
+                },
+                {
+                  "ticker": "LBTYB",
+                  "daily_mean_return_contribution": 0.00018123469259655634,
+                  "selected_stock_days": 12
+                },
+                {
+                  "ticker": "BVC",
+                  "daily_mean_return_contribution": 0.0001604669087813915,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "PLBL",
+                  "daily_mean_return_contribution": 0.00015958944372543047,
+                  "selected_stock_days": 11
+                },
+                {
+                  "ticker": "QH",
+                  "daily_mean_return_contribution": 0.00014953896757476624,
+                  "selected_stock_days": 12
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "BE",
+                  "daily_mean_return_contribution": -0.0002595568960826272,
+                  "selected_stock_days": 18
+                },
+                {
+                  "ticker": "SNDK",
+                  "daily_mean_return_contribution": -0.00024061962343378102,
+                  "selected_stock_days": 26
+                },
+                {
+                  "ticker": "NBIS",
+                  "daily_mean_return_contribution": -0.000234259785541309,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "MXL",
+                  "daily_mean_return_contribution": -0.00020829186247522507,
+                  "selected_stock_days": 27
+                },
+                {
+                  "ticker": "FRMI",
+                  "daily_mean_return_contribution": -0.00020519537524125149,
+                  "selected_stock_days": 17
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-07-10",
+                  "ticker": "PLBL",
+                  "label_day_session_return": 0.29712460063897755,
+                  "score": 0.014310888380748787
+                },
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.021078470581609516
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "FSLY",
+                  "label_day_session_return": 0.23608017817371943,
+                  "score": 0.005755619220609323
+                },
+                {
+                  "date": "2026-08-13",
+                  "ticker": "LUNR",
+                  "label_day_session_return": 0.22883135059482154,
+                  "score": 0.008069135397605185
+                },
+                {
+                  "date": "2026-08-03",
+                  "ticker": "AAOI",
+                  "label_day_session_return": 0.22728285077951,
+                  "score": 0.008959107792296894
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010185383581614674
+                },
+                {
+                  "date": "2026-07-01",
+                  "ticker": "CHRN",
+                  "label_day_session_return": -0.1956224350205198,
+                  "score": 0.015465348984895187
+                },
+                {
+                  "date": "2026-08-26",
+                  "ticker": "GENB",
+                  "label_day_session_return": -0.19299999999999998,
+                  "score": 0.013854912804061556
+                },
+                {
+                  "date": "2026-07-28",
+                  "ticker": "SHAZ",
+                  "label_day_session_return": -0.18691250903832254,
+                  "score": 0.018028899759255885
+                },
+                {
+                  "date": "2026-07-31",
+                  "ticker": "COHU",
+                  "label_day_session_return": -0.16828422876949742,
+                  "score": 0.007959361145051667
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          },
+          "gate": {
+            "mrcy_selected_days": 13,
+            "mrcy_mean_open_to_close": -0.008788750709312142,
+            "intraday_excursion": {
+              "selected_stock_days": 17044,
+              "valid_low_stock_days": 17044,
+              "valid_high_stock_days": 17044,
+              "source_ohlc_consistent_stock_days": 17044,
+              "mean_constituent_open_to_low": -0.023850395824001603,
+              "median_constituent_open_to_low": -0.01625628705839005,
+              "p05_constituent_open_to_low": -0.0733772958410833,
+              "worst_constituent_open_to_low": -0.2618837380426784,
+              "mean_constituent_open_to_high": 0.02267277589838013,
+              "daily_mean_constituent_open_to_low_including_cash": -0.029817710626706462,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 1784,
+              "largest_absolute_ticker_contribution_fraction": 0.06867244902694551,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "LBTYB",
+                  "daily_mean_return_contribution": 0.0010079692193291979,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "BVC",
+                  "daily_mean_return_contribution": 0.0009373602274957073,
+                  "selected_stock_days": 28
+                },
+                {
+                  "ticker": "ACN",
+                  "daily_mean_return_contribution": 0.0006902857144367174,
+                  "selected_stock_days": 11
+                },
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.0003920310305600839,
+                  "selected_stock_days": 37
+                },
+                {
+                  "ticker": "KOD",
+                  "daily_mean_return_contribution": 0.0002519961526617274,
+                  "selected_stock_days": 12
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "AADX",
+                  "daily_mean_return_contribution": -0.0006321608936046217,
+                  "selected_stock_days": 20
+                },
+                {
+                  "ticker": "PS",
+                  "daily_mean_return_contribution": -0.0005152851008567557,
+                  "selected_stock_days": 17
+                },
+                {
+                  "ticker": "XE",
+                  "daily_mean_return_contribution": -0.0002759980377522843,
+                  "selected_stock_days": 26
+                },
+                {
+                  "ticker": "FIX",
+                  "daily_mean_return_contribution": -0.00026241089107017314,
+                  "selected_stock_days": 18
+                },
+                {
+                  "ticker": "AAOI",
+                  "daily_mean_return_contribution": -0.00021052831660932995,
+                  "selected_stock_days": 32
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-07-10",
+                  "ticker": "PLBL",
+                  "label_day_session_return": 0.29712460063897755,
+                  "score": 0.014310888380748787
+                },
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.021078470581609516
+                },
+                {
+                  "date": "2026-08-04",
+                  "ticker": "ADEA",
+                  "label_day_session_return": 0.2594834543987086,
+                  "score": 0.010224057371182864
+                },
+                {
+                  "date": "2026-07-30",
+                  "ticker": "FRVO",
+                  "label_day_session_return": 0.2556306306306306,
+                  "score": 0.009959285908056784
+                },
+                {
+                  "date": "2026-07-16",
+                  "ticker": "MAAS",
+                  "label_day_session_return": 0.24111374407582942,
+                  "score": 0.015388275935101727
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-11-06",
+                  "ticker": "OPEN",
+                  "label_day_session_return": -0.2222222222222223,
+                  "score": 0.006884687385869094
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010185383581614674
+                },
+                {
+                  "date": "2026-07-01",
+                  "ticker": "CHRN",
+                  "label_day_session_return": -0.1956224350205198,
+                  "score": 0.015465348984895187
+                },
+                {
+                  "date": "2026-08-26",
+                  "ticker": "GENB",
+                  "label_day_session_return": -0.19299999999999998,
+                  "score": 0.013854912804061556
+                },
+                {
+                  "date": "2026-07-29",
+                  "ticker": "FRVO",
+                  "label_day_session_return": -0.19281663516068062,
+                  "score": 0.007243820200329301
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          }
+        },
+        "feature_diagnostics": {
+          "dip_close_to_low_252d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 378825,
+            "test_distinct_nonmissing": 146016
+          },
+          "dip_open_to_low_252d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 377288,
+            "test_distinct_nonmissing": 145730
+          },
+          "dip_low_age_252d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 252,
+            "test_distinct_nonmissing": 252
+          },
+          "dip_prior_new_low_252d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_open_below_low_252d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_low_history_valid": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 1.0,
+            "test_nonmissing_fraction": 1.0,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_loss_2d_sigma": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9939980062581342,
+            "test_nonmissing_fraction": 0.9969310189387625,
+            "train_distinct_nonmissing": 428743,
+            "test_distinct_nonmissing": 160658
+          },
+          "dip_recovery_fraction": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.479324158428636,
+            "test_nonmissing_fraction": 0.5012195649086407,
+            "train_distinct_nonmissing": 131998,
+            "test_distinct_nonmissing": 62725
+          },
+          "dip_recovery_valid": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 1.0,
+            "test_nonmissing_fraction": 1.0,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_deep_unrecovered": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.45777605479098016,
+            "test_nonmissing_fraction": 0.4754450640040014,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_loss_change_sigma": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9939864684001145,
+            "test_nonmissing_fraction": 0.9969063188899798,
+            "train_distinct_nonmissing": 430670,
+            "test_distinct_nonmissing": 161388
+          },
+          "dip_range_change_1d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9989546700634121,
+            "test_nonmissing_fraction": 0.9993330986828699,
+            "train_distinct_nonmissing": 340678,
+            "test_distinct_nonmissing": 141565
+          },
+          "dip_volume_change_1d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.999300805804004,
+            "test_nonmissing_fraction": 0.9995183490487394,
+            "train_distinct_nonmissing": 433050,
+            "test_distinct_nonmissing": 161865
+          },
+          "dip_pressure_easing": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9987792946215122,
+            "test_nonmissing_fraction": 0.9992404734999352,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_gap_previous_volume_zscore": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9946464338788432,
+            "test_nonmissing_fraction": 0.9973817948290448,
+            "train_distinct_nonmissing": 414301,
+            "test_distinct_nonmissing": 156288
+          },
+          "dip_support_break_depth_20d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 411456,
+            "test_distinct_nonmissing": 157408
+          },
+          "dip_support_close_distance_20d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 392516,
+            "test_distinct_nonmissing": 153397
+          },
+          "dip_support_open_distance_20d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9944341372912802,
+            "test_nonmissing_fraction": 0.9972521195729361,
+            "train_distinct_nonmissing": 390963,
+            "test_distinct_nonmissing": 153009
+          },
+          "dip_support_reclaim_20d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_sma50_slope_10d": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9864245562539805,
+            "test_nonmissing_fraction": 0.9893048788771358,
+            "train_distinct_nonmissing": 427384,
+            "test_distinct_nonmissing": 160198
+          },
+          "dip_trend_pullback": {
+            "included": false,
+            "training_gain": null,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9864245562539805,
+            "test_nonmissing_fraction": 0.9893048788771358,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          }
+        },
+        "fit_error": {
+          "stock_day_mae": 0.017348365178274466,
+          "absolute_error_sum": 2809.446302065302,
+          "scored_stock_days": 161943,
+          "units": "return_fraction",
+          "lower_is_better": true,
+          "population": "Every scored stock-day on the common frozen outer population, including unselected stocks.",
+          "weighting": "Each stock-day has equal weight; this is not an equal-date or selected-trade MAE."
+        }
+      },
+      "all": {
+        "summary": {
+          "days": 91,
+          "gate": {
+            "active_daily_mean": 0.0003330304108157785,
+            "active_days": 75,
+            "cash_days": 16,
+            "cost_sensitivity": {
+              "0": 0.00027447561330970754,
+              "10": -0.0005497002108661169,
+              "25": -0.0017859639471298537,
+              "50": -0.003846403507569414
+            },
+            "daily_mean": 0.00027447561330970754,
+            "daily_q05": -0.04300018914391796,
+            "hit_rate": 0.47711177630137985,
+            "trade_weighted_mean": -0.0008965415558370001,
+            "trades": 13697,
+            "worst_day": -0.13746987951807224,
+            "worst_selected_stock": -0.24999999999999992
+          },
+          "rank_ic": -0.006991510171326282,
+          "rows": 161943,
+          "top20": {
+            "active_daily_mean": -0.004948963842305601,
+            "active_days": 91,
+            "cash_days": 0,
+            "cost_sensitivity": {
+              "0": -0.004948963842305601,
+              "10": -0.005948963842305601,
+              "25": -0.0074489638423056006,
+              "50": -0.009948963842305602
+            },
+            "daily_mean": -0.004948963842305601,
+            "daily_q05": -0.0542820345100105,
+            "hit_rate": 0.45604395604395603,
+            "trade_weighted_mean": -0.004948963842305602,
+            "trades": 1820,
+            "worst_day": -0.12470717338108457,
+            "worst_selected_stock": -0.2192513368983958
+          },
+          "top5": {
+            "active_daily_mean": -0.004026010507784538,
+            "active_days": 91,
+            "cash_days": 0,
+            "cost_sensitivity": {
+              "0": -0.004026010507784538,
+              "10": -0.005026010507784539,
+              "25": -0.006526010507784539,
+              "50": -0.009026010507784536
+            },
+            "daily_mean": -0.004026010507784538,
+            "daily_q05": -0.06216986114333213,
+            "hit_rate": 0.47912087912087914,
+            "trade_weighted_mean": -0.004026010507784537,
+            "trades": 455,
+            "worst_day": -0.13588604197339252,
+            "worst_selected_stock": -0.2192513368983958
+          }
+        },
+        "added_columns": [
+          "dip_close_to_low_252d",
+          "dip_open_to_low_252d",
+          "dip_low_age_252d",
+          "dip_prior_new_low_252d",
+          "dip_open_below_low_252d",
+          "dip_low_history_valid",
+          "dip_loss_2d_sigma",
+          "dip_recovery_fraction",
+          "dip_recovery_valid",
+          "dip_deep_unrecovered",
+          "dip_loss_change_sigma",
+          "dip_range_change_1d",
+          "dip_volume_change_1d",
+          "dip_pressure_easing",
+          "dip_gap_previous_volume_zscore",
+          "dip_support_break_depth_20d",
+          "dip_support_close_distance_20d",
+          "dip_support_open_distance_20d",
+          "dip_support_reclaim_20d",
+          "dip_sma50_slope_10d",
+          "dip_trend_pullback"
+        ],
+        "mrcy_eligible_rows": 91,
+        "policies": {
+          "top5": {
+            "mrcy_selected_days": 0,
+            "mrcy_mean_open_to_close": null,
+            "intraday_excursion": {
+              "selected_stock_days": 455,
+              "valid_low_stock_days": 455,
+              "valid_high_stock_days": 455,
+              "source_ohlc_consistent_stock_days": 455,
+              "mean_constituent_open_to_low": -0.04366638115005592,
+              "median_constituent_open_to_low": -0.03310014426872099,
+              "p05_constituent_open_to_low": -0.12197818962117797,
+              "worst_constituent_open_to_low": -0.22459893048128354,
+              "mean_constituent_open_to_high": 0.04356291183965412,
+              "daily_mean_constituent_open_to_low_including_cash": -0.04366638115005592,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 196,
+              "largest_absolute_ticker_contribution_fraction": 0.030011529748732082,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "BVC",
+                  "daily_mean_return_contribution": 0.0007775152307039519,
+                  "selected_stock_days": 17
+                },
+                {
+                  "ticker": "XMTR",
+                  "daily_mean_return_contribution": 0.0005879996996170119,
+                  "selected_stock_days": 1
+                },
+                {
+                  "ticker": "SHAZ",
+                  "daily_mean_return_contribution": 0.0005864369024788214,
+                  "selected_stock_days": 11
+                },
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.0005853594301072478,
+                  "selected_stock_days": 19
+                },
+                {
+                  "ticker": "LBTYB",
+                  "daily_mean_return_contribution": 0.0004483877396291846,
+                  "selected_stock_days": 12
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "FRMI",
+                  "daily_mean_return_contribution": -0.0007701928478647172,
+                  "selected_stock_days": 5
+                },
+                {
+                  "ticker": "BTDR",
+                  "daily_mean_return_contribution": -0.0007251746457573803,
+                  "selected_stock_days": 4
+                },
+                {
+                  "ticker": "SNDK",
+                  "daily_mean_return_contribution": -0.0006819214026726513,
+                  "selected_stock_days": 12
+                },
+                {
+                  "ticker": "AAOI",
+                  "daily_mean_return_contribution": -0.0006629045400439899,
+                  "selected_stock_days": 7
+                },
+                {
+                  "ticker": "IOVA",
+                  "daily_mean_return_contribution": -0.0005197022510736419,
+                  "selected_stock_days": 3
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.014207411987043284
+                },
+                {
+                  "date": "2026-11-03",
+                  "ticker": "XMTR",
+                  "label_day_session_return": 0.2675398633257404,
+                  "score": 0.010725315106026635
+                },
+                {
+                  "date": "2026-07-06",
+                  "ticker": "TDTH",
+                  "label_day_session_return": 0.21333333333333337,
+                  "score": 0.024776317465945975
+                },
+                {
+                  "date": "2026-08-03",
+                  "ticker": "AXTI",
+                  "label_day_session_return": 0.20706626823694851,
+                  "score": 0.020321824531181434
+                },
+                {
+                  "date": "2026-09-08",
+                  "ticker": "DYN",
+                  "label_day_session_return": 0.18911007025761128,
+                  "score": 0.003800633540966242
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-09-25",
+                  "ticker": "TDTH",
+                  "label_day_session_return": -0.2192513368983958,
+                  "score": 0.002100931498411407
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010202296006382734
+                },
+                {
+                  "date": "2026-11-05",
+                  "ticker": "AXTI",
+                  "label_day_session_return": -0.16583371194911412,
+                  "score": 0.02972972634435894
+                },
+                {
+                  "date": "2026-11-05",
+                  "ticker": "SNDK",
+                  "label_day_session_return": -0.16193122770844948,
+                  "score": 0.03135282146860812
+                },
+                {
+                  "date": "2026-10-01",
+                  "ticker": "NKTR",
+                  "label_day_session_return": -0.15188159913365218,
+                  "score": 0.0017881812310312998
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          },
+          "top20": {
+            "mrcy_selected_days": 2,
+            "mrcy_mean_open_to_close": 0.0026248164464022917,
+            "intraday_excursion": {
+              "selected_stock_days": 1820,
+              "valid_low_stock_days": 1820,
+              "valid_high_stock_days": 1820,
+              "source_ohlc_consistent_stock_days": 1820,
+              "mean_constituent_open_to_low": -0.03940210153476999,
+              "median_constituent_open_to_low": -0.029758662451527862,
+              "p05_constituent_open_to_low": -0.1049123839745392,
+              "worst_constituent_open_to_low": -0.22459893048128354,
+              "mean_constituent_open_to_high": 0.03704577712144739,
+              "daily_mean_constituent_open_to_low_including_cash": -0.039402101534769994,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 519,
+              "largest_absolute_ticker_contribution_fraction": 0.023139961447374846,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "BVC",
+                  "daily_mean_return_contribution": 0.00020530088713823793,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "XMTR",
+                  "daily_mean_return_contribution": 0.00018637672181516879,
+                  "selected_stock_days": 3
+                },
+                {
+                  "ticker": "COAG",
+                  "daily_mean_return_contribution": 0.0001805389472693557,
+                  "selected_stock_days": 8
+                },
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.0001710537705500695,
+                  "selected_stock_days": 29
+                },
+                {
+                  "ticker": "RIOT",
+                  "daily_mean_return_contribution": 0.00016575021197097814,
+                  "selected_stock_days": 8
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "FRMI",
+                  "daily_mean_return_contribution": -0.00039305644181710154,
+                  "selected_stock_days": 15
+                },
+                {
+                  "ticker": "MXL",
+                  "daily_mean_return_contribution": -0.00035063913038700775,
+                  "selected_stock_days": 29
+                },
+                {
+                  "ticker": "SNDK",
+                  "daily_mean_return_contribution": -0.00028140789822155037,
+                  "selected_stock_days": 25
+                },
+                {
+                  "ticker": "BTDR",
+                  "daily_mean_return_contribution": -0.00024082495209279016,
+                  "selected_stock_days": 15
+                },
+                {
+                  "ticker": "TTMI",
+                  "daily_mean_return_contribution": -0.00023207900614516028,
+                  "selected_stock_days": 10
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.014207411987043284
+                },
+                {
+                  "date": "2026-11-03",
+                  "ticker": "XMTR",
+                  "label_day_session_return": 0.2675398633257404,
+                  "score": 0.010725315106026635
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "FSLY",
+                  "label_day_session_return": 0.23608017817371943,
+                  "score": 0.007103657436399092
+                },
+                {
+                  "date": "2026-08-13",
+                  "ticker": "LUNR",
+                  "label_day_session_return": 0.22883135059482154,
+                  "score": 0.007056335392512556
+                },
+                {
+                  "date": "2026-08-03",
+                  "ticker": "AAOI",
+                  "label_day_session_return": 0.22728285077951,
+                  "score": 0.012430643315173759
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-09-25",
+                  "ticker": "TDTH",
+                  "label_day_session_return": -0.2192513368983958,
+                  "score": 0.002100931498411407
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010202296006382734
+                },
+                {
+                  "date": "2026-07-29",
+                  "ticker": "FRVO",
+                  "label_day_session_return": -0.19281663516068062,
+                  "score": 0.007771466235657549
+                },
+                {
+                  "date": "2026-07-28",
+                  "ticker": "SHAZ",
+                  "label_day_session_return": -0.18691250903832254,
+                  "score": 0.012948409636070673
+                },
+                {
+                  "date": "2026-11-05",
+                  "ticker": "AAOI",
+                  "label_day_session_return": -0.17359887204793797,
+                  "score": 0.027244469792697342
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          },
+          "gate": {
+            "mrcy_selected_days": 9,
+            "mrcy_mean_open_to_close": 0.012586639013973992,
+            "intraday_excursion": {
+              "selected_stock_days": 13697,
+              "valid_low_stock_days": 13697,
+              "valid_high_stock_days": 13697,
+              "source_ohlc_consistent_stock_days": 13697,
+              "mean_constituent_open_to_low": -0.025630018688190728,
+              "median_constituent_open_to_low": -0.017375565610859733,
+              "p05_constituent_open_to_low": -0.07886032307991726,
+              "worst_constituent_open_to_low": -0.28378378378378377,
+              "mean_constituent_open_to_high": 0.02414814228132445,
+              "daily_mean_constituent_open_to_low_including_cash": -0.028957428428132842,
+              "not_portfolio_drawdown": "Constituent intraday lows occur at different times; these are not portfolio maximum drawdown or a realizable exit strategy."
+            },
+            "return_concentration": {
+              "unique_tickers": 1784,
+              "largest_absolute_ticker_contribution_fraction": 0.09341593687029774,
+              "largest_positive_contributors": [
+                {
+                  "ticker": "LBTYB",
+                  "daily_mean_return_contribution": 0.0010752007028520757,
+                  "selected_stock_days": 21
+                },
+                {
+                  "ticker": "TDTH",
+                  "daily_mean_return_contribution": 0.0009529391621592311,
+                  "selected_stock_days": 34
+                },
+                {
+                  "ticker": "KOD",
+                  "daily_mean_return_contribution": 0.000471489492878249,
+                  "selected_stock_days": 15
+                },
+                {
+                  "ticker": "LIFE",
+                  "daily_mean_return_contribution": 0.00044231947133698793,
+                  "selected_stock_days": 16
+                },
+                {
+                  "ticker": "COTY",
+                  "daily_mean_return_contribution": 0.00043246765871735607,
+                  "selected_stock_days": 9
+                }
+              ],
+              "largest_negative_contributors": [
+                {
+                  "ticker": "MXL",
+                  "daily_mean_return_contribution": -0.0014983655754616993,
+                  "selected_stock_days": 31
+                },
+                {
+                  "ticker": "INIO",
+                  "daily_mean_return_contribution": -0.0005016602744414857,
+                  "selected_stock_days": 20
+                },
+                {
+                  "ticker": "DKS",
+                  "daily_mean_return_contribution": -0.0004643648951274046,
+                  "selected_stock_days": 7
+                },
+                {
+                  "ticker": "FRVO",
+                  "daily_mean_return_contribution": -0.0004097642491836291,
+                  "selected_stock_days": 23
+                },
+                {
+                  "ticker": "XNDU",
+                  "daily_mean_return_contribution": -0.00032255469036395314,
+                  "selected_stock_days": 23
+                }
+              ],
+              "highest_return_selected_stock_days": [
+                {
+                  "date": "2026-09-28",
+                  "ticker": "KOD",
+                  "label_day_session_return": 0.45725630013775226,
+                  "score": 0.005315681518491861
+                },
+                {
+                  "date": "2026-07-01",
+                  "ticker": "RGC",
+                  "label_day_session_return": 0.31855500821018057,
+                  "score": 0.005961166408238429
+                },
+                {
+                  "date": "2026-07-13",
+                  "ticker": "BVC",
+                  "label_day_session_return": 0.2910694597574422,
+                  "score": 0.014207411987043284
+                },
+                {
+                  "date": "2026-11-03",
+                  "ticker": "XMTR",
+                  "label_day_session_return": 0.2675398633257404,
+                  "score": 0.010725315106026635
+                },
+                {
+                  "date": "2026-08-04",
+                  "ticker": "ADEA",
+                  "label_day_session_return": 0.2594834543987086,
+                  "score": 0.00858977130099194
+                }
+              ],
+              "lowest_return_selected_stock_days": [
+                {
+                  "date": "2026-09-28",
+                  "ticker": "TDTH",
+                  "label_day_session_return": -0.24999999999999992,
+                  "score": 0.006561405577571213
+                },
+                {
+                  "date": "2026-11-06",
+                  "ticker": "OPEN",
+                  "label_day_session_return": -0.2222222222222223,
+                  "score": 0.008025936268639691
+                },
+                {
+                  "date": "2026-08-10",
+                  "ticker": "BTDR",
+                  "label_day_session_return": -0.21828643351613766,
+                  "score": 0.010202296006382734
+                },
+                {
+                  "date": "2026-07-02",
+                  "ticker": "RGC",
+                  "label_day_session_return": -0.21260815822002468,
+                  "score": 0.005975768230542783
+                },
+                {
+                  "date": "2026-07-01",
+                  "ticker": "CHRN",
+                  "label_day_session_return": -0.1956224350205198,
+                  "score": 0.010081157568477743
+                }
+              ],
+              "interpretation": "Contributions sum to the gross equal-date portfolio mean; concentration is descriptive and changes no selections."
+            }
+          }
+        },
+        "feature_diagnostics": {
+          "dip_close_to_low_252d": {
+            "included": true,
+            "training_gain": 0.998644795268774,
+            "fraction_of_total_training_gain": 0.0035568570120339876,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 378825,
+            "test_distinct_nonmissing": 146016
+          },
+          "dip_open_to_low_252d": {
+            "included": true,
+            "training_gain": 2.4737140238285065,
+            "fraction_of_total_training_gain": 0.008810587220907887,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 377288,
+            "test_distinct_nonmissing": 145730
+          },
+          "dip_low_age_252d": {
+            "included": true,
+            "training_gain": 2.260511069558561,
+            "fraction_of_total_training_gain": 0.008051225707711074,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 252,
+            "test_distinct_nonmissing": 252
+          },
+          "dip_prior_new_low_252d": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_open_below_low_252d": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9559484580806542,
+            "test_nonmissing_fraction": 0.9503467269347857,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_low_history_valid": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 1.0,
+            "test_nonmissing_fraction": 1.0,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_loss_2d_sigma": {
+            "included": true,
+            "training_gain": 0.25012390688061714,
+            "fraction_of_total_training_gain": 0.0008908622728326729,
+            "train_nonmissing_fraction": 0.9939980062581342,
+            "test_nonmissing_fraction": 0.9969310189387625,
+            "train_distinct_nonmissing": 428743,
+            "test_distinct_nonmissing": 160658
+          },
+          "dip_recovery_fraction": {
+            "included": true,
+            "training_gain": 0.056992918252944946,
+            "fraction_of_total_training_gain": 0.0002029907549557783,
+            "train_nonmissing_fraction": 0.479324158428636,
+            "test_nonmissing_fraction": 0.5012195649086407,
+            "train_distinct_nonmissing": 131998,
+            "test_distinct_nonmissing": 62725
+          },
+          "dip_recovery_valid": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 1.0,
+            "test_nonmissing_fraction": 1.0,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_deep_unrecovered": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.45777605479098016,
+            "test_nonmissing_fraction": 0.4754450640040014,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_loss_change_sigma": {
+            "included": true,
+            "training_gain": 0.06853230111300945,
+            "fraction_of_total_training_gain": 0.00024409038821358617,
+            "train_nonmissing_fraction": 0.9939864684001145,
+            "test_nonmissing_fraction": 0.9969063188899798,
+            "train_distinct_nonmissing": 430670,
+            "test_distinct_nonmissing": 161388
+          },
+          "dip_range_change_1d": {
+            "included": true,
+            "training_gain": 0.19139809906482697,
+            "fraction_of_total_training_gain": 0.0006816995131542066,
+            "train_nonmissing_fraction": 0.9989546700634121,
+            "test_nonmissing_fraction": 0.9993330986828699,
+            "train_distinct_nonmissing": 340678,
+            "test_distinct_nonmissing": 141565
+          },
+          "dip_volume_change_1d": {
+            "included": true,
+            "training_gain": 0.20955488085746765,
+            "fraction_of_total_training_gain": 0.0007463682291391968,
+            "train_nonmissing_fraction": 0.999300805804004,
+            "test_nonmissing_fraction": 0.9995183490487394,
+            "train_distinct_nonmissing": 433050,
+            "test_distinct_nonmissing": 161865
+          },
+          "dip_pressure_easing": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9987792946215122,
+            "test_nonmissing_fraction": 0.9992404734999352,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_gap_previous_volume_zscore": {
+            "included": true,
+            "training_gain": 0.36501574516296387,
+            "fraction_of_total_training_gain": 0.0013000706746148654,
+            "train_nonmissing_fraction": 0.9946464338788432,
+            "test_nonmissing_fraction": 0.9973817948290448,
+            "train_distinct_nonmissing": 414301,
+            "test_distinct_nonmissing": 156288
+          },
+          "dip_support_break_depth_20d": {
+            "included": true,
+            "training_gain": 0.4904776783660054,
+            "fraction_of_total_training_gain": 0.001746926412481576,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 411456,
+            "test_distinct_nonmissing": 157408
+          },
+          "dip_support_close_distance_20d": {
+            "included": true,
+            "training_gain": 0.824920913670212,
+            "fraction_of_total_training_gain": 0.0029381074733100575,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 392516,
+            "test_distinct_nonmissing": 153397
+          },
+          "dip_support_open_distance_20d": {
+            "included": true,
+            "training_gain": 0.8630403494462371,
+            "fraction_of_total_training_gain": 0.0030738768510478577,
+            "train_nonmissing_fraction": 0.9944341372912802,
+            "test_nonmissing_fraction": 0.9972521195729361,
+            "train_distinct_nonmissing": 390963,
+            "test_distinct_nonmissing": 153009
+          },
+          "dip_support_reclaim_20d": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9944225994332604,
+            "test_nonmissing_fraction": 0.9972274195241536,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          },
+          "dip_sma50_slope_10d": {
+            "included": true,
+            "training_gain": 0.18226559925824404,
+            "fraction_of_total_training_gain": 0.0006491724363313599,
+            "train_nonmissing_fraction": 0.9864245562539805,
+            "test_nonmissing_fraction": 0.9893048788771358,
+            "train_distinct_nonmissing": 427384,
+            "test_distinct_nonmissing": 160198
+          },
+          "dip_trend_pullback": {
+            "included": true,
+            "training_gain": 0.0,
+            "fraction_of_total_training_gain": 0.0,
+            "train_nonmissing_fraction": 0.9864245562539805,
+            "test_nonmissing_fraction": 0.9893048788771358,
+            "train_distinct_nonmissing": 2,
+            "test_distinct_nonmissing": 2
+          }
+        },
+        "fit_error": {
+          "stock_day_mae": 0.017316344806990756,
+          "absolute_error_sum": 2804.260827078504,
+          "scored_stock_days": 161943,
+          "units": "return_fraction",
+          "lower_is_better": true,
+          "population": "Every scored stock-day on the common frozen outer population, including unselected stocks.",
+          "weighting": "Each stock-day has equal weight; this is not an equal-date or selected-trade MAE.",
+          "mae_delta_vs_baseline": -3.20203712837093e-05
+        },
+        "paired_net_baseline": {
+          "top5_mean": {
+            "0": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          },
+          "top20_mean": {
+            "0": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          },
+          "gate_mean": {
+            "0": {
+              "mean": -0.0005279926717435834,
+              "ci95": [
+                -0.005070480782465935,
+                0.004099707194235551
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.0004950256387765504,
+              "ci95": [
+                -0.005052347821000086,
+                0.004110421479949839
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.0004455750893260009,
+              "ci95": [
+                -0.004912044641589066,
+                0.004145958965710701
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.0003631575069084184,
+              "ci95": [
+                -0.004911262005411744,
+                0.0042062693283370645
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        },
+        "paired_rank_ic": {
+          "mean": 0.0017777590565868796,
+          "ci95": [
+            -0.004946655014257138,
+            0.008369733306450357
+          ],
+          "days": 91,
+          "weeks": 19,
+          "cost_roundtrip_bps": 0,
+          "pointwise_exploratory": true,
+          "cash_days_included": true
+        }
+      }
+    }
   },
   "pooled_outer": {
     "rank/baseline": {
@@ -29644,6 +31199,410 @@
           }
         }
       }
+    },
+    "fit/baseline": {
+      "days": 91,
+      "rank_ic": -0.00876926922791316,
+      "paired_rank_ic": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "days": 91,
+        "weeks": 19,
+        "cost_roundtrip_bps": 0,
+        "pointwise_exploratory": true,
+        "cash_days_included": true
+      },
+      "policies": {
+        "top5": {
+          "daily_mean": 0.0007320952217748985,
+          "cost_daily_mean": {
+            "0": 0.0007320952217748985,
+            "10": -0.00026790477822510183,
+            "25": -0.0017679047782251025,
+            "50": -0.004267904778225103
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        },
+        "top20": {
+          "daily_mean": -0.0030869446373225687,
+          "cost_daily_mean": {
+            "0": -0.0030869446373225687,
+            "10": -0.004086944637322569,
+            "25": -0.005586944637322567,
+            "50": -0.008086944637322568
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        },
+        "gate": {
+          "daily_mean": 0.0008024682850532912,
+          "cost_daily_mean": {
+            "0": 0.0008024682850532912,
+            "10": -5.467457208956684e-05,
+            "25": -0.0013403888578038523,
+            "50": -0.003483246000660996
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        }
+      },
+      "fit_error": {
+        "stock_day_mae": 0.017348365178274466,
+        "scored_stock_days": 161943,
+        "mae_delta_vs_baseline": 0.0,
+        "units": "return_fraction",
+        "weighting": "Every scored stock-day equally; no selection/gate filter; lower is better."
+      }
+    },
+    "fit/all": {
+      "days": 91,
+      "rank_ic": -0.006991510171326282,
+      "paired_rank_ic": {
+        "mean": 0.0017777590565868796,
+        "ci95": [
+          -0.004946655014257138,
+          0.008369733306450357
+        ],
+        "days": 91,
+        "weeks": 19,
+        "cost_roundtrip_bps": 0,
+        "pointwise_exploratory": true,
+        "cash_days_included": true
+      },
+      "policies": {
+        "top5": {
+          "daily_mean": -0.004026010507784536,
+          "cost_daily_mean": {
+            "0": -0.004026010507784536,
+            "10": -0.005026010507784537,
+            "25": -0.006526010507784537,
+            "50": -0.009026010507784538
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.004758105729559435,
+              "ci95": [
+                -0.011139817143761898,
+                0.001438810344559175
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        },
+        "top20": {
+          "daily_mean": -0.0049489638423056,
+          "cost_daily_mean": {
+            "0": -0.0049489638423056,
+            "10": -0.0059489638423056,
+            "25": -0.0074489638423056006,
+            "50": -0.009948963842305598
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.0018620192049830322,
+              "ci95": [
+                -0.004570613091631343,
+                0.0007125456008501558
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        },
+        "gate": {
+          "daily_mean": 0.0002744756133097077,
+          "cost_daily_mean": {
+            "0": 0.0002744756133097077,
+            "10": -0.0005497002108661165,
+            "25": -0.0017859639471298533,
+            "50": -0.003846403507569414
+          },
+          "paired_net_baseline": {
+            "0": {
+              "mean": -0.0005279926717435834,
+              "ci95": [
+                -0.005070480782465935,
+                0.004099707194235551
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 0,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "10": {
+              "mean": -0.0004950256387765504,
+              "ci95": [
+                -0.005052347821000086,
+                0.004110421479949839
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 10,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "25": {
+              "mean": -0.0004455750893260009,
+              "ci95": [
+                -0.004912044641589066,
+                0.004145958965710701
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 25,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            },
+            "50": {
+              "mean": -0.0003631575069084184,
+              "ci95": [
+                -0.004911262005411744,
+                0.0042062693283370645
+              ],
+              "days": 91,
+              "weeks": 19,
+              "cost_roundtrip_bps": 50,
+              "pointwise_exploratory": true,
+              "cash_days_included": true
+            }
+          }
+        }
+      },
+      "fit_error": {
+        "stock_day_mae": 0.017316344806990756,
+        "scored_stock_days": 161943,
+        "mae_delta_vs_baseline": -3.20203712837093e-05,
+        "units": "return_fraction",
+        "weighting": "Every scored stock-day equally; no selection/gate filter; lower is better."
+      }
     }
   },
   "features": {
@@ -29677,6 +31636,16 @@
           "train_nonmissing_fraction": 0.9559720670647891,
           "test_nonmissing_fraction": 0.9503467269347857,
           "train_distinct_nonmissing": 380266,
+          "test_distinct_nonmissing": 146016
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.998644795268774,
+          "fraction_of_total_training_gain": 0.0035568570120339876,
+          "train_nonmissing_fraction": 0.9559484580806542,
+          "test_nonmissing_fraction": 0.9503467269347857,
+          "train_distinct_nonmissing": 378825,
           "test_distinct_nonmissing": 146016
         }
       ],
@@ -29713,6 +31682,16 @@
           "test_nonmissing_fraction": 0.9503467269347857,
           "train_distinct_nonmissing": 378677,
           "test_distinct_nonmissing": 145730
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 2.4737140238285065,
+          "fraction_of_total_training_gain": 0.008810587220907887,
+          "train_nonmissing_fraction": 0.9559484580806542,
+          "test_nonmissing_fraction": 0.9503467269347857,
+          "train_distinct_nonmissing": 377288,
+          "test_distinct_nonmissing": 145730
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -29745,6 +31724,16 @@
           "training_gain": 1740.470106124878,
           "fraction_of_total_training_gain": 0.012938113772496315,
           "train_nonmissing_fraction": 0.9559720670647891,
+          "test_nonmissing_fraction": 0.9503467269347857,
+          "train_distinct_nonmissing": 252,
+          "test_distinct_nonmissing": 252
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 2.260511069558561,
+          "fraction_of_total_training_gain": 0.008051225707711074,
+          "train_nonmissing_fraction": 0.9559484580806542,
           "test_nonmissing_fraction": 0.9503467269347857,
           "train_distinct_nonmissing": 252,
           "test_distinct_nonmissing": 252
@@ -29783,6 +31772,16 @@
           "test_nonmissing_fraction": 0.9503467269347857,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.9559484580806542,
+          "test_nonmissing_fraction": 0.9503467269347857,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -29818,6 +31817,16 @@
           "test_nonmissing_fraction": 0.9503467269347857,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.9559484580806542,
+          "test_nonmissing_fraction": 0.9503467269347857,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -29846,6 +31855,16 @@
         },
         {
           "block": "rank_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 1.0,
+          "test_nonmissing_fraction": 1.0,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
           "included": true,
           "training_gain": 0.0,
           "fraction_of_total_training_gain": 0.0,
@@ -29888,6 +31907,16 @@
           "test_nonmissing_fraction": 0.9969310189387625,
           "train_distinct_nonmissing": 430408,
           "test_distinct_nonmissing": 160658
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.25012390688061714,
+          "fraction_of_total_training_gain": 0.0008908622728326729,
+          "train_nonmissing_fraction": 0.9939980062581342,
+          "test_nonmissing_fraction": 0.9969310189387625,
+          "train_distinct_nonmissing": 428743,
+          "test_distinct_nonmissing": 160658
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -29923,6 +31952,16 @@
           "test_nonmissing_fraction": 0.5012195649086407,
           "train_distinct_nonmissing": 132147,
           "test_distinct_nonmissing": 62725
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.056992918252944946,
+          "fraction_of_total_training_gain": 0.0002029907549557783,
+          "train_nonmissing_fraction": 0.479324158428636,
+          "test_nonmissing_fraction": 0.5012195649086407,
+          "train_distinct_nonmissing": 131998,
+          "test_distinct_nonmissing": 62725
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -29951,6 +31990,16 @@
         },
         {
           "block": "rank_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 1.0,
+          "test_nonmissing_fraction": 1.0,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
           "included": true,
           "training_gain": 0.0,
           "fraction_of_total_training_gain": 0.0,
@@ -29993,6 +32042,16 @@
           "test_nonmissing_fraction": 0.4754450640040014,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.45777605479098016,
+          "test_nonmissing_fraction": 0.4754450640040014,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30027,6 +32086,16 @@
           "train_nonmissing_fraction": 0.9939775929680352,
           "test_nonmissing_fraction": 0.9969063188899798,
           "train_distinct_nonmissing": 432342,
+          "test_distinct_nonmissing": 161388
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.06853230111300945,
+          "fraction_of_total_training_gain": 0.00024409038821358617,
+          "train_nonmissing_fraction": 0.9939864684001145,
+          "test_nonmissing_fraction": 0.9969063188899798,
+          "train_distinct_nonmissing": 430670,
           "test_distinct_nonmissing": 161388
         }
       ],
@@ -30063,6 +32132,16 @@
           "test_nonmissing_fraction": 0.9993330986828699,
           "train_distinct_nonmissing": 341788,
           "test_distinct_nonmissing": 141565
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.19139809906482697,
+          "fraction_of_total_training_gain": 0.0006816995131542066,
+          "train_nonmissing_fraction": 0.9989546700634121,
+          "test_nonmissing_fraction": 0.9993330986828699,
+          "train_distinct_nonmissing": 340678,
+          "test_distinct_nonmissing": 141565
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30098,6 +32177,16 @@
           "test_nonmissing_fraction": 0.9995183490487394,
           "train_distinct_nonmissing": 434734,
           "test_distinct_nonmissing": 161865
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.20955488085746765,
+          "fraction_of_total_training_gain": 0.0007463682291391968,
+          "train_nonmissing_fraction": 0.999300805804004,
+          "test_nonmissing_fraction": 0.9995183490487394,
+          "train_distinct_nonmissing": 433050,
+          "test_distinct_nonmissing": 161865
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30130,6 +32219,16 @@
           "training_gain": 0.0,
           "fraction_of_total_training_gain": 0.0,
           "train_nonmissing_fraction": 0.9987794281931399,
+          "test_nonmissing_fraction": 0.9992404734999352,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.9987792946215122,
           "test_nonmissing_fraction": 0.9992404734999352,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
@@ -30168,6 +32267,16 @@
           "test_nonmissing_fraction": 0.9973817948290448,
           "train_distinct_nonmissing": 415915,
           "test_distinct_nonmissing": 156288
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.36501574516296387,
+          "fraction_of_total_training_gain": 0.0013000706746148654,
+          "train_nonmissing_fraction": 0.9946464338788432,
+          "test_nonmissing_fraction": 0.9973817948290448,
+          "train_distinct_nonmissing": 414301,
+          "test_distinct_nonmissing": 156288
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30202,6 +32311,16 @@
           "train_nonmissing_fraction": 0.9944143324092847,
           "test_nonmissing_fraction": 0.9972274195241536,
           "train_distinct_nonmissing": 413008,
+          "test_distinct_nonmissing": 157408
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.4904776783660054,
+          "fraction_of_total_training_gain": 0.001746926412481576,
+          "train_nonmissing_fraction": 0.9944225994332604,
+          "test_nonmissing_fraction": 0.9972274195241536,
+          "train_distinct_nonmissing": 411456,
           "test_distinct_nonmissing": 157408
         }
       ],
@@ -30238,6 +32357,16 @@
           "test_nonmissing_fraction": 0.9972274195241536,
           "train_distinct_nonmissing": 393920,
           "test_distinct_nonmissing": 153397
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.824920913670212,
+          "fraction_of_total_training_gain": 0.0029381074733100575,
+          "train_nonmissing_fraction": 0.9944225994332604,
+          "test_nonmissing_fraction": 0.9972274195241536,
+          "train_distinct_nonmissing": 392516,
+          "test_distinct_nonmissing": 153397
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30273,6 +32402,16 @@
           "test_nonmissing_fraction": 0.9972521195729361,
           "train_distinct_nonmissing": 392351,
           "test_distinct_nonmissing": 153009
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.8630403494462371,
+          "fraction_of_total_training_gain": 0.0030738768510478577,
+          "train_nonmissing_fraction": 0.9944341372912802,
+          "test_nonmissing_fraction": 0.9972521195729361,
+          "train_distinct_nonmissing": 390963,
+          "test_distinct_nonmissing": 153009
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30305,6 +32444,16 @@
           "training_gain": 0.0,
           "fraction_of_total_training_gain": 0.0,
           "train_nonmissing_fraction": 0.9944143324092847,
+          "test_nonmissing_fraction": 0.9972274195241536,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.9944225994332604,
           "test_nonmissing_fraction": 0.9972274195241536,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
@@ -30343,6 +32492,16 @@
           "test_nonmissing_fraction": 0.9893048788771358,
           "train_distinct_nonmissing": 429049,
           "test_distinct_nonmissing": 160198
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.18226559925824404,
+          "fraction_of_total_training_gain": 0.0006491724363313599,
+          "train_nonmissing_fraction": 0.9864245562539805,
+          "test_nonmissing_fraction": 0.9893048788771358,
+          "train_distinct_nonmissing": 427384,
+          "test_distinct_nonmissing": 160198
         }
       ],
       "pruning_note": "Review with normal pruning only after complete outer evidence. Zero gain means unused in these fits; it does not by itself establish that this feature should be removed. No pruning changes made."
@@ -30375,6 +32534,16 @@
           "training_gain": 219.7831039428711,
           "fraction_of_total_training_gain": 0.0016337992787571751,
           "train_nonmissing_fraction": 0.9864288965203359,
+          "test_nonmissing_fraction": 0.9893048788771358,
+          "train_distinct_nonmissing": 2,
+          "test_distinct_nonmissing": 2
+        },
+        {
+          "block": "fit_outer_2026h2",
+          "included": true,
+          "training_gain": 0.0,
+          "fraction_of_total_training_gain": 0.0,
+          "train_nonmissing_fraction": 0.9864245562539805,
           "test_nonmissing_fraction": 0.9893048788771358,
           "train_distinct_nonmissing": 2,
           "test_distinct_nonmissing": 2
@@ -30433,30 +32602,8 @@
   },
   "frozen_selection_independently_verified": true,
   "svm_source_audit": {
-    "audited_outputs": 21,
-    "missing_outputs": [
-      "svm_all_oof_2025h2_svr_oof_pred",
-      "svm_all_oof_2025h2_svc_direction_margin",
-      "svm_all_oof_2025h2_svc_gate_margin",
-      "svm_all_oof_2025h2_svc_down_gate_margin",
-      "svm_all_oof_2025h2_svc_strong_up_margin",
-      "svm_all_oof_2025h2_svc_top_quintile_margin",
-      "svm_all_oof_2025h2_svc_bottom_quintile_margin",
-      "svm_all_oof_2026h1_svr_oof_pred",
-      "svm_all_oof_2026h1_svc_direction_margin",
-      "svm_all_oof_2026h1_svc_gate_margin",
-      "svm_all_oof_2026h1_svc_down_gate_margin",
-      "svm_all_oof_2026h1_svc_strong_up_margin",
-      "svm_all_oof_2026h1_svc_top_quintile_margin",
-      "svm_all_oof_2026h1_svc_bottom_quintile_margin",
-      "svm_all_outer_2026h2_svr_oof_pred",
-      "svm_all_outer_2026h2_svc_direction_margin",
-      "svm_all_outer_2026h2_svc_gate_margin",
-      "svm_all_outer_2026h2_svc_down_gate_margin",
-      "svm_all_outer_2026h2_svc_strong_up_margin",
-      "svm_all_outer_2026h2_svc_top_quintile_margin",
-      "svm_all_outer_2026h2_svc_bottom_quintile_margin"
-    ],
+    "audited_outputs": 42,
+    "missing_outputs": [],
     "checkpoints": {
       "svm_baseline_oof_2025h2_svr_oof_pred": {
         "input_count": 132,
@@ -30763,16 +32910,325 @@
             "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
           }
         ]
+      },
+      "svm_all_oof_2025h2_svr_oof_pred": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 2478.817783958002,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_direction_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 20.866188917003456,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_gate_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 23.39304949999496,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_down_gate_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 23.392768750003597,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_strong_up_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 27.124293417000445,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_top_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 24.14789520799968,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2025h2_svc_bottom_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 20.643257666000864,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svr_oof_pred": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 2513.779343125003,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_direction_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 23.493283540999983,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_gate_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 20.94180841599882,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_down_gate_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 23.011188709002454,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_strong_up_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 20.594412041995383,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_top_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 18.84587470900442,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_oof_2026h1_svc_bottom_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 22.59306962499977,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svr_oof_pred": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 2793.0927290420004,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_direction_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 32.441203499998664,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_gate_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 26.41135687500355,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_down_gate_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 25.45655437499954,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_strong_up_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 28.927133334000246,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_top_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 27.491874542000005,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_all_outer_2026h2_svc_bottom_quintile_margin": {
+        "input_count": 153,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 27.822827208998206,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
       }
     },
     "convergence_warning_outputs": [
       "svm_baseline_oof_2025h2_svr_oof_pred",
       "svm_baseline_oof_2026h1_svr_oof_pred",
-      "svm_baseline_outer_2026h2_svr_oof_pred"
+      "svm_baseline_outer_2026h2_svr_oof_pred",
+      "svm_all_oof_2025h2_svr_oof_pred",
+      "svm_all_oof_2026h1_svr_oof_pred",
+      "svm_all_outer_2026h2_svr_oof_pred"
     ],
     "svr_max_iter": 10000,
     "svc_max_iter": 10000,
     "convergence_qualification": "Recorded ConvergenceWarnings mean convergence was not established within the unchanged iteration limit; this audit does not refit or suppress warnings."
   },
-  "complete": false
+  "complete": true
 }
