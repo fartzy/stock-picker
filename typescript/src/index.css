@@ -2428,10 +2428,12 @@ details.view-card[open] > summary::before {
 .jev-coverage { border-left: 3px solid #cfa866; padding-left: 12px; font-size: 0.85rem; }
 .jev-evaluation { margin-top: 24px; border-top: 1px solid var(--border, #343957); padding-top: 20px; }
 .jev-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.jev-empty { border: 1px solid var(--border, #343957); padding: 16px; border-radius: 10px; background: #9290ff0a; }
+.jev-empty { border: 1px solid var(--border, #343957); padding: 12px; border-radius: 10px; background: #9290ff0a; }
 .jev-empty p { margin-bottom: 0; }
 .jev-cohort { padding: 12px; margin-block: 12px; }
-.jev-cohort summary, .jev-ledger summary { cursor: pointer; }
+.jev-cohort summary, .jev-ledger summary, .jev-details summary { cursor: pointer; }
+.jev-details { color: var(--muted, #a2a8cc); font-size: 0.8rem; }
+.jev-details p { max-width: 80ch; line-height: 1.55; }
 .jev-target { padding-block: 8px; border-bottom: 1px solid var(--border, #343957); }
 .jev-table-scroll { max-width: 100%; overflow-x: auto; }
 .jev-evaluation-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
