@@ -1,0 +1,25 @@
+{
+  "ticker": "ASTS",
+  "session": "2026-04-17",
+  "date": "2026-04-17",
+  "entry_date": "2026-04-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.577791+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ASTS/2026-04-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-17",
+    "symbol": "ASTS",
+    "open": 89.89,
+    "high": 91.77,
+    "low": 84.91,
+    "close": 85.53,
+    "volume": 20114503.099571,
+    "afterHours": 86.76,
+    "preMarket": 90.42
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

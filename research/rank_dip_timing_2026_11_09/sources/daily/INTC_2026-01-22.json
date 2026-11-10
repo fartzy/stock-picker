@@ -1,0 +1,25 @@
+{
+  "ticker": "INTC",
+  "session": "2026-01-22",
+  "date": "2026-01-22",
+  "entry_date": "2026-01-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.166923+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/INTC/2026-01-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-22",
+    "symbol": "INTC",
+    "open": 54.21,
+    "high": 54.6,
+    "low": 53.08,
+    "close": 54.32,
+    "volume": 190066397.0,
+    "afterHours": 48.26,
+    "preMarket": 55
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

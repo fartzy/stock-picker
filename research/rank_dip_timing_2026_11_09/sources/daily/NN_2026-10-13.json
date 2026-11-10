@@ -1,0 +1,25 @@
+{
+  "ticker": "NN",
+  "session": "2026-10-13",
+  "date": "2026-10-13",
+  "entry_date": "2026-10-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.854078+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NN/2026-10-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-13",
+    "symbol": "NN",
+    "open": 11.62,
+    "high": 11.7,
+    "low": 11.13,
+    "close": 11.31,
+    "volume": 2756026.076747,
+    "afterHours": 11.27,
+    "preMarket": 11.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "USLM",
+  "session": "2026-10-30",
+  "date": "2026-10-30",
+  "entry_date": "2026-10-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.036866+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/USLM/2026-10-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-30",
+    "symbol": "USLM",
+    "open": 112.34,
+    "high": 115.27,
+    "low": 111.34,
+    "close": 111.61,
+    "volume": 112017.581575,
+    "afterHours": 106.4,
+    "preMarket": 113.89
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

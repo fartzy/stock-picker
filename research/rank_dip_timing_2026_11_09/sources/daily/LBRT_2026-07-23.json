@@ -1,0 +1,25 @@
+{
+  "ticker": "LBRT",
+  "session": "2026-07-23",
+  "date": "2026-07-23",
+  "entry_date": "2026-07-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.133322+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LBRT/2026-07-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-23",
+    "symbol": "LBRT",
+    "open": 26,
+    "high": 26,
+    "low": 19.61,
+    "close": 19.62,
+    "volume": 13699752.83913,
+    "afterHours": 19.6919,
+    "preMarket": 25.45
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

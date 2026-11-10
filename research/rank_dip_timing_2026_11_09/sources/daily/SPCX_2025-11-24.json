@@ -1,0 +1,25 @@
+{
+  "ticker": "SPCX",
+  "session": "2025-11-24",
+  "date": "2025-11-24",
+  "entry_date": "2025-11-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.111966+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SPCX/2025-11-24",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-24",
+    "symbol": "SPCX",
+    "open": 25.3,
+    "high": 25.68,
+    "low": 25.3,
+    "close": 25.4896,
+    "volume": 394,
+    "afterHours": 25.68,
+    "preMarket": 25.3
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

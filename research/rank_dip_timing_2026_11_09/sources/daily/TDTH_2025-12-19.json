@@ -1,0 +1,25 @@
+{
+  "ticker": "TDTH",
+  "session": "2025-12-19",
+  "date": "2025-12-19",
+  "entry_date": "2025-12-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.810367+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TDTH/2025-12-19",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-19",
+    "symbol": "TDTH",
+    "open": 0.35,
+    "high": 0.4062,
+    "low": 0.3401,
+    "close": 0.3887,
+    "volume": 638117,
+    "afterHours": 0.3728,
+    "preMarket": 0.36
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "NBIS",
+  "session": "2026-07-21",
+  "date": "2026-07-21",
+  "entry_date": "2026-07-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.775395+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NBIS/2026-07-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-21",
+    "symbol": "NBIS",
+    "open": 193.05,
+    "high": 217.62,
+    "low": 192.12,
+    "close": 216.92,
+    "volume": 25632573.897642,
+    "afterHours": 219.8803,
+    "preMarket": 192.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

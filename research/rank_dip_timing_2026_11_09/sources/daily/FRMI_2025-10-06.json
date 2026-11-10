@@ -1,0 +1,25 @@
+{
+  "ticker": "FRMI",
+  "session": "2025-10-06",
+  "date": "2025-10-06",
+  "entry_date": "2025-10-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.384173+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FRMI/2025-10-06",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-06",
+    "symbol": "FRMI",
+    "open": 28.65,
+    "high": 29.29,
+    "low": 25.87,
+    "close": 26.35,
+    "volume": 7894784.0,
+    "afterHours": 26.22,
+    "preMarket": 28.72
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

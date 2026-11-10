@@ -1,0 +1,25 @@
+{
+  "ticker": "PVLA",
+  "session": "2025-11-10",
+  "date": "2025-11-10",
+  "entry_date": "2025-11-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:36.112325+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PVLA/2025-11-10",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-10",
+    "symbol": "PVLA",
+    "open": 80,
+    "high": 82.19,
+    "low": 76.86,
+    "close": 80.29,
+    "volume": 174052,
+    "afterHours": 80,
+    "preMarket": 80
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

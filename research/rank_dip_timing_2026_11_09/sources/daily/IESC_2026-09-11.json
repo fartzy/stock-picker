@@ -1,0 +1,25 @@
+{
+  "ticker": "IESC",
+  "session": "2026-09-11",
+  "date": "2026-09-11",
+  "entry_date": "2026-09-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.001336+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/IESC/2026-09-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-11",
+    "symbol": "IESC",
+    "open": 324.64,
+    "high": 345.78,
+    "low": 323.042,
+    "close": 345.71,
+    "volume": 225224.398563,
+    "afterHours": 345.71,
+    "preMarket": 322.98
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

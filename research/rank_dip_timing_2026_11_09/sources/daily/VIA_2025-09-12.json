@@ -1,0 +1,25 @@
+{
+  "ticker": "VIA",
+  "session": "2025-09-12",
+  "date": "2025-09-12",
+  "entry_date": "2025-09-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.388014+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VIA/2025-09-12",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-12",
+    "symbol": "VIA",
+    "open": 44,
+    "high": 52.72,
+    "low": 43.5,
+    "close": 49.51,
+    "volume": 5050635.0,
+    "afterHours": 48.8,
+    "preMarket": 44
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

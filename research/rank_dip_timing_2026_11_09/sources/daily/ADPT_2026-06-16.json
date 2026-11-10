@@ -1,0 +1,25 @@
+{
+  "ticker": "ADPT",
+  "session": "2026-06-16",
+  "date": "2026-06-16",
+  "entry_date": "2026-06-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.074970+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ADPT/2026-06-16",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-16",
+    "symbol": "ADPT",
+    "open": 16.155,
+    "high": 18.06,
+    "low": 15.9,
+    "close": 17.22,
+    "volume": 6864844.685065,
+    "afterHours": 17.2082,
+    "preMarket": 15.95
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "MNDY",
+  "session": "2026-11-02",
+  "date": "2026-11-02",
+  "entry_date": "2026-11-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.166946+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MNDY/2026-11-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-02",
+    "symbol": "MNDY",
+    "open": 95.93,
+    "high": 98.72,
+    "low": 94.52,
+    "close": 95.26,
+    "volume": 785272.363598,
+    "afterHours": 96.892,
+    "preMarket": 95.6
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

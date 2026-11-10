@@ -1,0 +1,25 @@
+{
+  "ticker": "LASR",
+  "session": "2026-08-13",
+  "date": "2026-08-13",
+  "entry_date": "2026-08-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.043695+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LASR/2026-08-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-13",
+    "symbol": "LASR",
+    "open": 51.55,
+    "high": 54.19,
+    "low": 50.18,
+    "close": 50.35,
+    "volume": 1363280.278585,
+    "afterHours": 50.48,
+    "preMarket": 53
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

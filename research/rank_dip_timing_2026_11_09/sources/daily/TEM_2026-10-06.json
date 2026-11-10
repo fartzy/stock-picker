@@ -1,0 +1,25 @@
+{
+  "ticker": "TEM",
+  "session": "2026-10-06",
+  "date": "2026-10-06",
+  "entry_date": "2026-10-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.616934+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TEM/2026-10-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-06",
+    "symbol": "TEM",
+    "open": 84.965,
+    "high": 87.99,
+    "low": 71.34,
+    "close": 71.98,
+    "volume": 16564747.734958,
+    "afterHours": 72.7,
+    "preMarket": 83.93
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ICL",
+  "session": "2025-11-12",
+  "date": "2025-11-12",
+  "entry_date": "2025-11-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.927135+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ICL/2025-11-12",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-12",
+    "symbol": "ICL",
+    "open": 5.52,
+    "high": 5.55,
+    "low": 5.445,
+    "close": 5.5,
+    "volume": 808955,
+    "afterHours": 5.4,
+    "preMarket": 5.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PS",
+  "session": "2026-10-09",
+  "date": "2026-10-09",
+  "entry_date": "2026-10-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.893689+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PS/2026-10-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-09",
+    "symbol": "PS",
+    "open": 52.98,
+    "high": 54.98,
+    "low": 51.6714,
+    "close": 54.59,
+    "volume": 163686.731058,
+    "afterHours": 54.75,
+    "preMarket": 54.55
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

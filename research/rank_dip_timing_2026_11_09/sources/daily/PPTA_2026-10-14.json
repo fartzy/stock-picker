@@ -1,0 +1,25 @@
+{
+  "ticker": "PPTA",
+  "session": "2026-10-14",
+  "date": "2026-10-14",
+  "entry_date": "2026-10-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.826419+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PPTA/2026-10-14",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-14",
+    "symbol": "PPTA",
+    "open": 18.67,
+    "high": 18.91,
+    "low": 16.955,
+    "close": 17.38,
+    "volume": 2116660.009228,
+    "afterHours": 16.9046,
+    "preMarket": 19.2
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

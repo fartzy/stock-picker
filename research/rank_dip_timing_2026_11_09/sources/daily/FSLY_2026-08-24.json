@@ -1,0 +1,25 @@
+{
+  "ticker": "FSLY",
+  "session": "2026-08-24",
+  "date": "2026-08-24",
+  "entry_date": "2026-08-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.662750+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FSLY/2026-08-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-24",
+    "symbol": "FSLY",
+    "open": 24.16,
+    "high": 24.36,
+    "low": 22.87,
+    "close": 22.94,
+    "volume": 3181580.937897,
+    "afterHours": 22.91,
+    "preMarket": 25.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

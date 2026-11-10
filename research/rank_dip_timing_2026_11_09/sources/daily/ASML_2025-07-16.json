@@ -1,0 +1,25 @@
+{
+  "ticker": "ASML",
+  "session": "2025-07-16",
+  "date": "2025-07-16",
+  "entry_date": "2025-07-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.047965+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ASML/2025-07-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-16",
+    "symbol": "ASML",
+    "open": 754.36,
+    "high": 760.8999,
+    "low": 730.6,
+    "close": 754.45,
+    "volume": 10789554.0,
+    "afterHours": 757,
+    "preMarket": 765.47
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

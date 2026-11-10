@@ -1,0 +1,25 @@
+{
+  "ticker": "AGIO",
+  "session": "2026-10-12",
+  "date": "2026-10-12",
+  "entry_date": "2026-10-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.274500+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AGIO/2026-10-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-12",
+    "symbol": "AGIO",
+    "open": 31.84,
+    "high": 32.22,
+    "low": 30.69,
+    "close": 30.82,
+    "volume": 647847.574684,
+    "afterHours": 30.82,
+    "preMarket": 31.94
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ADMA",
+  "session": "2026-03-25",
+  "date": "2026-03-25",
+  "entry_date": "2026-03-25",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.965938+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ADMA/2026-03-25",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-25",
+    "symbol": "ADMA",
+    "open": 11.45,
+    "high": 11.45,
+    "low": 8.62,
+    "close": 9.63,
+    "volume": 32479451.044024,
+    "afterHours": 9.52,
+    "preMarket": 11.3
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

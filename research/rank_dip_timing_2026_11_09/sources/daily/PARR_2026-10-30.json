@@ -1,0 +1,25 @@
+{
+  "ticker": "PARR",
+  "session": "2026-10-30",
+  "date": "2026-10-30",
+  "entry_date": "2026-10-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.603024+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PARR/2026-10-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-30",
+    "symbol": "PARR",
+    "open": 73.85,
+    "high": 76.46,
+    "low": 73.315,
+    "close": 76.24,
+    "volume": 707328.738823,
+    "afterHours": 76.9252,
+    "preMarket": 77.3197
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

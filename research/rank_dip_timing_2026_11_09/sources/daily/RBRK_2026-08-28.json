@@ -1,0 +1,25 @@
+{
+  "ticker": "RBRK",
+  "session": "2026-08-28",
+  "date": "2026-08-28",
+  "entry_date": "2026-08-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.708013+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RBRK/2026-08-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-28",
+    "symbol": "RBRK",
+    "open": 98.95,
+    "high": 107.37,
+    "low": 93.0014,
+    "close": 93.05,
+    "volume": 9439421.684835,
+    "afterHours": 92.95,
+    "preMarket": 99.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

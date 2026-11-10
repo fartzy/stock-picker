@@ -1,0 +1,25 @@
+{
+  "ticker": "TEO",
+  "session": "2025-09-08",
+  "date": "2025-09-08",
+  "entry_date": "2025-09-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.679033+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TEO/2025-09-08",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-08",
+    "symbol": "TEO",
+    "open": 7.645,
+    "high": 7.8502,
+    "low": 7.14,
+    "close": 7.15,
+    "volume": 591818,
+    "afterHours": 7.2,
+    "preMarket": 8.19
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

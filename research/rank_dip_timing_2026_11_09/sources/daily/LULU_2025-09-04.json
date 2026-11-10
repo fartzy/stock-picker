@@ -1,0 +1,25 @@
+{
+  "ticker": "LULU",
+  "session": "2025-09-04",
+  "date": "2025-09-04",
+  "entry_date": "2025-09-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.251842+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LULU/2025-09-04",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-04",
+    "symbol": "LULU",
+    "open": 200.9,
+    "high": 206.6399,
+    "low": 197.67,
+    "close": 206.09,
+    "volume": 15476660.0,
+    "afterHours": 173.6701,
+    "preMarket": 199.68
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

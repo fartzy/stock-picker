@@ -1,0 +1,25 @@
+{
+  "ticker": "HTFL",
+  "session": "2026-02-17",
+  "date": "2026-02-17",
+  "entry_date": "2026-02-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.437322+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HTFL/2026-02-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-17",
+    "symbol": "HTFL",
+    "open": 20.5,
+    "high": 22.46,
+    "low": 20.3,
+    "close": 22.27,
+    "volume": 2990336.0,
+    "afterHours": 22.27,
+    "preMarket": 20.71
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

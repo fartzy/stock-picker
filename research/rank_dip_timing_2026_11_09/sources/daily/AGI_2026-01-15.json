@@ -1,0 +1,25 @@
+{
+  "ticker": "AGI",
+  "session": "2026-01-15",
+  "date": "2026-01-15",
+  "entry_date": "2026-01-15",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.199926+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AGI/2026-01-15",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-15",
+    "symbol": "AGI",
+    "open": 39.61,
+    "high": 40.769,
+    "low": 38.41,
+    "close": 40.3,
+    "volume": 6464376.0,
+    "afterHours": 40.55,
+    "preMarket": 42.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

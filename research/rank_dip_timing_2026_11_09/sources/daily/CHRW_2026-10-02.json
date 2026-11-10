@@ -1,0 +1,25 @@
+{
+  "ticker": "CHRW",
+  "session": "2026-10-02",
+  "date": "2026-10-02",
+  "entry_date": "2026-10-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.377783+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CHRW/2026-10-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-02",
+    "symbol": "CHRW",
+    "open": 155.06,
+    "high": 158.35,
+    "low": 154.285,
+    "close": 157.72,
+    "volume": 1599341.961875,
+    "afterHours": 157.72,
+    "preMarket": 153.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

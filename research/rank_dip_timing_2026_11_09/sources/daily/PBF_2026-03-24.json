@@ -1,0 +1,25 @@
+{
+  "ticker": "PBF",
+  "session": "2026-03-24",
+  "date": "2026-03-24",
+  "entry_date": "2026-03-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.661679+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PBF/2026-03-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-24",
+    "symbol": "PBF",
+    "open": 47.9,
+    "high": 50.64,
+    "low": 47.7852,
+    "close": 50.09,
+    "volume": 4952412.58533,
+    "afterHours": 49.28,
+    "preMarket": 47.23
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

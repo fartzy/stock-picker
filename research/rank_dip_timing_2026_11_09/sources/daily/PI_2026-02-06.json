@@ -1,0 +1,25 @@
+{
+  "ticker": "PI",
+  "session": "2026-02-06",
+  "date": "2026-02-06",
+  "entry_date": "2026-02-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.065085+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PI/2026-02-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-06",
+    "symbol": "PI",
+    "open": 124.81,
+    "high": 128.9999,
+    "low": 104.7584,
+    "close": 116.04,
+    "volume": 3575193.0,
+    "afterHours": 116.05,
+    "preMarket": 115
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

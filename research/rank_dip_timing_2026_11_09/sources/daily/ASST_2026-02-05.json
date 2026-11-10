@@ -1,0 +1,25 @@
+{
+  "ticker": "ASST",
+  "session": "2026-02-05",
+  "date": "2026-02-05",
+  "entry_date": "2026-02-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.503465+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ASST/2026-02-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-05",
+    "symbol": "ASST",
+    "open": 0.5215,
+    "high": 0.5436,
+    "low": 0.4861,
+    "close": 0.4931,
+    "volume": 173273180.0,
+    "afterHours": 0.4665,
+    "preMarket": 0.56
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

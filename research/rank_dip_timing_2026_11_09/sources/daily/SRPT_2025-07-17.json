@@ -1,0 +1,25 @@
+{
+  "ticker": "SRPT",
+  "session": "2025-07-17",
+  "date": "2025-07-17",
+  "entry_date": "2025-07-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.204464+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SRPT/2025-07-17",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-17",
+    "symbol": "SRPT",
+    "open": 22.54,
+    "high": 22.86,
+    "low": 20.94,
+    "close": 21.97,
+    "volume": 19730520.0,
+    "afterHours": 22.0488,
+    "preMarket": 24.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

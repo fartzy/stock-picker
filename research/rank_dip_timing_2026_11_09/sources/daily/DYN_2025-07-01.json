@@ -1,0 +1,25 @@
+{
+  "ticker": "DYN",
+  "session": "2025-07-01",
+  "date": "2025-07-01",
+  "entry_date": "2025-07-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.081388+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DYN/2025-07-01",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-01",
+    "symbol": "DYN",
+    "open": 8.73,
+    "high": 9.23,
+    "low": 8.41,
+    "close": 8.68,
+    "volume": 9321900.0,
+    "afterHours": 8.75,
+    "preMarket": 8.46
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

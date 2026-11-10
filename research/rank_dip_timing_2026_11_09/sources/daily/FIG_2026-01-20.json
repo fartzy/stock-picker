@@ -1,0 +1,25 @@
+{
+  "ticker": "FIG",
+  "session": "2026-01-20",
+  "date": "2026-01-20",
+  "entry_date": "2026-01-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.036331+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FIG/2026-01-20",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-20",
+    "symbol": "FIG",
+    "open": 28.18,
+    "high": 28.788,
+    "low": 27.48,
+    "close": 27.76,
+    "volume": 14621783.0,
+    "afterHours": 27.8705,
+    "preMarket": 29.15
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

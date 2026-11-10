@@ -1,0 +1,25 @@
+{
+  "ticker": "RH",
+  "session": "2026-04-01",
+  "date": "2026-04-01",
+  "entry_date": "2026-04-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.586770+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RH/2026-04-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-01",
+    "symbol": "RH",
+    "open": 110.565,
+    "high": 114.9,
+    "low": 106.3037,
+    "close": 112.85,
+    "volume": 8843452.230279,
+    "afterHours": 112.54,
+    "preMarket": 116.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

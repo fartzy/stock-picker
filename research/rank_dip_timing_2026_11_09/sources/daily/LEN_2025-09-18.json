@@ -1,0 +1,25 @@
+{
+  "ticker": "LEN",
+  "session": "2025-09-18",
+  "date": "2025-09-18",
+  "entry_date": "2025-09-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.627430+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LEN/2025-09-18",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-18",
+    "symbol": "LEN",
+    "open": 133.01,
+    "high": 134.07,
+    "low": 131.34,
+    "close": 132.87,
+    "volume": 5239949.0,
+    "afterHours": 128.6215,
+    "preMarket": 135
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

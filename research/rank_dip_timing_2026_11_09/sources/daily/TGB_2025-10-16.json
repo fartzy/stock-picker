@@ -1,0 +1,25 @@
+{
+  "ticker": "TGB",
+  "session": "2025-10-16",
+  "date": "2025-10-16",
+  "entry_date": "2025-10-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.703072+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TGB/2025-10-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-16",
+    "symbol": "TGB",
+    "open": 4.11,
+    "high": 4.205,
+    "low": 4.015,
+    "close": 4.05,
+    "volume": 14978546.0,
+    "afterHours": 4.05,
+    "preMarket": 4.22
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

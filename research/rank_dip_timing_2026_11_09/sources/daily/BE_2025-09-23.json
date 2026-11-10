@@ -1,0 +1,25 @@
+{
+  "ticker": "BE",
+  "session": "2025-09-23",
+  "date": "2025-09-23",
+  "entry_date": "2025-09-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.199186+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BE/2025-09-23",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-23",
+    "symbol": "BE",
+    "open": 82,
+    "high": 86,
+    "low": 75.6,
+    "close": 77.38,
+    "volume": 22135766.0,
+    "afterHours": 77.15,
+    "preMarket": 86.35
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

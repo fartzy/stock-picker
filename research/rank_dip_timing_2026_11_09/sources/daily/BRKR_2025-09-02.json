@@ -1,0 +1,25 @@
+{
+  "ticker": "BRKR",
+  "session": "2025-09-02",
+  "date": "2025-09-02",
+  "entry_date": "2025-09-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.966751+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BRKR/2025-09-02",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-02",
+    "symbol": "BRKR",
+    "open": 33.76,
+    "high": 33.84,
+    "low": 32.35,
+    "close": 33.23,
+    "volume": 1659389.0,
+    "afterHours": 29.98,
+    "preMarket": 33.98
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

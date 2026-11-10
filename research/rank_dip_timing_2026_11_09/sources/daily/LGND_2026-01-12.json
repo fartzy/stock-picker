@@ -1,0 +1,25 @@
+{
+  "ticker": "LGND",
+  "session": "2026-01-12",
+  "date": "2026-01-12",
+  "entry_date": "2026-01-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.772039+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LGND/2026-01-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-12",
+    "symbol": "LGND",
+    "open": 207.82,
+    "high": 210.27,
+    "low": 205.25,
+    "close": 206.81,
+    "volume": 290959,
+    "afterHours": 202,
+    "preMarket": 206.6
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

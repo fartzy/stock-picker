@@ -1,0 +1,25 @@
+{
+  "ticker": "TVTX",
+  "session": "2026-04-15",
+  "date": "2026-04-15",
+  "entry_date": "2026-04-15",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.267003+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TVTX/2026-04-15",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-15",
+    "symbol": "TVTX",
+    "open": 42.335,
+    "high": 42.66,
+    "low": 40.4,
+    "close": 40.95,
+    "volume": 4523080.699859,
+    "afterHours": 40.4669,
+    "preMarket": 42.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

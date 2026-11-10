@@ -1,0 +1,25 @@
+{
+  "ticker": "CF",
+  "session": "2026-05-06",
+  "date": "2026-05-06",
+  "entry_date": "2026-05-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.312605+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CF/2026-05-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-06",
+    "symbol": "CF",
+    "open": 122.085,
+    "high": 123.3,
+    "low": 119.36,
+    "close": 119.76,
+    "volume": 5379715.614686,
+    "afterHours": 120.87,
+    "preMarket": 128
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

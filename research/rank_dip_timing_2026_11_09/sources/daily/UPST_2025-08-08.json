@@ -1,0 +1,25 @@
+{
+  "ticker": "UPST",
+  "session": "2025-08-08",
+  "date": "2025-08-08",
+  "entry_date": "2025-08-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.859843+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UPST/2025-08-08",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-08",
+    "symbol": "UPST",
+    "open": 71.02,
+    "high": 71.5499,
+    "low": 68.61,
+    "close": 68.76,
+    "volume": 5613664.0,
+    "afterHours": 69.033,
+    "preMarket": 69.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

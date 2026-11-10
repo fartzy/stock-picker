@@ -1,0 +1,25 @@
+{
+  "ticker": "AMR",
+  "session": "2026-09-22",
+  "date": "2026-09-22",
+  "entry_date": "2026-09-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.899688+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AMR/2026-09-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-22",
+    "symbol": "AMR",
+    "open": 176.31,
+    "high": 189.81,
+    "low": 174.32,
+    "close": 188.57,
+    "volume": 334403.397235,
+    "afterHours": 190,
+    "preMarket": 180
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

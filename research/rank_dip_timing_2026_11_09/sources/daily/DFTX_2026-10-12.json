@@ -1,0 +1,25 @@
+{
+  "ticker": "DFTX",
+  "session": "2026-10-12",
+  "date": "2026-10-12",
+  "entry_date": "2026-10-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.771979+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DFTX/2026-10-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-12",
+    "symbol": "DFTX",
+    "open": 36.27,
+    "high": 36.3,
+    "low": 34.95,
+    "close": 35.2,
+    "volume": 1909077.11383,
+    "afterHours": 35.37,
+    "preMarket": 37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

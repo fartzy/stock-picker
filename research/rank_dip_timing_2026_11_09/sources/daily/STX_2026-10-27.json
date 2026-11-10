@@ -1,0 +1,25 @@
+{
+  "ticker": "STX",
+  "session": "2026-10-27",
+  "date": "2026-10-27",
+  "entry_date": "2026-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.473196+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/STX/2026-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-27",
+    "symbol": "STX",
+    "open": 650.34,
+    "high": 687.05,
+    "low": 647.94,
+    "close": 667.85,
+    "volume": 9010846.396752,
+    "afterHours": 631,
+    "preMarket": 646.04
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

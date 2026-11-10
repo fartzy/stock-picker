@@ -1,0 +1,25 @@
+{
+  "ticker": "WSE",
+  "session": "2026-07-23",
+  "date": "2026-07-23",
+  "entry_date": "2026-07-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.302731+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WSE/2026-07-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-23",
+    "symbol": "WSE",
+    "open": 12.12,
+    "high": 12.25,
+    "low": 12.02,
+    "close": 12.08,
+    "volume": 695556.27256,
+    "afterHours": 12,
+    "preMarket": 12.35
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

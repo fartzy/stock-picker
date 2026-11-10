@@ -1,0 +1,25 @@
+{
+  "ticker": "TEAM",
+  "session": "2026-10-29",
+  "date": "2026-10-29",
+  "entry_date": "2026-10-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.605394+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TEAM/2026-10-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-29",
+    "symbol": "TEAM",
+    "open": 208.37,
+    "high": 209.1904,
+    "low": 200.05,
+    "close": 204.1,
+    "volume": 4112014.400289,
+    "afterHours": 198.5,
+    "preMarket": 208.24
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

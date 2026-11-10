@@ -1,0 +1,25 @@
+{
+  "ticker": "DAVE",
+  "session": "2026-05-06",
+  "date": "2026-05-06",
+  "entry_date": "2026-05-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.524290+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DAVE/2026-05-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-06",
+    "symbol": "DAVE",
+    "open": 245.12,
+    "high": 252,
+    "low": 226.74,
+    "close": 246.37,
+    "volume": 979976.124171,
+    "afterHours": 244,
+    "preMarket": 254.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

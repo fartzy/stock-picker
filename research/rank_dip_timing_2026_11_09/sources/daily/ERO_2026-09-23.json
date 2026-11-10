@@ -1,0 +1,25 @@
+{
+  "ticker": "ERO",
+  "session": "2026-09-23",
+  "date": "2026-09-23",
+  "entry_date": "2026-09-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.784723+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ERO/2026-09-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-23",
+    "symbol": "ERO",
+    "open": 36.25,
+    "high": 36.77,
+    "low": 35.24,
+    "close": 36.48,
+    "volume": 1363692.388813,
+    "afterHours": 36.5,
+    "preMarket": 37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

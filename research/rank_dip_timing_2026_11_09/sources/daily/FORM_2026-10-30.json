@@ -1,0 +1,25 @@
+{
+  "ticker": "FORM",
+  "session": "2026-10-30",
+  "date": "2026-10-30",
+  "entry_date": "2026-10-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.361669+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FORM/2026-10-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-30",
+    "symbol": "FORM",
+    "open": 89.84,
+    "high": 91.05,
+    "low": 84.53,
+    "close": 87.53,
+    "volume": 2889433.505851,
+    "afterHours": 88,
+    "preMarket": 92.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PBLS",
+  "session": "2026-09-21",
+  "date": "2026-09-21",
+  "entry_date": "2026-09-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.727175+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PBLS/2026-09-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-21",
+    "symbol": "PBLS",
+    "open": 41.58,
+    "high": 42.315,
+    "low": 34.7228,
+    "close": 36.93,
+    "volume": 1705743.280056,
+    "afterHours": 36.93,
+    "preMarket": 41.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

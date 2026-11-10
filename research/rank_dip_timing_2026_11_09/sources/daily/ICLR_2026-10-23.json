@@ -1,0 +1,25 @@
+{
+  "ticker": "ICLR",
+  "session": "2026-10-23",
+  "date": "2026-10-23",
+  "entry_date": "2026-10-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.997655+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ICLR/2026-10-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-23",
+    "symbol": "ICLR",
+    "open": 184.25,
+    "high": 185.57,
+    "low": 179.89,
+    "close": 185.27,
+    "volume": 1022544.80609,
+    "afterHours": 185.27,
+    "preMarket": 185.87
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "AUGO",
+  "session": "2025-10-20",
+  "date": "2025-10-20",
+  "entry_date": "2025-10-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.733986+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AUGO/2025-10-20",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-20",
+    "symbol": "AUGO",
+    "open": 37.5,
+    "high": 37.9199,
+    "low": 35.84,
+    "close": 37.56,
+    "volume": 698641,
+    "afterHours": 37.61,
+    "preMarket": 36.71
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

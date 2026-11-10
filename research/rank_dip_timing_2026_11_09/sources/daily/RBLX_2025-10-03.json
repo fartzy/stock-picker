@@ -1,0 +1,25 @@
+{
+  "ticker": "RBLX",
+  "session": "2025-10-03",
+  "date": "2025-10-03",
+  "entry_date": "2025-10-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.643670+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RBLX/2025-10-03",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-03",
+    "symbol": "RBLX",
+    "open": 125.22,
+    "high": 127.9899,
+    "low": 120.56,
+    "close": 122.69,
+    "volume": 15104312.0,
+    "afterHours": 123.43,
+    "preMarket": 134.04
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

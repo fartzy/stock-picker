@@ -1,0 +1,25 @@
+{
+  "ticker": "POWL",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.752953+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/POWL/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "POWL",
+    "open": 135.31,
+    "high": 136.01,
+    "low": 121.13,
+    "close": 125.06,
+    "volume": 1753736.48422,
+    "afterHours": 127.04,
+    "preMarket": 141.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

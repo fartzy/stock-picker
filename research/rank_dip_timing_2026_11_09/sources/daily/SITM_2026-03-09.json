@@ -1,0 +1,25 @@
+{
+  "ticker": "SITM",
+  "session": "2026-03-09",
+  "date": "2026-03-09",
+  "entry_date": "2026-03-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.280355+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SITM/2026-03-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-09",
+    "symbol": "SITM",
+    "open": 316.24,
+    "high": 357.53,
+    "low": 305.21,
+    "close": 356.34,
+    "volume": 774988.608991,
+    "afterHours": 359,
+    "preMarket": 319.99
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

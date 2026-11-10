@@ -1,0 +1,25 @@
+{
+  "ticker": "BVC",
+  "session": "2026-09-28",
+  "date": "2026-09-28",
+  "entry_date": "2026-09-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.698973+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BVC/2026-09-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-28",
+    "symbol": "BVC",
+    "open": 11.59,
+    "high": 12.6446,
+    "low": 11.51,
+    "close": 12.03,
+    "volume": 88709.364465,
+    "afterHours": 12.03,
+    "preMarket": 11.59
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

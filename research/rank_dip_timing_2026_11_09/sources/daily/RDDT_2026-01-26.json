@@ -1,0 +1,25 @@
+{
+  "ticker": "RDDT",
+  "session": "2026-01-26",
+  "date": "2026-01-26",
+  "entry_date": "2026-01-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.897810+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RDDT/2026-01-26",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-26",
+    "symbol": "RDDT",
+    "open": 216.64,
+    "high": 222.65,
+    "low": 212.6287,
+    "close": 213.63,
+    "volume": 2621510.0,
+    "afterHours": 213.6,
+    "preMarket": 217.51
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

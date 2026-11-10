@@ -1,0 +1,25 @@
+{
+  "ticker": "MSTR",
+  "session": "2025-11-24",
+  "date": "2025-11-24",
+  "entry_date": "2025-11-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.409277+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MSTR/2025-11-24",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-24",
+    "symbol": "MSTR",
+    "open": 171.62,
+    "high": 179.84,
+    "low": 166.01,
+    "close": 179.04,
+    "volume": 23282608.0,
+    "afterHours": 176.9,
+    "preMarket": 177.37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

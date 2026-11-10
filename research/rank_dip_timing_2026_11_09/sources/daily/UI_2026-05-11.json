@@ -1,0 +1,25 @@
+{
+  "ticker": "UI",
+  "session": "2026-05-11",
+  "date": "2026-05-11",
+  "entry_date": "2026-05-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.768913+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UI/2026-05-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-11",
+    "symbol": "UI",
+    "open": 823.2,
+    "high": 835.75,
+    "low": 728.19,
+    "close": 738.61,
+    "volume": 269646.807657,
+    "afterHours": 738.4556,
+    "preMarket": 842.24
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

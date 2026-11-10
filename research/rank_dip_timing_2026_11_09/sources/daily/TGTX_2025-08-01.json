@@ -1,0 +1,25 @@
+{
+  "ticker": "TGTX",
+  "session": "2025-08-01",
+  "date": "2025-08-01",
+  "entry_date": "2025-08-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.727741+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TGTX/2025-08-01",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-01",
+    "symbol": "TGTX",
+    "open": 34.888,
+    "high": 35.75,
+    "low": 34.03,
+    "close": 35.02,
+    "volume": 2322321.0,
+    "afterHours": 35.2887,
+    "preMarket": 35
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

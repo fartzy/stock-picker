@@ -1,0 +1,25 @@
+{
+  "ticker": "SMTC",
+  "session": "2026-08-18",
+  "date": "2026-08-18",
+  "entry_date": "2026-08-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.964777+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SMTC/2026-08-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-18",
+    "symbol": "SMTC",
+    "open": 145.88,
+    "high": 148.63,
+    "low": 132.92,
+    "close": 135.23,
+    "volume": 3962447.50098,
+    "afterHours": 134.5,
+    "preMarket": 152
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

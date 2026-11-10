@@ -1,0 +1,25 @@
+{
+  "ticker": "SMMT",
+  "session": "2025-09-09",
+  "date": "2025-09-09",
+  "entry_date": "2025-09-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.598703+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SMMT/2025-09-09",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-09",
+    "symbol": "SMMT",
+    "open": 19.53,
+    "high": 19.64,
+    "low": 18.71,
+    "close": 18.825,
+    "volume": 6895883.0,
+    "afterHours": 18.87,
+    "preMarket": 20.09
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

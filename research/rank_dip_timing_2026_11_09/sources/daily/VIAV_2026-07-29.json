@@ -1,0 +1,25 @@
+{
+  "ticker": "VIAV",
+  "session": "2026-07-29",
+  "date": "2026-07-29",
+  "entry_date": "2026-07-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.464409+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VIAV/2026-07-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-29",
+    "symbol": "VIAV",
+    "open": 34.33,
+    "high": 35.14,
+    "low": 31.41,
+    "close": 32.23,
+    "volume": 9776996.926306,
+    "afterHours": 32.5,
+    "preMarket": 34.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

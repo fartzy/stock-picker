@@ -1,0 +1,25 @@
+{
+  "ticker": "MBX",
+  "session": "2025-09-16",
+  "date": "2025-09-16",
+  "entry_date": "2025-09-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.769231+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MBX/2025-09-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-16",
+    "symbol": "MBX",
+    "open": 10.83,
+    "high": 10.86,
+    "low": 9.71,
+    "close": 9.745,
+    "volume": 466430,
+    "afterHours": 9.93,
+    "preMarket": 10.87
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

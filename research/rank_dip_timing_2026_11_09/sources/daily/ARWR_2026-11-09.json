@@ -1,0 +1,25 @@
+{
+  "ticker": "ARWR",
+  "session": "2026-11-09",
+  "date": "2026-11-09",
+  "entry_date": "2026-11-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.985592+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ARWR/2026-11-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-09",
+    "symbol": "ARWR",
+    "open": 52.49,
+    "high": 53.625,
+    "low": 46.4508,
+    "close": 49.24,
+    "volume": 8055056.048213,
+    "afterHours": 49.65,
+    "preMarket": 58.33
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

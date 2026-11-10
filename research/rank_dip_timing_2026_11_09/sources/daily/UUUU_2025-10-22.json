@@ -1,0 +1,25 @@
+{
+  "ticker": "UUUU",
+  "session": "2025-10-22",
+  "date": "2025-10-22",
+  "entry_date": "2025-10-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.176692+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UUUU/2025-10-22",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-22",
+    "symbol": "UUUU",
+    "open": 18.89,
+    "high": 22.95,
+    "low": 18.76,
+    "close": 22.74,
+    "volume": 40408475.0,
+    "afterHours": 23.01,
+    "preMarket": 20.24
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

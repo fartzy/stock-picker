@@ -1,0 +1,25 @@
+{
+  "ticker": "UMC",
+  "session": "2026-01-28",
+  "date": "2026-01-28",
+  "entry_date": "2026-01-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.789286+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UMC/2026-01-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-28",
+    "symbol": "UMC",
+    "open": 11.455,
+    "high": 11.86,
+    "low": 11.225,
+    "close": 11.38,
+    "volume": 25816702.0,
+    "afterHours": 11.4933,
+    "preMarket": 12.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

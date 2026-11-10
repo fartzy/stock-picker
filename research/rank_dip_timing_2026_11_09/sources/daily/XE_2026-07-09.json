@@ -1,0 +1,25 @@
+{
+  "ticker": "XE",
+  "session": "2026-07-09",
+  "date": "2026-07-09",
+  "entry_date": "2026-07-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.428240+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/XE/2026-07-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-09",
+    "symbol": "XE",
+    "open": 16.46,
+    "high": 17.08,
+    "low": 16.43,
+    "close": 16.6,
+    "volume": 3451879.834777,
+    "afterHours": 16.7,
+    "preMarket": 16.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

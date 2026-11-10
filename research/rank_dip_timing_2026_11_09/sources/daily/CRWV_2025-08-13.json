@@ -1,0 +1,25 @@
+{
+  "ticker": "CRWV",
+  "session": "2025-08-13",
+  "date": "2025-08-13",
+  "entry_date": "2025-08-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.224924+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CRWV/2025-08-13",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-13",
+    "symbol": "CRWV",
+    "open": 132.975,
+    "high": 134.5,
+    "low": 117.6,
+    "close": 117.76,
+    "volume": 37157592.0,
+    "afterHours": 119.15,
+    "preMarket": 133.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

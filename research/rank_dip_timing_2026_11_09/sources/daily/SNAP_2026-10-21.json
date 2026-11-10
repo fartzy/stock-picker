@@ -1,0 +1,25 @@
+{
+  "ticker": "SNAP",
+  "session": "2026-10-21",
+  "date": "2026-10-21",
+  "entry_date": "2026-10-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.010998+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SNAP/2026-10-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-21",
+    "symbol": "SNAP",
+    "open": 6.36,
+    "high": 6.49,
+    "low": 6.26,
+    "close": 6.35,
+    "volume": 37710650.604792,
+    "afterHours": 6.36,
+    "preMarket": 6.41
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

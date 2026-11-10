@@ -1,0 +1,25 @@
+{
+  "ticker": "MBLY",
+  "session": "2026-09-29",
+  "date": "2026-09-29",
+  "entry_date": "2026-09-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.755534+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MBLY/2026-09-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-29",
+    "symbol": "MBLY",
+    "open": 7.81,
+    "high": 7.855,
+    "low": 7.52,
+    "close": 7.565,
+    "volume": 4898497.397305,
+    "afterHours": 7.5983,
+    "preMarket": 7.8398
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "AVGO",
+  "session": "2026-11-03",
+  "date": "2026-11-03",
+  "entry_date": "2026-11-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.907785+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AVGO/2026-11-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-03",
+    "symbol": "AVGO",
+    "open": 328.97,
+    "high": 335.74,
+    "low": 326.6,
+    "close": 332.13,
+    "volume": 17274507.532984,
+    "afterHours": 330.1097,
+    "preMarket": 324
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

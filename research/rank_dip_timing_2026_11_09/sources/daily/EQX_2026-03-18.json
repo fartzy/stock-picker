@@ -1,0 +1,25 @@
+{
+  "ticker": "EQX",
+  "session": "2026-03-18",
+  "date": "2026-03-18",
+  "entry_date": "2026-03-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.475638+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/EQX/2026-03-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-18",
+    "symbol": "EQX",
+    "open": 13.905,
+    "high": 14.05,
+    "low": 13.365,
+    "close": 13.42,
+    "volume": 10781891.931952,
+    "afterHours": 13.35,
+    "preMarket": 14.39
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

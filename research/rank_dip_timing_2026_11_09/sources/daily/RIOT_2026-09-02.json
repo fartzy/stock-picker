@@ -1,0 +1,25 @@
+{
+  "ticker": "RIOT",
+  "session": "2026-09-02",
+  "date": "2026-09-02",
+  "entry_date": "2026-09-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.599226+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RIOT/2026-09-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-02",
+    "symbol": "RIOT",
+    "open": 17.65,
+    "high": 18.89,
+    "low": 17.3905,
+    "close": 18.635,
+    "volume": 13897628.726014,
+    "afterHours": 18.59,
+    "preMarket": 17.78
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

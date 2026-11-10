@@ -1,0 +1,25 @@
+{
+  "ticker": "SLS",
+  "session": "2026-01-07",
+  "date": "2026-01-07",
+  "entry_date": "2026-01-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.505418+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SLS/2026-01-07",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-07",
+    "symbol": "SLS",
+    "open": 4.03,
+    "high": 4.15,
+    "low": 3.63,
+    "close": 4.04,
+    "volume": 14655655.0,
+    "afterHours": 4.02,
+    "preMarket": 4.1
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "SBSW",
+  "session": "2026-02-17",
+  "date": "2026-02-17",
+  "entry_date": "2026-02-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.958125+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SBSW/2026-02-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-17",
+    "symbol": "SBSW",
+    "open": 16.225,
+    "high": 16.32,
+    "low": 15.66,
+    "close": 16.06,
+    "volume": 6386379.0,
+    "afterHours": 16.0949,
+    "preMarket": 16.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

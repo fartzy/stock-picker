@@ -1,0 +1,25 @@
+{
+  "ticker": "TMC",
+  "session": "2025-10-27",
+  "date": "2025-10-27",
+  "entry_date": "2025-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.013362+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TMC/2025-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-27",
+    "symbol": "TMC",
+    "open": 6.806,
+    "high": 7.046,
+    "low": 6.64,
+    "close": 6.88,
+    "volume": 8620708.0,
+    "afterHours": 6.89,
+    "preMarket": 7.09
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

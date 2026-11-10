@@ -1,0 +1,20 @@
+{
+  "ticker": "MOG-B",
+  "session": "2026-10-23",
+  "date": "2026-10-23",
+  "entry_date": "2026-10-23",
+  "provider_ticker": "MOG.B",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T04:02:48.130298+00:00",
+  "complete": false,
+  "request_attempts": 1,
+  "symbol_alias_provenance": {
+    "path": "research/rank_dip_timing_2026_11_09/sources/symbols/MOG-B_2026-10-26.json",
+    "sha256": "13554e3505af1c510bd50eb984487b48d5dcee5cc067aab2664c33cecafc15e3",
+    "mapping_contract": "python/stock_picker/ingestion/polygon_client.py:123-129",
+    "dated_identity_verified": true
+  },
+  "endpoint": "/v1/open-close/MOG.B/2026-10-23",
+  "error_type": "MassiveOvernightError",
+  "http_status": 404
+}

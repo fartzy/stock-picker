@@ -1,0 +1,25 @@
+{
+  "ticker": "MRNA",
+  "session": "2026-09-29",
+  "date": "2026-09-29",
+  "entry_date": "2026-09-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.343785+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MRNA/2026-09-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-29",
+    "symbol": "MRNA",
+    "open": 197.78,
+    "high": 208.9032,
+    "low": 190,
+    "close": 203.46,
+    "volume": 13277922.562756,
+    "afterHours": 202.93,
+    "preMarket": 195.1417
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

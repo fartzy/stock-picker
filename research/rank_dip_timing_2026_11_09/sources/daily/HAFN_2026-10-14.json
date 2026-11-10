@@ -1,0 +1,25 @@
+{
+  "ticker": "HAFN",
+  "session": "2026-10-14",
+  "date": "2026-10-14",
+  "entry_date": "2026-10-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.258696+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HAFN/2026-10-14",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-14",
+    "symbol": "HAFN",
+    "open": 10.88,
+    "high": 10.88,
+    "low": 10.395,
+    "close": 10.64,
+    "volume": 3240573.140437,
+    "afterHours": 10.63,
+    "preMarket": 10.88
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

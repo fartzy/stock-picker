@@ -1,0 +1,25 @@
+{
+  "ticker": "LB",
+  "session": "2025-11-20",
+  "date": "2025-11-20",
+  "entry_date": "2025-11-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.104379+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LB/2025-11-20",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-20",
+    "symbol": "LB",
+    "open": 66.32,
+    "high": 66.5,
+    "low": 59.07,
+    "close": 59.74,
+    "volume": 485003,
+    "afterHours": 57.163,
+    "preMarket": 65.88
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

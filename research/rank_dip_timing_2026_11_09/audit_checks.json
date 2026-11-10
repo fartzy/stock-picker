@@ -1,0 +1,77 @@
+{
+  "generated_at_utc": "2026-11-10T04:14:27.721135+00:00",
+  "status": "passed",
+  "checks": {
+    "frozen_cohort_has_unique_memberships": true,
+    "all_historical_training_precedes_test": true,
+    "event_scenario_keys_unique": true,
+    "checkpoint_scenario_keys_unique": true,
+    "expected_event_count": true,
+    "expected_checkpoint_count": true,
+    "scenario_artifact_hashes_match_results": true,
+    "result_source_hashes_match_current_inputs": true,
+    "zero_expense_only": true,
+    "every_return_is_unmodified_price_ratio": true,
+    "all_completed_returns_finite": true,
+    "entry_not_before_signal_observation": true,
+    "no_future_onset_in_entry_features": true,
+    "no_negative_dip_age": true,
+    "no_negative_episode_age": true,
+    "all_summary_status_counts_reconcile": true,
+    "unavailable_never_cash_denominator": true,
+    "completed_event_stockdays_unique_per_rule": true,
+    "live_early_availability_matches_independent_37_day_check": true,
+    "research_overlap_is_150_stockdays": true,
+    "research_dates_not_double_counted": true,
+    "mrcy_is_included_as_live_rank2": true
+  },
+  "scope": "Frozen-source offline analysis only; no model, production database, service or Git writes. Independent raw-source reconciliation is recorded separately in independent_review.json.",
+  "test_command": "python3 research/rank_dip_timing_2026_11_09/test_analysis.py",
+  "tests_run": 20,
+  "tests_passed": 20,
+  "cohort_memberships": 869,
+  "unique_stock_days": 713,
+  "unique_sessions": 343,
+  "research_shared_stock_days": 150,
+  "research_union_stock_days": 534,
+  "research_union_sessions": 342,
+  "event_records": 10428,
+  "checkpoint_records": 15642,
+  "event_statuses": {
+    "completed": 4673,
+    "no_entry": 4798,
+    "unavailable": 957
+  },
+  "checkpoint_statuses": {
+    "completed": 12210,
+    "unavailable": 3432
+  },
+  "summary_groups": {
+    "first_event_summaries": 48,
+    "timing_summaries": 128,
+    "checkpoint_summaries": 216,
+    "comparisons": 104
+  },
+  "source_open_consistency": {
+    "unique_comparable_stockdays": 673,
+    "maximum_absolute_relative_difference": 0.0,
+    "flagged_above_prespecified_one_percent": 0
+  },
+  "artifact_sha256": {
+    "analysis_protocol.json": "6063b6d30f05726e484803c153dd2d9ad54120fc0d41c734dc41519b970abb86",
+    "analyze.py": "50e4b1bc7aaf695ddd20b42802a80f60b9686de99e0e4d43b95062dce2371391",
+    "test_analysis.py": "0dc78f531673f732c0c41cb23642194b4f13640680547a5b3cb76d1cd165f3c5",
+    "README.md": "01f14fec4a2f02be3c23e56edba3180038094ccc4ebcc45a0dba9a183f1138b3",
+    "results.json": "0cd3aa556e04c3bbe902ebd6388bc47cc0eb68e5eb8bd8590945231d1ca143b4",
+    "event_cases.json.gz": "75c7f96aa622a67b3fb71d073ba6a55d08acef52e72f979e1df0d050ba6e4d51",
+    "checkpoint_cases.json.gz": "0e4476b8ec27e2669d504e7dfae26a366281ccdf989967286dd945104e92bb4c",
+    "cohort.json": "82dae6655e846670afef2d8272b406030f531fc063fb088329fe6f4af26baa28",
+    "cohort_provenance.json": "609f75cbabca7bf3c231c176d26005b21aceb0ca507923de31518f32fbf88c76",
+    "daily_prices.json": "c2406581169107b7d5fb6a51c1447c8e0265c08e186b99739d1b3734b57b247c",
+    "minute_manifest.json": "4cbf310e464b2d953ee84e5930bfa0204957233a680a9ae5dc2ebfbebbec5fc8",
+    "split_metadata.json": "60348ab6165571a192e700b9b3209ce45e3162bce68d8f0fa12f5834b18ec28d",
+    "acquisition_audit.json": "be6fd9319ff0ec0d50fd117921134f488e7b14178fb4dc2068a62c8310930f1b"
+  },
+  "old_readme_correction_sha256": "19bce46aa57b49ca068dc43311ce2c67201b08100231e82ff3dd23d13bc400f2",
+  "numerical_reproduction_note": "results.json includes a generation timestamp; scenario gzip bytes and numerical summaries are deterministic for unchanged sources."
+}

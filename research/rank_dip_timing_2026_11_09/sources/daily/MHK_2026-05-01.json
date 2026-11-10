@@ -1,0 +1,25 @@
+{
+  "ticker": "MHK",
+  "session": "2026-05-01",
+  "date": "2026-05-01",
+  "entry_date": "2026-05-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.004728+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MHK/2026-05-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-01",
+    "symbol": "MHK",
+    "open": 108.24,
+    "high": 109.7,
+    "low": 99.88,
+    "close": 99.93,
+    "volume": 1859865.696308,
+    "afterHours": 100.71,
+    "preMarket": 105.56
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "DNTH",
+  "session": "2025-09-10",
+  "date": "2025-09-10",
+  "entry_date": "2025-09-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.860697+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DNTH/2025-09-10",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-10",
+    "symbol": "DNTH",
+    "open": 33.89,
+    "high": 38.25,
+    "low": 33.23,
+    "close": 37.9,
+    "volume": 2860990.0,
+    "afterHours": 37.24,
+    "preMarket": 35.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

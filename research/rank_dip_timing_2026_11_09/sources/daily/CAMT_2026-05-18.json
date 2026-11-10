@@ -1,0 +1,25 @@
+{
+  "ticker": "CAMT",
+  "session": "2026-05-18",
+  "date": "2026-05-18",
+  "entry_date": "2026-05-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.808561+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CAMT/2026-05-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-18",
+    "symbol": "CAMT",
+    "open": 168.9,
+    "high": 169.99,
+    "low": 151.905,
+    "close": 155.74,
+    "volume": 1037411.492469,
+    "afterHours": 156.52,
+    "preMarket": 166.76
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

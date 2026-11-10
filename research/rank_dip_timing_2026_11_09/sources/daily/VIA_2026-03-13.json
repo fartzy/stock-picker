@@ -1,0 +1,25 @@
+{
+  "ticker": "VIA",
+  "session": "2026-03-13",
+  "date": "2026-03-13",
+  "entry_date": "2026-03-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.394930+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VIA/2026-03-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-13",
+    "symbol": "VIA",
+    "open": 18.01,
+    "high": 18.13,
+    "low": 16.43,
+    "close": 16.68,
+    "volume": 1328750.875829,
+    "afterHours": 16.73,
+    "preMarket": 17.92
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

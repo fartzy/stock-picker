@@ -1,0 +1,25 @@
+{
+  "ticker": "TTAN",
+  "session": "2026-09-15",
+  "date": "2026-09-15",
+  "entry_date": "2026-09-15",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.183244+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TTAN/2026-09-15",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-15",
+    "symbol": "TTAN",
+    "open": 57.78,
+    "high": 59.4,
+    "low": 57.1355,
+    "close": 58.6,
+    "volume": 4560727.656988,
+    "afterHours": 58.5,
+    "preMarket": 58.2
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

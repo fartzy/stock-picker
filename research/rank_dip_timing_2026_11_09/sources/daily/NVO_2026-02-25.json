@@ -1,0 +1,25 @@
+{
+  "ticker": "NVO",
+  "session": "2026-02-25",
+  "date": "2026-02-25",
+  "entry_date": "2026-02-25",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.997320+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NVO/2026-02-25",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-25",
+    "symbol": "NVO",
+    "open": 37.705,
+    "high": 38.24,
+    "low": 37.65,
+    "close": 38.16,
+    "volume": 55460046.404101,
+    "afterHours": 38.09,
+    "preMarket": 37.95
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

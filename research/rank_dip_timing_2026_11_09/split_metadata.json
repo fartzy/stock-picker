@@ -1,0 +1,152 @@
+{
+  "retrieved_at_utc": "2026-11-10T03:59:44.874178+00:00",
+  "endpoint": "/stocks/v1/splits",
+  "coverage_start": "2025-06-30",
+  "coverage_end": "2026-11-09",
+  "complete": true,
+  "relevant_events": [
+    {
+      "id": "E7019b6665ad0283641d3b038c4932603971e5a428d7bc956affd75fcdf20cb52",
+      "execution_date": "2025-07-07",
+      "split_from": 1.5,
+      "split_to": 1.0,
+      "ticker": "ALM",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 1.5
+    },
+    {
+      "id": "Ef9e1e0b45d107498a32ecd8fe7d026b95a0716bb46c916d6ea3c1714a1815e70",
+      "execution_date": "2025-08-25",
+      "split_from": 90.0,
+      "split_to": 1.0,
+      "ticker": "QH",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 90.0
+    },
+    {
+      "id": "E5d558cbb133b7fece7a8e1f2979e6e1242f7f774115a3a620b8e790aa118c92c",
+      "execution_date": "2025-11-18",
+      "split_from": 30.0,
+      "split_to": 31.0,
+      "ticker": "OPEN",
+      "adjustment_type": "stock_dividend",
+      "historical_adjustment_factor": 0.967742
+    },
+    {
+      "id": "E132ce136bea469e073781b053bbcfa1d059975971ebdc0498d3f11b34928af3b",
+      "execution_date": "2025-12-24",
+      "split_from": 50.0,
+      "split_to": 1.0,
+      "ticker": "SHAZ",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 50.0
+    },
+    {
+      "id": "P4567493bcf02e3195ce55342f3ae7061324ff56b890b43feff7b261781d57dc4",
+      "execution_date": "2026-01-05",
+      "split_from": 10.0,
+      "split_to": 1.0,
+      "ticker": "BVC",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 10.0
+    },
+    {
+      "id": "E0866e70e4f668dfdf75a4eae651d9fbd8df4ce5d0916d9b9a6f9116f8ff2cd61",
+      "execution_date": "2026-02-06",
+      "split_from": 20.0,
+      "split_to": 1.0,
+      "ticker": "ASST",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 20.0
+    },
+    {
+      "id": "E8b74c9bb41cfa292f7babdbda26f7b013aa54ae486655dd1e3172d8eaa73e041",
+      "execution_date": "2026-04-06",
+      "split_from": 1.0,
+      "split_to": 3.0,
+      "ticker": "POWL",
+      "adjustment_type": "forward_split",
+      "historical_adjustment_factor": 0.333333
+    },
+    {
+      "id": "Eded6d5eaf98973530103e22774af95139ae12822a318231dc0f511cf6458b733",
+      "execution_date": "2026-04-24",
+      "split_from": 30.0,
+      "split_to": 1.0,
+      "ticker": "TDTH",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 30.0
+    },
+    {
+      "id": "Ec34ae74d72b4f69bf60ba249a915d0aa5fa6cfa6f8384205cefa6c256af63830",
+      "execution_date": "2026-05-04",
+      "split_from": 1.015682,
+      "split_to": 1.0,
+      "ticker": "TRI",
+      "adjustment_type": "reverse_split",
+      "historical_adjustment_factor": 1.015682
+    },
+    {
+      "id": "Edd9dd124187dfa7354bf38a483c440ae435f12dcb2afe0f7def3997ed37e47ac",
+      "execution_date": "2026-06-12",
+      "split_from": 1.0,
+      "split_to": 10.0,
+      "ticker": "KLAC",
+      "adjustment_type": "forward_split",
+      "historical_adjustment_factor": 0.1
+    },
+    {
+      "id": "E0f7a58bf74a4cc0965f939a47eb0a18c56803efbaaec2bcf16db5a8f5aad7dbd",
+      "execution_date": "2026-07-02",
+      "split_from": 1.0,
+      "split_to": 4.0,
+      "ticker": "CRWD",
+      "adjustment_type": "stock_dividend",
+      "historical_adjustment_factor": 0.25
+    },
+    {
+      "id": "E4a5b01e40a8838bb70c20eef4732dd490e4250bddc57320f05bfdb48d3ebcf92",
+      "execution_date": "2026-08-24",
+      "split_from": 1.0,
+      "split_to": 2.0,
+      "ticker": "IESC",
+      "adjustment_type": "stock_dividend",
+      "historical_adjustment_factor": 0.5
+    }
+  ],
+  "pages": [
+    {
+      "params": {
+        "execution_date.gte": "2025-06-30",
+        "execution_date.lte": "2026-11-09",
+        "sort": "execution_date.asc",
+        "limit": 5000
+      },
+      "http_status": 200,
+      "payload_status": "OK",
+      "results_count": 2248,
+      "has_next_page": false,
+      "response_sha256": "8751dd2ad369aca0ea8c20fff741c061cb4367ad1ed3b05653c53d42fca0c6bc"
+    }
+  ],
+  "scope": "splits only; does not certify dividends, spinoffs or ticker continuity",
+  "alias_pages": [
+    {
+      "ticker": "MOG-B",
+      "provider_ticker": "MOG.B",
+      "path": "research/rank_dip_timing_2026_11_09/sources/symbols/MOG-B_splits.json",
+      "sha256": "2b826ca8f853e758b0ceca40473003f9c62620abce7e4a945094691c9fb12909",
+      "http_status": 200,
+      "payload_status": "OK",
+      "has_next_page": false,
+      "results_count": 0,
+      "symbol_alias_provenance": {
+        "path": "research/rank_dip_timing_2026_11_09/sources/symbols/MOG-B_2026-10-26.json",
+        "sha256": "13554e3505af1c510bd50eb984487b48d5dcee5cc067aab2664c33cecafc15e3",
+        "mapping_contract": "python/stock_picker/ingestion/polygon_client.py:123-129",
+        "dated_identity_verified": true
+      }
+    }
+  ],
+  "alias_mapping_complete": true
+}

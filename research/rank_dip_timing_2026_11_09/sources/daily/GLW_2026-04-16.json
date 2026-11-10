@@ -1,0 +1,25 @@
+{
+  "ticker": "GLW",
+  "session": "2026-04-16",
+  "date": "2026-04-16",
+  "entry_date": "2026-04-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.793504+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GLW/2026-04-16",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-16",
+    "symbol": "GLW",
+    "open": 163.38,
+    "high": 166.8499,
+    "low": 158.5,
+    "close": 166.08,
+    "volume": 13148936.956554,
+    "afterHours": 165.15,
+    "preMarket": 169.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

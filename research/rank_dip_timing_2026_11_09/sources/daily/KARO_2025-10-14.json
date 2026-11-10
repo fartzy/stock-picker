@@ -1,0 +1,25 @@
+{
+  "ticker": "KARO",
+  "session": "2025-10-14",
+  "date": "2025-10-14",
+  "entry_date": "2025-10-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.485582+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KARO/2025-10-14",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-14",
+    "symbol": "KARO",
+    "open": 52.51,
+    "high": 56.67,
+    "low": 52.5,
+    "close": 56.4,
+    "volume": 113931,
+    "afterHours": 53.3,
+    "preMarket": 53.485
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

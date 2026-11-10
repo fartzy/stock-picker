@@ -1,0 +1,25 @@
+{
+  "ticker": "W",
+  "session": "2025-08-22",
+  "date": "2025-08-22",
+  "entry_date": "2025-08-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.761413+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/W/2025-08-22",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-22",
+    "symbol": "W",
+    "open": 76.51,
+    "high": 80.845,
+    "low": 75.47,
+    "close": 77.84,
+    "volume": 6930718.0,
+    "afterHours": 74.03,
+    "preMarket": 76.57
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

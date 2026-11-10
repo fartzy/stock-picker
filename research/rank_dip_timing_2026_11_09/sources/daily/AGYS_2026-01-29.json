@@ -1,0 +1,25 @@
+{
+  "ticker": "AGYS",
+  "session": "2026-01-29",
+  "date": "2026-01-29",
+  "entry_date": "2026-01-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.307537+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AGYS/2026-01-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-29",
+    "symbol": "AGYS",
+    "open": 85.21,
+    "high": 85.27,
+    "low": 81.36,
+    "close": 85.26,
+    "volume": 428484,
+    "afterHours": 85.26,
+    "preMarket": 85.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

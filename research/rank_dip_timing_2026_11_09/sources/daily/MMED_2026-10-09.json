@@ -1,0 +1,25 @@
+{
+  "ticker": "MMED",
+  "session": "2026-10-09",
+  "date": "2026-10-09",
+  "entry_date": "2026-10-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.166203+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MMED/2026-10-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-09",
+    "symbol": "MMED",
+    "open": 19.79,
+    "high": 20.15,
+    "low": 19.465,
+    "close": 19.71,
+    "volume": 18397661.87178,
+    "afterHours": 19.6061,
+    "preMarket": 19.59
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

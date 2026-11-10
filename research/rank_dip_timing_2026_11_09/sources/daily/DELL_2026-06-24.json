@@ -1,0 +1,25 @@
+{
+  "ticker": "DELL",
+  "session": "2026-06-24",
+  "date": "2026-06-24",
+  "entry_date": "2026-06-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.660205+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DELL/2026-06-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-24",
+    "symbol": "DELL",
+    "open": 421.765,
+    "high": 440.38,
+    "low": 418.34,
+    "close": 434.06,
+    "volume": 6317230.314701,
+    "afterHours": 443.77,
+    "preMarket": 431.4033
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

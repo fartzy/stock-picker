@@ -1,0 +1,25 @@
+{
+  "ticker": "KTOS",
+  "session": "2026-06-24",
+  "date": "2026-06-24",
+  "entry_date": "2026-06-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.873783+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KTOS/2026-06-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-24",
+    "symbol": "KTOS",
+    "open": 50.18,
+    "high": 50.79,
+    "low": 47.78,
+    "close": 47.95,
+    "volume": 3560266.552472,
+    "afterHours": 48.44,
+    "preMarket": 51.3266
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

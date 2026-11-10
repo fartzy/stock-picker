@@ -1,0 +1,25 @@
+{
+  "ticker": "MU",
+  "session": "2026-06-04",
+  "date": "2026-06-04",
+  "entry_date": "2026-06-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.575242+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MU/2026-06-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-04",
+    "symbol": "MU",
+    "open": 1007.1,
+    "high": 1036.3699,
+    "low": 971.68,
+    "close": 996,
+    "volume": 54917159.871352,
+    "afterHours": 971.75,
+    "preMarket": 1051.41
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

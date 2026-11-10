@@ -1,0 +1,25 @@
+{
+  "ticker": "MLYS",
+  "session": "2026-03-10",
+  "date": "2026-03-10",
+  "entry_date": "2026-03-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.097344+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MLYS/2026-03-10",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-10",
+    "symbol": "MLYS",
+    "open": 26.45,
+    "high": 31,
+    "low": 24.37,
+    "close": 28.43,
+    "volume": 3639967.643231,
+    "afterHours": 28.44,
+    "preMarket": 27.24
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

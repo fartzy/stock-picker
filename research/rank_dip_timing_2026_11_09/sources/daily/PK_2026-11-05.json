@@ -1,0 +1,25 @@
+{
+  "ticker": "PK",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.083585+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PK/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "PK",
+    "open": 16.56,
+    "high": 16.89,
+    "low": 15.535,
+    "close": 15.55,
+    "volume": 6110721.138301,
+    "afterHours": 15.4676,
+    "preMarket": 16.8566
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

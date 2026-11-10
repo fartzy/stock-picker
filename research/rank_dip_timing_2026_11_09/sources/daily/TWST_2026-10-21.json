@@ -1,0 +1,25 @@
+{
+  "ticker": "TWST",
+  "session": "2026-10-21",
+  "date": "2026-10-21",
+  "entry_date": "2026-10-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.389459+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TWST/2026-10-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-21",
+    "symbol": "TWST",
+    "open": 139.335,
+    "high": 153.8,
+    "low": 138.25,
+    "close": 149.13,
+    "volume": 2636389.401266,
+    "afterHours": 149.01,
+    "preMarket": 142.05
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "OUST",
+  "session": "2026-07-13",
+  "date": "2026-07-13",
+  "entry_date": "2026-07-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.376773+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/OUST/2026-07-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-13",
+    "symbol": "OUST",
+    "open": 41.8,
+    "high": 42.53,
+    "low": 39.48,
+    "close": 40.03,
+    "volume": 3370790.312407,
+    "afterHours": 39.75,
+    "preMarket": 43.05
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

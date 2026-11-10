@@ -1,0 +1,25 @@
+{
+  "ticker": "SJM",
+  "session": "2025-08-27",
+  "date": "2025-08-27",
+  "entry_date": "2025-08-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.363367+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SJM/2025-08-27",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-27",
+    "symbol": "SJM",
+    "open": 100.25,
+    "high": 106.75,
+    "low": 100.25,
+    "close": 105.67,
+    "volume": 6867574.0,
+    "afterHours": 105.67,
+    "preMarket": 109
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PAYP",
+  "session": "2026-09-28",
+  "date": "2026-09-28",
+  "entry_date": "2026-09-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.641328+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PAYP/2026-09-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-28",
+    "symbol": "PAYP",
+    "open": 16.27,
+    "high": 16.57,
+    "low": 15.9,
+    "close": 16,
+    "volume": 982538.43335,
+    "afterHours": 16.05,
+    "preMarket": 16.43
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

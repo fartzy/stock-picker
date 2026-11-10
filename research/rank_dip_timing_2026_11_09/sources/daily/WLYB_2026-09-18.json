@@ -1,0 +1,25 @@
+{
+  "ticker": "WLYB",
+  "session": "2026-09-18",
+  "date": "2026-09-18",
+  "entry_date": "2026-09-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.260739+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WLYB/2026-09-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-18",
+    "symbol": "WLYB",
+    "open": 47.77,
+    "high": 48.17,
+    "low": 46.68,
+    "close": 46.68,
+    "volume": 12384.0712,
+    "afterHours": 47.7,
+    "preMarket": 47.77
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

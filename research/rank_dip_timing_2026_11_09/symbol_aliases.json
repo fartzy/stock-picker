@@ -1,0 +1,39 @@
+[
+  {
+    "ticker": "MOG-B",
+    "provider_ticker": "MOG.B",
+    "complete": false,
+    "identity": {
+      "path": "research/rank_dip_timing_2026_11_09/sources/symbols/MOG-B_2026-10-26.json",
+      "sha256": "13554e3505af1c510bd50eb984487b48d5dcee5cc067aab2664c33cecafc15e3",
+      "mapping_contract": "python/stock_picker/ingestion/polygon_client.py:123-129",
+      "dated_identity_verified": true
+    },
+    "repair_requests": [
+      {
+        "kind": "daily",
+        "session": "2026-10-23",
+        "complete": false,
+        "path": "research/rank_dip_timing_2026_11_09/sources/daily/MOG-B_2026-10-23__MOG.B.json",
+        "sha256": "907f35bcc35637b366c4adca4398e72d9a1362699cff220e2aaedaabc392d15c"
+      },
+      {
+        "kind": "daily",
+        "session": "2026-10-26",
+        "complete": true,
+        "path": "research/rank_dip_timing_2026_11_09/sources/daily/MOG-B_2026-10-26__MOG.B.json",
+        "sha256": "dea93e932638bc39aae37a37577e16c2027c8b2c120b983a1fae6707217fc1a3"
+      },
+      {
+        "kind": "minute",
+        "session": "2026-10-26",
+        "complete": true,
+        "path": "research/rank_dip_timing_2026_11_09/sources/minute/MOG-B_2026-10-26__MOG.B.json.gz",
+        "sha256": "e12dc065ba76fb02ffc7d0c9ddcfbf60db867fc8193c6ff4afa98874a9a2cd62"
+      }
+    ],
+    "acquisition_complete": true,
+    "all_prices_available": false,
+    "provider_alias_verified": true
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "ticker": "WLYB",
+  "session": "2025-09-29",
+  "date": "2025-09-29",
+  "entry_date": "2025-09-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.248554+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WLYB/2025-09-29",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-29",
+    "symbol": "WLYB",
+    "open": 40.39,
+    "high": 40.39,
+    "low": 40.39,
+    "close": 40.39,
+    "volume": 285,
+    "afterHours": 40.39,
+    "preMarket": 40.39
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "LITE",
+  "session": "2026-01-08",
+  "date": "2026-01-08",
+  "entry_date": "2026-01-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.950348+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LITE/2026-01-08",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-08",
+    "symbol": "LITE",
+    "open": 394.3,
+    "high": 395.04,
+    "low": 343,
+    "close": 348.26,
+    "volume": 5137293.0,
+    "afterHours": 345.99,
+    "preMarket": 385.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

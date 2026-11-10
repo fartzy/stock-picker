@@ -1,0 +1,25 @@
+{
+  "ticker": "ALHC",
+  "session": "2025-12-19",
+  "date": "2025-12-19",
+  "entry_date": "2025-12-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.655116+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ALHC/2025-12-19",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-19",
+    "symbol": "ALHC",
+    "open": 20.29,
+    "high": 20.63,
+    "low": 20.185,
+    "close": 20.42,
+    "volume": 6021965.0,
+    "afterHours": 20.9959,
+    "preMarket": 20.41
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

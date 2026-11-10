@@ -1,0 +1,25 @@
+{
+  "ticker": "INTA",
+  "session": "2026-10-28",
+  "date": "2026-10-28",
+  "entry_date": "2026-10-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.162486+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/INTA/2026-10-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-28",
+    "symbol": "INTA",
+    "open": 39.68,
+    "high": 43.68,
+    "low": 38.21,
+    "close": 40.34,
+    "volume": 1889931.632261,
+    "afterHours": 40.34,
+    "preMarket": 35.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

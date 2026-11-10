@@ -1,0 +1,25 @@
+{
+  "ticker": "FHN",
+  "session": "2025-10-16",
+  "date": "2025-10-16",
+  "entry_date": "2025-10-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.935771+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FHN/2025-10-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-16",
+    "symbol": "FHN",
+    "open": 20.48,
+    "high": 20.94,
+    "low": 19.8001,
+    "close": 19.94,
+    "volume": 24430913.0,
+    "afterHours": 19.95,
+    "preMarket": 20.86
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "WH",
+  "session": "2025-10-22",
+  "date": "2025-10-22",
+  "entry_date": "2025-10-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.969714+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WH/2025-10-22",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-22",
+    "symbol": "WH",
+    "open": 81.92,
+    "high": 83.575,
+    "low": 80.21,
+    "close": 80.39,
+    "volume": 2003911.0,
+    "afterHours": 76.5,
+    "preMarket": 81
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

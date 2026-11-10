@@ -1,0 +1,25 @@
+{
+  "ticker": "AU",
+  "session": "2025-11-28",
+  "date": "2025-11-28",
+  "entry_date": "2025-11-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.687882+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AU/2025-11-28",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-28",
+    "symbol": "AU",
+    "open": 84.3,
+    "high": 85.72,
+    "low": 83.505,
+    "close": 85.68,
+    "volume": 4580505.0,
+    "afterHours": 85.63,
+    "preMarket": 84.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

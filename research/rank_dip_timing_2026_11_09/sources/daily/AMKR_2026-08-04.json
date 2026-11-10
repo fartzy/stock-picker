@@ -1,0 +1,25 @@
+{
+  "ticker": "AMKR",
+  "session": "2026-08-04",
+  "date": "2026-08-04",
+  "entry_date": "2026-08-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.818534+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AMKR/2026-08-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-04",
+    "symbol": "AMKR",
+    "open": 53.315,
+    "high": 56.415,
+    "low": 53.01,
+    "close": 55.87,
+    "volume": 5772385.740942,
+    "afterHours": 55.89,
+    "preMarket": 51.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

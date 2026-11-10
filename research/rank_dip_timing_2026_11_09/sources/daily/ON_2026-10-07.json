@@ -1,0 +1,25 @@
+{
+  "ticker": "ON",
+  "session": "2026-10-07",
+  "date": "2026-10-07",
+  "entry_date": "2026-10-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.047524+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ON/2026-10-07",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-07",
+    "symbol": "ON",
+    "open": 84.21,
+    "high": 85.21,
+    "low": 82.05,
+    "close": 82.51,
+    "volume": 12969537.202929,
+    "afterHours": 82.85,
+    "preMarket": 85.97
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

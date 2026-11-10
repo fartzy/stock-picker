@@ -1,0 +1,25 @@
+{
+  "ticker": "ANF",
+  "session": "2026-01-09",
+  "date": "2026-01-09",
+  "entry_date": "2026-01-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.899610+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ANF/2026-01-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-09",
+    "symbol": "ANF",
+    "open": 130.15,
+    "high": 133.11,
+    "low": 124.1,
+    "close": 124.87,
+    "volume": 1747872.0,
+    "afterHours": 124.7371,
+    "preMarket": 132
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

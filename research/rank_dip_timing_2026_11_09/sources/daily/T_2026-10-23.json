@@ -1,0 +1,25 @@
+{
+  "ticker": "T",
+  "session": "2026-10-23",
+  "date": "2026-10-23",
+  "entry_date": "2026-10-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.592129+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/T/2026-10-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-23",
+    "symbol": "T",
+    "open": 21.74,
+    "high": 22.21,
+    "low": 20.92,
+    "close": 20.93,
+    "volume": 99813647.977572,
+    "afterHours": 20.9685,
+    "preMarket": 22.02
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

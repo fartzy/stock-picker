@@ -1,0 +1,25 @@
+{
+  "ticker": "GLXY",
+  "session": "2026-07-22",
+  "date": "2026-07-22",
+  "entry_date": "2026-07-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.865870+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GLXY/2026-07-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-22",
+    "symbol": "GLXY",
+    "open": 24.41,
+    "high": 26.0499,
+    "low": 24.3302,
+    "close": 24.79,
+    "volume": 4362217.405273,
+    "afterHours": 24.9,
+    "preMarket": 25.31
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "LIF",
+  "session": "2026-04-10",
+  "date": "2026-04-10",
+  "entry_date": "2026-04-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.856513+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LIF/2026-04-10",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-10",
+    "symbol": "LIF",
+    "open": 42.08,
+    "high": 42.08,
+    "low": 37.83,
+    "close": 38.1,
+    "volume": 1260097.949431,
+    "afterHours": 37.83,
+    "preMarket": 41.2625
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

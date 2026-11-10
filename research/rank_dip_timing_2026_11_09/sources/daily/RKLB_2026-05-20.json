@@ -1,0 +1,25 @@
+{
+  "ticker": "RKLB",
+  "session": "2026-05-20",
+  "date": "2026-05-20",
+  "entry_date": "2026-05-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.756984+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RKLB/2026-05-20",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-20",
+    "symbol": "RKLB",
+    "open": 127.48,
+    "high": 135.35,
+    "low": 124.22,
+    "close": 134.28,
+    "volume": 24347709.408432,
+    "afterHours": 123.05,
+    "preMarket": 125
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

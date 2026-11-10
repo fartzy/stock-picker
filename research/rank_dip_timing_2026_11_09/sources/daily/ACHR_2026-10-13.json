@@ -1,0 +1,25 @@
+{
+  "ticker": "ACHR",
+  "session": "2026-10-13",
+  "date": "2026-10-13",
+  "entry_date": "2026-10-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.653333+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ACHR/2026-10-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-13",
+    "symbol": "ACHR",
+    "open": 4.63,
+    "high": 4.765,
+    "low": 4.44,
+    "close": 4.44,
+    "volume": 24322011.565974,
+    "afterHours": 4.454,
+    "preMarket": 4.67
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

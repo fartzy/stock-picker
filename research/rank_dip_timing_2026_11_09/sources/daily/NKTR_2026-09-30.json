@@ -1,0 +1,25 @@
+{
+  "ticker": "NKTR",
+  "session": "2026-09-30",
+  "date": "2026-09-30",
+  "entry_date": "2026-09-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.826265+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NKTR/2026-09-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-30",
+    "symbol": "NKTR",
+    "open": 59.96,
+    "high": 62.3999,
+    "low": 58.91,
+    "close": 60.545,
+    "volume": 1210000.217787,
+    "afterHours": 61.2,
+    "preMarket": 59.25
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

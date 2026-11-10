@@ -1,0 +1,25 @@
+{
+  "ticker": "GIL",
+  "session": "2026-11-04",
+  "date": "2026-11-04",
+  "entry_date": "2026-11-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.743358+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GIL/2026-11-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-04",
+    "symbol": "GIL",
+    "open": 42,
+    "high": 43.3,
+    "low": 41.58,
+    "close": 43.27,
+    "volume": 1371194.473271,
+    "afterHours": 43.27,
+    "preMarket": 42
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "WIT",
+  "session": "2026-05-28",
+  "date": "2026-05-28",
+  "entry_date": "2026-05-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.021445+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WIT/2026-05-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-28",
+    "symbol": "WIT",
+    "open": 2.06,
+    "high": 2.49,
+    "low": 2.0512,
+    "close": 2.43,
+    "volume": 24909493.403275,
+    "afterHours": 2.42,
+    "preMarket": 2.04
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

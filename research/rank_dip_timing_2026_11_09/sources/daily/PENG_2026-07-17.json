@@ -1,0 +1,25 @@
+{
+  "ticker": "PENG",
+  "session": "2026-07-17",
+  "date": "2026-07-17",
+  "entry_date": "2026-07-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.830687+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PENG/2026-07-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-17",
+    "symbol": "PENG",
+    "open": 62.67,
+    "high": 65.215,
+    "low": 59.53,
+    "close": 60.41,
+    "volume": 4131383.389204,
+    "afterHours": 60.18,
+    "preMarket": 63.47
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

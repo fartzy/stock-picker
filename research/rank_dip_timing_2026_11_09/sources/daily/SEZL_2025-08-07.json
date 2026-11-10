@@ -1,0 +1,25 @@
+{
+  "ticker": "SEZL",
+  "session": "2025-08-07",
+  "date": "2025-08-07",
+  "entry_date": "2025-08-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.021302+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SEZL/2025-08-07",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-07",
+    "symbol": "SEZL",
+    "open": 145.37,
+    "high": 148.2,
+    "low": 132.23,
+    "close": 139.33,
+    "volume": 2159527.0,
+    "afterHours": 113.65,
+    "preMarket": 143.85
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

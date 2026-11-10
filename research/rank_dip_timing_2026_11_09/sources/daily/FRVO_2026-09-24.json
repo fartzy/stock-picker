@@ -1,0 +1,25 @@
+{
+  "ticker": "FRVO",
+  "session": "2026-09-24",
+  "date": "2026-09-24",
+  "entry_date": "2026-09-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.562953+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FRVO/2026-09-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-24",
+    "symbol": "FRVO",
+    "open": 18.49,
+    "high": 18.542,
+    "low": 16.16,
+    "close": 16.71,
+    "volume": 14295917.354491,
+    "afterHours": 16.87,
+    "preMarket": 16.4396
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

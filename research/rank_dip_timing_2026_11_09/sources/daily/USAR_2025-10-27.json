@@ -1,0 +1,25 @@
+{
+  "ticker": "USAR",
+  "session": "2025-10-27",
+  "date": "2025-10-27",
+  "entry_date": "2025-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.035501+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/USAR/2025-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-27",
+    "symbol": "USAR",
+    "open": 21.35,
+    "high": 21.73,
+    "low": 20.15,
+    "close": 21.6,
+    "volume": 20549967.0,
+    "afterHours": 21.2899,
+    "preMarket": 22.9
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

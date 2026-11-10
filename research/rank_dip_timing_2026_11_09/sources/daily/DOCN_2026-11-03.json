@@ -1,0 +1,25 @@
+{
+  "ticker": "DOCN",
+  "session": "2026-11-03",
+  "date": "2026-11-03",
+  "entry_date": "2026-11-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.940899+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DOCN/2026-11-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-03",
+    "symbol": "DOCN",
+    "open": 87.44,
+    "high": 92.38,
+    "low": 86.28,
+    "close": 90.5,
+    "volume": 8976819.190726,
+    "afterHours": 90,
+    "preMarket": 90
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "WERN",
+  "session": "2026-10-05",
+  "date": "2026-10-05",
+  "entry_date": "2026-10-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.921461+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WERN/2026-10-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-05",
+    "symbol": "WERN",
+    "open": 34.82,
+    "high": 35.18,
+    "low": 33.66,
+    "close": 34.15,
+    "volume": 786137.278042,
+    "afterHours": 34.05,
+    "preMarket": 35.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "COHR",
+  "session": "2026-08-11",
+  "date": "2026-08-11",
+  "entry_date": "2026-08-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.726592+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/COHR/2026-08-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-11",
+    "symbol": "COHR",
+    "open": 323.86,
+    "high": 332,
+    "low": 315.4001,
+    "close": 328.57,
+    "volume": 6507136.693955,
+    "afterHours": 338.1,
+    "preMarket": 326.14
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ALKT",
+  "session": "2026-09-22",
+  "date": "2026-09-22",
+  "entry_date": "2026-09-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.725808+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ALKT/2026-09-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-22",
+    "symbol": "ALKT",
+    "open": 18.86,
+    "high": 18.98,
+    "low": 17.79,
+    "close": 18.09,
+    "volume": 1202192.393923,
+    "afterHours": 18.09,
+    "preMarket": 18.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

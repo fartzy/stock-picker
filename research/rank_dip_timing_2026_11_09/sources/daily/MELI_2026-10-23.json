@@ -1,0 +1,25 @@
+{
+  "ticker": "MELI",
+  "session": "2026-10-23",
+  "date": "2026-10-23",
+  "entry_date": "2026-10-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.929928+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MELI/2026-10-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-23",
+    "symbol": "MELI",
+    "open": 1801.01,
+    "high": 1824.64,
+    "low": 1792.2059,
+    "close": 1810.15,
+    "volume": 383141.210489,
+    "afterHours": 1815.99,
+    "preMarket": 1824.95
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

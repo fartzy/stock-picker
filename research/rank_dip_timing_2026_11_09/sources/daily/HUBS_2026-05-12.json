@@ -1,0 +1,25 @@
+{
+  "ticker": "HUBS",
+  "session": "2026-05-12",
+  "date": "2026-05-12",
+  "entry_date": "2026-05-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.517220+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HUBS/2026-05-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-12",
+    "symbol": "HUBS",
+    "open": 190.61,
+    "high": 193.8,
+    "low": 178.8,
+    "close": 179.58,
+    "volume": 2733750.533331,
+    "afterHours": 181.4025,
+    "preMarket": 189.8
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

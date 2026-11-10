@@ -1,0 +1,25 @@
+{
+  "ticker": "COAG",
+  "session": "2026-05-19",
+  "date": "2026-05-19",
+  "entry_date": "2026-05-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.609865+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/COAG/2026-05-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-19",
+    "symbol": "COAG",
+    "open": 27.15,
+    "high": 27.43,
+    "low": 24.6,
+    "close": 25.44,
+    "volume": 132727.113301,
+    "afterHours": 25.41,
+    "preMarket": 27.15
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

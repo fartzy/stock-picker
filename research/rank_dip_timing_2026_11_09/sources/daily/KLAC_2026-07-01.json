@@ -1,0 +1,25 @@
+{
+  "ticker": "KLAC",
+  "session": "2026-07-01",
+  "date": "2026-07-01",
+  "entry_date": "2026-07-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.713897+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KLAC/2026-07-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-01",
+    "symbol": "KLAC",
+    "open": 285.515,
+    "high": 290.84,
+    "low": 259.8,
+    "close": 266.19,
+    "volume": 24163592.849023,
+    "afterHours": 267.8162,
+    "preMarket": 296.27
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

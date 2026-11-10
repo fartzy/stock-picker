@@ -1,0 +1,25 @@
+{
+  "ticker": "SYM",
+  "session": "2025-12-04",
+  "date": "2025-12-04",
+  "entry_date": "2025-12-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.550224+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SYM/2025-12-04",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-04",
+    "symbol": "SYM",
+    "open": 62.212,
+    "high": 65.6999,
+    "low": 59.83,
+    "close": 60.48,
+    "volume": 9642540.0,
+    "afterHours": 61.13,
+    "preMarket": 66.49
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

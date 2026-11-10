@@ -1,0 +1,25 @@
+{
+  "ticker": "HPQ",
+  "session": "2026-09-28",
+  "date": "2026-09-28",
+  "entry_date": "2026-09-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.357146+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HPQ/2026-09-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-28",
+    "symbol": "HPQ",
+    "open": 31.29,
+    "high": 31.795,
+    "low": 30.74,
+    "close": 31.32,
+    "volume": 13325395.561963,
+    "afterHours": 31.4,
+    "preMarket": 31.2012
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

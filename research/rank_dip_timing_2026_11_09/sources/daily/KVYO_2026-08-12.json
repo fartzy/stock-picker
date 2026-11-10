@@ -1,0 +1,25 @@
+{
+  "ticker": "KVYO",
+  "session": "2026-08-12",
+  "date": "2026-08-12",
+  "entry_date": "2026-08-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.964820+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KVYO/2026-08-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-12",
+    "symbol": "KVYO",
+    "open": 17.94,
+    "high": 18.1,
+    "low": 17.045,
+    "close": 17.25,
+    "volume": 9888071.731509,
+    "afterHours": 17.3994,
+    "preMarket": 18.08
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

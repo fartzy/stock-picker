@@ -1,0 +1,25 @@
+{
+  "ticker": "MTDR",
+  "session": "2026-08-03",
+  "date": "2026-08-03",
+  "entry_date": "2026-08-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.499933+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MTDR/2026-08-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-03",
+    "symbol": "MTDR",
+    "open": 48.23,
+    "high": 49.655,
+    "low": 48.08,
+    "close": 48.83,
+    "volume": 2314771.981976,
+    "afterHours": 48.83,
+    "preMarket": 49.19
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

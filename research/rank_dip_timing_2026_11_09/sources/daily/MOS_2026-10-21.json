@@ -1,0 +1,25 @@
+{
+  "ticker": "MOS",
+  "session": "2026-10-21",
+  "date": "2026-10-21",
+  "entry_date": "2026-10-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.236875+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MOS/2026-10-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-21",
+    "symbol": "MOS",
+    "open": 17.925,
+    "high": 18.2899,
+    "low": 17.51,
+    "close": 17.68,
+    "volume": 12565359.445405,
+    "afterHours": 17.67,
+    "preMarket": 17.8846
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

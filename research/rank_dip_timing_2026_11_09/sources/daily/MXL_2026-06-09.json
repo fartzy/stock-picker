@@ -1,0 +1,25 @@
+{
+  "ticker": "MXL",
+  "session": "2026-06-09",
+  "date": "2026-06-09",
+  "entry_date": "2026-06-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.652771+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MXL/2026-06-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-09",
+    "symbol": "MXL",
+    "open": 81.54,
+    "high": 82.76,
+    "low": 67.77,
+    "close": 72.61,
+    "volume": 5850123.666132,
+    "afterHours": 72.03,
+    "preMarket": 81.6395
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

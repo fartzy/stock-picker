@@ -1,0 +1,25 @@
+{
+  "ticker": "LEU",
+  "session": "2026-02-11",
+  "date": "2026-02-11",
+  "entry_date": "2026-02-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.704488+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LEU/2026-02-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-11",
+    "symbol": "LEU",
+    "open": 253,
+    "high": 258,
+    "low": 206.23,
+    "close": 210.16,
+    "volume": 3218096.0,
+    "afterHours": 209.5,
+    "preMarket": 241
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

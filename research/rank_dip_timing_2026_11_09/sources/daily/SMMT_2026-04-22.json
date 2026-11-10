@@ -1,0 +1,25 @@
+{
+  "ticker": "SMMT",
+  "session": "2026-04-22",
+  "date": "2026-04-22",
+  "entry_date": "2026-04-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.668817+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SMMT/2026-04-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-22",
+    "symbol": "SMMT",
+    "open": 26.64,
+    "high": 26.77,
+    "low": 23.43,
+    "close": 24.58,
+    "volume": 8248916.301615,
+    "afterHours": 24.58,
+    "preMarket": 26.61
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

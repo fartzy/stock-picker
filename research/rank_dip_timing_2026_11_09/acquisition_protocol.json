@@ -1,0 +1,21 @@
+{
+  "frozen_at_utc": "2026-11-10T03:57:17.647583+00:00",
+  "purpose": "Outcome-independent acquisition for dip timing research",
+  "cohorts": {
+    "live": "saved Rank1\u20135",
+    "research_baseline": "outer-period Rank1, 132 raw inputs",
+    "research_all_dips": "outer-period Rank1, 132 existing +21 new dip inputs"
+  },
+  "trading_expense_fraction": 0,
+  "new_request_caps": {
+    "minute": 750,
+    "daily": 1700,
+    "metadata": 5
+  },
+  "maximum_concurrency": 4,
+  "no_model_training": true,
+  "no_named_ticker_exclusions": true,
+  "availability_policy_owner": "analysis protocol; primary early-open assumption, not recorded run logs",
+  "recorded_run_warning": "Log timestamps are diagnostic run events, not certified first publication",
+  "provider_docs": "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
+}

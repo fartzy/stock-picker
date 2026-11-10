@@ -1,0 +1,25 @@
+{
+  "ticker": "DOCS",
+  "session": "2026-08-10",
+  "date": "2026-08-10",
+  "entry_date": "2026-08-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.005691+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DOCS/2026-08-10",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-10",
+    "symbol": "DOCS",
+    "open": 26.31,
+    "high": 26.61,
+    "low": 24.365,
+    "close": 25.63,
+    "volume": 9955218.633473,
+    "afterHours": 25.61,
+    "preMarket": 27.46
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

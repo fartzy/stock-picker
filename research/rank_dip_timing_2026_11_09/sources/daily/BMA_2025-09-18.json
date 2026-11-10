@@ -1,0 +1,25 @@
+{
+  "ticker": "BMA",
+  "session": "2025-09-18",
+  "date": "2025-09-18",
+  "entry_date": "2025-09-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.532190+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BMA/2025-09-18",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-18",
+    "symbol": "BMA",
+    "open": 43.42,
+    "high": 43.42,
+    "low": 39.25,
+    "close": 40.43,
+    "volume": 1423359.0,
+    "afterHours": 40.6001,
+    "preMarket": 43.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

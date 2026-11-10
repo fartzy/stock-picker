@@ -1,0 +1,25 @@
+{
+  "ticker": "GRDN",
+  "session": "2026-09-28",
+  "date": "2026-09-28",
+  "entry_date": "2026-09-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.184336+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GRDN/2026-09-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-28",
+    "symbol": "GRDN",
+    "open": 41.12,
+    "high": 42.42,
+    "low": 40.09,
+    "close": 40.74,
+    "volume": 621480.738876,
+    "afterHours": 40.7,
+    "preMarket": 42.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

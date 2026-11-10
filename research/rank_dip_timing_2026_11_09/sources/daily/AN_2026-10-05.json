@@ -1,0 +1,25 @@
+{
+  "ticker": "AN",
+  "session": "2026-10-05",
+  "date": "2026-10-05",
+  "entry_date": "2026-10-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.899487+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AN/2026-10-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-05",
+    "symbol": "AN",
+    "open": 158,
+    "high": 162.39,
+    "low": 155.55,
+    "close": 161.67,
+    "volume": 630153.564388,
+    "afterHours": 160,
+    "preMarket": 159.24
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

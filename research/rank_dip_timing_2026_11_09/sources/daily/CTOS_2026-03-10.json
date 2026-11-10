@@ -1,0 +1,25 @@
+{
+  "ticker": "CTOS",
+  "session": "2026-03-10",
+  "date": "2026-03-10",
+  "entry_date": "2026-03-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.337669+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CTOS/2026-03-10",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-10",
+    "symbol": "CTOS",
+    "open": 5.86,
+    "high": 6.1,
+    "low": 5.63,
+    "close": 5.66,
+    "volume": 1893094.520425,
+    "afterHours": 5.83,
+    "preMarket": 6.38
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

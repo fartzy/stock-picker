@@ -1,0 +1,25 @@
+{
+  "ticker": "LAD",
+  "session": "2026-09-08",
+  "date": "2026-09-08",
+  "entry_date": "2026-09-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.967019+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LAD/2026-09-08",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-08",
+    "symbol": "LAD",
+    "open": 383.56,
+    "high": 388.435,
+    "low": 368.36,
+    "close": 368.7,
+    "volume": 298468.13379,
+    "afterHours": 368.7,
+    "preMarket": 386.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

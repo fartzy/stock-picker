@@ -1,0 +1,25 @@
+{
+  "ticker": "KMI",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.713663+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KMI/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "KMI",
+    "open": 31.695,
+    "high": 31.895,
+    "low": 30.17,
+    "close": 30.19,
+    "volume": 19327274.185369,
+    "afterHours": 30.361,
+    "preMarket": 31.47
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

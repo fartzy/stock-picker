@@ -1,0 +1,25 @@
+{
+  "ticker": "ABCL",
+  "session": "2026-08-31",
+  "date": "2026-08-31",
+  "entry_date": "2026-08-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.557990+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ABCL/2026-08-31",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-31",
+    "symbol": "ABCL",
+    "open": 11.1,
+    "high": 11.575,
+    "low": 10.83,
+    "close": 11.48,
+    "volume": 4955848.305675,
+    "afterHours": 11.41,
+    "preMarket": 11.35
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "UAA",
+  "session": "2026-05-12",
+  "date": "2026-05-12",
+  "entry_date": "2026-05-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.488816+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UAA/2026-05-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-12",
+    "symbol": "UAA",
+    "open": 5.18,
+    "high": 5.18,
+    "low": 4.81,
+    "close": 5.03,
+    "volume": 33434446.6049,
+    "afterHours": 5.0396,
+    "preMarket": 6.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

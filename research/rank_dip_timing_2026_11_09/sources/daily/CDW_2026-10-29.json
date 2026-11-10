@@ -1,0 +1,25 @@
+{
+  "ticker": "CDW",
+  "session": "2026-10-29",
+  "date": "2026-10-29",
+  "entry_date": "2026-10-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.196206+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CDW/2026-10-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-29",
+    "symbol": "CDW",
+    "open": 164.22,
+    "high": 165.42,
+    "low": 161.94,
+    "close": 165.2,
+    "volume": 910874.662859,
+    "afterHours": 165.15,
+    "preMarket": 161.25
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

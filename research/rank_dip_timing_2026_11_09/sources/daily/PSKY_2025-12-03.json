@@ -1,0 +1,25 @@
+{
+  "ticker": "PSKY",
+  "session": "2025-12-03",
+  "date": "2025-12-03",
+  "entry_date": "2025-12-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.916075+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PSKY/2025-12-03",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-03",
+    "symbol": "PSKY",
+    "open": 15.8,
+    "high": 15.83,
+    "low": 14.64,
+    "close": 14.67,
+    "volume": 9614681.0,
+    "afterHours": 14.77,
+    "preMarket": 15.81
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

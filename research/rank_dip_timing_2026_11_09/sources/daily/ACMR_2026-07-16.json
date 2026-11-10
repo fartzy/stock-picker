@@ -1,0 +1,25 @@
+{
+  "ticker": "ACMR",
+  "session": "2026-07-16",
+  "date": "2026-07-16",
+  "entry_date": "2026-07-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.746400+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ACMR/2026-07-16",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-16",
+    "symbol": "ACMR",
+    "open": 86.69,
+    "high": 89.575,
+    "low": 83.01,
+    "close": 84.09,
+    "volume": 1232050.026215,
+    "afterHours": 83.2,
+    "preMarket": 91.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

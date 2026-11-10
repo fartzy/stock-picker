@@ -1,0 +1,25 @@
+{
+  "ticker": "ENPH",
+  "session": "2025-07-07",
+  "date": "2025-07-07",
+  "entry_date": "2025-07-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.420874+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ENPH/2025-07-07",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-07",
+    "symbol": "ENPH",
+    "open": 41.85,
+    "high": 42.77,
+    "low": 40.95,
+    "close": 42.46,
+    "volume": 5969914.0,
+    "afterHours": 42.3001,
+    "preMarket": 41.91
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "MSTR",
+  "session": "2026-06-30",
+  "date": "2026-06-30",
+  "entry_date": "2026-06-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.462315+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MSTR/2026-06-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-30",
+    "symbol": "MSTR",
+    "open": 86.205,
+    "high": 88.2602,
+    "low": 83.42,
+    "close": 86.93,
+    "volume": 35676601.007871,
+    "afterHours": 86.37,
+    "preMarket": 90.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

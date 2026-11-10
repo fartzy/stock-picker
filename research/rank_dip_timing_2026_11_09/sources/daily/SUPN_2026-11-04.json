@@ -1,0 +1,25 @@
+{
+  "ticker": "SUPN",
+  "session": "2026-11-04",
+  "date": "2026-11-04",
+  "entry_date": "2026-11-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.526179+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SUPN/2026-11-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-04",
+    "symbol": "SUPN",
+    "open": 26.81,
+    "high": 28.99,
+    "low": 26.74,
+    "close": 28.21,
+    "volume": 6565162.343221,
+    "afterHours": 28.0488,
+    "preMarket": 28
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

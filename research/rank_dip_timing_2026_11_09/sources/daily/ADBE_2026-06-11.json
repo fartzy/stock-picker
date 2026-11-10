@@ -1,0 +1,25 @@
+{
+  "ticker": "ADBE",
+  "session": "2026-06-11",
+  "date": "2026-06-11",
+  "entry_date": "2026-06-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.895763+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ADBE/2026-06-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-11",
+    "symbol": "ADBE",
+    "open": 229.92,
+    "high": 232.5,
+    "low": 218.09,
+    "close": 218.8,
+    "volume": 17786876.380954,
+    "afterHours": 206.67,
+    "preMarket": 233.94
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}
