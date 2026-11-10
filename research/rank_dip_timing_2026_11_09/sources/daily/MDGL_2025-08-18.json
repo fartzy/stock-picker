@@ -1,0 +1,25 @@
+{
+  "ticker": "MDGL",
+  "session": "2025-08-18",
+  "date": "2025-08-18",
+  "entry_date": "2025-08-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.928675+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MDGL/2025-08-18",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-18",
+    "symbol": "MDGL",
+    "open": 354.56,
+    "high": 393.76,
+    "low": 351.315,
+    "close": 391.43,
+    "volume": 806084,
+    "afterHours": 395,
+    "preMarket": 355
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "QS",
+  "session": "2025-07-22",
+  "date": "2025-07-22",
+  "entry_date": "2025-07-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.541565+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/QS/2025-07-22",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-22",
+    "symbol": "QS",
+    "open": 11.24,
+    "high": 14.03,
+    "low": 11.24,
+    "close": 13.8,
+    "volume": 104170950.0,
+    "afterHours": 13.76,
+    "preMarket": 12.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

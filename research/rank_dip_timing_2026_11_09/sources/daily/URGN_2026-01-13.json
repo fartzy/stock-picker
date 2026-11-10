@@ -1,0 +1,25 @@
+{
+  "ticker": "URGN",
+  "session": "2026-01-13",
+  "date": "2026-01-13",
+  "entry_date": "2026-01-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.943648+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/URGN/2026-01-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-13",
+    "symbol": "URGN",
+    "open": 21.53,
+    "high": 21.65,
+    "low": 19.76,
+    "close": 19.83,
+    "volume": 987645,
+    "afterHours": 19.5,
+    "preMarket": 21.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "IBRX",
+  "session": "2026-10-19",
+  "date": "2026-10-19",
+  "entry_date": "2026-10-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.812155+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/IBRX/2026-10-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-19",
+    "symbol": "IBRX",
+    "open": 9.19,
+    "high": 9.6972,
+    "low": 8.305,
+    "close": 8.42,
+    "volume": 19574163.348752,
+    "afterHours": 8.4,
+    "preMarket": 9.17
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PLUG",
+  "session": "2025-11-14",
+  "date": "2025-11-14",
+  "entry_date": "2025-11-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.663343+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PLUG/2025-11-14",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-14",
+    "symbol": "PLUG",
+    "open": 2.36,
+    "high": 2.5,
+    "low": 2.24,
+    "close": 2.245,
+    "volume": 85370340.0,
+    "afterHours": 2.09,
+    "preMarket": 2.45
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

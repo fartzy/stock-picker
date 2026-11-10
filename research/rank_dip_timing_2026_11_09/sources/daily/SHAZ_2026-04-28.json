@@ -1,0 +1,25 @@
+{
+  "ticker": "SHAZ",
+  "session": "2026-04-28",
+  "date": "2026-04-28",
+  "entry_date": "2026-04-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.126919+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SHAZ/2026-04-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-28",
+    "symbol": "SHAZ",
+    "open": 41.77,
+    "high": 43.99,
+    "low": 37.94,
+    "close": 43.98,
+    "volume": 496777.592786,
+    "afterHours": 43.95,
+    "preMarket": 43.67
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

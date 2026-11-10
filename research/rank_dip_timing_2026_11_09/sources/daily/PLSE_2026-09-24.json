@@ -1,0 +1,25 @@
+{
+  "ticker": "PLSE",
+  "session": "2026-09-24",
+  "date": "2026-09-24",
+  "entry_date": "2026-09-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.662956+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PLSE/2026-09-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-24",
+    "symbol": "PLSE",
+    "open": 52.18,
+    "high": 53.605,
+    "low": 51.6221,
+    "close": 51.83,
+    "volume": 666971.957134,
+    "afterHours": 51.83,
+    "preMarket": 51
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

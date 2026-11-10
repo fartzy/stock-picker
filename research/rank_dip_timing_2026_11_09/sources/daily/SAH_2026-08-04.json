@@ -1,0 +1,25 @@
+{
+  "ticker": "SAH",
+  "session": "2026-08-04",
+  "date": "2026-08-04",
+  "entry_date": "2026-08-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.941672+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SAH/2026-08-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-04",
+    "symbol": "SAH",
+    "open": 86.56,
+    "high": 88.37,
+    "low": 85.52,
+    "close": 88.27,
+    "volume": 373941.062807,
+    "afterHours": 88.27,
+    "preMarket": 86.56
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

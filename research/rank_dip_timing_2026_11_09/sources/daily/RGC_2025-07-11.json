@@ -1,0 +1,25 @@
+{
+  "ticker": "RGC",
+  "session": "2025-07-11",
+  "date": "2025-07-11",
+  "entry_date": "2025-07-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.127079+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RGC/2025-07-11",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-11",
+    "symbol": "RGC",
+    "open": 16.1,
+    "high": 16.31,
+    "low": 13.92,
+    "close": 14.75,
+    "volume": 1274778.0,
+    "afterHours": 14.41,
+    "preMarket": 16.32
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

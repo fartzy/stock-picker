@@ -1,0 +1,25 @@
+{
+  "ticker": "AUR",
+  "session": "2026-06-08",
+  "date": "2026-06-08",
+  "entry_date": "2026-06-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.811157+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AUR/2026-06-08",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-08",
+    "symbol": "AUR",
+    "open": 6.09,
+    "high": 6.39,
+    "low": 6.06,
+    "close": 6.26,
+    "volume": 30035413.408631,
+    "afterHours": 6.22,
+    "preMarket": 6.39
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

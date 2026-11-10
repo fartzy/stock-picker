@@ -1,0 +1,25 @@
+{
+  "ticker": "CAR",
+  "session": "2026-04-24",
+  "date": "2026-04-24",
+  "entry_date": "2026-04-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.990297+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CAR/2026-04-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-24",
+    "symbol": "CAR",
+    "open": 235.4,
+    "high": 244.716,
+    "low": 202.3125,
+    "close": 204,
+    "volume": 6440861.056884,
+    "afterHours": 200.87,
+    "preMarket": 229
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

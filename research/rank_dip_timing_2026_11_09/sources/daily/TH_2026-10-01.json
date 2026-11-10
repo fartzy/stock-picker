@@ -1,0 +1,25 @@
+{
+  "ticker": "TH",
+  "session": "2026-10-01",
+  "date": "2026-10-01",
+  "entry_date": "2026-10-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.776350+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TH/2026-10-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-01",
+    "symbol": "TH",
+    "open": 19.64,
+    "high": 20.925,
+    "low": 19.64,
+    "close": 20.48,
+    "volume": 1870895.960952,
+    "afterHours": 19.5,
+    "preMarket": 19.59
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "NVDA",
+  "session": "2026-11-06",
+  "date": "2026-11-06",
+  "entry_date": "2026-11-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.934729+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NVDA/2026-11-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-06",
+    "symbol": "NVDA",
+    "open": 191.1,
+    "high": 194.895,
+    "low": 185.22,
+    "close": 186.64,
+    "volume": 180212285.445629,
+    "afterHours": 188.7001,
+    "preMarket": 187.1
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "DY",
+  "session": "2026-08-26",
+  "date": "2026-08-26",
+  "entry_date": "2026-08-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.030744+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DY/2026-08-26",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-26",
+    "symbol": "DY",
+    "open": 326.91,
+    "high": 332.38,
+    "low": 303.26,
+    "close": 310.91,
+    "volume": 2801974.05306,
+    "afterHours": 314.6,
+    "preMarket": 352
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ECO",
+  "session": "2026-09-21",
+  "date": "2026-09-21",
+  "entry_date": "2026-09-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.231411+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ECO/2026-09-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-21",
+    "symbol": "ECO",
+    "open": 82.83,
+    "high": 85.7999,
+    "low": 81.71,
+    "close": 82.63,
+    "volume": 1073197.110604,
+    "afterHours": 82.98,
+    "preMarket": 84.9
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

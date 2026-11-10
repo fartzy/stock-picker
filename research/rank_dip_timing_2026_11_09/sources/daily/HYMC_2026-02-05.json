@@ -1,0 +1,25 @@
+{
+  "ticker": "HYMC",
+  "session": "2026-02-05",
+  "date": "2026-02-05",
+  "entry_date": "2026-02-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.589885+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HYMC/2026-02-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-05",
+    "symbol": "HYMC",
+    "open": 33.84,
+    "high": 37.06,
+    "low": 33.04,
+    "close": 33.72,
+    "volume": 5331003.0,
+    "afterHours": 30.5,
+    "preMarket": 37.47
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

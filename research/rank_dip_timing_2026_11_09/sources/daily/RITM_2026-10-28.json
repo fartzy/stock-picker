@@ -1,0 +1,25 @@
+{
+  "ticker": "RITM",
+  "session": "2026-10-28",
+  "date": "2026-10-28",
+  "entry_date": "2026-10-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.669327+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RITM/2026-10-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-28",
+    "symbol": "RITM",
+    "open": 9.41,
+    "high": 9.415,
+    "low": 9.155,
+    "close": 9.27,
+    "volume": 5537373.501723,
+    "afterHours": 9.2906,
+    "preMarket": 9.37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

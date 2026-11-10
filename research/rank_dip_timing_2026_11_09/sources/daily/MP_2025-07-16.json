@@ -1,0 +1,25 @@
+{
+  "ticker": "MP",
+  "session": "2025-07-16",
+  "date": "2025-07-16",
+  "entry_date": "2025-07-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.247165+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MP/2025-07-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-16",
+    "symbol": "MP",
+    "open": 61.08,
+    "high": 61.13,
+    "low": 56.73,
+    "close": 58.55,
+    "volume": 38274658.0,
+    "afterHours": 55.8,
+    "preMarket": 61
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

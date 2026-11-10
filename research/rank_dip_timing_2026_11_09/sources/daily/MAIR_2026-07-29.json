@@ -1,0 +1,25 @@
+{
+  "ticker": "MAIR",
+  "session": "2026-07-29",
+  "date": "2026-07-29",
+  "entry_date": "2026-07-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.600383+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MAIR/2026-07-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-29",
+    "symbol": "MAIR",
+    "open": 32.13,
+    "high": 32.675,
+    "low": 30.53,
+    "close": 31.64,
+    "volume": 5109256.336792,
+    "afterHours": 31.64,
+    "preMarket": 31.4634
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

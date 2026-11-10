@@ -1,0 +1,25 @@
+{
+  "ticker": "BLSH",
+  "session": "2026-09-04",
+  "date": "2026-09-04",
+  "entry_date": "2026-09-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.455860+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BLSH/2026-09-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-04",
+    "symbol": "BLSH",
+    "open": 34.69,
+    "high": 36.04,
+    "low": 34.05,
+    "close": 36,
+    "volume": 1125757.280293,
+    "afterHours": 35.94,
+    "preMarket": 35.6704
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

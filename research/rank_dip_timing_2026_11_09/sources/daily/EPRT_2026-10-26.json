@@ -1,0 +1,25 @@
+{
+  "ticker": "EPRT",
+  "session": "2026-10-26",
+  "date": "2026-10-26",
+  "entry_date": "2026-10-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.472316+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/EPRT/2026-10-26",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-26",
+    "symbol": "EPRT",
+    "open": 26.75,
+    "high": 27.19,
+    "low": 26.69,
+    "close": 27.17,
+    "volume": 1993539.527558,
+    "afterHours": 27.3648,
+    "preMarket": 26.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ALM",
+  "session": "2026-10-27",
+  "date": "2026-10-27",
+  "entry_date": "2026-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.732441+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ALM/2026-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-27",
+    "symbol": "ALM",
+    "open": 9.31,
+    "high": 9.7809,
+    "low": 9.1995,
+    "close": 9.56,
+    "volume": 6234740.337748,
+    "afterHours": 9.6109,
+    "preMarket": 9.2
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

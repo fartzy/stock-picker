@@ -1,0 +1,20 @@
+{
+  "ticker": "MOG-B",
+  "provider_ticker": "MOG.B",
+  "endpoint": "/stocks/v1/splits",
+  "params": {
+    "ticker": "MOG.B",
+    "execution_date.gte": "2025-06-30",
+    "execution_date.lte": "2026-11-09",
+    "sort": "execution_date.asc",
+    "limit": 5000
+  },
+  "http_status": 200,
+  "payload_status": "OK",
+  "retrieved_at": "2026-11-10T04:06:35.059883+00:00",
+  "payload": {
+    "status": "OK",
+    "request_id": "969b968473764844b27a5f0bbca83432",
+    "results": []
+  }
+}

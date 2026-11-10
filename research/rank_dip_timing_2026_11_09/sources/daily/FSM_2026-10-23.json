@@ -1,0 +1,25 @@
+{
+  "ticker": "FSM",
+  "session": "2026-10-23",
+  "date": "2026-10-23",
+  "entry_date": "2026-10-23",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.738413+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FSM/2026-10-23",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-23",
+    "symbol": "FSM",
+    "open": 9.41,
+    "high": 9.44,
+    "low": 8.965,
+    "close": 9.18,
+    "volume": 5429912.860247,
+    "afterHours": 9.207,
+    "preMarket": 9.4219
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

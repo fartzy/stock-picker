@@ -1,0 +1,25 @@
+{
+  "ticker": "CASY",
+  "session": "2026-09-18",
+  "date": "2026-09-18",
+  "entry_date": "2026-09-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.091111+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CASY/2026-09-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-18",
+    "symbol": "CASY",
+    "open": 608.155,
+    "high": 609.1,
+    "low": 596.83,
+    "close": 597.48,
+    "volume": 1085088.539302,
+    "afterHours": 597.153,
+    "preMarket": 609.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

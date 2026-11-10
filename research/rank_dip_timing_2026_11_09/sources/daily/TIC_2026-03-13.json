@@ -1,0 +1,25 @@
+{
+  "ticker": "TIC",
+  "session": "2026-03-13",
+  "date": "2026-03-13",
+  "entry_date": "2026-03-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.865628+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TIC/2026-03-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-13",
+    "symbol": "TIC",
+    "open": 7.3,
+    "high": 7.64,
+    "low": 7.02,
+    "close": 7.25,
+    "volume": 8402080.362321,
+    "afterHours": 7.15,
+    "preMarket": 7.63
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "ACN",
+  "session": "2026-07-13",
+  "date": "2026-07-13",
+  "entry_date": "2026-07-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.806051+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ACN/2026-07-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-13",
+    "symbol": "ACN",
+    "open": 139.095,
+    "high": 141.74,
+    "low": 136.1,
+    "close": 138.52,
+    "volume": 5377439.332549,
+    "afterHours": 138.31,
+    "preMarket": 136.88
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

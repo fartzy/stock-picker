@@ -1,0 +1,25 @@
+{
+  "ticker": "AKAM",
+  "session": "2026-11-06",
+  "date": "2026-11-06",
+  "entry_date": "2026-11-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.362041+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AKAM/2026-11-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-06",
+    "symbol": "AKAM",
+    "open": 83.37,
+    "high": 85.45,
+    "low": 81.74,
+    "close": 83.09,
+    "volume": 10415863.415885,
+    "afterHours": 83.25,
+    "preMarket": 79.35
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

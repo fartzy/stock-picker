@@ -1,0 +1,25 @@
+{
+  "ticker": "HALO",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.272675+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HALO/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "HALO",
+    "open": 130.64,
+    "high": 131.44,
+    "low": 122.77,
+    "close": 122.96,
+    "volume": 2896632.781912,
+    "afterHours": 114.02,
+    "preMarket": 131.51
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

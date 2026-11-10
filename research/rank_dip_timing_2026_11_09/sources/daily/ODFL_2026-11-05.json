@@ -1,0 +1,25 @@
+{
+  "ticker": "ODFL",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.997268+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ODFL/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "ODFL",
+    "open": 181.06,
+    "high": 182.25,
+    "low": 169.885,
+    "close": 170.56,
+    "volume": 2705084.535728,
+    "afterHours": 170.51,
+    "preMarket": 179.62
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

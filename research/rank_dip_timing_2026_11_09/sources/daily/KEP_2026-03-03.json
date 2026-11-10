@@ -1,0 +1,25 @@
+{
+  "ticker": "KEP",
+  "session": "2026-03-03",
+  "date": "2026-03-03",
+  "entry_date": "2026-03-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.623509+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KEP/2026-03-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-03",
+    "symbol": "KEP",
+    "open": 17.25,
+    "high": 17.87,
+    "low": 16.9209,
+    "close": 17.72,
+    "volume": 1158024.602864,
+    "afterHours": 17.6,
+    "preMarket": 18.26
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

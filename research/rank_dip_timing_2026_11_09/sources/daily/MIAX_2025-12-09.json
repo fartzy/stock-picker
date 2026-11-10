@@ -1,0 +1,25 @@
+{
+  "ticker": "MIAX",
+  "session": "2025-12-09",
+  "date": "2025-12-09",
+  "entry_date": "2025-12-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.016678+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MIAX/2025-12-09",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-09",
+    "symbol": "MIAX",
+    "open": 45.52,
+    "high": 46.56,
+    "low": 45.28,
+    "close": 45.8,
+    "volume": 561846,
+    "afterHours": 44,
+    "preMarket": 45.52
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

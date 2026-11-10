@@ -1,0 +1,25 @@
+{
+  "ticker": "GRND",
+  "session": "2026-08-21",
+  "date": "2026-08-21",
+  "entry_date": "2026-08-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.258749+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GRND/2026-08-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-21",
+    "symbol": "GRND",
+    "open": 15.34,
+    "high": 15.92,
+    "low": 15.28,
+    "close": 15.53,
+    "volume": 1041522.099144,
+    "afterHours": 15.1,
+    "preMarket": 15.56
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

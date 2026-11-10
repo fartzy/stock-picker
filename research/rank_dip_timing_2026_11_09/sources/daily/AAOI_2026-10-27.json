@@ -1,0 +1,25 @@
+{
+  "ticker": "AAOI",
+  "session": "2026-10-27",
+  "date": "2026-10-27",
+  "entry_date": "2026-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.353666+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AAOI/2026-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-27",
+    "symbol": "AAOI",
+    "open": 73.27,
+    "high": 77.28,
+    "low": 71.0801,
+    "close": 76.95,
+    "volume": 9439864.584047,
+    "afterHours": 77.05,
+    "preMarket": 71.37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

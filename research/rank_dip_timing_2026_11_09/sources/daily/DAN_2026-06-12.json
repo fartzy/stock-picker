@@ -1,0 +1,25 @@
+{
+  "ticker": "DAN",
+  "session": "2026-06-12",
+  "date": "2026-06-12",
+  "entry_date": "2026-06-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.486271+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DAN/2026-06-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-12",
+    "symbol": "DAN",
+    "open": 29.66,
+    "high": 31.03,
+    "low": 28.34,
+    "close": 30.81,
+    "volume": 3475973.107875,
+    "afterHours": 30.676,
+    "preMarket": 30.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

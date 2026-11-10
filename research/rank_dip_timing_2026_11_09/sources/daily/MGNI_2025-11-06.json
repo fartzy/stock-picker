@@ -1,0 +1,25 @@
+{
+  "ticker": "MGNI",
+  "session": "2025-11-06",
+  "date": "2025-11-06",
+  "entry_date": "2025-11-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.941793+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MGNI/2025-11-06",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-06",
+    "symbol": "MGNI",
+    "open": 14.995,
+    "high": 15.53,
+    "low": 13.43,
+    "close": 14.865,
+    "volume": 12374205.0,
+    "afterHours": 15.04,
+    "preMarket": 16.82
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

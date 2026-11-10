@@ -1,0 +1,25 @@
+{
+  "ticker": "PLBL",
+  "session": "2026-09-21",
+  "date": "2026-09-21",
+  "entry_date": "2026-09-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.621415+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PLBL/2026-09-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-21",
+    "symbol": "PLBL",
+    "open": 5.53,
+    "high": 6.37,
+    "low": 5.48,
+    "close": 6.37,
+    "volume": 415391.774263,
+    "afterHours": 6.36,
+    "preMarket": 5.53
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "BTU",
+  "session": "2025-07-31",
+  "date": "2025-07-31",
+  "entry_date": "2025-07-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.230747+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BTU/2025-07-31",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-31",
+    "symbol": "BTU",
+    "open": 14.25,
+    "high": 16.6,
+    "low": 14.25,
+    "close": 16.15,
+    "volume": 13364419.0,
+    "afterHours": 15.9501,
+    "preMarket": 15.62
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "TSEM",
+  "session": "2026-03-26",
+  "date": "2026-03-26",
+  "entry_date": "2026-03-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.134087+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TSEM/2026-03-26",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-26",
+    "symbol": "TSEM",
+    "open": 180.72,
+    "high": 188.3359,
+    "low": 172.15,
+    "close": 174.68,
+    "volume": 5473014.547892,
+    "afterHours": 176.5,
+    "preMarket": 186.51
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

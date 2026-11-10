@@ -1,0 +1,25 @@
+{
+  "ticker": "LIFE",
+  "session": "2026-08-31",
+  "date": "2026-08-31",
+  "entry_date": "2026-08-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.876009+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LIFE/2026-08-31",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-31",
+    "symbol": "LIFE",
+    "open": 38.64,
+    "high": 38.64,
+    "low": 35.77,
+    "close": 36.33,
+    "volume": 1131568.490952,
+    "afterHours": 36.89,
+    "preMarket": 38.64
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "REZI",
+  "session": "2026-08-20",
+  "date": "2026-08-20",
+  "entry_date": "2026-08-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.032646+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/REZI/2026-08-20",
+  "payload": {
+    "status": "OK",
+    "from": "2026-08-20",
+    "symbol": "REZI",
+    "open": 21.11,
+    "high": 21.175,
+    "low": 19.84,
+    "close": 20.03,
+    "volume": 3210609.55211,
+    "afterHours": 20.2,
+    "preMarket": 21.44
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

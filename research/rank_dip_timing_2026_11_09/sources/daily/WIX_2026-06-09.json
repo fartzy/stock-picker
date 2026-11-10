@@ -1,0 +1,25 @@
+{
+  "ticker": "WIX",
+  "session": "2026-06-09",
+  "date": "2026-06-09",
+  "entry_date": "2026-06-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.109855+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WIX/2026-06-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-09",
+    "symbol": "WIX",
+    "open": 47.23,
+    "high": 49.35,
+    "low": 46.9,
+    "close": 48.22,
+    "volume": 1769488.938789,
+    "afterHours": 47.82,
+    "preMarket": 48.09
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

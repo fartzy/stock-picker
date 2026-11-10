@@ -1,0 +1,25 @@
+{
+  "ticker": "WLY",
+  "session": "2026-09-02",
+  "date": "2026-09-02",
+  "entry_date": "2026-09-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.136913+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WLY/2026-09-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-02",
+    "symbol": "WLY",
+    "open": 53.07,
+    "high": 54.81,
+    "low": 50.89,
+    "close": 51.05,
+    "volume": 1229486.343987,
+    "afterHours": 50.03,
+    "preMarket": 53.07
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

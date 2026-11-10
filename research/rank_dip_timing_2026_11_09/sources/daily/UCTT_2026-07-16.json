@@ -1,0 +1,25 @@
+{
+  "ticker": "UCTT",
+  "session": "2026-07-16",
+  "date": "2026-07-16",
+  "entry_date": "2026-07-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.558560+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UCTT/2026-07-16",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-16",
+    "symbol": "UCTT",
+    "open": 96.09,
+    "high": 101.43,
+    "low": 91.3801,
+    "close": 92.6,
+    "volume": 1070052.722543,
+    "afterHours": 91.01,
+    "preMarket": 101.7
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

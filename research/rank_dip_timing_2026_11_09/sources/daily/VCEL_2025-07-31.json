@@ -1,0 +1,25 @@
+{
+  "ticker": "VCEL",
+  "session": "2025-07-31",
+  "date": "2025-07-31",
+  "entry_date": "2025-07-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.243555+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VCEL/2025-07-31",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-31",
+    "symbol": "VCEL",
+    "open": 36.98,
+    "high": 38.27,
+    "low": 34.92,
+    "close": 34.94,
+    "volume": 1876309.0,
+    "afterHours": 34.88,
+    "preMarket": 38.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

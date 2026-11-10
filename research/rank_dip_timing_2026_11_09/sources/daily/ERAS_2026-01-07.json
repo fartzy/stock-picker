@@ -1,0 +1,25 @@
+{
+  "ticker": "ERAS",
+  "session": "2026-01-07",
+  "date": "2026-01-07",
+  "entry_date": "2026-01-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.578526+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ERAS/2026-01-07",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-07",
+    "symbol": "ERAS",
+    "open": 3.73,
+    "high": 6.49,
+    "low": 3.72,
+    "close": 5.17,
+    "volume": 41378875.0,
+    "afterHours": 4.4399,
+    "preMarket": 3.7
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

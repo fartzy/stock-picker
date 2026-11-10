@@ -1,0 +1,25 @@
+{
+  "ticker": "BHVN",
+  "session": "2026-09-17",
+  "date": "2026-09-17",
+  "entry_date": "2026-09-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.364110+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BHVN/2026-09-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-17",
+    "symbol": "BHVN",
+    "open": 12.18,
+    "high": 14.325,
+    "low": 12.05,
+    "close": 13.89,
+    "volume": 5833704.098193,
+    "afterHours": 13.95,
+    "preMarket": 12.2
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

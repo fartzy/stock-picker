@@ -1,0 +1,25 @@
+{
+  "ticker": "QBTS",
+  "session": "2026-04-01",
+  "date": "2026-04-01",
+  "entry_date": "2026-04-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:36.155248+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/QBTS/2026-04-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-01",
+    "symbol": "QBTS",
+    "open": 14.845,
+    "high": 14.99,
+    "low": 13.65,
+    "close": 13.7,
+    "volume": 21754573.975644,
+    "afterHours": 13.77,
+    "preMarket": 14.84
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

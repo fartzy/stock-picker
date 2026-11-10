@@ -1,0 +1,25 @@
+{
+  "ticker": "PHVS",
+  "session": "2025-07-22",
+  "date": "2025-07-22",
+  "entry_date": "2025-07-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.007510+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PHVS/2025-07-22",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-22",
+    "symbol": "PHVS",
+    "open": 23.63,
+    "high": 23.63,
+    "low": 23.12,
+    "close": 23.12,
+    "volume": 22887,
+    "afterHours": 21.49,
+    "preMarket": 23.63
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

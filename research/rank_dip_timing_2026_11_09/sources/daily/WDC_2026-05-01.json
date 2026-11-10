@@ -1,0 +1,25 @@
+{
+  "ticker": "WDC",
+  "session": "2026-05-01",
+  "date": "2026-05-01",
+  "entry_date": "2026-05-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.822071+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WDC/2026-05-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-01",
+    "symbol": "WDC",
+    "open": 406.22,
+    "high": 446.62,
+    "low": 404,
+    "close": 431.52,
+    "volume": 15485263.876483,
+    "afterHours": 429.9,
+    "preMarket": 402.48
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

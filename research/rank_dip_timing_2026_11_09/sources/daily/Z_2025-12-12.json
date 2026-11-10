@@ -1,0 +1,25 @@
+{
+  "ticker": "Z",
+  "session": "2025-12-12",
+  "date": "2025-12-12",
+  "entry_date": "2025-12-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.500408+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/Z/2025-12-12",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-12",
+    "symbol": "Z",
+    "open": 75.89,
+    "high": 76.34,
+    "low": 73.96,
+    "close": 74.71,
+    "volume": 1987844.0,
+    "afterHours": 75.23,
+    "preMarket": 75.89
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "AXTI",
+  "session": "2026-06-01",
+  "date": "2026-06-01",
+  "entry_date": "2026-06-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.028626+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AXTI/2026-06-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-01",
+    "symbol": "AXTI",
+    "open": 95,
+    "high": 115.82,
+    "low": 93.231,
+    "close": 109.55,
+    "volume": 11374037.493474,
+    "afterHours": 108.58,
+    "preMarket": 102
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

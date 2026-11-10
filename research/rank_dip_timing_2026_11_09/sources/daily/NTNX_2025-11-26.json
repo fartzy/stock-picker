@@ -1,0 +1,25 @@
+{
+  "ticker": "NTNX",
+  "session": "2025-11-26",
+  "date": "2025-11-26",
+  "entry_date": "2025-11-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.897070+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/NTNX/2025-11-26",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-26",
+    "symbol": "NTNX",
+    "open": 51.28,
+    "high": 51.32,
+    "low": 47.39,
+    "close": 48.34,
+    "volume": 25968500.0,
+    "afterHours": 48.45,
+    "preMarket": 49.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

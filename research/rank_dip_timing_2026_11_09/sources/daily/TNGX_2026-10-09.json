@@ -1,0 +1,25 @@
+{
+  "ticker": "TNGX",
+  "session": "2026-10-09",
+  "date": "2026-10-09",
+  "entry_date": "2026-10-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.106914+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TNGX/2026-10-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-09",
+    "symbol": "TNGX",
+    "open": 22.6,
+    "high": 24.12,
+    "low": 22.44,
+    "close": 23.81,
+    "volume": 3098812.594927,
+    "afterHours": 23.81,
+    "preMarket": 22.84
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

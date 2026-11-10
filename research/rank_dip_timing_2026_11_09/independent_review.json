@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-11-10T04:15:11.730486+00:00",
+  "reviewer_task": "/root/dip_timing_independent_review",
+  "status": "passed_with_documented_source_and_execution_limitations",
+  "blocking_findings": [],
+  "scope": "Independent read-only calculations and code/report review; only this audit artifact was written with parent authorization. No network, model fits, production changes or Git mutations.",
+  "reviewed_artifact_hashes": {
+    "analysis_protocol.json": "6063b6d30f05726e484803c153dd2d9ad54120fc0d41c734dc41519b970abb86",
+    "cohort.json": "82dae6655e846670afef2d8272b406030f531fc063fb088329fe6f4af26baa28",
+    "cohort_provenance.json": "609f75cbabca7bf3c231c176d26005b21aceb0ca507923de31518f32fbf88c76",
+    "daily_prices.json": "c2406581169107b7d5fb6a51c1447c8e0265c08e186b99739d1b3734b57b247c",
+    "minute_manifest.json": "4cbf310e464b2d953ee84e5930bfa0204957233a680a9ae5dc2ebfbebbec5fc8",
+    "split_metadata.json": "60348ab6165571a192e700b9b3209ce45e3162bce68d8f0fa12f5834b18ec28d",
+    "symbol_aliases.json": "803d53029013aaef7aabb81b8365db3850995cc6ca0ea3d542ba1f5554258b2c",
+    "acquisition_audit.json": "be6fd9319ff0ec0d50fd117921134f488e7b14178fb4dc2068a62c8310930f1b",
+    "analyze.py": "50e4b1bc7aaf695ddd20b42802a80f60b9686de99e0e4d43b95062dce2371391",
+    "test_analysis.py": "0dc78f531673f732c0c41cb23642194b4f13640680547a5b3cb76d1cd165f3c5",
+    "results.json": "0cd3aa556e04c3bbe902ebd6388bc47cc0eb68e5eb8bd8590945231d1ca143b4",
+    "event_cases.json.gz": "75c7f96aa622a67b3fb71d073ba6a55d08acef52e72f979e1df0d050ba6e4d51",
+    "checkpoint_cases.json.gz": "0e4476b8ec27e2669d504e7dfae26a366281ccdf989967286dd945104e92bb4c"
+  },
+  "focused_tests": {
+    "command": "python3 -B research/rank_dip_timing_2026_11_09/test_analysis.py",
+    "tests_run": 20,
+    "exit_code": 0,
+    "result": "passed"
+  },
+  "frozen_selection_reconciliation": {
+    "method": "Independently read baseline date/ticker identities and six frozen NumPy score arrays. Confirm source digests, row-identity hashes, array position, date/ticker/score match, score equals the maximum for that date, and training_end precedes every selected date. Read each saved live signal file and match each selected rank.",
+    "historical_rank1_rows_verified": 684,
+    "live_selection_rows_verified": 185,
+    "research_dates": 342,
+    "shared_research_stock_days": 150,
+    "unique_combined_research_stock_days": 534,
+    "cohort_memberships": 869,
+    "unique_market_stock_days": 713,
+    "unique_market_dates": 343,
+    "mismatches": 0,
+    "limitation": "Research variants share dates; 684 memberships are not 684 independent dates. This check does not certify immutable original publication of live files or make the research prospective."
+  },
+  "source_integrity_reconciliation": {
+    "minute_manifest_records_verified": 713,
+    "daily_reference_records_verified": 1388,
+    "raw_source_digest_mismatches": 0,
+    "method": "Rehashed every referenced minute source and daily source; checked minute identity and raw basis, daily anchor payload identity/date/basis, and verified-alias artifact hashes. Result source hashes and compressed-case hashes match current bytes.",
+    "official_daily_and_first_minute_open_comparable_stock_days": 673,
+    "official_daily_and_first_minute_open_exact_matches": 673,
+    "provider_alias": "MOG-B maps to MOG.B with dated identity evidence. Raw daily payload.symbol remains MOG.B. The unavailable prior daily reference is not fabricated.",
+    "common_credential_pattern_scan": "No API-key query values, bearer credentials, or common secret-token formats detected in study artifacts. This is a pattern scan, not a guarantee about arbitrary unknown secret formats."
+  },
+  "independent_raw_case_reconciliation": {
+    "method": "Separate inline standard-library implementation loaded raw minute/daily sources; did not import or call analyze.py. Recomputed every event and checkpoint scenario from frozen bounds, source-quality rules, anchors, completed-bar signals, exact next-minute opens and expected final-minute closes.",
+    "event_cases": 10428,
+    "checkpoint_cases": 15642,
+    "core_field_comparisons": 440102,
+    "mismatches": 0,
+    "fields_checked": "Availability and source status/reason, signal/dip state, signal timestamp/close/depth, entry timestamp/price, entry anchor return, exit price, zero-expense return, observed further downside, matched-open return, first observed threshold crossing, opening-gap flag, current observed episode, recovery flag, and dip ages.",
+    "future_onset_violations": 0,
+    "negative_dip_age_violations": 0,
+    "usable_previous_close_cases_without_current_official_open": 0,
+    "numeric_tolerance": {
+      "relative": 1e-12,
+      "absolute": 1e-13
+    }
+  },
+  "summary_reconciliation": {
+    "method": "Independently aggregate counts, unique stock-days/dates, missing reasons, wins/losses/flats, means, medians, worst returns, observed downside and known-opportunity denominators for every reported event, timing/depth and checkpoint group.",
+    "groups_verified": 392,
+    "event_groups": 48,
+    "timing_depth_groups": 128,
+    "checkpoint_groups": 216,
+    "combined_raw_and_summary_field_comparisons": 447646,
+    "mismatches": 0
+  },
+  "uncertainty_reconciliation": {
+    "method": "Independent week-bucket implementation sampled complete ISO calendar weeks with fixed seed 20261109 and 2000 draws. Eight primary before-noon mean intervals were recomputed. All 104 comparison groups were checked; all 73 reported joint-week intervals and suppressed-interval conditions matched.",
+    "primary_mean_intervals_recomputed": 8,
+    "comparison_groups_verified": 104,
+    "joint_week_intervals_recomputed": 73,
+    "mismatches": 0,
+    "minimum_completed": 8,
+    "minimum_completed_weeks": 5,
+    "scope_limit": "Mean uncertainty intervals outside the eight primary before-noon groups were reviewed in code, not separately recomputed. Reported intervals are descriptive and pointwise, not causal or multiplicity-adjusted evidence."
+  },
+  "primary_before_noon_results_independently_reproduced": [
+    {
+      "cohort": "live_rank1",
+      "anchor": "session_open",
+      "completed": 10,
+      "wins": 7,
+      "mean_return": 0.01492182007567885,
+      "unavailable": 2,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.017558982913383665,
+          0.053090939909629806
+        ],
+        "reason": null,
+        "completed_weeks": 7
+      }
+    },
+    {
+      "cohort": "live_rank1",
+      "anchor": "previous_close",
+      "completed": 15,
+      "wins": 8,
+      "mean_return": 0.00930984661450911,
+      "unavailable": 2,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.015032110686425678,
+          0.037715442409503676
+        ],
+        "reason": null,
+        "completed_weeks": 9
+      }
+    },
+    {
+      "cohort": "live_ranks2_5",
+      "anchor": "session_open",
+      "completed": 26,
+      "wins": 10,
+      "mean_return": -0.01318483418219444,
+      "unavailable": 1,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.034716482697717245,
+          0.012719387008333269
+        ],
+        "reason": null,
+        "completed_weeks": 8
+      }
+    },
+    {
+      "cohort": "live_ranks2_5",
+      "anchor": "previous_close",
+      "completed": 56,
+      "wins": 21,
+      "mean_return": -0.00731620198554218,
+      "unavailable": 5,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.011982404790184985,
+          -0.0011447566846875428
+        ],
+        "reason": null,
+        "completed_weeks": 8
+      }
+    },
+    {
+      "cohort": "research_all_dips_rank1",
+      "anchor": "session_open",
+      "completed": 95,
+      "wins": 49,
+      "mean_return": -0.003585526204736869,
+      "unavailable": 28,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.025487171405585658,
+          0.015449591126547039
+        ],
+        "reason": null,
+        "completed_weeks": 58
+      }
+    },
+    {
+      "cohort": "research_all_dips_rank1",
+      "anchor": "previous_close",
+      "completed": 218,
+      "wins": 111,
+      "mean_return": 0.00011161565008550956,
+      "unavailable": 36,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.01156753882741559,
+          0.010969858494823799
+        ],
+        "reason": null,
+        "completed_weeks": 71
+      }
+    },
+    {
+      "cohort": "research_baseline_rank1",
+      "anchor": "session_open",
+      "completed": 94,
+      "wins": 52,
+      "mean_return": 0.0016381278185567895,
+      "unavailable": 33,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.018996572392849482,
+          0.02032063055747154
+        ],
+        "reason": null,
+        "completed_weeks": 52
+      }
+    },
+    {
+      "cohort": "research_baseline_rank1",
+      "anchor": "previous_close",
+      "completed": 229,
+      "wins": 119,
+      "mean_return": 0.006438688390767425,
+      "unavailable": 46,
+      "weekly_mean_95pct": {
+        "interval": [
+          -0.005902155377270966,
+          0.017967404613149364
+        ],
+        "reason": null,
+        "completed_weeks": 71
+      }
+    }
+  ],
+  "qh_2025_07_28_tail_case": {
+    "retained_in_primary_results": true,
+    "regular_minute_count": 390,
+    "provider_daily_open": 0.559,
+    "first_minute_open": 0.559,
+    "signal_0934_close": 0.42,
+    "entry_0935_open": 0.4103,
+    "final_1559_minute_close": 0.122,
+    "provider_official_daily_close": 0.118,
+    "minute_entry_to_close_proxy_return": -0.7026565927370216,
+    "provider_daily_open_to_close_return": -0.7889087656529518,
+    "independent_cached_daily_check": {
+      "path": "data/prices/QH.parquet",
+      "sha256": "2843d5c1b83b95d47b1e8aafaf225dadb7e9324ea119e1b5fe725a7cc5013d96",
+      "ingestion_reference": "python/stock_picker/ingestion/yfinance_client.py:48",
+      "cached_open": 50.310001373291016,
+      "cached_close": 10.619999885559082,
+      "cached_daily_return": -0.7889087736897357,
+      "difference_from_provider_daily_return": 8.036783960552185e-09,
+      "interpretation": "Cached Yahoo within-day ratio independently corroborates the large daily decline. The approximately 90-fold historical price scale matches the later recorded reverse split; no cross-provider rescaling or replacement is applied to the study."
+    },
+    "split_metadata_check": "No recorded split crosses 2025-07-25 < execution_date <= 2025-07-28. The retained QH split event is a 1-for-90 reverse split on 2025-08-25.",
+    "source_references": [
+      "research/rank_dip_timing_2026_11_09/sources/daily/QH_2025-07-25.json",
+      "research/rank_dip_timing_2026_11_09/sources/daily/QH_2025-07-28.json",
+      "research/rank_dip_timing_2026_11_09/sources/minute/QH_2025-07-28.json.gz",
+      "research/rank_dip_timing_2026_11_09/split_metadata.json",
+      "research/morning_dip_model_2026_11_09/final_independent_result_audit.json:358"
+    ],
+    "limits": "Corroboration of the daily decline does not independently verify each minute price or a tradeable personal fill. Official daily close differs from the final-minute proxy. The separately unresolved April 2026 QH price-basis issue remains unresolved; this July check is not a ticker-wide certification. Split metadata does not certify all corporate actions.",
+    "outlier_contribution_diagnostic": {
+      "purpose": "Additive contribution to the unchanged primary before-noon mean; not a proposed exclusion or alternative optimized result.",
+      "rows": [
+        {
+          "cohort": "research_all_dips_rank1",
+          "anchor": "session_open",
+          "completed": 95,
+          "primary_mean_return": -0.003585526204736869,
+          "qh_additive_contribution_to_mean_return": -0.007396385186705491
+        },
+        {
+          "cohort": "research_all_dips_rank1",
+          "anchor": "previous_close",
+          "completed": 218,
+          "primary_mean_return": 0.00011161565008550956,
+          "qh_additive_contribution_to_mean_return": -0.0032231953795276223
+        },
+        {
+          "cohort": "research_baseline_rank1",
+          "anchor": "session_open",
+          "completed": 94,
+          "primary_mean_return": 0.0016381278185567895,
+          "qh_additive_contribution_to_mean_return": -0.00747507013550023
+        },
+        {
+          "cohort": "research_baseline_rank1",
+          "anchor": "previous_close",
+          "completed": 229,
+          "primary_mean_return": 0.006438688390767425,
+          "qh_additive_contribution_to_mean_return": -0.003068369400598348
+        }
+      ]
+    }
+  },
+  "reviewed_report": "README.md correctly distinguishes Rank1 and lower ranks, research and saved live histories, entry versus onset, opening gaps, zero expense, exact missing boundaries, model input counts, proxy exits and observational uncertainty.",
+  "remaining_limitations": [
+    "09:35 ET ranking availability is an explicit user-directed assumption after the opening price; first publication is not independently proven for each saved file.",
+    "Minute OHLC values are price observations, not guaranteed executable broker fills. No trading expense was subtracted.",
+    "Source completeness relies partly on legacy archive contracts where original response pages were not retained; no new request was made in this review.",
+    "Sparse intermediate minutes only identify observed dips and observed further downside; they do not certify an unobserved path.",
+    "Exchange session bounds are frozen from the existing repository calendar and covered by focused half-day/DST tests; no second calendar provider was queried.",
+    "Current-universe survivorship, incomplete corporate-action/security-history certification and the prior research process limit economic and prospective interpretation.",
+    "All claims are descriptive. No early-time premium, best-time rule, causal effect or automatic buy instruction is established."
+  ]
+}

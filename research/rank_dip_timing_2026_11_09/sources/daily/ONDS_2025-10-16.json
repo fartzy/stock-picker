@@ -1,0 +1,25 @@
+{
+  "ticker": "ONDS",
+  "session": "2025-10-16",
+  "date": "2025-10-16",
+  "entry_date": "2025-10-16",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.151996+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ONDS/2025-10-16",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-16",
+    "symbol": "ONDS",
+    "open": 9.63,
+    "high": 9.63,
+    "low": 7.92,
+    "close": 8.2,
+    "volume": 70659372.0,
+    "afterHours": 7.8688,
+    "preMarket": 9.92
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

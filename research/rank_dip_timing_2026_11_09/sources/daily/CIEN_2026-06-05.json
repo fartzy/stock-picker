@@ -1,0 +1,25 @@
+{
+  "ticker": "CIEN",
+  "session": "2026-06-05",
+  "date": "2026-06-05",
+  "entry_date": "2026-06-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.397200+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CIEN/2026-06-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-05",
+    "symbol": "CIEN",
+    "open": 512.31,
+    "high": 525.15,
+    "low": 488.14,
+    "close": 488.21,
+    "volume": 4195421.37874,
+    "afterHours": 476.01,
+    "preMarket": 525.7938
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

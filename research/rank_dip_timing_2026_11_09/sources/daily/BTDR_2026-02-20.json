@@ -1,0 +1,25 @@
+{
+  "ticker": "BTDR",
+  "session": "2026-02-20",
+  "date": "2026-02-20",
+  "entry_date": "2026-02-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.165426+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BTDR/2026-02-20",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-20",
+    "symbol": "BTDR",
+    "open": 7.9,
+    "high": 8.29,
+    "low": 7.675,
+    "close": 7.78,
+    "volume": 33478459.0,
+    "afterHours": 7.8694,
+    "preMarket": 8.07
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

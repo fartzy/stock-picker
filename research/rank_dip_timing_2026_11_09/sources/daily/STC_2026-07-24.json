@@ -1,0 +1,25 @@
+{
+  "ticker": "STC",
+  "session": "2026-07-24",
+  "date": "2026-07-24",
+  "entry_date": "2026-07-24",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.320014+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/STC/2026-07-24",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-24",
+    "symbol": "STC",
+    "open": 64.95,
+    "high": 68.49,
+    "low": 64.74,
+    "close": 67.42,
+    "volume": 289896.523479,
+    "afterHours": 67.42,
+    "preMarket": 64.3
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

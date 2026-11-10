@@ -1,0 +1,25 @@
+{
+  "ticker": "BULL",
+  "session": "2025-10-08",
+  "date": "2025-10-08",
+  "entry_date": "2025-10-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.270923+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BULL/2025-10-08",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-08",
+    "symbol": "BULL",
+    "open": 12.185,
+    "high": 12.69,
+    "low": 11.41,
+    "close": 12.66,
+    "volume": 164694352.0,
+    "afterHours": 13.09,
+    "preMarket": 12.85
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

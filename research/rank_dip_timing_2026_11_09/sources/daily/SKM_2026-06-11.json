@@ -1,0 +1,25 @@
+{
+  "ticker": "SKM",
+  "session": "2026-06-11",
+  "date": "2026-06-11",
+  "entry_date": "2026-06-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.421941+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SKM/2026-06-11",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-11",
+    "symbol": "SKM",
+    "open": 36.84,
+    "high": 38.4,
+    "low": 36.05,
+    "close": 37.92,
+    "volume": 4027056.425137,
+    "afterHours": 38.65,
+    "preMarket": 36.7
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

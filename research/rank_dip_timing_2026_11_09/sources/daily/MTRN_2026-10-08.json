@@ -1,0 +1,25 @@
+{
+  "ticker": "MTRN",
+  "session": "2026-10-08",
+  "date": "2026-10-08",
+  "entry_date": "2026-10-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:33.574920+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MTRN/2026-10-08",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-08",
+    "symbol": "MTRN",
+    "open": 287.76,
+    "high": 290.58,
+    "low": 274.66,
+    "close": 277.11,
+    "volume": 239439.600246,
+    "afterHours": 277.11,
+    "preMarket": 288.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

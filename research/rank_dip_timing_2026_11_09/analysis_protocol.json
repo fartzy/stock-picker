@@ -1,0 +1,92 @@
+{
+  "frozen_at_utc": "2026-11-10T03:56:24.335457+00:00",
+  "question": "For Rank #1 candidates, do earlier observable dips have better remaining-session returns than later dips?",
+  "primary_cohorts": [
+    "live_rank1",
+    "research_baseline_rank1",
+    "research_all_dips_rank1"
+  ],
+  "secondary_cohorts": [
+    "live_ranks2_5"
+  ],
+  "cohort_separation": "Never pool research models, actual saved picks, lower ranks or repeated clock observations as independent Rank #1 examples.",
+  "availability": {
+    "primary_et": "09:35",
+    "primary_chicago": "08:35",
+    "event_sensitivities_et": [
+      "09:31",
+      "09:45"
+    ],
+    "basis": "User-directed early availability after actual session opening price is observed. Recorded run timestamps are diagnostic, not guaranteed first publication."
+  },
+  "threshold_fraction": 0.04,
+  "anchors": [
+    "session_open",
+    "previous_close"
+  ],
+  "expense_fraction": 0,
+  "return_definition": "expected final regular-minute close / actual entry-minute open - 1; no expense subtraction",
+  "first_event": "First completed regular-minute close at/below96% of anchor whose next minute begins at/after assumed ranking availability and before session close; enter immediately consecutive minute open. A missing exact next minute is unavailable, with no later retry.",
+  "onset": "First observed completed-bar threshold close over the entire session, reported at bar END; separate from tradable entry after availability. Prior-close opening gaps are separately flagged and never called fast post-open declines.",
+  "checkpoints_et": [
+    "09:35",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00"
+  ],
+  "checkpoint_execution": "At checkpoint t, observe immediately preceding completed minute close and enter at exact checkpoint minute open, if t>=availability and t<session close. Opening09:30 is a reference, not an executable ranked checkpoint.",
+  "checkpoint_comparisons": [
+    "all_eligible",
+    "currently_down_at_least4pct",
+    "not_currently_down4pct"
+  ],
+  "entry_and_onset_bins_et": [
+    "09:30-10:00",
+    "10:00-10:30",
+    "10:30-11:00",
+    "11:00-12:00",
+    "12:00-14:00",
+    "14:00-close"
+  ],
+  "opening_gap_onset_bin": "opening_gap",
+  "signal_depth_bands": [
+    "4-6pct",
+    "6-10pct",
+    "10pct_plus"
+  ],
+  "early_late_boundary_et": "10:30",
+  "early_late_definition": "Primary first-event entries before10:30 versus10:30 and later, with separate depth strata. Also report onset timing to avoid relabeling pre-availability dips as late dips.",
+  "event_windows": [
+    "before_noon",
+    "whole_session"
+  ],
+  "metrics": [
+    "candidate and missing/no-entry counts",
+    "unique stock-days and sessions and ISO weeks",
+    "mean/median/win rate/worst price return",
+    "worst observed further downside after entry",
+    "equal-cash opportunity mean for first-event rules with unavailable excluded explicitly"
+  ],
+  "uncertainty": {
+    "method": "nonparametric bootstrap of whole ISO calendar-week clusters within each cohort/anchor/group; preserve all repeated observations in each resampled week",
+    "replicas": 2000,
+    "seed": 20261109,
+    "minimum_completed": 8,
+    "minimum_completed_weeks": 5,
+    "interval": "percentile95%",
+    "interpretation": "Descriptive pointwise intervals, no multiple-comparison correction and no causal or prospective-edge claim."
+  },
+  "data_rules": "No named ticker exclusions. No forward fills or fabricated entry/exit values. Require valid raw current session opening minute, exact signal/entry bars and expected final exit minute. Reject duplicate/nonfinite/inconsistent OHLC. Missing source or unavailable anchor stays unknown, not cash. Sparse intermediate absent aggregates may indicate no qualifying trade; report coverage and observed-path limits.",
+  "prior_close_basis": "Require verified split metadata coverage for previous-to-current session; mark split crossings unavailable instead of inventing adjustments. Other corporate actions remain a nominal-price limitation.",
+  "prespecified_scope": "No threshold search, best-time selection, new model fit, production changes, automatic buy rule or pooling 342 research dates twice. Analysis uses frozen existing scores and new historical price reads.",
+  "source_open_consistency": {
+    "added_before_expanded_outcomes_at_utc": "2026-11-10T03:59:48.905718+00:00",
+    "maximum_relative_disagreement": 0.01,
+    "rule": "Compare official raw daily open with first regular-minute open. Absolute relative disagreement above1% marks the session unavailable for both anchors; preserve every measured difference and source identity. Never rescale prices to force agreement."
+  }
+}

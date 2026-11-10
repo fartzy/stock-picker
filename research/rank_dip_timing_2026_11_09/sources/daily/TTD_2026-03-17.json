@@ -1,0 +1,25 @@
+{
+  "ticker": "TTD",
+  "session": "2026-03-17",
+  "date": "2026-03-17",
+  "entry_date": "2026-03-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.208735+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TTD/2026-03-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-17",
+    "symbol": "TTD",
+    "open": 27.16,
+    "high": 28.64,
+    "low": 24.82,
+    "close": 25.07,
+    "volume": 40427160.273922,
+    "afterHours": 24.81,
+    "preMarket": 27.09
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

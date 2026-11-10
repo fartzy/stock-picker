@@ -1,0 +1,25 @@
+{
+  "ticker": "UEC",
+  "session": "2026-01-30",
+  "date": "2026-01-30",
+  "entry_date": "2026-01-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.691644+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/UEC/2026-01-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-30",
+    "symbol": "UEC",
+    "open": 17.69,
+    "high": 18.795,
+    "low": 16.71,
+    "close": 17.24,
+    "volume": 14896975.0,
+    "afterHours": 17.21,
+    "preMarket": 18
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

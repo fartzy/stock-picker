@@ -1,0 +1,25 @@
+{
+  "ticker": "VERA",
+  "session": "2025-12-08",
+  "date": "2025-12-08",
+  "entry_date": "2025-12-08",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.314007+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VERA/2025-12-08",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-08",
+    "symbol": "VERA",
+    "open": 44.88,
+    "high": 47.1,
+    "low": 43.5,
+    "close": 45.03,
+    "volume": 2021578.0,
+    "afterHours": 42.2,
+    "preMarket": 44.88
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

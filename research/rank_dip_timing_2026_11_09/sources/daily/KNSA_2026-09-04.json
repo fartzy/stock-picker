@@ -1,0 +1,25 @@
+{
+  "ticker": "KNSA",
+  "session": "2026-09-04",
+  "date": "2026-09-04",
+  "entry_date": "2026-09-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.720292+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KNSA/2026-09-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-04",
+    "symbol": "KNSA",
+    "open": 79.75,
+    "high": 80.43,
+    "low": 77.9,
+    "close": 77.91,
+    "volume": 430045.647645,
+    "afterHours": 78,
+    "preMarket": 80.0047
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

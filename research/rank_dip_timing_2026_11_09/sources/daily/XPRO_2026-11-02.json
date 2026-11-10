@@ -1,0 +1,25 @@
+{
+  "ticker": "XPRO",
+  "session": "2026-11-02",
+  "date": "2026-11-02",
+  "entry_date": "2026-11-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.498651+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/XPRO/2026-11-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-02",
+    "symbol": "XPRO",
+    "open": 17.06,
+    "high": 17.245,
+    "low": 15.72,
+    "close": 15.87,
+    "volume": 1603437.922652,
+    "afterHours": 15.87,
+    "preMarket": 17.37
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

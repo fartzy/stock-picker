@@ -1,0 +1,25 @@
+{
+  "ticker": "LBTYB",
+  "session": "2026-02-09",
+  "date": "2026-02-09",
+  "entry_date": "2026-02-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.250848+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LBTYB/2026-02-09",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-09",
+    "symbol": "LBTYB",
+    "open": 15.28,
+    "high": 16.7,
+    "low": 14.01,
+    "close": 15.37,
+    "volume": 122664,
+    "afterHours": 14.8,
+    "preMarket": 15.58
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

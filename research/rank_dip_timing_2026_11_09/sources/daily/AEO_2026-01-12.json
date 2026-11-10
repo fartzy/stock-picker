@@ -1,0 +1,25 @@
+{
+  "ticker": "AEO",
+  "session": "2026-01-12",
+  "date": "2026-01-12",
+  "entry_date": "2026-01-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.151875+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AEO/2026-01-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-01-12",
+    "symbol": "AEO",
+    "open": 24.28,
+    "high": 26.26,
+    "low": 23.88,
+    "close": 25.87,
+    "volume": 13322838.0,
+    "afterHours": 25.7,
+    "preMarket": 27.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

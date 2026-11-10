@@ -1,0 +1,25 @@
+{
+  "ticker": "CIFR",
+  "session": "2025-09-25",
+  "date": "2025-09-25",
+  "entry_date": "2025-09-25",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.445517+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CIFR/2025-09-25",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-25",
+    "symbol": "CIFR",
+    "open": 13.59,
+    "high": 13.6,
+    "low": 11.41,
+    "close": 11.66,
+    "volume": 155920094.0,
+    "afterHours": 12.24,
+    "preMarket": 14.19
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "DNLI",
+  "session": "2025-12-09",
+  "date": "2025-12-09",
+  "entry_date": "2025-12-09",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.837238+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DNLI/2025-12-09",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-09",
+    "symbol": "DNLI",
+    "open": 19.62,
+    "high": 19.87,
+    "low": 19.19,
+    "close": 19.66,
+    "volume": 1356065.0,
+    "afterHours": 17.8,
+    "preMarket": 19.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

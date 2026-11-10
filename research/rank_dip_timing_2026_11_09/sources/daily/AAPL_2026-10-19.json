@@ -1,0 +1,25 @@
+{
+  "ticker": "AAPL",
+  "session": "2026-10-19",
+  "date": "2026-10-19",
+  "entry_date": "2026-10-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.353721+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AAPL/2026-10-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-19",
+    "symbol": "AAPL",
+    "open": 340.775,
+    "high": 346,
+    "low": 340.115,
+    "close": 342.94,
+    "volume": 34573181.500186,
+    "afterHours": 343.04,
+    "preMarket": 343.29
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

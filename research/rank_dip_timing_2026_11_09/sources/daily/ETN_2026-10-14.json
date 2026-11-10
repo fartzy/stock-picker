@@ -1,0 +1,25 @@
+{
+  "ticker": "ETN",
+  "session": "2026-10-14",
+  "date": "2026-10-14",
+  "entry_date": "2026-10-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.859006+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ETN/2026-10-14",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-14",
+    "symbol": "ETN",
+    "open": 423.23,
+    "high": 425.025,
+    "low": 404.4,
+    "close": 408.85,
+    "volume": 3210490.053509,
+    "afterHours": 404.01,
+    "preMarket": 428.33
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PURR",
+  "session": "2026-06-10",
+  "date": "2026-06-10",
+  "entry_date": "2026-06-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:36.069248+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PURR/2026-06-10",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-10",
+    "symbol": "PURR",
+    "open": 7.9,
+    "high": 8.17,
+    "low": 7.54,
+    "close": 7.57,
+    "volume": 10245197.738383,
+    "afterHours": 7.39,
+    "preMarket": 7.805
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

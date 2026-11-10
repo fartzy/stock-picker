@@ -1,0 +1,25 @@
+{
+  "ticker": "CE",
+  "session": "2025-08-11",
+  "date": "2025-08-11",
+  "entry_date": "2025-08-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.206735+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CE/2025-08-11",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-11",
+    "symbol": "CE",
+    "open": 48.41,
+    "high": 48.9,
+    "low": 45.82,
+    "close": 47.42,
+    "volume": 3839709.0,
+    "afterHours": 40.34,
+    "preMarket": 48.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "DDOG",
+  "session": "2026-11-05",
+  "date": "2026-11-05",
+  "entry_date": "2026-11-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.611458+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/DDOG/2026-11-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-05",
+    "symbol": "DDOG",
+    "open": 183,
+    "high": 183,
+    "low": 170.5,
+    "close": 174.6,
+    "volume": 10141292.575042,
+    "afterHours": 175,
+    "preMarket": 187.92
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

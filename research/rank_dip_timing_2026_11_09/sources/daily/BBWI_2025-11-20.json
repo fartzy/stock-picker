@@ -1,0 +1,25 @@
+{
+  "ticker": "BBWI",
+  "session": "2025-11-20",
+  "date": "2025-11-20",
+  "entry_date": "2025-11-20",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.113731+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BBWI/2025-11-20",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-20",
+    "symbol": "BBWI",
+    "open": 15.86,
+    "high": 16.53,
+    "low": 15.425,
+    "close": 15.82,
+    "volume": 41134950.0,
+    "afterHours": 15.85,
+    "preMarket": 20.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

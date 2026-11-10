@@ -1,0 +1,25 @@
+{
+  "ticker": "ICHR",
+  "session": "2026-07-28",
+  "date": "2026-07-28",
+  "entry_date": "2026-07-28",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.902245+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ICHR/2026-07-28",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-28",
+    "symbol": "ICHR",
+    "open": 72.47,
+    "high": 73.36,
+    "low": 65.54,
+    "close": 68.1,
+    "volume": 1478429.13525,
+    "afterHours": 66.02,
+    "preMarket": 73.78
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

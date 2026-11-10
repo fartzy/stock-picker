@@ -1,0 +1,25 @@
+{
+  "ticker": "TIC",
+  "session": "2025-09-30",
+  "date": "2025-09-30",
+  "entry_date": "2025-09-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:41.795966+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TIC/2025-09-30",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-30",
+    "symbol": "TIC",
+    "open": 12.7,
+    "high": 13.96,
+    "low": 12.34,
+    "close": 13.31,
+    "volume": 9303343.0,
+    "afterHours": 13.4,
+    "preMarket": 14.32
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

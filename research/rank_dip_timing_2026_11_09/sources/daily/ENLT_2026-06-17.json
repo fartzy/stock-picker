@@ -1,0 +1,25 @@
+{
+  "ticker": "ENLT",
+  "session": "2026-06-17",
+  "date": "2026-06-17",
+  "entry_date": "2026-06-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.400427+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ENLT/2026-06-17",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-17",
+    "symbol": "ENLT",
+    "open": 84.3,
+    "high": 85.905,
+    "low": 80.51,
+    "close": 80.53,
+    "volume": 399142.289907,
+    "afterHours": 80.3,
+    "preMarket": 87.09
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "SNDK",
+  "session": "2026-10-19",
+  "date": "2026-10-19",
+  "entry_date": "2026-10-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.053217+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SNDK/2026-10-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-19",
+    "symbol": "SNDK",
+    "open": 1359,
+    "high": 1407,
+    "low": 1357.6381,
+    "close": 1371.12,
+    "volume": 8535353.345092,
+    "afterHours": 1371.75,
+    "preMarket": 1338.78
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

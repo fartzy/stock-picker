@@ -1,0 +1,25 @@
+{
+  "ticker": "ESLT",
+  "session": "2026-10-29",
+  "date": "2026-10-29",
+  "entry_date": "2026-10-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.833551+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ESLT/2026-10-29",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-29",
+    "symbol": "ESLT",
+    "open": 783.095,
+    "high": 815.13,
+    "low": 781.39,
+    "close": 807.41,
+    "volume": 110563.305479,
+    "afterHours": 807.41,
+    "preMarket": 777.83
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

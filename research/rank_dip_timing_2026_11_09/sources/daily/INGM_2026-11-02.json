@@ -1,0 +1,25 @@
+{
+  "ticker": "INGM",
+  "session": "2026-11-02",
+  "date": "2026-11-02",
+  "entry_date": "2026-11-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.083462+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/INGM/2026-11-02",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-02",
+    "symbol": "INGM",
+    "open": 28.7,
+    "high": 29.21,
+    "low": 26.94,
+    "close": 26.98,
+    "volume": 3152143.140486,
+    "afterHours": 26.2,
+    "preMarket": 28.7
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

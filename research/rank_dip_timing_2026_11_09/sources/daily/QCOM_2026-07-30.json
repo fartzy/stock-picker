@@ -1,0 +1,25 @@
+{
+  "ticker": "QCOM",
+  "session": "2026-07-30",
+  "date": "2026-07-30",
+  "entry_date": "2026-07-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:36.216883+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/QCOM/2026-07-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-30",
+    "symbol": "QCOM",
+    "open": 146.55,
+    "high": 154.1595,
+    "low": 146,
+    "close": 151.6,
+    "volume": 24336846.258264,
+    "afterHours": 153.2254,
+    "preMarket": 147
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

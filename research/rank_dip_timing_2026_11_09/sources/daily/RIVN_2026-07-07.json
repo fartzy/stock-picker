@@ -1,0 +1,25 @@
+{
+  "ticker": "RIVN",
+  "session": "2026-07-07",
+  "date": "2026-07-07",
+  "entry_date": "2026-07-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.675712+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RIVN/2026-07-07",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-07",
+    "symbol": "RIVN",
+    "open": 17.672,
+    "high": 18.09,
+    "low": 16.38,
+    "close": 16.49,
+    "volume": 91175921.329621,
+    "afterHours": 16.29,
+    "preMarket": 18.36
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

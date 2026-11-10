@@ -1,0 +1,25 @@
+{
+  "ticker": "ALAB",
+  "session": "2026-10-01",
+  "date": "2026-10-01",
+  "entry_date": "2026-10-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.509196+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ALAB/2026-10-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-01",
+    "symbol": "ALAB",
+    "open": 360.59,
+    "high": 364.8499,
+    "low": 352,
+    "close": 356.42,
+    "volume": 4080050.39558,
+    "afterHours": 347.2447,
+    "preMarket": 364.6296
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

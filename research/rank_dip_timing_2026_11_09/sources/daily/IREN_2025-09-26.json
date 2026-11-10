@@ -1,0 +1,25 @@
+{
+  "ticker": "IREN",
+  "session": "2025-09-26",
+  "date": "2025-09-26",
+  "entry_date": "2025-09-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.382910+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/IREN/2025-09-26",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-26",
+    "symbol": "IREN",
+    "open": 43.68,
+    "high": 44.08,
+    "low": 39.7,
+    "close": 41.86,
+    "volume": 59655325.0,
+    "afterHours": 41.75,
+    "preMarket": 44.67
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

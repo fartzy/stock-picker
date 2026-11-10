@@ -1,0 +1,25 @@
+{
+  "ticker": "VKTX",
+  "session": "2025-08-19",
+  "date": "2025-08-19",
+  "entry_date": "2025-08-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.573992+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VKTX/2025-08-19",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-19",
+    "symbol": "VKTX",
+    "open": 26,
+    "high": 26.2499,
+    "low": 23.21,
+    "close": 24.36,
+    "volume": 64601040.0,
+    "afterHours": 24.4,
+    "preMarket": 43.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

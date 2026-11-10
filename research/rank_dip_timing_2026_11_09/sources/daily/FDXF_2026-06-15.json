@@ -1,0 +1,25 @@
+{
+  "ticker": "FDXF",
+  "session": "2026-06-15",
+  "date": "2026-06-15",
+  "entry_date": "2026-06-15",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.861938+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FDXF/2026-06-15",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-15",
+    "symbol": "FDXF",
+    "open": 173.91,
+    "high": 177.8113,
+    "low": 166.04,
+    "close": 167.16,
+    "volume": 1708114.165868,
+    "afterHours": 167,
+    "preMarket": 178.73
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

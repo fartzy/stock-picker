@@ -1,0 +1,25 @@
+{
+  "ticker": "GRAL",
+  "session": "2026-09-21",
+  "date": "2026-09-21",
+  "entry_date": "2026-09-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.129389+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/GRAL/2026-09-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-21",
+    "symbol": "GRAL",
+    "open": 93.74,
+    "high": 111.5,
+    "low": 92,
+    "close": 107.97,
+    "volume": 3528615.312718,
+    "afterHours": 110,
+    "preMarket": 81
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

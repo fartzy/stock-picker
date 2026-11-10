@@ -1,0 +1,25 @@
+{
+  "ticker": "EME",
+  "session": "2026-11-03",
+  "date": "2026-11-03",
+  "entry_date": "2026-11-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.367159+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/EME/2026-11-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-03",
+    "symbol": "EME",
+    "open": 691.99,
+    "high": 707.51,
+    "low": 691.99,
+    "close": 707.43,
+    "volume": 483481.797083,
+    "afterHours": 707.48,
+    "preMarket": 696.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

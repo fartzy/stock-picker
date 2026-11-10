@@ -1,0 +1,25 @@
+{
+  "ticker": "CELC",
+  "session": "2026-06-01",
+  "date": "2026-06-01",
+  "entry_date": "2026-06-01",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.291562+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CELC/2026-06-01",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-01",
+    "symbol": "CELC",
+    "open": 132.22,
+    "high": 134.7,
+    "low": 122.76,
+    "close": 122.96,
+    "volume": 1929220.485551,
+    "afterHours": 122,
+    "preMarket": 133.07
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

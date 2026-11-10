@@ -1,0 +1,25 @@
+{
+  "ticker": "TRI",
+  "session": "2026-11-06",
+  "date": "2026-11-06",
+  "entry_date": "2026-11-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.109222+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TRI/2026-11-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-06",
+    "symbol": "TRI",
+    "open": 114.32,
+    "high": 114.995,
+    "low": 112.435,
+    "close": 112.57,
+    "volume": 1291940.644545,
+    "afterHours": 114.76,
+    "preMarket": 116.99
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "WULF",
+  "session": "2026-05-18",
+  "date": "2026-05-18",
+  "entry_date": "2026-05-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:44.406726+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/WULF/2026-05-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-18",
+    "symbol": "WULF",
+    "open": 21.4,
+    "high": 21.69,
+    "low": 20.26,
+    "close": 21.14,
+    "volume": 31192672.430397,
+    "afterHours": 21.1401,
+    "preMarket": 22.13
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

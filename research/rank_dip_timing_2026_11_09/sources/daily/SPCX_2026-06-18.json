@@ -1,0 +1,25 @@
+{
+  "ticker": "SPCX",
+  "session": "2026-06-18",
+  "date": "2026-06-18",
+  "entry_date": "2026-06-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.153743+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SPCX/2026-06-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-18",
+    "symbol": "SPCX",
+    "open": 188.39,
+    "high": 190,
+    "low": 172.11,
+    "close": 185,
+    "volume": 272126781.295443,
+    "afterHours": 181.6,
+    "preMarket": 192.3
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

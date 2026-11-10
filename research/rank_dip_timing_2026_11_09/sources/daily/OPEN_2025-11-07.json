@@ -1,0 +1,25 @@
+{
+  "ticker": "OPEN",
+  "session": "2025-11-07",
+  "date": "2025-11-07",
+  "entry_date": "2025-11-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.220601+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/OPEN/2025-11-07",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-07",
+    "symbol": "OPEN",
+    "open": 5.33,
+    "high": 6.59,
+    "low": 5.24,
+    "close": 6.56,
+    "volume": 214509192.0,
+    "afterHours": 6.5899,
+    "preMarket": 5.55
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

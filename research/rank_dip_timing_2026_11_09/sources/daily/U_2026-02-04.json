@@ -1,0 +1,25 @@
+{
+  "ticker": "U",
+  "session": "2026-02-04",
+  "date": "2026-02-04",
+  "entry_date": "2026-02-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:42.463215+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/U/2026-02-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-04",
+    "symbol": "U",
+    "open": 23.7,
+    "high": 25.6699,
+    "low": 22.88,
+    "close": 24.94,
+    "volume": 30359410.0,
+    "afterHours": 24.9008,
+    "preMarket": 26.14
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

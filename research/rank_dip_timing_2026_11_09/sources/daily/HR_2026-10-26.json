@@ -1,0 +1,25 @@
+{
+  "ticker": "HR",
+  "session": "2026-10-26",
+  "date": "2026-10-26",
+  "entry_date": "2026-10-26",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.410848+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HR/2026-10-26",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-26",
+    "symbol": "HR",
+    "open": 17.94,
+    "high": 18.06,
+    "low": 17.84,
+    "close": 17.98,
+    "volume": 5360496.95807,
+    "afterHours": 17.98,
+    "preMarket": 18.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

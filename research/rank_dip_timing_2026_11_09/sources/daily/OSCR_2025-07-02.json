@@ -1,0 +1,25 @@
+{
+  "ticker": "OSCR",
+  "session": "2025-07-02",
+  "date": "2025-07-02",
+  "entry_date": "2025-07-02",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.306190+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/OSCR/2025-07-02",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-02",
+    "symbol": "OSCR",
+    "open": 17.72,
+    "high": 18.17,
+    "low": 16.295,
+    "close": 16.62,
+    "volume": 77950307.0,
+    "afterHours": 17.18,
+    "preMarket": 19.65
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

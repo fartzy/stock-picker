@@ -1,0 +1,25 @@
+{
+  "ticker": "LMND",
+  "session": "2026-02-19",
+  "date": "2026-02-19",
+  "entry_date": "2026-02-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.056593+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LMND/2026-02-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-19",
+    "symbol": "LMND",
+    "open": 74,
+    "high": 74.85,
+    "low": 60.4,
+    "close": 61.67,
+    "volume": 7144490.0,
+    "afterHours": 61.8,
+    "preMarket": 70.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

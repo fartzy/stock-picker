@@ -1,0 +1,25 @@
+{
+  "ticker": "KTOS",
+  "session": "2025-10-10",
+  "date": "2025-10-10",
+  "entry_date": "2025-10-10",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.800669+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KTOS/2025-10-10",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-10",
+    "symbol": "KTOS",
+    "open": 94.7,
+    "high": 102.6453,
+    "low": 92.9,
+    "close": 94.63,
+    "volume": 7345856.0,
+    "afterHours": 93.25,
+    "preMarket": 98.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

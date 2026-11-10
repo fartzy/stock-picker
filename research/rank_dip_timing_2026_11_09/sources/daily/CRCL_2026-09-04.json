@@ -1,0 +1,25 @@
+{
+  "ticker": "CRCL",
+  "session": "2026-09-04",
+  "date": "2026-09-04",
+  "entry_date": "2026-09-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.036931+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CRCL/2026-09-04",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-04",
+    "symbol": "CRCL",
+    "open": 97.98,
+    "high": 102.7851,
+    "low": 97.1,
+    "close": 102.05,
+    "volume": 14220046.764676,
+    "afterHours": 101.6,
+    "preMarket": 102.5905
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

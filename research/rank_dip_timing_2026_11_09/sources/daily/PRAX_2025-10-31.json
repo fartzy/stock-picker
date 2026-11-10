@@ -1,0 +1,25 @@
+{
+  "ticker": "PRAX",
+  "session": "2025-10-31",
+  "date": "2025-10-31",
+  "entry_date": "2025-10-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:35.832301+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PRAX/2025-10-31",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-31",
+    "symbol": "PRAX",
+    "open": 198.16,
+    "high": 201.99,
+    "low": 195.5,
+    "close": 198.76,
+    "volume": 375743,
+    "afterHours": 198.56,
+    "preMarket": 200.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,12 +1,14 @@
-# Fresh entry after a 4% drop in a saved Rank #1 pick
+# Recorded-run timing sensitivity: entry after a 4% drop
 
-The small sample has positive average returns after the dip, but it does **not establish a predictive buy rule**. The eight morning entries with recorded publication times averaged **+3.01% from entry to close**, with six winners. The descriptive 95% bootstrap interval for their mean runs from **−1.24% to +7.22%**. Final saved rankings are mutable, so these are not proven point-in-time selections.
+**Timing correction:** the timestamps used here identify recorded runs, not necessarily the first morning ranking. In particular, the November 9 timestamp belongs to a special rerun. The 8-entry/+3.01% and 13-entry/+2.40% table below is retained as a recorded-run sensitivity, not the primary early-morning result. With the user-directed assumption of availability at **8:35 a.m. Chicago / 9:35 a.m. ET**, the same 37 saved Rank #1 days produce **10 entries, 7 winners, +1.49%** from the open reference and **15 entries, 8 winners, +0.93%** from the previous-close reference, for entries before 11 a.m. Chicago / noon ET. The [expanded dip-timing study](../rank_dip_timing_2026_11_09/README.md) uses that early assumption, adds historical research cohorts and fixed-time checks, and keeps zero trading expense. Original source files and protocol here are unchanged.
+
+In this archived recorded-run sensitivity, the small sample has positive average returns after the dip, but it does **not establish a predictive buy rule**. The eight morning entries averaged **+3.01% from entry to close**, with six winners. The descriptive 95% bootstrap interval for their mean runs from **−1.24% to +7.22%**. Final saved rankings are mutable, so these are not proven point-in-time selections.
 
 This is a new-entry study with **zero modeled trading expense**, as directed by the user. Every reported return is the price change from entry to exit. It does not start with an open position, average down, or hold overnight. It also does not retrain or change a model.
 
-## Results with recorded publication times
+## Results using recorded run times
 
-There are 37 saved Rank #1 sessions from September 18 through November 9, 2026. Publication times are available for 28; nine remain unavailable in this sensitivity. Each signal uses the first qualifying **whole minute after publication**, then the next minute's open. The price may already be more than 4% below the reference when the ranking becomes available. Entries must occur strictly before noon ET.
+There are 37 saved Rank #1 sessions from September 18 through November 9, 2026. Recorded run times are available for 28; nine remain unavailable in this sensitivity. Each signal uses the first qualifying **whole minute after that recorded run time**, then the next minute's open. The price may already be more than 4% below the reference at that time. Entries must occur strictly before noon ET. The source field retains its original publication-time name, but does not prove first availability.
 
 | Reference for the 4% drop | Completed entries | Winners | Mean return | Median return | Worst return |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -43,7 +45,7 @@ No ticker was hand-excluded. MRCY was not Rank #1 on any of these 37 saved sessi
 - The expected final regular-session minute's close is the exit proxy. It is not a guaranteed closing-auction or broker fill. `signal_at` and `exit_at` are bar-start timestamps; `signal_observed_at` and `exit_close_observed_at` identify when their closing prices become observable.
 - Missing session boundaries, invalid/nonfinite OHLC, duplicates, and unavailable entry/exit bars are explicitly recorded. No price is forward-filled. Sparse intermediate bars are retained; a missing provider aggregate can mean no qualifying trades, not necessarily a feed outage. “No entry” means no qualifying **observed completed bar** under this rule.
 - Returns are exactly `exit_price / entry_price - 1`, with no modeled expense deducted. Minute-bar execution-price uncertainty is separate and is not converted into an invented fixed charge. No leverage or position-sizing model is assumed.
-- All original selections, raw scores, source hashes, session bounds, and available publication times are frozen in `cohort.json`. The original ignored daily Rank JSON files can be overwritten; this study cannot reconstruct their first published versions. November 9's logged publication is 10:07:27 ET, and its first eligible signal bar starts at 10:08, with entry at 10:09.
+- All original selections, raw scores, source hashes, session bounds, and available recorded run times are frozen in `cohort.json`. The original ignored daily Rank JSON files can be overwritten; this study cannot reconstruct their first published versions. November 9's special rerun logged a Rank publication at 10:07:27 ET; under this archived sensitivity its first eligible signal bar starts at 10:08, with entry at 10:09. That is not evidence that the morning's first ranking was unavailable until then.
 
 ## Source and verification limits
 

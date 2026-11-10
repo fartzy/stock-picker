@@ -1,0 +1,25 @@
+{
+  "ticker": "CECO",
+  "session": "2025-10-27",
+  "date": "2025-10-27",
+  "entry_date": "2025-10-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.232967+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CECO/2025-10-27",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-27",
+    "symbol": "CECO",
+    "open": 52.5,
+    "high": 53.51,
+    "low": 50.85,
+    "close": 53.355,
+    "volume": 749379,
+    "afterHours": 53.39,
+    "preMarket": 52.86
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

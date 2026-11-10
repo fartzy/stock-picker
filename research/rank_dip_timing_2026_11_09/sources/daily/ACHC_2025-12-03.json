@@ -1,0 +1,25 @@
+{
+  "ticker": "ACHC",
+  "session": "2025-12-03",
+  "date": "2025-12-03",
+  "entry_date": "2025-12-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:20.645512+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ACHC/2025-12-03",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-03",
+    "symbol": "ACHC",
+    "open": 12.89,
+    "high": 15.01,
+    "low": 12.63,
+    "close": 14.69,
+    "volume": 15511594.0,
+    "afterHours": 14.6901,
+    "preMarket": 13.08
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

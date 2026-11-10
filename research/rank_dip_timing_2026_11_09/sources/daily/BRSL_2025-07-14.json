@@ -1,0 +1,25 @@
+{
+  "ticker": "BRSL",
+  "session": "2025-07-14",
+  "date": "2025-07-14",
+  "entry_date": "2025-07-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:24.036845+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BRSL/2025-07-14",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-14",
+    "symbol": "BRSL",
+    "open": 15,
+    "high": 15.2446,
+    "low": 14.64,
+    "close": 14.74,
+    "volume": 3528750.0,
+    "afterHours": 15.2376,
+    "preMarket": 15.5
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

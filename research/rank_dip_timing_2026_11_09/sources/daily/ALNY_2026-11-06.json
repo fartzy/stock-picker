@@ -1,0 +1,25 @@
+{
+  "ticker": "ALNY",
+  "session": "2026-11-06",
+  "date": "2026-11-06",
+  "entry_date": "2026-11-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:21.779057+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ALNY/2026-11-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-06",
+    "symbol": "ALNY",
+    "open": 155.22,
+    "high": 159.45,
+    "low": 154.3,
+    "close": 155.94,
+    "volume": 2829865.781757,
+    "afterHours": 155.4209,
+    "preMarket": 156.66
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

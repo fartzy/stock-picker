@@ -1,0 +1,25 @@
+{
+  "ticker": "PGEN",
+  "session": "2026-09-30",
+  "date": "2026-09-30",
+  "entry_date": "2026-09-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.909852+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PGEN/2026-09-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-30",
+    "symbol": "PGEN",
+    "open": 8.13,
+    "high": 8.98,
+    "low": 8.09,
+    "close": 8.56,
+    "volume": 11685477.528428,
+    "afterHours": 8.6523,
+    "preMarket": 8.089
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

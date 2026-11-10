@@ -1,0 +1,25 @@
+{
+  "ticker": "IOVA",
+  "session": "2025-07-14",
+  "date": "2025-07-14",
+  "entry_date": "2025-07-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.239735+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/IOVA/2025-07-14",
+  "payload": {
+    "status": "OK",
+    "from": "2025-07-14",
+    "symbol": "IOVA",
+    "open": 1.96,
+    "high": 2.15,
+    "low": 1.91,
+    "close": 2.01,
+    "volume": 19549461.0,
+    "afterHours": 2,
+    "preMarket": 1.87
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "RNW",
+  "session": "2025-12-12",
+  "date": "2025-12-12",
+  "entry_date": "2025-12-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.842552+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RNW/2025-12-12",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-12",
+    "symbol": "RNW",
+    "open": 7.57,
+    "high": 7.595,
+    "low": 7.52,
+    "close": 7.55,
+    "volume": 1263101.0,
+    "afterHours": 7.55,
+    "preMarket": 7.57
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

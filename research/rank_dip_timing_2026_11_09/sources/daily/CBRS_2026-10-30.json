@@ -1,0 +1,25 @@
+{
+  "ticker": "CBRS",
+  "session": "2026-10-30",
+  "date": "2026-10-30",
+  "entry_date": "2026-10-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.153732+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CBRS/2026-10-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-30",
+    "symbol": "CBRS",
+    "open": 107.5,
+    "high": 109.3,
+    "low": 104.18,
+    "close": 109.18,
+    "volume": 9203163.752593,
+    "afterHours": 108.769,
+    "preMarket": 109.702
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

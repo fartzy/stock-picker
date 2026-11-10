@@ -1,0 +1,25 @@
+{
+  "ticker": "INSW",
+  "session": "2026-10-14",
+  "date": "2026-10-14",
+  "entry_date": "2026-10-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.115604+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/INSW/2026-10-14",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-14",
+    "symbol": "INSW",
+    "open": 125.92,
+    "high": 126.274,
+    "low": 115.1377,
+    "close": 118.74,
+    "volume": 996701.340155,
+    "afterHours": 117.0763,
+    "preMarket": 125.99
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

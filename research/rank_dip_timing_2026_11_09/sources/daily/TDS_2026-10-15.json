@@ -1,0 +1,25 @@
+{
+  "ticker": "TDS",
+  "session": "2026-10-15",
+  "date": "2026-10-15",
+  "entry_date": "2026-10-15",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:40.663603+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/TDS/2026-10-15",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-15",
+    "symbol": "TDS",
+    "open": 34.33,
+    "high": 34.81,
+    "low": 33.795,
+    "close": 34.02,
+    "volume": 1803889.827748,
+    "afterHours": 34.02,
+    "preMarket": 34.3
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

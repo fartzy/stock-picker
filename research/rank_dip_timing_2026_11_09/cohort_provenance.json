@@ -1,0 +1,121 @@
+{
+  "frozen_at_utc": "2026-11-10T03:57:19.614093+00:00",
+  "cohort_sha256": "82dae6655e846670afef2d8272b406030f531fc063fb088329fe6f4af26baa28",
+  "baseline_sha256": "08c55aaf1e0f4ca22ac680babd545c13999e645d878e2331fff952a6451f2abb",
+  "manifest_path": "research/morning_dip_model_2026_11_09/model_run/manifest.json",
+  "manifest_sha256": "095c7aa138999fef7f38e694bfe93d906e1266cda6a8b6c8268a6a2d1a6c3f4e",
+  "run_identity": "cb05802badb974d6fc0c1ee98e223ba6e25fd3fc406a9a1985cc0fcca6ff1243",
+  "checkpoint_checks": [
+    {
+      "cohort": "research_baseline",
+      "block": "outer_2025h2",
+      "training_end": "2025-06-30",
+      "test_start": "2025-07-01",
+      "test_end": "2025-12-31",
+      "test_rows": 218450,
+      "selected_dates": 128,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_baseline.npy",
+      "array_sha256": "3e4c9b555fbb37366c809342d5dca317b63f0b28e514d1656cf7f33667dffb5e",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_baseline.json",
+      "metadata_sha256": "02bd83383120b7e7b17d6faab6215406be1d8b9c9049767eff4634e1252f7548",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "raw_feature_count": 132
+    },
+    {
+      "cohort": "research_all_dips",
+      "block": "outer_2025h2",
+      "training_end": "2025-06-30",
+      "test_start": "2025-07-01",
+      "test_end": "2025-12-31",
+      "test_rows": 218450,
+      "selected_dates": 128,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_all.npy",
+      "array_sha256": "d23a546bbc85b56ec83eaf7ec9ff30efb91d6ff4a4f7f30de401cb709ea6580e",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_all.json",
+      "metadata_sha256": "c0cff7799634d46d2ff0f678a7b8d1522abe095a50fbcaf1cf23f9f9121e44a0",
+      "test_rows_sha256": "4d9356d0261d3128af3118c629e985390f657b97b5a7270c83856bba6c299283",
+      "train_rows_sha256": "ef57c9f11b8591c5cdccf70ddb4a6fe0b6ef7d074cc1e749e8b287447a0e3835",
+      "raw_feature_count": 153
+    },
+    {
+      "cohort": "research_baseline",
+      "block": "outer_2026h1",
+      "training_end": "2025-12-31",
+      "test_start": "2026-01-02",
+      "test_end": "2026-06-30",
+      "test_rows": 214906,
+      "selected_dates": 123,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_baseline.npy",
+      "array_sha256": "c3fad645289a388bff8f068e6f7bf0f7d1fbc6c48fcafefd006a7614971d7e30",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_baseline.json",
+      "metadata_sha256": "f8ee9d02260ebf1c625f423a4cacc36565c6cb698f76d08a47e371a4cf6cb750",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "raw_feature_count": 132
+    },
+    {
+      "cohort": "research_all_dips",
+      "block": "outer_2026h1",
+      "training_end": "2025-12-31",
+      "test_start": "2026-01-02",
+      "test_end": "2026-06-30",
+      "test_rows": 214906,
+      "selected_dates": 123,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_all.npy",
+      "array_sha256": "a521df84ec2fa242484379bdb6e49111de49049d60e1c7aa165254e933907f9e",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_all.json",
+      "metadata_sha256": "dad5c7efd5b41f7f15f444e96e1e2a46e0d31f3f9b935fe3307f6a8c6b160fe8",
+      "test_rows_sha256": "4eb7475c967f8f8156e2f616efa033bc6dac7052ee831accc24221c0b327b1d6",
+      "train_rows_sha256": "5260c7eb935eb41d2385e7ec34615753c590f6132b6f4e25ba383d79eeefaf14",
+      "raw_feature_count": 153
+    },
+    {
+      "cohort": "research_baseline",
+      "block": "outer_2026h2",
+      "training_end": "2026-06-30",
+      "test_start": "2026-07-01",
+      "test_end": "2026-11-06",
+      "test_rows": 161943,
+      "selected_dates": 91,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_baseline.npy",
+      "array_sha256": "ad216f7591fa356508800c5daded51f27c77194c0eb460dec5767850fd39cfba",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_baseline.json",
+      "metadata_sha256": "be82b57a6885701b96a645ff0e000090283ead19d7e4135db393d3419fdb1cf4",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "raw_feature_count": 132
+    },
+    {
+      "cohort": "research_all_dips",
+      "block": "outer_2026h2",
+      "training_end": "2026-06-30",
+      "test_start": "2026-07-01",
+      "test_end": "2026-11-06",
+      "test_rows": 161943,
+      "selected_dates": 91,
+      "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_all.npy",
+      "array_sha256": "6d1e05ac70ff40cbdb7d47c029e600256b745c9ea87f317b45be5b83a973ba26",
+      "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_all.json",
+      "metadata_sha256": "b5f7698941b0938015c986a415282dc072669cf4662d03fa389bfe7c7b411392",
+      "test_rows_sha256": "7c51395ffdde499e39d2a45f985600fa5d109fa0825c738941cdc5c5b1061e08",
+      "train_rows_sha256": "3589ab552c20805b4457b9891b949910a696a1255489606ad2aa808fdbe6aa16",
+      "raw_feature_count": 153
+    }
+  ],
+  "cohort_counts": {
+    "live": 185,
+    "research_all_dips": 342,
+    "research_baseline": 342
+  },
+  "unique_market_stock_days": 713,
+  "mrcy_rows": [
+    {
+      "cohort": "live",
+      "session": "2026-11-04",
+      "rank": 2
+    }
+  ],
+  "selection_versions_immutable_live": false,
+  "research_scores_not_live_history": true
+}

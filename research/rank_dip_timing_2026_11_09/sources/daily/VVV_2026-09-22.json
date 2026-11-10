@@ -1,0 +1,25 @@
+{
+  "ticker": "VVV",
+  "session": "2026-09-22",
+  "date": "2026-09-22",
+  "entry_date": "2026-09-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.706365+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VVV/2026-09-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-22",
+    "symbol": "VVV",
+    "open": 27.15,
+    "high": 28.77,
+    "low": 27.15,
+    "close": 28.67,
+    "volume": 4040467.259105,
+    "afterHours": 28.5305,
+    "preMarket": 27.15
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

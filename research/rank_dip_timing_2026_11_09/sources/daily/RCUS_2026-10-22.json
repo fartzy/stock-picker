@@ -1,0 +1,25 @@
+{
+  "ticker": "RCUS",
+  "session": "2026-10-22",
+  "date": "2026-10-22",
+  "entry_date": "2026-10-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.839990+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RCUS/2026-10-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-22",
+    "symbol": "RCUS",
+    "open": 17.43,
+    "high": 19.62,
+    "low": 17.43,
+    "close": 19.36,
+    "volume": 8370962.797437,
+    "afterHours": 19.36,
+    "preMarket": 18
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

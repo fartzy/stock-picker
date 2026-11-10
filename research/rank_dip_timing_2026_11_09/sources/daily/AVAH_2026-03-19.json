@@ -1,0 +1,25 @@
+{
+  "ticker": "AVAH",
+  "session": "2026-03-19",
+  "date": "2026-03-19",
+  "entry_date": "2026-03-19",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:22.865318+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/AVAH/2026-03-19",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-19",
+    "symbol": "AVAH",
+    "open": 6.83,
+    "high": 7.18,
+    "low": 5.93,
+    "close": 6.34,
+    "volume": 2523484.297154,
+    "afterHours": 6.23,
+    "preMarket": 7.1
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

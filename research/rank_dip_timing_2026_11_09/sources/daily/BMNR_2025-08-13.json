@@ -1,0 +1,25 @@
+{
+  "ticker": "BMNR",
+  "session": "2025-08-13",
+  "date": "2025-08-13",
+  "entry_date": "2025-08-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:23.685332+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/BMNR/2025-08-13",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-13",
+    "symbol": "BMNR",
+    "open": 67.24,
+    "high": 71.74,
+    "low": 60.3,
+    "close": 61.63,
+    "volume": 107425083.0,
+    "afterHours": 64.3801,
+    "preMarket": 64.6
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

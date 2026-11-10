@@ -1,0 +1,25 @@
+{
+  "ticker": "LQDA",
+  "session": "2026-07-14",
+  "date": "2026-07-14",
+  "entry_date": "2026-07-14",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.170029+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LQDA/2026-07-14",
+  "payload": {
+    "status": "OK",
+    "from": "2026-07-14",
+    "symbol": "LQDA",
+    "open": 71.4,
+    "high": 77.1,
+    "low": 71.4,
+    "close": 76.49,
+    "volume": 1154679.281008,
+    "afterHours": 76.7611,
+    "preMarket": 70.94
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

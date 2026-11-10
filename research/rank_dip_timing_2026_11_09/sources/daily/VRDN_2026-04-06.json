@@ -1,0 +1,25 @@
+{
+  "ticker": "VRDN",
+  "session": "2026-04-06",
+  "date": "2026-04-06",
+  "entry_date": "2026-04-06",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.630605+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VRDN/2026-04-06",
+  "payload": {
+    "status": "OK",
+    "from": "2026-04-06",
+    "symbol": "VRDN",
+    "open": 18.5,
+    "high": 18.5,
+    "low": 13.62,
+    "close": 13.9,
+    "volume": 14520523.177538,
+    "afterHours": 13.85,
+    "preMarket": 18.84
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

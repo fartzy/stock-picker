@@ -1,0 +1,25 @@
+{
+  "ticker": "RDW",
+  "session": "2025-09-17",
+  "date": "2025-09-17",
+  "entry_date": "2025-09-17",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:37.950294+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/RDW/2025-09-17",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-17",
+    "symbol": "RDW",
+    "open": 8.05,
+    "high": 8.15,
+    "low": 7.77,
+    "close": 7.87,
+    "volume": 21971329.0,
+    "afterHours": 8.03,
+    "preMarket": 9.14
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

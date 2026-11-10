@@ -1,0 +1,25 @@
+{
+  "ticker": "LGN",
+  "session": "2026-10-07",
+  "date": "2026-10-07",
+  "entry_date": "2026-10-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:31.739939+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LGN/2026-10-07",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-07",
+    "symbol": "LGN",
+    "open": 54.52,
+    "high": 54.9503,
+    "low": 52.04,
+    "close": 53.35,
+    "volume": 997897.965657,
+    "afterHours": 53.35,
+    "preMarket": 55.79
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

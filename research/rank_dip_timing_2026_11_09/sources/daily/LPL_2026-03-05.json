@@ -1,0 +1,25 @@
+{
+  "ticker": "LPL",
+  "session": "2026-03-05",
+  "date": "2026-03-05",
+  "entry_date": "2026-03-05",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.151374+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LPL/2026-03-05",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-05",
+    "symbol": "LPL",
+    "open": 4.12,
+    "high": 4.13,
+    "low": 3.905,
+    "close": 3.96,
+    "volume": 1922722.690094,
+    "afterHours": 4.1449,
+    "preMarket": 4.22
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

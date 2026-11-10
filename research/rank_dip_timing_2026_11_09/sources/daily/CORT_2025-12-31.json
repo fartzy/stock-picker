@@ -1,0 +1,25 @@
+{
+  "ticker": "CORT",
+  "session": "2025-12-31",
+  "date": "2025-12-31",
+  "entry_date": "2025-12-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.840817+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CORT/2025-12-31",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-31",
+    "symbol": "CORT",
+    "open": 38.89,
+    "high": 39,
+    "low": 32.9906,
+    "close": 34.8,
+    "volume": 20304995.0,
+    "afterHours": 34.65,
+    "preMarket": 69.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

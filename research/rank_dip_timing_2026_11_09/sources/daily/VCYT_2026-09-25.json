@@ -1,0 +1,25 @@
+{
+  "ticker": "VCYT",
+  "session": "2026-09-25",
+  "date": "2026-09-25",
+  "entry_date": "2026-09-25",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:43.300244+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/VCYT/2026-09-25",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-25",
+    "symbol": "VCYT",
+    "open": 49,
+    "high": 49,
+    "low": 45.36,
+    "close": 45.43,
+    "volume": 1725812.579372,
+    "afterHours": 45.43,
+    "preMarket": 48.62
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

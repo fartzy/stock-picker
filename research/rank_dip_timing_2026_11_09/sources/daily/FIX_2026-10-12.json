@@ -1,0 +1,25 @@
+{
+  "ticker": "FIX",
+  "session": "2026-10-12",
+  "date": "2026-10-12",
+  "entry_date": "2026-10-12",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:28.165458+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/FIX/2026-10-12",
+  "payload": {
+    "status": "OK",
+    "from": "2026-10-12",
+    "symbol": "FIX",
+    "open": 1700.11,
+    "high": 1710,
+    "low": 1631.99,
+    "close": 1638.05,
+    "volume": 267120.634581,
+    "afterHours": 1635,
+    "preMarket": 1734.775
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

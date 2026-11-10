@@ -1,0 +1,25 @@
+{
+  "ticker": "SMR",
+  "session": "2025-11-07",
+  "date": "2025-11-07",
+  "entry_date": "2025-11-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.735556+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SMR/2025-11-07",
+  "payload": {
+    "status": "OK",
+    "from": "2025-11-07",
+    "symbol": "SMR",
+    "open": 29.65,
+    "high": 30.5,
+    "low": 26.765,
+    "close": 30.34,
+    "volume": 42361262.0,
+    "afterHours": 30.3,
+    "preMarket": 33.11
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "HIMS",
+  "session": "2025-08-04",
+  "date": "2025-08-04",
+  "entry_date": "2025-08-04",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:29.334119+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/HIMS/2025-08-04",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-04",
+    "symbol": "HIMS",
+    "open": 63.805,
+    "high": 65.59,
+    "low": 62.3,
+    "close": 63.35,
+    "volume": 37443425.0,
+    "afterHours": 54.81,
+    "preMarket": 63.55
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

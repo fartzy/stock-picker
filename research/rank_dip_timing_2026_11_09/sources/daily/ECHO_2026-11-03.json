@@ -1,0 +1,25 @@
+{
+  "ticker": "ECHO",
+  "session": "2026-11-03",
+  "date": "2026-11-03",
+  "entry_date": "2026-11-03",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.175070+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ECHO/2026-11-03",
+  "payload": {
+    "status": "OK",
+    "from": "2026-11-03",
+    "symbol": "ECHO",
+    "open": 99.195,
+    "high": 102.46,
+    "low": 98.62,
+    "close": 101.94,
+    "volume": 4531170.851192,
+    "afterHours": 100.94,
+    "preMarket": 98.4
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

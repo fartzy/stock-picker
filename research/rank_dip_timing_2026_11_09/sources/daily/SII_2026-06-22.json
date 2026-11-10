@@ -1,0 +1,25 @@
+{
+  "ticker": "SII",
+  "session": "2026-06-22",
+  "date": "2026-06-22",
+  "entry_date": "2026-06-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:39.253115+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SII/2026-06-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-06-22",
+    "symbol": "SII",
+    "open": 116.165,
+    "high": 119.23,
+    "low": 116.02,
+    "close": 118.08,
+    "volume": 165724.788672,
+    "afterHours": 118.08,
+    "preMarket": 120.42
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

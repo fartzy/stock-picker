@@ -1,0 +1,25 @@
+{
+  "ticker": "EAT",
+  "session": "2025-10-29",
+  "date": "2025-10-29",
+  "entry_date": "2025-10-29",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.164911+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/EAT/2025-10-29",
+  "payload": {
+    "status": "OK",
+    "from": "2025-10-29",
+    "symbol": "EAT",
+    "open": 114.44,
+    "high": 128,
+    "low": 114,
+    "close": 114.98,
+    "volume": 5310412.0,
+    "afterHours": 114.7558,
+    "preMarket": 125.15
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "LTH",
+  "session": "2026-05-21",
+  "date": "2026-05-21",
+  "entry_date": "2026-05-21",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.221907+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/LTH/2026-05-21",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-21",
+    "symbol": "LTH",
+    "open": 32.75,
+    "high": 33.17,
+    "low": 32.23,
+    "close": 32.95,
+    "volume": 2649431.162282,
+    "afterHours": 32.95,
+    "preMarket": 33.06
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

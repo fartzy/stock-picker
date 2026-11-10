@@ -1,0 +1,25 @@
+{
+  "ticker": "COTY",
+  "session": "2026-09-22",
+  "date": "2026-09-22",
+  "entry_date": "2026-09-22",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:25.961924+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/COTY/2026-09-22",
+  "payload": {
+    "status": "OK",
+    "from": "2026-09-22",
+    "symbol": "COTY",
+    "open": 2.58,
+    "high": 2.69,
+    "low": 2.53,
+    "close": 2.67,
+    "volume": 5200384.925108,
+    "afterHours": 2.607,
+    "preMarket": 2.51
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

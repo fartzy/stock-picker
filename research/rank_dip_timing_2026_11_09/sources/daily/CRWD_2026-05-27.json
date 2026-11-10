@@ -1,0 +1,25 @@
+{
+  "ticker": "CRWD",
+  "session": "2026-05-27",
+  "date": "2026-05-27",
+  "entry_date": "2026-05-27",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:26.118991+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/CRWD/2026-05-27",
+  "payload": {
+    "status": "OK",
+    "from": "2026-05-27",
+    "symbol": "CRWD",
+    "open": 641.01,
+    "high": 660.6599,
+    "low": 633.09,
+    "close": 645.36,
+    "volume": 3276362.479482,
+    "afterHours": 649.3398,
+    "preMarket": 655.75
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "PGR",
+  "session": "2025-12-31",
+  "date": "2025-12-31",
+  "entry_date": "2025-12-31",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:34.991011+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/PGR/2025-12-31",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-31",
+    "symbol": "PGR",
+    "open": 230.17,
+    "high": 230.5399,
+    "low": 227.68,
+    "close": 227.72,
+    "volume": 2134025.0,
+    "afterHours": 227.9,
+    "preMarket": 230.17
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

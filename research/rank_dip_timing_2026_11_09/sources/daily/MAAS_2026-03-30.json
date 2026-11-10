@@ -1,0 +1,25 @@
+{
+  "ticker": "MAAS",
+  "session": "2026-03-30",
+  "date": "2026-03-30",
+  "entry_date": "2026-03-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:32.513729+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/MAAS/2026-03-30",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-30",
+    "symbol": "MAAS",
+    "open": 5.31,
+    "high": 5.45,
+    "low": 5.31,
+    "close": 5.45,
+    "volume": 2436.01666,
+    "afterHours": 5.45,
+    "preMarket": 5.31
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

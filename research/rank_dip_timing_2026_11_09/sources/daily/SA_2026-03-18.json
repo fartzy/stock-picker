@@ -1,0 +1,25 @@
+{
+  "ticker": "SA",
+  "session": "2026-03-18",
+  "date": "2026-03-18",
+  "entry_date": "2026-03-18",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:38.885385+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/SA/2026-03-18",
+  "payload": {
+    "status": "OK",
+    "from": "2026-03-18",
+    "symbol": "SA",
+    "open": 29.41,
+    "high": 29.41,
+    "low": 26.805,
+    "close": 27.01,
+    "volume": 2027616.475964,
+    "afterHours": 26.82,
+    "preMarket": 30.01
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

@@ -1,0 +1,25 @@
+{
+  "ticker": "QH",
+  "session": "2025-12-30",
+  "date": "2025-12-30",
+  "entry_date": "2025-12-30",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:36.841839+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/QH/2025-12-30",
+  "payload": {
+    "status": "OK",
+    "from": "2025-12-30",
+    "symbol": "QH",
+    "open": 1.09,
+    "high": 1.15,
+    "low": 1.09,
+    "close": 1.11,
+    "volume": 64752,
+    "afterHours": 1.1002,
+    "preMarket": 1.19
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

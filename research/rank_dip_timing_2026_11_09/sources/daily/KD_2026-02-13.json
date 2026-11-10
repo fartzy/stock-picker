@@ -1,0 +1,25 @@
+{
+  "ticker": "KD",
+  "session": "2026-02-13",
+  "date": "2026-02-13",
+  "entry_date": "2026-02-13",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.550521+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/KD/2026-02-13",
+  "payload": {
+    "status": "OK",
+    "from": "2026-02-13",
+    "symbol": "KD",
+    "open": 11.16,
+    "high": 12.39,
+    "low": 11.04,
+    "close": 12.24,
+    "volume": 11036503.0,
+    "afterHours": 12.2,
+    "preMarket": 11.34
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

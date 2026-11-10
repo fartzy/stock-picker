@@ -1,0 +1,25 @@
+{
+  "ticker": "ELF",
+  "session": "2025-08-07",
+  "date": "2025-08-07",
+  "entry_date": "2025-08-07",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:27.337756+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/ELF/2025-08-07",
+  "payload": {
+    "status": "OK",
+    "from": "2025-08-07",
+    "symbol": "ELF",
+    "open": 97.68,
+    "high": 102.49,
+    "low": 94,
+    "close": 99.92,
+    "volume": 7626182.0,
+    "afterHours": 101.45,
+    "preMarket": 98.13
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}

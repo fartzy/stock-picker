@@ -1,0 +1,25 @@
+{
+  "ticker": "INDV",
+  "session": "2025-09-11",
+  "date": "2025-09-11",
+  "entry_date": "2025-09-11",
+  "adjusted": false,
+  "retrieved_at": "2026-11-10T03:58:30.072851+00:00",
+  "complete": true,
+  "request_attempts": 1,
+  "endpoint": "/v1/open-close/INDV/2025-09-11",
+  "payload": {
+    "status": "OK",
+    "from": "2025-09-11",
+    "symbol": "INDV",
+    "open": 24.63,
+    "high": 24.64,
+    "low": 23.7237,
+    "close": 23.88,
+    "volume": 1882983.0,
+    "afterHours": 23.88,
+    "preMarket": 24.11
+  },
+  "http_status": 200,
+  "payload_status": "OK"
+}
