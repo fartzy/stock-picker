@@ -1,0 +1,55 @@
+{
+  "frozen_at_utc": "2026-11-10T03:09:41.266137+00:00",
+  "study": "Descriptive fresh entry after fixed 4% decline in final saved Rank #1 selections",
+  "cohort": {
+    "first": "2026-09-18",
+    "last": "2026-11-09",
+    "rank": 1,
+    "expected_sessions": 37,
+    "ticker_exclusions": []
+  },
+  "threshold_fraction": 0.04,
+  "anchors": [
+    "unadjusted_session_open",
+    "unadjusted_previous_regular_session_close"
+  ],
+  "entry": "First completed regular-session 1-minute bar with close <= 0.96 * anchor; enter at immediately consecutive minute open. No retry or forward fill when that next minute is absent.",
+  "availability": [
+    "hypothetically_known_at_open",
+    "recorded_publication_time_sensitivity_on_final_saved_selections"
+  ],
+  "publication_rule": "Only signal bars whose start is at or after publication; may already be below threshold at publication. Missing publication time is unavailable in this sensitivity.",
+  "entry_windows": {
+    "morning_primary": "entry strictly before 12:00 America/New_York",
+    "whole_session_sensitivity": "entry strictly before regular session close"
+  },
+  "exit": "Expected final regular-session minute close; this is a proxy, not guaranteed closing auction execution.",
+  "missing_data": "Missing session first minute, exact next entry minute, or expected final exit minute are explicit unavailable reasons. Never count unknown outcomes as zero or retry later after an unavailable first entry. Sparse intermediate bars are retained and reported; absent bars can mean no eligible trades.",
+  "cost_round_trip_bps": [
+    0,
+    10,
+    25
+  ],
+  "statistics": [
+    "candidate/signal/completed/unavailable/no_entry counts",
+    "mean/median/win rate/worst entry-to-close return",
+    "equal cash opportunity mean with no-entry zero and unavailable excluded/reported",
+    "fixed-seed descriptive 95% bootstrap mean interval"
+  ],
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 20261109
+  },
+  "interpretation": "Not immutable point-in-time picks; final saved rankings can be overwritten. No threshold optimization, no causal or predictive Rank edge claim. No trade execution, model training, or production mutation.",
+  "sources": [
+    "existing saved Rank JSON",
+    "existing unadjusted full minute OHLC archives",
+    "Massive raw daily open-close summaries",
+    "recorded publication logs"
+  ],
+  "remote_budget": {
+    "new_daily_requests_max": 37,
+    "new_minute_sessions_max": 1
+  },
+  "provider_docs": "https://massive.com/docs/rest/stocks/aggregates/custom-bars"
+}
