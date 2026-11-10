@@ -2,7 +2,7 @@
 from datetime import datetime, timedelta
 import unittest
 
-from study import ET, evaluate
+from study import ET, evaluate, summarize
 
 
 def stamp(day, hour, minute):
@@ -23,7 +23,7 @@ class EntryRules(unittest.TestCase):
                 bar("2026-11-09", 9, 31, opened=97.0), bar("2026-11-09", 15, 59, closed=98.0)]
         result = self.run_case(rows)
         self.assertEqual(result["entry_price"], 97.0)
-        self.assertAlmostEqual(result["gross_return"], 98 / 97 - 1)
+        self.assertAlmostEqual(result["price_return"], 98 / 97 - 1)
 
     def test_low_touch_without_close_trigger_does_not_enter(self):
         rows = [bar("2026-11-09", 9, 30, closed=97.0, low=94.0), bar("2026-11-09", 15, 59)]
@@ -52,7 +52,7 @@ class EntryRules(unittest.TestCase):
                 bar("2026-11-09", 15, 58, closed=120.0)]
         result = self.run_case(rows)
         self.assertEqual(result["reason"], "missing_expected_final_exit_minute")
-        self.assertNotIn("gross_return", result)
+        self.assertNotIn("price_return", result)
 
     def test_session_boundaries_and_dst(self):
         for day, offset in (("2026-10-30", "-04:00"), ("2026-11-02", "-05:00")):
@@ -76,6 +76,19 @@ class EntryRules(unittest.TestCase):
                 bar("2026-11-09", 15, 59)]
         rows[1]["c"] = float("nan")
         self.assertEqual(self.run_case(rows)["reason"], "invalid_or_nonfinite_minute_data")
+
+    def test_small_positive_price_return_remains_a_winner(self):
+        rows = [bar("2026-11-09", 9, 30, closed=95.0),
+                bar("2026-11-09", 9, 31, opened=95.0),
+                bar("2026-11-09", 15, 59, closed=95.01)]
+        result = self.run_case(rows)
+        summary = summarize([result, {"status": "no_entry", "signal": False}])["price_returns"]
+        expected = 95.01 / 95.0 - 1
+        self.assertAlmostEqual(result["price_return"], expected)
+        self.assertAlmostEqual(summary["mean_return"], expected)
+        self.assertEqual(summary["wins"], 1)
+        self.assertEqual(summary["losses"], 0)
+        self.assertAlmostEqual(summary["known_opportunity_mean_return"], expected / 2)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,15 @@
 {
   "protocol_sha256": "499f1030c38b52e3f7c78833f24b094d75e695e8ee212299aee6aed1fa311fee",
+  "analysis_amendment_sha256": "ebc0794b3af24b75b7926f9d62a30977eca41af014c5a7eb553d23929f8d9044",
+  "return_definition": "exit_price / entry_price - 1",
+  "modeled_trading_cost_fraction": 0,
   "cohort_sha256": "d50ac4d73ffd487b594c1bb45e9de8770537838b627816f17bd6f3d7b6af6d46",
   "minute_manifest_sha256": "db797d7cd524ab5b7fe23ab80c8da99c93260cac11e723501fa30041b10eb7fe",
-  "script_sha256": "d65167f4090548df166489bd40602d4f78175bff2ddb13b698c5220ee5326714",
+  "script_sha256": "0209ae294d12fb031b5b2e597b708b3fd55253bd3dac6fb9baeaedf00634ec64",
   "clarification_sha256": "1aad8e0a0e25d2eb56b98fbd11e9ca1a2b5d7347c805fc9671d149b1947faa4d",
   "daily_prices_sha256": "5c7812875342ff683b8f6a15e36bbe4752209eafc94e6ce3e3854442ed82171e",
   "split_metadata_sha256": "48b54614297aada8c36f734b2a21ebc53c21fadf71d2dc6c7d17f7be369d8560",
-  "generated_at_utc": "2026-11-10T03:17:21.117790+00:00",
+  "generated_at_utc": "2026-11-10T03:27:09.546692+00:00",
   "summaries": [
     {
       "anchor": "session_open",
@@ -20,7 +23,7 @@
       "unavailable_reasons": {
         "missing_session_first_minute": 2
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.018871151750664304,
         "median_return": 0.011527727118661124,
         "wins": 7,
@@ -32,34 +35,6 @@
           0.06869051191891468
         ],
         "known_opportunity_mean_return": 0.005391757643046944,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.017871151750664303,
-        "median_return": 0.010527727118661123,
-        "wins": 7,
-        "losses": 3,
-        "win_rate": 0.7,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.021564189695993597,
-          0.06769051191891468
-        ],
-        "known_opportunity_mean_return": 0.0051060433573326585,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.016371151750664302,
-        "median_return": 0.009027727118661124,
-        "wins": 7,
-        "losses": 3,
-        "win_rate": 0.7,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.0230641896959936,
-          0.06619051191891467
-        ],
-        "known_opportunity_mean_return": 0.004677471928761229,
         "known_opportunity_denominator": 35
       }
     },
@@ -75,7 +50,7 @@
       "unavailable_reasons": {
         "missing_session_first_minute": 2
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.0192847051025402,
         "median_return": 0.01421458979724366,
         "wins": 8,
@@ -87,34 +62,6 @@
           0.06466247045808991
         ],
         "known_opportunity_mean_return": 0.006060907317941206,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.0182847051025402,
-        "median_return": 0.013214589797243659,
-        "wins": 8,
-        "losses": 3,
-        "win_rate": 0.7272727272727273,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.01787357989432139,
-          0.06366247045808991
-        ],
-        "known_opportunity_mean_return": 0.005746621603655491,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.016784705102540202,
-        "median_return": 0.01171458979724366,
-        "wins": 8,
-        "losses": 3,
-        "win_rate": 0.7272727272727273,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.019373579894321386,
-          0.06216247045808991
-        ],
-        "known_opportunity_mean_return": 0.005275193032226921,
         "known_opportunity_denominator": 35
       }
     },
@@ -130,7 +77,7 @@
       "unavailable_reasons": {
         "publication_time_unknown": 9
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.03014283134087012,
         "median_return": 0.025188613991745323,
         "wins": 6,
@@ -142,34 +89,6 @@
           0.07224787094849112
         ],
         "known_opportunity_mean_return": 0.008612237525962891,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.029142831340870118,
-        "median_return": 0.024188613991745322,
-        "wins": 6,
-        "losses": 2,
-        "win_rate": 0.75,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.013431191689224645,
-          0.07124787094849112
-        ],
-        "known_opportunity_mean_return": 0.008326523240248605,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.027642831340870117,
-        "median_return": 0.02268861399174532,
-        "wins": 6,
-        "losses": 2,
-        "win_rate": 0.75,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.014931191689224644,
-          0.06974787094849112
-        ],
-        "known_opportunity_mean_return": 0.007897951811677175,
         "known_opportunity_denominator": 28
       }
     },
@@ -185,7 +104,7 @@
       "unavailable_reasons": {
         "publication_time_unknown": 9
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.029395876594251122,
         "median_return": 0.02342023862129916,
         "wins": 7,
@@ -197,34 +116,6 @@
           0.06723015724766905
         ],
         "known_opportunity_mean_return": 0.009448674619580719,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.02839587659425112,
-        "median_return": 0.02242023862129916,
-        "wins": 7,
-        "losses": 2,
-        "win_rate": 0.7777777777777778,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.009243867494009505,
-          0.06623015724766905
-        ],
-        "known_opportunity_mean_return": 0.009127246048152146,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.02689587659425112,
-        "median_return": 0.020920238621299162,
-        "wins": 7,
-        "losses": 2,
-        "win_rate": 0.7777777777777778,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.010743867494009504,
-          0.06473015724766905
-        ],
-        "known_opportunity_mean_return": 0.00864510319100929,
         "known_opportunity_denominator": 28
       }
     },
@@ -240,7 +131,7 @@
       "unavailable_reasons": {
         "missing_session_first_minute": 2
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.004336188030519361,
         "median_return": -0.009090909090909038,
         "wins": 7,
@@ -252,34 +143,6 @@
           0.04152136673731611
         ],
         "known_opportunity_mean_return": 0.0018583662987940119,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.0033361880305193604,
-        "median_return": -0.01009090909090904,
-        "wins": 7,
-        "losses": 8,
-        "win_rate": 0.4666666666666667,
-        "worst_return": -0.10378571428571426,
-        "bootstrap_mean_95pct_interval": [
-          -0.02805470912429997,
-          0.04052136673731611
-        ],
-        "known_opportunity_mean_return": 0.001429794870222583,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.0018361880305193606,
-        "median_return": -0.011590909090909039,
-        "wins": 7,
-        "losses": 8,
-        "win_rate": 0.4666666666666667,
-        "worst_return": -0.10528571428571426,
-        "bootstrap_mean_95pct_interval": [
-          -0.02955470912429997,
-          0.03902136673731611
-        ],
-        "known_opportunity_mean_return": 0.0007869377273654403,
         "known_opportunity_denominator": 35
       }
     },
@@ -295,7 +158,7 @@
       "unavailable_reasons": {
         "missing_session_first_minute": 2
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.005452295540790698,
         "median_return": 0.0021242983711645125,
         "wins": 9,
@@ -307,34 +170,6 @@
           0.03692714274765549
         ],
         "known_opportunity_mean_return": 0.0028040377066923593,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.004452295540790697,
-        "median_return": 0.0011242983711645125,
-        "wins": 9,
-        "losses": 9,
-        "win_rate": 0.5,
-        "worst_return": -0.10378571428571426,
-        "bootstrap_mean_95pct_interval": [
-          -0.022108173699976544,
-          0.03592714274765549
-        ],
-        "known_opportunity_mean_return": 0.0022897519924066443,
-        "known_opportunity_denominator": 35
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.0029522955407906976,
-        "median_return": -0.000375701628835488,
-        "wins": 9,
-        "losses": 9,
-        "win_rate": 0.5,
-        "worst_return": -0.10528571428571426,
-        "bootstrap_mean_95pct_interval": [
-          -0.023608173699976545,
-          0.03442714274765549
-        ],
-        "known_opportunity_mean_return": 0.001518323420978073,
         "known_opportunity_denominator": 35
       }
     },
@@ -350,7 +185,7 @@
       "unavailable_reasons": {
         "publication_time_unknown": 9
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.023954623964148585,
         "median_return": 0.018048780487804894,
         "wins": 10,
@@ -362,34 +197,6 @@
           0.05206804035489968
         ],
         "known_opportunity_mean_return": 0.011121789697640414,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.022954623964148584,
-        "median_return": 0.017048780487804893,
-        "wins": 9,
-        "losses": 4,
-        "win_rate": 0.6923076923076923,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.003475064036055908,
-          0.05106804035489968
-        ],
-        "known_opportunity_mean_return": 0.0106575039833547,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.021454623964148583,
-        "median_return": 0.015548780487804894,
-        "wins": 9,
-        "losses": 4,
-        "win_rate": 0.6923076923076923,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.004975064036055909,
-          0.04956804035489969
-        ],
-        "known_opportunity_mean_return": 0.009961075411926128,
         "known_opportunity_denominator": 28
       }
     },
@@ -405,7 +212,7 @@
       "unavailable_reasons": {
         "publication_time_unknown": 9
       },
-      "round_trip_0bps": {
+      "price_returns": {
         "mean_return": 0.02104391388508404,
         "median_return": 0.013563049853372311,
         "wins": 11,
@@ -417,34 +224,6 @@
           0.04548540949544095
         ],
         "known_opportunity_mean_return": 0.011273525295580736,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_10bps": {
-        "mean_return": 0.02004391388508404,
-        "median_return": 0.01256304985337231,
-        "wins": 10,
-        "losses": 5,
-        "win_rate": 0.6666666666666666,
-        "worst_return": -0.08246252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.0026077958919732925,
-          0.04448540949544095
-        ],
-        "known_opportunity_mean_return": 0.010737811009866451,
-        "known_opportunity_denominator": 28
-      },
-      "round_trip_25bps": {
-        "mean_return": 0.01854391388508404,
-        "median_return": 0.01106304985337231,
-        "wins": 10,
-        "losses": 5,
-        "win_rate": 0.6666666666666666,
-        "worst_return": -0.08396252285191957,
-        "bootstrap_mean_95pct_interval": [
-          -0.004107795891973293,
-          0.04298540949544095
-        ],
-        "known_opportunity_mean_return": 0.009934239581295022,
         "known_opportunity_denominator": 28
       }
     }
@@ -475,9 +254,7 @@
       "exit_price": 39.74,
       "exit_at": "2026-09-18T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-18T16:00:00-04:00",
-      "gross_return": -0.055383884002852324,
-      "net_return_10bps": -0.056383884002852325,
-      "net_return_25bps": -0.057883884002852326,
+      "price_return": -0.055383884002852324,
       "matched_open_return": -0.097228532485234
     },
     {
@@ -505,9 +282,7 @@
       "exit_price": 39.74,
       "exit_at": "2026-09-18T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-18T16:00:00-04:00",
-      "gross_return": -0.055383884002852324,
-      "net_return_10bps": -0.056383884002852325,
-      "net_return_25bps": -0.057883884002852326,
+      "price_return": -0.055383884002852324,
       "matched_open_return": -0.097228532485234
     },
     {
@@ -559,9 +334,7 @@
       "exit_price": 39.74,
       "exit_at": "2026-09-18T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-18T16:00:00-04:00",
-      "gross_return": -0.09248686914820725,
-      "net_return_10bps": -0.09348686914820725,
-      "net_return_25bps": -0.09498686914820725,
+      "price_return": -0.09248686914820725,
       "matched_open_return": -0.097228532485234
     },
     {
@@ -589,9 +362,7 @@
       "exit_price": 39.74,
       "exit_at": "2026-09-18T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-18T16:00:00-04:00",
-      "gross_return": -0.09248686914820725,
-      "net_return_10bps": -0.09348686914820725,
-      "net_return_25bps": -0.09498686914820725,
+      "price_return": -0.09248686914820725,
       "matched_open_return": -0.097228532485234
     },
     {
@@ -979,9 +750,7 @@
       "exit_price": 26.6715,
       "exit_at": "2026-09-24T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-24T16:00:00-04:00",
-      "gross_return": 0.016638078902230014,
-      "net_return_10bps": 0.015638078902230013,
-      "net_return_25bps": 0.014138078902230013,
+      "price_return": 0.016638078902230014,
       "matched_open_return": -0.04059352517985604
     },
     {
@@ -1009,9 +778,7 @@
       "exit_price": 26.6715,
       "exit_at": "2026-09-24T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-24T16:00:00-04:00",
-      "gross_return": 0.016638078902230014,
-      "net_return_10bps": 0.015638078902230013,
-      "net_return_25bps": 0.014138078902230013,
+      "price_return": 0.016638078902230014,
       "matched_open_return": -0.04059352517985604
     },
     {
@@ -1063,9 +830,7 @@
       "exit_price": 26.6715,
       "exit_at": "2026-09-24T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-24T16:00:00-04:00",
-      "gross_return": -0.030479825517993442,
-      "net_return_10bps": -0.03147982551799344,
-      "net_return_25bps": -0.032979825517993444,
+      "price_return": -0.030479825517993442,
       "matched_open_return": -0.04059352517985604
     },
     {
@@ -1093,9 +858,7 @@
       "exit_price": 26.6715,
       "exit_at": "2026-09-24T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-24T16:00:00-04:00",
-      "gross_return": -0.030479825517993442,
-      "net_return_10bps": -0.03147982551799344,
-      "net_return_25bps": -0.032979825517993444,
+      "price_return": -0.030479825517993442,
       "matched_open_return": -0.04059352517985604
     },
     {
@@ -1515,9 +1278,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.047070124879923236,
-      "net_return_10bps": 0.046070124879923235,
-      "net_return_25bps": 0.044570124879923234,
+      "price_return": 0.047070124879923236,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1545,9 +1306,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.047070124879923236,
-      "net_return_10bps": 0.046070124879923235,
-      "net_return_25bps": 0.044570124879923234,
+      "price_return": 0.047070124879923236,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1575,9 +1334,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.047070124879923236,
-      "net_return_10bps": 0.046070124879923235,
-      "net_return_25bps": 0.044570124879923234,
+      "price_return": 0.047070124879923236,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1605,9 +1362,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.047070124879923236,
-      "net_return_10bps": 0.046070124879923235,
-      "net_return_25bps": 0.044570124879923234,
+      "price_return": 0.047070124879923236,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1635,9 +1390,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": -0.009090909090909038,
-      "net_return_10bps": -0.01009090909090904,
-      "net_return_25bps": -0.011590909090909039,
+      "price_return": -0.009090909090909038,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1665,9 +1418,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": -0.009090909090909038,
-      "net_return_10bps": -0.01009090909090904,
-      "net_return_25bps": -0.011590909090909039,
+      "price_return": -0.009090909090909038,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1695,9 +1446,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.02299389957766307,
-      "net_return_10bps": 0.021993899577663067,
-      "net_return_25bps": 0.02049389957766307,
+      "price_return": 0.02299389957766307,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1725,9 +1474,7 @@
       "exit_price": 10.9,
       "exit_at": "2026-09-30T15:59:00-04:00",
       "exit_close_observed_at": "2026-09-30T16:00:00-04:00",
-      "gross_return": 0.02299389957766307,
-      "net_return_10bps": 0.021993899577663067,
-      "net_return_25bps": 0.02049389957766307,
+      "price_return": 0.02299389957766307,
       "matched_open_return": 0.0036832412523020164
     },
     {
@@ -1755,9 +1502,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1785,9 +1530,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1815,9 +1558,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1845,9 +1586,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1875,9 +1614,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.10278571428571426,
-      "net_return_10bps": -0.10378571428571426,
-      "net_return_25bps": -0.10528571428571426,
+      "price_return": -0.10278571428571426,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1905,9 +1642,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.10278571428571426,
-      "net_return_10bps": -0.10378571428571426,
-      "net_return_25bps": -0.10528571428571426,
+      "price_return": -0.10278571428571426,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1935,9 +1670,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -1965,9 +1698,7 @@
       "exit_price": 12.561,
       "exit_at": "2026-10-01T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-01T16:00:00-04:00",
-      "gross_return": -0.08146252285191957,
-      "net_return_10bps": -0.08246252285191957,
-      "net_return_25bps": -0.08396252285191957,
+      "price_return": -0.08146252285191957,
       "matched_open_return": -0.13012465373961213
     },
     {
@@ -2059,9 +1790,7 @@
       "exit_price": 661.21,
       "exit_at": "2026-10-02T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-02T16:00:00-04:00",
-      "gross_return": 0.0754900627652495,
-      "net_return_10bps": 0.0744900627652495,
-      "net_return_25bps": 0.0729900627652495,
+      "price_return": 0.0754900627652495,
       "matched_open_return": 0.0768892508143324
     },
     {
@@ -2089,9 +1818,7 @@
       "exit_price": 661.21,
       "exit_at": "2026-10-02T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-02T16:00:00-04:00",
-      "gross_return": 0.0754900627652495,
-      "net_return_10bps": 0.0744900627652495,
-      "net_return_25bps": 0.0729900627652495,
+      "price_return": 0.0754900627652495,
       "matched_open_return": 0.0768892508143324
     },
     {
@@ -2119,9 +1846,7 @@
       "exit_price": 661.21,
       "exit_at": "2026-10-02T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-02T16:00:00-04:00",
-      "gross_return": 0.053452506133894184,
-      "net_return_10bps": 0.05245250613389418,
-      "net_return_25bps": 0.05095250613389418,
+      "price_return": 0.053452506133894184,
       "matched_open_return": 0.0768892508143324
     },
     {
@@ -2149,9 +1874,7 @@
       "exit_price": 661.21,
       "exit_at": "2026-10-02T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-02T16:00:00-04:00",
-      "gross_return": 0.053452506133894184,
-      "net_return_10bps": 0.05245250613389418,
-      "net_return_25bps": 0.05095250613389418,
+      "price_return": 0.053452506133894184,
       "matched_open_return": 0.0768892508143324
     },
     {
@@ -2179,9 +1902,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.03171641791044766,
-      "net_return_10bps": 0.030716417910447658,
-      "net_return_25bps": 0.02921641791044766,
+      "price_return": 0.03171641791044766,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2209,9 +1930,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.03171641791044766,
-      "net_return_10bps": 0.030716417910447658,
-      "net_return_25bps": 0.02921641791044766,
+      "price_return": 0.03171641791044766,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2239,9 +1958,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.03616263818624699,
-      "net_return_10bps": 0.035162638186246986,
-      "net_return_25bps": 0.033662638186246985,
+      "price_return": 0.03616263818624699,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2269,9 +1986,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.03616263818624699,
-      "net_return_10bps": 0.035162638186246986,
-      "net_return_25bps": 0.033662638186246985,
+      "price_return": 0.03616263818624699,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2299,9 +2014,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.014678899082568808,
-      "net_return_10bps": 0.013678899082568807,
-      "net_return_25bps": 0.012178899082568808,
+      "price_return": 0.014678899082568808,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2329,9 +2042,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.014678899082568808,
-      "net_return_10bps": 0.013678899082568807,
-      "net_return_25bps": 0.012178899082568808,
+      "price_return": 0.014678899082568808,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2359,9 +2070,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.013563049853372311,
-      "net_return_10bps": 0.01256304985337231,
-      "net_return_25bps": 0.01106304985337231,
+      "price_return": 0.013563049853372311,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2389,9 +2098,7 @@
       "exit_price": 27.65,
       "exit_at": "2026-10-05T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-05T16:00:00-04:00",
-      "gross_return": 0.013563049853372311,
-      "net_return_10bps": 0.01256304985337231,
-      "net_return_25bps": 0.01106304985337231,
+      "price_return": 0.013563049853372311,
       "matched_open_return": -0.014962593516209544
     },
     {
@@ -2499,9 +2206,7 @@
       "exit_price": 292.505,
       "exit_at": "2026-10-06T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-06T16:00:00-04:00",
-      "gross_return": 0.006832576070494367,
-      "net_return_10bps": 0.005832576070494367,
-      "net_return_25bps": 0.004332576070494367,
+      "price_return": 0.006832576070494367,
       "matched_open_return": -0.01995242243516715
     },
     {
@@ -2545,9 +2250,7 @@
       "exit_price": 292.505,
       "exit_at": "2026-10-06T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-06T16:00:00-04:00",
-      "gross_return": 0.006832576070494367,
-      "net_return_10bps": 0.005832576070494367,
-      "net_return_25bps": 0.004332576070494367,
+      "price_return": 0.006832576070494367,
       "matched_open_return": -0.01995242243516715
     },
     {
@@ -2719,9 +2422,7 @@
       "exit_price": 11.58,
       "exit_at": "2026-10-08T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-08T16:00:00-04:00",
-      "gross_return": 0.02342023862129916,
-      "net_return_10bps": 0.02242023862129916,
-      "net_return_25bps": 0.020920238621299162,
+      "price_return": 0.02342023862129916,
       "matched_open_return": -0.01864406779661021
     },
     {
@@ -2765,9 +2466,7 @@
       "exit_price": 11.58,
       "exit_at": "2026-10-08T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-08T16:00:00-04:00",
-      "gross_return": 0.02342023862129916,
-      "net_return_10bps": 0.02242023862129916,
-      "net_return_25bps": 0.020920238621299162,
+      "price_return": 0.02342023862129916,
       "matched_open_return": -0.01864406779661021
     },
     {
@@ -2811,9 +2510,7 @@
       "exit_price": 11.58,
       "exit_at": "2026-10-08T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-08T16:00:00-04:00",
-      "gross_return": -0.0025839793281653423,
-      "net_return_10bps": -0.0035839793281653423,
-      "net_return_25bps": -0.005083979328165343,
+      "price_return": -0.0025839793281653423,
       "matched_open_return": -0.01864406779661021
     },
     {
@@ -2857,9 +2554,7 @@
       "exit_price": 11.58,
       "exit_at": "2026-10-08T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-08T16:00:00-04:00",
-      "gross_return": -0.0025839793281653423,
-      "net_return_10bps": -0.0035839793281653423,
-      "net_return_25bps": -0.005083979328165343,
+      "price_return": -0.0025839793281653423,
       "matched_open_return": -0.01864406779661021
     },
     {
@@ -2887,9 +2582,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.20350877192982475,
-      "net_return_10bps": 0.20250877192982475,
-      "net_return_25bps": 0.20100877192982475,
+      "price_return": 0.20350877192982475,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -2917,9 +2610,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.20350877192982475,
-      "net_return_10bps": 0.20250877192982475,
-      "net_return_25bps": 0.20100877192982475,
+      "price_return": 0.20350877192982475,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -2947,9 +2638,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.13559066967644862,
-      "net_return_10bps": 0.13459066967644862,
-      "net_return_25bps": 0.13309066967644861,
+      "price_return": 0.13559066967644862,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -2977,9 +2666,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.13559066967644862,
-      "net_return_10bps": 0.13459066967644862,
-      "net_return_25bps": 0.13309066967644861,
+      "price_return": 0.13559066967644862,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -3007,9 +2694,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.20350877192982475,
-      "net_return_10bps": 0.20250877192982475,
-      "net_return_25bps": 0.20100877192982475,
+      "price_return": 0.20350877192982475,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -3037,9 +2722,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.20350877192982475,
-      "net_return_10bps": 0.20250877192982475,
-      "net_return_25bps": 0.20100877192982475,
+      "price_return": 0.20350877192982475,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -3067,9 +2750,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.13559066967644862,
-      "net_return_10bps": 0.13459066967644862,
-      "net_return_25bps": 0.13309066967644861,
+      "price_return": 0.13559066967644862,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -3097,9 +2778,7 @@
       "exit_price": 7.546,
       "exit_at": "2026-10-09T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-09T16:00:00-04:00",
-      "gross_return": 0.13559066967644862,
-      "net_return_10bps": 0.13459066967644862,
-      "net_return_25bps": 0.13309066967644861,
+      "price_return": 0.13559066967644862,
       "matched_open_return": 0.08810382119682769
     },
     {
@@ -3127,9 +2806,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.003898455965865355,
-      "net_return_10bps": -0.004898455965865355,
-      "net_return_25bps": -0.0063984559658653555,
+      "price_return": -0.003898455965865355,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3157,9 +2834,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.003898455965865355,
-      "net_return_10bps": -0.004898455965865355,
-      "net_return_25bps": -0.0063984559658653555,
+      "price_return": -0.003898455965865355,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3187,9 +2862,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.003898455965865355,
-      "net_return_10bps": -0.004898455965865355,
-      "net_return_25bps": -0.0063984559658653555,
+      "price_return": -0.003898455965865355,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3217,9 +2890,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.003898455965865355,
-      "net_return_10bps": -0.004898455965865355,
-      "net_return_25bps": -0.0063984559658653555,
+      "price_return": -0.003898455965865355,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3247,9 +2918,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.012477175897747994,
-      "net_return_10bps": -0.013477175897747995,
-      "net_return_25bps": -0.014977175897747995,
+      "price_return": -0.012477175897747994,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3277,9 +2946,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.012477175897747994,
-      "net_return_10bps": -0.013477175897747995,
-      "net_return_25bps": -0.014977175897747995,
+      "price_return": -0.012477175897747994,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3307,9 +2974,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.010670731707317027,
-      "net_return_10bps": -0.011670731707317028,
-      "net_return_25bps": -0.013170731707317028,
+      "price_return": -0.010670731707317027,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3337,9 +3002,7 @@
       "exit_price": 3.245,
       "exit_at": "2026-10-12T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-12T16:00:00-04:00",
-      "gross_return": -0.010670731707317027,
-      "net_return_10bps": -0.011670731707317028,
-      "net_return_25bps": -0.013170731707317028,
+      "price_return": -0.010670731707317027,
       "matched_open_return": -0.042772861356932146
     },
     {
@@ -3439,9 +3102,7 @@
       "exit_price": 13.195,
       "exit_at": "2026-10-13T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-13T16:00:00-04:00",
-      "gross_return": 0.028849902534113125,
-      "net_return_10bps": 0.027849902534113125,
-      "net_return_25bps": 0.026349902534113127,
+      "price_return": 0.028849902534113125,
       "matched_open_return": 0.014219830899308228
     },
     {
@@ -3669,9 +3330,7 @@
       "exit_price": 35.42,
       "exit_at": "2026-10-15T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-15T16:00:00-04:00",
-      "gross_return": 0.0163558106169297,
-      "net_return_10bps": 0.0153558106169297,
-      "net_return_25bps": 0.0138558106169297,
+      "price_return": 0.0163558106169297,
       "matched_open_return": 0.02458779288400348
     },
     {
@@ -3699,9 +3358,7 @@
       "exit_price": 35.42,
       "exit_at": "2026-10-15T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-15T16:00:00-04:00",
-      "gross_return": 0.0163558106169297,
-      "net_return_10bps": 0.0153558106169297,
-      "net_return_25bps": 0.0138558106169297,
+      "price_return": 0.0163558106169297,
       "matched_open_return": 0.02458779288400348
     },
     {
@@ -3729,9 +3386,7 @@
       "exit_price": 35.42,
       "exit_at": "2026-10-15T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-15T16:00:00-04:00",
-      "gross_return": 0.045454545454545414,
-      "net_return_10bps": 0.04445454545454541,
-      "net_return_25bps": 0.04295454545454541,
+      "price_return": 0.045454545454545414,
       "matched_open_return": 0.02458779288400348
     },
     {
@@ -3759,9 +3414,7 @@
       "exit_price": 35.42,
       "exit_at": "2026-10-15T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-15T16:00:00-04:00",
-      "gross_return": 0.045454545454545414,
-      "net_return_10bps": 0.04445454545454541,
-      "net_return_25bps": 0.04295454545454541,
+      "price_return": 0.045454545454545414,
       "matched_open_return": 0.02458779288400348
     },
     {
@@ -3853,9 +3506,7 @@
       "exit_price": 11.02,
       "exit_at": "2026-10-16T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-16T16:00:00-04:00",
-      "gross_return": 0.026548672566371723,
-      "net_return_10bps": 0.025548672566371722,
-      "net_return_25bps": 0.024048672566371724,
+      "price_return": 0.026548672566371723,
       "matched_open_return": 0.014732965009208066
     },
     {
@@ -3883,9 +3534,7 @@
       "exit_price": 11.02,
       "exit_at": "2026-10-16T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-16T16:00:00-04:00",
-      "gross_return": 0.026548672566371723,
-      "net_return_10bps": 0.025548672566371722,
-      "net_return_25bps": 0.024048672566371724,
+      "price_return": 0.026548672566371723,
       "matched_open_return": 0.014732965009208066
     },
     {
@@ -3913,9 +3562,7 @@
       "exit_price": 11.02,
       "exit_at": "2026-10-16T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-16T16:00:00-04:00",
-      "gross_return": 0.0232126276694522,
-      "net_return_10bps": 0.0222126276694522,
-      "net_return_25bps": 0.020712627669452203,
+      "price_return": 0.0232126276694522,
       "matched_open_return": 0.014732965009208066
     },
     {
@@ -3943,9 +3590,7 @@
       "exit_price": 11.02,
       "exit_at": "2026-10-16T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-16T16:00:00-04:00",
-      "gross_return": 0.0232126276694522,
-      "net_return_10bps": 0.0222126276694522,
-      "net_return_25bps": 0.020712627669452203,
+      "price_return": 0.0232126276694522,
       "matched_open_return": 0.014732965009208066
     },
     {
@@ -4037,9 +3682,7 @@
       "exit_price": 10.435,
       "exit_at": "2026-10-19T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-19T16:00:00-04:00",
-      "gross_return": 0.026057030481809296,
-      "net_return_10bps": 0.025057030481809295,
-      "net_return_25bps": 0.023557030481809297,
+      "price_return": 0.026057030481809296,
       "matched_open_return": 0.02303921568627465
     },
     {
@@ -4067,9 +3710,7 @@
       "exit_price": 10.435,
       "exit_at": "2026-10-19T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-19T16:00:00-04:00",
-      "gross_return": 0.026057030481809296,
-      "net_return_10bps": 0.025057030481809295,
-      "net_return_25bps": 0.023557030481809297,
+      "price_return": 0.026057030481809296,
       "matched_open_return": 0.02303921568627465
     },
     {
@@ -4097,9 +3738,7 @@
       "exit_price": 10.435,
       "exit_at": "2026-10-19T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-19T16:00:00-04:00",
-      "gross_return": 0.018048780487804894,
-      "net_return_10bps": 0.017048780487804893,
-      "net_return_25bps": 0.015548780487804894,
+      "price_return": 0.018048780487804894,
       "matched_open_return": 0.02303921568627465
     },
     {
@@ -4127,9 +3766,7 @@
       "exit_price": 10.435,
       "exit_at": "2026-10-19T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-19T16:00:00-04:00",
-      "gross_return": 0.018048780487804894,
-      "net_return_10bps": 0.017048780487804893,
-      "net_return_25bps": 0.015548780487804894,
+      "price_return": 0.018048780487804894,
       "matched_open_return": 0.02303921568627465
     },
     {
@@ -5101,9 +4738,7 @@
       "exit_price": 21.6,
       "exit_at": "2026-10-29T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-29T16:00:00-04:00",
-      "gross_return": 0.009817671809256634,
-      "net_return_10bps": 0.008817671809256633,
-      "net_return_25bps": 0.0073176718092566335,
+      "price_return": 0.009817671809256634,
       "matched_open_return": 0.006993006993007089
     },
     {
@@ -5131,9 +4766,7 @@
       "exit_price": 21.6,
       "exit_at": "2026-10-29T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-29T16:00:00-04:00",
-      "gross_return": 0.009817671809256634,
-      "net_return_10bps": 0.008817671809256633,
-      "net_return_25bps": 0.0073176718092566335,
+      "price_return": 0.009817671809256634,
       "matched_open_return": 0.006993006993007089
     },
     {
@@ -5161,9 +4794,7 @@
       "exit_price": 21.6,
       "exit_at": "2026-10-29T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-29T16:00:00-04:00",
-      "gross_return": -0.002309468822170757,
-      "net_return_10bps": -0.003309468822170757,
-      "net_return_25bps": -0.004809468822170758,
+      "price_return": -0.002309468822170757,
       "matched_open_return": 0.006993006993007089
     },
     {
@@ -5191,9 +4822,7 @@
       "exit_price": 21.6,
       "exit_at": "2026-10-29T15:59:00-04:00",
       "exit_close_observed_at": "2026-10-29T16:00:00-04:00",
-      "gross_return": -0.002309468822170757,
-      "net_return_10bps": -0.003309468822170757,
-      "net_return_25bps": -0.004809468822170758,
+      "price_return": -0.002309468822170757,
       "matched_open_return": 0.006993006993007089
     },
     {
@@ -5349,9 +4978,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.008840864440078589,
-      "net_return_10bps": 0.007840864440078588,
-      "net_return_25bps": 0.006340864440078588,
+      "price_return": 0.008840864440078589,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5379,9 +5006,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.008840864440078589,
-      "net_return_10bps": 0.007840864440078588,
-      "net_return_25bps": 0.006340864440078588,
+      "price_return": 0.008840864440078589,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5409,9 +5034,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.0029296875,
-      "net_return_10bps": 0.0019296875,
-      "net_return_25bps": 0.00042968749999999995,
+      "price_return": 0.0029296875,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5439,9 +5062,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.0029296875,
-      "net_return_10bps": 0.0019296875,
-      "net_return_25bps": 0.00042968749999999995,
+      "price_return": 0.0029296875,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5469,9 +5090,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": -0.012500000000000067,
-      "net_return_10bps": -0.013500000000000068,
-      "net_return_25bps": -0.015000000000000067,
+      "price_return": -0.012500000000000067,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5499,9 +5118,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": -0.012500000000000067,
-      "net_return_10bps": -0.013500000000000068,
-      "net_return_25bps": -0.015000000000000067,
+      "price_return": -0.012500000000000067,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5529,9 +5146,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.0029296875,
-      "net_return_10bps": 0.0019296875,
-      "net_return_25bps": 0.00042968749999999995,
+      "price_return": 0.0029296875,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5559,9 +5174,7 @@
       "exit_price": 5.135,
       "exit_at": "2026-11-02T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-02T16:00:00-05:00",
-      "gross_return": 0.0029296875,
-      "net_return_10bps": 0.0019296875,
-      "net_return_25bps": 0.00042968749999999995,
+      "price_return": 0.0029296875,
       "matched_open_return": -0.04197761194029859
     },
     {
@@ -5845,9 +5458,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 0.01421458979724366,
-      "net_return_10bps": 0.013214589797243659,
-      "net_return_25bps": 0.01171458979724366,
+      "price_return": 0.01421458979724366,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -5875,9 +5486,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 0.01421458979724366,
-      "net_return_10bps": 0.013214589797243659,
-      "net_return_25bps": 0.01171458979724366,
+      "price_return": 0.01421458979724366,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -5905,9 +5514,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 0.01421458979724366,
-      "net_return_10bps": 0.013214589797243659,
-      "net_return_25bps": 0.01171458979724366,
+      "price_return": 0.01421458979724366,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -5935,9 +5542,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 0.01421458979724366,
-      "net_return_10bps": 0.013214589797243659,
-      "net_return_25bps": 0.01171458979724366,
+      "price_return": 0.01421458979724366,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -5965,9 +5570,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": -0.026457958165950868,
-      "net_return_10bps": -0.02745795816595087,
-      "net_return_25bps": -0.028957958165950867,
+      "price_return": -0.026457958165950868,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -5995,9 +5598,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": -0.026457958165950868,
-      "net_return_10bps": -0.02745795816595087,
-      "net_return_25bps": -0.028957958165950867,
+      "price_return": -0.026457958165950868,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -6025,9 +5626,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 7.114905727489962e-05,
-      "net_return_10bps": -0.0009288509427251004,
-      "net_return_25bps": -0.0024288509427251004,
+      "price_return": 7.114905727489962e-05,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -6055,9 +5654,7 @@
       "exit_price": 70.28,
       "exit_at": "2026-11-05T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-05T16:00:00-05:00",
-      "gross_return": 7.114905727489962e-05,
-      "net_return_10bps": -0.0009288509427251004,
-      "net_return_25bps": -0.0024288509427251004,
+      "price_return": 7.114905727489962e-05,
       "matched_open_return": -0.02861091914305447
     },
     {
@@ -6213,9 +5810,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.007467532467532401,
-      "net_return_10bps": 0.006467532467532401,
-      "net_return_25bps": 0.0049675324675324,
+      "price_return": 0.007467532467532401,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6243,9 +5838,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.007467532467532401,
-      "net_return_10bps": 0.006467532467532401,
-      "net_return_25bps": 0.0049675324675324,
+      "price_return": 0.007467532467532401,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6273,9 +5866,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.09053591950488338,
-      "net_return_10bps": 0.08953591950488338,
-      "net_return_25bps": 0.08803591950488338,
+      "price_return": 0.09053591950488338,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6303,9 +5894,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.09053591950488338,
-      "net_return_10bps": 0.08953591950488338,
-      "net_return_25bps": 0.08803591950488338,
+      "price_return": 0.09053591950488338,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6333,9 +5922,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": -0.021135646687697074,
-      "net_return_10bps": -0.022135646687697075,
-      "net_return_25bps": -0.023635646687697073,
+      "price_return": -0.021135646687697074,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6363,9 +5950,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": -0.021135646687697074,
-      "net_return_10bps": -0.022135646687697075,
-      "net_return_25bps": -0.023635646687697073,
+      "price_return": -0.021135646687697074,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6393,9 +5978,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.09053591950488338,
-      "net_return_10bps": 0.08953591950488338,
-      "net_return_25bps": 0.08803591950488338,
+      "price_return": 0.09053591950488338,
       "matched_open_return": -0.038425782460489666
     },
     {
@@ -6423,9 +6006,7 @@
       "exit_price": 31.03,
       "exit_at": "2026-11-09T15:59:00-05:00",
       "exit_close_observed_at": "2026-11-09T16:00:00-05:00",
-      "gross_return": 0.09053591950488338,
-      "net_return_10bps": 0.08953591950488338,
-      "net_return_25bps": 0.08803591950488338,
+      "price_return": 0.09053591950488338,
       "matched_open_return": -0.038425782460489666
     }
   ]

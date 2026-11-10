@@ -23,7 +23,7 @@ Family membership is frozen in [experiment_protocol.json:77](experiment_protocol
 
 **Chronological experiment.** The frozen panel contains 1,671,673 eligible stock-days across 1,784 names through November 6, 2026. **MRCY is included on all 1,008 panel dates**; exclusions are the existing 200-name holdout and SPY benchmark. Training uses 252 prior sessions. Two inner periods, July–December 2024 and January–June 2025, selected among nine predeclared Rank variants. Only all 21 improved both ranking correlation and top-20 returns in both inner periods. Selection was frozen before three outer periods: July–December 2025, January–June 2026, and July–November 6, 2026. [Protocol:31](experiment_protocol.json#L31); [independent result audit:1](result_audit/result_audit.json#L1).
 
-**Observed Rank results.** Equal-weight top-20 mean daily open-to-close returns, before costs, over 342 outer sessions; differences are basis points/day versus baseline. Intervals resample whole calendar weeks, with 2,000 replications. [rank_results_summary.json:454](rank_results_summary.json#L454); [pruning_review.json:33](pruning_review.json#L33).
+**Observed Rank results.** Equal-weight top-20 mean daily open-to-close price returns over 342 outer sessions; differences are basis points/day versus baseline. Intervals resample whole calendar weeks, with 2,000 replications. [rank_results_summary.json:454](rank_results_summary.json#L454); [pruning_review.json:33](pruning_review.json#L33).
 
 | Variant | Gross daily mean | Difference, bps | Pointwise 95% interval, bps |
 |---|---:|---:|---:|
@@ -60,7 +60,7 @@ Both exclusions are reversible quality judgments, **not demonstrated return impr
 | Top 20 | −0.3087% | −0.4949% | −18.62 | [−45.71, +7.13] |
 | Predicted return > 0.5% | +0.0802% | +0.0274% | −5.28 | [−50.70, +41.00] |
 
-All portfolio point estimates worsened; the wide paired intervals include zero. The fixed gate includes every matched date, including **13 baseline / 16 all-21 cash days**, and selected 17,044 / 13,697 stock-days. At assumed 10 / 25 / 50 bps round-trip costs, baseline gate daily means become **−0.0055% / −0.1340% / −0.3483%**; all 21 become **−0.0550% / −0.1786% / −0.3846%**. Cost is charged only on invested days; cash earns zero. These sensitivities are assumptions, not measured execution costs. [Checked policy and cost results:1](final_independent_result_audit.json#L1).
+All portfolio point estimates worsened; the wide paired intervals include zero. The fixed gate includes every matched date, including **13 baseline / 16 all-21 cash days**, and selected 17,044 / 13,697 stock-days. Using the user's **zero trading-expense assumption**, the gate averages **+0.0802% per day for baseline** and **+0.0274% for all 21**, with cash days earning zero. These are the unchanged price-only results; the new-feature point estimate is still lower without any expense deduction. [Checked policy results:221](final_independent_result_audit.json#L221).
 
 Across all scored stocks, Fit MAE improved slightly from **1.7348 to 1.7316 percentage points** (0.32 basis points less error), while mean ranking correlation remained negative: **−0.00877 → −0.00699**. This small average-error improvement did not translate into better selected portfolios. No model, feature subset or threshold was reselected from these outcomes.
 
