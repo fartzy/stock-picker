@@ -1,0 +1,15 @@
+{
+  "retrieved_at": "2026-11-10T03:14:49.890429+00:00",
+  "endpoint": "/stocks/v1/splits",
+  "params": {
+    "execution_date.gte": "2026-09-17",
+    "execution_date.lte": "2026-11-09",
+    "sort": "execution_date.asc",
+    "limit": 5000
+  },
+  "complete": true,
+  "relevant_events": [],
+  "raw_response_count": 259,
+  "raw_response_sha256": "ca50c1a4f5f5774f7bf0fcbc9417b375ab1648d65eb38dcd84c5d10c5698879a",
+  "has_next_page": false
+}
