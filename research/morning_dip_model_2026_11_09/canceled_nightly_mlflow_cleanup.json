@@ -1,0 +1,200 @@
+{
+  "completed_at_utc": "2026-11-09T23:57:32.401380+00:00",
+  "current_api_parent_after": {
+    "info": {
+      "artifact_uri": "/Users/michael.artz/dev/stock-picker/mlruns/1/5deeea4d6ce248f1ade3592000575e12/artifacts",
+      "end_time": null,
+      "experiment_id": "1",
+      "lifecycle_stage": "active",
+      "run_id": "5deeea4d6ce248f1ade3592000575e12",
+      "run_name": "walk_forward",
+      "start_time": 1794267088536,
+      "status": "RUNNING"
+    },
+    "metrics": {},
+    "params": {
+      "ensemble_size": "1",
+      "model_0_type": "lightgbm",
+      "model_0_weight": "1.0",
+      "n_splits": "4",
+      "stacked_svm_outputs": "svr_oof_pred,svc_direction_margin,svc_gate_margin,svc_down_gate_margin,svc_strong_up_margin,svc_top_quintile_margin,svc_bottom_quintile_margin"
+    },
+    "tags": {
+      "mlflow.runName": "walk_forward",
+      "mlflow.source.name": "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/api/main.runfiles/_main/python/stock_picker/api/main.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.user": "michael.artz"
+    }
+  },
+  "current_api_parent_before": {
+    "info": {
+      "artifact_uri": "/Users/michael.artz/dev/stock-picker/mlruns/1/5deeea4d6ce248f1ade3592000575e12/artifacts",
+      "end_time": null,
+      "experiment_id": "1",
+      "lifecycle_stage": "active",
+      "run_id": "5deeea4d6ce248f1ade3592000575e12",
+      "run_name": "walk_forward",
+      "start_time": 1794267088536,
+      "status": "RUNNING"
+    },
+    "metrics": {},
+    "params": {
+      "ensemble_size": "1",
+      "model_0_type": "lightgbm",
+      "model_0_weight": "1.0",
+      "n_splits": "4",
+      "stacked_svm_outputs": "svr_oof_pred,svc_direction_margin,svc_gate_margin,svc_down_gate_margin,svc_strong_up_margin,svc_top_quintile_margin,svc_bottom_quintile_margin"
+    },
+    "tags": {
+      "mlflow.runName": "walk_forward",
+      "mlflow.source.name": "/Users/michael.artz/dev/stock-picker/bazel-bin/python/stock_picker/api/main.runfiles/_main/python/stock_picker/api/main.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.user": "michael.artz"
+    }
+  },
+  "database_read_only_verification": {
+    "changed_run_ids": [
+      "6f57dc303c304851adfd7c385e40a6ae"
+    ],
+    "changed_tag_keys": [
+      "6f57dc303c304851adfd7c385e40a6ae:operational.cancellation_reason"
+    ],
+    "deleted_run_ids": [],
+    "new_run_ids_during_operation": []
+  },
+  "db_commit_policy": "Do not stage or commit data/mlruns/mlflow.db until the current API training finishes.",
+  "end_time_note": "Recorded SIGTERM time truncated to MLflow millisecond precision; not cleanup wall-clock time.",
+  "execution_helper": {
+    "path": "research/morning_dip_model_2026_11_09/cache/cleanup_canceled_mlflow.py",
+    "sha256": "8900d5af0f6e2a7a9aeebc4e727d85917d857653d56ed904f0c2ff3229d41d50"
+  },
+  "execution_notes": [
+    "The initial inspection helper attempted unsupported RunInfo.to_dictionary and exited before any set_tag or set_terminated call; replaced with explicit public RunInfo properties before the successful API operation.",
+    "No raw SQL writes, API restarts, model changes, prune changes, or application source changes were made. Read-only SQL verified exactly one changed run and one new reason tag.",
+    "The database and this cleanup artifact remain unstaged; active MLflow database must wait for current API training completion before snapshot/commit."
+  ],
+  "identity_evidence": {
+    "nightly_run_start_utc": "2026-11-09T22:44:23.418000+00:00",
+    "nightly_stage_local_timestamp": "2026-11-09 16:44:00.699 America/Chicago",
+    "nightly_stage_log": "/Users/michael.artz/Library/Logs/stock-picker/nightly.log:30558",
+    "stop_artifact": "research/morning_dip_model_2026_11_09/nightly_superseded.json",
+    "stop_artifact_sha256": "95c2f80f1d01704bb7d256aba518c42c03d3df9ecd2ed74159333302543ca6be",
+    "stop_record": {
+      "api_ui_signalled": false,
+      "captured_identity": "58725 58722 Mon Nov  9 16:30:05 2026     /Users/michael.artz/Library/Caches/bazel/_bazel_michael.artz/a6f8d87da0aacb52b1a864e6919629e9/execroot/_main/bazel-out/darwin_arm64-fastbuild/bin/python/stock_picker/training/nightly.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 /Users/michael.artz/Library/Caches/bazel/_bazel_michael.artz/a6f8d87da0aacb52b1a864e6919629e9/execroot/_main/bazel-out/darwin_arm64-fastbuild/bin/python/stock_picker/training/nightly.runfiles/_main/python/stock_picker/training/_nightly_stage2_bootstrap.py",
+      "model_hashes_after": {
+        "data/models/day_session_return.pkl": "bb527bebb63f39e11630f0d771c4139136e8967c07eaac90e4b89e50caa089ce",
+        "data/models/day_session_return_logistic_diagnostic.pkl": "b2b2a980f6f50f05e61d234793a7e214e640b77be86db7d234b8d6a98ad28eba",
+        "data/models/day_session_return_rank.pkl": "6ed900ef464e2146eac78b1063f128e2d8e5289353793d90ade0a2840171d0c7"
+      },
+      "pid": 58725,
+      "signal": "SIGTERM",
+      "terminated_at_utc": "2026-11-09T22:54:22.764990+00:00"
+    },
+    "unique_run_matching_name_and_start_time": [
+      "6f57dc303c304851adfd7c385e40a6ae"
+    ]
+  },
+  "installed_signatures": {
+    "get_run": "(self, run_id: str) -> mlflow.entities.run.Run",
+    "set_tag": "(self, run_id: str, key: str, value: Any, synchronous: bool | None = None) -> mlflow.utils.async_logging.run_operations.RunOperations | None",
+    "set_terminated": "(self, run_id: str, status: str | None = None, end_time: int | None = None) -> None"
+  },
+  "mlflow_version": "3.15.2",
+  "official_references": [
+    {
+      "resolved_url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.client.html",
+      "sha256": "40c29435725dc6a5a97c908003f2f8c9e357cf776e836a959cc917386c523cf2",
+      "url": "https://mlflow.org/docs/latest/api_reference/python_api/mlflow.client.html"
+    },
+    {
+      "resolved_url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/client.py",
+      "sha256": "79d77a29f4b8c8a2c0445a89413f34b6646ee51d2073c4c7b257acb7e64d60f9",
+      "url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/client.py"
+    },
+    {
+      "resolved_url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/_tracking_service/client.py",
+      "sha256": "ba4bb071e4beefab2ed9537ec3f68c6430a19ab294bc987a33a0bb634669a58e",
+      "url": "https://raw.githubusercontent.com/mlflow/mlflow/v3.15.2/mlflow/tracking/_tracking_service/client.py"
+    }
+  ],
+  "prepared_at_utc": "2026-11-09T23:57:32.383038+00:00",
+  "reference_verification": "Official MLflow v3.15.2 client and tracking-service source fetched directly; KILLED is supported and end_time uses epoch milliseconds. Web tool returned HTTP 404, direct official requests succeeded.",
+  "requested_calls": [
+    {
+      "key": "operational.cancellation_reason",
+      "method": "MlflowClient.set_tag",
+      "run_id": "6f57dc303c304851adfd7c385e40a6ae",
+      "synchronous": true,
+      "value": "Nightly PID 58725 was explicitly superseded and received SIGTERM at 2026-11-09T22:54:22.764990Z before the same-provider two-year price refresh and ordinary dip-feature rebuild. Bookkeeping correction only; the later API training run 5deeea4d6ce248f1ade3592000575e12 remains active."
+    },
+    {
+      "end_time": 1794264862764,
+      "method": "MlflowClient.set_terminated",
+      "run_id": "6f57dc303c304851adfd7c385e40a6ae",
+      "status": "KILLED"
+    }
+  ],
+  "scope": "Only the superseded nightly parent; no child runs, current run, or other historical runs are targeted.",
+  "status": "verified",
+  "target_after": {
+    "info": {
+      "artifact_uri": "/Users/michael.artz/dev/stock-picker/mlruns/1/6f57dc303c304851adfd7c385e40a6ae/artifacts",
+      "end_time": 1794264862764,
+      "experiment_id": "1",
+      "lifecycle_stage": "active",
+      "run_id": "6f57dc303c304851adfd7c385e40a6ae",
+      "run_name": "walk_forward",
+      "start_time": 1794264263418,
+      "status": "KILLED"
+    },
+    "metrics": {},
+    "params": {
+      "ensemble_size": "1",
+      "model_0_type": "lightgbm",
+      "model_0_weight": "1.0",
+      "n_splits": "4",
+      "stacked_svm_outputs": "svr_oof_pred,svc_direction_margin,svc_gate_margin,svc_down_gate_margin,svc_strong_up_margin,svc_top_quintile_margin,svc_bottom_quintile_margin"
+    },
+    "tags": {
+      "mlflow.runName": "walk_forward",
+      "mlflow.source.git.branch": "feature/dip-context-experiment-2026-11-09",
+      "mlflow.source.git.commit": "9e6073d4fe1cb2f0e47cdec2ecfd57f73ad7faf8",
+      "mlflow.source.git.repoURL": "https://github.com/fartzy/stock-picker.git",
+      "mlflow.source.name": "/Users/michael.artz/Library/Caches/bazel/_bazel_michael.artz/a6f8d87da0aacb52b1a864e6919629e9/execroot/_main/bazel-out/darwin_arm64-fastbuild/bin/python/stock_picker/training/nightly.runfiles/_main/python/stock_picker/training/nightly.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.user": "michael.artz",
+      "operational.cancellation_reason": "Nightly PID 58725 was explicitly superseded and received SIGTERM at 2026-11-09T22:54:22.764990Z before the same-provider two-year price refresh and ordinary dip-feature rebuild. Bookkeeping correction only; the later API training run 5deeea4d6ce248f1ade3592000575e12 remains active."
+    }
+  },
+  "target_before": {
+    "info": {
+      "artifact_uri": "/Users/michael.artz/dev/stock-picker/mlruns/1/6f57dc303c304851adfd7c385e40a6ae/artifacts",
+      "end_time": null,
+      "experiment_id": "1",
+      "lifecycle_stage": "active",
+      "run_id": "6f57dc303c304851adfd7c385e40a6ae",
+      "run_name": "walk_forward",
+      "start_time": 1794264263418,
+      "status": "RUNNING"
+    },
+    "metrics": {},
+    "params": {
+      "ensemble_size": "1",
+      "model_0_type": "lightgbm",
+      "model_0_weight": "1.0",
+      "n_splits": "4",
+      "stacked_svm_outputs": "svr_oof_pred,svc_direction_margin,svc_gate_margin,svc_down_gate_margin,svc_strong_up_margin,svc_top_quintile_margin,svc_bottom_quintile_margin"
+    },
+    "tags": {
+      "mlflow.runName": "walk_forward",
+      "mlflow.source.git.branch": "feature/dip-context-experiment-2026-11-09",
+      "mlflow.source.git.commit": "9e6073d4fe1cb2f0e47cdec2ecfd57f73ad7faf8",
+      "mlflow.source.git.repoURL": "https://github.com/fartzy/stock-picker.git",
+      "mlflow.source.name": "/Users/michael.artz/Library/Caches/bazel/_bazel_michael.artz/a6f8d87da0aacb52b1a864e6919629e9/execroot/_main/bazel-out/darwin_arm64-fastbuild/bin/python/stock_picker/training/nightly.runfiles/_main/python/stock_picker/training/nightly.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.user": "michael.artz"
+    }
+  },
+  "tracking_uri": "sqlite:////Users/michael.artz/dev/stock-picker/data/mlruns/mlflow.db"
+}

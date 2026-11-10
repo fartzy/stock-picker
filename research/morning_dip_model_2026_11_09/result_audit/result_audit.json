@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-11-09T23:04:54.049450+00:00",
+  "generated_at_utc": "2026-11-09T23:51:52.595589+00:00",
   "run_identity": "cb05802badb974d6fc0c1ee98e223ba6e25fd3fc406a9a1985cc0fcca6ff1243",
-  "audit_script_sha256": "2b8067ea9c23f37b079358fefbc3d8f37bca7989b0924852cdf1b899842ee3f4",
+  "audit_script_sha256": "d304595264dab72c075d7b158cd2eaa4f236a7e06906dcd9a17de480a2019ee3",
   "outcome_manifest_sha256": "4a7ee533e431e895c90beb3527a980671b3215c5e6586658738d6b6fc769d524",
   "protocol_version": 2,
   "frozen_selection": {
@@ -30390,31 +30390,51 @@
     "The Fit comparison covers one outer block; Rank refinements have Rank-only evidence.",
     "Realized Low/High outcomes are evaluation-only and never used to select stocks or fit models."
   ],
+  "reviewed_context": {
+    "review_artifact_sha256": {
+      "pruning_review.json": "09e55ad88b0092c665a37d7e8e2cad0778b39fbbe8c7aba48f0dd8b2a35068a3",
+      "ordinary_prune_final.json": "911c8d9a5e656f5f7eda1211d244031cf16b4b4c008aed8c8efdec4716aafd8e"
+    },
+    "source_qualifications": [
+      {
+        "issue": "Confirmed reused ticker in frozen research history",
+        "evidence": "Massive SPCX metadata on 2026-02-09 names The SPAC and New Issue ETF, type ETF, FIGI BBG00YJ8L8T5; on 2026-06-15 it names Space Exploration Technologies Class A, type CS, FIGI BBG000NQF3Z5, listing 2026-06-12. Ordinary Yahoo starts 2026-06-12 correctly.",
+        "severity": "Historical entity continuity is not certified. The largest frozen recovery input comes from the old security and materially dominates one SVM training-window scale. This blocks treating the comparison as security-clean confirmatory evidence; deterministic same-panel comparisons remain reproducible exploratory results. Do not silently delete the row or rerun under the same frozen identity."
+      },
+      {
+        "issue": "Confirmed ordinary volume discrepancy",
+        "evidence": "HUBB and UHAL-B on 2026-02-25 volumes are 30/32 in ordinary Yahoo versus 367726.304487/330326.87178 in the independent Massive daily aggregate. Adjacent-session volumes closely agree.",
+        "severity": "Concrete upstream data-quality problem that can affect existing volume features too. Temporary ratio pruning contains amplification but is not a source repair. No price or volume correction was applied."
+      },
+      {
+        "issue": "Unresolved QH price-basis discontinuity",
+        "evidence": "Ordinary QH prior close 0.12 becomes Open 3.60 on 2026-04-27, with a preceding support near 0.017. Yahoo identifies Quhuo/NasdaqCM and reports the same 52-week low but no split-event entry in April 1\u2013May 15. Massive returned no daily/action rows, dated reference 404 and no inactive Quhuo matches; issuer IR 403.",
+        "severity": "Suspected action/security/adjustment issue, not a confirmed split. Do not invent a ratio adjustment, automatically remove QH, or prune all support fields to hide it. Limits economic interpretation of affected support/low examples and requires a separate data-quality resolution."
+      }
+    ],
+    "ordinary_configuration_snapshot": {
+      "recorded_at_utc": "2026-11-09T23:29:26.962139+00:00",
+      "active_new_dip_fields": 19,
+      "ordinary_pruned_dip_fields": [
+        "dip_recovery_fraction",
+        "dip_volume_change_1d"
+      ],
+      "raw_inputs": 151,
+      "fit_head_inputs": 158,
+      "source": "ordinary_prune_final.json; a recorded configuration snapshot, not a live-store read"
+    },
+    "frozen_research_configuration": {
+      "new_dip_fields": 21,
+      "baseline_raw_inputs": 132,
+      "all_raw_inputs": 153,
+      "all_fit_head_inputs": 160
+    },
+    "interpretation": "Frozen all21 research includes both ordinarily pruned ratio fields. Its153-raw/160-head Fit result does not validate the separate ordinary19-new-input,151-raw/158-head configuration. Source identity/price/volume qualifications limit confirmatory interpretation; no frozen rows were silently removed or adjusted."
+  },
   "frozen_selection_independently_verified": true,
   "svm_source_audit": {
-    "audited_outputs": 0,
+    "audited_outputs": 21,
     "missing_outputs": [
-      "svm_baseline_oof_2025h2_svr_oof_pred",
-      "svm_baseline_oof_2025h2_svc_direction_margin",
-      "svm_baseline_oof_2025h2_svc_gate_margin",
-      "svm_baseline_oof_2025h2_svc_down_gate_margin",
-      "svm_baseline_oof_2025h2_svc_strong_up_margin",
-      "svm_baseline_oof_2025h2_svc_top_quintile_margin",
-      "svm_baseline_oof_2025h2_svc_bottom_quintile_margin",
-      "svm_baseline_oof_2026h1_svr_oof_pred",
-      "svm_baseline_oof_2026h1_svc_direction_margin",
-      "svm_baseline_oof_2026h1_svc_gate_margin",
-      "svm_baseline_oof_2026h1_svc_down_gate_margin",
-      "svm_baseline_oof_2026h1_svc_strong_up_margin",
-      "svm_baseline_oof_2026h1_svc_top_quintile_margin",
-      "svm_baseline_oof_2026h1_svc_bottom_quintile_margin",
-      "svm_baseline_outer_2026h2_svr_oof_pred",
-      "svm_baseline_outer_2026h2_svc_direction_margin",
-      "svm_baseline_outer_2026h2_svc_gate_margin",
-      "svm_baseline_outer_2026h2_svc_down_gate_margin",
-      "svm_baseline_outer_2026h2_svc_strong_up_margin",
-      "svm_baseline_outer_2026h2_svc_top_quintile_margin",
-      "svm_baseline_outer_2026h2_svc_bottom_quintile_margin",
       "svm_all_oof_2025h2_svr_oof_pred",
       "svm_all_oof_2025h2_svc_direction_margin",
       "svm_all_oof_2025h2_svc_gate_margin",
@@ -30437,7 +30457,322 @@
       "svm_all_outer_2026h2_svc_top_quintile_margin",
       "svm_all_outer_2026h2_svc_bottom_quintile_margin"
     ],
-    "checkpoints": {}
+    "checkpoints": {
+      "svm_baseline_oof_2025h2_svr_oof_pred": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 2497.8934063330016,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_direction_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 13.528038750002452,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_gate_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 12.582781625002099,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_down_gate_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 11.771802208000736,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_strong_up_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 12.210251707998395,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_top_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 11.111954375002824,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2025h2_svc_bottom_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 417356,
+        "test_rows": 218450,
+        "fit_through": "2025-06-30 00:00:00",
+        "score_from": "2025-07-01 00:00:00",
+        "elapsed_seconds": 12.238664708005672,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svr_oof_pred": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 2527.4400917919993,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_direction_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 13.263287957997818,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_gate_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 11.474969957998837,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_down_gate_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 13.549011666000297,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_strong_up_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 13.23147116600012,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_top_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 12.886772666999605,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_oof_2026h1_svc_bottom_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 425308,
+        "test_rows": 214906,
+        "fit_through": "2025-12-31 00:00:00",
+        "score_from": "2026-01-02 00:00:00",
+        "elapsed_seconds": 11.701607417002378,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svr_oof_pred": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 2562.333004292006,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          },
+          {
+            "category": "ConvergenceWarning",
+            "message": "Liblinear failed to converge, increase the number of iterations."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_direction_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 20.570885542001633,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_gate_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 19.26385258299706,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_down_gate_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 18.65832437499921,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_strong_up_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 20.978955833001237,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_top_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 17.64389358399785,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      },
+      "svm_baseline_outer_2026h2_svc_bottom_quintile_margin": {
+        "input_count": 132,
+        "train_rows": 435042,
+        "test_rows": 161943,
+        "fit_through": "2026-06-30 00:00:00",
+        "score_from": "2026-07-01 00:00:00",
+        "elapsed_seconds": 16.608764290998806,
+        "warnings": [
+          {
+            "category": "UserWarning",
+            "message": "Skipping features without any observed values: ['market_advance_fraction' 'market_above_sma_20d_fraction'\n 'market_return_dispersion_1d' 'market_up_volume_fraction'\n 'path_cluster_distance' 'path_cluster_margin' 'path_cluster_crowding'\n 'path_cluster_peer_return_1d']. At least one non-missing value is needed for imputation with strategy='median'."
+          }
+        ]
+      }
+    },
+    "convergence_warning_outputs": [
+      "svm_baseline_oof_2025h2_svr_oof_pred",
+      "svm_baseline_oof_2026h1_svr_oof_pred",
+      "svm_baseline_outer_2026h2_svr_oof_pred"
+    ],
+    "svr_max_iter": 10000,
+    "svc_max_iter": 10000,
+    "convergence_qualification": "Recorded ConvergenceWarnings mean convergence was not established within the unchanged iteration limit; this audit does not refit or suppress warnings."
   },
   "complete": false
 }

@@ -1170,5 +1170,35 @@
         }
       }
     }
+  },
+  "top5_selected_comparison": {
+    "selected_before_outer": "all",
+    "baseline_daily_mean": 0.005374247652846575,
+    "all21_daily_mean": 0.004705180069533647,
+    "difference_bps": -6.6906758331292835,
+    "pointwise_weekly_ci95_bps": [
+      -26.153198392670625,
+      12.709757480577327
+    ],
+    "positive_blocks": 1,
+    "total_blocks": 3,
+    "per_block": {
+      "outer_2025h2": {
+        "baseline_daily_mean": 0.0043096252012791835,
+        "all21_daily_mean": 0.0057542314414224475,
+        "difference_bps": 14.44606240143264
+      },
+      "outer_2026h1": {
+        "baseline_daily_mean": 0.0070110963161447845,
+        "all21_daily_mean": 0.004017878041169579,
+        "difference_bps": -29.932182749752055
+      },
+      "outer_2026h2": {
+        "baseline_daily_mean": 0.00465929477608774,
+        "all21_daily_mean": 0.004158581980379951,
+        "difference_bps": -5.007127957077891
+      }
+    },
+    "interpretation": "One of three blocks improved, but pooled Top5 return was lower. This does not reverse the exploratory conclusion or change the frozen selection."
   }
 }

@@ -8,6 +8,19 @@ import pandas as pd
 
 
 class ResultAuditTests(unittest.TestCase):
+    def test_fit_mae_uses_every_stock_day_and_never_rank_scores(self):
+        # First two stocks can share a date; MAE must still weight all3 rows
+        # equally rather than averaging a two-stock day and a one-stock day.
+        actual = np.array([.01, -.02, .03])
+        predicted = np.array([0., 0., .06])
+        result = audit.fit_error_diagnostic("fit", predicted, actual)
+        self.assertAlmostEqual(result["stock_day_mae"], .02)
+        self.assertAlmostEqual(result["absolute_error_sum"], .06)
+        self.assertEqual(result["scored_stock_days"], 3)
+        self.assertIsNone(audit.fit_error_diagnostic("rank", predicted, actual))
+        with self.assertRaises(ValueError):
+            audit.fit_error_diagnostic("fit", predicted[:-1], actual)
+
     def test_explicit_input_order_survives_sorted_manifest_family_keys(self):
         protocol = {"families": {"a": ["second"], "z": ["first"]}, "flags": []}
         columns = audit.expected_schema("all", {"added_columns": ["first", "second"]},

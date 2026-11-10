@@ -2,7 +2,7 @@
   "prepared_at_utc": "2026-11-09T23:05:22.293088+00:00",
   "purpose": "Independent postprocessing of the frozen ordinary-dip feature experiment. No model fits, threshold searches, output-driven protocol changes, or production writes.",
   "script": "research/morning_dip_model_2026_11_09/postprocess_results.py",
-  "script_sha256": "2b8067ea9c23f37b079358fefbc3d8f37bca7989b0924852cdf1b899842ee3f4",
+  "script_sha256": "d304595264dab72c075d7b158cd2eaa4f236a7e06906dcd9a17de480a2019ee3",
   "commands": {
     "focused_checks": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/test_postprocess_results.py",
     "partial_progress_audit": "bazel-bin/python/stock_picker/training/morning_dip_experiment.runfiles/rules_python++python+python_3_12_aarch64-apple-darwin/bin/python3 research/morning_dip_model_2026_11_09/postprocess_results.py --allow-partial",
@@ -21,12 +21,14 @@
     "Verify frozen input/source/panel provenance checksums, evaluation-sidecar baseline binding, and identical unique date/ticker populations including MRCY.",
     "For each available model result verify numeric score checksums, schema, exact chronological training/scoring row identity, round count and parameters; rebuild daily selections independently.",
     "Reconcile stored daily Rank IC, top5/top20/gated returns, trade/cash counts and0/10/25/50bps cost summaries.",
+    "For Fit only, compute stock-day-weighted mean absolute prediction error from cached predictions and every matched frozen label, including unselected stocks. Report candidate-minus-baseline MAE; never apply this metric to Rank scores.",
     "Recompute week-cluster paired intervals independently and verify stored values. Freeze choice remains inner-only; independently reproduce that choice without outer reselection.",
     "Check compact uses only positive gains from its matching training-window all-input model. Report every feature training gain, normalized gain fraction, nonmissing coverage and distinct-value counts.",
     "After selecting stocks from cached scores, join realized Low/High sidecar and summarize constituent adverse/favorable excursions and MRCY selections; no future outcome becomes an input or selection criterion.",
     "Report descriptive ticker contribution concentration and extreme selected-stock returns, without new filters or threshold searches.",
     "Audit available42 SVM source checkpoints and their132/153 schemas, chronology, hashes, row counts and recorded convergence warnings.",
-    "Pool only complete predeclared outer blocks. Mark incomplete Fit evidence explicitly; final command fails when any expected model or SVM output is missing."
+    "Pool only complete predeclared outer blocks. Mark incomplete Fit evidence explicitly; final command fails when any expected model or SVM output is missing.",
+    "Carry forward the independently reviewed SPCX identity discontinuity, unresolved QH price-basis issue, confirmed ordinary volume anomalies, and recorded ordinary19-versus-frozen21 schema distinction. Preserve convergence warnings at unchanged iteration limits."
   ],
   "interpretation_rules": [
     "Return numbers are fractions: multiply by100 for percentage points,10000 for basis points.",
@@ -35,8 +37,10 @@
     "Pointwise exploratory confidence intervals are not multiplicity-corrected confirmation of a predictive bottom.",
     "Inner improvement is selection evidence. Do not select a new winner or tighten features using these outer outcomes.",
     "Zero feature gain is evidence of non-use in that fitted head, not alone a reason to delete an ordinary feature. Keep pruning recommendations cautious and use the existing normal pruning process.",
-    "One full Fit outer block supports a narrower conclusion than three Rank blocks. Rank refinements have no full-Fit confirmation in this iteration."
+    "One full Fit outer block supports a narrower conclusion than three Rank blocks. Rank refinements have no full-Fit confirmation in this iteration.",
+    "Fit MAE is prediction error in return-fraction units over all scored stock-days, with lower values better. It has no selection/gate filter and is not equal-date-weighted. Rank scores are not in return units and have no MAE diagnostic."
   ],
-  "initial_validation": "Four independent small tests pass;45 actual Rank model results audited successfully. Full Fit pending.",
-  "implementation_scope": "Only research/postprocessing files created; hash-frozen feature/training source remains unchanged."
+  "initial_validation": "Five independent small tests pass, including analytical Fit-only MAE and rejection of misaligned vectors.45 actual Rank results were previously audited; both Fit heads remain pending.",
+  "implementation_scope": "Only research/postprocessing files created; hash-frozen feature/training source remains unchanged.",
+  "updated_at_utc": "2026-11-09T23:51:53.070817+00:00"
 }

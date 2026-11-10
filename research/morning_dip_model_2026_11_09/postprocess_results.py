@@ -114,6 +114,22 @@ def score_selections(frame: pd.DataFrame, scores: np.ndarray, gate: float, fit: 
     return daily, selected
 
 
+def fit_error_diagnostic(kind: str, scores: np.ndarray, actual: np.ndarray) -> dict | None:
+    """Stock-day-weighted MAE on all scored Fit rows, never on Rank scores."""
+    require(kind in {"fit", "rank"}, "unknown model kind")
+    if kind == "rank":
+        return None  # ListFold scores express relative ordering, not returns.
+    prediction, outcome = np.asarray(scores, dtype=float), np.asarray(actual, dtype=float)
+    require(prediction.ndim == 1 and prediction.shape == outcome.shape and len(outcome) > 0,
+            "Fit error requires matching nonempty stock-day vectors")
+    require(np.isfinite(prediction).all() and np.isfinite(outcome).all(), "nonfinite Fit error inputs")
+    error = np.abs(prediction - outcome)
+    return {"stock_day_mae": float(error.mean()), "absolute_error_sum": float(error.sum()),
+            "scored_stock_days": len(error), "units": "return_fraction", "lower_is_better": True,
+            "population": "Every scored stock-day on the common frozen outer population, including unselected stocks.",
+            "weighting": "Each stock-day has equal weight; this is not an equal-date or selected-trade MAE."}
+
+
 def excursion_stats(selected: pd.DataFrame, outcomes: pd.DataFrame, dates: pd.Index):
     # This is the sole outcome-sidecar join, downstream of frozen selections.
     rows = selected.merge(outcomes, on=KEYS, how="left", validate="one_to_one", indicator=True)
@@ -221,7 +237,37 @@ def audit_svm_checkpoints(run_dir: Path, manifest: dict, run_id: str, panel: pd.
                                 "fit_through": expected["fit_end"], "score_from": expected["score_start"],
                                 "elapsed_seconds": metadata["details"]["elapsed_seconds"],
                                 "warnings": metadata["details"].get("warnings", [])}
-    return {"audited_outputs": len(records), "missing_outputs": missing, "checkpoints": records}
+    convergence = [key for key, record in records.items()
+                   if any(warning.get("category") == "ConvergenceWarning" for warning in record["warnings"])]
+    return {"audited_outputs": len(records), "missing_outputs": missing, "checkpoints": records,
+            "convergence_warning_outputs": convergence,
+            "svr_max_iter": manifest["svr_params"]["max_iter"],
+            "svc_max_iter": manifest["svc_params"]["max_iter"],
+            "convergence_qualification": "Recorded ConvergenceWarnings mean convergence was not established within the unchanged iteration limit; this audit does not refit or suppress warnings."}
+
+
+def reviewed_context(here: Path, manifest: dict) -> dict:
+    """Carry forward separate source/pruning reviews without reading live stores."""
+    artifacts = {}
+    for name in ["pruning_review.json", "ordinary_prune_final.json"]:
+        payload = (here / name).read_bytes()
+        artifacts[name] = {"sha256": hashlib.sha256(payload).hexdigest(), "value": json.loads(payload)}
+    ordinary = artifacts["ordinary_prune_final.json"]["value"]
+    return {
+        "review_artifact_sha256": {name: record["sha256"] for name, record in artifacts.items()},
+        "source_qualifications": artifacts["pruning_review.json"]["value"]["data_quality_findings"],
+        "ordinary_configuration_snapshot": {
+            "recorded_at_utc": ordinary["configuration_verified_at_utc"],
+            "active_new_dip_fields": ordinary["active_new_dip_fields"],
+            "ordinary_pruned_dip_fields": ordinary["ordinary_pruned_dip_fields"],
+            "raw_inputs": ordinary["expected_raw_inputs"], "fit_head_inputs": ordinary["expected_fit_head_inputs"],
+            "source": "ordinary_prune_final.json; a recorded configuration snapshot, not a live-store read"},
+        "frozen_research_configuration": {
+            "new_dip_fields": len(manifest["candidate_columns"]),
+            "baseline_raw_inputs": len(manifest["fit_svm_schemas"]["baseline"]),
+            "all_raw_inputs": len(manifest["fit_svm_schemas"]["all"]),
+            "all_fit_head_inputs": len(manifest["fit_svm_schemas"]["all"]) + len(SVM_OUTPUTS)},
+        "interpretation": "Frozen all21 research includes both ordinarily pruned ratio fields. Its153-raw/160-head Fit result does not validate the separate ordinary19-new-input,151-raw/158-head configuration. Source identity/price/volume qualifications limit confirmatory interpretation; no frozen rows were silently removed or adjusted."}
 
 
 def audit(args):
@@ -273,6 +319,7 @@ def audit(args):
                                  "Intervals are pointwise exploratory, with no multiplicity correction; inner results guided selection.",
                                  "The Fit comparison covers one outer block; Rank refinements have Rank-only evidence.",
                                  "Realized Low/High outcomes are evaluation-only and never used to select stocks or fit models."]}
+    report["reviewed_context"] = reviewed_context(here, manifest)
     daily_by_block = {}
     blocks = [("rank", block, protocol["initial_variants"] + protocol["refinement_variants"])
               for block in protocol["inner_blocks"] + protocol["rank_outer_blocks"]]
@@ -317,6 +364,9 @@ def audit(args):
             total_gain = sum(gains.values())
             result = {"summary": record["summary"], "added_columns": record["added_columns"],
                       "mrcy_eligible_rows": int(test.ticker.eq("MRCY").sum()), "policies": {}, "feature_diagnostics": {}}
+            error = fit_error_diagnostic(kind, scores, test[TARGET].to_numpy())
+            if error is not None:
+                result["fit_error"] = error
             for name, rows in selected.items():
                 mrcy = rows.loc[rows.ticker.eq("MRCY")]
                 result["policies"][name] = {"mrcy_selected_days": len(mrcy), "mrcy_mean_open_to_close": mrcy[TARGET].mean(),
@@ -343,6 +393,11 @@ def audit(args):
                          for field in ["top5_mean", "top20_mean"] + (["gate_mean"] if kind == "fit" else [])}
                 report["blocks"][key][variant]["paired_net_baseline"] = pairs
                 report["blocks"][key][variant]["paired_rank_ic"] = paired_interval(daily, baseline_daily, "rank_ic", protocol)
+                if kind == "fit":
+                    current_error = report["blocks"][key][variant]["fit_error"]
+                    baseline_error = report["blocks"][key]["baseline"]["fit_error"]
+                    require(current_error["scored_stock_days"] == baseline_error["scored_stock_days"], "Fit MAE populations differ")
+                    current_error["mae_delta_vs_baseline"] = current_error["stock_day_mae"] - baseline_error["stock_day_mae"]
                 for field, costs in pairs.items():
                     for cost, calculated in costs.items():
                         recorded = records[variant]["paired_net_baseline"][field][cost]
@@ -383,6 +438,17 @@ def audit(args):
                                     "cost_daily_mean": {str(cost): safe((daily[f"{name}_mean"] - daily[f"{name}_n"].gt(0) * cost / 10000).mean()) for cost in protocol["cost_roundtrip_bps"]},
                                     "paired_net_baseline": {str(cost): paired_interval(daily, baseline_daily, f"{name}_mean", protocol, cost_bps=cost) for cost in protocol["cost_roundtrip_bps"]}}
                              for name in ["top5", "top20"] + (["gate"] if kind == "fit" else [])}}
+            if kind == "fit":
+                errors = [report["blocks"][name][variant]["fit_error"] for name in names]
+                baseline_errors = [report["blocks"][name]["baseline"]["fit_error"] for name in names]
+                count = sum(error["scored_stock_days"] for error in errors)
+                require(count == sum(error["scored_stock_days"] for error in baseline_errors), "pooled Fit MAE populations differ")
+                mae = sum(error["absolute_error_sum"] for error in errors) / count
+                baseline_mae = sum(error["absolute_error_sum"] for error in baseline_errors) / count
+                report["pooled_outer"][f"{kind}/{variant}"]["fit_error"] = {
+                    "stock_day_mae": mae, "scored_stock_days": count,
+                    "mae_delta_vs_baseline": mae - baseline_mae, "units": "return_fraction",
+                    "weighting": "Every scored stock-day equally; no selection/gate filter; lower is better."}
     for feature in candidates:
         evidence = [{"block": name, **records["all"]["feature_diagnostics"][feature]}
                     for name, records in report["blocks"].items() if "outer_" in name and "all" in records]

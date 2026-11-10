@@ -1,0 +1,39 @@
+{
+  "verified_at_utc": "2026-11-09T23:46:29.893148+00:00",
+  "commit": "52ea1e8f45a7eb90352251fe47a1797c286dc7b8",
+  "commit_subject": "Refresh two-year prices and ordinary dip feature snapshots",
+  "branch": "feature/dip-context-experiment-2026-11-09",
+  "remote": "origin",
+  "remote_head_verified": "52ea1e8f45a7eb90352251fe47a1797c286dc7b8",
+  "push_exit_code": 0,
+  "pull_request": "https://github.com/fartzy/stock-picker/pull/292",
+  "pull_request_state": "OPEN",
+  "pull_request_draft": true,
+  "merged": false,
+  "committed_files": 4007,
+  "data_files": 3987,
+  "completed_audit_and_helper_files": 20,
+  "data_counts": {
+    "data/features": 2000,
+    "data/prices": 1985,
+    "data/pruned_features": 1,
+    "data/weather": 1
+  },
+  "data_bytes": 1316561695,
+  "staged_index_empty_after_commit": true,
+  "manifest": "static_data_milestone.json",
+  "checks": [
+    "All allowlisted paths and staged paths matched exactly",
+    "4,006 recorded SHA256 digests verified before commit; milestone manifest additionally included",
+    "git diff --cached --check passed",
+    "Remote branch and PR head independently matched commit"
+  ],
+  "excluded": [
+    "Models and training-run stores",
+    "LiveSQLite databases/journals",
+    "Changing training/deployment/Fit status artifacts",
+    "README awaiting its separate approved milestone"
+  ],
+  "push_log": "cache/static_data_push.log",
+  "model_or_api_mutations": false
+}
