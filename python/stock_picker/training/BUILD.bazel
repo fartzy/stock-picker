@@ -30,6 +30,10 @@ py_library(
         "live_rows.py",
         "morning_check.py",
         "inference.py",
+        "intraday_entry_dataset.py",
+        "intraday_entry_job.py",
+        "intraday_entry_model.py",
+        "intraday_entry_service.py",
         "job.py",
         "main.py",
         "model.py",
@@ -85,6 +89,14 @@ py_library(
         "@pypi//requests",
         "@pypi//scikit_learn",
     ],
+)
+
+py_binary(
+    name = "intraday_entry_train",
+    srcs = ["intraday_entry_main.py"],
+    main = "intraday_entry_main.py",
+    imports = ["../.."],
+    deps = [":training"],
 )
 
 py_binary(

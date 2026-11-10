@@ -14,6 +14,7 @@ import TrainingPanel from "./components/TrainingPanel";
 import WhatIf from "./components/WhatIf";
 import JevEvaluation from "./components/JevEvaluation";
 import NewsModelsPanel from "./components/NewsModelsPanel";
+import IntradayEntryPanel from "./components/IntradayEntryPanel";
 import { ModelFilterBar, NewsInputs, type ModelFilter } from "./components/ModelFilter";
 import { fetchModelFeatures } from "./api";
 import { useFetchData } from "./useFetchData";
@@ -32,10 +33,11 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "data", label: "Data" },
 ];
 
-type ModelTab = "intraday" | "overnight" | "news";
+type ModelTab = "intraday" | "entry" | "overnight" | "news";
 
 const MODEL_TABS: { id: ModelTab; label: string }[] = [
   { id: "intraday", label: "Intraday Rank / Fit" },
+  { id: "entry", label: "Intraday Entry" },
   { id: "overnight", label: "Overnight" },
   { id: "news", label: "News" },
 ];
@@ -208,6 +210,13 @@ export default function App() {
                 </div>
               </section>
             </>
+          )}
+
+          {modelTab === "entry" && (
+            <section>
+              <h2>Intraday Entry</h2>
+              <div className="panel"><IntradayEntryPanel /></div>
+            </section>
           )}
 
           {modelTab === "overnight" && (

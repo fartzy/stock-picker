@@ -26,3 +26,11 @@ class FeatureStore:
 
     def read(self, ticker: str) -> pd.DataFrame:
         return pd.read_parquet(self._path_for(ticker))
+
+    def read_columns(self, ticker: str, columns: list[str]) -> pd.DataFrame:
+        """Load a small context without decoding every feature column.
+
+        pandas preserves the saved index when selecting parquet columns:
+        https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html
+        """
+        return pd.read_parquet(self._path_for(ticker), columns=columns)

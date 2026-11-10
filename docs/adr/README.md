@@ -39,3 +39,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0025](0025-jev-shadow-confidences.md) | 2026-10-18 | Record shadow Jev buy / hold / news-skip confidences on every morning pick; display only until forward outcomes justify more |
 | [0026](0026-news-flag-scored-on-outcomes.md) | 2026-10-18 | Score the news flag on outcomes in What If; export labelled news-outcome rows for a future learned drop model |
 | [0027](0027-jev-decision-time-forecasts.md) | 2026-11-09 | Preserve immutable Jev evidence; separate current-entry risk and near-close overnight assessments, then evaluate forward outcomes |
+| [0028](0028-intraday-entry-helper.md) | 2026-11-10 | Separate current-entry-to-close helper with shared as-of features, chronological calibration, primary Rank 1 evidence, and bounded live refresh |

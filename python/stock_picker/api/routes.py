@@ -12,6 +12,10 @@ from zoneinfo import ZoneInfo
 from fastapi import APIRouter, HTTPException, status
 
 from stock_picker.api.models import (
+    IntradayEntryModelResponse,
+    IntradayEntryPredictRequest,
+    IntradayEntryPredictResponse,
+    IntradayEntryTrainingResponse,
     BenchmarkHold,
     BenchmarkReturnsResponse,
     BuySignalResponse,
@@ -140,7 +144,36 @@ from stock_picker.storage.jev_forecast_store import JevForecastStore
 from stock_picker.training.jev_assessment import assess_jev
 from stock_picker.paper.jev_outcomes import load_jev_evaluation
 
+from stock_picker.training.intraday_entry_job import intraday_entry_job
+from stock_picker.training.intraday_entry_service import get_service as get_intraday_entry_service
+
 router = APIRouter(prefix="/api")
+
+
+@router.get("/intraday-entry/model")
+def get_intraday_entry_model() -> IntradayEntryModelResponse:
+    return IntradayEntryModelResponse(**get_intraday_entry_service().summary())
+
+
+@router.get("/intraday-entry/training")
+def get_intraday_entry_training() -> IntradayEntryTrainingResponse:
+    return IntradayEntryTrainingResponse(**intraday_entry_job.status())
+
+
+@router.post("/intraday-entry/training")
+def start_intraday_entry_training() -> IntradayEntryTrainingResponse:
+    if not intraday_entry_job.start():
+        raise HTTPException(status_code=409, detail="Entry model training is already running.")
+    return IntradayEntryTrainingResponse(**intraday_entry_job.status())
+
+
+@router.post("/intraday-entry/predict")
+def predict_intraday_entry(request: IntradayEntryPredictRequest) -> IntradayEntryPredictResponse:
+    try:
+        result = get_intraday_entry_service().predict(request.tickers)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    return IntradayEntryPredictResponse(**result)
 
 
 @router.post("/jev/assess")

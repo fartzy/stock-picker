@@ -652,6 +652,116 @@ export const fetchFeatureValues = (ticker: string) =>
   getJson<FeatureValuesResponse>(`/api/features/${encodeURIComponent(ticker)}`);
 export const fetchOvernightModel = () => getJson<OvernightModelResponse>("/api/overnight/model");
 
+export interface IntradayEntryReliabilityBin {
+  lower: number;
+  upper: number;
+  count: number;
+  sessions: number;
+  predicted: number;
+  observed: number;
+}
+
+export interface IntradayEntryMetrics {
+  rows: number;
+  sessions: number;
+  stock_days: number;
+  brier: number | null;
+  baseline_brier: number | null;
+  logistic_brier: number | null;
+  return_mae: number | null;
+  // Empty cohorts omit the remaining measurements.
+  log_loss?: number | null;
+  baseline_log_loss?: number | null;
+  logistic_log_loss?: number | null;
+  baseline_return_mae?: number | null;
+  downside_brier?: number | null;
+  observed_profit_rate?: number | null;
+  reliability?: IntradayEntryReliabilityBin[];
+}
+
+export interface IntradayEntryValidation extends IntradayEntryMetrics {
+  train_start: string;
+  train_end: string;
+  calibration_start: string;
+  calibration_end: string;
+  test_start: string;
+  test_end: string;
+  train_rows: number;
+  calibration_rows: number;
+  test_rows: number;
+  test_sessions: number;
+  rank1: IntradayEntryMetrics;
+  lower_ranks: IntradayEntryMetrics;
+}
+
+export interface IntradayEntryModel {
+  ready: boolean;
+  model_name: string;
+  version: string;
+  trained_at: string | null;
+  trained_through: string | null;
+  evidence_status: "experimental";
+  feature_count: number;
+  features: { name: string; description: string; importance: number }[];
+  dataset: Record<string, unknown>;
+  validation: IntradayEntryValidation | null;
+  notes: string[];
+  default_tickers: string[];
+}
+
+export interface IntradayEntryTraining {
+  status: "idle" | "running" | "completed" | "failed";
+  started_at: string | null;
+  completed_at: string | null;
+  error: string | null;
+  phase: string | null;
+}
+
+export interface IntradayEntryPrediction {
+  ticker: string;
+  status: "ok" | "unavailable";
+  reason: string | null;
+  rank: number | null;
+  rank_score: number | null;
+  entry_price: number | null;
+  observed_at: string | null;
+  probability_profit: number | null;
+  expected_return: number | null;
+  probability_loss_2pct: number | null;
+  return_from_open: number | null;
+  minutes_remaining: number | null;
+  warnings: string[];
+}
+
+export interface IntradayEntryResponse {
+  session: string;
+  generated_at: string;
+  elapsed_ms: number;
+  model_trained_through: string | null;
+  evidence_status: "experimental";
+  predictions: IntradayEntryPrediction[];
+}
+
+async function entryJson<T>(path: string, method: "GET" | "POST" = "GET", body?: unknown): Promise<T> {
+  const response = await fetch(path, {
+    method,
+    headers: body ? { "Content-Type": "application/json" } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const value: unknown = await response.json().catch(() => null);
+  if (!response.ok) {
+    const detail = value && typeof value === "object" && "detail" in value ? value.detail : null;
+    throw new Error(typeof detail === "string" ? detail : `Entry model request failed (HTTP ${response.status}).`);
+  }
+  return value as T;
+}
+
+export const fetchIntradayEntryModel = () => entryJson<IntradayEntryModel>("/api/intraday-entry/model");
+export const fetchIntradayEntryTraining = () => entryJson<IntradayEntryTraining>("/api/intraday-entry/training");
+export const trainIntradayEntry = () => entryJson<IntradayEntryTraining>("/api/intraday-entry/training", "POST");
+export const predictIntradayEntry = (tickers: string[]) =>
+  entryJson<IntradayEntryResponse>("/api/intraday-entry/predict", "POST", { tickers });
+
 export interface NewsModelInfo {
   key: "event_guard" | "grok" | "classifier";
   name: string;

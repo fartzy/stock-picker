@@ -20,6 +20,63 @@ from stock_picker.training.ensemble import EnsembleMemberInfo
 # ---- requests ----
 
 
+class IntradayEntryPredictRequest(BaseModel):
+    tickers: list[str] = Field(default_factory=list, max_length=20)
+
+
+class IntradayEntryPrediction(BaseModel):
+    ticker: str
+    status: Literal["ok", "unavailable"]
+    reason: str | None = None
+    rank: int | None = None
+    rank_score: float | None = None
+    morning_model_run_id: str | None = None
+    entry_price: float | None = None
+    observed_at: str | None = None
+    probability_profit: float | None = None
+    expected_return: float | None = None
+    probability_loss_2pct: float | None = None
+    return_from_open: float | None = None
+    minutes_remaining: float | None = None
+    warnings: list[str] = Field(default_factory=list)
+
+
+class IntradayEntryPredictResponse(BaseModel):
+    session: str
+    generated_at: str
+    elapsed_ms: int
+    model_trained_through: str | None = None
+    evidence_status: str
+    predictions: list[IntradayEntryPrediction]
+
+
+class IntradayEntryModelResponse(BaseModel):
+    ready: bool
+    model_name: str
+    version: str
+    trained_at: str | None = None
+    trained_through: str | None = None
+    fit_through: str | None = None
+    evaluated_through: str | None = None
+    training_seconds: float | None = None
+    evidence_status: str
+    feature_count: int
+    features: list[dict]
+    pruned_features: list[dict] = Field(default_factory=list)
+    dataset: dict
+    validation: dict | None = None
+    notes: list[str]
+    default_tickers: list[str]
+
+
+class IntradayEntryTrainingResponse(BaseModel):
+    status: Literal["idle", "running", "completed", "failed"]
+    started_at: str | None = None
+    completed_at: str | None = None
+    error: str | None = None
+    phase: str | None = None
+
+
 class TradeCreate(BaseModel):
     ticker: str
     side: Literal["buy", "sell"]

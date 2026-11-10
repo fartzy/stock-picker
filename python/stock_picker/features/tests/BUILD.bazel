@@ -2,6 +2,13 @@
 load("@rules_python//python:defs.bzl", "py_library")
 load("//bazel/rules/pytest:defs.bzl", "py_pytest")
 
+py_pytest(
+    name = "test_intraday_entry",
+    srcs = ["test_intraday_entry.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/features", "@pypi//numpy"],
+)
+
 py_library(
     name = "fixtures",
     srcs = ["fixtures.py"],
