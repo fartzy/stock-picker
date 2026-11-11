@@ -9,7 +9,9 @@ summary, material score, phrase hits).
 from __future__ import annotations
 
 import sqlite3
-from dataclasses import dataclass
+import json
+from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 
 from stock_picker.storage.paths import data_root
@@ -41,6 +43,30 @@ CREATE TABLE IF NOT EXISTS news_ingest (
     ingested_at TEXT NOT NULL,
     PRIMARY KEY (ticker, as_of)
 );
+
+-- Forward observations only. Existing articles are deliberately not backdated.
+CREATE TABLE IF NOT EXISTS news_fetch_observations (
+    fetch_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticker TEXT NOT NULL,
+    requested_from TEXT NOT NULL,
+    requested_through TEXT NOT NULL,
+    observed_at TEXT NOT NULL,
+    provider TEXT NOT NULL,
+    classifier_version TEXT NOT NULL,
+    status TEXT NOT NULL CHECK(status IN ('success', 'error', 'unavailable')),
+    error_kind TEXT,
+    raw_json TEXT,
+    valid_count INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS news_article_observations (
+    fetch_id INTEGER NOT NULL REFERENCES news_fetch_observations(fetch_id),
+    article_id TEXT NOT NULL,
+    published_at TEXT NOT NULL,
+    article_json TEXT NOT NULL,
+    PRIMARY KEY(fetch_id, article_id)
+);
+CREATE INDEX IF NOT EXISTS idx_news_observed_ticker_time
+    ON news_fetch_observations(ticker, observed_at);
 """
 
 
@@ -75,6 +101,13 @@ def _article_from_row(row: sqlite3.Row) -> NewsArticle:
     return NewsArticle(**payload)
 
 
+def _utc_text(value: str) -> str:
+    timestamp = datetime.fromisoformat(value)
+    if timestamp.tzinfo is None:
+        raise ValueError("news observation times require an explicit time zone")
+    return timestamp.astimezone(timezone.utc).isoformat(timespec="microseconds")
+
+
 class NewsStore:
     def __init__(self, data_dir: Path | str = DEFAULT_DATA_DIR) -> None:
         self._data_dir = Path(data_dir)
@@ -87,7 +120,55 @@ class NewsStore:
     def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self._db_path)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys=ON")
         return conn
+
+    def record_fetch(
+        self, ticker: str, requested_from: str, requested_through: str,
+        observed_at: str, raw: list[dict] | None, articles: list[NewsArticle],
+        classifier_version: str, status: str = "success", error_kind: str | None = None,
+    ) -> int:
+        """Append raw coverage and immutable classified versions in one transaction."""
+        timestamp = _utc_text(observed_at)
+        unique = {article.article_id: article for article in articles}
+        if any(article.ticker != ticker for article in unique.values()):
+            raise ValueError("observation batch contains a different ticker")
+        with self._connect() as conn:
+            cursor = conn.execute(
+                "INSERT INTO news_fetch_observations "
+                "(ticker, requested_from, requested_through, observed_at, provider, classifier_version, "
+                "status, error_kind, raw_json, valid_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (ticker, requested_from, requested_through, timestamp, "finnhub", classifier_version,
+                 status, error_kind, json.dumps(raw, allow_nan=False) if raw is not None else None, len(unique)),
+            )
+            fetch_id = int(cursor.lastrowid)
+            conn.executemany(
+                "INSERT INTO news_article_observations (fetch_id, article_id, published_at, article_json) "
+                "VALUES (?, ?, ?, ?)",
+                [(fetch_id, article.article_id, _utc_text(article.published_at),
+                  json.dumps(asdict(article), allow_nan=False)) for article in unique.values()],
+            )
+        return fetch_id
+
+    def observed_articles(self, ticker: str, at: str) -> list[dict]:
+        """Latest version actually observed by the cutoff; never substitute legacy rows."""
+        cutoff = _utc_text(at)
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT a.article_id, a.article_json, f.observed_at, f.classifier_version "
+                "FROM news_article_observations a JOIN news_fetch_observations f USING(fetch_id) "
+                "WHERE f.ticker=? AND f.status='success' AND f.observed_at<=? AND a.published_at<=? "
+                "ORDER BY f.observed_at DESC, f.fetch_id DESC", (ticker, cutoff, cutoff),
+            ).fetchall()
+        versions: dict[str, dict] = {}
+        for row in rows:
+            article_id = row["article_id"]
+            if article_id not in versions:
+                versions[article_id] = {"article": json.loads(row["article_json"]),
+                                        "observed_at": row["observed_at"],
+                                        "classifier_version": row["classifier_version"]}
+            versions[article_id]["first_observed_at"] = row["observed_at"]
+        return list(versions.values())
 
     def upsert(self, articles: list[NewsArticle]) -> None:
         if not articles:
