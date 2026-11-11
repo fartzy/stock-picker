@@ -1,0 +1,21 @@
+{
+  "protocol_sha256": "4336fa4be84704f607cc576c6be4b46396ab165dda11a4661f9bdf29d7c29ce3",
+  "context_sha256": "b43a7bc05db5625c6afb3ea20534659f1327a5b5f5b91cbe8757fafbbcda29c1",
+  "source_hashes": {
+    "research/intraday_context_2026_11_11/study.py": "9e01e6834e50d3652b4904256f011479a6ccbae7043a0b7bfc6eda0523f2fa00",
+    "research/intraday_context_2026_11_11/collect.py": "735e016c8675a9eea6b11a33a2eb13c95ee84821208a54dd911870d683193baf",
+    "python/stock_picker/features/intraday_context.py": "504f459655a30ef0b5702517ddee52d83d51b7c6ae10aed04e342994438de0b9",
+    "python/stock_picker/training/intraday_entry_model.py": "69ba0c6773092949115514b943633dbba6c21fd29c9b1ac53e1347a989af25fb"
+  },
+  "expense_fraction": 0.0,
+  "active_model_changed": false,
+  "models": [
+    "existing",
+    "market",
+    "volume",
+    "market_and_volume",
+    "training_selected"
+  ],
+  "test_start": "2026-08-06",
+  "test_end": "2026-11-06"
+}

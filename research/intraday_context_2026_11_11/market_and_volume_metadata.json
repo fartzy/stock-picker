@@ -1,0 +1,614 @@
+{
+  "ready": true,
+  "model_name": "intraday_entry",
+  "version": "1.0",
+  "trained_at": "2026-11-11T17:53:04.634889+00:00",
+  "trained_through": "2026-08-05",
+  "fit_through": "2026-04-27",
+  "evaluated_through": "2026-11-06",
+  "evidence_status": "experimental",
+  "feature_count": 36,
+  "features": [
+    {
+      "name": "prior_rsi_28",
+      "description": "Existing 28-day RSI feature known before this session.",
+      "importance": 0.12189527340566368
+    },
+    {
+      "name": "realized_volatility_15m",
+      "description": "Population standard deviation of 15 consecutive completed log returns.",
+      "importance": 0.0879274725246247
+    },
+    {
+      "name": "morning_score_z",
+      "description": "Original score standardized within that morning's top 20 scores.",
+      "importance": 0.07573063617266064
+    },
+    {
+      "name": "prior_volume_ratio_20d",
+      "description": "Existing 20-day volume ratio known before this session.",
+      "importance": 0.07444992872448727
+    },
+    {
+      "name": "prior_return_2d",
+      "description": "Existing two-day return feature known before this session.",
+      "importance": 0.07176411345477693
+    },
+    {
+      "name": "opening_gap",
+      "description": "Raw session open versus verified previous close; unknown across splits.",
+      "importance": 0.06835856469258672
+    },
+    {
+      "name": "prior_volatility_32d",
+      "description": "Existing 32-day volatility feature known before this session.",
+      "importance": 0.0660258972952385
+    },
+    {
+      "name": "prior_return_1d",
+      "description": "Existing one-day return feature known before this session.",
+      "importance": 0.06449341093406992
+    },
+    {
+      "name": "return_from_open",
+      "description": "Current entry divided by this session's raw open, minus one.",
+      "importance": 0.04243130251778445
+    },
+    {
+      "name": "return_from_open_in_prior_vol",
+      "description": "Entry's opening-price change divided by prior 32-day volatility.",
+      "importance": 0.04073364965367964
+    },
+    {
+      "name": "minutes_since_open",
+      "description": "Minutes elapsed since the regular-session open.",
+      "importance": 0.034017779480486864
+    },
+    {
+      "name": "spy_return_from_open",
+      "description": "SPY completed close versus first regular minute open.",
+      "importance": 0.03204289554237788
+    },
+    {
+      "name": "prior_price_vs_sma_100d",
+      "description": "Existing price versus 100-day average, known before this session.",
+      "importance": 0.027803970965351348
+    },
+    {
+      "name": "log_same_clock_dollar_volume",
+      "description": "Log cumulative dollar-volume ratio to the median at this clock on prior twenty sessions; at least ten references.",
+      "importance": 0.024218716287091862
+    },
+    {
+      "name": "minutes_since_low",
+      "description": "Minutes since the latest observation of the running low.",
+      "importance": 0.017568993166199115
+    },
+    {
+      "name": "return_from_previous_close",
+      "description": "Current entry versus verified previous close; unknown across splits.",
+      "importance": 0.017153090280964355
+    },
+    {
+      "name": "drawdown_from_high_so_far",
+      "description": "Entry versus the highest observed price so far, including the entry.",
+      "importance": 0.01589693954465925
+    },
+    {
+      "name": "observed_bar_fraction",
+      "description": "Share of expected completed regular minutes actually observed.",
+      "importance": 0.015646520594815982
+    },
+    {
+      "name": "entry_vs_last_close",
+      "description": "Observed entry versus the last fully completed minute's close.",
+      "importance": 0.015368206065909738
+    },
+    {
+      "name": "distance_from_low_so_far",
+      "description": "Entry versus the lowest observed price so far, including the entry.",
+      "importance": 0.015178262144624219
+    },
+    {
+      "name": "range_so_far",
+      "description": "Observed high-to-low range divided by the opening price.",
+      "importance": 0.014678790868807303
+    },
+    {
+      "name": "return_5m",
+      "description": "Completed-close change over five minutes; unknown if an intervening minute is missing.",
+      "importance": 0.012135583381385909
+    },
+    {
+      "name": "log_same_clock_5m_dollar_volume",
+      "description": "Log five-minute dollar-volume ratio to the median matching interval on prior twenty sessions; at least ten references.",
+      "importance": 0.007639706764603209
+    },
+    {
+      "name": "entry_vs_observed_vwap",
+      "description": "Entry versus volume-weighted VWAP of observed completed regular bars.",
+      "importance": 0.007261913290665744
+    },
+    {
+      "name": "spy_return_15m",
+      "description": "SPY completed-close return over fifteen consecutive minutes.",
+      "importance": 0.006591689550062486
+    },
+    {
+      "name": "return_1m",
+      "description": "Change between the latest completed-minute close and the close one minute earlier.",
+      "importance": 0.006300724403500244
+    },
+    {
+      "name": "recovery_fraction_so_far",
+      "description": "Entry's location within the observed range so far.",
+      "importance": 0.005111345187917184
+    },
+    {
+      "name": "return_30m",
+      "description": "Completed-close change over 30 minutes; unknown if an intervening minute is missing.",
+      "importance": 0.0034251893310631425
+    },
+    {
+      "name": "return_15m",
+      "description": "Completed-close change over 15 minutes; unknown if an intervening minute is missing.",
+      "importance": 0.003322422388734262
+    },
+    {
+      "name": "stock_minus_spy_from_open",
+      "description": "Stock entry return from open minus observed SPY return from open; unit-beta difference.",
+      "importance": 0.002237865254439394
+    },
+    {
+      "name": "log_observed_volume",
+      "description": "Natural log of one plus volume in observed completed regular bars.",
+      "importance": 0.0015013240189935126
+    },
+    {
+      "name": "volume_acceleration_5m",
+      "description": "Mean volume over the last five minutes versus the preceding 15 minutes.",
+      "importance": 0.0010878221117745252
+    },
+    {
+      "name": "morning_rank",
+      "description": "Original morning rank; a smaller number is a higher rank.",
+      "importance": 0.0
+    },
+    {
+      "name": "minutes_to_close",
+      "description": "Minutes remaining until this session's actual close.",
+      "importance": 0.0
+    },
+    {
+      "name": "elapsed_session_fraction",
+      "description": "Fraction of this session elapsed, including early closes.",
+      "importance": 0.0
+    },
+    {
+      "name": "stock_minus_spy_15m",
+      "description": "Stock completed fifteen-minute return minus SPY equivalent.",
+      "importance": 0.0
+    }
+  ],
+  "pruned_features": [
+    {
+      "name": "previous_close_known",
+      "reason": "All missing or constant in fitting sessions."
+    }
+  ],
+  "dataset": {
+    "feature_version": "intraday_entry_v1",
+    "feature_columns": [
+      "morning_rank",
+      "morning_score_z",
+      "minutes_since_open",
+      "minutes_to_close",
+      "elapsed_session_fraction",
+      "return_from_open",
+      "return_from_previous_close",
+      "opening_gap",
+      "return_1m",
+      "return_5m",
+      "return_15m",
+      "return_30m",
+      "entry_vs_last_close",
+      "distance_from_low_so_far",
+      "drawdown_from_high_so_far",
+      "range_so_far",
+      "recovery_fraction_so_far",
+      "minutes_since_low",
+      "entry_vs_observed_vwap",
+      "log_observed_volume",
+      "volume_acceleration_5m",
+      "realized_volatility_15m",
+      "observed_bar_fraction",
+      "previous_close_known",
+      "prior_return_1d",
+      "prior_return_2d",
+      "prior_volatility_32d",
+      "prior_rsi_28",
+      "prior_price_vs_sma_100d",
+      "prior_volume_ratio_20d",
+      "return_from_open_in_prior_vol"
+    ],
+    "feature_descriptions": {
+      "morning_rank": "Original morning rank; a smaller number is a higher rank.",
+      "morning_score_z": "Original score standardized within that morning's top 20 scores.",
+      "minutes_since_open": "Minutes elapsed since the regular-session open.",
+      "minutes_to_close": "Minutes remaining until this session's actual close.",
+      "elapsed_session_fraction": "Fraction of this session elapsed, including early closes.",
+      "return_from_open": "Current entry divided by this session's raw open, minus one.",
+      "return_from_previous_close": "Current entry versus verified previous close; unknown across splits.",
+      "opening_gap": "Raw session open versus verified previous close; unknown across splits.",
+      "return_1m": "Change between the latest completed-minute close and the close one minute earlier.",
+      "return_5m": "Completed-close change over five minutes; unknown if an intervening minute is missing.",
+      "return_15m": "Completed-close change over 15 minutes; unknown if an intervening minute is missing.",
+      "return_30m": "Completed-close change over 30 minutes; unknown if an intervening minute is missing.",
+      "entry_vs_last_close": "Observed entry versus the last fully completed minute's close.",
+      "distance_from_low_so_far": "Entry versus the lowest observed price so far, including the entry.",
+      "drawdown_from_high_so_far": "Entry versus the highest observed price so far, including the entry.",
+      "range_so_far": "Observed high-to-low range divided by the opening price.",
+      "recovery_fraction_so_far": "Entry's location within the observed range so far.",
+      "minutes_since_low": "Minutes since the latest observation of the running low.",
+      "entry_vs_observed_vwap": "Entry versus volume-weighted VWAP of observed completed regular bars.",
+      "log_observed_volume": "Natural log of one plus volume in observed completed regular bars.",
+      "volume_acceleration_5m": "Mean volume over the last five minutes versus the preceding 15 minutes.",
+      "realized_volatility_15m": "Population standard deviation of 15 consecutive completed log returns.",
+      "observed_bar_fraction": "Share of expected completed regular minutes actually observed.",
+      "previous_close_known": "One when a verified, same-price-basis previous close is available.",
+      "prior_return_1d": "Existing one-day return feature known before this session.",
+      "prior_return_2d": "Existing two-day return feature known before this session.",
+      "prior_volatility_32d": "Existing 32-day volatility feature known before this session.",
+      "prior_rsi_28": "Existing 28-day RSI feature known before this session.",
+      "prior_price_vs_sma_100d": "Existing price versus 100-day average, known before this session.",
+      "prior_volume_ratio_20d": "Existing 20-day volume ratio known before this session.",
+      "return_from_open_in_prior_vol": "Entry's opening-price change divided by prior 32-day volatility."
+    },
+    "expense_fraction": 0.0,
+    "target": "Final regular-minute close / exact entry-minute open - 1; zero expense",
+    "availability_assumption_et": "09:35",
+    "checkpoints_et": [
+      "09:35",
+      "10:00",
+      "10:30",
+      "11:00",
+      "11:30",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00"
+    ],
+    "cohort": "Frozen baseline morning Rank, cached top-20 candidates; never pooled with all-21 or mutable live scores",
+    "candidate_stock_days": 535,
+    "candidate_snapshots": 4815,
+    "rows": 3679,
+    "unique_stock_days": 460,
+    "unique_sessions": 313,
+    "unique_tickers": 264,
+    "first_session": "2025-07-01",
+    "last_session": "2026-11-06",
+    "candidate_rank_counts": {
+      "1": 342,
+      "2": 63,
+      "3": 37,
+      "4": 17,
+      "5": 21,
+      "6": 7,
+      "7": 10,
+      "8": 9,
+      "9": 5,
+      "10": 4,
+      "11": 4,
+      "12": 3,
+      "13": 2,
+      "14": 3,
+      "15": 1,
+      "16": 1,
+      "17": 3,
+      "18": 2,
+      "19": 1
+    },
+    "rank_snapshot_counts": {
+      "1": 2334,
+      "2": 418,
+      "3": 282,
+      "4": 114,
+      "5": 124,
+      "6": 53,
+      "7": 79,
+      "8": 50,
+      "9": 44,
+      "10": 35,
+      "11": 29,
+      "12": 23,
+      "13": 11,
+      "14": 23,
+      "15": 9,
+      "16": 9,
+      "17": 24,
+      "18": 9,
+      "19": 9
+    },
+    "excluded_snapshots": {
+      "missing_exact_entry_minute": 398,
+      "missing_final_exit_minute": 243,
+      "missing_last_completed_minute": 159,
+      "missing_session_first_minute": 333,
+      "outside_eligible_session_time": 3
+    },
+    "missing_feature_counts": {
+      "morning_rank": 0,
+      "morning_score_z": 0,
+      "minutes_since_open": 0,
+      "minutes_to_close": 0,
+      "elapsed_session_fraction": 0,
+      "return_from_open": 0,
+      "return_from_previous_close": 0,
+      "opening_gap": 0,
+      "return_1m": 116,
+      "return_5m": 758,
+      "return_15m": 974,
+      "return_30m": 1467,
+      "entry_vs_last_close": 0,
+      "distance_from_low_so_far": 0,
+      "drawdown_from_high_so_far": 0,
+      "range_so_far": 0,
+      "recovery_fraction_so_far": 0,
+      "minutes_since_low": 0,
+      "entry_vs_observed_vwap": 0,
+      "log_observed_volume": 0,
+      "volume_acceleration_5m": 1026,
+      "realized_volatility_15m": 974,
+      "observed_bar_fraction": 0,
+      "previous_close_known": 0,
+      "prior_return_1d": 0,
+      "prior_return_2d": 0,
+      "prior_volatility_32d": 26,
+      "prior_rsi_28": 26,
+      "prior_price_vs_sma_100d": 261,
+      "prior_volume_ratio_20d": 59,
+      "return_from_open_in_prior_vol": 26
+    },
+    "source_sha256": {
+      "cohort.json": "82dae6655e846670afef2d8272b406030f531fc063fb088329fe6f4af26baa28",
+      "minute_manifest.json": "4cbf310e464b2d953ee84e5930bfa0204957233a680a9ae5dc2ebfbebbec5fc8",
+      "daily_prices.json": "c2406581169107b7d5fb6a51c1447c8e0265c08e186b99739d1b3734b57b247c",
+      "split_metadata.json": "60348ab6165571a192e700b9b3209ce45e3162bce68d8f0fa12f5834b18ec28d"
+    },
+    "frozen_audit_verified": true,
+    "daily_source_records": 1388,
+    "verified_daily_source_files_used": 944,
+    "legacy_daily_source_records": 225,
+    "score_provenance": {
+      "baseline_path": "research/morning_dip_model_2026_11_09/baseline.parquet",
+      "baseline_sha256": "08c55aaf1e0f4ca22ac680babd545c13999e645d878e2331fff952a6451f2abb",
+      "score_sources": [
+        {
+          "block": "outer_2025h2",
+          "training_end": "2025-06-30",
+          "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_baseline.npy",
+          "array_sha256": "3e4c9b555fbb37366c809342d5dca317b63f0b28e514d1656cf7f33667dffb5e",
+          "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2025h2_baseline.json",
+          "metadata_sha256": "02bd83383120b7e7b17d6faab6215406be1d8b9c9049767eff4634e1252f7548"
+        },
+        {
+          "block": "outer_2026h1",
+          "training_end": "2025-12-31",
+          "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_baseline.npy",
+          "array_sha256": "c3fad645289a388bff8f068e6f7bf0f7d1fbc6c48fcafefd006a7614971d7e30",
+          "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h1_baseline.json",
+          "metadata_sha256": "f8ee9d02260ebf1c625f423a4cacc36565c6cb698f76d08a47e371a4cf6cb750"
+        },
+        {
+          "block": "outer_2026h2",
+          "training_end": "2026-06-30",
+          "array_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_baseline.npy",
+          "array_sha256": "ad216f7591fa356508800c5daded51f27c77194c0eb460dec5767850fd39cfba",
+          "metadata_path": "research/morning_dip_model_2026_11_09/model_run/checkpoints/rank_outer_2026h2_baseline.json",
+          "metadata_sha256": "be82b57a6885701b96a645ff0e000090283ead19d7e4135db393d3419fdb1cf4"
+        }
+      ]
+    },
+    "morning_feature_contract": "Six close-known columns from the frozen baseline training frame, already shifted by build_training_frame; never read the current day's live feature row.",
+    "limitations": [
+      "Earlier-trained research baseline rankings, not immutable historical live publications or the current production feature subset.",
+      "Lower ranks are selectively cached, with sparse support; this is not complete top-20 coverage.",
+      "Repeated intraday snapshots are correlated; split and weight by whole session dates.",
+      "Minute bars are hypothetical execution prices; missing observations remain unknown.",
+      "Top-20 score normalization removes arbitrary scale but does not establish transfer calibration across morning-model versions."
+    ],
+    "context_experiment": "market_and_volume",
+    "evaluation_status": "Retrospective reused evaluation; not fresh confirmation"
+  },
+  "validation": {
+    "brier": 0.25716458952138743,
+    "log_loss": 0.7076130642862167,
+    "rows": 874,
+    "sessions": 63,
+    "stock_days": 109,
+    "positive_rows": 379,
+    "loss_2pct_rows": 180,
+    "observed_profit_rate": 0.4621325690770135,
+    "baseline_brier": 0.24885563056647755,
+    "baseline_log_loss": 0.6908831116624979,
+    "logistic_brier": 0.26282334028188636,
+    "logistic_log_loss": 0.7203846092545406,
+    "return_mae": 0.026658074691792304,
+    "return_rmse": 0.04068553415793921,
+    "baseline_return_mae": 0.024110522753695036,
+    "downside_brier": 0.1584917451436541,
+    "reliability": [
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 82,
+        "sessions": 14,
+        "predicted": 0.4611780671396389,
+        "observed": 0.53779963122311
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6000000000000001,
+        "count": 757,
+        "sessions": 59,
+        "predicted": 0.5515931514436728,
+        "observed": 0.4620541037784061
+      },
+      {
+        "lower": 0.6000000000000001,
+        "upper": 0.7000000000000001,
+        "count": 35,
+        "sessions": 10,
+        "predicted": 0.6086354702506235,
+        "observed": 0.2897526501766785
+      }
+    ],
+    "rank1": {
+      "brier": 0.25607688347673874,
+      "log_loss": 0.7053763129462207,
+      "rows": 446,
+      "sessions": 55,
+      "stock_days": 55,
+      "positive_rows": 188,
+      "loss_2pct_rows": 87,
+      "observed_profit_rate": 0.4527777777777777,
+      "baseline_brier": 0.24583811596789146,
+      "baseline_log_loss": 0.6847979680670618,
+      "logistic_brier": 0.2624321255738895,
+      "logistic_log_loss": 0.7198522420657167,
+      "return_mae": 0.025979977152227704,
+      "return_rmse": 0.04205124357118763,
+      "baseline_return_mae": 0.024470499873599633,
+      "downside_brier": 0.14225246410451164,
+      "reliability": [
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 28,
+          "sessions": 7,
+          "predicted": 0.47174470090860265,
+          "observed": 0.4513888888888889
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6000000000000001,
+          "count": 397,
+          "sessions": 53,
+          "predicted": 0.5527701404857823,
+          "observed": 0.44951707097933524
+        },
+        {
+          "lower": 0.6000000000000001,
+          "upper": 0.7000000000000001,
+          "count": 21,
+          "sessions": 6,
+          "predicted": 0.6110497614749452,
+          "observed": 0.5238095238095238
+        }
+      ]
+    },
+    "lower_ranks": {
+      "brier": 0.26296734553315276,
+      "log_loss": 0.7193626505730268,
+      "rows": 428,
+      "sessions": 43,
+      "stock_days": 54,
+      "positive_rows": 191,
+      "loss_2pct_rows": 93,
+      "observed_profit_rate": 0.4451335055986218,
+      "baseline_brier": 0.24993840273344317,
+      "baseline_log_loss": 0.6930604676737984,
+      "logistic_brier": 0.2566783865598084,
+      "logistic_log_loss": 0.707078829139034,
+      "return_mae": 0.025032957594944085,
+      "return_rmse": 0.03656934449293377,
+      "baseline_return_mae": 0.02249414748623641,
+      "downside_brier": 0.16905528008694548,
+      "reliability": [
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 54,
+          "sessions": 9,
+          "predicted": 0.4633444802831022,
+          "observed": 0.5789473684210529
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6000000000000001,
+          "count": 360,
+          "sessions": 40,
+          "predicted": 0.5508567383243701,
+          "observed": 0.4475012879958784
+        },
+        {
+          "lower": 0.6000000000000001,
+          "upper": 0.7000000000000001,
+          "count": 14,
+          "sessions": 5,
+          "predicted": 0.6067034876250471,
+          "observed": 0.0
+        }
+      ]
+    },
+    "train_start": "2025-07-01",
+    "train_end": "2026-04-27",
+    "calibration_start": "2026-04-28",
+    "calibration_end": "2026-08-05",
+    "test_start": "2026-08-06",
+    "test_end": "2026-11-06",
+    "train_rows": 2060,
+    "calibration_rows": 745,
+    "test_rows": 874,
+    "test_sessions": 63,
+    "train_sessions": 187,
+    "calibration_sessions": 63,
+    "probability_head": {
+      "fit_rows": 2060,
+      "fit_positives": 972,
+      "calibration_rows": 745,
+      "calibration_positives": 391,
+      "fallback": null,
+      "calibration": "sigmoid"
+    },
+    "conditional_loss_head": {
+      "fit_rows": 1088,
+      "fit_positives": 564,
+      "calibration_rows": 354,
+      "calibration_positives": 161,
+      "fallback": null,
+      "calibration": "sigmoid"
+    },
+    "training_profit_rate_by_clock": {
+      "09:35": 0.5266890313813749,
+      "10:00": 0.4842658569974375,
+      "10:30": 0.4495785258461482,
+      "11:00": 0.3999908256880733,
+      "11:30": 0.45246040041810714,
+      "12:00": 0.4493125517957525,
+      "13:00": 0.44313342248739834,
+      "14:00": 0.521202124235597,
+      "15:00": 0.5004161551426373
+    },
+    "training_return_by_clock": {
+      "09:35": 0.0035708334939212245,
+      "10:00": -1.82764834390871e-05,
+      "10:30": -0.006741967123392685,
+      "11:00": -0.00984669641899126,
+      "11:30": -0.005483473826313966,
+      "12:00": -0.008943108115828916,
+      "13:00": -0.001910830193187258,
+      "14:00": 0.0020715728066809653,
+      "15:00": -0.0017295288581917262
+    }
+  },
+  "notes": [
+    "Experimental: predicts price change from the observed entry to today's cash close, with zero assumed expenses.",
+    "Profit means a close above entry. Close loss >2% means a terminal loss, not touching a price during the day.",
+    "Chronological 60% fit / 20% sigmoid calibration / 20% evaluation already inspected in earlier research. The evaluated artifact is saved without refitting.",
+    "Rank 1 is the primary evaluation. Other ranks have sparse, cache-selected historical coverage.",
+    "Historical morning ranks came from a frozen research model. Current production rank/score context may differ; normalized scores do not eliminate this shift.",
+    "The clock baseline and logistic benchmark use fitting sessions only. Repeated checkpoints are weighted within stock-day and date.",
+    "Rank 1 probability error did not beat both simple baselines. Treat these odds as experimental, not an established improvement."
+  ]
+}
