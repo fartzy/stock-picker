@@ -763,6 +763,91 @@
           "broker_net_amount": 170.25
         }
       ]
+    },
+    {
+      "order_number": "2FF20DDB",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 16.965,
+      "executed_at": "2026-11-11T15:50:57-05:00",
+      "order_date": "2026-11-11T15:50:57-05:00",
+      "broker_net_amount": 169.65,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T15:50:57-05:00",
+          "shares": 10.0,
+          "price": 16.965,
+          "broker_net_amount": 169.65
+        }
+      ],
+      "total_price_improvement": 0.05,
+      "price_improvement_note": "Informational broker price improvement is already reflected in the fill price."
+    },
+    {
+      "order_number": "2FF20DYN",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 16.95,
+      "executed_at": "2026-11-11T15:52:50-05:00",
+      "order_date": "2026-11-11T15:52:50-05:00",
+      "broker_net_amount": 84.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T15:52:50-05:00",
+          "shares": 5.0,
+          "price": 16.95,
+          "broker_net_amount": 84.75
+        }
+      ]
+    },
+    {
+      "order_number": "2FF1ZR82",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 16.89,
+      "executed_at": "2026-11-11T15:53:28-05:00",
+      "order_date": "2026-11-11T15:53:27-05:00",
+      "broker_net_amount": 84.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T15:53:28-05:00",
+          "shares": 5.0,
+          "price": 16.89,
+          "broker_net_amount": 84.45
+        }
+      ],
+      "total_price_improvement": 0.2,
+      "price_improvement_note": "Informational broker price improvement is already reflected in the fill price."
     }
   ],
   "non_executed_orders": [
