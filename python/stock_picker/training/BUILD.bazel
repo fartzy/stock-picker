@@ -18,6 +18,7 @@ py_library(
         "freshness.py",
         "feature_challenger.py",
         "feature_family_search.py",
+        "feature_revisit.py",
         "grid_search.py",
         "headline_sentiment.py",
         "jev_shadow.py",
@@ -150,6 +151,13 @@ py_binary(
         "//python/stock_picker/features",
         "//python/stock_picker/storage",
     ],
+)
+
+py_binary(
+    name = "feature_revisit",
+    srcs = ["feature_revisit.py"],
+    imports = ["../.."],
+    deps = [":training", "//python/stock_picker/features", "//python/stock_picker/storage", "@pypi//pyarrow"],
 )
 
 py_binary(
