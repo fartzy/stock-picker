@@ -680,6 +680,35 @@
           "broker_net_amount": 390.12
         }
       ]
+    },
+    {
+      "order_number": "2FF1JRNG",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 17.15,
+      "executed_at": "2026-11-11T14:23:14-05:00",
+      "order_date": "2026-11-11T14:23:07-05:00",
+      "broker_net_amount": 1715.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Limit",
+      "limit_price": 17.15,
+      "time_in_force": "Day",
+      "order_expiration": "Nov-11-2026 04:00 PM ET",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T14:23:14-05:00",
+          "shares": 100.0,
+          "price": 17.15,
+          "broker_net_amount": 1715.0
+        }
+      ]
     }
   ],
   "non_executed_orders": [
