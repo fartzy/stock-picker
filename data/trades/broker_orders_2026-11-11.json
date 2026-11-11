@@ -709,6 +709,60 @@
           "broker_net_amount": 1715.0
         }
       ]
+    },
+    {
+      "order_number": "2FF20ZYR",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 17.015,
+      "executed_at": "2026-11-11T15:42:35-05:00",
+      "order_date": "2026-11-11T15:42:35-05:00",
+      "broker_net_amount": 170.15,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T15:42:35-05:00",
+          "shares": 10.0,
+          "price": 17.015,
+          "broker_net_amount": 170.15
+        }
+      ]
+    },
+    {
+      "order_number": "2FF231Z3",
+      "ticker": "CSQR",
+      "symbol_description": "CSQUARE INC COMMON STOCK",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 17.025,
+      "executed_at": "2026-11-11T15:49:27-05:00",
+      "order_date": "2026-11-11T15:49:26-05:00",
+      "broker_net_amount": 170.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-11T15:49:27-05:00",
+          "shares": 10.0,
+          "price": 17.025,
+          "broker_net_amount": 170.25
+        }
+      ]
     }
   ],
   "non_executed_orders": [
