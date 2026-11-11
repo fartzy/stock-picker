@@ -20,7 +20,7 @@ interface UseFetchDataOptions {
   trackLoading?: boolean;
 }
 
-export function useFetchData<T>(fetcher: () => Promise<T>, options?: UseFetchDataOptions): FetchState<T> {
+export function useFetchData<T>(fetcher: (signal: AbortSignal) => Promise<T>, options?: UseFetchDataOptions): FetchState<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
   const trackLoading = options?.trackLoading ?? false;
@@ -30,23 +30,22 @@ export function useFetchData<T>(fetcher: () => Promise<T>, options?: UseFetchDat
 
   useEffect(() => {
     let cancelled = false;
+    let inFlight = false;
+    const controller = new AbortController();
 
-    function run() {
+    async function run() {
+      if (inFlight) return;
+      inFlight = true;
       if (trackLoading) setLoading(true);
-      fetcher()
-        .then((result) => {
-          if (!cancelled) {
-            setData(result);
-            setError(null);
-            if (trackLoading) setLoading(false);
-          }
-        })
-        .catch((err) => {
-          if (!cancelled) {
-            setError(String(err));
-            if (trackLoading) setLoading(false);
-          }
-        });
+      try {
+        const result = await fetcher(controller.signal);
+        if (!cancelled) { setData(result); setError(null); }
+      } catch (err) {
+        if (!cancelled) setError(String(err));
+      } finally {
+        inFlight = false;
+        if (!cancelled && trackLoading) setLoading(false);
+      }
     }
 
     run();
@@ -54,6 +53,7 @@ export function useFetchData<T>(fetcher: () => Promise<T>, options?: UseFetchDat
 
     return () => {
       cancelled = true;
+      controller.abort();
       if (intervalId) clearInterval(intervalId);
     };
     // `deps` is caller-supplied by design -- see UseFetchDataOptions above.

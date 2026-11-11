@@ -2478,6 +2478,8 @@ details.view-card[open] > summary::before {
 .jev-probability strong { color: var(--accent, #a29bfe); font-size: 1.8rem; }
 .jev-coverage { border-left: 3px solid #cfa866; padding-left: 12px; font-size: 0.85rem; }
 .jev-evaluation { margin-top: 24px; border-top: 1px solid var(--border, #343957); padding-top: 20px; }
+.jev-evaluation > summary { cursor: pointer; color: var(--muted, #a2a8cc); font-size: 0.85rem; font-weight: 600; }
+.jev-evaluation[open] > summary { margin-bottom: 12px; }
 .jev-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .jev-empty { border: 1px solid var(--border, #343957); padding: 12px; border-radius: 10px; background: #9290ff0a; }
 .jev-empty p { margin-bottom: 0; }

@@ -1,3 +1,5 @@
+import { requestJson } from "./requests.js";
+
 export interface JevForecast {
   id: string;
   question_set_version: "morning_v1" | "entry_v1" | "overnight_v1";
@@ -130,5 +132,5 @@ async function jevRequest<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export const assessJev = (request: JevAssessmentRequest) => jevRequest<JevForecast>("assess", request);
-export const fetchJevEvaluation = () => jevRequest<JevEvaluation>("evaluation");
+export const fetchJevEvaluation = (signal?: AbortSignal) => requestJson<JevEvaluation>("/api/jev/evaluation", { signal });
 export const refreshJevEvaluation = () => jevRequest<JevEvaluation>("evaluation/refresh", {});

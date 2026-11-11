@@ -1,3 +1,5 @@
+import { requestJson } from "./requests.js";
+
 // The app's operational confidence threshold -- matches buy_signal.py's own
 // DEFAULT_THRESHOLD. Shared here so BuySignal's input default and
 // RunHistory's "this is the threshold we actually bet on" row highlight
@@ -330,12 +332,14 @@ export interface FirstTouchCase {
   stop: number;
 }
 
-export const fetchFirstTouch = (cases: FirstTouchCase[]) =>
-  mutate<{ results: Array<FirstTouchCase & { first: FirstTouch }> }>("POST", "/api/paper-book/first-touch", { cases });
+export const fetchFirstTouch = (cases: FirstTouchCase[], signal?: AbortSignal) =>
+  requestJson<{ results: Array<FirstTouchCase & { first: FirstTouch }> }>("/api/paper-book/first-touch", {
+    body: { cases }, signal, timeoutMs: 60_000,
+  });
 
-export const fetchHoldPath = (asOf: string, tickers: string[], days: number) => {
+export const fetchHoldPath = (asOf: string, tickers: string[], days: number, signal?: AbortSignal) => {
   const params = new URLSearchParams({ as_of: asOf, tickers: tickers.join(","), days: String(days) });
-  return getJson<HoldPathResponse>(`/api/paper-book/hold-path?${params.toString()}`);
+  return requestJson<HoldPathResponse>(`/api/paper-book/hold-path?${params.toString()}`, { signal, timeoutMs: 60_000 });
 };
 
 export interface PaperBookResponse {
@@ -829,16 +833,19 @@ export const fetchPaperBook = (
   topK?: number,
   fitTopK?: number,
   rankTopK?: number,
+  signal?: AbortSignal,
 ) => {
   const params = new URLSearchParams({ kind });
   if (topK !== undefined) params.set("top_k", String(topK));
   if (fitTopK !== undefined) params.set("fit_top_k", String(fitTopK));
   if (rankTopK !== undefined) params.set("rank_top_k", String(rankTopK));
-  return getJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`);
+  return requestJson<PaperBookResponse>(`/api/paper-book?${params.toString()}`, { signal });
 };
 export const fetchBlacklistedTickers = () => getJson<string[]>("/api/ticker-blacklist");
-export const fetchOvernightActuals = (asOf: string, tickers: string[]) =>
-  mutate<OvernightActualsResponse>("POST", "/api/what-if/overnight-actuals", { as_of: asOf, tickers });
+export const fetchOvernightActuals = (asOf: string, tickers: string[], signal?: AbortSignal) =>
+  requestJson<OvernightActualsResponse>("/api/what-if/overnight-actuals", {
+    body: { as_of: asOf, tickers }, signal, timeoutMs: 60_000,
+  });
 export const rebuildPaperBook = () => mutate<PaperBookResponse>("POST", "/api/paper-book/rebuild");
 export const replayPaperBook = (asOf: string, modelRunId?: string | null) =>
   mutate<PaperBookResponse>("POST", "/api/paper-book/replay", {

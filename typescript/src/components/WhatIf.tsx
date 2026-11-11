@@ -14,6 +14,7 @@ import {
   type TrainingRunRecord,
 } from "../api";
 import { useFetchData } from "../useFetchData";
+import { mapConcurrent } from "../requests.js";
 import { ColumnTitle, DataTable, NewsCell, ScoreCell, TickerCell, UsdCell } from "./DataTable";
 import { Diff } from "./Diff";
 import { formatUsd } from "../format";
@@ -38,7 +39,7 @@ import TogglePill from "./TogglePill";
 
 const EMPTY_OVERNIGHT_ACTUALS = new Map<string, OvernightActualRow>();
 const EMPTY_CUSTOM = new Set<string>();
-type LoadOvernightActuals = (asOf: string, tickers: string[], force?: boolean) => Promise<void>;
+type LoadOvernightActuals = (asOf: string, tickers: string[], force: boolean, signal: AbortSignal) => Promise<void>;
 
 function formatRunLabel(startedAt: string, holdoutAccuracy: number | null): string {
   const when = new Date(startedAt).toLocaleString(undefined, {
@@ -705,9 +706,17 @@ export default function WhatIf() {
   const benchmarkCache = useRef(new Map<string, Promise<BenchmarkLoad>>());
   const actualsCache = useRef(new Map<string, Map<string, OvernightActualRow>>());
   const [, setActualsRevision] = useState(0);
-  const { data: raw, error } = useFetchData(() => fetchPaperBook("both"), {
-    deps: [refresh], intervalMs: 60_000,
+  // Selection uses original ranks before exclusions, so the API can apply the
+  // same caps without downloading every historical Fit candidate.
+  const fitCap = parseTop(fitText);
+  const rankCap = parseTop(rankText);
+  const { data: loaded, error } = useFetchData(async (signal) => ({
+    book: await fetchPaperBook("both", undefined, fitCap, rankCap, signal), fitCap, rankCap,
+  }), {
+    deps: [refresh, fitCap, rankCap], intervalMs: 60_000,
   });
+  // Do not show a previously smaller slice as the result of a larger selection.
+  const raw = loaded?.fitCap === fitCap && loaded?.rankCap === rankCap ? loaded?.book ?? null : null;
   const selectedReplayDay = replayDay ?? raw?.days[0]?.as_of ?? "";
   const { data: blacklistedTickers, error: blacklistError } = useFetchData(fetchBlacklistedTickers, {
     deps: [refresh], intervalMs: 60_000,
@@ -741,7 +750,7 @@ export default function WhatIf() {
     { deps: [rankKey, fitKey, refresh] },
   );
 
-  const loadActuals: LoadOvernightActuals = useCallback(async (asOf, tickers, force = false) => {
+  const loadActuals: LoadOvernightActuals = useCallback(async (asOf, tickers, force, signal) => {
     const requested = [...new Set(tickers.map((ticker) => ticker.toUpperCase()))];
     const cached = actualsCache.current.get(asOf);
     const needed = force ? requested : requested.filter((ticker) => !cached?.has(ticker)
@@ -749,7 +758,9 @@ export default function WhatIf() {
     if (!needed.length) return;
     const batches: string[][] = [];
     for (let index = 0; index < needed.length; index += 30) batches.push(needed.slice(index, index + 30));
-    const responses = await Promise.all(batches.map((batch) => fetchOvernightActuals(asOf, batch)));
+    // Days run with two workers; serial batches keep the total at two requests.
+    const responses = await mapConcurrent(batches, 1, (batch) => fetchOvernightActuals(asOf, batch, signal), signal);
+    signal.throwIfAborted();
     const merged = new Map(actualsCache.current.get(asOf));
     responses.forEach((response) => response.rows.forEach((row) => merged.set(row.ticker, row)));
     actualsCache.current.set(asOf, merged);
@@ -777,23 +788,22 @@ export default function WhatIf() {
       return;
     }
     let active = true;
-    let cursor = 0;
+    const controller = new AbortController();
     let failures = 0;
     setHistoryBusy(true);
     setHistoryError(null);
-    async function worker() {
-      while (cursor < jobs.length) {
-        const job = jobs[cursor++];
-        try { await loadActuals(job.asOf, job.tickers, openRefresh > 0); }
-        catch { failures += 1; }
+    void mapConcurrent(jobs, 2, async (job) => {
+      try { await loadActuals(job.asOf, job.tickers, openRefresh > 0, controller.signal); }
+      catch (error) {
+        if (controller.signal.aborted) throw error;
+        failures += 1;
       }
-    }
-    void Promise.all(Array.from({ length: Math.min(4, jobs.length) }, worker)).then(() => {
+    }, controller.signal).then(() => {
       if (!active) return;
       setHistoryBusy(false);
       if (failures) setHistoryError(`${failures} ${failures === 1 ? "day" : "days"} could not be checked`);
-    });
-    return () => { active = false; };
+    }).catch(() => undefined); // Cleanup cancels queued and in-flight work.
+    return () => { active = false; controller.abort(); };
   }, [holdNextOpen, historyJobsKey, loadActuals, openRefresh]);
 
   const holdJobs = new Map<string, string[]>();
@@ -809,7 +819,8 @@ export default function WhatIf() {
     const jobs = JSON.parse(holdJobsKey) as Array<[string, string[]]>;
     if (jobs.length === 0) return;
     let active = true;
-    void Promise.all(jobs.map(([asOf, tickers]) => fetchHoldPath(asOf, tickers, 5))).then((responses) => {
+    const controller = new AbortController();
+    void mapConcurrent(jobs, 2, ([asOf, tickers]) => fetchHoldPath(asOf, tickers, 5, controller.signal), controller.signal).then((responses) => {
       if (!active) return;
       const merged = new Map<string, readonly HoldBar[]>();
       responses.forEach((response) => response.rows.forEach((row) => {
@@ -819,7 +830,7 @@ export default function WhatIf() {
     }).catch(() => {
       if (active) setHoldPaths(new Map());
     });
-    return () => { active = false; };
+    return () => { active = false; controller.abort(); };
   }, [holdJobsKey]);
 
   function holdPathsFor(asOf: string): ReadonlyMap<string, readonly HoldBar[]> {
@@ -839,8 +850,9 @@ export default function WhatIf() {
   useEffect(() => {
     if (tieJobs.length === 0) return;
     let active = true;
+    const controller = new AbortController();
     const cases = [...new Map(tieJobs.map((c) => [tieKey(c.ticker, c.session, c.target, c.stop), c])).values()];
-    void fetchFirstTouch(cases).then(({ results }) => {
+    void fetchFirstTouch(cases, controller.signal).then(({ results }) => {
       if (!active) return;
       setTieAnswers((current) => {
         const next = new Map(current);
@@ -850,7 +862,7 @@ export default function WhatIf() {
     }).catch(() => {
       // Unresolved ties keep the stop-first fallback.
     });
-    return () => { active = false; };
+    return () => { active = false; controller.abort(); };
     // tieJobsKey captures the case list; tieJobs itself is rebuilt every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tieJobsKey]);
@@ -892,7 +904,7 @@ export default function WhatIf() {
     });
   }
 
-  if (error) return <p className="error">{error}</p>;
+  if (error) return <div role="alert"><p className="error">{error}</p><button type="button" onClick={() => setRefresh((value) => value + 1)}>Retry</button></div>;
   if (!raw || !data) return <p className="muted">Loading…</p>;
   const currentBenchmarks = benchmarkData?.revision === refresh && benchmarkData.rankKey === rankKey
     && benchmarkData.fitKey === fitKey ? benchmarkData : null;
