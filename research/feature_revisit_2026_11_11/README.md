@@ -1,12 +1,30 @@
 # Morning feature review — November 11, 2026
 
-Status: comparison running. No production model, pruning setting or UI changed.
+Status: complete. No production model, pruning setting or UI changed.
 
 - 443,609 stock-days, 1,799 stocks, 250 sessions. MRCY contributes all 250 sessions.
 - Baseline: 151 raw inputs. Reconsider 93 exclusions; the two known bad dip ratios stay excluded.
 - New candidates: count, standard deviation, age, shrunk mean and recent mean for each two/three/four-day U/D sequence plus opening-gap bucket: 15 inputs.
 - Evaluate Rank and raw LightGBM return regression separately. The latter is **not** production Fit with its seven SVM outputs.
 - Same-day open-to-close target; zero assumed expenses. Rank #1, top five and top 20 reported separately.
+
+## Results
+
+The selected Rank candidate adds three **pattern-age** inputs: sessions since the last observed matching two/three/four-day sequence and opening-gap bucket.
+
+| Reserved 21 sessions | Baseline | Candidate | Difference |
+| --- | ---: | ---: | ---: |
+| Rank #1 mean daily return | +2.144% | +2.597% | +0.452 percentage points |
+| Rank top-five mean daily return | +0.623% | +0.918% | +0.296 percentage points |
+| Rank top-20 mean daily return | +0.220% | +0.174% | −0.046 percentage points |
+
+The paired Rank #1 95% interval is −0.292 to +1.077 percentage points; top-five is −0.085 to +0.767. Both include no improvement. These are exploratory price returns across 21 dates, not a demonstrated live upgrade. The current model remains active.
+
+Raw Fit selected a training-gain-based restoration policy, which restored `spy_overnight_gap` for the reserved-period fit. Its top-one return improved, but top-five fell from +0.839% to +0.437%. This does not justify changing the deployed Fit stack.
+
+All 190 saved prediction files (7,160,584 predictions across variants, **not independent samples**) passed a separate audit: labels equal the frozen panel, every variant covers the same dates/stocks, all fits precede their tests, and daily top-K returns recompute exactly. See [summary.json](summary.json), [per-feature review](prune_review.json), and [audit script](summarize.py).
+
+Next: forward-check the three age inputs; retest eligible exclusions after 21 new completed sessions or a source/model change. The review is repeatable but **not automatically scheduled**. Known bad ratios require repair before restoration. The other pattern inputs remain individually available for later experiments.
 
 ## Rules fixed before results
 

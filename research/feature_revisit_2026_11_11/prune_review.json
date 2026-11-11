@@ -1,0 +1,1712 @@
+[
+  {
+    "model": "rank",
+    "feature": "dip_volume_change_1d",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+    "reviewed_through": "2026-10-12",
+    "status": "quality_blocked",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "dip_recovery_fraction",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population (443,570 rows): the recovery fraction divides by a prior closing loss that can approach zero. Median-imputed standardized magnitude reaches 404.01; one row contributes 36.80% and the top10 contribute 66.27% of centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json.",
+    "reviewed_through": "2026-10-12",
+    "status": "quality_blocked",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_failed_bounce_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_inside_day_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_flips3_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_yday_swing_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_continuation_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_dump_quiet_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_chase_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_month_crash_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "month_crash_yday_up_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_continuation_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_two_big_fade_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "two_big_then_fade_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_down_run_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_chase_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_seq4_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_seq2_week_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_down_run_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_two_big_fade_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "story_open_vs_5d_low_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "spy_overnight_gap",
+    "reason": "manually pruned from Registry",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "month",
+    "reason": "identical on every ticker this morning -- same as day_of_month",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "day_of_week",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "day_of_month",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "vix_close",
+    "reason": "market-wide (identical on every ticker) -- collapsed 0.5% gate onto same cheap high-vol names (TDTH/XNDU)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "volatility_60d",
+    "reason": "negligible importance (0.50%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "weekday_lag_return",
+    "reason": "negligible importance (0.48%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_ema_26d",
+    "reason": "negligible importance (0.46%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "momentum_spread_1_3d",
+    "reason": "negligible importance (0.43%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 1,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_sma_5d",
+    "reason": "negligible importance (0.38%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "day_of_week_seasonality",
+    "reason": "negligible importance (0.31%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "volatility_5d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "setup_seasonality",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "gap_volume_interaction",
+    "reason": "negligible importance (0.16%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "gap_streak",
+    "reason": "negligible importance (0.48%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "weekday_lag_seasonality",
+    "reason": "negligible importance (0.27%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "day_session_streak",
+    "reason": "negligible importance (0.13%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "day_session_streak_seasonality",
+    "reason": "high correlation to pattern_sequence_seasonality_3d (r=0.980)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_ema_50d",
+    "reason": "negligible importance (0.49%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_ema_12d",
+    "reason": "negligible importance (0.44%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "parkinson_vol_10d",
+    "reason": "negligible importance (0.40%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "volatility_10d",
+    "reason": "negligible importance (0.37%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "momentum_spread_2_4d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 1,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_sma_20d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "rsi_2",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_120d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_5d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "volatility_20d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "macd_signal",
+    "reason": "negligible importance (0.27%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "stochastic_k_5d",
+    "reason": "negligible importance (0.24%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "stochastic_d_5d",
+    "reason": "negligible importance (0.23%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_4d",
+    "reason": "negligible importance (0.23%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_10d",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_20d",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_autocorr_60d",
+    "reason": "negligible importance (0.18%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_autocorr_20d",
+    "reason": "negligible importance (0.18%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_3d",
+    "reason": "negligible importance (0.17%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "skew_60d",
+    "reason": "negligible importance (0.17%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "bollinger_bandwidth",
+    "reason": "negligible importance (0.16%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_rank_20d",
+    "reason": "negligible importance (0.15%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "sharpe_60d",
+    "reason": "negligible importance (0.13%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "atr_14",
+    "reason": "negligible importance (0.12%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_120d",
+    "reason": "negligible importance (0.12%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "macd_hist",
+    "reason": "negligible importance (0.11%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "skew_20d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_60d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "rsi_14",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "correlation_60d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 1,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "kurtosis_20d",
+    "reason": "negligible importance (0.08%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "max_drawdown_20d",
+    "reason": "negligible importance (0.08%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_rank_5d",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "stochastic_d_14d",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "williams_r",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "cci",
+    "reason": "negligible importance (0.04%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "max_drawdown_60d",
+    "reason": "negligible importance (0.03%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "kurtosis_60d",
+    "reason": "negligible importance (0.02%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "sharpe_20d",
+    "reason": "negligible importance (0.00%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "consecutive_day_streak",
+    "reason": "negligible importance (0.00%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_sma_10d",
+    "reason": "high correlation to price_vs_ema_12d (r=0.970)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "return_60d",
+    "reason": "high correlation to log_return_60d (r=0.974)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "bollinger_pct_b",
+    "reason": "high correlation to cci (r=0.982)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_sma_50d",
+    "reason": "high correlation to price_vs_ema_50d (r=0.985)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "garman_klass_vol_10d",
+    "reason": "high correlation to parkinson_vol_10d (r=0.987)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "price_vs_ema_100d",
+    "reason": "high correlation to price_vs_sma_100d (r=0.987)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_20d",
+    "reason": "high correlation to return_20d (r=0.990)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "garman_klass_vol_20d",
+    "reason": "high correlation to parkinson_vol_20d (r=0.992)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_10d",
+    "reason": "high correlation to return_10d (r=0.994)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_1d",
+    "reason": "high correlation to return_1d (r=0.995)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_5d",
+    "reason": "high correlation to return_5d (r=0.995)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_4d",
+    "reason": "high correlation to return_4d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_3d",
+    "reason": "high correlation to return_3d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "log_return_2d",
+    "reason": "high correlation to return_2d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "garman_klass_vol_60d",
+    "reason": "high correlation to parkinson_vol_60d (r=0.997)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "rank",
+    "feature": "stochastic_k_14d",
+    "reason": "high correlation to williams_r (r=1.000)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "dip_volume_change_1d",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population: erroneous near-zero prior-day volumes create extreme daily-volume ratios. Independent Massive checks found Yahoo HUBB volume 30 versus 367,726 and UHAL-B volume 32 versus 330,327. The top10 rows contribute 99.79% of this feature's centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/input_anomaly_verification.json and ordinary_persisted_input_representation_review.json.",
+    "reviewed_through": "2026-10-12",
+    "status": "quality_blocked",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "dip_recovery_fraction",
+    "reason": "Input-quality prune from the 2026-11-09 ordinary Yahoo training population (443,570 rows): the recovery fraction divides by a prior closing loss that can approach zero. Median-imputed standardized magnitude reaches 404.01; one row contributes 36.80% and the top10 contribute 66.27% of centered sum squares. Ordinary reversible exclusion; the field remains computed and cataloged. This is NOT evidence of improved returns. Evidence: research/morning_dip_model_2026_11_09/ordinary_persisted_input_representation_review.json.",
+    "reviewed_through": "2026-10-12",
+    "status": "quality_blocked",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_failed_bounce_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_inside_day_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_flips3_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_yday_swing_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_continuation_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_dump_quiet_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_chase_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_month_crash_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "month_crash_yday_up_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_continuation_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_two_big_fade_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "two_big_then_fade_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_down_run_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_chase_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_seq4_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_seq2_week_open3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_down_run_open5_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_two_big_fade_loc3_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "story_open_vs_5d_low_seasonality",
+    "reason": "story prune: below-median RF and Ridge (or Lasso zero)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "spy_overnight_gap",
+    "reason": "manually pruned from Registry",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": true
+  },
+  {
+    "model": "fit_raw",
+    "feature": "month",
+    "reason": "identical on every ticker this morning -- same as day_of_month",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 1,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "day_of_week",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 2,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "day_of_month",
+    "reason": "identical on every ticker this morning -- shifts the 0.5% gate instead of ranking names",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "vix_close",
+    "reason": "market-wide (identical on every ticker) -- collapsed 0.5% gate onto same cheap high-vol names (TDTH/XNDU)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 3,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "volatility_60d",
+    "reason": "negligible importance (0.50%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "weekday_lag_return",
+    "reason": "negligible importance (0.48%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_ema_26d",
+    "reason": "negligible importance (0.46%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "momentum_spread_1_3d",
+    "reason": "negligible importance (0.43%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_sma_5d",
+    "reason": "negligible importance (0.38%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "day_of_week_seasonality",
+    "reason": "negligible importance (0.31%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "volatility_5d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "setup_seasonality",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "gap_volume_interaction",
+    "reason": "negligible importance (0.16%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "gap_streak",
+    "reason": "negligible importance (0.48%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "weekday_lag_seasonality",
+    "reason": "negligible importance (0.27%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "day_session_streak",
+    "reason": "negligible importance (0.13%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "day_session_streak_seasonality",
+    "reason": "high correlation to pattern_sequence_seasonality_3d (r=0.980)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 1,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_ema_50d",
+    "reason": "negligible importance (0.49%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_ema_12d",
+    "reason": "negligible importance (0.44%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "parkinson_vol_10d",
+    "reason": "negligible importance (0.40%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "volatility_10d",
+    "reason": "negligible importance (0.37%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "momentum_spread_2_4d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_sma_20d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "rsi_2",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_120d",
+    "reason": "negligible importance (0.32%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_5d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "volatility_20d",
+    "reason": "negligible importance (0.28%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "macd_signal",
+    "reason": "negligible importance (0.27%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "stochastic_k_5d",
+    "reason": "negligible importance (0.24%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "stochastic_d_5d",
+    "reason": "negligible importance (0.23%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_4d",
+    "reason": "negligible importance (0.23%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_10d",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_20d",
+    "reason": "negligible importance (0.21%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_autocorr_60d",
+    "reason": "negligible importance (0.18%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_autocorr_20d",
+    "reason": "negligible importance (0.18%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_3d",
+    "reason": "negligible importance (0.17%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "skew_60d",
+    "reason": "negligible importance (0.17%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "bollinger_bandwidth",
+    "reason": "negligible importance (0.16%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_rank_20d",
+    "reason": "negligible importance (0.15%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "sharpe_60d",
+    "reason": "negligible importance (0.13%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "atr_14",
+    "reason": "negligible importance (0.12%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 2,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_120d",
+    "reason": "negligible importance (0.12%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "macd_hist",
+    "reason": "negligible importance (0.11%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "skew_20d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_60d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "rsi_14",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "correlation_60d",
+    "reason": "negligible importance (0.09%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "kurtosis_20d",
+    "reason": "negligible importance (0.08%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "max_drawdown_20d",
+    "reason": "negligible importance (0.08%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_rank_5d",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "stochastic_d_14d",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "williams_r",
+    "reason": "negligible importance (0.06%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "cci",
+    "reason": "negligible importance (0.04%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "max_drawdown_60d",
+    "reason": "negligible importance (0.03%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "kurtosis_60d",
+    "reason": "negligible importance (0.02%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "sharpe_20d",
+    "reason": "negligible importance (0.00%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "consecutive_day_streak",
+    "reason": "negligible importance (0.00%)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_sma_10d",
+    "reason": "high correlation to price_vs_ema_12d (r=0.970)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "return_60d",
+    "reason": "high correlation to log_return_60d (r=0.974)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "bollinger_pct_b",
+    "reason": "high correlation to cci (r=0.982)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_sma_50d",
+    "reason": "high correlation to price_vs_ema_50d (r=0.985)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "garman_klass_vol_10d",
+    "reason": "high correlation to parkinson_vol_10d (r=0.987)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "price_vs_ema_100d",
+    "reason": "high correlation to price_vs_sma_100d (r=0.987)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_20d",
+    "reason": "high correlation to return_20d (r=0.990)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "garman_klass_vol_20d",
+    "reason": "high correlation to parkinson_vol_20d (r=0.992)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_10d",
+    "reason": "high correlation to return_10d (r=0.994)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_1d",
+    "reason": "high correlation to return_1d (r=0.995)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_5d",
+    "reason": "high correlation to return_5d (r=0.995)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_4d",
+    "reason": "high correlation to return_4d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_3d",
+    "reason": "high correlation to return_3d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "log_return_2d",
+    "reason": "high correlation to return_2d (r=0.996)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "garman_klass_vol_60d",
+    "reason": "high correlation to parkinson_vol_60d (r=0.997)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  },
+  {
+    "model": "fit_raw",
+    "feature": "stochastic_k_14d",
+    "reason": "high correlation to williams_r (r=1.000)",
+    "reviewed_through": "2026-10-12",
+    "status": "screened",
+    "individual_fold_tests": 0,
+    "included_in_selected_confirmation": false
+  }
+]
