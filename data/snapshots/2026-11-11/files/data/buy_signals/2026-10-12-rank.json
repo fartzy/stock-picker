@@ -1,0 +1,1055 @@
+{
+  "as_of": "2026-10-12",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "FRMI",
+      "predicted_return": 0.20727264446764962,
+      "open_price": 3.39,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:18.231189+00:00",
+        "articles": []
+      },
+      "prev_close": 3.43
+    },
+    {
+      "ticker": "MMED",
+      "predicted_return": 0.18909515503297764,
+      "open_price": 18.87,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:18.231367+00:00",
+        "articles": [
+          {
+            "headline": "Jim Cramer Has Very Different Views on MiniMed (MMED) and Medtronic (MDT)",
+            "summary": "Starting the lightning round of Mad Money on October 7, a caller mentioned MiniMed Group, Inc. (NASDAQ:MMED). Jim Cramer quickly responded: Oh, Medtronic got rid of it, and I don\u2019t want anything to do with it. I do like Medtronic, but I do not like MiniMed. I didn\u2019t even like it in the old days. [\u2026]",
+            "published_at": "2026-10-11T19:53:13+00:00",
+            "url": "https://finnhub.io/api/news?id=8c21353f514b255a7e9f687d565821c80f759e05a6a2dadc21e1bb62d84b0191",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 19.71
+    },
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.1848549384805516,
+      "open_price": 11.67,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:41:04.946695+00:00",
+        "articles": []
+      },
+      "prev_close": 11.56
+    },
+    {
+      "ticker": "TNGX",
+      "predicted_return": 0.17569936800076802,
+      "open_price": 23.57,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:35.068031+00:00",
+        "articles": []
+      },
+      "prev_close": 23.81
+    },
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.16344662739278062,
+      "open_price": 7.49,
+      "snapshot_date": "2026-10-09",
+      "news_flag": "CMS downgraded ALHC California Medicare Advantage plan to 3.5 stars",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "CMS downgraded ALHC California Medicare Advantage plan to 3.5 stars",
+        "article_count": 19,
+        "reviewed_count": 19,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:18.230201+00:00",
+        "articles": [
+          {
+            "headline": "3 Cash-Heavy Stocks with Solid Fundamentals",
+            "summary": "A clean balance sheet can signal disciplined management and stability. It also means a company can expand and thrive without relying on borrowed capital.",
+            "published_at": "2026-10-12T07:19:03+00:00",
+            "url": "https://finnhub.io/api/news?id=ca0088694167dfdc649e53e51693affb6469ca900c1edf396b21b9fa79ed72c2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Alignment Healthcare (ALHC) Shares Are Trading Lower Today",
+            "summary": "Shares of health insurance company Alignment Healthcare (NASDAQ:ALHC) fell 19.2% in the pre-market session after William Blair downgraded the company to Market Perform from Outperform following a regulatory filing detailing lower quality ratings.",
+            "published_at": "2026-10-09T22:51:10+00:00",
+            "url": "https://finnhub.io/api/news?id=b21ac914688ca6bc0e64e8522de83f0393900bd23948a2ea37e71e403b728cb6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Humana Stock Surges After Key Medicare Advantage Plan Gets Higher Rating",
+            "summary": "Improving Medicare Advantage ratings isn\u2019t easy. Stars are based on 40-some criteria that encompass patient experience surveys and a range of care metrics.",
+            "published_at": "2026-10-09T21:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=91359177dfccf1e2b3bbae1bcdc4917dc32471cc46cb1ef7551d3fc1badd2671",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Healthcare (ALHC) Is Up 12.5% After Mixed California Star Rating And Network Expansion News",
+            "summary": "In early October 2026, Alignment Health Plan said it would expand into Kern, Kings and Tulare counties and add Hoag and Astrana Health to its California Medicare Advantage provider network from 2027, increasing its reach to 25 counties covering more than 6.3 million Medicare beneficiaries. At the same time, the company\u2019s largest California HMO contract was downgraded to 3.5 stars for the 2027 Medicare Star Ratings, raising questions about future quality bonus payments just as Alignment...",
+            "published_at": "2026-10-09T20:10:26+00:00",
+            "url": "https://finnhub.io/api/news?id=dc1e3c22c484918db1de5fff8c8e98da4d1630b9c3413f7bdf22e96942fe1642",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Healthcare (ALHC) Stock Looks Fairly Valued Despite Earnings Questions",
+            "summary": "Alignment Healthcare has seen its share price fall sharply over 2026, even with a recent bounce, which puts fresh focus on whether the current valuation lines up with what the business earns. With the stock reacting not only to performance but also to questions around financial reporting, the key issue for investors is how much of its earnings story is already reflected in the price. The share price is down 56.9% year to date, so any view on Alignment Healthcare now rests heavily on what...",
+            "published_at": "2026-10-09T19:14:41+00:00",
+            "url": "https://finnhub.io/api/news?id=b2242d09f94c0345dea7a5d2883e0cd0380bf382519df86b4c54588d58422cde",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "William Blair Downgrades Alignment Healthcare to Market Perform",
+            "summary": "William Blair  analyst Ryan Daniels   downgrades Alignment Healthcare (NASDAQ:ALHC) from Outperform to Market Perform.",
+            "published_at": "2026-10-09T16:38:49+00:00",
+            "url": "https://finnhub.io/api/news?id=0d9886274f0f22154b326a6c4d697e6130c0a0acc0f840e009476c5d1b40d1d4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "JP Morgan Maintains Overweight on Alignment Healthcare, Lowers Price Target to $10",
+            "summary": "JP Morgan  analyst John Stansel   maintains Alignment Healthcare (NASDAQ:ALHC) with a Overweight and lowers the price target from $22 to $10.",
+            "published_at": "2026-10-09T15:15:37+00:00",
+            "url": "https://finnhub.io/api/news?id=f81e203d5a84fa4f9bae0da02b8ec7383c9009249e4ac05a2b82302ec1030cbc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Gapping stocks in Friday's session",
+            "summary": "The session on Friday is off to an intriguing start with several stocks showing significant price gaps. Let's examine the gap up and gap down stocks in today's session.",
+            "published_at": "2026-10-09T14:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4ba6faa54aeae86cd69686eb99446787aeed25e8fac8408f5f1797664b3f643a",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Alignment Healthcare: CMS Ratings Exacerbate Its Challenges",
+            "summary": "Alignment Healthcare hit by a sub-4-star CMS rating, risking MA bonuses, enrollment, and margins amid rising costs. Click here to read this ALHC stock update.",
+            "published_at": "2026-10-09T13:28:49+00:00",
+            "url": "https://finnhub.io/api/news?id=d0c43a72b090a42fb191d84d7d108d35f25e24c0b03a235ef8c23ae2a21db3f6",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Gold Rises Over 1%; US Consumer Sentiment Falls",
+            "summary": "U.S. stocks rose Friday, led by the Dow and Nasdaq; sentiment hit a five-month low, while Veea and WF Holding surged and T-Mobile fell.",
+            "published_at": "2026-10-09T13:17:18+00:00",
+            "url": "https://finnhub.io/api/news?id=2b02ae29377f30278e4ddcc4362138d9dd5e2ab1d4086c3a52956994f67691ce",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Alignment Healthcare Sinks 20% as Medicare Plan Downgraded (Humana and Clover Soar)",
+            "summary": "Key TakeawaysAlignment Healthcare shares fell 20% after its California HMO contract, which serves about 75% of its health plan members, dropped to 3. 5 stars from 4.",
+            "published_at": "2026-10-09T13:11:47+00:00",
+            "url": "https://finnhub.io/api/news?id=5bf7ac9cea3953537b3ed21e6e9d284e970fd05a2e698dd21d66c798a89bd23a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Healthcare Stock Hit by Bearish Outlook After Costly Medicare Advantage Rating Downgrade",
+            "summary": "Alignment Healthcare Inc. (NASDAQ:ALHC) confronts potential stock pressure following the release of the Centers for Medicare & Medicaid Services\u2019 2027 Medicare Advantage Star Ratings. The company provides partners and patients with customized care and services. While the healthcare company secured high ratings across most of its portfolio, its most crucial California contract suffered a costly downgrade that could impact future bonus payments. The company announced that six of its seven eligible",
+            "published_at": "2026-10-09T12:49:10+00:00",
+            "url": "https://finnhub.io/api/news?id=45c3147ff9b0bd783ef1ab28ed130592ee8d8dbc984a9bb0596a6bb20940bd17",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These stocks are moving in today's pre-market session",
+            "summary": "The US market is yet to commence its session on Friday, but let's get a preview of the pre-market session and explore the top gainers and losers driving the early market movements.",
+            "published_at": "2026-10-09T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c970fbe5a697f3f44e82cb6e83e5c0608d464bfe6fed78f2fcb8568448e196fd",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Humana, Clover Soar On Medicare Advantage Star Rating; These Stocks Sink",
+            "summary": "Humana and Clover soared after their Medicare Advantage plans earned higher Star Ratings. CVS Health and Alignment Healthcare tanked on Friday after their plans got downgraded.",
+            "published_at": "2026-10-09T12:29:18+00:00",
+            "url": "https://finnhub.io/api/news?id=600eaec27f911dac93ca057dfe3003f119408f1ebd25c2dc470dce74cbbcf8d9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Healthcare Sees Lowered Federal Rating for California Health Plan; Shares Fall Pre-Bell",
+            "summary": "Alignment Healthcare (ALHC) said Thursday that it expects its California HMO plan, which provides he",
+            "published_at": "2026-10-09T10:46:56+00:00",
+            "url": "https://finnhub.io/api/news?id=1ad14057a9ab867f6a303acb588792b42da107958195577608aa3221912d7fd2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Keybanc Maintains Overweight on Alignment Healthcare, Lowers Price Target to $12",
+            "summary": "Keybanc  analyst Matthew Gillmor   maintains Alignment Healthcare (NASDAQ:ALHC) with a Overweight and lowers the price target from $28 to $12.",
+            "published_at": "2026-10-09T09:04:27+00:00",
+            "url": "https://finnhub.io/api/news?id=fc3bef7883ef694096f4587a9be7210e8095ddf764562ce8080115d281e34e2e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "12 Health Care Stocks Moving In Friday's Pre-Market Session",
+            "summary": "Gainers\n\nHumana (NYSE:HUM) stock moved upwards by 16.2% to $450.0 during Friday&#39;s pre-market session. The market value of their outstanding shares is at $46.4 billion. \nXORTX Therapeutics (NASDAQ:XRTX) shares",
+            "published_at": "2026-10-09T08:05:40+00:00",
+            "url": "https://finnhub.io/api/news?id=cdf863a062aea1491c801100873531d2846bb86cc5045687a32fe1a61b587f14",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Alignment Healthcare, RenX Enterprises And Other Big Stocks Moving Lower In Friday\u2019s Pre-Market Session",
+            "summary": "U.S. futures rose, but Alignment Healthcare plunged 24% after a Medicare contract downgrade; telecom and other stocks also fell premarket.",
+            "published_at": "2026-10-09T08:01:15+00:00",
+            "url": "https://finnhub.io/api/news?id=f4ce9984f500bca2fec7b0bab81048fd720efc49db5381aebbf2e86c2cf26b2b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Veea Shares Are Trading Higher By Around 34%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Veea jumps 34% after regaining Nasdaq compliance; Freight Technologies leads gainers, while Alignment Healthcare plunges 24% among premarket losers.",
+            "published_at": "2026-10-09T04:32:08+00:00",
+            "url": "https://finnhub.io/api/news?id=aba370274d7078cb51e31849577996130a06b21cb5520bf5a1c2579ad8d06a25",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 7.545
+    },
+    {
+      "ticker": "MAN",
+      "predicted_return": 0.1550982422986206,
+      "open_price": 52.4,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:35.068127+00:00",
+        "articles": []
+      },
+      "prev_close": 52.78
+    },
+    {
+      "ticker": "SKM",
+      "predicted_return": 0.15151246070668564,
+      "open_price": 33.26,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:35.068137+00:00",
+        "articles": []
+      },
+      "prev_close": 34.24
+    },
+    {
+      "ticker": "FSLY",
+      "predicted_return": 0.15003668327298808,
+      "open_price": 28.87,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 22,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-10-12T13:34:35.068241+00:00",
+        "articles": [
+          {
+            "headline": "Fastly (FSLY) Stock Fair Value Edges Higher After Investor Day And Analyst Revisions",
+            "summary": "Fastly\u2019s updated analyst work now points to a fair value move from US$27.00 to about US$28.55, giving you a fresh reference point for where models are clustering. That change lines up with recent research that mixes optimism around larger contracts and AI related traffic with caution on earnings quality, leaving many fair value estimates in the mid US$20s to mid US$30s. Read on to see what is driving this evolving Fastly narrative and how to track the next set of model updates. Stay updated...",
+            "published_at": "2026-10-10T23:12:32+00:00",
+            "url": "https://finnhub.io/api/news?id=16e942a84be8e8a334d1eb8ca8c1ee0c2d30cea8b9204fd2f73716432023602b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly (FSLY) Is Up 13.5% After Comcast Taps Its Edge Platform for Peacock Streaming Partnership \u2013 Has The Bull Case Changed?",
+            "summary": "In late September 2026, Comcast announced it was running Fastly\u2019s content and application delivery software directly on its nationwide AI-powered edge network to help NBCUniversal\u2019s Peacock stream high-demand live sports and events closer to viewers. By embedding Fastly\u2019s platform inside Comcast\u2019s more than 200 edge compute centers, the partnership highlights how closer-to-customer infrastructure could also support areas such as gaming, cybersecurity, AI inference, and enterprise cloud...",
+            "published_at": "2026-10-10T11:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=306a808b7dcf8855fe611754162c6a13164677a36d70b78b487c520732f867c0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly (FSLY) Climbed, So What Is Behind The Latest Attention?",
+            "summary": "Fastly (FSLY) drew fresh attention after Oppenheimer shifted its view on the stock, citing larger client contracts, broader adoption of new AI security products, and early contributions from gaming and agentic AI traffic. That upgrade landed on a stock that was already moving. Fastly\u2019s 1 month share price return of 29.02% and 90 day gain of 49.57% have built on a powerful year to date share price return of 187.54%. The 1 year total shareholder return of 256.01% shows momentum has been strong...",
+            "published_at": "2026-10-10T07:11:33+00:00",
+            "url": "https://finnhub.io/api/news?id=9b55379055d925dd5553308df766998fd962cf86ff084b1312bbb1899c3116f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly (FSLY) Stock May Be Above Fair Value Following Streaming Deal News",
+            "summary": "Fastly has been on a remarkable share price run, which puts fresh attention on a basic question for investors who care about valuation. With the stock moving sharply over the past year, the issue is whether today\u2019s US$29.30 price tag can be grounded in the company\u2019s sales. Fastly has delivered a 256.0% return over the past 12 months, which sharpens the question of how much revenue investors are effectively paying for today. The new content delivery model with Comcast and NBCUniversal on...",
+            "published_at": "2026-10-10T03:18:38+00:00",
+            "url": "https://finnhub.io/api/news?id=c8d3fb78adc9eae5bde21145f2595c41dc51d944accfc8cc4e1da51fe20b9052",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is Fastly (FSLY) Stock Rocketing Higher Today",
+            "summary": "Shares of edge cloud platform Fastly (NASDAQ:FSLY) jumped 6% in the pre-market session after Oppenheimer upgraded the company to Outperform with a $35 price target.",
+            "published_at": "2026-10-09T21:55:10+00:00",
+            "url": "https://finnhub.io/api/news?id=7bb27d6551a5770b5b8cb008fd661bcd9dbf5618a7d823e634901bbe8735ae4f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Oppenheimer Just Upgraded Fastly Stock. Here's Why.",
+            "summary": "Fastly stock rallies on a bullish Oppenheimer research note. Here\u2019s why analyst Param Singh turned positive on FSLY shares today.",
+            "published_at": "2026-10-09T20:24:28+00:00",
+            "url": "https://finnhub.io/api/news?id=1df8fd68f6f97207ad9bef3c94fe63cd3cc266f25befe74d957907d8b343f0df",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Fastly Stock Is Soaring Today",
+            "summary": "An analyst upgrade sent Fastly shares soaring, and the valuation case still looks solid.",
+            "published_at": "2026-10-09T20:07:02+00:00",
+            "url": "https://finnhub.io/api/news?id=4a971bfa3faef579d9a04a1111ffabbb6c885a55519889c3b053ff5c20ff83ff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How AI Agent Traffic Is Driving Fastly\u2019s Next Growth Wave",
+            "summary": "Fastly rises after Oppenheimer upgrades shares to Outperform, citing anticipated revenue boosts from AI agent traffic and Grand Theft Auto VI.",
+            "published_at": "2026-10-09T18:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d2bf43a547ab2efdb3d406b62b1bbceefcaf06f04d8a750a4ed41ec436c7d6f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly Soars 17% on Oppenheimer Upgrade Citing \u201cGrowing Contract Values\u201d and Agentic AI Opportunity",
+            "summary": "Key TakeawaysFastly shares jumped 17% today after Oppenheimer upgraded the stock to Outperform with a $35 price target. Oppenheimer expects bigger contracts and early agentic AI traffic to drive high-teens to low-20s growth for the next few years.",
+            "published_at": "2026-10-09T17:25:52+00:00",
+            "url": "https://finnhub.io/api/news?id=8662f78d6673b47e684f2be2f582ffb0e15a891802336b0840369a0559547675",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly's Growth Outlook Improves on Security, Agentic AI, Oppenheimer Says",
+            "summary": "Fastly's (FSLY) growth outlook is improving as larger contract values, increased cross-selling of ne",
+            "published_at": "2026-10-09T16:21:48+00:00",
+            "url": "https://finnhub.io/api/news?id=a89843e2786976168b4db4570cd24c49af8fef30914ebcc3ecc8d4c16edb270a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly: Riding the Agentic AI Wave",
+            "summary": "As the AI landscape transitions toward autonomous agents, Fastly is uniquely positioned to capitalize.",
+            "published_at": "2026-10-09T16:19:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9dd40f3e06f4681e5ab75ed022432d2e0065fe9798577590f0964a488ab26db3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FSLY Rockets Nearly 16%: Oppenheimer Upgrades Stock As Analyst Sees Agentic AI Driving Sustained Growth",
+            "summary": "Oppenheimer sees rising contract values and early AI traffic monetization supporting growth in the high teens to low 20s over the next few years, according to TheFly.",
+            "published_at": "2026-10-09T16:09:24+00:00",
+            "url": "https://finnhub.io/api/news?id=28a42adf77f43aa6ee4110ba0410f76d31accc1c333b54d43968f45c57cf4b29",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fastly Spikes 15% as Oppenheimer Upgrades to Outperform With $35 Target; Datadog Rises 4%, Cloudflare Gains 2%",
+            "summary": "Fastly (NYSE:FSLY) shares gained 15% to $29.04 after Oppenheimer upgraded the edge network operator to Outperform from Neutral. The call highlights how directly Fastly\u2019s traffic-metered business sits in front of fast-growing artificial intelligence (AI) workloads, a link Oppenheimer believes the market hasn\u2019t fully priced. Meanwhile, Datadog (NASDAQ:DDOG) shares are at $284.62, up 4%. Cloudflare (NYSE:NET) [\u2026]",
+            "published_at": "2026-10-09T15:51:37+00:00",
+            "url": "https://finnhub.io/api/news?id=4fb8bf5291da84d99e4e73f545e0b637cfa35a21824c8d3627da199ceefb590f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Gapping stocks in Friday's session",
+            "summary": "The session on Friday is off to an intriguing start with several stocks showing significant price gaps. Let's examine the gap up and gap down stocks in today's session.",
+            "published_at": "2026-10-09T14:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4ba6faa54aeae86cd69686eb99446787aeed25e8fac8408f5f1797664b3f643a",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "SpaceX initiated, Humana upgraded: Wall Street's top analyst calls",
+            "summary": "SpaceX initiated, Humana upgraded: Wall Street's top analyst calls",
+            "published_at": "2026-10-09T13:45:18+00:00",
+            "url": "https://finnhub.io/api/news?id=8019c880fe0c4a00f7e9abe7cfb5f19d0f21c3d8f821c1d3a92e1d163987cecd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "12 Information Technology Stocks Moving In Friday's Intraday Session",
+            "summary": "Gainers\n\nVeea (NASDAQ:VEEA) shares increased by 54.0% to $5.96 during Friday&#39;s regular session. The company&#39;s market cap stands at $12.0 million. \nFastly (NASDAQ:FSLY) stock moved upwards by 15.97% to $29.33.",
+            "published_at": "2026-10-09T13:05:50+00:00",
+            "url": "https://finnhub.io/api/news?id=d6ecdc4dde93180af57bf23b8148e55500b445261f613bcef40b5c707f8c4c08",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Is Fastly Stock Soaring Friday?",
+            "summary": "Fastly stock surged nearly 15% after Oppenheimer upgraded FSLY to Outperform with a $35 target. Discover key price drivers and outlook.",
+            "published_at": "2026-10-09T12:49:24+00:00",
+            "url": "https://finnhub.io/api/news?id=77ce5bcc3b4cd268e911be5c4b55a31fa7acf140cd95e182e9f42ba58b2cef31",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Oppenheimer upgrades Fastly to Outperform with $35 target on AI traffic",
+            "summary": "Investing.com -- Fastly (NYSE: FSLY) rose roughly 7% in pre-market trading after Oppenheimer lifted the content delivery and security platform to Outperform and set a price target of $35, citing proprietary industry checks that show accelerating contract values and early-stage monetization of agentic AI traffic.",
+            "published_at": "2026-10-09T12:17:16+00:00",
+            "url": "https://finnhub.io/api/news?id=273e8b83d9e6d2709cd43c9f638502e541810a1aa0b84fbec34c5dfe6b7173d0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Friday\u2019s Top Wall Street Analyst Research Calls: American Express, Archer Aviation, Fastly, Jack Henry & Associates, Joby Aviation, Lockheed Martin, Palantir, Rocket Lab, SpaceX and More",
+            "summary": "Pre-Market Stock Futures: Futures are trading higher this morning after another day of back-and-forth trading across Wall Street, driven by the same two elements: interest rates and energy prices. Another big fly hit the ointment on Thursday: OpenAI posted disappointing revenue figures, and technology was hit hard, especially AI stocks, which are rebounding early Friday. [\u2026]",
+            "published_at": "2026-10-09T12:01:19+00:00",
+            "url": "https://finnhub.io/api/news?id=cb23929f585bd1ede4d3857386d5f7cd7cb2cfec3aa173112e5d0c728ff46463",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Humana, Evolution Metals & Technologies, Fastly And Other Big Stocks Moving Higher On Friday",
+            "summary": "U.S. stocks rose Friday; Humana jumped 12.3% after improved 2027 Medicare Advantage ratings and reaffirmed FY26 EPS guidance.",
+            "published_at": "2026-10-09T10:51:05+00:00",
+            "url": "https://finnhub.io/api/news?id=e8a33e2e34eb5ad9a85389b5450190ce06b03de47ad677f6b29818663259167f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "This Humana Analyst Turns Bullish; Here Are Top 5 Upgrades For Friday",
+            "summary": "Analysts upgraded Humana, Cboe, Jack Henry, Fastly, raising ratings and targets, including HUM to $596 and CBOE to $358.",
+            "published_at": "2026-10-09T08:34:59+00:00",
+            "url": "https://finnhub.io/api/news?id=5c05dce0932f537f7771ef0add981c7ff467d92ba9a49900a69ffbd05859376a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Oppenheimer Upgrades Fastly to Outperform, Announces $35 Price Target",
+            "summary": "Oppenheimer  analyst Param Singh   upgrades Fastly (NASDAQ:FSLY) from Perform to Outperform and announces $35 price target.",
+            "published_at": "2026-10-09T08:18:02+00:00",
+            "url": "https://finnhub.io/api/news?id=2b96ab945cc44d0ef5fdff9830ca78e58d7a9e2e82a702c61c81079c09716772",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 29.3
+    },
+    {
+      "ticker": "FND",
+      "predicted_return": 0.14996618642647078,
+      "open_price": 44.9,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:35.068785+00:00",
+        "articles": [
+          {
+            "headline": "Home Depot: A Sleeping Giant Waiting On Mortgage Rates",
+            "summary": "Buy Home Depot (HD) on the dip: strong fundamentals, steady sales, reaffirmed guidance and robust free cash flow as housing bottoms.",
+            "published_at": "2026-10-09T05:10:04+00:00",
+            "url": "https://finnhub.io/api/news?id=194652d4c1ad402a4e01836f7ef6e4a57e3a6849e8970f2e26502a97440d7630",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 45.5
+    },
+    {
+      "ticker": "DRI",
+      "predicted_return": 0.14447575815293498,
+      "open_price": 196.56,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:35.068865+00:00",
+        "articles": [
+          {
+            "headline": "Darden Restaurants (DRI) Could Be 14% Undervalued On Its Dividend Update",
+            "summary": "Darden Restaurants (DRI) has put fresh income on the table by declaring a cash dividend of $1.62 per share, with an ex dividend date of 9 October 2026 that income focused investors will track closely. At a share price of $200.52, Darden Restaurants has seen short term share price pressure, with the 30 day share price return down 5.82%. By contrast, longer term total shareholder returns of 11.72% over 1 year and 64.47% over 3 years point to momentum that has built over time. Compare Darden...",
+            "published_at": "2026-10-09T19:15:16+00:00",
+            "url": "https://finnhub.io/api/news?id=5b3105c8b17a9b522b4ad03bf78a64716cbee85b66873e8701c19991f9bf39b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Low-Volatility Stocks with Warning Signs",
+            "summary": "Low-volatility stocks may offer stability, but that often comes at the cost of slower growth and the upside potential of more dynamic companies.",
+            "published_at": "2026-10-09T08:19:10+00:00",
+            "url": "https://finnhub.io/api/news?id=469e00f1933b64bcf81407ddff9b757b95687df604cf2a40475ff5637d6901e0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 197.66
+    },
+    {
+      "ticker": "IOVA",
+      "predicted_return": 0.1443512737778683,
+      "open_price": 14.5,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.767369+00:00",
+        "articles": [
+          {
+            "headline": "10 Health Care Stocks Whale Activity In Today\u2019s Session",
+            "summary": "This whale alert can help traders discover the next big trading opportunities.\nWhales are entities with large sums of money and we track their transactions here at Benzinga on our options activity scanner.\nTraders will",
+            "published_at": "2026-10-09T13:35:10+00:00",
+            "url": "https://finnhub.io/api/news?id=8515c8cafa622c1ba55b6a4727cf33da0134590c035e2163865fea16ff57ffd7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "How to Boost Your Portfolio with Top Medical Stocks Set to Beat Earnings",
+            "summary": "The article explains the Zacks Earnings ESP (Expected Surprise Prediction) tool, which identifies stocks likely to beat earnings estimates by comparing the most accurate analyst estimates to consensus estimates. When combined with a Zacks Rank #3 or better, this approach has historically resulted in positive surprises 70% of the time with ~28% average annual returns. Two medical stocks highlighted as examples are Iovance Biotherapeutics (IOVA) with a +22.22% ESP and Gilead Sciences (GILD) with a +2.18% ESP, both positioned to potentially beat their upcoming earnings reports.",
+            "published_at": "2026-10-09T11:55:03+00:00",
+            "url": "https://www.zacks.com/stock/news/3003517/how-to-boost-your-portfolio-with-top-medical-stocks-set-to-beat-earnings?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_earnings_esp-3003517",
+            "source": "Zacks Investment Research"
+          }
+        ]
+      },
+      "prev_close": 14.62
+    },
+    {
+      "ticker": "BCC",
+      "predicted_return": 0.14242039035739967,
+      "open_price": 72.51,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.767655+00:00",
+        "articles": [
+          {
+            "headline": "Housing Stress Is Creating Openings In BlueLinx, Louisiana Pacific, And Boise Cascade",
+            "summary": "Housing affordability in the Midwest is getting squeezed as prices climb and mortgage rates sit above 7%, and that pressure is reshaping where and how Americans can afford to live. This kind of stress often creates mispriced opportunities for companies tied to residential construction as well as for those exposed to housing risk. This article walks through three U.S. homebuilder and residential construction stocks exposed to these trends and explains how the latest news may affect each...",
+            "published_at": "2026-10-11T19:10:15+00:00",
+            "url": "https://finnhub.io/api/news?id=c5bb08c4ddbcbc4fd570d21ddd283d87a5f6e4ce60b41067d242e7f473b83102",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 73.57
+    },
+    {
+      "ticker": "ALKT",
+      "predicted_return": 0.14168138124757204,
+      "open_price": 14.14,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.772679+00:00",
+        "articles": [
+          {
+            "headline": "Alkami Customers Prevent Over $263 Million in Fraud with BioCatch",
+            "summary": "Alkami Technology, Inc. (Nasdaq: ALKT) (\"Alkami\"), a digital sales and service platform provider for financial institutions in the U.S., today announced that its customers using BioCatch through the Alkami Digital Banking Platform prevented over $263M in fraud during 2025, according to data shared by BioCatch.",
+            "published_at": "2026-10-09T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e728ca0fad91d56cd85e06cbc493be7b83615b25a63364e4a95230e8c9c9c276",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.29
+    },
+    {
+      "ticker": "ACT",
+      "predicted_return": 0.14007533707219838,
+      "open_price": 45.41,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.770965+00:00",
+        "articles": [
+          {
+            "headline": "1 Safe-and-Steady Stock with Competitive Advantages and 2 We Turn Down",
+            "summary": "Low-volatility stocks may offer stability, but that often comes at the cost of slower growth and the upside potential of more dynamic companies.",
+            "published_at": "2026-10-12T09:43:03+00:00",
+            "url": "https://finnhub.io/api/news?id=8cfae8a753a19a3fb6994a2db0c654569776418ba15f8cfc230bdefb91804cb4",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 45.97
+    },
+    {
+      "ticker": "CRDO",
+      "predicted_return": 0.13557978649405114,
+      "open_price": 212.41,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 9,
+        "reviewed_count": 9,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.774730+00:00",
+        "articles": [
+          {
+            "headline": "SpaceX, Telecom Sell-Off, Micron's A Grades, Steve Cress Origin Story",
+            "summary": "SpaceX\u00e2\u0080\u0099s $8B deal sparked selloff in major telecom stocks - but is it warranted? Why Micron Technology deserves its strong buy status. Steve Cress' origin story.",
+            "published_at": "2026-10-11T17:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c9a6f34ceccc5d3a3671098211168d4c8a87b81d898473c269c65300a40fb421",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "3 Growth Stocks With Earnings Growth Over 31%",
+            "summary": "Higher borrowing costs are pressuring governments, companies, and consumers, and the UN is warning that expensive debt is already squeezing developing countries. When money is no longer cheap, businesses with healthier balance sheets and clear earnings growth prospects can look relatively better. This article breaks down three such high potential US stocks from our quality growth screener, explaining the factors that analysts currently cite when discussing their profit outlooks over the next...",
+            "published_at": "2026-10-11T17:08:19+00:00",
+            "url": "https://finnhub.io/api/news?id=e4c6c93660878a3f02f8df8dd5069df7b6850e27adc13caf5bd511f41ca2be3e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Where Will Credo Technology Be in 3 Years?",
+            "summary": "This AI networking specialist is growing like a weed, but its future rests on a handful of very big customers. Here's what the next three years could bring.",
+            "published_at": "2026-10-10T20:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c6d15ba1c270706a1ea0b7ab7d786d04590e905d6dacd7e9a434760017ecca03",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Credo: $3,000 Per GPU, And That's Not Even My Buy Thesis",
+            "summary": "Credo Technology is rated a cautious Buy with a FY2029 target of $274, implying 26% upside. Read more on CRDO stock here.",
+            "published_at": "2026-10-10T06:20:06+00:00",
+            "url": "https://finnhub.io/api/news?id=e045925d91238c9b5460260aed51c5d45a60759b3109c3a674f553e9400f800c",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Prediction: $5,000 Invested in Credo Technology Could Be Worth This Much by 2029",
+            "summary": "Credo Technology is emerging as a popular artificial intelligence (AI) infrastructure stock.",
+            "published_at": "2026-10-09T17:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2f56f577c7d7d9fd336a4cbc2a0b58b01bcca30bf705964c178adeee94348f62",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ALAB Expands PCIe Portfolio With Aries 7: Can it Beat MRVL & CRDO?",
+            "summary": "Astera Labs expands its PCIe portfolio with Aries 7, strengthening its AI connectivity push against Marvell and Credo amid surging demand and stiff competition.",
+            "published_at": "2026-10-09T13:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f2cb032d89f5cc022a406dd5f193ea30824f8d8e0f047be06435298e62e6fa4a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Credo to Showcase Broad Portfolio of Connectivity Solutions for AI Scale-Out and Scale-Up Fabrics at 2026 OCP Global Summit",
+            "summary": "SAN JOSE, Calif., October 09, 2026--Credo to showcase broad portfolio of connectivity solutions for AI scale-out and scale-up fabrics at 2026 OCP Global Summit.",
+            "published_at": "2026-10-09T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2e1768ecf09c52348948417138a3097de2bd7355a3b6f2bbfb877276683d8726",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Semiconductor Stocks to Buy and Hold Through 2032",
+            "summary": "The article recommends Sandisk and MaxLinear as top semiconductor stocks to hold through 2032. Sandisk, a NAND flash memory chipmaker, has shown exceptional growth with 372% year-over-year revenue increase and is predicted to potentially reach a $1 trillion valuation. MaxLinear, which develops microchips for optical fiber infrastructure in data centers, has grown 500% this year and shows accelerating sequential growth rates similar to other top performers.",
+            "published_at": "2026-10-09T11:03:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/09/2-semiconductor-stocks-to-buy-and-hold-through-203/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Dow Jones Futures Rise After AI Stocks Tumble On OpenAI News; SpaceX Move Slams Verizon, AT&T Late",
+            "summary": "AI stocks sold off on OpenAI but much of the market was fine. Apple flashed a buy signal. A SpaceX spectrum buy hit Verizon, AT&T and T-Mobile late.",
+            "published_at": "2026-10-09T04:52:28+00:00",
+            "url": "https://finnhub.io/api/news?id=d5030d0f7a70a6770c332c8f1d2243651649b0ae98673d8958422f073f5fd4c7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 216.55
+    },
+    {
+      "ticker": "ESNT",
+      "predicted_return": 0.1326570041237912,
+      "open_price": 61.84,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.777376+00:00",
+        "articles": [
+          {
+            "headline": "The Next Mortgage Shock Has Been Scheduled \u2014 Homeowners Could See Their Monthly Payments Jump $1,066 in 2027",
+            "summary": "Tens of thousands of homeowners who locked in pandemic-era rates are now running out of time, and the math on their exit options has turned ugly in ways most of them have not yet calculated.",
+            "published_at": "2026-10-10T14:41:19+00:00",
+            "url": "https://finnhub.io/api/news?id=02e5bc5e4fdd9fa6ddf1e1165c311ebb5ec754a881481f876a870fbfb63028cf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AM Best Affirms Credit Ratings of Operating Subsidiaries of Essent Group Ltd.",
+            "summary": "OLDWICK, N.J., October 09, 2026--AM Best has affirmed the Financial Strength Rating of A (Excellent) and the Long-Term Issuer Credit Ratings of \"a\" (Excellent) of the operating subsidiaries of Essent Group Ltd., which are Essent Guaranty, Inc. (domiciled in Radnor, PA) and Essent Reinsurance Ltd. (Hamilton, Bermuda) (collectively referred to as Essent). The outlook of these Credit Ratings (ratings) is stable.",
+            "published_at": "2026-10-09T15:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2ee73a28e9d102f22d0b95f334aa16ede8ffa386c0d304f58614d56d7211b9cd",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 62.49
+    },
+    {
+      "ticker": "AYA",
+      "predicted_return": 0.13186513007868333,
+      "open_price": 26.83,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.779507+00:00",
+        "articles": [
+          {
+            "headline": "AYA Gold & Silver (NASDAQ:AYA): Strong Growth Meets High-Quality Technical Setup",
+            "summary": "AYA Gold & Silver (AYA) pairs 492% EPS growth with a bullish technical setup, thin resistance, strong margins, and a breakout watch.",
+            "published_at": "2026-10-12T08:50:47+00:00",
+            "url": "https://finnhub.io/api/news?id=cdd5f4ecaf436807fc3f7d6c4aff0c3f058a564cdfbe2717e9b7c458ae64a8c8",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Elite Silver Stocks To Own In October 2026",
+            "summary": "The Iran war is pushing governments to speed up clean energy projects, and that creates a powerful backdrop for silver. Solar panels, electric vehicles and AI data centers all lean heavily on this metal, just as mine investment has stalled and prices have surged. That mix has investors hunting for resilient ways to play the trend. This article walks through three leading silver miners from our screener that aim to do exactly that. The three miners below are just a sample, as the full screen...",
+            "published_at": "2026-10-10T19:11:05+00:00",
+            "url": "https://finnhub.io/api/news?id=184facfd9bd108421d52ee32c0496d6de64cf10c6a14896629d9d84aba11092c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 27.42
+    },
+    {
+      "ticker": "CDP",
+      "predicted_return": 0.1317445855245403,
+      "open_price": 33.27,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.782550+00:00",
+        "articles": []
+      },
+      "prev_close": 33.48
+    },
+    {
+      "ticker": "ALK",
+      "predicted_return": 0.1316417642980016,
+      "open_price": 38.83,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:53.785565+00:00",
+        "articles": [
+          {
+            "headline": "CPI, PPI And Q3 Earnings Soon, October Could End Roughly",
+            "summary": "The S&P 500's P/E ratio has sharply contracted from 30x to 19x, reflecting rising interest rates and shifting market valuations. Read more on the market here.",
+            "published_at": "2026-10-11T22:00:45+00:00",
+            "url": "https://finnhub.io/api/news?id=750a9ed51fb72337ccfdf7227a3b76ab93be93e58cda8d867b4bb687a5f81176",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "What Should American Airlines Stock Investors Be Watching Now?",
+            "summary": "American Airlines (AAL) posted record quarterly revenue for the second quarter of fiscal 2026, growing sales 16.3% from a year earlier. Yet this top-line expansion has not translated to market success. The stock has lost 25% over the three months to October 8, 2026, while the S&P 500 gained 2.8%. A single cost at American is expanding far faster than overall sales, and executives spent much of their July 2026 earnings call addressing it. So what is that cost, and how big has it become.",
+            "published_at": "2026-10-09T20:08:11+00:00",
+            "url": "https://finnhub.io/api/news?id=94282a5f78d4e40a1fddefe3ba3ee099396e20825fadec4ee7a7f52890a6965b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Delta Air Lines (DAL) Q3 Earnings and Revenues Lag Estimates",
+            "summary": "Delta (DAL) delivered earnings and revenue surprises of -4.44% and -0.89%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-09T10:40:01+00:00",
+            "url": "https://finnhub.io/api/news?id=6d600ff9e1b5af69674f3044af0b16e936581059b4e78fb4493d6787f68b02c7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 39.36
+    },
+    {
+      "ticker": "NKTR",
+      "predicted_return": 0.1316335276321827,
+      "open_price": 40.93,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:41:05.322091+00:00",
+        "articles": [
+          {
+            "headline": "BTIG Reiterates Buy on Nektar Therapeutics, Maintains $178 Price Target",
+            "summary": "BTIG  analyst Julian Harrison   reiterates Nektar Therapeutics (NASDAQ:NKTR) with a Buy and maintains $178 price target.",
+            "published_at": "2026-10-09T13:13:43+00:00",
+            "url": "https://finnhub.io/api/news?id=02bc45539ddac166e88b9f3e9cf542d7c140686b8c6a1673d00a9e57f6c970bb",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Raymond James Initiates Coverage On Nektar Therapeutics with Market Perform Rating",
+            "summary": "Raymond James  analyst Thomas Deal   initiates coverage on Nektar Therapeutics (NASDAQ:NKTR) with a Market Perform rating.",
+            "published_at": "2026-10-09T06:59:24+00:00",
+            "url": "https://finnhub.io/api/news?id=bbd17c555f984cee04f647683a1abbfaca8e1e61e3f81bfb91e30136d15ff06a",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 41.17
+    }
+  ],
+  "scored_count": 1980,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 27.420436736697233
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.619418463179734
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 7.907240741448036
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-09",
+    "model_trained_through": "2026-10-09",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-09, model trained through 2026-10-09 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

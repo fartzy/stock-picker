@@ -1,0 +1,2390 @@
+{
+  "as_of": "2026-10-28",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "CRWV",
+      "predicted_return": 1.2294142299529962,
+      "open_price": 60.55,
+      "snapshot_date": "2026-10-27",
+      "news_flag": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+        "article_count": 51,
+        "reviewed_count": 51,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-28T13:34:58.422916+00:00",
+        "articles": [
+          {
+            "headline": "Three billionaires called the AI top. Each has a reason to.",
+            "summary": "Elon Musk, Ken Griffin and Chamath Palihapitiya all called the top of the AI trade in the same week, as CoreWeave, Nebius and IREN fell more than 30% in a month. Host Ejaaz Ahamadeen breaks down what's true, who's talking their book, and what investors should actually worry about, from idle GPUs to a closing debt window.",
+            "published_at": "2026-10-28T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fd6447ed6a1257459943764c2e605a8671da325bb043e924d219870a98ee1354",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MU, SNDK, Neocloud Stocks Extend Gains On Anthropic Boost, SK Hynix Q3 Stunner; Jim Cramer Urges Caution",
+            "summary": "Anthropic\u2019s S-1 filing offered investors fresh evidence of the scale of demand for AI computing infrastructure.",
+            "published_at": "2026-10-28T06:46:05+00:00",
+            "url": "https://finnhub.io/api/news?id=0b62bb26bc2179365661ae5aef336bf42d237b7840d0ba0e9023506065ce0aef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Meta Platforms Just Delivered Great News to AI Stock Investors",
+            "summary": "Meta successfully raised $97.5 billion through multiple stock offerings to fund AI infrastructure, with the offering oversubscribed by five times. This demonstrates strong investor confidence in AI stocks and Meta's AI ambitions, contrasting with concerns about rising interest rates and financing challenges in the AI sector.",
+            "published_at": "2026-10-28T06:45:02+00:00",
+            "url": "https://www.fool.com/investing/2026/10/28/meta-platforms-just-gave-ai-investors-great-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Better Buy: CoreWeave Stock or Nebius Stock?",
+            "summary": "An analysis comparing CoreWeave and Nebius as potential investment opportunities in the AI infrastructure space. Both stocks are presented as high-risk, high-reward options for investors seeking significant growth potential, with recent price movements showing CoreWeave up 7.94% and Nebius up 11.22%.",
+            "published_at": "2026-10-28T03:55:02+00:00",
+            "url": "https://www.fool.com/investing/2026/10/27/better-buy-coreweave-stock-or-nebius-stock/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "CoreWeave: The Warning Sign AI Investors Shouldn't Ignore",
+            "summary": "CoreWeave revenue jumped 112% and backlog hit $104B, but high bond yields and AI infrastructure costs cloud returns. Read why CRWV stock is a sell.",
+            "published_at": "2026-10-28T03:04:57+00:00",
+            "url": "https://finnhub.io/api/news?id=57c8f9ca937ba8ff0fbed5846dbf4a74ea2c1e45e269397f6d2f72dd8157b20a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Higher Hurdle: Rising Investor Expectations Poses Risk To The AI Trade",
+            "summary": "Jeff Evans looks at what a potential Anthropic IPO could mean for AI-related investments and why diversification remains part of the conversation. Read more here.",
+            "published_at": "2026-10-28T01:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4368fd659ff1d58e5f187bac6e7e9f3dd9d977cc165316ff3a97dc9fa39eaa55",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "CoreWeave Stock Surges 6%, But Investors Are Still Worried",
+            "summary": "Jim Cramer dares Nvidia's Jensen Huang to buy CoreWeave's 15% debt as the stock rises and bond yields sit near records.",
+            "published_at": "2026-10-27T22:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=77f98116c52fb4dc52ab47e0197b5ed54a6fba21863fd8bf09a562510e46991a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today, Oct. 27: CoreWeave Surges on Denmark Data Center Launch",
+            "summary": "Today, Oct. 27, 2026, the AI infrastructure specialist switched on fresh European capacity as Wall Street expands support for AI financing.",
+            "published_at": "2026-10-27T21:23:20+00:00",
+            "url": "https://finnhub.io/api/news?id=683414513ded051cf223eb8c7b4f1491fb755455fe56ba1ca1121439f61c4fd0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nebius vs. CoreWeave: Which neocloud stock has more debt?",
+            "summary": "CoreWeave carries $35.1B in debt and $5.5B in cash, while Nebius has $8.5B in debt and $8.0B in cash.",
+            "published_at": "2026-10-27T20:30:40+00:00",
+            "url": "https://finnhub.io/api/news?id=109410cd624ffaee3446018ae9a2306d467b834fdb57d86950dee64b3ac6b151",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ed Yardeni Says AI Bubble Is Deflating Without Bursting Amid Increasing Funding Scrutiny Around CRWV, NBIS: \u2018The Bond Market Is Going To Regulate'",
+            "summary": "Veteran Wall Street investor and Yardeni Research President Ed Yardeni dismissed fears of an imminent artificial intelligence bubble collapse Monday, arguing that tighter credit conditions could curb excessive spending without derailing the broader AI investment boom. Bond Markets Could Restrain...",
+            "published_at": "2026-10-27T20:30:11+00:00",
+            "url": "https://finnhub.io/api/news?id=ef6c27b73531bbbd43f5b165e77ced80e2c30a6100a4b28368b31cf1f5e07e10",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CoreWeave Announces Date of Third Quarter 2026 Financial Results and Conference Call",
+            "summary": "LIVINGSTON, N.J., October 27, 2026--CoreWeave, Inc. (Nasdaq: CRWV), The Essential Cloud for AI\u00ae, will hold its quarterly conference call to discuss third quarter 2026 financial results on Tuesday, November 10, 2026 at 5:00 PM Eastern Time.",
+            "published_at": "2026-10-27T20:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9e1a681ea040322f338012958bf6876230a7d67d20f6ed6c7bc9fa1c20e3ac65",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Tech On It\u2019s Way To 500,000 Layoffs?",
+            "summary": "AI is already gutting tech payrolls at Microsoft, Amazon, and Meta, but the real wave of job losses may be building in a sector most people have barely noticed yet.",
+            "published_at": "2026-10-27T19:54:18+00:00",
+            "url": "https://finnhub.io/api/news?id=1d2be0d72436435996963ab3a4ca4944ffe88bb934ba57903c2ba142f328650e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq Advances For Second Straight Day",
+            "summary": "Investors seem to like tech and semiconductor stocks again. Broadcom brokers $63 billion chip deal, shares climb.",
+            "published_at": "2026-10-27T19:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2f1aff593b0c377d243e6b61d5547b6699ec76c2ac57894c14cbd06b923cc45a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Google to report Q3 results as investors focus on AI growth, weigh Meta Muse AI risk",
+            "summary": "Google will report its third-quarter earnings Wednesday.",
+            "published_at": "2026-10-27T19:16:24+00:00",
+            "url": "https://finnhub.io/api/news?id=e5112369d4c975221b805ec317afa69b4c2b2f5eb7e3109bbed6fb698bd75919",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Crusoe CEO defends CoreWeave amid selloff",
+            "summary": "Investing.com -- The head of Crusoe defended the AI computing sector on Tuesday, describing recent market concerns about neocloud providers as excessive and expressing confidence in competitor CoreWeave's business position.",
+            "published_at": "2026-10-27T18:52:54+00:00",
+            "url": "https://finnhub.io/api/news?id=b6748434a34f59dc78c46034414b455f59e3b6426b5b41d4f28a3bf35e8f2b6b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Neocloud Selloff Is 'Overblown,' Says Crusoe CEO",
+            "summary": "Crusoe Chief Executive Officer Chase Lochmiller called the recent selloff of so-called neoclouds \"overblown\" and said rival CoreWeave Inc. has done \"some very good deals.\" He speaks to Dina Bass at Bloomberg Invest in Dallas.",
+            "published_at": "2026-10-27T18:21:54+00:00",
+            "url": "https://finnhub.io/api/news?id=ec1aa6fc9fe7164cc31795fa2506c184e3935ba730c178a074c67891e281474d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin Outperforms Grayscale\u2019s AI Compute ETF As AI Cloud Stocks Slide",
+            "summary": "Grayscale has recently added CoreWeave, Nebius and DigitalOcean to its AI Compute ETF, which together make up about 26% of the fund.",
+            "published_at": "2026-10-27T17:34:30+00:00",
+            "url": "https://finnhub.io/api/news?id=479b5eff13e24122ac7cdb7ce041f1d19699c08686d8cbacc336bd5206ea9e2e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Crusoe CEO on AI Energy Demand and Building in Texas",
+            "summary": "Crusoe Co-Founder & CEO, Chase Lochmiller discusses the infrastructure and energy required to meet growing AI computing demand, including the company's Abilene-based Stargate Project, with Bloomberg's Dina Bass at Bloomberg Invest Dallas 2026.",
+            "published_at": "2026-10-27T17:02:50+00:00",
+            "url": "https://finnhub.io/api/news?id=806c9fe7fc8616553bc361e5608c5e480fdfbedded7d28595cb99851e9b54fa1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Energy Stocks I'm Not Selling, No Matter What the Market Does",
+            "summary": "Data centers need enormous amounts of power, and these three recently sold-off energy stocks are positioned for long-term growth.",
+            "published_at": "2026-10-27T16:52:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9a9b8c699cb5abb1de77e865d7bef27c820fd9e126c8e65726542f0b813d34b0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CoreWeave's Bond Selloff May Overstate Debt Risks, Oppenheimer Says",
+            "summary": "CoreWeave's (CRWV) unsecured bond selloff amid rising interest rates and graphics processing unit ob",
+            "published_at": "2026-10-27T15:43:52+00:00",
+            "url": "https://finnhub.io/api/news?id=cdaa8d244fafe3c1a719fbb3b9993215e96fbec1aee727550e428d34e0f285ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tech Bubble Will Pop In 2027",
+            "summary": "Sara Awad from Tech Contrarians answers if this is a dip worth buying and wonders whether tech earnings will bring a trick or a treat.",
+            "published_at": "2026-10-27T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=249d072d0ec878891cae66633365859152b300dbbdda250429fa2f72ea35763e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Alphabet Earnings To Accelerate The AI Bubble Burst",
+            "summary": "Explore Alphabet Inc.\u00e2\u0080\u0099s AI capex risks, off-balance sheet commitments, weak cloud demand, and fading cash flow strength\u00e2\u0080\u0094click for more on GOOG stock.",
+            "published_at": "2026-10-27T14:56:40+00:00",
+            "url": "https://finnhub.io/api/news?id=1cd6bc7c5bc6c9b04f5f378dcc589d877b19225fa7345da8b9e2b2854eac5f0a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Nebius Group (NBIS) vs. CRWV and ORCL: Can AI Infrastructure Demand Turn Nebius Into the Next Cloud Powerhouse?",
+            "summary": "Is NBIS a good stock to buy? We came across a bullish thesis on Nebius Group N.V. on Studio Innovation\u2019s Substack by Studio. The thesis was published on August 12th, when the stock was trading at $259.20, and NBIS has pulled back since then. The decline appears to reflect dilution concerns following Nebius\u2019s $5 billion convertible-note offering [\u2026]",
+            "published_at": "2026-10-27T14:54:49+00:00",
+            "url": "https://finnhub.io/api/news?id=919bc8f7a8b6932a55aec462dc58113fead2f5a3d93fbe6f6ae292c477884075",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Galaxy Swings to $323 Million Third-Quarter Profit on Investment Gains and Data Center Growth",
+            "summary": "Galaxy Digital (NASDAQ: $GLXY) reported third-quarter net income of $323 million on Tuesday, a swing from an $85 mi...",
+            "published_at": "2026-10-27T14:53:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a1d1b2f2f8036147105b6783190381bc7a7719e55019a4fd5b7c194f3f0c89cc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nvidia's Credit Risk Has Tripled This Year \u2014 and Just Passed Meta's",
+            "summary": "Anyone who has co-signed a loan for a friend knows how the story can end. When the payments stop, the bank calls you. Nvidia Corp. (NASDAQ:NVDA) has co-signed a lot of loans. It owns a stake in CoreWeave Inc. (NASDAQ:CRWV). It has promised to buy computing capacity the neocloud cannot sell. It also guarantees part of the data center leases signed by its AI cloud partners. Now credit traders are pricing the phone call. The cost of protecting against an Nvidia default has more than tripled this ye",
+            "published_at": "2026-10-27T14:45:31+00:00",
+            "url": "https://finnhub.io/api/news?id=a5828bfa57daf820658f97396816b53048fb403d729ab0c88885aeaf0105ff9d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BC-Most Active Stocks",
+            "summary": "NEW YORK (AP) \u2014 prices for the Nasdaq composite, NYSE and NYSE American listed most active stocks. Nasdaq most active stocks:Stock Name Volume High Low Last Change  Solowin Holdings 277,633,207 0.",
+            "published_at": "2026-10-27T14:30:16+00:00",
+            "url": "https://finnhub.io/api/news?id=42021de6743f3955ce7ab18e9cd3b7e401fcfa7c803584f18f96857daca2e524",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Galaxy shares open 6% higher as firm posts $69 million adjusted EBITDA in first full quarter of CoreWeave rent",
+            "summary": "Data-center capex rose 69% to $757 million in the third quarter as Galaxy builds Helios I, Phase II, which management says remains on schedule and within budget ahead of second-quarter\u2026",
+            "published_at": "2026-10-27T14:15:32+00:00",
+            "url": "https://finnhub.io/api/news?id=5c40df1bec9403f192151cf72053ab32c23ffb92e49f5f24d729c863a7f187c5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Cloud Stocks Rise as CoreWeave Adds Denmark Capacity: CoreWeave and Nebius Climb 4%, Oracle Ticks Up",
+            "summary": "CoreWeave just switched on its first Denmark data center and unveiled a sweeping network push across seven countries, sending AI cloud stocks surging well past the broader tech market. Whether the buildout can outrun the financing costs behind it is the question hanging over the rally.",
+            "published_at": "2026-10-27T13:17:22+00:00",
+            "url": "https://finnhub.io/api/news?id=148fbfe214b8bf11babf15a300f85b5df65d20383a9bf69262b9e62dfef2a81e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Musk's Neocloud Warning Makes SOXX A Better Buy Than Nvidia, And SMH",
+            "summary": "Nvidia faces neocloud risk as AI cloud debt surges. Discover why NVDA is now a Hold and why SOXX may be the better semiconductor ETF to buy now.",
+            "published_at": "2026-10-27T13:09:37+00:00",
+            "url": "https://finnhub.io/api/news?id=961e2c77ec586873c039dd840211cd4216c6627bfcb5ee17639087a8ad213fe5",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Oppenheimer holds $150 CoreWeave target, sees bond selloff as overdone",
+            "summary": "Investing.com - Oppenheimer is standing behind CoreWeave (NASDAQ: CRWV) with a $150 price target even as the stock has shed 37% over the past month, arguing that a selloff in the company\u2019s unsecured bonds has created a misleading picture of financial risk. Shares closed yesterday at $56.43.",
+            "published_at": "2026-10-27T13:06:17+00:00",
+            "url": "https://finnhub.io/api/news?id=3db511259a09911c99e935b80af06eff8c0a36f212e54ccb6088d8df8547a860",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dell and HPE Lost Billions in a Day Over 1 Big Worry. Dell Had Already Answered It.",
+            "summary": "Despite the selloff, Dell and HPE\u2019s record AI server orders and growing backlogs suggest the AI hardware boom may be far from over.",
+            "published_at": "2026-10-27T13:00:02+00:00",
+            "url": "https://finnhub.io/api/news?id=3ad0bd86cfeb473d9dab883c6d6676773b03675ba736cd914a4ae81204b6c26f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "General Compute raises $100 million Series A, countering the neocloud disaster narrative",
+            "summary": "General Compute is betting on inference chips from outside the Nvidia ecosystem.",
+            "published_at": "2026-10-27T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=40e0a4492c3ff46ca45de9745cb1165597f5bbeccf27b21c670d6763305ab965",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Is Pushing Corporate Bond Sales to an All-Time Record",
+            "summary": "Corporate bond sales just shattered a pandemic-era record, and the borrowing binge fueling AI hardware is starting to crack the credit markets in ways that could flip the entire trade on its head.",
+            "published_at": "2026-10-27T12:47:20+00:00",
+            "url": "https://finnhub.io/api/news?id=1d81b9c466388e875363ca1080a015a460278a0de621900b6fb6f48d9dfc3745",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zacks Investment Ideas feature highlights: Nebius, IREN, CoreWeave and Meta Platforms",
+            "summary": "Nebius, IREN and CoreWeave rebound despite Elon Musk's warning on neocloud debt risks, as investors weigh AI spending and tightening credit markets.",
+            "published_at": "2026-10-27T12:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d7daac7249f7cc06ea7a3bd52c53a54627cf7ee438455e60c79b25fca5f1e2b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Prediction: The Stock Market Could Crash in 2027, and Elon Musk Just Explained Why",
+            "summary": "Elon Musk warned that AI infrastructure financing is deteriorating, predicting 200+ neoclouds will face consolidation and potential failure by 2027. This could trigger delays in GPU purchases and data center construction, causing a broader market downturn. With eight tech giants representing 36% of the S&P 500, a 30% decline in these companies could result in a 10% market correction, particularly affecting the Nasdaq.",
+            "published_at": "2026-10-27T12:30:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/27/prediction-the-stock-market-could-crash-in-2027-an/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "CoreWeave Vs. Nvidia: Demand For Silicon is Not The Same Thing as Solvent, Credit-Backed Demand for Physical Infrastructure",
+            "summary": "CoreWeave and NVIDIA both rode the same AI demand wave to record quarters, but one collected cash while the other collected debt. The difference between selling the shovel and renting the mine has never looked starker.",
+            "published_at": "2026-10-27T11:15:41+00:00",
+            "url": "https://finnhub.io/api/news?id=1a583f1bb29074eb3e4c11faf003276cd92053ea2ea82d612a3e931be5bb58fd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Neocloud ETF Down 30% YTD Despite Strong Demand: Here's Why",
+            "summary": "Neocloud ETF NCLD is down 30% YTD despite surging demand for AI computing capacity. Capital shortages, heavy debt concerns, and investor worries about infrastructure spending timelines are weighing on neocloud stocks like CoreWeave. However, multi-year contracts and an estimated $2.9 trillion in global data center construction through 2028 offer long-term growth potential.",
+            "published_at": "2026-10-27T11:00:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3015556/neocloud-etf-down-30-ytd-despite-strong-demand-here-s-why?cid=CS-ZC-FT-etf_news_and_commentary-3015556",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "CoreWeave Expands AI Cloud Footprint With Denmark Data Center \u2014 Plans Global Network Expansion Across 4 Continents",
+            "summary": "CoreWeave has brought most of its planned 22.5 megawatts of computing capacity online in Denmark, with a global AI network rollout targeted for completion by mid-2027.",
+            "published_at": "2026-10-27T10:54:12+00:00",
+            "url": "https://finnhub.io/api/news?id=3c5508ff2d3a54457e1065961502935b711bedf633b9094cd855fa68c03f932d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is IREN Stock Surging Tuesday?",
+            "summary": "Why did IREN stock jump 8%? Discover the drivers behind the AI infrastructure rebound, critical support levels, and Wall Street forecasts.",
+            "published_at": "2026-10-27T10:22:24+00:00",
+            "url": "https://finnhub.io/api/news?id=786c454f04102934c1102892a17bc3253b827675cfa28edf39b70eb21ca54b49",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "'Biggest Constraint Is Capital': Broadcom CEO Scrambles to Seal $63 Billion Anthropic Deal",
+            "summary": "Broadcom CEO Hock Tan intervened to secure Anthropic\u2019s $63 billion AI financing deal as banks grew wary of rising costs and AI debt.",
+            "published_at": "2026-10-27T10:17:38+00:00",
+            "url": "https://finnhub.io/api/news?id=372a03deee8de2f2a47c01c74a5a2c17327240b969235ddc3bb92ed9a5c7167c",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Amazon Q3: Faster Growth, Lower Multiple, What's Missing?",
+            "summary": "Amazon.com, Inc. Q3 earnings preview: AWS growth, valuation, and capex moat point to upside. Click for this AMZN stock update.",
+            "published_at": "2026-10-27T09:56:39+00:00",
+            "url": "https://finnhub.io/api/news?id=090bcce18e9110e8c7fd1b59045d346bb1a08014e83810b3fb44049b202ef432",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+            "summary": "The Nasdaq rose 0.8% after Anthropic filed for a Nasdaq IPO. Chipmakers rallied, Tesla and Lockheed Martin jumped on upgrades, FICO sank 13% and Microsoft offered buyouts to 60,000 employees.",
+            "published_at": "2026-10-27T09:25:33+00:00",
+            "url": "https://finnhub.io/api/news?id=7e6cea5ae682e9368cab9b58285352b61ec1f5bd339694a8f656656d4796adc0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "CoreWeave Adds Global AI Capacity as Cramer Questions Whether Rally Can Hold",
+            "summary": "CoreWeave AI Expansion lifts premarket shares as new global capacity meets elevated credit risk and weak technical signals.",
+            "published_at": "2026-10-27T09:02:31+00:00",
+            "url": "https://finnhub.io/api/news?id=eed01d870fe2d903b909bbeb17ecf6f663e11ed8710a527095fdf08679c2a0ae",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Jim Cramer Says In Social Media Post 'If Jensen thinks that CoreWeave is money good he should buy up their their 15% debt'",
+            "summary": "https://x.com/jimcramer/status/2115060650120733054?s=20",
+            "published_at": "2026-10-27T08:41:16+00:00",
+            "url": "https://finnhub.io/api/news?id=86de186dd7fad75e90a030716169aee4bf3db29268bc354de0c4720fb36f7a18",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "CLS Stock Soars Premarket After Blowout Q3 \u2014 Retail Calls It \u2018Very Inexpensive\u2019 As Celestica Touts AI \u2018Supercycle\u2019",
+            "summary": "The company cited an AI infrastructure \u2018supercycle\u2019 and stronger customer demand for 2028.",
+            "published_at": "2026-10-27T08:17:54+00:00",
+            "url": "https://finnhub.io/api/news?id=f6f2ac2b397dc8b0af457636e2772ab3d52db4b57bd85b3f801c61f08fa5b57d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MU, SKHY Stocks Rise As Anthropic Filing Shows $450B In Compute Commitments; Kospi Rally Triggers Program-Trading Pause",
+            "summary": "The South Korean benchmark index rose sharply, triggering a brief halt in automated or program trading early Tuesday.",
+            "published_at": "2026-10-27T07:13:32+00:00",
+            "url": "https://finnhub.io/api/news?id=ecf2469646a44e0fb1c2eeb21f74cfdeb754cf4c07509c90d0ec30d8d0fa8786",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CoreWeave Expands Global AI Cloud Platform With New Capacity in Denmark and First Global AI Network Backbone",
+            "summary": "LONDON, October 27, 2026--CoreWeave, Inc. (Nasdaq: CRWV), The Essential Cloud for AI\u2122, today announced an expansion of its global AI cloud platform, bringing new computing capacity online in Denmark and extending its Global AI Network into the Middle East and Asia Pacific. The expansion strengthens CoreWeave\u2019s ability to deliver the performance, reliability, and connectivity customers need to build and scale AI workloads across international markets.",
+            "published_at": "2026-10-27T07:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=059e7e48b40c330d6db609d5ef1f2657ed7d0ad3844c8d3d9ffba0652184fbb8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CRWV Stock Rebounds After 37% Slide Over Past Month \u2014 Jim Cramer Asks If It Is 'Actually Attempting to Mount a Rally'",
+            "summary": "CoreWeave shares bounced Monday, and CNBC\u2019s Jim Cramer asked whether a rally is under way after a 35.12% monthly slide.",
+            "published_at": "2026-10-27T05:44:34+00:00",
+            "url": "https://finnhub.io/api/news?id=d8c76189bcefe08dff8ec002205404954ec172026727a5d6b3f004612510a612",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "US 'Flashing the Same Warning Signs,' Wall Street Commentator Warns as China\u2019s AI Stock Crash Wipes Out $480 Billion in Under Four Months",
+            "summary": "China\u2019s AI stock selloff has erased about $480 billion in under four months, fueling warnings that U.S. markets show the same bubble signs.",
+            "published_at": "2026-10-27T04:57:52+00:00",
+            "url": "https://finnhub.io/api/news?id=26f009f48cf20b0cdfe08628ce3ddf2b2f502dd553e2ec8cab363cc68e7ce1ba",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "3 Growth Stocks With Earnings Growth Up To 49%",
+            "summary": "European gas prices have climbed to a four year high, and that kind of energy shock often rewards companies that can grow quickly while owners keep real skin in the game. That mix of rapid expansion plus heavy insider stakes can appeal to investors who want management to feel the same bumps and rewards as shareholders. This article breaks down three such fast growing, tightly owned stocks worth a closer look. The three stocks highlighted here offer a compelling starting point if you want...",
+            "published_at": "2026-10-27T04:25:10+00:00",
+            "url": "https://finnhub.io/api/news?id=e95271fc7f3917ac479a87fc0dce39f72be964e4de91892cbf7dc733e07dfff8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Asia chipmaking, AI stocks surge on Anthropic IPO cheer",
+            "summary": "Investing.com-- Asian chipmakers and artificial intelligence-related stocks rallied on Tuesday after Anthropic filed for an initial public offering, reviving optimism about AI demand.",
+            "published_at": "2026-10-27T04:09:59+00:00",
+            "url": "https://finnhub.io/api/news?id=8cb9475447b201cc18f1f1d6a6b7e6b7991d753ab5a50a54e5eeba5bd71262cc",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 59.57,
+      "jev": null
+    },
+    {
+      "ticker": "BTDR",
+      "predicted_return": 1.1728269252061314,
+      "open_price": 7.63,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:34:58.424266+00:00",
+        "articles": []
+      },
+      "prev_close": 7.54,
+      "jev": null
+    },
+    {
+      "ticker": "AAOI",
+      "predicted_return": 1.1676761838072018,
+      "open_price": 78.165,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:34:58.424351+00:00",
+        "articles": [
+          {
+            "headline": "Needham Maintains Buy on Applied Optoelectronics, Lowers Price Target to $170",
+            "summary": "Needham  analyst Ryan Koontz   maintains Applied Optoelectronics (NASDAQ:AAOI) with a Buy and lowers the price target from $190 to $170.",
+            "published_at": "2026-10-27T06:21:35+00:00",
+            "url": "https://finnhub.io/api/news?id=efa0c8d037ef28c683370902a975bd0925acca90e4c7bed2aa579e8bc1037e0d",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 76.95,
+      "jev": null
+    },
+    {
+      "ticker": "IREN",
+      "predicted_return": 1.1587381937145473,
+      "open_price": 28.09,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 11,
+        "reviewed_count": 11,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:34:58.424483+00:00",
+        "articles": [
+          {
+            "headline": "Stock Market Today, Oct. 27: CoreWeave Surges on Denmark Data Center Launch",
+            "summary": "Today, Oct. 27, 2026, the AI infrastructure specialist switched on fresh European capacity as Wall Street expands support for AI financing.",
+            "published_at": "2026-10-27T21:23:20+00:00",
+            "url": "https://finnhub.io/api/news?id=683414513ded051cf223eb8c7b4f1491fb755455fe56ba1ca1121439f61c4fd0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nebius vs. CoreWeave: Which neocloud stock has more debt?",
+            "summary": "CoreWeave carries $35.1B in debt and $5.5B in cash, while Nebius has $8.5B in debt and $8.0B in cash.",
+            "published_at": "2026-10-27T20:30:40+00:00",
+            "url": "https://finnhub.io/api/news?id=109410cd624ffaee3446018ae9a2306d467b834fdb57d86950dee64b3ac6b151",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin Outperforms Grayscale\u2019s AI Compute ETF As AI Cloud Stocks Slide",
+            "summary": "Grayscale has recently added CoreWeave, Nebius and DigitalOcean to its AI Compute ETF, which together make up about 26% of the fund.",
+            "published_at": "2026-10-27T17:34:30+00:00",
+            "url": "https://finnhub.io/api/news?id=479b5eff13e24122ac7cdb7ce041f1d19699c08686d8cbacc336bd5206ea9e2e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN And 2 Top AI Stocks To Watch",
+            "summary": "Bond investors are starting to worry less about the Federal Reserve and more about whether huge AI infrastructure buildouts can be financed sustainably. This shift puts the spotlight on the companies selling the compute, storage and cloud capacity that everyone needs. If capital continues to chase this build, some investors may not want to watch from the sidelines. This article walks through three stocks linked to that AI infrastructure rush from this focused screener. The three stocks...",
+            "published_at": "2026-10-27T17:08:02+00:00",
+            "url": "https://finnhub.io/api/news?id=756229202576e13ad008d947c8f097370b539ba0b54855466876809be7d44b8d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tech Bubble Will Pop In 2027",
+            "summary": "Sara Awad from Tech Contrarians answers if this is a dip worth buying and wonders whether tech earnings will bring a trick or a treat.",
+            "published_at": "2026-10-27T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=249d072d0ec878891cae66633365859152b300dbbdda250429fa2f72ea35763e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Zacks Investment Ideas feature highlights: Nebius, IREN, CoreWeave and Meta Platforms",
+            "summary": "Nebius, IREN and CoreWeave rebound despite Elon Musk's warning on neocloud debt risks, as investors weigh AI spending and tightening credit markets.",
+            "published_at": "2026-10-27T12:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d7daac7249f7cc06ea7a3bd52c53a54627cf7ee438455e60c79b25fca5f1e2b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Limited Fell by 33% in 2026 But 3 Analysts Believe It Will Nearly Quadruple in Price From Here",
+            "summary": "A neocloud panic wiped out a third of IREN's value in months, yet every analyst covering the stock refuses to issue a sell rating. The reason comes down to a set of signed contracts that tell a very different story than the share price does.",
+            "published_at": "2026-10-27T12:45:44+00:00",
+            "url": "https://finnhub.io/api/news?id=c0bddaebcc6b1638f9bd7635c378c5b2c4700e336c8c5121f45695f47d3cfa9e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is IREN Stock Surging Tuesday?",
+            "summary": "Why did IREN stock jump 8%? Discover the drivers behind the AI infrastructure rebound, critical support levels, and Wall Street forecasts.",
+            "published_at": "2026-10-27T10:22:24+00:00",
+            "url": "https://finnhub.io/api/news?id=786c454f04102934c1102892a17bc3253b827675cfa28edf39b70eb21ca54b49",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Pentair, JetBlue Airways, Hawkins And Other Big Stocks Moving Higher On Tuesday",
+            "summary": "U.S. stocks mixed as Dow slips 0.1%; Pentair jumps 9.8% on strong Q3 results and raised FY26 sales guidance, with several stocks rallying.",
+            "published_at": "2026-10-27T10:11:23+00:00",
+            "url": "https://finnhub.io/api/news?id=9dba61f21f14b3b8a1221d76e7bc58a4bbd8322112c54f3155bf81ba6f7d8209",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "CLS Stock Soars Premarket After Blowout Q3 \u2014 Retail Calls It \u2018Very Inexpensive\u2019 As Celestica Touts AI \u2018Supercycle\u2019",
+            "summary": "The company cited an AI infrastructure \u2018supercycle\u2019 and stronger customer demand for 2028.",
+            "published_at": "2026-10-27T08:17:54+00:00",
+            "url": "https://finnhub.io/api/news?id=f6f2ac2b397dc8b0af457636e2772ab3d52db4b57bd85b3f801c61f08fa5b57d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ed Yardeni Says AI Bubble Is Deflating Without Bursting Amid Increasing Funding Scrutiny Around CRWV, NBIS: \u2018The Bond Market Is Going To Regulate'",
+            "summary": "Yardeni says tighter credit can deflate the AI bubble without collapse, while Musk warns debt pressures may drive neocloud failures.",
+            "published_at": "2026-10-27T06:15:08+00:00",
+            "url": "https://finnhub.io/api/news?id=7e70d03728cd3d59ea187ba99b7d81441e0e16a3f4bc13e499a6ca77edb81985",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 27.44,
+      "jev": null
+    },
+    {
+      "ticker": "ALM",
+      "predicted_return": 1.1338037034210808,
+      "open_price": 9.72,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:25.103874+00:00",
+        "articles": [
+          {
+            "headline": "B. Riley Securities Maintains Buy on Almonty Indus, Lowers Price Target to $20",
+            "summary": "B. Riley Securities  analyst Nick Giles   maintains Almonty Indus (NASDAQ:ALM) with a Buy and lowers the price target from $25 to $20.",
+            "published_at": "2026-10-27T10:11:19+00:00",
+            "url": "https://finnhub.io/api/news?id=d89cf459f6ad7edc88264a26b87dbe36092413de5931f1f7ac7bfdd3ef7bee8f",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 9.56,
+      "jev": null
+    },
+    {
+      "ticker": "APLD",
+      "predicted_return": 1.1241466249748269,
+      "open_price": 20.045,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 19.51,
+      "jev": null
+    },
+    {
+      "ticker": "CLSK",
+      "predicted_return": 1.1158030054023602,
+      "open_price": 8.3,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:25.103646+00:00",
+        "articles": [
+          {
+            "headline": "Strategy vs. CleanSpark: Which Bitcoin Stock Has Greater Upside Now?",
+            "summary": "Strategy and CleanSpark offer distinct Bitcoin investment opportunities, but treasury strength, mining pressures and AI ambitions make one stock more appealing.",
+            "published_at": "2026-10-27T15:41:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ecbcb8e6d1e67e16a6b166805203179a7f502060c028942f3306be40a740dff",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 8.19,
+      "jev": null
+    },
+    {
+      "ticker": "SMTC",
+      "predicted_return": 1.1080993939228174,
+      "open_price": 146.56,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:34.921079+00:00",
+        "articles": [
+          {
+            "headline": "Semtech, Amkor, Entegris, MACOM, and Vishay Intertechnology stocks trade up, what you need to know",
+            "summary": "A number of stocks jumped in the afternoon session after major artificial intelligence deals and landmark financing agreements reinforced investor confidence in sustained technological demand as reported by AP News.",
+            "published_at": "2026-10-27T23:02:47+00:00",
+            "url": "https://finnhub.io/api/news?id=19eef3fbefa75ccdc46b1c8ec26243f54cc3834f076d8aad8c68bd696775b1b9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tech stocks post best 3-day rally in 5 weeks",
+            "summary": "Yahoo Finance Data and Markets Editor Jared Blikre joins host Brooke DiPalma on Market Domination Overtime to break down tech's strongest three-day stretch in five weeks. Blikre highlights the day's biggest market movers.",
+            "published_at": "2026-10-27T20:22:21+00:00",
+            "url": "https://finnhub.io/api/news?id=6cbfdd72331af7a73dc7463f592135c6c38abf8b6d7bb9d8aeb2816f1ebbb38b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Credo Technology Stock Bounce Off Its Current Support?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-27T13:39:53+00:00",
+            "url": "https://finnhub.io/api/news?id=4afb0b356e2ea5edd1c2f96815ee7290920080b9d6f2460035db92261068dcdb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tower Semiconductor\u2019s $1.2B Profit Roadmap Faces Its Biggest Test Yet in Q3 Earnings",
+            "summary": "Tower Semiconductor's silicon photonics business exploded from a $180 million run rate to $680 million in a single year, and management is betting $1.2 billion in 2028 profits on keeping that pace. Q3 earnings will show whether the foundation under that promise is solid or starting to crack.",
+            "published_at": "2026-10-27T13:31:18+00:00",
+            "url": "https://finnhub.io/api/news?id=c135ec88df5341fead03509fd81668f8982c9a82620d32200dab43703c3182ca",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 144.35,
+      "jev": null
+    },
+    {
+      "ticker": "LGN",
+      "predicted_return": 1.061338780749653,
+      "open_price": 39.37,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:28.367102+00:00",
+        "articles": []
+      },
+      "prev_close": 38.06,
+      "jev": null
+    },
+    {
+      "ticker": "COHR",
+      "predicted_return": 1.0559416537967068,
+      "open_price": 240.37,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 16,
+        "reviewed_count": 16,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:47.331126+00:00",
+        "articles": [
+          {
+            "headline": "\u201cCompletely Sold Out\u201d: Lumentum Has Ripped 383% in a Year. Is It Too Late to Buy?",
+            "summary": "Key TakeawaysLumentum stock is up 383% in the past year, as fiscal 2026 revenue rose 83% to $3. 01 billion and Nvidia invested $2 billion.",
+            "published_at": "2026-10-28T09:55:42+00:00",
+            "url": "https://finnhub.io/api/news?id=1444252433d53ad8f3bfffdf6b7ac2cde7c51751f0d77b0d1c5e2a8343162f90",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Review & Preview: The AI Rollercoaster",
+            "summary": "AI stocks led the indexes higher ahead of a busy day for Wall Street.",
+            "published_at": "2026-10-28T00:08:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d9eb7483ea6504acbb508e97f16dfea1486fcfae95ddfa3e30a198ab3c99bad5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Oct. 27, 2026 US Session",
+            "summary": "S&P 500 top movers on Oct. 27, 2026: Pentair led gainers at 12.8%, while Xylem was the steepest decliner at -13.14%.",
+            "published_at": "2026-10-27T20:06:15+00:00",
+            "url": "https://finnhub.io/api/news?id=7348f7bba4833edc9ce7aefa4609a6fae84fff0fa9208c46e5464a0fc8ffa1e1",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Is Coherent (COHR) Undervalued As AI Optics Demand Draws Fresh Analyst Interest?",
+            "summary": "Coherent (COHR) is back in focus after fresh analyst coverage, planned capacity increases in indium phosphide lasers, and sector commentary around potential FCC limits on foreign optical transceiver imports, which has sharpened interest in its AI datacenter exposure. Recent enthusiasm has come after a sharp reset, with the 30 day share price return down 25.13% and the 90 day move lower by 8.97%, even though Coherent still shows a 13.98% year-to-date share price gain and a very large 3-year...",
+            "published_at": "2026-10-27T19:08:17+00:00",
+            "url": "https://finnhub.io/api/news?id=af029d423f99b58063a6b436878e0f4d4e32fd3a60eb41566a2198c29a128f15",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers Today: Pentair Gains 12.93%, Xylem Drops 11.64%",
+            "summary": "Today's S&P 500 movers include Pentair up 12.93%, Royal Caribbean up 8.14%, Xylem down 11.64%, and Boeing down 9.38%, with industrial, energy, and technology names active.",
+            "published_at": "2026-10-27T17:36:20+00:00",
+            "url": "https://finnhub.io/api/news?id=e807d83525f58534e2b79c141af67227eb8b86588746abe8ce7ed36289b0577d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Coherent Soars 6%, Lumentum Up 8% as StoneX Starts Both With Buy, Sees 103% Upside",
+            "summary": "Key TakeawaysCoherent stock rose 6% and Lumentum rose 8% after StoneX initiated coverage of both with Buy ratings and price targets of $425 and $1,200. Coherent\u2019s selloff hit its valuation, and analysts kept raising its earnings estimates the whole time.",
+            "published_at": "2026-10-27T16:15:06+00:00",
+            "url": "https://finnhub.io/api/news?id=27d06a65da6a58e78c766601a2ed21f745807e888db04cac1ac233e160f79049",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Coherent vs. Arm Holdings: Which Tech Stock Offers More Upside Now?",
+            "summary": "COHR's AI-driven optical networking demand and integrated photonics portfolio offer strong growth potential, while its valuation compares favorably with ARM.",
+            "published_at": "2026-10-27T16:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5662ca2b9feade0ea97cbd4c078d5231647e158cf1e30065449f2cd02d341326",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Analyst explains why optical stocks are moving higher",
+            "summary": "Investing.com -- In a note on Tuesday, Evercore ISI highlighted three reasons why optical stocks are rallying, with Lumentum (NASDAQ: LITE) and Ciena (NYSE: CIEN), Coherent (NYSE: COHR) and Nokia (NYSE: NOK) all gaining on Monday.",
+            "published_at": "2026-10-27T15:32:59+00:00",
+            "url": "https://finnhub.io/api/news?id=3df295de64bac2c57335ba0b8653da7cf729c25dd3c760b8ef65cafd6607c19b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corning Earnings Show It\u2019s Deeply Dependent on AI Demand. Why That Could Be Bad.",
+            "summary": "Corning stock falls after the optical networking company reports better-than-expected third-quarter earnings.",
+            "published_at": "2026-10-27T15:18:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0dfbe845b2bcb317ecad20ea151c43ff897cbbe676cd187f227d083bbe307f00",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer is Bullish on These 5 Stocks",
+            "summary": "Investors are closely watching the artificial intelligence trade amid mounting concerns over massive spending on AI infrastructure, the sustainability of growth and whether companies can generate sufficient returns on their investments. The debate over whether these investments will pay off has intensified as major technology companies pour billions into data centers. Microsoft is among the [\u2026]",
+            "published_at": "2026-10-27T15:16:19+00:00",
+            "url": "https://finnhub.io/api/news?id=1e9aebef34e880cded86a2dbca622cf526b86d0bc515b3840130a59f1b3e0fd1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AXTI Stock Before Q3 Earnings Release: To Buy or Not to Buy?",
+            "summary": "AXT Inc. is set to report Q3 2026 results on October 29 with expected revenues of ~$66M and non-GAAP EPS of 30-32 cents, driven by strong AI data-center demand for indium phosphide substrates. The company has a $100M+ InP backlog and record Q2 InP sales of $30.7M. However, concerns include China export permit uncertainty, geopolitical risks, premium valuation at 28.46X price-to-sales, and rising inventory levels. While long-term growth prospects appear attractive, investors are advised to hold rather than buy ahead of earnings due to limited upside room.",
+            "published_at": "2026-10-27T15:11:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3016353/axti-stock-before-q3-earnings-release-to-buy-or-not-to-buy?cid=CS-ZC-FT-analyst_blog%7Cmost_popular_stocks-3016353",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Tech Bubble Will Pop In 2027",
+            "summary": "Sara Awad from Tech Contrarians answers if this is a dip worth buying and wonders whether tech earnings will bring a trick or a treat.",
+            "published_at": "2026-10-27T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=249d072d0ec878891cae66633365859152b300dbbdda250429fa2f72ea35763e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "S&P 500 Premarket Movers: Royal Caribbean, S&P Global Gain; Xylem, Sherwin-Williams Fall",
+            "summary": "S&P 500 premarket movers: Royal Caribbean and S&P Global lead gainers, while Xylem and Sherwin-Williams lead decliners ahead of the open.",
+            "published_at": "2026-10-27T13:36:32+00:00",
+            "url": "https://finnhub.io/api/news?id=989a6a14a4c8194858f23373acd4391ecaedabeef8547d64e87724082895003b",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Corning Earnings Might Be Just What Optical Networking Stocks Need Right Now",
+            "summary": "Corning stock is little changed after the optical networking company reports better-than-expected third-quarter earnings.",
+            "published_at": "2026-10-27T12:37:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6a9c49eed46ce45777b10f7d14c0e6d60354ad0d4a577d00ecc953fbdc93a0fd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Celestica: The Ultimate AI Infrastructure Bargain Priced At 12.6x Earnings (Upgrade)",
+            "summary": "",
+            "published_at": "2026-10-27T10:23:47+00:00",
+            "url": "https://finnhub.io/api/news?id=9cdfcda0a252009ca010959338978448963cc6cb5d8903389e6534daa4c139ce",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Needham Maintains Buy on Coherent, Lowers Price Target to $380",
+            "summary": "Needham  analyst Ryan Koontz   maintains Coherent (NYSE:COHR) with a Buy and lowers the price target from $420 to $380.",
+            "published_at": "2026-10-27T06:23:57+00:00",
+            "url": "https://finnhub.io/api/news?id=632d2069e590d613ab9872ea8b45c5b045fef6ed0f78c6ade5d4ad7fb110d6fb",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 235.79,
+      "jev": null
+    },
+    {
+      "ticker": "ACMR",
+      "predicted_return": 1.0422533170522768,
+      "open_price": 54.055,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:53.157367+00:00",
+        "articles": [
+          {
+            "headline": "ACM Research, Inc. (ACMR) Surpasses Market Returns: Some Facts Worth Knowing",
+            "summary": "ACM Research, Inc. (ACMR) reached $51.97 at the closing of the latest trading day, reflecting a +1.98% change compared to its last close.",
+            "published_at": "2026-10-27T20:45:01+00:00",
+            "url": "https://finnhub.io/api/news?id=7eb21894ae8b9797479d9c5c3d0f3b0abb9d0fd8ad47614c0ca1105cf796c96e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 51.97,
+      "jev": null
+    },
+    {
+      "ticker": "CIFR",
+      "predicted_return": 1.0343428844777702,
+      "open_price": 8.71,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:25.105942+00:00",
+        "articles": [
+          {
+            "headline": "IREN Limited Fell by 33% in 2026 But 3 Analysts Believe It Will Nearly Quadruple in Price From Here",
+            "summary": "A neocloud panic wiped out a third of IREN's value in months, yet every analyst covering the stock refuses to issue a sell rating. The reason comes down to a set of signed contracts that tell a very different story than the share price does.",
+            "published_at": "2026-10-27T12:45:44+00:00",
+            "url": "https://finnhub.io/api/news?id=c0bddaebcc6b1638f9bd7635c378c5b2c4700e336c8c5121f45695f47d3cfa9e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 8.48,
+      "jev": null
+    },
+    {
+      "ticker": "RIOT",
+      "predicted_return": 1.025256082161802,
+      "open_price": 13.72,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:42.301169+00:00",
+        "articles": [
+          {
+            "headline": "Applied Digital Jumps 10% as Data Center Stocks Rebound; Riot Climbs 7%, Core Scientific Gains 4%",
+            "summary": "Applied Digital's top executives started buying shares after a steep selloff, and now the stock is surging back alongside Riot and Core Scientific. Whether that insider conviction holds up against a heavy debt load and a critical construction deadline is the real question.",
+            "published_at": "2026-10-27T18:02:16+00:00",
+            "url": "https://finnhub.io/api/news?id=4b228e2c97f608b5741895760fd52d66bc9b3884b0787b39f97a61b3909e187f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "KBW sees Anthropic\u2019s AMD and overseas lease plans favoring Core Scientific and TeraWulf, backstops still required",
+            "summary": "KBW's Stephen Glagola reviewed Anthropic's S-1 and found leasing upside for Core Scientific and TeraWulf. He does not expect an investment-grade rating soon, so hardware providers will keep guaranteeing the\u2026",
+            "published_at": "2026-10-27T13:43:52+00:00",
+            "url": "https://finnhub.io/api/news?id=cd19092192b8b7e7f949eb79ac3aaaa55402561da635b530afba1a4abb2cd58d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Limited Fell by 33% in 2026 But 3 Analysts Believe It Will Nearly Quadruple in Price From Here",
+            "summary": "A neocloud panic wiped out a third of IREN's value in months, yet every analyst covering the stock refuses to issue a sell rating. The reason comes down to a set of signed contracts that tell a very different story than the share price does.",
+            "published_at": "2026-10-27T12:45:44+00:00",
+            "url": "https://finnhub.io/api/news?id=c0bddaebcc6b1638f9bd7635c378c5b2c4700e336c8c5121f45695f47d3cfa9e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 13.56,
+      "jev": null
+    },
+    {
+      "ticker": "SNDK",
+      "predicted_return": 1.0083844031173141,
+      "open_price": 1356.6,
+      "snapshot_date": "2026-10-27",
+      "news_flag": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+        "article_count": 18,
+        "reviewed_count": 18,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-28T13:35:40.767689+00:00",
+        "articles": [
+          {
+            "headline": "Lumentum vs. Sandisk: Which Tech Stock Is the Better Buy in November?",
+            "summary": "The article compares Lumentum and Sandisk as infrastructure plays in the AI boom. While Sandisk shows explosive growth (175% revenue increase) and trades at a lower valuation (6x forward P/E vs. 40x), the author recommends Lumentum for long-term investors due to its steadier earnings growth, lower pricing risk, and strong demand for optical interconnects as AI models become more complex. Sandisk faces risks from supply-demand cycles and potential margin compression.",
+            "published_at": "2026-10-28T12:30:01+00:00",
+            "url": "https://www.fool.com/coverage/better-buy/2026/10/28/lumentum-vs-sandisk-which-tech-stock-is-the-better-buy-in-november/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Memory-Chip Maker SK Hynix Smashes Q3 Targets; Stock Jumps",
+            "summary": "South Korea-based memory-chip maker SK Hynix smashed expectations for the third quarter. SK Hynix stock jumped on the news.",
+            "published_at": "2026-10-28T11:33:54+00:00",
+            "url": "https://finnhub.io/api/news?id=b53a3e93ba9e7ca4300054b19b8466489bbd9e954bcad9d81e391beccb6b6ae6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SK Hynix Jumps 8% After a 632% Profit Surge and a $45 Billion Shareholder Pledge. Micron and SanDisk Are Riding Along.",
+            "summary": "SK Hynix shattered profit records overnight, and the ripple hit Micron, SanDisk, and Western Digital before US markets opened. Whether this premarket surge marks a genuine memory recovery or just a 60 trillion won promise doing heavy lifting is the question every memory investor needs to answer before October 29.",
+            "published_at": "2026-10-28T11:04:21+00:00",
+            "url": "https://finnhub.io/api/news?id=212760d2fc59658e5aae1a066d0c90405e9d06f70b96f4015041638b97c7f398",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Sandisk (SNDK) Cheap Following AI Infrastructure Optimism And SK Hynix Results?",
+            "summary": "Sandisk (SNDK) gained about 4% in overnight trading after upbeat results from rival SK Hynix and fresh optimism around AI infrastructure demand linked to Anthropic\u2019s IPO filing. That overnight move comes amid choppy trading for Sandisk, with the 7 day share price return down 4.43% and the 30 day share price return down 26.60%. However, the 90 day share price return is up 28.44% and the year to date share price return is up 374.07%, alongside a 1 year total shareholder return above 6x...",
+            "published_at": "2026-10-28T10:14:52+00:00",
+            "url": "https://finnhub.io/api/news?id=2dc821e366b16415c516c57bbc3002ddce29101f395c8d8249def7f51c396756",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SK hynix: Booming AI Business Drives 80%+ Margins",
+            "summary": "SK hynix Inc. remains a Strong Buy after blowout Q3 earnings, driven by surging high-bandwidth memory demand from the AI infrastructure boom. Learn more about SKHY stock here.",
+            "published_at": "2026-10-28T08:45:53+00:00",
+            "url": "https://finnhub.io/api/news?id=dd8184467ea9d3a0d719037d30663de25f69447b5fe64418d5e8184931646cb5",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "MU, SNDK, Neocloud Stocks Extend Gains On Anthropic Boost, SK Hynix Q3 Stunner; Jim Cramer Urges Caution",
+            "summary": "Anthropic\u2019s S-1 filing offered investors fresh evidence of the scale of demand for AI computing infrastructure.",
+            "published_at": "2026-10-28T06:46:05+00:00",
+            "url": "https://finnhub.io/api/news?id=0b62bb26bc2179365661ae5aef336bf42d237b7840d0ba0e9023506065ce0aef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CoreWeave: The Warning Sign AI Investors Shouldn't Ignore",
+            "summary": "CoreWeave revenue jumped 112% and backlog hit $104B, but high bond yields and AI infrastructure costs cloud returns. Read why CRWV stock is a sell.",
+            "published_at": "2026-10-28T03:04:57+00:00",
+            "url": "https://finnhub.io/api/news?id=57c8f9ca937ba8ff0fbed5846dbf4a74ea2c1e45e269397f6d2f72dd8157b20a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Carillon Scout Mid Cap Fund Q3 2026 Portfolio Review",
+            "summary": "The Carillon Scout Mid Cap Fund reviews its performance and key security contributors and detractors for Q3 2026. Read the full analysis for more details.",
+            "published_at": "2026-10-27T21:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0dc8c00ca273f7f64512fe143d9e7a2f5000419fb2e1f6d871347b0d6b96ac14",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Pre-Q1 Earnings: Is Sandisk Stock a Portfolio Must-Have?",
+            "summary": "SNDK's Q1 fiscal 2027 earnings outlook points to strong revenue growth, fueled by AI-driven storage demand, higher NAND pricing and expanding Datacenter sales.",
+            "published_at": "2026-10-27T18:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=335dee1ba75af7c10e31f6773b9bc93216db876d762a3533ce596fea446f1ace",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk Stock Has Been Cut Nearly in Half Since June. Should You Buy It Before Thursday's Report?",
+            "summary": "With the flash memory maker reporting Thursday, has its stock already priced in a slowdown?",
+            "published_at": "2026-10-27T17:13:01+00:00",
+            "url": "https://finnhub.io/api/news?id=26b5a36618416ed132cf922812891ab63eb992162d4a504224d2f434b1d2ecf1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Don\u2019t Be Surprised If NVIDIA, Micron, and SanDisk Outperform the Market Again",
+            "summary": "NVIDIA, Micron, and SanDisk have already crushed the market in 2026, but analysts keep raising their targets anyway. Here is whether the valuation math actually supports another massive leg higher before 2027 ends.",
+            "published_at": "2026-10-27T15:03:55+00:00",
+            "url": "https://finnhub.io/api/news?id=bf41b9e58f744eaf156ed76ca2030184694c39cb7989f6a9374ac4d42be21dff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zacks.com featured highlights include NVIDIA, Micron Technology and Sandisk",
+            "summary": "NVIDIA, Micron Technology and Sandisk combine net profit margins above 56% with strong projected earnings growth, highlighting their profitability and upside potential.",
+            "published_at": "2026-10-27T12:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=25f44916ee556cd2e341913bce0489a6062b338e03e8a63b97931e9165c02b04",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "WDC's Fiscal Q2 Forecast Improves: What's Fueling the Momentum?",
+            "summary": "Western Digital heads into fiscal Q2 2027 with surging HDD demand, rising prices and expanding AI workloads, boosting revenue, margins and earnings expectations.",
+            "published_at": "2026-10-27T12:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0f4f4430834dc2e7013d5ee5ff307c51e236dc071323b534e83061ca0cadbec2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is SK Hynix Stock a Buy Before Q3 Earnings? Key Tips to Note",
+            "summary": "SKHY heads into Q3 earnings with strong AI memory demand and rising prices, but hefty capex, margin uncertainty and an elevated earnings bar warrant caution.",
+            "published_at": "2026-10-27T12:24:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f23c0e4c6bcb226dc53d0036b78df32f68f4542c6b2e0ad8bbaad24346b28ff7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rising Flash-Memory Needs Support SanDisk\u2019s (SNDK) Growth Potential",
+            "summary": "Renaissance Investment Management, an investment management company, released its Q3 2026 investor letter for \u201cLarge Cap Growth Strategy.\u201d The letter can be downloaded here. Stocks showed modest gains in Q3, with the S&P 500 up 2.3%. Energy, Technology, and Health Care sectors excelled, while Utilities, Industrials, Real Estate, and Consumer Discretionary lagged. Market breadth was [\u2026]",
+            "published_at": "2026-10-27T12:14:26+00:00",
+            "url": "https://finnhub.io/api/news?id=0953133991b4a96068eac15a0879b1089a3243461334bfb50ed1ab0db4c328bb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Memory Stocks Lost Their Mojo and Strong Earnings Aren\u2019t Helping",
+            "summary": "Sandisk Corp., Micron Technology Inc., Seagate Technology Holdings Plc and Western Digital Corp. were among the stock market\u2019s biggest winners in the first six months of the year as demand from the artificial intelligence build out seemed insatiable.",
+            "published_at": "2026-10-27T10:09:02+00:00",
+            "url": "https://finnhub.io/api/news?id=eba26d3e60f4daa0fbcb1659c5eaa0e1a5074d937968660dca8f62361a10ac59",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Anthropic Files for Its IPO and Chip Stocks Catch the Wave",
+            "summary": "The Nasdaq rose 0.8% after Anthropic filed for a Nasdaq IPO. Chipmakers rallied, Tesla and Lockheed Martin jumped on upgrades, FICO sank 13% and Microsoft offered buyouts to 60,000 employees.",
+            "published_at": "2026-10-27T09:25:33+00:00",
+            "url": "https://finnhub.io/api/news?id=7e6cea5ae682e9368cab9b58285352b61ec1f5bd339694a8f656656d4796adc0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Sandisk: Supply Is Cracking The Case",
+            "summary": "",
+            "published_at": "2026-10-27T07:52:09+00:00",
+            "url": "https://finnhub.io/api/news?id=ca93703cc4cde0ad01a05b7c5c0f79dfaccb48a1e197e46812892a259fd305f2",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 1304.84,
+      "jev": null
+    },
+    {
+      "ticker": "SHAZ",
+      "predicted_return": 1.002659641216743,
+      "open_price": 26.8,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:32.498761+00:00",
+        "articles": []
+      },
+      "prev_close": 25.75,
+      "jev": null
+    },
+    {
+      "ticker": "NBIS",
+      "predicted_return": 0.9576184034775118,
+      "open_price": 173.49,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 170.47,
+      "jev": null
+    },
+    {
+      "ticker": "BE",
+      "predicted_return": 0.9545681388622668,
+      "open_price": 225.97,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 218.5,
+      "jev": null
+    },
+    {
+      "ticker": "DOCN",
+      "predicted_return": 0.9348405512956016,
+      "open_price": 107.55,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:25.104162+00:00",
+        "articles": [
+          {
+            "headline": "Bitcoin Outperforms Grayscale\u2019s AI Compute ETF As AI Cloud Stocks Slide",
+            "summary": "Grayscale has recently added CoreWeave, Nebius and DigitalOcean to its AI Compute ETF, which together make up about 26% of the fund.",
+            "published_at": "2026-10-27T17:34:30+00:00",
+            "url": "https://finnhub.io/api/news?id=479b5eff13e24122ac7cdb7ce041f1d19699c08686d8cbacc336bd5206ea9e2e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nebius Group (NBIS) vs. CRWV and ORCL: Can AI Infrastructure Demand Turn Nebius Into the Next Cloud Powerhouse?",
+            "summary": "Is NBIS a good stock to buy? We came across a bullish thesis on Nebius Group N.V. on Studio Innovation\u2019s Substack by Studio. The thesis was published on August 12th, when the stock was trading at $259.20, and NBIS has pulled back since then. The decline appears to reflect dilution concerns following Nebius\u2019s $5 billion convertible-note offering [\u2026]",
+            "published_at": "2026-10-27T14:54:49+00:00",
+            "url": "https://finnhub.io/api/news?id=919bc8f7a8b6932a55aec462dc58113fead2f5a3d93fbe6f6ae292c477884075",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DigitalOcean Holdings, Inc. (DOCN) Expected to Beat Earnings Estimates: Should You Buy?",
+            "summary": "DigitalOcean (DOCN) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-27T13:00:16+00:00",
+            "url": "https://finnhub.io/api/news?id=976e0f81fd8140dfce1aff3b47878c9d5eafafa4bcb75d5d742f2aadcbe9c6d1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 106.39,
+      "jev": null
+    },
+    {
+      "ticker": "WULF",
+      "predicted_return": 0.9345540547088107,
+      "open_price": 13.02,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-28T13:35:32.014605+00:00",
+        "articles": [
+          {
+            "headline": "Bitcoin Outperforms Grayscale\u2019s AI Compute ETF As AI Cloud Stocks Slide",
+            "summary": "Grayscale has recently added CoreWeave, Nebius and DigitalOcean to its AI Compute ETF, which together make up about 26% of the fund.",
+            "published_at": "2026-10-27T17:34:30+00:00",
+            "url": "https://finnhub.io/api/news?id=479b5eff13e24122ac7cdb7ce041f1d19699c08686d8cbacc336bd5206ea9e2e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "KBW sees Anthropic\u2019s AMD and overseas lease plans favoring Core Scientific and TeraWulf, backstops still required",
+            "summary": "KBW's Stephen Glagola reviewed Anthropic's S-1 and found leasing upside for Core Scientific and TeraWulf. He does not expect an investment-grade rating soon, so hardware providers will keep guaranteeing the\u2026",
+            "published_at": "2026-10-27T13:43:52+00:00",
+            "url": "https://finnhub.io/api/news?id=cd19092192b8b7e7f949eb79ac3aaaa55402561da635b530afba1a4abb2cd58d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is IREN Stock Surging Tuesday?",
+            "summary": "Why did IREN stock jump 8%? Discover the drivers behind the AI infrastructure rebound, critical support levels, and Wall Street forecasts.",
+            "published_at": "2026-10-27T10:22:24+00:00",
+            "url": "https://finnhub.io/api/news?id=786c454f04102934c1102892a17bc3253b827675cfa28edf39b70eb21ca54b49",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 12.66,
+      "jev": null
+    },
+    {
+      "ticker": "MOD",
+      "predicted_return": 0.9208500731226629,
+      "open_price": 143.01,
+      "snapshot_date": "2026-10-27",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 136.51,
+      "jev": null
+    }
+  ],
+  "scored_count": 1731,
+  "skipped": [
+    {
+      "ticker": "GOOGL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSFT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "V",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GEV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KLAC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TMUS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GLW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FTNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ADP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HOOD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HCA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UPS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SHW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ECL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ITW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FDX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RCL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HLT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ORLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BSX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AEP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PCAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TEL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "F",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NXPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GRMN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TER",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HONA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PYPL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EBAY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IQV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLEX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ODFL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RJF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACGL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIIB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GEHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VICI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AWK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OTIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XYL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PPG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HUBB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FFIV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FDXF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ESS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FTV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHRW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INVH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IEX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TYL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MAA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IVZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MAS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSGP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BXP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GNRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MGM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UHS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PNR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LPLA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SOFI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMRZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARXS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROKU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AER",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DINO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CLH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JLL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INIO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STRL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NXT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICLR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MANH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AIT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EVR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UMBF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LFUS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GKOS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AVTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OGE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HLI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EAT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IONS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MUSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FORM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SFD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "THG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZWS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MORN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KEX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TEX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AWI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SFM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLXS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ETSY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WEX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LSTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CZR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHDN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RUSHA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVLT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CAKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GLXY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ENPH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WHD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JMKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PTEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHEF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UFPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BOOT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EPR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MYRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FELE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SITE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MTH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ITRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BNL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MIR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STNG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VKTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TNL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OLED",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSTM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QTWO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TENB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JOE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MCHB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FFBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UCTT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USLM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DAN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SBCF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TNK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RSI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WING",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GRBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INTA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BELFA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BANC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAYW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLDE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MGRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EEFT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NBTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRMK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BHE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BUSE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COHU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYBT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WERN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PBI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OSW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HUBG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MCRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNXN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALKT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMPR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLKB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAPN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 23.886167477574517
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.608418770332307
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 5.148578727236751
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-27",
+    "model_trained_through": "2026-10-27",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

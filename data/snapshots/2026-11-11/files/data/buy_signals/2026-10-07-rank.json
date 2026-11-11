@@ -1,0 +1,1284 @@
+{
+  "as_of": "2026-10-07",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "WDC",
+      "predicted_return": 0.35921644515647905,
+      "open_price": 401.08,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 24,
+        "reviewed_count": 24,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:07.587394+00:00",
+        "articles": [
+          {
+            "headline": "Social Buzz: Wallstreetbets Stocks Mostly Lower Pre-Bell Wednesday; SpaceX, Micron to Fall",
+            "summary": "The most-talked-about stocks in the Reddit subforum Wallstreetbets were mostly lower hours before We",
+            "published_at": "2026-10-07T10:39:47+00:00",
+            "url": "https://finnhub.io/api/news?id=74c9a380ac766041ab1ee7a5542605429ed30e9ffc3a4745568c35d2ef6db221",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Breaks Above 7,800 as Chips and Nuclear Power Carry the AI Trade",
+            "summary": "The S&P 500 closed above 7,800 for the first time as Treasury yields eased. Constellation Energy surged on a 20-year nuclear deal with Google, Marvell laid out a $90 billion revenue ambition, Citi lifted AMD's target to $800, and storage stocks slumped on a takeover fight for TDK.",
+            "published_at": "2026-10-07T10:13:09+00:00",
+            "url": "https://finnhub.io/api/news?id=cc7e73929302e0ab44508ce6cda8cdedfe3e3f6f1008e3334970997cf02c35b0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Netlist (NLST) Stock Jumps 17.9%: Will It Continue to Soar?",
+            "summary": "Netlist (NLST) was a big mover last session on higher-than-average trading volume. The latest trend in earnings estimate revisions might not help the stock continue moving higher in the near term.",
+            "published_at": "2026-10-07T09:22:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a8c44557367a1bf42a822f0f7d9940c4ac3868ea4a38eee86f6f65ddf6fbcd25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow, S&P 500 Rally; Cathie Wood Buys This Stock Amid 56% Dive",
+            "summary": "The Dow Jones index rises on the stock market today amid a flurry of breakouts. Seagate falls on a report. Cathie Wood snaps up a plunging stock.",
+            "published_at": "2026-10-06T20:43:09+00:00",
+            "url": "https://finnhub.io/api/news?id=ecd0a449183cc5b59536653b5886a95168da8c11b0fdfe02872d15c9a08989fd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises, But Seagate Dives On This; AI Stock, Electronics Play Clear Entries (Live Coverage)",
+            "summary": "The Dow Jones index rises on the stock market today but Seagate falls on a report. AMD pops. Zebra and an AI stock test entries.",
+            "published_at": "2026-10-06T19:34:50+00:00",
+            "url": "https://finnhub.io/api/news?id=1978a1c82c4d9c59958a6ba206f27ca78d48bd7846ee379ed8b186b3e2f133e2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Memory Stocks Are Sitting Out the Stock Market Rally",
+            "summary": "The S&P 500 and the Nasdaq Composite were set to end Tuesday's session at new record highs driven by the broadening AI trade.",
+            "published_at": "2026-10-06T19:25:01+00:00",
+            "url": "https://finnhub.io/api/news?id=cc4f4d1e1694f653642957be62a15f9f1316f2348a76eb5f3c163c3712449988",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Tuesday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-06T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=799cd2ca19736d45c52db9faa5f9160ef65f2f81c348e1bda7366c44deea05c5",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Western Digital Fell Nearly 20% Over The Last 3 Months: A Respected Wall Street Analyst Says 140% To Come",
+            "summary": "Western Digital shares sit nearly 45% below their peak while analyst estimates keep climbing, leaving investors to decide whether a supply scare just created a rare buying opportunity or a warning sign the bull story is cracking.",
+            "published_at": "2026-10-06T16:45:29+00:00",
+            "url": "https://finnhub.io/api/news?id=6be377fbc673d00ebb9d2310572ed3e6eec0137c219f17d9df2c3d7369f2b1c3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Could Send SanDisk Stock Soaring?",
+            "summary": "SanDisk (SNDK) stock returned about 1,240% over the twelve months through October 5, 2026, against about 16% for the S&P 500, so you may wonder what is left. Yet the shares trade at about 22 times earnings, close to the index's 21.5. A price like that appears to assume the profits will fade, but management says it has changed how SanDisk sells. So what could convince buyers that SanDisk's profits will hold up.",
+            "published_at": "2026-10-06T16:42:13+00:00",
+            "url": "https://finnhub.io/api/news?id=ebf03692cc7779cdfcc87ae28922901107a626ff53fc5bb6c604208ad57d126b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Tuesday?",
+            "summary": "Stay updated with the movement of S&P500 stocks in today's session. Discover which S&P500 stocks are making waves on Tuesday.",
+            "published_at": "2026-10-06T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=77d86f15549f5f68cb794b92dd883f9ce67028af48767f3a173cdb7c589f7e8d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Stock Market Midday, Oct. 6: S&P 500 Sets New High, Nuclear Stocks Surge",
+            "summary": "The S&P 500 reached new all-time highs on October 6, 2026, climbing 0.85% to 7,840 as falling oil prices eased inflation concerns. Nuclear stocks surged following a Constellation Energy deal with Google, while semiconductor stocks like Marvell Technology jumped over 7% on strong investor day guidance. Memory stocks declined amid reports of Toshiba's market expansion plans.",
+            "published_at": "2026-10-06T16:18:08+00:00",
+            "url": "https://www.fool.com/coverage/stock-market-today/2026/10/06/stock-market-midday-oct-6-s-and-p-500-sets-new-high-nuclear-stocks-surge/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Seagate And Western Digital Stocks Fall. There's A New Twist To Toshiba Competition Fears.",
+            "summary": "There's a bidding war for a maker of a key hard-drive component, according to Bloomberg.",
+            "published_at": "2026-10-06T16:12:22+00:00",
+            "url": "https://finnhub.io/api/news?id=a920f688f7c603f3800a7be6b06a7061a9a257c9e4aa11161ef03a71caae3b29",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital Sinks 6% as Toshiba\u2019s Drive Expansion Hits the Group; Seagate Drops 8%, Micron Holds Flat",
+            "summary": "Toshiba\u2019s plan to build more hard disk drives is landing on its two U.S.-listed rivals and not hurting the memory chip stocks around them. Western Digital (NASDAQ:WDC) stock is down 6% to $414.65 in late morning trading. Also, Seagate Technology Holdings (NASDAQ:STX) stock is falling 8% to $819.08, the biggest decline among the storage names. [\u2026]",
+            "published_at": "2026-10-06T15:52:09+00:00",
+            "url": "https://finnhub.io/api/news?id=11074b2fd5407e2ce70b7bff5652619813f1de40dd70c8785403a1e2e28b9b79",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Michael Burry's Bearish View. The Market Is In 'Denial' About The End Of The AI Trade.",
+            "summary": "Michael Burry continues his downbeat view of the market with bearish positions against top tech names like Nvidia and Palantir.",
+            "published_at": "2026-10-06T15:03:53+00:00",
+            "url": "https://finnhub.io/api/news?id=21b6eab87d0856f2f2d5f8dcf15410a571a8dcbd2c012c21a7b085706c887cf7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tuesday's session: gap up and gap down stock in the S&P500 index",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing notable price gaps in today's session on Tuesday. Discover the gap up and gap down stocks in the S&P500 index.",
+            "published_at": "2026-10-06T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=293a1e63d2d9f8d35ccf43537079ef2352e40d44a0deea52ecbe4d188ab55d23",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "How Has Micron's Story Changed?",
+            "summary": "Micron Technology (MU) stock is priced at 9 times its fiscal 2026 sales, against 3.0 for the S&P 500. Shareholders paying that price need to know what they are buying, and Micron's priorities have changed. In December 2024, on its fiscal Q1 2025 call, management was explaining near-term issues and an impact it said was mostly limited to its consumer-oriented segments. Now it leads with something else. So what is it.",
+            "published_at": "2026-10-06T14:18:43+00:00",
+            "url": "https://finnhub.io/api/news?id=2652b5cf850cfb57140300c68c70290a4e51fe6407e284558d2242db6e904f54",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises As Oil, Yields Fall; AMD, Nvidia, Tesla Shares Rally (Live Coverage)",
+            "summary": "The Dow Jones index rises Tuesday as oil prices and yields fall. AMD, Nvidia and Tesla rally.",
+            "published_at": "2026-10-06T13:40:44+00:00",
+            "url": "https://finnhub.io/api/news?id=17e181e56894175d3d48e8234373dbdf984acc756da331e92076e6fc53f1d371",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate, Western Digital stocks slip as Toshiba's AI storage push rattles sector",
+            "summary": "Seagate Technology and Western Digital shares declined on Tuesday as the hard disk drive sector continued to be volatile.",
+            "published_at": "2026-10-06T13:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=548c326d6d6e6d6fd1a00cc1e0f6818be9583b854019af427c245c5396bf7a84",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate and Western Digital Drop. The Hot Tech Stocks Have a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T12:49:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eb2571c995229ec3d6b9c62a277a3ac1fdf5765e9c67b16d3c52d90c126c2620",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital (WDC) Is Considered a Good Investment by Brokers: Is That True?",
+            "summary": "Based on the average brokerage recommendation (ABR), Western Digital (WDC) should be added to one's portfolio. Wall Street analysts' overly optimistic recommendations cast doubt on the effectiveness of this highly sought-after metric. So, is the stock worth buying?",
+            "published_at": "2026-10-06T12:30:03+00:00",
+            "url": "https://finnhub.io/api/news?id=ff27582f0c0944a7760472fa28f03241b6c35cff20cf31864996929cd7327d54",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Stock Is Waiting On One Answer",
+            "summary": "Micron Technology (MU) is earning its highest operating margin in ten years, and management has said price and a favorable mix are supporting its margins. The stock returned 557% over the past twelve months, against 16.0% for the S&P 500. A holder is now relying on those prices, and how long they last is not settled.",
+            "published_at": "2026-10-06T12:03:01+00:00",
+            "url": "https://finnhub.io/api/news?id=83e72273e93e2827a778b5104222128b3698c3ec21c93c9385b683b6eadf2067",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Reported Earlier, 'Seagate Said to Vie With Toshiba for TDK\u2019s Hard-Drive Magnetic Heads Unit' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-06/seagate-is-said-to-battle-toshiba-for-tdk-s-hard-drive-head-unit",
+            "published_at": "2026-10-06T10:44:19+00:00",
+            "url": "https://finnhub.io/api/news?id=9e3a14e2772c4486114142a0909dd237a4aa0683d658a95b1068a21c53bf5053",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Seagate Is Falling. The Hot Tech Stock Has a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T10:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ec61b32051e0f58e2fbc4e24a72717c88180e83c118923c1ed50a81bfb534e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "1 Cash-Heavy Stock to Target This Week and 2 Facing Headwinds",
+            "summary": "A surplus of cash can mean financial stability, but it can also indicate a reluctance (or inability) to invest in growth. Some of these companies also face challenges like stagnating revenue, declining market share, or limited scalability.",
+            "published_at": "2026-10-06T09:12:34+00:00",
+            "url": "https://finnhub.io/api/news?id=09d23c7f60267407beea5107d974aa9b21eaf4a3c293837d0769f794b26057d4",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 411.04
+    },
+    {
+      "ticker": "STX",
+      "predicted_return": 0.34531151377105423,
+      "open_price": 784.25,
+      "snapshot_date": "2026-10-06",
+      "news_flag": "Seagate (STX) Stock Trades Down, Here Is Why",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Seagate (STX) Stock Trades Down, Here Is Why",
+        "article_count": 26,
+        "reviewed_count": 26,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:07.588777+00:00",
+        "articles": [
+          {
+            "headline": "S&P 500 Breaks Above 7,800 as Chips and Nuclear Power Carry the AI Trade",
+            "summary": "The S&P 500 closed above 7,800 for the first time as Treasury yields eased. Constellation Energy surged on a 20-year nuclear deal with Google, Marvell laid out a $90 billion revenue ambition, Citi lifted AMD's target to $800, and storage stocks slumped on a takeover fight for TDK.",
+            "published_at": "2026-10-07T10:13:09+00:00",
+            "url": "https://finnhub.io/api/news?id=cc7e73929302e0ab44508ce6cda8cdedfe3e3f6f1008e3334970997cf02c35b0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Edge Higher On Firm Services And Inflation Jitters",
+            "summary": "The Morning Bull - US Market Morning Update Wednesday, Oct, 7 2026 US stock futures are pointing higher this morning, with key contracts on the S&P 500 and Nasdaq up around 0.2% to 0.6% as investors digest strong service sector readings and fresh inflation worries. The ISM Services PMI came in at 54.9 for September, which signals expanding activity and indicates that demand for things like travel, healthcare and business services is still solid. A broader scorecard, the US Composite PMI,...",
+            "published_at": "2026-10-07T08:11:49+00:00",
+            "url": "https://finnhub.io/api/news?id=8ba596e5371d599c0c74246104158ab23218f04e3cb5dee31be686711a542594",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate\u2019s (STX) CEO Sold $17.4 Million the Day Before the Toshiba Drop. The Stock Is Falling Again",
+            "summary": "Seagate Technology Holdings plc (NASDAQ:STX) traded at around $809 on October 6, down 7.44% on the day, though still 294.24% higher over twelve months. Chief executive William Mosley sold 18,998 shares at an average of $914.67 on October 1, the session before Toshiba said it would double its hard drive production capacity. The sale and [\u2026]",
+            "published_at": "2026-10-06T23:48:40+00:00",
+            "url": "https://finnhub.io/api/news?id=390b86a12b150216d27e165d5b3ebe08df2266216a0bc3e2adab8f760316af6b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate (STX) Stock Trades Down, Here Is Why",
+            "summary": "Shares of data storage manufacturer Seagate (NASDAQ:STX) fell 9.5% in the afternoon session after TipRanks reported that market participants grew cautious over a multibillion-dollar acquisition bidding contest against Toshiba for TDK's magnetic-heads unit.",
+            "published_at": "2026-10-06T23:44:34+00:00",
+            "url": "https://finnhub.io/api/news?id=c7976774ab1b8989fbb2f8be73fb00eac17bc9821fda564a96767893c070bc0b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow, S&P 500 Rally; Cathie Wood Buys This Stock Amid 56% Dive",
+            "summary": "The Dow Jones index rises on the stock market today amid a flurry of breakouts. Seagate falls on a report. Cathie Wood snaps up a plunging stock.",
+            "published_at": "2026-10-06T20:43:09+00:00",
+            "url": "https://finnhub.io/api/news?id=ecd0a449183cc5b59536653b5886a95168da8c11b0fdfe02872d15c9a08989fd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises, But Seagate Dives On This; AI Stock, Electronics Play Clear Entries (Live Coverage)",
+            "summary": "The Dow Jones index rises on the stock market today but Seagate falls on a report. AMD pops. Zebra and an AI stock test entries.",
+            "published_at": "2026-10-06T19:34:50+00:00",
+            "url": "https://finnhub.io/api/news?id=1978a1c82c4d9c59958a6ba206f27ca78d48bd7846ee379ed8b186b3e2f133e2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Memory Stocks Are Sitting Out the Stock Market Rally",
+            "summary": "The S&P 500 and the Nasdaq Composite were set to end Tuesday's session at new record highs driven by the broadening AI trade.",
+            "published_at": "2026-10-06T19:25:01+00:00",
+            "url": "https://finnhub.io/api/news?id=cc4f4d1e1694f653642957be62a15f9f1316f2348a76eb5f3c163c3712449988",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Tuesday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-06T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=799cd2ca19736d45c52db9faa5f9160ef65f2f81c348e1bda7366c44deea05c5",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Marvell, Nvidia, AMD, Constellation Energy, Seagate, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Advanced Micro Devices rises after Citi boosts its price target on the chip maker\u2019s stock.",
+            "published_at": "2026-10-06T17:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e14cb1f84105eeea2ce25251fab8bb7afcf95ba31acd31677687619808c240c5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital Fell Nearly 20% Over The Last 3 Months: A Respected Wall Street Analyst Says 140% To Come",
+            "summary": "Western Digital shares sit nearly 45% below their peak while analyst estimates keep climbing, leaving investors to decide whether a supply scare just created a rare buying opportunity or a warning sign the bull story is cracking.",
+            "published_at": "2026-10-06T16:45:29+00:00",
+            "url": "https://finnhub.io/api/news?id=6be377fbc673d00ebb9d2310572ed3e6eec0137c219f17d9df2c3d7369f2b1c3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Could Send SanDisk Stock Soaring?",
+            "summary": "SanDisk (SNDK) stock returned about 1,240% over the twelve months through October 5, 2026, against about 16% for the S&P 500, so you may wonder what is left. Yet the shares trade at about 22 times earnings, close to the index's 21.5. A price like that appears to assume the profits will fade, but management says it has changed how SanDisk sells. So what could convince buyers that SanDisk's profits will hold up.",
+            "published_at": "2026-10-06T16:42:13+00:00",
+            "url": "https://finnhub.io/api/news?id=ebf03692cc7779cdfcc87ae28922901107a626ff53fc5bb6c604208ad57d126b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Tuesday?",
+            "summary": "Stay updated with the movement of S&P500 stocks in today's session. Discover which S&P500 stocks are making waves on Tuesday.",
+            "published_at": "2026-10-06T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=77d86f15549f5f68cb794b92dd883f9ce67028af48767f3a173cdb7c589f7e8d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Stock Market Midday, Oct. 6: S&P 500 Sets New High, Nuclear Stocks Surge",
+            "summary": "The S&P 500 reached new all-time highs on October 6, 2026, climbing 0.85% to 7,840 as falling oil prices eased inflation concerns. Nuclear stocks surged following a Constellation Energy deal with Google, while semiconductor stocks like Marvell Technology jumped over 7% on strong investor day guidance. Memory stocks declined amid reports of Toshiba's market expansion plans.",
+            "published_at": "2026-10-06T16:18:08+00:00",
+            "url": "https://www.fool.com/coverage/stock-market-today/2026/10/06/stock-market-midday-oct-6-s-and-p-500-sets-new-high-nuclear-stocks-surge/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Seagate And Western Digital Stocks Fall. There's A New Twist To Toshiba Competition Fears.",
+            "summary": "There's a bidding war for a maker of a key hard-drive component, according to Bloomberg.",
+            "published_at": "2026-10-06T16:12:22+00:00",
+            "url": "https://finnhub.io/api/news?id=a920f688f7c603f3800a7be6b06a7061a9a257c9e4aa11161ef03a71caae3b29",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital Sinks 6% as Toshiba\u2019s Drive Expansion Hits the Group; Seagate Drops 8%, Micron Holds Flat",
+            "summary": "Toshiba\u2019s plan to build more hard disk drives is landing on its two U.S.-listed rivals and not hurting the memory chip stocks around them. Western Digital (NASDAQ:WDC) stock is down 6% to $414.65 in late morning trading. Also, Seagate Technology Holdings (NASDAQ:STX) stock is falling 8% to $819.08, the biggest decline among the storage names. [\u2026]",
+            "published_at": "2026-10-06T15:52:09+00:00",
+            "url": "https://finnhub.io/api/news?id=11074b2fd5407e2ce70b7bff5652619813f1de40dd70c8785403a1e2e28b9b79",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Michael Burry's Bearish View. The Market Is In 'Denial' About The End Of The AI Trade.",
+            "summary": "Michael Burry continues his downbeat view of the market with bearish positions against top tech names like Nvidia and Palantir.",
+            "published_at": "2026-10-06T15:03:53+00:00",
+            "url": "https://finnhub.io/api/news?id=21b6eab87d0856f2f2d5f8dcf15410a571a8dcbd2c012c21a7b085706c887cf7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tuesday's session: gap up and gap down stock in the S&P500 index",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing notable price gaps in today's session on Tuesday. Discover the gap up and gap down stocks in the S&P500 index.",
+            "published_at": "2026-10-06T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=293a1e63d2d9f8d35ccf43537079ef2352e40d44a0deea52ecbe4d188ab55d23",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Is Seagate (STX) a Buy After Recent Declines?",
+            "summary": "Seagate Technology Holdings plc (NASDAQ:STX) is down about 6% over the past five days. A report that Toshiba plans to boost its hard disk drive supply sent the stock down more than 10% in a single day. Is this the time to buy? It\u2019s worth analyzing this because major billionaires were piling into the stock [\u2026]",
+            "published_at": "2026-10-06T14:27:45+00:00",
+            "url": "https://finnhub.io/api/news?id=0fd67e69957bc8c204f7b3546c6a19030b9ebc3e7d0d9f96676db7bddc77a1dc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AMD, Nvidia, Nike, Corteva, Constellation Energy, Seagate, Nike, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Advanced Micro Devices rises after Citi boosts its price target on the chip maker\u2019s stock.",
+            "published_at": "2026-10-06T13:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2014f8171dd55860d2332a24ec7bf95370c8b38a8af651cad46171e6d87820f5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises As Oil, Yields Fall; AMD, Nvidia, Tesla Shares Rally (Live Coverage)",
+            "summary": "The Dow Jones index rises Tuesday as oil prices and yields fall. AMD, Nvidia and Tesla rally.",
+            "published_at": "2026-10-06T13:40:44+00:00",
+            "url": "https://finnhub.io/api/news?id=17e181e56894175d3d48e8234373dbdf984acc756da331e92076e6fc53f1d371",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate, Western Digital stocks slip as Toshiba's AI storage push rattles sector",
+            "summary": "Seagate Technology and Western Digital shares declined on Tuesday as the hard disk drive sector continued to be volatile.",
+            "published_at": "2026-10-06T13:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=548c326d6d6e6d6fd1a00cc1e0f6818be9583b854019af427c245c5396bf7a84",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate and Western Digital Drop. The Hot Tech Stocks Have a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T12:49:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eb2571c995229ec3d6b9c62a277a3ac1fdf5765e9c67b16d3c52d90c126c2620",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate Technology Holdings (NASDAQ:STX): Strong Growth Meets High-Quality Technical Setup",
+            "summary": "Seagate (STX) pairs 9/10 growth and 10/10 technicals with a workable breakout setup, though high valuation and leverage remain key risks.",
+            "published_at": "2026-10-06T11:30:43+00:00",
+            "url": "https://finnhub.io/api/news?id=16b1b8aa9fdffcddfa9d06b80655c8b3e3d08b95e770f0977fed886c0e6e0c5b",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Reported Earlier, 'Seagate Said to Vie With Toshiba for TDK\u2019s Hard-Drive Magnetic Heads Unit' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-06/seagate-is-said-to-battle-toshiba-for-tdk-s-hard-drive-head-unit",
+            "published_at": "2026-10-06T10:44:19+00:00",
+            "url": "https://finnhub.io/api/news?id=9e3a14e2772c4486114142a0909dd237a4aa0683d658a95b1068a21c53bf5053",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Seagate Is Falling. The Hot Tech Stock Has a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T10:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ec61b32051e0f58e2fbc4e24a72717c88180e83c118923c1ed50a81bfb534e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "STX Stock Inches Higher Overnight: Seagate Reportedly Makes Higher Bid For TDK\u2019s Multi-Billion Magnetic-Heads Business",
+            "summary": "Seagate is locked in a bidding war with Toshiba for the business, which could be worth several billion dollars, Bloomberg reported.",
+            "published_at": "2026-10-06T06:42:02+00:00",
+            "url": "https://finnhub.io/api/news?id=cd45e7bd6b3e555019792d585310a0c4dec7ecab62cc94a11683a098dfc58efb",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 805.63
+    },
+    {
+      "ticker": "IBRX",
+      "predicted_return": 0.3049341453990973,
+      "open_price": 9.5,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-07T13:34:07.590136+00:00",
+        "articles": []
+      },
+      "prev_close": 9.69
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.28721055067121454,
+      "open_price": 183.645,
+      "snapshot_date": "2026-10-06",
+      "news_flag": "Novavax, Moderna stocks fall after WHO calls plague risk 'low'",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Novavax, Moderna stocks fall after WHO calls plague risk 'low'",
+        "article_count": 18,
+        "reviewed_count": 18,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:07.590371+00:00",
+        "articles": [
+          {
+            "headline": "Novavax and Moderna Shares Fall as Citi Assesses Vaccine Sector Volatility",
+            "summary": "Shares of Novavax Inc (NASDAQ:NVAX) and Moderna Inc (NASDAQ:MRNA) declined on Wednesday after both companies rose in the previous session following reports of a suspected pneumonic plague case in Russia. Novavax shares fell 11% after gaining 20% on Tuesday, while Moderna declined 6% following a 7% increase in the prior session.",
+            "published_at": "2026-10-07T10:26:21+00:00",
+            "url": "https://finnhub.io/api/news?id=254278c2e3b8fe9ad6af44a36f86ff9808090d83ad4dec8e818133c9b00eb395",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures Fall, Yields Rise After S&P 500 Hits High; Astera, GE Vernova, Arista Lead Buys",
+            "summary": "The S&P 500 hit a high as the stock market extended a win streak. Astera Labs, GE Vernova and Arista Networks led AI stock buys.",
+            "published_at": "2026-10-07T09:53:18+00:00",
+            "url": "https://finnhub.io/api/news?id=657f9761d2dfdc2106424e37fe6311032c1767ee4783a979d1d50a82e4d87a39",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Future Fall After S&P 500 Hits High; Astera, GE Vernova, Arista Lead Buys, But These Stocks Slammed",
+            "summary": "The S&P 500 hit a high as the stock market extended a win streak. Astera Labs, GE Vernova and Arista Networks led AI stock buys.",
+            "published_at": "2026-10-07T07:49:59+00:00",
+            "url": "https://finnhub.io/api/news?id=64c66b4613237deb437402981f92ecfd5c925207ce42fafb2074d1c2858d71e1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna (MRNA) Could Be 57% Above Fair Value On New COO Appointment",
+            "summary": "Moderna (MRNA) appointed former executive Juan Andres as its new Chief Operating Officer in a newly created role, giving investors additional information to weigh against a sharp recent move in the stock. Recent trading has been choppy for Moderna, with the share price down 7.8% over the past day and week, yet still posting a 28.8% 30 day share price return and a very large year to date gain, while the 1 year total shareholder return also remains very high despite a weaker 5 year record...",
+            "published_at": "2026-10-07T07:16:55+00:00",
+            "url": "https://finnhub.io/api/news?id=24e8f76eda4c60156468bff0fa39f76a8f7dc3ca177fe672d80d92754c507ec8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures: S&P 500 Hits High As Astera, GE Vernova, Arista Lead Buys, But These Stocks Tumble",
+            "summary": "The S&P 500 hit a high as the stock market extended a win streak. Astera Labs, GE Vernova and Arista Networks led AI stock buys.",
+            "published_at": "2026-10-06T21:38:16+00:00",
+            "url": "https://finnhub.io/api/news?id=721d6d5edcfaf9ef44effdde15fa410c28c6a281fe4be4edd2c0f998f6ab351a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Pandemic Panic Is Back on Wall Street. What to Know About the Russian Plague Scare.",
+            "summary": "The death of a Russian lab technician triggers fears of a pneumonic plague outbreak, even as health officials downplay the risk.",
+            "published_at": "2026-10-06T21:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=180202710dc273203341b97a088d7077330217059d53f32c5a075393bde007eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Now the Time to Cash Out of the S&P 500's Top 3 Stocks of 2026?",
+            "summary": "These stocks have all soared more than 350% this year.",
+            "published_at": "2026-10-06T20:20:02+00:00",
+            "url": "https://finnhub.io/api/news?id=a530aab6542cb6f6f2fa5615475ba3036ce5d64291da8a522a1807f43791fdb1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Tuesday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-06T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=799cd2ca19736d45c52db9faa5f9160ef65f2f81c348e1bda7366c44deea05c5",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Moderna Is Up 545% in 2026: Take Profits Now, or Keep Buying?",
+            "summary": "Moderna stock has turned a handful of patient shareholders into believers, but a gain this size forces a choice that most investors never plan for in advance. The pipeline promise is real, and so is the risk of giving it all back.",
+            "published_at": "2026-10-06T19:03:03+00:00",
+            "url": "https://finnhub.io/api/news?id=5be42c579586235957ebe3854c6f16f5170e52eeb4ec0992ee781fdb6d35f2b2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Tuesday?",
+            "summary": "Stay updated with the movement of S&P500 stocks in today's session. Discover which S&P500 stocks are making waves on Tuesday.",
+            "published_at": "2026-10-06T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=77d86f15549f5f68cb794b92dd883f9ce67028af48767f3a173cdb7c589f7e8d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Novavax, Moderna stocks fall after WHO calls plague risk 'low'",
+            "summary": "Novavax stock slid on Tuesday after a World Health Organization (WHO) spokesperson told reporters that there was a \"low\" risk of a plague epidemic, after a 28-year-old woman who worked in a Russian anti-plague laboratory died last week.",
+            "published_at": "2026-10-06T15:59:03+00:00",
+            "url": "https://finnhub.io/api/news?id=6269f2bea8baec5db48921fc0113fe6e796197b632a4784659dc96f9483af9ac",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Biotech Stocks Tumble, With Recent Winners Moderna, Vaxcyte Among The Biggest Losers",
+            "summary": "Biotech stocks took a hit Tuesday, with Vaxcyte, Moderna and Revolution Medicines posting some of the steepest losses.",
+            "published_at": "2026-10-06T15:39:05+00:00",
+            "url": "https://finnhub.io/api/news?id=4fe7eff21e7fc3ab280e5978693cc4f9850e9ea6400a8bab1ab7d9c4e8677d7f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tuesday's session: gap up and gap down stock in the S&P500 index",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing notable price gaps in today's session on Tuesday. Discover the gap up and gap down stocks in the S&P500 index.",
+            "published_at": "2026-10-06T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=293a1e63d2d9f8d35ccf43537079ef2352e40d44a0deea52ecbe4d188ab55d23",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Merck Stock Down 7% in a Month: Is the Dip a Buying Opportunity?",
+            "summary": "Merck's 7% dip may offer a buying opportunity as Keytruda drives growth and new products and pipeline assets strengthen its post-2028 outlook.",
+            "published_at": "2026-10-06T14:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b8c24771ec9f2acfa0c2c2695e7d6df91fc9d0d11a2219c92c917dfea329fe3a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Paramount\u2013Warner Bros. deal finally closes: Stocks to watch on Tuesday",
+            "summary": "The 8:30 Hosts Julie Hyman, Pras Subramanian, and Jake Conley outline trending stories to watch on Tuesday: AMD (AMD) CEO Lisa Su's recent comments, Paramount's (PSKY) deal with Warner Bros. (WBD) finally closing, Moderna (MRNA) and other pharmaceutical stocks climbing, and Banco Bradesco (BBD) stock jumping on Brazilian election polls.",
+            "published_at": "2026-10-06T14:31:43+00:00",
+            "url": "https://finnhub.io/api/news?id=e0e128374aa47ad5a23e2076967c3d01abfff200ac3a3843cc6d371cbdfa9307",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Novavax Pulls Back From Plague-Scare Spike as Officials Call Risk Low; Moderna Nudges Higher, Pfizer Inches Higher",
+            "summary": "A plague headline out of Siberia lifted vaccine stocks, and the agencies closest to the case have since described the risk as low. That reversal in sentiment lands hardest on Novavax (NASDAQ:NVAX), since the company\u2019s rally priced a government-purchase scenario that its product line doesn\u2019t address. Novavax stock trades at $12.32, down 2% in morning [\u2026]",
+            "published_at": "2026-10-06T13:56:03+00:00",
+            "url": "https://finnhub.io/api/news?id=631504fc4ba1b24349758aad4495c3d34a2c08ba4b66f10e9572c1680c84e8bc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The $110 Billion Paramount-Warner Merger Closes Today. What Shareholders Need to Know",
+            "summary": "One group of shareholders walks away with cash at closing. The other inherits a renamed company on a new exchange carrying roughly $80 billion in debt, and the settlement terms make the usual escape routes unavailable.",
+            "published_at": "2026-10-06T13:10:45+00:00",
+            "url": "https://finnhub.io/api/news?id=add7b011130caf548ecd5881d8dd0693a9a2406ba8ba6069c4b9fc9aba32dd92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ValuEngine Weekly Commentary: YTD And Q3 Performance Analysis, Strategy Notes",
+            "summary": "US equity markets were mixed this week, with gains in tech-related areas offset by weakness across several broader market and defensive sectors. Read more here...",
+            "published_at": "2026-10-06T06:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f7f9ba42bf795a8ba5ac93ca3deca7c3b67ceeb97d78b96746a91e1219253b98",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 187.46
+    },
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.26529339918526523,
+      "open_price": 11.73,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 11.95
+    },
+    {
+      "ticker": "VSXY",
+      "predicted_return": 0.2339777543853065,
+      "open_price": 83.35,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:12.550122+00:00",
+        "articles": [
+          {
+            "headline": "Getting Ahead Of The Holiday Rush: Amazon And 2 Top Stocks To Buy",
+            "summary": "Record online holiday spending and solid in-store traffic could boost Amazon and 2 fundamentally strong retail stocks. Click to read more here.",
+            "published_at": "2026-10-06T16:11:23+00:00",
+            "url": "https://finnhub.io/api/news?id=2aaf95a8434fb23b42fc6d7659f0d8b87d59cd1347a209c5b487758748c44a72",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Bath & Body Works (BBWI) Surges 8.7%: Is This an Indication of Further Gains?",
+            "summary": "Bath & Body Works (BBWI) witnessed a jump in share price last session on above-average trading volume. The latest trend in earnings estimate revisions for the stock suggests that there could be more strength down the road.",
+            "published_at": "2026-10-06T10:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8310b153b1068d36418cd044e1c66cce1d6ba12766ab6d7d6276225c8d1e5f7c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Zacks Analyst Blog Highlights Victoria's Secret, FIGS, Fossil and Boot Barn",
+            "summary": "Zacks Equity Research analysts featured four retail stocks in their blog. Victoria's Secret remains confident in China as its top international growth driver despite moderating international growth. FIGS, Fossil Group, and Boot Barn are highlighted as better-ranked alternatives with varying growth prospects in their respective sectors.",
+            "published_at": "2026-10-06T05:31:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3000624/the-zacks-analyst-blog-highlights-victoria-s-secret-figs-fossil-and-boot-barn?cid=CS-ZC-FT-press_releases-3000624",
+            "source": "Zacks Investment Research"
+          }
+        ]
+      },
+      "prev_close": 85.09
+    },
+    {
+      "ticker": "SYRE",
+      "predicted_return": 0.22178591385484767,
+      "open_price": 78.91,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 80.11
+    },
+    {
+      "ticker": "TXG",
+      "predicted_return": 0.22167856867950084,
+      "open_price": 77.52,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 80.66
+    },
+    {
+      "ticker": "TWST",
+      "predicted_return": 0.20635128016531634,
+      "open_price": 158.26,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 166.97
+    },
+    {
+      "ticker": "FORM",
+      "predicted_return": 0.19609346395385094,
+      "open_price": 137.27,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:12.553359+00:00",
+        "articles": [
+          {
+            "headline": "Zacks Industry Outlook Applied Materials, Lam Research and FormFactor",
+            "summary": "Applied Materials, Lam Research and FormFactor have been highlighted in this Industry Outlook article.",
+            "published_at": "2026-10-07T07:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=43bfe041635a8c55986097ab67d1ade5a9df19af994ec1122a20a3988d7f5075",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Stocks to Buy From the Prospering Semiconductor Industry",
+            "summary": "The Zacks Electronics - Semiconductors industry players like AMAT, LRCX and FORM gain from the growing proliferation of AI that is driving sustained demand for advanced semiconductors.",
+            "published_at": "2026-10-06T13:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6a8aad81d1e2e6057c26f5321fddb3e972086edc59980cc587ec53e6e42a52ca",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Buy 5 Growth Stocks to Boost Your Portfolio in Q4 After a Mixed Q3",
+            "summary": "PWR, FORM, SMTC, CNC and ROKU offer strong growth prospects in Q4, driven by AI demand, estimate gains, healthcare momentum and streaming growth.",
+            "published_at": "2026-10-06T11:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c1005da31cd0f3c602c9af0cac58248e16d7fe24bbaa0515d210cc9c6c61c56e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 141.3
+    },
+    {
+      "ticker": "LEU",
+      "predicted_return": 0.1874992805738993,
+      "open_price": 147.0,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:14.565558+00:00",
+        "articles": [
+          {
+            "headline": "Centrus Energy (LEU) Surges 8.8%: Is This an Indication of Further Gains?",
+            "summary": "Centrus Energy shares surged 8.8% to $153.88 following a definitive multi-year contract to supply High-Assay Low-Enriched Uranium (HALEU) to Antares Nuclear. The rally was supported by broader industry sentiment strengthened by Google-Constellation Energy's nuclear capacity agreement and Vistra's $4.2 billion DOE loan commitment. However, earnings estimate revisions have remained flat over 30 days, which may limit further upside momentum.",
+            "published_at": "2026-10-07T07:00:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3001467/centrus-energy-leu-surges-8-8-is-this-an-indication-of-further-gains?cid=CS-ZC-FT-fundamental_analysis%7Cdaily_price_change_3%25-3001467",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Why Centrus Stock Popped on Tuesday",
+            "summary": "The DOE is loaning Vistra $4.2 billion to produce more nuclear power. But what does that have to do with Centrus?",
+            "published_at": "2026-10-06T16:35:18+00:00",
+            "url": "https://finnhub.io/api/news?id=2becfdcf61aedd9d4c16ce5861d68d0b78a662d3a9dafb5549e3c1fb19eae8d6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Transcript: Centrus Energy Q2 2026 Earnings Conference Call",
+            "summary": "Centrus Energy (AMEX:LEU) reported second-quarter financial results on Thursday. The transcript from the company&#39;s second-quarter earnings call has been provided below.\nThis content is powered by Benzinga APIs. For",
+            "published_at": "2026-10-06T04:46:42+00:00",
+            "url": "https://finnhub.io/api/news?id=2f430c5cfd196fe970140b00ac72df6ddd0a890124309ff0474bbca6312950ee",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 153.88
+    },
+    {
+      "ticker": "IOVA",
+      "predicted_return": 0.18154195590291125,
+      "open_price": 12.515,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:11.979801+00:00",
+        "articles": [
+          {
+            "headline": "Transcript: Iovance Biotherapeutics Q2 2026 Earnings Conference Call",
+            "summary": "Iovance Biotherapeutics (NASDAQ:IOVA) reported second-quarter financial results on Thursday. The transcript from the company&#39;s second-quarter earnings call has been provided below.\nThis transcript is brought to you",
+            "published_at": "2026-10-06T04:00:43+00:00",
+            "url": "https://finnhub.io/api/news?id=7ccd71ccd65b0c51deef55136f808d78d2c24aa072005487409a812f1759daf1",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 12.96
+    },
+    {
+      "ticker": "TEM",
+      "predicted_return": 0.1734694154555793,
+      "open_price": 70.1,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:14.566153+00:00",
+        "articles": [
+          {
+            "headline": "Dow Jones Futures Fall, Yields Rise After S&P 500 Hits High; Astera, GE Vernova, Arista Lead Buys",
+            "summary": "The S&P 500 hit a high as the stock market extended a win streak. Astera Labs, GE Vernova and Arista Networks led AI stock buys.",
+            "published_at": "2026-10-07T10:47:07+00:00",
+            "url": "https://finnhub.io/api/news?id=657f9761d2dfdc2106424e37fe6311032c1767ee4783a979d1d50a82e4d87a39",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures: S&P 500 Hits High As Astera, GE Vernova, Arista Lead Buys, But These Stocks Tumble",
+            "summary": "The S&P 500 hit a high as the stock market extended a win streak. Astera Labs, GE Vernova and Arista Networks led AI stock buys.",
+            "published_at": "2026-10-07T00:34:31+00:00",
+            "url": "https://finnhub.io/api/news?id=721d6d5edcfaf9ef44effdde15fa410c28c6a281fe4be4edd2c0f998f6ab351a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fortune Unveils the \"Fortune Future 120\" 2026 List",
+            "summary": "Fortune today unveiled its Fortune Future 120 list for 2026, the annual list recognizing companies around the world that are best positioned to drive sustained, long-term growth.",
+            "published_at": "2026-10-06T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ebb8146dc028c3c7db55e648bcd339f4309255efb9ae5525e07e8054cd47685d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tempus AI (TEM) Shares Just Moved, So What Is Going On?",
+            "summary": "Tempus AI (TEM) has moved back into focus after receiving 510(k) clearance from the U.S. Food and Drug Administration for Tempus ECG-MR, an AI tool for early mitral regurgitation detection. The FDA decision has landed on top of a strong run in Tempus AI\u2019s shares, with a 1-day share price return of 9.03% helping lift the latest quote to US$83.55 and building on a 30-day share price return of 29.29%, even though the 1-year total shareholder return is still down 10.17%. This suggests that...",
+            "published_at": "2026-10-06T05:07:17+00:00",
+            "url": "https://finnhub.io/api/news?id=cd9bdac1d5dfdddb64a139e07fe4896354c97a2b0c7c6af519651cabd6176e6a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cathie Wood Claps Back After Being Confronted as ARKK Fell Nearly 15% While QQQ Soared 112% in Five Years \u2014 Calls It an \u2018Incorrect Comparison\u2019",
+            "summary": "Cathie Wood defends ARKK&#39;s 15% drop vs QQQ&#39;s 112% 5-year gain, calling it an &#39;incorrect comparison&#39; and blaming &#39;endpoint sensitivity.&#39;",
+            "published_at": "2026-10-06T04:08:14+00:00",
+            "url": "https://finnhub.io/api/news?id=3ef1208dc23792129bb70dc851038f5bdf32bb6fd45801ebf346ed642b9ef852",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 71.98
+    },
+    {
+      "ticker": "CAMT",
+      "predicted_return": 0.1734081597353242,
+      "open_price": 150.29,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:12.373788+00:00",
+        "articles": [
+          {
+            "headline": "Should You Buy, Sell or Hold AMAT Stock at a P/S Valuation of 9.59X?",
+            "summary": "Applied Materials' AI-driven WFE exposure, record AGS growth and capacity expansion support its outlook.",
+            "published_at": "2026-10-06T14:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=81146ba96d64ba1e0b21f9e31c03be17da5da0b36f7fd404042f4226467be6a6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 154.55
+    },
+    {
+      "ticker": "KLAC",
+      "predicted_return": 0.1713492696809647,
+      "open_price": 192.04,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 11,
+        "reviewed_count": 11,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:11.986358+00:00",
+        "articles": [
+          {
+            "headline": "The Zacks Analyst Blog Highlights Space Exploration, Dell, KLA, AXIL Brands and Optex",
+            "summary": "Space Exploration, Dell, KLA, AXIL Brands and Optex are included in this Analyst Blog.",
+            "published_at": "2026-10-07T07:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=45887e26798ba4c63989918b18d54f7d8f881ebdd409154eda305946ee8dca09",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lam Research vs. KLA: Is Faster Growth Worth Paying More for Cash Flow?",
+            "summary": "Lam Research Corporation (NASDAQ:LRCX) is growing faster than KLA Corporation (NASDAQ:KLAC). Yet at October 5 prices, the two semiconductor-equipment stocks carried similar consensus forward earnings multiples, while Lam cost more relative to trailing free cash flow. Investors choosing between them need to decide whether Lam\u2019s stronger current growth compensates for that cash-flow premium. On September [\u2026]",
+            "published_at": "2026-10-07T02:48:25+00:00",
+            "url": "https://finnhub.io/api/news?id=23b08900b8f9ad55fdda3f3e67098aebbe7d7c93bf74576b9c5ce3c9e849eff2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer Says the Chip Shortage \u201cCan\u2019t Be Solved\u201d Without KLAC",
+            "summary": "While reviewing the Nasdaq 100\u2019s third-quarter laggards on the October 1 episode of Mad Money, Jim Cramer singled out KLA Corporation (NASDAQ:KLAC) as a stock he would buy. He said: Alright, what about the Nasdaq 100, which finished up 2.47%?\u2026 Losers? Alright, there\u2019s that AppLovin again, down 44% but here\u2019s another one, one that I\u2019d [\u2026]",
+            "published_at": "2026-10-06T22:00:49+00:00",
+            "url": "https://finnhub.io/api/news?id=da91be182cb3afc867657f5908d2a8761c57187e1cbf5c9d1e563dc9773ce7af",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top Research Reports for SpaceX, Dell & KLA Corp.",
+            "summary": "Today's Research Daily features new research reports on 16 major stocks, including Space Exploration Technologies Corp. (SPCX), Dell Technologies Inc. (DELL) and KLA Corporation (KLAC), as well as two micro-cap stocks, AXIL Brands, Inc. (AXIL) and Optex Systems Holdings, Inc (OPXS).",
+            "published_at": "2026-10-06T19:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eedfe57e908a7428ca58580b7fa1faf1fba719d888a907c6ff12f983e817fb10",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Tuesday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-06T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=799cd2ca19736d45c52db9faa5f9160ef65f2f81c348e1bda7366c44deea05c5",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Tuesday?",
+            "summary": "Stay updated with the movement of S&P500 stocks in today's session. Discover which S&P500 stocks are making waves on Tuesday.",
+            "published_at": "2026-10-06T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=77d86f15549f5f68cb794b92dd883f9ce67028af48767f3a173cdb7c589f7e8d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Teradyne Gains 130% YTD: Should You Hold or Fold the Stock?",
+            "summary": "TER's AI-driven memory test growth and upbeat Q3 outlook support momentum, but premium valuation, competition, and margin pressures cloud the case.",
+            "published_at": "2026-10-06T15:07:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5cab22ace9ab071897d02fce2ce6bc393d81c92d3c0e881df01c730571d81f5a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "All You Need to Know About KLA (KLAC) Rating Upgrade to Buy",
+            "summary": "KLA (KLAC) has been upgraded to a Zacks Rank #2 (Buy), reflecting growing optimism about the company's earnings prospects. This might drive the stock higher in the near term.",
+            "published_at": "2026-10-06T15:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=7a2a56df49281388714df5dcf598aed50406b2519fcd962237d9558ffacfff2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should You Buy, Sell or Hold AMAT Stock at a P/S Valuation of 9.59X?",
+            "summary": "Applied Materials' AI-driven WFE exposure, record AGS growth and capacity expansion support its outlook.",
+            "published_at": "2026-10-06T14:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=81146ba96d64ba1e0b21f9e31c03be17da5da0b36f7fd404042f4226467be6a6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tuesday's session: gap up and gap down stock in the S&P500 index",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing notable price gaps in today's session on Tuesday. Discover the gap up and gap down stocks in the S&P500 index.",
+            "published_at": "2026-10-06T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=293a1e63d2d9f8d35ccf43537079ef2352e40d44a0deea52ecbe4d188ab55d23",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "SCHD-Inspired 4-Factor Dividend Growth Strategy Selections For October 2026",
+            "summary": "The 4-factor approach has averaged 18.76% total return, outperforming SCHD's 13.70% over completed 12-month cycles. Read more here.",
+            "published_at": "2026-10-06T08:12:06+00:00",
+            "url": "https://finnhub.io/api/news?id=7e1eb27d1f4ac3e3c7397391f053e54fcf4e19d49304b9e204a5b9fdef0c8732",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 197.46
+    },
+    {
+      "ticker": "GRAL",
+      "predicted_return": 0.16854823655008483,
+      "open_price": 134.0,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-07T13:34:14.566815+00:00",
+        "articles": []
+      },
+      "prev_close": 137.28
+    },
+    {
+      "ticker": "AEHR",
+      "predicted_return": 0.1662982654587656,
+      "open_price": 90.36,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 92.14
+    },
+    {
+      "ticker": "IMNM",
+      "predicted_return": 0.16132012789957206,
+      "open_price": 18.94,
+      "snapshot_date": "2026-10-06",
+      "news_flag": "Immunome Reports Inducement Grants Under Nasdaq Listing Rule 5635(c)(4)",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Immunome Reports Inducement Grants Under Nasdaq Listing Rule 5635(c)(4)",
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:14.567113+00:00",
+        "articles": [
+          {
+            "headline": "Immunome Reports Inducement Grants Under Nasdaq Listing Rule 5635(c)(4)",
+            "summary": "BOTHELL, Wash., October 06, 2026--Immunome, Inc. (the \"Company\") (Nasdaq: IMNM), a clinical-stage target oncology company focused on developing first-in-class and best-in-class targeted cancer therapies, announced today that on October 1, 2026, the Compensation Committee of the Company\u2019s Board of Directors (the \"Compensation Committee\") granted inducement awards consisting of non-statutory stock options to purchase an aggregate of 120,900 shares of common stock and 7,200 restricted stock units (",
+            "published_at": "2026-10-06T20:02:00+00:00",
+            "url": "https://finnhub.io/api/news?id=27a96f3e3e4c4a63670e4a002baf267efa74ce437516fd0095b87b7b9b357c4a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 19.31
+    },
+    {
+      "ticker": "LAD",
+      "predicted_return": 0.1601147519487784,
+      "open_price": 285.63,
+      "snapshot_date": "2026-10-06",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 292.51
+    },
+    {
+      "ticker": "ELVN",
+      "predicted_return": 0.15256716973603293,
+      "open_price": 41.62,
+      "snapshot_date": "2026-10-06",
+      "news_flag": "Enliven Therapeutics Announces FDA Alignment on ENABLE-2 Phase 3 Trial Design for Relcobatinib (ELVN-001) in Previously Treated Chronic Myeloid Leukemia",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Enliven Therapeutics Announces FDA Alignment on ENABLE-2 Phase 3 Trial Design for Relcobatinib (ELVN-001) in Previously Treated Chronic Myeloid Leukemia",
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-07T13:34:14.569564+00:00",
+        "articles": [
+          {
+            "headline": "Enliven Therapeutics Announces FDA Alignment on ENABLE-2 Phase 3 Trial Design for Relcobatinib (ELVN-001) in Previously Treated Chronic Myeloid Leukemia",
+            "summary": "Enliven Therapeutics, Inc. (Enliven or the Company) (Nasdaq: ELVN), a clinical-stage biopharmaceutical company focused on the discovery and development of small molecule therapeutics, today announced that it has reached alignment with the U.S. Food and Drug Administration (FDA) on the final design of the ENABLE-2 pivotal trial, a Phase 3 trial of relcobatinib (ELVN-001) in patients with previously treated chronic myeloid leukemia (CML).",
+            "published_at": "2026-10-06T20:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f16aa6c3b47a4f8b7b2b9654504b3f30d8acc0b7bbb4bfb4d326fc7452d065c1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 42.39
+    }
+  ],
+  "scored_count": 1977,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RPM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APLD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEVI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PENG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEOG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 27.515523239090335
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.059527278458475
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 6.894707496660075
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-06",
+    "model_trained_through": "2026-10-06",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-06, model trained through 2026-10-06 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

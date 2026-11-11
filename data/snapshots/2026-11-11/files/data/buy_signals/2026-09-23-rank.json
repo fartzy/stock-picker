@@ -1,0 +1,262 @@
+{
+  "as_of": "2026-09-23",
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "TRLV",
+      "predicted_return": 1.0119708649447516,
+      "open_price": 11.5,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "ALKT",
+      "predicted_return": 0.9599263122587178,
+      "open_price": 15.6,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "AMR",
+      "predicted_return": 0.8152138512665557,
+      "open_price": 176.31,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "BVC",
+      "predicted_return": 0.6423097241644747,
+      "open_price": 12.72,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "VVV",
+      "predicted_return": 0.5715322714438712,
+      "open_price": 27.15,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "PS",
+      "predicted_return": 0.5667458008713482,
+      "open_price": 49.23,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "BETA",
+      "predicted_return": 0.5653014524569003,
+      "open_price": 22.205,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "ALM",
+      "predicted_return": 0.5238251367926495,
+      "open_price": 13.79,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "FSLY",
+      "predicted_return": 0.49819835809713947,
+      "open_price": 25.9,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "CE",
+      "predicted_return": 0.493059105077175,
+      "open_price": 44.4,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "JMKE",
+      "predicted_return": 0.46742615000807114,
+      "open_price": 19.31,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.4513567155572811,
+      "open_price": 14.88,
+      "snapshot_date": "2026-09-22",
+      "news_flag": "PIPE dilution/offering"
+    },
+    {
+      "ticker": "PLBL",
+      "predicted_return": 0.4338953713570822,
+      "open_price": 5.85,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "CNR",
+      "predicted_return": 0.4087520244278637,
+      "open_price": 89.32,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "HCC",
+      "predicted_return": 0.3720324304306534,
+      "open_price": 88.74,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "XXI",
+      "predicted_return": 0.3657618844164995,
+      "open_price": 6.59,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "HUT",
+      "predicted_return": 0.35433318121658613,
+      "open_price": 105.33,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.3250960752444943,
+      "open_price": 183.32,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "MTD",
+      "predicted_return": 0.31038975484443687,
+      "open_price": 1432.9,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    },
+    {
+      "ticker": "BRVE",
+      "predicted_return": 0.29662444397734106,
+      "open_price": 23.21,
+      "snapshot_date": "2026-09-22",
+      "news_flag": null
+    }
+  ],
+  "scored_count": 1977,
+  "skipped": [
+    {
+      "ticker": "CTAS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AZO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PAYX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MKC-V",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "THO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MANU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KBH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WOR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FUL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDTH",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "overnight_gap",
+      "importance": 31.576053756934584
+    },
+    {
+      "feature": "parkinson_vol_20d",
+      "importance": 22.713658172566657
+    },
+    {
+      "feature": "day_range_pct",
+      "importance": 11.633316484364075
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-22",
+    "model_trained_through": "2026-09-21",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-22, model trained through 2026-09-21 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

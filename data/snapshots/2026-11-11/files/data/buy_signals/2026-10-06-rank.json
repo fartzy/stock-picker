@@ -1,0 +1,1285 @@
+{
+  "as_of": "2026-10-06",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "LAD",
+      "predicted_return": 0.32926088925913144,
+      "open_price": 298.46,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:35:20.318515+00:00",
+        "articles": [
+          {
+            "headline": "Lithia & Driveway Names Katie Macaddino Chief People Officer",
+            "summary": "MEDFORD, Ore., Oct. 06, 2026 (GLOBE NEWSWIRE) -- Lithia & Driveway (NYSE: LAD) today announced the promotion of Katie Macaddino to Chief People Officer. In this role, she will continue to lead Lithia & Driveway\u2019s global People & Culture organization and serve on the company\u2019s senior leadership team, overseeing people strategy, culture, leadership development, total rewards, employee experience, and people systems. Since joining Lithia & Driveway, Katie has focused on strengthening the company\u2019s",
+            "published_at": "2026-10-06T09:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=821131c8117593b9b620d3c8ee50ea3d8cefe2bc4be6f0ca2a83d4f7a34d0ff1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AMD To Rally More Than 10%? Here Are 10 Top Analyst Forecasts For Monday",
+            "summary": "Analysts raised targets for ON, AMD and WTFC, while cutting GNRC, LAD, ALGN, PLNT and CRDO; ALGN was downgraded.",
+            "published_at": "2026-10-05T08:25:48+00:00",
+            "url": "https://finnhub.io/api/news?id=b21d1b44832708741323de6706fdcd996e3c284dda454e1c56d6c3b5f44b4bdb",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Morgan Stanley Maintains Equal-Weight on Lithia Motors, Lowers Price Target to $310",
+            "summary": "Morgan Stanley  analyst Daniela Haigian   maintains Lithia Motors (NYSE:LAD) with a Equal-Weight and lowers the price target from $358 to $310.",
+            "published_at": "2026-10-05T06:46:18+00:00",
+            "url": "https://finnhub.io/api/news?id=015e5d3d4cdc88deb707a3eb4410e500433c906c5a7b42fbfc118b2d81b29588",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 303.0
+    },
+    {
+      "ticker": "WDC",
+      "predicted_return": 0.328863151723441,
+      "open_price": 426.6,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 23,
+        "reviewed_count": 23,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-06T13:35:20.319379+00:00",
+        "articles": [
+          {
+            "headline": "Seagate Is Falling. The Hot Tech Stock Has a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T10:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ec61b32051e0f58e2fbc4e24a72717c88180e83c118923c1ed50a81bfb534e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "1 Cash-Heavy Stock to Target This Week and 2 Facing Headwinds",
+            "summary": "A surplus of cash can mean financial stability, but it can also indicate a reluctance (or inability) to invest in growth. Some of these companies also face challenges like stagnating revenue, declining market share, or limited scalability.",
+            "published_at": "2026-10-06T09:12:34+00:00",
+            "url": "https://finnhub.io/api/news?id=09d23c7f60267407beea5107d974aa9b21eaf4a3c293837d0769f794b26057d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Stay updated with the movement of S&P500 stocks in today's session. Discover which S&P500 stocks are making waves on Monday.",
+            "published_at": "2026-10-05T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=4796f000e83db0803c6b2ad30c002a2fc93fd2d01cc72622994706b14f78ea94",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Nvidia, Intel, Micron, XP Inc., PTC, Vaxcyte, Western Digital, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Intel falls as Elon Musk confirms Taiwan Semiconductor Manufacturing is in talks with Musk\u2019s chip venture Terafab.",
+            "published_at": "2026-10-05T18:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=144899d00ff12872cd82ce48cba07cabdc267618152a96440cda2a1ad490fcd5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate Is Riding One of AI\u2019s Most Important Trends",
+            "summary": "Seagate just shed billions in market cap on a single Toshiba headline, yet its nearline drives are locked into contracts stretching deep into 2027. Whether Friday's selloff was a warning shot or a buying window depends on one question the market has not yet answered.",
+            "published_at": "2026-10-05T18:00:55+00:00",
+            "url": "https://finnhub.io/api/news?id=74056ae461c3e419216192b1fd6ccaf73d94e1491903b2caabca93bc71f9dd39",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq Continues To Hit Record Highs As Tech Stocks Gain \u2014 Treasury Yields Stay Elevated",
+            "summary": "Megacap technology shares pushed U.S. equities higher Monday even as long-term borrowing costs remained near multiyear highs and fresh services data showed persistent price pressures.",
+            "published_at": "2026-10-05T17:36:04+00:00",
+            "url": "https://finnhub.io/api/news?id=7aa311f4442a52ac73cfc8f688ebcb610fad2b3397e5cdb8b199b006e45aa838",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital, Seagate Stock Rebound. What Wall Street Is Saying About Toshiba Competition.",
+            "summary": "Seagate and Western Digital were hit hard by a report Toshiba is scaling up hard-drive production.",
+            "published_at": "2026-10-05T16:44:58+00:00",
+            "url": "https://finnhub.io/api/news?id=4a456ef2de9b5bc06ad641096ea455861deb8bcf84594e76ce9aa7842ac967f1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Monday?",
+            "summary": "Uncover the latest developments among S&P500 stocks in today's session. Stay tuned to the S&P500 index's top gainers and losers on Monday.",
+            "published_at": "2026-10-05T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=67961b010b1f3caecc8f221b133dc532a01b4d12e570aa9d8e37f37167ccb5a0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Intel, XP Inc., PTC, RXO, Vaxcyte, Western Digital, Cerebras, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Intel falls as Elon Musk confirms Taiwan Semiconductor Manufacturing is in talks with Musk\u2019s chip venture Terafab.",
+            "published_at": "2026-10-05T16:12:00+00:00",
+            "url": "https://finnhub.io/api/news?id=61fa62282c8e4c31f8be172367b02ae208f847349731067c9718c04ec307bb08",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Was Seagate Telling You Before Its Stock Ran?",
+            "summary": "Seagate Technology (STX) stock returned 232.5% in the twelve months that ended on October 2, 2026, against 16.4% for the S&P 500. The run turned out to be about AI. Cloud companies building data centers needed far more storage, and Seagate had fewer hard disks to sell than its customers wanted. So how long before the run was Seagate's management pointing to those cloud customers.",
+            "published_at": "2026-10-05T16:01:45+00:00",
+            "url": "https://finnhub.io/api/news?id=e0fadcbbe64b7208e7b5fc68f253b8805960dbaef966c0b0e36135bd500a5dae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Changed For Western Digital Stock, And What Did Not?",
+            "summary": "Western Digital (WDC) stock fell 10.2% on Friday, October 2, 2026, while the S&P 500 gained 0.7%. News coverage that day tied the fall to Toshiba, a smaller rival in hard disks. Toshiba's planned expansion raises the risk of lower prices, a report said a day later. So what part do prices play in Western Digital's profit.",
+            "published_at": "2026-10-05T15:40:48+00:00",
+            "url": "https://finnhub.io/api/news?id=c8d26ec5076685da25ed7fb8ed71dc77812927c41c813ed3dab87f182b50b78d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital and Seagate Stock Jump as Analysts Say \u2018Buy the Dip\u2019",
+            "summary": "Last week\u2019s drop is good news for investors wanting to get in, analysts say.",
+            "published_at": "2026-10-05T14:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ecab6faf4e2e56dd3148ef50f2863fed318b27801576b47dc5c725782c62706",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital Jumps 7%, Seagate Climbs 5% as Bernstein Calls Toshiba Selloff a Storm in a Teacup; SanDisk Inches Higher",
+            "summary": "A weekend of research notes is pulling hard disk drive (HDD) stocks out of a selloff tied to Toshiba. Both stocks are leading the rebound. Shares of Western Digital (NASDAQ:WDC) and Seagate Technology Holdings (NASDAQ:STX) climbed after three Wall Street firms argued that Toshiba\u2019s added capacity lands in a market still short of drives. Goldman [\u2026]",
+            "published_at": "2026-10-05T13:50:41+00:00",
+            "url": "https://finnhub.io/api/news?id=2a67545315520a7a9d6dba8d421cbeef345d9b97bef75f76aac195b285fae8f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Falls As Treasury Yields Rise; Nvidia Rallies Above New Buy Point (Live Coverage)",
+            "summary": "Stock Market Today: The Dow Jones index falls Monday as Treasury yields climb. Nvidia stock rallies above a new buy point.",
+            "published_at": "2026-10-05T13:46:42+00:00",
+            "url": "https://finnhub.io/api/news?id=76109c155d6f63c13f047fc2ed458f2d75424b163ee51c9e146b5f8081ceb148",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 S&P 500 Stocks for Long-Term Investors and 1 We Find Risky",
+            "summary": "The S&P 500 (^GSPC) is often seen as a benchmark for strong businesses, but that doesn\u2019t mean every stock is worth owning. Some companies face significant challenges, whether it\u2019s stagnating growth, heavy debt, or disruptive new competitors.",
+            "published_at": "2026-10-05T13:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=31ce2c70e916bac2fe3e7f30f46c5a0cf1de0955bf483878427da20301242758",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RXO, Vaxcyte, PTC And Other Big Stocks Moving Higher On Monday",
+            "summary": "U.S. stocks mixed as Dow falls 250+ points; RXO surges 23% on $5.8B C.H. Robinson deal, while Vaxcyte and PTC post major gains.",
+            "published_at": "2026-10-05T09:56:10+00:00",
+            "url": "https://finnhub.io/api/news?id=d782d479e733496b688772adda2e8e03b9871e88347afd02d01c51f561712fd7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "WDC, STX Stocks Rebound Premarket As Analysts Downplay Toshiba Capacity Expansion Fears",
+            "summary": "Analysts say Toshiba\u2019s planned HDD expansion won\u2019t be enough to ease tight supply.",
+            "published_at": "2026-10-05T08:49:52+00:00",
+            "url": "https://finnhub.io/api/news?id=fea471596a434a6529956a6cea281f8f25a3bfaa554f1d8887fb1cd53a9f393b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Climb On Cooling Jobs And Firm Factory Data",
+            "summary": "The Morning Bull - US Market Morning Update Monday, Oct, 5 2026 US stock futures are pointing higher this morning, with E-mini S&P 500 contracts up about 0.7%, as investors weigh cooler job growth against hotter manufacturing and price signals. The latest non-farm payrolls report shows only 29,000 new jobs in September and unemployment at 4.2%, which hints that hiring is losing steam and pay rises are slowing, with annual wage growth at 3%. At the same time, the ISM Manufacturing PMI sits at...",
+            "published_at": "2026-10-05T08:07:10+00:00",
+            "url": "https://finnhub.io/api/news?id=667c3608a67a4a3ff5733b4cf38ba93f3a8c23915e0f88377f9149cc9e5cdce7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "A Soft Jobs Report Takes the Heat Off Rates, and Nvidia Closes In on $6 Trillion",
+            "summary": "Wall Street closed Friday higher after September payrolls came in far below forecasts, cutting the odds of an October rate hike. Nvidia hit a record intraday high, onsemi sweetened its Synaptics deal, storage names slumped and Tesla beat on deliveries.",
+            "published_at": "2026-10-05T07:27:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7d9e5e396c8898c7050f63983a8921f960929cb810ab5c0bf558e790bc1a21bc",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "What's Going On With Seagate Technology Stock Monday?",
+            "summary": "Seagate (STX) stock rebounds premarket after Friday&#39;s 10% sell-off over Toshiba supply concerns. Key technical levels &amp; forecast.",
+            "published_at": "2026-10-05T06:21:53+00:00",
+            "url": "https://finnhub.io/api/news?id=bdaab01fc7fa6327986f616e3f9303c4e3c542875f27e111d382884abdab32b4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "MARKETS LIVE: US futures dip amid Fed and oil uncertainty",
+            "summary": "Dow Jones futures: 51,438 points, down 1 S&P 500 futures: 7,772.75 points, up 2.25 Nasdaq 100 futures: 31,016.75 points, up 15 9.30 EDT: S&P and Nasdaq futures pare losses as Dow slips S&P 500 and Nasdaq 100 futures climbed since the last update, while Dow Jones futures...",
+            "published_at": "2026-10-05T06:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bbbf76f0bbd10fcc4a03aec7ca958794192d794356992d8479ae0be9c0156286",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's Going On With Western Digital Stock Monday?",
+            "summary": "Western Digital (WDC) shares rebound premarket following Friday&#39;s selloff. Read technicals, support levels, and analyst target prices.",
+            "published_at": "2026-10-05T05:29:02+00:00",
+            "url": "https://finnhub.io/api/news?id=eb15612a60923a0a6f87ed9ae2e2d9bdfbd1fc44c74cb883a97445b447b45e20",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Top 3 Quantum Computing Stocks To Watch In October 2026",
+            "summary": "Rising US Treasury yields and higher borrowing costs are forcing investors to think harder about where real long term breakthroughs may come from. Quantum computing fits that search for potential step change technology rather than incremental tweaks. If you care about owning businesses tied to that shift rather than just watching from the sidelines, keep reading. This article highlights three quantum computing stocks from our screener worth a closer look. The three quantum computing stocks in...",
+            "published_at": "2026-10-05T05:14:36+00:00",
+            "url": "https://finnhub.io/api/news?id=8ab8f0edae4853f5ef88c1ba19d81cc9c685c12bf6e7b0834dc218f74c90dcfa",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 441.64
+    },
+    {
+      "ticker": "AN",
+      "predicted_return": 0.32493649669449476,
+      "open_price": 159.06,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:35:20.321132+00:00",
+        "articles": [
+          {
+            "headline": "Morgan Stanley Downgrades AutoNation to Equal-Weight from Overweight",
+            "summary": "",
+            "published_at": "2026-10-05T14:56:04+00:00",
+            "url": "https://finnhub.io/api/news?id=417234ca0b2b538f4a29937c649926a87cf616cd922041644fb2c65e08dea48b",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Microsoft upgraded, HubSpot initiated: Wall Street's top analyst calls",
+            "summary": "Microsoft upgraded, HubSpot initiated: Wall Street's top analyst calls",
+            "published_at": "2026-10-05T13:44:12+00:00",
+            "url": "https://finnhub.io/api/news?id=278334f451c48e13a3bad1a2f529fd8d10e1e1956c735cccaeaaf16a629e6790",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Morgan Stanley cuts AutoNation, Group 1 as dealer headwinds mount",
+            "summary": "Investing.com -- Morgan Stanley cut its ratings on AutoNation and Group 1 Automotive, citing negative earnings revisions, higher rates and oil prices, and regulatory and technological overhangs facing franchise auto dealers.",
+            "published_at": "2026-10-05T13:37:56+00:00",
+            "url": "https://finnhub.io/api/news?id=9cb878c11ac612843dcc5a26d5e14188b43629188291d0e4cf0f1b2c2c4f3e76",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Monday\u2019s Top Wall Street Analyst Research Calls: Align Technology, AutoNation, Estee Lauder, Harley-Davidson, HubSpot, Microsoft, Mosaic, Ryder System, Wells Fargo & Company, and More",
+            "summary": "Pre-Market Stock Futures: Futures are trading lower as we get ready for the first full week of trading for the fourth quarter of 2026 after an outstanding Friday, which saw all of the major indices finish the day higher, after the non-farm payroll numbers for September came in well below estimates before the open and [\u2026]",
+            "published_at": "2026-10-05T12:03:52+00:00",
+            "url": "https://finnhub.io/api/news?id=6ac3c6d3171cbaf027ed49264e6a9c4bf581042469624d180534d49188db401b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "This HubSpot Analyst Is No Longer Bullish; Here Are Top 5 Downgrades For Monday",
+            "summary": "Analysts downgraded HubSpot, Group 1 Automotive, Align Technology, AutoNation and more, cutting ratings and price targets.",
+            "published_at": "2026-10-05T08:46:11+00:00",
+            "url": "https://finnhub.io/api/news?id=c46d3acdb28a2df61570f1941d8cd9476288a5a7ab8587e0bf27e1e4734b4f0d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Morgan Stanley Downgrades AutoNation to Equal-Weight, Lowers Price Target to $175",
+            "summary": "Morgan Stanley  analyst Daniela Haigian   downgrades AutoNation (NYSE:AN) from Overweight to Equal-Weight and lowers the price target from $250 to $175.",
+            "published_at": "2026-10-05T06:37:22+00:00",
+            "url": "https://finnhub.io/api/news?id=16b3a8c4a4fce7f3f57426508a411a4fcd64d3d0ab271cc930080a232aba69bf",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 161.67
+    },
+    {
+      "ticker": "STX",
+      "predicted_return": 0.32171562429163025,
+      "open_price": 857.12,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 20,
+        "reviewed_count": 20,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-06T13:35:20.321486+00:00",
+        "articles": [
+          {
+            "headline": "Seagate Technology Holdings (NASDAQ:STX): Strong Growth Meets High-Quality Technical Setup",
+            "summary": "Seagate (STX) pairs 9/10 growth and 10/10 technicals with a workable breakout setup, though high valuation and leverage remain key risks.",
+            "published_at": "2026-10-06T11:30:43+00:00",
+            "url": "https://finnhub.io/api/news?id=16b1b8aa9fdffcddfa9d06b80655c8b3e3d08b95e770f0977fed886c0e6e0c5b",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Seagate Is Falling. The Hot Tech Stock Has a Big Toshiba Problem.",
+            "summary": "Seagate stock was edging down following a report it is competing with Toshiba over a crucial acquisition in the hard-disk drive space.",
+            "published_at": "2026-10-06T10:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ec61b32051e0f58e2fbc4e24a72717c88180e83c118923c1ed50a81bfb534e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "STX Stock Inches Higher Overnight: Seagate Reportedly Makes Higher Bid For TDK\u2019s Multi-Billion Magnetic-Heads Business",
+            "summary": "Seagate is locked in a bidding war with Toshiba for the business, which could be worth several billion dollars, Bloomberg reported.",
+            "published_at": "2026-10-06T06:42:02+00:00",
+            "url": "https://finnhub.io/api/news?id=cd45e7bd6b3e555019792d585310a0c4dec7ecab62cc94a11683a098dfc58efb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Seagate (STX) Stock Is Trading Up Today",
+            "summary": "Shares of data storage manufacturer Seagate (NASDAQ:STX) jumped 4.9% in the afternoon session after multiple Wall Street research desks pushed back against competitor capacity fears, arguing that the previous session's selloff was overdone.",
+            "published_at": "2026-10-05T23:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1bc93119ffcb98f240c3c830ff64c57835acbfd296f1e3af9d85d81163cbf359",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate Is Riding One of AI\u2019s Most Important Trends",
+            "summary": "Seagate just shed billions in market cap on a single Toshiba headline, yet its nearline drives are locked into contracts stretching deep into 2027. Whether Friday's selloff was a warning shot or a buying window depends on one question the market has not yet answered.",
+            "published_at": "2026-10-05T18:00:55+00:00",
+            "url": "https://finnhub.io/api/news?id=74056ae461c3e419216192b1fd6ccaf73d94e1491903b2caabca93bc71f9dd39",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq Continues To Hit Record Highs As Tech Stocks Gain \u2014 Treasury Yields Stay Elevated",
+            "summary": "Megacap technology shares pushed U.S. equities higher Monday even as long-term borrowing costs remained near multiyear highs and fresh services data showed persistent price pressures.",
+            "published_at": "2026-10-05T17:36:04+00:00",
+            "url": "https://finnhub.io/api/news?id=7aa311f4442a52ac73cfc8f688ebcb610fad2b3397e5cdb8b199b006e45aa838",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital, Seagate Stock Rebound. What Wall Street Is Saying About Toshiba Competition.",
+            "summary": "Seagate and Western Digital were hit hard by a report Toshiba is scaling up hard-drive production.",
+            "published_at": "2026-10-05T16:44:58+00:00",
+            "url": "https://finnhub.io/api/news?id=4a456ef2de9b5bc06ad641096ea455861deb8bcf84594e76ce9aa7842ac967f1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Monday?",
+            "summary": "Uncover the latest developments among S&P500 stocks in today's session. Stay tuned to the S&P500 index's top gainers and losers on Monday.",
+            "published_at": "2026-10-05T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=67961b010b1f3caecc8f221b133dc532a01b4d12e570aa9d8e37f37167ccb5a0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "What Was Seagate Telling You Before Its Stock Ran?",
+            "summary": "Seagate Technology (STX) stock returned 232.5% in the twelve months that ended on October 2, 2026, against 16.4% for the S&P 500. The run turned out to be about AI. Cloud companies building data centers needed far more storage, and Seagate had fewer hard disks to sell than its customers wanted. So how long before the run was Seagate's management pointing to those cloud customers.",
+            "published_at": "2026-10-05T16:01:45+00:00",
+            "url": "https://finnhub.io/api/news?id=e0fadcbbe64b7208e7b5fc68f253b8805960dbaef966c0b0e36135bd500a5dae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Changed For Western Digital Stock, And What Did Not?",
+            "summary": "Western Digital (WDC) stock fell 10.2% on Friday, October 2, 2026, while the S&P 500 gained 0.7%. News coverage that day tied the fall to Toshiba, a smaller rival in hard disks. Toshiba's planned expansion raises the risk of lower prices, a report said a day later. So what part do prices play in Western Digital's profit.",
+            "published_at": "2026-10-05T15:40:48+00:00",
+            "url": "https://finnhub.io/api/news?id=c8d26ec5076685da25ed7fb8ed71dc77812927c41c813ed3dab87f182b50b78d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital and Seagate Stock Jump as Analysts Say \u2018Buy the Dip\u2019",
+            "summary": "Last week\u2019s drop is good news for investors wanting to get in, analysts say.",
+            "published_at": "2026-10-05T14:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0ecab6faf4e2e56dd3148ef50f2863fed318b27801576b47dc5c725782c62706",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital Jumps 7%, Seagate Climbs 5% as Bernstein Calls Toshiba Selloff a Storm in a Teacup; SanDisk Inches Higher",
+            "summary": "A weekend of research notes is pulling hard disk drive (HDD) stocks out of a selloff tied to Toshiba. Both stocks are leading the rebound. Shares of Western Digital (NASDAQ:WDC) and Seagate Technology Holdings (NASDAQ:STX) climbed after three Wall Street firms argued that Toshiba\u2019s added capacity lands in a market still short of drives. Goldman [\u2026]",
+            "published_at": "2026-10-05T13:50:41+00:00",
+            "url": "https://finnhub.io/api/news?id=2a67545315520a7a9d6dba8d421cbeef345d9b97bef75f76aac195b285fae8f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Monday's pre-market session: top gainers and losers in the S&P500 index",
+            "summary": "Wondering what's happening in today's pre-market session? Stay tuned for the latest updates on S&P500 stock movements.",
+            "published_at": "2026-10-05T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=045c9ce024f64ce350526781127cc36175f4f8fab1f266783558048b8a4730ae",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "3 tactical chip stocks to buy ahead of earnings, according to Goldman",
+            "summary": "Investing.com -- Goldman Sachs said it sees a more constructive trading setup for semiconductor stocks heading into third-quarter earnings, after a sector pullback it attributed to significant de-risking, and named Applied Materials, Seagate and Microchip as tactical ideas.",
+            "published_at": "2026-10-05T12:14:06+00:00",
+            "url": "https://finnhub.io/api/news?id=a8b910efe2282ab8c72d7f236f62277364acda728d59dbdbdaf08cd397f33133",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RXO, Vaxcyte, PTC And Other Big Stocks Moving Higher On Monday",
+            "summary": "U.S. stocks mixed as Dow falls 250+ points; RXO surges 23% on $5.8B C.H. Robinson deal, while Vaxcyte and PTC post major gains.",
+            "published_at": "2026-10-05T09:56:10+00:00",
+            "url": "https://finnhub.io/api/news?id=d782d479e733496b688772adda2e8e03b9871e88347afd02d01c51f561712fd7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "WDC, STX Stocks Rebound Premarket As Analysts Downplay Toshiba Capacity Expansion Fears",
+            "summary": "Analysts say Toshiba\u2019s planned HDD expansion won\u2019t be enough to ease tight supply.",
+            "published_at": "2026-10-05T08:49:52+00:00",
+            "url": "https://finnhub.io/api/news?id=fea471596a434a6529956a6cea281f8f25a3bfaa554f1d8887fb1cd53a9f393b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seagate: Buy When The Market Panics",
+            "summary": "Seagate outlook: data center demand, HDD pricing, HAMR cost cuts and deleveraging could boost margins and earnings.",
+            "published_at": "2026-10-05T08:16:12+00:00",
+            "url": "https://finnhub.io/api/news?id=56c9ab011455303e668375f07f5afb7f43c60de17eef5817996eded8bb7e7931",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "A Soft Jobs Report Takes the Heat Off Rates, and Nvidia Closes In on $6 Trillion",
+            "summary": "Wall Street closed Friday higher after September payrolls came in far below forecasts, cutting the odds of an October rate hike. Nvidia hit a record intraday high, onsemi sweetened its Synaptics deal, storage names slumped and Tesla beat on deliveries.",
+            "published_at": "2026-10-05T07:27:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7d9e5e396c8898c7050f63983a8921f960929cb810ab5c0bf558e790bc1a21bc",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "What's Going On With Seagate Technology Stock Monday?",
+            "summary": "Seagate (STX) stock rebounds premarket after Friday&#39;s 10% sell-off over Toshiba supply concerns. Key technical levels &amp; forecast.",
+            "published_at": "2026-10-05T06:21:53+00:00",
+            "url": "https://finnhub.io/api/news?id=bdaab01fc7fa6327986f616e3f9303c4e3c542875f27e111d382884abdab32b4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "What's Going On With Western Digital Stock Monday?",
+            "summary": "Western Digital (WDC) shares rebound premarket following Friday&#39;s selloff. Read technicals, support levels, and analyst target prices.",
+            "published_at": "2026-10-05T05:29:02+00:00",
+            "url": "https://finnhub.io/api/news?id=eb15612a60923a0a6f87ed9ae2e2d9bdfbd1fc44c74cb883a97445b447b45e20",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 887.09
+    },
+    {
+      "ticker": "WERN",
+      "predicted_return": 0.314864727715693,
+      "open_price": 33.96,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 34.15
+    },
+    {
+      "ticker": "GTX",
+      "predicted_return": 0.31096155975701156,
+      "open_price": 26.44,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 26.68
+    },
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.3090095676700151,
+      "open_price": 8.44,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:35:45.662905+00:00",
+        "articles": []
+      },
+      "prev_close": 8.5
+    },
+    {
+      "ticker": "ATRC",
+      "predicted_return": 0.3057405160444497,
+      "open_price": 55.97,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 56.37
+    },
+    {
+      "ticker": "WIT",
+      "predicted_return": 0.30508190423637993,
+      "open_price": 1.68,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 1.69
+    },
+    {
+      "ticker": "UMC",
+      "predicted_return": 0.3029224972910209,
+      "open_price": 23.54,
+      "snapshot_date": "2026-10-05",
+      "news_flag": "$1.8B convertible bond offering",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "$1.8B convertible bond offering",
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:35:45.663226+00:00",
+        "articles": [
+          {
+            "headline": "UMC Reports Sales for September 2026",
+            "summary": "TAIPEI, Taiwan, October 06, 2026--United Microelectronics Corporation (NYSE: UMC; TWSE: 2303) (\"UMC\"), today reported unaudited net sales for the month of September 2026.",
+            "published_at": "2026-10-06T07:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1525cf8fab7ec9844124305fb028a7032020af1e1c544c85912a8f91c36bcad3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ValuEngine Weekly Commentary: YTD And Q3 Performance Analysis, Strategy Notes",
+            "summary": "US equity markets were mixed this week, with gains in tech-related areas offset by weakness across several broader market and defensive sectors. Read more here...",
+            "published_at": "2026-10-06T06:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f7f9ba42bf795a8ba5ac93ca3deca7c3b67ceeb97d78b96746a91e1219253b98",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "AI Stock UMC Sinks 10% on $1.8 Billion Worth of Extraordinarily Good News",
+            "summary": "Key TakeawaysUnited Microelectronics shares fell about 10% after the company priced a $1. 8 billion zero-coupon convertible bond sale.",
+            "published_at": "2026-10-05T17:37:24+00:00",
+            "url": "https://finnhub.io/api/news?id=93cdae03719506acd8e05d06dfc91eb6cc90826ec5eb9ba7e09e54f3dab25a19",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UMC Stock Slides After $1.8B Convertible Bond Pricing \u2014 Proceeds To Fund Equipment, Plant Expansion",
+            "summary": "The financing comes as UMC boosts capital spending following stronger wafer demand and prepares additional capacity in Singapore and Taiwan for future customer and AI-related opportunities.",
+            "published_at": "2026-10-05T15:23:14+00:00",
+            "url": "https://finnhub.io/api/news?id=54867275bc75564c1d28510ad47fe8453e321afd04e5121fc9b930d1f185e5f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Align Technology, Group 1 Automotive And Other Big Stocks Moving Lower In Monday\u2019s Pre-Market Session",
+            "summary": "U.S. stock futures fell as HubSpot dropped after a downgrade; Roze AI, UMC, Quantum-Si, Intel and others also declined premarket.",
+            "published_at": "2026-10-05T08:01:29+00:00",
+            "url": "https://finnhub.io/api/news?id=33cd0fd6af7178ad230bb370869c6e6898be2eee12ffc601d97e7e4688d84287",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Reported October 3, Elon Must Confirms Chip Production Startup Terafab Is In Discussions With Taiwan Semiconductor",
+            "summary": "https://x.com/elonmusk/status/2106290920605790717",
+            "published_at": "2026-10-05T07:29:44+00:00",
+            "url": "https://finnhub.io/api/news?id=3c6c6a5eb302589a8b5fadb607ce8d5fbf099849d671750cce6d508047a10121",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why PTC Shares Are Trading Higher By Around 35%; Here Are 20 Stocks Moving Premarket",
+            "summary": "PTC jumped 34.7% after Schneider Electric offered $22.6B; Columbus Acquisition soared 657.5%, while Zeta Network Group fell 23.3% premarket.",
+            "published_at": "2026-10-05T05:10:27+00:00",
+            "url": "https://finnhub.io/api/news?id=ace7a836905f1b3f3fddbf3fa4d3ad30d0064382f8197afce11d1ed2843e997f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Semiconductors Winners And Losers At The Start Of Q4 2026",
+            "summary": "Q2 2026 gave rise to the possibility of a blow-off top, and Q3 2026 strengthened that possibility. Check out the semiconductors' winners and losers here.",
+            "published_at": "2026-10-05T04:14:39+00:00",
+            "url": "https://finnhub.io/api/news?id=d7cdd47e7e15c5f64e4ec24ab20183fcacc9ffcbcbfefe646574e1ce084abd2f",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 23.92
+    },
+    {
+      "ticker": "SIND",
+      "predicted_return": 0.30042963422324415,
+      "open_price": 12.86,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 12.98
+    },
+    {
+      "ticker": "NESR",
+      "predicted_return": 0.29287955151407663,
+      "open_price": 23.787,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:02.878452+00:00",
+        "articles": [
+          {
+            "headline": "Why National Energy Services Reunited (NESR) is a Top Value Stock for the Long-Term",
+            "summary": "National Energy Services Reunited (NESR), a major oilfield services provider in the Middle East and North Africa, is highlighted as a value stock worth watching. The company holds a Zacks Rank #3 (Hold) with a VGM Score of A and Value Style Score of B, supported by an attractive forward P/E ratio of 14.04. Two analysts revised earnings estimates upward in the last 60 days, with the consensus estimate at $1.76 per share and an average earnings surprise of +19.8%.",
+            "published_at": "2026-10-05T12:40:04+00:00",
+            "url": "https://www.zacks.com/stock/news/3000066/why-national-energy-services-reunited-nesr-is-a-top-value-stock-for-the-long-term?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_value_score-3000066",
+            "source": "Zacks Investment Research"
+          }
+        ]
+      },
+      "prev_close": 24.08
+    },
+    {
+      "ticker": "MTDR",
+      "predicted_return": 0.2925830218592117,
+      "open_price": 52.56,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.344004+00:00",
+        "articles": []
+      },
+      "prev_close": 53.01
+    },
+    {
+      "ticker": "DAR",
+      "predicted_return": 0.2925406323513001,
+      "open_price": 61.45,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.344133+00:00",
+        "articles": [
+          {
+            "headline": "Darling Ingredients Inc. Closes on Sale of CTH Sausage Casings Business",
+            "summary": "IRVING, Texas, October 05, 2026--Darling Ingredients Inc. (NYSE: DAR) closed on the sale of its CTH branded sausage casing business to SARIA for an undisclosed amount.",
+            "published_at": "2026-10-05T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5b9669961e78ade803cd6e96cbc466a6affe43d90f9114796082aff8276c9cc9",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 62.7
+    },
+    {
+      "ticker": "SU",
+      "predicted_return": 0.29238132508878045,
+      "open_price": 68.26,
+      "snapshot_date": "2026-10-05",
+      "news_flag": "Suncor sells offshore oil stakes to Ithaca for ~C$1.2B",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Suncor sells offshore oil stakes to Ithaca for ~C$1.2B",
+        "article_count": 13,
+        "reviewed_count": 13,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.344255+00:00",
+        "articles": [
+          {
+            "headline": "Nasdaq Hits a Fresh Record While the 10-Year Climbs to 5.31%",
+            "summary": "The Nasdaq closed at a record on Monday even as long-term Treasury yields hit multi-year highs. Brazilian stocks soared after the first round of the presidential election, Schneider Electric agreed to buy PTC for $22.6 billion, and Microsoft got a double upgrade from Melius.",
+            "published_at": "2026-10-06T08:19:26+00:00",
+            "url": "https://finnhub.io/api/news?id=cf7d02a17a97c293cb3d48d6293c22a01187ab427091a00190a1bacf4496ab2e",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Wall Street Breakfast Podcast: SCOTUS Weighs Oil Liability",
+            "summary": "SCOTUS considers what happens next in a climate suit between Colorado, Exxon and Suncor. Pressure is mounting on Mattel. McDonald\u00e2\u0080\u0099s faces an AI pricing legal battle.",
+            "published_at": "2026-10-06T07:02:39+00:00",
+            "url": "https://finnhub.io/api/news?id=5b7914f05002e4879675e2c2a59bd00e8378f940413cd378ef2661b2639889c3",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "News of the day: Cenovus and Suncor deals, student housing developments, hidden market warnings, better living standards, bond markets and more",
+            "summary": "Catch up on the stories we\u2019re following today",
+            "published_at": "2026-10-05T21:26:10+00:00",
+            "url": "https://finnhub.io/api/news?id=aaed650b8b43d5029010d24593e6dca84e2d87b53464ecac36665346fbe43c79",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus buys Athabasca Oil for $5.7 billion, Suncor sells offshore stakes as producers double down on oilsands",
+            "summary": "Tighten their grip on northern Alberta in back-to-back announcements",
+            "published_at": "2026-10-05T18:47:51+00:00",
+            "url": "https://finnhub.io/api/news?id=2e7c81b7cd277fdc343329dab524a946eb2a83b0c70d3a2778aeef333ba92e44",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Suncor's Offshore Asset Sale to Boost Focus on Oil Sands Growth",
+            "summary": "SU's C$1.2B offshore asset sale sharpens its oil sands focus, reduces future liabilities and supports higher shareholder returns.",
+            "published_at": "2026-10-05T14:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a1c76f19fe0400d6774938fb3d0d24b56dae3341780d2203de3be059d0287264",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Suncor sells offshore Canada oil assets to Ithaca Energy",
+            "summary": "Ithaca will pay C$1.2 billion upfront and assume C$1.9 billion in liabilities tied to the Terra Nova, White Rose, and West White Rose fields",
+            "published_at": "2026-10-05T13:22:50+00:00",
+            "url": "https://finnhub.io/api/news?id=bd274a8f8d23789552c5b56358edb28b4e6f827a3e2d8e7c2f9916c2af5d86c3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Suncor Energy Inc. (SU:CA) M&A Call Transcript",
+            "summary": "Suncor Energy Inc. (SU:CA) M&A Call October 5, 2026 5:00 AM EDTCompany ParticipantsYaniv Friedman - Executive ChairmanLuciano Vasques - CEO &...",
+            "published_at": "2026-10-05T12:10:31+00:00",
+            "url": "https://finnhub.io/api/news?id=47f1da8c0f670dce06fb2fd196d3e3e3960c91dc961f1908ac9078ba0beb7b05",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Suncor Energy to Sell Terra Nova, White Rose Offshore Stakes to Ithaca Energy for CA$1.55 Billion",
+            "summary": "Suncor Energy (SU.TO, SU) agreed to sell its 48% interest in Terra Nova, 40% interest in White Rose",
+            "published_at": "2026-10-05T11:16:43+00:00",
+            "url": "https://finnhub.io/api/news?id=761b3b1c34731f3ad91d4d89b21ba3dee6f168c2216232177e26d6771f4c7e14",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Suncor Energy Inc. (SU:CA) Ithaca Energy plc, - M&A Call - Slideshow",
+            "summary": "2026-10-05. The following slide deck was published by Suncor Energy Inc.",
+            "published_at": "2026-10-05T09:01:49+00:00",
+            "url": "https://finnhub.io/api/news?id=d9c7988c9e3ddeed4bd47375bbfb793a9f852d072ba23e41125247c7d594d15d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Schneider Electric to Buy Software Maker PTC for $22.6 Billion",
+            "summary": "The acquisition aims to create one of the largest industrial-software portfolios at a time when the rise of AI is reshaping customer needs.",
+            "published_at": "2026-10-05T08:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1e5f6adf32f78f481eddd5abb6c10e0dcdb92ca8337d31328f995094a4d101a3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Suncor to sell east coast offshore stakes in Canada to Ithaca for $860m",
+            "summary": "The transaction covers Suncor's 48% interest in the Terra Nova oilfield, its 40% share in White Rose and its 38.6% stake in West White Rose.",
+            "published_at": "2026-10-05T08:44:33+00:00",
+            "url": "https://finnhub.io/api/news?id=6a980e7a5bcfbf22a9e8c08f7993b90684caa5ad406471fbb88e121753c22250",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ithaca Energy shares rise 3% on $860 mln Suncor Canada asset deal",
+            "summary": "Investing.com -- Shares in North Sea oil producer Ithaca Energy rose 3% on Monday after it agreed to buy Suncor Energy\u2019s offshore Canadian assets for $860 million in cash, marking its first acquisition outside the UK.",
+            "published_at": "2026-10-05T08:30:48+00:00",
+            "url": "https://finnhub.io/api/news?id=06d96aaa10b63d86d04cbb3dd9a4e96ab76e1ae46dbefaeb708d25d0b37c9058",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top 3 Canadian Undervalued Stocks To Watch In October 2026",
+            "summary": "Canadian investors are watching global bond markets closely as U.S. Treasury yields climb to multi\u2011year highs and push funding costs up across the world. When borrowing gets pricier, steady cash generation often matters more than headline growth stories. That is where Canadian companies producing solid cash flows yet priced below conservative fair value estimates come in. This article highlights three such stocks that screen as potentially underpriced on their cash flows. The three...",
+            "published_at": "2026-10-05T07:08:16+00:00",
+            "url": "https://finnhub.io/api/news?id=ca9a6b4a4282f887241caae464343316260cf29b7a9f611391613e35ce5c2791",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 68.77
+    },
+    {
+      "ticker": "UHS",
+      "predicted_return": 0.2921724221505404,
+      "open_price": 174.21,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.344722+00:00",
+        "articles": [
+          {
+            "headline": "Universal Health Services, Inc. Announces Date for Third Quarter 2026 Earnings Release and Conference Call",
+            "summary": "KING OF PRUSSIA, Pa., Oct. 05, 2026 (GLOBE NEWSWIRE) -- Universal Health Services, Inc. (NYSE: UHS) announced today that it will report results for its third quarter ended September 30, 2026, after the market closes on Monday, October 26, 2026. There will be a conference call for investors and analysts on Tuesday, October 27, 2026, at 9:30 a.m. Eastern Time. A live webcast and audio archive of the call may be accessed through the investor relations section of the company\u2019s website at ir.uhs.com.",
+            "published_at": "2026-10-05T20:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e2927fed2c98562d67b6c4aea9f9317873edfc118f7198c72808e59a9fb01acb",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 176.05
+    },
+    {
+      "ticker": "AU",
+      "predicted_return": 0.29020688717362375,
+      "open_price": 93.64,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 94.48
+    },
+    {
+      "ticker": "HMY",
+      "predicted_return": 0.2882333913444881,
+      "open_price": 17.12,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 17.3
+    },
+    {
+      "ticker": "EPAM",
+      "predicted_return": 0.28795114836743346,
+      "open_price": 109.0,
+      "snapshot_date": "2026-10-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.344922+00:00",
+        "articles": [
+          {
+            "headline": "Reflecting On IT Services & Consulting Stocks\u2019 Q2 Earnings: EPAM (NYSE:EPAM)",
+            "summary": "Earnings results often indicate what direction a company will take in the months ahead. With Q2 behind us, let\u2019s have a look at EPAM (NYSE:EPAM) and its peers.",
+            "published_at": "2026-10-05T19:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1db80df1cb09a2f98e1734516ea87d09abb300472574e2db379daa11da7ab024",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "EPAM Systems Launches AI Service for Enterprise Model Development",
+            "summary": "EPAM Systems, Inc. (NYSE:EPAM) has launched a new service focused on the development and testing of frontier artificial intelligence models for enterprise workflows, according to an announcement dated October 5, 2026.",
+            "published_at": "2026-10-05T12:51:05+00:00",
+            "url": "https://finnhub.io/api/news?id=02a5843795e4b89ca2ff2c04994cbe5813ac93755ecaf5729515d458d0f2cde4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "EPAM Unveils New Frontier AI Service, Bridging the Enterprise Intelligence Gap for GenAI and Autonomous Agents",
+            "summary": "EPAM Systems, Inc. (NYSE: EPAM) today announced the launch of a new strategic offering dedicated to powering the next generation of frontier AI models. Positioned as a foundational intelligence layer for the AI ecosystem, EPAM's services address a critical industry bottleneck: enabling frontier AI models to execute complex, specialized enterprise workflows more reliably.",
+            "published_at": "2026-10-05T12:02:00+00:00",
+            "url": "https://finnhub.io/api/news?id=dd4a2e1bc0bac31ec870826d2924f56348bd7bb186f5aafdf5fde339826ebd7b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 109.95
+    },
+    {
+      "ticker": "CVE",
+      "predicted_return": 0.2869490612271982,
+      "open_price": 31.23,
+      "snapshot_date": "2026-10-05",
+      "news_flag": "Cenovus announces multi-billion Athabasca Oil acquisition",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Cenovus announces multi-billion Athabasca Oil acquisition",
+        "article_count": 19,
+        "reviewed_count": 19,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-06T13:36:27.345206+00:00",
+        "articles": [
+          {
+            "headline": "Cenovus Energy to acquire Athabasca Oil in $4bn deal",
+            "summary": "The cash and stock transaction adds 45,000boepd of sands production and is expected to generate $59.56m (C$85m) in annual synergies.",
+            "published_at": "2026-10-06T09:05:36+00:00",
+            "url": "https://finnhub.io/api/news?id=0b15052d59de44ee44858524548e5d4eb0f14a785bb140469571c5f09fe991ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus Energy Offers To Buy Athabasca Oil, Already Good Growth Prospects Just Improved",
+            "summary": "Cenovus Energy\u00e2\u0080\u0099s bid for Athabasca Oil: C$12/share mix of cash & stock, deal synergies, and growth as oil prices stay high. See here for more on CVE stock.",
+            "published_at": "2026-10-05T22:50:07+00:00",
+            "url": "https://finnhub.io/api/news?id=f4fd5c6ef3f49b99476e38853d6e9955f5a6911dad20031a25b50d336322ad8b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "News of the day: Cenovus and Suncor deals, student housing developments, hidden market warnings, better living standards, bond markets and more",
+            "summary": "Catch up on the stories we\u2019re following today",
+            "published_at": "2026-10-05T21:26:10+00:00",
+            "url": "https://finnhub.io/api/news?id=aaed650b8b43d5029010d24593e6dca84e2d87b53464ecac36665346fbe43c79",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus buys Athabasca Oil for $5.7 billion, Suncor sells offshore stakes as producers double down on oilsands",
+            "summary": "Tighten their grip on northern Alberta in back-to-back announcements",
+            "published_at": "2026-10-05T18:47:51+00:00",
+            "url": "https://finnhub.io/api/news?id=2e7c81b7cd277fdc343329dab524a946eb2a83b0c70d3a2778aeef333ba92e44",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is the Options Market Predicting a Spike in Cenovus Energy Stock?",
+            "summary": "Investors need to pay close attention to CVE stock based on the movements in the options market lately.",
+            "published_at": "2026-10-05T18:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=68315039a072ee89f7f383bcd314b957a8f15bc5149d904ac156f39928e6532f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus Energy Strikes C$5.7B Deal for Athabasca Oil, Eyes Major Oil Sands Growth",
+            "summary": "Cenovus Energy (NYSE:CVE) said it has entered into a definitive agreement to acquire Athabasca Oil Corp. in a cash-and-stock transaction valued at approximately C$5.7 billion, or about C$12 per Athabasca share. Chief Executive Officer Jon McKenzie said the proposed acquisition would add a large-sca",
+            "published_at": "2026-10-05T15:02:06+00:00",
+            "url": "https://finnhub.io/api/news?id=84e3a7bae42971b7c968ec10a579528eb9f6bd6df088e94ef6699f0b0261ecb1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus tumbles as C$5.7 billion Athabasca deal raises debt concerns",
+            "summary": "Cenovus Energy shares fell sharply on Monday as investors weighed the debt impact of its planned acquisition of Athabasca Oil and a same-day downgrade from UBS, adding to pressure from a weaker Canadian equity market and softer oil prices.",
+            "published_at": "2026-10-05T15:00:10+00:00",
+            "url": "https://finnhub.io/api/news?id=85d97736d9f3b139a245e7e3a99f11ccef743e8ff74b994f32d8050d0c886180",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus to buy Athabasca Oil in $4 billion deal to expand oil sands operations",
+            "summary": "Cenovus Energy Inc (TSX:CVE), the Canadian oil producer, said Monday it would buy Athabasca Oil (TSX:ATH) in a C$5.7 billion (approx. $4 billion) cash-and-stock deal, expanding its Alberta oil sands operations. The acquisition follows Cenovus\u2019s purchase of MEG Energy last year and adds...",
+            "published_at": "2026-10-05T13:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f170cb688f4630810d3d2207d543ee2abcefe9be01eabfbdcb4b5e17c16dde57",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sector Update: Energy Stocks Decline Premarket Monday",
+            "summary": "Energy stocks were declining premarket Monday, with the State Street Energy Select Sector SPDR ETF (",
+            "published_at": "2026-10-05T13:29:23+00:00",
+            "url": "https://finnhub.io/api/news?id=98002d487fd3757a1f99dfc0b25dc073aa1b7ae3869d22ee3e93a8c5fadcdd75",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus stock falls as company announces $5.7B Athabasca deal",
+            "summary": "Investing.com -- Cenovus Energy Inc (NYSE:CVE) shares ticked down 1.5% in premarket trading Monday following the company's announcement of a definitive arrangement agreement to acquire Athabasca Oil Corp (TSX:ATH) in a cash and stock transaction with an implied enterprise value of $5.7 billion.",
+            "published_at": "2026-10-05T13:24:23+00:00",
+            "url": "https://finnhub.io/api/news?id=d8cd805da155e5de7f57395879c07d6ff0868cb5cf50d0b764d8161b25b1275a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus Energy to Acquire Athabasca Oil in $4 Billion Deal",
+            "summary": "Cenovus Energy (CVE) has agreed to acquire fellow Canadian energy company Athabasca Oil in a cash-an",
+            "published_at": "2026-10-05T12:54:24+00:00",
+            "url": "https://finnhub.io/api/news?id=3d037fbf6eb238a9b7f87bb3931e8e66c33aa7aa77c27f6ec45e53ee52ddb83f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here's Why Cenovus Energy (CVE) is a Strong Momentum Stock",
+            "summary": "Zacks Premium offers investment research tools including the Zacks Rank and Style Scores to help investors identify stocks with strong performance potential. The service combines value, growth, and momentum analysis to rate stocks on an A-F scale. Cenovus Energy (CVE) is highlighted as a #1 Strong Buy with an A VGM Score, showing positive momentum with a B Momentum Style Score.",
+            "published_at": "2026-10-05T12:50:02+00:00",
+            "url": "https://www.zacks.com/stock/news/3000142/here-s-why-cenovus-energy-cve-is-a-strong-momentum-stock?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_momentum_score-3000142",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "5 Stocks Riding Strong Price Momentum Into the Final Quarter",
+            "summary": "PBF, BP, DK, CVE and CBRL combine strong relative price momentum with rising earnings estimates into the final quarter.",
+            "published_at": "2026-10-05T11:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f7bbd030eb8a826c1a5dbe3c6c3f4cee165c8836014d3e02c5277f2e5e274328",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus to Buy Athabasca Oil at $4 Billion Valuation",
+            "summary": "Cenovus Energy Inc. agreed to buy Athabasca Oil Corp. at an enterprise value of C$5.7 billion ($4 billion), the latest in a wave of consolidation as Canada\u2019s government seeks to grow energy production.",
+            "published_at": "2026-10-05T10:48:39+00:00",
+            "url": "https://finnhub.io/api/news?id=ddfc356bb4cb7049b54355888f2410317bfce1e7c658c3ce9a29098052a6c798",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus announces agreement to acquire Athabasca Oil Corporation",
+            "summary": "CALGARY, Alberta, Oct. 05, 2026 (GLOBE NEWSWIRE) -- Cenovus Energy Inc. (TSX: CVE) (NYSE: CVE) today announced that it has entered into a definitive arrangement agreement to acquire Athabasca Oil Corporation (TSX: ATH) (\u201cAthabasca\u201d) in a cash and stock transaction with an implied enterprise value of $5.7 billion. Transaction Highlights Clear strategic fit with Cenovus\u2019s core oil sands business \u2013 Adds approximately 45 thousand barrels of oil equivalent per day (MBOE/d)1, including thermal product",
+            "published_at": "2026-10-05T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9e1a49b44487d9ef8a4dfc814bdd11ee2b7f7f6f2d07f541d2bbb7ee014b1672",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Athabasca Oil Announces Agreement to be Acquired by Cenovus Energy",
+            "summary": "$12.00 per share Purchase Price, represents a 14% premium to Athabasca\u2019s 20-day volume-weighted average trading price Transaction consideration mix of 35% Cenovus shares and 65% cash; Athabasca shareholders may elect to receive all cash, all Cenovus shares or any combination of the two, allowing them to tailor elections to their individual investment preferences, subject to pro-ration under the Arrangement$5.7 billion enterprise value with compelling metrics1 of $127,000 per boe/d and 10.2x Debt",
+            "published_at": "2026-10-05T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=dabaf649e20ed8114a595840a26c0dfe318ce971574fa9c403e5f822ad9b3ac4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cenovus Sees An Opportunity To Increase Production From Leismer To More Than 60K Barrels A Day",
+            "summary": "-Conference Call.",
+            "published_at": "2026-10-05T09:10:32+00:00",
+            "url": "https://finnhub.io/api/news?id=02ff6836d5c5443793e66a60bc614177df178a6560090d06f51d634a643b27e0",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Cenovus Bets $4 Billion on Athabasca in Oil Sands Power Play",
+            "summary": "CVE stock dips as Cenovus Energy agrees to buy Athabasca Oil for C$12 per share in a C$5.7B cash-and-stock acquisition.",
+            "published_at": "2026-10-05T08:44:32+00:00",
+            "url": "https://finnhub.io/api/news?id=29867d1eb6dfe6458c89340c64b3ae016f913d5b107bc65fcd93a2ffdf04bc7e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Cenovus Energy To Acquire Athabasca Oil Corporation For $12/Share In Cash And Stock At An Implied EV Of $5.7B",
+            "summary": "Transaction HighlightsClear strategic fit with Cenovus\u2019s core oil sands business \u2013 Adds approximately 45 thousand barrels of oil equivalent per day (MBOE/d)1, including thermal production proximal to Cenovus\u2019s Christina",
+            "published_at": "2026-10-05T06:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fe18dc95074f1efaf6282de24500ab2c6da383290d36c71d409f79da069d7231",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 31.47
+    }
+  ],
+  "scored_count": 1973,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NVR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRK-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RPM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PENG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEOG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 26.570194477653626
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 13.182757184670743
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 7.814780170804856
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-05",
+    "model_trained_through": "2026-10-05",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-05, model trained through 2026-10-05 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

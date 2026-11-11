@@ -1,0 +1,8028 @@
+{
+  "as_of": "2026-09-20",
+  "threshold": 0.005,
+  "signals": [],
+  "scored_count": 0,
+  "skipped": [
+    {
+      "ticker": "NVDA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GOOGL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSFT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMZN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "META",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TSLA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JPM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JNJ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "V",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XOM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GOOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRK-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABBV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ORCL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LRCX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NFLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DELL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PANW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ANET",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TXN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TMO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNDK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KLAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRWD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TMUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PEP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SCHW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRVL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GILD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QCOM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "T",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WELL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PFE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UBER",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ETN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NOW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TJX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ISRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PGR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GLW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBUX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADBE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LOW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HOOD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABNB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VLO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HWM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CEG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "USB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DASH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DUK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMCSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INTU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PWR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WMB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ELV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HCA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UPS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MNST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CDNS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNPS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDLZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ECL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ITW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DDOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LITE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NOC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TGT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NSC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HPE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RCL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HLT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ORLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DLR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RSG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AJG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BSX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PCAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MET",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRGP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "URI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GWW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OXY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MPWR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AFL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "D",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "O",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "F",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FANG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NXPI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FAST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NDAQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEYS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TER",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ETR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VMRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XYZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WDAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FITB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HONA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HUM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LHX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CARR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PYPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XEL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EBAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VEEV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KDP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IQV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FERG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBRE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IDXX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "YUM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LYV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ED",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AIG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTWO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCHP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ODFL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HIG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PEG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXPE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STLD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HSY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RJF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WEC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HBAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTRS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACGL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DXCM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIIB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RMD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JBL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARES",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBOE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PCG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RDDT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LVS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HPQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DTE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FOXA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VICI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CASY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FISV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AWK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OTIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ES",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CINF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRSN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DGX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ECHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INCY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WRB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FOX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XYL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JBHT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SMCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "Q",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DLTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TPR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXPD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HUBB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FICO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ULTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VLTO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TROW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "L",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSLR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EFX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FFIV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IFF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMCR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PKG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VTRS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CDW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FDXF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LUV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EVRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZBH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TSN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TSCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NDSN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "J",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHRW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZBRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INVH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BALL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LDOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KIM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SOLV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TYL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SWK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IVZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AIZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRMB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TKO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LULU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SJM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ERIE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALLE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GDDY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSGP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PNW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JKHY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DECK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DPZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TECH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SWKS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AES",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PODD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HSIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UHS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APTV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WYNN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPCX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRK-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASML",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HSBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MUFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SCCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHOP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BUD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNOW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HDB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPOT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ING",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NET",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MELI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EPD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "E",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RACE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WPM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NBIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IMO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRWV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FNV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DEO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBRS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCEP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVMD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCJ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HEI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RKLB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FER",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WCN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FMX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RKT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TECK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALNY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TWLO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PUK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESLT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "P",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRDO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HEI-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ILMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RBLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROIV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OKTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SUNB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPLA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QSR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RPRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TSEM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRCL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BSP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCNCA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AFRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FWONK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SOFI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMRZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IOT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARXS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RIVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROKU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AER",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XPO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGLD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "USFD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FWONA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SQM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UTHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CDE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "THC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STLA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KSPI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WWD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DINO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LEN-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IREN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TOST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RBRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SSNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GFL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SITM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "U",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ITT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTNX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EWBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OVV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JHX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IONQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ONTO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLUT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WIT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LSCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BSAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MEDP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JLL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VNOM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BURL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NBIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TIGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JAZZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EMA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "H",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STRL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PFGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PNFP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LAMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RBA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARMK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRBG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LECO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SMTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "YUMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TLK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BWXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ULS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GIB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WMG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXEL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SUI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LOGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKC-V",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIVE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SMMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QXO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOCN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CACI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IESC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHKP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BWA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "W",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EMBJ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RPM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AUR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HBM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAIR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HMY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TOL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JEF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHYM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BF-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UHAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GGG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GWRE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICLR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDGL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TXRH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CORT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTSG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HALO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HUBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARWR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GLPI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FNF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MANH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ELS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DKS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ELAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HUT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MICC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AIT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FHN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DKNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IAG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EVR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PINS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BJ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CART",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SANM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UHAL-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UMBF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENLT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FROG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NYT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALSN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LFUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BPOP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VSAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GKOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EGP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GSAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CGNX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CYTK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SSB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KRYS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAIL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SOLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CFR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GMED",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZION",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OSCR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GGB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPXC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENSG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BSY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ONB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ORI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RDY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KYMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OGE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAOI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AYI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRAX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GIL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTCH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EDU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBSW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAIA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RMBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "R",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHWY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTGX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JXN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VOYA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IONS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MUSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIAV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTRE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KTOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ONON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTEK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LLYVK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VICR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PCVX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CUBE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MHK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WULF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IDCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QGEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TPG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LLYVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FORM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LEA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SFD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COLB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LINE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NNN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TGTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PCOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RHP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RIOT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TXG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNSL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TWST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IMVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LAD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIGR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FPS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOKF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REXR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OKLO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SARO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APLD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYRE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHRD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LEVI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PCTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IDA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OWL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GTLB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "THG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZWS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRMB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIFR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SOBO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HQY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALKS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZETA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NOV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CELH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVAV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SSRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MORN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HNGE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OMF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SSD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FAF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PATH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "Z",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NXE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MBLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APPF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AUGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PDI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AWI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STAG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRNO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SFM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NCLH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFPM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RYTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SGHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "URBN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VCTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WFRD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PACS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HXL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JOBY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DUOL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QBTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "S",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NAVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LUMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MATX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLXS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ORA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VNO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "POWL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FNB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RIG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LNTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ETSY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GTES",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CGON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HIMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "POOL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UBSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MBGL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ANF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EPRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NPO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SWX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMED",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BROS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LOAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DSGX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INGR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LKQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GATX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ANDG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ELF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VSXY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CACC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ORKA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ECG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DNTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GLBE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LYFT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BEPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TVTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SNDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MXL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MIRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RYN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JBTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LSTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TBBB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CZR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COGT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "G",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HWC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HOMB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LQDA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CORZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UEC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TXNM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "M",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STWD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RUSHB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROAD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QLYS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EPAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VSEC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XENE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PEGA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "POR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RUSHA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AUB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NOVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DLB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AROC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXSL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTCT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RDNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABCB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBUC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ERAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HLNE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OTEX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FTDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BYD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RITM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LGND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OBDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CROX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVLT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAGP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KRMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGTI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NJR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KLAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XMTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MUR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PIPR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KVYO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OZK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GXO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NXST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NIQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VSNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MWH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GLXY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRSP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RELY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HESM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GLNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRNS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DFTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACIW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BULL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BETA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INSW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AIR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MRCY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OTF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OUT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ENPH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMYT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OCTV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LAUR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRDM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HASI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GOLF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PECO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EQPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MIDD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RYAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WHD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JMKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFSL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LFST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CENX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACAD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAVE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EWTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FFIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRGY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CELC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CUZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SFBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CECO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHEF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TREX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PJT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UFPI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOOT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NSIT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REYN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KBR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EPR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TKC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MARA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FULT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MYRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MEOH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CGAU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "YOU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ONDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OLLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOCS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "USAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DLO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IBOC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNTK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXTI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GFF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FELE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AQN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAFN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KLIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SITE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ELVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LAZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MIAX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ITGR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTFL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TCBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AYA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DIOD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ITRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MANE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UCB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STEP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KFY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RLAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CATY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BFH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MIR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRIM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PARR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LMND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STNG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEZL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DNP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ERO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BILL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICUI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPGI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VKTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COLD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IOVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CDP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UUUU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LOPE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVBF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATMU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VVV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KTB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INDB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TARS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBWI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "THO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNGX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DORM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HHH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OLED",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OTTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BANF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "POST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSTM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PFSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKYW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LEU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRAD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IDYA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RNST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QTWO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MWA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABCL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TENB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JOE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RCUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MNDY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IOND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DYN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APLE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IPAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BWLP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BELFB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BATRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRAL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRMD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIBK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZIM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MANU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPCH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLSE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NESR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CALM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DNLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AWR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTDR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBRT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCHB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBLK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TOWN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FFBC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VCYT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CXW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IPGP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CURB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VGNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRZE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UCTT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SMG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NATL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HIW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SXI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRVL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SFNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "USLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RRR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DHT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SBCF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RXO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LION",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TGB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FOUR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NMIH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PVH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XXI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FSLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BFAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVTS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OSIS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KYIV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAUC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BATRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATRO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INFQ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLUG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRSH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXPO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HGV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHOO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LFTO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FHB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DNN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KBH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARCB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SDRL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGYS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TMDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QURE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARQT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSQR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IMNM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MBX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WING",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRBK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XNDU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNET",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVAH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BELFA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBAR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADEA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WRBY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UTF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BANC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMBP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "YETI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REZI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGEE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NAMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DNOW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SOUN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAYW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIZZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CARG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DXPE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMBA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IMAX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BWIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "POWI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPLI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FUL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TALO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPSC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IHS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RDW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLDE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TTAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CALY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VECO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHAK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MZTI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AVPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KWR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SVM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KALU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OUST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNFI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHVS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ECO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EFXT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BEAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALRM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WDFC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRIX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EEFT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PENG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NBTB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MLYS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTCT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NMRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBNC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIFE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRMK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NAD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CUBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DGII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UPST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VRDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HWKN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TBBK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SSMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NKTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PATK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FRME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAFD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BANR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEOG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AAP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CENT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CDNA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DJT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APPN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VERA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKWD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INTR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KYN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BUSE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LUNR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COHU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RNW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ETOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PGEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SUPN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNIT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRMY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LCII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PURR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MBIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRVI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OCUL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NGVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RUM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WERN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ANDE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HLIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NCNO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LASR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HURN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEEL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRLV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UWMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STNE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCRX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NUVB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NZF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EFSC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STUB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VVX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OSW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ROG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ETY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IOSP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEDG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FIGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOBS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PENN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PVLA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LTC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NEO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CALX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTON",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLOV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HUBG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CENTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADUS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESTA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UAA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UFPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RUN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RAPP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VOYG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XRAY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AADX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KOD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FLYW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ICHR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AUPH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HYMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BSTZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "URGN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRPT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KSS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALGT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADMA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STGW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZBIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NMZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTOS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KLRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TILE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNXN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CTRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "COAG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALKT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INVX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ECPG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRCE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VERX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CMPR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PGNY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRDO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLKB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PDFS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GENB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXDC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EZPW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTST",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UTZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZYME",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHAZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HAPN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVCR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "XPRO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRSL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IGR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ASAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLBL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KARD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGIO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TMC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VET",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRVE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLPC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KARO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VCEL",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "pooled_setup_seasonality",
+      "importance": 14.734534621828251
+    },
+    {
+      "feature": "volatility_120d",
+      "importance": 13.196443762398186
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 8.07729029259381
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-18",
+    "model_trained_through": "2026-09-18",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-18, model trained through 2026-09-18 -- ready for this morning's opens."
+  }
+}

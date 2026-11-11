@@ -1,0 +1,133 @@
+{
+  "as_of": "2026-10-13",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "QH",
+      "predicted_return": 0.005522807996221106,
+      "open_price": 3.74,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:56:57.441026+00:00",
+        "articles": []
+      },
+      "prev_close": 3.59
+    }
+  ],
+  "scored_count": 1978,
+  "skipped": [
+    {
+      "ticker": "JPM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JNJ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "C",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DPZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 9.139639570741362
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 9.064794576090874
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 8.42462406891152
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-12",
+    "model_trained_through": "2026-10-12",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-12, model trained through 2026-10-12 -- ready for this morning's opens."
+  }
+}

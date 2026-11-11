@@ -1,0 +1,890 @@
+{
+  "as_of": "2026-10-13",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "CC",
+      "predicted_return": 0.3460738405268459,
+      "open_price": 13.01,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:56:57.440316+00:00",
+        "articles": [
+          {
+            "headline": "Barclays Initiates Coverage On Chemours with Equal-Weight Rating, Announces Price Target of $16",
+            "summary": "Barclays  analyst Aleksey Yefremov   initiates coverage on Chemours (NYSE:CC) with a Equal-Weight rating and announces Price Target of $16.",
+            "published_at": "2026-10-13T09:10:20+00:00",
+            "url": "https://finnhub.io/api/news?id=6be04f360000987d94da4893e661b6407e901c0be491db4c4d7e1b4955146143",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 13.39
+    },
+    {
+      "ticker": "CW",
+      "predicted_return": 0.3385680810916358,
+      "open_price": 499.25,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:56:57.440572+00:00",
+        "articles": [
+          {
+            "headline": "TTMI's Defense Pipeline Strengthens: Is Long-Term Growth Ahead?",
+            "summary": "TTM Technologies' $1.7B defense backlog, $7 billion-plus pipeline and advanced manufacturing investments strengthen its growth prospects amid rising demand.",
+            "published_at": "2026-10-13T15:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=75c495bbbf2238f2ca78139ab5e081c92666a50e99f7383b7f8f6ac6c16faa03",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Stocks Raise Dividends, But Which Has Room to Keep Growing?",
+            "summary": "Accenture, Curtiss-Wright, and Starbucks all raised their dividends, with Starbucks' hike coming amid reports it explored acquiring Chipotle during its ongoing turnaround.",
+            "published_at": "2026-10-12T13:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0e378d20903c9d681ec141d27bdc0c1897ec7b7048c6af59196400d290fa6732",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 504.16
+    },
+    {
+      "ticker": "FIX",
+      "predicted_return": 0.33461651051277214,
+      "open_price": 1600.0,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:56:57.440695+00:00",
+        "articles": [
+          {
+            "headline": "Explore the top gainers and losers within the S&P500 index in today's session.",
+            "summary": "Stay informed about the performance of the S&P500 index in the middle of the day on Tuesday. Uncover the top gainers and losers in today's session for valuable insights.",
+            "published_at": "2026-10-13T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=7a19a3877cfb0a66a454cc78dcbca0f2fa76447119c7e87a164ed3c33cb12dcc",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Comfort Systems' Rich Valuation After 84% Rally: Is Caution Warranted?",
+            "summary": "FIX's 84% rally, record $14.06B backlog and strong data center demand fuel growth, but premium valuation and execution risks raise caution.",
+            "published_at": "2026-10-12T15:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4b6e6b1c67f6dce3d886e1da456fb768a35624040411522b462098c00f737479",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Quanta Sees 220%-240% Load Center Growth: Can the Boom Last?",
+            "summary": "PWR expects 220%-240% load center revenue growth in 2026, fueled by AI and data center demand, but can it sustain momentum amid execution challenges?",
+            "published_at": "2026-10-12T15:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=cdb896e4ddb4b41161f621b363bb0385b6ff5b5928895d7f29563be37c2d7e0a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 1638.05
+    },
+    {
+      "ticker": "SQM",
+      "predicted_return": 0.33081145251316696,
+      "open_price": 62.12,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:56:57.440894+00:00",
+        "articles": [
+          {
+            "headline": "Amprius Technologies shares are trading higher after B. Riley Securities raised its price target on the stock from $16 to $22.",
+            "summary": "",
+            "published_at": "2026-10-12T10:37:23+00:00",
+            "url": "https://finnhub.io/api/news?id=3167c30f4b0b331da646eeee90c8874e7abcfb64d868f8cfe11bb672f67365b6",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 62.47
+    },
+    {
+      "ticker": "AGIO",
+      "predicted_return": 0.3261327782777134,
+      "open_price": 30.6,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.806710+00:00",
+        "articles": []
+      },
+      "prev_close": 30.82
+    },
+    {
+      "ticker": "BELFB",
+      "predicted_return": 0.32549837060443604,
+      "open_price": 232.41,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.806809+00:00",
+        "articles": [
+          {
+            "headline": "Amphenol Gains 12% in Three Months: Buy, Sell, or Hold the Stock?",
+            "summary": "APH stock rallies 11.8% in the past three months as AI demand and acquisitions fuel growth, but premium valuation and market uncertainties raise concerns.",
+            "published_at": "2026-10-12T15:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2fae110290883248c6ea2990805329edce6c813b0578f89d5d063ad158ea10ed",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Volatile Stocks with Promising Prospects and 1 We Ignore",
+            "summary": "Volatility cuts both ways - while it creates opportunities, it also increases risk, making sharp declines just as likely as big gains. This unpredictability can shake out even the most experienced investors.",
+            "published_at": "2026-10-12T07:59:03+00:00",
+            "url": "https://finnhub.io/api/news?id=1e105b40e165385e39397fb3205983bb1a93853f0998c9a575b29f03096497f3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 238.41
+    },
+    {
+      "ticker": "ALKS",
+      "predicted_return": 0.32150603264884475,
+      "open_price": 40.26,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.806921+00:00",
+        "articles": [
+          {
+            "headline": "Alkermes Plans To Present Two Oral Presentations And Six Posters From Portfolio Of Sleep Medicine Research At ESRS 28th Congress, Sleep Europe 2026",
+            "summary": "\u2014 Data From Vibrance-1 Phase 2 Study Lancet Neurology Publication Evaluating Alixorexton in Narcolepsy Type 1 and Additional Data From Long-Term Extension Study in Narcolepsy Type 1 and Type 2 to be Shared in Oral",
+            "published_at": "2026-10-13T07:05:31+00:00",
+            "url": "https://finnhub.io/api/news?id=f59392616122174093026781153513c527fe52bb6c620b7b03a05e39cbf6c57c",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 40.26
+    },
+    {
+      "ticker": "REZI",
+      "predicted_return": 0.3197990385559428,
+      "open_price": 16.5,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.807060+00:00",
+        "articles": []
+      },
+      "prev_close": 16.63
+    },
+    {
+      "ticker": "RIVN",
+      "predicted_return": 0.3177223445491996,
+      "open_price": 13.39,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.807216+00:00",
+        "articles": [
+          {
+            "headline": "Inc. and SurveyMonkey Launch Growth Signals, a New Initiative to Capture Business Insights and Track the Issues Shaping Entrepreneurship in America",
+            "summary": "Inc. and SurveyMonkey announced Growth Signals, a new initiative to poll entrepreneurs and business leaders on priorities, challenges, and growth outlook of America's private businesses. The program will debut at the 2026 Inc. 5000 Conference & Gala in Dallas, featuring prominent founders and executives as speakers.",
+            "published_at": "2026-10-13T13:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/13/3379722/0/en/inc-and-surveymonkey-launch-growth-signals-a-new-initiative-to-capture-business-insights-and-track-the-issues-shaping-entrepreneurship-in-america.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Tesla Gears Up to Report Q3 Earnings: Here's What to Expect",
+            "summary": "Tesla is set to report Q3 2026 results on Oct. 21 with consensus estimates of 44 cents per share earnings and $27.8B revenue. Vehicle deliveries fell 2.1% year-over-year to 486,532 units, primarily due to a 47.9% decline in other models, though sequential growth of 1.3% was supported by European recovery. Energy storage deployments rose 9.6% YoY to 13.7 GWh. The company's negative Earnings ESP of -12.85% and Zacks Rank #4 (Sell) suggest low probability of an earnings beat.",
+            "published_at": "2026-10-13T12:58:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3006021/tesla-gears-up-to-report-q3-earnings-here-s-what-to-expect?cid=CS-ZC-FT-analyst_blog%7Cearnings_preview-3006021",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Rivian Automotive (RIVN) vs. TSLA and F: Can Improving Margins and Its R2 Midsize SUV Unlock Profitable Growth?",
+            "summary": "Is RIVN a good stock to buy? We came across a bullish thesis on Rivian Automotive, Inc. on Astute Optics \u2013 US\u2019s Substack. In this article, we will summarize the bulls\u2019 thesis on RIVN. Rivian Automotive, Inc.\u2019s share was trading at $13.96 as of October 9th 2026. This isn\u2019t the first time we see an automaker pitched [\u2026]",
+            "published_at": "2026-10-12T17:39:40+00:00",
+            "url": "https://finnhub.io/api/news?id=15f94f4eef8c61ff82a9a777ff41d26b19d7e63f842eae997ac4f53d80ae2b25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla, General Motors, Other US Automakers Expected to Benefit From Resilient SAAR, RBC Says",
+            "summary": "Tesla (TSLA) and other US auto original equipment manufacturers, excluding Rivian Automotive (RIVN)",
+            "published_at": "2026-10-12T15:20:08+00:00",
+            "url": "https://finnhub.io/api/news?id=7f0f04b8b40445b45d18ff5fe7e6bec94b85b33a76fcfe70f5d37d12f3c96f68",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 13.54
+    },
+    {
+      "ticker": "DY",
+      "predicted_return": 0.31728096103119474,
+      "open_price": 262.77,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:13.807388+00:00",
+        "articles": [
+          {
+            "headline": "Tutor Perini Stock Trades at a Discount: Value or Value Trap?",
+            "summary": "TPC's discounted valuation and $19.9 billion backlog hint at long-term value, but execution risks and slower contract awards may limit near-term gains.",
+            "published_at": "2026-10-13T15:21:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d6a6399f2968226956e959f13a839ffbc057f88522850cb27c5082079c6ed6ec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dycom Trades at a Discount: Should Investors Buy the Stock or Wait?",
+            "summary": "DY's record backlog, AI-driven fiber demand and raised fiscal 2027 outlook support growth, but customer concentration, tariff risks and margin pressure challenge its prospects.",
+            "published_at": "2026-10-13T12:54:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8c731cdfbed68247483b353bfca6e9aea57425a375574018a22d244e1e870665",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is MasTec's Negative Free Cash Flow a Price Worth Paying for Growth?",
+            "summary": "MTZ's record backlog and raised 2026 guidance signal strong growth, but negative free cash flow and cash conversion challenges remain key concerns.",
+            "published_at": "2026-10-12T14:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3395af8e2d6e32e32d7545cafa8f5450cb4846a8329ccda46ee828d279146654",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 266.99
+    },
+    {
+      "ticker": "HRMY",
+      "predicted_return": 0.3137907215428157,
+      "open_price": 37.91,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-13T20:57:26.168734+00:00",
+        "articles": [
+          {
+            "headline": "Medical Marijuana Clinical Trial Landscape Expands as 60+ Leading Companies Accelerate Drug Development | DelveInsight",
+            "summary": "Over 60 pharmaceutical companies are advancing more than 65 medical marijuana pipeline therapies across multiple clinical development stages. Key players including Harmony Biosciences, Cardiol Therapeutics, Incannex Healthcare, and others are developing treatments for conditions ranging from chronic pain and neurological disorders to psychiatric conditions. Recent milestones include FDA approvals for Exilby (first European cannabis-based chronic pain treatment) and Syndros, with several Phase III trials underway for conditions like Fragile X Syndrome, autism spectrum disorder, and obstructive sleep apnea.",
+            "published_at": "2026-10-13T17:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/13/3380030/0/en/medical-marijuana-clinical-trial-landscape-expands-as-60-leading-companies-accelerate-drug-development-delveinsight.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "HC Wainwright & Co. Reiterates Buy on Harmony Biosciences Hldgs, Maintains $55 Price Target",
+            "summary": "HC Wainwright &amp; Co.  analyst Patrick R. Trucchio   reiterates Harmony Biosciences Hldgs (NASDAQ:HRMY) with a Buy and maintains $55 price target.",
+            "published_at": "2026-10-13T06:38:25+00:00",
+            "url": "https://finnhub.io/api/news?id=d084a8cf4185b4de3017b29d7034afd1214bbb0fa86e8fff3a48cd459dbb5c89",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Harmony Biosciences Stock Got Mashed on Monday",
+            "summary": "Investors weren't cheered by a major change in the company's leadership.",
+            "published_at": "2026-10-12T23:36:32+00:00",
+            "url": "https://finnhub.io/api/news?id=0b9936c3f04722cf1e1f405d9389f74c5c94d7d71c15b76f2418e9ac86c0260d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Harmony Bio CEO Plans His Exit, And Shares Take An Unharmonious Hit",
+            "summary": "Harmony Biosciences stock took a tumble Monday after its announced the transition of current CEO Jeffrey Dayno at the end of the year.",
+            "published_at": "2026-10-12T20:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=66b561e466be4fe51bc1a4f822694a08c51c3f5ec186d8c4fd89bb2d5d61ca9a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Harmony Biosciences Announces Planned CEO Transition to Support Next Phase of Growth",
+            "summary": "The Board of Directors has appointed Peter Anastasiou, former Harmony board member and current Sr. EVP and COO, to become President, Chief Executive Officer and a member of the Board, effective January 1, 2027. Current CEO Jeffrey M. Dayno, M.D., will retire at the end of the year following a nine-year tenure at the Company, including as Chief Medical Officer, and step down as a member of the Board. The Company reiterates full-year 2026 WAKIX\u00ae net revenue guidance of $1.0 billion to $1.04 billio",
+            "published_at": "2026-10-12T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5f0a5182bab5925d07da5060b116368b6e75a5f5765ebd19b6f09ddcd1f76eac",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Needham Reiterates Buy on Harmony Biosciences Hldgs, Maintains $50 Price Target",
+            "summary": "Needham  analyst Ami Fadia   reiterates Harmony Biosciences Hldgs (NASDAQ:HRMY) with a Buy and maintains $50 price target.",
+            "published_at": "2026-10-12T09:27:50+00:00",
+            "url": "https://finnhub.io/api/news?id=6efc904fbd7d4c70d9576716482a4ef51b18235e8c137e6899be9146c5c45c45",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 38.23
+    },
+    {
+      "ticker": "CRUS",
+      "predicted_return": 0.31358728870070124,
+      "open_price": 106.18,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.168874+00:00",
+        "articles": [
+          {
+            "headline": "Cirrus Logic to Report Second Quarter Fiscal Year 2027 Results",
+            "summary": "AUSTIN, Texas, October 13, 2026--Cirrus Logic, Inc. (Nasdaq: CRUS) will post its second quarter fiscal year 2027 financial results and business outlook on the Investor Relations area of its website on Wednesday, November 4, at approximately 4 p.m. ET.",
+            "published_at": "2026-10-13T20:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2ca4b48ab68a8cb42ad5b432740da7712bb83d55d6289356b24bc151996b83a6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 106.33
+    },
+    {
+      "ticker": "OLN",
+      "predicted_return": 0.31148030843228003,
+      "open_price": 14.71,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.168958+00:00",
+        "articles": [
+          {
+            "headline": "Barclays Initiates Coverage of Olin at Equal-Weight",
+            "summary": "",
+            "published_at": "2026-10-13T16:18:41+00:00",
+            "url": "https://finnhub.io/api/news?id=5ec550796a0c23456a695f9b435a586c06c0e201ddcecef0425333e1861f34cf",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Rep. Lisa McClain Has Bought Up to $225K Worth Of CACI International Stock: Here\u2019s What You Should Know",
+            "summary": "An official report on October 12, 2026 reveals Representative Lisa McClain&#39;s recent purchase of CACI International (NYSE:CACI) stock, valued between $50,008 and $225,000. The transaction took place on September 14,",
+            "published_at": "2026-10-13T11:00:16+00:00",
+            "url": "https://finnhub.io/api/news?id=8111d928d3728e2be2438e2bce5e3027c3105edd9a5f692ce798de6cf90130a4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "RBC Capital Maintains Sector Perform on Olin, Lowers Price Target to $16",
+            "summary": "RBC Capital  analyst Arun Viswanathan   maintains Olin (NYSE:OLN) with a Sector Perform and lowers the price target from $20 to $16.",
+            "published_at": "2026-10-13T10:15:17+00:00",
+            "url": "https://finnhub.io/api/news?id=0408fd15eb6f8f7ee9de0db2f76bc7d1e35a0f1de57cb7701936e83fffe5be01",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Barclays Initiates Coverage On Olin with Equal-Weight Rating, Announces Price Target of $18",
+            "summary": "Barclays  analyst Aleksey Yefremov   initiates coverage on Olin (NYSE:OLN) with a Equal-Weight rating and announces Price Target of $18.",
+            "published_at": "2026-10-13T09:53:16+00:00",
+            "url": "https://finnhub.io/api/news?id=d46daae9de7db9d50bb3a13878db132631b40cb75b1001e0c5feb522b7c69bfd",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Wall Street's Most Accurate Analysts Spotlight On 3 Materials Stocks Delivering High-Dividend Yields",
+            "summary": "Analysts review high-yield materials stocks Eastman Chemical, Corteva and Olin, with dividend yields above 5% and updated ratings, targets and news.",
+            "published_at": "2026-10-13T07:22:43+00:00",
+            "url": "https://finnhub.io/api/news?id=a9ee466c0af2c3cd896b63851134d324cacec2b51702f9c917f6e641b8b02003",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 14.71
+    },
+    {
+      "ticker": "COGT",
+      "predicted_return": 0.3091011643336937,
+      "open_price": 29.46,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169112+00:00",
+        "articles": [
+          {
+            "headline": "Here\u2019s How Much You Would Have Made Owning Cogent Biosciences Stock In The Last 5 Years",
+            "summary": "Cogent Biosciences (NASDAQ:COGT) has outperformed the market over the past 5 years by 14.59% on an annualized basis producing an average annual return of 26.37%. Currently, Cogent Biosciences has a market capitalization",
+            "published_at": "2026-10-12T18:45:25+00:00",
+            "url": "https://finnhub.io/api/news?id=7f8fd00ea886f48e46eb5e965b61e8fa0ac30010007162eb60089a83a99ce004",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 29.78
+    },
+    {
+      "ticker": "TU",
+      "predicted_return": 0.3090833412184251,
+      "open_price": 7.79,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169185+00:00",
+        "articles": [
+          {
+            "headline": "TELUS Corporation: Kitchen Sink Cleaned, Upside Ignored",
+            "summary": "TELUS reset its dividend, cut costs, and redirected C$2.7B to debt reduction, positioning for a cleaner balance sheet by 2028. Read more on the T:CA stock here.",
+            "published_at": "2026-10-13T11:26:10+00:00",
+            "url": "https://finnhub.io/api/news?id=8bb43c56e06500f0f1b15f8943306dfe48607ab335fb9537d24e1a27d7276a76",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 7.79
+    },
+    {
+      "ticker": "WSO-B",
+      "predicted_return": 0.30872118224699246,
+      "open_price": 287.5,
+      "snapshot_date": "2026-10-12",
+      "news_flag": "Watsco completed acquisition of The Granite Group ($500M revenue)",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Watsco completed acquisition of The Granite Group ($500M revenue)",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169239+00:00",
+        "articles": [
+          {
+            "headline": "Here's What You Must Know Ahead of Fastenal's Q3 Earnings Release",
+            "summary": "Fastenal is expected to report Q3 2026 earnings on October 14 with EPS estimated at 34 cents, representing 17.2% year-over-year growth. August daily sales grew 16.6% to $38.7M, driven by strong manufacturing demand and direct fastener sales. While productivity gains and cost initiatives should support margins, unfavorable customer mix and higher freight costs present headwinds. The Zacks model does not predict an earnings beat.",
+            "published_at": "2026-10-13T13:12:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3006092/here-s-what-you-must-know-ahead-of-fastenal-s-q3-earnings-release?cid=CS-ZC-FT-analyst_blog%7Cearnings_preview-3006092",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "BBH Capital Partners Private Equity Exits The Granite Group",
+            "summary": "NEW YORK, October 12, 2026--BBH Capital Partners Private Equity (BBHCP) today announced the successful exit of its investment in The Granite Group (Granite), a diversified distributor of plumbing and HVAC products, in connection with Granite\u2019s agreement to be acquired by Watsco, Inc. (NYSE: WSO).",
+            "published_at": "2026-10-12T20:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=71f20ee652a8a87ef6277b12aed1ff4964dc63b3479d2fbfac7132118611467c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Watsco: More Acquisitive And More Promising Here",
+            "summary": "Watsco faces near-term headwinds from higher interest rates and regulatory changes, but long-term upside remains compelling. Learn more.",
+            "published_at": "2026-10-12T13:17:22+00:00",
+            "url": "https://finnhub.io/api/news?id=8ffde41456470a4a55d5c902ee4c28abec4a1bcd27b060e749b43bb7aac9b925",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Watsco Completes Acquisition of The Granite Group, Distributor of Plumbing and HVAC Products with $500 Million in Revenue Throughout the Northeast",
+            "summary": "Expands Watsco\u2019s Growing Presence in Plumbing Products Distribution by 82 LocationsMIAMI, Oct. 12, 2026 (GLOBE NEWSWIRE) -- Watsco, Inc. (NYSE: WSO) announced today that it has completed the previously announced acquisition of The Granite Group, a diversified distributor of plumbing and HVAC products with approximately $500 million in sales throughout seven Northeast States. Watsco\u2019s ownership culture, scale, OEM relationships and industry-leading technologies are now available to Granite\u2019s lead",
+            "published_at": "2026-10-12T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c9300c04609b96e1c688bffb9f3c095f6dd27d3893bbcc62e09dd460e4f4351a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 287.5
+    },
+    {
+      "ticker": "ROAD",
+      "predicted_return": 0.3085910357513945,
+      "open_price": 86.22,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169337+00:00",
+        "articles": [
+          {
+            "headline": "2 Volatile Stocks to Keep an Eye On and 1 That Underwhelm",
+            "summary": "A highly volatile stock can deliver big gains - or just as easily wipe out a portfolio if things go south. While some investors embrace risk, mistakes can be costly for those who aren\u2019t prepared.",
+            "published_at": "2026-10-12T12:23:03+00:00",
+            "url": "https://finnhub.io/api/news?id=62e804405077e8158d3b9b7fa637787d602a62a6165b81ce28a0ee015097afac",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 86.18
+    },
+    {
+      "ticker": "SNEX",
+      "predicted_return": 0.30696999437795025,
+      "open_price": 59.89,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169406+00:00",
+        "articles": []
+      },
+      "prev_close": 60.38
+    },
+    {
+      "ticker": "GNW",
+      "predicted_return": 0.30650547698317276,
+      "open_price": 9.07,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169448+00:00",
+        "articles": []
+      },
+      "prev_close": 9.05
+    },
+    {
+      "ticker": "HWM",
+      "predicted_return": 0.3064976997455486,
+      "open_price": 219.48,
+      "snapshot_date": "2026-10-12",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-13T20:57:26.169452+00:00",
+        "articles": [
+          {
+            "headline": "Jefferies Names Top Aerospace and Defense Stocks for Multi-Year Growth",
+            "summary": "Investing.com -- Jefferies has identified six aerospace and defense stocks positioned for strong growth through 2028, highlighting companies benefiting from production ramps, aftermarket expansion, and defense modernization programs.",
+            "published_at": "2026-10-13T14:29:28+00:00",
+            "url": "https://finnhub.io/api/news?id=ddd3eccfce35f8caea9835aedf4e1217b2e090c349816264efe453991d388a4e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can ATI's Strong Cash Flow Drive More Growth and Returns?",
+            "summary": "ATI's first-half 2026 free cash flow surged to $143.2 million, prompting a higher annual forecast as debt reduction and share buybacks bolster shareholder returns.",
+            "published_at": "2026-10-13T11:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=32d6fca187be0a0c785748a20586192a5be212c9759a0f12007ac0e39d54d8a9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Howmet Aerospace: A Better Growth Mix Still Needs A Better Entry Point",
+            "summary": "",
+            "published_at": "2026-10-13T09:43:11+00:00",
+            "url": "https://finnhub.io/api/news?id=cb4292b7b4f32ebc9a3e7516406b994250726962e385660bee907509160c2b2e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Howmet Aerospace: A Buy-The-Dip Opportunity In A Potential Multi-Year Up-Trend",
+            "summary": "Howmet Aerospace (HWM) buy thesis: commercial aerospace recovery + AI power demand drive multi-year growth.",
+            "published_at": "2026-10-13T08:31:03+00:00",
+            "url": "https://finnhub.io/api/news?id=c824cb3b2247c476ce32fc9d824a01381a8531cfd29cc45dcf17fab2a046ed4a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "If You Invested $100 In Howmet Aerospace Stock 5 Years Ago, You Would Have This Much Today",
+            "summary": "Howmet Aerospace (NYSE:HWM) has outperformed the market over the past 5 years by 36.0% on an annualized basis producing an average annual return of 47.78%. Currently, Howmet Aerospace has a market capitalization of",
+            "published_at": "2026-10-12T19:00:26+00:00",
+            "url": "https://finnhub.io/api/news?id=5b09d3ebbc90ad46b3d19f1ece5da52652fc19d659573f1062fe125cec32ea71",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Howmet Gains From Strength in Commercial Aerospace: Will the Momentum Last?",
+            "summary": "HWM's commercial aerospace revenues surge 28% in the second quarter of 2026, fueling segment growth. Can rising aircraft production sustain its momentum?",
+            "published_at": "2026-10-12T16:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c333721990fdead31e249ccaab2ca728d26f0c39083ee0943b8cfd31449b7bbf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Howmet Aerospace: Strong Q2, But The Valuation Is Too Rich",
+            "summary": "Howmet\u00e2\u0080\u0099s Q2 results surged on aerospace & gas turbines, but a DCF values shares at $120.69\u00e2\u0080\u0094stock looks overvalued.",
+            "published_at": "2026-10-12T08:57:43+00:00",
+            "url": "https://finnhub.io/api/news?id=08de7a5d27d5d9283193157445f53dba0d92ec525edd5c2bcfba9d29317b1be0",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 220.81
+    }
+  ],
+  "scored_count": 1978,
+  "skipped": [
+    {
+      "ticker": "JPM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JNJ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "C",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DPZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 27.495102256521054
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.855109691118335
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 6.573191668826575
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-12",
+    "model_trained_through": "2026-10-12",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-12, model trained through 2026-10-12 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

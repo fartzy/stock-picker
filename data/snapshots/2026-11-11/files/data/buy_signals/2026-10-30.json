@@ -1,0 +1,3597 @@
+{
+  "as_of": "2026-10-30",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "SHAZ",
+      "predicted_return": 0.03223402924875669,
+      "open_price": 24.24,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.936745+00:00",
+        "articles": []
+      },
+      "prev_close": 26.17,
+      "jev": null
+    },
+    {
+      "ticker": "CIFR",
+      "predicted_return": 0.015633522923194206,
+      "open_price": 7.51,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.936764+00:00",
+        "articles": [
+          {
+            "headline": "Can Cipher Digital Stock Fall 50%?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T23:19:42+00:00",
+            "url": "https://finnhub.io/api/news?id=aed08d5937f324eae35018ba553e1998f7e6e37d7c3865767b5f0926bdbf0101",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cipher Digital Inc. (CIFR) Registers a Bigger Fall Than the Market: Important Facts to Note",
+            "summary": "Cipher Digital Inc. (CIFR) closed the most recent trading day at $8.05, moving 9.24% from the previous trading session.",
+            "published_at": "2026-10-29T21:00:02+00:00",
+            "url": "https://finnhub.io/api/news?id=850f5ff68ee8ca410bfa5ec69b259228b1c52887a99ed5c79a9e73811cd9530c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cipher Digital Gears Up to Report Q3 Earnings: What's in Store?",
+            "summary": "Cipher Digital's Q3 results may reflect its shift to HPC leasing, with new data center rental income, declining mining revenues and rising construction costs in focus.",
+            "published_at": "2026-10-29T15:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ffd5f66d2b023be26645b7a5babe2430a102da550a884600b973487e17007a8b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Are MARA Stock Investors Overlooking?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T14:33:45+00:00",
+            "url": "https://finnhub.io/api/news?id=62e50a9b38620d89dea0319f317d3a2411e4c251161731d423dc00cdd141f441",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 8.1,
+      "jev": null
+    },
+    {
+      "ticker": "FRMI",
+      "predicted_return": 0.01521279939464339,
+      "open_price": 2.725,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.557402+00:00",
+        "articles": []
+      },
+      "prev_close": 2.86,
+      "jev": null
+    },
+    {
+      "ticker": "HPQ",
+      "predicted_return": 0.013181956018614136,
+      "open_price": 27.3,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "polygon"
+        ],
+        "issues": [
+          "finnhub_unavailable"
+        ],
+        "checked_at": "2026-10-30T13:36:09.557501+00:00",
+        "articles": [
+          {
+            "headline": "Apple's Q4 Earnings Loom: Buy or Sell AAPL Stock Ahead of Results?",
+            "summary": "Apple is expected to report Q4 fiscal 2026 results on Nov. 2 with revenue growth of 9-11% YoY, driven by strong iPhone demand, iPhone 18 Pro launch, and growing Apple Intelligence adoption. Services business continues to expand with 2.5 billion active devices and 1.5 billion paid subscriptions. However, semiconductor supply constraints, rising memory costs, and FX headwinds pose near-term challenges. At 35.43X forward P/E, Apple's valuation appears stretched compared to sector peers, suggesting investors may wait for a better entry point.",
+            "published_at": "2026-10-29T17:30:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3018992/apple-s-q4-earnings-loom-buy-or-sell-aapl-stock-ahead-of-results?cid=CS-ZC-FT-analyst_blog%7Cmost_popular_stocks-3018992",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "HPQ vs. AAPL: Which Computer Stock Offers Better Investment Potential?",
+            "summary": "HP Inc. (HPQ) and Apple Inc. (AAPL) are compared as investment opportunities in the computer hardware sector. HPQ benefits from growing AI PC adoption (46% of shipments in Q3 FY2026) and premium commercial PC strategy, with Personal Systems revenues up 18.5% YoY despite declining unit volumes. AAPL leverages its integrated ecosystem, expanding Services business (up 12.1% to $30.74B), and AI-enabled products like the iPhone 18 Pro. While AAPL shows stronger earnings growth (18% expected), HPQ trades at a significantly lower valuation (0.48X forward P/S vs. AAPL's 9.55X), making it the more compelling valuation play. Both stocks carry a Zacks Rank #3 (Hold).",
+            "published_at": "2026-10-29T13:33:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3018679/hpq-vs-aapl-which-computer-stock-offers-better-investment-potential?cid=CS-ZC-FT-analyst_blog%7Cmost_popular_stocks-3018679",
+            "source": "Zacks Investment Research"
+          }
+        ]
+      },
+      "prev_close": 31.83,
+      "jev": null
+    },
+    {
+      "ticker": "IMO",
+      "predicted_return": 0.011875784712496817,
+      "open_price": 120.89,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.935256+00:00",
+        "articles": [
+          {
+            "headline": "Imperial announces third quarter 2026 financial and operating results",
+            "summary": "CALGARY, Alberta, October 30, 2026--Imperial (TSE: IMO) (NYSE American: IMO):",
+            "published_at": "2026-10-30T11:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3b86b2f581198233c1a625e9eb2088c6ae5cf1835f79e01ad19fc2f688f4f961",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Imperial declares fourth quarter 2026 dividend",
+            "summary": "CALGARY, Alberta, October 30, 2026--Imperial Oil Limited (TSE: IMO, NYSE American: IMO) today declared a quarterly dividend of 87 cents per share on the outstanding common shares of the company, payable on January 1, 2027, to shareholders of record at the close of business on December 3, 2026.",
+            "published_at": "2026-10-30T11:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5a00e7d26893e4a700fb373a640254f10227979db9735c41e1da8c0bdec846cf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Watch These 4 Energy Stocks for Q3 Earnings: Beat or Miss?",
+            "summary": "BP, Chevron, Imperial Oil and ExxonMobil gear up for Q3 earnings amid rising crude prices and strong sector growth forecasts. Which stocks are poised to beat?",
+            "published_at": "2026-10-29T15:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3740a3e1dbe50e7cb0dcb987ac922e59c7048200069aee72b4a7790a4db748ac",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 130.87,
+      "jev": null
+    },
+    {
+      "ticker": "IREN",
+      "predicted_return": 0.009174492097069387,
+      "open_price": 24.4,
+      "snapshot_date": "2026-10-29",
+      "news_flag": "GOOGL/MSFT AI capex and cash-burn worries hammering neocloud stocks including IREN",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "GOOGL/MSFT AI capex and cash-burn worries hammering neocloud stocks including IREN",
+        "article_count": 11,
+        "reviewed_count": 11,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.557645+00:00",
+        "articles": [
+          {
+            "headline": "IREN Limited: A Strong Buy As AI Capacity Builds Toward Higher Future Earnings",
+            "summary": "IREN Ltd. is building capacity that could change its earnings potential extremely over the next 2-4 years. Read why IREN stock is a strong buy.",
+            "published_at": "2026-10-30T03:43:40+00:00",
+            "url": "https://finnhub.io/api/news?id=3dcb0c252afbb065021a90d754c082ed9cda2419a578943d87c4f1d3e6ddcde7",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "3 AI Stocks to Buy and Hold Through 2030",
+            "summary": "Morgan Stanley expects data center investment to stretch into the trillions in the next few years -- and these three stocks stand to benefit.",
+            "published_at": "2026-10-29T16:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b16893298e443ccd952a370e2f5d811a14d9e46cd8596768f3f9424f93cc208c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Neocloud Stocks Have Sunk by More Than 30% This Month. What Does That Mean for Anthropic's IPO?",
+            "summary": "The AI lab's initial public offering will test Wall Street's appetite for AI risk.",
+            "published_at": "2026-10-29T16:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=25597b8a3292feef4df64b21b944c3636307da5524df092cf9a51149da6350c5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cipher Digital Gears Up to Report Q3 Earnings: What's in Store?",
+            "summary": "Cipher Digital's Q3 results may reflect its shift to HPC leasing, with new data center rental income, declining mining revenues and rising construction costs in focus.",
+            "published_at": "2026-10-29T15:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ffd5f66d2b023be26645b7a5babe2430a102da550a884600b973487e17007a8b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alphabet Sinks 12% on Search Miss and $9 Billion Cash Burn: \u201cIs This the Quarter We Feared?\u201d",
+            "summary": "Key TakeawaysAlphabet shares fell 12% today after Search revenue missed estimates and free cash flow came in at negative $9. 1 billion.",
+            "published_at": "2026-10-29T14:05:16+00:00",
+            "url": "https://finnhub.io/api/news?id=99c197bb7d046b2d30262f25e04cec694223f4b1700c992b353cae7193185cd1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Limited (IREN) Expected to Beat Earnings Estimates: What to Know Ahead of Q1 Release",
+            "summary": "IREN Limited (IREN) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:30+00:00",
+            "url": "https://finnhub.io/api/news?id=c1c9723ada82be7de46c68cd8177ed238c62fcebe16d4f250af34fabd7b222fb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nebius vs. IREN: Which AI Infrastructure Stock is the Better Buy?",
+            "summary": "NBIS and IREN are expanding AI infrastructure amid surging demand, but differences in revenue growth, financing needs and valuation set the two stocks apart.",
+            "published_at": "2026-10-29T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4df42941e678596c9f3720688d6e9170f543f275ea73319ac8f46d75b2b67f5d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alphabet\u2019s $9bn cash burn drags neocloud stocks lower",
+            "summary": "Investing.com - Alphabet posted negative free cash flow of $9.07 billion in the third quarter, its second consecutive quarter of cash burn, sending GOOGL shares down more than 10% in premarket trading on Thursday and pulling neocloud stocks sharply lower.",
+            "published_at": "2026-10-29T10:44:57+00:00",
+            "url": "https://finnhub.io/api/news?id=4c8eb190dc3903d48bf54b7b031cfee0abb8c78af8e864a06273b9567227b3db",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Mike Alfred joins Opendoor Board of Directors",
+            "summary": "SAN FRANCISCO, Oct. 29, 2026 (GLOBE NEWSWIRE) -- Opendoor Technologies Inc. (\u201cOpendoor\u201d) (Nasdaq: OPEN), the e-commerce platform for residential real estate, today announced that Mike Alfred, Founder and Managing Partner of Alpine Fox LP, has been appointed to its Board of Directors (\u201cBoard\u201d), effective immediately. Mr. Alfred will also serve on the Nominating and Corporate Governance Committee of the Board. \u201cI\u2019m excited to welcome Mike to our Board,\u201d said Kaz Nejatian, Opendoor CEO, President a",
+            "published_at": "2026-10-29T10:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e35680bf6c3b08a6bcc2bcd7262a809947812562992df608dab0aaf62f457086",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nebius And NBIL: Smarter Pricing, Lower Leverage, But I'm Staying Out For Now",
+            "summary": "Nebius Group N.V. stands out among neocloud peers with an 117% YTD stock gain and a $2.5B revenue run rate. Read more on NBIS stock and NBIL ETF here.",
+            "published_at": "2026-10-29T10:17:41+00:00",
+            "url": "https://finnhub.io/api/news?id=711552b5500263fe86594e71c8a0c09429da3b146b420cdf2ec3f3751bf03d7b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "GOOGL, MSFT AI Capex Worries Hammer Neocloud Stocks: CRWV, NBIS, IREN, APLD Give Up Best Week in Over 2 Months",
+            "summary": "AI infrastructure stocks fell after Microsoft and Alphabet reported lower-than-expected capex, raising concerns about hyperscaler spending.",
+            "published_at": "2026-10-29T08:10:58+00:00",
+            "url": "https://finnhub.io/api/news?id=b5996a78e28bf8d306d96cb3a9c9fa88e0e6dbbaa00d7874929a36c8f3f93b94",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 26.25,
+      "jev": null
+    },
+    {
+      "ticker": "CDW",
+      "predicted_return": 0.007981581738170762,
+      "open_price": 156.185,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.935933+00:00",
+        "articles": []
+      },
+      "prev_close": 165.2,
+      "jev": null
+    },
+    {
+      "ticker": "RBRK",
+      "predicted_return": 0.007615459979500143,
+      "open_price": 131.94,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.558299+00:00",
+        "articles": [
+          {
+            "headline": "Morgan Stanley Initiates Coverage of Rubrik at Overweight",
+            "summary": "",
+            "published_at": "2026-10-29T14:55:09+00:00",
+            "url": "https://finnhub.io/api/news?id=fc25084769af0aa553eb7db1d2657dcd9a822e8cd4d03c78d900b7013e6ec03a",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Morgan Stanley Initiates Coverage On Rubrik with Overweight Rating, Announces Price Target of $155",
+            "summary": "Morgan Stanley  analyst Meta Marshall   initiates coverage on Rubrik (NYSE:RBRK) with a Overweight rating and announces Price Target of $155.",
+            "published_at": "2026-10-29T06:07:32+00:00",
+            "url": "https://finnhub.io/api/news?id=f356b9fbb2c48a93589616a6ae15e0543393fa125d351c2435c261fe590b6b8e",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 133.63,
+      "jev": null
+    },
+    {
+      "ticker": "ESLT",
+      "predicted_return": 0.007126811798438517,
+      "open_price": 772.65,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.936346+00:00",
+        "articles": []
+      },
+      "prev_close": 807.41,
+      "jev": null
+    },
+    {
+      "ticker": "EVR",
+      "predicted_return": 0.007082023172764686,
+      "open_price": 291.3,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.564537+00:00",
+        "articles": [
+          {
+            "headline": "Evercore (EVR) Q3 Earnings Cement A Stronger Margin Story",
+            "summary": "Evercore came into this Q3 2026 print with a reputation as a high-end deal advisory powerhouse and a stock that had already logged an 11.8% gain over the past month. Then the numbers hit. The shares closed up another 1.8% to US$297.51, yet the real story sits in the income statement. Record Q3 adjusted net revenues of about US$1.2b and adjusted earnings per share of roughly US$4.28 point to one thing that matters most right now: profitability is doing the heavy lifting, and the margin story...",
+            "published_at": "2026-10-29T20:13:41+00:00",
+            "url": "https://finnhub.io/api/news?id=53e9e8048c9bbcd1e94741b62355e4267e40a977e346d8aac8497142ca7b1603",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Evercore (EVR) Stock Could Be Trading Below Fair Value Today",
+            "summary": "Evercore has seen its stock price move sharply in recent years, which puts a spotlight on a simple question for anyone looking at the shares today. Is the current valuation supported by the returns the firm earns on the capital it puts to work in its advisory and related businesses? Over the past 3 years the stock has gained about 130.5%, which raises the stakes on whether those gains line up with the durability and level of returns the company can keep generating on its capital base. Recent...",
+            "published_at": "2026-10-29T11:14:14+00:00",
+            "url": "https://finnhub.io/api/news?id=d11f814ef5654e97f04b4a29917d4d86ebc536f927a9b66ce2be80410de0f89f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 297.59,
+      "jev": null
+    },
+    {
+      "ticker": "KEN",
+      "predicted_return": 0.0069563136431609,
+      "open_price": 64.9,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:35:36.936423+00:00",
+        "articles": []
+      },
+      "prev_close": 68.01,
+      "jev": null
+    },
+    {
+      "ticker": "SMR",
+      "predicted_return": 0.0067076900613145555,
+      "open_price": 5.48,
+      "snapshot_date": "2026-10-29",
+      "news_flag": "Doosan manufacturing contract for NuScale reactor modules, stock up 7%",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Doosan manufacturing contract for NuScale reactor modules, stock up 7%",
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.566966+00:00",
+        "articles": [
+          {
+            "headline": "NuScale Power Rises 7% on Doosan Manufacturing Deal; Oklo and BWX Technologies Trail",
+            "summary": "NuScale just signed a South Korean manufacturing deal that moves its reactor from blueprint to physical hardware, but the company still has no paying customer for a single module. Here is what that tension means for investors watching the small modular reactor race.",
+            "published_at": "2026-10-29T17:11:34+00:00",
+            "url": "https://finnhub.io/api/news?id=f8821b323d6a9cb08d2c83879711a163ef163a4b2945dc75fba1453595fb4011",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NuScale Jumps 7% on Doosan Contract \u201cConverting Our Approved Design Into Deliverable Modules\u201d",
+            "summary": "Key TakeawaysNuScale Power stock rose 7% today after it hired Doosan Enerbility to build the first upper reactor coolant system for its power module, outpacing Oklo and BWX Technologies. The contract starts turning NuScale\u2019s NRC-approved design into hardware.",
+            "published_at": "2026-10-29T16:14:23+00:00",
+            "url": "https://finnhub.io/api/news?id=238cbb3466f8840a0d3fca33b673a55144360f9545bcacbe3a82fdabcd030b56",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NuScale Power and Doosan Enerbility Sign Agreement for Manufacturing of NuScale Power Module\u2122",
+            "summary": "CORVALLIS, Ore., October 29, 2026--NuScale and Doosan sign contract to secure continued fabrication of critical upper reactor coolant system components for the NuScale Power Module\u2122.",
+            "published_at": "2026-10-29T10:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1710f73f685ee05bf95ae80a93595abbcad3c448ac4a679d21325787b239305b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NuScale Power Enters Contract With Doosan Enerbility; Korean Engineering Firm To Supply The Company's Upper Reactor Coolant System",
+            "summary": "The agreement, signed at a ceremony at Doosan Enerbility\u2019s headquarters, builds on a partnership that began in 2019. Since then, the two companies have systematically developed the manufacturing processes, supply chain,",
+            "published_at": "2026-10-29T07:11:30+00:00",
+            "url": "https://finnhub.io/api/news?id=40d2c09c024615271851f3a411c0188ea35441f87db6d63d69b6660e65775c1b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nuclear Power Is Back, But Only a Few Stocks Have Customers Signed",
+            "summary": "Nuclear power is experiencing renewed interest from major tech companies seeking clean energy. While established players like Vistra, Constellation Energy, Cameco, Centrus Energy, and BWX Technologies have signed contracts or operate licensed facilities, early-stage developers like Oklo, NuScale Power, and Nano Nuclear Energy still lack regulatory approvals and face execution risks despite securing customer commitments.",
+            "published_at": "2026-10-29T06:00:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/29/nuclear-power-is-back-but-only-a-few-stocks-have-c/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "OKLO Vs SMR: How Two Battered Nuclear Stocks Stack Up Before Q3 Earnings",
+            "summary": "NuScale Power stock is up more than 5% this week, overtaking Oklo stock\u2019s gains of about 3%.",
+            "published_at": "2026-10-29T04:23:43+00:00",
+            "url": "https://finnhub.io/api/news?id=db2250e5acf8e9eeea8a529204875910005473207cc5c8ec3a614c18a0213b13",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 5.92,
+      "jev": null
+    },
+    {
+      "ticker": "ATMU",
+      "predicted_return": 0.006707510395125621,
+      "open_price": 45.64,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.569804+00:00",
+        "articles": [
+          {
+            "headline": "Atmus Filtration: Finally Passing My Filter",
+            "summary": "Atmus Filtration has shifted to M&A, notably acquiring Koch Filter for $450 million to diversify beyond vehicle markets. I rate ATMU stock as Hold. Read my full update now.",
+            "published_at": "2026-10-29T17:42:10+00:00",
+            "url": "https://finnhub.io/api/news?id=b396c43ae1f9df75ec595652ab04b88ce49901e43702c6839b8083c74c5f2851",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 46.46,
+      "jev": null
+    },
+    {
+      "ticker": "ARXS",
+      "predicted_return": 0.006703731378023305,
+      "open_price": 53.69,
+      "snapshot_date": "2026-10-29",
+      "news_flag": "Strong Q3 results and raised 2027 guidance",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Strong Q3 results and raised 2027 guidance",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.574538+00:00",
+        "articles": [
+          {
+            "headline": "Arxis (ARXS) Q3 2026 Earnings Call Transcript",
+            "summary": "Ramp capture strategy drives 36% revenue growth and raised 2027 guidance.",
+            "published_at": "2026-10-29T17:16:07+00:00",
+            "url": "https://finnhub.io/api/news?id=bc15205ac27769141445dfcee284b2619f0df8046e73001b19acfba2f1714f6f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Arxis (ARXS) Said on Its Q3 Earnings Call",
+            "summary": "Arxis (NASDAQ:ARXS) reported third-quarter 2026 revenue of $564 million, up 36% from a year earlier, as organic growth, pricing and production increases on existing programs lifted results. Adjusted EBITDA rose 67% to $256 million, while adjusted EBITDA margin expanded 840 basis points to 45.4%. Ch",
+            "published_at": "2026-10-29T17:01:52+00:00",
+            "url": "https://finnhub.io/api/news?id=e7172d67aee5a9ac0c5c4cce6849243c268954c7addb34e901dfd8130fefe3e4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Arxis, Inc. (ARXS) Q3 2026 Earnings Call Transcript",
+            "summary": "Arxis, Inc. (ARXS) Q3 2026 Earnings Call October 29, 2026 8:30 AM EDTCompany ParticipantsBryan Wendlandt - Head of FP&A and Investor RelationsKevin...",
+            "published_at": "2026-10-29T14:40:08+00:00",
+            "url": "https://finnhub.io/api/news?id=5b9a38d79fa5c8c94ad38ddec91807939ac6f6af927b256a4b0a53069ebd3225",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Arxis Q3 2026 Earnings Call Transcript",
+            "summary": "Arxis (NASDAQ:ARXS) reported third-quarter financial results on Thursday. The transcript from the company\u2019s third-quarter earnings call has been provided below.Benzinga APIs provide real-time access to earnings call",
+            "published_at": "2026-10-29T09:30:38+00:00",
+            "url": "https://finnhub.io/api/news?id=7816195f8429a665d2ebd073cdf9546e6da6d83dcc8ccc60054bb4541da2aa40",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 54.93,
+      "jev": null
+    },
+    {
+      "ticker": "MC",
+      "predicted_return": 0.006635736320076979,
+      "open_price": 58.365,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:09.577432+00:00",
+        "articles": [
+          {
+            "headline": "Moelis (MC) Earnings Expected to Grow: Should You Buy?",
+            "summary": "Moelis (MC) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:11+00:00",
+            "url": "https://finnhub.io/api/news?id=be54a7364861b568669a4bd444d1ac63cbc9317e0076c2ef107b3b4d8499581e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 59.98,
+      "jev": null
+    },
+    {
+      "ticker": "CTRI",
+      "predicted_return": 0.006618921495102381,
+      "open_price": 20.97,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:13.333486+00:00",
+        "articles": []
+      },
+      "prev_close": 21.54,
+      "jev": null
+    },
+    {
+      "ticker": "BTDR",
+      "predicted_return": 0.006615486433433029,
+      "open_price": 7.06,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:13.333530+00:00",
+        "articles": []
+      },
+      "prev_close": 7.58,
+      "jev": null
+    },
+    {
+      "ticker": "TTMI",
+      "predicted_return": 0.006462529809546036,
+      "open_price": 81.31,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:13.333552+00:00",
+        "articles": [
+          {
+            "headline": "What Just Happened To Celestica Stock?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T18:37:26+00:00",
+            "url": "https://finnhub.io/api/news?id=164caf37eb5c5972f16953f9173d3e9442b741bc3c8db0f4de5fe97695405ef4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here is Why Growth Investors Should Buy TTM (TTMI) Now",
+            "summary": "TTM (TTMI) could produce exceptional returns because of its solid growth attributes.",
+            "published_at": "2026-10-29T15:45:02+00:00",
+            "url": "https://finnhub.io/api/news?id=0cbc535f272cc754b709560cdb037be966aef23365dd9a590c5116b0267a4571",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "TTM Technologies: An AI Growth Story At Just 11x FY27 Earnings",
+            "summary": "Explore TTMI\u00e2\u0080\u0099s upside as AI board growth, data center adoption, and defense backlog drive earnings, margin expansion, and a compelling valuation.",
+            "published_at": "2026-10-29T10:18:46+00:00",
+            "url": "https://finnhub.io/api/news?id=f51c75101771ca7ba6697ae18b37c5af4b108b58de5a2f44c590dbdb3458780c",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 87.63,
+      "jev": null
+    },
+    {
+      "ticker": "NTRA",
+      "predicted_return": 0.006414119462558689,
+      "open_price": 425.55,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:13.751038+00:00",
+        "articles": [
+          {
+            "headline": "CareDx (CDNA) Surpasses Q3 Earnings and Revenue Estimates",
+            "summary": "CareDx (CDNA) delivered earnings and revenue surprises of +191.67% and +13.90%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-29T22:05:04+00:00",
+            "url": "https://finnhub.io/api/news?id=86b5bb6d3871908eaf2ff9a3fc187ada119a20bf68b2798110024cc8a87e81e3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Global Pan-Ethnic Carrier Screening Programs Market Report 2026 | Capitalize on 14.1% CAGR as Illumina, Natera, Fulgent Genetics and LabCorp Scale AI and Multi-Gene Panels",
+            "summary": "Boost ROI via expanded gene panels, AI interpretation, tele-genetic counseling, routine prenatal integration and local reagent production to cut costs and widen access.Dublin, Oct. 29, 2026 (GLOBE NEWSWIRE) -- \"Pan-Ethnic Carrier Screening Programs Global Market Report 2026\" has been added to ResearchAndMarkets.com's offering. The global pan-ethnic carrier screening programs market is experiencing rapid growth as healthcare systems expand access to genetic testing across diverse populations. The",
+            "published_at": "2026-10-29T14:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9589ecc6d748410b7462de0a85558ce961d1120744d9e2faf41de3bd7fe940fc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Natera (NTRA) May Report Negative Earnings: Know the Trend Ahead of Q3 Release",
+            "summary": "Natera (NTRA) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:30+00:00",
+            "url": "https://finnhub.io/api/news?id=aea9576d084cf538ab96c8c4ba1624f1f8b9289e74ad0819084eb8bfb8b6af22",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Natera to Report its Third Quarter Results on November 5, 2026",
+            "summary": "AUSTIN, Texas, October 29, 2026--Natera, Inc. (NASDAQ: NTRA), a global leader in cell-free DNA and precision medicine, today announced that it will release results for its third quarter ended September 30, 2026, after the market closes on November 5, 2026. Natera will host a conference call and webcast shortly thereafter at 4:30 p.m. ET.",
+            "published_at": "2026-10-29T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=db0979c6e601015b21044c0217aaacb51cd8dd4acf337a2876391422db6927fd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Parnassus Mid Cap Growth Fund: Q3 2026 Performance Review",
+            "summary": "Parnassus Mid Cap Growth Fund navigated a volatile Q3 2026, driven by Health Care gains despite sector-wide pressure. Read our full analysis for portfolio shifts.",
+            "published_at": "2026-10-29T11:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=97f77b9e1c281e7674d3b976f71faff9e5db86fa9d84c0149556bacba6017a37",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Top Specialty Lab Stocks to Watch This Earnings Season, According to BTIG",
+            "summary": "Investing.com-- Several specialty lab companies are set to report third-quarter results in early November, with analysts at BTIG outlining key metrics and expectations for the sector\u2019s leading names. The firm has identified three stocks positioned for potential upside, though each faces distinct tests as investors scrutinize guidance, volume trends, and strategic updates.",
+            "published_at": "2026-10-29T08:03:25+00:00",
+            "url": "https://finnhub.io/api/news?id=7ed05fe6db2c9621b2fec2822b15649b2a95b6f77c0e537bdd0acda6c6362f7a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 436.0,
+      "jev": null
+    },
+    {
+      "ticker": "ESAB",
+      "predicted_return": 0.006391622446225898,
+      "open_price": 72.58,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "polygon"
+        ],
+        "issues": [
+          "finnhub_unavailable"
+        ],
+        "checked_at": "2026-10-30T13:36:15.898976+00:00",
+        "articles": [
+          {
+            "headline": "TriMas (TRS) Q3 Earnings Match Estimates",
+            "summary": "TriMas (TRS) reported quarterly earnings of $0.50 per share, matching consensus estimates but down from $0.61 a year ago. Revenue of $178.74 million slightly exceeded expectations but declined from $269.26 million year-over-year. The stock has gained 11% year-to-date, underperforming the S&P 500's 13.1% gain. With mixed estimate revisions, TriMas received a Zacks Rank #3 (Hold) rating, suggesting near-term performance in line with the market.",
+            "published_at": "2026-10-29T13:30:08+00:00",
+            "url": "https://www.zacks.com/stock/news/3018643/trimas-trs-q3-earnings-match-estimates?cid=CS-ZC-FT-fundamental_analysis%7Cyseop_template_4-3018643",
+            "source": "Zacks Investment Research"
+          }
+        ]
+      },
+      "prev_close": 74.13,
+      "jev": null
+    },
+    {
+      "ticker": "QCOM",
+      "predicted_return": 0.006359319088156258,
+      "open_price": 174.82,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 15,
+        "reviewed_count": 15,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:16.463566+00:00",
+        "articles": [
+          {
+            "headline": "QUALCOMM INC (NASDAQ:QCOM): A Growth at a Reasonable Price Candidate",
+            "summary": "QCOM fits the Peter Lynch GARP screen with a low PEG, strong ROE, solid financials, and reasonable valuation, though slowing growth needs review.",
+            "published_at": "2026-10-30T12:21:02+00:00",
+            "url": "https://finnhub.io/api/news?id=15d7f1ed5961343b4609424a83691d106b01a8f0f5dfc625b75106da3af817fb",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Management Set A Higher Bar For Micron Stock; Does The Chart Agree?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T11:16:02+00:00",
+            "url": "https://finnhub.io/api/news?id=70a93830da5f4e466eeb8ae247150c73367bc6ceec5d22b9b10b90259078fbc0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Google's AI is winning. Search is paying for it.",
+            "summary": "Gemini 4 Carbon now tops the Artificial Analysis Intelligence Index and Google Cloud revenue more than doubled, yet Alphabet stock opened down nearly 12% as search fell below half of revenue. Host Ejaaz Ahamadeen breaks down why AI is eating search, Google's ad auction change, its TPU customers and why the market may be wrong.",
+            "published_at": "2026-10-30T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=971a193a95fadc3d528e5c7c4270a2a476381fae6695c10f85bcde7528e76d15",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Arm Is Up 99% in 2026: Take Profits, or Buy More?",
+            "summary": "Key TakeawaysArm Holdings (ARM:NASDAQ) stock is up 99% in 2026 on its push into data center chips, though it sits about half below its June high and slid another 8% after hours on Thursday. Arm\u2019s own AGI CPU has more than $2 billion of customer demand, but supply secured for only about $1 billion over fiscal 2027 and 2028.",
+            "published_at": "2026-10-30T10:48:06+00:00",
+            "url": "https://finnhub.io/api/news?id=69516da2fcd75fe0d0df2da0a3e2a188b8abcbe6a6724994c17bac55d6fcc57d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "QUALCOMM (QCOM) Offers AI, Automotive, and Edge-Computing Growth Potential, Ariel Global Fund Says",
+            "summary": "Ariel Investments, an investment management company, released its \u201cAriel Global Fund\u201d Q3 2026 investor letter. The Fund declined in the third quarter of 2026 as renewed geopolitical tensions, higher oil prices, and elevated interest rates contributed to uneven performance across global markets. The Fund\u2019s Investor Class returned -1.98%, underperforming the MSCI ACWI Index, which gained [\u2026]",
+            "published_at": "2026-10-29T16:55:10+00:00",
+            "url": "https://finnhub.io/api/news?id=073e9bf7bfb5d329d4c102250cf91194ce2cd7a150ff205dcd49b21eacd994c1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Could Surprise Marvell Stock Investors On The Upside?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T14:45:21+00:00",
+            "url": "https://finnhub.io/api/news?id=8e9394a14d67bf1cb4879a4037f8468a47117d6b54da5e53a68d9ea86805aff0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Anthropic's second hack exposes a growing AI security crisis",
+            "summary": "In the Loop host Ejaaz Ahamadeen breaks down reports of a second security breach involving Anthropic (ANTH.PVT) and what it reveals about the growing cybersecurity threats facing AI companies. Ahamadeen examines how startup Cathedral allegedly exploited third-party data from Salesforce (CRM) to access Anthropic's Slack workspace, raising serious questions about data security, third-party vulnerabilities, and the risks of an increasingly interconnected AI ecosystem.",
+            "published_at": "2026-10-29T13:20:37+00:00",
+            "url": "https://finnhub.io/api/news?id=b191a24f00d1aff53e7e4a6a9e6e9759be304a5717c01b8ac8fcf5eee6df66b0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Was There Any Sign AMD Stock Would Run?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T13:16:29+00:00",
+            "url": "https://finnhub.io/api/news?id=c1dc2f91ab20895815a2ff437bfd7e833d5bb19706ade9ea36010a5e7aa1f4cb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "QCOM Stock Earnings Preview: What to Expect From Qualcomm\u2019s Q4 Report",
+            "summary": "Qualcomm\u2019s near-term growth outlook remains challenged by persistent weakness in the Android smartphone market and a lower revenue contribution from Apple.",
+            "published_at": "2026-10-29T13:13:34+00:00",
+            "url": "https://finnhub.io/api/news?id=56dc069e02c97bece86e7a1fa31ba3ba7ceaa9f8236f156a5700651a5b63ac00",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Micron Stock Riskier Than It Looks?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T11:44:38+00:00",
+            "url": "https://finnhub.io/api/news?id=d8c6e5a5d5ab84001ccce5ef607d2134d274fbfce421da99a191ed9d38c48f1e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can NVIDIA Stock Jump 50%?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T11:44:25+00:00",
+            "url": "https://finnhub.io/api/news?id=3ece432cc7a983897d25495403ea9cfb94290ea01ef0d12e96f215e0bab4abb9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Entegris (ENTG) Beats Q3 Earnings and Revenue Estimates",
+            "summary": "Entegris (ENTG) delivered earnings and revenue surprises of +18.27% and +8.79%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-29T11:35:05+00:00",
+            "url": "https://finnhub.io/api/news?id=419c20cbee9b5fbb1a1ec34c4b1963f56ac8529a54e71c278ceb1da51d47b861",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Anthropic got hacked again, and this time we know who did it",
+            "summary": "A months-old start-up founded by former DOGE staffers used AI agents to get inside Anthropic through third-party business software, reaching meeting transcripts, salaries and Slack messages. Host Ejaaz Ahamadeen breaks down who Cathedral is, how the back door worked, why Anthropic is pushing back and why every company should worry.",
+            "published_at": "2026-10-29T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=59c0a2c853e72859dadfd7046df39e486942b00eba7d8a638f972f95a94d7310",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bill Ackman\u2019s 20-Year Investing Rule Puts These Cash-Flow and Moat ETFs in Focus",
+            "summary": "Bill Ackman\u2019s 20-year investing rule puts cash flow and competitive advantages in focus. See how COWZ and MOAT ETFs stack up amid AI spending fears.",
+            "published_at": "2026-10-29T09:13:54+00:00",
+            "url": "https://finnhub.io/api/news?id=221923737b3bd839aed47dbd4cb94f050582ece9656da8b1d0f3c9a67cc1823b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Building A 7%-Yielding Dividend Growth Portfolio With SCHD As Its Core Holding",
+            "summary": "SCHD is one of the best dividend growth ETFs available, but its modest 3% yield and several important diversification gaps make it insufficient for many income-focused retirees.",
+            "published_at": "2026-10-29T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fe9bc37eefd4d1fc24c9474ba6233cdd55673a315472b08f4a2e5ae7fca4a7b1",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 185.41,
+      "jev": null
+    },
+    {
+      "ticker": "NXPI",
+      "predicted_return": 0.006308548225254074,
+      "open_price": 259.53,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:17.103320+00:00",
+        "articles": [
+          {
+            "headline": "Should You Buy Texas Instruments Stock Now Or Wait?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T10:49:32+00:00",
+            "url": "https://finnhub.io/api/news?id=d4ba6a4c765fc0efcf426baeb4e52d0f5aaa5822a2a5cde872bf6f6830d3bddd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ON Semiconductor Reports Soon: How Has The Stock Reacted To Past Earnings?",
+            "summary": "ON Semiconductor (NASDAQ:ON) is scheduled to report its earnings on Monday, November 2, 2026. The company has a market value of about $29.4 billion. Over the last twelve months it generated $6.2 billion in revenue and $1.1 billion in operating profit, with net income of $630 million.",
+            "published_at": "2026-10-30T09:57:09+00:00",
+            "url": "https://finnhub.io/api/news?id=07e2401ae7b21205b3732a6e644ac6ac04a735379c1161e212bb0690c51b6bee",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The 5 most interesting analyst questions from NXP Semiconductors\u2019s Q3 earnings call",
+            "summary": "NXP Semiconductors delivered third quarter results that met Wall Street\u2019s expectations, with broad-based growth across key segments. Management highlighted that double-digit revenue increases were driven by strong momentum in automotive and industrial end markets, as well as growth in the emerging data center segment. CEO Rafael Sotomayor noted, \u201cEvery region grew double digits year on year,\u201d pointing to the company\u2019s expanding exposure to high-growth technologies like software-defined vehicles",
+            "published_at": "2026-10-30T08:51:29+00:00",
+            "url": "https://finnhub.io/api/news?id=1160ff97c0bc36f772366d66f2c90d1b42d1466c23be2375af1ed4d074373cbb",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 266.0,
+      "jev": null
+    },
+    {
+      "ticker": "KNF",
+      "predicted_return": 0.006148874566726016,
+      "open_price": 56.985,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:18.996320+00:00",
+        "articles": [
+          {
+            "headline": "Starboard Delivers Letter to Knife River",
+            "summary": "NEW YORK, October 30, 2026--Starboard Value LP (together with its affiliates, \"Starboard\"), a stockholder of Knife River Corporation (\"Knife River\" or the \"Company\") (NYSE: KNF), today announced that it has delivered a letter to the Company\u2019s Board of Directors.",
+            "published_at": "2026-10-30T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=129e1d8817606ba4bd1375702125b6192c785ecb1255b1dcbc68c26635af18ec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Knife River Stock Faces Margin Pressure After Board Challenge",
+            "summary": "On October 20, 2026, activist investor Starboard Value said it plans to nominate directors to Knife River\u2019s board and pressed the construction materials group to lift margins from about 15% to 22% by fiscal 2029 or consider a sale. The push for a 22% margin target spotlights Knife River\u2019s current cost structure and pricing power, putting management\u2019s execution on efficiency programs under closer scrutiny. We will look at how Knife River\u2019s existing margin-focused investment narrative is...",
+            "published_at": "2026-10-30T00:21:12+00:00",
+            "url": "https://finnhub.io/api/news?id=86f36fa6948d6b8b686f4c6d54add2f34f20a402337d4886f96753b9725d7ae3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer: This Tech Stock Has Been \u2018One of the Greatest Performers of All Time\u2019",
+            "summary": "Cramer favors Coca-Cola over Broadcom, backs Vicor, remains bearish on Sea, BETA and Planet Labs, and prefers Martin Marietta over Knife River.",
+            "published_at": "2026-10-29T08:17:57+00:00",
+            "url": "https://finnhub.io/api/news?id=aa0e01a961dbc888a772c7e4931b9485428880a81299557c95d976e2a0d61048",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 57.6,
+      "jev": null
+    },
+    {
+      "ticker": "LPX",
+      "predicted_return": 0.006043360968399406,
+      "open_price": 72.33,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-30T13:36:20.707533+00:00",
+        "articles": [
+          {
+            "headline": "Weyerhaeuser (WY) Beats Q3 Earnings and Revenue Estimates",
+            "summary": "Weyerhaeuser (WY) delivered earnings and revenue surprises of +60.00% and +2.01%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-29T20:35:07+00:00",
+            "url": "https://finnhub.io/api/news?id=297cc9b26dae956f9cd9f0f1c9549bb72dfcd07a363246175999909e23d48dd1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 73.46,
+      "jev": null
+    },
+    {
+      "ticker": "GMED",
+      "predicted_return": 0.006001669255859268,
+      "open_price": 80.8,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:21.012485+00:00",
+        "articles": [
+          {
+            "headline": "Reasons to Hold Hinge Health Stock in Your Portfolio for Now",
+            "summary": "HNGE's strong revenue growth, raised 2026 outlook and expansion into Migraine and GI care support its growth prospects despite investment pressures.",
+            "published_at": "2026-10-29T16:24:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2357aaa266861a10138747182516f03cfc86152ed06ae7d8ff49c49acaf7d1be",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ALGN Q3 Earnings & Revenues Beat, '26 Sales View Down, Stock Falls",
+            "summary": "Align Technology's Q3 earnings and revenues beat estimates on higher aligner shipments, but a lowered 2026 sales outlook weighs on shares.",
+            "published_at": "2026-10-29T15:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7895a7b71945237ccee004393d9dde34f4a3192e3311285f3d6097bd240179ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "West Pharma Q3 Earnings Rise on HVP Strength, 2026 Outlook Raised",
+            "summary": "WST reports strong Q3 earnings and revenue growth, fueled by high-value products and margin expansion, and raises its 2026 sales and earnings outlook.",
+            "published_at": "2026-10-29T15:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef5cb1a726beb961305f75b3ff675ad6f9f5c63ec7f2f9edfeb0dd7e8ef877d0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Baxter Q3 Earnings Beat on Broad-Based Growth, '26 Outlook Raised",
+            "summary": "BAX beats Q3 earnings and revenue estimates, driven by broad-based segment growth, and raises its 2026 outlook despite continued margin pressure.",
+            "published_at": "2026-10-29T14:48:00+00:00",
+            "url": "https://finnhub.io/api/news?id=80575e527b1e2a59fe2995516081d5e3c57e66e72ce3ccdeea84ba093e70e938",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Healthcare Technology Stocks for a Digital Health Boom",
+            "summary": "GMED and STE offer exposure to healthcare technology growth, with projected 2026 EPS gains, attractive valuations and innovations in essential medical services.",
+            "published_at": "2026-10-29T11:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5b4b91e0ece0e1994818bdd619b94e635fcac61378b6487e6d226f76a409856a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Intuitive Surgical Stock's Market Price Justified?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T11:27:25+00:00",
+            "url": "https://finnhub.io/api/news?id=e14303edfa0e7af312b6688243b3cc43ce63894301a9c845c600c57c9b1adadf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Globus Medical (GMED) Stock Looks Undervalued Even After A 77% Run",
+            "summary": "Globus Medical has delivered a strong multi year share price run, and the question now is whether that performance lines up with what its earnings can reasonably support. With the stock recently closing at US$81.26, investors are asking if the current P/E and related earnings metrics still tell a comfortable story at this level. Over the past 3 years the stock has gained 76.7%, which puts real pressure on the idea that earnings power needs to keep up with a much higher market value. An...",
+            "published_at": "2026-10-29T08:25:34+00:00",
+            "url": "https://finnhub.io/api/news?id=66447906d280faa339a2481d6ebe592c0666c5510f3b7bfedc2503beb4b64d2b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 82.91,
+      "jev": null
+    },
+    {
+      "ticker": "TSLA",
+      "predicted_return": 0.005887049559947092,
+      "open_price": 393.22,
+      "snapshot_date": "2026-10-29",
+      "news_flag": "Tesla Stock Gets Dragged Down by Alphabet\u2019s Misery",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Tesla Stock Gets Dragged Down by Alphabet\u2019s Misery",
+        "article_count": 50,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-10-30T13:36:24.333510+00:00",
+        "articles": [
+          {
+            "headline": "What Sent Eli Lilly Stock Higher?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T11:15:51+00:00",
+            "url": "https://finnhub.io/api/news?id=47f790c623c3ef85b7e903c52737be92150985b119808622e7b863459fea7e84",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Electric Vehicles Today - Green Rain Energy Expands EV Charging Network Nationwide",
+            "summary": "Green Rain Energy Holdings has completed three electric vehicle (EV) charging projects in New York and California, as part of their strategy to expand EV charging infrastructure. The installations in locations such as Mendon, Rochester, and San Diego highlight the company's collaboration with channel partners to enhance accessibility for EV drivers. These projects are part of Green Rain's broader initiative to establish strategic partnerships and expand charging facilities at commercial and...",
+            "published_at": "2026-10-30T10:39:25+00:00",
+            "url": "https://finnhub.io/api/news?id=b0d8e0994bbde2873fbe13a9756fc21e99645783b42cc296bc269b0abe676999",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "There are 3 Questions to Answer Before a Possible Tesla and SpaceX Merger",
+            "summary": "Chinese regulators might be the toughest hurdle to clear in a Tesla-SpaceX deal.",
+            "published_at": "2026-10-30T10:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4a9a57fb282c4d64c48012ca4de0e6ff2d7088ebefdecd94044222db74119927",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer sees more pain for beaten-down AI stocks: \u2018I think it\u2019s too soon to say the coast is clear\u2019",
+            "summary": "Buy on the dip with AI stocks right now, but do your homework first.",
+            "published_at": "2026-10-30T10:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=86e253f52b338962a3006d9c6f6ddc61ffed6fbfbd940b2a56baa941c0320886",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Magnificent 7 stocks are seeing stunning declines",
+            "summary": "The Mag 7 has been crushed on cash flow concerns.",
+            "published_at": "2026-10-30T09:27:19+00:00",
+            "url": "https://finnhub.io/api/news?id=92a71b2521e5aeffa8e723b5b30dae87270d0c9ecb9611145acdf8dca741bd58",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Elon Musk vs. Jensen Huang: Who Is Right About CoreWeave?",
+            "summary": "CoreWeave's debt has reached distressed levels with a 15% yield, sparking disagreement between tech leaders. Nvidia CEO Jensen Huang remains bullish, noting CoreWeave's cost of capital is declining, while Tesla/SpaceX CEO Elon Musk warns that most of the 200+ neocloud providers will face 'guppy-level death' due to unsustainable debt levels and lack of diversified revenue. CoreWeave stock has fallen 65% from its IPO high, though the author suggests waiting for Q3 earnings before making investment decisions.",
+            "published_at": "2026-10-30T09:10:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/30/elon-musk-vs-jensen-huang-who-is-right-about-corew/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Why Is Tesla (TSLA) Reworking Cybertruck Plans And Battery Rules Now?",
+            "summary": "Tesla (NasdaqGS:TSLA) halted Cybertruck reservations and sales plans for Australia and New Zealand, informing customers that orders are cancelled. The U.S. CFTC approved key performance indicator swaps tied to specific company metrics, including Tesla operational benchmarks. Regulators pressed ahead with battery passport traceability rules as Tesla participated in systems that track EV battery origin and recycling data. Elon Musk\u2019s political donations to parties critical of U.S. EV tax...",
+            "published_at": "2026-10-30T09:09:55+00:00",
+            "url": "https://finnhub.io/api/news?id=fe2307c501a1d99fd2f868c4acd96cf369a2780a928c6673c914146c3587fd9a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stocktwits Wall Street Wrap \u2014 Tesla, Broadcom, MercadoLibre Get Bullish Calls As Alphabet, Enphase Face Downgrades",
+            "summary": "This week's analyst moves highlighted select technology and e-commerce companies gaining confidence while solar, search advertising and appliance businesses faced growing investor concerns.",
+            "published_at": "2026-10-30T09:00:46+00:00",
+            "url": "https://finnhub.io/api/news?id=3c5c2950ec23adfded7279946ece523231db65c988c21898a7d230997b282d3d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Case Against a SpaceX and Tesla Merger",
+            "summary": "The market is getting excited about a potential merger, but now may not be the right time for Tesla shareholders to get the best deal.",
+            "published_at": "2026-10-30T06:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=88ab17534752bbf924b90cc37e81263a24a5c40b875e714ddbce57d49ffb89ec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "\u2018This Is a Knife Fight:\u2019 Inside China\u2019s Ruthless EV Blitz Upending the World",
+            "summary": "China is flooding the world with cars, hurting rivals everywhere. Why GM and Lear could thrive anyway.",
+            "published_at": "2026-10-30T06:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0454e4501d26465fa806bf169f44127259d4550a4b25b7e0df3f8b63a797b2e6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stocktwits Space Race Monthly: SPCX Holds Up Better Than ASTS, RKLB And PL In October \u2014 But VSAT Takes The Crown",
+            "summary": "Viasat drew Amazon takeover speculation, while advancing NASA work and satellite-connectivity partnerships.",
+            "published_at": "2026-10-30T05:39:53+00:00",
+            "url": "https://finnhub.io/api/news?id=4709028e3a24dba3a38e8902f3326b8c6e3dfa0ee5776023d357dae444af0426",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Big Tech Capex Scorecard: Amazon Spends Over $77B In One Quarter \u2014 How It Stacks Up With MSFT, TSLA, GOOGL",
+            "summary": "Tech stocks have fallen sharply in October, signaling growing fears of an AI bubble.",
+            "published_at": "2026-10-30T05:16:10+00:00",
+            "url": "https://finnhub.io/api/news?id=f6b2beae9f5c0d2265589cfb47eba8e599d42190cf3c4e90228ee3c5d90f2413",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer praises Broadcom and recommends buying another iconic stock",
+            "summary": "Cramer touts another consumer staples stock after its better-than-expected earnings report.",
+            "published_at": "2026-10-30T02:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b692fd75b7d69941758b2fd7c5a90bd1cd04affd9222b3d7b9d554c0b9444657",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla-SpaceX Merger \u2018Does Make Strategic Sense,\u2019 Analyst Says \u2014 But SpaceX Needs Nearly 2x The Growth",
+            "summary": "Morningstar sees benefits in a Tesla-SpaceX merger across energy, AI, robotics and connectivity.",
+            "published_at": "2026-10-30T02:44:46+00:00",
+            "url": "https://finnhub.io/api/news?id=5a58cffd4ab7828f049e951780cfd7a06d979bff7d9b5ad9635701fe0c3b214c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Much Anthropic Matters to SpaceX and Other Gems From SpaceX\u2019s Filing",
+            "summary": "\u201cCustomer B\u201d is spending more to rent SpaceX\u2019s AI data centers than investors thought.",
+            "published_at": "2026-10-29T21:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b75ec250a706ea7c30901e648e730b8fa8e958106d6a67d7135760fdfb747143",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rivian Earnings Show There Is Still Life in the EV Market",
+            "summary": "The automaker\u2019s quarterly report was solid. Gross profit topped Wall Street estimates and vehicle sales were up.",
+            "published_at": "2026-10-29T20:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=22f156795864b0dc70fa2d7d0d5249aa07f94f0f332bdf45b0744e6f8bad2eae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "5 Best Autonomous Vehicle Stocks To Buy backed by Hedge Funds",
+            "summary": "A Goldman Sachs 2026 industry forecast projects a $415 billion global robotaxi market and a $560 billion autonomous-trucking market by 2035. The same research estimates approximately $2 trillion in broader autonomous-vehicle revenue, including hardware, software, and services. It notes that some of that spending would shift from existing transportation activities. These forecasts show the scale [\u2026]",
+            "published_at": "2026-10-29T19:43:43+00:00",
+            "url": "https://finnhub.io/api/news?id=4482ceef1cf68dc726cf5c2425b05370f2162898eb51b30940d1f0272a613ab8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Elon Musk, crypto just placed huge midterm bets, and traders should pay attention",
+            "summary": "Musk is the single biggest donor of the 2026 midterms, and three crypto companies rank among the top corporate spenders.",
+            "published_at": "2026-10-29T19:06:44+00:00",
+            "url": "https://finnhub.io/api/news?id=72b74c4e2998107b0e877088697c551d34d7a1bdc12975197890b1f8d603dec6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays sees major Tesla upside for retirement investors",
+            "summary": "A massive Musk deal could unexpectedly affect millions of 401(k) accounts.",
+            "published_at": "2026-10-29T17:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=efdb0a62f93ff31d0c921ff6fb224740459e4bac418deb1ae3fe143c78cbb1bb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Musk: Robot RAM Needs \u201cWill Exceed Everything Else on Earth.\u201d What That Means for Micron",
+            "summary": "Key TakeawaysElon Musk dismissed an estimate that humanoid robots will use about 0. 04% of 2026\u2019s DRAM output, saying robot memory needs will exceed everything else on Earth.",
+            "published_at": "2026-10-29T17:38:45+00:00",
+            "url": "https://finnhub.io/api/news?id=104d6fa21d6af817210d81c7639d42b7ddec59b06a7747a1fc9783d5348737b4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla Just Gained 13% in a Month: Take Profits, or Buy More?",
+            "summary": "Key TakeawaysTesla stock is up 13% in the past month on a delivery beat, SpaceX merger talk, a Barclays upgrade and robotaxi news. Much of the gain rests on a SpaceX deal that has no terms yet, while Tesla\u2019s third-quarter profit fell from a year ago.",
+            "published_at": "2026-10-29T17:34:32+00:00",
+            "url": "https://finnhub.io/api/news?id=7d6b478b36960088649cacfa0737a0ca9d755422df80b67c15c69d65efaf2333",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Founder-Led Giants Redefining Technology and Global Market Growth",
+            "summary": "NVIDIA, Dell, Shopify, Salesforce and BlackRock stand out as founder-run companies with strong vision, innovation and long-term growth drivers.",
+            "published_at": "2026-10-29T17:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0fa312e14a9d920a3227e0807ff9b93eb1259dab0536c63d410663cf422ebcdf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Walmart, Eli Lilly Join 38 Companies Opposing OKX-ICE Tokenized Stocks",
+            "summary": "Walmart (NYSE: $WMT), Eli Lilly (NYSE: $LLY), Cigna Group (NYSE: $CI), Carnival (NYSE: $CCL) and Arcos Dorados (NYS...",
+            "published_at": "2026-10-29T15:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d428483546ab5283342fbdb53a361407d3c118239ec36d07dc962f8a3cb0ac7e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Musk Says A Tesla-SpaceX Merger Is \u201cA Good Idea,\u201d But Admits It Would Require 1.98 Billion \u201cYes\u201d Votes. He Calls It \u201cQuite A High Hurdle\u201d",
+            "summary": "Elon Musk called a Tesla and SpaceX merger a good idea, then immediately explained why pulling it off could be nearly impossible. The math behind the shareholder vote reveals just how steep the climb really is.",
+            "published_at": "2026-10-29T14:42:35+00:00",
+            "url": "https://finnhub.io/api/news?id=879ebb87cff2c79f4e7fdacd849b41c857766dd4e6d36cfbbde28742c88310a6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla vs. Ford: Which Stock Has an Edge After Q3 Earnings?",
+            "summary": "TSLA looks better positioned after Q3 earnings, backed by improving vehicle demand, margins and robotaxi progress, while F faces rising costs and EV losses.",
+            "published_at": "2026-10-29T14:39:00+00:00",
+            "url": "https://finnhub.io/api/news?id=50a917dcc9d4d7dc32fff8f2149920366fd828fef8bd1837a0bd434eb516c201",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ford Q3 Earnings Beat on Ford Credit Strength & Favorable Mix",
+            "summary": "F's Q3 earnings beat estimates on cost cuts and stronger Ford Credit results, despite weaker vehicle sales and margin pressures across key segments.",
+            "published_at": "2026-10-29T14:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6a08b15eb19cfc48d475aa88a862c6620b3f5d9d11f46131773cdc1088b5a5bf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Volkswagen (VOW3) Said on Its Q3 Earnings Call",
+            "summary": "Volkswagen (ETR:VOW3) reported a near break-even operating result for the first nine months of 2026 as a sharp decline in China, tariffs, higher costs and substantial special items weighed on profitability. The group said it is accelerating cost-cutting and restructuring efforts under its Target Pic",
+            "published_at": "2026-10-29T14:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7788cba1d06efa85820190de3a7491ff418a7e757f6d25ebaa7db5454b922b75",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla Stock Gets Dragged Down by Alphabet\u2019s Misery",
+            "summary": "Many tech stock were weak after Google\u2019s parent company reported disappointing third-quarter numbers. .",
+            "published_at": "2026-10-29T13:12:00+00:00",
+            "url": "https://finnhub.io/api/news?id=67bcd52afffd45872ffa0969bbb13915e31d3371f885c1ed3b2e85d4291bc0eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "PACCAR's Q3 Earnings Meet Estimates on Strong Truck Pricing",
+            "summary": "PCAR's Q3 2026 earnings jumped 43.8% as stronger truck pricing and deliveries fueled growth, despite supplier constraints and softer parts profitability.",
+            "published_at": "2026-10-29T13:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=26884fb18bd45c81578529e2ace1b5580b054bbe4b50d39600c1821c04487332",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should You Buy Tesla Stock Right Now? The Answer Might Surprise You.",
+            "summary": "Tesla's electric vehicle business just took another step backwards.",
+            "published_at": "2026-10-29T12:49:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e2739edaa390c95c764f5369447823e678c10dd7e6a1a7534a13596368fe16cc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Big Batteries Haven't Peaked Yet; These Energy-Storage Players Dominate",
+            "summary": "Tesla stock: The energy-storage market is on track to bring 188 gigawatts online this year, up 45% from last year and more than ever before.",
+            "published_at": "2026-10-29T12:36:11+00:00",
+            "url": "https://finnhub.io/api/news?id=3362f31e97287ae6121cbe58247015a4932c475494a0b2925c61fe275ca49f3b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Musk's Massive Marketing Miss Cost $10 Trillion",
+            "summary": "The most persuasive thing Tesla owns is a 30-minute ride. Tesla (TSLA) has never really offered it to the people who would remember it most: families with kids. In the analysis below we talk about the miss, the opportunity to accelerate the magic, and why $10 trillion may prove to be small.",
+            "published_at": "2026-10-29T12:09:57+00:00",
+            "url": "https://finnhub.io/api/news?id=46d071bb8c9e5a6df91883cee2449c25993518894075cde09ad131ff70743212",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Tesla Blundered",
+            "summary": "Three years ago, a rival CEO admitted buyers wanted Teslas and nothing else. Tesla (TSLA) could have been the iPhone of cars. Why is it a rounding error on America's roads instead? In the analysis below, we look at the blunder, the missed iPhone moment, what Tesla actually got right, and how it can still turn the math around.",
+            "published_at": "2026-10-29T12:09:47+00:00",
+            "url": "https://finnhub.io/api/news?id=63617259e7b9d5bf5970cc9a4a170facf0ef7e70df6455cfd1214755b3b48f74",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Energy Transition Today - Nautilus Solar Celebrates 20 Years Advancing US Renewable Energy",
+            "summary": "Nautilus Solar Energy recently celebrated its 20th anniversary, marking a significant milestone in its contributions to the U.S. renewable energy sector. Over the past two decades, the company has evolved from an early leader in distributed generation to one of the largest operators in the U.S. community solar market, managing nearly 650 MW across 175 sites nationwide. Nautilus\u2019s commitment to providing affordable renewable energy solutions aligns with the broader energy transition in the...",
+            "published_at": "2026-10-29T11:37:10+00:00",
+            "url": "https://finnhub.io/api/news?id=316873f0e6b521479e57824a878a76499331b9b0b1dde5aead77b848bc843ce9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Great News for Tesla Stock Investors as a Merger with SpaceX is More Likely",
+            "summary": "According to The Motley Fool, the likelihood of SpaceX acquiring Tesla is increasing. The article suggests this potential merger could be positive news for Tesla stock investors, though an opinion piece notes that combining the two companies may not necessarily be the right move for Wall Street.",
+            "published_at": "2026-10-29T11:37:02+00:00",
+            "url": "https://www.fool.com/investing/2026/10/29/great-news-for-tesla-stock-investors-as-a-merger-with-spacex-is-more-likely/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "The Zacks Analyst Blog Highlights Tesla, Netflix, American Express, InterGroup and Moving iMage Technologies",
+            "summary": "Tesla, Netflix and American Express headline Zacks' latest research, alongside two micro-cap stocks, as growth opportunities and financial risks shape their investment outlooks.",
+            "published_at": "2026-10-29T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f6d37d3a17b1f88d524468ec4f0c83de63b1a538f90f0f5ce03ce861b3bd622a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Should Tesla Stock Holders Watch This One Number?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T11:27:43+00:00",
+            "url": "https://finnhub.io/api/news?id=7f82dcfcb08a998dce59ff9b9327aa36ce98338316df193e439905841554869a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Zacks Analyst Blog Highlights Tesla and SpaceX",
+            "summary": "Tesla shares rebounded 9.5% as strong vehicle demand, improving margins and positive cash flow bolster its outlook, while a potential SpaceX merger adds another catalyst.",
+            "published_at": "2026-10-29T11:26:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9e0d9301d8dc283b6afebef920b1fdf327d83a1e4a87b35c46720ea66dfabfd7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla's Free Cash Flow Beat: Good News, Bad News, and What It Means for the Future",
+            "summary": "Tesla reduced its 2026 capital spending forecast to $20 billion after lining up $30 billion in credit.",
+            "published_at": "2026-10-29T10:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5ca110c22c72eca98bb2314b033b6797e448a23b41e225a9403763c42e9377e7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Opinion: While the Odds of a SpaceX-Tesla Merger Are Climbing, Combining 2 Wrongs Won't Make a Right on Wall Street",
+            "summary": "A SpaceX-Tesla merger would be the ultimate growth trap for retail investors.",
+            "published_at": "2026-10-29T09:26:02+00:00",
+            "url": "https://finnhub.io/api/news?id=79c8248e2ae4ff19eea3bd12e6d43a011f65b0dc07797bd92f1cd17b96182e4f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis Q3 Earnings Call Highlights",
+            "summary": "Stellantis (NYSE:STLA) reported third-quarter results that improved from a year earlier despite lower planned production volumes, raw-material inflation and continued pricing pressure in Europe, while reaffirming its 2026 outlook and its expectation to generate positive industrial free cash flow in",
+            "published_at": "2026-10-29T09:04:31+00:00",
+            "url": "https://finnhub.io/api/news?id=3ed5b6b731d909105f80bd221ba1f06b35fec0079d96970fc1b8a80a703d1b81",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "STMicroelectronics Lifts Forecast Thanks To Data Center Revenue Growth",
+            "summary": "STMicroelectronics beats Q3 revenue at $3.76B as surging AI data center demand, satellite growth, and Nvidia robotics ties fuel an aggressive 2027 expansion roadmap.",
+            "published_at": "2026-10-29T08:32:24+00:00",
+            "url": "https://finnhub.io/api/news?id=76c39585cfd707fe2a3cbcfe005f11e1e4683db642514624eca8e81dd0d50ad9",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Tesla, Nutrien and an Industrial Stock on CNBC\u2019s \u2018Final Trades\u2019",
+            "summary": "CNBC traders pick RTX, Tesla and Nutrien; RTX beat estimates and raised guidance, Tesla got an upgrade, while Nutrien awaits earnings.",
+            "published_at": "2026-10-29T08:19:37+00:00",
+            "url": "https://finnhub.io/api/news?id=0cd38d0d44209342eee6da9c9ed171dad40c4045e7e4450cf6160cb88e1c8fee",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Jensen Huang Foresees Booming AI Demand, but Elon Musk's Warning Highlights a Different Risk",
+            "summary": "Demand for compute could remain strong, but the companies supplying it could still run into trouble.",
+            "published_at": "2026-10-29T07:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=55b976ca49ae0ce085da03c21e5605804c1730a373f173fb35ac575b0d4ea939",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Elon Musk Takes a Jab at Apple's $29,799 Mac Studio: 'Makes a Tesla Seem Quite Affordable!'",
+            "summary": "Elon Musk mocks Apple\u2019s $29,799 fully specced Mac Studio, noting it costs nearly as much as Tesla\u2019s Model 3.",
+            "published_at": "2026-10-29T07:30:31+00:00",
+            "url": "https://finnhub.io/api/news?id=9c41526d7064807c42be191b34226be9728fec8777639e2c8f250bc86dd62e3f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Jim Farley's Ford Takes a Leaf Out of Elon Musk-Led Tesla's Book, Produces Over 5,000 Massive Aluminum Parts for Upcoming $28,350 Fathom Electric Truck",
+            "summary": "Ford has produced 5,000 large aluminum castings for its $28,350 Fathom EV, targeting a 2027 launch with Tesla-inspired unicasting.",
+            "published_at": "2026-10-29T06:48:40+00:00",
+            "url": "https://finnhub.io/api/news?id=f2a17d9c7b09146cfd5c3933cbaba17f9e597c5874591c9b353f760a5b16babb",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Former Tesla Autopilot Chief Slams Elon Musk's Vision-Only Strategy as a 'Weird Religious Stance That Ignores Physics'",
+            "summary": "GM&#39;s Sterling Anderson rejects camera-only autonomy, backing radar/LiDAR and road-specific self-driving with safe driver handoffs.",
+            "published_at": "2026-10-29T06:18:19+00:00",
+            "url": "https://finnhub.io/api/news?id=6aef00dbbb69d46e413e189e5914b57d1486a2acd8a0b7f37e407920590c839a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Tesla Is Flying in Europe, and We Aren't Talking About the Roadster -- 1 Big Concern Remains",
+            "summary": "With China's market spiraling in a price war, Tesla's move to export vehicles to Europe seems to be paying off.",
+            "published_at": "2026-10-29T05:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e3ff1eb9e1676dda855ab6f5bc4c610b782ec315f028a4ae1a08bf9a9a940d23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Undercovered Dozen: Micron, i-80 Gold, Hercules Capital, And More",
+            "summary": "Discover 12 undercovered stocks with actionable investment theses, fresh catalysts, and income ideas.",
+            "published_at": "2026-10-29T04:47:49+00:00",
+            "url": "https://finnhub.io/api/news?id=3b343baed84ef797cf865ff0f70af43b45b14e2a22e2068dec3754ec73081374",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Is Tech Oversold Following Trend Reversals?",
+            "summary": "The tech sector as a whole is not a blanket bargain, but it has become an increasingly attractive stock-picker\u00e2\u0080\u0099s market.",
+            "published_at": "2026-10-29T04:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fff11d148ab03745e2a23352b74fe74b151077360d1205639a060d203ae165bd",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 403.3,
+      "jev": null
+    },
+    {
+      "ticker": "EXTR",
+      "predicted_return": 0.005752024988950121,
+      "open_price": 22.79,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:24.862984+00:00",
+        "articles": []
+      },
+      "prev_close": 23.59,
+      "jev": null
+    },
+    {
+      "ticker": "SWKS",
+      "predicted_return": 0.005750954481882933,
+      "open_price": 87.73,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:24.863025+00:00",
+        "articles": []
+      },
+      "prev_close": 89.43,
+      "jev": null
+    },
+    {
+      "ticker": "SNN",
+      "predicted_return": 0.005684915468758403,
+      "open_price": 29.87,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:24.863046+00:00",
+        "articles": [
+          {
+            "headline": "3 British Undervalued Stocks To Own In October 2026",
+            "summary": "Oil prices are back in focus after Europe\u2019s monthly petroleum bill rose by \u20ac10b compared with 2025, and higher fuel costs are feeding through to household and business budgets. When broad markets fixate on expensive energy, some solid British companies with strong cash generation and conservative balance sheets can get overlooked. This article highlights three such high quality but out of favour UK stocks from our value-focused shortlist. The three stocks below are just a sample from our...",
+            "published_at": "2026-10-29T08:19:08+00:00",
+            "url": "https://finnhub.io/api/news?id=444f2224a16807c168765fe2c434eeef93b50cc99d9b0af26c810d716d874d49",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 30.41,
+      "jev": null
+    },
+    {
+      "ticker": "LAZ",
+      "predicted_return": 0.005649405715633466,
+      "open_price": 38.91,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:25.656156+00:00",
+        "articles": [
+          {
+            "headline": "Lazard (NYSE:LAZ): High-Yield Dividend Passes Quality Screen Despite Payout Risks",
+            "summary": "Lazard meets ChartMill\u2019s Best Dividend screen with a 7.25% yield, but a high payout ratio and debt risk require caution for income investors.",
+            "published_at": "2026-10-30T10:20:59+00:00",
+            "url": "https://finnhub.io/api/news?id=b196e2fe35ee25616a29e2786f88e0106072fdc28ae6ceedefdf510ece7d4eb9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Lazard: 3 Key Takeaways for Long-Term Investors",
+            "summary": "Automation investments are designed to let revenue growth outpace cost growth, a shift that could reshape long-term profitability.",
+            "published_at": "2026-10-30T02:20:03+00:00",
+            "url": "https://finnhub.io/api/news?id=044cb94d9f012af973eb249a1aff23e6fab85e591083a56f4c358d973103f25c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Reasons to avoid LAZ and 1 stock to buy instead",
+            "summary": "Over the past six months, Lazard\u2019s shares (currently trading at $38.45) have posted a disappointing 19% loss, well below the S&P 500\u2019s 8.2% gain. This was partly driven by its softer quarterly results and may have investors wondering how to approach the situation.",
+            "published_at": "2026-10-29T13:31:03+00:00",
+            "url": "https://finnhub.io/api/news?id=4b33c2aa2147b9616f4c7d951dc7586ad7c956264a27dbb15f96030a499e9be0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 39.54,
+      "jev": null
+    },
+    {
+      "ticker": "ZBH",
+      "predicted_return": 0.005601271263234441,
+      "open_price": 95.84,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:28.341434+00:00",
+        "articles": [
+          {
+            "headline": "Zimmer Biomet Gears Up to Report Q3 Earnings: What's in the Cards?",
+            "summary": "ZBH heads into Q3 earnings with growth expected in Hips, S.E.T. and Technology & Data, while Knee sales face ongoing pressure.",
+            "published_at": "2026-10-29T13:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5bca2d1159aca536db83cad513fcd75ac635a3358d19d0b9c0c4caab43de916f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zimmer Biomet to Preview the Next Era of Intelligent Orthopedic Surgery at AAHKS 2026",
+            "summary": "Zimmer Biomet Holdings, Inc. (NYSE and SIX: ZBH) today announced its plans to host a featured symposium and booth discussions to reveal a new vision for intelligent orthopedic surgery at the 2026 Annual Meeting of the American Association of Hip and Knee Surgeons (AAHKS), taking place November 5\u20138 in the Dallas area.",
+            "published_at": "2026-10-29T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f68b202557167bf5b734060b579b6b8f7fdfcede41524fd2a35fb6aea7f75820",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Intuitive Surgical Stock's Market Price Justified?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T11:27:25+00:00",
+            "url": "https://finnhub.io/api/news?id=e14303edfa0e7af312b6688243b3cc43ce63894301a9c845c600c57c9b1adadf",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 97.47,
+      "jev": null
+    },
+    {
+      "ticker": "WSC",
+      "predicted_return": 0.005490297812449613,
+      "open_price": 18.34,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:29.568919+00:00",
+        "articles": []
+      },
+      "prev_close": 18.57,
+      "jev": null
+    },
+    {
+      "ticker": "ANF",
+      "predicted_return": 0.005483206884013633,
+      "open_price": 163.01,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:29.568999+00:00",
+        "articles": [
+          {
+            "headline": "Abercrombie & Fitch Co. to Report Third Quarter 2026 Results on November 24, 2026",
+            "summary": "NEW ALBANY, Ohio, Oct. 30, 2026 (GLOBE NEWSWIRE) -- Abercrombie & Fitch Co. (NYSE: ANF) will host its quarterly earnings conference call for all interested parties on Tuesday, November 24, 2026, at 8:30 a.m. ET. A press release detailing the company\u2019s third quarter results is expected to be issued shortly after 7:30 a.m. ET. In addition, a presentation of the third quarter results will be available on the company\u2019s website at approximately 7:30 a.m. ET. Conference Call:To access the conference c",
+            "published_at": "2026-10-30T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7ddf688aec35d4f27278328691799f363c99d606f8dcb250815b615106db6acf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Better-Than-Expected Results and Solid Outlook Fuel Abercrombie & Fitch (ANF) Share Gains",
+            "summary": "The Easterly Snow Capital Small Cap Value Fund is a U.S. open-end equity mutual fund managed by Easterly Asset Management, sub-advised by Snow Capital Management. The letter can be downloaded here. The Easterly Snow Small Cap Value Fund fell 4.04% in Q3 2026, outperforming both the Bloomberg US 2000 Value Index (-7.26%) and Russell 2000 [\u2026]",
+            "published_at": "2026-10-29T15:29:12+00:00",
+            "url": "https://finnhub.io/api/news?id=05271f9b45239893612ee6829556d1d9dc4302d35ce866df3038d787d862ded6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BOOT Q2 Earnings Beat Estimates on Margin Gains, Sales Miss",
+            "summary": "Boot Barn's Q2 earnings beat estimates on margin gains and store expansion, but sales miss expectations, prompting a lower fiscal 2027 outlook.",
+            "published_at": "2026-10-29T15:26:00+00:00",
+            "url": "https://finnhub.io/api/news?id=167b518e954d814a7377e8dc1739299b706829deae0e1d9cbba38a499911fcdb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 surging  stocks to keep an eye on and 1 facing challenges",
+            "summary": "The stocks featured in this article have all approached their 52-week highs. When these price levels hit, it typically signals strong business execution, positive market sentiment, or significant industry tailwinds.",
+            "published_at": "2026-10-29T11:47:25+00:00",
+            "url": "https://finnhub.io/api/news?id=320ccfb8434f580f678a0fc53a9b9b1e4b4d13b8aafd43b409272070fee31952",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UBS names top picks in U.S. softlines retail on strong fundamentals",
+            "summary": "The bank\u2019s UBS HOLT scorecard assesses operational quality, momentum and valuation across its small- and mid-cap coverage. Its leading picks include:",
+            "published_at": "2026-10-29T08:01:14+00:00",
+            "url": "https://finnhub.io/api/news?id=f85e586e3efb4f28ad2d100676f7046e509ce837709aeab1bf79aba2a2594d1a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 165.77,
+      "jev": null
+    },
+    {
+      "ticker": "ROK",
+      "predicted_return": 0.005445940502676528,
+      "open_price": 441.6,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:29.610520+00:00",
+        "articles": [
+          {
+            "headline": "What Might The October Job Report Look Like?",
+            "summary": "October jobs report: election and inflation risks, sector winners, and top stock picks in health care, finance, manufacturing, and defense.",
+            "published_at": "2026-10-30T07:30:08+00:00",
+            "url": "https://finnhub.io/api/news?id=d793f21429ca301bafd814f04febf085d8153928fa2e03f77e11495d84d13b5d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Eaton's Aerospace Business Broadens Growth Beyond Electrical",
+            "summary": "Eaton's Aerospace segment contributed 15.5% of 2025 sales and could fuel growth beyond Electrical, backed by aviation demand and recurring aftermarket revenues.",
+            "published_at": "2026-10-29T17:14:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f5683476cb6875a352e8202e1a4e75d9edc82f9af2ae577d3d941be332630114",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rockwell Automation Introduces SecureOT Capabilities to Help OEMs Address Emerging Cybersecurity Regulations",
+            "summary": "Rockwell Automation, Inc. (NYSE: ROK), the world's largest company dedicated to industrial automation and digital transformation, today announced new SecureOTTM cybersecurity capabilities designed to help original equipment manufacturers (OEMs) simplify compliance efforts, strengthen secure-by-design practices and better manage cybersecurity risks throughout the machine lifecycle.",
+            "published_at": "2026-10-29T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=af0fdb47beabe1916aa6604bbeb23e7997302942de8442e6fafb58454753051a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rockwell Automation (ROK) Reports Next Week: Wall Street Expects Earnings Growth",
+            "summary": "Rockwell Automation (ROK) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:19+00:00",
+            "url": "https://finnhub.io/api/news?id=dc87f1fe9f21b6cec47dad4b0925fa72a6f318a89c0296acaa1cc4f72a4bb2c4",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 451.4,
+      "jev": null
+    },
+    {
+      "ticker": "HHH",
+      "predicted_return": 0.005414872179551014,
+      "open_price": 74.35,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:30.158754+00:00",
+        "articles": [
+          {
+            "headline": "Howard Hughes vs. Brookfield: Which Stock Offers Better Value Today?",
+            "summary": "HHH and BN offer diversified growth opportunities, but their earnings momentum, capital strength and investment risks set them apart.",
+            "published_at": "2026-10-29T16:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8a54c6977d1fc20ac53f86f959da0d9af2c098c9517337d60f241649ab1e5c36",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Analysts Estimate Howard Hughes Holdings (HHH) to Report a Decline in Earnings: What to Look Out for",
+            "summary": "Howard Hughes Holdings (HHH) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:16+00:00",
+            "url": "https://finnhub.io/api/news?id=7e972b35d8ec1487093c83bf7b789cf8cd928eaea9a9e2b3d3fd737ad9b3a685",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 75.58,
+      "jev": null
+    },
+    {
+      "ticker": "TXN",
+      "predicted_return": 0.0054029139355274095,
+      "open_price": 307.633,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:32.908538+00:00",
+        "articles": [
+          {
+            "headline": "Should You Buy Texas Instruments Stock Now Or Wait?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T10:49:32+00:00",
+            "url": "https://finnhub.io/api/news?id=d4ba6a4c765fc0efcf426baeb4e52d0f5aaa5822a2a5cde872bf6f6830d3bddd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ON Semiconductor Reports Soon: How Has The Stock Reacted To Past Earnings?",
+            "summary": "ON Semiconductor (NASDAQ:ON) is scheduled to report its earnings on Monday, November 2, 2026. The company has a market value of about $29.4 billion. Over the last twelve months it generated $6.2 billion in revenue and $1.1 billion in operating profit, with net income of $630 million.",
+            "published_at": "2026-10-30T09:57:09+00:00",
+            "url": "https://finnhub.io/api/news?id=07e2401ae7b21205b3732a6e644ac6ac04a735379c1161e212bb0690c51b6bee",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SK hynix: The Cheapest Way To Own The Memory Industry",
+            "summary": "See why SK hynix Inc. is a top memory semiconductor buy after its pullback, backed by record growth, strong margins, and capital returns. Click for a SKHY update.",
+            "published_at": "2026-10-30T08:43:32+00:00",
+            "url": "https://finnhub.io/api/news?id=c391ae3191d8d155f0db3b8b13ef233598037b14e3f33c626d8e3f37aacf0ac2",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Texas Instruments Pays $1.52 a Quarter, Analog Devices $1.10. Which Dividend Is Stronger?",
+            "summary": "Texas Instruments just raised its dividend again and throws off billions in free cash flow, yet one number buried in its payout math raises a real question about which analog chip giant actually has the safer income stream.",
+            "published_at": "2026-10-29T18:47:31+00:00",
+            "url": "https://finnhub.io/api/news?id=d809b011642a3d62902cd20f1f41c21a177cc732b49e5549f4df7acc6c3f4818",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tracking Recession Probabilities on the FRED Macro System",
+            "summary": "Polymarket odds for a 2027 recession? They rest at 35%.",
+            "published_at": "2026-10-29T18:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6199d2a74b5aa627bc528c33e706efa7a94cac6834488631cf951433cee9bbfe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Texas Instruments (TXN) Justify Its Price On Future Cash Flow?",
+            "summary": "Texas Instruments has been on a powerful multi year run, and with the stock now at US$309.83, the central question is whether that price can be explained by the cash the business is expected to generate. Recent headlines and market enthusiasm set the scene, but the real issue is what the current tag implies about the durability and timing of those cash flows. Over the past 3 years, Texas Instruments has delivered a 133.7% share price gain, which raises the stakes on whether the move is...",
+            "published_at": "2026-10-29T18:15:44+00:00",
+            "url": "https://finnhub.io/api/news?id=8ab262f6f084baa651116893ff0b783d05ee82372bb94f6216b1309a5072308e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Applied Materials Still The Company You Bought?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T13:21:03+00:00",
+            "url": "https://finnhub.io/api/news?id=d1c76522acde527336b2de931ca71e3d802d522bb44885498a370c973d6c1513",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Brokers Suggest Investing in Texas Instruments (TXN): Read This Before Placing a Bet",
+            "summary": "According to the average brokerage recommendation (ABR), one should invest in Texas Instruments (TXN). It is debatable whether this highly sought-after metric is effective because Wall Street analysts' recommendations tend to be overly optimistic. Would it be worth investing in the stock?",
+            "published_at": "2026-10-29T12:30:02+00:00",
+            "url": "https://finnhub.io/api/news?id=2d5bc2be1a192a5e7bb6c2d654a3795ef03ded3f0099a9db0e65bf846e75d5b8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Unusual Is Lattice's Latest Sales Growth?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T12:15:27+00:00",
+            "url": "https://finnhub.io/api/news?id=bc195f6fac8e4df8b40244ed2657cb6120b09108cff76cff24143999ed06a63a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Building A 7%-Yielding Dividend Growth Portfolio With SCHD As Its Core Holding",
+            "summary": "SCHD is one of the best dividend growth ETFs available, but its modest 3% yield and several important diversification gaps make it insufficient for many income-focused retirees.",
+            "published_at": "2026-10-29T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fe9bc37eefd4d1fc24c9474ba6233cdd55673a315472b08f4a2e5ae7fca4a7b1",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 312.94,
+      "jev": null
+    },
+    {
+      "ticker": "JEF",
+      "predicted_return": 0.005380360868516397,
+      "open_price": 48.58,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:34.310830+00:00",
+        "articles": [
+          {
+            "headline": "Jefferies (JEF) Stock Stays Hard To Call Following Its 60% Run",
+            "summary": "Jefferies Financial Group has delivered a 59.7% gain over the past 3 years, yet the current share price still hinges on a simpler issue: whether the returns it earns on its capital are strong enough to support that kind of journey. For anyone looking at the stock today, the key concern is how those underlying returns line up with the price now attached to each dollar invested in the business. The 59.7% return over 3 years has rewarded patient holders, which raises the question of whether...",
+            "published_at": "2026-10-30T04:29:17+00:00",
+            "url": "https://finnhub.io/api/news?id=70b1089c487364dc26c10592f2dd9f29ebb7292db53d3527293bb3c31dcdec4d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ariel International Fund Q3 2026 Highlights: Trades And Trends",
+            "summary": "",
+            "published_at": "2026-10-30T01:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1ef9347d96b3deb11d385c275902b24dfc3eec6cffa0e3322207e903e18ffef9",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "AMD faces high expectations as Jefferies sees limited near-term upside",
+            "summary": "Advanced Micro Devices Inc (NASDAQ:AMD, XETRA:AMD) is expected to beat quarterly estimates and raise its outlook next week, but Jefferies said supply constraints and a demanding valuation could limit further upside as investors focus on the chipmaker\u2019s 2027 data center revenue potential. The...",
+            "published_at": "2026-10-29T19:44:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f152bb3e24a243ab936db75ebd9feb65d961dabe30e940070b09b4ae4e0df144",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SkinHealth Systems (SKIN) Stock Fair Value Falls After Reverse Split And Hold Ratings",
+            "summary": "SkinHealth Systems now carries a refreshed fair value estimate of about US$15.67 per share, down from roughly US$19.83, which resets the central price target in the current model. This aligns with recent Street commentary that has clustered around US$10 to US$11 price targets and Hold ratings, reflecting a cautious but not outright negative stance on the stock. As you read on, you will see how these shifts fit into the broader analyst narrative and what to watch as the story continues to...",
+            "published_at": "2026-10-29T11:11:45+00:00",
+            "url": "https://finnhub.io/api/news?id=1bd3d92a18e48db38479cda5c3190e7caabe175f56406295975943faa238877c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 49.15,
+      "jev": null
+    },
+    {
+      "ticker": "VCYT",
+      "predicted_return": 0.005359379828046449,
+      "open_price": 51.54,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "polygon"
+        ],
+        "issues": [
+          "finnhub_unavailable"
+        ],
+        "checked_at": "2026-10-30T13:36:35.782229+00:00",
+        "articles": []
+      },
+      "prev_close": 52.17,
+      "jev": null
+    },
+    {
+      "ticker": "AROC",
+      "predicted_return": 0.005335138910622059,
+      "open_price": 31.62,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:35.782259+00:00",
+        "articles": []
+      },
+      "prev_close": 32.1,
+      "jev": null
+    },
+    {
+      "ticker": "PAC",
+      "predicted_return": 0.005311415139229093,
+      "open_price": 223.0,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:35.782269+00:00",
+        "articles": []
+      },
+      "prev_close": 227.47,
+      "jev": null
+    },
+    {
+      "ticker": "EMBJ",
+      "predicted_return": 0.005236284751534086,
+      "open_price": 73.92,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:35.782280+00:00",
+        "articles": [
+          {
+            "headline": "EMBJ or RTX: Which Is the Better Value Stock Right Now?",
+            "summary": "EMBJ vs. RTX: Which Stock Is the Better Value Option?",
+            "published_at": "2026-10-29T14:40:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d2230477d3472d87a9d69a59d48f6fcfb1256bc42f06697bc89e07df2d803e9a",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 75.91,
+      "jev": null
+    },
+    {
+      "ticker": "FRHC",
+      "predicted_return": 0.005235414886890165,
+      "open_price": 182.07,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:37.985916+00:00",
+        "articles": []
+      },
+      "prev_close": 183.67,
+      "jev": null
+    },
+    {
+      "ticker": "BWXT",
+      "predicted_return": 0.005187452314346725,
+      "open_price": 133.04,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:37.985939+00:00",
+        "articles": [
+          {
+            "headline": "NuScale Power Rises 7% on Doosan Manufacturing Deal; Oklo and BWX Technologies Trail",
+            "summary": "NuScale just signed a South Korean manufacturing deal that moves its reactor from blueprint to physical hardware, but the company still has no paying customer for a single module. Here is what that tension means for investors watching the small modular reactor race.",
+            "published_at": "2026-10-29T17:11:34+00:00",
+            "url": "https://finnhub.io/api/news?id=f8821b323d6a9cb08d2c83879711a163ef163a4b2945dc75fba1453595fb4011",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NuScale Jumps 7% on Doosan Contract \u201cConverting Our Approved Design Into Deliverable Modules\u201d",
+            "summary": "Key TakeawaysNuScale Power stock rose 7% today after it hired Doosan Enerbility to build the first upper reactor coolant system for its power module, outpacing Oklo and BWX Technologies. The contract starts turning NuScale\u2019s NRC-approved design into hardware.",
+            "published_at": "2026-10-29T16:14:23+00:00",
+            "url": "https://finnhub.io/api/news?id=238cbb3466f8840a0d3fca33b673a55144360f9545bcacbe3a82fdabcd030b56",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Huntington Ingalls Soars 11% on Earnings Beat: \u201cApproximately 90 Percent\u201d of Shipbuilding Revenue Secured Through 2030",
+            "summary": "Key TakeawaysHuntington Ingalls jumped 10% after third-quarter earnings of $5. 48 a share beat the $4.",
+            "published_at": "2026-10-29T14:52:48+00:00",
+            "url": "https://finnhub.io/api/news?id=62efb83a253e6514669768a966f49e0ba485c6f4189d134e43f908ec3f358430",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Enterprise (AXON) Reports Next Week: Wall Street Expects Earnings Growth",
+            "summary": "Axon (AXON) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-29T13:00:22+00:00",
+            "url": "https://finnhub.io/api/news?id=24561574867da18d78cbc2df02c2b12f7dfdb0d0dfd6f7e738e6c19ea927ebfb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nuclear Power Is Back, But Only a Few Stocks Have Customers Signed",
+            "summary": "Nuclear power is experiencing renewed interest from major tech companies seeking clean energy. While established players like Vistra, Constellation Energy, Cameco, Centrus Energy, and BWX Technologies have signed contracts or operate licensed facilities, early-stage developers like Oklo, NuScale Power, and Nano Nuclear Energy still lack regulatory approvals and face execution risks despite securing customer commitments.",
+            "published_at": "2026-10-29T06:00:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/29/nuclear-power-is-back-but-only-a-few-stocks-have-c/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          }
+        ]
+      },
+      "prev_close": 137.93,
+      "jev": null
+    },
+    {
+      "ticker": "HLI",
+      "predicted_return": 0.005173096954576033,
+      "open_price": 137.76,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:37.987556+00:00",
+        "articles": [
+          {
+            "headline": "Earnings Beat Might Change The Case For Investing In Houlihan Lokey Stock (HLI)",
+            "summary": "Houlihan Lokey reported fiscal Q2 2027 revenue of US$692 million and adjusted EPS of US$1.85, both above analyst estimates, and the board approved a regular US$0.70 quarterly dividend payable on December 15, 2026 to holders of Class A and Class B shares on record as of December 1. Corporate Finance activity produced higher revenue despite fewer completed deals, while management highlighted a more active Financial Restructuring pipeline and continued build out of Capital Solutions through...",
+            "published_at": "2026-10-29T16:15:28+00:00",
+            "url": "https://finnhub.io/api/news?id=f439e32ad39e9b2ebf8a7bbd8eae6f560c669de21c2367e756431565819a6975",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Houlihan Lokey, Inc. Q2 2027 Earnings Call Summary",
+            "summary": "Moby summary of Houlihan Lokey, Inc.'s Q2 2027 earnings call",
+            "published_at": "2026-10-29T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a9f773d7011b5dd5bac210cd8b40d860affa9e0956ea353c4c9488dac3f75047",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Houlihan Lokey, Inc. Reports Second Quarter Fiscal 2027 Revenues of $692 million",
+            "summary": "",
+            "published_at": "2026-10-29T09:18:35+00:00",
+            "url": "https://finnhub.io/api/news?id=0639b1f1a44f9807f51c76f27f4defdd6591bf19bf8036fab0851e8b77c1350c",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Morgan Stanley leads TMT M&A advisers by deal value in Q1-Q3 2026",
+            "summary": "Houlihan Lokey led by deal volume in Q1-Q3 2026, advising on 66 transactions across the TMT sector.",
+            "published_at": "2026-10-29T08:25:27+00:00",
+            "url": "https://finnhub.io/api/news?id=14656441806b6dcc5e52aac2fcd420d91fa92b7b34164dc88c2b0e4e2273498d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Houlihan Lokey (HLI) Could Be 11% Undervalued On Second Quarter Earnings",
+            "summary": "Houlihan Lokey (HLI) is back in focus after second quarter earnings showed net income of US$109 million and diluted EPS of US$1.64, along with a US$0.70 quarterly dividend announcement. Recent trading suggests investors are reassessing Houlihan Lokey after a tough stretch, with a 1-day share price return of 3.80% and a 7-day share price gain of 7.00% lifting the stock to US$137.38, even though the year-to-date share price return is still down 22.09% and the 1-year total shareholder return has...",
+            "published_at": "2026-10-29T04:36:32+00:00",
+            "url": "https://finnhub.io/api/news?id=b28f5f1edd512cb9813308f74f502d72fbc01c468cca3cfd1732be08a10c9c47",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Houlihan Lokey (HLI) Q2 2027 Earnings Call Transcript",
+            "summary": "Corporate Finance revenue surged 10% as deal fees climbed despite macro caution.",
+            "published_at": "2026-10-29T04:13:51+00:00",
+            "url": "https://finnhub.io/api/news?id=52a4c1ffa45ce15df0935e88306d3fc56131a2466e9db2572812dad1f4dc068f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 139.34,
+      "jev": null
+    },
+    {
+      "ticker": "HNGE",
+      "predicted_return": 0.005152051904464866,
+      "open_price": 114.44,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:38.912420+00:00",
+        "articles": [
+          {
+            "headline": "Reasons to Hold Hinge Health Stock in Your Portfolio for Now",
+            "summary": "HNGE's strong revenue growth, raised 2026 outlook and expansion into Migraine and GI care support its growth prospects despite investment pressures.",
+            "published_at": "2026-10-29T16:24:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2357aaa266861a10138747182516f03cfc86152ed06ae7d8ff49c49acaf7d1be",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 116.9,
+      "jev": null
+    },
+    {
+      "ticker": "CWEN",
+      "predicted_return": 0.0051328615733071915,
+      "open_price": 32.41,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-30T13:36:39.865512+00:00",
+        "articles": [
+          {
+            "headline": "Does Ormat Stock's Valuation Make Sense?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-29T23:09:56+00:00",
+            "url": "https://finnhub.io/api/news?id=f8c122d78476d7b5af466ed479263f5b1cd7bea55013999c6346483ebe90fd16",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Clearway Energy: The Dividend Is Safe, The Upside Is Not",
+            "summary": "Clearway Energy trades near 52-week lows after cutting 2026 CAFD guidance due to low wind resources. Read more on CWEN stock here.",
+            "published_at": "2026-10-29T15:09:05+00:00",
+            "url": "https://finnhub.io/api/news?id=852ff8b6d4bb10aece75c56f58e43d1e4d8023f4c174e595a4c42d6b24d931a4",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Clearway Energy And 2 Clean Energy Stocks To Watch",
+            "summary": "Energy headlines today focus on rising oil costs for Europe, with the EU paying about \u20ac10b more each month for petroleum imports. Expensive fossil fuels increase the appeal of power sources that do not rely on overseas crude. That is where listed companies tied to solar, wind, hydro and tidal projects come in. This article highlights three US renewable energy stocks from that group. These three renewable energy stocks are just a sample, and the full screen on Simply Wall St surfaced 20 more...",
+            "published_at": "2026-10-29T13:15:15+00:00",
+            "url": "https://finnhub.io/api/news?id=383b92136c13a4ad176b6d5d9c6994eda21e52887626b9a5de7a5ae5fa8397a3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 32.88,
+      "jev": null
+    },
+    {
+      "ticker": "TDY",
+      "predicted_return": 0.005108014917610659,
+      "open_price": 668.7,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 677.46,
+      "jev": null
+    },
+    {
+      "ticker": "LUV",
+      "predicted_return": 0.005093291673933282,
+      "open_price": 43.27,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 43.68,
+      "jev": null
+    },
+    {
+      "ticker": "W",
+      "predicted_return": 0.005063443766135782,
+      "open_price": 118.59,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 120.12,
+      "jev": null
+    },
+    {
+      "ticker": "ADI",
+      "predicted_return": 0.005062778189180775,
+      "open_price": 425.485,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 433.28,
+      "jev": null
+    },
+    {
+      "ticker": "AAP",
+      "predicted_return": 0.005059004214257205,
+      "open_price": 45.38,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 45.73,
+      "jev": null
+    },
+    {
+      "ticker": "BBY",
+      "predicted_return": 0.005058556051064887,
+      "open_price": 98.92,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 100.39,
+      "jev": null
+    },
+    {
+      "ticker": "AYI",
+      "predicted_return": 0.005058438529769026,
+      "open_price": 323.93,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 327.36,
+      "jev": null
+    },
+    {
+      "ticker": "AMRZ",
+      "predicted_return": 0.005054753108596414,
+      "open_price": 41.34,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 41.61,
+      "jev": null
+    },
+    {
+      "ticker": "LMND",
+      "predicted_return": 0.005028263042294353,
+      "open_price": 44.49,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 45.91,
+      "jev": null
+    },
+    {
+      "ticker": "MRCY",
+      "predicted_return": 0.005017079099253225,
+      "open_price": 79.73,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 81.8,
+      "jev": null
+    },
+    {
+      "ticker": "DB",
+      "predicted_return": 0.005016310401190255,
+      "open_price": 33.8,
+      "snapshot_date": "2026-10-29",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 34.86,
+      "jev": null
+    }
+  ],
+  "scored_count": 1758,
+  "skipped": [
+    {
+      "ticker": "AMZN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XOM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INTC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABBV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CAT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SNDK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GILD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BMY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SBUX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SYK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HWM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PWR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ICE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "REGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MNST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MDLZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DLR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RSG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AJG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MPWR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "D",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LHX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CARR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XEL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DHI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HSY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WEC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VMC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RMD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EME",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARES",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WTW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBOE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RDDT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTSH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INCY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VLTO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TROW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FSLR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LYB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FDXF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KIM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ERIE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GDDY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AVY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AOS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EPD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LNG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CCJ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RKT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TECK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALNY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TWLO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ILMN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RBLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FTI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QSR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INSM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RIVN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XPO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MKL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ENTG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "THC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FTAI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MTZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "H",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BBIO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXEL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BWA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DTM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BTSG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GLPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-A",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PINS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CFR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPXC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DRS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KYMR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OSK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SAIA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LTH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PBF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AGCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CUBE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MHK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IDCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TPG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EMN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IDA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OWL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXTA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OMF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FSS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MBLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NCLH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALGM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INGM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LNTH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GTES",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LKQ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GATX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CACC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SNDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXNM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "POR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PTCT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SXT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LGND",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CROX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PIPR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HESM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MMSI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FND",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LAUR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RYAN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TFSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BDC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CUZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FHI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KBR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AXTI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MIAX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CDP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PFSI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SKYW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DYN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SXI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HTGC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BFAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OSIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXPO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HGV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNET",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MGEE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COLM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HOG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPSC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KWR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NWL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NMRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TBBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PATK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CDNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SUPN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PHIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SAH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BXMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ESTA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUPH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STGW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TILE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INVX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NVCR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PEB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OLN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 10.172629400186086
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 9.47455210610901
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 6.710781544837249
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-29",
+    "model_trained_through": "2026-10-29",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  }
+}

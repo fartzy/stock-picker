@@ -1,0 +1,75 @@
+{
+  "as_of": "2026-09-17",
+  "threshold": 0.005,
+  "scored_count": 1993,
+  "signals": [
+    {
+      "ticker": "TDTH",
+      "predicted_return": 0.17574787926902513,
+      "open_price": 1.56,
+      "snapshot_date": "2026-09-16"
+    },
+    {
+      "ticker": "XNDU",
+      "predicted_return": 0.025666999411926062,
+      "open_price": 7.67,
+      "snapshot_date": "2026-09-16"
+    },
+    {
+      "ticker": "QH",
+      "predicted_return": 0.012347167610314637,
+      "open_price": 3.98,
+      "snapshot_date": "2026-09-16"
+    }
+  ],
+  "skipped": [
+    {
+      "ticker": "FDX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "spy_overnight_gap",
+      "importance": 18.955547522523787
+    },
+    {
+      "feature": "vix_close",
+      "importance": 17.69264305716577
+    },
+    {
+      "feature": "volatility_120d",
+      "importance": 8.453721878867325
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-16",
+    "model_trained_through": "2026-09-16",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-16, model trained through 2026-09-16 -- ready for this morning's opens."
+  }
+}

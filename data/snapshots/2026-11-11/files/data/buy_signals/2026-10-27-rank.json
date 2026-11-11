@@ -1,0 +1,1493 @@
+{
+  "as_of": "2026-10-27",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "NBIX",
+      "predicted_return": 0.3389424593886937,
+      "open_price": 145.01,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:19.869690+00:00",
+        "articles": [
+          {
+            "headline": "Neurocrine Biosciences (NBIX) Earnings Expected to Grow: Should You Buy?",
+            "summary": "Neurocrine (NBIX) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-26T13:00:12+00:00",
+            "url": "https://finnhub.io/api/news?id=42d58ff02c281590f09821cea78b5aff13e80da2a0b3f822e9f734a3dae409d5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Neurocrine Biosciences Presents New Analysis Establishing Benchmark for Clinically Meaningful Change in Overall Health Reported by Patients with Tardive Dyskinesia",
+            "summary": "Neurocrine Biosciences, Inc. (Nasdaq: NBIX) today announced new research that helps define clinically meaningful improvement in overall health reported by people living with tardive dyskinesia who were treated with INGREZZA\u00ae (valbenazine) capsules. The findings will be presented at the Academy of Managed Care Pharmacy Nexus 2026 conference, taking place Oct. 26-29 in San Diego.",
+            "published_at": "2026-10-26T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=963d4dbd2cbcfabc15214aae3fdf7df2f941267f2763f6187032d232fa035f23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Neurocrine Biosciences Identifies Clinically Meaningful Health Improvement Threshold For INGREZZA In Tardive Dyskinesia Patients",
+            "summary": "New analysis establishes a 6-point increase on the EQ Visual Analogue Scale as a threshold for clinically meaningful change in overall health ratings in patients with tardive dyskinesia treated with",
+            "published_at": "2026-10-26T08:34:33+00:00",
+            "url": "https://finnhub.io/api/news?id=efd3cf8844b279252eade61ab54cb617a43a371f798d6b1e3ccadb2e8487c641",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 145.87,
+      "jev": null
+    },
+    {
+      "ticker": "CTRE",
+      "predicted_return": 0.3341906811238021,
+      "open_price": 36.73,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:19.870592+00:00",
+        "articles": []
+      },
+      "prev_close": 36.98,
+      "jev": null
+    },
+    {
+      "ticker": "CLBT",
+      "predicted_return": 0.3320328038109964,
+      "open_price": 12.13,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:19.870952+00:00",
+        "articles": []
+      },
+      "prev_close": 12.23,
+      "jev": null
+    },
+    {
+      "ticker": "EPRT",
+      "predicted_return": 0.3239217869812413,
+      "open_price": 26.4,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:19.870980+00:00",
+        "articles": []
+      },
+      "prev_close": 27.17,
+      "jev": null
+    },
+    {
+      "ticker": "HR",
+      "predicted_return": 0.3201772837509355,
+      "open_price": 17.88,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.947044+00:00",
+        "articles": []
+      },
+      "prev_close": 17.98,
+      "jev": null
+    },
+    {
+      "ticker": "TLK",
+      "predicted_return": 0.31360717604737615,
+      "open_price": 11.85,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.947196+00:00",
+        "articles": [
+          {
+            "headline": "TELKOM INDONESIA PERSERO-ADR (NYSE:TLK): A Dividend Quality Case for Income Investors",
+            "summary": "Best Dividend Stocks screen combines yield, profitability and financial health; Telkom Indonesia ADR (TLK) shows a 4.66% yield with quality checks.",
+            "published_at": "2026-10-27T12:11:03+00:00",
+            "url": "https://finnhub.io/api/news?id=4b1c8c08494f1a5adce72ce41c7f5d56a5236a8281779f55cc1359ddb0ee2c7a",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 12.25,
+      "jev": null
+    },
+    {
+      "ticker": "ASND",
+      "predicted_return": 0.31168846129836614,
+      "open_price": 243.26,
+      "snapshot_date": "2026-10-26",
+      "news_flag": "clinical readout: TransCon\u00ae PTH (Palopegteriparatide) Demonstrates Sustained, Clinically Meaningful Improvements in Kidney Function in Adu",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "clinical readout: TransCon\u00ae PTH (Palopegteriparatide) Demonstrates Sustained, Clinically Meaningful Improvements in Kidney Function in Adu",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.947351+00:00",
+        "articles": [
+          {
+            "headline": "TransCon\u00ae PTH (Palopegteriparatide) Demonstrates Sustained, Clinically Meaningful Improvements in Kidney Function in Adults with Hypoparathyroidism Treated Up to 5 Years",
+            "summary": "COPENHAGEN, Denmark, Oct. 26, 2026 (GLOBE NEWSWIRE) -- Ascendis Pharma A/S (Nasdaq: ASND) today announced new data demonstrating early, sustained, and clinically meaningful improvements in kidney function in adults with hypoparathyroidism treated with TransCon\u00ae PTH (palopegteriparatide) for up to 5 years in the Company\u2019s Phase 2 PaTH Forward and Phase 3 PaTHway trials. Results from the pooled analysis were shared in a poster presented by nephrologist Elvira Gosmanova, M.D., Professor of Medicine",
+            "published_at": "2026-10-26T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4ba9b0e5c1690e5509d6432f634ede46b82bf7ce35095ab4b51a7667af700376",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ascendis Pharma Reports Sustained Kidney Function Improvements Over 5-Years With TransCon PTH In Adults With Hypoparathyroidism",
+            "summary": "Ascendis Pharma A/S (NASDAQ:ASND) today announced new data demonstrating early, sustained, and clinically meaningful improvements in kidney function in adults with hypoparathyroidism treated with TransCon\u00ae PTH",
+            "published_at": "2026-10-26T08:10:33+00:00",
+            "url": "https://finnhub.io/api/news?id=a25364e4a2f2f9191a0453b6b67e78f76208cf7c3a9367ae2b6cb3f246573f25",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 245.15,
+      "jev": null
+    },
+    {
+      "ticker": "CPRT",
+      "predicted_return": 0.31022443870864974,
+      "open_price": 28.9,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.948778+00:00",
+        "articles": [
+          {
+            "headline": "What Drives Visa\u2019s (V) Long-Term Compounding Potential?",
+            "summary": "Akre Capital Management, an investment management company, published the \u201cAkre Focus ETF\u201d third-quarter 2026 investor letter. The letter can be downloaded here. The Akre Focus ETF fell 0.84% in Q3 2026, versus a 2.30% gain for the S&P 500, as September\u2019s 14.38% decline erased strong July and August returns. The fund\u2019s trailing 12-month return was [\u2026]",
+            "published_at": "2026-10-26T16:34:14+00:00",
+            "url": "https://finnhub.io/api/news?id=1c98024bde52398f7aeafcdfd7e709a24c670feb0d29e92ba7701ecb6d48f2b6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Mastercard (MA): Scaling Network Infrastructure for the Era of Agentic Commerce",
+            "summary": "Akre Capital Management, an investment management company, published the \u201cAkre Focus ETF\u201d third-quarter 2026 investor letter. The letter can be downloaded here. The Akre Focus ETF fell 0.84% in Q3 2026, versus a 2.30% gain for the S&P 500, as September\u2019s 14.38% decline erased strong July and August returns. The fund\u2019s trailing 12-month return was [\u2026]",
+            "published_at": "2026-10-26T16:26:29+00:00",
+            "url": "https://finnhub.io/api/news?id=8e728bcb76a85ba07a7efa16c04e408b5fa74564887bbe39f670015e4f917dc5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Multiple Growth Engines Support Long-Term Compounding at KKR (KKR)",
+            "summary": "Akre Capital Management, an investment management company, published the \u201cAkre Focus ETF\u201d third-quarter 2026 investor letter. The letter can be downloaded here. The Akre Focus ETF fell 0.84% in Q3 2026, versus a 2.30% gain for the S&P 500, as September\u2019s 14.38% decline erased strong July and August returns. The fund\u2019s trailing 12-month return was [\u2026]",
+            "published_at": "2026-10-26T16:21:51+00:00",
+            "url": "https://finnhub.io/api/news?id=6b2430d9595c64c4d2cdc57ae284bda389bc0e7940313661751e438e46db80eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Brookfield Corporation (BN) Continues to Gain Share in Private Markets?",
+            "summary": "Akre Capital Management, an investment management company, published the \u201cAkre Focus ETF\u201d third-quarter 2026 investor letter. The letter can be downloaded here. The Akre Focus ETF fell 0.84% in Q3 2026, versus a 2.30% gain for the S&P 500, as September\u2019s 14.38% decline erased strong July and August returns. The fund\u2019s trailing 12-month return was [\u2026]",
+            "published_at": "2026-10-26T16:18:25+00:00",
+            "url": "https://finnhub.io/api/news?id=0ca46e1d4f71da8717e3999b7c2f28accd4c3204ea7aaf55b4d004a8f936a7b2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Moody\u2019s Corporation (MCO) Is Benefiting from the AI Infrastructure Boom?",
+            "summary": "Akre Capital Management, an investment management company, published the \u201cAkre Focus ETF\u201d third-quarter 2026 investor letter. The letter can be downloaded here. The Akre Focus ETF fell 0.84% in Q3 2026, versus a 2.30% gain for the S&P 500, as September\u2019s 14.38% decline erased strong July and August returns. The fund\u2019s trailing 12-month return was [\u2026]",
+            "published_at": "2026-10-26T16:14:09+00:00",
+            "url": "https://finnhub.io/api/news?id=2e268da1f51e59edc1026269a8d2c5f5867e0d4e4f35ddf9967a4e7c6c6919a4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Copart: My Highest Conviction Position Trading At A Discount",
+            "summary": "Copart looks undervalued despite near-term headwinds. Read the latest analysis on the stock here.",
+            "published_at": "2026-10-26T15:08:24+00:00",
+            "url": "https://finnhub.io/api/news?id=133a952aed73cd5f8efc2afb01d64b41e3e1d9d91571c6f80eee0c394da69bef",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 29.15,
+      "jev": null
+    },
+    {
+      "ticker": "BCO",
+      "predicted_return": 0.30962242343197804,
+      "open_price": 109.78,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.950788+00:00",
+        "articles": []
+      },
+      "prev_close": 110.89,
+      "jev": null
+    },
+    {
+      "ticker": "YETI",
+      "predicted_return": 0.3003713216895228,
+      "open_price": 42.4,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:33.953450+00:00",
+        "articles": []
+      },
+      "prev_close": 43.57,
+      "jev": null
+    },
+    {
+      "ticker": "GEF",
+      "predicted_return": 0.30004941819238395,
+      "open_price": 82.08,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.899944+00:00",
+        "articles": []
+      },
+      "prev_close": 82.75,
+      "jev": null
+    },
+    {
+      "ticker": "OHI",
+      "predicted_return": 0.2945233451552702,
+      "open_price": 46.75,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.900087+00:00",
+        "articles": [
+          {
+            "headline": "Omega Announces Quarterly Dividend",
+            "summary": "HUNT VALLEY, Md., October 26, 2026--Omega Healthcare Investors, Inc. (NYSE:OHI) today announced that the Company\u2019s Board of Directors declared a cash dividend of $0.68 per share on its common stock. The dividend is payable Monday, November 16, 2026, to common stockholders of record as of the close of business on Thursday, November 5, 2026.",
+            "published_at": "2026-10-26T19:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8bcb5bc89135a62d30d8e09d8f51ac6e20051589106f1cdfe814f7c2e4f6fcc2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These High-Yield Dividend Stocks Could Be Traps for Retirement Investors",
+            "summary": "A 16% yield sounds like a retirement dream until you look at what is quietly happening to the principal underneath it. Five popular income stocks are flashing warning signs that most investors only notice after the cut.",
+            "published_at": "2026-10-26T15:45:52+00:00",
+            "url": "https://finnhub.io/api/news?id=adaaaf6965e3363d9531ae125571322972a7e152de7922506f524701e8d00957",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 47.01,
+      "jev": null
+    },
+    {
+      "ticker": "QH",
+      "predicted_return": 0.28935609793458195,
+      "open_price": 3.0,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:42:21.188242+00:00",
+        "articles": []
+      },
+      "prev_close": 3.08,
+      "jev": null
+    },
+    {
+      "ticker": "KHC",
+      "predicted_return": 0.28869259001926834,
+      "open_price": 24.5,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.900265+00:00",
+        "articles": [
+          {
+            "headline": "Campbell\u2019s Just Cut Its Dividend. What Income Investors Should Do Now",
+            "summary": "Campbell's just slashed its dividend for the first time in over two decades, and income investors now face a decision that hinges on whether the smaller payout signals a genuine reset or the start of something worse.",
+            "published_at": "2026-10-26T19:45:14+00:00",
+            "url": "https://finnhub.io/api/news?id=9cc2c67f6aaccffc8eedd3f688b348fc2502ade8a6edfa751a4ba34dbe094b55",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "General Mills Yields Nearly 7%. Is Its Dividend Safer Than Kraft Heinz or Smucker?",
+            "summary": "Three packaged food giants all flash ultra-high yields right now, but a big number on a dividend screener can hide very different stories about leverage, frozen payouts, and falling share prices. One of these names has a 127-year streak to protect, and the question is whether that streak still means what investors think it does.",
+            "published_at": "2026-10-26T18:45:21+00:00",
+            "url": "https://finnhub.io/api/news?id=5401107f7a004673e42189edffaae5f5ebc3eee9754b9764b44d9e976e91978e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.73,
+      "jev": null
+    },
+    {
+      "ticker": "AZN",
+      "predicted_return": 0.28713259654542805,
+      "open_price": 169.68,
+      "snapshot_date": "2026-10-26",
+      "news_flag": "clinical readout: Save the Date: HUTCHMED to Host Expert Insights Event on Recent Savolitinib Clinical Data in Non-Small Cell Lung Cancer",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "clinical readout: Save the Date: HUTCHMED to Host Expert Insights Event on Recent Savolitinib Clinical Data in Non-Small Cell Lung Cancer",
+        "article_count": 18,
+        "reviewed_count": 18,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.900782+00:00",
+        "articles": [
+          {
+            "headline": "Amgen: A Biotech Bargain Heading Into Q3 Earnings",
+            "summary": "Amgen Inc.\u00e2\u0080\u0099s Q3 is near. Explore EPS growth, pipeline momentum, valuation, and dividend yield to see why it offers good risk/reward. Click for this AMGN update.",
+            "published_at": "2026-10-27T08:22:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7e01de4091c9443925bb7c0d268ebdc5a52591450b888b5fd9ab5a83635cf43b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Parnassus Value Equity Fund Q3 2026 Portfolio Review",
+            "summary": "Top contributors include Thermo Fisher, CME Group, NICE, Willis Towers Watson and Verizon. Learn more about the bottom contributors.",
+            "published_at": "2026-10-27T03:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3f707d335b6539023d5e35bd6f3feb412aba88315a015bedc7909295586dd410",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "AstraZeneca Highlights Breakthrough Cancer Data at ESMO 2026 Investor Update",
+            "summary": "Astrazeneca (NYSE:AZN) highlighted new clinical data across bladder, lung and gastric cancers at its ESMO 2026 investor event, including four presidential presentations that executives said support the company\u2019s oncology growth strategy. Dave Fredrickson, executive vice president of the company\u2019s o",
+            "published_at": "2026-10-27T01:02:19+00:00",
+            "url": "https://finnhub.io/api/news?id=36e86fec8dac107cc67c14b783ea3bf2d63cc3478467c976d25d63ab1db92492",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Save the Date: HUTCHMED to Host Expert Insights Event on Recent Savolitinib Clinical Data in Non-Small Cell Lung Cancer",
+            "summary": "HUTCHMED announced an expert webcast on November 5, 2026, to discuss Phase III clinical data for savolitinib in MET-driven NSCLC. The SANOVO study showed savolitinib plus TAGRISSO\u00ae reduced disease progression/death risk by 44% overall and 55% in high MET overexpression patients. The SAFFRON global Phase III trial demonstrated a 45% reduction in progression risk and 32% reduction in death risk in EGFR-mutated lung cancer after TAGRISSO\u00ae progression.",
+            "published_at": "2026-10-27T00:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/27/3388651/0/en/save-the-date-hutchmed-to-host-expert-insights-event-on-recent-savolitinib-clinical-data-in-non-small-cell-lung-cancer.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Onco360\u00ae Has Been Selected as a National Pharmacy Partner for ZEGFROVY\u00ae (sunvozertinib)",
+            "summary": "LOUISVILLE, Ky., Oct. 26, 2026 (GLOBE NEWSWIRE) -- Onco360\u00ae, the nation\u2019s leading independent Specialty Pharmacy, has been selected as a national pharmacy partner by AstraZeneca Pharmaceuticals for Zegfrovy\u00ae (sunvozertinib), which is indicated for the treatment of adult patients with locally advanced or metastatic non-small cell lung cancer (NSCLC) with epidermal growth factor receptor (EGFR) exon 20 insertion mutations, as detected by an FDA-approved test, whose disease has progressed on or aft",
+            "published_at": "2026-10-26T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b61a6d1c7b94920476a333a199120d105f9c0074da05d58ecf40eb5b7370a043",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna\u2019s Cancer Vaccine Rally Hits a Wall. This Other Drugmaker Stole the Show.",
+            "summary": "Amgen showcases \u201cexcellent\u201d data for its small-cell lung cancer treatment following leaked results for Moderna and Merck\u2019s intismeran autogene.",
+            "published_at": "2026-10-26T20:21:00+00:00",
+            "url": "https://finnhub.io/api/news?id=73214f01c4b7ef315b6d4ddac2c7adef494f577327e964126ac52baec1855af1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AstraZeneca (LSE:AZN) Posted Positive Phase III Results For Three Cancer Drugs",
+            "summary": "AstraZeneca (LSE:AZN) reported positive Phase III data for three cancer medicines at the ESMO Congress 2026 on 23 October. Sonesitatug vedotin (Sone Ve) showed statistically significant survival benefits in advanced gastric and gastroesophageal junction cancer. IMFINZI with neoadjuvant enfortumab vedotin and TAGRISSO with savolitinib delivered meaningful survival outcomes in muscle invasive bladder and MET driven EGFR mutated lung cancer. These Phase III oncology wins for Sone Ve, IMFINZI...",
+            "published_at": "2026-10-26T17:15:42+00:00",
+            "url": "https://finnhub.io/api/news?id=03a24e55c14fdfd77368a89e759d636d8c2b9d67acabbb0b4662ff173f2b6e02",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "European Stocks Close Higher in Monday Trading as Oil Prices Ease, Bond Yields Stabilize",
+            "summary": "The European stock markets closed higher in Monday trading as oil prices pulled back and bond yields",
+            "published_at": "2026-10-26T16:07:29+00:00",
+            "url": "https://finnhub.io/api/news?id=2bc25d1112480034fd689a4787dfbd473dfe65f8850fa06f20fc0cc26ca0a43b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Concurrence Appoints Dr. Hythem Sidky, Former Lead of the NIH National Clinical Cohort Collaborative, as Head of Applied AI",
+            "summary": "Concurrence, the healthcare data and AI company building AI that learns for health systems, biopharma companies, and public health agencies, today named Hythem Sidky, PhD, Head of Applied AI, effective October 12. The appointment comes as enterprise demand for Concurrence accelerates, following its multi-year partnership with Databricks announced in September.",
+            "published_at": "2026-10-26T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f59b8e1825219bacc71197ce85d9e7e94789968d97bdfd112ea0d57075d3871e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ESMO26: Key data breathing new life into the lung cancer field",
+            "summary": "Clinical Trials Arena brings you the lung cancer highlights from ESMO 2026, with readouts from key players MSD, AstraZeneca, Roche and BioNTech.",
+            "published_at": "2026-10-26T12:36:06+00:00",
+            "url": "https://finnhub.io/api/news?id=57cf6f283265758884ba6f1d262662e99730c8d9ef927a1b0505a88d923cd3c8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is AstraZeneca\u2019s Pipeline Fuel Enough to Spark a Post-Earnings Breakout on Oct. 30?",
+            "summary": "AstraZeneca heads into its October 30 earnings call with oncology surging and its cardiology franchise under pressure, leaving investors to wonder whether new drug launches can absorb the losses fast enough to justify a breakout.",
+            "published_at": "2026-10-26T11:45:43+00:00",
+            "url": "https://finnhub.io/api/news?id=0863b16bdebbeee90dcf7243398505fb80e5a6edc8c19011ae93906041e487a0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Breakfast News: Science Strikes Back at Cancer",
+            "summary": "Cancer treatment breakthroughs dominate ESMO 2026 conference with multiple drugs showing significant survival gains. U.S. stocks declined amid AI spending concerns and rising oil prices, with the Fed expected to hold rates steady Wednesday. Several Motley Fool-recommended companies report earnings this week including Alphabet, Amazon, and Mastercard. TransDigm's stock decline reflects valuation compression rather than business deterioration.",
+            "published_at": "2026-10-26T11:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/10/26/breakfast-news-science-strikes-back-at-cancer/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Pathos AI completes $237m Series E round to expand oncology pipeline",
+            "summary": "Pathos AI will use the proceeds to scale its Foundry platform and advance four active clinical cancer programmes.",
+            "published_at": "2026-10-26T10:39:42+00:00",
+            "url": "https://finnhub.io/api/news?id=6b71db9c0b57db2429e60ee6206b1a7a1b0d03e5e983585094b6e7b06bdaaa74",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Amgen, AstraZeneca Drug Combo Shows Promising Survival Results in Tough-To-Treat Lung Cancer",
+            "summary": "Amgen&#39;s Imdelltra with Imfinzi cut small-cell lung cancer death risk by 58% in Phase 3, extending median survival to 21.1 months. Read more.",
+            "published_at": "2026-10-26T09:23:16+00:00",
+            "url": "https://finnhub.io/api/news?id=1c78b6499510756f2fa3d6ed17a6733403c9679edffb2f655b312724e9bc8788",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "AstraZeneca: Stomach Cancer Drug With $3 to $5 Billion Sales Potential, and One Significant Wrinkle",
+            "summary": "AstraZeneca (AZN) said on Sunday, October 25, that its Claudin 18. 2 antibody-drug conjugate sonesitatug vedotin (sone-ve) doubled median survival in stomach cancer patients who had already tried at least two treatments: 10.",
+            "published_at": "2026-10-26T08:35:57+00:00",
+            "url": "https://finnhub.io/api/news?id=27f22fa71d302ae0b32cd5b71a06691f8e4e524b3f4146e22e3fd25656d8571b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Astrazeneca Reports Higher Patient Survival Rates in Stomach, Lung-Cancer Drug Trials",
+            "summary": "Astrazeneca (AZN) phase 3 clinical trials have shown positive results in the treatment of stomach an",
+            "published_at": "2026-10-26T08:12:52+00:00",
+            "url": "https://finnhub.io/api/news?id=4bf40f1768651ca320ff5b008bce98d94689e6470a1dd9c1c74cd2603aeafc13",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Baron Health Care Fund: Q3 2026 New Positions And Exits",
+            "summary": "",
+            "published_at": "2026-10-26T04:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f488331be4fc0aabb6b91d631958c54c2e6eedde32af3d9e4b889a6a1c65305b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Baron Health Care Fund Q3 2026 Top Contributors And Detractors",
+            "summary": "The Baron Health Care Fund Q3 2026 report highlights key contributors and detractors from portfolio performance. Read the full analysis for more details.",
+            "published_at": "2026-10-26T04:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b47b336dd8d1ce06489ae93ed5405ae3a6e9ac45298883ec08bc4bf13f6a7b2f",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 172.06,
+      "jev": null
+    },
+    {
+      "ticker": "BBUC",
+      "predicted_return": 0.2868334527202358,
+      "open_price": 27.42,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.904568+00:00",
+        "articles": []
+      },
+      "prev_close": 27.66,
+      "jev": null
+    },
+    {
+      "ticker": "HSBC",
+      "predicted_return": 0.2865740565334914,
+      "open_price": 85.55,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:19.871216+00:00",
+        "articles": [
+          {
+            "headline": "HSBC Holdings plc 2026 Q3 - Results - Earnings Call Presentation",
+            "summary": "",
+            "published_at": "2026-10-27T08:15:56+00:00",
+            "url": "https://finnhub.io/api/news?id=346036d0aeab4ec7a845d991baa4a2109b6882f70836edf4658f951d7ab505f3",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "HSBC Holdings plc (HSBC) Q3 2026 Earnings Call Transcript",
+            "summary": "HSBC Holdings plc (HSBC) Q3 2026 Earnings Call October 27, 2026 3:45 AM EDTCompany ParticipantsManveen Kaur - Group CFO & Executive DirectorConference...",
+            "published_at": "2026-10-27T07:39:53+00:00",
+            "url": "https://finnhub.io/api/news?id=12cb70de46946eaf7a4eba4bf1692c1ccd3843201393754624dbb57990f7112d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "HSBC: Q3 Earnings Snapshot",
+            "summary": "LONDON (AP) \u2014 LONDON (AP) \u2014 HSBC Holdings PLC (HSBC) on Tuesday reported net income of $7.09 billion in its third quarter.",
+            "published_at": "2026-10-27T06:30:05+00:00",
+            "url": "https://finnhub.io/api/news?id=6d2da44679e36726d8c52305df383191f2dbd6d51b3769c73685350714d8c5c2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HSBC 3Q pretax profit rises 32% but misses estimates; announces $1 bln buyback",
+            "summary": "Investing.com -- HSBC Holdings on Tuesday said it plans to launch a further share buyback of up to $1 billion as it reported higher third-quarter profit on Tuesday, supported by stronger net interest income and lower credit impairment charges.",
+            "published_at": "2026-10-27T05:03:20+00:00",
+            "url": "https://finnhub.io/api/news?id=da6254698d35a7c493e2d3b804c253e48fabf110d65d5bc31c04c10c402bc599",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Citigroup Enters China's Securities Market With CSRC Approval",
+            "summary": "C secures approval to launch a wholly owned securities business in China, expanding its onshore capital markets reach and creating new growth opportunities.",
+            "published_at": "2026-10-26T16:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5ddb69bfdffa39d22166eff56df669a0e8d32cdb60339ec0f3a84cdee31e31f3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top Utilities Stocks to Watch: HSBC\u2019s Preferred Picks",
+            "summary": "Investing.com -- HSBC has identified five preferred utilities stocks positioned to benefit from surging electricity demand driven by data centers and artificial intelligence infrastructure. The investment bank rates all five companies as Buy, citing above-average growth prospects and strong execution capabilities in an evolving power landscape.",
+            "published_at": "2026-10-26T15:34:07+00:00",
+            "url": "https://finnhub.io/api/news?id=a495d4702be413256363f6db3d094f8a124fc6cea60cef0cca4720354a827e94",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will JPMorgan's Nigeria Expansion Bolster Its Growth Prospects?",
+            "summary": "JPM advances its Nigeria expansion with approval for a merchant bank, targeting corporate banking, capital markets and cross-border financing opportunities.",
+            "published_at": "2026-10-26T14:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e86d190759f2c983d5ba48c52805c3efb38d096096731e3cd92c9d2a3c85037f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HSBC's Kettner Turns Cautions on Equities for Now",
+            "summary": "\"Right now, the bond side of things, the rate side of things, is probably the easier trade to be in,\" says Max Kettner, chief multi-asset strategist at HSBC Bank. He explains the factors behind his cautious view of equities through the end of the year amid what he calls \"narrative bingo.\" He speaks on \"Bloomberg Surveillance.\"",
+            "published_at": "2026-10-26T12:13:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ac05022e0ecd9a524ef678545e667e660adb18c4a9199ed5528b0452ea742629",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HSBC turns cautious short-term on stocks but remains bullish for 2027",
+            "summary": "Investing.com -- HSBC revealed Monday that it has cut its maximum overweight in equities and its maximum underweight in sovereign bonds.",
+            "published_at": "2026-10-26T10:58:13+00:00",
+            "url": "https://finnhub.io/api/news?id=e74318ae9403a8c10b91727bc521eba0477d23cad645889aa569831d97aeea7d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Saudi Aramco Nears Signing of $10 Billion Loan with Global Banks' - Bloomberg Exclusive",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-26/saudi-aramco-nears-signing-of-10-billion-loan-with-global-banks",
+            "published_at": "2026-10-26T10:00:41+00:00",
+            "url": "https://finnhub.io/api/news?id=eb0177c034cd7dcd972dc5a14964eef1868ddbb720b1d94cd1e40a2f5f29f9a6",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 91.21,
+      "jev": null
+    },
+    {
+      "ticker": "HRL",
+      "predicted_return": 0.28392400002653634,
+      "open_price": 20.82,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.906944+00:00",
+        "articles": [
+          {
+            "headline": "Despite Structural Challenges, General Mills' Valuation And 7.1% Yield Stand Out (Upgrade)",
+            "summary": "General Mills faces weak demand, but low valuation, solid yield, and pet food stability may appeal to income investors. Read the latest analysis on the stock here.",
+            "published_at": "2026-10-26T09:55:11+00:00",
+            "url": "https://finnhub.io/api/news?id=fa056089bdce7b59fb551d96dc8c36e94506ee5dcfa36416db95da60daa3975a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 20.95,
+      "jev": null
+    },
+    {
+      "ticker": "WEX",
+      "predicted_return": 0.276527509457517,
+      "open_price": 190.54,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.907065+00:00",
+        "articles": [
+          {
+            "headline": "MAX Gears Up to Report Q3 Earnings: What Is in the Cards?",
+            "summary": "MediaAlpha is slated to report Q3 earnings on Oct. 28, with strong P&C insurance ad spending, AI adoption & platform expansion expected to drive revenue growth.",
+            "published_at": "2026-10-26T17:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c3e110587767b7edb1e4c7c87e9c0cac729d8a9d6f056a5b8b07e0391cb91e4b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wex (WEX) is a Great Momentum Stock: Should You Buy?",
+            "summary": "Does Wex (WEX) have what it takes to be a top stock pick for momentum investors? Let's find out.",
+            "published_at": "2026-10-26T15:00:02+00:00",
+            "url": "https://finnhub.io/api/news?id=c8d49ad151c764f3215b8bfcad32d411013ee8311650cfcae2a3ba14ae99e3b0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "TT Gears Up to Report Q3 Earnings: What is in the Cards?",
+            "summary": "Trane Technologies is slated to report Q3 earnings on Oct. 29, with strong HVAC demand, the Stellar acquisition and robust backlogs expected to drive growth.",
+            "published_at": "2026-10-26T12:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4ef4d71badfb198c127c10d0264d02bee11ab5989329022276a807c0cef84b59",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 192.09,
+      "jev": null
+    },
+    {
+      "ticker": "ALC",
+      "predicted_return": 0.27512911410798824,
+      "open_price": 69.58,
+      "snapshot_date": "2026-10-26",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-27T13:36:41.907377+00:00",
+        "articles": [
+          {
+            "headline": "Alcon: Keeping An Eye Out Here Amid Sales And Margin Momentum",
+            "summary": "Alcon's stock has reset, improving risk-reward. See how sales growth, margin expansion, and innovation support its mid-term outlook.",
+            "published_at": "2026-10-26T15:27:11+00:00",
+            "url": "https://finnhub.io/api/news?id=d9a2887c108df30dca7068d52503a17cc78333d1aaf56494bc0714682ff40abc",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 69.99,
+      "jev": null
+    }
+  ],
+  "scored_count": 1841,
+  "skipped": [
+    {
+      "ticker": "V",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WELL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GLW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HOOD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HCA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UPS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CDNS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SHW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ECL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ITW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RCL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HLT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PCAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NUE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NXPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TER",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PYPL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IQV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACGL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CINF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PFG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XYL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PPG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HUBB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FFIV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ESS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IVZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSGP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UHS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PNR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SCCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LPLA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SOFI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INIO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SUI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ICLR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MANH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AIT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UMBF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EDU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RMBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IONS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SFD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZWS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SSD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AWI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LSTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KNSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CZR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RUSHA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVLT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CAKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GLXY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ENPH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MMYT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ITRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MIR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TNL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DORM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FFBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UCTT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USLM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SBCF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TNK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGYS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INTA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BANC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLDE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EEFT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NBTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRMK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HWKN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BUSE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WERN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NWBI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HYMC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MCRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTOS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 23.745910683347578
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.049751043071085
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 5.201064769183506
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-26",
+    "model_trained_through": "2026-10-26",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}
