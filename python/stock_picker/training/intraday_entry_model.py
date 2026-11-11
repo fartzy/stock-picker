@@ -165,8 +165,16 @@ def _evaluate(frame: pd.DataFrame, predicted: dict, baseline: np.ndarray,
     return result
 
 
-def train_intraday_entry(frame: pd.DataFrame, dataset_metadata: dict | None = None) -> IntradayEntryModel:
+def train_intraday_entry(
+    frame: pd.DataFrame, dataset_metadata: dict | None = None, *,
+    feature_columns: tuple[str, ...] | None = None,
+    feature_descriptions: dict[str, str] | None = None,
+) -> IntradayEntryModel:
     """Fit a bounded helper and preserve its untouched final-session evaluation."""
+    candidates = FEATURE_COLUMNS if feature_columns is None else feature_columns
+    descriptions = {**FEATURE_DESCRIPTIONS, **(feature_descriptions or {})}
+    if len(set(candidates)) != len(candidates) or any(name not in descriptions for name in candidates):
+        raise ValueError("Feature candidates require unique names and descriptions.")
     frame = frame.copy().sort_values(["session", "ticker", "observed_at"]).reset_index(drop=True)
     if not np.isfinite(frame.target_return.to_numpy(float)).all():
         raise ValueError("Entry targets must be finite observed returns.")
@@ -179,7 +187,7 @@ def train_intraday_entry(frame: pd.DataFrame, dataset_metadata: dict | None = No
     fit = frame[frame.session.isin(sessions[:fit_end])]
     calibration = frame[frame.session.isin(sessions[fit_end:calibration_end])]
     test = frame[frame.session.isin(sessions[calibration_end:])]
-    columns = tuple(name for name in FEATURE_COLUMNS if name in fit and
+    columns = tuple(name for name in candidates if name in fit and
                     fit[name].replace([np.inf, -np.inf], np.nan).nunique(dropna=True) > 1)
     if not columns:
         raise ValueError("No varying finite training features are available.")
@@ -241,10 +249,10 @@ def train_intraday_entry(frame: pd.DataFrame, dataset_metadata: dict | None = No
         "trained_at": datetime.now(timezone.utc).isoformat(), "trained_through": sessions[calibration_end-1],
         "fit_through": sessions[fit_end-1], "evaluated_through": sessions[-1],
         "evidence_status": "experimental", "feature_count": len(columns),
-        "features": [{"name": name, "description": FEATURE_DESCRIPTIONS[name], "importance": float(gain)}
+        "features": [{"name": name, "description": descriptions[name], "importance": float(gain)}
                      for name, gain in sorted(zip(columns, gains), key=lambda item: -item[1])],
         "pruned_features": [{"name": name, "reason": "All missing or constant in fitting sessions."}
-                            for name in FEATURE_COLUMNS if name not in columns],
+                            for name in candidates if name not in columns],
         "dataset": dataset_metadata or {}, "validation": validation,
         "notes": ["Experimental: predicts price change from the observed entry to today's cash close, with zero assumed expenses.",
                   "Profit means a close above entry. Close loss >2% means a terminal loss, not touching a price during the day.",

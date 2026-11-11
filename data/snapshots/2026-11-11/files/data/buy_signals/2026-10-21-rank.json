@@ -1,0 +1,1294 @@
+{
+  "as_of": "2026-10-21",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "UNIT",
+      "predicted_return": 0.432261648195274,
+      "open_price": 5.45,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:12.915557+00:00",
+        "articles": []
+      },
+      "prev_close": 5.51,
+      "jev": null
+    },
+    {
+      "ticker": "TMUS",
+      "predicted_return": 0.37477553695704124,
+      "open_price": 151.55,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:12.915651+00:00",
+        "articles": [
+          {
+            "headline": "NVIDIA, Nokia and Leading Telecom Operators Turn Networks Into Distributed Intelligence Platforms",
+            "summary": "NVIDIA-Powered Telecom Networks Leading global telecom operators are expanding NVIDIA-powered computing across their networks to deliver advanced services closer to people and businesses, improve wireless experience and automate network operations. News Summary: Leading global telecom operators are expanding NVIDIA-powered computing across their networks to deliver advanced services closer to people and businesses, improve wireless experience and automate network operations.T-Mobile completes th",
+            "published_at": "2026-10-21T10:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ea99e098477a1e5308c39b2b028d66a96ff2d16a88b1206532b2446f02454674",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Dates That Matter Most For Verizon Stock",
+            "summary": "Verizon Communications (VZ) shares have lost 6.8%, dividends included, since September 18, 2026. The S&P 500 gained 0.6% over the same period. Shareholders are now waiting on a promise from July, when management raised its 2026 guidance and said the second half of the year would be stronger than the first. The dates most likely to move Verizon stock over the next six months are outlined below, starting with the company's third-quarter report.",
+            "published_at": "2026-10-21T01:22:13+00:00",
+            "url": "https://finnhub.io/api/news?id=147d6c62716f2d3b71395b0dc4f4645a6c93cf1eb6f5d941ca0c60b23b7955d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Aduna and Major U.S. Carriers Expand Network API Portfolio to Help Businesses Combat Fraud",
+            "summary": "Aduna, a leading global aggregator of standardised network APIs, today announced three powerful fraud prevention APIs across the United States: Know Your Customer, Device Swap, and Call Forward Detection, targeted for availability in Q4. Delivered in collaboration with AT&T, T-Mobile and Verizon, the new APIs provide businesses with direct access to trusted mobile network signals that can help identify fraud risks in near real-time and make more informed customer authentication and onboarding de",
+            "published_at": "2026-10-20T22:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5d1f1a79689be1d0ceb8b9b8c5d2599c362d32bfa17d1eaf0e88084b00b23b92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "T-Mobile (TMUS): Can Fiber Grow Without Consuming Too Much Shareholder Cash?",
+            "summary": "T-Mobile US, Inc. (NASDAQ:TMUS) wants fiber to deepen relationships with wireless households while partners help finance and operate the networks. Across telecom services stocks, bundling mobile and home internet creates another recurring bill per customer. That strengthens the investment case when retention and service margins repay expansion costs. T-Mobile US, Inc. (NASDAQ:TMUS) trades at 12x [\u2026]",
+            "published_at": "2026-10-20T16:53:16+00:00",
+            "url": "https://finnhub.io/api/news?id=1f0a893dd7b21f8932f2ca4cab2676a618d4c5173ce0dad042341b2d46a16004",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alaska Airlines and Hawaiian Airlines expand global network with new nonstop service connecting Seattle with Osaka and Papeete",
+            "summary": "Alaska Airlines and Hawaiian Airlines are broadening its global network with new year-round, nonstop service between Seattle and Osaka, Japan, and Papeete, Tahiti, French Polynesia, bringing two new international destinations within easy reach of guests across the continental U.S.",
+            "published_at": "2026-10-20T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5820a767cb5b62c3376a5122a6238a28621103b29bc11f190a5db8e9fa6d608d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 157.75,
+      "jev": null
+    },
+    {
+      "ticker": "VZ",
+      "predicted_return": 0.35035698174091967,
+      "open_price": 43.0,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 14,
+        "reviewed_count": 14,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-21T13:34:12.916069+00:00",
+        "articles": [
+          {
+            "headline": "AT&T Wireless Subscriber Growth Underwhelms. Will It Spark IPhone 18 Battle?",
+            "summary": "AT&T stock fell amid Q3 earnings that topped Wall Street targets while wireless postpaid phone subscriber additions only met expectations.",
+            "published_at": "2026-10-21T12:34:12+00:00",
+            "url": "https://finnhub.io/api/news?id=f9ecd88230548c41e72956e5ad1650c539c693f48e9013e4bce6a10b8d54e8ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Find Out How Much Passive Income $50,000 Generates in These 4 High Yield Stocks",
+            "summary": "When paychecks stop, a portfolio takes on a new job. For anyone near or in retirement and holding a lump sum, the question changes from how fast the money can grow to how much cash it can reliably send home every quarter, and how secure that cash is. High-yield dividend stocks give that question a concrete [\u2026]",
+            "published_at": "2026-10-21T12:27:11+00:00",
+            "url": "https://finnhub.io/api/news?id=ab40e9d2001cc8920f07de87ae2d3a0dfd4f2307c073302feb93431ce354f89c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Telecom Stocks Are Falling Amid SpaceX Earnings Report",
+            "summary": "Telecom stocks fell Wednesday after Elon Musk-controlled SpaceX reported earnings and reaffirmed plans to enter the U.S. wireless market.",
+            "published_at": "2026-10-21T12:11:56+00:00",
+            "url": "https://finnhub.io/api/news?id=ecbb7ac6b72cbdd59e61ead79cd40b0ac677a46736cad8bfc078799e18a81fa0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Forget Social Security: 5 High-Yield Stocks Retirees Are Buying Instead",
+            "summary": "Social Security raises are locked to a government formula, but a growing number of retirees are routing their income strategy around it entirely, and the stocks they are buying span five very different industries.",
+            "published_at": "2026-10-21T12:05:33+00:00",
+            "url": "https://finnhub.io/api/news?id=2c53820768943970d54fa45488a6a6f1f7d8f974f2b5614eec6f77ad6147f010",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Verizon Stock Worth Buying Ahead of Q3 Earnings Release?",
+            "summary": "VZ heads into Q3 earnings with strong customer metrics, fiber expansion and an attractive valuation, but intense competition and high debt warrant caution.",
+            "published_at": "2026-10-21T11:19:00+00:00",
+            "url": "https://finnhub.io/api/news?id=802805ae52353d0008b2178c2a08cfce7f3513faea1d34c5f304731762e66964",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The True Colors Of An AI Unwind",
+            "summary": "",
+            "published_at": "2026-10-21T09:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=43e4e7e80fa98fa34ebf80fdc570d15069c08a167d92e5b4aa81ae0c17b38973",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "The Dates That Matter Most For Verizon Stock",
+            "summary": "Verizon Communications (VZ) shares have lost 6.8%, dividends included, since September 18, 2026. The S&P 500 gained 0.6% over the same period. Shareholders are now waiting on a promise from July, when management raised its 2026 guidance and said the second half of the year would be stronger than the first. The dates most likely to move Verizon stock over the next six months are outlined below, starting with the company's third-quarter report.",
+            "published_at": "2026-10-21T01:22:13+00:00",
+            "url": "https://finnhub.io/api/news?id=147d6c62716f2d3b71395b0dc4f4645a6c93cf1eb6f5d941ca0c60b23b7955d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Aduna and Major U.S. Carriers Expand Network API Portfolio to Help Businesses Combat Fraud",
+            "summary": "Aduna, a leading global aggregator of standardised network APIs, today announced three powerful fraud prevention APIs across the United States: Know Your Customer, Device Swap, and Call Forward Detection, targeted for availability in Q4. Delivered in collaboration with AT&T, T-Mobile and Verizon, the new APIs provide businesses with direct access to trusted mobile network signals that can help identify fraud risks in near real-time and make more informed customer authentication and onboarding de",
+            "published_at": "2026-10-20T22:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5d1f1a79689be1d0ceb8b9b8c5d2599c362d32bfa17d1eaf0e88084b00b23b92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX: Super Intelligence Top-Line Surge Meets Starlink Cash Generation",
+            "summary": "Space Exploration Technologies Corp. aka SpaceX Q3 beats: $14.6B revenue, Super Intelligence + Starlink drive profit. Click for this SPCX stock update.",
+            "published_at": "2026-10-20T20:45:46+00:00",
+            "url": "https://finnhub.io/api/news?id=febc0e4b182bc31de560ed5d5eaaebbc265f57c0d525e610b29841327ea3b6f1",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Microsoft, Alphabet, Goldman Sachs Join Growing List of Companies Objecting to Tokenized Stocks",
+            "summary": "Sixteen companies have now objected to having their shares traded on the planned OKX-ICE tokenized stock venue, up from nine just four days earlier, according to an updated public notice.",
+            "published_at": "2026-10-20T20:16:04+00:00",
+            "url": "https://finnhub.io/api/news?id=ff421581c018f3402bb5ad1299329d569d3dd4c647b80838d83c89620729be28",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Northern Trust Names Rima Qureshi to Board of Directors",
+            "summary": "CHICAGO, October 20, 2026--Northern Trust adds former Verizon executive and strategy chief Rima Qureshi to its board of directors.",
+            "published_at": "2026-10-20T20:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4e3690295e34218f6dc9b7cd3559e2626567f8300839d0fde5207155d3c3a386",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Market Force Information\u00ae Study Reveals Widening CX Gap Between Legacy Wireless Carriers and Challenger Brands",
+            "summary": "Market Force, a global leader in customer experience management, has released findings from its 2026 Wireless Benchmark Study. It reveals a significant and widening gap between the customer experience delivered by the nation's largest wireless carriers and the smaller brands quietly winning consumer loyalty.",
+            "published_at": "2026-10-20T15:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=95bdcc9f97eb3ff17dc496f9fc96359ce2e6b496f6e74abf9d9b2c1ef6e805d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Microsoft, Alphabet Bar Their Tokenized Shares From OKX-ICE Venue as Objections Hit 16",
+            "summary": "An updated notice from the ICE and OKX joint venture shows seven more companies have refused, which under SEC conditions keeps their stock tokens off the planned 24/7 venue.",
+            "published_at": "2026-10-20T14:36:00+00:00",
+            "url": "https://finnhub.io/api/news?id=abb646f9fe56abfb916c90c915a77b677a88710432c0ca94327faed9d8cb1e3e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Verizon Q3 Preview: Expecting Continued Momentum In Postpaid, Shares Attractive",
+            "summary": "Verizon will release its Q3 print on Monday, October 26. Ahead of the release, shares in the stock are performing modestly, with YTD gains of about 8.5%.",
+            "published_at": "2026-10-20T07:08:25+00:00",
+            "url": "https://finnhub.io/api/news?id=02ff233b75face8b7055c01e6c9330da4b3d15f6e3560de97437eb5397a84fbb",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 44.54,
+      "jev": null
+    },
+    {
+      "ticker": "MBLY",
+      "predicted_return": 0.34836656504747937,
+      "open_price": 7.04,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:12.916675+00:00",
+        "articles": []
+      },
+      "prev_close": 7.3,
+      "jev": null
+    },
+    {
+      "ticker": "COAG",
+      "predicted_return": 0.3473278791033032,
+      "open_price": 34.17,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627318+00:00",
+        "articles": []
+      },
+      "prev_close": 34.17,
+      "jev": null
+    },
+    {
+      "ticker": "NKTR",
+      "predicted_return": 0.3324977370587302,
+      "open_price": 39.09,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627404+00:00",
+        "articles": []
+      },
+      "prev_close": 39.22,
+      "jev": null
+    },
+    {
+      "ticker": "TKC",
+      "predicted_return": 0.3127652120662388,
+      "open_price": 4.85,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627413+00:00",
+        "articles": []
+      },
+      "prev_close": 4.97,
+      "jev": null
+    },
+    {
+      "ticker": "KT",
+      "predicted_return": 0.31156948483982394,
+      "open_price": 18.52,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627497+00:00",
+        "articles": []
+      },
+      "prev_close": 18.77,
+      "jev": null
+    },
+    {
+      "ticker": "CHTR",
+      "predicted_return": 0.30142044497621784,
+      "open_price": 106.75,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627511+00:00",
+        "articles": [
+          {
+            "headline": "Comcast Trades at 6 Times Earnings and Yields 6%. Does It Deserve to Be One of the Cheapest S&P 500 Dividend Stocks, or Is This a No-Brainer Buying Opportunity?",
+            "summary": "Comcast trades at a low valuation of 6x forward earnings with a 6% dividend yield, but the article advises caution. While upcoming spinoffs of NBCUniversal and Sky could unlock value and speculation about a Charter merger exists, significant headwinds persist including projected subscriber losses of 558,000 in 2026 and 665,000 in 2027, with earnings expected to decline from $4.10 to $3.48-$3.59 per share. The author recommends avoiding bottom-fishing Comcast shares until subscriber losses stabilize.",
+            "published_at": "2026-10-21T08:20:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/21/comcast-earnings-yields-cheap-dividend-stock/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "The Dates That Matter Most For Verizon Stock",
+            "summary": "Verizon Communications (VZ) shares have lost 6.8%, dividends included, since September 18, 2026. The S&P 500 gained 0.6% over the same period. Shareholders are now waiting on a promise from July, when management raised its 2026 guidance and said the second half of the year would be stronger than the first. The dates most likely to move Verizon stock over the next six months are outlined below, starting with the company's third-quarter report.",
+            "published_at": "2026-10-21T01:22:13+00:00",
+            "url": "https://finnhub.io/api/news?id=147d6c62716f2d3b71395b0dc4f4645a6c93cf1eb6f5d941ca0c60b23b7955d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Do You Invest For A Crash And A Rally?",
+            "summary": "Inflation is back at 3.7%, and we think it is being pushed up by tariffs, war, a shortage of workers, big deficits and an AI spending race. And the AI build-out increasingly runs on borrowed money. That leaves investors with two stories running at once. Which one wins, and how do you invest when you can't know.",
+            "published_at": "2026-10-20T11:49:19+00:00",
+            "url": "https://finnhub.io/api/news?id=433fccfc541bb2e69c68c28c29f19b5a5e76c37a3e0e7720d168d73657a91229",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Does Cash Beat Debt When Markets Turn?",
+            "summary": "Inflation is back at 3.7%, the 10-year Treasury pays about 5.1%, and US oil is above $100 a barrel. Money is getting more expensive, and some companies need it more than others. When the market turns in a setting like this, does it matter what you own inside an industry.",
+            "published_at": "2026-10-20T11:49:18+00:00",
+            "url": "https://finnhub.io/api/news?id=eae5e5cfef111a384d5403eec3fa3a8987ce037f39e0ad3636faf74d4223d1ba",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 110.03,
+      "jev": null
+    },
+    {
+      "ticker": "INGR",
+      "predicted_return": 0.2947249815614372,
+      "open_price": 96.66,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:36.627710+00:00",
+        "articles": [
+          {
+            "headline": "Flowers Foods Leans on Innovation: Can It Reignite Volume Growth?",
+            "summary": "Flowers Foods accelerates innovation in smaller loaves, sourdough and protein offerings to counter declining volumes and revive consumer demand.",
+            "published_at": "2026-10-20T12:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6f3827b1ce9d2fdee23ad2a2ffad34277239333cb7fb5b2d11c684b583b42a83",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 96.82,
+      "jev": null
+    },
+    {
+      "ticker": "VCYT",
+      "predicted_return": 0.2940500639634423,
+      "open_price": 44.17,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154269+00:00",
+        "articles": []
+      },
+      "prev_close": 44.79,
+      "jev": null
+    },
+    {
+      "ticker": "SQM",
+      "predicted_return": 0.29090858239088985,
+      "open_price": 59.65,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154416+00:00",
+        "articles": []
+      },
+      "prev_close": 60.05,
+      "jev": null
+    },
+    {
+      "ticker": "CBT",
+      "predicted_return": 0.287654092274896,
+      "open_price": 73.78,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154436+00:00",
+        "articles": []
+      },
+      "prev_close": 73.62,
+      "jev": null
+    },
+    {
+      "ticker": "EVT",
+      "predicted_return": 0.284853682756958,
+      "open_price": 27.35,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154552+00:00",
+        "articles": []
+      },
+      "prev_close": 27.41,
+      "jev": null
+    },
+    {
+      "ticker": "GRND",
+      "predicted_return": 0.283324772954305,
+      "open_price": 13.9,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154568+00:00",
+        "articles": []
+      },
+      "prev_close": 14.06,
+      "jev": null
+    },
+    {
+      "ticker": "CMG",
+      "predicted_return": 0.2829185572188177,
+      "open_price": 29.0273,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.154578+00:00",
+        "articles": [
+          {
+            "headline": "Here Are Wednesday\u2019s Top Wall Street Analyst Research Calls: Applied Digital, Chipotle Mexican Grill, Cirrus Logic, Costco, Digital Realty Trust, Intuitive Surgical, Netflix, Robinhood Markets, Zscaler, and More",
+            "summary": "Wall Street analysts delivered a flurry of bold calls Wednesday, including a double-downgrade that shocked one cybersecurity giant and a sharp cut on a beloved restaurant chain. Find out which stocks got upgraded, buried, or newly covered before the market opens.",
+            "published_at": "2026-10-21T12:02:22+00:00",
+            "url": "https://finnhub.io/api/news?id=a744fcf6f3cb56383a80a3b10d8031e7644cdc0e23137d5aa23698a8a8d28a19",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Learn Why The Bull Case For Starbucks (SBUX) Could Change Following Fourth Quarter Results",
+            "summary": "Starbucks recently increased its quarterly cash dividend to $0.63 per share and is preparing to report fiscal fourth-quarter results under its Back to Starbucks plan, while market reports suggest it has explored a potential takeover of Chipotle in recent months. The combination of a long-running dividend program, a $2 billion cost-savings agenda and reported interest in Chipotle highlights how Starbucks is balancing cash returns to investors with operational restructuring and possible large...",
+            "published_at": "2026-10-21T03:19:14+00:00",
+            "url": "https://finnhub.io/api/news?id=ad4d98efbaf607f5c3a94f965cb8b300fa2072c3c09e21eb6bf9218c9a950a55",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Are Chipotle Investors Betting On?",
+            "summary": "Chipotle Mexican Grill (CMG) stock currently trades at 24.3 times its adjusted earnings over the last twelve months. Those earnings add back stock-based pay after tax, and the valuation looks steep for a burrito chain whose reported net income fell over those same months. Yet the current price reads differently when set against the profit expected for fiscal 2027. So what growth are buyers at today's price counting on.",
+            "published_at": "2026-10-20T19:09:12+00:00",
+            "url": "https://finnhub.io/api/news?id=2f7eacd2dec18c5b6f5c54db2b23e6a1fd19f5b83622eab107e215a5827380a1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is The Market Underpricing McDonald's Stock?",
+            "summary": "McDonald's (MCD) shares lost 18.5% over the past year, including dividends, while the S&P 500 returned 17.4%. Buyers today pay 19.6 times McDonald's earnings over the past twelve months. That multiple sits below the 24.7 average seen at its fiscal quarter ends over the past three years, and marks a lower P/E than at any fiscal quarter end in the past ten years. So how much of that markdown could three more years of McDonald's own growth, and a P/E that moves part of the way back toward its avera",
+            "published_at": "2026-10-20T16:17:49+00:00",
+            "url": "https://finnhub.io/api/news?id=1476f31011838dd8e4e2ff20c8892008755e6f1aece5cb1e93413d90817d6d98",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IMIO Raises $12M from Sofinnova Partners and Chipotle's Cultivate Next to Scale Reliable Biologicals and Improve Soil Performance",
+            "summary": "CHICAGO, October 20, 2026--IMIO, the pioneering manufacturer of a new generation of dependable agricultural biologicals, has raised $12 million to help farmers transform soil performance and protect profitability. The round was led by Sofinnova Partners with additional backing from Chipotle\u2019s Cultivate Next venture fund, Starshot Capital, Grow Together Salinas, Earth Foundry and Serra Ventures. The investment will be used to support the development of the company\u2019s new lab and biomanufacturing o",
+            "published_at": "2026-10-20T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=47c6c101f3d79fd45feea65885d0ac9089bed8562afc0751d105634a4a2c4da4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BOORITO RETURNS: CHIPOTLE TO OFFER $6 ENTREES ON HALLOWEEN 2026",
+            "summary": "Some Halloween traditions are worth keeping. Boorito is back.",
+            "published_at": "2026-10-20T11:53:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8e301c84e96ae9508924a60d24c215b16fb483e4b817a1a7ad9601a8ccbbfa50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Chipotle Win for Long-Term Investors Without Starbucks?",
+            "summary": "Rumors that Starbucks was planning to acquire Chipotle were rapidly debunked, leaving investors to judge the burrito chain's turnaround on its own shakier merits.",
+            "published_at": "2026-10-20T10:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=67fd336fe9cf22b2af66d50f9511a897109a40754f74c41f78d573bb764098e7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stocks are driving consumption 'like never before' \u2014 and that exposes a big risk",
+            "summary": "In a way that has only become true in our moment, the stock market actually is getting closer to defining the economy and consumption.",
+            "published_at": "2026-10-20T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eed72a95a4f3e306b037b956e6a3b19014d406925065e1e55e3e27d97ad56136",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 29.65,
+      "jev": null
+    },
+    {
+      "ticker": "SRAD",
+      "predicted_return": 0.2828630532125718,
+      "open_price": 11.87,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.157192+00:00",
+        "articles": []
+      },
+      "prev_close": 11.99,
+      "jev": null
+    },
+    {
+      "ticker": "RIO",
+      "predicted_return": 0.2827873824082486,
+      "open_price": 87.94,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.157219+00:00",
+        "articles": [
+          {
+            "headline": "How Bad Would It Get If China Blocks Rare Earths to America?",
+            "summary": "A Taiwan confrontation could expose U.S. dependence on Chinese-controlled rare earth supply chains just as the Pentagon tightens sourcing restrictions.",
+            "published_at": "2026-10-21T00:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d2af511244969f53865f9acc5766f3c0a09a538da6aceb5718e0f04cc2bfad20",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rondo Energy and Rio Tinto Advance Australia's Largest Thermal Energy Storage Project",
+            "summary": "Rondo Energy and Rio Tinto have started front-end engineering and design on the project for a 360 MWh storage / 30 MW discharge Rondo Heat Battery, supported by a grant from the Australian Renewable Energy Agency (ARENA).",
+            "published_at": "2026-10-20T22:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d1ddd0cbb6ee9f26f67273b25c3f190336dec9054a3966c388e7d42e5fce8fe1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FTSE 100 today: Stocks lower despite oil slide",
+            "summary": "Investing.com -- British stocks edged slightly lower on Tuesday, regaining some ground after a steeper earlier decline, which was the result of oil hitting its highest level since May 5 on reports of tankers striking mines in the Strait of Hormuz, with French unrest adding pressure.",
+            "published_at": "2026-10-20T08:04:08+00:00",
+            "url": "https://finnhub.io/api/news?id=5f448f21ca1b81337bd6082ae1341207d9cd79beb53d73d9b50a9349ceff3162",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Projects Signal AI Copper Use May Triple by 2028, Trafigura Says' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-20/projects-signal-ai-copper-use-may-triple-by-2028-trafigura-says",
+            "published_at": "2026-10-20T06:54:05+00:00",
+            "url": "https://finnhub.io/api/news?id=8b7aac8f19e410383829df51907e8b79ef8fa876b251ca41bba0858ed3037675",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "'Codelco Sets European Copper Premium at Record $350 a Ton'- Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-20/codelco-sets-european-copper-premium-at-record-350-a-ton",
+            "published_at": "2026-10-20T06:53:04+00:00",
+            "url": "https://finnhub.io/api/news?id=0cd4acacbce3f9e88430a9628aebd8829f08b6363f8c12f8dbfc9a714372d2a2",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 88.16,
+      "jev": null
+    },
+    {
+      "ticker": "GBDC",
+      "predicted_return": 0.28232192887808233,
+      "open_price": 12.0,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.157740+00:00",
+        "articles": []
+      },
+      "prev_close": 12.0,
+      "jev": null
+    },
+    {
+      "ticker": "BKV",
+      "predicted_return": 0.27844134594771347,
+      "open_price": 22.39,
+      "snapshot_date": "2026-10-20",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-21T13:34:47.157761+00:00",
+        "articles": [
+          {
+            "headline": "3 Cash-Burning Stocks We Steer Clear Of",
+            "summary": "Companies that burn cash at a rapid pace can run into serious trouble if they fail to secure funding. Without a clear path to profitability, these businesses risk dilution, mounting debt, or even bankruptcy.",
+            "published_at": "2026-10-20T13:17:50+00:00",
+            "url": "https://finnhub.io/api/news?id=1788e679c10b1c1e4a7180a9d9cde0eea979fe739b4c578d7af13558997b704d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 22.65,
+      "jev": null
+    }
+  ],
+  "scored_count": 1871,
+  "skipped": [
+    {
+      "ticker": "META",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TSLA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LRCX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NFLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TMO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IBM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "T",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ISRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CME",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ELV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MMM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "URI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WAB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NTRS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LVS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TDY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SYF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KEY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EFX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PKG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LUV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DOC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPCX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EWBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MEDP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PNFP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CACI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SEIC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GGG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ELS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EGP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SSB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ONB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ESI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VICR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBSH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LAD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FAF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WFRD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HXL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UBSI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EPRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HWC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PEGA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MKTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OZK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UNF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FULT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LAZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TCBI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UCB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CATY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SLG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MHO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NIC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BKU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ADX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KALU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WDFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BBT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRME",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BANR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EFSC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ARR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OFG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NTST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XPRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GTY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 24.066785183981303
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.230240282384033
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 5.739479402923243
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-20",
+    "model_trained_through": "2026-10-20",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

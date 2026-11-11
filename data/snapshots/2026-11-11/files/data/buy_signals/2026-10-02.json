@@ -1,0 +1,3216 @@
+{
+  "as_of": "2026-10-02",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "FICO",
+      "predicted_return": 0.06645788482070798,
+      "open_price": 611.510009765625,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 21,
+        "reviewed_count": 21,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918135+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Stocktwits Wall Street Wrap: Analysts Turn Bullish On Sweetgreen, Target And Airbnb \u2013 Liquidia And FICO Face Downgrades",
+            "summary": "The changes reflect new views on restaurant demand, retail traffic, travel growth, drug risks and competition in financial data.",
+            "published_at": "2026-10-02T10:40:36+00:00",
+            "url": "https://finnhub.io/api/news?id=e651a0a7fe0766f91473db1c520cf4130c2a1a9d2bb6b9de54156e555e132353",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Accenture Silences the AI Skeptics, Nike Warns the Pain Isn't Over",
+            "summary": "Wall Street ended Thursday barely higher as yields eased from 24-year highs and Fed officials signaled patience. Accenture posted its best day ever, Synopsys landed AI chip deals, Mattel drew takeover interest and Nike cut its outlook after the close.",
+            "published_at": "2026-10-02T10:39:47+00:00",
+            "url": "https://finnhub.io/api/news?id=edfb258113299bc729c0988e637af84ee3891556c48037d1750b4142ecf69bd9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Why Is Equifax (EFX) Facing New Pressure In Mortgage Credit Scores?",
+            "summary": "Equifax (NYSE:EFX) faces fresh competition as Fannie Mae and Freddie Mac move to include VantageScore in mortgage underwriting in 2026. The Federal Housing Finance Agency is directing Fannie and Freddie to use a single pricing grid that applies to both VantageScore and FICO models. Major originators such as Rocket Mortgage are preparing to adopt the dual-score framework, reshaping demand for traditional mortgage credit reports. The shift to VantageScore alongside FICO could alter Equifax's...",
+            "published_at": "2026-10-02T09:08:53+00:00",
+            "url": "https://finnhub.io/api/news?id=769652adcb2aef30f2c11508a88b588830cc1f4940adab01c1c2f880220fd18d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wall Street Breakfast Podcast: No Sprint For Nike Yet",
+            "summary": "Nike\u00e2\u0080\u0099s China slump is getting harder to outrun. Moderna is joining the Nasdaq-100. The mortgage industry is bracing for a credit-reporting shake-up.",
+            "published_at": "2026-10-02T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=33105858c73d24ffa69d7314514aa04fa9df16d5b28f255dd608b8dc69a9abdd",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Massive News for FICO Stock Investors Sending Shares Crashing",
+            "summary": "Fair Isaac Corporation (FICO) is losing its dominant position in the home mortgage industry, a development long feared by investors. The stock experienced significant volatility, with shares crashing despite closing up 11.69% on September 29, 2026.",
+            "published_at": "2026-10-02T04:27:35+00:00",
+            "url": "https://www.fool.com/investing/2026/10/02/massive-news-for-fico-stock-investors-sending-shar/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "FICO stock tumbles on report of credit bureau requirement change",
+            "summary": "Investing.com -- Fair Isaac (NYSE) shares fell 7% after hours Thursday, while TransUnion (NYSE) dropped 6%, following a Bloomberg report that the Federal Housing Finance Agency plans to direct Fannie Mae and Freddie Mac to require lenders to pull credit data from two major credit reporting bureaus instead of three.",
+            "published_at": "2026-10-01T21:11:22+00:00",
+            "url": "https://finnhub.io/api/news?id=0466db443f5492721b879662810b9bf3126a5f616a046de2cbf95199b0aad871",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's after hours session",
+            "summary": "After the conclusion of the US market's regular session on Thursday, let's examine the after-hours session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-01T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f1be76bebeb50c43958c5a72ad6a0ad94184f239ae51aeb960ac6714e6d44b47",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "What's going on in today's session: S&P500 movers",
+            "summary": "Get insights into the S&P500 index performance on Thursday. Explore the top gainers and losers within the S&P500 index in today's session.",
+            "published_at": "2026-10-01T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=21e7c6c97b4fdc288ec01fde3118e7f17351046c80c29bdde18a9b184c48edba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fair Isaac stock continues to whipsaw, falling 8% in premarket trading",
+            "summary": "Stock in Fair Isaac Corp. rose 11% on Thursday.",
+            "published_at": "2026-10-01T17:53:47+00:00",
+            "url": "https://finnhub.io/api/news?id=8a8468542a03b40d6ab8402616f57005c9f1506f5215938d0cdffbf8ed996771",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fair Isaac stock pops 11% 2 days after rout, even as BofA cuts price target",
+            "summary": "Stock in Fair Isaac Corp. rose 11% on Thursday.",
+            "published_at": "2026-10-01T17:53:47+00:00",
+            "url": "https://finnhub.io/api/news?id=18f9f7d885da1784d714b9d5800243346a24520fb3fbb5937becadce232ddbb6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fair Isaac Stock Is Surging After Its Worst Quarter on Record. Has the Stock Bottomed?",
+            "summary": "Fair Isaac  investors might be experiencing a bit of whiplash.  Fresh off the stock\u2019s worst quarterly performance on record, shares surged 12% to $661.40 on Thursday.  The only question for investors to ask is if shares of Fair Isaac, maker of the FICO score, have finally bottomed after falling more than 48% in September.",
+            "published_at": "2026-10-01T17:26:00+00:00",
+            "url": "https://finnhub.io/api/news?id=26bef2ec6d77d4e4f9727dc25fd794b69776afbb5defa0a7910abd2db73b44ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Thursday? Find out below.",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing unusual volume in today's session.",
+            "published_at": "2026-10-01T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5af166e348ebf43b177060b23d5ecef260704514d9e06d0ab120a3d153a247ba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Thursday?",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Thursday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-01T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=b20e08d06594043d73774dff90800dc69a3fc3d1ae58095ba1758b392220c4e2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Micron, Accenture, Google, IBM, Fair Isaac, Synopsys, and More Stocks That Explain Today\u2019s Market",
+            "summary": "FEATURE  Stocks fell Thursday as bond yields continued to rise after notching their largest quarterly gain since 1994.  Micron dropped 1.9% after the company posted a stellar fiscal fourth-quarter earnings report.",
+            "published_at": "2026-10-01T16:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=40f43c5bdd8cb0f0f971cfb34654a6ba67e41599411f4865bc4fac9de53682ca",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Reasons Investors Love Fair Isaac Corporation (FICO)",
+            "summary": "What a brutal six months it\u2019s been for Fair Isaac Corporation. The stock has dropped 44.3% and now trades at a new 52-week low of $591.41, rattling many shareholders. This was partly due to its softer quarterly results and might have investors contemplating their next move.",
+            "published_at": "2026-10-01T16:21:07+00:00",
+            "url": "https://finnhub.io/api/news?id=c7182cff638b7b0ee78cdbb018efe85ffee8b8ed2ba7b279e0273c9d484530d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bank of America Cut Its Fair Isaac Price Target in Half and the Stock Still Fell Below It",
+            "summary": "Bank of America slashed its Fair Isaac price target by half, yet the stock kept falling right through it. What regulators just changed about mortgage credit scoring may have permanently altered the case for owning FICO.",
+            "published_at": "2026-10-01T16:15:13+00:00",
+            "url": "https://finnhub.io/api/news?id=a1352b82bca49c77b689c81e14c91333a42a5cdab8c781e8fa2ee22aa0eb1623",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Fair Isaac Stock Is Surging After Its Worst Quarter on Record",
+            "summary": "Fair Isaac  investors would be forgiven if they felt like they had whiplash.  Fresh off the stock\u2019s worst quarterly performance on record, shares surged 9.5% to $648.12 on Thursday.  The only question for investors to ask is if shares of  Fair Isaac  maker of the FICO score, have finally bottomed after falling more than 48% in September.",
+            "published_at": "2026-10-01T15:44:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c81e983c17fff45a6e74b92e27842f8ad15133b0970fec3ab80087733cde0f30",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are gapping in today's session",
+            "summary": "Looking for the S&P500 stocks that are experiencing notable gaps on Thursday? Find out which stocks are gapping up and gapping down in the S&P500 index during today's session.",
+            "published_at": "2026-10-01T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=59a342f752939553f2e3d8e29e06764b348e36d80fb4ad00f938a1f983b96856",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "These S&P500 stocks that are showing activity before the opening bell on Thursday.",
+            "summary": "Get insights into the top gainers and losers in the S&P500 index of Thursday's pre-market session.",
+            "published_at": "2026-10-01T12:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=ace4b2f3f3fd668409306a2215d72dda895057955977573c5dc20756d2777d51",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fair Isaac: 75% Decline Is Enough",
+            "summary": "Fair Isaac Corporation is, without a doubt, the most popular consumer credit score. Learn why FICO stock is a buy.",
+            "published_at": "2026-10-01T08:28:58+00:00",
+            "url": "https://finnhub.io/api/news?id=f6cf3fc292b6a3dab61069cc524c9cbf3882ab2cf4099e874c401ea16070832e",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 661.75
+    },
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.03209133126740743,
+      "open_price": 26.690000534057617,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication",
+        "article_count": 14,
+        "reviewed_count": 14,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:00.919169+00:00",
+        "articles": [
+          {
+            "headline": "Liquidia Shares Tank On Patent Court Loss, Rivals May Just Be Getting Started",
+            "summary": "",
+            "published_at": "2026-10-02T08:27:35+00:00",
+            "url": "https://finnhub.io/api/news?id=031dfb027f7a995591589964d51bbf80564408a756ddde9ffafc9097937596e4",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Stocks making big moves yesterday: United Therapeutics, Moderna, Jabil, Concentrix, and FactSet",
+            "summary": "Check out the companies making headlines yesterday:",
+            "published_at": "2026-10-01T20:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=87f52e78ca0d8ccab73f60658fea15421ce2a674c7f5064cb48cbd8f1213d931",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LQDA Stock On Track For Worst Week Ever As Analysts Say The Yutrepia Patent Loss Clouds Its Path",
+            "summary": "U.S. District Judge Richard G. Andrews of the District of Delaware found on Wednesday that Liquidia induces infringement of claims 1 and 14 of United Therapeutics\u2019 U.S. Patent No. 11,826,327.",
+            "published_at": "2026-10-01T18:07:43+00:00",
+            "url": "https://finnhub.io/api/news?id=c7ecbd8eb8391ca24af187fbcf8c095e4952bea00b88b71a878fdb089e90323f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Stock Plunges 57% on UTHR Patent Litigation Setback",
+            "summary": "LQDA faces a major setback as a patent ruling threatens Yutrepia's PH-ILD indication and creates uncertainty around its commercial outlook.",
+            "published_at": "2026-10-01T16:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=444780a77d713c713f1062fae18e6b4c080e474175c5c32e50d2291833c6ac24",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Stock Extends Slide Following US Court Ruling in Patent Dispute",
+            "summary": "Shares of Liquidia Corp (NASDAQ:LQDA) are sliding Thursday morning, extending a sell-off triggered by an adverse federal court patent ruling in its ongoing legal dispute with rival United Therapeutics. Here\u2019s what investors need to know. Liquidia stock is feeling bearish pressure. Why is LQDA stock dropping? Federal District Court Patent Ruling The primary driver behind Thursday\u2019s weakness is a ruling issued Wednesday by the U.S. District Court for the District of Delaware in ongoing Hatch-Waxma",
+            "published_at": "2026-10-01T16:03:20+00:00",
+            "url": "https://finnhub.io/api/news?id=752a8632da3f30557dc9e27caa92d2215dd7061381dca509b47042ae8339bb30",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UTHR Prevails in LQDA's Yutrepia Patent Dispute, Stock Up Nearly 13%",
+            "summary": "United Therapeutics secures a key patent ruling against Liquidia, potentially limiting Yutrepia's PH-ILD use and reducing competition for its Tyvaso products.",
+            "published_at": "2026-10-01T15:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e8243a4834238d7c0f58d6a9cc64edde5a43d1efc7a3e8f6fb5f62b8a94a4916",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "United Therapeutics Won Its Patent War and Liquidia Collapsed",
+            "summary": "A single court ruling sent one pulmonary hypertension drugmaker soaring and left its rival fighting for survival, but the legal battle over Yutrepia's future is far from settled.",
+            "published_at": "2026-10-01T15:07:12+00:00",
+            "url": "https://finnhub.io/api/news?id=1821602305f2a49643beca558909c4755611b07584805c7328e6d6203eb465da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Sinks Another 17% as BofA Cuts Target to $40 From $92 After Court Loss",
+            "summary": "Key TakeawaysLiquidia shares are down 14% after BofA cut its price target to $40 from $92, and BTIG and Raymond James both downgraded the stock. The drop follows Wednesday\u2019s roughly 57% crash, after a Delaware court ruled that Yutrepia infringes two claims of a United Therapeutics patent.",
+            "published_at": "2026-10-01T14:14:24+00:00",
+            "url": "https://finnhub.io/api/news?id=ac49b6f0a4eb365890450be980972bb290affb3794d484a0a30bf7527e2a5c15",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Exxon Mobil downgraded, BP upgraded: Wall Street's top analyst calls",
+            "summary": "Exxon Mobil downgraded, BP upgraded: Wall Street's top analyst calls",
+            "published_at": "2026-10-01T13:38:06+00:00",
+            "url": "https://finnhub.io/api/news?id=5d5953131721a88f722b7a6e427349b870531e20af1c034150db5bb9a35e2726",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "12 Health Care Stocks Moving In Thursday's Pre-Market Session",
+            "summary": "Gainers\n\nDataMEDS AI (NASDAQ:MEDS) stock moved upwards by 39.4% to $4.42 during Thursday&#39;s pre-market session. The company&#39;s market cap stands at $10.1 million. \nStablecoin Development (AMEX:SDEV) shares moved",
+            "published_at": "2026-10-01T08:05:51+00:00",
+            "url": "https://finnhub.io/api/news?id=622bf7afadfdf82ff21af8188a513205f0b1fc9b44187d15047a80ec12414b47",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Progress Software, Nft And Other Big Stocks Moving Lower In Thursday\u2019s Pre-Market Session",
+            "summary": "U.S. stock futures were mixed as Progress Software fell after results; Corteva, NFT, Vivakor and other stocks also dropped in premarket trading.",
+            "published_at": "2026-10-01T08:01:10+00:00",
+            "url": "https://finnhub.io/api/news?id=7b91a84a79015100f20d3d0f74f510fe1d3c6ba00af68cbe4aee888404b1e431",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "BTIG Downgrades Liquidia to Neutral",
+            "summary": "BTIG  analyst Julian Harrison   downgrades Liquidia (NASDAQ:LQDA) from Buy to Neutral.",
+            "published_at": "2026-10-01T06:01:29+00:00",
+            "url": "https://finnhub.io/api/news?id=8ab731de076c0eff95571af1e3222384b4ed004ddbca6cc37544f95777b65f0e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Needham Maintains Buy on Liquidia, Lowers Price Target to $72",
+            "summary": "Needham  analyst Serge Belanger   maintains Liquidia (NASDAQ:LQDA) with a Buy and lowers the price target from $110 to $72.",
+            "published_at": "2026-10-01T05:15:54+00:00",
+            "url": "https://finnhub.io/api/news?id=a3566b6f3dcaadedd0247daffa1c431b222378334c56afbc2eed20c10e2064fa",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Liquidia Stock Crashed 57% in a Day After a Delaware Court Ruling. An Appeal Could Decide Whether Shares Rebound.",
+            "summary": "Why Liquidia Stock Crashed 57% on Wednesday\u2019s Patent Ruling Against YutrepiaLiquidia (LQDA:NASDAQ) stock crashed 57% on Wednesday, September 30, after a Delaware court ruled that Yutrepia infringes two valid claims of United Therapeutics\u2019 \u2018327 patent. Those claims cover treating pulmonary hypertension with interstitial lung disease (PH-ILD) using inhaled treprostinil, and the court struck down the rest.",
+            "published_at": "2026-10-01T05:03:04+00:00",
+            "url": "https://finnhub.io/api/news?id=51bc32a3ecae26ef74d09847931438de79a23fbfa51d30dc42c74cf4a03591dd",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 28.030000686645508
+    },
+    {
+      "ticker": "WIX",
+      "predicted_return": 0.01715962253345238,
+      "open_price": 73.9800033569336,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.052847+00:00",
+        "articles": [
+          {
+            "headline": "Wix.com (WIX) Surpasses Market Returns: Some Facts Worth Knowing",
+            "summary": "In the latest trading session, Wix.com (WIX) closed at $73.35, marking a +1.69% move from the previous day.",
+            "published_at": "2026-10-01T21:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=065a179b21f46d84e9c17c7022d0eb0a613d1d34d182558d41247730cf250dbd",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 73.30000305175781
+    },
+    {
+      "ticker": "STX",
+      "predicted_return": 0.011653101755970176,
+      "open_price": 820.8699951171875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918569+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, Oil Prices Fall With Tesla, Jobs Report Due; Micron In Buy Area",
+            "summary": "Stock market rises slightly off key levels with Micron, Lumentum around buy points. Tesla deliveries, jobs report loom.",
+            "published_at": "2026-10-02T11:54:36+00:00",
+            "url": "https://finnhub.io/api/news?id=98089d435a6a58c165f54da2c6a15983c2ff03e62599bed7e71f2e496892842f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SanDisk (SNDK) vs. Seagate (STX): Which Storage Stock Is the Better Buy Right Now?",
+            "summary": "The AI trade is moving beyond GPUs. As AI models become more capable, they also generate, process, and retain massive amounts of data. That is creating a less glamorous but increasingly important question for data centers: where does all that data go? SanDisk Corporation (NASDAQ:SNDK) and Seagate Technology Holdings plc (NASDAQ:STX) offer two very different [\u2026]",
+            "published_at": "2026-10-02T02:59:05+00:00",
+            "url": "https://finnhub.io/api/news?id=783eb036d317298fb4814605b0f7db6791b5414dec30a7926712b156180392d6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Toshiba to double hard disk output capacity amid AI data centre demand - Nikkei",
+            "summary": "Investing.com-- Japanese technology group Toshiba (TYO:6588) plans to double production capacity for hard disk drives (HDDs) used in artificial intelligence data centres by fiscal 2027, as the AI boom drives demand for high-capacity storage, Nikkei reported on Friday.",
+            "published_at": "2026-10-02T02:33:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e947e4dd0eac5c1562f587d9fa503f3f4119d582e5dbadfd4dc726e83511b9ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did SanDisk Stock Jump?",
+            "summary": "SanDisk (SNDK) stock jumped 11.0% on Friday, September 18, 2026, its last trading day before joining the S&P 100. By the September 30 close of $1,739.89, the shares were about 3% below their September 18 close. SanDisk's last quarterly report came in early August, so the jump did not follow new results. So what drove it, and what does the price assume now.",
+            "published_at": "2026-10-02T00:01:58+00:00",
+            "url": "https://finnhub.io/api/news?id=256266dd661d1979a3c1a2ab118571b05853fee761e293f70f90d4fc843d1e2f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 of Wall Street\u2019s Favorite Stocks for Long-Term Investors and 1 We Find Risky",
+            "summary": "Wall Street has set ambitious price targets for the stocks in this article. While this suggests attractive upside potential, it\u2019s important to remain skeptical because analysts face institutional pressures that can sometimes lead to overly optimistic forecasts.",
+            "published_at": "2026-10-01T17:25:07+00:00",
+            "url": "https://finnhub.io/api/news?id=88c54aa87ebb55c6d1d5ad2c48d35140593141093cf86000fa13a95d58ebe948",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Needs Massive Storage. Seagate Is Ready",
+            "summary": "Seagate has already surged over 230% this year on the back of record margins and nearly sold-out capacity, but the real question now is whether the stock still has room to run or has simply gotten too far ahead of itself.",
+            "published_at": "2026-10-01T15:30:29+00:00",
+            "url": "https://finnhub.io/api/news?id=0cdb66a0a874d28ef5cae8b94079fdcfc7fb61adffa33d8d83475100402a76ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Slips 3% Despite Record Quarter and Above-Consensus Guidance; Western Digital Dips, SK Hynix Drifts",
+            "summary": "Micron just delivered the kind of quarter that should send a stock soaring, yet sellers showed up anyway. What the market's reaction reveals about where memory stocks go from here deserves a closer look.",
+            "published_at": "2026-10-01T14:16:36+00:00",
+            "url": "https://finnhub.io/api/news?id=4ad56350b2199d096019e555205b48d2ca3f6b1c85dcc52ab14f89ee11877352",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk Is Selling The Top Of Its Edge Business",
+            "summary": "Sandisk Corporation pivots from Edge/Consumer NAND to multi-year data center contracts to cut cycles. Click for more on the SNDK stock.",
+            "published_at": "2026-10-01T13:37:47+00:00",
+            "url": "https://finnhub.io/api/news?id=c25670361454c184fda831812684d41bc2c38ba6258fe680ec9ae73840723e43",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Memory\u2019s Valuation Gap: Cheap Pure Plays Face Earnings Test as Storage Peers Re-Rate",
+            "summary": "Memory upcycle: Micron, Sandisk trade at low forward P/E while Seagate, Western Digital re-rated. Key debate: durable earnings vs peak-cycle risk.",
+            "published_at": "2026-10-01T12:35:59+00:00",
+            "url": "https://finnhub.io/api/news?id=3f568b1eff095935d586073056928db9b76cea9fef264f4b2d785d1f749193b9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, S&P 500 Finds Key Support As Micron Earnings Crush Views; Oil Prices, Treasury Yields In Focus",
+            "summary": "Futures: The S&P 500 is trying to bounce off its 50-day line amid high oil prices and Treasury yields. Micron earnings easily beat.",
+            "published_at": "2026-10-01T11:53:17+00:00",
+            "url": "https://finnhub.io/api/news?id=b93e8f88558ad486df4a8905d374656b0c7d744546d6cba83f30821413876c8d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Q4: Nothing Negative Here",
+            "summary": "Micron Technology, Inc. reported strong fiscal Q4 results, handily beating estimates on the top and bottom lines. Learn more about MU stock here.",
+            "published_at": "2026-10-01T11:44:04+00:00",
+            "url": "https://finnhub.io/api/news?id=9c4adf43e2baa1d696afeb4a9905cb6f04c6e8978ba29eee75b70a5a1e32af4a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 945.5700073242188
+    },
+    {
+      "ticker": "WDC",
+      "predicted_return": 0.01012081564935908,
+      "open_price": 423.20001220703125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 16,
+        "reviewed_count": 16,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918768+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, Oil Prices Fall With Tesla, Jobs Report Due; Micron In Buy Area",
+            "summary": "Stock market rises slightly off key levels with Micron, Lumentum around buy points. Tesla deliveries, jobs report loom.",
+            "published_at": "2026-10-02T11:54:36+00:00",
+            "url": "https://finnhub.io/api/news?id=98089d435a6a58c165f54da2c6a15983c2ff03e62599bed7e71f2e496892842f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Toshiba to double hard disk output capacity amid AI data centre demand - Nikkei",
+            "summary": "Investing.com-- Japanese technology group Toshiba (TYO:6588) plans to double production capacity for hard disk drives (HDDs) used in artificial intelligence data centres by fiscal 2027, as the AI boom drives demand for high-capacity storage, Nikkei reported on Friday.",
+            "published_at": "2026-10-02T02:33:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e947e4dd0eac5c1562f587d9fa503f3f4119d582e5dbadfd4dc726e83511b9ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Micron Set Off An October Volatility Spike?",
+            "summary": "September switched gears from negative to positive very quickly. Once again, the positive market performance was driven by the technology sector.",
+            "published_at": "2026-10-02T00:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=37218a4580cdad1cc82ddd85f2e2e2b92e4d8527b7b3c276a86f8c6a03350e91",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Why Did SanDisk Stock Jump?",
+            "summary": "SanDisk (SNDK) stock jumped 11.0% on Friday, September 18, 2026, its last trading day before joining the S&P 100. By the September 30 close of $1,739.89, the shares were about 3% below their September 18 close. SanDisk's last quarterly report came in early August, so the jump did not follow new results. So what drove it, and what does the price assume now.",
+            "published_at": "2026-10-02T00:01:58+00:00",
+            "url": "https://finnhub.io/api/news?id=256266dd661d1979a3c1a2ab118571b05853fee761e293f70f90d4fc843d1e2f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital (WDC) Exceeds Market Returns: Some Facts to Consider",
+            "summary": "In the most recent trading session, Western Digital (WDC) closed at $462.56, indicating a +1.78% shift from the previous trading day.",
+            "published_at": "2026-10-01T21:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=b62e029b2ebbe35aa8ea500b1b4f000a2861329576d8ba505aa871eb2fbdc726",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Stocks With Accelerating Earnings Poised to Soar in October",
+            "summary": "Western Digital, PACCAR and Sprout Social show accelerating earnings growth, a trend that can precede stock price gains and signal stronger momentum.",
+            "published_at": "2026-10-01T18:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=cf3875cc170fc901d0a778f0a2d500e287203bef19197c270df1fbea454c6eec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Needs Massive Storage. Seagate Is Ready",
+            "summary": "Seagate has already surged over 230% this year on the back of record margins and nearly sold-out capacity, but the real question now is whether the stock still has room to run or has simply gotten too far ahead of itself.",
+            "published_at": "2026-10-01T15:30:29+00:00",
+            "url": "https://finnhub.io/api/news?id=0cdb66a0a874d28ef5cae8b94079fdcfc7fb61adffa33d8d83475100402a76ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SMCI or WDC: Which Is the Better Value Stock Right Now?",
+            "summary": "SMCI vs. WDC: Which Stock Is the Better Value Option?",
+            "published_at": "2026-10-01T14:40:02+00:00",
+            "url": "https://finnhub.io/api/news?id=65a59140879dbbdfe4911bd56d8f6e25c1a6af75fe3aadf632a4a33d2a5ad8e6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Slips 3% Despite Record Quarter and Above-Consensus Guidance; Western Digital Dips, SK Hynix Drifts",
+            "summary": "Micron just delivered the kind of quarter that should send a stock soaring, yet sellers showed up anyway. What the market's reaction reveals about where memory stocks go from here deserves a closer look.",
+            "published_at": "2026-10-01T14:16:36+00:00",
+            "url": "https://finnhub.io/api/news?id=4ad56350b2199d096019e555205b48d2ca3f6b1c85dcc52ab14f89ee11877352",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk Is Selling The Top Of Its Edge Business",
+            "summary": "Sandisk Corporation pivots from Edge/Consumer NAND to multi-year data center contracts to cut cycles. Click for more on the SNDK stock.",
+            "published_at": "2026-10-01T13:37:47+00:00",
+            "url": "https://finnhub.io/api/news?id=c25670361454c184fda831812684d41bc2c38ba6258fe680ec9ae73840723e43",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Top 3 AI Stocks With Revenue Growth Over 20%",
+            "summary": "Bond yields are surging to levels not seen in decades, which makes borrowing more expensive for companies that depend on heavy spending. That shifts attention toward businesses already wired into the physical buildout of artificial intelligence, from power-hungry data centers to high-capacity fiber links. This piece explains why that could matter for your portfolio and highlights 3 stocks from a specialist AI infrastructure screener that may warrant a closer look. The three stocks in this...",
+            "published_at": "2026-10-01T13:10:10+00:00",
+            "url": "https://finnhub.io/api/news?id=a7a6e6dc30af41cc3f726f312bbd985699967a834a74fa679b96cc124906df45",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Play Sandisk Correctly As It Moves Sideways And Slightly Upward",
+            "summary": "Sandisk has surged over 600% this year on AI-driven storage demand and record margins, but the contracts protecting its downside may also be capping its ceiling. Whether this stock can push higher depends on one thing investors are watching very closely.",
+            "published_at": "2026-10-01T12:45:13+00:00",
+            "url": "https://finnhub.io/api/news?id=55e106427436339a38e2acb95116eb76a53512b53424c51ec0f109d444f9c6f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Western Digital (WDC) is a Top Growth Stock for the Long-Term",
+            "summary": "Recent economic data shows PCE inflation came in softer than expected while Q2 GDP exceeded expectations. Market attention is now focused on the upcoming Friday employment report, which could significantly impact investment decisions and market direction.",
+            "published_at": "2026-10-01T12:45:04+00:00",
+            "url": "https://www.zacks.com/stock/news/2998867/why-western-digital-wdc-is-a-top-growth-stock-for-the-long-term?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_growth_score-2998867",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Memory\u2019s Valuation Gap: Cheap Pure Plays Face Earnings Test as Storage Peers Re-Rate",
+            "summary": "Memory upcycle: Micron, Sandisk trade at low forward P/E while Seagate, Western Digital re-rated. Key debate: durable earnings vs peak-cycle risk.",
+            "published_at": "2026-10-01T12:35:59+00:00",
+            "url": "https://finnhub.io/api/news?id=3f568b1eff095935d586073056928db9b76cea9fef264f4b2d785d1f749193b9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Micron Q4: Nothing Negative Here",
+            "summary": "Micron Technology, Inc. reported strong fiscal Q4 results, handily beating estimates on the top and bottom lines. Learn more about MU stock here.",
+            "published_at": "2026-10-01T11:44:04+00:00",
+            "url": "https://finnhub.io/api/news?id=9c4adf43e2baa1d696afeb4a9905cb6f04c6e8978ba29eee75b70a5a1e32af4a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 462.55999755859375
+    },
+    {
+      "ticker": "STLA",
+      "predicted_return": 0.007279257359569507,
+      "open_price": 4.494999885559082,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:26.053098+00:00",
+        "articles": [
+          {
+            "headline": "Stellantis (BIT:STLAM) Stock Gets Fair Value Trim As Analysts Weigh Risks And Supports",
+            "summary": "Stellantis now sits on a slightly lower fair value estimate in this model, with the central price target moving from about \u20ac5.78 per share to about \u20ac5.61 per share. Analysts link this adjustment to a mix of potential supports for valuation and a long list of execution risks around product, inventories and regional performance that you need to weigh carefully. Read on to see what is driving this evolving narrative and how you can follow it as new data and opinions emerge. Stay updated as the...",
+            "published_at": "2026-10-02T05:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=16af57fbdcd7c3fea116c0dbb40e8d83bae7d8995d79284a84743248acda5e4c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis (BIT:STLAM) Has The Market Asking A Bigger Question",
+            "summary": "Stellantis (BIT:STLAM) just reported second quarter vehicle sales of 324,277 units, broadly in line with last year, while year to date deliveries reached 958,463 vehicles, slightly above the prior period. Stellantis shares trade at \u20ac3.8485 after a sharp reset, with the 30-day share price return down 17.09% and the year-to-date move down 60.39%, while the 1-year total shareholder return has fallen 56.35%. This suggests that recent sales resilience and product launches have not yet shifted...",
+            "published_at": "2026-10-01T22:06:42+00:00",
+            "url": "https://finnhub.io/api/news?id=de8d650937f940252d4b8b352aaa20c40bde301a77f70b01daf51ac3a6751a25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today, Oct. 1: Stellantis Surges Off Record Low on Ram Pickup Sales Jump",
+            "summary": "On Oct. 1, 2026, the automaker's U.S. truck demand strength drove shares higher as investors eyed results from its turnaround plan.",
+            "published_at": "2026-10-01T21:38:16+00:00",
+            "url": "https://finnhub.io/api/news?id=46480b9fbb18d3f1d1f1059172b610b48d138155242ab968bc24cff39327e3d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis sales flat as Ram surges, Jeep struggles",
+            "summary": "Stellantis sales remained flat in the third quarter, ending a four-quarter streak of growth for the company.",
+            "published_at": "2026-10-01T19:02:02+00:00",
+            "url": "https://finnhub.io/api/news?id=4e8f9617127793af63bf2cc65751c9fe30c066d2fb6fe7765e7af911ff744143",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis Reports Q3 Sales",
+            "summary": "Stellantis Reports Q3 Sales",
+            "published_at": "2026-10-01T18:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=01b6f006068d81ce7c3e457dccea4557ed77b979e9345542059ce16ff748e5ce",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is Stellantis (BIT:STLAM) Halting EV Production At Four French Plants?",
+            "summary": "Stellantis (BIT:STLAM) temporarily halted production at four French plants in October due to a shortage of EV batteries. The affected sites include key facilities that assemble electric models for the European market, disrupting planned output schedules. Union representatives in France have raised concerns about the impact of the stoppages on shift patterns and worker income security. The temporary production halt at four French EV plants is only one piece of the wider Stellantis story. Our...",
+            "published_at": "2026-10-01T16:10:09+00:00",
+            "url": "https://finnhub.io/api/news?id=b9c46e076e1ee69d125886dc5330b9814cc77edb74b77849eccce19766f3803f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Behind the Multibillion-Dollar Turnaround: 3 Catalysts Positioning This Stock to Race Ahead",
+            "summary": "There are three overlooked aspects to the early innings of Stellantis' global turnaround, but here's why the stock could race ahead in the near term.",
+            "published_at": "2026-10-01T14:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=469853b360fd4eaaceb8a89e7ea313da5bcfdc5f1a66247b0ba9e0ed7a3d0e50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "myKaarma Earns Stellantis Mopar Service Gateway Certification, Expanding Connected Service Lane Capabilities",
+            "summary": "myKaarma, the leading customer interaction and payments platform for automotive dealerships, today announced it has earned certification as a Service Lane Technology (SLT) partner for Stellantis' Mopar Service Gateway (MSG). The certification connects myKaarma with MSG, bringing Stellantis service appointments and OEM vehicle data into the service process, expanding the information available to dealership teams.",
+            "published_at": "2026-10-01T12:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6eb065fecb114b76fcbaf4a872c95c3607ecbb5a17b410d76fc9b931496912a9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Key Reasons to Buy This Huge Turnaround Story That's Gaining Traction",
+            "summary": "After shedding roughly 75% of its value during the past three years, it might not take much improvement for Stellantis' stock price to pop.",
+            "published_at": "2026-10-01T09:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=30e0ef84e558b0bfe0bb0e07055147e8cc5ca735aceebb0e136e4175eca0a174",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis to halt output at four French plants in October \u2013 report",
+            "summary": "A Stellantis representative told Bloomberg the Sochaux plant will shut from 23 to 30 October and Rennes from 22 to 30 October.",
+            "published_at": "2026-10-01T08:25:04+00:00",
+            "url": "https://finnhub.io/api/news?id=cd12c4665ee51ded195cfff9ec61e956fa833175b0c5d6a9eb13ae6003d4510e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 4.684999942779541
+    },
+    {
+      "ticker": "TH",
+      "predicted_return": 0.007139429125203557,
+      "open_price": 19.149999618530273,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:00.919021+00:00",
+        "articles": [
+          {
+            "headline": "What's going on in today's after hours session",
+            "summary": "After the conclusion of the US market's regular session on Thursday, let's examine the after-hours session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-01T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f1be76bebeb50c43958c5a72ad6a0ad94184f239ae51aeb960ac6714e6d44b47",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 20.479999542236328
+    },
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.007052167882309299,
+      "open_price": 7.75,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:26.053566+00:00",
+        "articles": [
+          {
+            "headline": "Are Options Traders Betting on a Big Move in Alignment Healthcare Stock?",
+            "summary": "Investors need to pay close attention to ALHC stock based on the movements in the options market lately.",
+            "published_at": "2026-10-01T15:37:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ae76ac023b622a86b2413dc000dc47f6e7a4a7edc1c639a90d9d7f8a2f62f568",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Health Expands Access to Personalized Senior Care in 2027 with New Markets, Provider Networks and Medicare Advantage Plan Options",
+            "summary": "Alignment Health expands into San Antonio, Charlotte and California's Central Valley, bringing its high-tech, high-touch care model to nearly 9.5 million Medicare-eligible seniors across five statesORANGE, Calif., Oct. 01, 2026 (GLOBE NEWSWIRE) -- Alignment Health Plan, an award-winning Medicare Advantage (MA) plan from Alignment Health, today announced its 2027 Medicare Advantage portfolio. As many Medicare Advantage plans scale back their geographic footprint, Alignment is doing the opposite.",
+            "published_at": "2026-10-01T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=710f9c79e202c3d8385377ab9faf6801586957db00d13fa8afd1100c6e8db2d9",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 7.735000133514404
+    },
+    {
+      "ticker": "CTVA",
+      "predicted_return": 0.006763755337375798,
+      "open_price": 12.401399612426758,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "corporate action: Corteva: No Longer Worth Owning Post-Spinoff (Rating Downgrade)",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Corteva: No Longer Worth Owning Post-Spinoff (Rating Downgrade)",
+        "article_count": 24,
+        "reviewed_count": 24,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.053869+00:00",
+        "articles": [
+          {
+            "headline": "Twilio To Join S&P 500 Index",
+            "summary": "Twilio stock will join the benchmark S&P 500 index before the open on Oct. 6, replacing Warner Bros. Discovery.",
+            "published_at": "2026-10-02T09:59:25+00:00",
+            "url": "https://finnhub.io/api/news?id=eab90e8a1a90a594c313b5bd453dcb55bc2f0107681411251c1018629c541b73",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Steady As Traders Weigh Global Factory Strength",
+            "summary": "The Morning Bull - US Market Morning Update Friday, Oct, 2 2026 US stock futures are mixed in early trade, with E-mini S&P 500 contracts roughly flat while Nasdaq-100 futures edge higher. Investors are weighing strong factory readings from Europe, where manufacturing scorecards like the Eurozone PMI sit above 50, against a steady build up in costs that hints at stubborn price pressures. Asia adds another layer, with South Korea\u2019s record export figure and solid manufacturing data supporting...",
+            "published_at": "2026-10-02T08:06:44+00:00",
+            "url": "https://finnhub.io/api/news?id=843b2721a529601a7c4268d35149a66a10c6507a51c83ee799573f9b268e88d3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 New Names Are Joining the S&P 500\u2014and Their Stocks Are Climbing",
+            "summary": "Twilio and Vylor are joining the benchmark index.",
+            "published_at": "2026-10-02T00:42:00+00:00",
+            "url": "https://finnhub.io/api/news?id=abfc7817f6b69f7d2b7b3be2978de1ccc9b7deb946805aaf9fe7633dbc16be49",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vylor Takes Corteva\u2019s S&P 500 Seat, Twilio Set To Replace Warner Bros. Discovery \u2014 Both Stocks Rise After-Hours",
+            "summary": "S&P Dow Jones Indices added Vylor to the S&P 500 immediately and set Twilio to join before the open on Tuesday, pushing Corteva into the MidCap 400.",
+            "published_at": "2026-10-01T22:51:46+00:00",
+            "url": "https://finnhub.io/api/news?id=1be76c55524992140aa98955991d8dd0e4875f3a6b1478371928b5dc1d1255c1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vylor Added to the S&P 500; Twilio Set to Join S&P 500; Others to Join S&P MidCap 400 and S&P SmallCap 600",
+            "summary": "S&P Dow Jones Indices will make the following changes to the S&P 500, S&P MidCap 400, S&P SmallCap 600:",
+            "published_at": "2026-10-01T22:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=be89aee2288d6614a53782ba2b6c34882131c83567eb46ef4c9e32fd0d200f25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top Midday Decliners",
+            "summary": "Corteva (CTVA) said Thursday that a federal court in California denied its request to temporarily bl",
+            "published_at": "2026-10-01T18:44:57+00:00",
+            "url": "https://finnhub.io/api/news?id=c96f1ed39ef88aef7ef304052e4b9502ede24e65fb0d539250c0d8408e71aee1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are the most active in today's session",
+            "summary": "Explore the S&P500 index on Thursday and find out which stocks are the most active in today's session. Stay updated with the stocks that are capturing market interest.",
+            "published_at": "2026-10-01T18:05:03+00:00",
+            "url": "https://finnhub.io/api/news?id=35f1b28483bc25be45bbbc1d4f304bda61a9505adc7cf9cfb33b496671517ee0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Check out the stocks that are attracting the most attention and driving market activity.",
+            "summary": "Thursday's session is buzzing with activity. Check out the stocks that are attracting the most attention and driving market activity!",
+            "published_at": "2026-10-01T18:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=392514d87a7192d11c7c12d9281a5b386d895e60e77b1d76543d11631bd90832",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Thursday? Find out below.",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing unusual volume in today's session.",
+            "published_at": "2026-10-01T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5af166e348ebf43b177060b23d5ecef260704514d9e06d0ab120a3d153a247ba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Corteva: No Longer Worth Owning Post-Spinoff (Rating Downgrade)",
+            "summary": "Corteva, Inc. is rated Sell after spinning off its seed/genetics division, now Vylor, Inc., which was previously rated Buy. Read more on CTVA stock here.",
+            "published_at": "2026-10-01T16:43:52+00:00",
+            "url": "https://finnhub.io/api/news?id=54a4c526b586dd93d53d7e73acfe4469c43f2a67e3d5e0169df5181a2395ecb8",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Stock Market Midday, Oct. 1: Stocks Edge Lower as Treasury Yields Surge to 24-Year High",
+            "summary": "Bond yields hit their highest level in two decades, pressuring blue chip dividend stocks and weighing on the broader market, today, Oct. 1, 2026.",
+            "published_at": "2026-10-01T16:20:33+00:00",
+            "url": "https://finnhub.io/api/news?id=8c29bad414b888ad54769f6de437407f88dbac1694c85437f21feccb43df9fce",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva\u2019s Market Cap Tumbles By Over $42B Today \u2013 CTVA Stock Hits Record Low",
+            "summary": "Corteva\u2019s stock decline reflects the completion of its Vylor spin-off, leaving CTVA focused solely on crop protection.",
+            "published_at": "2026-10-01T14:45:20+00:00",
+            "url": "https://finnhub.io/api/news?id=7931f9b16fb09a8cde9a29623bb4849bfcbd0b99b165731ae87a5923ff194956",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Stock Isn\u2019t Really down 80%",
+            "summary": "Corteva, a farming input maker, is now two companies, Corteva and Vylor. Corteva sells crop protection chemicals. Vylor sells seeds to farmers.",
+            "published_at": "2026-10-01T14:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=293ab27fc9905b0a62be892b662a8f4b41f33bc7a87f96d1de41e3a8a04a728a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Constellation Brands' Pre-Q2 Earnings: Is It Poised to Beat Estimates?",
+            "summary": "STZ heads into Q2'26 with revenue growth expected, beer strength in focus and cost pressures threatening margin expansion.",
+            "published_at": "2026-10-01T14:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f274002b1c5f59cd24dbf686e8872c01163911d1b7683b5fd5f19b4d7b7ecf8c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Separation Into Two Companies Expected to Proceed October 1 After Court Ruling",
+            "summary": "Corteva, Inc. (NYSE:CTVA) said its planned separation into two independent publicly traded companies is expected to proceed on October 1, 2026, following a court ruling related to the transaction.",
+            "published_at": "2026-10-01T12:42:45+00:00",
+            "url": "https://finnhub.io/api/news?id=e65db62a2d7fc2a5e9b2b8b6409dfa0ef5c63482e32c1f4998676badf4639d22",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vylor Completes Spin, Launches as a Standalone, Advanced Seed and Genetics Market Leader",
+            "summary": "Vylor (NYSE: VYLR), an advanced seed and genetics company, announced today it completed its separation from Corteva Inc., into an independent, publicly traded company and will begin trading later today, October 1, 2026, under the symbol \"VYLR\" on the New York Stock Exchange.",
+            "published_at": "2026-10-01T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a26367ad5b7e9bea64b52af4f00266b94e4035afaf75aeb8b3701a21acd01306",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Begins New Chapter as Focused, Innovation-Led, Global Crop Protection Leader",
+            "summary": "Corteva, Inc. (NYSE: CTVA) today announced it has successfully spun off its advanced seed and genetics business and will move forward as a leading, pure-play global crop protection company.",
+            "published_at": "2026-10-01T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2ad3ab1a0697113b89858a1a360f94d5760195bdc1a770e9f0bef3d544b5ab14",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Announces Expiration and Final Results of Private Exchange Offers and Consent Solicitations for EIDP's 2.300% Senior Notes Due 2030, 5.125% Senior Notes Due 2032 and 4.800% Senior Notes Due 2033",
+            "summary": "Corteva, Inc. (NYSE: CTVA) announced today that Vylor Inc., a Delaware corporation and its wholly owned subsidiary (\"Vylor\"), has received the final results of its previously announced (i) private offers to exchange (with respect to each series, an \"Exchange Offer\" and together, the \"Exchange Offers\") any and all of the outstanding senior notes of the series listed in the table below issued by EIDP, Inc., a Delaware corporation and a wholly owned subsidiary of Corteva (\"EIDP\" and such notes, col",
+            "published_at": "2026-10-01T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=26de82a00442c7bdad2b1677bfe2d7392e7dfeae4b8e598683aba5bcd9b63ec9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Falls Over 200 Points; Micron Earnings Top Views",
+            "summary": "U.S. stocks slipped Thursday as the Dow fell over 200 points; energy and oil rose, Micron beat estimates, and European markets declined.",
+            "published_at": "2026-10-01T11:02:41+00:00",
+            "url": "https://finnhub.io/api/news?id=cc86728d3b5d1d6155f546367d3c66996164b5fcc853eabf48c93ac496e73876",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Is Corteva Stock Sinking Thursday?",
+            "summary": "Corteva (CTVA) stock fell 82% following its spin-off of Vylor (VYLR). Here is why the sharp price decline isn&#39;t what it seems.",
+            "published_at": "2026-10-01T08:29:02+00:00",
+            "url": "https://finnhub.io/api/news?id=605158525e24423de8692f53e9dba977a6c5b5d8b45d52c882253e7008582612",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Corteva Completes Spin Off Of Its Advanced Seed And Genetics Business",
+            "summary": "Corteva, Inc. (NYSE: CTVA) today announced it has successfully spun off its advanced seed and genetics business and will move forward as a leading, pure-play global crop protection company.",
+            "published_at": "2026-10-01T08:04:53+00:00",
+            "url": "https://finnhub.io/api/news?id=ee30c5e17e6d9f90c0808f2ddce72ba796528448f69818bb97a1dbfd61cf37bc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Vylor Completes Its Separation From Corteva, To Trade On Nasdaq Under VYLR Symbol",
+            "summary": "Vylor (NYSE: VYLR), an advanced seed and genetics company, announced today it completed its separation from Corteva Inc., into an independent, publicly traded company and will begin trading later today, October 1, 2026,",
+            "published_at": "2026-10-01T08:03:42+00:00",
+            "url": "https://finnhub.io/api/news?id=85645aec3d05f48f44aaee3e3b7af172370a0dc764f68753911e886ea343562b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Progress Software, Nft And Other Big Stocks Moving Lower In Thursday\u2019s Pre-Market Session",
+            "summary": "U.S. stock futures were mixed as Progress Software fell after results; Corteva, NFT, Vivakor and other stocks also dropped in premarket trading.",
+            "published_at": "2026-10-01T08:01:10+00:00",
+            "url": "https://finnhub.io/api/news?id=7b91a84a79015100f20d3d0f74f510fe1d3c6ba00af68cbe4aee888404b1e431",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Vicor Shares Are Trading Higher By Around 12%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Vicor shares surged 12% after raising Q3 growth guidance above 30%; Roze AI led gainers, while Corteva plunged 57% premarket.",
+            "published_at": "2026-10-01T04:31:31+00:00",
+            "url": "https://finnhub.io/api/news?id=c6a2fd66577e33169674eb5216820dc362ea7de938ada17b73ec228dbb1426f5",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 12.567399978637695
+    },
+    {
+      "ticker": "MOD",
+      "predicted_return": 0.006590238062172677,
+      "open_price": 182.72000122070312,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "corporate action: Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.054799+00:00",
+        "articles": [
+          {
+            "headline": "Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+            "summary": "Modine (NYSE: MOD) (\"Modine\" or the \"Company\") today announced the completion of the previously announced spin-off of its Performance Technologies business, which was held by Platinum SpinCo Inc. (\"SpinCo\"), and subsequent combination of SpinCo with Gentherm (NASDAQ: THRM) (\"Gentherm\") through a Reverse Morris Trust transaction.",
+            "published_at": "2026-10-01T20:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=79fdc6dcb7442387da6a1f3245231106ea63fea4fb93bc176989feb2ed20d00c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Gentherm Completes Combination with Modine\u2019s Performance Technologies Business",
+            "summary": "Combination Creates Global Market Leader of Thermal and Precision Flow Management Technologies Announces Appointment of Paul Mascarenas to its Board of Directors NOVI, Mich., Oct. 01, 2026 (GLOBE NEWSWIRE) -- Gentherm (NASDAQ:THRM) (the \u201cCompany\u201d or \u201cGentherm\u201d), a global market leader of thermal and precision flow management technologies, today announced it has completed the previously announced combination with Modine\u2019s Performance Technologies business (the \u201cBusiness\u201d). The transaction was fir",
+            "published_at": "2026-10-01T20:36:00+00:00",
+            "url": "https://finnhub.io/api/news?id=286baf1abe2f52c95713ab9cee6b74d0a5956d47be0f7241cf8046947c68d75e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 189.0
+    },
+    {
+      "ticker": "IBRX",
+      "predicted_return": 0.006540852004409378,
+      "open_price": 9.420000076293945,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.055322+00:00",
+        "articles": [
+          {
+            "headline": "SLS, IBRX Stocks Climb Overnight: Retail Eyes Moderna\u2019s Rally As MRNA Lands A Nasdaq-100 Spot",
+            "summary": "Moderna will replace Warner Bros. Discovery in the Nasdaq-100 before markets open on Oct.9.",
+            "published_at": "2026-10-02T07:02:03+00:00",
+            "url": "https://finnhub.io/api/news?id=083d8ff77c6d7b8f8e91203788d831097d2ba90b023af25841e058696282e88f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 9.28499984741211
+    },
+    {
+      "ticker": "NN",
+      "predicted_return": 0.006045593238879657,
+      "open_price": 14.079999923706055,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.055587+00:00",
+        "articles": []
+      },
+      "prev_close": 13.760000228881836
+    },
+    {
+      "ticker": "SEDG",
+      "predicted_return": 0.005984648815066364,
+      "open_price": 31.719999313354492,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.057249+00:00",
+        "articles": []
+      },
+      "prev_close": 30.850000381469727
+    },
+    {
+      "ticker": "XENE",
+      "predicted_return": 0.005974525585037259,
+      "open_price": 39.099998474121094,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.057268+00:00",
+        "articles": [
+          {
+            "headline": "Xenon\u2019s Insider Buying Tops $1.6M \u2013 XENE Stock Heads For Best Day In Over Month",
+            "summary": "CEO Ian Mortimer and CFO Thomas Kelly purchased 45,000 shares of XENE in the open market.",
+            "published_at": "2026-10-01T16:10:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e41f17ba300ac9b310f3cd9a2f5d24620f00791b983d3ecf85a1576a19f42618",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Xenon's AZK Approval Path Unlikely to Be Hurt by Safety Issues, RBC Says",
+            "summary": "Xenon Pharmaceuticals' (XENE) safety data has raised investor concerns about a potential Food and Dr",
+            "published_at": "2026-10-01T15:02:07+00:00",
+            "url": "https://finnhub.io/api/news?id=07f97906a0d38f49f8c671a93a2fee1bf61a0d9f2e40c8e34da6b8fd36472a47",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 38.90999984741211
+    },
+    {
+      "ticker": "LUNR",
+      "predicted_return": 0.005930232402639901,
+      "open_price": 14.279999732971191,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.061721+00:00",
+        "articles": [
+          {
+            "headline": "Prediction: 2 Space Stocks That Could Join SpaceX and Rocket Lab in the Nasdaq-100 by 2030",
+            "summary": "The article identifies AST SpaceMobile and Intuitive Machines as two space stocks with potential to join the Nasdaq-100 by 2030, alongside already-listed SpaceX and Rocket Lab. AST SpaceMobile is developing direct-to-device satellite internet technology but faces execution risks and repeated launch delays. Intuitive Machines is positioning itself as a lunar logistics provider with higher revenue than peers but remains highly speculative. Blue Origin is mentioned as a potential dark horse candidate if it goes public.",
+            "published_at": "2026-10-02T06:05:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/02/prediction-2-space-stocks-that-could-join-spacex-i/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Intuitive Machines vs. Rocket Lab: Which Space Stock Can Send Your Returns Into Orbit in 2026?",
+            "summary": "One focuses on lunar infrastructure with heavy customer concentration; the other is scaling launch services but carrying an $8 billion acquisition burden.",
+            "published_at": "2026-10-01T23:10:01+00:00",
+            "url": "https://finnhub.io/api/news?id=41e0db71e283d1a19dcb68b8e9b3d7bba2babaa31caa0f3aa055575696325231",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Intuitive Machines vs. Virgin Galactic: Which Has More Potential?",
+            "summary": "LUNR and SPCE bring different strengths to the space race, from lunar infrastructure to commercial spaceflight growth.",
+            "published_at": "2026-10-01T06:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1f2e26b0d5de494fa3f6fc14adca6ed53d5add1161d320c110153393641af55c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.041000366210938
+    },
+    {
+      "ticker": "ALMR",
+      "predicted_return": 0.005905147838779645,
+      "open_price": 33.369998931884766,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.089167+00:00",
+        "articles": []
+      },
+      "prev_close": 32.494998931884766
+    },
+    {
+      "ticker": "JBL",
+      "predicted_return": 0.005837870393520002,
+      "open_price": 304.0050048828125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:26.089190+00:00",
+        "articles": [
+          {
+            "headline": "Stocks making big moves yesterday: United Therapeutics, Moderna, Jabil, Concentrix, and FactSet",
+            "summary": "Check out the companies making headlines yesterday:",
+            "published_at": "2026-10-01T20:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=87f52e78ca0d8ccab73f60658fea15421ce2a674c7f5064cb48cbd8f1213d931",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "JBL Q3 Deep Dive: AI Infrastructure, Asset-Light Model, and Margin Expansion in Focus",
+            "summary": "Electronics manufacturing services provider Jabil (NYSE:JBL) reported calendar Q3 2026 (fiscal Q4 2026) results topping the market\u2019s revenue expectations, with sales up 28.6% year on year to $10.62 billion. On top of that, next quarter\u2019s revenue guidance ($11 billion at the midpoint) was surprisingly good and 9.9% above what analysts were expecting. Its non-GAAP profit of $4.40 per share was 8% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-10-01T20:37:07+00:00",
+            "url": "https://finnhub.io/api/news?id=c8a0816b1e9e2b73090b5568d31942e0091f348056bf5b3525b9d3b1e9a98651",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jabil's Fiscal 2027 Outlook Leaves Room for Upside, UBS Says",
+            "summary": "Jabil's (JBL) initial fiscal 2027 outlook looks cautious given management's history of guiding low a",
+            "published_at": "2026-10-01T16:59:14+00:00",
+            "url": "https://finnhub.io/api/news?id=37b840ffd5ac1b39f8c8ac2734247a5fddb420e86305ad96712d863a6efa8334",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jabil (JBL) is an Incredible Growth Stock: 3 Reasons Why",
+            "summary": "Jabil (JBL) possesses solid growth attributes, which could help it handily outperform the market.",
+            "published_at": "2026-10-01T15:45:02+00:00",
+            "url": "https://finnhub.io/api/news?id=3fe565229275a1890e7598954052e1788e15a56a87c33a13b88aad0261fcee7f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Automotive and Industrial Demand Recovery Fuels Jabil\u2019s (JBL) Ongoing Momentum",
+            "summary": "TCW Funds, an investment management firm, published its second-quarter 2026 investor letter for the \u201cTCW Relative Value Mid Cap Fund\u201d. The letter can be downloaded here. Equities advanced in Q2 2026, with the S&P 500 reaching record highs despite volatility from a Federal Reserve leadership transition and Middle East tensions. Markets rebounded from Q1 lows, [\u2026]",
+            "published_at": "2026-10-01T14:10:20+00:00",
+            "url": "https://finnhub.io/api/news?id=a231a47178c5f88a81e727317809f3a8d0367d128a032f6e159b6f6a2e22bb87",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "JBL Q4 Earnings Call Highlights AI-Led Fiscal 2027 Growth",
+            "summary": "Jabil targets 24% revenue growth in fiscal 2027 as accelerating AI demand, added capacity and broader customer relationships support expansion.",
+            "published_at": "2026-10-01T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=03bbeace9c6e7b082a55ca1e131d42f10d190362918a64b7523862a2ad76fe72",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jabil Inc. Q4 2026 Earnings Call Summary",
+            "summary": "Moby summary of Jabil Inc.'s Q4 2026 earnings call",
+            "published_at": "2026-10-01T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a54050d08d2dd4d0fa9ff61955bea9486cad9f80600defefea8660a8f99d91c8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jabil (JBL) Q4 2026 Earnings Call Transcript",
+            "summary": "AI infrastructure demand drives 29% revenue growth and 34% EPS expansion.",
+            "published_at": "2026-10-01T11:43:28+00:00",
+            "url": "https://finnhub.io/api/news?id=3273356795e01bc1fd688fd085e27bf11aff89c65a231facd20dd80ea3830d33",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Services Stocks with Impressive Fundamentals and 1 Facing Challenges",
+            "summary": "Business services providers play a critical role for enterprises, assisting them with everything from new hardware integrations to consulting and marketing. Market leaders have certainly capitalized on outsourcing trends and digital transformation initiatives to boost sales, helping fuel a 22.1% gain for the industry over the past six months - 5.5 percentage points higher than the S&P 500.",
+            "published_at": "2026-10-01T09:25:07+00:00",
+            "url": "https://finnhub.io/api/news?id=d2fc5e309cd5bf7822bf53073ab7b0d096f4746013a8a90e25b7d2e5db7ad101",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Argus Research Reiterates Buy on Jabil, Maintains $475 Price Target",
+            "summary": "Argus Research  analyst Jim Kelleher   reiterates Jabil (NYSE:JBL) with a Buy and maintains $475 price target.",
+            "published_at": "2026-10-01T08:55:46+00:00",
+            "url": "https://finnhub.io/api/news?id=2242a126cdd0dedd99cc140612e09d73ba5ab8eddd4371b3a5ef216b9e4d985f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Barclays Maintains Overweight on Jabil, Lowers Price Target to $378",
+            "summary": "Barclays  analyst Tim Long   maintains Jabil (NYSE:JBL) with a Overweight and lowers the price target from $426 to $378.",
+            "published_at": "2026-10-01T08:50:09+00:00",
+            "url": "https://finnhub.io/api/news?id=7c2318f47840aec16123b1a7612ecb044569829b9be0cec1a8ad55fd87c0a598",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Edge Higher On Sticky Inflation And China Hopes",
+            "summary": "The Morning Bull - US Market Morning Update Thursday, Oct, 1 2026 US stock futures are pointing slightly higher this morning, with the S&P 500 mini contract up about 0.2% and the Nasdaq-100 mini edging 0.1% stronger, as investors weigh fresh signals on inflation and global growth. The key focus is the Federal Reserve's preferred inflation gauge, the PCE index, with headline inflation expected at 3.7% and core at 3.3%. That means the cost of living is still running above the Fed's 2% goal. At...",
+            "published_at": "2026-10-01T08:08:15+00:00",
+            "url": "https://finnhub.io/api/news?id=485b81209028da486914f7576b6f9f0f46c34a6f6011fba0f885b399cdfbdc38",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 299.92999267578125
+    },
+    {
+      "ticker": "AAOI",
+      "predicted_return": 0.005807327310581772,
+      "open_price": 110.45999908447266,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.089436+00:00",
+        "articles": [
+          {
+            "headline": "Applied Optoelectronics Is Up 205% This Year. Is It Too Late to Buy AAOI Stock Now?",
+            "summary": "Applied Optoelectronics has left its optical rivals and the broader chip sector in the dust this year, but the expansion driving that run is still under construction. Whether buyers step in now or wait depends on how much execution risk they are willing to accept.",
+            "published_at": "2026-10-01T18:55:11+00:00",
+            "url": "https://finnhub.io/api/news?id=8e63c4e4940e9dcc86f5f954f72978361a420535c019446f7d82516f89827b61",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 107.27999877929688
+    },
+    {
+      "ticker": "SM",
+      "predicted_return": 0.00580468546198859,
+      "open_price": 34.130001068115234,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:31.045242+00:00",
+        "articles": [
+          {
+            "headline": "Investors Heavily Search SM Energy Company (SM): Here is What You Need to Know",
+            "summary": "Recently, Zacks.com users have been paying close attention to SM Energy (SM). This makes it worthwhile to examine what the stock has in store.",
+            "published_at": "2026-10-01T12:00:04+00:00",
+            "url": "https://finnhub.io/api/news?id=1faa106c224c3d21849ddc0ea167abace034304ec7f5039f317609d31385ec06",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 35.060001373291016
+    },
+    {
+      "ticker": "BWLP",
+      "predicted_return": 0.005791567401698969,
+      "open_price": 24.889999389648438,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:32.158856+00:00",
+        "articles": []
+      },
+      "prev_close": 25.760000228881836
+    },
+    {
+      "ticker": "APLD",
+      "predicted_return": 0.0057874770620629755,
+      "open_price": 25.104999542236328,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:32.158877+00:00",
+        "articles": [
+          {
+            "headline": "ASML vs. Applied Digital: Which Is the Better Semiconductor Equipment Stock to Own for the Next 1 Year?",
+            "summary": "ASML offers unmatched demand visibility, while Applied Materials brings broader AI-driven growth at a lower valuation.",
+            "published_at": "2026-10-01T19:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fc2f7a91d6773fdaef3242b2831d8a46ffeeeda63b52043de6065713645a64e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Q2 Rundown: Applied Digital (NASDAQ:APLD) Vs Other IT Services & Other Tech Stocks",
+            "summary": "Earnings results often indicate what direction a company will take in the months ahead. With Q2 behind us, let\u2019s have a look at Applied Digital (NASDAQ:APLD) and its peers.",
+            "published_at": "2026-10-01T18:05:07+00:00",
+            "url": "https://finnhub.io/api/news?id=7869215c4e9328dceca4e3375aa3c360c9784e5f5c0b8fbf1de464adb71aa6b4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Real Economy' Growth Highlights Data Centers And Manufacturing",
+            "summary": "AI infrastructure is fueling data centers, manufacturing, and industrial real estate growth. Click for a look at underpinnings of the artificial intelligence age.",
+            "published_at": "2026-10-01T05:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b4b72d65e6abd63165c79bf66358b45789c2a9f0b5f3379e81a3c2432b5f8a71",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 24.155000686645508
+    },
+    {
+      "ticker": "ASTS",
+      "predicted_return": 0.005775449371910172,
+      "open_price": 56.79100036621094,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:32.746525+00:00",
+        "articles": [
+          {
+            "headline": "Prediction: 2 Space Stocks That Could Join SpaceX and Rocket Lab in the Nasdaq-100 by 2030",
+            "summary": "The article identifies AST SpaceMobile and Intuitive Machines as two space stocks with potential to join the Nasdaq-100 by 2030, alongside already-listed SpaceX and Rocket Lab. AST SpaceMobile is developing direct-to-device satellite internet technology but faces execution risks and repeated launch delays. Intuitive Machines is positioning itself as a lunar logistics provider with higher revenue than peers but remains highly speculative. Blue Origin is mentioned as a potential dark horse candidate if it goes public.",
+            "published_at": "2026-10-02T06:05:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/02/prediction-2-space-stocks-that-could-join-spacex-i/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "ASTS Stock Rises Overnight: New Commercial Chief Brings Google Fi, SiriusXM Chops While Retail Weighs Big 3 Satellite JV",
+            "summary": "Fresh filings named Wayne Thorsen as AST SpaceMobile\u2019s new commercial chief and disclosed a 200,000-RSU award.",
+            "published_at": "2026-10-02T01:52:13+00:00",
+            "url": "https://finnhub.io/api/news?id=ae7229e07cf9abb0b0e63ace92375cf10093cbd3c33022e5591233d6e88ebf3c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile, Inc. (ASTS) Stock Sinks As Market Gains: Here's Why",
+            "summary": "In the most recent trading session, AST SpaceMobile, Inc. (ASTS) closed at $57.04, indicating a -3.09% shift from the previous trading day.",
+            "published_at": "2026-10-01T21:00:05+00:00",
+            "url": "https://finnhub.io/api/news?id=6e72956762761de6a510d12e1d58326773f1764b9b83b83da9da28776706a933",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rocket Lab Climbs 5% as Largest-Ever Electron Deal Lifts Backlog Past 100 Missions; AST SpaceMobile Ticks Up, SpaceX Holds Flat",
+            "summary": "Rocket Lab just landed its biggest Electron contract ever and a fresh Wall Street initiation on the same morning, sending shares surging while rivals barely moved. Here is what the deal leaves unsaid that every investor should know before acting.",
+            "published_at": "2026-10-01T13:26:37+00:00",
+            "url": "https://finnhub.io/api/news?id=c0fa7dd6dac99e6f7b92216f9408ae657bb3037a90602953dd13dab478424d06",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's Going On With AST SpaceMobile Stock Thursday?",
+            "summary": "Shares of AST SpaceMobile Inc. (NASDAQ: ASTS) are volatile Thursday morning, pulling back following a 5% gain in the month of September.",
+            "published_at": "2026-10-01T10:14:36+00:00",
+            "url": "https://finnhub.io/api/news?id=3ed3be318df9570885099566aa96a1004a9561e516954d9e5c0911e10b63f330",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nasdaq, S&P 500, Dow Futures Mixed Even As Micron Fuels AI Rally: ORCL, NKE, TSLA, RKLB, ASTS, PSKY In Focus",
+            "summary": "On Stocktwits, retail sentiment toward SPY and QQQ remained \u2018bullish\u2019 as Micron\u2019s results provided another catalyst for AI and semiconductor stocks.",
+            "published_at": "2026-10-01T08:50:19+00:00",
+            "url": "https://finnhub.io/api/news?id=78207f31393227024ab6c551e75d470b255a711685f7a656212b7a60603b4dd7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 57.029998779296875
+    },
+    {
+      "ticker": "VOYG",
+      "predicted_return": 0.005755688863112686,
+      "open_price": 30.3700008392334,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:33.800652+00:00",
+        "articles": [
+          {
+            "headline": "Voyager Announces Third Quarter 2026 Earnings Results Call",
+            "summary": "DENVER, October 01, 2026--Voyager Technologies (NYSE: VOYG) will host its third quarter 2026 earnings results conference call Tuesday, November 3, 2026, at 9 a.m. ET with the senior management team. Third quarter 2026 results will be published after the market closes Monday, November 2, 2026.",
+            "published_at": "2026-10-01T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=dbb87fab446f93c3f31aba374622f6922021e1420bb581b50b9758663f1d81b1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 29.899999618530273
+    },
+    {
+      "ticker": "WULF",
+      "predicted_return": 0.005743603430391857,
+      "open_price": 15.479999542236328,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:34.330738+00:00",
+        "articles": [
+          {
+            "headline": "High-Volume, Unusual Options Activity Is Taking Nvidia and These 2 Other Hot Stocks by Storm",
+            "summary": "In Wednesday\u2019s unusual options activity, Nvidia, Nu Holdings, and TeraWulf saw some of the day's highest-volume trades. Unpacking them reveals which options strategies institutions used.",
+            "published_at": "2026-10-01T17:52:35+00:00",
+            "url": "https://finnhub.io/api/news?id=2247c17a2942819070b3f687ae2f93394ba5fd53cc4014240337d202299b04d3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.895000457763672
+    },
+    {
+      "ticker": "TRLV",
+      "predicted_return": 0.005725837087600148,
+      "open_price": 10.98639965057373,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "DEA paused federal cannabis rescheduling case",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "DEA paused federal cannabis rescheduling case",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:36.022321+00:00",
+        "articles": [
+          {
+            "headline": "Trulieve Cannabis (TRLV) Falls On Rescheduling Delay, Is It Now A Bargain?",
+            "summary": "Regulatory setback hits Trulieve Cannabis The decision by DEA Chief Judge Derek Julius to pause the federal cannabis rescheduling case immediately weighed on sector sentiment, with Trulieve Cannabis (TRLV) moving lower as investors reassessed expectations around the timing of regulatory change. That pause landed on a stock that had already cooled off in the near term. Trulieve Cannabis has dropped about 12% on a 1 day share price basis and is down 13% over the past week, yet still shows a 25%...",
+            "published_at": "2026-10-01T16:09:31+00:00",
+            "url": "https://finnhub.io/api/news?id=66f49e336833d4474bfd29b17a95f5cb8c62a5ce7efde5b17eb62c64da49440d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MSOS: Pause On Cannabis Rescheduling - And Why Trulieve Is A Sneaky Pick",
+            "summary": "AdvisorShares Pure US Cannabis ETF is reiterated as a Buy despite DEA rescheduling delays. Click to see MSOS valuation, Trulieve Cannabis upside, and key risks.",
+            "published_at": "2026-10-01T12:09:21+00:00",
+            "url": "https://finnhub.io/api/news?id=1d8ca647f5138d52045ecd322291e1f9f79ff5297c7c289b64e7830609cbcf21",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 10.869999885559082
+    },
+    {
+      "ticker": "IREN",
+      "predicted_return": 0.005711338428420847,
+      "open_price": 41.86000061035156,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:39.970709+00:00",
+        "articles": [
+          {
+            "headline": "IREN Drops 18% in a Week Despite Booming AI Demand as $30B Spending Plan Raises Questions",
+            "summary": "IREN Ltd. (NASDAQ:IREN) shares have lost about 18% from their Sept. 22 close, even as demand for the company\u2019s AI computing capacity remains strong. The concern is what that growth will cost. IREN plans $25 billion to $30 billion of...",
+            "published_at": "2026-10-01T17:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=af28d242c0494235aa51f3d80a6a7c3f6271c2ab14f05b67ab86c6a62a2871e9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Real Economy' Growth Highlights Data Centers And Manufacturing",
+            "summary": "AI infrastructure is fueling data centers, manufacturing, and industrial real estate growth. Click for a look at underpinnings of the artificial intelligence age.",
+            "published_at": "2026-10-01T05:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b4b72d65e6abd63165c79bf66358b45789c2a9f0b5f3379e81a3c2432b5f8a71",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 40.66999816894531
+    },
+    {
+      "ticker": "CECO",
+      "predicted_return": 0.005709601548536288,
+      "open_price": 73.70999908447266,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:41.563296+00:00",
+        "articles": []
+      },
+      "prev_close": 72.01000213623047
+    },
+    {
+      "ticker": "APPN",
+      "predicted_return": 0.005699490811931141,
+      "open_price": 38.380001068115234,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:41.563310+00:00",
+        "articles": [
+          {
+            "headline": "monday.com, Unity, Workiva, Appian, and Five9 Stocks Trade Up, What You Need To Know",
+            "summary": "A number of stocks jumped in the afternoon session after strength across artificial intelligence and technology equities helped lift major market averages, offsetting macroeconomic headwinds from Treasury yields near 24-year highs.",
+            "published_at": "2026-10-01T23:57:07+00:00",
+            "url": "https://finnhub.io/api/news?id=3b4567d603a9c04acb90ce69c5e7068d2bc7291c171e2d5c0ca15111641f9a59",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 37.779998779296875
+    },
+    {
+      "ticker": "BTDR",
+      "predicted_return": 0.005677352511773194,
+      "open_price": 11.270000457763672,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:42.177836+00:00",
+        "articles": [
+          {
+            "headline": "Bitdeer: The Real Value Is In What Each Megawatt Can Earn",
+            "summary": "Bitdeer Technologies Group shifts to AI cloud/data centers: ARR $86M, Malaysia 70% committed. Click for this BTDR stock update.",
+            "published_at": "2026-10-01T09:00:21+00:00",
+            "url": "https://finnhub.io/api/news?id=f7c6152a8e5717009cf243187ba42b6f0cf312b5c30cd762e06b05a05f06a2f8",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Active Energy Group lands new financing facility to support growth in UAE",
+            "summary": "Active Energy Group PLC (AIM:AEG, OTCID:AEUSF) (Active Energy Group PLC (AIM:AEG, OTCID:AEUSF)) announced it has secured a \u00a31.3 million (AED 6.5 million) funding facility as it looks to add power-backed infrastructure sites to its growing UAE platform. The 12-month unsecured facility carries...",
+            "published_at": "2026-10-01T07:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f85b24771a5100aaed8f4b9cb139bafd7e1e03a6513e97f105af498af2140ea7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 10.639900207519531
+    },
+    {
+      "ticker": "DAR",
+      "predicted_return": 0.005675344776058251,
+      "open_price": 59.63420104980469,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:42.920065+00:00",
+        "articles": [
+          {
+            "headline": "Darling Ingredients Inc. to Release Third Quarter 2026 Financial Results",
+            "summary": "IRVING, Texas, October 01, 2026--Darling Ingredients Inc. (NYSE: DAR) announced today that it will host a conference call on Thursday, Oct. 29, 2026, at 9 a.m. Eastern Time (8 a.m. Central Time) to discuss third quarter 2026 financial results, which will be released earlier that day, and provide an update on company operations. A presentation with accompanying supplemental financial data will also be available at darlingii.com/investors.",
+            "published_at": "2026-10-01T20:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3df1f19abb81497b1e037e78f9767718a2a2fb451b5fb300c5e8171c2a3ed68d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 61.650001525878906
+    },
+    {
+      "ticker": "CIEN",
+      "predicted_return": 0.00567266903565596,
+      "open_price": 385.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:46.281672+00:00",
+        "articles": [
+          {
+            "headline": "Coherent Stock Jumped 10% on Bernstein\u2019s Call. Here\u2019s Where Shares Could Go Further.",
+            "summary": "Key TakeawaysBernstein Spark: Coherent stock jumped 10% to $319 on Thursday, October 1, after Bernstein initiated coverage at Outperform and put fresh attention on the PhotonLink optics platform launched September 21. Thin Cushion: Bernstein\u2019s $350 target sits just 10% above the close.",
+            "published_at": "2026-10-02T01:46:20+00:00",
+            "url": "https://finnhub.io/api/news?id=0c9fd7303079f2bbcd5c96bbbf39e910532c44481887df7ef2d03d24c059366c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's session: S&P500 movers",
+            "summary": "Get insights into the S&P500 index performance on Thursday. Explore the top gainers and losers within the S&P500 index in today's session.",
+            "published_at": "2026-10-01T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=21e7c6c97b4fdc288ec01fde3118e7f17351046c80c29bdde18a9b184c48edba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Coherent, Lumentum, and Ciena stocks surge on bullish Wall Street call",
+            "summary": "Optical networking stocks ripped higher on Thursday after Wall Street grew bullish on the next generation of data center networking.",
+            "published_at": "2026-10-01T18:29:06+00:00",
+            "url": "https://finnhub.io/api/news?id=50ab94c2d05d03e4c89642386b4b11503a083985fdad4714e56f6b6063524a16",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Thursday?",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Thursday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-01T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=b20e08d06594043d73774dff90800dc69a3fc3d1ae58095ba1758b392220c4e2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Ciena Climbs 6% After a Week of Bullish Analyst Calls; Arista Ticks Up, Cisco Holds Steady",
+            "summary": "Bullish analyst calls piled up all week on one optical networking name, and now the stock is surging while its closest peers barely budge. Here is what the sell-side sees that the market is only starting to price in.",
+            "published_at": "2026-10-01T15:57:52+00:00",
+            "url": "https://finnhub.io/api/news?id=2b32c4053631a0090219460fd4bd4d6c3d241564b2b217649b3de20292e8381d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Coherent Jumps 10% on PhotonLink Push and Bernstein\u2019s Outperform Start; Lumentum Rises 9%, Corning Advances 3%",
+            "summary": "Coherent's PhotonLink platform and a fresh Wall Street initiation sent optics stocks surging well ahead of the broader market, raising the question of whether this rally signals a durable AI infrastructure trade or another sentiment-driven spike.",
+            "published_at": "2026-10-01T14:56:11+00:00",
+            "url": "https://finnhub.io/api/news?id=72ec07f2140aeddfbe59695e12cebaab7fcccc923c7f8016c8914c2f6339d522",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Software-Defined Networking Market Surges to $82.59 billion at a CAGR 18.2% by 2030 | Report by MarketsandMarkets\u2122",
+            "summary": "Delray Beach, FL, Oct. 01, 2026 (GLOBE NEWSWIRE) -- According to MarketsandMarkets\u2122, the global Software-Defined Networking Market is projected to grow from USD 35.74 billion in 2025 to USD 82.59 billion by 2030, registering a CAGR of 18.2% during the forecast period. Declining hardware and connectivity costs are helping organizations expand SDN deployments across data centers, enterprise networks, telecom infrastructure, and cloud environments. Lower infrastructure costs are reducing barriers t",
+            "published_at": "2026-10-01T14:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=38b78342db757316463dd1c992e3b2a7b96deb0a1dc36c63a32985494d81051b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 379.239990234375
+    },
+    {
+      "ticker": "CORZ",
+      "predicted_return": 0.0056673775641898835,
+      "open_price": 16.670000076293945,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:46.335910+00:00",
+        "articles": []
+      },
+      "prev_close": 16.360000610351562
+    },
+    {
+      "ticker": "GLW",
+      "predicted_return": 0.005645886615359288,
+      "open_price": 163.7969970703125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "GLW signs $3B+ AT&T broadband deal amid optics sector surge",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "GLW signs $3B+ AT&T broadband deal amid optics sector surge",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:46.335924+00:00",
+        "articles": [
+          {
+            "headline": "This AI Stock Is Trading Near Record Highs. Is It Too Late to Buy?",
+            "summary": "Amphenol, a maker of connectors and cables for AI infrastructure, is trading near all-time highs with strong fundamentals. Despite a 311.6% three-year gain, the company's Q2 results show 55% sales growth, 67% EPS growth, and a healthy book-to-bill ratio of 1.23, suggesting continued momentum. While the stock has underperformed peers this year, recent quarterly trends favor Amphenol, and analysts suggest the next leg of growth may still be ahead.",
+            "published_at": "2026-10-01T19:26:58+00:00",
+            "url": "https://www.fool.com/investing/2026/10/01/this-ai-stock-is-trading-near-record-highs/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Continuous Bioprocessing Technologies Market - Global Forecast 2026-2031 | Market to Reach USD 8.5 Billion as Automation and Biologics Demand Fuel 12.1% CAGR",
+            "summary": "The global continuous bioprocessing technologies market is projected to grow from USD 4.8 billion in 2026 to USD 8.5 billion by 2031, driven by rising biologics demand, regulatory support, and the biopharmaceutical industry's shift from batch to continuous production. Key growth drivers include cost efficiency, improved quality, and faster time to market, though high capital investment and technical complexity remain challenges.",
+            "published_at": "2026-10-01T15:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/01/3373130/28124/en/continuous-bioprocessing-technologies-market-global-forecast-2026-2031-market-to-reach-usd-8-5-billion-as-automation-and-biologics-demand-fuel-12-1-cagr.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Coherent Jumps 10% on PhotonLink Push and Bernstein\u2019s Outperform Start; Lumentum Rises 9%, Corning Advances 3%",
+            "summary": "Coherent's PhotonLink platform and a fresh Wall Street initiation sent optics stocks surging well ahead of the broader market, raising the question of whether this rally signals a durable AI infrastructure trade or another sentiment-driven spike.",
+            "published_at": "2026-10-01T14:56:11+00:00",
+            "url": "https://finnhub.io/api/news?id=72ec07f2140aeddfbe59695e12cebaab7fcccc923c7f8016c8914c2f6339d522",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Corning's AT&T Deal Boost Its Optical Communications Growth?",
+            "summary": "GLW signs a $3 billion-plus AT&T deal to expand U.S. broadband, boosting fiber capacity as data use and AI adoption drive connectivity demand.",
+            "published_at": "2026-10-01T13:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a1e1b8784cde036c13db86da35968ed1d12084a0ed1909f00f0476625fe25147",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 160.49000549316406
+    },
+    {
+      "ticker": "MDB",
+      "predicted_return": 0.005623901357535551,
+      "open_price": 354.6000061035156,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:46.336056+00:00",
+        "articles": [
+          {
+            "headline": "Meta\u2019s latest hire highlights high stakes of executive poaching",
+            "summary": "AI companies are especially vulnerable to executive poaching as they race to dominate the explosive market.",
+            "published_at": "2026-10-01T15:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0a3710bf5917429b120cb9f5ca6e79c0270bd858b4f33ea115f1f0a9eaece26c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is MongoDB (MDB) Down 7.1% Since Last Earnings Report?",
+            "summary": "MongoDB (MDB) reported earnings 30 days ago. What's next for the stock? We take a look at earnings estimates for some clues.",
+            "published_at": "2026-10-01T14:30:03+00:00",
+            "url": "https://finnhub.io/api/news?id=a5ac68d8a3a06246a6ea9d8022e98f83aceb376cad6285a0a7406c5180980a3a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Prediction: Meta Stock's Rebound Will Continue as Its AI Infrastructure Spending Starts Paying Off in New Revenue Streams",
+            "summary": "Meta's stock has rebounded strongly following the launch of its Muse AI agents, which can perform multistep tasks for users. The company plans to monetize these agents through subscription tiers, transaction processing fees, and affiliate commissions. With early adoption showing 1.8 million downloads in 12 days and strong core advertising business growth, analysts believe Meta's AI investments are beginning to pay off, positioning it as a potential major AI stock with attractive valuation at 21x 2027 earnings.",
+            "published_at": "2026-10-01T11:24:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/01/prediction-meta-stock-rebounds-as-its-ai-infrastru/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Do CEOs Matter? MongoDB Shareholders Are About To Find Out",
+            "summary": "",
+            "published_at": "2026-10-01T09:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a3ee0c8fc143b16c6236ac1c1e58e16d27cdba493af1c2a881e88f16587f2fed",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 351.7300109863281
+    },
+    {
+      "ticker": "CRCL",
+      "predicted_return": 0.005577790418505486,
+      "open_price": 85.7699966430664,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:46.369145+00:00",
+        "articles": [
+          {
+            "headline": "Inside OUSD\u2019s big stablecoin launch",
+            "summary": "Scott Melker discusses the launch of the OUSD (OUSD-USD) stablecoin going live on Mastercard (MA), Stripe, and Coinbase (COIN). (COIN)\"The Daily Wolf with Scott Melker\" airs every day at 12:00 p.m. Tune in for your daily dose of all things crypto.",
+            "published_at": "2026-10-01T17:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=86de288ab27dc6fa782dca814f5cf271f2b0147d52fc50691d94e23adcf4203f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Visa-Led Consortium Launches OUSD Stablecoin",
+            "summary": "A consortium led by credit card giant Visa (NYSE: $V) and backed by more than 100 companies worldwide has launched ...",
+            "published_at": "2026-10-01T16:14:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e27dc4a3ec0453e54bd0e206513172b1399e3579ed61bc0b0d80b3ee3730500c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 82.87999725341797
+    },
+    {
+      "ticker": "KEEL",
+      "predicted_return": 0.005575552949123445,
+      "open_price": 3.5899999141693115,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.288566+00:00",
+        "articles": []
+      },
+      "prev_close": 3.4600000381469727
+    },
+    {
+      "ticker": "PTEN",
+      "predicted_return": 0.005555323808462681,
+      "open_price": 11.039999961853027,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.288595+00:00",
+        "articles": []
+      },
+      "prev_close": 11.3149995803833
+    },
+    {
+      "ticker": "SHAZ",
+      "predicted_return": 0.005555105101762866,
+      "open_price": 51.939998626708984,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "Company announced $356M GPU-backed debt facility",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Company announced $356M GPU-backed debt facility",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.288606+00:00",
+        "articles": [
+          {
+            "headline": "Sharon AI Enters Into GPU-Backed Debt Facility, Expanding Funding Flexibility for AI Factory Deployments",
+            "summary": "SharonAI Holdings Inc. (NASDAQ: SHAZ) (\"Sharon AI\" or the \"Company\"), a leading Australian Neocloud delivering trusted AI infrastructure, today announced it has entered into its inaugural US$356m committed senior secured, GPU-backed SPV debt facility priced at a fixed rate of 9.95%, excluding fees.",
+            "published_at": "2026-10-01T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=12f8e319b79cc6020ccbd4179bef66a03d8c0c704b0d667482b6ba87d68d5fbf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SharonAI Enters Inaugural $356M Committed Senior Secured, GPU-Backed SPV Debt Facility Priced At Fixed Rate Of 9.95%",
+            "summary": "The facility will be secured against the GPUs and associated cash flows, with the contract-backed funding structure reflecting the security and delivery discipline underpinning Sharon AI&#39;s platform and marks a",
+            "published_at": "2026-10-01T07:09:20+00:00",
+            "url": "https://finnhub.io/api/news?id=fd2ada07df0c4248d568071a021fd68fc9291991ac461036281191c527d218b9",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 49.79999923706055
+    },
+    {
+      "ticker": "CLSK",
+      "predicted_return": 0.005554019772023439,
+      "open_price": 12.944999694824219,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.952041+00:00",
+        "articles": []
+      },
+      "prev_close": 12.524999618530273
+    },
+    {
+      "ticker": "RUM",
+      "predicted_return": 0.005550434303656616,
+      "open_price": 7.869999885559082,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.952054+00:00",
+        "articles": []
+      },
+      "prev_close": 7.644999980926514
+    },
+    {
+      "ticker": "HUT",
+      "predicted_return": 0.005549647308178954,
+      "open_price": 89.61000061035156,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.952058+00:00",
+        "articles": []
+      },
+      "prev_close": 86.44000244140625
+    },
+    {
+      "ticker": "GLXY",
+      "predicted_return": 0.005541191923035004,
+      "open_price": 23.84000015258789,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:47.952063+00:00",
+        "articles": [
+          {
+            "headline": "Peter Thiel Calls Effective Altruism a Cult, but Says They Got One Thing Right About AI \u2014 \u2018It Could Be Weaponized\u2019",
+            "summary": "Thiel says effective altruists got AI right early, recognizing its transformative potential and risks despite his criticism of the movement.",
+            "published_at": "2026-10-01T05:09:58+00:00",
+            "url": "https://finnhub.io/api/news?id=318e0d3d851ee01aae417bd5a2ac553e5c6b23542cb6c63c9e7bb1cdba37bef1",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 23.020000457763672
+    },
+    {
+      "ticker": "BHVN",
+      "predicted_return": 0.005512778749770501,
+      "open_price": 13.364999771118164,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:53.536889+00:00",
+        "articles": []
+      },
+      "prev_close": 13.140000343322754
+    },
+    {
+      "ticker": "PLBL",
+      "predicted_return": 0.0055071342436546124,
+      "open_price": 5.5,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:53.536914+00:00",
+        "articles": []
+      },
+      "prev_close": 5.49
+    },
+    {
+      "ticker": "CXW",
+      "predicted_return": 0.005466396409460603,
+      "open_price": 32.7400016784668,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:53.536924+00:00",
+        "articles": [
+          {
+            "headline": "CoreCivic (NYSE:CXW) Combines High Growth Momentum With a Breakout Setup",
+            "summary": "CoreCivic (CXW) stock pairs a 6 high growth momentum score with 7 technical and setup ratings, showing a tradable consolidation breakout setup.",
+            "published_at": "2026-10-01T09:41:39+00:00",
+            "url": "https://finnhub.io/api/news?id=55c00b0f36b68e079505c03a5a44306497a33bd7f9392e1956f48f0fec5a4496",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 32.4900016784668
+    },
+    {
+      "ticker": "GWRE",
+      "predicted_return": 0.005461309981945307,
+      "open_price": 156.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 155.2899932861328
+    },
+    {
+      "ticker": "SRAD",
+      "predicted_return": 0.0054468395156383005,
+      "open_price": 12.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 11.869999885559082
+    },
+    {
+      "ticker": "VCYT",
+      "predicted_return": 0.005442079994031719,
+      "open_price": 44.939998626708984,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 44.189998626708984
+    },
+    {
+      "ticker": "AKAM",
+      "predicted_return": 0.005429198137284065,
+      "open_price": 108.75,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 106.93000030517578
+    },
+    {
+      "ticker": "RDW",
+      "predicted_return": 0.0053502640172272955,
+      "open_price": 10.822699546813965,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 10.579999923706055
+    },
+    {
+      "ticker": "WRBY",
+      "predicted_return": 0.0053106272347103545,
+      "open_price": 27.5,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 27.5
+    },
+    {
+      "ticker": "OKLO",
+      "predicted_return": 0.005298766632747856,
+      "open_price": 37.29999923706055,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 36.130001068115234
+    },
+    {
+      "ticker": "CLOV",
+      "predicted_return": 0.005295660375115716,
+      "open_price": 4.269999980926514,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 4.235000133514404
+    },
+    {
+      "ticker": "INIO",
+      "predicted_return": 0.0052882300560956035,
+      "open_price": 18.799999237060547,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 18.290000915527344
+    },
+    {
+      "ticker": "TNGX",
+      "predicted_return": 0.005268435835635498,
+      "open_price": 25.09000015258789,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 24.454999923706055
+    },
+    {
+      "ticker": "MARA",
+      "predicted_return": 0.005266460206373551,
+      "open_price": 11.635000228881836,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 11.210000038146973
+    },
+    {
+      "ticker": "WING",
+      "predicted_return": 0.0052630867081236874,
+      "open_price": 104.69000244140625,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 104.41000366210938
+    },
+    {
+      "ticker": "CBRS",
+      "predicted_return": 0.005259514539821797,
+      "open_price": 172.38999938964844,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 169.5
+    },
+    {
+      "ticker": "ARQT",
+      "predicted_return": 0.005231029206199085,
+      "open_price": 25.5,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 25.280000686645508
+    },
+    {
+      "ticker": "VICR",
+      "predicted_return": 0.005194338175084187,
+      "open_price": 311.29998779296875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 308.5
+    },
+    {
+      "ticker": "ABCL",
+      "predicted_return": 0.0051937652113794395,
+      "open_price": 14.100000381469727,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 13.914999961853027
+    },
+    {
+      "ticker": "VRT",
+      "predicted_return": 0.00519129059762811,
+      "open_price": 251.05029296875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 246.13999938964844
+    },
+    {
+      "ticker": "CRWV",
+      "predicted_return": 0.005185991891648521,
+      "open_price": 91.01499938964844,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 88.56999969482422
+    },
+    {
+      "ticker": "PENG",
+      "predicted_return": 0.005185991891648521,
+      "open_price": 57.220001220703125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 54.959999084472656
+    },
+    {
+      "ticker": "LNG",
+      "predicted_return": 0.005165759897924736,
+      "open_price": 261.04119873046875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 272.42999267578125
+    },
+    {
+      "ticker": "FIVN",
+      "predicted_return": 0.005165004009286076,
+      "open_price": 36.060001373291016,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 35.72999954223633
+    },
+    {
+      "ticker": "AYA",
+      "predicted_return": 0.005110671381233874,
+      "open_price": 27.469999313354492,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 26.899999618530273
+    },
+    {
+      "ticker": "ALAB",
+      "predicted_return": 0.005101884946168377,
+      "open_price": 348.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 356.07000732421875
+    },
+    {
+      "ticker": "NAMS",
+      "predicted_return": 0.005073473109057336,
+      "open_price": 24.600000381469727,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 24.18000030517578
+    },
+    {
+      "ticker": "DAVE",
+      "predicted_return": 0.005051535889009316,
+      "open_price": 350.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 339.7699890136719
+    },
+    {
+      "ticker": "LITE",
+      "predicted_return": 0.005040777542777751,
+      "open_price": 1051.18994140625,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 1045.6099853515625
+    },
+    {
+      "ticker": "PGEN",
+      "predicted_return": 0.005038587453077322,
+      "open_price": 8.300000190734863,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 8.1899995803833
+    },
+    {
+      "ticker": "XXI",
+      "predicted_return": 0.005036907989912415,
+      "open_price": 6.945000171661377,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 6.744999885559082
+    },
+    {
+      "ticker": "SAIL",
+      "predicted_return": 0.0050190945894625,
+      "open_price": 20.709999084472656,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 20.549999237060547
+    },
+    {
+      "ticker": "MUR",
+      "predicted_return": 0.005015455173779045,
+      "open_price": 36.482200622558594,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 37.474998474121094
+    },
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.005013675984109401,
+      "open_price": 15.949999809265137,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 15.880000114440918
+    },
+    {
+      "ticker": "ICHR",
+      "predicted_return": 0.005012723551909201,
+      "open_price": 65.01000213623047,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 62.510501861572266
+    }
+  ],
+  "scored_count": 1933,
+  "skipped": [
+    {
+      "ticker": "ACN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AYI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JOE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLUG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CENT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 11.759464063018942
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 8.704938906388364
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 8.311095974688747
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-01",
+    "model_trained_through": "2026-10-01",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-01, model trained through 2026-10-01 -- ready for this morning's opens."
+  }
+}

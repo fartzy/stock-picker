@@ -1,0 +1,178 @@
+{
+  "as_of": "2026-09-18",
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "XENE",
+      "predicted_return": 0.803667429091277,
+      "open_price": 44.0,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "BVC",
+      "predicted_return": 0.612789457572978,
+      "open_price": 13.52,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "CIFR",
+      "predicted_return": 0.510419827141796,
+      "open_price": 17.8,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "BHVN",
+      "predicted_return": 0.4887009018307851,
+      "open_price": 14.07,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "FRVO",
+      "predicted_return": 0.47698783097122094,
+      "open_price": 16.86,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "GENB",
+      "predicted_return": 0.46276321939383136,
+      "open_price": 17.17,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "CHRN",
+      "predicted_return": 0.4115668383653833,
+      "open_price": 20.17,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "RGC",
+      "predicted_return": 0.40795819238251496,
+      "open_price": 6.01,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "PURR",
+      "predicted_return": 0.40131391830682756,
+      "open_price": 13.79,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "STDN",
+      "predicted_return": 0.36870372663632406,
+      "open_price": 12.45,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.32182163360924365,
+      "open_price": 158.355,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "SLS",
+      "predicted_return": 0.2858280255175064,
+      "open_price": 11.77,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.23515342453071478,
+      "open_price": 8.61,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "ABCL",
+      "predicted_return": 0.1695486534760222,
+      "open_price": 12.562,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "HUT",
+      "predicted_return": 0.14547031797780116,
+      "open_price": 93.34,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "PS",
+      "predicted_return": 0.14026352642800413,
+      "open_price": 43.92,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "MARA",
+      "predicted_return": 0.13957991375704268,
+      "open_price": 12.13,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "ALMR",
+      "predicted_return": 0.13700183467983823,
+      "open_price": 31.76,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "TDTH",
+      "predicted_return": 0.13558018818124665,
+      "open_price": 1.81,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "INIO",
+      "predicted_return": 0.11090570895146018,
+      "open_price": 20.8,
+      "snapshot_date": "2026-09-17"
+    }
+  ],
+  "scored_count": 1993,
+  "skipped": [
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "parkinson_vol_20d",
+      "importance": 37.48732469637448
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 18.732252704373902
+    },
+    {
+      "feature": "day_range_pct",
+      "importance": 15.71880137644332
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-17",
+    "model_trained_through": "2026-09-17",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-17, model trained through 2026-09-17 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

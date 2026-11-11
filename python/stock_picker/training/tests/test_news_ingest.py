@@ -6,6 +6,7 @@ from stock_picker.training.news_ingest import (
     ingest_universe_news,
     lookback_start,
     news_article_from_finnhub,
+    refresh_candidate_news,
 )
 
 
@@ -16,6 +17,10 @@ def _unix(year, month, day, hour=8, minute=1):
 
 def test_lookback_start_skips_the_weekend():
     assert lookback_start(date(2026, 9, 23), sessions=3) == date(2026, 9, 18)
+
+
+def test_invalid_provider_timestamp_does_not_abort_collection():
+    assert news_article_from_finnhub("XENE", {"id": 1, "headline": "headline", "datetime": 10**30}, date(2026, 9, 23)) is None
 
 
 def test_news_article_from_finnhub_stores_classifier_fields():
@@ -141,3 +146,33 @@ def test_none_fetch_is_not_marked_ingested(tmp_path, monkeypatch):
     )
 
     assert store.tickers_ingested("2026-09-23") == {"AAPL"}
+
+
+def test_refresh_rechecks_names_without_losing_earlier_observations(tmp_path, monkeypatch):
+    store = NewsStore(data_dir=tmp_path)
+    monkeypatch.setattr("stock_picker.training.news_ingest.finnhub_api_key", lambda: "k")
+    calls = []
+    def fetch(ticker, *args, **kwargs):
+        calls.append(ticker)
+        return [{"id": 1, "headline": f"version {len(calls)}", "datetime": _unix(2026, 9, 23)}]
+    for hour in (9, 10):
+        ingest_universe_news(tickers=["XENE"], as_of=date(2026, 9, 23), store=store,
+                             fetch_one=fetch, sleep_seconds=0, refresh=True,
+                             now=datetime(2026, 9, 23, hour, tzinfo=ZoneInfo("America/New_York")))
+    assert calls == ["XENE", "XENE"]
+    assert store.observed_articles("XENE", "2026-09-23T09:30:00-04:00")[0]["article"]["headline"] == "version 1"
+    assert store.observed_articles("XENE", "2026-09-23T10:30:00-04:00")[0]["article"]["headline"] == "version 2"
+
+
+def test_post_close_refresh_only_uses_saved_session_candidates(tmp_path, monkeypatch):
+    import json
+    directory = tmp_path / "buy_signals"
+    directory.mkdir()
+    for suffix, names in [("", ["A", "B"]), ("-rank", ["B", "C"])]:
+        (directory / f"2026-09-23{suffix}.json").write_text(json.dumps({
+            "as_of": "2026-09-23", "signals": [{"ticker": name} for name in names]}))
+    monkeypatch.setattr("stock_picker.training.news_ingest.data_root", lambda: tmp_path)
+    calls = []
+    monkeypatch.setattr("stock_picker.training.news_ingest.ingest_universe_news", lambda **kwargs: calls.append(kwargs) or {})
+    refresh_candidate_news(date(2026, 9, 23))
+    assert calls == [{"tickers": ["A", "B", "C"], "as_of": date(2026, 9, 23), "refresh": True}]

@@ -1,0 +1,412 @@
+{
+  "existing": {
+    "all": {
+      "brier": {
+        "sessions": 63,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 63,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1": {
+      "brier": {
+        "sessions": 55,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 55,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_dips": {
+      "brier": {
+        "sessions": 38,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 38,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_full_context": {
+      "brier": {
+        "sessions": 46,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 46,
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "negative_is_better": true
+      }
+    }
+  },
+  "market": {
+    "all": {
+      "brier": {
+        "sessions": 63,
+        "difference": 0.00046314584375946983,
+        "ci95": [
+          -0.0020220470191495395,
+          0.004092564348760094
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 63,
+        "difference": -0.0001802614512076721,
+        "ci95": [
+          -0.0003504291839836994,
+          -3.3495519624765413e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1": {
+      "brier": {
+        "sessions": 55,
+        "difference": -0.0007827159285266555,
+        "ci95": [
+          -0.004075181533252562,
+          0.0030244568836850553
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 55,
+        "difference": -0.0002750658950809158,
+        "ci95": [
+          -0.0005734816116407755,
+          -1.3402207222169721e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_dips": {
+      "brier": {
+        "sessions": 38,
+        "difference": -6.135650656496154e-05,
+        "ci95": [
+          -0.0039806777558102115,
+          0.0035081820309881915
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 38,
+        "difference": -9.378410251572821e-05,
+        "ci95": [
+          -0.0004724882145202119,
+          0.00021601382543287047
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_full_context": {
+      "brier": {
+        "sessions": 46,
+        "difference": -0.002041001533021958,
+        "ci95": [
+          -0.005882187376381291,
+          0.0018791718334575797
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 46,
+        "difference": -0.0003016604559986111,
+        "ci95": [
+          -0.0005653976777328871,
+          -9.522927349244838e-05
+        ],
+        "negative_is_better": true
+      }
+    }
+  },
+  "volume": {
+    "all": {
+      "brier": {
+        "sessions": 63,
+        "difference": 0.0020014376361128165,
+        "ci95": [
+          0.0005635677464404384,
+          0.0033003977638642657
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 63,
+        "difference": -7.299155114780678e-05,
+        "ci95": [
+          -0.00019041818689529842,
+          3.5879917198784574e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1": {
+      "brier": {
+        "sessions": 55,
+        "difference": 8.088081387892046e-05,
+        "ci95": [
+          -0.0018491682172645694,
+          0.0018677343717138565
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 55,
+        "difference": -2.9508416138416897e-05,
+        "ci95": [
+          -0.00015861740853943414,
+          9.130821515323659e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_dips": {
+      "brier": {
+        "sessions": 38,
+        "difference": 0.0017199649505468832,
+        "ci95": [
+          -3.0831870772320653e-05,
+          0.004103613076733411
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 38,
+        "difference": -5.074869226676836e-05,
+        "ci95": [
+          -0.00024399761249576724,
+          0.00014545750338163614
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_full_context": {
+      "brier": {
+        "sessions": 46,
+        "difference": -0.0001378950626160699,
+        "ci95": [
+          -0.002497750776301791,
+          0.002054597358861985
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 46,
+        "difference": -0.00013966741350200852,
+        "ci95": [
+          -0.000268949318428641,
+          -2.8305264922609824e-05
+        ],
+        "negative_is_better": true
+      }
+    }
+  },
+  "market_and_volume": {
+    "all": {
+      "brier": {
+        "sessions": 63,
+        "difference": 0.0016126768059432515,
+        "ci95": [
+          -0.00036898595765692116,
+          0.004088818485893188
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 63,
+        "difference": -0.00014534928471447177,
+        "ci95": [
+          -0.0003194187486316559,
+          -1.8420767102765657e-06
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1": {
+      "brier": {
+        "sessions": 55,
+        "difference": -0.00032098829788816647,
+        "ci95": [
+          -0.0029412076498240665,
+          0.0025446038442178995
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 55,
+        "difference": -0.00019256108776954803,
+        "ci95": [
+          -0.00041877292108026076,
+          1.505601738446343e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_dips": {
+      "brier": {
+        "sessions": 38,
+        "difference": 0.0010972952214410808,
+        "ci95": [
+          -0.0017611451777468441,
+          0.003954370693503746
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 38,
+        "difference": -6.600782621456833e-05,
+        "ci95": [
+          -0.0003521448142722107,
+          0.00015912370211127515
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_full_context": {
+      "brier": {
+        "sessions": 46,
+        "difference": -0.001277723289816258,
+        "ci95": [
+          -0.003705472989306612,
+          0.0014307386656611874
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 46,
+        "difference": -0.00021435574638875338,
+        "ci95": [
+          -0.00042398029246625235,
+          -3.8666087000119076e-05
+        ],
+        "negative_is_better": true
+      }
+    }
+  },
+  "training_selected": {
+    "all": {
+      "brier": {
+        "sessions": 63,
+        "difference": 0.0020014376361128165,
+        "ci95": [
+          0.0005635677464404384,
+          0.0033003977638642657
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 63,
+        "difference": -7.299155114780678e-05,
+        "ci95": [
+          -0.00019041818689529842,
+          3.5879917198784574e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1": {
+      "brier": {
+        "sessions": 55,
+        "difference": 8.088081387892046e-05,
+        "ci95": [
+          -0.0018491682172645694,
+          0.0018677343717138565
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 55,
+        "difference": -2.9508416138416897e-05,
+        "ci95": [
+          -0.00015861740853943414,
+          9.130821515323659e-05
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_dips": {
+      "brier": {
+        "sessions": 38,
+        "difference": 0.0017199649505468832,
+        "ci95": [
+          -3.0831870772320653e-05,
+          0.004103613076733411
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 38,
+        "difference": -5.074869226676836e-05,
+        "ci95": [
+          -0.00024399761249576724,
+          0.00014545750338163614
+        ],
+        "negative_is_better": true
+      }
+    },
+    "rank1_full_context": {
+      "brier": {
+        "sessions": 46,
+        "difference": -0.0001378950626160699,
+        "ci95": [
+          -0.002497750776301791,
+          0.002054597358861985
+        ],
+        "negative_is_better": true
+      },
+      "return_mae": {
+        "sessions": 46,
+        "difference": -0.00013966741350200852,
+        "ci95": [
+          -0.000268949318428641,
+          -2.8305264922609824e-05
+        ],
+        "negative_is_better": true
+      }
+    }
+  }
+}

@@ -89,7 +89,7 @@ js_test(
 # Pure calculations run with Bazel's Node toolchain; no test-framework install.
 ts_project(
     name = "what_if_calculations",
-    srcs = ["src/api.ts", "src/whatIf.ts", "src/whatIfHold.ts", "src/newsCheck.ts", "src/newsSkip.ts", "src/session.ts", "src/overnightTickers.ts"],
+    srcs = ["src/api.ts", "src/requests.ts", "src/whatIf.ts", "src/whatIfHold.ts", "src/newsCheck.ts", "src/newsSkip.ts", "src/session.ts", "src/overnightTickers.ts"],
     declaration = False,
     transpiler = "tsc",
     tsconfig = {"compilerOptions": {
@@ -99,6 +99,12 @@ ts_project(
         "strict": True,
         "types": [],
     }},
+)
+
+js_test(
+    name = "requests_test",
+    entry_point = "tests/requests.test.mjs",
+    data = [":what_if_calculations", "package.json"],
 )
 
 js_test(

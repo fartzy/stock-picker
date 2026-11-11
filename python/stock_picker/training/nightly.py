@@ -40,8 +40,9 @@ def run_nightly() -> int:
             logger.exception("What if day refresh failed")
             paper_book_failed = True
         logger.info("=== 3/7 resume universe news ingest ===")
-        from stock_picker.training.news_ingest import ingest_universe_news
+        from stock_picker.training.news_ingest import ingest_universe_news, refresh_candidate_news
 
+        refresh_candidate_news(cutoff)
         ingest_universe_news()
         logger.info("=== 4/7 fill missing sectors (capped Yahoo profile pull) ===")
         from stock_picker.ingestion.fundamentals import refresh_missing_sectors

@@ -1,0 +1,1045 @@
+{
+  "origin_main": "bd5790b72f6975ceb1fb47d96cba067492c98366",
+  "timing": "Before final archive commit; its branch head is its parent at audit time",
+  "branches": [
+    {
+      "name": "backup/overnight-live-root-20261009",
+      "sha": "1e967b1395261956b80bb2b8b6736b6da0945dd7",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Earlier market snapshots and October 8 trades; reconciled by PRs #209, #210, #213 and the current later data snapshot."
+    },
+    {
+      "name": "bazelignore-worktrees",
+      "sha": "d690e624c2faf859eed9f08f196ba10a66643cf8",
+      "status": "exact_merged_PR_head",
+      "pr": 36,
+      "url": "https://github.com/fartzy/stock-picker/pull/36"
+    },
+    {
+      "name": "chore/sync-local-data-2026-10-09",
+      "sha": "2e7d0ae55cab4a2e674a3ef7c61cf864cf983012",
+      "status": "exact_merged_PR_head",
+      "pr": 213,
+      "url": "https://github.com/fartzy/stock-picker/pull/213"
+    },
+    {
+      "name": "codex/guard-invalid-ohlc-and-rebuild-features",
+      "sha": "6ada9f7ebae2d5b00b96edd6f603a92d9d12729e",
+      "status": "exact_merged_PR_head",
+      "pr": 234,
+      "url": "https://github.com/fartzy/stock-picker/pull/234"
+    },
+    {
+      "name": "codex/model-run-state-oct12",
+      "sha": "ab9e1445d95cd6049e39fb65c8f79f5d251cf7a9",
+      "status": "exact_merged_PR_head",
+      "pr": 232,
+      "url": "https://github.com/fartzy/stock-picker/pull/232"
+    },
+    {
+      "name": "codex/oct12-feature-snapshot",
+      "sha": "adeb457f27f46dac6b376bfb6429d714bba28605",
+      "status": "exact_merged_PR_head",
+      "pr": 231,
+      "url": "https://github.com/fartzy/stock-picker/pull/231"
+    },
+    {
+      "name": "codex/paper-book-snapshot-oct12",
+      "sha": "08939c4a1cddfa84e4129a774c660584e1164f81",
+      "status": "exact_merged_PR_head",
+      "pr": 233,
+      "url": "https://github.com/fartzy/stock-picker/pull/233"
+    },
+    {
+      "name": "codex/price-pattern-feature-families",
+      "sha": "7bf83fc2ec91e822cf841975c57dfa5524434201",
+      "status": "exact_merged_PR_head",
+      "pr": 241,
+      "url": "https://github.com/fartzy/stock-picker/pull/241"
+    },
+    {
+      "name": "data/add-crgy-afternoon-fills-2026-10-09",
+      "sha": "120605e3d3d43bde3eec6c922cacd03b38423bf0",
+      "status": "exact_merged_PR_head",
+      "pr": 219,
+      "url": "https://github.com/fartzy/stock-picker/pull/219"
+    },
+    {
+      "name": "data/add-hpq-orders-2026-10-09-afternoon",
+      "sha": "9aef997fc4f79c6757cf385e469f126ca4b174ca",
+      "status": "exact_merged_PR_head",
+      "pr": 217,
+      "url": "https://github.com/fartzy/stock-picker/pull/217"
+    },
+    {
+      "name": "data/broker-ledger-20261028",
+      "sha": "941bbe9904a68580690203b71676db0601266c5e",
+      "status": "exact_merged_PR_head",
+      "pr": 266,
+      "url": "https://github.com/fartzy/stock-picker/pull/266"
+    },
+    {
+      "name": "data/broker-ledger-20261111",
+      "sha": "b233ba321afa61f460c0569b3cf64a4acc714e61",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/catch-up-20261009",
+      "sha": "50e2059b7c1e7d2988f4daf233c36515f22c5bc9",
+      "status": "exact_merged_PR_head",
+      "pr": 212,
+      "url": "https://github.com/fartzy/stock-picker/pull/212"
+    },
+    {
+      "name": "data/close-xxi-2026-09-29",
+      "sha": "9f1f0581cc425ab55ed3e51d1c7ee000dbf8d0cc",
+      "status": "exact_merged_PR_head",
+      "pr": 145,
+      "url": "https://github.com/fartzy/stock-picker/pull/145"
+    },
+    {
+      "name": "data/complete-crgy-oct-09-fills",
+      "sha": "a35edca17b9973b6030f2ed4a0b7fdd81fb65292",
+      "status": "exact_merged_PR_head",
+      "pr": 220,
+      "url": "https://github.com/fartzy/stock-picker/pull/220"
+    },
+    {
+      "name": "data/feature-snapshot-20261030",
+      "sha": "5c2132637d2deca1cd66712b0468f3794c8169ec",
+      "status": "exact_merged_PR_head",
+      "pr": 285,
+      "url": "https://github.com/fartzy/stock-picker/pull/285"
+    },
+    {
+      "name": "data/feature-snapshot-20261111",
+      "sha": "ae37c44dc1f4cda9056a2532bf22f90230583c93",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/forecast-outcomes-20261111",
+      "sha": "79ec94e0fe819c7f40b707b62413778e5d2a4f81",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/import-nov9-fidelity-orders",
+      "sha": "7d29424c68b6c194dc328da1f81879557948ebcb",
+      "status": "exact_merged_PR_head",
+      "pr": 288,
+      "url": "https://github.com/fartzy/stock-picker/pull/288"
+    },
+    {
+      "name": "data/log-fills-2026-09-29",
+      "sha": "9f011e9d1264fc8014c8cbbc0239fdcace9be11c",
+      "status": "exact_merged_PR_head",
+      "pr": 144,
+      "url": "https://github.com/fartzy/stock-picker/pull/144"
+    },
+    {
+      "name": "data/market-feature-snapshot-20261028",
+      "sha": "a4ea3af0b492ca1ad91aab518dc4cf541fb391ff",
+      "status": "exact_merged_PR_head",
+      "pr": 262,
+      "url": "https://github.com/fartzy/stock-picker/pull/262"
+    },
+    {
+      "name": "data/model-training-snapshot-20261028",
+      "sha": "0afeddb64fcabf290ee4d60cd81bbc668050ac0f",
+      "status": "exact_merged_PR_head",
+      "pr": 263,
+      "url": "https://github.com/fartzy/stock-picker/pull/263"
+    },
+    {
+      "name": "data/model-training-snapshot-20261030",
+      "sha": "6db08d799f9232710fe0d4108a9a6e013eb17804",
+      "status": "exact_merged_PR_head",
+      "pr": 283,
+      "url": "https://github.com/fartzy/stock-picker/pull/283"
+    },
+    {
+      "name": "data/model-training-snapshot-20261111",
+      "sha": "27f6145e2c02e6f28b7c2a5da0fcf31822592460",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/morning-picks-20261030",
+      "sha": "551fb880b719d2e384831954db4072313f48a1bf",
+      "status": "exact_merged_PR_head",
+      "pr": 281,
+      "url": "https://github.com/fartzy/stock-picker/pull/281"
+    },
+    {
+      "name": "data/morning-trades-2026-09-30",
+      "sha": "081966f872a8c6202521da005a02871c0b22af38",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "September 30 data merged in #158; later news clarification merged in #160; subsequent dated picks are already present."
+    },
+    {
+      "name": "data/nov9-ions-nvda-exits",
+      "sha": "c106001eeeffd93b918d6017e8250c9d9c8a3a78",
+      "status": "exact_merged_PR_head",
+      "pr": 289,
+      "url": "https://github.com/fartzy/stock-picker/pull/289"
+    },
+    {
+      "name": "data/oct-01-broker-import",
+      "sha": "35e79b645959463649bb6847746f33296eb90f68",
+      "status": "exact_merged_PR_head",
+      "pr": 161,
+      "url": "https://github.com/fartzy/stock-picker/pull/161"
+    },
+    {
+      "name": "data/oct-01-closes",
+      "sha": "caf85516ca97fd715b7b553fe0fad1dbfacabd7f",
+      "status": "exact_merged_PR_head",
+      "pr": 162,
+      "url": "https://github.com/fartzy/stock-picker/pull/162"
+    },
+    {
+      "name": "data/oct-05-completed-closes",
+      "sha": "72d2541198fc8ad5266e17edb8ab9224fd9da1e9",
+      "status": "exact_merged_PR_head",
+      "pr": 175,
+      "url": "https://github.com/fartzy/stock-picker/pull/175"
+    },
+    {
+      "name": "data/oct29-kgc-agi-morning",
+      "sha": "9632803ea35915cfe88dd5e3de25c2d4b63fa45c",
+      "status": "exact_merged_PR_head",
+      "pr": 267,
+      "url": "https://github.com/fartzy/stock-picker/pull/267"
+    },
+    {
+      "name": "data/oct30-broker-ledger",
+      "sha": "3e673d5ecdd93f71eb17bdb01bf9578bc62aebb9",
+      "status": "exact_merged_PR_head",
+      "pr": 282,
+      "url": "https://github.com/fartzy/stock-picker/pull/282"
+    },
+    {
+      "name": "data/oct8-ledger-20261009",
+      "sha": "ef8072586a59866fcbc0c38d65119d9a3797f4b9",
+      "status": "exact_merged_PR_head",
+      "pr": 210,
+      "url": "https://github.com/fartzy/stock-picker/pull/210"
+    },
+    {
+      "name": "data/overnight-model-only-2026-10-08",
+      "sha": "afe9e5e42fe0a40a16a72b5e8d3b06aecdeb0826",
+      "status": "exact_merged_PR_head",
+      "pr": 209,
+      "url": "https://github.com/fartzy/stock-picker/pull/209"
+    },
+    {
+      "name": "data/overnight-model-trades-2026-10-08",
+      "sha": "151c171aadf415dbc9c794842d70692b1ba2d042",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Closed #208 split into merged model #209 and reconciled trade #210/#213 publications."
+    },
+    {
+      "name": "data/paper-book-2026-09-29",
+      "sha": "2af186b436ef4c922d6a317b16ca4494328656fc",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Superseded historical database snapshot; October 28 reconciliation and current paper book preserve later outcomes."
+    },
+    {
+      "name": "data/paper-book-snapshot-20261028",
+      "sha": "6d7db5cac3b1d883b6edb1e14013ebf3b3368a63",
+      "status": "exact_merged_PR_head",
+      "pr": 264,
+      "url": "https://github.com/fartzy/stock-picker/pull/264"
+    },
+    {
+      "name": "data/paper-book-snapshot-20261030",
+      "sha": "58d31740f9c2cbb4f81ce49d5c13a2d7c1f499e7",
+      "status": "exact_merged_PR_head",
+      "pr": 284,
+      "url": "https://github.com/fartzy/stock-picker/pull/284"
+    },
+    {
+      "name": "data/price-weather-snapshot-20261030",
+      "sha": "0c9a27566c007d9bcb2999d0fa5a8e0d47584f74",
+      "status": "exact_merged_PR_head",
+      "pr": 286,
+      "url": "https://github.com/fartzy/stock-picker/pull/286"
+    },
+    {
+      "name": "data/price-weather-snapshot-20261111",
+      "sha": "02f13e7ce0a1ac487b845d226b42ab10f4913b0b",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/reconcile-hpq-add-crgy-2026-10-09",
+      "sha": "2915320a4aac0c137f29b147ac663a7e39e047a8",
+      "status": "exact_merged_PR_head",
+      "pr": 218,
+      "url": "https://github.com/fartzy/stock-picker/pull/218"
+    },
+    {
+      "name": "data/refresh-market-2026-09-29",
+      "sha": "de176b5d5a50c95c47c632e89d1cf5b4287a3f15",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Superseded market/model snapshots; current data is newer. September 29 dated picks were recovered in the October 28 reconciliation."
+    },
+    {
+      "name": "data/runtime-archive-20261111",
+      "sha": "79ec94e0fe819c7f40b707b62413778e5d2a4f81",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "data/svm-seven-model-2026-10-04",
+      "sha": "f2a0ea2a78e6acacc0f8a336570345f2c36eb97c",
+      "status": "exact_merged_PR_head",
+      "pr": 167,
+      "url": "https://github.com/fartzy/stock-picker/pull/167"
+    },
+    {
+      "name": "data/trades-2026-10-01",
+      "sha": "b36038fff1704ed676d7d4faed6076da98acf29b",
+      "status": "exact_merged_PR_head",
+      "pr": 164,
+      "url": "https://github.com/fartzy/stock-picker/pull/164"
+    },
+    {
+      "name": "data/trades-2026-10-05",
+      "sha": "36da55bef6bff9bbe66aa4deba61eaf3cf5f4a5b",
+      "status": "exact_merged_PR_head",
+      "pr": 168,
+      "url": "https://github.com/fartzy/stock-picker/pull/168"
+    },
+    {
+      "name": "data/trades-2026-10-05-additional",
+      "sha": "74537b30204e3b32beb0d949a5a89d1851cc490d",
+      "status": "exact_merged_PR_head",
+      "pr": 169,
+      "url": "https://github.com/fartzy/stock-picker/pull/169"
+    },
+    {
+      "name": "data/trades-2026-10-05-afternoon",
+      "sha": "cdd6b56002142134c01f3f2384da46d7509b650b",
+      "status": "exact_merged_PR_head",
+      "pr": 170,
+      "url": "https://github.com/fartzy/stock-picker/pull/170"
+    },
+    {
+      "name": "data/trades-2026-10-05-close",
+      "sha": "f5cc428470ea1259f317c36a8c3995bdf1a2e276",
+      "status": "exact_merged_PR_head",
+      "pr": 171,
+      "url": "https://github.com/fartzy/stock-picker/pull/171"
+    },
+    {
+      "name": "data/trades-2026-10-06",
+      "sha": "7020887e4122c3d489730716b0704134bc25459b",
+      "status": "exact_merged_PR_head",
+      "pr": 178,
+      "url": "https://github.com/fartzy/stock-picker/pull/178"
+    },
+    {
+      "name": "data/trades-2026-10-06-closes",
+      "sha": "1954a52996da03f27aa57cf4d3c3e4b390d6c02f",
+      "status": "exact_merged_PR_head",
+      "pr": 179,
+      "url": "https://github.com/fartzy/stock-picker/pull/179"
+    },
+    {
+      "name": "data/wern-final-2026-10-06",
+      "sha": "f27d49e62824b366abeab6f0c6939e632483e92f",
+      "status": "exact_merged_PR_head",
+      "pr": 183,
+      "url": "https://github.com/fartzy/stock-picker/pull/183"
+    },
+    {
+      "name": "docs/active-pattern-features-20261111",
+      "sha": "0d0d9724ff05290f8cde961d0680e5889e868d3b",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "docs/adr-and-delegation-briefing",
+      "sha": "714a1fc04c693859756474c319109729f6d199c5",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "SVR result documented by #137 and current ADR0020/0021 briefing; do not restore the superseded pending experiment wording."
+    },
+    {
+      "name": "docs/archive-local-work-20261028",
+      "sha": "80839c4ec7d3fc4152d9e4b6ffd74bb422cbd973",
+      "status": "exact_merged_PR_head",
+      "pr": 265,
+      "url": "https://github.com/fartzy/stock-picker/pull/265"
+    },
+    {
+      "name": "docs/bazel-toolchain-invariants",
+      "sha": "b6a55f5ce0f74e789591447a6abfbc38a873553a",
+      "status": "exact_merged_PR_head",
+      "pr": 276,
+      "url": "https://github.com/fartzy/stock-picker/pull/276"
+    },
+    {
+      "name": "docs/generated-build-integrity",
+      "sha": "2bea145e43b719f451b3e0a40e839af379279665",
+      "status": "exact_merged_PR_head",
+      "pr": 277,
+      "url": "https://github.com/fartzy/stock-picker/pull/277"
+    },
+    {
+      "name": "docs/logistic-regression-done",
+      "sha": "799d6d284d0c89d4eb165773c4bbd8fe08c219da",
+      "status": "exact_merged_PR_head",
+      "pr": 17,
+      "url": "https://github.com/fartzy/stock-picker/pull/17"
+    },
+    {
+      "name": "docs/overnight-plan-review",
+      "sha": "3ed668f9a7bff8a67654d37e2e444ae1f7b3fdb6",
+      "status": "exact_merged_PR_head",
+      "pr": 173,
+      "url": "https://github.com/fartzy/stock-picker/pull/173"
+    },
+    {
+      "name": "docs/python-dependency-workflow",
+      "sha": "c1fa8356246d7304d95eb0e235f74d5515e346f2",
+      "status": "exact_merged_PR_head",
+      "pr": 275,
+      "url": "https://github.com/fartzy/stock-picker/pull/275"
+    },
+    {
+      "name": "docs/readme-trim",
+      "sha": "6a1e15b039e92b77696cef44a564f89c292b160a",
+      "status": "exact_merged_PR_head",
+      "pr": 107,
+      "url": "https://github.com/fartzy/stock-picker/pull/107"
+    },
+    {
+      "name": "docs/session-handoff-2026-09-29",
+      "sha": "4d0d238f05e4842e0a423f0174034836d946ee77",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Exact handoff preserved by merged #265 at docs/archive/local-checkin-2026-10-28/session-handoff-2026-09-29.md."
+    },
+    {
+      "name": "experiment/svm-stacked-features",
+      "sha": "c7bae2cf0d12f51ecaabbf3f38d84970bcc77409",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Dated September 29 picks recovered by October 28 reconciliation; SVM implementation merged separately in #150."
+    },
+    {
+      "name": "feat/all-svm-stacked-features",
+      "sha": "b190967dbcae512479d0742c17fc7bca17222919",
+      "status": "exact_merged_PR_head",
+      "pr": 166,
+      "url": "https://github.com/fartzy/stock-picker/pull/166"
+    },
+    {
+      "name": "feat/consolidation-ui-20261007",
+      "sha": "626095b546f5621e737a02a324cc48f72ce8a35f",
+      "status": "exact_merged_PR_head",
+      "pr": 198,
+      "url": "https://github.com/fartzy/stock-picker/pull/198"
+    },
+    {
+      "name": "feat/data-snapshot-20261007",
+      "sha": "acd838b66db7358e3a2050bbccc7209116082277",
+      "status": "exact_merged_PR_head",
+      "pr": 199,
+      "url": "https://github.com/fartzy/stock-picker/pull/199"
+    },
+    {
+      "name": "feat/intraday-entry-model",
+      "sha": "cb317b2b0d8d0454d5e58a572f244ea5b4e09541",
+      "status": "exact_merged_PR_head",
+      "pr": 299,
+      "url": "https://github.com/fartzy/stock-picker/pull/299"
+    },
+    {
+      "name": "feat/jev-forward-assessments-20261109",
+      "sha": "a5002a1454aadf468b0cb2e8b620e8e75c6a693c",
+      "status": "exact_merged_PR_head",
+      "pr": 287,
+      "url": "https://github.com/fartzy/stock-picker/pull/287"
+    },
+    {
+      "name": "feat/morning-email-picks",
+      "sha": "b19906c30b27ea1e745dc9ed5f5c04adf682afe7",
+      "status": "exact_merged_PR_head",
+      "pr": 86,
+      "url": "https://github.com/fartzy/stock-picker/pull/86"
+    },
+    {
+      "name": "feat/overnight-feature-comparison",
+      "sha": "588b0240500e58514e0f94d72bd054b2aed881d8",
+      "status": "exact_merged_PR_head",
+      "pr": 188,
+      "url": "https://github.com/fartzy/stock-picker/pull/188"
+    },
+    {
+      "name": "feat/overnight-model-live-data-2026-10-08",
+      "sha": "b7cac168a9a704242159b12606f1299517112003",
+      "status": "ancestor_of_remote_main"
+    },
+    {
+      "name": "feat/overnight-phase1",
+      "sha": "646f789b953a4167408286ac9a71b5b220df1cbc",
+      "status": "exact_merged_PR_head",
+      "pr": 180,
+      "url": "https://github.com/fartzy/stock-picker/pull/180"
+    },
+    {
+      "name": "feat/overnight-phase2a",
+      "sha": "f23bea117af2f23b5b911db5ece86fee2a57a5c5",
+      "status": "exact_merged_PR_head",
+      "pr": 182,
+      "url": "https://github.com/fartzy/stock-picker/pull/182"
+    },
+    {
+      "name": "feat/overnight-quicklook-ui",
+      "sha": "a7a26a4c398b68c5e08433ef986611b3296401a9",
+      "status": "exact_merged_PR_head",
+      "pr": 196,
+      "url": "https://github.com/fartzy/stock-picker/pull/196"
+    },
+    {
+      "name": "feat/overnight-ranked-stack",
+      "sha": "807b0c7a52a63070aaf7c1f9c8f68da6daa87b24",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "One later localhost-host commit has exact patch equivalent 03ca295fe on main (merged #261)."
+    },
+    {
+      "name": "feat/overnight-same-day-pipeline",
+      "sha": "95a3c4d7b9ccef4796ebf88e1138877eab3c8b2e",
+      "status": "exact_merged_PR_head",
+      "pr": 187,
+      "url": "https://github.com/fartzy/stock-picker/pull/187"
+    },
+    {
+      "name": "feat/polygon-realtime-opens",
+      "sha": "d261d2351b6ef195118c7cb56ff5657bcf5b9e6b",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Opening diagnostics/stream merged #176/#177; later dated pick/data snapshots superseded by current data."
+    },
+    {
+      "name": "feat/svm-derived-features",
+      "sha": "bcf847d6e057a08bf66a01ed1a5456e5a51a7227",
+      "status": "exact_merged_PR_head",
+      "pr": 150,
+      "url": "https://github.com/fartzy/stock-picker/pull/150"
+    },
+    {
+      "name": "feat/universe-news-store",
+      "sha": "c9b9bb4e2676e3b2b8d4fa5b5493543e86ff3dfc",
+      "status": "exact_merged_PR_head",
+      "pr": 106,
+      "url": "https://github.com/fartzy/stock-picker/pull/106"
+    },
+    {
+      "name": "feat/what-if-exclude-blacklisted",
+      "sha": "3103d7c970316930f33c03aa0cedf8030b3549f6",
+      "status": "exact_merged_PR_head",
+      "pr": 221,
+      "url": "https://github.com/fartzy/stock-picker/pull/221"
+    },
+    {
+      "name": "feat/whatif-news-toggle-20261007",
+      "sha": "6a03fece3001f0350d49c18c527402844eeda24a",
+      "status": "exact_merged_PR_head",
+      "pr": 197,
+      "url": "https://github.com/fartzy/stock-picker/pull/197"
+    },
+    {
+      "name": "feat/whatif-overnight-exit-replay-20261009",
+      "sha": "b7cac168a9a704242159b12606f1299517112003",
+      "status": "ancestor_of_remote_main"
+    },
+    {
+      "name": "feat/whatif-spy-comparison",
+      "sha": "17019149bff5acf8d11c42f89d4d3e405c2204b3",
+      "status": "exact_merged_PR_head",
+      "pr": 147,
+      "url": "https://github.com/fartzy/stock-picker/pull/147"
+    },
+    {
+      "name": "feature/dip-context-experiment-2026-11-09",
+      "sha": "552169324d98bc4f19a818d25b228fabd833d914",
+      "status": "exact_merged_PR_head",
+      "pr": 292,
+      "url": "https://github.com/fartzy/stock-picker/pull/292"
+    },
+    {
+      "name": "feature/dip-model-artifacts-2026-11-09",
+      "sha": "827f01af51cbb00d85f7111c5750ba2c91e6328e",
+      "status": "exact_merged_PR_head",
+      "pr": 293,
+      "url": "https://github.com/fartzy/stock-picker/pull/293"
+    },
+    {
+      "name": "feature/jev-evaluation-readability",
+      "sha": "2b219b7747258555bbceb6a4eeb782a84e698373",
+      "status": "exact_merged_PR_head",
+      "pr": 294,
+      "url": "https://github.com/fartzy/stock-picker/pull/294"
+    },
+    {
+      "name": "feature/models-tab-run-history",
+      "sha": "5d97b8e73c85cf5947f181173fc4b4cff62f7b3f",
+      "status": "ancestor_of_remote_main"
+    },
+    {
+      "name": "feature/overnight-scenarios",
+      "sha": "2d22bea699597773d92d9a02c4419fb7809afa59",
+      "status": "exact_merged_PR_head",
+      "pr": 172,
+      "url": "https://github.com/fartzy/stock-picker/pull/172"
+    },
+    {
+      "name": "feature/price-history",
+      "sha": "e1919eea2af08377e8d867fff1ffedc2f9392dfd",
+      "status": "exact_merged_PR_head",
+      "pr": 11,
+      "url": "https://github.com/fartzy/stock-picker/pull/11"
+    },
+    {
+      "name": "feature/registry-inline-prune",
+      "sha": "763b30316849b6d53352ab99ba2ae46327655756",
+      "status": "exact_merged_PR_head",
+      "pr": 18,
+      "url": "https://github.com/fartzy/stock-picker/pull/18"
+    },
+    {
+      "name": "fix/after-hours-scan-date",
+      "sha": "bf9942cfc3b7a7694f2e8648bc333badcc938913",
+      "status": "exact_merged_PR_head",
+      "pr": 153,
+      "url": "https://github.com/fartzy/stock-picker/pull/153"
+    },
+    {
+      "name": "fix/configurable-api-host-20261028",
+      "sha": "438546c4d777d9149eb0297478e4d3515c65953a",
+      "status": "exact_merged_PR_head",
+      "pr": 261,
+      "url": "https://github.com/fartzy/stock-picker/pull/261"
+    },
+    {
+      "name": "fix/dip-research-price-only",
+      "sha": "30c26455765b6d90f0a0b8271f2897ffd2f9bb8f",
+      "status": "exact_merged_PR_head",
+      "pr": 296,
+      "url": "https://github.com/fartzy/stock-picker/pull/296"
+    },
+    {
+      "name": "fix/lighten-trade-history-weeks",
+      "sha": "25092c0b70fea4521cdeb1629cd826de5e98cab3",
+      "status": "exact_merged_PR_head",
+      "pr": 214,
+      "url": "https://github.com/fartzy/stock-picker/pull/214"
+    },
+    {
+      "name": "fix/morning-snapshot-retry",
+      "sha": "68ed4e7a94ea68df29152a904cfa3da1720db5f1",
+      "status": "exact_merged_PR_head",
+      "pr": 152,
+      "url": "https://github.com/fartzy/stock-picker/pull/152"
+    },
+    {
+      "name": "fix/morning-snapshot-test-20261009",
+      "sha": "0de858c4cf0001bb87e0ce5894395d027c748cb9",
+      "status": "exact_merged_PR_head",
+      "pr": 211,
+      "url": "https://github.com/fartzy/stock-picker/pull/211"
+    },
+    {
+      "name": "fix/news-cell-clarity",
+      "sha": "5a860aeace49a519ae66c6dc6c68ece3d9ec4d12",
+      "status": "exact_merged_PR_head",
+      "pr": 160,
+      "url": "https://github.com/fartzy/stock-picker/pull/160"
+    },
+    {
+      "name": "fix/news-check-coverage",
+      "sha": "a8fe44425b9152585fba5ff5f7c364bddc11cd7e",
+      "status": "exact_merged_PR_head",
+      "pr": 149,
+      "url": "https://github.com/fartzy/stock-picker/pull/149"
+    },
+    {
+      "name": "fix/news-event-guard",
+      "sha": "2bd92d71ac262ed08bea7ce887994ade204a68e5",
+      "status": "exact_merged_PR_head",
+      "pr": 163,
+      "url": "https://github.com/fartzy/stock-picker/pull/163"
+    },
+    {
+      "name": "fix/nightly-paper-book-day",
+      "sha": "38d543121ddc8ca226f39c069a4566aaa55904de",
+      "status": "exact_merged_PR_head",
+      "pr": 157,
+      "url": "https://github.com/fartzy/stock-picker/pull/157"
+    },
+    {
+      "name": "fix/oct-02-live-app",
+      "sha": "909d203453dc9543bbc5d503e9d76dae7b2a63b6",
+      "status": "exact_merged_PR_head",
+      "pr": 165,
+      "url": "https://github.com/fartzy/stock-picker/pull/165"
+    },
+    {
+      "name": "fix/overnight-morning-display",
+      "sha": "e41bd1397bd9d428ec50601424c44b26bbbfa9e3",
+      "status": "exact_merged_PR_head",
+      "pr": 154,
+      "url": "https://github.com/fartzy/stock-picker/pull/154"
+    },
+    {
+      "name": "fix/paper-book-replay-primary-key",
+      "sha": "43602285bd0126b9cce9147536b1e2a6ec0843d4",
+      "status": "exact_merged_PR_head",
+      "pr": 256,
+      "url": "https://github.com/fartzy/stock-picker/pull/256"
+    },
+    {
+      "name": "fix/polygon-class-share-symbols",
+      "sha": "e28e60949c1570ab21c474e110c901f00d178e41",
+      "status": "exact_merged_PR_head",
+      "pr": 151,
+      "url": "https://github.com/fartzy/stock-picker/pull/151"
+    },
+    {
+      "name": "fix/polygon-opening-diagnostics",
+      "sha": "43d0b4caa798af2d70c178fc3158027b4852b1e0",
+      "status": "exact_merged_PR_head",
+      "pr": 176,
+      "url": "https://github.com/fartzy/stock-picker/pull/176"
+    },
+    {
+      "name": "fix/post-close-trade-history",
+      "sha": "96bcc2cdd2fc0dd3abccf9fa3d64d99f5976887d",
+      "status": "exact_merged_PR_head",
+      "pr": 184,
+      "url": "https://github.com/fartzy/stock-picker/pull/184"
+    },
+    {
+      "name": "fix/pytest-environment-isolation",
+      "sha": "be59e239ae49f846edbf5ed5f9fa4229632fe770",
+      "status": "exact_merged_PR_head",
+      "pr": 278,
+      "url": "https://github.com/fartzy/stock-picker/pull/278"
+    },
+    {
+      "name": "fix/shared-spy-history-20261028",
+      "sha": "9e983e49c80d3218267aa04d275001dcc779e164",
+      "status": "exact_merged_PR_head",
+      "pr": 260,
+      "url": "https://github.com/fartzy/stock-picker/pull/260"
+    },
+    {
+      "name": "fix/spy-benchmark-history",
+      "sha": "a85781f9da5635d95daac43af757d9ed9bfce21c",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Exact source patch equivalent dba78a3ca on main; benchmark implementation/tests remain byte-identical."
+    },
+    {
+      "name": "fix/trade-history-auto-refresh",
+      "sha": "475fb9a2d3117fea8ef5c2f88dedd1d52021a142",
+      "status": "exact_merged_PR_head",
+      "pr": 148,
+      "url": "https://github.com/fartzy/stock-picker/pull/148"
+    },
+    {
+      "name": "fix/training-panel-spacing",
+      "sha": "d58d4633da66940c3d173e05d57f62c760e579ad",
+      "status": "exact_merged_PR_head",
+      "pr": 34,
+      "url": "https://github.com/fartzy/stock-picker/pull/34"
+    },
+    {
+      "name": "fix/tune-week-row-tint",
+      "sha": "bb7e0957f04492f2a7758bc388f0154ac528abe0",
+      "status": "exact_merged_PR_head",
+      "pr": 215,
+      "url": "https://github.com/fartzy/stock-picker/pull/215"
+    },
+    {
+      "name": "fix/what-if-completed-session-prices",
+      "sha": "e346ee4db0457dda07bc0877a01fbdedf7af50cd",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "include_active",
+      "evidence": "ACTIVE: two commits 17556d830 and e346ee4db are the base of this publication branch and will be included in the Jev PR."
+    },
+    {
+      "name": "fix/what-if-exit-results-20261028",
+      "sha": "3acefe348a7e57f48bd4813342d1f9b322ac8e0d",
+      "status": "exact_merged_PR_head",
+      "pr": 258,
+      "url": "https://github.com/fartzy/stock-picker/pull/258"
+    },
+    {
+      "name": "fix/what-if-loading-20261111",
+      "sha": "50cec5e883c237834c21ac8df352df7cdca3d5d4",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "fix/whatif-zero-gain-matches-next-open",
+      "sha": "ebbbce0e8615e85d98d6d3f0f6cf21dbcdd2ab57",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Follow-on whole-trade gain and close-relative labels merged in #244; later behavior refined by #258."
+    },
+    {
+      "name": "main",
+      "sha": "bd5790b72f6975ceb1fb47d96cba067492c98366",
+      "status": "ancestor_of_remote_main"
+    },
+    {
+      "name": "maintenance/pytest-exit-contract",
+      "sha": "71eb046f1514c1aecd4a4afa2dfc33029a11a932",
+      "status": "exact_merged_PR_head",
+      "pr": 279,
+      "url": "https://github.com/fartzy/stock-picker/pull/279"
+    },
+    {
+      "name": "maintenance/pytest-helper-exports",
+      "sha": "d6e25d375168747597e829a3eb63072f417f349e",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Source merged #280; additional dated October30 morning picks already on main."
+    },
+    {
+      "name": "news-feed",
+      "sha": "f7ebfbacb26ac78e588a462d58a035a8e9746372",
+      "status": "ancestor_of_remote_main"
+    },
+    {
+      "name": "overnight-current-price-prefill",
+      "sha": "0e2944735a72085321d5df64a838d8303be0b723",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Quote prefill consolidated into merged #198."
+    },
+    {
+      "name": "parse-bull-roundtrip-20261007",
+      "sha": "3d02924136edac20506b6ac85d7fd0fac3bc7276",
+      "status": "reviewed_in_Nov9_archive",
+      "prior_disposition": "superseded_or_merged_elsewhere",
+      "evidence": "Quote prefill and fee UI consolidated into merged #198; reconciled BULL fills are in the current ledger."
+    },
+    {
+      "name": "polish/trading-page-copy",
+      "sha": "f51c25ce9f3b85a9ad9411e605250a3e2207ca84",
+      "status": "exact_merged_PR_head",
+      "pr": 216,
+      "url": "https://github.com/fartzy/stock-picker/pull/216"
+    },
+    {
+      "name": "readme-refresh",
+      "sha": "8d86e5dc32ae0a6cb0233c5135c6f29675a8a9e9",
+      "status": "exact_merged_PR_head",
+      "pr": 35,
+      "url": "https://github.com/fartzy/stock-picker/pull/35"
+    },
+    {
+      "name": "research/intraday-context-20261111",
+      "sha": "311a87757382951c5767f7271946507045c82a95",
+      "status": "included_in_current_checkin_stack"
+    },
+    {
+      "name": "research/morning-dip-feature-context-2026-11-09",
+      "sha": "6b6d43c2ccbe3b54978162c75105c4e760ee0640",
+      "status": "exact_merged_PR_head",
+      "pr": 291,
+      "url": "https://github.com/fartzy/stock-picker/pull/291"
+    },
+    {
+      "name": "research/morning-dip-patterns-2026-11-09",
+      "sha": "1f4e386877bd890aaf7b7769d2c95f457b328f75",
+      "status": "exact_merged_PR_head",
+      "pr": 290,
+      "url": "https://github.com/fartzy/stock-picker/pull/290"
+    },
+    {
+      "name": "research/rank-dip-entry-2026-11-09",
+      "sha": "86454c492743fc3a4010f4dff7dbbc0a0f7bf42d",
+      "status": "exact_merged_PR_head",
+      "pr": 295,
+      "url": "https://github.com/fartzy/stock-picker/pull/295"
+    },
+    {
+      "name": "research/rank1-dip-timing-2026-11-09",
+      "sha": "09b5b9e0c6d9516c66d9e1750723fb151c8f30ac",
+      "status": "exact_merged_PR_head",
+      "pr": 297,
+      "url": "https://github.com/fartzy/stock-picker/pull/297"
+    },
+    {
+      "name": "research/rank1-paired-entry-addendum",
+      "sha": "97ab671dd116153a2593a91e9dedc4edacceb660",
+      "status": "exact_merged_PR_head",
+      "pr": 298,
+      "url": "https://github.com/fartzy/stock-picker/pull/298"
+    },
+    {
+      "name": "test/live-buy-signal-routes",
+      "sha": "bdf409ceceb76dbe66212b829ae3c388c0e679de",
+      "status": "exact_merged_PR_head",
+      "pr": 156,
+      "url": "https://github.com/fartzy/stock-picker/pull/156"
+    },
+    {
+      "name": "test/refresh-morning-regressions-20261028",
+      "sha": "df615f9c1ded431b0efa75dbcbaff49149a4858e",
+      "status": "exact_merged_PR_head",
+      "pr": 257,
+      "url": "https://github.com/fartzy/stock-picker/pull/257"
+    },
+    {
+      "name": "trade-log-csv",
+      "sha": "466475c50e3c75765c09269d561ae6f8d024476e",
+      "status": "exact_merged_PR_head",
+      "pr": 83,
+      "url": "https://github.com/fartzy/stock-picker/pull/83"
+    },
+    {
+      "name": "trades/oct12-broker-fills",
+      "sha": "9e64a093a13444b006479c06eefbeacbf40c55a3",
+      "status": "exact_merged_PR_head",
+      "pr": 222,
+      "url": "https://github.com/fartzy/stock-picker/pull/222"
+    },
+    {
+      "name": "trades/oct12-frmi-closing-sales",
+      "sha": "a78c3509dfb0bb9a44df47f69e17510a4a002e10",
+      "status": "exact_merged_PR_head",
+      "pr": 223,
+      "url": "https://github.com/fartzy/stock-picker/pull/223"
+    },
+    {
+      "name": "trades/oct12-fsly-fills",
+      "sha": "f12f7e1e6b35d0feb7d59a7e570d5831d7971295",
+      "status": "exact_merged_PR_head",
+      "pr": 224,
+      "url": "https://github.com/fartzy/stock-picker/pull/224"
+    },
+    {
+      "name": "trades/oct29-kgc-exit-agi-add",
+      "sha": "7a5e3621999c0f3a595bfd87c964a08ebfd5d9a6",
+      "status": "exact_merged_PR_head",
+      "pr": 269,
+      "url": "https://github.com/fartzy/stock-picker/pull/269"
+    },
+    {
+      "name": "training/listwise-and-consensus-research",
+      "sha": "9fa2f26b6de0c979a58e4d4110196e0fc2f3bcbe",
+      "status": "exact_merged_PR_head",
+      "pr": 129,
+      "url": "https://github.com/fartzy/stock-picker/pull/129"
+    },
+    {
+      "name": "training/svr-family",
+      "sha": "d654a7604158b1bbc47a71c984edd654a4e35a23",
+      "status": "exact_merged_PR_head",
+      "pr": 131,
+      "url": "https://github.com/fartzy/stock-picker/pull/131"
+    },
+    {
+      "name": "trim-registry-copy",
+      "sha": "7b3c3c7798d707a653a238d75e3043f108e2cdea",
+      "status": "exact_merged_PR_head",
+      "pr": 37,
+      "url": "https://github.com/fartzy/stock-picker/pull/37"
+    },
+    {
+      "name": "ui/after-hours-moon-20261028",
+      "sha": "8b870d973ef66ee7304598e0b3e90e1adb346bc9",
+      "status": "exact_merged_PR_head",
+      "pr": 259,
+      "url": "https://github.com/fartzy/stock-picker/pull/259"
+    },
+    {
+      "name": "ui/align-trade-history-columns",
+      "sha": "71071c00c9e1d507523cb16ded3cd10f677c2488",
+      "status": "exact_merged_PR_head",
+      "pr": 146,
+      "url": "https://github.com/fartzy/stock-picker/pull/146"
+    },
+    {
+      "name": "ui/compact-what-if-summary",
+      "sha": "7726abb13fab80573fffc52b2992af0a0c1702af",
+      "status": "exact_merged_PR_head",
+      "pr": 155,
+      "url": "https://github.com/fartzy/stock-picker/pull/155"
+    },
+    {
+      "name": "ui/default-history-view",
+      "sha": "81d9756828f6f44c8c4b3df504b349b9a6c8d958",
+      "status": "exact_merged_PR_head",
+      "pr": 273,
+      "url": "https://github.com/fartzy/stock-picker/pull/273"
+    },
+    {
+      "name": "ui/history-default-settings",
+      "sha": "9c07d1e524e709c053951ec0a1418872686f8913",
+      "status": "exact_merged_PR_head",
+      "pr": 272,
+      "url": "https://github.com/fartzy/stock-picker/pull/272"
+    },
+    {
+      "name": "ui/log-trade-form-type",
+      "sha": "097994e4400b29ed9007c7e05de38a068688b83a",
+      "status": "exact_merged_PR_head",
+      "pr": 85,
+      "url": "https://github.com/fartzy/stock-picker/pull/85"
+    },
+    {
+      "name": "ui/month-week-drilldown",
+      "sha": "2301a25bd68a6a7292dc09ff20b2040abdfd7d8b",
+      "status": "exact_merged_PR_head",
+      "pr": 271,
+      "url": "https://github.com/fartzy/stock-picker/pull/271"
+    },
+    {
+      "name": "ui/trade-history-months-wtd",
+      "sha": "9f86f16d2922790653eeaa6d2d9915dc7052c0d2",
+      "status": "exact_merged_PR_head",
+      "pr": 270,
+      "url": "https://github.com/fartzy/stock-picker/pull/270"
+    },
+    {
+      "name": "ui/week-summary-emphasis",
+      "sha": "02d799e8f104d5d5afed4311b310fd2bacd8219f",
+      "status": "exact_merged_PR_head",
+      "pr": 274,
+      "url": "https://github.com/fartzy/stock-picker/pull/274"
+    },
+    {
+      "name": "ui/what-if-period-gain-comparison",
+      "sha": "31750ce5c17e9f75e6be87824fca6fc4a49dea6b",
+      "status": "exact_merged_PR_head",
+      "pr": 225,
+      "url": "https://github.com/fartzy/stock-picker/pull/225"
+    },
+    {
+      "name": "ui/what-if-trade-size-slider",
+      "sha": "ffbd1aafcb9c2ef9cca4a6561fc8243b71a194e1",
+      "status": "exact_merged_PR_head",
+      "pr": 268,
+      "url": "https://github.com/fartzy/stock-picker/pull/268"
+    },
+    {
+      "name": "ui/what-if-unpriced-days",
+      "sha": "d9917ee9df69b1d3efd7ceb690dace789c0cc791",
+      "status": "exact_merged_PR_head",
+      "pr": 226,
+      "url": "https://github.com/fartzy/stock-picker/pull/226"
+    }
+  ],
+  "remaining": [],
+  "secondary_worktrees": "All four existing secondary worktrees clean",
+  "stashes": "Same five preserved commit objects as November 9"
+}

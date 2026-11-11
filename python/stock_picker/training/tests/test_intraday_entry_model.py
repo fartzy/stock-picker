@@ -71,3 +71,14 @@ def test_rejects_duplicate_snapshots_and_insufficient_sessions():
         train_intraday_entry(pd.concat([frame, frame.iloc[:1]]))
     with pytest.raises(ValueError, match="60 completed"):
         train_intraday_entry(frame.iloc[:20])
+
+
+def test_research_features_are_opt_in_and_pruned_on_fit_only():
+    frame = history()
+    frame["experimental"] = np.arange(len(frame), dtype=float)
+    frame["late_only"] = 1.
+    frame.loc[frame.session >= sorted(frame.session.unique())[60], "late_only"] = 2.
+    model = train_intraday_entry(frame, feature_columns=(*FEATURE_COLUMNS, "experimental", "late_only"),
+        feature_descriptions={"experimental": "Research fixture", "late_only": "Unavailable variation during fit"})
+    assert "experimental" in model.columns and "late_only" not in model.columns
+    assert "experimental" not in train_intraday_entry(frame).columns

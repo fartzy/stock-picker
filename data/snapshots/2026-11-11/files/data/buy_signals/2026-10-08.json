@@ -1,0 +1,529 @@
+{
+  "as_of": "2026-10-08",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "QURE",
+      "predicted_return": 0.008067636666946433,
+      "open_price": 22.92,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "clinical readout: Why uniQure (QURE) Is Down 5.9% After Fresh Huntington\u2019s Gene Therapy Data Update And What\u2019s Next",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "clinical readout: Why uniQure (QURE) Is Down 5.9% After Fresh Huntington\u2019s Gene Therapy Data Update And What\u2019s Next",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.453365+00:00",
+        "articles": [
+          {
+            "headline": "Cedar Grove Capital Q3 2026 Portfolio Update",
+            "summary": "During the quarter, we closed our long positions in MTY Food Group, uniQure, ClearPoint Neuro, and Suja Life Inc. Read more here.",
+            "published_at": "2026-10-07T15:48:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8199d09c1f9f7471d9cef46b9b5a0f5819c04e5dd45efce183f4205620b9542b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Why uniQure (QURE) Is Down 5.9% After Fresh Huntington\u2019s Gene Therapy Data Update And What\u2019s Next",
+            "summary": "uniQure N.V. recently reported additional 36- and 48-month Phase I/II data for its Huntington\u2019s disease gene therapy ifezuntirgene inilparvovec, showing continued slowing of disease progression versus matched external controls and supporting its previously submitted accelerated approval BLA. The update highlights durable, dose-dependent effects across key clinical measures and a generally manageable safety profile, reinforcing ifezuntirgene inilparvovec\u2019s potential as a first-in-class,...",
+            "published_at": "2026-10-07T13:09:21+00:00",
+            "url": "https://finnhub.io/api/news?id=014f4bc444b2711e0b0c64ee6967a54a860b18198f5bb8b77e7506040fe1fe7c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 23.14
+    },
+    {
+      "ticker": "CTVA",
+      "predicted_return": 0.007756479860645518,
+      "open_price": 14.2,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "corporate action: Jim Cramer Sees One Stock to Own After Corteva\u2019s (CTVA) Breakup",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Jim Cramer Sees One Stock to Own After Corteva\u2019s (CTVA) Breakup",
+        "article_count": 15,
+        "reviewed_count": 15,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.453804+00:00",
+        "articles": [
+          {
+            "headline": "Jim Cramer Sees One Stock to Own After Corteva\u2019s (CTVA) Breakup",
+            "summary": "Jim Cramer sees one clear winner from Corteva, Inc. (NYSE:CTVA) latest breakup. During the October 2 episode of Mad Money, Cramer said he would be comfortable building a position in Vylor Inc. (NYSE:VYLR), the seed business spun off from Corteva, while remaining cautious about the company\u2019s crop-protection operations. There\u2019s nothing particularly rare about a chemical [\u2026]",
+            "published_at": "2026-10-08T03:44:43+00:00",
+            "url": "https://finnhub.io/api/news?id=e8c1ca2654858a8f82d7ecaa74cfa85037dd04807a53406adadf634d5ee932ed",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Caterpillar Is Sliding Today. It Shouldn\u2019t Be.",
+            "summary": "The Federal Trade Commission and the Department of Agriculture are requesting information from the public regarding the farm equipment market.",
+            "published_at": "2026-10-07T20:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8ae128b371218ffd47222a1786ccd8c8e46a5367ae130b77796aece6b7a63137",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Exploring the top movers within the S&P500 index during today's session.",
+            "summary": "Uncover the latest developments among S&P500 stocks in today's session. Stay tuned to the S&P500 index's top gainers and losers on Wednesday.",
+            "published_at": "2026-10-07T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=4969bb37167e933cfd7558289b21f83b2434a2d4a02d1d83b878f78ff6fb8b48",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Why Agricultural Stocks Are Falling But This One Is Back In A Buy Zone",
+            "summary": "Corteva jumped to a new high as analysts praised its seed business spinoff. But a federal probe of the farm equipment industry hit other agriculture stocks.",
+            "published_at": "2026-10-07T18:27:16+00:00",
+            "url": "https://finnhub.io/api/news?id=9be8ba12c8d904e937292f5ec22d7cf429fe8e2928571138a4472862d3ec3abb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Could See 'Meaningful' Earnings Growth After 2027, KeyBanc Says in Upgrade",
+            "summary": "Corteva (CTVA) could see \"meaningful\" earnings growth after 2027 amid company-specific drivers and a",
+            "published_at": "2026-10-07T18:05:59+00:00",
+            "url": "https://finnhub.io/api/news?id=ab4067a018efbc38b22535232e4d775457582f9643b6c6c6badf4410d865bdc1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wednesday's session: most active stock in the S&P500 index",
+            "summary": "Looking for the most active stocks in the S&P500 index on Wednesday? Dive into today's session and discover the stocks that are dominating the trading activity and setting the pace for the market.",
+            "published_at": "2026-10-07T18:05:03+00:00",
+            "url": "https://finnhub.io/api/news?id=4574ee8c39ec3dd826fa7de37d8238c05690ba516f9b485eecc268e670c2781d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Wednesday? Find out below.",
+            "summary": "Let's take a closer look at the S&P500 stocks with an unusual volume in today's session on Wednesday. Stay informed about the market activity below.",
+            "published_at": "2026-10-07T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7a31a560c8dc4c0d2879ae0aa79b6f95b85fa619783a3ee83ab486fd1fd727ca",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Wednesday's session: top gainers and losers in the S&P500 index",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Wednesday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-07T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=683287b687d95e857a785c1de492dffd35b70d6ff8db3972eb817f9a09d627d2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Why Less Is More for Corteva Stock After Vylor Spinoff",
+            "summary": "Corteva\u2019s spinoff of Vylor shows splitting a company can add value.",
+            "published_at": "2026-10-07T14:53:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8e94a4c7ebfeb316198172dddc5d02dee97cc1901ee58d66902bac983b9a6fae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AgTech & Food Innovation Stocks Driving Smarter Food Systems",
+            "summary": "TRMB, INGR and DE offer exposure to precision agriculture, food innovation and smarter farming technologies shaping the AgTech landscape.",
+            "published_at": "2026-10-07T14:13:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b40ebe9f7aa4eb23074f5baec0bc2a98b2305a80453a819c509527956fc7e2e2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Intel downgraded, Marvell upgraded: Wall Street's top analyst calls",
+            "summary": "Intel downgraded, Marvell upgraded: Wall Street's top analyst calls",
+            "published_at": "2026-10-07T14:00:13+00:00",
+            "url": "https://finnhub.io/api/news?id=c9045c53ac19ad80d94a07c2e8320fa134ac76c18ad5824d79898864952688d5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Archer Daniels Surpasses 50-Day SMA: Time to Buy or Stay Cautious?",
+            "summary": "ADM's move above its 50-day SMA, stronger 2026 earnings outlook, and momentum in biofuels and Nutrition support growth prospects.",
+            "published_at": "2026-10-07T12:49:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3552e596f01a6dcf3840835bd032930974a96aa6059df9398dc9269281f05fe4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "This NetApp Analyst Turns Bullish; Here Are Top 5 Upgrades For Wednesday",
+            "summary": "Analysts upgraded NetApp, Humana, Corteva, Afya, with price-target changes for four stocks.",
+            "published_at": "2026-10-07T08:39:43+00:00",
+            "url": "https://finnhub.io/api/news?id=f88b1d392de6d0ac795c602a741e4ff70abec533c22f4581c4bef87ac0b715f5",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Keybanc Upgrades Corteva to Overweight, Announces $17 Price Target",
+            "summary": "Keybanc  analyst Salvator Tiano   upgrades Corteva (NYSE:CTVA) from Sector Weight to Overweight and announces $17 price target.",
+            "published_at": "2026-10-07T07:56:01+00:00",
+            "url": "https://finnhub.io/api/news?id=15bd2b4202041e727d9316c5dbc966e386bac68e4e958b6348a3b205744e2d83",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "MARKETS LIVE: US futures slide ahead of Fed minutes as bond yields and oil rise",
+            "summary": "Dow Jones futures: 51,369.00. S&P 500 futures: 7,840.25. Nasdaq 100 futures: 31,254.50. 9.30 EDT: Dow futures slip as gold falls Dow Jones futures fell 64 points since the previous update, while S&P 500 futures edged up 0.75 points and Nasdaq 100 futures climbed 6.75 points;...",
+            "published_at": "2026-10-07T06:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c96380aa3e8177a5fc44448ffa44343554517a96c4d7ecf742785e9025b39d4c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.45
+    },
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.006661797690424719,
+      "open_price": 26.34,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "Court ruled lead drug Yutrepia infringes patents, threatening market access",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Court ruled lead drug Yutrepia infringes patents, threatening market access",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.224422+00:00",
+        "articles": [
+          {
+            "headline": "LIQUIDIA INVESTIGATION ALERT: Bragar Eagel & Squire, P.C. is Investigating Liquidia Corporation on Behalf of Liquidia Stockholders and Encourages Investors to Contact the Firm",
+            "summary": "A Delaware federal court ruled on September 30, 2026, that Liquidia Corporation's lead product Yutrepia inhalation powder infringed two claims of United Therapeutics' patent for treating pulmonary hypertension. The ruling triggered a sharp 57.2% stock price decline from $70.69 to $30.26 per share. Liquidia's CEO stated the company plans to pursue appellate options. A law firm is now investigating potential securities law violations on behalf of stockholders.",
+            "published_at": "2026-10-07T20:56:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/07/3376871/0/en/liquidia-investigation-alert-bragar-eagel-squire-p-c-is-investigating-liquidia-corporation-on-behalf-of-liquidia-stockholders-and-encourages-investors-to-contact-the-firm.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Liquidia (LQDA) Could Be 74% Undervalued As Court Ruling Clouds YUTREPIA Access",
+            "summary": "Liquidia (LQDA) moved into the spotlight after a new court ruling in its patent fight with United Therapeutics over YUTREPIA, raising fresh questions about future labeling and market access. Recent trading reflects that uncertainty. Liquidia\u2019s share price fell 6.3% over the last session and is down about 63% over the past week. However, the 5 year total shareholder return of roughly 7x signals that long term holders have still seen very large gains despite the latest legal shock. Spot legal...",
+            "published_at": "2026-10-07T08:10:47+00:00",
+            "url": "https://finnhub.io/api/news?id=654d659c7849425d1955fbdc0053f1726f7c944ec0ced1369c2b486d3cae5309",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 26.68
+    },
+    {
+      "ticker": "UWMC",
+      "predicted_return": 0.006465750744346195,
+      "open_price": 1.14,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-08T13:35:20.224589+00:00",
+        "articles": [
+          {
+            "headline": "\u05d4\u05d5\u05d3\u05e2\u05d4 \u05dc\u05de\u05e9\u05e7\u05d9\u05e2\u05d9 UWMC: \u05de\u05e9\u05e8\u05d3 \u05e8\u05d5\u05d6\u05df \u05e2\u05d5\u05e8\u05db\u05d9 \u05d3\u05d9\u05df \u05de\u05d6\u05db\u05d9\u05e8 \u05dc\u05de\u05e9\u05e7\u05d9\u05e2\u05d9 UWM Holdings Corporation  \u05e9\u05e1\u05e4\u05d2\u05d5 \u05d4\u05e4\u05e1\u05d3\u05d9\u05dd \u05d4\u05e2\u05d5\u05dc\u05d9\u05dd \u05e2\u05dc 100,000 \u05d3\u05d5\u05dc\u05e8, \u05db\u05d9 \u05d4\u05de\u05d5\u05e2\u05d3 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05d2\u05e9\u05ea \u05d1\u05e7\u05e9\u05d4 \u05dc\u05e9\u05de\u05e9 \u05db\u05ea\u05d5\u05d1\u05e2 \u05d4\u05de\u05e8\u05db\u05d6\u05d9 \u05d1\u05ea\u05d1\u05d9\u05e2\u05d4 \u05d9\u05d9\u05e6\u05d5\u05d2\u05d9\u05ea \u05d1\u05e0\u05d9\u05d9\u05e8\u05d5\u05ea \u05e2\u05e8\u05da \u05d4\u05d5\u05d0 \u05d4-13 \u05d1\u05d0\u05d5\u05e7\u05d8\u05d5\u05d1\u05e8 2026",
+            "summary": "Rosen Law Firm reminds UWM Holdings Corporation investors who suffered losses exceeding $100,000 that the deadline to apply as lead plaintiff in a securities class action is October 13, 2026. The lawsuit alleges that UWM Holdings made false or misleading statements regarding its mortgage servicing rights (MSR) hedging strategy and failed to disclose excessive hedging positions related to a Two Harbors transaction, resulting in investor losses.",
+            "published_at": "2026-10-08T00:23:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/08/3376925/673/he/%D7%94%D7%95%D7%93%D7%A2%D7%94-%D7%9C%D7%9E%D7%A9%D7%A7%D7%99%D7%A2%D7%99-uwmc-%D7%9E%D7%A9%D7%A8%D7%93-%D7%A8%D7%95%D7%96%D7%9F-%D7%A2%D7%95%D7%A8%D7%9B%D7%99-%D7%93%D7%99%D7%9F-%D7%9E%D7%96%D7%9B%D7%99%D7%A8-%D7%9C%D7%9E%D7%A9%D7%A7%D7%99%D7%A2%D7%99-uwm-holdings-corporation-%D7%A9%D7%A1%D7%A4%D7%92%D7%95-%D7%94%D7%A4%D7%A1%D7%93%D7%99%D7%9D-%D7%94%D7%A2%D7%95%D7%9C%D7%99%D7%9D-%D7%A2%D7%9C-100-000-%D7%93%D7%95%D7%9C%D7%A8-%D7%9B%D7%99-%D7%94%D7%9E%D7%95%D7%A2%D7%93-%D7%94%D7%90%D7%97%D7%A8%D7%95%D7%9F-%D7%9C%D7%94%D7%92%D7%A9%D7%AA-%D7%91%D7%A7%D7%A9%D7%94-%D7%9C%D7%A9%D7%9E%D7%A9-%D7%9B%D7%AA%D7%95%D7%91%D7%A2-%D7%94%D7%9E%D7%A8%D7%9B%D7%96%D7%99-%D7%91%D7%AA%D7%91%D7%99%D7%A2%D7%94-%D7%99%D7%99%D7%A6%D7%95%D7%92%D7%99%D7%AA-%D7%91%D7%A0%D7%99%D7%99%D7%A8%D7%95.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "UWMC INVESTOR ALERT: Rosen Law Firm Reminds UWM Holdings Corporation Investors with Losses in Excess of $100K of October 13, 2026 Lead Plaintiff Deadline in Securities Class Action",
+            "summary": "A securities class action lawsuit has been filed against UWM Holdings Corporation for allegedly making materially false and misleading statements regarding its mortgage servicing rights (MSRs) hedging strategy and hedge position related to the Two Harbors transaction. The lawsuit claims the company deviated from its traditional non-hedging strategy, over-hedged its position, and created excess hedging risk while making positive statements about its business. Investors with losses exceeding $100K who purchased securities between March 9, 2026 and August 5, 2026 have until October 13, 2026 to seek appointment as lead plaintiff.",
+            "published_at": "2026-10-08T00:23:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/08/3376924/673/en/uwmc-investor-alert-rosen-law-firm-reminds-uwm-holdings-corporation-investors-with-losses-in-excess-of-100k-of-october-13-2026-lead-plaintiff-deadline-in-securities-class-action.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "DEADLINE ALERT for BETR, DOCS, BIDU, UWMC: Law Offices of Howard G. Smith Reminds Investors of Opportunity to Lead Securities Fraud Class Actions",
+            "summary": "Law Offices of Howard G. Smith has filed securities fraud class action lawsuits against four publicly-traded companies: Better Home & Finance (BETR), Doximity (DOCS), Baidu (BIDU), and UWM Holdings (UWMC). The lawsuits allege that defendants made materially false statements and failed to disclose material adverse facts about their business operations. Investors have until specified deadlines in October and November 2026 to file lead plaintiff motions.",
+            "published_at": "2026-10-07T18:40:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/07/3376791/3448/en/deadline-alert-for-betr-docs-bidu-uwmc-law-offices-of-howard-g-smith-reminds-investors-of-opportunity-to-lead-securities-fraud-class-actions.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "FICO Is Cutting 15% of Its Workforce After Losing More Than Half Its Value",
+            "summary": "A single regulatory decision stripped FICO of the status that made its mortgage score virtually mandatory for lenders, and now the company is cutting hundreds of jobs while its stock sits near a price that one analyst just called a ceiling.",
+            "published_at": "2026-10-07T12:54:26+00:00",
+            "url": "https://finnhub.io/api/news?id=73e8dc627a6c947a95b064612f296a248ac1c6186a38c51307aa72f0bc8ac48d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 1.13
+    },
+    {
+      "ticker": "TWST",
+      "predicted_return": 0.0063221799480370055,
+      "open_price": 148.002,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.224747+00:00",
+        "articles": [
+          {
+            "headline": "Twist Bioscience: Valuation Stretched As AI Drug Discovery Hype Outpaces Reality",
+            "summary": "Twist Bioscience (TWST) stock is surging on AI hype, but near-term revenue upside looks modest and valuation is stretched. See more details here.",
+            "published_at": "2026-10-08T08:25:09+00:00",
+            "url": "https://finnhub.io/api/news?id=340176e4b03d6bc1f26d01e8ae57d2d5d1421653b14dd303fb81134907e4b841",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 155.65
+    },
+    {
+      "ticker": "CNH",
+      "predicted_return": 0.00615268134364234,
+      "open_price": 12.15,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "FTC and USDA open inquiry into farm equipment practices, hitting CNH and peers",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "FTC and USDA open inquiry into farm equipment practices, hitting CNH and peers",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.224861+00:00",
+        "articles": [
+          {
+            "headline": "DE, CNH, CAT, AGCO Stocks Slump - FTC, USDA Inquiry Puts Farm Equipment Market Practices In Focus",
+            "summary": "The FTC and USDA have opened an inquiry on possible barriers to buying, servicing and repairing agricultural equipment.",
+            "published_at": "2026-10-07T17:07:08+00:00",
+            "url": "https://finnhub.io/api/news?id=cde3f2f76ff8bc450e6f14a9c55d66ca60b4f15ce42ef1ab2639cecb65167f02",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Deere, peer stocks slide as FTC and USDA launch agricultural equipment inquiry",
+            "summary": "Investing.com -- Shares of the country\u2019s biggest agricultural machinery manufacturers took a hit on Wednesday after federal regulators announced a broad investigation into the industry\u2019s business practices.",
+            "published_at": "2026-10-07T15:37:10+00:00",
+            "url": "https://finnhub.io/api/news?id=930f9698e6366d6ceded2246dca5a2facc99515bdda07a4e361a397708ae15b3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 12.46
+    },
+    {
+      "ticker": "AKO-B",
+      "predicted_return": 0.005470321187104194,
+      "open_price": 30.48,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.225074+00:00",
+        "articles": []
+      },
+      "prev_close": 31.5
+    },
+    {
+      "ticker": "SHAZ",
+      "predicted_return": 0.005151404030525842,
+      "open_price": 43.705,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.225175+00:00",
+        "articles": []
+      },
+      "prev_close": 45.12
+    },
+    {
+      "ticker": "AAOI",
+      "predicted_return": 0.005146090830391401,
+      "open_price": 117.44,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.225185+00:00",
+        "articles": [
+          {
+            "headline": "Coherent Stock Rises 8% in a Month: Is the Buying Opportunity Intact?",
+            "summary": "COHR's AI-driven optical demand, 1.6T ramp and expanding capacity support its growth case even after an 8% monthly stock gain.",
+            "published_at": "2026-10-07T17:21:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eebc6d60b8513536ee2bf14cd93f413e7b82177412c733256a6cb6d745c434ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AAOI Stock Gains 17% in a Month: Should You Buy, Sell or Hold?",
+            "summary": "Applied Optoelectronics rallies 16.6% in a month as AI-driven optical demand accelerates, but supply constraints, competition and a premium valuation remain concerns.",
+            "published_at": "2026-10-07T15:07:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2e5f89b0c446c366025b1e870ca6a8262c9e06692cf87b3e7f62cb9b1fd0b11c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AXTI Stock Rises 21% in a Month: Should You Buy, Sell or Hold?",
+            "summary": "AXT's AI-driven InP growth, $100M-plus backlog and capacity expansion boost its outlook, but valuation and China exposure keep investors cautious.",
+            "published_at": "2026-10-07T14:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=821590258ed943bf9b8f35fdf7e175687959402b7fc7380c41e80ffb3e6eee06",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 122.54
+    }
+  ],
+  "scored_count": 1978,
+  "skipped": [
+    {
+      "ticker": "PEP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APLD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEVI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 9.736422189266092
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 9.381661429765089
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 9.277300807554862
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-07",
+    "model_trained_through": "2026-10-07",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-07, model trained through 2026-10-07 -- ready for this morning's opens."
+  }
+}

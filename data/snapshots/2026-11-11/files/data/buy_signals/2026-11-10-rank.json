@@ -1,0 +1,2047 @@
+{
+  "as_of": "2026-11-10",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "TTMI",
+      "predicted_return": 0.637805583962262,
+      "open_price": 75.72,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:34.151210+00:00",
+        "articles": [
+          {
+            "headline": "Teledyne Technologies shares are trading higher after the company reported better-than-expected Q1 financial results and raised its FY26 adjusted EPS guidance above estimates. Also, the company raised its FY26 GAAP EPS guidance.",
+            "summary": "",
+            "published_at": "2026-11-09T15:35:28+00:00",
+            "url": "https://finnhub.io/api/news?id=f997744b4b50e27154dd05290396415a3f064d4c0bfb8d8d90f7fd8f1aa1876f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "3 Defense Tech Stocks Investors May Prefer Over Nvidia Right Now",
+            "summary": "When a global champion like Nvidia is suddenly pulled into a national security scandal, the shock does not stay in one ticker. It ripples across defense, cybersecurity, and secure semiconductor stocks that sit closer to Washington\u2019s priority lists and export rules. That mix of scrutiny and potential policy shifts can reshuffle where capital flows next. This article walks through three US and allied defense focused technology stocks from the screener that appear positively exposed to this news...",
+            "published_at": "2026-11-09T13:09:54+00:00",
+            "url": "https://finnhub.io/api/news?id=31a3edbee1346333718c26c0de26278461226e39bd21f83de39ef86a734ce85a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CNH Industrial, Planet Labs, Ferguson Enterprises And Other Big Stocks Moving Higher On Monday",
+            "summary": "U.S. stocks rallied Monday; CNH surged 13.5% after strong Q3 results and raised guidance, while several stocks posted double-digit gains.",
+            "published_at": "2026-11-09T12:50:24+00:00",
+            "url": "https://finnhub.io/api/news?id=c5c43c478f284b0d1910391866174b8f5eee07897f485616afc1512f6c2f67b9",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 75.33,
+      "jev": {
+        "news_skip": 0.59,
+        "buy_today": 0.56,
+        "hold_overnight": 0.54,
+        "model": "jev-1.14.0",
+        "tokens": 1953,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.385421+00:00",
+        "forecast_id": "57c7b701-edee-4467-8d4b-361aadfdc66a",
+        "requested_at": "2026-11-10T14:35:59.899978+00:00",
+        "completed_at": "2026-11-10T14:36:00.385421+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "LUMN",
+      "predicted_return": 0.47742687738251677,
+      "open_price": 4.45,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:34.151793+00:00",
+        "articles": [
+          {
+            "headline": "12 Communication Services Stocks Moving In Monday's After-Market Session",
+            "summary": "Gainers\n\nTrade Desk (NASDAQ:TTD) shares increased by 27.1% to $18.98 during Monday&#39;s after-market session. The company&#39;s market cap stands at $6.1 billion. As per the press release, Q3 earnings came out today.",
+            "published_at": "2026-11-09T17:05:47+00:00",
+            "url": "https://finnhub.io/api/news?id=e45a3f9206ac001a5a041ccc54cc2a1fa6037555e5c94f9911d5c3102224378e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Lumen Technologies Average Analyst Price Target Decreased by 14.52% to $6.12",
+            "summary": "",
+            "published_at": "2026-11-09T14:22:20+00:00",
+            "url": "https://finnhub.io/api/news?id=aa182da915b4e8a74c82f72c7aedddea424aad9a3bc64837ca0dce458e6d96f2",
+            "source": "Fintel"
+          },
+          {
+            "headline": "These 6 Telecom Stocks Collect Monthly Bills No Matter What the Market Does",
+            "summary": "These businesses are built to generate recurring cash flows.",
+            "published_at": "2026-11-09T14:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9039163d90d7f4fdd3fab71cf7e46fa068ef74c051f93dc30269f061e885241f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 4.32,
+      "jev": {
+        "news_skip": 0.07,
+        "buy_today": 0.45,
+        "hold_overnight": 0.47,
+        "model": "jev-1.14.0",
+        "tokens": 1804,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.360168+00:00",
+        "forecast_id": "79915032-48d4-4bea-9e2c-d21755106af2",
+        "requested_at": "2026-11-10T14:35:59.816865+00:00",
+        "completed_at": "2026-11-10T14:36:00.360168+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "WCC",
+      "predicted_return": 0.46216126326247886,
+      "open_price": 319.05,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:34.152073+00:00",
+        "articles": []
+      },
+      "prev_close": 316.47,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.48,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1141,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.382012+00:00",
+        "forecast_id": "830643bf-8c0c-4d9f-a484-fdce5b72e82d",
+        "requested_at": "2026-11-10T14:35:59.892396+00:00",
+        "completed_at": "2026-11-10T14:36:00.382012+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "KLRA",
+      "predicted_return": 0.4104357633772841,
+      "open_price": 13.89,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:34.152275+00:00",
+        "articles": []
+      },
+      "prev_close": 13.7,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.57,
+        "hold_overnight": 0.54,
+        "model": "jev-1.14.0",
+        "tokens": 1136,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.301189+00:00",
+        "forecast_id": "4d909efc-1653-418a-a48d-82de08c19bfa",
+        "requested_at": "2026-11-10T14:35:59.775450+00:00",
+        "completed_at": "2026-11-10T14:36:00.301189+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "WRB",
+      "predicted_return": 0.39285015681427915,
+      "open_price": 76.19,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:24.681667+00:00",
+        "articles": []
+      },
+      "prev_close": 75.92,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.58,
+        "hold_overnight": 0.53,
+        "model": "jev-1.14.0",
+        "tokens": 1136,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.371273+00:00",
+        "forecast_id": "7dcbb6ad-13f6-44a7-8603-9f3f5edc81b7",
+        "requested_at": "2026-11-10T14:35:59.885997+00:00",
+        "completed_at": "2026-11-10T14:36:00.371273+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "HIG",
+      "predicted_return": 0.39173053592988805,
+      "open_price": 135.61,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:24.681703+00:00",
+        "articles": [
+          {
+            "headline": "Accelerant Q3 Earnings: Will Underwriting Weakness Spoil the Show?",
+            "summary": "ARX faces a projected Q3 earnings drop despite rising premiums and investment income, as weakness in underwriting and MGA Operations clouds the outlook.",
+            "published_at": "2026-11-10T11:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3c613fbf59f873d2c0a008ba973170895ab7534a11f7c8f65fcf16b56fae4d06",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 134.86,
+      "jev": {
+        "news_skip": 0.18,
+        "buy_today": 0.53,
+        "hold_overnight": 0.51,
+        "model": "jev-1.14.0",
+        "tokens": 1384,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.431019+00:00",
+        "forecast_id": "bb706b6d-7e08-45ec-818a-b78b4f476957",
+        "requested_at": "2026-11-10T14:35:59.884458+00:00",
+        "completed_at": "2026-11-10T14:36:00.431019+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "ATO",
+      "predicted_return": 0.3896444549725176,
+      "open_price": 173.15,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:25.447186+00:00",
+        "articles": []
+      },
+      "prev_close": 173.35,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.52,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1140,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.344343+00:00",
+        "forecast_id": "e6f941c9-dc24-467a-af22-607eb240291b",
+        "requested_at": "2026-11-10T14:35:59.861351+00:00",
+        "completed_at": "2026-11-10T14:36:00.344343+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "MKC",
+      "predicted_return": 0.3849092678476451,
+      "open_price": 47.83,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:25.447216+00:00",
+        "articles": [
+          {
+            "headline": "3 Defensive Dividend Stocks For Higher Rates and Sticky Inflation",
+            "summary": "Fed officials are again putting inflation and higher for longer rates back in the spotlight, and that reshapes where reliable dividends and value pricing might matter most. Investors who ignore this shift risk missing income opportunities or holding stocks whose cash flows feel the strain of tighter policy. This article walks through three U.S. dividend-paying value stocks exposed to these macro crosscurrents and explains why each one might warrant a closer look right now. The three stocks...",
+            "published_at": "2026-11-09T23:17:17+00:00",
+            "url": "https://finnhub.io/api/news?id=feda2a18efee05d50b62a418b38be55b9515729441cba884f4306ff378484f93",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Opening Gap Movers for Nov. 9, 2026",
+            "summary": "S&P 500 opening gap movers for Nov. 9, 2026, including gap-up names such as FERG, AMD and NRG, and gap-down names including NVDA, HSY and FSLR.",
+            "published_at": "2026-11-09T15:36:28+00:00",
+            "url": "https://finnhub.io/api/news?id=d9200800176708874dd109c854e6615a2ba6f51cf2b81ae83fce100f0882c5b8",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 47.88,
+      "jev": {
+        "news_skip": 0.1,
+        "buy_today": 0.44,
+        "hold_overnight": 0.45,
+        "model": "jev-1.14.0",
+        "tokens": 1762,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.296301+00:00",
+        "forecast_id": "712e42da-e4ac-4e42-a239-a8d1dd8e4fba",
+        "requested_at": "2026-11-10T14:35:59.935569+00:00",
+        "completed_at": "2026-11-10T14:36:00.296301+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "CB",
+      "predicted_return": 0.38126778517390003,
+      "open_price": 364.44,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:26.682429+00:00",
+        "articles": [
+          {
+            "headline": "Can CB's Life Insurance Growth Boost Its Wealth Protection Business?",
+            "summary": "Chubb's life insurance earnings growth, new wealth-protection products and expanding distribution network strengthen its international business.",
+            "published_at": "2026-11-09T17:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=993957198563e094877f670a403db3448f8b17c04ad2e40de312e36e237c9bf7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 363.45,
+      "jev": {
+        "news_skip": 0.1,
+        "buy_today": 0.47,
+        "hold_overnight": 0.53,
+        "model": "jev-1.14.0",
+        "tokens": 1351,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.705501+00:00",
+        "forecast_id": "0168d41b-d9af-4c9b-93e0-c41bf8e56e0a",
+        "requested_at": "2026-11-10T14:36:00.325266+00:00",
+        "completed_at": "2026-11-10T14:36:00.705501+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "BRK-A",
+      "predicted_return": 0.38036339493121457,
+      "open_price": 863000.0,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+        "article_count": 35,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-11-10T14:35:26.756196+00:00",
+        "articles": [
+          {
+            "headline": "Bill Ackman and Warren Buffett Both Have the Same Warning About the Stock Market",
+            "summary": "Billionaire investors Bill Ackman and Warren Buffett have issued similar warnings about the stock market, comparing it to a casino due to excessive risk-taking and unjustifiably high valuations. Both investors highlight the difficulty in finding reasonably priced stocks, with Ackman noting stocks trade at nonsensical prices and Buffett emphasizing the prevalence of gambling over value investing. Despite the S&P 500's strong 10% gain this year, elevated valuations pose risks of significant pullbacks.",
+            "published_at": "2026-11-10T12:49:02+00:00",
+            "url": "https://www.fool.com/investing/2026/11/10/bill-ackman-and-warren-buffett-both-have-the-same-warning-about-the-stock-market/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "What State Street Fin. Select Sector SPDR (XLF) Sold: Berkshire Leads on Friday",
+            "summary": "The $53.58 billion fund sold $551.5 million across all 76 positions, with Berkshire Hathaway's $72.9 million reduction the largest.",
+            "published_at": "2026-11-10T11:04:51+00:00",
+            "url": "https://finnhub.io/api/news?id=903334ccb962c30557b1a4ee35f83d795015a959620a5329623ee95026c5d816",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Buffett Indicator Is Flashing Red. These 3 Dividend Stocks Could Be Safe Havens.",
+            "summary": "The stock market is looking overvalued, according to this indicator.",
+            "published_at": "2026-11-10T09:22:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f9b0ac478347bf3d7acfa562bae5042da648296a2f0b60accd6055360d5fc82f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Remains Attractive Even If Its Valuation Is Becoming Stretched",
+            "summary": "Berkshire Hathaway remains a soft \u00e2\u0080\u0098buy\u00e2\u0080\u0099 despite Q3 earnings misses and insurance weakness. Click here to read an analysis of BRK.A stock now.",
+            "published_at": "2026-11-10T08:30:45+00:00",
+            "url": "https://finnhub.io/api/news?id=70b26412fbecf8215f77d25934fb3edb85519bfb42e834a891b8f3881d8b955c",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Warren Buffett's Instructions for His Wife's Inheritance Are 90% Stocks and 10% Bonds. Here's How That Mix Has Done Since 2000.",
+            "summary": "The bond piece cost around $92,000 on a $100,000 stake since 2000. Was it worth it when stocks crashed?",
+            "published_at": "2026-11-10T05:31:02+00:00",
+            "url": "https://finnhub.io/api/news?id=141a4cb21e710d916aee4c7cfa0b5292ba6110ed28bd6dde088db2c6d7d75071",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Successor, Greg Abel, Just Added Another Tech Stock to Berkshire's Portfolio. Here's What He Sees.",
+            "summary": "Berkshire Hathaway added $330 million to its Bending Spoons stake. Here's why it fits the portfolio and the risks involved.",
+            "published_at": "2026-11-10T04:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=59be3a21541dba892e93ca1d8be2b1f355c35475127551fb00424ecef4dff91a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Nasdaq Fell Into Correction Territory Recently. Should You Buy the Dip?",
+            "summary": "The Nasdaq's recent 5.5% dip into correction territory reflects a repricing of AI investment risk as markets punish overextended companies. While near-term volatility is expected, this correction could be healthy long-term by consolidating weaker AI players. Investors should selectively buy shares of strong companies with solid balance sheets during downturns, avoiding those with challenging financing conditions.",
+            "published_at": "2026-11-10T03:30:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/09/the-nasdaq-fell-into-correction-territory-recently/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Occidental Cuts Debt to $10 Billion as Q3 Cash Flow Hits $4.1 Billion",
+            "summary": "Occidental reports strong third-quarter cash flow and significant debt reduction, supported by resilient oil and gas production despite weaker crude prices.",
+            "published_at": "2026-11-10T02:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d57d3856ce17096d750eee6f41a2833d1bd976dfb0f35ceb2a177cc780b7d3eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire May Be Buying Class A Stock Directly From Holders to Boost Repurchases",
+            "summary": "During the third quarter, Berkshire repurchased $9.6 billion of stock. Most consisted of the more liquid Class B shares, but some $3.4 billion involved the A stock.",
+            "published_at": "2026-11-10T00:12:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c74e3d2b7134c25d8597dc0a59b23f58e76df2e24cca5a05b86671b6e5d1e26b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Kept Buying Back Stock as Shares Hit Records. Here\u2019s What the Price It Paid Tells You.",
+            "summary": "Berkshire\u2019s own filing shows the prices at which management found its stock attractive, and how far the shares have climbed since.",
+            "published_at": "2026-11-09T23:52:01+00:00",
+            "url": "https://finnhub.io/api/news?id=530d7da3af429425416d2b1dff6971331fc0ba94d26a51380f60a66441cb19ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire: Ready, Willing, And Abel",
+            "summary": "Whenever the S&P 500 has a period of torrid performance consistently hitting new highs, it\u00e2\u0080\u0099s not uncommon to see Berkshire Hathaway underperform",
+            "published_at": "2026-11-09T22:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=114f7fd33dcde93db0ad4a51d27dbdcbf4a5a95e18233a459c6892fcfda8906e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway May Have Sold More Bank of America Stock in the Third Quarter",
+            "summary": "Berkshire\u2019s quarterly filing offers clues to possible Bank of America sales and additional Alphabet purchases ahead of its portfolio disclosure.",
+            "published_at": "2026-11-09T21:54:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0f5d2043b5be50ede7cb1adf3974add60aa2f1a07e6f8ad9d0f8421f4b5a3d9e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rallies As Oil Prices Slide; Nvidia Stock Dives On CEO Huang Probe (Live Coverage)",
+            "summary": "The Dow Jones index rallies 500 points Monday as oil prices drop. Nvidia stock dives on the probe into CEO Jensen Huang.",
+            "published_at": "2026-11-09T21:41:06+00:00",
+            "url": "https://finnhub.io/api/news?id=9ed519a9581c0b645208639091ac07e8066a724f30fe3e5d74827003446af2c6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer Questions Berkshire\u2019s \u201cIll-Advised Position\u201d in Alphabet as Its Cash Flow Turns Negative",
+            "summary": "Key TakeawaysJim Cramer questioned Berkshire Hathaway\u2019s $10 billion stake in Alphabet on the day Berkshire reported its third-quarter results. Alphabet\u2019s free cash flow was negative $9.",
+            "published_at": "2026-11-09T19:52:15+00:00",
+            "url": "https://finnhub.io/api/news?id=1652f5f76329e8ec72f2a80e119f1562e298ddb8801d335d2323b930d0328492",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Rule for Stock Buybacks Is Very Specific. Berkshire Spent a Record $9.6 Billion on Them Last Quarter.",
+            "summary": "The rule boils down to two tests. Would the stock still pass them at today's price?",
+            "published_at": "2026-11-09T19:43:02+00:00",
+            "url": "https://finnhub.io/api/news?id=22d09ac57c8d1c47a84aa976e11f93494f18054e39fdc812efb37ac13ed5f3d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Stocks Slip 1.01% Despite $9.6 Billion Buyback Surge",
+            "summary": "Third-quarter operating earnings fell 5.8% to $12.7 billion as insurance underwriting weakened, even as repurchases more than doubled",
+            "published_at": "2026-11-09T18:17:56+00:00",
+            "url": "https://finnhub.io/api/news?id=9e0916157efca171940431e2d43774955e4b58d7d5f08cfb3a838d5b9afe2a36",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway earnings expose unexpected problem beneath strong economy",
+            "summary": "One set of numbers tells two stories.",
+            "published_at": "2026-11-09T17:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d9f58f22c83a62086b5c919366553ea9db46135bc0b0657b45c4ddf9a5e3b282",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Institutional Flight-to-Quality Rotation Is On So I Buy Alphabet",
+            "summary": "Alphabet has slid nearly 19% in a month while institutions quietly shift toward quality. One investor keeps buying each dip, yet a negative cash flow figure and heavy share-sale capacity could still turn this bet sour.",
+            "published_at": "2026-11-09T17:45:10+00:00",
+            "url": "https://finnhub.io/api/news?id=23135c8636b1391f7b4153f453f87fbbf313ed7b01352021822f43b506cf9445",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "If You Make Just 1 Investing Move in 2026, History Says It Should Be This",
+            "summary": "The article recommends dollar-cost averaging (DCA) as the single best investing move for 2026. By investing fixed amounts at regular intervals in ETFs or stocks, investors can avoid market timing mistakes and benefit from compounding. Historical data shows that staying fully invested and maintaining consistency outperforms attempting to time the market, with missing just 10 best trading days significantly reducing long-term returns.",
+            "published_at": "2026-11-09T17:43:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/09/1-investing-move-2026-history-says/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Berkshire Hathaway Boosts Buybacks as Operating Income Slips",
+            "summary": "Berkshire Hathaway Inc.\u00a0spent about $9.6 billion to buy back its own shares in the third quarter, a sign the company's executives viewed the stock as undervalued. But declining insurance underwriting weighed on its operating earnings in a mixed quarter for the company. Bloomberg's Matthew Palazola joins to discuss.",
+            "published_at": "2026-11-09T17:38:34+00:00",
+            "url": "https://finnhub.io/api/news?id=20199e3234c29904ccd2e71fb5f087a4329d3bc2a29f41838bb68b6d1c2da528",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett\u2019s Successor Is Doubling Down on Berkshire Hathaway Stock. You Probably Shouldn\u2019t",
+            "summary": "Berkshire Hathaway more than doubled its pace of repurchases in Q3. However, the stock does not look like a compelling buy given the current valuations.",
+            "published_at": "2026-11-09T16:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=c6f9a0413a8be2574bcdd0673d527d4b7ca3f4a9c2809234c55d760f5b737a6c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barrick Mining Moves on Earnings; Google's New AI Chips | Stock Movers",
+            "summary": "On this episode of Stock Movers: - Shares of Barrick Mining (B) rose in premarket trading after the miner reported third-quarter earnings that beat the average analyst estimate as strength in gold offset copper weakness. The company also said that its Nevada Gold Mines initial public offering remains on track for late 2026 or early 2027. - Shares of Alphabet (GOOG) edged higher after news Google is rolling out a broader array of AI chips, aiming to capitalize on its rapid ascent as a challenger to Nvidia. The company is introducing two new variations of its tensor processing units, or TPUs, custom-made semiconductors that help run AI software. - Shares of KKR & Co. (KKR) rallied in the early session after the company reported a third-quarter profit that beat analysts' estimates as the \"mini Berkshire\" unit that holds long-term private equity bets mitigated a slump at its Global Atlantic insurance arm.",
+            "published_at": "2026-11-09T16:32:47+00:00",
+            "url": "https://finnhub.io/api/news?id=0f88deb731713c5a9e8714f68d4843fb7994bc284e2785298e0df2979ad85937",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Inc. Reports Third Quarter 2026 Results",
+            "summary": "",
+            "published_at": "2026-11-09T13:22:46+00:00",
+            "url": "https://finnhub.io/api/news?id=8f8dd5567e978ddf70602c598ea122b01e86c7c8c3d668f49f86aec5ed9b1ff3",
+            "source": "Fintel"
+          },
+          {
+            "headline": "BRK.B Q3 Earnings Decline Year Over Year, Revenues Top Estimates",
+            "summary": "Berkshire Hathaway reported Q3 2026 operating earnings of $12.7 billion, down 5.8% year-over-year, despite revenue growth of 11.2% to $105.6 billion. The decline was driven by lower earnings in underwriting and investment income. Insurance underwriting earnings fell 42.9%, while the Railroad segment showed strength with operating earnings up 15.6%. Manufacturing and retailing businesses also improved with earnings increases.",
+            "published_at": "2026-11-09T12:42:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3026151/brk-b-q3-earnings-decline-year-over-year-revenues-top-estimates?cid=CS-ZC-FT-analyst_blog%7Cearnings_article-3026151",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Breakfast News: A Boulder Amid a Rocky Market",
+            "summary": "Berkshire Hathaway announced aggressive $9.6B stock buybacks in Q3 despite a 28% earnings drop, signaling management confidence in valuation. Markets faced headwinds with the S&P 500 falling 2.68% and Nasdaq dropping 3.37% last week, with tech stocks hit hardest. Several Fool-recommended companies report earnings this week including Rocket Lab, Take-Two Interactive, Cisco Systems, and others. Deere & Company continues strong performance with 80% gains since August 2024 recommendation. Investors should maintain long-term focus amid inflation data and market volatility.",
+            "published_at": "2026-11-09T12:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/11/09/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Berkshire Hathaway Reports 5.8% Decline in Q3 Operating Earnings to $12.71 Billion",
+            "summary": "Berkshire Hathaway (NYSE:BRK. B) reported operating earnings of $12.",
+            "published_at": "2026-11-09T11:35:43+00:00",
+            "url": "https://finnhub.io/api/news?id=bd1a057fcedbf1978ef587593cd792c78638a22fbc709624e723b5ffd320062a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What State Street Fin Select Sector SPDR (XLF) Sold: Berkshire Leads on Thursday",
+            "summary": "The fund sold $737.7 million of stock on Thursday, trimming all 76 of its positions and adding nothing new.",
+            "published_at": "2026-11-09T11:05:08+00:00",
+            "url": "https://finnhub.io/api/news?id=96b91162eef161aa596f577ef610aeae86eaeb752bb6f87104e9b008243830cf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ETFs Are Net Sellers of Berkshire Hathaway (BRK.B) on Nov. 5",
+            "summary": "ETFs sold a net $136.3 million of Berkshire Hathaway (BRK.B) on Thursday, Nov. 5.",
+            "published_at": "2026-11-09T11:02:59+00:00",
+            "url": "https://finnhub.io/api/news?id=406182586386d153c9467b7350706531633118dd539cad12c8fa7b1a49b9c9f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Successor, Greg Abel, Just Plowed $27 Million Into a Virtual Monopoly (No, Not Alphabet!)",
+            "summary": "Berkshire Hathaway\u2019s new boss has found value amid a historically expensive stock market.",
+            "published_at": "2026-11-09T10:26:02+00:00",
+            "url": "https://finnhub.io/api/news?id=364963dd8c2c111fb2b3af47d771740025427160e4707aee2f15a77be68b8770",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Stock Futures Mixed as Investors Assess Berkshire Hathaway Earnings, Nvidia Reports and AI Regulation Plans: Dow Jones, S&P, Nasdaq, Wall Street",
+            "summary": "US stock futures were mixed on Monday, November 9, 2026, as investors prepared for inflation data, corporate earnings and developments affecting the technology and cryptocurrency sectors. At 3:42 a.",
+            "published_at": "2026-11-09T09:59:52+00:00",
+            "url": "https://finnhub.io/api/news?id=c07e31e50260ebf485f1c5dd7b3b542ffb976d938bf7d530e20346fc07907469",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Huang allegations, Berkshire earnings, AI regulations - What\u2019s moving markets",
+            "summary": "Investing.com -- Investors are heading into a busy week with U.S. inflation data and fresh corporate earnings likely to shape market sentiment, while developments at major companies and a potential shift in Washington\u2019s approach to artificial intelligence add to the agenda. Berkshire Hathaway\u2019s latest results highlighted the strength of its cash position despite weaker operating earnings, while Binance announced a finance leadership change days after a major cryptocurrency theft.",
+            "published_at": "2026-11-09T09:13:15+00:00",
+            "url": "https://finnhub.io/api/news?id=2f61a1ade20cce87324822560ac06c4135c964e7aaf493fa9494f8f8673987a2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Q3: Buybacks Ramp To $9.6 Billion While The Market Misreads The Operating Decline",
+            "summary": "Berkshire Hathaway Q3 earnings fell on insurance weakness, but core businesses and capital allocation stayed strong.",
+            "published_at": "2026-11-09T09:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a6fd11c90e57ac51a62413f1d58741cf053e23f0b8cfc48322d587013905aa2b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+            "summary": "",
+            "published_at": "2026-11-09T08:15:34+00:00",
+            "url": "https://finnhub.io/api/news?id=0981053a7ec76cac1a5a021b9e5657ae4add42f3e60e71936289b02d4a50c987",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway: This Isn't Going In The Right Direction",
+            "summary": "Berkshire Hathaway Q3 shows weaker insurance results and limited buyback upside at current valuation.",
+            "published_at": "2026-11-09T07:30:53+00:00",
+            "url": "https://finnhub.io/api/news?id=071860eb16880de20bee3a35de932bb04769cced587d02cc03bbf8bf84187486",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Applied Materials, Cisco, Berkshire Hathaway, Nvidia, Micron and Alphabet are part of Zacks Earnings Preview",
+            "summary": "Zacks' Earnings Preview highlights AMAT, CSCO, BRK.B, NVDA, MU and GOOGL as key companies amid broad-based Q3 earnings growth and evolving estimate revisions.",
+            "published_at": "2026-11-09T07:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef073076ea64f41b8d08b6c5e75de5ed45ad4c48b1ce674dc9e4975bd0424967",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 853500.0,
+      "jev": {
+        "news_skip": 0.5,
+        "buy_today": 0.41,
+        "hold_overnight": 0.48,
+        "model": "jev-1.14.0",
+        "tokens": 9437,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.749808+00:00",
+        "forecast_id": "d73e53b3-0490-4d7b-8734-b8d387691076",
+        "requested_at": "2026-11-10T14:36:00.331180+00:00",
+        "completed_at": "2026-11-10T14:36:00.749808+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "L",
+      "predicted_return": 0.37663751266917544,
+      "open_price": 110.31,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.547906+00:00",
+        "articles": []
+      },
+      "prev_close": 109.94,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.48,
+        "hold_overnight": 0.52,
+        "model": "jev-1.14.0",
+        "tokens": 1140,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.694113+00:00",
+        "forecast_id": "9cba7777-95be-416b-a7be-51f68559706c",
+        "requested_at": "2026-11-10T14:36:00.362091+00:00",
+        "completed_at": "2026-11-10T14:36:00.694113+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "PG",
+      "predicted_return": 0.3751449733968856,
+      "open_price": 169.175,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.548136+00:00",
+        "articles": [
+          {
+            "headline": "Meet Wall Street\u2019s Safest Dividend Stocks: 3 Companies That Have Paid Through Recessions, Wars and Market Crashes",
+            "summary": "One of these three dividend payers started out selling candles and soap, another grew out of Rockefeller's Standard Oil. Each carries a hidden risk, and one stock looks pricey enough to challenge its own safe reputation.",
+            "published_at": "2026-11-10T13:31:11+00:00",
+            "url": "https://finnhub.io/api/news?id=e9325f028ccd02e401a70689590025c3987df8a9e3ce172b57a0d3ca66ed7cf3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Does Procter & Gamble (PG) Naming A New India Beauty Head Signal?",
+            "summary": "Procter & Gamble (NYSE:PG) has appointed Shalini Saraswat as Brand Director and Business Head for Pantene India. Saraswat steps into the Pantene India role with prior brand leadership experience within Procter & Gamble. Her background includes earlier work in research and development at Unilever, adding technical depth to her consumer brand remit. The elevation of Shalini Saraswat to lead Pantene India comes as Procter & Gamble sharpens its hair care focus in the Indian market. Check out 2...",
+            "published_at": "2026-11-10T05:17:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e4fe3b44a0988e95acc7d15d81adc1b6ad23520f78b76efc65acc0015c34a895",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "General Mills Has Paid Uninterrupted Dividends for 127 Years. Here's the Yearly Payout on $5,000.",
+            "summary": "General Mills offers an attractive 6.8% dividend yield with 127 years of uninterrupted payouts, translating to roughly $334 annually on a $5,000 investment. However, the stock has declined 21% in 2026 due to slowing sales and the company's struggle to adapt to changing consumer preferences toward healthier options. The author recommends avoiding General Mills in favor of alternatives like Kimberly-Clark, Procter & Gamble, or Coca-Cola that offer both reliable dividends and better growth potential.",
+            "published_at": "2026-11-09T15:45:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/09/general-mills-has-paid-uninterrupted-dividends-for/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Is Procter & Gamble's Beauty Momentum Enough to Lift Growth?",
+            "summary": "PG's Beauty business posts 5% organic sales growth in Q1 FY27, fueled by Pantene and SK-II. Can this momentum boost overall growth?",
+            "published_at": "2026-11-09T15:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=51f2f8f958ff91f4abac0b716189e29532bb0dd66600b55edd0955709d47779c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "National Advertising Division Found Unilever\u2019s Dove Deep Moisture Body Wash Claims Supported",
+            "summary": "In a challenge brought by The Procter & Gamble Company, BBB National Programs\u2019 National Advertising Division determined that Unilever United States, Inc. supported the challenged express and implied claims that Dove Deep Moisture Body Wash moisturizes skin for 24 hours, nourishes skin, and provides \u201cDeep Moisture.\u201dNew York, NY, Nov. 09, 2026 (GLOBE NEWSWIRE) -- In a challenge brought by The Procter & Gamble Company, BBB National Programs\u2019 National Advertising Division determined that Unilever Un",
+            "published_at": "2026-11-09T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef0fcb9529ff5174d3209e6cf9ad22018f7650614d120c74f9b8ad43216ba8dc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "After the Democratic Midterm Sweep: 4 Dividend Stocks Built for Gridlock",
+            "summary": "When Congress locks up, some dividends barely notice. Four blue chips span power, soap, medicine and banking, and one of them already survived a payout collapse that income investors should not forget before trusting it.",
+            "published_at": "2026-11-09T14:27:09+00:00",
+            "url": "https://finnhub.io/api/news?id=00e0b213f324e8133296891e45898b7fe18155b32197d7c3b59702a184f4a11f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Benjamin Graham Had a 20-Year Rule for Retirement Income. It Just Won the AI Sell-Off",
+            "summary": "Benjamin Graham's rule for the defensive investor was uninterrupted dividends for at least 20 years. In the month since the S&P 500's record, five holdings that pass it rose 8.8% while the Nasdaq-100 fund fell 13.6%. Here is what that did to a retired couple with $3 million living on $99,265 a year of dividends, and three moves for the week.",
+            "published_at": "2026-11-09T14:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6b7a508f547ed2244d54a1b84648f6405c5943042df00723f8fa210829dc70a5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Legacy Dividend Stocks That Never Go Out of Style",
+            "summary": "Coke, Tide and Kleenex have sat in American homes for generations, and the companies behind them keep raising their payouts. But one of these three Dividend Kings carries a debt load that could test its streak.",
+            "published_at": "2026-11-09T13:18:50+00:00",
+            "url": "https://finnhub.io/api/news?id=b84e7f7f4f09f9a9d5adc12637aa601b57fc9182b2fd350eb21e7a5680fce428",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here is What to Know Beyond Why Procter & Gamble Company (The) (PG) is a Trending Stock",
+            "summary": "P&G (PG) has been one of the stocks most watched by Zacks.com users lately. So, it is worth exploring what lies ahead for the stock.",
+            "published_at": "2026-11-09T13:00:04+00:00",
+            "url": "https://finnhub.io/api/news?id=1356dfad7629fa2a93d275d42997793f22cd4a61b53bc0c414919cb2a5f69c23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "11 Of 11 Sectors Rise Monday As Growth Leads",
+            "summary": "All 11 sectors are higher in Monday\u2019s regular session, with growth sectors holding two of the top three positions. The leaders are separated rather than clustered, with no single gap clearly standing apart from the other breaks across the table.",
+            "published_at": "2026-11-09T12:00:24+00:00",
+            "url": "https://finnhub.io/api/news?id=0ae16468fb2d0b7cab7abf03424bf96c001876248f24bcc858b43baf9aed5a1a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "3 Top Dividend Stocks to Buy in November for a Lifetime of Passive Income",
+            "summary": "These three companies have built advantages that keep the cash flowing through good markets and bad.",
+            "published_at": "2026-11-09T11:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8b3cd1e436f9183ac0fcaec4c028fed41806347d026cd59faedd32a71dbf2ae9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Take the Zacks Approach to Beat the Markets: Ulta Beauty, Accenture, HCA in Focus",
+            "summary": "Zacks highlights how its research strategies have delivered strong returns, with ACN, HCA and ULTA among the standout performers.",
+            "published_at": "2026-11-09T11:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f7c19770c6b39343435143fdc85bcace975150f75826ef34ccbfba7c8d31f0db",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 168.32,
+      "jev": {
+        "news_skip": 0.09,
+        "buy_today": 0.6,
+        "hold_overnight": 0.56,
+        "model": "jev-1.14.0",
+        "tokens": 4662,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.749408+00:00",
+        "forecast_id": "2971b5b2-4b4a-4b56-97a1-7e777136c8f8",
+        "requested_at": "2026-11-10T14:36:00.376280+00:00",
+        "completed_at": "2026-11-10T14:36:00.749408+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "CMCSA",
+      "predicted_return": 0.372432432992319,
+      "open_price": 24.59,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Comcast planning more than 1,000 job cuts in connectivity and platforms",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Comcast planning more than 1,000 job cuts in connectivity and platforms",
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.548961+00:00",
+        "articles": [
+          {
+            "headline": "As tech stumbles, is this telecom\u2019s 6.2% dividend yield a safe haven?",
+            "summary": "Investing.com and Yahoo Finance LLC may earn commission or revenue on some items through the links below.",
+            "published_at": "2026-11-10T10:29:01+00:00",
+            "url": "https://finnhub.io/api/news?id=b3542b8e53990c990a2858871bd8797f6229f869389d4d4eb25be23fbc969d63",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Xfinity Gives Gamers a Free 15-Day WiFi Speed Boost for the Highly Anticipated Grand Theft Auto VI Launch",
+            "summary": "PHILADELPHIA, November 09, 2026--Xfinity is giving gamers with Xfinity Internet a free 15-day speed boost just in time for the highly anticipated Nov. 19 launch of Rockstar Games' Grand Theft Auto VI. The boost raises download speeds up to 2 gigabits per second, so Xfinity members can download and get into the game faster. With the game available for pre-load starting tomorrow, Nov. 10, Xfinity\u2019s speed boost is available for redemption today through Dec. 3.",
+            "published_at": "2026-11-09T21:41:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e1e49fa61f4199d1be8ff509bf6b76b7bc05853b3c0e47b1eebf838edc252221",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Comcast Corp. Is Planning To Cut More Than 1,000 Jobs In The Company\u2019s Connectivity And Platforms Divisions As It Prepares To Separate The Declining Units From Its Faster-Growing Media And Entertainment Division' - Bloomberg News",
+            "summary": "https://www.bloomberg.com/news/articles/2026-11-09/comcast-job-cuts-to-begin-with-hundreds-let-go-in-pennsylvania",
+            "published_at": "2026-11-09T19:43:24+00:00",
+            "url": "https://finnhub.io/api/news?id=fc8a93b8f5b3522d8ba2aba5f2a0ce46878d30f771a3c5837650640c23dbfba7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Xfinity Wants You to Pause Your WiFi This Holiday Season",
+            "summary": "PHILADELPHIA, November 09, 2026--This holiday season, Xfinity is making it easier for families to look up from their screens and be present for the moments that matter most. Today, Xfinity introduced Holiday Mode, a new feature in the Xfinity app that pauses WiFi with a single tap. It launched along with a holiday campaign featuring actor and comedian John C. Reilly as the Ghost of Christmas Very-Recent-Past.",
+            "published_at": "2026-11-09T14:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2bce354f91c557256e48782b71c53db8137ca037117765c6fd529ee94e22d742",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These 6 Telecom Stocks Collect Monthly Bills No Matter What the Market Does",
+            "summary": "These businesses are built to generate recurring cash flows.",
+            "published_at": "2026-11-09T14:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9039163d90d7f4fdd3fab71cf7e46fa068ef74c051f93dc30269f061e885241f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.51,
+      "jev": {
+        "news_skip": 0.72,
+        "buy_today": 0.52,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 2707,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.779669+00:00",
+        "forecast_id": "52181e90-5d0b-4509-8caf-486af1acbffd",
+        "requested_at": "2026-11-10T14:36:00.387414+00:00",
+        "completed_at": "2026-11-10T14:36:00.779669+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "NET",
+      "predicted_return": 0.3704348323722787,
+      "open_price": 295.0,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Q3 earnings beat and raised full-year outlook",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Q3 earnings beat and raised full-year outlook",
+        "article_count": 16,
+        "reviewed_count": 16,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.549872+00:00",
+        "articles": [
+          {
+            "headline": "Regal Rexnord is 'Worth So Much More,' Don't Overlook Churchill Downs: Jim Cramer",
+            "summary": "Cramer favors Regal Rexnord and Churchill Downs, is cautious on Marvell, dismissive of Snap and unaware of Perimeter.",
+            "published_at": "2026-11-10T08:47:19+00:00",
+            "url": "https://finnhub.io/api/news?id=e957c5279b77c28aba151a9980d3dc8dc76334182bb951637b5d93e4c3d4bb7f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why is Cloudflare (NET) stock rocketing higher today",
+            "summary": "Shares of cloud security and performance company Cloudflare (NYSE:NET) jumped 12% in the morning session after the company reported third-quarter financial results that exceeded analysts' expectations and raised its full-year outlook.",
+            "published_at": "2026-11-10T00:37:36+00:00",
+            "url": "https://finnhub.io/api/news?id=aea95d4f2aa1af0a3e2f7f4dc0528a38724f9f0d3299b467bbaabc09ae2e6a27",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Cloudflare Stock Soared on Monday",
+            "summary": "An analyst price target increase was indicative of positive sentiment toward the company's latest quarterly earnings.",
+            "published_at": "2026-11-09T23:19:55+00:00",
+            "url": "https://finnhub.io/api/news?id=6c9cedef1c473a761a1f733d47be1e337ab873d10a646880d200371346910503",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cloudflare's best quarter ever hit with a growing margin challenge",
+            "summary": "Cloudflare\u2019s revenue growth hit 39%, and guidance beat. But there is a cost to growing this fast.",
+            "published_at": "2026-11-09T22:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fa8e8748dcc9fa6eb60b37d109a31aa51eae7cc8ea4beeb9ccb25c976220caef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today, Nov. 9: Markets Rally as Semiconductor Gains Lift Nasdaq",
+            "summary": "On Nov. 9, 2026, chipmakers powered a broad rebound that pulled major indexes back from recent losses, with Treasury yields edging higher.",
+            "published_at": "2026-11-09T22:23:39+00:00",
+            "url": "https://finnhub.io/api/news?id=e4860a91195053386afce7b166b54908a55b9142c7535a947fd34f343c5c47ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cloudflare Tumbled Into Earnings: Why Goldman Sachs Sees 56% Upside",
+            "summary": "Key TakeawaysCloudflare fell 32% from its Oct. 9 record close to its Nov.",
+            "published_at": "2026-11-09T21:21:22+00:00",
+            "url": "https://finnhub.io/api/news?id=e0c1bc56ef951929e06b86f2f8358a9fcbb2a8a18172394d93614be2ee62209a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tracking Baillie Gifford's 13F Portfolio - Q3 2026 Update",
+            "summary": "Baillie Gifford's Q3 2026 13F portfolio decreased to ~$106B, with NVIDIA, Amazon, and SpaceX comprising ~21% of assets. Read more on the portfolio here.",
+            "published_at": "2026-11-09T20:39:25+00:00",
+            "url": "https://finnhub.io/api/news?id=2fbdbfd0d19b4c1d915f31e77b02ab245f9002e2663568d6f2ee00b7802fddfa",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Palantir Rises 5%, Snowflake Up 6% as AI Stocks Rebound After Market Was \u201cFreaking Out\u201d",
+            "summary": "Key TakeawaysPalantir rose 5% today with no news of its own, as Cloudflare, Snowflake and other AI stocks rebounded from last week\u2019s selloff. That selloff came after a quarter in which Palantir\u2019s revenue grew 96%.",
+            "published_at": "2026-11-09T18:29:50+00:00",
+            "url": "https://finnhub.io/api/news?id=cd3d8294a3324b2017582a1cc7eb0b7d23c51fcab839895a1a239d1bfb0bae96",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bullish Makes Ex-NYSE President Stacey Cunningham Its President Ahead of Equiniti Deal",
+            "summary": "Bullish plans to pay for its $4.2 billion Equiniti takeover partly with about 61 million of its own shares, by Unchained\u2019s math. Its new president, Stacey Cunningham, succeeded Bullish CEO Tom Farley at the top of the NYSE.",
+            "published_at": "2026-11-09T18:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=76900a6f2c66730b3bca1cec9e2e73108b9692f1dd5fe27cb949e4f19c1ba8f5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cloudflare Jumps 11%, Nebius Surges 9% as AI Cloud Stocks Defy NVIDIA\u2019s Slide; CoreWeave Rallies 6% on Wayve Deal",
+            "summary": "While NVIDIA slides on a startling report about its CEO, the cloud companies that buy its chips are drawing buyers back. One of them just posted what its CEO calls a best-ever quarter, but a few numbers underneath complicate the celebration.",
+            "published_at": "2026-11-09T17:55:11+00:00",
+            "url": "https://finnhub.io/api/news?id=cc14cdeeb5e21c13b193a0cafc0e7ef22c2a325365e45d1006feb67d1a93c306",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wall Street's Four Main Benchmarks Start the Week Higher as Inflation Data Nears",
+            "summary": "Equity Insider News Commentary - All four of the main U.S. stock benchmarks were trading higher in the first half hour of Monday's session. As of 9:57 a.m. ET, the S&P 500 was up 125.70 points, or 1.70%, at 7,502.56, the Nasdaq Composite was up 539.15 points, or 2.19%, at 25,118.58, the Dow Jones Industrial Average was up 727.61 points, or 1.42%, at 52,013.34, and the small cap Russell 2000 was up 53.59 points, or 1.95%, at 2,807.70. The broad start comes one day before the Bureau of Labor Stati",
+            "published_at": "2026-11-09T16:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=04a583bc7e67c2407294418605902c44e694a3e62d1fd651d86bb33b604d13e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cloudflare Q3 Earnings Call Puts AI Demand and Margins in Focus",
+            "summary": "NET's Q3 revenues surge 39% as developer and security demand fuel usage, while management moved its GAAP profitability target forward to Q4 2026.",
+            "published_at": "2026-11-09T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a5816d4f699123c022130abc8e107a12c778c387741842561bdbd1cafe178d85",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Trending Stock Cloudflare, Inc. (NET) a Buy Now?",
+            "summary": "Cloudflare (NET) has received quite a bit of attention from Zacks.com users lately. Therefore, it is wise to be aware of the facts that can impact the stock's prospects.",
+            "published_at": "2026-11-09T13:00:02+00:00",
+            "url": "https://finnhub.io/api/news?id=07ba663174d6490951af71e5b27184a6c81b81de9ba22e62c972787b0e0b04f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NET Stock Rises 10% Post Q3 Results: Should You Buy, Sell or Hold?",
+            "summary": "Cloudflare's 10% post-earnings surge follows strong Q3 results, higher 2026 guidance and rising demand for AI security and Workers.",
+            "published_at": "2026-11-09T12:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=167345d22d15e7f68f402ccafff49e3908a836d63feaeaf0aef8fa40ababefd0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NET Q3 2026 deep dive: broad-based demand and AI momentum drive outperformance",
+            "summary": "Cloud security and performance company Cloudflare (NYSE:NET) reported Q3 2026 results topping the market\u2019s revenue expectations, with sales up 39.2% year on year to $782.5 million. On top of that, next quarter\u2019s revenue guidance ($845.5 million at the midpoint) was surprisingly good and 6.2% above what analysts were expecting. Its non-GAAP profit of $0.38 per share was 10.6% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-11-09T11:17:36+00:00",
+            "url": "https://finnhub.io/api/news?id=30f4d33be739bc3e3f9c6aa6069ed4aa7869261ea1a012553ba96566bddacfcd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Nvidia Board Opens Probe Into Jensen Huang as Wall Street Licks Its AI Wounds",
+            "summary": "Nvidia\u2019s board launched an independent investigation into CEO Jensen Huang\u2019s relationship with a suspected Chinese spy. On Friday, chip stocks bounced, a strong jobs report lifted December rate-hike odds, and IonQ, IREN and Airbnb soared.",
+            "published_at": "2026-11-09T08:40:38+00:00",
+            "url": "https://finnhub.io/api/news?id=037d5a7497094658b8f5ca3f4adab844ede8aff4ac0d2ad7143c0d53e11672dd",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 293.75,
+      "jev": {
+        "news_skip": 0.65,
+        "buy_today": 0.6,
+        "hold_overnight": 0.59,
+        "model": "jev-1.14.0",
+        "tokens": 5740,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.844890+00:00",
+        "forecast_id": "d433a8ee-f687-4af1-919c-b54c6a702a8c",
+        "requested_at": "2026-11-10T14:36:00.397647+00:00",
+        "completed_at": "2026-11-10T14:36:00.844890+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "BRK-B",
+      "predicted_return": 0.3667010060644971,
+      "open_price": 575.59,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+        "article_count": 35,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-11-10T14:35:41.551122+00:00",
+        "articles": [
+          {
+            "headline": "Bill Ackman and Warren Buffett Both Have the Same Warning About the Stock Market",
+            "summary": "Billionaire investors Bill Ackman and Warren Buffett have issued similar warnings about the stock market, comparing it to a casino due to excessive risk-taking and unjustifiably high valuations. Both investors highlight the difficulty in finding reasonably priced stocks, with Ackman noting stocks trade at nonsensical prices and Buffett emphasizing the prevalence of gambling over value investing. Despite the S&P 500's strong 10% gain this year, elevated valuations pose risks of significant pullbacks.",
+            "published_at": "2026-11-10T12:49:02+00:00",
+            "url": "https://www.fool.com/investing/2026/11/10/bill-ackman-and-warren-buffett-both-have-the-same-warning-about-the-stock-market/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "The Buffett Indicator Is Flashing Red. These 3 Dividend Stocks Could Be Safe Havens.",
+            "summary": "With the Buffett Indicator at 281% (signaling potential market overvaluation), the article recommends three Dividend King stocks as defensive investments: Target, Johnson & Johnson, and Coca-Cola. All three offer reliable dividend growth, strong financial fundamentals, and historical resilience, making them suitable safe havens during potential market downturns.",
+            "published_at": "2026-11-10T09:02:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/10/buffett-indicator-is-flashing-dividend-stocks/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Berkshire Hathaway Remains Attractive Even If Its Valuation Is Becoming Stretched",
+            "summary": "Berkshire Hathaway remains a soft \u00e2\u0080\u0098buy\u00e2\u0080\u0099 despite Q3 earnings misses and insurance weakness. Click here to read an analysis of BRK.A stock now.",
+            "published_at": "2026-11-10T08:30:45+00:00",
+            "url": "https://finnhub.io/api/news?id=70b26412fbecf8215f77d25934fb3edb85519bfb42e834a891b8f3881d8b955c",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Warren Buffett's Instructions for His Wife's Inheritance Are 90% Stocks and 10% Bonds. Here's How That Mix Has Done Since 2000.",
+            "summary": "The bond piece cost around $92,000 on a $100,000 stake since 2000. Was it worth it when stocks crashed?",
+            "published_at": "2026-11-10T05:31:02+00:00",
+            "url": "https://finnhub.io/api/news?id=141a4cb21e710d916aee4c7cfa0b5292ba6110ed28bd6dde088db2c6d7d75071",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Successor, Greg Abel, Just Added Another Tech Stock to Berkshire's Portfolio. Here's What He Sees.",
+            "summary": "Berkshire Hathaway added $330 million to its Bending Spoons stake. Here's why it fits the portfolio and the risks involved.",
+            "published_at": "2026-11-10T04:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=59be3a21541dba892e93ca1d8be2b1f355c35475127551fb00424ecef4dff91a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Nasdaq Fell Into Correction Territory Recently. Should You Buy the Dip?",
+            "summary": "The Nasdaq's recent 5.5% dip into correction territory reflects a repricing of AI investment risk as markets punish overextended companies. While near-term volatility is expected, this correction could be healthy long-term by consolidating weaker AI players. Investors should selectively buy shares of strong companies with solid balance sheets during downturns, avoiding those with challenging financing conditions.",
+            "published_at": "2026-11-10T03:30:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/09/the-nasdaq-fell-into-correction-territory-recently/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Occidental Cuts Debt to $10 Billion as Q3 Cash Flow Hits $4.1 Billion",
+            "summary": "Occidental reports strong third-quarter cash flow and significant debt reduction, supported by resilient oil and gas production despite weaker crude prices.",
+            "published_at": "2026-11-10T02:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d57d3856ce17096d750eee6f41a2833d1bd976dfb0f35ceb2a177cc780b7d3eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire May Be Buying Class A Stock Directly From Holders to Boost Repurchases",
+            "summary": "During the third quarter, Berkshire repurchased $9.6 billion of stock. Most consisted of the more liquid Class B shares, but some $3.4 billion involved the A stock.",
+            "published_at": "2026-11-10T00:12:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c74e3d2b7134c25d8597dc0a59b23f58e76df2e24cca5a05b86671b6e5d1e26b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Kept Buying Back Stock as Shares Hit Records. Here\u2019s What the Price It Paid Tells You.",
+            "summary": "Berkshire\u2019s own filing shows the prices at which management found its stock attractive, and how far the shares have climbed since.",
+            "published_at": "2026-11-09T23:52:01+00:00",
+            "url": "https://finnhub.io/api/news?id=530d7da3af429425416d2b1dff6971331fc0ba94d26a51380f60a66441cb19ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire: Ready, Willing, And Abel",
+            "summary": "Whenever the S&P 500 has a period of torrid performance consistently hitting new highs, it\u00e2\u0080\u0099s not uncommon to see Berkshire Hathaway underperform",
+            "published_at": "2026-11-09T22:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=114f7fd33dcde93db0ad4a51d27dbdcbf4a5a95e18233a459c6892fcfda8906e",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway May Have Sold More Bank of America Stock in the Third Quarter",
+            "summary": "Berkshire\u2019s quarterly filing offers clues to possible Bank of America sales and additional Alphabet purchases ahead of its portfolio disclosure.",
+            "published_at": "2026-11-09T21:54:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0f5d2043b5be50ede7cb1adf3974add60aa2f1a07e6f8ad9d0f8421f4b5a3d9e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rallies As Oil Prices Slide; Nvidia Stock Dives On CEO Huang Probe (Live Coverage)",
+            "summary": "The Dow Jones index rallies 500 points Monday as oil prices drop. Nvidia stock dives on the probe into CEO Jensen Huang.",
+            "published_at": "2026-11-09T21:41:06+00:00",
+            "url": "https://finnhub.io/api/news?id=9ed519a9581c0b645208639091ac07e8066a724f30fe3e5d74827003446af2c6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer Questions Berkshire\u2019s \u201cIll-Advised Position\u201d in Alphabet as Its Cash Flow Turns Negative",
+            "summary": "Key TakeawaysJim Cramer questioned Berkshire Hathaway\u2019s $10 billion stake in Alphabet on the day Berkshire reported its third-quarter results. Alphabet\u2019s free cash flow was negative $9.",
+            "published_at": "2026-11-09T19:52:15+00:00",
+            "url": "https://finnhub.io/api/news?id=1652f5f76329e8ec72f2a80e119f1562e298ddb8801d335d2323b930d0328492",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Rule for Stock Buybacks Is Very Specific. Berkshire Spent a Record $9.6 Billion on Them Last Quarter.",
+            "summary": "The rule boils down to two tests. Would the stock still pass them at today's price?",
+            "published_at": "2026-11-09T19:43:02+00:00",
+            "url": "https://finnhub.io/api/news?id=22d09ac57c8d1c47a84aa976e11f93494f18054e39fdc812efb37ac13ed5f3d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Stocks Slip 1.01% Despite $9.6 Billion Buyback Surge",
+            "summary": "Third-quarter operating earnings fell 5.8% to $12.7 billion as insurance underwriting weakened, even as repurchases more than doubled",
+            "published_at": "2026-11-09T18:17:56+00:00",
+            "url": "https://finnhub.io/api/news?id=9e0916157efca171940431e2d43774955e4b58d7d5f08cfb3a838d5b9afe2a36",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway earnings expose unexpected problem beneath strong economy",
+            "summary": "One set of numbers tells two stories.",
+            "published_at": "2026-11-09T17:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d9f58f22c83a62086b5c919366553ea9db46135bc0b0657b45c4ddf9a5e3b282",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Institutional Flight-to-Quality Rotation Is On So I Buy Alphabet",
+            "summary": "Alphabet has slid nearly 19% in a month while institutions quietly shift toward quality. One investor keeps buying each dip, yet a negative cash flow figure and heavy share-sale capacity could still turn this bet sour.",
+            "published_at": "2026-11-09T17:45:10+00:00",
+            "url": "https://finnhub.io/api/news?id=23135c8636b1391f7b4153f453f87fbbf313ed7b01352021822f43b506cf9445",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "If You Make Just 1 Investing Move in 2026, History Says It Should Be This",
+            "summary": "The article recommends dollar-cost averaging (DCA) as the single best investing move for 2026. By investing fixed amounts at regular intervals in ETFs or stocks, investors can avoid market timing mistakes and benefit from compounding. Historical data shows that staying fully invested and maintaining consistency outperforms attempting to time the market, with missing just 10 best trading days significantly reducing long-term returns.",
+            "published_at": "2026-11-09T17:43:00+00:00",
+            "url": "https://www.fool.com/investing/2026/11/09/1-investing-move-2026-history-says/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Berkshire Hathaway Boosts Buybacks as Operating Income Slips",
+            "summary": "Berkshire Hathaway Inc.\u00a0spent about $9.6 billion to buy back its own shares in the third quarter, a sign the company's executives viewed the stock as undervalued. But declining insurance underwriting weighed on its operating earnings in a mixed quarter for the company. Bloomberg's Matthew Palazola joins to discuss.",
+            "published_at": "2026-11-09T17:38:34+00:00",
+            "url": "https://finnhub.io/api/news?id=20199e3234c29904ccd2e71fb5f087a4329d3bc2a29f41838bb68b6d1c2da528",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett\u2019s Successor Is Doubling Down on Berkshire Hathaway Stock. You Probably Shouldn\u2019t",
+            "summary": "Berkshire Hathaway more than doubled its pace of repurchases in Q3. However, the stock does not look like a compelling buy given the current valuations.",
+            "published_at": "2026-11-09T16:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=c6f9a0413a8be2574bcdd0673d527d4b7ca3f4a9c2809234c55d760f5b737a6c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barrick Mining Moves on Earnings; Google's New AI Chips | Stock Movers",
+            "summary": "On this episode of Stock Movers: - Shares of Barrick Mining (B) rose in premarket trading after the miner reported third-quarter earnings that beat the average analyst estimate as strength in gold offset copper weakness. The company also said that its Nevada Gold Mines initial public offering remains on track for late 2026 or early 2027. - Shares of Alphabet (GOOG) edged higher after news Google is rolling out a broader array of AI chips, aiming to capitalize on its rapid ascent as a challenger to Nvidia. The company is introducing two new variations of its tensor processing units, or TPUs, custom-made semiconductors that help run AI software. - Shares of KKR & Co. (KKR) rallied in the early session after the company reported a third-quarter profit that beat analysts' estimates as the \"mini Berkshire\" unit that holds long-term private equity bets mitigated a slump at its Global Atlantic insurance arm.",
+            "published_at": "2026-11-09T16:32:47+00:00",
+            "url": "https://finnhub.io/api/news?id=0f88deb731713c5a9e8714f68d4843fb7994bc284e2785298e0df2979ad85937",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway's Top AI Holding Is Poised to Outperform",
+            "summary": "The conglomerate's fourth-largest position is in an internet business whose share price has fallen 28% from the peak.",
+            "published_at": "2026-11-09T15:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4c7934cb28654bfe65f38926e1e51d09971688349134a2866b6e3a7ca69a7c96",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway latest: Q3 earnings, top 5 holdings, record stock buyback, & more",
+            "summary": "Berkshire Hathaway (BRK-B, BRK-A) reported third quarter earnings results and bought a record $9.6 billion of its own shares. \"The 8:30\" hosts Julie Hyman, Pras Subramanian, and Jake Conley take a closer look at the results.",
+            "published_at": "2026-11-09T15:05:07+00:00",
+            "url": "https://finnhub.io/api/news?id=78bcb07e76831ad8310a4a3e636b1c6b3043eb5deff88bf55aa96900f537454b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BRK.B Q3 Earnings Decline Year Over Year, Revenues Top Estimates",
+            "summary": "Berkshire Hathaway reported Q3 2026 operating earnings of $12.7 billion, down 5.8% year-over-year, despite revenue growth of 11.2% to $105.6 billion. The decline was driven by lower earnings in underwriting and investment income. Insurance underwriting earnings fell 42.9%, while the Railroad segment showed strength with operating earnings up 15.6%. Manufacturing and retailing businesses also improved with earnings increases.",
+            "published_at": "2026-11-09T12:42:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3026151/brk-b-q3-earnings-decline-year-over-year-revenues-top-estimates?cid=CS-ZC-FT-analyst_blog%7Cearnings_article-3026151",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Breakfast News: A Boulder Amid a Rocky Market",
+            "summary": "Berkshire Hathaway announced aggressive $9.6B stock buybacks in Q3 despite a 28% earnings drop, signaling management confidence in valuation. Markets faced headwinds with the S&P 500 falling 2.68% and Nasdaq dropping 3.37% last week, with tech stocks hit hardest. Several Fool-recommended companies report earnings this week including Rocket Lab, Take-Two Interactive, Cisco Systems, and others. Deere & Company continues strong performance with 80% gains since August 2024 recommendation. Investors should maintain long-term focus amid inflation data and market volatility.",
+            "published_at": "2026-11-09T12:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/11/09/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Berkshire Hathaway Reports 5.8% Decline in Q3 Operating Earnings to $12.71 Billion",
+            "summary": "Berkshire Hathaway (NYSE:BRK. B) reported operating earnings of $12.",
+            "published_at": "2026-11-09T11:35:43+00:00",
+            "url": "https://finnhub.io/api/news?id=bd1a057fcedbf1978ef587593cd792c78638a22fbc709624e723b5ffd320062a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What State Street Fin Select Sector SPDR (XLF) Sold: Berkshire Leads on Thursday",
+            "summary": "The fund sold $737.7 million of stock on Thursday, trimming all 76 of its positions and adding nothing new.",
+            "published_at": "2026-11-09T11:05:08+00:00",
+            "url": "https://finnhub.io/api/news?id=96b91162eef161aa596f577ef610aeae86eaeb752bb6f87104e9b008243830cf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ETFs Are Net Sellers of Berkshire Hathaway (BRK.B) on Nov. 5",
+            "summary": "ETFs sold a net $136.3 million of Berkshire Hathaway (BRK.B) on Thursday, Nov. 5.",
+            "published_at": "2026-11-09T11:02:59+00:00",
+            "url": "https://finnhub.io/api/news?id=406182586386d153c9467b7350706531633118dd539cad12c8fa7b1a49b9c9f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Warren Buffett's Successor, Greg Abel, Just Plowed $27 Million Into a Virtual Monopoly (No, Not Alphabet!)",
+            "summary": "Berkshire Hathaway\u2019s new boss has found value amid a historically expensive stock market.",
+            "published_at": "2026-11-09T10:26:02+00:00",
+            "url": "https://finnhub.io/api/news?id=364963dd8c2c111fb2b3af47d771740025427160e4707aee2f15a77be68b8770",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Stock Futures Mixed as Investors Assess Berkshire Hathaway Earnings, Nvidia Reports and AI Regulation Plans: Dow Jones, S&P, Nasdaq, Wall Street",
+            "summary": "US stock futures were mixed on Monday, November 9, 2026, as investors prepared for inflation data, corporate earnings and developments affecting the technology and cryptocurrency sectors. At 3:42 a.",
+            "published_at": "2026-11-09T09:59:52+00:00",
+            "url": "https://finnhub.io/api/news?id=c07e31e50260ebf485f1c5dd7b3b542ffb976d938bf7d530e20346fc07907469",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Huang allegations, Berkshire earnings, AI regulations - What\u2019s moving markets",
+            "summary": "Investing.com -- Investors are heading into a busy week with U.S. inflation data and fresh corporate earnings likely to shape market sentiment, while developments at major companies and a potential shift in Washington\u2019s approach to artificial intelligence add to the agenda. Berkshire Hathaway\u2019s latest results highlighted the strength of its cash position despite weaker operating earnings, while Binance announced a finance leadership change days after a major cryptocurrency theft.",
+            "published_at": "2026-11-09T09:13:15+00:00",
+            "url": "https://finnhub.io/api/news?id=2f61a1ade20cce87324822560ac06c4135c964e7aaf493fa9494f8f8673987a2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Q3: Buybacks Ramp To $9.6 Billion While The Market Misreads The Operating Decline",
+            "summary": "Berkshire Hathaway Q3 earnings fell on insurance weakness, but core businesses and capital allocation stayed strong.",
+            "published_at": "2026-11-09T09:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a6fd11c90e57ac51a62413f1d58741cf053e23f0b8cfc48322d587013905aa2b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway: The Margin Of Safety Has Evaporated (Rating Downgrade)",
+            "summary": "",
+            "published_at": "2026-11-09T08:15:34+00:00",
+            "url": "https://finnhub.io/api/news?id=0981053a7ec76cac1a5a021b9e5657ae4add42f3e60e71936289b02d4a50c987",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Berkshire Hathaway: This Isn't Going In The Right Direction",
+            "summary": "Berkshire Hathaway Q3 shows weaker insurance results and limited buyback upside at current valuation.",
+            "published_at": "2026-11-09T07:30:53+00:00",
+            "url": "https://finnhub.io/api/news?id=071860eb16880de20bee3a35de932bb04769cced587d02cc03bbf8bf84187486",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Applied Materials, Cisco, Berkshire Hathaway, Nvidia, Micron and Alphabet are part of Zacks Earnings Preview",
+            "summary": "Zacks' Earnings Preview highlights AMAT, CSCO, BRK.B, NVDA, MU and GOOGL as key companies amid broad-based Q3 earnings growth and evolving estimate revisions.",
+            "published_at": "2026-11-09T07:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef073076ea64f41b8d08b6c5e75de5ed45ad4c48b1ce674dc9e4975bd0424967",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 575.25,
+      "jev": {
+        "news_skip": 0.51,
+        "buy_today": 0.47,
+        "hold_overnight": 0.5,
+        "model": "jev-1.14.0",
+        "tokens": 9587,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.870296+00:00",
+        "forecast_id": "e1cd6c0b-e591-47f5-b287-3c7e8e52e4d1",
+        "requested_at": "2026-11-10T14:36:00.398660+00:00",
+        "completed_at": "2026-11-10T14:36:00.870296+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "WTW",
+      "predicted_return": 0.36668305521125905,
+      "open_price": 328.38,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.558308+00:00",
+        "articles": [
+          {
+            "headline": "Can Marsh Sustain Consulting Momentum Despite an Expected Q4 Slowdown?",
+            "summary": "MRSH's AI-driven consulting growth supports earnings, but an expected fourth-quarter slowdown raises questions about sustaining momentum and profitability.",
+            "published_at": "2026-11-10T12:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7dd9521ecdcd9345bd4ded362dd57fda284a54f787d9b4064831b3cb5b56852f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zacks Industry Outlook Highlights Erie Indemnity, Willis Towers Watson, Arthur J. Gallagher and Brown and Brown",
+            "summary": "ERIE, WTW, AJG and BRO could benefit from rising insurance demand, better pricing, prudent underwriting, digitalization and industry consolidation.",
+            "published_at": "2026-11-10T05:56:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fc483dadfd831c79cac02d61ed6fdb373dd22ba71e863959fe075e74f3c1689f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AM Best to Join Panel Discussion at Parametric Insurer Conference in London",
+            "summary": "LONDON, November 09, 2026--AM Best will participate at The Insurer\u2019s Parametric Insurer Conference 2026, which will be held on 12 November 2026, at the Willis Towers Watson Auditorium in London.",
+            "published_at": "2026-11-09T13:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=43ed6455f2e7a8c6f2fb0dcede234bee04783c3021ed904bc40d815632640fff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "4 Insurance Brokerage Stocks to Benefit From Higher Demand",
+            "summary": "Zacks Insurance Brokerage players like ERIE, WTW, AJG and BRO are likely to benefit from increased demand for insurance products, strategic acquisitions and the adoption of technology.",
+            "published_at": "2026-11-09T12:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=be67b429ec470d4d8cf9cabd28b3d60eda8a1b901e8fee8542874c9fb16e4f9e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 327.01,
+      "jev": {
+        "news_skip": 0.12,
+        "buy_today": 0.47,
+        "hold_overnight": 0.54,
+        "model": "jev-1.14.0",
+        "tokens": 2114,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:00.824052+00:00",
+        "forecast_id": "fc5fc92e-a362-4a15-a7f3-679331f00b30",
+        "requested_at": "2026-11-10T14:36:00.442043+00:00",
+        "completed_at": "2026-11-10T14:36:00.824052+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "PGR",
+      "predicted_return": 0.3636579783069913,
+      "open_price": 228.24,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.559837+00:00",
+        "articles": []
+      },
+      "prev_close": 227.52,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.43,
+        "hold_overnight": 0.53,
+        "model": "jev-1.14.0",
+        "tokens": 1141,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.083525+00:00",
+        "forecast_id": "d566fa22-db0f-4906-b7f8-a0551dfb8ebd",
+        "requested_at": "2026-11-10T14:36:00.722577+00:00",
+        "completed_at": "2026-11-10T14:36:01.083525+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "IRT",
+      "predicted_return": 0.357643798447101,
+      "open_price": 14.98,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.566095+00:00",
+        "articles": []
+      },
+      "prev_close": 15.07,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.56,
+        "hold_overnight": 0.51,
+        "model": "jev-1.14.0",
+        "tokens": 1138,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.241776+00:00",
+        "forecast_id": "8bbf7788-ede6-425e-83f1-01c96bd4e4e4",
+        "requested_at": "2026-11-10T14:36:00.731323+00:00",
+        "completed_at": "2026-11-10T14:36:01.241776+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "NJR",
+      "predicted_return": 0.35523952575749546,
+      "open_price": 54.36,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.566131+00:00",
+        "articles": []
+      },
+      "prev_close": 54.39,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.53,
+        "hold_overnight": 0.48,
+        "model": "jev-1.14.0",
+        "tokens": 1135,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.195851+00:00",
+        "forecast_id": "757b9829-83bf-4233-be92-6612eb48c5f1",
+        "requested_at": "2026-11-10T14:36:00.770676+00:00",
+        "completed_at": "2026-11-10T14:36:01.195851+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "AJG",
+      "predicted_return": 0.3534863421608488,
+      "open_price": 280.72,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:41.567566+00:00",
+        "articles": [
+          {
+            "headline": "Zacks Industry Outlook Highlights Erie Indemnity, Willis Towers Watson, Arthur J. Gallagher and Brown and Brown",
+            "summary": "ERIE, WTW, AJG and BRO could benefit from rising insurance demand, better pricing, prudent underwriting, digitalization and industry consolidation.",
+            "published_at": "2026-11-10T05:56:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fc483dadfd831c79cac02d61ed6fdb373dd22ba71e863959fe075e74f3c1689f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "4 Insurance Brokerage Stocks to Benefit From Higher Demand",
+            "summary": "Zacks Insurance Brokerage players like ERIE, WTW, AJG and BRO are likely to benefit from increased demand for insurance products, strategic acquisitions and the adoption of technology.",
+            "published_at": "2026-11-09T12:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=be67b429ec470d4d8cf9cabd28b3d60eda8a1b901e8fee8542874c9fb16e4f9e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "$1000 Invested In Arthur J. Gallagher 10 Years Ago Would Be Worth This Much Today",
+            "summary": "Arthur J. Gallagher (NYSE:AJG) has outperformed the market over the past 10 years by 5.42% on an annualized basis producing an average annual return of 18.5%. Currently, Arthur J. Gallagher has a market capitalization",
+            "published_at": "2026-11-09T11:00:19+00:00",
+            "url": "https://finnhub.io/api/news?id=9cd46dfa43f2e3cc9c14646fec800ef2928699e69727814234b0e7db3109de23",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 280.6,
+      "jev": {
+        "news_skip": 0.13,
+        "buy_today": 0.47,
+        "hold_overnight": 0.54,
+        "model": "jev-1.14.0",
+        "tokens": 1927,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.241869+00:00",
+        "forecast_id": "12c9cf05-2ffa-415b-a222-08ae95c68fac",
+        "requested_at": "2026-11-10T14:36:00.775191+00:00",
+        "completed_at": "2026-11-10T14:36:01.241869+00:00",
+        "question_set_version": "morning_v1"
+      }
+    }
+  ],
+  "scored_count": 1888,
+  "skipped": [
+    {
+      "ticker": "CEG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OXY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FERG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTWO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRWV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RKLB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROKU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KSPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ASTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ONTO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SANM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DDS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRAX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ONON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LINE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TGTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IMVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ASR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZETA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QBTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CWEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIMS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LQDA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QLYS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CWST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XENE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HRB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRVO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RGTI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DFTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRCY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TDW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MARA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TCBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNGX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABCL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MNDY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NESR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LIF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BTDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NHI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DHT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLUG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSQR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REZI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BWIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DAC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DJT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ETOR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNIT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRVI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OCUL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STUB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZYME",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "overnight_gap",
+      "importance": 6.567089107468964
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 5.729757641682203
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 5.6487339720533445
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-11-09",
+    "model_trained_through": "2026-11-09",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

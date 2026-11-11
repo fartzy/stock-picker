@@ -1,0 +1,1465 @@
+{
+  "as_of": "2026-10-01",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "CTVA",
+      "predicted_return": 0.42535366845813444,
+      "open_price": 14.4399995803833,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:35:56.966938+00:00",
+        "articles": [
+          {
+            "headline": "Corteva Announces Expiration and Final Results of Private Exchange Offers and Consent Solicitations for EIDP's 2.300% Senior Notes Due 2030, 5.125% Senior Notes Due 2032 and 4.800% Senior Notes Due 2033",
+            "summary": "Corteva, Inc. (NYSE: CTVA) announced today that Vylor Inc., a Delaware corporation and its wholly owned subsidiary (\"Vylor\"), has received the final results of its previously announced (i) private offers to exchange (with respect to each series, an \"Exchange Offer\" and together, the \"Exchange Offers\") any and all of the outstanding senior notes of the series listed in the table below issued by EIDP, Inc., a Delaware corporation and a wholly owned subsidiary of Corteva (\"EIDP\" and such notes, col",
+            "published_at": "2026-10-01T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=26de82a00442c7bdad2b1677bfe2d7392e7dfeae4b8e598683aba5bcd9b63ec9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dear Corteva Stock Fans, Mark Your Calendars for Oct. 1",
+            "summary": "Corteva is about to officially spin off its seed genetics business",
+            "published_at": "2026-09-30T12:46:53+00:00",
+            "url": "https://finnhub.io/api/news?id=0585729032819f576c2514c2d851089c989c4e63949ae19dae1d761bc39b2043",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva Announces Extension of Expiration Date in Private Exchange Offers and Consent Solicitations for EIDP's 2.300% Senior Notes Due 2030, 5.125% Senior Notes Due 2032 and 4.800% Senior Notes Due 2033",
+            "summary": "Corteva, Inc. (NYSE: CTVA) announced today that Vylor Inc., a Delaware corporation and its wholly owned subsidiary (\"Vylor\"), has extended the expiration date of each of its previously announced (i) private offers to exchange (with respect to each series, an \"Exchange Offer\" and together, the \"Exchange Offers\") any and all of the outstanding senior notes of the series listed in the table below issued by EIDP, Inc., a Delaware corporation and a wholly owned subsidiary of Corteva (\"EIDP\" and such",
+            "published_at": "2026-09-30T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0b015785c910edfb35cb639f71da5b125e1bf109442f25ff0dbc78ddd93151e5",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 77.68000030517578
+    },
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.3453337318288688,
+      "open_price": 24.014999389648438,
+      "snapshot_date": "2026-09-30",
+      "news_flag": "district court patent infringement ruling vs UTHR on Yutrepia",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "district court patent infringement ruling vs UTHR on Yutrepia",
+        "article_count": 14,
+        "reviewed_count": 14,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:35:56.967462+00:00",
+        "articles": [
+          {
+            "headline": "Why Is United Therapeutics (UTHR) Stock Rocketing Higher Today",
+            "summary": "Shares of biotechnology company United Therapeutics (NASDAQ:UTHR) jumped 13.6% in the afternoon session after a federal district court ruled that competitor Liquidia Corporation infringed patent claims covering United Therapeutics' inhaled treprostinil treatments.",
+            "published_at": "2026-09-30T23:33:13+00:00",
+            "url": "https://finnhub.io/api/news?id=c5e7b986581fc4103111c0e1929a91307fe09fe37016480ac93e97ede984eb09",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "United Therapeutics Corporation Prevails in Patent Litigation Against Liquidia",
+            "summary": "SILVER SPRING, Md. & RESEARCH TRIANGLE PARK, N.C., September 30, 2026--United Therapeutics Corporation (Nasdaq: UTHR), a public benefit corporation, today announced that the United States District Court for the District of Delaware issued an opinion that finds Liquidia Technologies, Inc. (Liquidia) infringes two claims of United Therapeutics\u2019 patent covering the use of inhaled treprostinil to treat pulmonary hypertension associated with interstitial lung disease (PH-ILD).",
+            "published_at": "2026-09-30T23:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=62e6b2e1305b217aec51b5f412b5b9fc529ad6bf6c2060c8cc7c79fc233e6019",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Wavers Ahead Of Key Inflation Data; Micron Report Due (Live Coverage)",
+            "summary": "The Dow Jones index wavers Wednesday ahead of key inflation data. Micron earnings are due after the close.",
+            "published_at": "2026-09-30T20:54:22+00:00",
+            "url": "https://finnhub.io/api/news?id=560d2d26d2b20c561dd7d19964e1ccbe6dc92ad4988c24c72908e9469723b122",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "United Just Pulled The Ultimate Bull Move, As Its Chief Rival Collapsed",
+            "summary": "A district judge ruled Wednesday that Liquidia infringed on United Therapeutics' patents with its drug, Yutrepia. The stocks diverged.",
+            "published_at": "2026-09-30T20:11:11+00:00",
+            "url": "https://finnhub.io/api/news?id=262c9c1ceab27340a2e3a65e7ee7cd14d125e8233709fee8ddaacdcf4dee321c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sector Update: Healthcare Stocks Fall Late Afternoon",
+            "summary": "Healthcare stocks declined late Wednesday afternoon with the NYSE Healthcare Index and the State Str",
+            "published_at": "2026-09-30T20:00:40+00:00",
+            "url": "https://finnhub.io/api/news?id=a27ff7e3f0b49b74c90bd03ee68c077e60d265c5cedc97fea67f36c907ddd2b0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LQDA Stock Eyes Worst Day Ever After Judge Upholds Two UTHR Patent Claims",
+            "summary": "Liquidia CEO Roger Jeffs said the company disagrees with the court\u2019s decision and will \u201cpursue all available appellate options.\u201d",
+            "published_at": "2026-09-30T19:46:10+00:00",
+            "url": "https://finnhub.io/api/news?id=a65322bb7a5ddbf84e58bd44f1eb08efeef1d1d6ef85113be25859bf809f930f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Nasdaq Leads Rise; AI Giant Microsoft Tests A New Entry (Live Coverage)",
+            "summary": "Stock Market Today: The Dow Jones index rises Wednesday on surprise inflation data. Micron earnings are due after the close.",
+            "published_at": "2026-09-30T19:43:12+00:00",
+            "url": "https://finnhub.io/api/news?id=bdf695d8ec59f60c9c792ad96f4f917a700d182be709eb34dd52b4ee23a6cc54",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top movers analysis one hour before the close of the markets on 2026-09-30: top gainers and losers in today's session.",
+            "summary": "Keep an eye on the top gainers and losers in Wednesday's session, as they reflect the most notable price movements.",
+            "published_at": "2026-09-30T19:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d4332f7a2fe1dab8c09f7470e50f7e165b6190d23ac542136f894f40a676a6d3",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Liquidia shares crater after court rules for United Therapeutics",
+            "summary": "Investing.com -- Liquidia Corp shares fell Wednesday after a U.S. District Court in Delaware ruled the company infringed two patent claims held by United Therapeutics Corp. United Therapeutics shares rose more than 13%.",
+            "published_at": "2026-09-30T18:23:27+00:00",
+            "url": "https://finnhub.io/api/news?id=d4141e410065318a1882c768f09af6a75d2a95b988a5cee79b2b23c56caf247a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Provides Update on Hatch-Waxman Litigation Tied to \u2018327 Patent",
+            "summary": "District Court ruled that two of the six claims asserted against Liquidia are valid and infringedParties directed to submit form of judgment, specifying the proposed remedy, for the District Court\u2019s consideration within one week MORRISVILLE, N.C., Sept. 30, 2026 (GLOBE NEWSWIRE) -- Liquidia Corporation (NASDAQ: LQDA), a biopharmaceutical company driven by science and compassion to revolutionize care for patients with challenging respiratory and vascular diseases, today issued an update regarding",
+            "published_at": "2026-09-30T17:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3ee6eb26c5f8bd09071e04334d1a7e89c7df5528e9ae226edbfebd4bd203cc2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LQDA versus ALKS: Which Biotech Stock Is the Better Buy Now?",
+            "summary": "LQDA's Yutrepia drives rapid growth, while ALKS benefits from a diversified portfolio, Lumryz and a broader pipeline.",
+            "published_at": "2026-09-30T16:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=83c3abd3009a683b5067837101045ff011423e2a4d782ad32cff17a64df35358",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Let's take a look at the stocks that are in motion in today's session.",
+            "summary": "Let's have a look at what is happening on the US markets in the middle of the day on Wednesday. Below you can find the top gainers and losers in today's session.",
+            "published_at": "2026-09-30T16:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3961306cf584fde9f41cec1a28973677f4fe0abb536307a301d5ae78f0964dec",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Liquidia: Bullish On Their Growth Potential Despite YUTREPIA's Legal Tail Risk",
+            "summary": "YUTREPIA\u00e2\u0080\u0099s adoption is translating into profits and cash, giving Liquidia an operating foundation for further growth. Click for more on LQDA.",
+            "published_at": "2026-09-30T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=13c146f6021a5b62415407a1cf7021a91db2b88110f05cd4e1b5741a8eb35a2a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Liquidia (NASDAQ:LQDA) High Growth Momentum Meets a Pre-Breakout Setup",
+            "summary": "Liquidia Corp scores 8 for growth momentum plus strong technical and setup ratings, flagging a pre-breakout biopharma stock with rapid EPS and revenue growth.",
+            "published_at": "2026-09-30T10:30:59+00:00",
+            "url": "https://finnhub.io/api/news?id=06202ed9bf0cc49770a13ade51b30463ab1b6242686e15b09b5f08046cb638bd",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 30.190000534057617
+    },
+    {
+      "ticker": "MAN",
+      "predicted_return": 0.30233036605749375,
+      "open_price": 54.03499984741211,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:35:56.967840+00:00",
+        "articles": [
+          {
+            "headline": "2 Services Stocks to Target This Week and 1 We Find Risky",
+            "summary": "Business services providers use their specialized expertise to help enterprises streamline operations and cut costs. Furthermore, the demand for their offerings is rising as more clients outsource non-core functions, a trend that has enabled the industry to return 22.1% over the past six months. At the same time, the S&P 500 was up 16.6%.",
+            "published_at": "2026-10-01T08:05:07+00:00",
+            "url": "https://finnhub.io/api/news?id=6e1c2ffda52f2b1c6596fcf508e98dcd01d059a4903f570b43ba22c78f9b45a9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alliance for America's Skilled Trades Expands with New Companies, Unveils New Research - The State of America\u2019s Skilled Trades: A National Report",
+            "summary": "DETROIT, September 30, 2026--A new report released today by the Alliance for America's Skilled Trades finds the U.S. will need to fill an estimated 1.7 million skilled trades openings each year through 2035, while training programs produce just 55 workers for every 100 needed.",
+            "published_at": "2026-09-30T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=504f29613b31eb5f5f053d73107da800e77c5ac364e56badbf5e345d82ec1414",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 55.56999969482422
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.2904031671434059,
+      "open_price": 186.01199340820312,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 34,
+        "reviewed_count": 34,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:35:56.968127+00:00",
+        "articles": [
+          {
+            "headline": "Everpure Stock Is September\u2019s Surprise S&P 500 Winner, Surging More Than 40% As Retail Piles In",
+            "summary": "AI demand, stronger growth targets and index inclusion fuel a standout month for the enterprise-storage company.",
+            "published_at": "2026-10-01T07:18:04+00:00",
+            "url": "https://finnhub.io/api/news?id=354f01ab3ffb52f17fffa0baf0e02019c8c004112604de1a2c35b6845f67ceca",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "If I Could Tell Every New Investor 1 Thing About Building Wealth in the Stock Market, It's This",
+            "summary": "New investors might be eager to jump in during a bull market.",
+            "published_at": "2026-10-01T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7c9329fd8dc60283c532920752d56c5581bb7d7c319ee20a0a1c5430387ceec2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Top HealthTech Questions Landing On Our Desks",
+            "summary": "Strong performance across the healthtech sector over the past two quarters has sparked renewed market interest in medical innovation.",
+            "published_at": "2026-10-01T03:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7d6465b472d118677c03014527a5f47cd568772afebdfde05f26b16e70df37cb",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Citi delivers major verdict after Moderna\u2019s remarkable 703% run",
+            "summary": "Moderna\u2019s rally has priced in unrealistic expectations for its cancer drug sales.",
+            "published_at": "2026-09-30T22:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=222ba29da438d1aab5a1d74e6c762d213e441897ce1585bfec5432cd76c60767",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Moderna (MRNA) Shares Are Falling Today",
+            "summary": "Shares of biotechnology company Moderna (NASDAQ:MRNA) fell 6% in the morning session after Citigroup downgraded the company to Sell from Neutral, warning that a 222% rally had pushed its valuation to unsustainable levels.",
+            "published_at": "2026-09-30T21:01:13+00:00",
+            "url": "https://finnhub.io/api/news?id=99b644c4dbe7656e77f51ec70027d88d044f33bbf2754173679e66718fbea76e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "This Analyst Just Downgraded Moderna Stock. Here's Why.",
+            "summary": "Citi analyst says Moderna stock could crash as much as 60% from here. Here\u2019s why he issued a bearish note on MRNA shares today.",
+            "published_at": "2026-09-30T20:40:57+00:00",
+            "url": "https://finnhub.io/api/news?id=2e2d6f9e88c3b166b392e28c77871880c87b2f2ccc130062ab3138f10abf5510",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Citi Downgrades Moderna Stock, Warning $80 Billion Valuation Asks Too Much of Cancer Pipeline",
+            "summary": "Citi downgrades Moderna to Sell from Hold, saying the data around its cancer vaccine, instimeran autogene, isn\u2019t enough to justify the valuation.",
+            "published_at": "2026-09-30T20:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c4a24a8a74cef8fdfe88fdb4b52791e7d289346eb6fb12519590d0f456753d02",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Slumps as Citi Says It\u2019s Time to Sell After 500% Rally This Year",
+            "summary": "Moderna\u2019s stock has been flying high lately. That has one group of analysts saying it\u2019s time to sell.",
+            "published_at": "2026-09-30T19:31:39+00:00",
+            "url": "https://finnhub.io/api/news?id=c6f5e4ce836a530ae05b8f89192a088e9bb36d545cf4712cabe9b1742ebf8167",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top S&P500 movers in Wednesday's session",
+            "summary": "Join us in exploring the top gainers and losers within the S&P500 index one hour before the close of the markets on Wednesday as we examine the latest happenings in today's session.",
+            "published_at": "2026-09-30T19:05:02+00:00",
+            "url": "https://finnhub.io/api/news?id=1910164d8b1d9fd9033a60bb0ef8f5ad9e51cda65b366ab301802bffa86d1535",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Prediction: Moderna Stock Will Soar 100% by 2030",
+            "summary": "The company could enter a fresh growth phase.",
+            "published_at": "2026-09-30T18:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8a521ce98bf09f06ab4f7dd8cd0e70efbf53ce3d9691b0291f356bcff2bca6f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sector Update: Healthcare Stocks Softer Wednesday Afternoon",
+            "summary": "Healthcare stocks declined Wednesday afternoon, with the NYSE Healthcare Index easing 0.3% and the S",
+            "published_at": "2026-09-30T17:40:30+00:00",
+            "url": "https://finnhub.io/api/news?id=124db892933c23eb411cf344af13765d8a1ce075a2e36ce66e707b17db28ac6b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna, Cerebras, Jabil, HPE, Cal-Maine, Mattel, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Moderna falls after Citi downgrades shares to Sell from Hold, saying its recent rally has gone too far.",
+            "published_at": "2026-09-30T17:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9cc9bac25ab6f4b0cc77442bcc076f9dfa4abbaf139a9918132c7658d38d8900",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Midday, Sept. 30: Markets Rise on Softer Inflation Data, Investors Await Micron Earnings",
+            "summary": "Today, Sept. 30, 2026, softer PCE growth is supporting sentiment amid heightened single-stock volatility.",
+            "published_at": "2026-09-30T16:39:33+00:00",
+            "url": "https://finnhub.io/api/news?id=9a7b4bca9b1a4309d6a925cc89baefdfbbb69cd7ecf668d5abdfc06493049831",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Uncover the latest developments among S&P500 stocks in today's session.",
+            "summary": "Stay informed about the performance of the S&P500 index in the middle of the day on Wednesday. Uncover the top gainers and losers in today's session for valuable insights.",
+            "published_at": "2026-09-30T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=a1d687bb68e5ab3a14c7763cfe0a634749ff03bce370bf705b046929109ce482",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Moderna and Fair Isaac: The Best and Worst S&P 500 Stocks for the Third Quarter",
+            "summary": "Moderna stock has rallied since the company unveiled clinical updates to its cancer vaccine in collaboration with Merck in late August.",
+            "published_at": "2026-09-30T15:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=63454becd4abb8682a7c6937f2784e56df98e658bfd714754092494ebe7559ea",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna vs. BioNTech: Which mRNA Stock Is the Better Buy Now?",
+            "summary": "MRNA's respiratory vaccine expansion and promising oncology results offer potential growth as COVID-19 demand normalizes.",
+            "published_at": "2026-09-30T15:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0c7f11fc2e27afae3e335037102ba549b3d2f5e4fb450b1c5af9210de361c233",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wednesday's session: gap up and gap down stock in the S&P500 index",
+            "summary": "Stay updated with the S&P500 gap up and gap down stocks on Wednesday. Get a glimpse of the market's movement during today's session.",
+            "published_at": "2026-09-30T14:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=17ec7e19223b3ea07ff36979b275faa1c28e02702f7b5ca9bafd798374df9a48",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "After Moderna's Dizzying Rally, It's Time To Sell, Says Analyst",
+            "summary": "After nearly quadrupling over the past month, it's time to get out of Moderna stock, a Citi analyst said Wednesday as he downgraded shares.",
+            "published_at": "2026-09-30T14:05:21+00:00",
+            "url": "https://finnhub.io/api/news?id=2c75b84a8e3ed43d9ef0b377df0785ea40960d26eccc6c99c516b20b5a6e7982",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Sinks 6% on Citi Downgrade; Merck and Pfizer Stay Flat",
+            "summary": "Citigroup just slapped a Sell rating on one of 2026's most explosive biotech stocks, warning that soaring investor hopes around a cancer vaccine partnership with Merck have carried the valuation into dangerous territory.",
+            "published_at": "2026-09-30T13:42:17+00:00",
+            "url": "https://finnhub.io/api/news?id=ce2eba22449a0950f1937137a8d491338f3c95da529f8f44a9d9078f6136566f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tech leads stocks higher after cooler-than-expected inflation read: AlphaCheck",
+            "summary": "Here's the market action in the first few minutes of trading.",
+            "published_at": "2026-09-30T13:41:26+00:00",
+            "url": "https://finnhub.io/api/news?id=b78db5872e9430cf81361761ac090e11ce8cc09e85964919ae84b1e8fe38298b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Target upgraded, Moderna downgraded: Wall Street's top analyst calls",
+            "summary": "Target upgraded, Moderna downgraded: Wall Street's top analyst calls",
+            "published_at": "2026-09-30T13:40:37+00:00",
+            "url": "https://finnhub.io/api/news?id=bb76bfa794beae6cf0c08bb55b649b68e623d691b44b38b410869e1cd7ac6654",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stocks making the biggest moves midday: Rogers, United Therapeutics, Moderna, FormFactor & more",
+            "summary": "These are the stocks posting the largest moves midday.",
+            "published_at": "2026-09-30T13:04:33+00:00",
+            "url": "https://finnhub.io/api/news?id=7dfb5fc4b59dcc4a8093306c5dc82aac44f9203c428f8ea5e1dfd69c02e5984c",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Moderna, Concentrix, Boeing, HPE, Robinhood, Cal-Maine, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Moderna falls after Citi downgrades shares to Sell from Hold, saying its recent rally has gone too far.",
+            "published_at": "2026-09-30T13:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=28e32e8ee7e005ddb76aeb14811a95e1ad01c6a5c256b8356069e328e95e0a6e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are moving in today's pre-market session",
+            "summary": "Discover the top S&P500 movers in Wednesday's pre-market session and stay informed about market dynamics.",
+            "published_at": "2026-09-30T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=801733cd046f8895ae07f10d68920280f8c38957ffa7722c3ff0f9406b4e9dc7",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Moderna Stock Has Run Too Far, Too Fast. Why Citi Just Downgraded It to Sell.",
+            "summary": "Citi downgrades Moderna to Sell from Hold, saying the data around its cancer vaccine, instimeran autogene, isn\u2019t enough to justify the valuation.",
+            "published_at": "2026-09-30T12:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fa47ec443f59963c3625e8ac707d08d8347ac5b0f28491dd28769751e1a9eb0b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MRNA Stock Falls Premarket After Citi Downgrade: Analyst Says Valuation Looks Stretched Despite Cancer Vaccine Momentum",
+            "summary": "Citi downgraded Moderna to 'Sell' on valuation concerns after a massive 2026 rally, while investors await detailed Phase 3 melanoma data at ESMO next month.",
+            "published_at": "2026-09-30T12:03:28+00:00",
+            "url": "https://finnhub.io/api/news?id=56f0c9ece7c01ec1810bcdd9f0956f5945caa2a7ec838f66a7edb7e950e41596",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Wednesday\u2019s Top Wall Street Analyst Research Calls: Ally Financial, BankUnited, Ciena Corporation, CoreWeave, Dow, FormFactor, Lumentum Holdings, Moderna, Target, and More",
+            "summary": "Rising Treasury yields are rattling markets heading into the final trading day of Q3, and Wall Street analysts are making bold moves on a wide range of stocks from big-box retail to AI infrastructure. Find out who got cut and who got a fresh vote of confidence.",
+            "published_at": "2026-09-30T12:02:52+00:00",
+            "url": "https://finnhub.io/api/news?id=e036cb6cd4e709f0ee5df941cc8cdbbc7ee0352453225fcf768171476633a090",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Premarket movers: Micron; Boeing rises, Moderna slides",
+            "summary": "Investing.com - U.S. stock index futures hovered around the flatline on Wednesday, as investors turned their focus to key inflation data closely watched by the Federal Reserve and upcoming earnings from semiconductor group Micron.",
+            "published_at": "2026-09-30T12:02:40+00:00",
+            "url": "https://finnhub.io/api/news?id=d453f3fca1bb271c8cdcc1040b547798149c0df96d89bf797ac75570ced675b3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "9 Stocks Turn $100,000 to $18.8 Million In 9 Months",
+            "summary": "September turned out to be a mediocre month for S&P 500 investors. But some stocks wound up having a great month.",
+            "published_at": "2026-09-30T11:16:48+00:00",
+            "url": "https://finnhub.io/api/news?id=428e3ee65a54a0f1807a6866965d48388f9d7c07323eebf08087bba21fafcaab",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Adds Chief Operating Officer Role as Company Expands into Oncology",
+            "summary": "Juan Andres to Return to Moderna as Chief Operating OfficerJerh Collins to Retire Following Four Years of Leadership at ModernaCAMBRIDGE, MA / ACCESS Newswire / September 30, 2026 / (NASDAQ:MRNA) today announced the addition of a Chief Operating Officer role to support the increasing scale and diversification of the Company.The new role comes as Moderna prepares for the potential launch and scale-up of intismeran autogene following positive Phase 3 results and continues to advance a broader onco",
+            "published_at": "2026-09-30T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=421cb7c8d9b76c06fa0af16c3bfcd6c97f288280a12c52c90990b5680ea17020",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "This Dow Analyst Is No Longer Bullish; Here Are Top 5 Downgrades For Wednesday",
+            "summary": "Analysts downgraded SoundThinking, Moderna, Accelerant, Mobileye and Dow, revising their ratings and price targets.",
+            "published_at": "2026-09-30T08:54:49+00:00",
+            "url": "https://finnhub.io/api/news?id=7a8192e58a3b3a7f76cd5eef12a43346641a768e5368f3d70e29291f6586565e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Microsoft To Rally Around 20%? Here Are 10 Top Analyst Forecasts For Wednesday",
+            "summary": "Analysts revised targets and ratings for KMX, ARX, JKHY, MRNA, GO, HNGE, AYTU and MSFT, with mixed upgrades, downgrades and reiterations.",
+            "published_at": "2026-09-30T08:22:08+00:00",
+            "url": "https://finnhub.io/api/news?id=041ce0be0a643171ac19f00a1141def7d415225ccbea4606a57c39f085b5ab50",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Concentrix Posts Mixed Q3 Results, Joins Cal-Maine Foods And Other Big Stocks Moving Lower In Wednesday\u2019s Pre-Market Session",
+            "summary": "Concentrix plunged 10.6% premarket after weak guidance, despite an earnings beat; several other stocks also traded lower.",
+            "published_at": "2026-09-30T08:02:09+00:00",
+            "url": "https://finnhub.io/api/news?id=ec01469ed1b12fef0eee46bc0b7d5b42adffd92b6cedbc235e7a87e19f0a001a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Citigroup Downgrades Moderna to Sell, Raises Price Target to $80",
+            "summary": "Citigroup  analyst Geoff Meacham   downgrades Moderna (NASDAQ:MRNA) from Neutral to Sell and raises the price target from $60 to $80.",
+            "published_at": "2026-09-30T06:22:51+00:00",
+            "url": "https://finnhub.io/api/news?id=a26fb742864fb294a617a295d45aa831f088eb4a5de69f6df7152402478047fd",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 192.47999572753906
+    },
+    {
+      "ticker": "NKTR",
+      "predicted_return": 0.27989840131176474,
+      "open_price": 55.404998779296875,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:35:56.968379+00:00",
+        "articles": [
+          {
+            "headline": "New Biomarker Data Presented in a Late Breaking Oral Presentation at EADV Congress 2026 Showing Early Molecular Responses to Rezpegaldesleukin Across Multiple Immune Pathways Dysregulated in Patients with Atopic Dermatitis",
+            "summary": "Nektar Therapeutics (Nasdaq: NKTR) and collaborators at the Icahn School of Medicine at Mount Sinai today announced new results from a multi-omic biomarker sub-study from REZOLVE-AD providing further evidence that rezpegaldesleukin engages its regulatory Tcell (Treg)-mediated mechanism in patients with moderate-to-severe atopic dermatitis, with significant biomarker changes associated with clinical improvement observed as early as Week 2.",
+            "published_at": "2026-09-30T14:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3a9c409bb07a08f161a651fd7199656e2d16a9e34dc19d8eae6c3914d00b3a9b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How New Rezpegaldesleukin Durability and Mechanistic Data Could Impact Nektar Therapeutics (NKTR) Investors",
+            "summary": "Nektar Therapeutics recently announced that data from its Phase 2b rezpegaldesleukin trials in atopic dermatitis and alopecia areata were presented in three oral sessions at the 2026 EADV Congress in Vienna, including new 6\u2011month off\u2011treatment results in severe alopecia areata and maintenance data in atopic dermatitis. The inclusion of late\u2011breaking multi\u2011omic findings from the REZOLVE\u2011AD biomarker sub\u2011study adds an unusual level of mechanistic insight that could influence how investors...",
+            "published_at": "2026-09-30T04:26:06+00:00",
+            "url": "https://finnhub.io/api/news?id=a531a571287518cc3d6d5ea092f316c1a30ae1bb8cb43fd4435b42725f2876c8",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 60.5
+    },
+    {
+      "ticker": "WLK",
+      "predicted_return": 0.2737826661466275,
+      "open_price": 60.369998931884766,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:20.193848+00:00",
+        "articles": [
+          {
+            "headline": "Westlake to Close Cologne PVC Plant Amid Weak European Market",
+            "summary": "WLK closes its Cologne PVC plant to optimize costs as weak European demand, high energy costs and Asian import pressure weigh on profitability.",
+            "published_at": "2026-09-30T12:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7a69409129231736b77ae917da3823af78b81a3fb7fc894a5d9366279b9d596f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Westlake: Invest When It Gets Ugly, That Is Not Now (Rating Downgrade)",
+            "summary": "Westlake specifically faces demand destruction and elevated input costs because of the unresolved Iranian situation. Read why WLK stock is downgraded to a sell.",
+            "published_at": "2026-09-30T07:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=dc7d5a64900727d697f3bcb170f88651ee0b50d965ed1540777905b37fa23e24",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 62.310001373291016
+    },
+    {
+      "ticker": "MICC",
+      "predicted_return": 0.27187433905422154,
+      "open_price": 17.104999542236328,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:36:20.193894+00:00",
+        "articles": []
+      },
+      "prev_close": 17.760000228881836
+    },
+    {
+      "ticker": "CPB",
+      "predicted_return": 0.21311890245652618,
+      "open_price": 19.549999237060547,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:36:20.193982+00:00",
+        "articles": [
+          {
+            "headline": "Conagra Brands: A 5% Yield And Low Multiple Cannot Hide A Struggling Turnaround",
+            "summary": "Conagra Brands downgraded to Sell: declining sales/margins, rising leverage, and a weak FY outlook may make it a value trap\u00e2\u0080\u0094click for this CAG stock update.",
+            "published_at": "2026-10-01T06:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b2e1c982a4d3c24769142481a18c3006519faf66eb0a54800c8692552bd27c75",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 19.834999084472656
+    },
+    {
+      "ticker": "HSBC",
+      "predicted_return": 0.21140972188766882,
+      "open_price": 96.35749816894531,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:20.194051+00:00",
+        "articles": [
+          {
+            "headline": "HSBC says investors are shifting funds from France to UK",
+            "summary": "Investing.com -- European equity funds appear to be rotating out of France and into the UK, HSBC said, as concerns over France\u2019s fiscal outlook weigh on investor sentiment.",
+            "published_at": "2026-10-01T09:44:16+00:00",
+            "url": "https://finnhub.io/api/news?id=075bce729a27c4788843bc9a032ceacf1742c261647afeb60fa8d071f6341235",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin News: Euro-Hedged Bitcoin ETC Debuts as Apeing\u2019s Meme Coin Presale Hits Stage 6 at $0.0006 After 481M+ Tokens Sold",
+            "summary": "HANetf launched the Arrow Bitcoin EUR Hedged ETC (EBTC) on Euronext Paris and Xetra, offering euro-based investors Bitcoin exposure with currency hedging provided by HSBC at a 0.49% expense ratio. Separately, the Apeing meme coin presale entered Stage 6 at $0.0006 per token, having raised over $111K with 481M+ tokens sold and 440+ holders.",
+            "published_at": "2026-10-01T02:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/01/3372489/0/en/bitcoin-news-euro-hedged-bitcoin-etc-debuts-as-apeing-s-meme-coin-presale-hits-stage-6-at-0-0006-after-481m-tokens-sold.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Target Stock Just Scored a New 'Buy' Rating. Here's Why.",
+            "summary": "HSBC issues a bullish note in favor of Target stock. Here\u2019s why the investment firm sees further upside in TGT shares.",
+            "published_at": "2026-09-30T18:05:30+00:00",
+            "url": "https://finnhub.io/api/news?id=694b24881edf14229dea47467f63ed9cb7747143acb6d9f54ab28c84185777f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HSBC RedCoin Verticalises the Distribution-First Stablecoin Thesis",
+            "summary": "On September 30, 2026, HSBC officially christened its entry into the stablecoin arena: HSBC RedCoin. The name is punchy, perhaps a bit on the nose for a legacy institution, but the branding signals a clear intent to move beyond the sterile, institutional-only experiments that have defined bank-issued digital assets for the better part of a [\u2026]",
+            "published_at": "2026-09-30T12:53:38+00:00",
+            "url": "https://finnhub.io/api/news?id=f3b0018bd601f5715321c1c75ef6f6dd649ee8b4cf883cce283f632e55340d55",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HSBC Upgrades Target to Buy and Raises Price Target to $190",
+            "summary": "Target (NYSE:TGT) was upgraded to Buy by HSBC, with analyst Joe Thomas raising his price target to $190 from $125 per share after the retailer\u2019s second-quarter results showed higher comparable sales and customer traffic. Thomas said the latest results supported HSBC\u2019s view that Target\u2019s recovery was being driven by increased customer visits rather than higher average transaction values.",
+            "published_at": "2026-09-30T12:38:02+00:00",
+            "url": "https://finnhub.io/api/news?id=cd5dff097b868edb970ecd3b14185df7ce974ad48c44fb44cdf5b7eb072e45fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Target upgraded at HSBC as footfall points to turnaround gaining momentum",
+            "summary": "Investing.com -- HSBC analyst Joe Thomas upgraded Target to Buy and raised his price target for the stock to $190 from $125 per share in a note Wednesday, telling investors that a traffic-driven recovery is underway.",
+            "published_at": "2026-09-30T12:26:07+00:00",
+            "url": "https://finnhub.io/api/news?id=588f8d3ebf011a6a6d864f3aeaf2dc4f83deab5f7e21aa70de86fa4770e82d05",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 99.29000091552734
+    },
+    {
+      "ticker": "HIG",
+      "predicted_return": 0.20484570755269949,
+      "open_price": 120.41999816894531,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:20.194276+00:00",
+        "articles": [
+          {
+            "headline": "The Hartford Announces CEO Succession",
+            "summary": "HARTFORD, Conn., September 30, 2026--The Hartford\u2019s Board of Directors has named company President A. Morris \"Mo\" Tooker to succeed Christopher Swift as its next CEO. Swift will transition to the role of executive chair of the board. Both appointments are effective March 1, 2027. In addition, Tooker will join the board, effective Oct. 1, 2026.",
+            "published_at": "2026-09-30T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=716b6b621be481abdad10f11f3add6def777834c377cf5bf90c8b79e2b569aac",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 122.41999816894531
+    },
+    {
+      "ticker": "FER",
+      "predicted_return": 0.19675820442943748,
+      "open_price": 52.75230026245117,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.063528+00:00",
+        "articles": [
+          {
+            "headline": "Ferrovial announces commercial close of I-24 Southeast Choice Lanes in Tennessee",
+            "summary": "Ferrovial, a leading global infrastructure company, announces that commercial close has been reached with the Tennessee Department of Transportation (TDOT) for the I-24 Southeast Choice Lanes in Nashville. This milestone establishes the contractual framework for one of Tennessee's most transformative transportation initiatives, marking the state's largest single capital investment and first public-private partnership in its history.",
+            "published_at": "2026-09-30T21:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ffb709fb0c1cf721217860d34aa5fb6c50cda6dcff97cd5b58c00c579374540b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 54.095001220703125
+    },
+    {
+      "ticker": "BCS",
+      "predicted_return": 0.1921721408706826,
+      "open_price": 23.760000228881836,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.063662+00:00",
+        "articles": [
+          {
+            "headline": "Bank Stock Pullback Presents Buying Opportunity",
+            "summary": "BCS has pulled back to historical support on the charts",
+            "published_at": "2026-09-30T19:04:19+00:00",
+            "url": "https://finnhub.io/api/news?id=00e5886ebd295462ef00251484336473e6e5119e2fc9e3f49df9ed9c50a95b66",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays\u2019 Alexander Altmann Says High Real Rates Are \u2018The Brakes\u2019 On Equity Valuations, Warns Market Is \u2018Not Out Of The Woods\u2019",
+            "summary": "Altmann argued that AI companies and hyperscalers are not entirely immune to higher interest rates, noting that 10-year real yields are as high as they were at the peak of the 2008 financial crisis.",
+            "published_at": "2026-09-30T13:46:32+00:00",
+            "url": "https://finnhub.io/api/news?id=919ce906f0eb05e8ec1b64c43b5c4dcd83d21dd75ecaaabd3b5abdc7fe07b862",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays secures FCA nod to provide targeted investor support",
+            "summary": "The service is scheduled to launch later this year, and the initial focus will be on helping new investors begin investing.",
+            "published_at": "2026-09-30T11:53:36+00:00",
+            "url": "https://finnhub.io/api/news?id=8d413e76d0d5350bf98d87e67692dcaccb62d8d6624a75bf2eec0e81bfd46fe3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Equity positioning stays overweight, but summer extremes have eased: Barclays",
+            "summary": "Investing.com -- Barclays told clients in a note on Wednesday that investors remain overweight equities, but positioning is far less stretched than at its early summer peak, improving the setup for stocks into year-end.",
+            "published_at": "2026-09-30T11:04:36+00:00",
+            "url": "https://finnhub.io/api/news?id=9475f54a02894130ba5de00e67e1e8ed490cece364b450865dfaa5b21513829f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays backs down as WFH workers revolt",
+            "summary": "Barclays has backed down over its return-to-the-office plans after facing a revolt by thousands of staff.",
+            "published_at": "2026-09-30T06:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=612623a7f885ed8ee564bafc6b26bd3f4ce53401ea533021eff1e1907d779da5",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.270000457763672
+    },
+    {
+      "ticker": "ING",
+      "predicted_return": 0.18915387610835677,
+      "open_price": 34.54999923706055,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.063797+00:00",
+        "articles": [
+          {
+            "headline": "Sterling today: Pound slips as global bond rout lifts dollar, gilt yields hit 6%",
+            "summary": "Investing.com -- Sterling traded lower on Thursday while the euro also fell, as a global bond sell-off pushed U.S. and UK long-dated yields to multi-decade highs and kept the dollar near its strongest levels of the year.",
+            "published_at": "2026-10-01T09:26:09+00:00",
+            "url": "https://finnhub.io/api/news?id=e89b17fe545cb37e350e3bb5ea6505aa1a9cb8faf07d8bc6020d2015ce399a12",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Commerzbank shares fall as Deutsche Bank sees strategy uncertainty capping gains",
+            "summary": "Investing.com -- Deutsche Bank downgraded Commerzbank to \"hold\" from \"buy\", citing uncertainty over the German lender\u2019s future strategy, which limits the scope for further valuation gains. Shares fell more than 2% on Wednesday.",
+            "published_at": "2026-09-30T10:20:10+00:00",
+            "url": "https://finnhub.io/api/news?id=bbfe5d872c7791d36cc444a743e4ad6fe7353776287f7cc18b7a2477efe8c1f0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 35.494998931884766
+    },
+    {
+      "ticker": "MT",
+      "predicted_return": 0.18419939350251469,
+      "open_price": 64.37999725341797,
+      "snapshot_date": "2026-09-30",
+      "news_flag": "Company News for Sep 30, 2026",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Company News for Sep 30, 2026",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.063970+00:00",
+        "articles": [
+          {
+            "headline": "Update: Market Chatter: ArcelorMittal Plans Year-End Decision on $961 Million Brazil Mill Expansion",
+            "summary": "(Updates with company response in the fourth paragraph.) ArcelorMittal (MT) is considering a 5 bi",
+            "published_at": "2026-09-30T14:41:07+00:00",
+            "url": "https://finnhub.io/api/news?id=effdb93fe1db667ce6c98229b17a530bd0939d91b38ef0670d2383c8bcb8814b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Company News for Sep 30, 2026",
+            "summary": "Companies In The News Are: CCL, KMX, MTN, FICO.",
+            "published_at": "2026-09-30T07:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a330836866700ba5ccced661fc514952c43be06adf41f1e1928dcd55ddb76ab8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Steel Supply Shock Puts SSAB Stock In Focus",
+            "summary": "Russian strikes have knocked out major Ukrainian steel plants and squeezed a key source of global supply, shifting attention to integrated producers that are still operating far from the front line. When one of the world\u2019s important exporters goes quiet, pricing power and risk can migrate quickly, which can punish or reward investors who are not paying attention. This article explains how that shock affects the sector and profiles 3 individual stocks that appear most exposed to the news, so...",
+            "published_at": "2026-09-30T05:09:21+00:00",
+            "url": "https://finnhub.io/api/news?id=be124a2dad09b0b0971964bdcb718e39b59d80f7ec56d5cc364f92516345d1c8",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 66.7249984741211
+    },
+    {
+      "ticker": "GME",
+      "predicted_return": 0.18364110772503048,
+      "open_price": 24.350000381469727,
+      "snapshot_date": "2026-09-30",
+      "news_flag": "GameStop Stock Climbs as CEO Ryan Cohen Extends His Buying Streak",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "GameStop Stock Climbs as CEO Ryan Cohen Extends His Buying Streak",
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.064269+00:00",
+        "articles": [
+          {
+            "headline": "3 Cash-Producing Stocks That Fall Short",
+            "summary": "While strong cash flow is a key indicator of stability, it doesn\u2019t always translate to superior returns. Some cash-heavy businesses struggle with inefficient spending, slowing demand, or weak competitive positioning.",
+            "published_at": "2026-10-01T08:13:07+00:00",
+            "url": "https://finnhub.io/api/news?id=6b9c9a6d83254d44550ea6672e2dd9fe293ea3a5fac814c67ae93f9cd9f6d1d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GameStop shares rise as CEO Ryan Cohen buys $10.6 million in stock",
+            "summary": "Investing.com -- GameStop Corp (NYSE:GME) shares advanced 4% on Wednesday following a regulatory disclosure showing that Chief Executive Officer Ryan Cohen expanded his equity stake in the video game retailer through an open-market purchase. The insider buying signals continued commitment from leadership as the company navigates its ongoing operational transition.",
+            "published_at": "2026-09-30T17:19:33+00:00",
+            "url": "https://finnhub.io/api/news?id=28acad506309536573b9a593fcd53ceba6c186d60dce40bd66b64674b608817e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GameStop Pops 4% on Ryan Cohen\u2019s Buying Binge; Take-Two Interactive and Roblox Advance 3%",
+            "summary": "Ryan Cohen keeps reaching into his own pocket to buy GameStop shares, and his conviction is pulling the entire gaming sector along for the ride. Here is what the insider buying pattern reveals about where GME could be headed.",
+            "published_at": "2026-09-30T17:03:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7567507f5e5bae248adb934a7a7a840be23eeb9486d31be00cf4dc6e1ba0ae61",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GameStop Stock Climbs as CEO Ryan Cohen Extends His Buying Streak",
+            "summary": "GameStop is trading higher Wednesday after a Form 4 filing showed CEO Ryan Cohen purchased 450,000 company shares.",
+            "published_at": "2026-09-30T09:23:37+00:00",
+            "url": "https://finnhub.io/api/news?id=566e59e7cba2ee91330cce374c41160b1b8ffffd5179f073eb3bf7d5c1f4c81d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Boeing, GameStop, Robinhood, Micron, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Boeing rises after the plane maker wins a multibillion-dollar Navy contract, while Robinhood gets a boost from its rollout of AI agents.",
+            "published_at": "2026-09-30T08:57:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7c80f963b803ede5d0e82e8a6e5de508c12f32dcbe87e9429e6da6d913678a8f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.649999618530273
+    },
+    {
+      "ticker": "PLD",
+      "predicted_return": 0.183530226556459,
+      "open_price": 127.81999969482422,
+      "snapshot_date": "2026-09-30",
+      "news_flag": "Form 8.3",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Form 8.3",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:43.064572+00:00",
+        "articles": [
+          {
+            "headline": "Dimensional Fund Advisors Ltd. : Form 8.3 - PROLOGIS INC - Ordinary Shares",
+            "summary": "FORM 8.3 PUBLIC OPENING POSITION DISCLOSURE/DEALING DISCLOSURE BYA PERSON WITH INTERESTS IN RELEVANT SECURITIES REPRESENTING 1% OR MORERule 8.3 of the Takeover Code (the \u201cCode\u201d) 1.KEY INFORMATION (a)Full name of discloser:Dimensional Fund Advisors Ltd. whose parent is Dimensional Fund Advisors LP, and also on behalf their investment advisory affiliates (\u201cDimensional\u201d). The Dimensional entities are investment advisors and Dimensional expressly disclaims beneficial ownership of the shares describe",
+            "published_at": "2026-10-01T09:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=065445d7de5256b0c97cda18f8053ee921e887b91a71640af0dc706fc2c7339d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Form 8.3 PROLOGIS, INC.",
+            "summary": "LONDON, October 01, 2026-- FORM 8.3",
+            "published_at": "2026-10-01T08:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4707660f10edf09562a999e89f4c600bd30f42e3ce45b82f20da29cdaf81d693",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Prologis (PLD) Dipped More Than Broader Market Today",
+            "summary": "In the latest trading session, Prologis (PLD) closed at $129.84, marking a -2.09% move from the previous day.",
+            "published_at": "2026-09-30T21:15:05+00:00",
+            "url": "https://finnhub.io/api/news?id=b16b0d43bee81377ed06ca9d42a653fbd3908d3a6d945723801ad019e4855510",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Form 8.3",
+            "summary": "LONDON, September 30, 2026-- FORM 8.3",
+            "published_at": "2026-09-30T14:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=094037309bc9ac3d0130dae40dd762f7823b09710512bc3b0a645894d55d9408",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 129.83999633789062
+    },
+    {
+      "ticker": "SIG",
+      "predicted_return": 0.18343812403921228,
+      "open_price": 100.61000061035156,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:36:43.066603+00:00",
+        "articles": [
+          {
+            "headline": "SIG vs. CFRUY: Which Stock Is the Better Value Option?",
+            "summary": "SIG vs. CFRUY: Which Stock Is the Better Value Option?",
+            "published_at": "2026-09-30T14:40:03+00:00",
+            "url": "https://finnhub.io/api/news?id=f365b1e68bbb1ac302b4647e8d4cc2e306c8953225df80b5e2b36ef4d8d71361",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should Value Investors Buy Signet Jewelers (SIG) Stock?",
+            "summary": "Here at Zacks, our focus is on the proven Zacks Rank system, which emphasizes earnings estimates and estimate revisions to find great stocks. Nevertheless, we are always paying attention to the latest value, growth, and momentum trends to underscore strong picks.",
+            "published_at": "2026-09-30T12:40:04+00:00",
+            "url": "https://finnhub.io/api/news?id=39b113f2872a57c13aae3b0861beb7f77829de57c00442990e94079d4c7f3dbb",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 102.41000366210938
+    },
+    {
+      "ticker": "DOW",
+      "predicted_return": 0.18035443654981023,
+      "open_price": 26.978200912475586,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:36:43.073321+00:00",
+        "articles": [
+          {
+            "headline": "Buy 3 Glenmede Mutual Funds for Long-Term Growth",
+            "summary": "Recent economic data shows PCE inflation came in softer than expected while Q2 GDP exceeded expectations. Market attention is now focused on the upcoming Friday employment report, which could significantly impact economic outlook and investment decisions.",
+            "published_at": "2026-10-01T08:29:00+00:00",
+            "url": "https://www.zacks.com/stock/news/2998601/buy-3-glenmede-mutual-funds-for-long-term-growth?cid=CS-ZC-FT-mutual_fund_commentary-2998601",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Citigroup Downgrades Dow to Neutral from Buy",
+            "summary": "",
+            "published_at": "2026-09-30T22:07:29+00:00",
+            "url": "https://finnhub.io/api/news?id=be63fc191a7bcf0e8464fbcd8ff7f22bf7f9ac19747137080fe32d34dcefd6b9",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Citi cautious on Dow and LyondellBasell: demand weakness caps polyethylene upside",
+            "summary": "Investing.com -- Citi downgraded Dow and LyondellBasell to Neutral from Buy on Wednesday, saying it no longer sees meaningful upside for polyethylene prices even with crude above $100 a barrel.",
+            "published_at": "2026-09-30T14:54:35+00:00",
+            "url": "https://finnhub.io/api/news?id=7096ab7461a1bec6d10f115c3e011862625cc7a0cb415e0c176a0202744b5192",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Target upgraded, Moderna downgraded: Wall Street's top analyst calls",
+            "summary": "Target upgraded, Moderna downgraded: Wall Street's top analyst calls",
+            "published_at": "2026-09-30T13:40:37+00:00",
+            "url": "https://finnhub.io/api/news?id=bb76bfa794beae6cf0c08bb55b649b68e623d691b44b38b410869e1cd7ac6654",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Wednesday\u2019s Top Wall Street Analyst Research Calls: Ally Financial, BankUnited, Ciena Corporation, CoreWeave, Dow, FormFactor, Lumentum Holdings, Moderna, Target, and More",
+            "summary": "Rising Treasury yields are rattling markets heading into the final trading day of Q3, and Wall Street analysts are making bold moves on a wide range of stocks from big-box retail to AI infrastructure. Find out who got cut and who got a fresh vote of confidence.",
+            "published_at": "2026-09-30T12:02:52+00:00",
+            "url": "https://finnhub.io/api/news?id=e036cb6cd4e709f0ee5df941cc8cdbbc7ee0352453225fcf768171476633a090",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RBC Capital Maintains Sector Perform on Dow, Lowers Price Target to $29",
+            "summary": "RBC Capital  analyst Arun Viswanathan   maintains Dow (NYSE:DOW) with a Sector Perform and lowers the price target from $32 to $29.",
+            "published_at": "2026-09-30T08:59:52+00:00",
+            "url": "https://finnhub.io/api/news?id=c8f1eeaf355a878561960023ab6de7746fed97a7b7fe04905554887bc6e9c6a7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "This Dow Analyst Is No Longer Bullish; Here Are Top 5 Downgrades For Wednesday",
+            "summary": "Analysts downgraded SoundThinking, Moderna, Accelerant, Mobileye and Dow, revising their ratings and price targets.",
+            "published_at": "2026-09-30T08:54:49+00:00",
+            "url": "https://finnhub.io/api/news?id=7a8192e58a3b3a7f76cd5eef12a43346641a768e5368f3d70e29291f6586565e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Citigroup Downgrades Dow to Neutral, Lowers Price Target to $30",
+            "summary": "Citigroup  analyst Patrick Cunningham   downgrades Dow (NYSE:DOW) from Buy to Neutral and lowers the price target from $35 to $30.",
+            "published_at": "2026-09-30T07:41:26+00:00",
+            "url": "https://finnhub.io/api/news?id=41a9db3f4c6f1c23fddaefbf021dfb9c09f62dd1fcdc558d8a32008b5e44d444",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 27.540000915527344
+    },
+    {
+      "ticker": "OKE",
+      "predicted_return": 0.1779773555561777,
+      "open_price": 84.5425033569336,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-01T13:36:51.992219+00:00",
+        "articles": [
+          {
+            "headline": "ONEOK: Second Guidance Raise And Brazos Deal Make The Pullback Compelling",
+            "summary": "ONEOK (OKE) raises 2026 guidance again after strong Q2 and $4.425B Brazos deal; valuation compresses and dividend yields 4.93%. See more here.",
+            "published_at": "2026-10-01T08:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7b524ede81e208ee76ca97c941eda483f70f20e1a791a144837df30d022c28b5",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "3 High Dividend US Stocks Facing The Treasury Yield Test",
+            "summary": "With U.S. Treasury yields sitting at 24-year highs and cash suddenly paying investors to stay on the sidelines, rate-sensitive stocks are being repriced in real time. Some income ideas now look pressured, while others could quietly benefit as cautious buyers hunt for reliable dividend checks and more reasonable valuations. This article walks through three stocks exposed to the latest inflation and yield moves to help you judge whether they might deserve a closer look or a wider berth. The...",
+            "published_at": "2026-09-30T08:11:46+00:00",
+            "url": "https://finnhub.io/api/news?id=46b681cfaa34413d5f2ef038765dc79c387c00354ae30920e5a78b2f3a49ce9f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 85.27040100097656
+    },
+    {
+      "ticker": "RITM",
+      "predicted_return": 0.17599900288951623,
+      "open_price": 8.670000076293945,
+      "snapshot_date": "2026-09-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-01T13:36:58.253743+00:00",
+        "articles": [
+          {
+            "headline": "Rithm (RITM) Declines More Than Market: Some Information for Investors",
+            "summary": "Rithm (RITM) concluded the recent trading session at $8.93, signifying a -2.08% move from its prior day's close.",
+            "published_at": "2026-09-30T21:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=94ceeaf171e2d6cd4b479386ee85accf1b452c91521c609771a98e84749fa115",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rithm Capital Has 3 Preferreds Not Yet Callable:\u00a0Series E Buy Rated",
+            "summary": "Rithm Capital offers six preferred stocks, with this analysis focusing on Series D, E, and F. Click to read about RITM and Series E, which gets a Buy rating.",
+            "published_at": "2026-09-30T16:44:17+00:00",
+            "url": "https://finnhub.io/api/news?id=acb9c830dc1dc87483c6bc45c35122e64f23b257588594e827270ec9f814724d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Buy 19 September LoPrice/HiYield Dividend Dogs Out Of 38",
+            "summary": "Dividend-paying stocks, especially low-priced high-yield 'Dividend Dogs,' offer historically superior risk-adjusted returns and are undervalued relative to growth stocks. Read more here.",
+            "published_at": "2026-09-30T10:07:53+00:00",
+            "url": "https://finnhub.io/api/news?id=bd3296fee948ad7c163ffc5cfcd1cae1aa8bed240f9f20c0bf57767835ba280f",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Rithm Capital Series D: An Asymmetric Rate Reset Opportunity",
+            "summary": "Rithm Capital\u00e2\u0080\u0099s RITM.PR.D preferred offers a tactical pre-2026 reset trade: ~6% yield-to-call with redemption upside and capped downside.",
+            "published_at": "2026-09-30T07:31:56+00:00",
+            "url": "https://finnhub.io/api/news?id=530e2b9e1e044bdc9205e83f0176ccd6496d3ad07cfc014800c5f706b9a51b39",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 8.930000305175781
+    }
+  ],
+  "scored_count": 1943,
+  "skipped": [
+    {
+      "ticker": "MU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JBL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FDS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRK-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AYI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VAC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CALM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BFAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KBH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRVA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRDN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DCO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TRLV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BLX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLBL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 27.969400116497482
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.992237128878708
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 6.611959320898471
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-30",
+    "model_trained_through": "2026-09-30",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-30, model trained through 2026-09-30 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

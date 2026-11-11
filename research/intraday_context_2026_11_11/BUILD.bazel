@@ -1,0 +1,21 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("//bazel/rules/pytest:defs.bzl", "py_pytest")
+
+py_pytest(
+    name = "test_collect",
+    srcs = ["test_collect.py", "collect.py"],
+    deps = ["//python/stock_picker/ingestion", "@pypi//pandas"],
+)
+
+py_binary(
+    name = "study",
+    srcs = ["study.py", "collect.py"],
+    main = "study.py",
+    deps = [
+        "//python/stock_picker/features",
+        "//python/stock_picker/ingestion",
+        "//python/stock_picker/training",
+        "@pypi//numpy",
+        "@pypi//pandas",
+    ],
+)

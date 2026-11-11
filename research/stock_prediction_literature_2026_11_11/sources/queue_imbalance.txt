@@ -1,0 +1,197 @@
+[1512.03492] Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book
+Skip to main content
+Search
+Submit
+Donate
+Log in
+Search arXiv
+Press Enter to search ·
+Advanced search
+Quantitative Finance > Trading and Market Microstructure
+arXiv:1512.03492
+(q-fin)
+[Submitted on 11 Dec 2015]
+Title:
+Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book
+Authors:
+Martin D. Gould
+,
+Julius Bonart
+View a PDF of the paper titled Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book, by Martin D. Gould and 1 other authors
+View PDF
+HTML (experimental)
+Abstract:
+We investigate whether the bid/ask queue imbalance in a limit order book (LOB) provides significant predictive power for the direction of the next mid-price movement. We consider this question both in the context of a simple binary classifier, which seeks to predict the direction of the next mid-price movement, and a probabilistic classifier, which seeks to predict the probability that the next mid-price movement will be upwards. To implement these classifiers, we fit logistic regressions between the queue imbalance and the direction of the subsequent mid-price movement for each of 10 liquid stocks on Nasdaq. In each case, we find a strongly statistically significant relationship between these variables. Compared to a simple null model, which assumes that the direction of mid-price changes is uncorrelated with the queue imbalance, we find that our logistic regression fits provide a considerable improvement in binary and probabilistic classification for large-tick stocks, and provide a moderate improvement in binary and probabilistic classification for small-tick stocks. We also perform local logistic regression fits on the same data, and find that this semi-parametric approach slightly outperform our logistic regression fits, at the expense of being more computationally intensive to implement.
+Comments:
+30 pages, 7 figures
+Subjects:
+Trading and Market Microstructure (q-fin.TR)
+Cite as:
+arXiv:1512.03492
+[q-fin.TR]
+(or
+arXiv:1512.03492v1
+[q-fin.TR]
+for this version)
+https://doi.org/10.48550/arXiv.1512.03492
+Focus to learn more
+arXiv-issued DOI via DataCite
+Submission history
+From: Martin Gould [
+view email
+]
+[v1]
+Fri, 11 Dec 2015 00:26:23 UTC (1,128 KB)
+Full-text links:
+Access Paper:
+View a PDF of the paper titled Queue Imbalance as a One-Tick-Ahead Price Predictor in a Limit Order Book, by Martin D. Gould and 1 other authors
+View PDF
+HTML (experimental)
+TeX Source
+view license
+Current browse context:
+q-fin.TR
+< prev
+|
+next >
+new
+|
+recent
+|
+2015-12
+Change to browse by:
+q-fin
+References & Citations
+NASA ADS
+Google Scholar
+Semantic Scholar
+export BibTeX citation
+Loading...
+BibTeX formatted citation
+×
+loading...
+Data provided by:
+Bookmark
+Bibliographic Tools
+Bibliographic and Citation Tools
+Bibliographic Explorer Toggle
+Bibliographic Explorer
+(
+What is the Explorer?
+)
+Connected Papers Toggle
+Connected Papers
+(
+What is Connected Papers?
+)
+Litmaps Toggle
+Litmaps
+(
+What is Litmaps?
+)
+scite.ai Toggle
+scite Smart Citations
+(
+What are Smart Citations?
+)
+Code, Data, Media
+Code, Data and Media Associated with this Article
+alphaXiv Toggle
+alphaXiv
+(
+What is alphaXiv?
+)
+Links to Code Toggle
+CatalyzeX Code Finder for Papers
+(
+What is CatalyzeX?
+)
+DagsHub Toggle
+DagsHub
+(
+What is DagsHub?
+)
+GotitPub Toggle
+Gotit.pub
+(
+What is GotitPub?
+)
+Huggingface Toggle
+Hugging Face
+(
+What is Huggingface?
+)
+ScienceCast Toggle
+ScienceCast
+(
+What is ScienceCast?
+)
+Demos
+Demos
+Replicate Toggle
+Replicate
+(
+What is Replicate?
+)
+Spaces Toggle
+Hugging Face Spaces
+(
+What is Spaces?
+)
+Spaces Toggle
+TXYZ.AI
+(
+What is TXYZ.AI?
+)
+Related Papers
+Recommenders and Search Tools
+Link to Influence Flower
+Influence Flower
+(
+What are Influence Flowers?
+)
+Core recommender toggle
+CORE Recommender
+(
+What is CORE?
+)
+Author
+Venue
+Institution
+Topic
+About arXivLabs
+arXivLabs: experimental projects with community collaborators
+arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+Have an idea for a project that will add value for arXiv's community?
+Learn more about arXivLabs
+.
+Which authors of this paper are endorsers?
+|
+Disable MathJax
+(
+What is MathJax?
+)
+We gratefully acknowledge support from our
+major funders
+,
+member institutions
+,
+, and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status
+(opens in new tab)
+Major funding support from

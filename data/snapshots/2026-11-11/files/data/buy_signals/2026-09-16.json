@@ -1,0 +1,81 @@
+{
+  "as_of": "2026-09-16",
+  "threshold": 0.005,
+  "scored_count": 1990,
+  "signals": [
+    {
+      "ticker": "XNDU",
+      "predicted_return": 0.018054167600913443,
+      "open_price": 7.915,
+      "snapshot_date": "2026-09-15"
+    },
+    {
+      "ticker": "TDTH",
+      "predicted_return": 0.014416690812391282,
+      "open_price": 1.68,
+      "snapshot_date": "2026-09-15"
+    }
+  ],
+  "skipped": [
+    {
+      "ticker": "FDX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FPS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "spy_overnight_gap",
+      "importance": 19.379279690212407
+    },
+    {
+      "feature": "vix_close",
+      "importance": 17.029213475879708
+    },
+    {
+      "feature": "volatility_120d",
+      "importance": 10.971914605362612
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-15",
+    "model_trained_through": "2026-09-15",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-15, model trained through 2026-09-15 -- ready for this morning's opens."
+  }
+}

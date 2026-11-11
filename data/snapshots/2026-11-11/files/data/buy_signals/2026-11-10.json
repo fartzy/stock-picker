@@ -1,0 +1,2228 @@
+{
+  "as_of": "2026-11-10",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "GRAL",
+      "predicted_return": 0.012412797776718866,
+      "open_price": 125.88,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:34.152306+00:00",
+        "articles": [
+          {
+            "headline": "GRAIL Inc (GRAL) (Q3 2026) Earnings Call Highlights: FDA Nod on the Horizon as Galleri Gains ...",
+            "summary": "GRAIL Inc (GRAL) eyes early 2027 FDA approval for Galleri after a favorable advisory committee vote, even as revenue growth slows and losses widen.",
+            "published_at": "2026-11-10T01:05:55+00:00",
+            "url": "https://finnhub.io/api/news?id=8000dbfb57a77087c817a4d49ddb0249ac238c43011c74c35417a70f34668c67",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 128.08,
+      "jev": {
+        "news_skip": 0.39,
+        "buy_today": 0.45,
+        "hold_overnight": 0.45,
+        "model": "jev-1.14.0",
+        "tokens": 1427,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.184565+00:00",
+        "forecast_id": "6b7246d4-5060-4fb9-91b9-b418595af915",
+        "requested_at": "2026-11-10T14:36:00.791406+00:00",
+        "completed_at": "2026-11-10T14:36:01.184565+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "VST",
+      "predicted_return": 0.012158358175064412,
+      "open_price": 130.905,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 13,
+        "reviewed_count": 13,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-10T14:34:34.152720+00:00",
+        "articles": [
+          {
+            "headline": "Energy Transition Today - Cleantech Innovation Fuels Economic Growth and Competitiveness",
+            "summary": "Foresight Canada has announced the 2026 Foresight 50 Honorees, highlighting a group of high-growth cleantech companies that are driving the energy transition with their innovative solutions. These companies, selected by an independent panel of climate investors, have collectively raised over USD $2.4 billion and are recognized for their investibility, leadership strength, and environmental impact. The honorees are transforming traditional industries and enhancing global competitiveness in...",
+            "published_at": "2026-11-10T11:37:27+00:00",
+            "url": "https://finnhub.io/api/news?id=02ce603d0d1c3a7a4426e9ab7fd63340233130b3722a12abbc4bcd14e3b73e6b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NRG Soars 10% on $4 Billion Gas Plant Sale and $3 Billion Buyback Plan: \u201cUnlocking Substantial Value\u201d",
+            "summary": "Key TakeawaysNRG Energy jumped 10% after agreeing to sell six gas plants to LS Power for $4 billion and raising its 2026-27 buyback plan to $3 billion. Buying back a stock this cheap is a smart use of the cash, though half goes to debt.",
+            "published_at": "2026-11-09T22:15:26+00:00",
+            "url": "https://finnhub.io/api/news?id=302bbb21f9d40eaa5323013d63a0e02636b421c0c27f09da8a27853041c687f4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vistra Q3 Earnings Call Highlights Cash Flow Plans & Demand Risks",
+            "summary": "VST raises its 2026 outlook and projects stronger cash flow per share through 2030, backed by Cogentrix, power contracts and buybacks despite demand risks.",
+            "published_at": "2026-11-09T18:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4144e76e30bd420764d48a4466982316a742b553d57abd1f8f92202a42f603a2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vistra and Constellation Both Fell Sharply After the Election. One Has Far More Exposure to Texas.",
+            "summary": "The two power producers both face tough near-term challenges.",
+            "published_at": "2026-11-09T18:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=08a1d5595fb9fe8dc1d24ae5723a68a210cb2a9b396a2b555edc4a9d384eff09",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vistra (VST) Stock Looks Reasonable As Its Five Year Run Continues",
+            "summary": "Vistra Corp. has seen its share price swing sharply in recent years, and the question now is whether the earnings behind the business are strong enough to support where the stock trades today. With investors weighing both a long multi year run and more recent share price weakness, Vistra\u2019s current valuation has become a live debate. Over the past 5 years, Vistra has delivered a very large share price gain, which puts extra focus on whether current earnings can still justify that kind of re...",
+            "published_at": "2026-11-09T17:17:27+00:00",
+            "url": "https://finnhub.io/api/news?id=1d357ea837448e4accdc5d4bbb65515afad7dc6329285199abc17a5d356c898e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Mistral CEO Pushes Back: Energy Is \u201cNot the Bottleneck\u201d for AI Compute. Here\u2019s What Is.",
+            "summary": "Key TakeawaysMistral CEO Arthur Mensch says energy is about 10% of AI compute\u2019s cost and won\u2019t be the bottleneck until 2029 or 2030. Mensch was talking about Europe, but Vistra\u2019s CEO sees Texas power prices getting back on track on a similar 2029-2030 timeline.",
+            "published_at": "2026-11-09T16:52:21+00:00",
+            "url": "https://finnhub.io/api/news?id=2591f9f17823fae676173c8b41a85c7e7b7a6a07a3dbb748d7b876e95ee5bffe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Shortage of Turbines Drives Market for Second-Hand Market for AI Data Centers",
+            "summary": "New gas turbines now take years to arrive, so AI data center developers are hunting for used machines and buying entire power plants. Five stocks sit on opposite sides of that scramble, and one of them is selling at a premium.",
+            "published_at": "2026-11-09T16:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0d83e4b1eb7df3e2544f7a167be6b69beddc69c699d7b47009bda087b87b4152",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vistra Sees \u201cApproximately 70% Growth\u201d in Free Cash Flow Without Betting on the AI Build-Out",
+            "summary": "Key TakeawaysVistra\u2019s CFO sees about 70% growth in adjusted free cash flow before growth per share from 2027 to 2030. The outlook only includes contracts Vistra has already signed and today\u2019s forward power prices.",
+            "published_at": "2026-11-09T16:28:59+00:00",
+            "url": "https://finnhub.io/api/news?id=8933a7651d7919323e2f9ed1cf86bf6a772aeb66b8baac95246cc5a23ab7d1d9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Trump Urges Senate to Make Data Centers \u201cPay for Their Own Electricity.\u201d Power Builders Stand to Gain",
+            "summary": "Key TakeawaysPresident Trump urged senators on Sunday to pass S. 5653, a permitting bill he says would speed up power plant construction and make data centers pay for their own electricity.",
+            "published_at": "2026-11-09T16:07:17+00:00",
+            "url": "https://finnhub.io/api/news?id=615dc52bc789321c232c0d44967b09ffd45b3b1725670fc8090370f562a5e828",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nuclear Stocks Jump After Brutal Election Week",
+            "summary": "Oklo Surges and Nuclear Stocks Rip Higher After Election Selloff Fears Fade",
+            "published_at": "2026-11-09T13:10:53+00:00",
+            "url": "https://finnhub.io/api/news?id=146a31ca9896293d4e6a975f3d44271b2a2b6d2566aa81a2281b712dd3167efe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Data-Center Moratoriums? They Aren\u2019t Showing Up in Constellation Energy\u2019s Guidance.",
+            "summary": "Constellation Energy raises full-year earnings guidance even as the U.S midterm elections have made some on Wall Street concerned the data-center buildout could stall.",
+            "published_at": "2026-11-09T12:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9d018980f74c3c66bb8a6ab07e6a29b15b26b9185591f374d7063d20131ed35b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vistra Keeps Sliding: Why BMO Sees 66% Upside",
+            "summary": "Key TakeawaysVistra (VST:NYSE) shares have lost 32% over the past year, and BMO Capital cut its price target to $188 from $210 on Nov. 5 while keeping its Outperform rating.",
+            "published_at": "2026-11-09T07:01:02+00:00",
+            "url": "https://finnhub.io/api/news?id=a8003ef1750b3d7d3897aa26f143968264e49112b857c078d358fb88ee45f809",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wall Street Breakfast Podcast: The Spy Who Loved Nvidia",
+            "summary": "Nvidia finds itself in a real-life spy drama. NASA has big plans for the Moon. The nuclear comeback gathered steam Friday.",
+            "published_at": "2026-11-09T06:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c2a64147185315ce3fef75d6784d724cd2acddc78567762af30d444b7b0fce74",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 133.92,
+      "jev": {
+        "news_skip": 0.39,
+        "buy_today": 0.48,
+        "hold_overnight": 0.41,
+        "model": "jev-1.14.0",
+        "tokens": 4777,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.279005+00:00",
+        "forecast_id": "bb1aa0ab-5902-4997-8365-039aeec2a7e7",
+        "requested_at": "2026-11-10T14:36:00.833741+00:00",
+        "completed_at": "2026-11-10T14:36:01.279005+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.01189063179722119,
+      "open_price": 265.885,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Can Moderna's First Cancer Therapy Win FDA Approval in 2027?",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Can Moderna's First Cancer Therapy Win FDA Approval in 2027?",
+        "article_count": 19,
+        "reviewed_count": 19,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-10T14:34:58.707908+00:00",
+        "articles": [
+          {
+            "headline": "Moderna to Present at Upcoming Conference in November 2026",
+            "summary": "CAMBRIDGE, MA / ACCESS Newswire / November 10, 2026 / (Nasdaq:MRNA), today announced its participation in the following upcoming investor conference:Jefferies Global Health Care Conference, on Wednesday, November 18th 11:00am GMTA live webcast of each of these presentations will be available under \"Events and Presentations\" in the Investors section of the Moderna website at investors.A replay of each webcast will be archived on Moderna's website for at least 30 days following the presentation.",
+            "published_at": "2026-11-10T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=404ee1d46ec66c17967028f40c87e8ebb2a14af8b46f52e2356c4ef29a43d05d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Invesco S&P 500 Equal Weight ETF (RSP) Bought: Moderna Leads on Nov. 6",
+            "summary": "The fund added $291.5 million in gross purchases on Friday, increasing all 503 positions and selling nothing.",
+            "published_at": "2026-11-10T11:05:32+00:00",
+            "url": "https://finnhub.io/api/news?id=79e6c963eac81d33c75424bc85a72408ccc9b9611730e2a21e893c9b0ff3287e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "iShares Russell Mid-Cap (IWR) Adds Fox and Marathon Petroleum on Nov. 6",
+            "summary": "The fund bought $273.2 million of stock and sold nothing, lifting 796 positions, with Fox Class A the largest addition at $36.3 million.",
+            "published_at": "2026-11-10T11:05:26+00:00",
+            "url": "https://finnhub.io/api/news?id=a35d2e2b7c0a42bcdb27f9cc7671c1a4ed2e2772e9307c953953d8265c6232a6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why is Moderna (MRNA) stock soaring today",
+            "summary": "Shares of biotechnology company Moderna (NASDAQ:MRNA) jumped 6.4% in the afternoon session after the company reported third-quarter 2026 financial results, with revenue rising 29% to $1.3 billion, and raised its full-year revenue growth forecast.",
+            "published_at": "2026-11-10T07:25:36+00:00",
+            "url": "https://finnhub.io/api/news?id=8888f94ed4007fdd842914feecdeca61893c4f7f92ad95e352276f0243a476b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did U, MRNA, ABNB Stocks Surge To 52-Week Highs Today?",
+            "summary": "Investors showed interest in AI gaming tools, advances in cancer vaccines and future business growth.",
+            "published_at": "2026-11-10T04:34:30+00:00",
+            "url": "https://finnhub.io/api/news?id=46f3c173fcf288b45eae4199bf11a3f0325c8bfcb89af3f5db04c8c015221f2c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna's Q3 Numbers May Have Seemed Impressive, but They Aren't Enough to Make the Stock a Buy",
+            "summary": "Revenue for the vaccine maker rose sharply in the third quarter, but it was largely due to COVID sales, which have been down significantly over the past five years.",
+            "published_at": "2026-11-09T20:25:02+00:00",
+            "url": "https://finnhub.io/api/news?id=fcca4c1756d1656a263ac3481dbaccabb74145f14cba85a7e3eee75d3184653f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Moderna (MRNA) Priced For Too Much Sales Growth?",
+            "summary": "Moderna has turned into one of the market\u2019s sharpest movers, and after such a powerful run, the key issue for you is whether the current share price still lines up with what its sales can support. A stock can move very quickly when sentiment swings on new data or approvals, so the question is how that rapid repricing stacks up against the revenue Moderna is generating today and what investors expect it to produce next. Over the past year, Moderna has delivered a share price gain of about 9x,...",
+            "published_at": "2026-11-09T20:08:01+00:00",
+            "url": "https://finnhub.io/api/news?id=b844661839f3a10f97cd2f00d8560749c336f38a8b14b354b5c638d1006779d7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna (MRNA) Stock Fair Value Rises After Intismeran Data And Q3 Beat",
+            "summary": "Analysts have lifted their fair value estimate for Moderna from US$135.84 to US$145.42 per share, signaling a reset in how the stock is being framed. Much of this shift ties back to the debate over intismeran oncology potential, Q3 execution, and how much future COVID and oncology revenue is already reflected in current pricing. As you read on, you will see how to track these moving pieces and what to watch as the Moderna story evolves from here. Analyst Price Targets don't always capture the...",
+            "published_at": "2026-11-09T19:13:04+00:00",
+            "url": "https://finnhub.io/api/news?id=8cdbd0fb459ba28f3a6292d8016838a00c59d97942b83f2a8aa85813daacd217",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SanDisk's 64% collapse: another leg down or buying opportunity?",
+            "summary": "SanDisk\u2019s steep decline has investors weighing whether the worst is over or another selloff lies ahead.",
+            "published_at": "2026-11-09T19:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=07dce57d8291aa840beca0696e4352abe426b67e03c802fdbb1fae188cf33f25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Moderna's First Cancer Therapy Win FDA Approval in 2027?",
+            "summary": "MRNA targets a year-end 2026 FDA filing for its personalized cancer therapy, intismeran, potentially paving the way for a regulatory decision in 2027.",
+            "published_at": "2026-11-09T17:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e5d8471a0ed65d457e1f38ce2c57c7c217b6e0b61ac037b8628fb1d74d912c50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Soars Another 9% as Piper Sandler Lifts Target to $305 on Raised Outlook",
+            "summary": "Key TakeawaysModerna jumped 9% after Piper Sandler raised its price target to $305 from $230, following Friday\u2019s third-quarter beat. Piper\u2019s target bets on the melanoma vaccine Moderna is developing with Merck, a win investors already pay a lot for.",
+            "published_at": "2026-11-09T16:35:53+00:00",
+            "url": "https://finnhub.io/api/news?id=053f4ce6a3696c43cf5b9d453b8fb4b1d2daba7aeebb489692cebaee54446f6a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MRNA support and resistance levels to watch",
+            "summary": "Investing.com -- Moderna Inc (MRNA) is trading at $270.85 as of Nov 9, 2026, 10:28 AM EST. The daily trend is strongly bullish, but the stock is pressing into overhead supply.",
+            "published_at": "2026-11-09T15:59:43+00:00",
+            "url": "https://finnhub.io/api/news?id=6c29033795c7ecd6d93bec1a3795b85dcae7ed2b971b55acaa307d4bc14db704",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ValuEngine Weekly Market Commentary With Outlook For The Remainder Of 2026",
+            "summary": "U.S. equity markets faced broad selling pressure this week, with sharp declines in technology, energy, and growth-oriented sectors weighing on the major benchmarks.",
+            "published_at": "2026-11-09T15:02:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9e632ac01474f4e5bb75d195aa004867e1150d08354049d1394c9273363da39d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Moderna Q3 Earnings Call Highlights Raised Outlook and Oncology",
+            "summary": "MRNA raises its 2026 revenue growth outlook after strong Q3 results, lower costs and respiratory vaccine gains, while advancing its oncology pipeline.",
+            "published_at": "2026-11-09T13:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=51670f9c7c24c76d7fbaad2d555e49d0b8f77c474c05c905738ec169e32e2f53",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Hims-Eli Lilly GLP-1 Deal Meets Summit\u2019s FDA Gamble: Which Biotech ETFs Stand to Gain?",
+            "summary": "Biotech ETFs face key FDA catalysts as Summit Therapeutics&#39; decision and the Hims-Lilly GLP-1 deal put XLV, IBB and XBI in focus.",
+            "published_at": "2026-11-09T12:51:46+00:00",
+            "url": "https://finnhub.io/api/news?id=b3df94d3aa5fe2cc3b56807ab9fae07783eb529469ed10ff651eea49dbb17a26",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Invesco S&P 500 Equal Weight (RSP) Adds Vylor and Moderna on Nov. 5",
+            "summary": "The $101.82 billion fund bought $976.9 million of stock on Thursday, adding 503 positions and selling none.",
+            "published_at": "2026-11-09T11:04:53+00:00",
+            "url": "https://finnhub.io/api/news?id=0bda31c4db5aa3e66c7213b9a1a7fb7040ca081a93516b681502909ee5b849f5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BioNTech vs. Moderna: The COVID Vaccine Giants Are Entering a New Era. One Stock Could Have the Edge for 2027",
+            "summary": "Five years after their pandemic-era success, BioNTech and Moderna are racing to transform promising medical breakthroughs into sustainable businesses.",
+            "published_at": "2026-11-09T10:20:02+00:00",
+            "url": "https://finnhub.io/api/news?id=2a1dc2337461e1a543773683ae563c3d165cfe913cacde307743988ddcb8e845",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zacks Investment Ideas feature highlights: Moderna, AbbVie, Eli Lilly and Merck",
+            "summary": "MRNA hits a 52-week high after crushing Q3 earnings expectations and raising 2026 revenue guidance, but its nearly 800% rally raises valuation concerns.",
+            "published_at": "2026-11-09T09:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=28919c93456b4edb347083c386db997daac2af200980c527d98eb84323420a41",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Nvidia Board Opens Probe Into Jensen Huang as Wall Street Licks Its AI Wounds",
+            "summary": "Nvidia\u2019s board launched an independent investigation into CEO Jensen Huang\u2019s relationship with a suspected Chinese spy. On Friday, chip stocks bounced, a strong jobs report lifted December rate-hike odds, and IonQ, IREN and Airbnb soared.",
+            "published_at": "2026-11-09T08:40:38+00:00",
+            "url": "https://finnhub.io/api/news?id=037d5a7497094658b8f5ca3f4adab844ede8aff4ac0d2ad7143c0d53e11672dd",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 269.0,
+      "jev": {
+        "news_skip": 0.28,
+        "buy_today": 0.49,
+        "hold_overnight": 0.35,
+        "model": "jev-1.14.0",
+        "tokens": 6413,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.295910+00:00",
+        "forecast_id": "eb476c27-f131-4c69-8e6a-d3fe4ad6921c",
+        "requested_at": "2026-11-10T14:36:00.857865+00:00",
+        "completed_at": "2026-11-10T14:36:01.295910+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "KOD",
+      "predicted_return": 0.010766184920559366,
+      "open_price": 106.7,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.709140+00:00",
+        "articles": [
+          {
+            "headline": "Kodiak Sciences (KOD) Stock Looks At A Premium On Its Huge 3 Year Run",
+            "summary": "Kodiak Sciences has seen its share price move sharply in recent years, which naturally puts the spotlight on whether that US$107.10 closing level has outpaced what its book value can reasonably support. For anyone considering the stock today, the key issue is how that market price lines up against the assets and equity recorded on Kodiak Sciences' balance sheet. Over the past 3 years the stock has delivered a very large gain, which raises the question of how much of that shift is backed by...",
+            "published_at": "2026-11-10T02:10:47+00:00",
+            "url": "https://finnhub.io/api/news?id=15552e90ab2e948aa0bbcb9cf5535480a8c89e5501de5f0f07442cd6cd94b81b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 107.1,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.53,
+        "hold_overnight": 0.33,
+        "model": "jev-1.14.0",
+        "tokens": 1528,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.298182+00:00",
+        "forecast_id": "b612f371-95b6-43d6-b52e-48019f447fa6",
+        "requested_at": "2026-11-10T14:36:00.880568+00:00",
+        "completed_at": "2026-11-10T14:36:01.298182+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "VOYG",
+      "predicted_return": 0.010276511964538992,
+      "open_price": 27.05,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "NASA $10B moon base contract awards lift Voyager and space sector",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "NASA $10B moon base contract awards lift Voyager and space sector",
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.709442+00:00",
+        "articles": [
+          {
+            "headline": "Voyager Technologies (VOYG) Stock Sees Modest Fair Value Cut As Analysts Trim Targets",
+            "summary": "Voyager Technologies' latest analyst update includes a slight trim to the fair value estimate, which moves from US$44.73 to US$41.82. This adjustment reflects a mix of optimism around long term growth opportunities and a more cautious tone on valuation and execution. That has led many firms to reduce price targets even while still seeing meaningful potential. As you read on, you will see how this evolving narrative might shape your own view of Voyager Technologies over time. Stay updated as...",
+            "published_at": "2026-11-10T07:06:50+00:00",
+            "url": "https://finnhub.io/api/news?id=90d7c815fba32ef7a7ab8cb64d662ad622e9dcaf8b4c119cf4aa2ae3a2f025cb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile Sales Were Weak. That Doesn\u2019t Matter.",
+            "summary": "AST isn\u2019t expected to generate significant sales and earnings until its communications satellite constellation is up and running.",
+            "published_at": "2026-11-09T22:25:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7149332b3fdb4f6f28c3dafeced943b3797dea014d74fcae158eafb154908e0d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rocket Lab Backlog Went to the Moon. The Stock Is Down Anyway.",
+            "summary": "Rocket Lab\u2019s third-quarter revenue of $268 million, topped Wall Street estimates of $257 million.",
+            "published_at": "2026-11-09T21:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=239851e4c2a4c799f7e3253bc043f046747de88e5dbcf69fa52fe41804bcbf72",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX, Blue Origin Winners As NASA Awards $10 Bil In Moon Base Contracts",
+            "summary": "NASA over the weekend awarded major contracts to SpaceX, Blue Origin, Lockheed Martin and more for its Moon Base efforts. Space stocks surged.",
+            "published_at": "2026-11-09T21:27:11+00:00",
+            "url": "https://finnhub.io/api/news?id=9f05a7956b9f2a3e3768287ab3f6ee9a152780f99cb46e4760241cb5a2247638",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Voyager Technologies Stock Went to the Moon on Monday",
+            "summary": "A new NASA contract could be worth $10 billion -- or $15 billion -- to Voyager Technologies (and others).",
+            "published_at": "2026-11-09T19:45:43+00:00",
+            "url": "https://finnhub.io/api/news?id=9d627c05b0dc215999fb7272bb76d0e1ce6ab30143f756617deb5b60c48a914f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Intuitive Machines Stock Went to the Moon on Monday",
+            "summary": "A new NASA contract could be worth $10 billion -- or $15 billion -- to Intuitive Machines (and others).",
+            "published_at": "2026-11-09T18:23:35+00:00",
+            "url": "https://finnhub.io/api/news?id=6803f7d7d988374293bee3ea2a0ea602da5bd6cd7275c293c2895ccd7b108c2e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX Stocks Rise 5.80% After Winning Spot in NASA's $10 Billion Lunar Pool",
+            "summary": "SpaceX is one of eight companies eligible for CLPS 2 task orders and also landed a 2028 Starship communications mission.",
+            "published_at": "2026-11-09T18:12:15+00:00",
+            "url": "https://finnhub.io/api/news?id=caf81e625a99998d25fe1c998021a69e2e5d16e128102ca0cb8b6bb57f74b452",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX, Rocket Lab blast higher as NASA hands out $10 billion in moon base awards",
+            "summary": "The space trade came roaring back as NASA handed out moon base contracts and Rocket Lab heads into its earnings.",
+            "published_at": "2026-11-09T16:43:20+00:00",
+            "url": "https://finnhub.io/api/news?id=a3da02a12367e0b8d5d85cb2d7c5520147da0b3cfe5b51e87f6279c582886f14",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 27.9,
+      "jev": {
+        "news_skip": 0.78,
+        "buy_today": 0.56,
+        "hold_overnight": 0.44,
+        "model": "jev-1.14.0",
+        "tokens": 3083,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.538101+00:00",
+        "forecast_id": "788d39a6-d62b-4332-ba58-176126ca1ecb",
+        "requested_at": "2026-11-10T14:36:01.101334+00:00",
+        "completed_at": "2026-11-10T14:36:01.538101+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "FIGS",
+      "predicted_return": 0.009793860813825477,
+      "open_price": 21.42,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.710022+00:00",
+        "articles": [
+          {
+            "headline": "FIGS Consensus Price Target Increased by 15.72% to $23.46",
+            "summary": "",
+            "published_at": "2026-11-10T05:51:05+00:00",
+            "url": "https://finnhub.io/api/news?id=7e6220811f0676b349105fced9e4933b162a8de4af0fed842940293fb804456a",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Earnings Estimates Rising for Figs (FIGS): Will It Gain?",
+            "summary": "Figs (FIGS) shares have started gaining and might continue moving higher in the near term, as indicated by solid earnings estimate revisions.",
+            "published_at": "2026-11-09T16:20:02+00:00",
+            "url": "https://finnhub.io/api/news?id=f48b28cc638b4ec5d044dcdff7fc97c6dfdb71cfefa291a41dca09ae165f5487",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Figs Stock Popped Today",
+            "summary": "Investors sold Figs stock after earnings last week, but are having a rethink this morning.",
+            "published_at": "2026-11-09T15:54:00+00:00",
+            "url": "https://finnhub.io/api/news?id=12ee1e329f22af3c03aa62e187bb45c2f825f4d1c75b900e462e40224f3d3e38",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FIGS: 3 Key Takeaways for Long-Term Investors",
+            "summary": "Supply fixes in Vietnam and Indonesia are racing a U.S. import ban, and inventory is down 20% heading into a strong fourth quarter.",
+            "published_at": "2026-11-09T13:20:28+00:00",
+            "url": "https://finnhub.io/api/news?id=685903cf35ea3a1467980400a345885f87ddcb546183f7f904de807872b97d23",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 21.58,
+      "jev": {
+        "news_skip": 0.27,
+        "buy_today": 0.53,
+        "hold_overnight": 0.48,
+        "model": "jev-1.14.0",
+        "tokens": 1960,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.575161+00:00",
+        "forecast_id": "a1b4394a-5028-46c1-8065-70fb84e8ae4b",
+        "requested_at": "2026-11-10T14:36:01.208712+00:00",
+        "completed_at": "2026-11-10T14:36:01.575161+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "CDNA",
+      "predicted_return": 0.009393002146187872,
+      "open_price": 84.09,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.710368+00:00",
+        "articles": [
+          {
+            "headline": "ARK Invest Dumps These Shares While They're Hot, Buys Chips The Size Of Your Face",
+            "summary": "Cathie Wood's ARK Invest bought and sold medtech shares Friday. She also bought shares of an unconventional AI chipmaker \u2014 an unpopular one at that.",
+            "published_at": "2026-11-09T19:29:22+00:00",
+            "url": "https://finnhub.io/api/news?id=02876551d98b3d4690c25a26327bd0bffdadc841448ff577883e2c620e61ac1f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 84.42,
+      "jev": {
+        "news_skip": 0.14,
+        "buy_today": 0.43,
+        "hold_overnight": 0.35,
+        "model": "jev-1.14.0",
+        "tokens": 1380,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.591390+00:00",
+        "forecast_id": "de6e9ecb-1464-487f-8d38-b18928681e23",
+        "requested_at": "2026-11-10T14:36:01.220313+00:00",
+        "completed_at": "2026-11-10T14:36:01.591390+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "KSS",
+      "predicted_return": 0.009241407904100742,
+      "open_price": 24.4,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.710667+00:00",
+        "articles": []
+      },
+      "prev_close": 24.92,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.48,
+        "hold_overnight": 0.38,
+        "model": "jev-1.14.0",
+        "tokens": 1137,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.555388+00:00",
+        "forecast_id": "2c5135b0-0000-471c-aaba-46d81637965a",
+        "requested_at": "2026-11-10T14:36:01.250511+00:00",
+        "completed_at": "2026-11-10T14:36:01.555388+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "WING",
+      "predicted_return": 0.007797766954379281,
+      "open_price": 175.34,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.710931+00:00",
+        "articles": [
+          {
+            "headline": "Starbucks Yields 3 Times as Much as Wingstop. Which Is Better for Retirement?",
+            "summary": "One restaurant stock grows units at a blistering pace and has rewarded shareholders tenfold, while the other quietly hands out bigger checks year after year. For retirees who need dependable income, the flashier story may not be the safer bet.",
+            "published_at": "2026-11-09T16:47:02+00:00",
+            "url": "https://finnhub.io/api/news?id=15257bf6bebcb60fab6440b24442becd2f468ac056c2c36024dc42b53e3ac27d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 176.98,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.45,
+        "hold_overnight": 0.39,
+        "model": "jev-1.14.0",
+        "tokens": 1415,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.619594+00:00",
+        "forecast_id": "b38efa5f-134d-40c2-8ca5-a958c45ea407",
+        "requested_at": "2026-11-10T14:36:01.257274+00:00",
+        "completed_at": "2026-11-10T14:36:01.619594+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "UI",
+      "predicted_return": 0.007518306222046316,
+      "open_price": 685.68,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-10T14:34:58.711164+00:00",
+        "articles": [
+          {
+            "headline": "Ubiquiti Stock In Focus After Earnings Beat And Dividend \u0918\u094b\u0937\u0923\u093e",
+            "summary": "Ubiquiti reported first quarter 2026 results with sales of US$1,026.25 million and net income of US$320.46 million, alongside basic and diluted EPS of US$5.29 from continuing operations. The board also approved a US$1.00 per share cash dividend, payable on November 23, 2026 to shareholders of record on November 16, 2026, reflecting management\u2019s decision to return cash to shareholders. Next, the focus shifts to how Ubiquiti's first quarter profitability may influence the investment narrative...",
+            "published_at": "2026-11-10T03:10:38+00:00",
+            "url": "https://finnhub.io/api/news?id=75d952987f30ac8c4d9cf1b5787380d861165d706647c89da207f8856cf46c8c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 685.68,
+      "jev": {
+        "news_skip": 0.53,
+        "buy_today": 0.53,
+        "hold_overnight": 0.46,
+        "model": "jev-1.14.0",
+        "tokens": 1589,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.662209+00:00",
+        "forecast_id": "211e35c2-4fde-44bb-ac16-823c0b5255e4",
+        "requested_at": "2026-11-10T14:36:01.291683+00:00",
+        "completed_at": "2026-11-10T14:36:01.662209+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "MANE",
+      "predicted_return": 0.007516411890093787,
+      "open_price": 141.81,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "clinical readout: Veradermics Achieved the Highest VDPHL01 Reported Hair Count in the Phase 3 Program to Date in Positive 12-Month Study '",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "clinical readout: Veradermics Achieved the Highest VDPHL01 Reported Hair Count in the Phase 3 Program to Date in Positive 12-Month Study '",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.715898+00:00",
+        "articles": [
+          {
+            "headline": "Veradermics, Incorporated (MANE) Discusses Positive Study 302 Part B Results for VDPHL01 in Pattern Hair Loss Transcript",
+            "summary": "Veradermics, Incorporated (MANE) Discusses Positive Study 302 Part B Results for VDPHL01 in Pattern Hair Loss November 9, 2026 8:00 AM ESTCompany...",
+            "published_at": "2026-11-10T05:01:16+00:00",
+            "url": "https://finnhub.io/api/news?id=52f2defff48ec93f90aa67e25eeaa86dc43e4eae3870f2bd332081affdbda603",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Veradermics stock rises on 12-month hair growth trial data",
+            "summary": "Investing.com -- Veradermics Inc (NYSE:MANE) shares rose 2.3% in Monday trade following the release of 12-month data from its Phase 2/3 clinical trial evaluating VDPHL01, an oral extended-release minoxidil formulation for male pattern hair loss.",
+            "published_at": "2026-11-09T18:04:14+00:00",
+            "url": "https://finnhub.io/api/news?id=a6324325b7dac0082f9228bc1bb976552f35cc8924842e6ccb8c957f14e926de",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Veradermics Achieved the Highest VDPHL01 Reported Hair Count in the Phase 3 Program to Date in Positive 12-Month Study '302' Data in Male Pattern Hair Loss",
+            "summary": "NEW HAVEN, Conn., November 09, 2026--Veradermics, Incorporated (NYSE: MANE), a dermatologist-founded, late-stage biopharmaceutical company focused on developing innovative therapeutics for pattern hair loss, today announced positive topline results from Part B of its randomized, double-blind, placebo-controlled, registration-directed Phase 2/3 clinical trial (Study \u2018302\u2019) evaluating VDPHL01, an investigational, proprietary, extended-release oral minoxidil formulation, in over 500 males with mild",
+            "published_at": "2026-11-09T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2a5f3c36b1ed9328543c53a8d7f7b5184ebd096abfdc7ba97528119e3f6d39a7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Veradermics Announces Topline Results From Registration-Directed Phase 2/3 Trial Of VDPHL01, Demonstrating Efficacy In Male Pattern Hair Loss",
+            "summary": "VDPHL01, a novel orally-administered extended-release minoxidil formulation, demonstrated Target Area Hair Count (TAHC) deepening in twice-daily (BID) and maintenance in once-daily (QD) treatment arms with increases in",
+            "published_at": "2026-11-09T08:20:55+00:00",
+            "url": "https://finnhub.io/api/news?id=13032ba3733401ebf448aacdfc6c5ad6efbf201ed51ec3544aed734cb2f3bae5",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 143.95,
+      "jev": {
+        "news_skip": 0.92,
+        "buy_today": 0.54,
+        "hold_overnight": 0.39,
+        "model": "jev-1.14.0",
+        "tokens": 2624,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.706159+00:00",
+        "forecast_id": "1f0d4916-85a6-4c2b-9366-8b2f72b57d67",
+        "requested_at": "2026-11-10T14:36:01.308959+00:00",
+        "completed_at": "2026-11-10T14:36:01.706159+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "TEM",
+      "predicted_return": 0.006996792754954239,
+      "open_price": 82.37,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:34:58.728069+00:00",
+        "articles": [
+          {
+            "headline": "SOTERIA Collaborates with Tempus to Advance Precision Oncology for U.S. Military and Veterans Battling Cancer",
+            "summary": "SOTERIA Precision Medicine Foundation, a non-profit 501(c)(3) organization, announced a collaboration with Tempus (NASDAQ: TEM) to deliver personalized, data-driven cancer treatment insights and advanced genomic sequencing to members of the U.S. active-duty and veteran military populations. The collaboration supports SOTERIA's Cancer Hunt\u2122 initiative, delivering precision oncology patient navigation with Tempus' comprehensive genomic profiling and AI-enabled diagnostic platform to help identify",
+            "published_at": "2026-11-09T21:39:00+00:00",
+            "url": "https://finnhub.io/api/news?id=22e459da0491e6e164243bbd27f5b612ad9e88b9f9aa2847682b3eefbd77c100",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SOTERIA Precision Medicine Foundation Partners With Tempus To Provide Personalized, Data-Driven Cancer Treatment Insights, Genomic Sequencing To U.S. Military",
+            "summary": "SOTERIA Precision Medicine Foundation, a non-profit 501(c)(3) organization, announced a collaboration with Tempus (NASDAQ: TEM) to deliver personalized, data-driven cancer treatment insights and advanced genomic",
+            "published_at": "2026-11-09T17:55:44+00:00",
+            "url": "https://finnhub.io/api/news?id=cea5582e20398a13cdb4877e74acef8b6916a5cf9a6c52bcd4b003ac738b9a86",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "CNH Industrial, Planet Labs, Ferguson Enterprises And Other Big Stocks Moving Higher On Monday",
+            "summary": "U.S. stocks rallied Monday; CNH surged 13.5% after strong Q3 results and raised guidance, while several stocks posted double-digit gains.",
+            "published_at": "2026-11-09T12:50:24+00:00",
+            "url": "https://finnhub.io/api/news?id=c5c43c478f284b0d1910391866174b8f5eee07897f485616afc1512f6c2f67b9",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 84.44,
+      "jev": {
+        "news_skip": 0.6,
+        "buy_today": 0.49,
+        "hold_overnight": 0.38,
+        "model": "jev-1.14.0",
+        "tokens": 2055,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.722184+00:00",
+        "forecast_id": "9c0b2382-ad61-432e-8126-d724b16f7042",
+        "requested_at": "2026-11-10T14:36:01.310805+00:00",
+        "completed_at": "2026-11-10T14:36:01.722184+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "OKTA",
+      "predicted_return": 0.00697083633141925,
+      "open_price": 177.14,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:03.151143+00:00",
+        "articles": [
+          {
+            "headline": "Qualys Expands Global mROC Alliance with New Technology Alliances Across Every Major Attack Surface and Partner Certification Tracks",
+            "summary": "Qualys, Inc. (NASDAQ: QLYS), a leading cloud-native cyber risk management company, today announced the expansion of its global mROC program to include strategic technology alliance partners across every major attack surface \u2013 mobile, OT/ IoT, and identity, including Claroty, Lookout, NowSecure, Nozomi Networks, and Okta. Telemetry from these partners brings risk from some of the least-measured parts of the enterprise into Qualys Enterprise TruRisk Management (ETM), so organizations can possess a",
+            "published_at": "2026-11-09T14:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a8c83ac9f4b02b1a372a195c38cead75666c3c29f2564b7363502969ec541d8b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "1754 Properties and Vander Capital Partners Acquire 40 Jessie Street, a 100% Google-Leased Office Building in Downtown San Francisco",
+            "summary": "SAN FRANCISCO, November 09, 2026--A joint venture between affiliates of 1754 Properties and Vander Capital Partners acquired 40 Jessie Street.",
+            "published_at": "2026-11-09T13:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a5cf1564f0784362abe982e5039198dc4568903215319e2d3b556418b7fac057",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer Praises The 'Number One Oil Company In The World'",
+            "summary": "Jim Cramer discusses Okta, VF, Trinity Capital, JPMorgan, Ameriprise Financial, Cardinal Health, D-Wave, Chevron and Netflix.",
+            "published_at": "2026-11-09T08:46:44+00:00",
+            "url": "https://finnhub.io/api/news?id=84253f4562a0b9bfa6fedb22228cd60b99e359deb9d4dea33b0f8bba0f52728a",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 177.57,
+      "jev": {
+        "news_skip": 0.14,
+        "buy_today": 0.46,
+        "hold_overnight": 0.37,
+        "model": "jev-1.14.0",
+        "tokens": 2071,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.905996+00:00",
+        "forecast_id": "64351153-7750-4b03-ad77-5309a4aed285",
+        "requested_at": "2026-11-10T14:36:01.564005+00:00",
+        "completed_at": "2026-11-10T14:36:01.905996+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "ALMR",
+      "predicted_return": 0.006832847720167674,
+      "open_price": 31.85,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-10T14:35:06.433982+00:00",
+        "articles": [
+          {
+            "headline": "Why Is GSK (LSE:GSK) Drawing Attention For New Cancer Data And Proteomics?",
+            "summary": "GSK (LSE:GSK) agreed a major scientific collaboration with Alamar Biosciences to run large-scale proteomic research for precision medicine. New clinical data showed highly encouraging results for Jemperli in rectal cancer patients in an ongoing oncology study. Mo-Rez produced promising trial outcomes in ovarian and endometrial cancer, adding another late-stage oncology asset to GSK's pipeline. The Alamar proteomics deal and early Jemperli and Mo-Rez data sit within a wider picture our...",
+            "published_at": "2026-11-09T19:15:28+00:00",
+            "url": "https://finnhub.io/api/news?id=5f4de678e11b6c550c8c2ab9b50286dab19a62ee3aacba8ee9a866cb8979f403",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alamar Biosciences: Recurring Revenue Potential At A High Premium",
+            "summary": "Neutral on ALMR: recurring consumables and research partnerships support upside, but premium valuation and platform expansion risks still matter.",
+            "published_at": "2026-11-09T08:15:01+00:00",
+            "url": "https://finnhub.io/api/news?id=bb4a8523c2880a4c188c28b71471b39693e74d4944c3c1c232636d1deb5dbe96",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 31.84,
+      "jev": {
+        "news_skip": 0.46,
+        "buy_today": 0.5,
+        "hold_overnight": 0.55,
+        "model": "jev-1.14.0",
+        "tokens": 1758,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.916674+00:00",
+        "forecast_id": "fa7e172b-a4f3-4f70-b38c-ab8f0de14852",
+        "requested_at": "2026-11-10T14:36:01.580244+00:00",
+        "completed_at": "2026-11-10T14:36:01.916674+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "GFL",
+      "predicted_return": 0.006637357435316785,
+      "open_price": 40.89,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:11.434357+00:00",
+        "articles": [
+          {
+            "headline": "Groupon Posts Downbeat Q3 Results, Joins GeneDx Holdings, Qualys And Other Big Stocks Moving Lower In Tuesday\u2019s Pre-Market Session",
+            "summary": "Groupon plunged 20% premarket after missing quarterly earnings and sales estimates, while Digital Turbine, Daqo and others also traded lower.",
+            "published_at": "2026-11-10T09:02:06+00:00",
+            "url": "https://finnhub.io/api/news?id=66f4751627d6772c415ea89b5e05e66714871dec37fba061228eef58e615d864",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Sanmina Shares Are Trading Higher By Around 19%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Sanmina surges 18.8% after strong Q4 results and above-estimate FY27 guidance; Rubico leads gainers, while Microvast plunges 48.5%.",
+            "published_at": "2026-11-10T05:29:45+00:00",
+            "url": "https://finnhub.io/api/news?id=af8dd9ede80094fccd16ee5134968b6db19fc45e8ca9a026f3b9797f0a855a4c",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 45.88,
+      "jev": {
+        "news_skip": 0.6,
+        "buy_today": 0.42,
+        "hold_overnight": 0.38,
+        "model": "jev-1.14.0",
+        "tokens": 1688,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.912685+00:00",
+        "forecast_id": "9b949452-ea88-4f26-95dc-3943d48baee4",
+        "requested_at": "2026-11-10T14:36:01.590601+00:00",
+        "completed_at": "2026-11-10T14:36:01.912685+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "PLSE",
+      "predicted_return": 0.006292366283835794,
+      "open_price": 58.0,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:11.509418+00:00",
+        "articles": []
+      },
+      "prev_close": 58.17,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.47,
+        "hold_overnight": 0.37,
+        "model": "jev-1.14.0",
+        "tokens": 1140,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.943501+00:00",
+        "forecast_id": "1fad7aeb-7a11-4b10-9445-964d08401da6",
+        "requested_at": "2026-11-10T14:36:01.602686+00:00",
+        "completed_at": "2026-11-10T14:36:01.943501+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "SMMT",
+      "predicted_return": 0.006189947827426863,
+      "open_price": 17.77,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "FDA verdict expected this week on Summit lung cancer drug",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "FDA verdict expected this week on Summit lung cancer drug",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:11.509462+00:00",
+        "articles": [
+          {
+            "headline": "Summit Therapeutics (SMMT) Stock Looks Richly Priced On Its 7x Run",
+            "summary": "Summit Therapeutics has been on a remarkable multi year run, yet with the stock recently closing at US$17.84 the real puzzle for investors is whether that price still lines up with its book value. A sharp move backed by high profile drug news can pull a share price well away from the underlying balance sheet, and that is the crux of the valuation question around Summit Therapeutics today. Over the past 3 years the share price has delivered a very large gain of roughly 7x, which puts extra...",
+            "published_at": "2026-11-10T00:21:23+00:00",
+            "url": "https://finnhub.io/api/news?id=1f05b963dc077dc475d18417144abc51c9ce8b3727f127f408a378005622f0d6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Hims-Eli Lilly GLP-1 Deal Meets Summit\u2019s FDA Gamble: Which Biotech ETFs Stand to Gain?",
+            "summary": "Biotech ETFs face key FDA catalysts as Summit Therapeutics&#39; decision and the Hims-Lilly GLP-1 deal put XLV, IBB and XBI in focus.",
+            "published_at": "2026-11-09T12:51:46+00:00",
+            "url": "https://finnhub.io/api/news?id=b3df94d3aa5fe2cc3b56807ab9fae07783eb529469ed10ff651eea49dbb17a26",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "FDA Decision Watch: Summit\u2019s Lung Cancer Drug, Cytokinetics\u2019 Heart Therapy And Teva\u2019s Igalmi In Spotlight This Week",
+            "summary": "The FDA is set to announce its verdict on three closely watched therapies this week, ahead of a busy month which includes a decision on Capricor Therapeutics\u2019 Deramiocel.",
+            "published_at": "2026-11-09T10:23:04+00:00",
+            "url": "https://finnhub.io/api/news?id=89dc888c18ae70480a67f7948254d7afef7df00db0ecd9ed2a4d61e81ea88024",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 17.84,
+      "jev": {
+        "news_skip": 0.75,
+        "buy_today": 0.47,
+        "hold_overnight": 0.3,
+        "model": "jev-1.14.0",
+        "tokens": 2108,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:01.981491+00:00",
+        "forecast_id": "14629fd0-cd10-49e4-a849-a8783ccc2b76",
+        "requested_at": "2026-11-10T14:36:01.631421+00:00",
+        "completed_at": "2026-11-10T14:36:01.981491+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "W",
+      "predicted_return": 0.006164961000652739,
+      "open_price": 114.2,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:12.386978+00:00",
+        "articles": []
+      },
+      "prev_close": 116.87,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.51,
+        "hold_overnight": 0.43,
+        "model": "jev-1.14.0",
+        "tokens": 1140,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.021643+00:00",
+        "forecast_id": "571b0ed5-4693-4aef-9e23-058cdc04556a",
+        "requested_at": "2026-11-10T14:36:01.674661+00:00",
+        "completed_at": "2026-11-10T14:36:02.021643+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "AMC",
+      "predicted_return": 0.006112992372187752,
+      "open_price": 3.355,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-10T14:35:12.387011+00:00",
+        "articles": [
+          {
+            "headline": "AMC Networks Q3 Earnings Call Highlights",
+            "summary": "AMC Networks (NASDAQ:AMCX) reported 1% consolidated revenue growth for the third quarter of 2026, as gains in streaming and content licensing helped offset declines in affiliate and advertising revenue. The company maintained its full-year outlook after selling its ALLBLK streaming service and settl",
+            "published_at": "2026-11-09T23:14:27+00:00",
+            "url": "https://finnhub.io/api/news?id=70d00fe1e4cb420f52f808cf0049b049e78ed2a841411b5b52c2d9d3d08e3c7c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AMC Global Media: Q3 Earnings Snapshot",
+            "summary": "NEW YORK (AP) \u2014 NEW YORK (AP) \u2014 AMC Global Media Inc. (AMCX) on Monday reported a third-quarter loss of $47.",
+            "published_at": "2026-11-09T21:33:03+00:00",
+            "url": "https://finnhub.io/api/news?id=7f19fdac586ba5720748561767479272a28bdefe4ce0ef4545474801fc507046",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here is What to Know Beyond Why AMC Entertainment Holdings, Inc. (AMC) is a Trending Stock",
+            "summary": "AMC Entertainment (AMC) has received quite a bit of attention from Zacks.com users lately. Therefore, it is wise to be aware of the facts that can impact the stock's prospects.",
+            "published_at": "2026-11-09T13:00:04+00:00",
+            "url": "https://finnhub.io/api/news?id=8200462c76fb03d45cef70f1302f4f4faf5e79ec0c9cf9c719aadcfa21f17498",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The business mistake McDonald's and Chipotle keep making: Robert Irvine",
+            "summary": "World-class chef and entrepreneur, Robert Irvine explains to Yahoo Finance Executive Editor Brian Sozzi how he helped push through the legislative change that's replacing 50-year-old Army mess halls with campus-style dining",
+            "published_at": "2026-11-09T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=14338b50d14da120f2c3f79ad1a6893df3bb15ea7994c4af8e061bd099a0fabe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AMC Entertainment Holdings Consensus Price Target Rises 13.19% to $3.99",
+            "summary": "",
+            "published_at": "2026-11-09T10:09:53+00:00",
+            "url": "https://finnhub.io/api/news?id=7d7da96dce7935eed8b66c783b197df0073df3b250ebe409c0dc5b87b043c022",
+            "source": "Fintel"
+          }
+        ]
+      },
+      "prev_close": 3.4,
+      "jev": {
+        "news_skip": 0.07,
+        "buy_today": 0.5,
+        "hold_overnight": 0.38,
+        "model": "jev-1.14.0",
+        "tokens": 2326,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.049420+00:00",
+        "forecast_id": "89fa6d4b-6e8f-43f5-a1d7-ae8a7a0fc3d3",
+        "requested_at": "2026-11-10T14:36:01.717438+00:00",
+        "completed_at": "2026-11-10T14:36:02.049420+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "NTSK",
+      "predicted_return": 0.005906636143244737,
+      "open_price": 22.09,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:13.315697+00:00",
+        "articles": [
+          {
+            "headline": "PubMatic, Inc. (PUBM) Q3 Earnings and Revenues Surpass Estimates",
+            "summary": "PubMatic (PUBM) delivered earnings and revenue surprises of +47.06% and +4.66%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-11-09T22:35:07+00:00",
+            "url": "https://finnhub.io/api/news?id=08332801302a9bec31b0883a1ab64e5baeea45567c1acbf7c93df3f47add4220",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Netskope (NTSK) Stock Sees Modest Fair Value Lift As Analysts Raise Targets",
+            "summary": "Netskope\u2019s updated fair value price target has shifted from US$19.36 to US$20.24, giving investors fresh numbers to weigh against the recent share move. Analysts describe a mix of optimism and caution, with higher price targets often tied to recurring revenue metrics and AI security momentum, while others point to competition and execution risk as reasons to be more restrained. As you read on, you will see how this evolving narrative may shape the way you track Netskope from here. Analyst...",
+            "published_at": "2026-11-09T18:08:08+00:00",
+            "url": "https://finnhub.io/api/news?id=70fe0eccb171494f84b7e3f1eea3238ba07ecbac6740166b09c096ac9944064d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RBC Capital Maintains Outperform on Netskope, Raises Price Target to $23",
+            "summary": "RBC Capital  analyst Matthew Hedberg   maintains Netskope (NASDAQ:NTSK) with a Outperform and raises the price target from $20 to $23.",
+            "published_at": "2026-11-09T09:36:36+00:00",
+            "url": "https://finnhub.io/api/news?id=a9b935ce2cb73133198bb92c89193f4083c05bd815707829fe1c963f66d05c6f",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 22.49,
+      "jev": {
+        "news_skip": 0.06,
+        "buy_today": 0.5,
+        "hold_overnight": 0.42,
+        "model": "jev-1.14.0",
+        "tokens": 2066,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.090913+00:00",
+        "forecast_id": "fb6f0e54-0b31-4f0d-bf29-00963c802150",
+        "requested_at": "2026-11-10T14:36:01.734958+00:00",
+        "completed_at": "2026-11-10T14:36:02.090913+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "KRMN",
+      "predicted_return": 0.005796676452455075,
+      "open_price": 44.67,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:13.658597+00:00",
+        "articles": [
+          {
+            "headline": "Why Drone Maker AeroVironment\u2019s Stock Is Rocketing on This Sub-$1 Billion Deal",
+            "summary": "The stock shot up more than 10% Monday after a rough year marked by fears of military spending cuts.",
+            "published_at": "2026-11-09T17:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=aebf4a805abbec7af82f863341213b9cae01289ef0c5e34e4197dc0b35697de7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Surging Earnings Estimates Signal Upside for Karman Holdings Inc. (KRMN) Stock",
+            "summary": "Karman Holdings Inc. (KRMN) shares have started gaining and might continue moving higher in the near term, as indicated by solid earnings estimate revisions.",
+            "published_at": "2026-11-09T16:20:02+00:00",
+            "url": "https://finnhub.io/api/news?id=18aba6ec5498da88bb6641e27705314d7788da12fba015f3228d12df5bd30e60",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Does Karman Holdings Inc. (KRMN) Have the Potential to Rally 50.1% as Wall Street Analysts Expect?",
+            "summary": "The consensus price target hints at a 50.1% upside potential for Karman Holdings Inc. (KRMN). While empirical research shows that this sought-after metric is hardly effective, an upward trend in earnings estimate revisions could mean that the stock will witness an upside in the near term.",
+            "published_at": "2026-11-09T13:55:02+00:00",
+            "url": "https://finnhub.io/api/news?id=c8abf9732c9587675105e97b1b1827aa43d70939b8a00737445783122ae3e11f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did Karman Stock Jump?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-11-09T12:46:08+00:00",
+            "url": "https://finnhub.io/api/news?id=7cac57e4674633f3c85a4ff4be08068542f6c20662dac3fefd24a48c849953a2",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 45.9,
+      "jev": {
+        "news_skip": 0.14,
+        "buy_today": 0.5,
+        "hold_overnight": 0.43,
+        "model": "jev-1.14.0",
+        "tokens": 2117,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.366993+00:00",
+        "forecast_id": "2b619ff9-6fee-4441-a6c9-d1a4417de56b",
+        "requested_at": "2026-11-10T14:36:01.938985+00:00",
+        "completed_at": "2026-11-10T14:36:02.366993+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "HRI",
+      "predicted_return": 0.005717955499384361,
+      "open_price": 167.18,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:14.320610+00:00",
+        "articles": [
+          {
+            "headline": "Does Herc Holdings (HRI) Have the Potential to Rally 25.9% as Wall Street Analysts Expect?",
+            "summary": "The average of price targets set by Wall Street analysts indicates a potential upside of 25.9% in Herc Holdings (HRI). While the effectiveness of this highly sought-after metric is questionable, the positive trend in earnings estimate revisions might translate into an upside in the stock.",
+            "published_at": "2026-11-09T13:55:02+00:00",
+            "url": "https://finnhub.io/api/news?id=d71d88acf210cd89a1d6e6d67f015d495985aa0c5fc080305d1ed71eea742f18",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 167.18,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.48,
+        "hold_overnight": 0.47,
+        "model": "jev-1.14.0",
+        "tokens": 1438,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.335562+00:00",
+        "forecast_id": "3049f007-33cd-4c54-b31c-bd9bedb3cdd2",
+        "requested_at": "2026-11-10T14:36:01.946015+00:00",
+        "completed_at": "2026-11-10T14:36:02.335562+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "LIFE",
+      "predicted_return": 0.005675821501879514,
+      "open_price": 35.44,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:17.603318+00:00",
+        "articles": []
+      },
+      "prev_close": 35.77,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.43,
+        "hold_overnight": 0.35,
+        "model": "jev-1.14.0",
+        "tokens": 1145,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.330294+00:00",
+        "forecast_id": "8c38e2f3-6f4a-4880-9827-48f435c74fb7",
+        "requested_at": "2026-11-10T14:36:01.949336+00:00",
+        "completed_at": "2026-11-10T14:36:02.330294+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "CRDO",
+      "predicted_return": 0.005549837290621369,
+      "open_price": 128.23,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 9,
+        "reviewed_count": 9,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:17.603357+00:00",
+        "articles": [
+          {
+            "headline": "3 US AI Chip Stocks Beyond Nvidia Stock Key Person Risk",
+            "summary": "Nvidia\u2019s sudden governance storm, from Jensen Huang\u2019s admitted relationship with an alleged Chinese spy to talk of federal scrutiny, has put a harsh spotlight on what happens when too much rides on one leader. Investors are now hunting for large-cap chip stocks tied to AI demand where the story is less about a single person and more about resilient business models. This article reveals 3 US semiconductor and equipment stocks from that lens, all filtered through a screener that emphasizes...",
+            "published_at": "2026-11-10T04:32:25+00:00",
+            "url": "https://finnhub.io/api/news?id=c5acafce5667ffa0364d423bcd034e83d05c8eddefe85456d280f69c67a53fff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Credo Technology Group Holding (CRDO) Helped Set New AI Network Standards, Is The 44% Undervaluation Real?",
+            "summary": "Credo Technology Group Holding (CRDO) has contributed to the delivery of two new Open Compute Project optical telemetry standards, created with Oracle and industry partners. These standards aim to support more reliable AI data center networks by enabling richer link monitoring. For investors watching Credo Technology Group Holding, the approval of these Open Compute Project standards lands after a sharp reset in sentiment. The share price has risen 7.3% over the last day but is still down...",
+            "published_at": "2026-11-09T19:13:42+00:00",
+            "url": "https://finnhub.io/api/news?id=3691cde7d90c6cf6d51779962198bbd35fe486011b213af2fec7e7c67c25bebe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Credo Technology Stock a Buy Right Now?",
+            "summary": "The stock is plunging on fears that the AI data center boom's days could be numbered.",
+            "published_at": "2026-11-09T17:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=883770f91035d5893f2879364a18404ee28a6d25049897a5a031de5bd693c306",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "5 Stocks For Option Trading This Month",
+            "summary": "The biggest opportunities in options trading do not always come from the biggest names on Wall Street.\n\n\n\nWhile Nvidia, Tesla and Apple dominate conversations about stock options, several less familiar companies offer a",
+            "published_at": "2026-11-09T16:04:15+00:00",
+            "url": "https://finnhub.io/api/news?id=3b5c8bd4405126f9a3141e03d4680ea8987e8041baa807bbc35bda5245702f71",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Credo Stock Has a Powerful Growth Story, but Is It Already Priced In?",
+            "summary": "Credo just posted triple-digit revenue growth and its eighth straight earnings beat, yet the stock lost a third of its value in a month. Two big customers and one valuation gap might explain why the market and our model disagree.",
+            "published_at": "2026-11-09T15:33:24+00:00",
+            "url": "https://finnhub.io/api/news?id=36b18cc90aadf1aee4a99af3f7202dda7125f67b93f68f3b0cb7c6974a64f9bf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The AI Chip Boom Has a Hidden Beneficiary. Here\u2019s Where Its Stock Could Be by 2030",
+            "summary": "Credo's revenue more than doubled, yet its shares have lost a third of their value in a month. Customer concentration, a sky-high beta and a bold 2030 price target set up a stretch case that demands a closer look.",
+            "published_at": "2026-11-09T15:04:36+00:00",
+            "url": "https://finnhub.io/api/news?id=cf3b9a542de56617ebcb0234fc70a772101827b0dbe3b65d1a694794b537bdfa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Disney, Gardner Denver, Intel: Fast Money Picks For October 3",
+            "summary": "",
+            "published_at": "2026-11-09T14:44:24+00:00",
+            "url": "https://finnhub.io/api/news?id=2d587481b82db68d6ee222b43fd76ec85b4e37bf6e4df0c1ad1a4c5ba71fd9b0",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "CNH Industrial, Planet Labs, Ferguson Enterprises And Other Big Stocks Moving Higher On Monday",
+            "summary": "U.S. stocks rallied Monday; CNH surged 13.5% after strong Q3 results and raised guidance, while several stocks posted double-digit gains.",
+            "published_at": "2026-11-09T12:50:24+00:00",
+            "url": "https://finnhub.io/api/news?id=c5c43c478f284b0d1910391866174b8f5eee07897f485616afc1512f6c2f67b9",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "SOXX: The AI Bubble Already Popped, And The Next Rally May Be Coming",
+            "summary": "Buy SOXX for diversified AI semiconductor exposure as cheap tech valuations and post-midterm rally potential set up a timely risk-on opportunity.",
+            "published_at": "2026-11-09T08:33:33+00:00",
+            "url": "https://finnhub.io/api/news?id=8af25dcedcb85e922ff63fb61a49a06bdc2deb4bf73a15e71ff8ffacd68100dd",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 132.89,
+      "jev": {
+        "news_skip": 0.5,
+        "buy_today": 0.49,
+        "hold_overnight": 0.36,
+        "model": "jev-1.14.0",
+        "tokens": 3460,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.330020+00:00",
+        "forecast_id": "299ba689-455c-4f23-8964-bdcc2ccd2d8a",
+        "requested_at": "2026-11-10T14:36:01.959419+00:00",
+        "completed_at": "2026-11-10T14:36:02.330020+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "KEEL",
+      "predicted_return": 0.005377965961669853,
+      "open_price": 1.89,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:17.802465+00:00",
+        "articles": [
+          {
+            "headline": "Neocloud Sell-Off Leaves Bitcoin Miners Oversold",
+            "summary": "Powered shell providers fell ~35% in October on funding fears, yet no signed leases were cancelled. Why we see the AI data center sell-off as a dislocation.",
+            "published_at": "2026-11-09T13:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2d7556d5039221117c188b8b2bf932d31820047b68b3435531e019e7f3ee11fd",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 1.96,
+      "jev": {
+        "news_skip": 0.55,
+        "buy_today": 0.44,
+        "hold_overnight": 0.38,
+        "model": "jev-1.14.0",
+        "tokens": 1387,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.366802+00:00",
+        "forecast_id": "feb58787-f89a-48ec-8ca4-1f08fe68a7d9",
+        "requested_at": "2026-11-10T14:36:01.993696+00:00",
+        "completed_at": "2026-11-10T14:36:02.366802+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "FROG",
+      "predicted_return": 0.005302997866500715,
+      "open_price": 105.0,
+      "snapshot_date": "2026-11-09",
+      "news_flag": "Q3 beat-and-raise; stock surged ~32%",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Q3 beat-and-raise; stock surged ~32%",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:18.534585+00:00",
+        "articles": [
+          {
+            "headline": "Why JFrog (FROG) stock is up today",
+            "summary": "Shares of software supply chain platform JFrog (NASDAQ:FROG) jumped 31.8% in the morning session after the company delivered a \u201cbeat-and-raise\u201d third quarter for 2026, topping Wall Street expectations across key operating metrics, including revenue, adjusted operating income, and earnings per share.",
+            "published_at": "2026-11-10T00:21:36+00:00",
+            "url": "https://finnhub.io/api/news?id=a289fc1fed8a14fc1a6875cc8ab11816cdf6e607f998e083c62e51089cff16af",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bank of America's JFrog call comes with a costly catch",
+            "summary": "A 35% stock surge has shifted the calculus for investors looking beyond the biggest AI names.",
+            "published_at": "2026-11-09T15:07:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a946ea75bd3903d1dbf1f9fd5847cf3f714d70f36a33c6b4b6bd02ad9bcf8b5b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FROG Q3 2026 deep dive: AI and security demand fuel cloud and enterprise expansion",
+            "summary": "Software supply chain platform JFrog (NASDAQ:FROG) reported Q3 2026 results exceeding the market\u2019s revenue expectations, with sales up 30.9% year on year to $179.2 million. On top of that, next quarter\u2019s revenue guidance ($184 million at the midpoint) was surprisingly good and 9.3% above what analysts were expecting. Its non-GAAP profit of $0.32 per share was 37.8% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-11-09T06:45:36+00:00",
+            "url": "https://finnhub.io/api/news?id=7688f0a27e38c595c75576d53173c74c283ca60b29e85a02b51177deda26f926",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 108.18,
+      "jev": {
+        "news_skip": 0.85,
+        "buy_today": 0.52,
+        "hold_overnight": 0.41,
+        "model": "jev-1.14.0",
+        "tokens": 2072,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.393852+00:00",
+        "forecast_id": "38ef629b-415f-4262-a6a0-5b5a20430add",
+        "requested_at": "2026-11-10T14:36:02.034489+00:00",
+        "completed_at": "2026-11-10T14:36:02.393852+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "COTY",
+      "predicted_return": 0.00525092719447523,
+      "open_price": 4.19,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:19.197849+00:00",
+        "articles": [
+          {
+            "headline": "Coty Inc. 2027 Q1 - Results - Earnings Call Presentation",
+            "summary": "2026-11-09. The following slide deck was published by Coty Inc.",
+            "published_at": "2026-11-09T18:25:42+00:00",
+            "url": "https://finnhub.io/api/news?id=4128d58d7607b4de786be7fa07e8cd40ca0f28ef1c22f445b5802ca743b35dbf",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Interpreting Coty (COTY) International Revenue Trends",
+            "summary": "Explore how Coty's (COTY) revenue from international markets is changing and the resulting impact on Wall Street's predictions and the stock's prospects.",
+            "published_at": "2026-11-09T13:15:07+00:00",
+            "url": "https://finnhub.io/api/news?id=001e12745282ec1978b038de60a2f2e62e3205f1606e04eabbc40cc12fdc573d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays Maintains Underweight on Coty, Raises Price Target to $3",
+            "summary": "Barclays  analyst Lauren Lieberman   maintains Coty (NYSE:COTY) with a Underweight and raises the price target from $2 to $3.",
+            "published_at": "2026-11-09T11:28:57+00:00",
+            "url": "https://finnhub.io/api/news?id=5f86df848643c6011ea84d0426fb32f1ca080f101fa4917c7b44c56ea623c3c9",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 4.22,
+      "jev": {
+        "news_skip": 0.08,
+        "buy_today": 0.44,
+        "hold_overnight": 0.31,
+        "model": "jev-1.14.0",
+        "tokens": 1843,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.479928+00:00",
+        "forecast_id": "a449c0cf-d82b-4cb2-ad29-0d76175796f1",
+        "requested_at": "2026-11-10T14:36:02.063662+00:00",
+        "completed_at": "2026-11-10T14:36:02.479928+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "SEI",
+      "predicted_return": 0.005201175258355238,
+      "open_price": 60.24,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:19.198114+00:00",
+        "articles": [
+          {
+            "headline": "Solaris Energy Infrastructure, Inc. (SEI) Q3 Earnings: Taking a Look at Key Metrics Versus Estimates",
+            "summary": "Although the revenue and EPS for Solaris Energy Infrastructure, Inc. (SEI) give a sense of how its business performed in the quarter ended September 2026, it might be worth considering how some key metrics compare with Wall Street estimates and the year-ago numbers.",
+            "published_at": "2026-11-09T13:30:03+00:00",
+            "url": "https://finnhub.io/api/news?id=0bd633821fb0377bbf8fb9af40db99f831a4d0d06ef4f6deb01e0954039300e6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 62.61,
+      "jev": {
+        "news_skip": 0.06,
+        "buy_today": 0.46,
+        "hold_overnight": 0.4,
+        "model": "jev-1.14.0",
+        "tokens": 1451,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.434360+00:00",
+        "forecast_id": "77c6b183-e1a5-411a-b7d0-a76c62b2ea27",
+        "requested_at": "2026-11-10T14:36:02.104322+00:00",
+        "completed_at": "2026-11-10T14:36:02.434360+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "TIC",
+      "predicted_return": 0.00501023718036782,
+      "open_price": 11.12,
+      "snapshot_date": "2026-11-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-10T14:35:23.483415+00:00",
+        "articles": [
+          {
+            "headline": "TiC Solutions Announces Participation in Upcoming Investor Conferences",
+            "summary": "HOUSTON, November 09, 2026--TIC Solutions, Inc. (NYSE: TIC) (the \"Company\" or \"TiC Solutions\"), a leading provider of tech-enabled asset integrity, engineering, and geospatial services, announced today that its senior leadership will participate in the following upcoming investor conferences:",
+            "published_at": "2026-11-09T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=28fcec0a1518b8d84b6cb89867865e6ba50301fc8422fe28bb091c8721bfdb20",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 11.29,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.46,
+        "hold_overnight": 0.35,
+        "model": "jev-1.14.0",
+        "tokens": 1444,
+        "issue": null,
+        "asked_at": "2026-11-10T14:36:02.712344+00:00",
+        "forecast_id": "715849ca-6280-4a18-9a9a-b860324abcff",
+        "requested_at": "2026-11-10T14:36:02.352894+00:00",
+        "completed_at": "2026-11-10T14:36:02.712344+00:00",
+        "question_set_version": "morning_v1"
+      }
+    }
+  ],
+  "scored_count": 1888,
+  "skipped": [
+    {
+      "ticker": "CEG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OXY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FERG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTWO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRWV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RKLB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROKU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KSPI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ASTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ONTO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SANM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DDS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRAX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ONON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LINE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TGTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IMVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ASR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ZETA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QBTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CWEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIMS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LQDA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QLYS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CWST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XENE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HRB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRVO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RGTI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DFTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRCY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TDW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MARA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TCBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNGX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABCL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MNDY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NESR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LIF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BTDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NHI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DHT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLUG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSQR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REZI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BWIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DAC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DJT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ETOR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNIT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRVI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OCUL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STUB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VIA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZYME",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 12.759897409429641
+    },
+    {
+      "feature": "market_return_dispersion_1d",
+      "importance": 6.370416071487426
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 5.753178890086722
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-11-09",
+    "model_trained_through": "2026-11-09",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  }
+}

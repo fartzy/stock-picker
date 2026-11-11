@@ -1,0 +1,20 @@
+{
+  "frozen_on": "2026-11-11",
+  "question": "Do market-relative movement and same-clock abnormal trading activity improve current-entry-to-close forecasts?",
+  "cohort": "All rows from the existing frozen Intraday Entry dataset; no ticker exclusions and no outcome-dependent filtering",
+  "expense_fraction": 0.0,
+  "target": "Unchanged exact entry-minute open to final regular-minute close",
+  "variants": ["existing", "market", "volume", "market_and_volume"],
+  "market_features": ["spy_return_from_open", "spy_return_15m", "stock_minus_spy_from_open", "stock_minus_spy_15m"],
+  "volume_features": ["log_same_clock_dollar_volume", "log_same_clock_5m_dollar_volume"],
+  "market_definition": "SPY latest completed minute close versus its first regular minute open, and versus its completed close 15 minutes earlier. Stock minus SPY is a simple return difference, not a fitted beta residual.",
+  "volume_definition": "Log of stock completed regular-bar dollar volume (volume times bar VWAP) divided by median corresponding dollar volume on the previous 20 XNYS sessions. Compare cumulative and trailing five-minute windows. Require at least 10 prior sessions and at least 80 percent observed bar coverage in each window. Require prior session to still be open at this clock time. Dollar volume limits mechanical share-count effects of splits. No final daily volume is used.",
+  "missing_data": "Retain all original rows in all four variants; missing values remain NaN. Record coverage and report fully covered sensitivity evaluation separately.",
+  "split": "Same whole-date 60 percent fit, 20 percent calibration, 20 percent evaluation as existing helper; identical hyperparameters and weights",
+  "primary": "Rank 1 session-weighted Brier error versus existing helper and fit-only same-clock baseline",
+  "secondary": ["log loss", "mean-return MAE", "mean-return RMSE", "terminal loss probability error", "all candidate metrics"],
+  "uncertainty": "Paired differences aggregated by date; moving-block bootstrap with five-session blocks, 2000 draws, seed 1729",
+  "pruning": "Missing/constant features removed on fitting data only. Secondary screen: evaluate each of six additions individually on three chronological prefixes (65, 82, 100 percent) of the OUTER FIT block, each with the existing 60/20/20 trainer. Keep at most two individual features with the lowest Rank1 Brier improvement below zero, measured on unique inner-validation dates. Duplicate validation dates keep their earliest forecast. Evaluate this selected pair once on outer evaluation dates; no outer outcomes determine selection. This is exploratory selection, not a significance claim.",
+  "limitations": ["Final dates have already been inspected in prior work: retrospective comparison, not new independent confirmation", "Lower ranks are selectively cached", "Historical bars retrieved later can include revisions; not a captured live first-seen feed", "Historical baseline rankings differ from current production", "No sector feature until trustworthy historical sector membership is available"],
+  "promotion": "Research artifacts only; no active pickle replacement, production scoring change, or automatic buy signal"
+}

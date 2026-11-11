@@ -1,0 +1,480 @@
+{
+  "as_of": "2026-10-14",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.009015780919395252,
+      "open_price": 11.85,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:17.427736+00:00",
+        "articles": [
+          {
+            "headline": "Maase Inc. Appoints Baoxue Xu as Co-Chief Technology Officer to Lead Energy Technology Development",
+            "summary": "QINGDAO, China, Oct. 13, 2026 (GLOBE NEWSWIRE) -- Maase Inc. (NASDAQ: MAAS) (\u201cMAAS\u201d or the \u201cCompany\u201d), an artificial intelligence (\u201cAI\u201d)-centric full-scene digital systems provider and operator, today announced the appointment of Mr. Baoxue Xu as Co-Chief Technology Officer, in charge of the energy solutions division, effective October 13, 2026. In this specialized executive role, Mr. Xu will directly oversee the research, engineering, and global commercialization of MAAS\u2019s energy solutions, inc",
+            "published_at": "2026-10-13T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ed21625e414594345be15dd791ae1a2b2c4025bd3be9a789f4fc9dccd6270d82",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 11.83
+    },
+    {
+      "ticker": "FRMI",
+      "predicted_return": 0.00856715518763613,
+      "open_price": 3.5596,
+      "snapshot_date": "2026-10-13",
+      "news_flag": "AMD credit support deal for Project Matador lease",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "AMD credit support deal for Project Matador lease",
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:17.427827+00:00",
+        "articles": [
+          {
+            "headline": "Fermi Stock Soars 20% on AMD Deal. Why Analysts See Hurdles Ahead.",
+            "summary": "Advanced Micro Devices will help advance Fermi\u2019s data center plans.",
+            "published_at": "2026-10-13T18:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=797de9d7cc2de4babff6afd650ca758ac71f2da5001c047d40d84153d882128d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which stocks are most active on Tuesday?",
+            "summary": "These stocks are making the most noise in today's session. Stay tuned for the latest updates!",
+            "published_at": "2026-10-13T18:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a17ad523b84dd67056cf3f54c8b26ba43420d2dffa3a07b672a313f3a42b6b65",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fermi Gets A Boost From AMD, But Ambitions Remain Risky",
+            "summary": "Fermi remains a Hold as its ambitious AI infrastructure and nuclear buildout face high execution risk and uncertain viability. Read more on FRMI stock here.",
+            "published_at": "2026-10-13T17:07:31+00:00",
+            "url": "https://finnhub.io/api/news?id=88f7b8de04fc29b9f42804b99716e0ef5994764f11c71c548fa5a20c84cd025b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "These stocks are gapping in today's session",
+            "summary": "There are notable gap-ups and gap-downs in today's session. Let's take a look at which stocks are gapping on Tuesday.",
+            "published_at": "2026-10-13T14:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ad01762f9889157df4dc07488c3f56f00b4faff255969967f4898b030752910c",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "AMD backs Fermi\u2019s first Project Matador lease with credit support, sending shares up 11%",
+            "summary": "The chipmaker's support covers the 222 MW TensorWave lease that Fermi needs to close and finance by October 31. A separate framework sketches up to 650 MW more, though none\u2026",
+            "published_at": "2026-10-13T14:23:03+00:00",
+            "url": "https://finnhub.io/api/news?id=a181334ff7170372249db10971c418a49507ca83af277ca34fb9665e89fe8918",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fermi shares surge on AMD credit support deal for Texas AI site",
+            "summary": "Investing.com -- Fermi Inc (NASDAQ:FRMI) shares jumped 13.2% in premarket trading Tuesday after the company announced a credit support agreement with AMD for its Project Matador AI infrastructure development in Carson County, Texas.",
+            "published_at": "2026-10-13T13:22:11+00:00",
+            "url": "https://finnhub.io/api/news?id=b09840dfb4bfd4405d616d65e17f48903134e2ad31fa25a034e94016f0368669",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Discover the top movers in Tuesday's pre-market session.",
+            "summary": "Before the US market kicks off on Tuesday, let's examine the pre-market session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-13T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=34f582720841750b357c95a58b30a91b4374ff2a81f6a01ca694b935e92ad0d8",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fermi (FRMI) Could Be 81% Undervalued As Grid Buildout Remains In Focus",
+            "summary": "Recent Stock Moves Put Fermi Back in Focus Fermi (FRMI) has drawn fresh attention after a sharp pullback, with the share price at $3.25 and declines of about 20% over the past week and roughly 41% over the past month. The recent slide sits on top of a much tougher stretch for investors, with the year-to-date share price return down 63.15% and the 1-year total shareholder return falling 89.17%. This points to fading momentum as the market reassesses Fermi\u2019s risk profile and long-term execution...",
+            "published_at": "2026-10-13T12:15:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7685382632c0cd6778c36c5748428c3453affc64b79a5c62eea558be6e4ccb18",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fermi Signs Credit Support Agreement with AMD and Announces Partnership",
+            "summary": "DALLAS, TX / ACCESS Newswire / October 13, 2026 / (Nasdaq:FRMI)(LSE:FRMI), operating as Fermi America\u2122 (\"Fermi\" or the \"Company\"), today announced that it has signed a credit support agreement with AMD, the high performance and adaptive computing leader, supporting a lease for phase one of Fermi's Project Matador energy and AI buildout in Carson County, Texas, with 222 megawatts (MW) of gross power capacity in line with Fermi's first customer lease as announced on August 10, 2026. The agreement",
+            "published_at": "2026-10-13T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f1c8f0122558ca66c27a3cd631c00c1cdc3aa140d0809a7beaea8b2d9039428d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fermi (FRMI) Stock Looks Overvalued Despite Its 89% One Year Slide",
+            "summary": "Fermi has seen its share price fall sharply in the past year, and that kind of reset naturally raises a question about what investors are now paying for the company\u2019s underlying book value. With the stock changing hands near recent lows, the key issue is how that quoted price lines up against the assets on its balance sheet. Over the past 1 year, Fermi\u2019s share price has declined 89.2%, which puts the focus squarely on whether the current level still reflects the value of its equity base. The...",
+            "published_at": "2026-10-13T11:11:31+00:00",
+            "url": "https://finnhub.io/api/news?id=7549f1481305ae509b7356587456ab39865eed30aa565af3d835e98901a80ffc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bumble, Fermi, Xtend AI Robotics And Other Big Stocks Moving Higher On Tuesday",
+            "summary": "U.S. stocks mostly fell; Bumble surged 56.7% on Ithaca\u2019s $6.05 buyout offer, while Fermi, Enerflex, BigBear.ai and others gained.",
+            "published_at": "2026-10-13T10:12:13+00:00",
+            "url": "https://finnhub.io/api/news?id=122001287ad80ca03a90ceda40cfcca7b69002cdfd2a3218dcd5d0d272e15b2f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Fermi Inks Credit Support Agreement With AMD To Support Lease For Phase 1 Of Its Project Matador Energy And AI Buiildout In Texas",
+            "summary": "Fermi Inc. (Nasdaq:FRMI)(LSE:FRMI), operating as Fermi America\u2122 (&#34;Fermi&#34; or the &#34;Company&#34;), today announced that it has signed a credit support agreement with AMD, the high performance and adaptive",
+            "published_at": "2026-10-13T08:02:21+00:00",
+            "url": "https://finnhub.io/api/news?id=e973c167292b0f2aa3c7598f10d4d431e88396b017c2a899a4c02523c9ea5e18",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 3.72
+    },
+    {
+      "ticker": "PGR",
+      "predicted_return": 0.007089727803760322,
+      "open_price": 206.97,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.816683+00:00",
+        "articles": [
+          {
+            "headline": "These S&P500 stocks that are showing activity before the opening bell on Wednesday.",
+            "summary": "Discover the top S&P500 movers in Wednesday's pre-market session and stay informed about market dynamics.",
+            "published_at": "2026-10-14T12:35:03+00:00",
+            "url": "https://finnhub.io/api/news?id=d272524dd9eed832b6409cf3174d5a9d76eaf844be4f8415322bc887ee686875",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Lessons From GEICO's Lost Battle With Progressive For Berkshire Shareholders",
+            "summary": "Berkshire\u00e2\u0080\u0099s GEICO vs. Progressive: Q2\u00e2\u0080\u009926 profits, market share shifts, and telematics advantage. Read here for a detailed investment analysis.",
+            "published_at": "2026-10-14T09:00:51+00:00",
+            "url": "https://finnhub.io/api/news?id=39bec50702d3b7ba79174d883ed71e1bc2f4817eceb4e35d2ad8c0469e5d9788",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "The Zacks Analyst Blog Highlights Oracle, American Express and The Progressive",
+            "summary": "Oracle, American Express and Progressive face distinct challenges and growth opportunities, from AI-driven cloud expansion and rising card spending to auto insurance pressures.",
+            "published_at": "2026-10-13T09:41:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4bd9fc9e6c47e3c8b63181aef49a9eef935b3c895786c6a6a2741fad49e31e86",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 222.88
+    },
+    {
+      "ticker": "AAOI",
+      "predicted_return": 0.006733356449853781,
+      "open_price": 94.96,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.816876+00:00",
+        "articles": [
+          {
+            "headline": "Applied Optoelectronics Is Up 175% in 2026 and Lumentum Is Up 164%: Take Profits, or Hold On for the Ride?",
+            "summary": "Optical connectivity stocks have handed some investors gains that dwarf the broader market this year, but a 9% pullback in just the past month signals the window for a clean exit may already be closing.",
+            "published_at": "2026-10-13T19:10:47+00:00",
+            "url": "https://finnhub.io/api/news?id=4f227f3daf864a3ebbc982f9360cca4bc3982ebc8c5bab8c2f5aefd48f48190d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Zacks Analyst Blog Highlights Innodata, Calix, Applied Optoelectronics and Palantir Technologies",
+            "summary": "Innodata, Calix and Applied Optoelectronics trade at discounts of over 45% to their 52-week highs, with AI-driven growth and substantial analyst price targets.",
+            "published_at": "2026-10-13T09:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a9e2e5695570f6c9b30a257f9bc7e24e6bdd0515c825df6b75e0681a318b0151",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 97.78
+    },
+    {
+      "ticker": "SSMR",
+      "predicted_return": 0.006447478536825304,
+      "open_price": 13.11,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.817014+00:00",
+        "articles": []
+      },
+      "prev_close": 13.68
+    },
+    {
+      "ticker": "RGC",
+      "predicted_return": 0.005956651176581501,
+      "open_price": 8.2,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.817161+00:00",
+        "articles": []
+      },
+      "prev_close": 8.19
+    },
+    {
+      "ticker": "XE",
+      "predicted_return": 0.005573448836873496,
+      "open_price": 12.245,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.817170+00:00",
+        "articles": []
+      },
+      "prev_close": 12.72
+    },
+    {
+      "ticker": "INIO",
+      "predicted_return": 0.005153696368794883,
+      "open_price": 17.83,
+      "snapshot_date": "2026-10-13",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-14T13:34:31.817281+00:00",
+        "articles": []
+      },
+      "prev_close": 18.31
+    }
+  ],
+  "scored_count": 1964,
+  "skipped": [
+    {
+      "ticker": "JPM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JNJ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "C",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FAST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DPZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBSH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HOMB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAFD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 10.658333908129146
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 9.142395459421671
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 7.059343094032237
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-13",
+    "model_trained_through": "2026-10-13",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-13, model trained through 2026-10-13 -- ready for this morning's opens."
+  }
+}

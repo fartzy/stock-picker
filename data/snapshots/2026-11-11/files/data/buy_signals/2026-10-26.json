@@ -1,0 +1,716 @@
+{
+  "as_of": "2026-10-26",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "QH",
+      "predicted_return": 0.017455959825294298,
+      "open_price": 2.83,
+      "snapshot_date": "2026-10-23",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:24.379908+00:00",
+        "articles": [
+          {
+            "headline": "12 Industrials Stocks Moving In Friday's After-Market Session",
+            "summary": "Gainers\n\nGreenPower Motor (NASDAQ:GP) shares moved upwards by 11.7% to $1.62 during Friday&#39;s after-market session. The market value of their outstanding shares is at $3.2 million. \nProfessional Diversity",
+            "published_at": "2026-10-23T17:05:47+00:00",
+            "url": "https://finnhub.io/api/news?id=f562c9639e5180b8e05f4a0f87bdae06304994915aac801c0e7dcd17d3d07cf0",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 2.89,
+      "jev": null
+    },
+    {
+      "ticker": "AKO-B",
+      "predicted_return": 0.014149765547396723,
+      "open_price": 28.89,
+      "snapshot_date": "2026-10-23",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:24.380755+00:00",
+        "articles": []
+      },
+      "prev_close": 31.0726,
+      "jev": null
+    },
+    {
+      "ticker": "MOG-B",
+      "predicted_return": 0.00961453754309714,
+      "open_price": 327.76,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:24.380638+00:00",
+        "articles": [
+          {
+            "headline": "Moog (MOG.A) Stock May Be Fully Priced After Strong Q2 Earnings",
+            "summary": "Moog has delivered a powerful multi year run, even after a recent pullback, which puts a spotlight on a simple question for anyone looking at the stock today. Do the current earnings of this aerospace and defense supplier do enough to support where the share price now sits? Over the past 5 years, Moog has returned about 370.7%, which makes the link between its share price and its earnings power especially important for new money considering the stock. Recent strong earnings and higher profit...",
+            "published_at": "2026-10-25T07:10:27+00:00",
+            "url": "https://finnhub.io/api/news?id=f47306a3df419861e93c56e890007ebc41df278123138206b68c7f2c04268bf3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 335.16,
+      "jev": null
+    },
+    {
+      "ticker": "MELI",
+      "predicted_return": 0.008370188667198696,
+      "open_price": 1578.245,
+      "snapshot_date": "2026-10-23",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:24.380313+00:00",
+        "articles": [
+          {
+            "headline": "U.S.-listed Brazilian shares slump after shock Lula election win",
+            "summary": "Investing.com -- U.S.-listed shares of Brazilian companies tumbled in premarket trading Monday, a day after President Luiz In\u00e1cio Lula da Silva pulled off a surprise win to secure a historic fourth term in office.",
+            "published_at": "2026-10-26T09:38:16+00:00",
+            "url": "https://finnhub.io/api/news?id=5f690094349b7a1cc818a3d31c78531510290742d14aa19df4d0234c3b22f6e1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Brazil Stocks Dive As President Lula Wins Re-Election",
+            "summary": "Brazil stocks are diving as President Luiz In\u00e1cio Lula da Silva appears to have narrowly won re-election in Sunday's runoff vote vs. Fl\u00e1vio Bolsonaro.",
+            "published_at": "2026-10-26T01:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=94d0d4a0f98bc7ee0081ad53b7b07627cf1ab9c333ee2ff66d16a8ce722902d6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Corporacion Inmobiliaria Vesta (VTMX) Said on Its Q3 Earnings Call",
+            "summary": "Corporacion Inmobiliaria Vesta (NYSE:VTMX) reported record new leasing activity in the third quarter of 2026, higher occupancy and double-digit growth in rental revenue, prompting the Mexican industrial real estate company to raise its full-year outlook. Chief Executive Officer Lorenzo Dominique Be",
+            "published_at": "2026-10-23T18:04:55+00:00",
+            "url": "https://finnhub.io/api/news?id=7939f5d16908128616e24abe082666567e4cd0cdad350d7fd82d0626dece9a31",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Breakfast News: Week in Review",
+            "summary": "Meta, SpaceX, and Tesla posted strong revenue but are spending heavily on AI infrastructure with uncertain cash flow outcomes. Walmart opened AI shopping to approved agents while Amazon blocked them. Salesforce acquired Braze for a 58% premium but analysts expect modest returns. Netflix and Intuitive Surgical face pricing power challenges. Old-economy companies like Cisco, Corning, and EQT benefit from AI buildout demand.",
+            "published_at": "2026-10-23T11:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/10/23/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          }
+        ]
+      },
+      "prev_close": 1810.15,
+      "jev": null
+    },
+    {
+      "ticker": "CBRS",
+      "predicted_return": 0.006709486809410126,
+      "open_price": 110.395,
+      "snapshot_date": "2026-10-23",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:46.947193+00:00",
+        "articles": [
+          {
+            "headline": "The AI Selloff Is Close To A Bottom: I'm Buying It",
+            "summary": "",
+            "published_at": "2026-10-26T09:06:42+00:00",
+            "url": "https://finnhub.io/api/news?id=2233b9d1d7aa9ea4fc1cc3c676e2d5acb06e9b02e37b27eab3f8c672f247172d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Prediction: 2 Stocks That Will Be Worth More Than AMD 5 Years From Now",
+            "summary": "Cerebras and Marvell are chasing AI growth in very different ways. Here's how each could challenge AMD, and the risks investors should weigh.",
+            "published_at": "2026-10-25T23:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=dba82bbe2aed4b0a569ca32d104978f8aaab5d0c46b60f7e4a85b9267bce8399",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top 3 Insider Owned Growth Stocks To Watch In October 2026",
+            "summary": "Interest rate policy is back in the spotlight, with the Federal Reserve widely expected to hold rates steady after a September hike while keeping the door open to another move in December. That sort of pause gives fast growing businesses more room to prove themselves before borrowing costs potentially climb again. This article highlights three fast expanding companies where insiders hold meaningful stakes and their fortunes are closely tied to shareholders. The three stocks highlighted here...",
+            "published_at": "2026-10-25T12:12:05+00:00",
+            "url": "https://finnhub.io/api/news?id=c20d8623e676c08908aa103bdb7abdcdfed514404a15db439411cb75634666f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "5 Oversold AI Stocks: Where Wall Street Analysts Are Spotting 50%+ Upside",
+            "summary": "The AI selloff has opened a wide gap between share prices and Wall Street\u2019s expectations. Some of the stocks below have lost nearly half their value in 30 days, while their average analyst targets still imply gains well above 50%. It sounds like an opportunity but can also mean the market has moved faster than [\u2026]",
+            "published_at": "2026-10-24T19:59:56+00:00",
+            "url": "https://finnhub.io/api/news?id=7f71945ef7fc46c39e19e414a977f3be5a2f2bb0b8df2e21a669bab8b6a728f1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The AI Trade Is Shifting From Chip Stocks to Cybersecurity",
+            "summary": "Software leaders got a big boost this week and chip stocks were crushed as the AI tech investing landscape continues to shift.",
+            "published_at": "2026-10-24T15:44:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d4aa1fdb87fa617cd5442d66bc81831f65efa6dc2f9d8e5975f85eca1fa19551",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AAOI vs. CBRS: Which AI Infrastructure Stock Has an Edge Now?",
+            "summary": "Applied Optoelectronics holds an edge over Cerebras in the AI infrastructure race, backed by surging optical demand, capacity expansion, and a stronger earnings outlook.",
+            "published_at": "2026-10-23T16:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6b3221ebfbe2ae77a789fcccb5554d1e2ea57ca43f606039bb370dcf9fe864cc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Magnificent AI Chip Stocks That Could Help Set You Up for Life",
+            "summary": "These three AI chip leaders have competitive advantages that could keep paying off for decades.",
+            "published_at": "2026-10-23T16:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9277118bcf4c0e7ed3fc38e27c469b17bc40133f333bfe598d8a21d5de4972c7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 110.82,
+      "jev": null
+    },
+    {
+      "ticker": "NU",
+      "predicted_return": 0.006422731194118374,
+      "open_price": 11.69,
+      "snapshot_date": "2026-10-23",
+      "news_flag": "Brazil election shock: Lula win sinks NU and Brazilian stocks",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Brazil election shock: Lula win sinks NU and Brazilian stocks",
+        "article_count": 15,
+        "reviewed_count": 15,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:46.947503+00:00",
+        "articles": [
+          {
+            "headline": "This Week In Digital Payment - AI Revolutionizes Global Commerce Transforming The Payment Landscape",
+            "summary": "The digital payments sector is undergoing significant transformation due to the increasing integration of artificial intelligence (AI). A recent report highlights that AI is reshaping global digital commerce by enhancing automation, improving fraud prevention, and enabling personalized experiences in E-Commerce. As global adoption progresses, regions that invest in digital infrastructure and coordinated governance are expected to lead in scaling AI-driven commerce. Despite the potential for...",
+            "published_at": "2026-10-26T12:38:19+00:00",
+            "url": "https://finnhub.io/api/news?id=5d16816a6425461c323ab6aa85c96084d5d4c4627fd6d8cff2c9ca902315898a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lula Staged an Unexpected Comeback in Brazil's Presidential Elections. Its Markets Are Plunging.",
+            "summary": "Lula's opponent, Fl\u00e1vio Bolsonaro, is reportedly refusing to concede defeat and could stage a legal challenge of the results.",
+            "published_at": "2026-10-26T12:09:58+00:00",
+            "url": "https://finnhub.io/api/news?id=69048e64210d81fae08f824a2339409c5a659cb22c0e5c3c6e1b3f9b7a7f566e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Brazilian stocks plunge after Lula's surprising election victory",
+            "summary": "Brazilian stocks plunged premarket on Monday after the country's surprising runoff election results reversed a rally earlier this month in Brazilian assets.",
+            "published_at": "2026-10-26T11:43:25+00:00",
+            "url": "https://finnhub.io/api/news?id=0c5cd39e0b7de8e7bc4279f2d37ac007b8b239ff6a38edf59502bb396e3e222f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "XP and Ambev Stocks Slump. Brazil\u2019s Path Is Unworkable After Shock Election Win.",
+            "summary": "Shares of Brazilian companies plummet after leftist President Lula\u2019s surprise victory in Sunday\u2019s runoff election.",
+            "published_at": "2026-10-26T11:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=de55466487204a09548181c0549b603c2b6e9938f6e7c21e3f6fea0879deacd9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nu Holdings Sinks 22% on Lula\u2019s Win: \u201cThe Market Was Completely Unprepared\u201d",
+            "summary": "Nu Holdings (NU:NYSE) shares are down about 22% in pre-market trading (around $11. 77) after Luiz In\u00e1cio Lula da Silva won Brazil\u2019s presidential runoff on Sunday, beating Fl\u00e1vio Bolsonaro 51.",
+            "published_at": "2026-10-26T09:45:30+00:00",
+            "url": "https://finnhub.io/api/news?id=0772baa8cbcda9f1001328d22e5ab28ad5d9d5d9caa3f5e7a4909ef1b345a831",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Investors Are Reacting To Nu (NU) Brazil Election Uncertainty",
+            "summary": "Nu Holdings confirmed that Chief Technology Officer Eric Young resigned earlier in October 2026, with Founder and CEO David V\u00e9lez temporarily overseeing global platforms alongside interim co-lead John Walton while a permanent successor is sought. The leadership change in technology arrives just as Nu Holdings faces fresh political uncertainty in Brazil, putting extra focus on execution, platform resilience, and how well its low cost digital model can absorb potential swings in funding...",
+            "published_at": "2026-10-26T03:08:36+00:00",
+            "url": "https://finnhub.io/api/news?id=e72e644efb7fc077cf87f85cf406cadd17da883bee05792022c1bc6b5eb7bc1c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nu Holdings (NU) Faces Political And Leadership Questions, Does It Look Fairly Valued?",
+            "summary": "Election shock and leadership change put Nu Holdings in focus Nu Holdings (NYSE:NU) is under fresh scrutiny after a Brazilian election result sparked a double digit overnight drop in the stock, just as the fintech disclosed a pending chief technology officer departure. Over the past month, Nu Holdings has seen an 11.55% share price return and a 4.12% gain over seven days, even though the year to date share price return is down 10.93% and the one year total shareholder return has declined...",
+            "published_at": "2026-10-26T02:07:48+00:00",
+            "url": "https://finnhub.io/api/news?id=a1a5d3c25d463161f8dd1c1e52f3eed718d315e8877e9490ec0b152ffd8efca6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is NU Stock Plunging Nearly 12% Overnight?",
+            "summary": "Leftist President Luiz Inacio Lula da Silva defeated right-wing Senator Flavio Bolsonaro in the Brazilian elections in a surprising turn of events.",
+            "published_at": "2026-10-26T01:11:01+00:00",
+            "url": "https://finnhub.io/api/news?id=9e2ba4f181f18e7f679142e1bc75d3dc214dd1b7a5d43615516d5b20fc4ad5a4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nu Holdings Earned More Than $1 Billion in a Quarter for the First Time. Now It's Launching in the U.S.",
+            "summary": "The company's rapid growth has created a scaled banking powerhouse.",
+            "published_at": "2026-10-25T20:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=258201adb2876be636a8b65bf537b372631f8216af45141cda12cb2a6ccf241f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nu Holdings Ltd. Announces Resignation of Chief Technology Officer Eric Young Effective November 12, 2026",
+            "summary": "",
+            "published_at": "2026-10-23T23:22:55+00:00",
+            "url": "https://finnhub.io/api/news?id=3d7d8227709088f849e4b898e162e99bc8fc394edff5d5214ad885e122fbff5c",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Notice to Market: Nu Holdings Ltd.",
+            "summary": "GRAND CAYMAN, Cayman Islands, October 23, 2026--Nu Holdings Ltd. (NYSE: NU) (\"Nu\" or the \"Company\"), one of the world\u2019s largest digital banking platforms, announced that Eric Young, its Chief Technology Officer, has decided to resign to pursue a new professional opportunity. Mr. Young is expected to remain with the Company until November 12, 2026 to support an orderly transition.",
+            "published_at": "2026-10-23T21:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=45322972c80012aba4d7d148efe5dc0363353dfee28596ed3308f569cb85983c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 cash-burning stocks for long-term investors and 1 we turn down",
+            "summary": "While some companies burn cash to fuel expansion, others struggle to turn spending into sustainable growth. A high cash burn rate without a strong balance sheet can leave investors exposed to significant downside.",
+            "published_at": "2026-10-23T18:00:39+00:00",
+            "url": "https://finnhub.io/api/news?id=2db2ba3a641311af61971adaf57a9cbe51ecc8386c23d3689cd992ae43fb6a78",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Most Active US Stocks: Oct. 23, 2026 Volume Leaders",
+            "summary": "GPUS, XXII, SHFS, LUCD and RIME led US share turnover on Oct. 23, 2026, with volume spikes and price moves ranging from sharp gains to steep declines.",
+            "published_at": "2026-10-23T18:00:23+00:00",
+            "url": "https://finnhub.io/api/news?id=3d3536431541015d520dea8ffffb87bd6be6c2bc049910b28c75f0d686cb2e89",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "10 Financials Stocks With Whale Alerts In Today\u2019s Session",
+            "summary": "This whale alert can help traders discover the next big trading opportunities.\nWhales are entities with large sums of money and we track their transactions here at Benzinga on our options activity scanner.\nTraders often",
+            "published_at": "2026-10-23T13:35:10+00:00",
+            "url": "https://finnhub.io/api/news?id=ada0e7b4704da7cfd5b39db73ef010e6ca86715d9a09c3157ee07503b1a9e938",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "ERock And 2 Other High Growth Stocks",
+            "summary": "Oil just pushed above $114 a barrel as conflict risks in the Middle East disrupt supply routes and push investors toward safer assets. Growth stories with clearer earnings drivers suddenly look more attractive when headlines swing between energy shocks and tech volatility. This article highlights three high conviction, high growth stocks that analysts and management teams both back, helping you focus on businesses with ambitious plans and confident outlooks. The stocks covered next are only a...",
+            "published_at": "2026-10-23T09:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=64d08ab72e1724789e1eb8f5bf1af92b874ecc0337814196083838c9ffce7255",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 15.16,
+      "jev": null
+    },
+    {
+      "ticker": "CIFR",
+      "predicted_return": 0.006288520383834061,
+      "open_price": 7.68,
+      "snapshot_date": "2026-10-23",
+      "news_flag": "$850 million zero-coupon convertible note sale",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "$850 million zero-coupon convertible note sale",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:46.948044+00:00",
+        "articles": [
+          {
+            "headline": "Cipher Digital Slides 30% After Zero-Coupon Note Sale Despite $9 Billion Barber Lake Backlog",
+            "summary": "Key TakeawaysCipher Digital closed at $7. 94 on October 23, down 30% from its October 13 close, the day before it priced $850 million of zero-coupon convertible notes.",
+            "published_at": "2026-10-25T13:06:49+00:00",
+            "url": "https://finnhub.io/api/news?id=611c48cfb065cff2ea213093c7fae39b502d098c36b691708e45b84cfdf06523",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Applied Digital Just Dropped 31% in a Month: Is It Time to Sell, or Load Up?",
+            "summary": "Key TakeawaysApplied Digital fell 31% in the past month as bets on a US rate hike hit debt-heavy AI data center builders, with Cipher Digital down 52% and CoreWeave down 24% over the same stretch. The slide came right after a quarter where revenue jumped 322%, and the drop looks like a chance to buy slowly.",
+            "published_at": "2026-10-23T18:11:39+00:00",
+            "url": "https://finnhub.io/api/news?id=e5939b19798fc17c6dca961bc94a77a2a9727741510eb3ba4faa845aea14bea9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Rises 4% on 300MW Spanish \u201cSovereign AI\u201d Campus as Neocloud Stocks Rebound",
+            "summary": "Key TakeawaysIREN shares rose 4% today after it set up IREN Europe and licensed a planned 300MW AI data center in Spain, as Applied Digital, Cipher Digital, Riot Platforms and MARA Holdings also rose. The Badajoz campus gives IREN a real second market, but it adds optionality more than near-term revenue.",
+            "published_at": "2026-10-23T17:20:37+00:00",
+            "url": "https://finnhub.io/api/news?id=37913b7bac0f28ac3efc416d69cb6e209a9a2448cc3593330bee2bc3b2640df0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Long Can Cipher Keep Burning Cash?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-23T16:08:31+00:00",
+            "url": "https://finnhub.io/api/news?id=9be5d0224e38e5652d6c3599bd2eb21f152c39b9abe23b43db6c3f5d5eff6dc7",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 7.94,
+      "jev": null
+    },
+    {
+      "ticker": "DLO",
+      "predicted_return": 0.006157482960120222,
+      "open_price": 13.8,
+      "snapshot_date": "2026-10-23",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-26T13:35:46.949419+00:00",
+        "articles": [
+          {
+            "headline": "Truist Securities Maintains Buy on DLocal, Lowers Price Target to $17",
+            "summary": "Truist Securities  analyst Matthew Coad   maintains DLocal (NASDAQ:DLO) with a Buy and lowers the price target from $18 to $17.",
+            "published_at": "2026-10-23T13:59:44+00:00",
+            "url": "https://finnhub.io/api/news?id=ee9314049f59f9cb8b7663ea238f47d9d08df0751c7a1079cfcc85fb2d6df95a",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 15.06,
+      "jev": null
+    }
+  ],
+  "scored_count": 1934,
+  "skipped": [
+    {
+      "ticker": "AXP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WELL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CDNS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NUE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HIG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CINF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PFG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SCCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCNCA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SUI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EDU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RMBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SSD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KNSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MKTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RITM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BCPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MMYT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DORM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FHB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AGYS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BOH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HWKN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NWBI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HYMC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTOS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 11.322231516208522
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 8.769333073585175
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 8.466007243918025
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-23",
+    "model_trained_through": "2026-10-23",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  }
+}

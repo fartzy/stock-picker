@@ -1,0 +1,100 @@
+{
+  "as_of": "2026-09-25",
+  "kind": "fit",
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "TDTH",
+      "predicted_return": 0.05754285193835574,
+      "open_price": 1.8,
+      "snapshot_date": "2026-09-24",
+      "news_flag": null,
+      "prev_close": 1.91,
+      "news_blocks": false
+    },
+    {
+      "ticker": "XNDU",
+      "predicted_return": 0.01345811056765742,
+      "open_price": 5.06,
+      "snapshot_date": "2026-09-24",
+      "news_flag": null,
+      "prev_close": 5.1,
+      "news_blocks": false
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.007294691942362214,
+      "open_price": 195.345,
+      "snapshot_date": "2026-09-24",
+      "news_flag": null,
+      "prev_close": 194.82,
+      "news_blocks": false
+    },
+    {
+      "ticker": "TWLO",
+      "predicted_return": 0.006181363756362036,
+      "open_price": 286.68,
+      "snapshot_date": "2026-09-24",
+      "news_flag": null,
+      "prev_close": 299.66,
+      "news_blocks": false
+    }
+  ],
+  "scored_count": 1990,
+  "skipped": [
+    {
+      "ticker": "COST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SNX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BXMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 11.971839286797515
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 11.297801540082379
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 8.568119491062395
+    }
+  ]
+}

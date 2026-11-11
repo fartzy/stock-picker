@@ -1,0 +1,1045 @@
+{
+  "as_of": "2026-10-08",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "ALM",
+      "predicted_return": 0.2425352528198881,
+      "open_price": 11.8,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.452427+00:00",
+        "articles": [
+          {
+            "headline": "Almonty: The Market Is Pricing A Tungsten Crash That Hasn't Come",
+            "summary": "Almonty's Korean mine just started; Phase II was approved, and the buyback is running, yet the stock sits near half its high. Learn why ALM stock is a buy.",
+            "published_at": "2026-10-08T07:48:14+00:00",
+            "url": "https://finnhub.io/api/news?id=fa4510f0074787a85c5344b9d1d20dbab301fe20a7ca85624264da51335a441b",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Almonty Industries Inc. (ALM) Presents at 20th International Investment Forum (IIF) Transcript",
+            "summary": "Almonty Industries Inc. (ALM) 20th International Investment Forum (IIF) October 7, 2026 10:00 AM EDTCompany ParticipantsM.",
+            "published_at": "2026-10-07T12:22:45+00:00",
+            "url": "https://finnhub.io/api/news?id=b711971a463da0d1ab9d2aeb6f73ca09f3426dc649fe48e0d6c4a540e903f9e0",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 12.1
+    },
+    {
+      "ticker": "LGN",
+      "predicted_return": 0.2275948458647999,
+      "open_price": 52.21,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.452823+00:00",
+        "articles": []
+      },
+      "prev_close": 53.35
+    },
+    {
+      "ticker": "PURR",
+      "predicted_return": 0.22206246156563605,
+      "open_price": 11.41,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.452908+00:00",
+        "articles": [
+          {
+            "headline": "Robinhood Joins Strategy, Tesla In Holding Bitcoin, Exec Says: 'We Care Deeply About Bitcoin'",
+            "summary": "Robinhood buys $25 million in Bitcoin as it expands into crypto perpetuals, tokenized stocks and blockchain infrastructure.",
+            "published_at": "2026-10-07T09:17:57+00:00",
+            "url": "https://finnhub.io/api/news?id=bb580a4df700d6a8d6fbb48c814780138cdc82f696e4c7be5287315a99bd95fc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "How Investing in This 1 Cryptocurrency Could Make You a Millionaire",
+            "summary": "Venice Token (VVV) has surged 1,700% in 2026 and ranks 55th among cryptocurrencies with a $1.4 billion market cap. The token provides access to Venice, a privacy-focused AI platform generating $100 million in annual revenue. While theoretically a $1,000 investment could reach $1 million in three years at current growth rates, the author cautions that sustaining 1,000% annual growth is unlikely, noting that other hyped AI cryptos like Virtuals Protocol have crashed significantly after initial rallies.",
+            "published_at": "2026-10-07T05:30:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/07/how-investing-in-this-1-cryptocurrency-could-make/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          }
+        ]
+      },
+      "prev_close": 11.73
+    },
+    {
+      "ticker": "MT",
+      "predicted_return": 0.21212283511424482,
+      "open_price": 60.85,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "$1B Ukraine impairment after missile strikes and plant disruption",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "$1B Ukraine impairment after missile strikes and plant disruption",
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:00.453071+00:00",
+        "articles": [
+          {
+            "headline": "What Does ArcelorMittal (ENXTAM:MT) $1 Billion Ukraine Impairment Mean For Investors?",
+            "summary": "ArcelorMittal (ENXTAM:MT) reported ongoing missile strikes on its ArcelorMittal Kryvyi Rih site in Ukraine, causing fatalities and injuries among workers. The company disclosed extensive damage to production facilities at Kryvyi Rih following recent attacks, with operations disrupted across multiple areas of the plant. Management now expects a non cash impairment of about US$1b linked to the Ukrainian operations, reflecting the reduced carrying value of affected assets. The missile strikes...",
+            "published_at": "2026-10-07T21:11:29+00:00",
+            "url": "https://finnhub.io/api/news?id=79585e9bcb502fb7b2c086a59a3c2cdae9cdee4b9797ce471f0dcf5f35a468d4",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 62.32
+    },
+    {
+      "ticker": "ON",
+      "predicted_return": 0.21147319514784346,
+      "open_price": 80.47,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-08T13:35:20.226386+00:00",
+        "articles": [
+          {
+            "headline": "1 Large-Cap Stock with Impressive Fundamentals and 2 We Find Risky",
+            "summary": "Large-cap stocks usually command their industries because they have the scale to drive market trends. The flip side though is that their sheer size can limit growth as expanding further becomes an increasingly challenging task.",
+            "published_at": "2026-10-08T11:36:09+00:00",
+            "url": "https://finnhub.io/api/news?id=5e26983955a0a8f7bfd04f5e3285c86efa0253b7f085424e934795cb66a5e360",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Growth Tech Stocks Retail Investors May Revisit After Softer Fed Minutes",
+            "summary": "Fed minutes now point to a gentler path for rate hikes, and that can quickly reshuffle which U.S. growth and technology stocks investors pay attention to and which get ignored. When money is not bracing for a rapid tightening cycle, sentiment often swings fast toward companies that are more sensitive to rate expectations. This article breaks down 3 stocks from the screener that appear particularly exposed to this news backdrop. The three stocks covered below are only a small sample from this...",
+            "published_at": "2026-10-07T23:18:43+00:00",
+            "url": "https://finnhub.io/api/news?id=ee0eb2d5a70c0b8755d0ce7c89f5eae855b3dc83996c2eef925192b1a06f917a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "onsemi, Sensata Technologies, Texas Instruments, Allegro MicroSystems, and Power Integrations Shares Are Falling, What You Need To Know",
+            "summary": "A number of stocks fell in the afternoon session after surging 10-year Treasury yields heightened borrowing cost concerns after the Federal Reserve\u2019s September meeting minutes showed most officials expect another rate increase this year. CNBC reported that the 10-year Treasury yield climbed back above 5.3% on Wednesday and earlier touched its highest level since 2002. The minutes, released Wednesday, said most participants judged that another increase in the federal funds rate would likely be ap",
+            "published_at": "2026-10-07T22:24:47+00:00",
+            "url": "https://finnhub.io/api/news?id=4925dc67372ad47d815d096cd2c60f0a491c2e07dad8aebfffc1c84b64388523",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Does Monolithic Power Systems Stock's Valuation Make Sense?",
+            "summary": "The stock of Monolithic Power Systems (MPWR) currently trades at 90.5 times its earnings over the past twelve months, a steep premium compared to its own three-year average of 59.7. While the underlying business is expanding rapidly, investors buying at this multiple are paying upfront for profit the company has not yet generated. So how fast would Monolithic Power Systems have to grow for today's price to hold.",
+            "published_at": "2026-10-07T20:54:55+00:00",
+            "url": "https://finnhub.io/api/news?id=0249e534a055b7ad9896083d1ce104fcb7f58f4dd758865e2358ec73704b72ff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wednesday's session: top gainers and losers in the S&P500 index",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Wednesday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-07T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=683287b687d95e857a785c1de492dffd35b70d6ff8db3972eb817f9a09d627d2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Why CVS Is \u2018Insanely Cheap,\u2019 ON Semi a Laggard Catching Up, and Grail Too Expensive to Chase",
+            "summary": "Jim Cramer sees three stocks with very different amounts of bad news or good news already baked into their prices, and figuring out which side each sits on changes everything about whether to buy.",
+            "published_at": "2026-10-07T13:35:32+00:00",
+            "url": "https://finnhub.io/api/news?id=e9acf9ce9707b19a8760e5b0dc0dd953c06cf6966b99ff580ad622d1ff5f75fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can NVTS' Acquisition of Claros Accelerate Its AI Growth Strategy?",
+            "summary": "Navitas Semiconductor's Claros acquisition adds IVR technology, strengthening its grid-to-xPU power portfolio and supporting its AI infrastructure strategy.",
+            "published_at": "2026-10-07T12:56:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8e369a94d132066f8b382490913bdd5ef1e324e4a8f6105b7a89c8795e305bcf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ON Semiconductor Corporation (ON) is Attracting Investor Attention: Here is What You Should Know",
+            "summary": "Zacks.com users have recently been watching ON Semiconductor Corp. (ON) quite a bit. Thus, it is worth knowing the facts that could determine the stock's prospects.",
+            "published_at": "2026-10-07T12:00:03+00:00",
+            "url": "https://finnhub.io/api/news?id=4959f6429753ebda678353c2b01044c336ee5b45fedb7e506837741fa02462b6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Synaptics: The Revised Onsemi Deal Is A Lot More Attractive Than Before",
+            "summary": "Synaptics\u00e2\u0080\u0099 $123/share all-cash acquisition by onsemi replaces a stock offer, cutting volatility risk. Read here for more on SYNA stock.",
+            "published_at": "2026-10-07T10:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=776b8e9b397e9428b4fd2fdb0bb8c946eef106cdc991e4a47ba8b494a46ec25d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Forget Nvidia and AMD, This Under-the-Radar Chip Stock Could Win the AI Semiconductor Race",
+            "summary": "This company's relatively heavier exposure to physical AI makes it a more attractive long-term buy than better-known AI plays.",
+            "published_at": "2026-10-07T10:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bedf5b89def7fd79ce6d6b49b5dcb9dc38dc2baa36a0f659d3ed70b82f05dd64",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Power IC Market Size, Share, Growth Trends, and Global Forecast, 2021 - 2034 | EVs, AI Data Centers, and GaN/SiC Drive a US$ 21.58 Billion Opportunity",
+            "summary": "The global Power IC market was valued at US$ 11.66 billion in 2025 and is projected to reach US$ 21.58 billion by 2034, growing at a CAGR of 7.4%. Growth is driven by rising demand for efficient power management in consumer electronics, automotive systems, industrial automation, renewable energy, and data centers. Asia Pacific dominates the market, with North America and Europe generating growth through investments in automotive electronics, data centers, and renewable energy systems. Wide bandgap semiconductor technologies like silicon carbide and gallium nitride are enabling next-generation applications.",
+            "published_at": "2026-10-07T08:42:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/07/3376248/28124/en/power-ic-market-size-share-growth-trends-and-global-forecast-2021-2034-evs-ai-data-centers-and-gan-sic-drive-a-us-21-58-billion-opportunity.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Global Power Discrete Market Size, Share, Trends, and Forecast (2021 - 2034) | Market to Reach US$ 24.46 Billion at 6.4% CAGR, Fueled by SiC, GaN, EVs, and Data Centers",
+            "summary": "The global Power Discrete market is valued at US$ 14.30 billion in 2025 and is projected to reach US$ 24.46 billion by 2034, growing at a CAGR of 6.4%. Growth is driven by increasing demand for energy-efficient power management technologies across consumer electronics, automotive systems, industrial equipment, renewable energy, and data centers. Asia Pacific dominates the market, followed by North America and Europe. Key trends include the transition to SiC and GaN semiconductor technologies enabling higher efficiency and performance in EVs, 5G devices, and industrial automation.",
+            "published_at": "2026-10-07T08:41:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/07/3376247/28124/en/global-power-discrete-market-size-share-trends-and-forecast-2021-2034-market-to-reach-us-24-46-billion-at-6-4-cagr-fueled-by-sic-gan-evs-and-data-centers.html",
+            "source": "GlobeNewswire Inc."
+          }
+        ]
+      },
+      "prev_close": 82.51
+    },
+    {
+      "ticker": "ASST",
+      "predicted_return": 0.21099743304589058,
+      "open_price": 27.7,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "Strive $169M Bitcoin purchase",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Strive $169M Bitcoin purchase",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.227015+00:00",
+        "articles": [
+          {
+            "headline": "CHAD: The 14% Crypto Preferred With A Different Yield Engine",
+            "summary": "CHAD\u00e2\u0080\u0099s yield is supported by Solana validator rewards, treasury growth, and potential SOL appreciation. Read more on CHAD stock here.",
+            "published_at": "2026-10-08T06:50:08+00:00",
+            "url": "https://finnhub.io/api/news?id=f2d26d4bb7e9bcb2068ff0d4a89c1f1cb35a7c10518e330aae3a2daa823ccc00",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Cathie Wood Says Bitcoin Is Beating Gold as Strive\u2019s $169M Spree Outpaces Strategy",
+            "summary": "Strive bought 2,000 BTC for nearly $169 million, almost six times Strategy\u2019s latest disclosed purchase. Bitcoin per effective common share increased approximately 3.8%, after accounting ...",
+            "published_at": "2026-10-07T13:22:15+00:00",
+            "url": "https://finnhub.io/api/news?id=ffd4c005ae2692dba25283756a7165c17b3ddf1501179766e0c2850cb079f66d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 28.185
+    },
+    {
+      "ticker": "UUUU",
+      "predicted_return": 0.21056601648034107,
+      "open_price": 10.04,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.227858+00:00",
+        "articles": [
+          {
+            "headline": "Uranium Stocks Keep Sliding Even as U.S. Producers\u2019 Revenue Growth Accelerates",
+            "summary": "Uranium stocks fall sharply despite strong revenue growth, with producers like Energy Fuels and Encore Energy showing a widening price-to-fundamentals gap.",
+            "published_at": "2026-10-08T12:35:53+00:00",
+            "url": "https://finnhub.io/api/news?id=e6b464ff6f9b0f3b11509314fa28e2fed42ba88cb481bb75597bce6d751962a7",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Energy Fuels (UUUU) Sees a More Significant Dip Than Broader Market: Some Facts to Know",
+            "summary": "Energy Fuels (UUUU) closed at $10.33 in the latest trading session, marking a -8.24% move from the prior day.",
+            "published_at": "2026-10-07T20:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=3054a44d93081b9ec3b3a96cd239a4ccda7c8f02f34928f5a08be990029c2723",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Energy Fuels Falls 9% as Uranium and Reactor Names Sell Off Together; Oklo and Centrus Energy Drop 5%",
+            "summary": "Uranium miners and advanced reactor stocks are dropping together in a single coordinated selloff, and one name is falling nearly twice as hard as the rest of the group, raising questions about whether the nuclear trade is fracturing at its weakest point.",
+            "published_at": "2026-10-07T18:02:20+00:00",
+            "url": "https://finnhub.io/api/news?id=9896797e6dd9872ba7e1b7b85628400860e834ac58cb3c8d72ef915e3ef88310",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Energy Fuels' Liquidity Support Its Ambitious Growth Plans?",
+            "summary": "UUUU is boosting uranium and rare earth growth investments while improving operating cash burn, but spending remains elevated.",
+            "published_at": "2026-10-07T15:56:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c4e6fc2105530daf19d138e9ffe9919a799b377aed6d21d102dd67d16c75c8b6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 10.26
+    },
+    {
+      "ticker": "CNH",
+      "predicted_return": 0.2101785359611897,
+      "open_price": 12.15,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "FTC and USDA open inquiry into farm equipment practices, hitting CNH and peers",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "FTC and USDA open inquiry into farm equipment practices, hitting CNH and peers",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.224861+00:00",
+        "articles": [
+          {
+            "headline": "DE, CNH, CAT, AGCO Stocks Slump - FTC, USDA Inquiry Puts Farm Equipment Market Practices In Focus",
+            "summary": "The FTC and USDA have opened an inquiry on possible barriers to buying, servicing and repairing agricultural equipment.",
+            "published_at": "2026-10-07T17:07:08+00:00",
+            "url": "https://finnhub.io/api/news?id=cde3f2f76ff8bc450e6f14a9c55d66ca60b4f15ce42ef1ab2639cecb65167f02",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Deere, peer stocks slide as FTC and USDA launch agricultural equipment inquiry",
+            "summary": "Investing.com -- Shares of the country\u2019s biggest agricultural machinery manufacturers took a hit on Wednesday after federal regulators announced a broad investigation into the industry\u2019s business practices.",
+            "published_at": "2026-10-07T15:37:10+00:00",
+            "url": "https://finnhub.io/api/news?id=930f9698e6366d6ceded2246dca5a2facc99515bdda07a4e361a397708ae15b3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 12.46
+    },
+    {
+      "ticker": "OUST",
+      "predicted_return": 0.20989587513559385,
+      "open_price": 40.425,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:26.088280+00:00",
+        "articles": [
+          {
+            "headline": "AVerMedia and Stereolabs Accelerate AI Vision Deployment with NVIDIA JetPack 7.2",
+            "summary": "TAIPEI, Taiwan & PARIS, October 07, 2026--AVerMedia Technologies, Inc. and Stereolabs, an Ouster company, today announced NVIDIA JetPack 7.2 support across all Stereolabs ZED X GMSL cameras and AVerMedia\u2019s NVIDIA Jetson carrier boards, offering robotics and edge AI developers a faster and more efficient path from development to production.",
+            "published_at": "2026-10-07T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=775a10a7155353c13fca08af2b4bcc6f5ada7dc8daf2c7127883af971a604563",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 41.67
+    },
+    {
+      "ticker": "SHAZ",
+      "predicted_return": 0.20623109952078053,
+      "open_price": 43.705,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.225175+00:00",
+        "articles": []
+      },
+      "prev_close": 45.12
+    },
+    {
+      "ticker": "ESAB",
+      "predicted_return": 0.204135875943364,
+      "open_price": 65.76,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.455634+00:00",
+        "articles": [
+          {
+            "headline": "Mayville Engineering, Graham Corporation, Onterris, Gibraltar, and ESAB Shares Plummet, What You Need To Know",
+            "summary": "A number of stocks fell in the afternoon session after rising Treasury yields and climbing oil prices dampened investor sentiment ahead of the release of the Federal Reserve's September meeting minutes, as reported by AP News.",
+            "published_at": "2026-10-07T20:32:47+00:00",
+            "url": "https://finnhub.io/api/news?id=22e790d222f7eeb63038c163a2552dc8e2ecf6b3c28a6370542d8845cd486024",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 67.12
+    },
+    {
+      "ticker": "VICR",
+      "predicted_return": 0.20229265447725703,
+      "open_price": 275.1,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.455774+00:00",
+        "articles": [
+          {
+            "headline": "Vicor (VICR) Just Flashed Golden Cross Signal: Do You Buy?",
+            "summary": "Is it a good or bad thing when a stock experiences a golden cross technical event?",
+            "published_at": "2026-10-07T12:55:02+00:00",
+            "url": "https://finnhub.io/api/news?id=2cc8da47acdf39dbc2a932cd0e1e41a5065e1882d29666fb4284ec35bc416d87",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 282.78
+    },
+    {
+      "ticker": "IREN",
+      "predicted_return": 0.20140384797874958,
+      "open_price": 37.82,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 9,
+        "reviewed_count": 9,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.455880+00:00",
+        "articles": [
+          {
+            "headline": "IREN Limited: The Story Is Getting Better, But It Is Still Not Worth It",
+            "summary": "IREN Limited's Microsoft deal runs 5 years, and the recent AI developer contracts run to about 3 years. Learn why IREN stock is upgraded to a sell.",
+            "published_at": "2026-10-08T08:48:55+00:00",
+            "url": "https://finnhub.io/api/news?id=071ba9a61c0b614e4d4663de889beebf00525521d8f1a3ddc8e538ada0607bef",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Fed Minutes Put Another Hike on the Table as the 10-Year Auction Clears at 5.3%",
+            "summary": "Wall Street slipped from record highs as Treasury yields resumed their climb. Fed minutes point to another hike before year-end, a $39 billion 10-year auction cleared at 5.3%, Micron rallied on a $3,000 price target, IREN and Webull sank, and Levi Strauss raised its profit outlook.",
+            "published_at": "2026-10-08T08:07:41+00:00",
+            "url": "https://finnhub.io/api/news?id=ec17fc2ccac7700f6b886512155cb4bf9887b3a6eca76b49697f4295b7c42603",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "All-In Summit: IREN Exec Kent Draper Discusses Customer Development Amid Demand",
+            "summary": "IREN Exec Kent Draper joins Kristen Scholer on NYSE Floor Talk at the All-In Summit.",
+            "published_at": "2026-10-07T20:05:18+00:00",
+            "url": "https://finnhub.io/api/news?id=771ae48d5f6525e62c5408f3ab71338f726dcd3ae171531e26fcd73d5c301a92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Falls 7% as Financing-Heavy Data Center Names Sell Off Apart From Their Sector Fund; TeraWulf and Core Scientific Drop 5%",
+            "summary": "Rising borrowing costs are punishing a specific class of data center stocks far harder than their sector fund, and the reason comes down to a timing problem that separates builders from operators in ways most investors overlook.",
+            "published_at": "2026-10-07T16:56:15+00:00",
+            "url": "https://finnhub.io/api/news?id=57d9c4ce4f6487ef0c1568df191d964e4f26ec89d8b2157a36c938918ee09c1b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Iren shares fall as SemiAnalysis highlights data center reliability issues",
+            "summary": "Investing.com -- Shares of IREN Ltd (NASDAQ:IREN) fell over 6% in Wednesday trading following a series of critical social media posts from research firm SemiAnalysis, which reported severe user complaints regarding the infrastructure quality at the Bitcoin miner-turned-neocloud\u2019s data center facilities.",
+            "published_at": "2026-10-07T16:33:50+00:00",
+            "url": "https://finnhub.io/api/news?id=c925dc4c6ac389980b274c169f10fb29c7bef8479805caac97e0aa8b14fb2235",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "IREN Limited's Sweetwater Hub: Can It Fuel IREN's AI Expansion Plans?",
+            "summary": "IREN positions Sweetwater as a major AI infrastructure hub, with 2 GW of planned capacity and a liquid-cooled design built to scale.",
+            "published_at": "2026-10-07T14:58:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1179cbf1ccc74975f4cb88a4b31c5961a9f1724ab3c512c03e10ed3f2fff45e2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Applied Digital Falls 4% Ahead of Earnings Despite Its First International Data Center Deal; IREN and Core Scientific Also Drop 4%",
+            "summary": "Applied Digital just secured its first international power deal, yet the stock is selling off alongside two rivals that have no earnings due today, raising questions about what is really driving the developer group lower.",
+            "published_at": "2026-10-07T14:12:39+00:00",
+            "url": "https://finnhub.io/api/news?id=a21c5cc4bb68ae52e6183bbc987d4ddd97b58dc046f9030610d74e2c53b8d6ce",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is IREN Stock Falling Wednesday?",
+            "summary": "IREN faces technical pressure as it trades below key moving averages. Read the full analysis on major support levels and momentum.",
+            "published_at": "2026-10-07T09:44:13+00:00",
+            "url": "https://finnhub.io/api/news?id=7269d2a6ae1000a056a36db18e261b38ddbcace35be5a5f2eaba92ecaa0ae021",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "NODE Monthly Commentary: September 2026",
+            "summary": "Miners rebounded and coin ETPs reached 22% of NODE's assets, plus our take on post-CLARITY deregulation, DATs vs. spot ETPs, and Q4. Read more here.",
+            "published_at": "2026-10-07T09:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c86e6dd9ba2c5c13f586f8863bb0dca37790234fcca403ac3418c8973994619a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 38.69
+    },
+    {
+      "ticker": "SNEX",
+      "predicted_return": 0.1993177330106162,
+      "open_price": 60.52,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.456184+00:00",
+        "articles": []
+      },
+      "prev_close": 61.46
+    },
+    {
+      "ticker": "JHX",
+      "predicted_return": 0.1976452680201893,
+      "open_price": 23.92,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.456223+00:00",
+        "articles": []
+      },
+      "prev_close": 24.61
+    },
+    {
+      "ticker": "MSTR",
+      "predicted_return": 0.19482254768793086,
+      "open_price": 150.34,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 17,
+        "reviewed_count": 17,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.456228+00:00",
+        "articles": [
+          {
+            "headline": "1 Large-Cap Stock with Impressive Fundamentals and 2 We Find Risky",
+            "summary": "Large-cap stocks usually command their industries because they have the scale to drive market trends. The flip side though is that their sheer size can limit growth as expanding further becomes an increasingly challenging task.",
+            "published_at": "2026-10-08T11:36:09+00:00",
+            "url": "https://finnhub.io/api/news?id=5e26983955a0a8f7bfd04f5e3285c86efa0253b7f085424e934795cb66a5e360",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BTC Price Slips Below $83K, Crypto Stocks Fall After Report Of Possible US Strikes On Iran",
+            "summary": "XRP and Solana led losses among major cryptocurrencies, while NEAR protocol bucked the broader selloff to hit a record high.",
+            "published_at": "2026-10-08T11:17:59+00:00",
+            "url": "https://finnhub.io/api/news?id=69406449b2311f682922429707d6351174ff7d005aab25a4d38e5e84885076be",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Strategy Lost More Than 50% of Its Value Last Year: It Will Return 180% According to One Wall Street Pro",
+            "summary": "Strategy Inc. lost more than half its value while quietly becoming the world's largest corporate Bitcoin treasury, and one Wall Street analyst thinks that combination sets up a trade most investors are too spooked to touch.",
+            "published_at": "2026-10-08T11:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=acd3054a39b6e3d890237e9173709bd25845bd6a01db9446565ccf02820a1f2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin falls below $83k as M.East tensions, soaring yields dent crypto appetite",
+            "summary": "Investing.com-- Bitcoin fell on Thursday, extending recent losses as an extended rally in oil prices and Treasury yields kept investor appetite for crypto largely on the backfoot.",
+            "published_at": "2026-10-08T07:07:24+00:00",
+            "url": "https://finnhub.io/api/news?id=6867d5026f4f4d5afe451c8226c8e813e173f8656c17c359ad9dc34fd1c29bb6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CHAD: The 14% Crypto Preferred With A Different Yield Engine",
+            "summary": "CHAD\u00e2\u0080\u0099s yield is supported by Solana validator rewards, treasury growth, and potential SOL appreciation. Read more on CHAD stock here.",
+            "published_at": "2026-10-08T06:50:08+00:00",
+            "url": "https://finnhub.io/api/news?id=f2d26d4bb7e9bcb2068ff0d4a89c1f1cb35a7c10518e330aae3a2daa823ccc00",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Strategy: Trading Near Bitcoin NAV With Significant Upside",
+            "summary": "Strategy currently trades at a 6.7% discount to its gross Bitcoin holdings per basic share. Read why MSTR stock is a strong buy.",
+            "published_at": "2026-10-08T05:34:55+00:00",
+            "url": "https://finnhub.io/api/news?id=a4c46b69b5e73384569844a292e387ea15e7c72ddc8b6b69cf61662e33c85b23",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Strategy (MSTR) Stock Trades Down, Here Is Why",
+            "summary": "Shares of bitcoin development company Strategy (NASDAQ:MSTR) fell 6.5% in the afternoon session after Bitcoin dropped below $84,000 amid broad, leverage-driven selling across the cryptocurrency market.",
+            "published_at": "2026-10-07T21:52:47+00:00",
+            "url": "https://finnhub.io/api/news?id=e40da7a2182bcd8365b3c9d830e1b1ff7f92b66d6bfd2943e67364f51d017522",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin, XRP, and Ethereum Drop as Cryptos Face a Perfect Storm",
+            "summary": "The Bitcoin rally was going so well but digital assets have suddenly run into a combination of problems.",
+            "published_at": "2026-10-07T17:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=75d87382d954d810f9e07c8e812d198b5f34352d09c83d0761887e484a221c23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitmine Falls 7% as Tom Lee Says the Ethereum Buying Spree Is About to End; Sharplink and Strategy Drop 5%",
+            "summary": "Tom Lee just signaled a major shift in how Bitmine handles its Ethereum treasury, and crypto stocks across the board are taking the hit as investors reconsider what a buying halt means for a company built on relentless accumulation.",
+            "published_at": "2026-10-07T16:59:30+00:00",
+            "url": "https://finnhub.io/api/news?id=842ac6a4faf0acecbff7071536af2a3b0749c72463e66f0e9c9ea7550ef8a9e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin falls below $83,000, dragging down Strategy, Coinbase, and Robinhood stocks",
+            "summary": "Bitcoin tumbled on Wednesday amid a broader market selloff.",
+            "published_at": "2026-10-07T14:49:42+00:00",
+            "url": "https://finnhub.io/api/news?id=42a75ebafb393493926b17fe015c6d815940d528f0ab8a9c0dfae738d6b83a7f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BTC Price Drops Back To $83K \u2013 Global Bond Rout Drags MSTR, COIN, CRCL, BMNR Stocks Toward September Lows",
+            "summary": "U.S. equity futures also moved lower after the S&P 500 and Nasdaq-100 reached record highs on Tuesday.",
+            "published_at": "2026-10-07T14:06:40+00:00",
+            "url": "https://finnhub.io/api/news?id=4e76d6362afdcd7673f7bfe65937b7c5b19362954a81a76d607a859ee9d099fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Robinhood Markets Adds $25 Million Of Bitcoin To Its Balance Sheet",
+            "summary": "Online brokerage Robinhood Markets (NASDAQ: $HOOD) has added $25 million U.S. of Bitcoin (CRYPTO: $BTC) to its bala...",
+            "published_at": "2026-10-07T13:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ffff22e4b07d1345327f1dc0431ac1801457e1ba80e9b85c40eef08f987c1619",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cathie Wood Says Bitcoin Is Beating Gold as Strive\u2019s $169M Spree Outpaces Strategy",
+            "summary": "Strive bought 2,000 BTC for nearly $169 million, almost six times Strategy\u2019s latest disclosed purchase. Bitcoin per effective common share increased approximately 3.8%, after accounting ...",
+            "published_at": "2026-10-07T13:22:15+00:00",
+            "url": "https://finnhub.io/api/news?id=ffd4c005ae2692dba25283756a7165c17b3ddf1501179766e0c2850cb079f66d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin, XRP, Ethereum Drop as Cryptos Face a Perfect Storm",
+            "summary": "The Bitcoin rally was going so well but digital assets have suddenly run into a combination of problems.",
+            "published_at": "2026-10-07T12:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0bcedcb88ea4146b9fc7ef89a1798f967361ac68e734a83696c23cb00d202ec0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Robinhood Puts $25 Million of Bitcoin on Its Balance Sheet, Executive Says",
+            "summary": "Senior vice president Johann Kerbrat said the purchase is meant to align the brokerage with the crypto community and is small relative to the company\u2019s size.",
+            "published_at": "2026-10-07T10:04:35+00:00",
+            "url": "https://finnhub.io/api/news?id=cafba8cf65d34613aa8580e8c423e6bd8355faf0a90be45e734bc50c42c069df",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Robinhood Joins Strategy, Tesla In Holding Bitcoin, Exec Says: 'We Care Deeply About Bitcoin'",
+            "summary": "Robinhood buys $25 million in Bitcoin as it expands into crypto perpetuals, tokenized stocks and blockchain infrastructure.",
+            "published_at": "2026-10-07T09:17:57+00:00",
+            "url": "https://finnhub.io/api/news?id=bb580a4df700d6a8d6fbb48c814780138cdc82f696e4c7be5287315a99bd95fc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Is Strategy (MSTR) Fully Valued Following Its Q3 Digital Asset Gain?",
+            "summary": "Strategy (MSTR) just put a huge number on the board. Management now pegs its third quarter gain on digital assets at about US$20.91b, alongside fresh Bitcoin buying and sizeable preferred stock repurchases. That backdrop has fed into a sharp swing in sentiment around Strategy. The 90 day share price return of 75.26% and 30 day move of 15.23% show strong momentum building again, even though the 1 year total shareholder return is still down 50.26% after a very large 3 year total shareholder...",
+            "published_at": "2026-10-07T09:17:42+00:00",
+            "url": "https://finnhub.io/api/news?id=d6e8fdb095aeae92b169c4f7081d510fda1fcde9afc894e12b7021b0a039bd21",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 153.37
+    },
+    {
+      "ticker": "BMNR",
+      "predicted_return": 0.19345291093873698,
+      "open_price": 24.12,
+      "snapshot_date": "2026-10-07",
+      "news_flag": "Ethereum Drops 5% After Tom Lee Says Bitmine Will Stop Purchases",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Ethereum Drops 5% After Tom Lee Says Bitmine Will Stop Purchases",
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-08T13:35:42.456438+00:00",
+        "articles": [
+          {
+            "headline": "Bitcoin, XRP, and Ethereum Drop as Cryptos Face a Perfect Storm",
+            "summary": "The Bitcoin rally was going so well but digital assets have suddenly run into a combination of problems.",
+            "published_at": "2026-10-07T17:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=75d87382d954d810f9e07c8e812d198b5f34352d09c83d0761887e484a221c23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitmine Falls 7% as Tom Lee Says the Ethereum Buying Spree Is About to End; Sharplink and Strategy Drop 5%",
+            "summary": "Tom Lee just signaled a major shift in how Bitmine handles its Ethereum treasury, and crypto stocks across the board are taking the hit as investors reconsider what a buying halt means for a company built on relentless accumulation.",
+            "published_at": "2026-10-07T16:59:30+00:00",
+            "url": "https://finnhub.io/api/news?id=842ac6a4faf0acecbff7071536af2a3b0749c72463e66f0e9c9ea7550ef8a9e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitmine Immersion Technologies (BMNR) Builds Its Ethereum Stash, Is The Stock Undervalued?",
+            "summary": "Bitmine Immersion Technologies (BMNR) heads into its TOKEN2049 Singapore appearance today with chairman Tom Lee on stage, following recent aggressive Ethereum accumulation and a large equity buyback that kept recent share declines relatively contained. Recent trading has been choppy for Bitmine Immersion Technologies, with the share price slipping 2.2% over the last day and 1.98% over the past week, yet still showing a 4.93% 30 day share price gain and a 76.31% 90 day share price return. Over...",
+            "published_at": "2026-10-07T16:11:24+00:00",
+            "url": "https://finnhub.io/api/news?id=29a59d82cea4eae650f523c0bc270dfc53893a8b173cddf79f49880b4bf7b561",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitmine's Relentless Ethereum Buying Is About to End, Tom Lee Says",
+            "summary": "Speaking at Token2049 in Singapore, the chairman said Bitmine is about 100,000 ETH\u2014roughly six to seven weeks\u2014from its 5% cap, setting an end date on a buying spree that made it the world's largest Ethereum treasury.",
+            "published_at": "2026-10-07T14:55:32+00:00",
+            "url": "https://finnhub.io/api/news?id=f8e860139b5ca4e9f30c9a2a390844649ba0766a3a365d3bacc366daa1f3b56a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BTC Price Drops Back To $83K \u2013 Global Bond Rout Drags MSTR, COIN, CRCL, BMNR Stocks Toward September Lows",
+            "summary": "U.S. equity futures also moved lower after the S&P 500 and Nasdaq-100 reached record highs on Tuesday.",
+            "published_at": "2026-10-07T14:06:40+00:00",
+            "url": "https://finnhub.io/api/news?id=4e76d6362afdcd7673f7bfe65937b7c5b19362954a81a76d607a859ee9d099fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ethereum Drops 5% After Tom Lee Says Bitmine Will Stop Purchases",
+            "summary": "The price of Ethereum (CRYPTO: $ETH) is down 5% on news that crypto treasury firm Bitmine Immersion Technologies (N...",
+            "published_at": "2026-10-07T13:44:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e599e3ec51418705e274ad0d56e5b7d0654dcaf84a76079e4fc8d6b1409def13",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BitMine Is About to Stop Buying Ethereum: What Happens to ETH Price Then?",
+            "summary": "BitMine will stop buying Ethereum at 5% of supply. Here is how its buying lined up with ETH price moves since 2025.",
+            "published_at": "2026-10-07T13:07:04+00:00",
+            "url": "https://finnhub.io/api/news?id=7edb67babcdc0651c6ff93854ad6d0d32a9ddd856d2689b1ca08f3f6fb3a8a31",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.66
+    },
+    {
+      "ticker": "SITM",
+      "predicted_return": 0.19328161640622787,
+      "open_price": 652.66,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.456540+00:00",
+        "articles": [
+          {
+            "headline": "SiTime Corporation to Announce Third Quarter 2026 Financial Results on November 4, 2026",
+            "summary": "SANTA CLARA, Calif., October 07, 2026--SiTime Corporation (Nasdaq: SITM), the Precision Timing company, will announce its third quarter 2026 financial results on Wednesday, November 4, 2026, after market close.",
+            "published_at": "2026-10-07T20:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c7f159752ed66cb0fa5f750195632245eb3d77258645f91313c183ce3dbab351",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 665.16
+    },
+    {
+      "ticker": "DIOD",
+      "predicted_return": 0.19285588436088172,
+      "open_price": 98.62,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:42.456625+00:00",
+        "articles": []
+      },
+      "prev_close": 100.65
+    },
+    {
+      "ticker": "AAOI",
+      "predicted_return": 0.19266225230302303,
+      "open_price": 117.44,
+      "snapshot_date": "2026-10-07",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-08T13:35:20.225185+00:00",
+        "articles": [
+          {
+            "headline": "Coherent Stock Rises 8% in a Month: Is the Buying Opportunity Intact?",
+            "summary": "COHR's AI-driven optical demand, 1.6T ramp and expanding capacity support its growth case even after an 8% monthly stock gain.",
+            "published_at": "2026-10-07T17:21:00+00:00",
+            "url": "https://finnhub.io/api/news?id=eebc6d60b8513536ee2bf14cd93f413e7b82177412c733256a6cb6d745c434ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AAOI Stock Gains 17% in a Month: Should You Buy, Sell or Hold?",
+            "summary": "Applied Optoelectronics rallies 16.6% in a month as AI-driven optical demand accelerates, but supply constraints, competition and a premium valuation remain concerns.",
+            "published_at": "2026-10-07T15:07:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2e5f89b0c446c366025b1e870ca6a8262c9e06692cf87b3e7f62cb9b1fd0b11c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AXTI Stock Rises 21% in a Month: Should You Buy, Sell or Hold?",
+            "summary": "AXT's AI-driven InP growth, $100M-plus backlog and capacity expansion boost its outlook, but valuation and China exposure keep investors cautious.",
+            "published_at": "2026-10-07T14:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=821590258ed943bf9b8f35fdf7e175687959402b7fc7380c41e80ffb3e6eee06",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 122.54
+    }
+  ],
+  "scored_count": 1978,
+  "skipped": [
+    {
+      "ticker": "PEP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "APLD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEVI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NRIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 26.666207655318075
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.348963021803396
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 6.697286640245268
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-07",
+    "model_trained_through": "2026-10-07",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-07, model trained through 2026-10-07 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

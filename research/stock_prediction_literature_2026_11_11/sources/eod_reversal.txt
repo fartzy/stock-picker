@@ -1,0 +1,2714 @@
+                                           End-of-Day Reversal
+                               Guido Baltussen1,3 , Zhi Da2 , and Amar Soebhag1,4
+                 1
+                     Erasmus School of Economics, Erasmus University Rotterdam, Rotterdam 3000 DR, Netherlands.
+                                              2
+                                                  University of Notre Dame, IN 46556, United States.
+                                       3
+                                           Northern Trust Asset Management - Quantitative Strategies.
+                                   4
+                                       Robeco Quantitative Investing, Weena 850, 3014 DA Rotterdam.
+
+
+
+
+                                                                  April, 2025
+
+
+                                                                    Abstract
+
+       Individual stocks experience sharp intraday return reversals in the cross-section during the
+       last 30 minutes of the trading day. This ”end-of-day reversal ” pattern is economically and
+       statistically highly significant, is distinct from market intraday momentum, and primarily
+       comes from positive price pressure on intraday losers. The effect cannot be explained by
+       liquidity- or gamma-hedging effects. Instead, two novel channels related to attention-induced
+       retail purchases and risk management by short-sellers at the end of the day are driving the
+       effect.
+
+
+       JEL Classification: G11, G12
+       Keywords: High-frequency, intraday returns, return predictability, asset pricing.
+
+
+
+
+    Email: baltussen@ese.eur.nl, soebhag@ese.eur.nl, and zda@nd.edu. Erasmus School of Economics, Erasmus Univer-
+
+sity Rotterdam, Burgemeester Oudlaan 50, Rotterdam 3000 DR, Netherlands. We thank Vincent Bogousslavsky, Heiner
+
+Beckmeyer, Amit Goyal, Jan Hanousek and seminar participants at the EFMA 2024 conference for their helpful comments
+
+and suggestions. Financial support by Tinbergen Institute and Erasmus Research Institute of Management is gratefully
+
+acknowledged. We welcome comments, including references to related papers we have inadvertently overlooked. The views
+
+expressed in this paper are not necessarily shared by Northern Trust Asset Management or Robeco Institutional Asset
+
+Management.
+1    Introduction
+
+An emerging literature has uncovered robust stock return predictability at the intraday fre-
+
+quency. For example, Heston, Korajczyk, and Sadka (2010) document that a stock’s return
+
+during a particular trading interval today positively predicts its returns during the same inter-
+
+val in subsequent days. Bogousslavsky (2016) attributes such intraday patterns to infrequent
+
+rebalancing by institutional investors. At the market level, both Gao, Han, Li, and Zhou (2018)
+
+and Baltussen, Da, Lammers, and Martens (2021) document that the intraday returns in equi-
+
+ties and other asset classes during the early part of a day positively predicts return in the last
+
+half-hour of the trading day, i.e. intraday market momentum.
+
+
+
+In this paper, we document a novel intraday return predictability: an individual stock return
+
+during the early parts of a trading day negatively predicts its return in the cross-section during
+
+the last half an hour of a trading day. This “end-of-day reversal ” pattern for individual stocks
+
+differs markedly from intraday momentum patterns documented at the market level, which we
+
+subsequently attribute to two novel underlying mechanisms: attention-induced purchases by
+
+retail investors and risk management by short-sellers at the end of the day.
+
+
+
+
+          Day t − 1                                          Day t
+
+                              ON            FH               M                SLH                LH
+
+
+
+      close − 30      close         open         open + 30           close − 60     close − 30        close
+
+
+
+
+                                   ON F H
+
+                                            ROD3
+
+
+
+
+To facilitate the discussion of our analysis, we define a trading day as the 24-hour period from
+
+the market close on day t − 1 to the market close on day t. Following Baltussen et al. (2021),
+
+we partition the trading day into five parts, as shown in the timeline above: (i) Overnight (ON ,
+
+from close to open), (ii) First half-hour (F H, the first 30 minutes after the market open), (iii)
+
+
+                                                      1
+Middle-of-the-day (M , from the end of F H to an hour before the market close), (iv) Second-
+
+to-last-half-hour (SLH, the second-to-last 30 minute interval), and (v) Last half-hour (LH,
+
+the last 30 minutes before the market close). The combination of the first two partitions is
+
+labeled as ON F H (ON + F H), and the combination of the first three partitions is labeled as
+
+“Rest-Of-Day-3” (ROD3 = ON + F H + M ). ROD3 will be the key predictor for most of our
+
+paper.1
+
+
+
+As our key empirical result, we show that the ROD3 return strongly and negatively predicts
+
+the LH return in the cross-section with t-statistics typically exceeding 10 in simple portfolio
+
+sorts. Over our sample that starts in 1993, long-short intraday trading strategies yield highly
+
+significant average returns of between 3.78 and 6.86 bps per day (or 9.5% and 17.3% per year),
+
+depending on the weighting scheme and price filter. Importantly, the end-of-day reversal pat-
+
+tern is not a manifestation of the bid-ask bounce or other market micro-structure noise, as we
+
+deliberately skipped SLH between ROD3 and LH. The end-of-day reversal result links to
+
+earlier findings of Heston et al. (2010), who have shown that a stock’s intraday return over a
+
+given trading interval is negatively related to its returns over recent intervals. Importantly, we
+
+show that such an intraday reversal pattern is mostly present and especially strong at the end
+
+of the trading day.
+
+
+
+The end-of-day reversal is an extremely robust stylized fact. It is present in almost every 3-year
+
+rolling window. It is significant in various stock subsamples (small vs. large stocks; liquid vs.
+
+illiquid stocks; high- vs. low-volatility stocks; over- vs. under-priced stocks), including the
+
+largest, most traded, or most liquid stocks. Both the ON F H and the M components of ROD3
+
+return negatively predict LH return with similar importance, hence ruling out any explanation
+
+that relies solely on overnight or more recent returns. Moreover, the predictability is not driven
+
+by using the closing price (Bogousslavsky and Muravyev (2023)), as the pattern is robust to
+
+skipping the last 5 minutes in the LH return calculation. In (value-weighted) panel regressions,
+
+ROD3 returns remain significant in predicting LH return after controlling for stock (in addition
+   1
+    Baltussen et al. (2021) also define ROD = ON + F H + M + SLH and use this as main predictor for
+market intraday momentum. To mitigate concerns around reversals effects from bid-ask bounces and related
+micro-structure noise - effects which are typically more pronounced at the individual stock level - we skip SLH.
+However, the end-of-day reversal results presented in this paper are robust to including SLH in our analyses.
+
+
+
+                                                       2
+to time) fixed effects and additional time-varying stock characteristics, including lagged LH (or
+
+seasonality) returns. Furthermore, the effect is present in both traded prices and midpoint
+
+quote-based returns.
+
+
+
+The end-of-day reversal that manifests in the cross-section of stocks appears to be in contrast to
+
+the findings of Gao et al. (2018) and Baltussen et al. (2021), who show momentum in intraday
+
+returns at the market level. How does the end-of-day reversal related to this market intraday
+
+momentum? Through a return decomposition exercise, we find the positive cross-stock auto-
+
+correlations outweigh the positive autocorrelations for each individual stock. In other words,
+
+individual stock (and market) returns display momentum in the time-series but due to strong
+
+cross-stock autocorrelations display end-of-day reversal in the cross-section. Hence, the end-of-
+
+day reversal pattern for individual stocks differs markedly from, and is complimentary to, the
+
+intraday momentum patterns documented at the market level.
+
+
+
+We next proceed to examine the economic mechanisms underlying the end-of-day reversal. An
+
+intuitive explanation relates to illiquidity. However, as stressed above, the effect shows up while
+
+controlling for microstructure noise and amongst the most liquid, most traded, or largest cap
+
+stocks. Another simple liquidity explanation that we rule out is based on a persistent liquidity
+
+shock during ROD3: as the liquidity improves during LH, price reverts to its fundamental level.
+
+Under this explanation, the price correction during LH should be permanent and should not
+
+itself be reverted in the future. However, we find that ROD3’s return predictability disappears
+
+if we extend the future return horizon to include both LH today and ON F H tomorrow, or
+
+both LH today and the close-to-close return tomorrow. In other words, the return during LH
+
+itself seems to contain a transitory price pressure that reverts the next day.
+
+
+
+What, then, could be driving the end-of-day price pressure? We next examine the impact of
+
+hedging demand from market makers. Baltussen et al. (2021) document that the gamma hedg-
+
+ing demand related to index products drives market intraday momentum. Barbon, Beckmeyer,
+
+Buraschi, and Moerke (2021) show such gamma-hedging effects are also present at the stock-
+
+level driving intraday return predictability towards the close. Option market makers seldom
+
+
+
+                                                3
+maintain “naked” option positions and they systematically hedge their option inventory risk by
+
+trading the underlying asset. If their inventory has a positive gamma, they have to trade in the
+
+opposite direction of the return to ensure delta-neutrality, giving rise to a price pressure during
+
+LH, in the opposite direction of ROD3 return. Such price pressure on an individual stock can
+
+originate directly from hedging options on that stock, or indirectly from hedging index options
+
+if the stock belongs to the index. Similarly, Leveraged ETFs (LETF) seek to deliver a multiple
+
+of their underlying index’s daily returns. Market makers in LETFs need to rebalance daily,
+
+typically around the close, in the same direction as the underlying index’s daily performance,
+
+again propagating price pressure to individual stocks that are in the index.
+
+
+
+Panel regressions show that while such hedging demands impact intraday returns and can con-
+
+tribute to the end-of-day reversal when market makers have net long gamma exposure at the
+
+stock level. However, ROD3 return remains highly significant in predicting LH return after
+
+controlling for hedging demand from individual stock options, index options, and LETFs. To
+
+control for the possibility that the hedging demand is inaccurately measured, we also exam-
+
+ine the subset of stocks without option trading or among non-index stocks. We find that the
+
+end-of-day reversal is strongly present in this subset of stocks. Overall, the empircal evidence
+
+shows a robust end-of-day reversal that is complimentary to market intraday momentum and
+
+goes beyond price pressure effects originating from gamma-driven hedging demand.
+
+
+
+Alternatively, the price pressure can arise from arbitrageurs’ unwinding their positions at market
+
+close in order to avoid overnight risk and cost, as documented by Bogousslavsky (2021). Specif-
+
+ically, arbitrageurs will sell (buy) undervalued (overvalued) stocks during LH. If undervalued
+
+(overvalued) stocks are also winners (losers) during ROD3, then such a position unwinding can
+
+explain the end-of-day reversal. Using the mispricing measures of Stambaugh, Yu, and Yuan
+
+(2012), we find that these unwinding activities do not explain the end-of-day reversal either,
+
+as undervalued ROD3 losers tend to have higher LH returns than overvalued ROD3 winners.
+
+Moreover, the end-of-day reversal is also strongly present among stocks that appear not mis-
+
+priced.
+
+
+
+
+                                                4
+We next show an important characteristic of the end-of-day reversal pattern. The reversal
+
+displays a very strong and persistent asymmetry, as it is much stronger after negative ROD3
+
+returns than positive ones. In fact, we find that the end-of-day reversal is entirely driven by the
+
+subsample with negative ROD3 returns. Moreover, this asymmetric effect holds across days of
+
+the week, and emerges mainly during the end of the trading day.
+
+
+
+Building on the asymmetry in end-of-day reversal, we consider two more novel explanations; (i)
+
+the end-of-day ’buy-the-dip’ trading by retail investors, and (ii) the end-of-day trading by short
+
+sellers. Large intraday returns could grab retail investors’ attention (Barber, Huang, Odean,
+
+and Schwarz (2022)). Since retail investors rarely short, their attention results in purchases
+
+and, thus, positive price pressure on average (see, amongst others, Barber and Odean (2008)
+
+and Da, Engelberg, and Gao (2011)). This positive price pressure on intraday loser stocks
+
+leads to an end-of-day reversal that reverts after the price pressures has passed. This in line
+
+with model of market microstructure, with market makers benefiting from providing liquidity
+
+to retail investors in the form of short-term price reversals after the end-of-day window.
+
+
+
+To identify retail trades and retail buying we consider three methods. First, we use the small
+
+trade size classification from 1993 to 2000, the pre-decimalization era in our sample. Second,
+
+we apply the Boehmer, Jones, Zhang, and Zhang (2021) retail trade classification method from
+
+2010 to 2019. Third, to address concerns about potential measurement errors in the Boehmer et
+
+al. (2021) method, as noted by Barber, Huang, Jorion, Odean, and Schwarz (2024) and Battalio,
+
+Jennings, Salgam, and Wu (2024), we also examine changes in Robinhood retail holdings from
+
+2018 to 2019.
+
+
+
+The three measures of retail order imbalance (and hence retail buying) paint a very similar pic-
+
+ture. There is positive and significant retail buying during LH for stocks with extreme ROD3
+
+returns (both winners and losers) that trigger their attention. We also find that the retail
+
+purchase is much stronger for ROD3 losers than winners, consistent with the notion of retail
+
+contrarian trading (see amongst others Kaniel, Liu, Saar, and Titman (2012)). In contrast, we
+
+fail to find a similar pattern in non-retail order imbalance.
+
+
+
+                                                5
+Considering the end-of-day trading by short-sellers, one could argue that overnight risk on in-
+
+dividual stocks is particularly important for short-sellers, since the potential for loss can be
+
+unlimited and it is very hard to hedge. Using proprietary intraday data on the opening of short
+
+positions, we find a significant drop in new short positions during LH for stocks with extreme
+
+ROD3 returns (both winners and losers), consistent with the overnight risk management chan-
+
+nel. In line with the asymmetry in the end-of-day reversal, the reduction in new short positions
+
+is more than three times stronger for ROD3 losers than winners, as a negative ROD3 return
+
+reduces potential shorting profit.
+
+
+
+Overall, increased ’buy-the-dip’ buying by retail investors, combined with reduced short selling,
+
+generates positive price pressure during LH. Since the positive price pressure is much stronger
+
+among ROD3 losers, we observe the end-of-day reversal.
+
+
+
+Our findings relate to several studies that argue that retail investors are especially active be-
+
+fore and around the open and their price pressures influences opening stock prices. Berkman,
+
+Koch, Tuttle, and Zhang (2012) show that retail-attention-induced price pressure pushes up
+
+the stock price at the open, thereby contributing to a high overnight return and a low intraday
+
+return on average. Jones, Pyun, and Wang (2024) show that retail investors are extrapolative
+
+in their trading at the beginning of the day. Next, we examine retail activity around the open,
+
+confirming the retail-attention-induced opening price pressure effect and showing that retail
+
+investors are extrapolative in their trading at the beginning of the day using ROD3 returns.
+
+This reveals an interesting contrast between retail trading at the end of the day and trading
+
+at the beginning; buy-the-dip trading around the close of trading versus extrapolative trading
+
+during the open of trading. Overall, we conclude that significant price pressures from retail
+
+investors happen during the open (’extrapolative’) and close (’buy-the-dip’) of the trading day,
+
+thereby causing predictable intraday return patterns.
+
+
+
+Our paper further contributes to the recent emerging literature examining intraday return pat-
+
+terns in stock returns. Heston et al. (2010) find evidence of intraday return seasonality: returns
+
+
+
+                                                6
+continue during the same half-hour intervals as previous trading days. Lou, Polk, and Skouras
+
+(2019) document strong overnight or intraday return continuation and an offsetting cross-period
+
+reversal at individual stock level and in equity return factors (see also Bogousslavsky (2021) and
+
+Hendershott, Livdan, and Rösch (2020)). Berkman et al. (2012) and Akbas, Boehmer, Jiang,
+
+and Koch (2022) show evidence of strong intraday versus overnight return return reversal in
+
+stocks.2 In this paper, we document a novel and strong stylized fact in the form of end-of-
+
+day reversal. Investigation of the empirical mechanism reveals the important consideration of
+
+overnight risk and retail trading in driving end-of-day prices.
+
+
+
+The remainder of the paper is organized as follows. Section 2 describes our data and sample.
+
+Section 3 presents the main stylized facts about the stock-level end-of-day reversal. Section 4
+
+compares the stock-level to market-level results. Section 5 examines the economic drivers of
+
+end-of-day stock prices. Section 6 offers concluding remarks. The Appendix contains various
+
+robustness results and additional descriptions of the data.
+
+
+
+2     Data
+
+In this section, we provide detailed descriptions of our data sources, as well as the construction
+
+of our sample and main variables.
+
+
+2.1    Intraday stock returns: TAQ and CRSP
+
+Our sample consists of stocks listed on the New York Stock Exchange (NYSE), National Asso-
+
+ciation of Securities Dealers Automated Quotations (NASDAQ), and American Stock Exchange
+
+(AMEX). We include common stocks with share codes 10 or 11 that have intraday transactions
+
+covered by the Trade and Quote (TAQ) database. Stock market data are obtained from the
+
+Center for Research in Security Prices (CRSP), and accounting data are from Compustat. Our
+
+sample period runs from January 1993 to December 2019.
+   2
+     Related, several studies document intraday patterns at the market-level or in derivatives. Boyarchenko,
+Larsen, and Whelan (2023) and Bondarenko and Muravyev (2023) show that U.S equity market returns are
+large and positive around the opening of European markets. Baltussen, Terstegge, and Whelan (2023) document
+strong overnight and intraday reversals at the market level around option expiries. Smirlock and Starks (1986)
+provide an early account of intraday efffects around weekends in DJIA stock returns. Muravyev and Ni (2020)
+document strong intraday and overnight differences in option returns. We show that while stock markets display
+strong market intraday momentum at the end of the day, individual stocks display reversals.
+
+
+
+                                                      7
+We collect intraday returns from TAQ according to the following protocol. First, we collect
+
+price data of each stock at the trade-level and apply the cleaning procedures as described in
+
+Bollerslev, Li, and Todorov (2016) by (i) removing all observations with non-positive prices and
+
+trade sizes, (ii) removing trades with correction indicator (CORR) other than 0, 1, or 2, (iii) re-
+
+moving trades with the sale condition having a letter code other than @, *, E, F, @E, @F, *E, or
+
+*F, (iv) removing trades outside the regular trading hours (9:30 a.m. - 4:00 p.m. EST), and (v)
+
+removing all non-business days or days in which the exchange closed earlier, such as Memorial
+
+Day. Next, for each second within the 9:30 a.m. - 4:00 p.m. time interval we collect the latest
+
+traded price, or when multiple trades occur within a second we compute the volume-weighted
+
+average traded price over all trades within the second. Since TAQ prices are raw prices without
+
+adjustments for share splits, we use the daily “cumulative factor to adjust price” and “dividend
+
+cash amount” variables in the CRSP database to adjust for split and dividend. To limit the
+
+influence of illiquid or microcap stocks and to mitigate the influence of micro-structure issues,
+
+we remove stocks with a market capitalization below the NYSE 10th percentile or stocks that
+
+are priced below $5 as a base case, or $1 if explicitly mentioned. Lastly, we require stocks to
+
+have at least 126 days of observations in the TAQ database to be included in our sample.3
+
+
+
+To examine intraday return predictability, we aggregate the price of stock i on day t at the
+
+second level to the frequencies outlined in the introduction. The return from market close on
+
+day t − 1 till 3:00 p.m. on day t (ROD3i,t ) and the return from 3:30 p.m. till 4:00 p.m. on day
+
+t (LHi,t ) is computed as:
+
+
+
+                                                    Pi,t,close−60
+                                        ROD3i,t =                 −1
+                                                    Pi,t−1,close
+                                                     Pi,t,close
+                                            LHi,t =               −1
+                                                    Pi,t,close−30
+
+We cross-sectionally winsorize these returns at the 1% and 99% to negate the effect of outliers
+
+in our analyses.4 In addition, we create other intraday return intervals. ON F H is defined as
+   3
+     TAQ also provides quote-level data as alternative to trade-level data. TAQ quote-level data tends to be more
+noisy, but less subject to bid-ask bounces. In the paper we verify that the end-of-day reversal is also present in
+quote-level data aggregated to the second-level according to the algorithm described above.
+   4
+     We like to stress that our results are robust to the choice of winsorization.
+
+
+                                                        8
+the return from market close on day t − 1 till 10:00 a.m. on day t. We define M ID as the return
+
+from 10:00 a.m till 15:00 p.m. on day t, and SLH as the return on the second last half-hour of
+
+the trading day t.
+
+
+
+We used mapping tables provided by CRSP to match TAQ tickers to CRSP PERMNOs, al-
+
+lowing us to incorporate firm-level characteristics and construct a set of control variables. Our
+
+empirical analysis employs the following firm characteristics: Size computed as the product of
+
+the closing price and the number of shares outstanding updated daily from CRSP, βmkt com-
+
+puted as the β obtained from the CAPM regression on a 252-day rolling window requiring at
+
+least 126 unique observations, RV , the realized variance of stock i on day t, defined as the sum
+
+of the squared five-minute intraday returns within day t, SREV computed as the cumulative
+
+return from day t − 21 to day t − 1 for a given day t updated daily, M OM computed as the
+
+cumulative return from day t − 252 to day t − 21 on day t updated daily, ILQ, the Amihud
+
+(2002) measure of illiquidity, defined as the average daily ratio of the absolute stock return
+
+divided by the dollar trading volume of the past 21-day period preceding each day.
+
+
+
+    Table 1 reports the cross-sectional summary statistics of the key variables in our sample.
+
+ROD3 has a mean return of 4 bps per day, but varies considerably in the cross-section with
+
+a standard deviation of 2.10%. The 90th percentile equals 2.42% per day, whereas the 10th
+
+percentile equals -2.31% a day, and about half originates from M ID and half from ON F H.
+
+LH has a mean return of 3 bps per day and a standard deviation of 0.68%, with the 10th and
+
+90th percentile being -0.69% and 0.77% per day.
+
+
+
+3    End-of-day reversal
+
+In this section, we present the baseline results for the end-of-day reversal among individual stocks
+
+and examine its robustness across definitions, samples, subgroups of stocks, and methodologies.
+
+
+
+
+                                                 9
+3.1    Baseline result: the specialness of the last half-hour
+
+We start our analyses by regressing stock returns within a 30-minute interval at day t on the re-
+
+turns from 24-hours before the end of the window till an hour before the window.5 For example,
+
+for the 15:30 - 16:00 window we regress the stock return in this window on the return between
+
+16:00 the preceding day till 15:00 the current day. We include a 30-minute lag between the
+
+regressor and the dependent variable to control for bid-ask bounces or other market microstruc-
+
+ture noise (Heston et al., 2010). We follow this practice throughout the paper, but emphasize
+
+that all our results are robust to this choice, generally becoming stronger when discarding the
+
+30-minute lag. We estimate a panel regression including date and firm fixed effects, and correct
+
+standard errors for clustering in both the date and firm dimension.6 The sample runs from
+
+January 1993 to December 2019 and, importantly, we weight observations by their previous’
+
+day market capitalization to limit excessive weights to smaller stocks that are exposed to higher
+
+microstructure or trading effects.
+
+
+
+Figure 1 shows the resulting slope coefficients and 95% confidence intervals. Most intervals dis-
+
+play no significant predictability, with slope coefficients being close to zero. The two exceptions
+
+are (i) the first interval that predicts 10:00-10:30am returns, and (ii) the last interval - returns
+
+from previous day close to one hour before close (i.e., ROD3) negatively predict last half hour
+
+(LH) returns. The latter end-of-day reversal pattern is especially strong and significant, typi-
+
+cally being more than double the reversal effects observed during other intervals. Figure A.1 in
+
+the appendix shows results for the last 30 minutes are comparable to stronger when discarding
+
+the 30-minute lag between the regressor and the dependent variable (which we include to control
+
+for the effects of microstructure noise).7 These results are generally in line with Heston et al.
+
+(2010) who show that stock’s return over a given trading interval is negatively related to its
+
+returns over recent intervals. Importantly, we find such an intraday reversal pattern to be by
+    5
+      In our analysis we divide the trading day in 14 intervals; the overnight return between close of trading
+(16:00) and open (09:30), and each 30 minute intervals between 09:30 and 16:00. All times are expressed in
+Eastern Standard Time (EST).
+    6
+      To optimize testing power and given the nature of our data we use panel regressions with date fixed effects
+(thereby focusing on cross-sectional effects) throughout the paper instead of Fama-MacBeth regressions. That
+said, we have verified that our main results are robust to using Fama-MacBeth regressions.
+    7
+      In unreported analyses we find that the return between 9:30 and 16:00 on day t − 1 positively predicts the
+first half-hour return on day t, but negatively predicts overnight returns, which is consistent with prior literature
+(Akbas et al. (2022) and Berkman et al. (2012)).
+
+
+
+
+                                                         10
+far the strongest, and especially concentrated, at the end of the day, which will be the main
+
+focus of the remainder of this paper. Overall, stock returns display a cross-sectional reversal at
+
+the end of the trading day.
+
+
+
+Next, we examine the persistence of the end-of-day reversal by estimating 3-year rolling panel
+
+regressions of LH on ROD3 using the specifications as described above. Figure 2 shows that
+
+the negative predictability of cross-sectional stock returns during the last half hour of trading
+
+is largely persistent over time. Slope coefficients in 3-year rolling panel regressions are almost
+
+always negative (upper panel) and are often significant (lower panel), even in the later years of
+
+our sample.
+
+
+3.2    Univariate portfolio sort
+
+To further examine the cross-sectional link between ROD3 returns and LH returns of stocks,
+
+we form quintile portfolios based on their return between the closing price on day t − 1 and
+
+the price at 15:00 p.m. on day t (i.e., the ROD3 return). We hold these portfolios during the
+
+last half hour (LH) of the trading day t. We compute value-weighted (VW) as well as equal-
+
+weighted (EW) returns on each portfolio, with both a $5 and $1 dollar price filter. We construct
+
+a ”low-minus-high” (L-H) portfolio that takes long positions in stocks with low ROD3 returns
+
+and short positions in stocks with high ROD3 returns.
+
+
+
+Table 2 presents the raw portfolio returns (R; in basis points per day) and risk-adjusted returns
+
+relative to the Fama-French 3-factor and the Fama-French 5-factor models, both augmented
+
+with momentum (FF4 or FF6, respectively).8 For both value-weighted and equal-weighted
+
+portfolios, regardless of the price filter, we document a negative relation between ROD3 re-
+
+turns and LH returns. For example, column 1 shows a significantly negative relation between
+
+ROD3 returns and LH returns, in line with the results in Figure 1. The value-weighted daily
+
+portfolio return decreases from 3.55 bps per day on quintile L (low ROD) to -0.22 bps per day
+
+on quintile H (high ROD). The low-minus-high portfolio yields a return spread of 3.78 bps per
+
+day (t-statistic of 10.69). The subsequent two columns show that exposures to the market, size,
+   8
+    We compute all factor returns during LH to align with the timing of the portfolio returns. We have verified
+that results are comparable when computing factor returns over the full day, as commonly done in asset pricing
+tests using daily data.
+
+
+                                                      11
+value, investments, profitability, and momentum factors are not able to explain the difference
+
+in returns between stocks with high ROD and low ROD. The 6-factor Fama-French alpha of
+
+the spread portfolio remains 3.71 bps per day, and highly significant with a t-statistic of 10.61.
+
+Using a lower price filter yields very similar results.
+
+
+
+The reversal pattern becomes even stronger when considering equal-weighted portfolios, with
+
+the spread return being 6.38 bps per day (t-statistic of 17.30). These results indicate a stronger
+
+reversal for smaller stocks. Interestingly, most of the increase for equal-weighted portfolios
+
+comes from portfolio L, or the intraday loser stocks that gain in the last half hour of trading
+
+before the close. Overall, the sorting results imply that stocks with high ROD3 underperform
+
+stocks with low ROD3 by a sizable and highly significant margin towards the end of the day.
+
+
+
+To further explore the economic significance of the end-of-day reversal effect we next analyze
+
+(cumulative) returns of the most extreme bottom (top) 10% of ROD3 stocks during LH over
+
+time. Figure 4 depicts the results. Over the 27 years of data included in our sample the bottom
+
+decile of intraday loser stocks gained about 400%, more than double the returns on the market
+
+portfolio (note that this is a portfolios that is invested every time interval during the day). By
+
+contrast, the decile of intraday winners returned close to zero over the sample period.
+
+
+
+How should we look at the size of end-of-day reversal and transaction costs? The effect is
+
+very sizable in gross terms with a 3.78 bps reversal per day, or about 9.5% a year, for the
+
+value-weighted L-S portfolio, and 6.86 bps per day, or 17.3% a year, for the equal-weighted L-S
+
+portfolio.9 Given that trading on end-of-day reversal requires frequent rebalancing, the strat-
+
+egy as presented might not be exploitable by many investors after accounting for transaction
+
+costs. That said, this does not imply that the end-of-day reversal is entirely unexploitable for
+
+investors. For example, several investors are known to trade at very limited cost (e.g., market
+
+makers or proprietary trading desks and firms), the effect is stronger for stocks with even more
+
+extreme intraday returns (as evident from for example decile portfolios), and exploiting the
+
+effect can be done more optimally by a direct trade-off between the strategy signal and transac-
+   9
+     Although the portfolios have positions during only 30 minutes a day, we annualize returns by multiplying
+with 252 given that the strategy trades once a day.
+
+
+
+                                                     12
+tion costs per stock. Furthermore, end-of-day reversal may also be exploited in other ways that
+
+limit turnover, for example via the timing of already planned trades. A detailed examination
+
+of the most efficient execution strategies aimed to exploit the intraday reversal is left for future
+
+research.
+
+
+
+
+3.3   Controlling for stock characteristics
+
+To ensure that differences in ROD3 are driving the last-half-hour return rather than omitted
+
+stock-characteristics, we present conditional 5 × 5 portfolio sorts. We first form quintile port-
+
+folios based on a given stock characteristic, and subsequently, form quintile portfolios based on
+
+ROD3 returns within each stock characteristic sorted quintile. The conditioning characteristics
+
+that we consider are: size (market capitalization at day t − 1), trading volume at day t − 1, the
+
+illiquidity measure of Amihud (2002), realized volatility at day t − 1 computed using 5-minute
+
+returns, overnight volatility (the standard deviation of overnight returns over the past 90 trad-
+
+ing days), and the composite mispricing score of Stambaugh and Yuan (2017).
+
+
+
+We present the bivariate portfolio sort results in Table 3, where we report the six-factor alpha
+
+and its significance for the intraday loser (L), intraday winner (H), and long-short (L-H) port-
+
+folio. Panel A shows the bivariate sort based on market capitalization and ROD. We find that
+
+the intraday reversal pattern persists after controlling for size and is present across size groups.
+
+Intraday reversal is especially strong among small firms, as shown in column (S) and in line
+
+with the equal-weighted results reported in Table 2. A long-short strategy within the smallest
+
+20% firms earns a six-factor alpha of 14.71 bps per day (t-statistic = 27.20). The intraday
+
+reversal effect is also present among the 20% largest firms, where the six-factor alpha equals
+
+3.41 bps per day (t-statistic = 10.61). Overall, the end-of-the-day reversal is extremely robust
+
+as we find qualitatively similar results in the other panels. In general, within each quintile of the
+
+conditioning variable, we observe a significant cross-sectional intraday reversal. The end-of-day
+
+reversal effect also occurs among the most liquid, most traded, and least volatile stocks.
+
+
+
+Finally, we consider stocks that are underpriced or overpriced according to the mispricing score
+
+
+
+                                                 13
+of Stambaugh et al. (2012). End-of-day price pressure can arise from arbitrageurs unwinding
+
+their positions at market close in order to avoid overnight risk and cost, as documented by
+
+Bogousslavsky (2021). Specifically, arbitrageurs will sell (buy) undervalued (overvalued) stocks
+
+during LH. If undervalued (overvalued) stocks are also winners (losers) during ROD3, then
+
+such a position unwinding can yield end-of-day reversal. The bottom right part of Table 3 show
+
+that these unwinding activities do not fully explain the reversal. We find undervalued ROD3
+
+losers to have substantially higher LH returns than overvalued ROD3 winners. In addition,
+
+the end-of-day reversal is significantly present among all mispricing quintiles, including stocks
+
+that are not mispriced.
+
+
+
+
+3.4   Panel regression results
+
+In addition to portfolio sorts, we employ panel regressions to assess the predictive power of
+
+ROD3 returns for subsequent LH returns and to examine robustness to the inclusion of several
+
+control variables. To this end, we estimate the following specification:
+                                                    K
+                                                    X
+                           LHi,t = δ ∗ ROD3i,t +          δj Xk,i,t−1 + ϵi,t                  (1)
+                                                    j=1
+
+
+Where LHi,t is the stock return between 3:30pm and 4:00pm, and ROD3i,t is the stock return
+
+from the close on day t − 1 until 3:00pm on day t. The control variables Xk,i,t−1 are measured
+
+on the close of day t − 1. As before, we weight observations by their previous’ day market cap-
+
+italization and include date - and firm fixed effects with standard errors adjusted for clustering
+
+in the date and firm dimension.
+
+
+
+Table 4 reports the results of the panel regressions under multiple specifications, lending fur-
+
+ther support to the existence of the end-of-day reversal. Column (1) shows that ROD returns
+
+exhibit strong negative predictive power for the LH return with a t-statistic of -5.78, consistent
+
+with our sorting results. The subsequent columns show that results remain very similar after
+
+the inclusion of other predictors. In column (2), we decompose ROD3 into ON F H and M ID
+
+as Baltussen et al. (2021) show both components contain predictive power at the market-level.
+
+Our results indicate that both ONFH and MID negatively predict the last half-hour return
+
+
+                                               14
+with coefficients of similar size. Hence, both the overnight return and the intraday return tend
+
+to revert in the last half-hour. Consequently, any explanation for end-of-day reversal should
+
+account for both overnight and intraday returns reverting.
+
+
+
+Heston et al. (2010) find evidence of intraday return seasonality: returns continue during the
+
+same half-hour intervals as during previous trading days. In column (3), we regress the LH
+
+return on ROD3 return and simultaneously control for intraday seasonality by including the
+
+LH returns in the past three trading days. We find that ROD3 remains a significant negative
+
+predictor of returns during the last half-hour of the trading day. In column (4), we add several
+
+commonly used control variables: one-year market beta (estimated using daily data), daily re-
+
+alized volatility (RV; computed using 5-minute returns), past month return (SREV), one-year
+
+momentum (MOM), the illiquidity measure of Amihud (2002) (ILQ), and the mispricing score
+
+of Stambaugh and Yuan (2017) (MIS). Bogousslavsky (2021) show that a mispricing factor
+
+earns positive returns throughout the day but performs poorly during the last half-hour. We
+
+find that the coefficient on ROD3 remains of similar size and significance after including these
+
+controls. Hence, end-of-day reversal is not driven by stock characteristics or effects related to
+
+the mispricing factor.
+
+
+
+Alternatively, the end-of-day reversal effect might be driven by closing price effects caused by
+
+the closing price mechanism or the tremendous amount of orders executed at the market-on-
+
+close price (Bogousslavsky and Muravyev (2023)). In column (5), we replace LH by the return
+
+from 3:30pm till 3:55pm on ROD3 returns - hence skipping the last 5 minutes of the trading
+
+day, hence avoiding various effects present in the close price. We find that the coefficient on
+
+ROD3 becomes even more negative (-0.92) and significant (t-statistic = -8.76), and hence that
+
+the predictability is not driven by using the closing price and related effects.
+
+
+
+Our analyses so far has been based on returns computed from traded prices. As traded prices
+
+could be influenced by microstructure noise we next repeat our panel regressions using mid-
+
+point quote-based returns. Table A.1 in the appendix summarizes the results. Coefficients and
+
+significance levels are largely similar to those based on traded prices. Hence, the end-of-day
+
+
+
+                                                15
+reversal effect is robust to using quote-based returns.
+
+
+
+
+4    End-of-day reversal versus market intraday momentum
+
+In this section, we reconcile the end-of-day reversal results at the individual stock-level to
+
+market-level results documented by Gao et al. (2018) and Baltussen et al. (2021). Both studies
+
+document intraday momentum during the last half hour at the market-level, whereas we doc-
+
+ument a robust cross-sectional reversal at the stock-level. To understand the link and sources
+
+of both patterns, we employ the return decomposition exercise inspired by Lo and MacKinlay
+
+(1990). We consider a value-weighted cross-sectional (XS) strategy with the following portfolio
+
+weights:
+
+                                  XS
+                                 ωi,t = ωi,t−1 (ROD3i,t − ROD3m,t ),                           (2)
+
+
+where ωi,t−1 is the market capitalization of firm i scaled by the total market capitalization of
+
+all firms on day t − 1. ROD3m,t is the value-weighted average ROD3 return on day t. The
+
+portfolio return during the last half hour (LH) is as follows:
+                         N
+                         X                    N
+                                              X
+                                XS
+                  πt =         ωi,t LHi,t =         ωi,t−1 (ROD3i,t − ROD3m,t )LHi,t           (3)
+                         i=1                  i=1
+
+
+We can decompose the expected XS strategy profit into three components:
+
+
+                E(πt ) = ω · diag(Ω) − [ω ′ Ωω − ω · diag(Ω)] + Cov(µROD3 , µLH ),             (4)
+
+
+where Ω = Cov(ROD3t , LHt ) is the covariance matrix between ROD3 and LH returns, and
+
+Cov(µROD3 , µLH ) is the cross-sectional covariance between average ROD3 and LH returns.
+
+Equation 4 shows three possible sources of the intraday reversal strategy. The first term,
+
+ω · diag(Ω), is the value-weighted average auto-covariance of individual stocks. The second
+
+term, [ω ′ Ωω − ω · diag(Ω)], is the negative of the average cross auto-covariance. The third term,
+
+Cov(µROD3 , µLH ), is the cross-sectional covariance of average (value-weighted) ROD3 and LH
+
+returns, which captures dispersion in expected LH returns associated with ROD3 returns. In
+
+addition, we also construct a time-series (TS) strategy with the following weights:
+
+
+                                                      16
+                                       TS
+                                      ωi,t = ωi,t−1 ROD3i,t .                                   (5)
+
+
+The expected returns of the time-series strategy can be decomposed as:
+
+
+                                E(πt ) = ω · diag(Ω) + µ′ROD µLH .                              (6)
+
+
+The time-series strategy can be decomposed into the value-weighted auto-covariance term
+
+(ω · diag(Ω)), which is also a component in the XS strategy, plus the product of the (value-
+
+weighted) average ROD3 and LH returns. Hence, these equations can provide a link between
+
+time-series and cross-sectional strategy profitability. It has been shown by Baltussen et al.
+
+(2021) that ROD3 (or ROD) positively predicts LH returns at the market-level. Hence, we ex-
+
+pect that our estimated auto-covariance terms will be positive. In that case, the cross-sectional
+
+intraday reversal can only originate from the last two terms from equation 4.
+
+
+
+One limitation of the decomposition using individual stocks is that it requires complete ob-
+
+servations of stocks over the decomposition period. To address this, we randomly generate
+
+sub-samples of 6 months with replacement, and require complete observations within each sub-
+
+sample. We decompose the profits for each subsample and report the average in table 5.
+
+
+
+The total return to the XS strategy is -3.21 basis points per day, which is significantly negative
+
+and in line with our previous results. We find that the auto-covariance component is positive
+
+and significant (2.98 basis points per day) as expected based on the market intraday momentum
+
+pattern. Importantly, the negative profitability of the XS strategy comes solely from the cross-
+
+covariance which is -5.97 basis points per day. Stocks that went up or down less compared to
+
+other stocks catch up on the movement, yielding the end-of-day reversal pattern. Mean return
+
+effects are close to zero, and although highly significant they contribute little to the XS strategy
+
+return. Further, we show the expected profit of the TS strategy, which is 2.79 basis points per
+
+day, in line with intraday momentum at the market-level.
+
+
+
+Overall, these results show the difference between the cross-sectional intraday reversal that we
+
+observe, and the time series intraday momentum in Baltussen et al. (2021). Individual stock
+
+
+
+                                                17
+(and market) returns display momentum in the time-series, but due to strong cross-stock au-
+
+tocorrelations display end-of-day reversal in the cross-section. Hence, the end-of-day reversal
+
+pattern for individual stocks is distinct from, and complementary to, intraday momentum pat-
+
+terns documented at the market level.
+
+
+
+
+5     What drives intraday reversal?
+
+In this section, we examine the likely drivers of the end-of-day reversal. We start by examining
+
+permanent liquidity shocks versus temporary price pressures or news arrival, followed by gamma
+
+hedging effects found by Baltussen et al. (2021). Subsequently, we study the asymmetry in
+
+the end-of-day reversal effect, and two novel channels related to end-of-day retail trading and
+
+reduced short selling. Finally, we present additional results on retail trading and returns at the
+
+start of the next day.
+
+
+5.1   Temporary price pressure
+
+Having documented a sizable and robust end-of-day reversal pattern, we next examine its po-
+
+tential economic mechanisms. A first, intuitive explanation relates to illiquidity. However, as
+
+stressed above the effect shows up while controlling for microstructure noise and among the
+
+most liquid, most traded, or large cap stocks. A potential other, simple explanation is based
+
+on a persistent liquidity shock during ROD3. As the liquidity improves during LH, the price
+
+reverts to its fundamental level. Under this explanation, the price correction during LH should
+
+be permanent and should not itself be reverted in the future. Related, if the end-of-day reversal
+
+is driven by informational trading motivations, we would expect it to persist beyond the last
+
+half hour.
+
+
+
+In Table 6, we study whether stock-level intraday reversal persists beyond the current last half-
+
+hour. To this end, we extend the last half-hour interval with the subsequent overnight and
+
+daytime interval at trading day t + 1. Starting at our standard specification of regressing the
+
+last half hour return (LH) on ROD3 (row 1), we progressively add the two intervals to LH
+
+(rows 2 and 3). The results show that ROD3 return predictability disappears if we extend the
+
+
+                                               18
+future return horizon to include both LH today and ON F H tomorrow, or both LH today and
+
+close-to-close tomorrow. The coefficient on ROD3 reverts to -0.12 (t-statistic of -0.47) when
+
+adding the subsequent overnight interval to LHt , and to 0.58 (t-statistic of 1.42) when we ex-
+
+tent the interval to close at t + 1. In other words, the intraday reversal during LH reflects a
+
+transitory price pressure that reverts during the next day. Such a reversal contradicts explana-
+
+tions based on a permanent liquidity shock or motivations stemming from informational trading.
+
+
+
+
+5.2   News
+
+End-of-day reversal could be a reflection of fundamental news releases or informed trading
+
+around news. To examine this explanation, we rerun the earlier panel regression but add inter-
+
+action dummies for earnings news (i.e., earnings announcement dates) or firm-specific corporate
+
+news dates. In Appendix 7, Table A.2 we show the regression results, revealing that the rela-
+
+tionship between ROD3 and LH is not affected by the presence of earnings announcements or
+
+other firm-specific news. Hence, end-of-day reversal is robust to the arrival of fundamental news.
+
+
+
+
+5.3   Hedging demand and end-of-day reversal
+
+What could then be driving end-of-day reversal? Baltussen et al. (2021) show that last half-
+
+hour returns at the market-level display momentum, driven by hedging demand of option market
+
+makers and the rebalancing of leveraged ETFs. Option market makers tend to systematically
+
+hedge their option inventory risk by trading the underlying asset. If their inventory has a
+
+positive gamma, then they have to trade in the opposite direction of the past return in order
+
+to ensure delta-neutrality, giving rise to price pressure during LH in the opposite direction of
+
+ROD3 return. Baltussen et al. (2021) argue that a natural moment to hedge is before market
+
+close as risk or capital requirements tend to increase overnight. Furthermore, such price pressure
+
+on individual stocks can originate directly from hedging options on those stocks, or indirectly
+
+from hedging index options if a stock belongs to an index. Similarly, Leveraged ETFs (LETF)
+
+seek to deliver a multiple of their underlying index’s daily returns. Market makers in LETFs
+
+need to rebalance daily and around the close in the same direction as the underlying index’s
+
+
+
+                                               19
+daily performance, again propagating price pressure to individual stocks that are in the index.
+
+Barbon et al. (2021) show evidence of price dynamics at the stock-level during the end of the
+
+day driven by the same two hedging demand factors.
+
+
+
+To examine the role of gamma-related hedging demand on end-of-day reversal, we extend our
+
+panel regressions with the various measures of hedging demand used by Baltussen et al. (2021).
+
+We obtain data from OptionMetrics on individual stock options to construct the Net Gamma
+
+Exposure (NGE) measure for each stock i at day t. A detailed explanation of the variable con-
+
+struction is provided in Appendix 7. Second, we compute ROD3 and NGE for several indexes,
+
+and map this to their constituents using a stock’s weight in each index. Details are provided
+
+in Appendix 7. Third, we compute the rebalancing demand of LETFs of various indices and
+
+again map this to their constituents using a stock’s weight in each index. Details are provided
+
+in Appendix 7. Our option data sample start in 1996 (the start date of OptionMetrics data)
+
+and our LETF sample in 2006 (Leveraged ETFs were introduced in 2006).
+
+
+
+Table 7 presents the results. First, we focus on the subsample of stocks for which we have op-
+
+tion data available on day t (panel A). In column (1), as before, we document that end-of-day
+
+reversal remains highly significant over this (shorter and smaller) subsample. Next, we regress
+
+the LH return on ROD3, the NGE of stock i and day t, and the interaction term between both
+
+(column (2)). We find that ROD3 interacts significantly with NGE, thus the more positive
+
+(negative) the NGE on a stock the more we observe intraday reversal (momentum). This aligns
+
+with the findings of Baltussen et al. (2021) at the market-level and Barbon et al. (2021) at the
+
+stock-level. When NGE is positive, option market makers need to rebalance against the initial
+
+price movements, thereby creating a price reversal at the end of the day. Interestingly, the
+
+coefficient on ROD3 remains highly significant (t-statistic = -4.76) after controlling for gamma
+
+hedging demand from individual stock options. Columns (3) to (5) show a similar pattern after
+
+including the market-level gamma hedging measures; especially LETF demand contributes to
+
+stock-level intraday momentum, but the end-of-day reversal effect is robust to the controls for
+
+gamma hedging. These results indicate that while gamma hedging demands contribute to the
+
+end-of-day reversal, they do not fully explain it.
+
+
+
+                                                20
+The above N GE measure relies on the assumption that market makers are short the entire put
+
+and long the entire call open interest at each point in time (see Baltussen et al. (2021)), which
+
+introduces measurement errors. Using a more precise measure that utilizes detailed positioning
+
+data to approximate option market makers positioning, Barbon et al. (2021) find gamma hedg-
+
+ing effects that in line with our results presented in table 7. Next, to account for the possibility
+
+that the hedging demand is measured with errors, in panel B of table 7 we consider a more
+
+direct test by focusing on the sub-sample of stocks that have no option data available before day
+
+t.10 If gamma-hedging from individual stock options would be fully driving the end-of-day price
+
+dynamics, we would expect to observe no end-of-day predictability for stocks without options
+
+trading on them. Column (1) in panel B shows that end-of-day reversal still occurs significantly
+
+in this sub-sample (t-statistic of -3.75). Subsequent columns shows the predictability remains
+
+once including the market-level gamma hedging measures.
+
+
+
+Next, we re-run the above panel regressions for two additional sub-samples: stocks included in
+
+well-tracked indexes at day t (’Indexed) and all other stocks (’Non-Indexed’). Index inclusions
+
+covers the S&P 500, Nasdaq 100, Dow Jones 30, S&P 400 Midcap, or Russell 2000 indices.
+
+Table 8 presents the results. Stocks in an index will have gamma hedging effects from market-
+
+level options and LETF spilling over to its constituents. Panel A shows that also in this subset
+
+end-of-day reversal remains strong and highly significant, despite the presence of stock-level and
+
+market-level gamma hedging effects. Panel B considers all stocks outside major indices at day t,
+
+and hence without direct market-level gamma hedging demand effects. Also in this sub-sample
+
+we observe a significant end-of-day reversal. Overall, stock- and market-level gamma hedging
+
+demand predicts momentum or reversal effects in returns towards the end-of-day, but they are
+
+at best a partial explanation of the end-of-day reversal effect.
+
+
+ 10
+    More specifically, a stock is non-optionable until its first occurrence in the OptionMetrics database with valid
+Net Gamma Exposure data.
+
+
+
+
+                                                        21
+5.4   Asymmetry in the end-of-day reversal
+
+Next, we consider whether there is an asymmetric effect of ROD3 on LH. The univariate
+
+sorting results indicates that the end-of-day reversal mainly originates from ROD3 loser stocks.
+
+In column (6) of Table 4 we add ROD3 × I[ROD3 < 0] to the panel regression specifica-
+
+tion. This measures the additional effect of ROD3 on LH given a negative ROD3 observa-
+
+tion. We find that the coefficient on ROD3 becomes insignificant (t-statistic = 0.23), whereas
+
+ROD3 × I[ROD3 < 0] significantly and negatively predicts LH returns (t-statistic = -6.97).
+
+Hence, end-of-day reversal especially originates from intraday loser stocks.
+
+
+
+Next, we consider the asymmetry in intraday reversal across the various intraday intervals con-
+
+sidered in Figure 1. Figure 3 shows the resulting slope coefficients and 95% confidence intervals
+
+for positive intraday returns (top panel) or negative intraday returns (bottom panel). Akin to
+
+Figure 1 most intervals display no significant predictability, with slope coefficients being close
+
+to zero. In general, positive intraday returns do not revert across intervals, including the LH
+
+interval (the exception being the F H interval). By contrast, negative intraday returns tend to
+
+revert, most notably during the beginning and end of the trading day. The results for the last
+
+interval clearly stand out, as the negative intraday returns tend to revert most strongly during
+
+SLH. Comparing the differences between both panels shows that the intraday reversals are
+
+not much different across most intraday intervals except for LH, over which the slope coeffi-
+
+cient changes from near zero for positive ROD3 returns to substantially negative for negative
+
+ROD3 returns. As a robustness test, Figure A.2 in the appendix, reports end-of-day reversal
+
+coefficients by the day of the week. We find that all coefficients do not differ significantly across
+
+different days of the week. Overall, our results show that the end-of-the-day reversal is driven
+
+by the subsample with negative ROD3 returns.
+
+
+
+
+5.5   Retail trading
+
+Intraday reversal during the last half hour of the trading day can be driven by retail investors.
+
+Relatively large intraday returns could grab retail investors’ attention, and since retail investors
+
+rarely short, their attention results in purchases and, thus, positive price pressure on average.
+
+
+                                                 22
+Barber and Odean (2008), Da et al. (2011), and Barber et al. (2022), amongst others, show that
+
+on average retail investors purchase the stocks that they pay attention to. Such an attention-
+
+induced retail purchase tend to result in positive price pressure contemporaneously and price
+
+reversal subsequently.
+
+
+
+Existing literature provides evidence for such retail contrarian trading. Kaniel et al. (2012)
+
+examine retail trading of a large cross-section of NYSE stocks during 2000-2003 and show that
+
+retail investors, as a group, tend to trade in the opposite direction of earnings surprises. More
+
+recently, using account-level data from a large U.S. brokerage firm for the period of 2010-2014,
+
+Luo, Ravina, Sammon, and Viceira (2023) find that retail investors exhibit contrarian trading
+
+behavior in response to earnings surprises, particularly among attentive investors and in the case
+
+of negative announcements. Additional evidence of retail contrarian trades is documented by
+
+Grinblatt and Keloharju (2000, 2001), who find increased buying activity by Finnish households
+
+following negative returns. As such, retail contrarian trading should predict an even stronger
+
+retail purchase among ROD3 losers at the end of the day.
+
+
+
+In this section, we examine the effect of ROD3 on retail trading. We find that end-of-day
+
+trading by retailers are contrarian, and mainly engage in ”buy-the-dip” after negative ROD3
+
+realizations. To identify retail trading at the end of the trading day, we use three proxies: (i)
+
+retail order imbalances obtained from small trades during the pre-decimalization era, (ii) retail
+
+order imbalances via the retail classification algorithm, and (iii) changes in holdings of Robin-
+
+hood traders. Lastly, as a comparison, we also use general order imbalance based on Lee and
+
+Ready (1991).
+
+
+
+First, we construct a firm-specific trade size proxy that is effective in separating the trading
+
+activities of individual and institutional investors during the pre-decimalization era, following
+
+Lee and Radhakrishna (2000): we compare the trading price to $10.000 and determine the
+
+largest number of round lot shares that is less than or equal to $10.000. Trades transacted at
+
+this number of shares or less will be deemed as small (retail) trades. Furthermore, we use the
+
+Lee and Ready (1991) algorithm to classify trade into buy- or sell-initiated trades. Subsequently,
+
+
+
+                                               23
+we use the small trades in the last half-hour of stock i on day t, to compute the retail order
+
+imbalance (ROI):
+
+
+                 ROIi,t,LH = (Buyi,t,LH − Selli,t,LH )/(Buyi,t,LH + Selli,t,LH )              (7)
+
+
+Where ROIi,t,LH denotes the retail order imbalance for stock i on day t during the last half
+
+hour. Buyi,t,LH denotes the dollar trading volume from transactions classified as small buys
+
+according to this classification algorithm. Selli,t,LH denotes the dollar trading volume from
+
+transactions classified as small sales. Hvidkjaer (2008) notes that the likelihood that a small
+
+trade was a piece of a large institutional order became much higher after the shift to decimal
+
+pricing in 2001 and Reg NMS in 2005. Hence, we compute the retail order imbalance based on
+
+small trades over the sample period Jan. 1993 till Dec. 2000.
+
+
+
+Second, we identify retail trades using the retail trade classification proposed by Barber et al.
+
+(2024), inspired by Boehmer et al. (2021). Most trades for US stocks initiated by retail investors
+
+are off-exchange, but rather placed by wholesalers or via broker internalization. Such trades are
+
+reported to FINRA’s Trade Reporting Facility (TRF), and are classified in TAQ with exchange
+
+code ”D”. In addition, these trades are typically given a fraction of price improvement. The
+
+BJZZ algorithm identifies trades with prices that end with a fractional penny between (0,0.04)
+
+as a sell transaction, whereas trades with a fractional penny between (0.6,1) are classified as
+
+buy transactions. The adapted version of Barber et al. (2024) modifies the algorithm by signing
+
+trades using the quoted spread midpoints. We use the latter algorithm to compute retail order
+
+imbalance in the last half hour of the trading session for each stock over the sample period Jan.
+
+2010 till Dec. 2019.
+
+
+
+Third, we consider holding data obtained from the Robintrack dataset, created in 2018 by Casey
+
+Primozic. Robintrack is a website that ran an hourly script to gather the number of investors
+
+in all securities on the Robinhood platform over the period May 2018 - August 2020. We use
+
+this data from May 2018 till Dec. 2019 and follow the cleaning procedures suggested by Ardia
+
+et al. (2023). The Robintrack dataset includes the number of Robinhood investors in a given
+
+security at an hourly frequency. For each stock, we compute the change in the log(1 + retail
+
+
+
+                                               24
+holdings) at the end of the trading day.
+
+
+
+In Table 9 we regress each proxy of retail trading at the end of the day on ROD3 and a set
+
+of control variables. In panel A, the dependent variable is the retail order imbalance derived
+
+from small trades. In column (1), we show the estimates of the univariate regression of ROI
+
+on ROD3. We find a negative coefficient, implying that higher ROD3 is associated with more
+
+sell pressure from retail investors. In column (2), we split positive and negative ROD3 obser-
+
+vations. We find that the predictive power from ROD3 stems from negative observations. In
+
+other words, when ROD3 is negative, ROI during the last half-hour tends to increase, indicat-
+
+ing increased buying pressure. In column (3), we add several control variables. We find that
+
+the inclusion of control variables does not affect our findings. The ’Joint’ row computes the
+
+total effect of negative ROD3 on small trades, and is significantly negative in column (2) and
+
+(3). In line with our hypothesis, we find increased buying pressure from retail investors when
+
+ROD3 is negative.
+
+
+
+In panel B, the dependent variable is the retail order imbalance derived from the retail classi-
+
+fication algorithm of Barber et al. (2024). In panel C, the dependent variable is the change in
+
+retail holdings from Robinhood traders obtained from the Robintrack dataset. Consistent with
+
+panel A, the results also indicate increased buying pressure after a decrease in ROD3.
+
+
+
+To confirm the above patterns are not mechanically resulting from order imbalances in general,
+
+we next repeat the exercise from panel A but with as the dependent variable general order im-
+
+balance (OIB, excluding BJZZ identified trades) during the last half-hour. Panel D shows the
+
+results. In contrast to panel A-C, we now find that coefficients are positive, including the ’Joint’
+
+coefficient on negative ROD3. In other words, general order imbalance tends to be higher for
+
+both higher positive and negative ROD3. Overall, we find evidence showing increased ’buy-
+
+the-dip’ buying by retail investors during LH.
+
+
+
+
+                                                25
+5.6   Reduced short-selling
+
+Overnight risk on individual stocks is particularly important for short-sellers, since the potential
+
+for loss can be unlimited and it is very hard to hedge. For this reason, short-sellers might be
+
+reluctant to establish new positions at the end of the day or even close existing short positions.
+
+The reduced short selling, combined with attention-induced retail buying, could enhance the
+
+end-of-day reversal, especially among intraday losers.
+
+
+
+We obtain proprietary intraday short volume for stocks traded on almost all major U.S. trad-
+
+ing venues as in Goyal, Reed, Smajlbegovic, and Soebhag (2024). This data virtually covers
+
+most of the short volume transactions where short positions have been opened on U.S. trad-
+
+ing venues starting as of August 2010. Following Hu, Jones, Zhang, and Zhang (2024), we
+
+exclude exempted short sales during regular market hours. Under SEC Regulation SHO, Rule
+
+201, certain short sale trades are exempt from the price test restrictions, which are most likely
+
+trades driven by market-making. By excluding exempted short sales, we keep trades that are
+
+potentially driven by informed short sellers. Furthermore, we do not observe short covering,
+
+but only the opening of short positions. For each stock, we compute the short volume in the
+
+last half hour and scale this by the total daily short volume.
+
+
+
+We regress the short volume during the last half-hour on ROD3 and present the results in
+
+Table 10. In column (1), we show the univariate regression coefficient of LH short volume on
+
+ROD3. This coefficient is positive and statistically significant, indicating that ROD3 is posi-
+
+tively associated with last half-hour short volume; higher ROD3 implies more short positions
+
+being opened. In column (2), we consider the marginal effect of negative ROD3 observations
+
+on top of ROD3. We find that the coefficient on ROD3 becomes significantly negative, whereas
+
+the coefficient on ROD3 < 0 is highly positive and significant. In combination the effect in
+
+negative ROD3 observations is more than double the effect of positive ROD3 observations.
+
+The coefficients indicate that last half-hour short volume decreases when ROD3 becomes more
+
+negative. In other words, when ROD3 is negative, we see less short sale positions being opened.
+
+As such, price pressure from short sellers decrease in the last half-hour when ROD3 is negative,
+
+likely resulting in a positive return during the last half-hour. Using proprietary intraday data
+
+
+
+                                                26
+on the opening of short positions, we find a significant drop in new short positions during LH
+
+when the ROD3 return is negative.
+
+
+
+Overall, increased ’buy-the-dip’ buying by retail investors, combined with reduced short selling,
+
+generates positive price pressure during LH. This price pressure weakens the latent end-of-day
+
+return reversal among ROD3 winners but enhances it among ROD3 losers. Since the positive
+
+price pressure is much stronger among ROD3 losers, we observe an end-of-day reversal pattern.
+
+
+
+
+5.7   Retail trading: end-of-day versus open
+
+Our results in the previous sections have shown that retail ’buy-the-dip’ trading towards the
+
+close is an important driver of end-of-day stock price reversals. Several studies, however, argue
+
+that retail investors are especially active around the open and their price pressures influences
+
+opening prices of stocks. Berkman et al. (2012) show that retail-attention-induced price pres-
+
+sure pushes up the stock price at the open, thereby contributing to a high overnight return and
+
+a low intraday return on average. Jones et al. (2024) show that retail investors are extrapolative
+
+in their trading at the beginning of the day. Next, we examine retail activity around the open
+
+and contrast it with our reversal results around the close, providing additional economic insights.
+
+
+
+First, we confirm the retail-attention-induced price pressure at the open in column (1) of table
+
+11, where we regress the overnight return (ON ) on ROD3, the interaction between ROD3 and
+
+the negative ROD3 dummy, and additional stock characteristics. We find a positive and signifi-
+
+cant coefficient on ROD3 (1.43), suggesting higher ON returns for ROD3 winners. In addition,
+
+the sum of coefficients on ROD3 and ROD3×I[ROD3 < 0] (1.43−2.29) is negative, suggesting
+
+higher ON returns for ROD3 losers as well. The higher ON returns for both ROD3 winners
+
+and losers are consistent with the notion that the opening price contains an attention-induced
+
+price pressure.
+
+
+
+Second, columns (2) to (5) of table 11 confirm that retail investors are extrapolative in their
+
+trading at the beginning of the day using ROD3 returns. Using F H returns and the three
+
+
+
+                                                27
+measures of retail trading employed before (i.e., retail order imbalance based on small trades,
+
+BJZZ retail order imbalance, and Robinhood’s retail holdings changes), we find evidence show-
+
+ing that retail investors buy (sell) ROD3 winners (losers) during the F H period the next day.
+
+As a result, the F H return tends to be higher (lower) for ROD3 winners (losers). Again, intra-
+
+day analysis reveals this interesting contrast between retail trading at the end of the day and
+
+trading at the beginning.
+
+
+
+Importantly, our novel finding of end-of-day reversal suggests that the attention-induced price
+
+pressure also happens earlier; during the last 30 minutes of the current trading day. The evi-
+
+dence is consistent with the recent finding in Barber et al. (2024). Using extreme daily return as
+
+a measure of positive retail investor attention shock on Robinhood, Barber et al. (2024) confirm
+
+that retail attention causes positive price pressure today and negative return reversal in the
+
+future. Overall, we conclude that significant price pressures from retail investors happen dur-
+
+ing the open (’extrapolative’) but also close (’buy-the-dip’) of the trading day, thereby causing
+
+predictible intraday retun patterns.
+
+
+
+
+6    Conclusion
+
+We find that individual stock returns display a strong intraday reversal that is most pronounced
+
+at the end of the trading day. This ”end-of-day reversal ” pattern is economically and statis-
+
+tically highly significant, and holds across almost every 3-year rolling window, methodologies,
+
+and various subsamples of stocks, including the largest, most traded, or most liquid stocks.
+
+Moreover, we show it complements the intraday momentum documented for market returns,
+
+driven by the importance of cross-autocovariances across stocks.
+
+
+
+Importantly, the end-of-day reversal primarily comes from positive and transitory price pres-
+
+sure on intraday losers that reverts over the next day. We examine various drivers and rule out
+
+explanations based on illiquidity, closing price effects, news, or persistent liquidity shocks. Akin
+
+to previous studies we show a strong presence of stock- or market-level gamma hedging effects,
+
+which, however, fail to explain the end-of-day reversal effects. Instead, we introduce two novel
+
+
+                                                28
+economic channels related to attention-induced retail trading during the end of the day and risk
+
+management by short-sellers, which we show contribute to the effect.
+
+
+
+
+                                              29
+7    Tables & Figures
+
+Figure 1:
+Predicting intraday stock returns: an end-of-day reversal.
+The figure shows the estimated coefficients obtained from regressing a stock’s 30 minute re-
+turn on its previous 12-period interval return - including a 30 minute skip period between the
+regressor and the dependent variable. The y-axis shows the slope coefficient (multiplied by
+100), while the x-axis shows the 30 minute interval of the dependent variable. The bars are the
+95% confidence intervals based on standard errors that are adjusted for clustering in the firm
+and time dimension. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the
+period between January 1993 and December 2019 with share code 10 or 11, with prices above
+$5. Observations are weighted by their previous’ day market capitalization. We include time -
+and firm fixed effects in the panel regressions.
+
+
+
+
+                                              30
+Figure 2:
+End-of-day reversal: rolling coefficients.
+This figure shows the results of regressing ROD3 on LH using rolling panel regressions over
+three year windows. The upper figure shows the rolling slope coefficient, while the bottom figure
+shows its clustering-adjusted t-statistic (adjusted in the time- and firm dimension). The sample
+consists of stocks listed on NYSE/AMEX/NASDAQ for the period between January 1993 and
+December 2019 with share code 10 or 11, with prices above $5. Observations are weighted by
+their previous’ day market capitalization. We include time - and firm fixed effects in the panel
+regressions.
+
+
+
+
+                                               31
+Figure 3:
+Predicting intraday stock returns: an asymmetric effect.
+The figure shows the estimated coefficients obtained from regressing a stock’s 30 minute return
+on its previous 12-period interval return - including a 30 minute skip period between the re-
+gressor and the dependent variable. The top (bottom) figure uses positive (negative) values
+of the regressor. On the y-axis we report the slope coefficient (multiplied by 100), while the
+x-axis shows the 30 minute interval of the dependent variable. The bars are the 95% confidence
+intervals based on standard errors that are adjusted for clustering in the firm and time dimen-
+sion. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between
+January 1993 and December 2019 with share code 10 or 11, with prices above $5. Observations
+are weighted by their previous’ day market capitalization. We include time - and firm fixed
+effects in the panel regressions.
+
+
+
+
+                                              32
+Figure 4:
+End-of-day reversal: cumulative strategy returns.
+This figure shows the cumulative performance of decile portfolios formed on the ”rest-of-day”
+(ROD3) return, which is the return between market close at day t − 1 till 3:00pm at day t. At
+3:30pm of each day t we sort stocks into five portfolios based on their ROD3 return on day t,
+and hold this portfolio intraday from 3:30pm until 4:00pm (i.e., market close). The dark (light)
+grey line shows the return for ROD3 loser (winner) decile. The black line shows the return on
+the daily market portfolio held throughout the day, as obtained from Kenneth French’s data
+library. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between
+January 1993 and December 2019 with share code 10 or 11, with prices above $5. We exclude
+stocks below the 10th NYSE size percentile. Stocks are weighted by their previous’ day market
+capitalization.
+
+
+
+
+                                              33
+Table 1:
+Summary statistics.
+This table reports the time-series average of the cross-sectional mean, standard deviation, 10th and 90th
+percentile, median, numbers of days and total number of observations. The sample consists of stocks listed on
+NYSE/AMEX/NASDAQ for the period between January 1993 and December 2019 with share code 10 or 11.
+We exclude stocks below the 10th NYSE size percentile.
+
+            Mean        Std Dev        10th       Median        90th       Days       Nr. Observations
+LH           0.03         0.68         -0.69        0.00         0.77       6752          14.746.864
+ROD3         0.04         2.10         -2.31        -0.02        2.42       6751          14.738.425
+MID          0.02         1.68         -1.90        -0.01        1.95       6752          14.743.993
+ONFH         0.02         1.39         -1.47        -0.01        1.53       6751          14.735.563
+βmkt         1.04         0.48         0.50         0.97         1.68       6752          13.865.928
+RV           12.38       38.07         1.19         5.26        29.07       6751          14.738.204
+SREV         1.89        28.13        -10.53        0.85        13.91       6752          14.663.367
+MOM          19.94       129.89       -29.79        7.29        64.87       6752          13.865.928
+ILQ          0.06         0.35         0.00         0.01         0.11       6752          14.663.347
+MIS          48.97       11.09         34.95        48.55       63.59       6752          13.152.586
+
+
+
+
+                                                        34
+Table 2:
+Performance of quintile portfolios sorted on ROD3 return.
+This table reports the performance of quintile portfolios formed on the basis of the ”rest-of-day” (ROD3) return, which
+is the return between market close at day t − 1 till 3:00pm at day t. At 3:30pm of each day t we sort stocks into
+five portfolios based on their ROD3 return on day t, and hold this portfolio intraday from 3:30pm until 4:00pm (i.e.,
+market close). We report the average 30-minute return (”R”) in basis points, the Fama-French-Carhart four-factor alpha
+(”FF4 α”), and the Fama-French-Carhart six-factor alpha (”FF6 α”) for each portfolio. The column labeled ”L-H” is
+the self-financing low-minus-high portfolio. We show results for both value-weighted (’VW’) and equal-weighted (’EW’)
+portfolios, and imposing both a $5 and $1 price filter applied on our stock sample. The sample consists of stocks listed on
+NYSE/AMEX/NASDAQ for the period between January 1993 and December 2019 with share code 10 or 11. We remove
+stocks below the 10th NYSE size percentile. Newey-West adjusted t-statistics are shown between parentheses. Asterisks
+indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+             VW+$5 filter                    VW+$1 filter                    EW+$5 filter                    EW+$1 filter
+         R       FF4 α      FF6 α        R       FF4 α      FF6 α        R       FF4 α      FF6 α        R       FF4 α      FF6 α
+
+L     3.55∗∗∗    2.75∗∗∗    2.48∗∗∗    3.71∗∗∗   2.88∗∗∗    2.57∗∗∗    7.79∗∗∗   5.12∗∗∗    4.84∗∗∗    8.56∗∗∗   5.73∗∗∗    5.43∗∗∗
+       (8.37)    (12.99)    (12.25)    (8.64)    (13.06)    (12.32)    (15.27)   (21.31)    (20.62)    (15.55)   (21.35)    (20.88)
+2     0.98∗∗∗    0.45∗∗∗    0.50∗∗∗    0.97∗∗∗   0.42∗∗∗    0.48∗∗∗    2.38∗∗∗   0.25∗∗∗    0.30∗∗∗    2.57∗∗∗   0.37∗∗∗    0.41∗∗∗
+       (2.87)    (4.06)     (4.53)     (2.80)    (3.68)     (4.19)     (7.02)    (3.21)     (4.11)     (7.36)    (4.60)     (5.37)
+3      -0.14     -0.58∗∗∗   -0.44∗∗∗    -0.11    -0.57∗∗∗   -0.43∗∗∗   1.52∗∗∗   -0.52∗∗∗   -0.40∗∗∗   1.65∗∗∗   -0.44∗∗∗   -0.32∗∗∗
+      (-0.42)    (-6.14)    (-5.06)    (-0.34)   (-5.92)    (-4.89)    (4.74)    (-6.22)    (-5.27)    (5.03)    (-5.35)    (-4.35)
+4     -0.73∗∗    -1.22∗∗∗   -1.05∗∗∗   -0.71∗∗   -1.23∗∗∗   -1.05∗∗∗   0.89∗∗∗   -1.19∗∗∗   -1.09∗∗∗   1.01∗∗∗   -1.13∗∗∗   -1.04∗∗∗
+      (-2.19)    (-11.91) (-10.85) (-2.15) (-11.98) (-10.95)           (2.77)    (-12.02) (-11.86)     (3.08)    (-11.44) (-11.29)
+H     -0.22∗∗∗   -1.09∗∗∗   -1.23∗∗∗    -0.15    -1.04∗∗∗   -1.19∗∗∗   1.41∗∗∗   -1.06∗∗∗   -1.14∗∗∗   1.70∗∗∗   -0.87∗∗∗   -0.96∗∗∗
+      (-0.56)    (-5.67)    (-6.47)    (-0.38)   (-5.46)    (-6.26)    (3.51)    (-6.66)    (-7.12)    (4.11)    (-5.30)    (-5.80)
+
+L-H   3.78∗∗∗    3.84∗∗∗    3.71∗∗∗    3.86∗∗∗   3.92∗∗∗    3.76∗∗∗    6.38∗∗∗   6.18∗∗∗    5.98∗∗∗    6.86∗∗∗   6.60∗∗∗    6.39∗∗∗
+      (10.69)    (10.76)    (10.61)    (10.78)   (10.82)    (10.60)    (17.30)   (17.33)    (16.98)    (17.49)   (17.60)    (17.28)
+
+
+
+
+                                                              35
+Table 3:
+Performance of double-sorted portfolios sorted on ROD3 return.
+This table reports the performance of portfolios first formed on a conditioning characteristic and then on ROD3 return,
+which is the return between market close at day t − 1 till 3:00pm at day t. The conditioning variables (at day t − 1) are size
+(market capitalization), volume (trading volume), illiquidity (Amihud, 2002), realized volatility computed using 5-minute
+returns, overnight volatility (standard deviation of overnight returns over the past 90 trading days), and the mispricing
+score of Stambaugh and Yuan (2017). We report the Fama-French-Carhart six-factor alpha of each portfolio. The row
+labeled ”L-H” is the self-financing low-minus-high portfolio. Portfolio returns are value-weighted, and the sample consists
+of stocks listed on NYSE/AMEX/NASDAQ for the period between January 1993 and December 2019 with share code 10
+or 11. We exclude stocks below the 10th NYSE size percentile and impose a $5 price filter. Newey-West t-statistics are
+shown between parentheses. Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                                  Size                                                      Volume
+
+           S            2           3          4           B           L            2           3          4          H
+L       15.34∗∗∗     8.93∗∗∗     5.23∗∗∗     3.27∗∗∗    2.55∗∗∗     10.84∗∗∗     6.85∗∗∗     4.62∗∗∗    3.35∗∗∗    2.86∗∗∗
+        (25.16)      (17.44)     (12.00)     (8.53)     (6.02)      (22.30)      (15.34)     (11.68)    (8.74)      (6.25)
+H         0.63       1.27∗∗∗     1.91∗∗∗     1.99∗∗∗    -0.86∗∗     -1.55∗∗∗      0.58       1.64∗∗∗    1.92∗∗∗     -0.45
+         (1.37)      (2.94)      (4.79)      (5.78)     (-2.16)      (-3.73)     (1.55)       (4.61)    (5.57)      (-1.01)
+L-H     14.71∗∗∗     7.66∗∗∗     3.32∗∗∗     1.28∗∗∗    3.41∗∗∗     12.39∗∗∗     6.27∗∗∗     2.98∗∗∗    1.43∗∗∗    3.30∗∗∗
+        (27.20)      (19.49)     (11.73)     (5.15)     (10.61)     (26.40)      (18.27)     (11.04)    (5.30)      (8.43)
+                               Illiquidity                                          Realized Volatility
+
+           L            2           3          4           H           L            2           3          4          H
+L       2.51∗∗∗      2.95∗∗∗     5.07∗∗∗     8.75∗∗∗   15.25∗∗∗     3.11∗∗∗      2.97∗∗∗     3.72∗∗∗    4.60∗∗∗    7.27∗∗∗
+         (5.83)      (7.60)      (11.95)     (17.72)    (25.05)      (9.50)      (7.73)       (8.27)    (8.77)     (12.29)
+H       -0.89∗∗      2.25∗∗∗     2.20∗∗∗     1.43∗∗∗    -1.39∗∗∗    -1.93∗∗∗    -1.83∗∗∗      -0.56     1.64∗∗∗    4.28∗∗∗
+         (-2.20)     (6.50)      (5.70)      (3.31)     (-2.89)      (-6.49)     (-4.96)      (-1.29)   (3.22)      (6.93)
+L-H     3.40∗∗∗      0.69∗∗∗     2.87∗∗∗     7.32∗∗∗   16.65∗∗∗     5.03∗∗∗      4.80∗∗∗     4.28∗∗∗    2.96∗∗∗    2.99∗∗∗
+        (10.26)      (2.66)      (10.19)     (18.31)    (26.37)     (21.11)      (16.52)     (11.84)    (6.84)      (5.44)
+                        Overnight Volatility                                               Mispricing
+
+           L            2           3          4           H           L            2           3          4          H
+L       2.96∗∗∗      3.32∗∗∗     3.34∗∗∗     4.91∗∗∗    7.41∗∗∗     2.64∗∗∗      3.07∗∗∗     3.47∗∗∗    4.21∗∗∗    4.38∗∗∗
+         (8.54)      (8.15)      (7.66)      (9.33)     (11.42)      (6.22)      (7.51)       (8.09)    (9.04)      (8.34)
+H       -1.91∗∗∗    -1.43∗∗∗      0.25       0.85∗      1.65∗∗∗     -2.01∗∗∗     -1.01∗∗       0.10     1.18∗∗∗    2.83∗∗∗
+         (-5.93)     (-3.79)     (0.59)      (1.69)     (2.75)       (-5.12)     (-2.53)      (0.25)    (2.72)      (5.66)
+L-H     4.87∗∗∗      4.75∗∗∗     3.08∗∗∗     4.06∗∗∗    5.76∗∗∗     4.65∗∗∗      4.08∗∗∗     3.37∗∗∗    3.04∗∗∗    1.56∗∗∗
+        (18.58)      (14.67)     (8.64)      (8.68)     (8.61)      (13.70)      (11.96)      (9.32)    (7.09)      (3.33)
+
+
+
+
+                                                          36
+Table 4:
+End-of-day reversal: panel regression results.
+This table reports the estimated coefficients from panel regressions in which the last half-hour (LH) return is regressed on the
+ROD3 return and a range of control variables. The LH return is the return from 3:30pm till 4:00pm at day t. The ROD3
+return is the return from day t − 1 market close up till day t 3:00pm. In column (5), the last half-hour return is computed
+from 3:30pm till 3:55pm. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between January
+1993 and December 2019 with share code 10 or 11, with prices above $5 as of the portfolio formation. Stocks below the 10th
+NYSE size percentile are excluded from the sample. Observations are weighted by their previous’ day market capitalization.
+We include time - and firm fixed effects in all specifications. T-statistics, adjusted for clustering in time and firm dimensions,
+are reported between parenthesis. Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                               (1)              (2)              (3)              (4)              (5)              (6)
+ROD3                         -0.69∗∗∗                          -0.68∗∗∗         -0.74∗∗∗         -0.92∗∗∗           0.04
+                             (-5.78)                           (-5.66)          (-6.02)          (-8.76)           (0.23)
+ROD3×I[ROD3<0]                                                                                                    -1.62∗∗∗
+                                                                                                                  (-6.97)
+ONFH                                          -0.74∗∗∗
+                                              (-5.09)
+MID                                           -0.65∗∗∗
+                                              (-4.42)
+LHt−1                                                            0.23             0.40             0.11             0.38
+                                                                (0.50)           (0.84)           (0.27)           (0.81)
+LHt−2                                                          1.14∗∗∗          1.25∗∗∗           0.80∗∗          1.25∗∗∗
+                                                                (2.85)           (2.93)           (2.36)           (2.91)
+LHt−3                                                          2.11∗∗∗          2.20∗∗∗          1.23∗∗∗          2.19∗∗∗
+                                                                (5.20)           (5.12)           (4.04)           (5.11)
+β                                                                                -0.11            -0.47            -0.52
+                                                                                (-0.23)          (-1.07)          (-1.09)
+RV                                                                              0.00∗∗∗           -0.00           0.00∗∗∗
+                                                                                 (3.74)          (-0.06)           (4.01)
+SREV                                                                              0.20             0.70             0.48
+                                                                                 (0.32)           (1.25)           (0.76)
+MOM                                                                               0.25             0.25             0.24
+                                                                                 (1.43)           (1.61)           (1.40)
+ILQ                                                                               0.67             0.39             0.61
+                                                                                 (1.43)           (1.35)           (1.42)
+MIS                                                                             0.04∗∗∗          0.02∗∗∗          0.03∗∗∗
+                                                                                 (4.52)           (3.17)           (3.94)
+R2                            0.07%            0.07%            0.13%            0.16%            0.19%            0.21%
+Obs.                         14.60M           14.59M           14.58M           13.01M           13.01M           13.01M
+
+
+
+
+                                                          37
+Table 5:
+End-of-day reversal versus market intraday momentum: decomposition results.
+This table shows the results of decomposing cross-sectional end-of-day reversal and time-series intraday momentum strategy
+profits. We consider both a cross-sectional (’XS’) and time-series (’TS’) strategy, which we decompose into stock-level auto-
+covariance (’Auto’), cross-auto-covariance (’-Cross’), or the average stock return effect (’Mean’) using formula 4, and 6,
+respectively. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between January 1993 and
+December 2019 with share code 10 or 11, with prices above $5 as of the portfolio formation. Stocks below the 10th NYSE
+size percentile are excluded from the sample. Observations are weighted by their previous’ day market capitalization. We
+bootstrap the sample 500 times in blocks of 6 months, and report the average return (in basis points), and its corresponding
+bootstrapped t-statistics. Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                               XS Strategy                                                     TS Strategy
+
+Decomposition            Ret (bps)           t-value           Decomposition            Ret (bps)           t-value
+Total                     -3.21∗∗∗           (-17.75)               Total                 2.79∗∗             (4.06)
+Auto                       2.98∗∗             (4.34)                Auto                  2.98∗∗             (4.34)
+Mean                      -0.22∗∗∗           (-20.81)              Mean                  -0.19∗∗∗           (-14.09)
+-Cross                    -5.97∗∗∗           (-8.99)
+
+
+
+
+                                                          38
+Table 6:
+End-of-day reversal: temporary price pressure.
+This table reports the slope estimates from regressing the cumulative return over LH (i.e.,
+3:30pm - 4:00pm), LH + ON (i.e., 3:30pm - 9:30am next day), and LH + next day (i.e., 3:30pm
+- 4:00pm next day) on ROD3. The sample consists of stocks listed on NYSE/AMEX/NASDAQ
+for the period between January 1993 and December 2019 with share code 10 or 11, with prices
+above $5 as of the portfolio formation. Stocks below the 10th NYSE size percentile are excluded
+from the sample. Observations are weighted by their previous’ day market capitalization. We
+include time - and firm fixed effects in all specifications. T-statistics, adjusted for clustering in
+time and firm dimensions, are reported between parenthesis. Asterisks indicate significance at
+the 10% (*), 5% (**) or 1% (***) level.
+
+                                                      ROD3
+
+                                          β                          t-value
+3:30t − 4 : 00t                        -0.69∗∗∗                       (-5.78)
+3:30t − 9 : 30t+1                       -0.12                         (-0.47)
+3:30t − 4 : 00t+1                        0.58                         (1.42)
+
+
+
+
+                                                           39
+Table 7:
+End-of-day reversal and hedging demand.
+This table reports the estimated coefficients from panel regressions in which the LH return is regressed on ROD3, net
+gamma exposure (N GE or Γ) and leveraged ETF rebalancing (LET F ). N GE is computed as described in section
+7, market-level ROD3 (ROD3mkt ) and N GE (Γmkt ) in section 7, and LET F in section 7. In panel A, we include
+stocks that have gamma data available in OptionMetrics. In panel B, we include stocks without available gamma
+data until first occurrence. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between
+January 1996 (the start date of OptionMetrics data) and December 2019 with share code 10 or 11, and prices above
+$5 as of the portfolio formation. The sample period in columns (4) and (5) start when LETFs becomes available
+(June 2006). Stocks below the 10th NYSE size percentile are excluded from the sample. Observations are weighted
+by their previous’ day market capitalization. We include time - and firm fixed effects in all specifications. T-statistics,
+adjusted for clustering in time and firm dimensions, are reported between parenthesis. Asterisks indicate significance
+at the 10% (*), 5% (**) or 1% (***) level.
+
+                                          Panel A: Options                             Panel B: No options
+
+                       (1)        (2)           (3)        (4)           (5)         (1)         (2)          (3)
+ROD3                -0.72∗∗∗    -0.65∗∗∗     -0.81∗∗∗    -0.83∗∗∗     -0.84∗∗∗     -0.53∗∗∗    -1.04∗∗∗     -1.03∗∗∗
+                     (-5.63)    (-4.76)       (-5.29)    (-4.86)       (-4.87)     (-3.75)     (-9.28)      (-5.41)
+ROD3×Γ                          -6.90∗∗∗     -7.16∗∗∗    -7.65∗∗∗     -7.68∗∗∗
+                                (-3.24)       (-2.98)    (-3.43)       (-3.43)
+Γ                               9.30∗∗∗       7.88∗∗∗    6.26∗∗∗      6.22∗∗∗
+                                 (5.48)       (4.77)      (3.95)       (3.79)
+ROD3mkt                                      26.94∗∗∗      2.78         2.73                   -162.50      210.18
+                                              (2.86)      (0.38)       (0.37)                  (-1.15)      (1.54)
+Γmkt                                          4.79∗∗∗    4.01∗∗∗      4.16∗∗∗                    0.47        0.33
+                                              (4.91)      (4.36)       (4.64)                   (0.25)      (0.16)
+ROD3mkt ×Γmkt                                -302.19     100.86        98.42                  -343.61∗     539.94∗∗∗
+                                              (-1.08)     (0.39)       (0.38)                  (-1.78)      (2.84)
+LETF                                                    131.09∗∗∗    131.79∗∗∗                             117.22∗∗∗
+                                                          (3.85)       (3.84)                               (4.96)
+Controls              NO          NO           NO          NO           YES          NO         YES          YES
+R2                   0.09%       0.10%        0.27%       0.32%        0.35%       0.02%        0.10%       0.97%
+Obs.                 9.63M       9.63M        7.08M      4.70M         4.68M       2.94M        991K         399K
+
+
+
+
+                                                           40
+Table 8:
+End-of-day reversal and hedging demand (continued).
+This table reports the estimated coefficients from panel regressions in which the LH return is regressed on ROD3, net gamma
+exposure (N GE or Γ) and leveraged ETF rebalancing (LET F ). N GE is computed as described in section 7, market-level
+ROD3 (ROD3mkt ) and N GE (Γmkt ) in section 7, and LET F in section 7. In panel A, stocks on the S&P 500, Nasdaq
+100, Dow Jones 30, S&P 400 Midcap, or Russell 2000 are included in the sample. Stocks that are not constituents of these
+indices are included in panel B. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between
+January 1993 and December 2019 with share code 10 or 11, and prices above $5 as of the portfolio formation. The sample
+period starts in January 1996 whenever N GE is added to the regression specification. The sample period in columns (4)
+and (5) start when LETFs becomes available (June 2006). Stocks below the 10th NYSE size percentile are excluded from
+the sample. Observations are weighted by their previous’ day market capitalization. We include time - and firm fixed effects
+in all specifications. T-statistics, adjusted for clustering in time and firm dimensions, are reported between parenthesis.
+Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                                            Panel A: Indexed                         Panel B: Non-Indexed
+
+                       (1)         (2)            (3)          (4)        (5)          (1)             (2)
+ROD3                -0.76∗∗∗     -0.71∗∗∗      -0.81∗∗∗    -0.83∗∗∗     -0.84∗∗∗     -0.31∗∗∗       -0.38∗∗∗
+                     (-5.81)     (-4.84)        (-5.29)    (-4.86)       (-4.86)      (-2.75)        (-2.66)
+ROD3×Γ                           -6.83∗∗∗      -7.17∗∗∗    -7.66∗∗∗     -7.68∗∗∗                      -4.42
+                                 (-3.09)        (-2.98)    (-3.43)       (-3.43)                     (-1.30)
+Γ                                9.23∗∗∗        7.87∗∗∗    6.25∗∗∗      6.22∗∗∗                      8.17∗∗∗
+                                 (5.17)         (4.76)     (3.95)        (3.79)                      (3.54)
+ROD3mkt                                        26.94∗∗∗        2.78       2.73
+                                                (2.86)     (0.38)        (0.37)
+Γmkt                                            4.80∗∗∗    4.02∗∗∗      4.17∗∗∗
+                                                (4.89)     (4.35)        (4.63)
+ROD3mkt ×Γmkt                                  -303.53     101.67        99.21
+                                                (-1.08)    (0.39)        (0.38)
+LETF                                                      131.08∗∗∗    131.78∗∗∗
+                                                           (3.85)        (3.84)
+Controls              NO           NO            NO            NO         YES          NO             YES
+R2                   0.09%       0.12%          0.27%      0.32%         0.35%        0.01%          0.04%
+Obs.                10.84M       8.29M          7.08M      4.70M         4.68M        3.90M          1.14M
+
+
+
+
+                                                          41
+Table 9:
+Last half-hour retail trading.
+This table reports the slope estimates from regressing proxies of last half-hour retail trading on ROD3. In panel A, the
+dependent variable is the retail order imbalance derived from small trades during the pre-decimalization period of our
+sample (Jan. 1993 till Dec. 2000), following Lee and Radhakrishna (2000). In panel B, the dependent variable is the
+retail order imbalance derived from an adapted version of the retail classification algorithm of Boehmer et al. (2021),
+suggested by Barber et al. (2024) for the sample period Jan. 2010 till Dec. 2019. In panel C, the dependent variable
+is the last half-hour change in Robinhood retail traders for the sample period Jun. 2018 till Dec. 2019. In panel D,
+the dependent variable is the general order imbalance (net of BJZZ-based orders) based on the (Lee & Ready, 1991)
+classification. In all panels, the sample consists of stocks listed on NYSE/AMEX/NASDAQ with share code 10 or 11,
+and prices above $5 as of the portfolio formation. Stocks below the 10th NYSE size percentile are excluded from the
+sample. Observations are weighted by their previous’ day market capitalization. We include time - and firm fixed effects
+in all specifications. T-statistics, adjusted for clustering in time and firm dimensions, are reported between parenthesis.
+Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                                       A: Small Trades                                     B: BJZZ
+                              (1)             (2)              (3)            (1)             (2)             (3)
+
+ROD3                        -0.31∗∗∗        0.37∗∗∗          -0.10∗         -0.32∗∗∗        0.30∗∗∗           0.12
+                            (-6.04)          (6.65)         (-1.95)         (-4.11)          (2.78)          (1.02)
+ROD3×I[ROD3<0]                              -1.44∗∗∗        -1.09∗∗∗                        -1.28∗∗∗        -1.15∗∗∗
+                                            (-9.93)         (-8.39)                         (-11.62)        (-9.82)
+Joint                                       -1.07∗∗∗        -1.19∗∗∗                        -0.98∗∗∗        -1.03∗∗∗
+                                            (-9.62)         (-11.67)                        (-13.09)        (-14.11)
+Controls                      No              No               Yes            No              No              Yes
+Obs.                        2.77M           2.77M            2.37M           4.98M           4.98M           4.61M
+R2                           0.04%           0.13%           6.70%           0.01%           0.04%           1.84%
+                                       C: Robinhood                                        D: OIB
+                              (1)             (2)              (3)            (1)             (2)             (3)
+
+ROD3                        -0.47∗∗∗        0.21∗∗∗         0.21∗∗∗         0.26∗∗∗         0.39∗∗∗         0.38∗∗∗
+                            (-10.03)         (3.33)          (3.26)          (8.59)          (9.13)          (8.59)
+ROD3×I[ROD3<0]                              -1.34∗∗∗        -1.38∗∗∗                        -0.27∗∗∗        -0.25∗∗∗
+                                            (-9.17)         (-9.07)                         (-6.23)         (-5.54)
+
+Joint                                       -1.14∗∗∗        -1.17∗∗∗                        0.12∗∗∗         0.14∗∗∗
+                                            (-10.52)        (-10.55)                         (4.04)          (4.47)
+Controls                      No              No               Yes            No              No              Yes
+Obs.                         767K            767K              706K          4.90M           4.90M           4.54M
+R2                           0.01%           0.02%           0.03%           0.07%           0.08%           0.08%
+
+
+
+
+                                                          42
+Table 10:
+Last half-hour short volume.
+This table reports the slope estimates from regressing the last half-hour short volume on ROD3. ROD3 is defined as the
+return between market close at day t − 1 and 3:30pm on day t. Last half-hour short volume is the proportion shorted in the
+last half-hour relative to the full trading day. Intraday short volume data is collected from U.S. trading venues. The sample
+consists of stocks listed on NYSE/AMEX/NASDAQ for the period between August 2010 and December 2019 with share code
+10 or 11, and prices above $5 as of the portfolio formation. Stocks below the 10th NYSE size percentile are excluded from the
+sample. Observations are weighted by their previous’ day market capitalization. We include time - and firm fixed effects in
+all specifications. T-statistics, adjusted for clustering in time and firm dimensions, are reported between parenthesis. Asterisks
+indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                           (1)          (2)          (3)          (4)           (5)          (6)           (7)          (8)
+ROD3                    0.08***      -0.25***     -0.23***      -0.23***     -0.23***      -0.23***     -0.23***     -0.23***
+                         (9.07)      (-15.17)      (-13.70)     (-13.70)     (-13.70)      (-13.69)     (-13.69)      (-13.50)
+ROD3×I[ROD3<0]                       0.67***       0.64***      0.64***      0.64***       0.64***      0.64***       0.64***
+                                      (21.00)      (19.01)      (19.01)       (19.01)      (18.98)       (18.98)      (18.66)
+βmkt                                              -1.07***      -1.07***     -1.07***      -1.07***     -1.07***     -1.04***
+                                                   (-6.82)       (-6.82)      (-6.82)      (-6.81)       (-6.81)      (-6.79)
+RV                                                              -0.00***     -0.00***      -0.00***     -0.00∗∗∗      -0.00∗∗∗
+                                                                 (-5.14)      (-5.14)      (-5.15)       (-5.15)      (-5.57)
+SREV                                                                           -0.00        -0.01         -0.01       -0.27∗∗∗
+                                                                              (-1.26)      (-1.25)       (-1.25)      (-3.20)
+MOM                                                                                         -0.02         -0.02       -0.16∗∗∗
+                                                                                           (-1.66)       (-1.66)      (-2.96)
+ILQ                                                                                                     -0.06∗∗∗      -0.07∗∗∗
+                                                                                                         (-5.11)      (-13.38)
+MIS                                                                                                                   -0.01∗∗∗
+                                                                                                                      (-2.80)
+Obs.                     4.69M        4.69M        4.50M         4.50M        4.50M         4.50M        4.50M        4.33M
+R2                       0.03%        0.34%        0.50%         0.50%        0.50%         0.50%        0.50%         0.56%
+
+
+
+
+                                                           43
+Table 11:
+Overnight returns, first half-hour returns, and retail order imbalances.
+This table reports the estimated coefficients from panel regressions, where dependent variable is regressed on
+ROD3 returns and a range of control variables. The ROD3 return is the return from day t − 1 market close up
+till day t 3:00pm. The dependent variable in column 1 is the overnight return, from market close at day t through
+open at day t + 1. The dependent variable in column 2 is the first half-hour return, from market open till 10:00am
+at day t + 1. The sample period in (1) and (2) is from Jan. 1993 till Dec. 2019. The dependent variable in column
+(3) is the retail order imbalance during the first half-hour at day t + 1 based on small trades (Lee & Radhakrishna,
+2000). The sample period in (3) is from Jan. 1993 till Dec. 2000. The dependent variable in column (4) is the
+retail order imbalance during the first half-hour at day t + 1 based on the classification algorithm of (Barber et
+al., 2024). The sample period in (4) is from Jan. 2010 till Dec. 2019. The dependent variable in column (5) is
+the retail holding change during the first half-hour at day t + 1 based on Robinhood data. The sample period
+in (5) is from Jun. 2018 till Dec. 2019. Stocks below the 10th NYSE size percentile are excluded from the
+sample. Observations are weighted by their previous’ day market capitalization. We include time - and firm fixed
+effects in all specifications. T-statistics, adjusted for clustering in time and firm dimensions, are reported between
+parenthesis. Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                              ONt+1             F Ht+1             small
+                                                                F Ht+1               BJZZ
+                                                                                  F Ht+1                Robin
+                                                                                                     F Ht+1
+ROD3                          1.43∗∗∗          0.61∗∗∗           0.81∗∗∗           1.62∗∗∗             0.00
+                              (4.74)            (3.09)           (11.01)           (23.10)            (0.36)
+ROD3×I[ROD3<0]               -2.29∗∗∗          1.51∗∗∗           -0.35∗∗           -0.60∗∗∗            0.00
+                              (-5.13)           (4.94)           (-2.19)           (-5.81)            (0.59)
+Dept−1                         0.02              0.02            6.55∗∗∗           4.86∗∗∗             3.87
+                              (1.02)            (1.01)           (22.30)           (36.99)            (0.90)
+Dept−2                         0.01              0.02            5.11∗∗∗           3.52∗∗∗             -0.67
+                              (0.81)            (1.17)           (16.46)           (31.42)            (-1.03)
+Dept−3                         0.02              0.03            4.68∗∗∗           2.98∗∗∗             -4.41
+                              (1.35)            (1.16)           (15.71)           (26.66)            (-0.67)
+βmkt                          4.12∗∗∗           -1.66∗∗          2.37∗∗            2.41∗∗∗             -0.00
+                              (3.34)            (-2.29)          (2.62)             (5.42)            (-0.49)
+RV                            -0.00∗∗          -0.00∗∗∗           -0.00             -0.00              0.00∗
+                              (-2.46)           (-4.03)          (-1.14)           (-0.83)            (1.70)
+SREV                         -16.64∗∗∗          2.61∗∗           -8.58∗∗∗          -2.77∗∗             0.00
+                              (-3.63)           (2.06)           (-5.93)           (-2.44)            (0.14)
+MOM                           1.63∗∗∗           -0.40∗            -0.25             -0.02              -0.00
+                              (4.53)            (-1.73)          (-1.21)           (-0.36)            (-1.17)
+ILQ                            -0.36             0.17            -1.80∗∗∗           -0.00              -0.44
+                              (-0.61)           (1.18)           (-2.80)           (-0.26)            (-1.17)
+MIS                            -0.01            -0.04∗∗          -0.13∗∗∗           -0.01              -0.00
+                              (-0.40)           (-2.43)          (-3.50)           (-1.03)            (-0.82)
+R2                            0.11%             0.10%            1.43%              0.71%             0.78%
+Obs.                          12.61M           12.61M            3.09M              4.60M             616K
+
+
+
+
+                                                          44
+Appendix
+
+Additional tables and figures
+
+Figure A.1:
+Predicting intraday stock returns: end-of-day reversal without a 30-minute skip.
+The figure shows the estimated coefficients obtained from regressing a stock’s 30 minute return
+on its previous 13-period interval return. On the y-axis we report the slope coefficient (multiplied
+by 100), while the x-axis shows the 30 minute interval of the dependent variable. The bars are
+the 95% confidence intervals based on standard errors that are adjusted for clustering in the
+firm and time dimension. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for
+the period between January 1993 and December 2019 with share code 10 or 11, with prices
+above $5. Observations are weighted by their previous’ day market capitalization. We include
+time - and firm fixed effects in the panel regressions.
+
+
+
+
+                                                45
+Figure A.2:
+End-of-day reversal: predictability across days of the week.
+We run the regression specification as in table 4 (column 6) sub-sampled by the day of the week.
+We plot the ROD3 coefficient in dark-grey, and the ROD3 × I[ROD3 < 0] in light-grey. The
+bars are the 95% confidence intervals based on standard errors that are adjusted for clustering in
+the firm and time dimension. The sample consists of stocks listed on NYSE/AMEX/NASDAQ
+for the period between January 1993 and December 2019 with share code 10 or 11, with prices
+above $5. Observations are weighted by their previous’ day market capitalization. We include
+time - and firm fixed effects in the panel regressions.
+
+
+
+
+                                               46
+Table A.1:
+Panel regression results using midpoint-quote returns.
+We run the regression specification as in table 4 but with returns computed using the midpoint of quoted
+prices. We report the estimated coefficients from panel regressions in which the last half-hour (LH) return is
+regressed on the ROD3 return and a range of control variables. The LH return is the return from 3:30pm till
+4:00pm at day t. The ROD3 return is the return from day t − 1 market close up till day t 3:00pm. In column
+(5), the last half-hour return is computed from 3:30pm till 3:55pm. The sample consists of stocks listed on
+NYSE/AMEX/NASDAQ for the period between January 1993 and December 2019 with share code 10 or 11,
+with prices above $5 as of the portfolio formation. Stocks below the 10th NYSE size percentile are excluded
+from the sample. Observations are weighted by their previous’ day market capitalization. We include time -
+and firm fixed effects in all specifications. T-statistics, adjusted for clustering in time and firm dimensions,
+are reported between parenthesis. Asterisks indicate significance at the 10% (*), 5% (**) or 1% (***) level.
+
+                               (1)              (2)              (3)             (4)              (5)
+ROD3                        -0.69∗∗∗                          -0.68∗∗∗         -0.75∗∗∗          -0.02
+                             (-6.16)                           (-6.10)          (-6.64)         (-0.16)
+ROD3×I[ROD3<0]                                                                                  -1.53∗∗∗
+                                                                                                (-6.60)
+ONFH                                         -0.70∗∗∗
+                                              (-5.85)
+MID                                          -0.71∗∗∗
+                                              (-4.63)
+LHt−1                                                           0.25             0.40             0.38
+                                                               (0.55)           (0.84)           (0.81)
+LHt−2                                                          1.32∗∗∗         1.41∗∗∗          1.41∗∗∗
+                                                               (3.33)           (3.36)           (3.35)
+LHt−3                                                          2.18∗∗∗         2.26∗∗∗          2.26∗∗∗
+                                                               (5.36)           (5.28)           (5.28)
+βmkt                                                                             0.01            -0.38
+                                                                                (0.03)          (-0.87)
+RV                                                                               0.00             0.00
+                                                                                (1.56)           (1.38)
+SREV                                                                             0.41             0.67
+                                                                                (0.71)           (1.15)
+MOM                                                                              0.22             0.21
+                                                                                (1.40)           (1.37)
+ILQ                                                                              0.23             0.22
+                                                                                (1.62)           (1.60)
+MIS                                                                            0.03∗∗∗          0.03∗∗∗
+                                                                                (3.89)           (3.30)
+R2                           0.08%            0.08%            0.15%            0.18%            0.23%
+Obs.                         13.95M           13.21M          13.53M           12.25M           12.25M
+
+
+
+
+                                                         47
+Table A.2:
+End-of-day reversal: the role of firm news.
+This table shows the estimated coefficients obtained from panel regressions, whereby the LH return is regressed
+on the ROD3 return, an earnings news date dummy, and the interaction between the earnings news dummy and
+the ROD3 return in panel A. In panel B, we replace the earnings news date dummy with a general news date
+dummy. The earnings date dummy takes value one if there is an earnings announcement on day t for stock i, else
+zero. Earnings announcement dates is obtained from the I/B/E/S database. The general firm news date dummy
+takes value one if there is a news item on day t for stock i, else zero. Firm-level news data is obtained from
+RavenPack. The sample consists of stocks listed on NYSE/AMEX/NASDAQ for the period between January
+1993 and December 2019 with share code 10 or 11, with prices above $5 as of the portfolio formation. Stocks
+below the 10th NYSE size percentile are excluded from the sample. Observations are weighted by their previous’
+day market capitalization. We include time - and firm fixed effects in all specifications. T-statistics, adjusted for
+clustering in time and firm dimensions, are reported between parenthesis. Asterisks indicate significance at the
+10% (*), 5% (**) or 1% (***) level.
+
+                            Panel A: Earning Days                             Panel B: Firm News
+
+                   (1)          (2)          (3)         (4)          (1)         (2)          (3)          (4)
+ROD3             -0.69∗∗∗     -0.69∗∗∗    -0.67∗∗∗     -0.71∗∗∗    -0.82∗∗∗     -0.82∗∗∗     -0.74∗∗∗    -0.75∗∗∗
+                 (-5.78)       (-5.78)     (-5.33)     (-5.57)      (-7.20)     (-7.21)      (-7.40)      (-7.37)
+News                            0.34        0.39         0.45                     0.12        0.12         0.14
+                               (0.64)      (0.76)       (0.88)                   (1.12)      (1.18)       (1.40)
+ROD×News                                    -0.29       -0.30                                 -0.15        -0.14
+                                           (-1.24)     (-1.27)                               (-0.88)      (-0.85)
+Controls           No           No           No          Yes          No          No           No          Yes
+Obs.             14.60M       14.60M      14.60M       13.73M       8.95M        8.95M       8.95M        8.59M
+R2                0.07%        0.07%       0.07%        0.08%       0.14%        0.14%       0.14%        0.16%
+
+
+
+
+                                                         48
+Gamma Measures
+
+Stock-level Net Gamma Exposure
+
+We collect option data for individual U.S. stocks from Ivy DB US from OptionMetrics from
+
+January 1996 to December 2019. We obtain data on the implied volatility, trading volume,
+
+open interest and Greeks for each option contract, in particular the gamma. We remove obser-
+
+vations for which there is no implied volatility available. We use the gamma data to construct
+
+a measure of the market maker’s gamma exposure.
+
+
+
+Let St be the value of the underlying asset at time t. The delta ∆t of an option Ct (St , K, T ) is
+
+defined as the first derivative of the option price with respect to the underlying price: ∆t = δC
+                                                                                               δSt .
+                                                                                                 t
+
+
+
+Option market makers aim to neutralize their exposure to movements in St in their option
+
+portfolio by engaging in delta-hedging. At time t, delta-hedging of an option portfolio requires
+
+buying or selling an amount of the underlying equal to −∆t . However, ∆t is a function of St .
+
+Thus, changes in St also changes the value of ∆t . Delta-hedging requires a dynamic adjustment
+
+of the position on the underlying. The extent in which ∆t changes when St changes is the
+
+gamma, Γt , which is the second-order derivative of the option price w.r.t the price of the un-
+                    2
+derlying, i.e. Γt = δδSC2t . A high absolute value of Γt implies that ∆t is very sensitive to changes
+
+to St , and that the delta-hedger must trade more of the underlying to achieve delta-neutrality.
+
+
+
+To estimate the Net Gamma Exposure (N GE) on a individual-stock level, we follow Baltussen
+
+et al. (2021) and Barbon et al. (2021). For a call option (C) on the underlying stock i on day t
+
+with strike price s ∈ Stc and maturity m ∈ Mtc , the N GE is computed as:
+
+                               c
+                           N GEi,s,m,t = Γci,s,m,t × OIi,s,m,t
+                                                       c
+                                                               × 100 × St
+
+
+Where ΓC                                     c
+       i,s,m,t denotes the option’s gamma, OIi,s,m,t is the option’s open interest, 100 is the
+
+adjustment from option contracts to shares and St is the price of the underlying. For a put
+
+option (P) on the underlying stock i on day t with strike price s ∈ Stp and maturity m ∈ Mtp ,
+
+the N GE is computed as:
+
+                             p
+                         N GEi,s,m,t = Γpi,s,m,t × OIi,s,m,t
+                                                     p
+                                                             × (−100) × St
+
+
+                                                 49
+Here we multiply by (-100) as this represents short gamma for option market makers. To
+
+compute the aggregated net gamma exposure for stock i on day t, we sum over all N GE c ’s and
+
+N GE p ’s at every strike price and every maturity:
+                     X X                                                                                      
+                                           c
+                                                       X X               p                           St
+         N GEi,t =                     N GEi,s,m,t +                 N GEi,s,m,t       ×                             (8)
+                                                                                               100 × V OLi,t−1
+                         s∈S c m∈M c                   s∈S p m∈M p
+
+
+The first term between brackets denotes the amount (in dollars) that option market makers need
+
+to trade for a one-dollar change in St . We facilitate cross-sectional comparison by multiplying
+
+this term by the second term: Multiplying by St and dividing by 100, and scale by the average
+
+dollar trading volume over the last 21 business days. This changes the interpretation to the
+
+amount that needs to be hedged for a 1% change in the underlying stock.
+
+
+
+
+Market-level Net Gamma Exposure
+
+We obtain historical tick-by-tick price data on the major futures contracts on various equity
+
+indices from Tick Data LLC.11 We collect data for the following indices: S&P 500, Nasdaq
+
+100, Dow Jones 30, S&P Midcap 400, and the Russell 2000, and compute the various intraday
+
+returns, most notably ROD3 for each. An indexed stock is a stock that is a constituent in any
+
+of the above mentioned indices. We map the market-level ROD3 to the constituent-level as
+
+follows:
+
+                                                   X
+                                 ROD3i,t,mkt =             wi,j,t−1 × ROD3j,t,mkt
+                                                       j
+
+
+ROD3j,t,mkt denotes the market-level ROD3 return for index j at day t. wi,j,t is the weight
+
+of stock i in index j at day t − 1. wi,j,t−1 × ROD3j,t,mkt measures the market ROD3 return
+
+that ‘spills over‘ to stock i. Since a stock can be a constituent of multiple indices, we sum over
+
+indices j to compute ROD3i,t,mkt .
+
+
+
+Next, we also compute the Net Gamma Exposure (N GEmkt ) for each equity index as in equation
+
+8. As before, we map this to the constituent-level by multiplying N GEmkt to wi,j,t−1 , summed
+
+across indices j.
+ 11
+      www.tickdata.com
+
+
+                                                           50
+Leveraged ETFs Exposure
+
+The hedging behaviour of Leveraged ETFs can cause price pressure near the end of the trading
+
+day. To measure this hedging behaviour, we obtain historical daily NAV data of leveraged ETFs
+
+from Bloomberg for the following indices: S&P 500, Nasdaq 100, Dow Jones Industrial Average,
+
+Russel 2000, and the S&P 400 Midcap Index. LETF data is available from 2006 onwards, as
+
+leveraged ETFs are introduced in 2006. We compute the rebalancing demand (RD) of index j
+
+on day t by following Cheng and Madhavan (2009):
+
+
+                                 RDj,t = N AVj,t−1 (x2 − x)rj,c,t
+
+
+Where N AVt denotes the net asset values on day t for a leveraged ETF, x is the leverage factor
+
+(e.g., -2,-1,2,3), and rj,c,t is the return of the LETF for a given index and leverage factor. The
+
+rebalancing demand on day t is at the index-level. We multiply RD by the constituents weight
+
+in the index to proxy for the amount that needs to be rebalanced on the stock-level. Note that
+
+a stock can be listed on multiple indices. In that case, we sum across indices j.
+
+
+
+
+                                               51
+References
+
+Akbas, F., Boehmer, E., Jiang, C., & Koch, P. D. (2022). Overnight returns, daytime reversals,
+
+     and future stock returns. Journal of Financial Economics, 145 (3), 850–875.
+
+Amihud, Y. (2002). Illiquidity and stock returns: cross-section and time-series effects. Journal
+
+     of financial markets, 5 (1), 31–56.
+
+Ardia, D., Aymard, C., & Cenesizoglu, T. (2023). Fast and furious: A high-frequency analysis
+
+     of robinhood users’ trading behavior. arXiv preprint arXiv:2307.11012 .
+
+Baltussen, G., Da, Z., Lammers, S., & Martens, M. (2021). Hedging demand and market
+
+     intraday momentum. Journal of Financial Economics.
+
+Baltussen, G., Terstegge, J., & Whelan, P. (2023). The derivative payoff bias. Available at
+
+     SSRN 4562800 .
+
+Barber, B., Huang, X., Jorion, P., Odean, T., & Schwarz, C. (2024). A (sub) penny for your
+
+     thoughts: Tracking retail investor activity in taq. Journal of Finance.
+
+Barber, B., Huang, X., Odean, T., & Schwarz, C. (2022). Attention-induced trading and
+
+     returns: Evidence from robinhood users. Journal of Finance, 77 , 3141-3190.
+
+Barber, B., & Odean, T. (2008). All that glitters: The effect of attention and news on the buying
+
+     behavior of individual and institutional investors. The Review of Financial Studies, 21 (2),
+
+     785–818.
+
+Barbon, A., Beckmeyer, H., Buraschi, A., & Moerke, M. (2021). Liquidity provision to leveraged
+
+     etfs and equity options rebalancing flows: Evidence from end-of-day stock prices. Available
+
+     at SSRN 3925725 .
+
+Battalio, R., Jennings, R., Salgam, M., & Wu, J. (2024). Identifying market maker trades as
+
+     “retail” from TAQ: No shortage of false negatives and false positives.
+
+      (Working Paper)
+
+Berkman, H., Koch, P. D., Tuttle, L., & Zhang, Y. J. (2012). Paying attention: overnight
+
+     returns and the hidden cost of buying at the open. Journal of Financial and Quantitative
+
+     Analysis, 47 (4), 715–741.
+
+Boehmer, E., Jones, C. M., Zhang, X., & Zhang, X. (2021). Tracking retail investor activity.
+
+     The Journal of Finance, 76 (5), 2249–2305.
+
+Bogousslavsky, V. (2016). Infrequent rebalancing, return autocorrelation, and seasonality. The
+
+
+                                               52
+     Journal of Finance, 71 (6), 2967–3006.
+
+Bogousslavsky, V. (2021). The cross-section of intraday and overnight returns. Journal of
+
+     Financial Economics, 141 (1), 172–194.
+
+Bogousslavsky, V., & Muravyev, D. (2023). Who trades at the close? implications for price
+
+     discovery and liquidity. Journal of Financial Markets, 66 , 100852.
+
+Bollerslev, T., Li, S. Z., & Todorov, V. (2016). Roughing up beta: Continuous versus dis-
+
+     continuous betas and the cross section of expected stock returns. Journal of Financial
+
+     Economics, 120 (3), 464–490.
+
+Bondarenko, O., & Muravyev, D. (2023). Market return around the clock: A puzzle. Journal
+
+     of Financial and Quantitative Analysis, 58 (3), 939–967.
+
+Boyarchenko, N., Larsen, L. C., & Whelan, P. (2023). The overnight drift. The Review of
+
+     Financial Studies.
+
+Cheng, M., & Madhavan, A. (2009). The dynamics of leveraged and inverse exchange-traded
+
+     funds. Journal of Investment Management, 16 (4), 43.
+
+Da, Z., Engelberg, J., & Gao, P. (2011). In search of attention. The Journal of Finance, 66 (5),
+
+     1461–1499.
+
+Gao, L., Han, Y., Li, S. Z., & Zhou, G. (2018). Market intraday momentum. Journal of
+
+     Financial Economics, 129 (2), 394–414.
+
+Goyal, A., Reed, A. V., Smajlbegovic, E., & Soebhag, A. (2024). Stealthy shorts: Informed
+
+     liquidity supply. Available at SSRN .
+
+Grinblatt, M., & Keloharju, M. (2000). The investment behavior and performance of various
+
+     investor types: a study of finland’s unique data set. Journal of Financial Economics,
+
+     55 (1), 43–67.
+
+Grinblatt, M., & Keloharju, M. (2001). What makes investors trade? The Journal of Finance,
+
+     56 (2), 589–616.
+
+Hendershott, T., Livdan, D., & Rösch, D. (2020). Asset pricing: A tale of night and day.
+
+     Journal of Financial Economics, 138 (3), 635-662.
+
+Heston, S. L., Korajczyk, R. A., & Sadka, R. (2010). Intraday patterns in the cross-section of
+
+     stock returns. The Journal of Finance, 65 (4), 1369–1407.
+
+Hu, D., Jones, C. M., Zhang, X., & Zhang, X. (2024). When do short sellers trade? evidence
+
+
+
+                                              53
+     from intraday data and implications for informed trading models. Available at SSRN .
+
+Hvidkjaer, S. (2008). Small trades and the cross-section of stock returns. The Review of
+
+     Financial Studies, 21 (3), 1123–1151.
+
+Jones, C. S., Pyun, S., & Wang, T. (2024). Return extrapolation and day/night effects. Night
+
+     Effects (April 2024).
+
+Kaniel, R., Liu, S., Saar, G., & Titman, S. (2012). Individual investor trading and return
+
+     patterns around earnings announcements. The Journal of Finance, 67 (2), 639–680.
+
+Lee, C. M., & Radhakrishna, B. (2000). Inferring investor behavior: Evidence from torq data.
+
+     Journal of Financial Markets, 3 (2), 83–111.
+
+Lee, C. M., & Ready, M. J. (1991). Inferring trade direction from intraday data. The Journal
+
+     of Finance, 46 (2), 733–746.
+
+Lo, A. W., & MacKinlay, A. C. (1990). When are contrarian profits due to stock market
+
+     overreaction? The Review of Financial Studies, 3 (2), 175–205.
+
+Lou, D., Polk, C., & Skouras, S. (2019). A tug of war: Overnight versus intraday expected
+
+     returns. Journal of Financial Economics, 134 (1), 192–213.
+
+Luo, C. P., Ravina, E., Sammon, M., & Viceira, L. M. (2023). Retail investors’ contrarian
+
+     behavior around news, attention, and the momentum effect.
+
+Muravyev, D., & Ni, X. C. (2020). Why do option returns change sign from day to night?
+
+     Journal of Financial Economics, 136 (1), 219-238.
+
+Smirlock, M., & Starks, L. (1986). Day-of-the-week and intraday effects in stock returns.
+
+     Journal of Financial Economics, 17 (1), 197–210.
+
+Stambaugh, R. F., Yu, J., & Yuan, Y. (2012). The short of it: Investor sentiment and anomalies.
+
+     Journal of Financial Economics, 104 (2), 288–302.
+
+Stambaugh, R. F., & Yuan, Y. (2017). Mispricing factors. The Review of Financial Studies,
+
+     30 (4), 1270–1315.
+
+
+
+
+                                              54
+

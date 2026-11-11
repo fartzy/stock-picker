@@ -1,0 +1,1633 @@
+{
+  "as_of": "2026-10-20",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "EMR",
+      "predicted_return": 0.2386307371485864,
+      "open_price": 158.28,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:14.618972+00:00",
+        "articles": [
+          {
+            "headline": "Global API 6D Ball Valve Market Size, Share, Competitive Analysis, and Forecast 2026-2031 | LNG and Pipeline Investment Fuel 5% CAGR and a USD 1.61 Billion Opportunity",
+            "summary": "The global API 6D ball valve market is valued at USD 1.20 billion in 2025 and is projected to reach USD 1.61 billion by 2031, growing at a 5% CAGR. Growth is driven by investments in oil and gas transmission infrastructure, LNG capacity, and pipeline networks. North America leads with 34% market share, followed by Asia Pacific at 27%. The market includes major players like Flowserve, Emerson Electric, and SLB/Cameron.",
+            "published_at": "2026-10-20T08:59:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/20/3384125/28124/en/global-api-6d-ball-valve-market-size-share-competitive-analysis-and-forecast-2026-2031-lng-and-pipeline-investment-fuel-5-cagr-and-a-usd-1-61-billion-opportunity.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "What Could Vertiv Stock Be Worth In Three Years?",
+            "summary": "Vertiv (VRT) sells power and cooling equipment to data centers. The stock has dropped 29.2% since July 20\u2014compounding losses for investors who bought near the May high, even as the S&P 500 gained 3.2% over that same stretch. Those watching from the sidelines may wonder whether the shares are now worth a look. If Vertiv keeps growing the way it has, what would a share be worth in three years.",
+            "published_at": "2026-10-19T16:56:47+00:00",
+            "url": "https://finnhub.io/api/news?id=a64c0bf5ec311d652a647e458573f59f437856c2193b36b2cbd16e095f4a7706",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 160.54,
+      "jev": null
+    },
+    {
+      "ticker": "IBRX",
+      "predicted_return": 0.23677961001439593,
+      "open_price": 8.31,
+      "snapshot_date": "2026-10-19",
+      "news_flag": "FDA label expansion for ANKTIVA",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "FDA label expansion for ANKTIVA",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:14.619526+00:00",
+        "articles": [
+          {
+            "headline": "ANKTIVA Label Expansion Could Change The Case For ImmunityBio Stock",
+            "summary": "ImmunityBio reported publication of long term Phase 2/3 QUILT-3.032 data in BCG unresponsive non muscle invasive bladder cancer, alongside an FDA label expansion for ANKTIVA to include papillary only disease. The new data and broader indication connect ANKTIVA\u2019s immune driven mechanism to a larger pool of BCG unresponsive patients, which influences ImmunityBio\u2019s commercial footprint and real world treatment mix in bladder cancer. We will now examine how ImmunityBio\u2019s investment narrative is...",
+            "published_at": "2026-10-19T22:20:04+00:00",
+            "url": "https://finnhub.io/api/news?id=c84da66d1cdf5719cd5e66c00ff39e8630f4c706af6518572b12f5594e7842e3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ImmunityBio: Not Executing At The Level That The Market Is Pricing In",
+            "summary": "ImmunityBio, Inc. outlook: Anktiva label expansion lifts sales, but cash burn and rich valuation raise risk. Click for this IBRX stock update.",
+            "published_at": "2026-10-19T11:07:38+00:00",
+            "url": "https://finnhub.io/api/news?id=d588f63f5819111dbaedbb461f5998118d7b4faf4d5835f8c7c41484e6ed00f1",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 8.42,
+      "jev": null
+    },
+    {
+      "ticker": "AAPL",
+      "predicted_return": 0.23534575654987272,
+      "open_price": 339.86,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 55,
+        "reviewed_count": 55,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-20T13:34:14.619769+00:00",
+        "articles": [
+          {
+            "headline": "XLK vs. SOXX: Broad Tech Exposure or Semiconductor Bet?",
+            "summary": "The article compares two technology ETFs: XLK (State Street Technology Select Sector SPDR ETF) and SOXX (iShares Semiconductor ETF). XLK offers broader diversification with 75 holdings, lower fees (0.08% expense ratio), higher dividend yield, and lower volatility, making it more attractive for conservative investors. SOXX provides concentrated semiconductor exposure with 30 holdings and delivered superior 1-year returns of 79.5% but carries higher volatility and fees (0.33% expense ratio). The author recommends XLK for its diversification and stability despite SOXX's stronger recent performance.",
+            "published_at": "2026-10-20T12:30:01+00:00",
+            "url": "https://www.fool.com/coverage/etfs/2026/10/20/xlk-vs-soxx-broad-tech-exposure-or-semiconductor-bet/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Bank of America vs. Goldman Sachs: Which Financial Stock Is a Better Buy in 2026?",
+            "summary": "The article compares Bank of America and Goldman Sachs as investment options for 2026. Bank of America offers stability through its massive consumer banking network and steady cash flow but faces regulatory headwinds and underperformance versus the S&P 500. Goldman Sachs, while navigating a strategic pivot away from consumer businesses, has outperformed the market and the S&P 500 but carries higher leverage and market sensitivity. The author suggests Goldman Sachs may be the better growth investment despite its higher valuation.",
+            "published_at": "2026-10-20T12:24:02+00:00",
+            "url": "https://www.fool.com/coverage/better-buy/2026/10/20/bank-of-america-vs-goldman-sachs-which-financial-stock-is-a-better-buy-in-2026/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Apple vs. ASML: Which Tech Stock Is a Better Buy in 2026?",
+            "summary": "Apple's 26.9% net margin and $98.8 billion in free cash flow contrast sharply with ASML's 29.4% margin and leaner balance sheet, revealing two distinct risk-reward profiles.",
+            "published_at": "2026-10-20T12:00:01+00:00",
+            "url": "https://finnhub.io/api/news?id=fbc85a70aebb4549f22f8c830881dc7ff6d9e4916c01327b354afe1c8e058ef7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Tuesday\u2019s Top Wall Street Analyst Research Calls: Akamai Technolgies, Apple, Blackrock, Ford Motor, Healthcare Realty Trust, Noble, Sunoco LP, Venture Global, Western Midstream Partners, Zoetis, and More",
+            "summary": "Pre-Market Stock Futures: Futures are mixed, but Nasdaq futures are lower as chipmakers come under attack this morning. The AI trade made a Monday comeback after a dreadful period last week. The Goldman Sachs (NYSE: GS) upgrade of CoreWeave (NASDAQ: CRWV) was a lynchpin in Monday\u2019s move higher, despite the shares actually closing flat on the [\u2026]",
+            "published_at": "2026-10-20T11:57:53+00:00",
+            "url": "https://finnhub.io/api/news?id=2cc7648c72c62fa7256c9fbc3b0d5751d2543999f3305473540e1577e4f158c0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which Stocks Are Paying For $4.33 Gas?",
+            "summary": "Inflation is back. Consumer prices are rising 3.7% a year, a gallon of gas costs $4.33 against $3.06 a year ago, and oil is above $100 a barrel. Yet the S&P 500 is up 12.3% this year. So who is actually paying for it.",
+            "published_at": "2026-10-20T11:49:22+00:00",
+            "url": "https://finnhub.io/api/news?id=4c294c2186f68de6d35c76536ee6b21b4d81b3621db570d25c5ea79d0970fcb6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Could Derail Dell Stock?",
+            "summary": "Dell Technologies (DELL) stock returned 204.4% over the year to October 19, 2026, compared with a 17.4% return for the S&P 500. Buyers at the current price are paying for Dell's sales growth to continue. During a September 1 earnings call, management said that a shortage of parts, led by memory chips, still limits the business, and it was asked on the same call how solid the growth really is. So what is that problem, and why does it raise doubts about the growth.",
+            "published_at": "2026-10-20T11:02:19+00:00",
+            "url": "https://finnhub.io/api/news?id=05582c5bfdd95b066de2f09083b85c49f874ad6c59ff45e9b5378f6e29bf6e27",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Shopify vs. Target: Which Technology Stock Is a Better Buy in 2026?",
+            "summary": "The article compares Shopify and Target as investment options in 2026. Shopify is a high-growth e-commerce platform serving millions of merchants globally with 30% revenue growth and strong margins, but trades at a premium 91.5x forward P/E ratio. Target is a stable retailer with improving fundamentals under new leadership, attractive 3% dividend yield, and a much lower 15.4x forward P/E. The author recommends Target as the better buy today despite owning both stocks, citing its low valuation, improving growth trajectory, and 55-year dividend increase streak.",
+            "published_at": "2026-10-20T10:29:02+00:00",
+            "url": "https://www.fool.com/coverage/better-buy/2026/10/20/shopify-vs-target-which-technology-stock-is-a-better-buy-in-2026/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Apple Pay rivals to be allowed on iPhones under crackdown",
+            "summary": "Apple will be forced to open up its contactless payment system to rivals under a UK crackdown.",
+            "published_at": "2026-10-20T10:17:13+00:00",
+            "url": "https://finnhub.io/api/news?id=9bdf93158ad25a4f6139b4cfe5701f9c920ff9ca90ea3776e74c57f09fcfd662",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Greg Abel's Berkshire Hathaway Owns These 5 Stocks. Here's What $1,000 in Each Could Be Worth by 2030.",
+            "summary": "Greg Abel, Berkshire Hathaway's current CEO, is charting a new investment direction by selling some of Warren Buffett's long-held positions (Visa, Mastercard, Amazon) while maintaining or adding to others. The article analyzes five key Berkshire holdings\u2014Lennar, Alphabet, Occidental Petroleum, Delta Air Lines, and Apple\u2014projecting potential returns by 2030, with varying levels of confidence in each investment's future performance.",
+            "published_at": "2026-10-20T10:15:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/20/greg-abel-berkshire-hathaway-stocks-worth/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Nothing\u2019s brand chief is fed up of \u2018boring and generic\u2019 smartphone ads\u2014he shares his marketing strategy for taking on Samsung and Apple",
+            "summary": "The brand chief at London-based tech group Nothing explains how he plans to take on Apple and Samsung by rejecting marketing formulas and inviting the customer into the boardroom.",
+            "published_at": "2026-10-20T08:49:12+00:00",
+            "url": "https://finnhub.io/api/news?id=79db74502ce6ba90da2c05c0e0d055dbc534875a0124af1be0ec72fd3a277c92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Prediction: Oct. 21 Will Be a Huge Day for the Stock Market",
+            "summary": "Meta Platforms is set to report Q3 earnings on Oct. 21, marking the start of earnings season for the 'Magnificent Seven' tech companies. Investors are closely watching to see if massive AI infrastructure spending translates into revenue growth. Meta's capex-to-revenue ratio has reached 35% and could climb further, raising concerns about whether AI investments will justify the spending levels. Positive results from Meta could boost AI stocks and provide direction for the broader market.",
+            "published_at": "2026-10-20T07:55:01+00:00",
+            "url": "https://www.fool.com/investing/2026/10/20/prediction-oct-21-will-be-a-huge-day-for-the-stock-market/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Zuckerberg spent years building on Apple\u2019s terms. His $100 billion-plus AI bet is about owning everything",
+            "summary": "Zuckerberg and chief AI officer Alexandr Wang want Meta\u2019s Muse agents to shop for you. That could disrupt the ad machine paying for it all.",
+            "published_at": "2026-10-20T07:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1fba0f96d47eb8530ba1a51b2c071989a4541a495ba3aea633b9b1435453d610",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Robot Wars \u2013 How China Has the Robotics Industry in Its Grip",
+            "summary": "Goldman Sachs now expects about 6.5 million humanoid robots a year by 2035, and every one of them runs on rare earth magnets that China makes nearly all of.",
+            "published_at": "2026-10-20T00:41:00+00:00",
+            "url": "https://finnhub.io/api/news?id=41724bb84af09d9cea19cdbbd4d08b92bcd0b2aaf3e28f6c099dc9c83b772282",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Meet the Dividend King Stock That Yields More Than Quintuple the Nasdaq-100. Here's Why It's a Buy in October.",
+            "summary": "Procter & Gamble has built an impressive track record of dividends.",
+            "published_at": "2026-10-19T23:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3662b0b01932967bf839eb4e4d7f7803679863dfb0f752a99292f079a773a980",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jim Cramer\u2019s 4-word Apple rule could save you real money",
+            "summary": "Cramer\u2019s \u2018own it, don\u2019t trade it\u2019 line resurfaced as the iPhone Duo sold out. Here\u2019s the tax math that makes it matter.",
+            "published_at": "2026-10-19T23:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8af1f349627621ce5897627495d007a201ae041dee9421ff43b45be9a3f038a0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq 100 Sees Best Day In Nearly A Month As AI Rout Cools \u2014 AMZN, BE, CRWV, AAPL, PLTR In Focus",
+            "summary": "The Philadelphia Semiconductor Index added about 1.6%.",
+            "published_at": "2026-10-19T23:00:23+00:00",
+            "url": "https://finnhub.io/api/news?id=b2c49c35a756adb72db9233d431d447e8200033fa768a6a031f1d0857617d958",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dividend Aristocrats or Quality Factor: Which ETF Fits Retirement?",
+            "summary": "Two ETFs built around durable businesses use completely different definitions of what makes a company worth owning, and for investors approaching retirement, that disagreement shapes every dollar they hold.",
+            "published_at": "2026-10-19T22:33:06+00:00",
+            "url": "https://finnhub.io/api/news?id=c4d41b8006dc876987869d4d324eadfd34a584e792db6cc616669398562b59b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GPIX Out-Yielded JEPI and Returned 17.37% to Its 9.33%. JEPI Is Still 9.5 Times Bigger",
+            "summary": "Two option-income ETFs sell calls against the same index, pay nearly identical yields, and yet one nearly doubled the other's total return over the past year. The way each fund is built explains why.",
+            "published_at": "2026-10-19T22:03:37+00:00",
+            "url": "https://finnhub.io/api/news?id=474d8c1a04257bccad1db173261e20deb67dc3db0abecc7bc43f02656bded33a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Seeking International Diversification? Is VT or IXUS a Better Core Holding for Long-Term Investors?",
+            "summary": "VT (Vanguard Total World Stock ETF) and IXUS (iShares Core MSCI Total International Stock ETF) offer different approaches to international diversification. VT includes U.S. equities with 10,000+ holdings and a 0.06% expense ratio, while IXUS focuses exclusively on non-U.S. markets with 4,583 holdings and a higher 3.0% dividend yield. VT has outperformed IXUS on price appreciation over five years (50.2% vs 28.37%), but the choice depends on existing portfolio holdings and income needs.",
+            "published_at": "2026-10-19T20:00:02+00:00",
+            "url": "https://www.fool.com/coverage/etfs/2026/10/19/seeking-international-diversification-is-vt-or-ixus-a-better-core-holding-for-long-term-investors/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Sector Update: Tech Stocks Rise Late Afternoon",
+            "summary": "Tech stocks were higher late Monday afternoon, with the State Street Technology Select Sector SPDR E",
+            "published_at": "2026-10-19T19:46:54+00:00",
+            "url": "https://finnhub.io/api/news?id=3de7006c404a02abe84ed0a390bbfeb500e86b524026545c03a4ca76a719f421",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "This High-Yielding Dividend Stock Has Soared Past the \"Magnificent Seven\" in 2026",
+            "summary": "Target has been one of the hottest stocks to own this year, and it still has room to rise even higher.",
+            "published_at": "2026-10-19T19:10:02+00:00",
+            "url": "https://finnhub.io/api/news?id=9c0b7d5f7a42a4079aea07e4a9ffd3aa84ed9ab9a9d726a383b08cb6eec22c99",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Want to live off dividends in retirement? Here\u2019s how much you\u2019d need to invest \u2014 and 5 strategies to generate income",
+            "summary": "Dividend stocks aren\u2019t the only way to turn your nest egg into a steady income stream. Explore options that could help your money support you throughout retirement.",
+            "published_at": "2026-10-19T18:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f3053df93a24267af425acc0ce965f38bf52dd19434dea4410adcebb468aa3ff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Already Developing Higher-End HomeView",
+            "summary": "Apple's new HomeView has been a long time coming - but now, Apple is already developing a higher-end version of the device with a robotic limb, which can automatically swivel the screen toward whoever is speaking. Bloomberg's Mark Gurman joins Ed Ludlow with the details from this week's Power On newsletter on \"Bloomberg Tech.\"",
+            "published_at": "2026-10-19T18:11:19+00:00",
+            "url": "https://finnhub.io/api/news?id=93151bbdd963709760dcf63b5152a707492015e6ccdcd16e1902beb224c069a4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Mag 7 Pull Dow Back to Breakeven Line",
+            "summary": "Thank the Mag 7 that the Dow isn't trading lower.",
+            "published_at": "2026-10-19T17:48:49+00:00",
+            "url": "https://finnhub.io/api/news?id=4b3795852bcfc5e18255fceff8619cb04cde136310b2dd1219a6d93cc477c373",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Confirms October 28 \u2018Pro And Tell\u2019 Event \u2014 First Touchscreen MacBook Pro Expected",
+            "summary": "The upcoming product launch follows strong initial demand for Apple's foldable iPhone Duo, even as analysts remain divided over the company's growth outlook.",
+            "published_at": "2026-10-19T17:43:20+00:00",
+            "url": "https://finnhub.io/api/news?id=522773942a919b923a94eb66756e848a851f89569c35a3e3afdb53e4bc65736e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Stock Holds Strong Amid Healthy iPhone Duo Preorders",
+            "summary": "Apple stock continues to hover in a tight trading range near a buy zone amid healthy preorders for its first folding handset, the iPhone Duo.",
+            "published_at": "2026-10-19T16:49:45+00:00",
+            "url": "https://finnhub.io/api/news?id=53d96b99202235fd653bfa19301c852941b2056b69abc7ad0c27eb8edfb2fad5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Samsung is making an unexpected move against Apple",
+            "summary": "A leaked product name points to Samsung\u2019s first premium version of a popular accessory in about a decade.",
+            "published_at": "2026-10-19T16:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ecb7c2f0b0a7c98c24458d1a1cf080551eea20cc42535e12176a3c21576a56bb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Announces Oct. 28 Event for Touch-Screen MacBook Pro",
+            "summary": "Apple Inc. on Monday confirmed that it\u2019s holding a product launch event on Oct. 28, where the company is planning to debut its first touch-screen MacBook.",
+            "published_at": "2026-10-19T16:33:02+00:00",
+            "url": "https://finnhub.io/api/news?id=44dbe180f27b5f24addf0ef04591778e23a073145e1f611375f1a9b7a7105a55",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Deep Hardware-Software Integration Drives Apple\u2019s (AAPL) Underappreciated AI Advantage",
+            "summary": "Wedgewood Partners, an investment management company, released its third-quarter 2026 investor letter. The letter can be downloaded here. Wedgewood Composite delivered a net return of 2.5% in the quarter, compared to 2.3% for the Standard & Poor\u2019s 500 Index, 0.9% for the Russell 1000 Growth Index, and 2.6% for the Russell 1000 Value Index. Surging [\u2026]",
+            "published_at": "2026-10-19T16:31:10+00:00",
+            "url": "https://finnhub.io/api/news?id=6603e72ba1b0c4cfc0db5a8cdd77edbbc14ddb2f184f66a7d93195b9ae996704",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nine Public Companies Object to OKX-ICE Tokenized Stock Plans",
+            "summary": "Nine public companies have objected to having their shares offered as blockchain-based tokens on a proposed trading...",
+            "published_at": "2026-10-19T16:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=955434f5e6e47215b21ab196357894dc9fea2253d4f3842136ca8b609a2650f0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple announces another event \u2013 with a whole new kind of MacBook expected",
+            "summary": "\u2018Pro and Tell\u2019 launch rumoured to bring first ever touchscreen MacBook",
+            "published_at": "2026-10-19T16:19:20+00:00",
+            "url": "https://finnhub.io/api/news?id=6dfe0600d35ccac68dafd0a74e3b97555e30d8902c43daa35a684cf195e14a2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple\u2019s iPhone Duo Sold Out In Minutes. The Last Time Apple Reinvented The Phone, One Apple Supplier\u2019s Stock Soared About 1,200% In A Decade",
+            "summary": "Although Wall Street spent much of October worrying about a tech slump, Apple (NASDAQ:AAPL) stock pushed to new highs as its first foldable phone arrived. Apple opened worldwide preorders for the iPhone Duo on Oct. 16, and an Invezz report carried on TradingView said it \u201csold out in minutes\u201d. Shares traded at $342.79 as of [\u2026]",
+            "published_at": "2026-10-19T15:49:32+00:00",
+            "url": "https://finnhub.io/api/news?id=be543a17be5106ef8b558cbca354f40a162ea4d5229232db1805928a920295e3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "If Apple Cuts iPhone Units in 2027, This Stock Could Be a Big Loser",
+            "summary": "KeyBanc has turned cautious on Cirrus Logic, citing potential iPhone unit cuts and delayed PC growth. Here\u2019s why investors may want to pay attention.",
+            "published_at": "2026-10-19T15:05:15+00:00",
+            "url": "https://finnhub.io/api/news?id=43de9d73dcb467fee9a24308fcd1f786c485db5c419dc6d5eaf181b2c4dfe604",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Opinion: The Most Important Number in Taiwan Semiconductor's Earnings Report Was 68%",
+            "summary": "Taiwan Semiconductor Manufacturing (TSMC) reported strong Q3 results with 41.2% revenue growth and 68.7% net income increase. The key highlight is that high-performance computing (HPC) now accounts for 68% of quarterly revenue and is growing faster than overall business at 22% sequentially. This reflects strong AI infrastructure demand, with advanced manufacturing processes (7nm and smaller) representing 79% of wafer revenue, positioning TSMC as a critical beneficiary of ongoing AI investment.",
+            "published_at": "2026-10-19T14:45:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/19/the-most-important-number-in-taiwan-semiconductors/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Apple stock is at a record high \u2014 but is it warranted given slowing iPhone 18 demand?",
+            "summary": "Apple's new crop of iPhones may be falling shy of the sales mark.",
+            "published_at": "2026-10-19T14:34:20+00:00",
+            "url": "https://finnhub.io/api/news?id=671f3bf06f08feac4493d21e4e2aa6a91042bb0900155da4a005597958f1d8ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Dividend ETFs That Deliver More Power as a Combined Portfolio",
+            "summary": "The article recommends combining three dividend ETFs for a more comprehensive portfolio: Schwab U.S. Dividend Equity ETF (SCHD) for quality and yield, Vanguard Dividend Appreciation ETF (VIG) for growth and dividend growth, and Vanguard International High Dividend Yield ETF (VYMI) for international diversification and high yield. Together, these funds cover all three dividend investing pillars and provide better risk-adjusted returns than holding them individually.",
+            "published_at": "2026-10-19T14:00:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/19/3-dividend-etfs-more-power-as-combined-portfolio/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Apple stock staged a rally to $5T \"that no one liked\": Melius",
+            "summary": "Investing.com -- Melius Research says Apple\u2019s run to a $5 trillion market value has been the \u201cmost disliked rally in history,\u201d but it believes the gains can continue.",
+            "published_at": "2026-10-19T13:51:17+00:00",
+            "url": "https://finnhub.io/api/news?id=30a8874f6384ffb5dd91ee9718488e0a087d9676074e38e09429aff70c85d7f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Has Outperformed the S&P 500, but is AAPL\u2019s 35x Valuation Getting Ahead of its Growth?",
+            "summary": "Apple Inc. (NASDAQ:AAPL) is asking investors to believe two things at once. First, that the iPhone can still deliver meaningful growth, and that a company of its size deserves a premium earnings valuation. Apple\u2019s one-year total return reached 30.25, well above the S&P 500\u2019s nearly 14% return. The rally raises a sharper question than whether [\u2026]",
+            "published_at": "2026-10-19T13:33:12+00:00",
+            "url": "https://finnhub.io/api/news?id=175d24ebf27bed9d8eaaa5d4e8551aed15c392a0382ff25d6a2cb9347863ea94",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple extends iPhone Duo delivery, disappointing eager customers",
+            "summary": "Apple\u2019s first foldable iPhone sold out in minutes, and the wait to get one just got a lot longer.",
+            "published_at": "2026-10-19T13:03:00+00:00",
+            "url": "https://finnhub.io/api/news?id=76449f21ae47970a7251e911083af8bbbecb39a36a54763bf62c1660deda0ede",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wildfire and Badge Partner to Bring Personalized Merchant Offers and Rewards to Mobile Wallets",
+            "summary": "Wildfire Systems, a loyalty and consumer insights platform, and Badge, a mobile wallet infrastructure provider, today announced a strategic partnership that brings personalized merchant offers and rewards into consumers' native mobile wallets, making savings easier to find and use and creating new value for the programs that offer them. Wildfire clients can now extend their existing rewards programs into Apple\u00ae Wallet, Google Wallet, and Samsung Wallet through Badge's technology, while Badge cli",
+            "published_at": "2026-10-19T13:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=62054144b77646c9bede0a5fbcc1266127889a4005bf2a16d87b91d78d7a50d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Has The Market Missed In Netflix Stock's Drop?",
+            "summary": "Stock buyers may be betting on a strategic shift at Netflix (NFLX). Management no longer spends whatever it takes on new shows, opting instead to let content spending grow more slowly than sales. Yet the market has not rewarded this discipline. The stock lost 41.4% over the past twelve months, while the S&P 500 returned 16.2%. So how much faster than its content bill are Netflix's sales growing.",
+            "published_at": "2026-10-19T12:55:59+00:00",
+            "url": "https://finnhub.io/api/news?id=19530acf3c2902edc81a411eb1393429ac84201decf27f071abcf4eae6c674fb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple Stock Escaped the AI Downturn. Now It Faces a 27% Plunge, Says Analyst.",
+            "summary": "The iPhone 18 launch is unlikely to go as well as Apple is hoping, KeyBanc\u2019s Brandon Nispel says. That\u2019s a big risk for its highflying shares.",
+            "published_at": "2026-10-19T12:42:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bdbbea08914f2d80eb35c65f503f1da6ef5afff7a2ad77bb71437cef38b9736e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NYSE Introduces Extended Trading Hours for NYSE American Options",
+            "summary": "NEW YORK, October 19, 2026--The New York Stock Exchange, part of Intercontinental Exchange, Inc. (NYSE: ICE), one of the world's leading providers of financial market technology and data powering global capital markets, today introduced NYSE American Options Extended Trading Hours (\"ETH\"), giving market participants additional access to options listed on NYSE American.",
+            "published_at": "2026-10-19T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9ad2b4ed580b28b956dce9c81d92e90e4e96eb2e43410274285a0067126863f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Analyst says iPhone 18 demand weakness is \"intensifying\"",
+            "summary": "Investing.com -- Jefferies believes underlying demand for Apple\u2019s iPhone 18 Pro and Pro Max is weakening further, with the firm pointing to shrinking lead times, falling resale prices and reported order cuts.",
+            "published_at": "2026-10-19T12:25:48+00:00",
+            "url": "https://finnhub.io/api/news?id=b9d16fbc4d5a6e72e6623e436bdf252ca8f13e1e0e71948d8abcbe5629cf5cf3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Is Apple (AAPL) Telling The Market With Its Biggest Smart Home Push?",
+            "summary": "Apple (NasdaqGS:AAPL) introduced Apple HomeView, HomePod mini 2 and the Apple Home Collection smart home lineup on 19 October 2026. The Apple Home Collection adds new categories including cameras, locks, thermostats and sensors aimed at whole home control. Apple announced hardware collaborations with LG Electronics and Schneider Electric focused on entertainment devices and energy management products. The launch of Apple HomeView, HomePod mini 2 and the Apple Home Collection is only one part...",
+            "published_at": "2026-10-19T12:11:18+00:00",
+            "url": "https://finnhub.io/api/news?id=c7ae8a9d76c79f7ddcbe40e4e822c6a1e8da0d004c641b0dd000f7ce950c8480",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tesla\u2019s rocket-thrusted Roadster hints at a SpaceX merger",
+            "summary": "Host Ejaaz Ahamadeen unpacks why Tesla\u2019s new \u201cflying\u201d sports car has inspired rumors of a SpaceX merger, and what Anthropic\u2019s $16.8B Q3, Google\u2019s new Gemini 4 and Meta\u2019s open-source model mean for the AI race.",
+            "published_at": "2026-10-19T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=afd13c2733ef4bcefa771363148be94519665f1680628c2f05295d50d9b68592",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Germany Digital Health Market Size, Share, Trends, and Forecast, 2026-2033 | DiGA Reimbursement, AI, mHealth, and Telehealth Unlock Growth Opportunities",
+            "summary": "A 120-page report examines how DiGA reimbursement, the Medical Informatics Initiative and venture investment are reshaping German healthcare \u2014 and why GDPR, interoperability and costly clinical validation slow adoption; CompuGroup Medical, Apple, Google and Epic Systems are among 21 companies profiledDublin, Oct. 19, 2026 (GLOBE NEWSWIRE) -- \"Germany Digital Health Market Size, Share & Trends Analysis Report 2026-2033\" has been added to ResearchAndMarkets.com's offering. The report provides an i",
+            "published_at": "2026-10-19T10:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e0341d38289e9a930b339d075277caabefdb854e6bd351307e13d37f48eed197",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Apple (NASDAQ:AAPL) Sets Up for Breakout With Perfect Technical Rating and Tight Base",
+            "summary": "Apple (AAPL) posts a perfect 10 Technical Rating and 9 Setup Quality, signaling a tight breakout base with defined entry and stop levels for traders.",
+            "published_at": "2026-10-19T09:20:35+00:00",
+            "url": "https://finnhub.io/api/news?id=f8c91624c7dd2b2a73c4d464d996cb0f8e46e9ca1a1903634eccf3203b2c4043",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "QQQ Pulled In $1.66 Billion. The Same Index Trades Under a Cheaper Ticker.",
+            "summary": "Billions of dollars flow into a Nasdaq-100 fund every week, yet a nearly identical fund from the same company quietly charges less for the exact same stocks. The fee gap looks small until you run the numbers over a decade.",
+            "published_at": "2026-10-19T08:45:56+00:00",
+            "url": "https://finnhub.io/api/news?id=906fc32f2a7f70b360ec244c06b372a2e87dbed09b662f4329287b9bf5dd6d82",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UK regulator set to push Apple to open iPhone payment technology \u2013 report",
+            "summary": "Under the proposals, the CMA will call for changes to iOS that enable iPhone owners to select alternative payment services as their default rather than Apple Pay.",
+            "published_at": "2026-10-19T08:13:45+00:00",
+            "url": "https://finnhub.io/api/news?id=97c8f6aabf002d4a77bbfecc42fb9df15f623f8782804bcb353bd734c684cdc0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq futures gain as investors buy the dip in the AI trade",
+            "summary": "CNBC\u2019s Morgan Brennan reports on the news affecting markets.",
+            "published_at": "2026-10-19T06:59:53+00:00",
+            "url": "https://finnhub.io/api/news?id=d640cab241e9d7bd98137659be816ec27b509863a4a88307846de6b21c8ded66",
+            "source": "CNBC"
+          },
+          {
+            "headline": "The Pre-Market Rundown: October 19, 2026",
+            "summary": "CNBC brings you fast, accurate, and actionable business news and market updates.",
+            "published_at": "2026-10-19T06:53:50+00:00",
+            "url": "https://finnhub.io/api/news?id=89cbbb187773faf572edbf86cb9853a4d62fc42510264c2532350201a820c16a",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Analyzing Apple In Comparison To Competitors In Technology Hardware, Storage &amp; Peripherals Industry",
+            "summary": "Amidst today&#39;s fast-paced and highly competitive business environment, it is crucial for investors and industry enthusiasts to conduct comprehensive company evaluations. In this article, we will delve into an",
+            "published_at": "2026-10-19T05:58:59+00:00",
+            "url": "https://finnhub.io/api/news?id=c29d2342713f7d48d06c08a89ce05edbd2cfc78d116ffbae5a6547bee6b19494",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "What's Going On With Intel Stock Monday?",
+            "summary": "Intel stock up 4% premarket. Analysis on Xeon AI workloads, Web Summit 2026 plans, top ETF exposure, and Q3 earnings estimates.",
+            "published_at": "2026-10-19T05:55:57+00:00",
+            "url": "https://finnhub.io/api/news?id=716b6710f57bbee66b7be3e2a986eda78751fd959ad07c62538766691728e0e7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Warren Buffett Warned About Stock Valuations. So Why Is Berkshire Still Buying Stocks?",
+            "summary": "Despite warning in May that stock valuations were too high, Warren Buffett's Berkshire Hathaway has reversed course and become more aggressive in buying stocks and repurchasing its own shares since Q2. The company has invested in Alphabet and Bending Spoons while the S&P 500 has risen 7% since Buffett's warning, suggesting that actions speak louder than words when it comes to investment strategy.",
+            "published_at": "2026-10-19T04:30:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/19/warren-buffett-warned-about-stock-valuations-so-wh/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          }
+        ]
+      },
+      "prev_close": 342.94,
+      "jev": null
+    },
+    {
+      "ticker": "DAVE",
+      "predicted_return": 0.23328598187482943,
+      "open_price": 357.12,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:14.621606+00:00",
+        "articles": []
+      },
+      "prev_close": 359.46,
+      "jev": null
+    },
+    {
+      "ticker": "ECO",
+      "predicted_return": 0.2330975510855512,
+      "open_price": 88.07,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.946735+00:00",
+        "articles": []
+      },
+      "prev_close": 88.98,
+      "jev": null
+    },
+    {
+      "ticker": "ZS",
+      "predicted_return": 0.22855908875775266,
+      "open_price": 210.81,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.946856+00:00",
+        "articles": [
+          {
+            "headline": "3 Secure AI Stocks Worth Watching After The DeepSeek Ban",
+            "summary": "The DeepSeek ban has turned secure AI from a buzzword into a hard regulatory line, and that shift now sits squarely in front of U.S.-listed providers selling into government and tightly regulated industries. Investors watching this clampdown risk missing where budget and attention may quietly reroute next. This article unpacks the story and highlights three stocks exposed to this news, all filtered from our secure AI and cybersecurity screener. The three stocks below are a small sample, and...",
+            "published_at": "2026-10-20T08:12:53+00:00",
+            "url": "https://finnhub.io/api/news?id=45f30a428b9529aadb97918a40b157c7efb599e19ae00acf86007105de2a2d6c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zscaler Stock Has Rebounded 85% Since April. Here\u2019s Where It Could Go by 2031",
+            "summary": "Key Stats for Zscaler StockCurrent Price: $212. 53Target Price (Mid): ~$393Street Target: ~$234Potential Total Return: ~85%Annualized IRR: ~14% / yearWhat Happened?Zscaler (ZS) told investors at its October 6 Investor Day that existing customers hold about $15 billion of security spend it has not yet captured.",
+            "published_at": "2026-10-20T03:48:12+00:00",
+            "url": "https://finnhub.io/api/news?id=60122a26ad3870fe347432809c3f3f646a67b5189b5599daa6d9f55e42c5bec6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Needs To Be True To Buy Cloudflare Stock?",
+            "summary": "Investors in Cloudflare (NET) are paying a steep premium for a company that still reports a loss. The stock trades at 41.8 times its sales, compared with 3.1 times for the S&P 500. Buyers paying that price appear to be betting on the company's Workers developer platform and on agentic workloads, which are the tasks AI agents perform across its network. Management reported rapid growth in both. Is that bet showing up in Cloudflare's sales yet.",
+            "published_at": "2026-10-19T21:59:39+00:00",
+            "url": "https://finnhub.io/api/news?id=88aec58154004a1f184575706f5ab0a033c3399c1e6e81c86da4128cccd7c363",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Was Okta Telling You Before Its Stock Doubled?",
+            "summary": "Shares of Okta (OKTA) returned 112% from October 15, 2025, to October 16, 2026. This performance easily cleared the 16.2% return for the S&P 500, following an 11.6% drop for the stock over the previous six months. During that same year, the identity security company widened its narrow profits, and its newer products, led by Okta Identity Governance, became a large part of what it sells. Was any of that visible before October 2025, while the shares were still falling.",
+            "published_at": "2026-10-19T15:26:44+00:00",
+            "url": "https://finnhub.io/api/news?id=c720546c959918d0ea6f309e0566f46ad34bf3a1dda63cb29e2420da4248dd3c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zscaler Stock Slid 8% This Week and Sits 38% Below Its High. Here\u2019s What Comes Next",
+            "summary": "Key Stats for Zscaler StockPast week performance: -8. 1%52-week range: $115 to $337Valuation model target price: $312Implied upside: 50.",
+            "published_at": "2026-10-19T14:07:15+00:00",
+            "url": "https://finnhub.io/api/news?id=f93c2f54f0eab78166468c981367126425ed0d2bb971392371d86e1422dd2d7b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here's Why Zscaler (ZS) is a Strong Momentum Stock",
+            "summary": "Zscaler (ZS), a cloud-based security solutions provider, has been identified as a #2 (Buy) on the Zacks Rank with a VGM Score of B. The stock has shown strong momentum with a 5.1% gain over the past four weeks, supported by 14 analyst upward earnings revisions in the last 60 days, bringing the consensus estimate to $4.91 per share with a +10.9% average earnings surprise.",
+            "published_at": "2026-10-19T12:50:03+00:00",
+            "url": "https://www.zacks.com/stock/news/3010547/here-s-why-zscaler-zs-is-a-strong-momentum-stock?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_momentum_score-3010547",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Should You Invest in Zscaler (ZS) Based on Bullish Wall Street Views?",
+            "summary": "Based on the average brokerage recommendation (ABR), Zscaler (ZS) should be added to one's portfolio. Wall Street analysts' overly optimistic recommendations cast doubt on the effectiveness of this highly sought-after metric. So, is the stock worth buying?",
+            "published_at": "2026-10-19T12:30:03+00:00",
+            "url": "https://finnhub.io/api/news?id=bbc36b5b9a361ffe4d45cdf54d8bb1a0e7c88b89d2f0132a21c447efb98d9672",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 212.53,
+      "jev": null
+    },
+    {
+      "ticker": "VST",
+      "predicted_return": 0.22688877046484118,
+      "open_price": 148.9,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.947454+00:00",
+        "articles": [
+          {
+            "headline": "Energy Transition Update - Rising Solar Storage Market Spurs Global Clean Energy Shift",
+            "summary": "The solar energy storage market is experiencing significant growth, expected to expand at a compound annual growth rate (CAGR) of 17.5% from 2025 to 2033. This growth is driven by increasing adoption of solar power, demand for backup power solutions, and grid stability requirements, alongside declining battery costs and supportive clean energy policies. While lithium-ion batteries dominate due to their efficiency and declining costs, the market also sees notable trends in smart energy...",
+            "published_at": "2026-10-20T11:37:02+00:00",
+            "url": "https://finnhub.io/api/news?id=e06392fe41d484172a8693f361d9dff4cef562d23c8d8809d25a59b8176933ed",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MLPI Vs. NXG: Their 14% Pipeline Yields Are Not Created Equal",
+            "summary": "NEOS MLP & Energy Infra ETF is a buy with 14% floating yield and no leverage, while NextGen Infra Fund is a Sell on weak coverage and high leverage. Learn more on MLPI and NEOS ETFs here.",
+            "published_at": "2026-10-20T03:23:17+00:00",
+            "url": "https://finnhub.io/api/news?id=39f31e06779d9993d13cd87feaf5d1eb249f9db276fcb05b2f37347f0b16312a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Is This Number The Biggest Risk To Constellation Energy Stock?",
+            "summary": "Anyone analyzing Constellation Energy (CEG) should look at its debt load first. The company owed $24.7 billion at the end of June 2026. That is nearly three times the $8.3 billion it owed a year earlier. Over the past year to October 16, the stock lost 32.4%, compared with a 16.2% return for the S&P 500. So how heavy is that debt for a company of Constellation's size.",
+            "published_at": "2026-10-19T21:28:39+00:00",
+            "url": "https://finnhub.io/api/news?id=028c3ed50d6059b62b690dee887f51be8f433a959c57c026b39dce87bd70091f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Musk: AI\u2019s Hard Part Is \u201cScaling Power\u201d: 3 Stocks Uniquely Suited to Win This New Bottleneck Trade",
+            "summary": "Key TakeawaysMicrosoft said it will scale its Maia chips to multi-gigawatt deployments starting next calendar year, and Elon Musk named scaling power as the hard part of AI. Chip companies and app companies are moving into each other\u2019s businesses, and power is the one input none of them can copy quickly, which favors Vistra, Constellation Energy and GE Vernova.",
+            "published_at": "2026-10-19T17:26:00+00:00",
+            "url": "https://finnhub.io/api/news?id=13c77c1bef472b928fe6d03c6b953e96feec54cf08009601fb843273066f84d8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Utility Stocks Riding The US AI Power Demand Boom",
+            "summary": "Artificial intelligence is pulling huge amounts of electricity into data centers just as the Fed is warning that this kind of heavy capex could keep rates higher for longer, and that tension is now spilling into power and grid stocks. Investors who ignore where that spending meets real-world infrastructure risk missing a key story. This piece walks through three U.S. utilities and grid players that sit squarely in the path of that AI-driven demand shock. The three stocks below are only a...",
+            "published_at": "2026-10-19T15:12:29+00:00",
+            "url": "https://finnhub.io/api/news?id=930f1826343074459069392f9380cb7647cef6edd56e241cb365050388eef8df",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 149.7,
+      "jev": null
+    },
+    {
+      "ticker": "NTSK",
+      "predicted_return": 0.22476964344735478,
+      "open_price": 19.28,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.948209+00:00",
+        "articles": []
+      },
+      "prev_close": 19.42,
+      "jev": null
+    },
+    {
+      "ticker": "ELAN",
+      "predicted_return": 0.2238892003553628,
+      "open_price": 23.29,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.948470+00:00",
+        "articles": [
+          {
+            "headline": "Luciana Amaro Joins Franklin Electric as Chief Human Resources Officer",
+            "summary": "FORT WAYNE, Ind., Oct. 19, 2026 (GLOBE NEWSWIRE) -- Franklin Electric Co., Inc. (NASDAQ: FELE), announced today that Luciana Amaro has been appointed Chief Human Resources Officer. Amaro will report to Joe Ruzynski, Chief Executive Officer, and will lead the company's global Human Resources strategy, partnering with business leaders to strengthen organizational capability, advance talent and leadership development, and foster a high-performance culture that supports Franklin Electric's long-term",
+            "published_at": "2026-10-19T20:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=784c3b41bc0ad005322f8e933231dfdf03306205726cefb9675d7056bade186f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Elanco Animal Health (ELAN) Beat Estimates Again in Its Next Earnings Report?",
+            "summary": "Elanco Animal Health (ELAN) has an impressive earnings surprise history and currently possesses the right combination of the two key ingredients for a likely beat in its next quarterly report.",
+            "published_at": "2026-10-19T15:10:04+00:00",
+            "url": "https://finnhub.io/api/news?id=82aceead639201c29041fa4df3363b9b5d13b41e6e424770fe9312ea60e51063",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 23.49,
+      "jev": null
+    },
+    {
+      "ticker": "OCTV",
+      "predicted_return": 0.21942503764365817,
+      "open_price": 20.26,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:37.948718+00:00",
+        "articles": []
+      },
+      "prev_close": 20.52,
+      "jev": null
+    },
+    {
+      "ticker": "EZPW",
+      "predicted_return": 0.21738455223221223,
+      "open_price": 32.56,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.087174+00:00",
+        "articles": [
+          {
+            "headline": "EZCORP (NASDAQ:EZPW): A Quality Investing Candidate With Strong EBIT Growth and Capital Efficiency",
+            "summary": "EZCORP (EZPW) clears Caviar Cruise quality-screen hurdles with strong EBIT growth, 15.85% ROIC and cash flow, though valuation and ROIC caveats remain.",
+            "published_at": "2026-10-19T12:10:55+00:00",
+            "url": "https://finnhub.io/api/news?id=61d511cfc9478e205613beadee0d1241a81dc6550659d0fd416766e842c9ca26",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 32.75,
+      "jev": null
+    },
+    {
+      "ticker": "SEZL",
+      "predicted_return": 0.21583755916137065,
+      "open_price": 126.37,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.087570+00:00",
+        "articles": [
+          {
+            "headline": "Sezzle Spotlights Gen Z Advisory Council to Give the Next Generation a Direct Say in Its Products",
+            "summary": "As young adults rethink how they manage money, Gen Z Sezzle users are tapped to help decide what features the company builds nextMinneapolis, MN, Oct. 19, 2026 (GLOBE NEWSWIRE) -- Sezzle Inc. (NASDAQ: SEZL) (Sezzle or Company) // - Sezzle, the digital financial platform specializing in Buy Now, Pay Later, today spotlighted the launch of its Gen Z Advisory Council, giving 30 Sezzle users ages 18 to 25 a direct feedback loop to share their financial pain points, along with helping shape Sezzle's p",
+            "published_at": "2026-10-19T12:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=27803742931962eec06a1900ce52c32a1d835b74b5bd3e6d17072258b61467a5",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 128.05,
+      "jev": null
+    },
+    {
+      "ticker": "TDG",
+      "predicted_return": 0.21231513770356367,
+      "open_price": 1137.42,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.087821+00:00",
+        "articles": []
+      },
+      "prev_close": 1142.45,
+      "jev": null
+    },
+    {
+      "ticker": "AMC",
+      "predicted_return": 0.20887525329016787,
+      "open_price": 2.96,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.087963+00:00",
+        "articles": [
+          {
+            "headline": "AMC Entertainment (AMC) Beats Stock Market Upswing: What Investors Need to Know",
+            "summary": "In the latest trading session, AMC Entertainment (AMC) closed at $2.98, marking a +2.23% move from the previous day.",
+            "published_at": "2026-10-19T20:45:03+00:00",
+            "url": "https://finnhub.io/api/news?id=85968e7cb85d125f9e2e7f8e54f10f69770de522c9039738edc4138b0ba09d45",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Consumer Discretionary - Leisure Facilities Stocks Q2 In Review: AMC Entertainment (NYSE:AMC) Vs Peers",
+            "summary": "The end of the earnings season is always a good time to take a step back and see who shined (and who didn\u2019t). Let\u2019s take a look at how consumer discretionary - leisure facilities stocks fared in Q2, starting with AMC Entertainment (NYSE:AMC).",
+            "published_at": "2026-10-19T19:52:55+00:00",
+            "url": "https://finnhub.io/api/news?id=1b20fc818f8e66e2ed784a602c29e80a39b3bfb4212dc15f8605ef531eaf9fb9",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 2.98,
+      "jev": null
+    },
+    {
+      "ticker": "SNPS",
+      "predicted_return": 0.20765613003515648,
+      "open_price": 450.88,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.088094+00:00",
+        "articles": [
+          {
+            "headline": "Did Cadence's Industry Carry Its Stock?",
+            "summary": "When compared with 125 companies in its industry, one software stock performed better than 119 of them over the past five years. That stock is Cadence Design Systems (CDNS). The company makes chip and system design software within the application software industry. A lead that wide can come from a strong industry or from the company itself. So which do you think it was, the industry or Cadence itself.",
+            "published_at": "2026-10-20T11:49:24+00:00",
+            "url": "https://finnhub.io/api/news?id=57df138b6c77e4f7013268913487020739c06c146cbab0b4d908d565e819ce2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here\u2019s What $10,000 Invested in Synopsys Stock Could Be Worth by 2030",
+            "summary": "Synopsys builds the software that powers every chip designed for AI, and analysts are practically falling over each other to buy it. But the real question is whether the tailwinds behind this under-the-radar pick can push a modest investment into life-changing territory before 2030.",
+            "published_at": "2026-10-19T13:30:04+00:00",
+            "url": "https://finnhub.io/api/news?id=90fe2069c9a3e07cb25b266d6cd1861371d3200d61e5552bdda5c5107bff4563",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "EDA Tools - Global Strategic Business Report:AI and Shrinking Chips Push Chip-Design Software Toward a $26.9 Billion Market",
+            "summary": "The global market for electronic design automation tools is projected to grow from $15.4 billion in 2024 to $26.9 billion by 2030, a new Research and Markets report finds, as rising chip complexity and AI-driven design workflows lift demand for tools from Synopsys, Cadence Design Systems, Siemens EDA and Keysight.Dublin, Oct. 19, 2026 (GLOBE NEWSWIRE) -- \"EDA Tools - Global Strategic Business Report\" has been added to ResearchAndMarkets.com's offering. The global Electronic Design Automation (ED",
+            "published_at": "2026-10-19T08:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=80a8198634fdef1f093e14432c80765012e3ecd4f67b61eef712dec1782cdf7c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 454.58,
+      "jev": null
+    },
+    {
+      "ticker": "TENB",
+      "predicted_return": 0.20444916632579616,
+      "open_price": 38.48,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.088590+00:00",
+        "articles": [
+          {
+            "headline": "Tenable Expands Open Security Ecosystem to Extend Exposure Intelligence and Accelerate AI Security Outcomes",
+            "summary": "Tenable announced the expansion of its open technology ecosystem with the launch of Tenable OPEN for AI, enabling organizations to integrate their preferred AI models and tools with Tenable's exposure intelligence. The program includes partnerships with 11 major security vendors and provides validated AI workflows for cross-platform security operations, threat mapping, vulnerability correlation, and identity-enriched exposure triage.",
+            "published_at": "2026-10-20T13:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/20/3384451/0/en/tenable-expands-open-security-ecosystem-to-extend-exposure-intelligence-and-accelerate-ai-security-outcomes.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "3 Cash-Producing Stocks We Keep Off Our Radar",
+            "summary": "A company that generates cash isn\u2019t automatically a winner. Some businesses stockpile cash but fail to reinvest wisely, limiting their ability to expand.",
+            "published_at": "2026-10-19T15:12:55+00:00",
+            "url": "https://finnhub.io/api/news?id=8a8ea1ed4f3cf06262c9967284aed43423aaca10a4e13e8ed3228388960fe6c5",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 38.93,
+      "jev": null
+    },
+    {
+      "ticker": "DDOG",
+      "predicted_return": 0.19971070344107852,
+      "open_price": 257.12,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 27,
+        "reviewed_count": 27,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-20T13:34:58.088906+00:00",
+        "articles": [
+          {
+            "headline": "Bernstein Upgrades Datadog Stock As AI Tailwinds Boost Growth",
+            "summary": "Key Stats for Datadog StockPrice change for Datadog stock in last 6 months: 104%$DDOG Stock Price as of Oct. 19: $26052-Week High: $301$DDOG Stock Price Target: $290What Happened?Bernstein upgraded Datadog (DDOG:NASDAQ) to Outperform from Market-Perform on Monday and raised its price target to $350 from $237, , Investing.",
+            "published_at": "2026-10-20T12:13:47+00:00",
+            "url": "https://finnhub.io/api/news?id=6e7828fa30cfd7356c2a4e68049c2a1b8901b6fcc06d5bfbd5fc90c3449a5033",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Most-Watched Stock Datadog, Inc. (DDOG) Worth Betting on Now?",
+            "summary": "Datadog (DDOG) has been one of the stocks most watched by Zacks.com users lately. So, it is worth exploring what lies ahead for the stock.",
+            "published_at": "2026-10-20T12:00:03+00:00",
+            "url": "https://finnhub.io/api/news?id=0b56c9058556cfae2ff24b3a511cdaaf7231f8977151322d5b9a74dd26d6866c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Climb On Strong Factory And Earnings Hopes",
+            "summary": "The Morning Bull - US Market Morning Update Tuesday, Oct, 20 2026 US stocks are set for a firmer open, with sentiment leaning risk on as investors focus on a clear upswing in American factory activity. The key driver this morning is stronger than expected industrial and capacity data. Industrial production rose 0.7% month over month in September, while manufacturing capacity utilization reached 75.9%, the firmest reading since early 2024. These figures point to busier production lines and a...",
+            "published_at": "2026-10-20T08:09:13+00:00",
+            "url": "https://finnhub.io/api/news?id=18c14d931eee9d92a8cf40b1a069993811a070974901a245e3076ee4defd1441",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog Reports Q3 on November 4 After Bernstein\u2019s Upgrade. Here\u2019s the Number That Settles the In-House Debate",
+            "summary": "Key Stats for Datadog StockCurrent Price: $260. 36Target Price (Mid): ~$726Street Target: ~$290Potential Total Return: ~179%Annualized IRR: ~28% / yearWhat Happened?Datadog (DDOG) closed at $260.",
+            "published_at": "2026-10-20T04:26:26+00:00",
+            "url": "https://finnhub.io/api/news?id=bdb728b1a8ffdb79a08dd6c5e45dd4d0d967ec6874561813bb6d986244e32d0a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog Stock Gains Attention After Analyst Upgrade On AI Demand",
+            "summary": "Datadog has been upgraded to Outperform by Bernstein after the broker highlighted stronger demand from artificial intelligence customers and upcoming third quarter fiscal 2026 results as key checkpoints for how AI heavy workloads are affecting the observability and security platform. The research points to rapidly growing AI token consumption at large labs and raises the question of whether Datadog can convert this usage into broader multi product adoption that offsets softer demand from...",
+            "published_at": "2026-10-20T00:24:30+00:00",
+            "url": "https://finnhub.io/api/news?id=d2ec6e35cc8a9c4a1724e5a810d21f6343c9bb496756077723d285b209860e3f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bernstein Just Upgraded Datadog Stock. Here's Why.",
+            "summary": "Bernstein analyst Peter Weed issues a bullish research note on Datadog stock. Here\u2019s why he recommends owning DDOG shares at current price.",
+            "published_at": "2026-10-19T21:58:43+00:00",
+            "url": "https://finnhub.io/api/news?id=22a9cc50ecf9334261ddbd8d884d0aa8f47eae5d9ad1bf12b18b704468eeeb83",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog (DDOG) Stock Is Up, What You Need To Know",
+            "summary": "Shares of cloud monitoring platform Datadog (NASDAQ:DDOG) jumped 4.7% in the morning session after easing Treasury yields and broad dip-buying spurred a relief rebound across enterprise software, amplified by Bernstein SocGen Group upgrading the stock to Outperform with a $350 price target.",
+            "published_at": "2026-10-19T21:36:55+00:00",
+            "url": "https://finnhub.io/api/news?id=9dba88756594652928885b64ed9fad7cae21757912835c02ae20a0d26cf6036a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Palantir, Datadog and chip stocks bounce back as Amazon lifts Wall Street",
+            "summary": "Tech's rebound lifted the indexes Monday, but most stocks missed the comeback.",
+            "published_at": "2026-10-19T20:40:43+00:00",
+            "url": "https://finnhub.io/api/news?id=8d8e4792eb9f757b3f947c827e21b609c1daaa5df0015cea6ee8cf1aecda4b4a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk, Datadog, Amazon Lead S&P 500 As AI Stocks Rebound",
+            "summary": "Western Digital, Sandisk, Datadog, Twilio and Amazon led the S&P 500 index in Monday's stock market trading as artificial intelligence plays rebounded. Western Digital (WDC) gained 6.1% to 352.21 on Monday, still below all its key moving averages. Western Digital stock plunged 16.4% last week. The hard-drive disk maker reports fiscal Q1 results late Thursday, kicking off earnings for memory...",
+            "published_at": "2026-10-19T20:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6ac09fd8226d2dfa8ca863bc99fe2bc50972d453fb7adfef6ba028c2e9f58c70",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog Soars 6% on Bernstein Upgrade as AI Token Use Has \u201cGrown at Least 50%\u201d",
+            "summary": "Key TakeawaysDatadog shares rose 6% today after Bernstein upgraded the stock to Outperform and raised its price target to $350 from $237. Bernstein\u2019s case for faster AI-driven growth looks well-founded, but the stock already prices in a lot of it.",
+            "published_at": "2026-10-19T19:06:28+00:00",
+            "url": "https://finnhub.io/api/news?id=b257331d91302b3d9a14902e7062ff65651cab24ad12fabe7f6be0f6d95c7878",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Oct. 19, 2026 US Session Gainers and Losers",
+            "summary": "S&P 500 top movers for the Oct. 19, 2026 US session: DDOG led gainers at 6.2%, while MOS led losers at -4.65%.",
+            "published_at": "2026-10-19T19:05:58+00:00",
+            "url": "https://finnhub.io/api/news?id=1de04184caa4d14b46eb85351a1a67146ab51409cb067786b2cc413c137ce9f7",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Update: Equities Rise Intraday as Busy Earnings Week Kicks Off",
+            "summary": "(Updates with latest market prices and developments.) US benchmark equity indexes were mostly hig",
+            "published_at": "2026-10-19T17:35:55+00:00",
+            "url": "https://finnhub.io/api/news?id=13dbdc09044191898c2aee495c5edd2e9740275fdf295bddde04ac56ad9314b6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog, Intel, CoreWeave, Tesla, Amazon, Cleveland-Cliffs, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Datadog stock is the best performer in the S&P 500 following an upgrade to Outperform at Bernstein.",
+            "published_at": "2026-10-19T17:14:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bd07f976c26011f1978aa93b7afb29821897fa920eaa9a8141e7ec7d51d2fb7b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Firm, Nasdaq Rallies; Amazon Surges As These Stocks Test Entries (Live Coverage)",
+            "summary": "The Dow Jones index is steady as techs jump on stock market today. Amazon and Nvidia climb while a biotech stock tests a buy point.",
+            "published_at": "2026-10-19T17:10:15+00:00",
+            "url": "https://finnhub.io/api/news?id=ecbe5b52205b499c0f97c0666490e6bce8801c6978d22197090dc906176ea7f6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog Stock Gets an Upgrade as OpenAI Setback May Be Fading",
+            "summary": "Datadog\u2019s artificial-intelligence customers are spending more than expected, says Bernstein analyst.",
+            "published_at": "2026-10-19T16:57:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9bf2e57141bcc0c9530d626dc49f9ce086c489febe18fd0c7eea2680aed9b27f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Gainers and Losers in Today's Session",
+            "summary": "S&P 500 top movers for today's session: SNDK, MRVL and DDOG led gainers, while NRG, MOS and AMP led losers.",
+            "published_at": "2026-10-19T16:35:57+00:00",
+            "url": "https://finnhub.io/api/news?id=3362613351db4d6a74448bb963f75ec36210e4268fca8dcaeb4513a8fdfebbae",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Tom Lee Says Investors Should Be \u2018Jumping Into\u2019 AI, Semiconductor, Mag 7 Stocks Amid Sell-Off",
+            "summary": "In an interview with CNBC, Lee called the setup in AI stocks a potential \u201ccoiled spring.\u201d",
+            "published_at": "2026-10-19T14:35:35+00:00",
+            "url": "https://finnhub.io/api/news?id=2c20816b769bb3ced92dc4872ed5fa8370b5b1fec59161d8d06f6a2837381054",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here Are Monday\u2019s Top Wall Street Analyst Research Calls: Ameriprise Financial, Boyd Gaming, CoreWeave, Datadog, Intel, JetBlue Airways, PayPal Holdings, Pinterest, Whirlpool, and More",
+            "summary": "Stock Futures: Stocks are trading mixed, with the Nasdaq up sharply as we start another action-packed trading week, driven by a flood of third-quarter earnings from some of the biggest U.S. companies. All major indices finished Friday lower as selling pressure built throughout the day. The usual suspects were to blame: rising energy prices, inflation concerns [\u2026]",
+            "published_at": "2026-10-19T14:12:19+00:00",
+            "url": "https://finnhub.io/api/news?id=6027febd4eaab328114d0f4aea4b657d74c7bac5ad08d7334e1eae65ee787998",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Intel upgraded, Reddit initiated: Wall Street's top analyst calls",
+            "summary": "Intel upgraded, Reddit initiated: Wall Street's top analyst calls",
+            "published_at": "2026-10-19T13:37:09+00:00",
+            "url": "https://finnhub.io/api/news?id=953fd7c963e0c5c7fefec12d69c7c78db5d8c24be2387123c7a503f0a80f1920",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Calls of the Day: Cleveland-Cliffs and Datadog",
+            "summary": "The Investment Committee debates the latest Calls of the Day.",
+            "published_at": "2026-10-19T13:02:24+00:00",
+            "url": "https://finnhub.io/api/news?id=a19ba5349be919d27b6b1df0c689903ff21b341fb88bb97396e448a1b1670406",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Why Datadog (DDOG) is a Top Growth Stock for the Long-Term",
+            "summary": "Zacks Premium offers Style Scores (Value, Growth, Momentum, and VGM) to complement its Zacks Rank stock-rating system, helping investors identify stocks with the highest probability of outperformance. The article explains how combining Zacks Rank #1 or #2 ratings with Style Scores of A or B provides the best investment opportunities. Datadog (DDOG) is highlighted as a stock to watch with a #3 Hold rank and Grade A Growth Score, forecasting 22.9% year-over-year earnings growth.",
+            "published_at": "2026-10-19T12:45:03+00:00",
+            "url": "https://www.zacks.com/stock/news/3010534/why-datadog-ddog-is-a-top-growth-stock-for-the-long-term?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_growth_score-3010534",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Premarket movers: Intel jumps on JPMorgan upgrade; Datadog rallies",
+            "summary": "Investing.com - U.S. stock futures rose on Monday as artificial intelligence-linked stocks attempted to recover from last week\u2019s sharp selloff, while a busy earnings calendar offered investors a fresh test of market sentiment.",
+            "published_at": "2026-10-19T11:55:24+00:00",
+            "url": "https://finnhub.io/api/news?id=ed2cb8669c98c68f79b603907d9cac3336bc519fed836e972c2d62c3f87a702c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Datadog Shares Rise 3.6% After Bernstein Upgrade and Price Target Increase to $350",
+            "summary": "Datadog (NASDAQ:DDOG) shares gained 3. 6% in premarket trading on Monday after Bernstein SocGen Group upgraded the cloud monitoring software provider from Market Perform to Outperform and increased its price target to $350 from $237.",
+            "published_at": "2026-10-19T10:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=80b2d62ad2b7c04f677c7525bab39b15b4236e2d1155d166d252ca065081db4b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is Datadog Stock Surging Monday?",
+            "summary": "Datadog stock jumped 4%+ after Bernstein upgraded DDOG to Outperform with a $350 price target on AI growth strength.",
+            "published_at": "2026-10-19T10:27:52+00:00",
+            "url": "https://finnhub.io/api/news?id=8fad49d52c55ece8f1324d99663da73ded7478628111aca157be7f19a91b063e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "The AI Boom Is Entering a New Phase: 2 Stocks to Buy Now, According to Wall Street Analysts",
+            "summary": "Morgan Stanley analysts believe the AI boom is shifting from semiconductor and infrastructure companies to software companies and AI adopters. Amazon is leveraging AI and robotics to improve retail efficiency with expanding operating margins, while Datadog provides observability software supporting AI infrastructure. Both stocks are positioned to benefit as the AI trade broadens beyond chipmakers.",
+            "published_at": "2026-10-19T08:48:02+00:00",
+            "url": "https://www.fool.com/investing/2026/10/19/ai-boom-new-phase-2-stocks-buy-now-wall-street/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "This Intel Analyst Is No Longer Bearish; Here Are Top 5 Upgrades For Monday",
+            "summary": "Analysts upgraded Intel, Boyd Gaming, Dow, and more, with mixed price-target changes.",
+            "published_at": "2026-10-19T08:38:12+00:00",
+            "url": "https://finnhub.io/api/news?id=cc28ae25040740fd4362e64573ba5db3aa50878d56e7362217495dd08fa0e5d4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Bernstein Upgrades Datadog to Outperform, Raises Price Target to $350",
+            "summary": "Bernstein  analyst Peter Weed   upgrades Datadog (NASDAQ:DDOG) from Market Perform to Outperform and raises the price target from $237 to $350.",
+            "published_at": "2026-10-19T07:36:09+00:00",
+            "url": "https://finnhub.io/api/news?id=647c8d414004967aa18eea868792e555a038bd344618381f7f77f6c942fda5ed",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 260.36,
+      "jev": null
+    },
+    {
+      "ticker": "GEF-B",
+      "predicted_return": 0.19948678092000588,
+      "open_price": 110.76,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.095908+00:00",
+        "articles": []
+      },
+      "prev_close": 111.36,
+      "jev": null
+    },
+    {
+      "ticker": "TLN",
+      "predicted_return": 0.19394916254667233,
+      "open_price": 347.84,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.097357+00:00",
+        "articles": [
+          {
+            "headline": "Bloom Energy Q3 Earnings on Deck: Should Investors Buy or Wait?",
+            "summary": "BE's Q3 earnings are set for a sharp surge, fueled by rising demand for on-site power, but its premium valuation raises questions about buying now.",
+            "published_at": "2026-10-19T12:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0b724510b7d6041430b5b25aff234032031cd92657d7b9cb2fdbf7b3664216a0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 351.22,
+      "jev": null
+    },
+    {
+      "ticker": "EL",
+      "predicted_return": 0.19240577237278844,
+      "open_price": 104.05,
+      "snapshot_date": "2026-10-19",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-20T13:34:58.100538+00:00",
+        "articles": [
+          {
+            "headline": "The Est\u00e9e Lauder Companies Inc. to Webcast Discussion of Fiscal 2027 First Quarter Results on November 2, 2026",
+            "summary": "NEW YORK, October 19, 2026--The Est\u00e9e Lauder Companies Inc. (NYSE: EL) will release its fiscal 2027 first quarter results on Monday, November 2, 2026.",
+            "published_at": "2026-10-19T20:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3984b10d42938d1f19aed8887c3c17e6bf03e438d15bcd68341db6c9322097b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Est\u00e9e Lauder Companies Appoints Krista Lee Berger Senior Vice President, Global Marketing, Clinique",
+            "summary": "NEW YORK, October 19, 2026--The Est\u00e9e Lauder Companies Inc. (NYSE: EL) today announced that Krista Lee Berger has joined the company as Senior Vice President, Global Marketing, Clinique.",
+            "published_at": "2026-10-19T19:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=422357a76c70cf838e018382be28ea270e3ccab9db44033f5043c51896c15edd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Estee Lauder (EL) Beat Estimates Again in Its Next Earnings Report?",
+            "summary": "Estee Lauder (EL) has an impressive earnings surprise history and currently possesses the right combination of the two key ingredients for a likely beat in its next quarterly report.",
+            "published_at": "2026-10-19T15:10:03+00:00",
+            "url": "https://finnhub.io/api/news?id=31c06da241d11331d3d2f6d283e468766881e5e58a2910a81a7723076abeb8a2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Former Est\u00e9e Lauder exec no longer with Gap Inc.",
+            "summary": "John Demsey began advising for the retailer about a year ago as the company sought to revamp its beauty business.",
+            "published_at": "2026-10-19T14:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bf6dbdc2629b5c1f93aecb45cf403f298fbdadd5c3ac43c0f37b2208274446c7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Sally Beauty's Digital Growth Become a Larger Share of Sales?",
+            "summary": "SBH's e-commerce sales rise 11% for a fourth straight quarter of double-digit growth, supported by stronger apps, conversion and omnichannel fulfillment.",
+            "published_at": "2026-10-19T13:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=56193daaa0003d0738289aba604240fce3f8c5ceb3d006a4fdd9b48826ced7f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Jefferies Maintains Hold on Estee Lauder Cos, Raises Price Target to $120",
+            "summary": "Jefferies  analyst Sydney Wagner   maintains Estee Lauder Cos (NYSE:EL) with a Hold and raises the price target from $100 to $120.",
+            "published_at": "2026-10-19T09:56:36+00:00",
+            "url": "https://finnhub.io/api/news?id=36b63ebbab945b184804d761f36c0c0f193078e43c1625a6bc1c757860797b36",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 105.78,
+      "jev": null
+    }
+  ],
+  "scored_count": 1925,
+  "skipped": [
+    {
+      "ticker": "GE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NFLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ISRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MMM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FITB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STLD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SYF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WRB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KEY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EFX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HAS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPCX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EWBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MKC-V",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AGNC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CCK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ELS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WTFC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZION",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ADC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VICR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBSH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BOKF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CLF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WFRD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FNB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HWC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PEGA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RLI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OZK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SFBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UCB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NIC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BATRA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ADX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KARO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 24.04939350664001
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.951000464226848
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 4.774920252156177
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-19",
+    "model_trained_through": "2026-10-19",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

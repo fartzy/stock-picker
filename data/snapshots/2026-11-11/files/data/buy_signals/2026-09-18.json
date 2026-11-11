@@ -1,0 +1,81 @@
+{
+  "as_of": "2026-09-18",
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.010016333268625378,
+      "open_price": 8.61,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "RGC",
+      "predicted_return": 0.0060983290891473965,
+      "open_price": 6.01,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "BRKR",
+      "predicted_return": 0.005442168923424637,
+      "open_price": 63.37,
+      "snapshot_date": "2026-09-17"
+    },
+    {
+      "ticker": "QH",
+      "predicted_return": 0.00517632754240037,
+      "open_price": 3.9899999999999998,
+      "snapshot_date": "2026-09-17"
+    }
+  ],
+  "scored_count": 1993,
+  "skipped": [
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "volatility_120d",
+      "importance": 13.972905179717943
+    },
+    {
+      "feature": "pooled_setup_seasonality",
+      "importance": 12.417115090668617
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 9.704226534624675
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-17",
+    "model_trained_through": "2026-09-17",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-17, model trained through 2026-09-17 -- ready for this morning's opens."
+  }
+}

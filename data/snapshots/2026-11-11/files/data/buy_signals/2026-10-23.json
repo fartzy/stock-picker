@@ -1,0 +1,1387 @@
+{
+  "as_of": "2026-10-23",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "EQPT",
+      "predicted_return": 0.007847258760616302,
+      "open_price": 16.25,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:38:47.752595+00:00",
+        "articles": [
+          {
+            "headline": "EquipmentShare Announces Third Quarter 2026 Financial Results Conference Call",
+            "summary": "COLUMBIA, Mo., Oct. 22, 2026 (GLOBE NEWSWIRE) -- EquipmentShare.com Inc (Nasdaq: EQPT) (\u201cEquipmentShare\u201d), a leader in connected jobsite technology and one of the largest construction equipment rental providers in the United States, today announced it will report fiscal third quarter 2026 financial results after the market closes on Monday, November 9th, 2026. Management will host a conference call on Tuesday, November 10th, 2026 at 7:30 a.m. Central Time. The conference call will be available l",
+            "published_at": "2026-10-22T20:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=60a9ab6f78b4a156a54080b19c0e00a40a587853f675d32e775f5e2cc87d67dd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "EquipmentShare.com (EQPT) Stock Gets Fair Value Trim After Analysts Reset Targets",
+            "summary": "EquipmentShare.com\u2019s fair value estimate has been nudged lower from US$32.30 to US$31.00, indicating a slightly more conservative stance on the shares. Analysts are updating targets that now range from the mid to high teens into the low US$30s, reflecting different views on how the company handles execution, valuation, and the staying power of demand linked to major projects. As you read on, you will see how this evolving narrative could influence the way you track EquipmentShare.com from...",
+            "published_at": "2026-10-22T12:20:47+00:00",
+            "url": "https://finnhub.io/api/news?id=56ff2c12f73aaf65d01106685ae4ea80978350bee83dc1e225d638666841ff1d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What Does EquipmentShare.com (EQPT) Winning A Seventh T3 Award Change?",
+            "summary": "EquipmentShare.com (NasdaqGS:EQPT) has secured its seventh consecutive AutoTech Breakthrough Award for Fleet Management in 2026. The recognition again centers on EquipmentShare.com's T3 platform, the telematics and fleet management system underpinning its technology offering. This latest award adds qualitative support to recent operational and financial achievements that investors have been tracking for EquipmentShare.com. The seven year run of AutoTech Breakthrough recognition for the T3...",
+            "published_at": "2026-10-22T08:15:41+00:00",
+            "url": "https://finnhub.io/api/news?id=51b2b272284a80b2b1b8fe7f547a12b6129ee9a7ac16b7aed48dc0a4a0717b6b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 16.33,
+      "jev": null
+    },
+    {
+      "ticker": "KLRA",
+      "predicted_return": 0.007182623377552372,
+      "open_price": 13.18,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:38:47.752958+00:00",
+        "articles": []
+      },
+      "prev_close": 13.27,
+      "jev": null
+    },
+    {
+      "ticker": "STNE",
+      "predicted_return": 0.00692127243236168,
+      "open_price": 11.1,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.130742+00:00",
+        "articles": []
+      },
+      "prev_close": 11.15,
+      "jev": null
+    },
+    {
+      "ticker": "MRNA",
+      "predicted_return": 0.006571216879363908,
+      "open_price": 196.69,
+      "snapshot_date": "2026-10-22",
+      "news_flag": "clinical readout: Merck and Moderna Will Present Results From Landmark Phase 3 INTerpath-001 Trial for Intismeran Autogene Plus KEYTRUDA\u00ae ",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "clinical readout: Merck and Moderna Will Present Results From Landmark Phase 3 INTerpath-001 Trial for Intismeran Autogene Plus KEYTRUDA\u00ae ",
+        "article_count": 41,
+        "reviewed_count": 41,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.130790+00:00",
+        "articles": [
+          {
+            "headline": "S&P 500 Premarket Movers: CCI and SBAC Lead Gainers, TYL and DECK Top Decliners",
+            "summary": "S&P 500 premarket scan: CCI and SBAC led gainers, while TYL and DECK topped declines ahead of the open.",
+            "published_at": "2026-10-23T12:36:03+00:00",
+            "url": "https://finnhub.io/api/news?id=f7aeafe2d5b153f5909d94565469f4bc1606dd552cf8f7821b8778b910e7a703",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Fall After Moderna Crashes, Meta Fuels AI Meltdown. Warren Buffett Market Is Thriving.",
+            "summary": "The S&P 500 and Nasdaq tumbled below 50-day lines as Meta led an AI stock rout. But the Warren Buffett market is thriving.",
+            "published_at": "2026-10-23T11:58:58+00:00",
+            "url": "https://finnhub.io/api/news?id=842775a4a00dd1343a36615933b5601d7e4c8059640d2be7c19396a352aeedeb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Named a Top Employer by Science for Twelfth Consecutive Year",
+            "summary": "CAMBRIDGE, MA / ACCESS Newswire / October 23, 2026 / (NASDAQ:MRNA) today announced it was ranked as a top employer in the global biopharmaceutical industry in Science and Science Careers' 2026 Top Employers Survey for the twelfth consecutive year. Moderna was recognized for its corporate image, leadership and direction, and work culture, reflecting its reputation for innovation and quality research, commitment to continuous improvement, and collaborative, data-driven environment.",
+            "published_at": "2026-10-23T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=520ade087e404d06bc724ba197cedceb5cc148fb146435d9e9e913db81f5cbf1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna, Meta, SpaceX, AT&T, CoreWeave, Sandisk, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Stock futures pointed lower as oil prices climbed above $114 a barrel, but some of the hard-hit tech names were enjoying a modest rebound.",
+            "published_at": "2026-10-23T10:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=52583a86016f59a1ab4a26fb91db39681d7e7d5e880d440ea2d6af10e0447e10",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Social Buzz: Wallstreetbets Stocks Mixed Premarket Friday; SpaceX to Advance, Moderna to Decline",
+            "summary": "The most-talked-about stocks in the Reddit subforum Wallstreetbets were mixed hours before Friday's",
+            "published_at": "2026-10-23T10:36:52+00:00",
+            "url": "https://finnhub.io/api/news?id=583f133c259f1e9bfb6281ac85f01c5268699b8c4a4d2abeee34c44821070ce4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq, Dow, S&P 500 Futures Drop Premarket: NVDA, AMD, META, CRWV, MRNA, WDC, BE In Focus",
+            "summary": "Stocktwits retail sentiment for SPY and DIA was \u2018extremely bearish,\u2019 while it remained \u2018bearish\u2019 for QQQ.",
+            "published_at": "2026-10-23T10:13:48+00:00",
+            "url": "https://finnhub.io/api/news?id=5922972d586f65fcf83214c46c06e90ef1c3a8fbb7f6857fb86f2fb48028df32",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Much Downside Is Left In Moderna Stock?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-23T08:00:36+00:00",
+            "url": "https://finnhub.io/api/news?id=35a567ab400cc509afa96f335189f8350dc665d14e7053e42fbeb4de7d7c049c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Sinks 18% on Leaked Melanoma Data: \u201cBenefit Was Greater After Six Months\u201d",
+            "summary": "Moderna (MRNA:NASDAQ) stock sank 17. 6% on Thursday to close at $202.",
+            "published_at": "2026-10-23T05:58:24+00:00",
+            "url": "https://finnhub.io/api/news?id=004e4f34dff2f43cd79013b56b4feb03f4fa327632bb0a2bb5544b7a79fe3ccc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Slides Up to 25% as Cancer Vaccine Meets Sky-High Expectations",
+            "summary": "Moderna fell up to 25% despite a cancer vaccine that cut melanoma recurrence or death risk 42%, as expectations ran high.",
+            "published_at": "2026-10-23T04:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=135b43f209228515c50952a30349ee08c7e868654d32617fa44767dd6167e5ab",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "After Moderna's 672% Climb, The Story Has Changed",
+            "summary": "Moderna spent much of 2025 caught between bullish hopes for mRNA expansion and bearish warnings about shrinking COVID demand and tighter pricing. For Moderna shareholders, the return over the past year was 671.9%, including dividends. If you had been weighing those sharply different analyst views in October 2025, how would you have judged the odds that such an extreme outcome could follow from the business that was on record then? The move put Moderna in the middle of this trade. Scan 36...",
+            "published_at": "2026-10-23T04:26:17+00:00",
+            "url": "https://finnhub.io/api/news?id=a4bc98603117481f954d7ce3da9cc7042d259c1be73dd507f6d1e7008593906c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Moderna (MRNA) stock is trading lower today",
+            "summary": "Shares of biotechnology company Moderna (NASDAQ:MRNA) fell 22.7% in the afternoon session after the company's partial Phase 3 data for its personalized cancer vaccine leaked ahead of a planned presentation this weekend, and the stock sold off hard even though the results themselves look positive. According to CNBC, shares fell as much as 25% after an early look at the vaccine Moderna is developing with Merck, intismeran autogene, showed up online before it was supposed to be presented at the Eur",
+            "published_at": "2026-10-23T02:05:53+00:00",
+            "url": "https://finnhub.io/api/news?id=14ce11132406f5225a528e25eed0faa1eb1f096d9f796ad378b19c0c849254fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MRNA Stock\u2019s Vaccine Rally Cracks As Worst Week In 3 Months Looms \u2014 Analyst Calls It A \u2018Do-Not-Trade\u2019 Over Wild Swings",
+            "summary": "Mizuho analyst Jared Holz said the vaccine data weren\u2019t bad, but Wall Street\u2019s expectations were too high.",
+            "published_at": "2026-10-23T01:28:49+00:00",
+            "url": "https://finnhub.io/api/news?id=a93087b565be4402a09f764630c5f9ce6c76c82457785cdd8843f4bc756767ed",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna stock\u2019s 17% slump was a \u2018sell the news\u2019 event, analyst says",
+            "summary": "Moderna shares tumbled after leaked cancer vaccine trial data showed promising results for its treatment developed with Merck.",
+            "published_at": "2026-10-23T00:18:35+00:00",
+            "url": "https://finnhub.io/api/news?id=0d7ffdcf4427521e05413591a8631472cb0162192a6e2e7685c51bc24ce4d641",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq 100 Clocks Worst Day In Four Months As Investors Grow Weary Of Capex, Elevated Debt \u2014 META, SPCX, BE, MRNA In Focus",
+            "summary": "Meta\u2019s plan to boost capex reignited investor concerns as more tech firms look to raise debt to fund AI growth.",
+            "published_at": "2026-10-22T23:44:48+00:00",
+            "url": "https://finnhub.io/api/news?id=a63d881206482be9a6bc6fbf2bb9f71020d5154a1e81795bbd077716db89c988",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures: Moderna Crashes, Meta Fuels AI Meltdown, But Warren Buffett Market Thriving",
+            "summary": "The S&P 500 and Nasdaq tumbled below 50-day lines as Meta led an AI stock rout. But the Warren Buffett market is thriving.",
+            "published_at": "2026-10-22T21:53:23+00:00",
+            "url": "https://finnhub.io/api/news?id=f2043248724c6702d304287d04dbb5fe81c19e5c040b5136715db0bbddd5dc4f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today, Oct. 22: Moderna Stock Plummets 18% on Melanoma Vaccine Data Leak Reports",
+            "summary": "Personalized cancer vaccine material allegedly circulated online ahead of formal Phase 3 results, today, Oct. 22, 2026.",
+            "published_at": "2026-10-22T21:05:59+00:00",
+            "url": "https://finnhub.io/api/news?id=6938d4e196ee4a22d307e89f193bff74a023d19079719f274bb0225ce732f493",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Sinks Nearly 20% After Leak of Cancer-Vaccine Data",
+            "summary": "Moderna shares are taking a hit after the leak of highly anticipated details about the company\u2019s vaccine for the skin cancer melanoma.",
+            "published_at": "2026-10-22T20:50:54+00:00",
+            "url": "https://finnhub.io/api/news?id=cbbc4fe71d7bc1211341125ce96f01ab5f2c67857a1ad98b015940eb3f471a5a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MRNA Stock Plunges 18% After Leaked Melanoma Vaccine Data Misses High Hopes",
+            "summary": "Investors were awaiting full data from the late-stage trial of intismeran autogene plus Merck\u2019s Keytruda at the European Society for Medical Oncology Congress on October 24.",
+            "published_at": "2026-10-22T20:45:11+00:00",
+            "url": "https://finnhub.io/api/news?id=a023b485c1dc54724797aed8b72ad4cbaaad31b74e27c9705cd2240a7637757e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Nasdaq Hit As Meta, Alphabet Slide Below Key Levels (Live Coverage)",
+            "summary": "The Dow Jones index drops as oil prices jump on new planned U.S.,-Israel strikes on Iran. Meta and Tesla fall on earnings.",
+            "published_at": "2026-10-22T20:38:05+00:00",
+            "url": "https://finnhub.io/api/news?id=3ad6fac4998feaf7a3cce36de4f079b979912e8ef0c1d8452532ab163439766d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Plummets 18% After Cancer-Vaccine Data Leak",
+            "summary": "Moderna shares tumbled as reported results for its cancer vaccine with Merck circulated ahead of a planned conference presentation.",
+            "published_at": "2026-10-22T20:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a9229a07253e9b701f5f789c41394791eca21ceae612f9fa6454683a52e0ea74",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Sinks 18% on Apparent Leak of Embargoed Phase 3 Melanoma Vaccine Data",
+            "summary": "[IMAGE CREDIT: Kemal Uysal from Pexels via Canva] Key TakeawaysModerna shares fell 18% today after detailed Phase 3 results for the personalized melanoma vaccine it\u2019s developing with Merck showed up online two days before they were due to be presented. The leaked results still look positive.",
+            "published_at": "2026-10-22T20:19:49+00:00",
+            "url": "https://finnhub.io/api/news?id=a721aef9234b2ed58940db69de802bb922c5b86e095d903f6e93cbe34a1c0b54",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Sinks Following Vaccine Data Leak",
+            "summary": "Moderna stock sinks on leaked cancer-vaccine data. Here\u2019s why MRNA shares aren\u2019t particularly attractive to buy on the dip.",
+            "published_at": "2026-10-22T20:19:26+00:00",
+            "url": "https://finnhub.io/api/news?id=3dcdf354fbdbc647e60a498ca0ec2ef6412ec8a6d9d44839e50daaba6ef3b163",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna plunges on leaked vaccine data, Musk to invest $1B in Skydance, Spotify surges",
+            "summary": "Market Domination Host Brooke DiPalma tracks several of the day's top trending stock tickers, including Moderna (MRNA) plunging after the trial results for its melanoma vaccine were leaked, Elon Musk reportedly investing $1 billion in Skydance (SKYD), and Spotify (SPOT) shares getting a boost after releasing third quarter results.",
+            "published_at": "2026-10-22T20:04:46+00:00",
+            "url": "https://finnhub.io/api/news?id=f8c237cff46fe09c361177eefd29e2ac6b689d3994c99cb12a5fa0f2871241e9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sector Update: Healthcare Stocks Gain Late Afternoon",
+            "summary": "Healthcare stocks rose late Thursday afternoon with the NYSE Healthcare Index adding 1.7% and the St",
+            "published_at": "2026-10-22T19:56:10+00:00",
+            "url": "https://finnhub.io/api/news?id=f3965b526c03d90aa532f40b017612929f7c964832752676e7b0dd5da1222fb3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Details of Moderna's Breakthrough Cancer Vaccine Got Leaked. Its Stock is Plunging.",
+            "summary": "The stock fell up to 25% even though the data that was leaked was positive in relation to Wall Street's expectations.",
+            "published_at": "2026-10-22T19:33:13+00:00",
+            "url": "https://finnhub.io/api/news?id=23391686c3b47b3974db762157e719e0f3235f591dd70745cc64423e7a54aed0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna, Merck shares fall on eagerly anticipated cancer vaccine results",
+            "summary": "A combination of the shot and the immunotherapy Keytruda cut the risk of relapse or death by 42% in a landmark melanoma study that met Wall Street expectations but triggered a \u201csell-the-news reaction,\u201d one analyst wrote.",
+            "published_at": "2026-10-22T19:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f4dc7eda199a290b72237300bcb145f84898ed83b121b89fdae3030985175fcd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Merck, Moderna Unveil Cancer Vaccine Data \u2014 After A Leak Stole Their Thunder",
+            "summary": "Moderna stock crashed Thursday after a third-party leaked the cancer vaccine data ahead of a hotly anticipated presentation.",
+            "published_at": "2026-10-22T19:22:50+00:00",
+            "url": "https://finnhub.io/api/news?id=d8c6dc87b4f16ba025a5da0f00169299df8b421bc161edb562cb18403fd42ede",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna stock crashes as leaked melanoma data threatens its record August rally",
+            "summary": "Leaked results from Moderna's melanoma vaccine trial have the stock challenging its worst day ever, while the rest of healthcare rallies.",
+            "published_at": "2026-10-22T19:14:47+00:00",
+            "url": "https://finnhub.io/api/news?id=8cde765708a69d3d9598dbeac3a340b74cc35061bbf604e8cdcf412cbd28310c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Gainers and Losers for Oct. 22, 2026",
+            "summary": "Roper Technologies, Allegion and Lennar led S&P 500 gainers on Oct. 22, 2026, while Moderna, Coherent and Lumentum were among the biggest decliners.",
+            "published_at": "2026-10-22T19:06:11+00:00",
+            "url": "https://finnhub.io/api/news?id=391c657cf8b8bd35500edd8dd058ed723150150e5d1af02abfbbe21633204915",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Merck and Moderna Will Present Results From Landmark Phase 3 INTerpath-001 Trial for Intismeran Autogene Plus KEYTRUDA\u00ae (pembrolizumab) at ESMO 2026 Presidential Symposium",
+            "summary": "RAHWAY, N.J. & CAMBRIDGE, Mass., October 22, 2026--Merck (NYSE: MRK), known as MSD outside of the United States and Canada, and Moderna, Inc. (NASDAQ: MRNA) today announced detailed positive recurrence-free survival (RFS) and distant metastasis-free survival (DMFS) results from the Phase 3 INTerpath-001 trial evaluating intismeran autogene (intismeran; V940 or mRNA-4157), a novel investigational mRNA-based individualized neoantigen therapy (INT) being jointly developed by Merck and Moderna, in c",
+            "published_at": "2026-10-22T18:59:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f17944ab83b94bc7f38923ff5899df1cd9edb7bf4e7404bb906dbb1fdee70742",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Plummets 25% After Cancer-Vaccine Data Leak",
+            "summary": "Moderna shares tumbled as reported results for its cancer vaccine with Merck circulated ahead of a planned conference presentation.",
+            "published_at": "2026-10-22T18:52:00+00:00",
+            "url": "https://finnhub.io/api/news?id=739b052c328647d4a60b81449d735c7a3a09da1800918f50429e5d41dcb0f8da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Stock Plunges as Apparent Leak Reveals Phase 3 Melanoma Vaccine Data",
+            "summary": "Key TakeawaysModerna Inc. (NASDAQ:MRNA) sank as much as roughly 25% intraday after apparent Phase 3 results for its personalized melanoma vaccine surfaced online ahead of an embargoed medical-conference presentation.",
+            "published_at": "2026-10-22T18:36:07+00:00",
+            "url": "https://finnhub.io/api/news?id=58eee505c45ec41ea6a19aa70b132d975f5bafe4788214879e5064bdde7c107c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Most Active S&P 500 Stocks on Oct. 22: Netflix, Super Micro, Moderna",
+            "summary": "Netflix, Super Micro, and Moderna were among the S&P 500's most active stocks on Oct. 22, each trading at least 18 million shares.",
+            "published_at": "2026-10-22T18:06:11+00:00",
+            "url": "https://finnhub.io/api/news?id=8299da548d2bdc07e3b5fc29f69d59e6d1702055520749fc9a6a5b849f99ac4c",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Moderna shares plunge on apparent cancer vaccine data leak",
+            "summary": "Investing.com -- Moderna shares plunged more than 25% on Thursday, while Merck fell over 3%, after what appeared to be an early release of closely watched clinical trial results for the companies\u2019 experimental cancer vaccine.",
+            "published_at": "2026-10-22T17:50:20+00:00",
+            "url": "https://finnhub.io/api/news?id=7f9e3f4ad002ca07f85c3d06787b92f6b56cb7a5fcbb8be61dc43d3ce61cb76c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna Crashes 20% On Reportedly Leaked Cancer Vaccine Data",
+            "summary": "Moderna stock crashed Thursday after a third-party leaked the purported cancer vaccine data ahead of a hotly anticipated presentation.",
+            "published_at": "2026-10-22T17:33:37+00:00",
+            "url": "https://finnhub.io/api/news?id=747e49ba7dc7e14629b44223970c1901f00c92fe9388751d819f8dec23a9098a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Moderna, Merck Shares Fall After Possible Melanoma Data Leak",
+            "summary": "Shares of Moderna Inc. and Merck & Co. fell after reports emerged about the results of the companies\u2019 widely anticipated personalized melanoma vaccine, suggesting a possible leak of the data that\u2019s slated to be released this weekend.",
+            "published_at": "2026-10-22T17:24:54+00:00",
+            "url": "https://finnhub.io/api/news?id=c1c0061510f1fe115d1e117efb11b43804433284bcd128036ad37f445582d96b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FDA Lifts Three-Year Freeze On Arbutus Biopharma's Hepatitis B Study",
+            "summary": "The FDA lifts its 3-year clinical hold on Arbutus Biopharma&#39;s AB-101 hepatitis B drug candidate, clearing US clinical trials.",
+            "published_at": "2026-10-22T10:25:31+00:00",
+            "url": "https://finnhub.io/api/news?id=1e3c580f94aefafafded86221bf82263e30199b37937de614f32366e989c19b2",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Moderna (MRNA) Starts Late Stage Trial For mRNA Bird Flu Vaccine",
+            "summary": "Moderna (NasdaqGS:MRNA) has advanced its mRNA-based bird flu vaccine into a late-stage clinical trial, the first of its kind in pandemic influenza. The study focuses on an mRNA shot targeting highly pathogenic avian influenza, aiming to test its use in a potential pandemic setting. Moderna has said it will reserve 20% of its bird flu vaccine manufacturing capacity for low and middle income countries if the product is approved. The move of Moderna's bird flu vaccine into a late stage trial...",
+            "published_at": "2026-10-22T10:14:19+00:00",
+            "url": "https://finnhub.io/api/news?id=e15365b58a8ec28c9fa97e540b7c8d3b25d2dd5ebcbc877ae365f22cc7456baa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Biotech Giants vs. Emerging Innovators: Which ETF Is the Better Buy?",
+            "summary": "The article compares two biotech ETFs: VanEck Biotech ETF (BBH), which concentrates on 26 industry leaders like Amgen and Gilead Sciences, versus State Street SPDR S&P Biotech ETF (XBI), which provides broad exposure to 165 companies including emerging innovators. While both have identical 0.35% expense ratios and 0.4% dividend yields, XBI offers lower volatility risk and is recommended as the better buy for long-term investors seeking exposure to the industry's next big winners.",
+            "published_at": "2026-10-22T09:30:02+00:00",
+            "url": "https://www.fool.com/coverage/etfs/2026/10/22/biotech-giants-vs-emerging-innovators-which-etf-is-the-better-buy/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Is Moderna (MRNA) Fully Valued Following Its NASDAQ 100 Inclusion?",
+            "summary": "Moderna (MRNA) has just been added to the NASDAQ-100 Index. This move places the biotech company alongside some of the largest non-financial companies on the exchange and is drawing fresh attention to its shares. Recent trading has been strong, with Moderna\u2019s share price delivering a 42.14% 1 month gain and a very large year to date share price return. The 1 year total shareholder return is also very large, pointing to powerful momentum following this NASDAQ-100 inclusion. See how Moderna\u2019s...",
+            "published_at": "2026-10-22T05:45:20+00:00",
+            "url": "https://finnhub.io/api/news?id=c383e83790301e97b8ff995e1081690ae8dc5e36e5b4902ecf767c89ce8e937e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did MRNA, CVX, V Stocks Jump To 52-Week Highs Today?",
+            "summary": "Moderna, Chevron and Visa shares jumped to annual highs on Wednesday amid growing Wall Street optimism around the companies and other catalysts.",
+            "published_at": "2026-10-22T04:01:07+00:00",
+            "url": "https://finnhub.io/api/news?id=da3a80ae6007e21c552676844adffa524bb0efa58fd0d84498c197e5a6c64cac",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 202.63,
+      "jev": null
+    },
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.006512660273195977,
+      "open_price": 8.36,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.131246+00:00",
+        "articles": [
+          {
+            "headline": "Alignment Health Adds New Medicare Advantage Plan in Pima County, Increasing Access and Choice for Arizona Seniors",
+            "summary": "New plan strengthens Alignment\u2019s Arizona portfolio available to nearly 1.1 million Medicare beneficiaries across Maricopa, Pima and Santa Cruz countiesPHOENIX, Oct. 22, 2026 (GLOBE NEWSWIRE) -- Alignment Health Plan, an award-winning Medicare Advantage plan from Alignment Health, today announced a new Medicare Advantage plan for Pima County beginning Jan. 1, 2027, offering Pima County seniors access to low-cost coverage, local providers, bilingual support and coordinated care designed to help th",
+            "published_at": "2026-10-22T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e5b97470d3730ceca91069599a6a2024c8cc2ab3d8a7dcbeed6ab8ba738d19b6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Analysts Estimate Alignment Healthcare (ALHC) to Report a Decline in Earnings: What to Look Out for",
+            "summary": "Alignment Healthcare (ALHC) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
+            "published_at": "2026-10-22T13:00:06+00:00",
+            "url": "https://finnhub.io/api/news?id=581283398aedff6ab92b4702f4a9a38850baf443dfb6e3467564d2c9a194381c",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 8.43,
+      "jev": null
+    },
+    {
+      "ticker": "KOD",
+      "predicted_return": 0.006301625683447365,
+      "open_price": 85.13,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.131399+00:00",
+        "articles": []
+      },
+      "prev_close": 85.78,
+      "jev": null
+    },
+    {
+      "ticker": "DKNG",
+      "predicted_return": 0.006275618249682407,
+      "open_price": 20.78,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.131449+00:00",
+        "articles": [
+          {
+            "headline": "Wall Street Already Models DraftKings Below Its 2026 Guidance. Its CEO Says Next Year\u2019s Spending Could Come Down",
+            "summary": "Key Stats for DraftKings StockCurrent Price: $20. 94Street Target: ~$34Q3 2026 EBITDA Consensus: ~-$49 million2027 EBITDA Consensus: ~$1.",
+            "published_at": "2026-10-23T01:29:52+00:00",
+            "url": "https://finnhub.io/api/news?id=7bd2a5b3df7b13e54f06af7f6c4d3f0e411d92189e1e6246566b258280d75ac9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DraftKings CEO Says Prediction Markets Create a Win-Win Growth Path",
+            "summary": "DraftKings (NASDAQ:DKNG) CEO Jason Robins said the company has quickly become a top-three player in prediction markets after launching DraftKings Exchange only a few months ago, while emphasizing that its established sportsbook business remains central to its strategy amid legal uncertainty surround",
+            "published_at": "2026-10-23T00:04:18+00:00",
+            "url": "https://finnhub.io/api/news?id=b3c5781fbe44770226b1b752c3b4f817d662dcfd91f1b1a24af8f4f63c102e8e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DraftKings (DKNG) Gains As Market Dips: What You Should Know",
+            "summary": "The latest trading day saw DraftKings (DKNG) settling at $20.94, representing a +2% change from its previous close.",
+            "published_at": "2026-10-22T21:00:03+00:00",
+            "url": "https://finnhub.io/api/news?id=09890882ac13261e0140b0065bcb630d5ceafa101d790a22da36820e068f924b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 20.94,
+      "jev": null
+    },
+    {
+      "ticker": "DOCS",
+      "predicted_return": 0.006195724608760724,
+      "open_price": 33.55,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.131498+00:00",
+        "articles": [
+          {
+            "headline": "Bronstein, Gewirtz & Grossman LLC Urges Doximity, Inc. Investors to Act: Class Action Filed Alleging Investor Harm",
+            "summary": "A class action lawsuit has been filed against Doximity, Inc. alleging securities fraud. The complaint claims Doximity overstated its Newsfeed's impact on revenue, was losing market share to competitors, and misrepresented its advertising practices. Investors who purchased Doximity securities between August 8, 2024 and May 13, 2026 are encouraged to join the case, with a lead plaintiff deadline of November 16, 2026.",
+            "published_at": "2026-10-22T17:00:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/22/3386775/9788/en/bronstein-gewirtz-grossman-llc-urges-doximity-inc-investors-to-act-class-action-filed-alleging-investor-harm.html",
+            "source": "GlobeNewswire Inc."
+          }
+        ]
+      },
+      "prev_close": 33.68,
+      "jev": null
+    },
+    {
+      "ticker": "ASTS",
+      "predicted_return": 0.005533905477898883,
+      "open_price": 38.17,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.131789+00:00",
+        "articles": [
+          {
+            "headline": "Stocktwits Space Race Weekly: RKLB, VSAT Beat SPCX With Modest Gains \u2014 ASTS And PL Sink Deeper",
+            "summary": "SpaceX continued Tesla merger talks and is reportedly exploring access to 80,000 U.S. cellular sites for a potential nationwide wireless network.",
+            "published_at": "2026-10-23T07:57:15+00:00",
+            "url": "https://finnhub.io/api/news?id=2f4b3d183e81016fa2ce8a170deda86f68b4b2c2e26077a3c59d1fc7c7f1872f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ASTS Slips Overnight: Retail Sees Upside In SpaceX\u2019s 80,000-Site Push \u2014 FCC Adviser Sees Global Satellite Power Race",
+            "summary": "FCC advisory council member Mark Bayliss contrasted SpaceX\u2019s potential carrier model with AST\u2019s strategy of extending existing operators\u2019 networks.",
+            "published_at": "2026-10-23T05:13:33+00:00",
+            "url": "https://finnhub.io/api/news?id=60d7b202f9670e1784af2e57d9315e6887eff13bd31102cabc689e919be5bc1d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile (ASTS) Stock Dropped, So What Is Driving Attention Now?",
+            "summary": "AST SpaceMobile (ASTS) just laid out an aggressive service readiness push, outlining plans to light up satellite cellular coverage across the United States, Canada, Japan, the United Kingdom and Saudi Arabia before the end of 2026. For investors, the story around AST SpaceMobile has been far more volatile than the service roadmap. The share price has fallen 5.21% over the last session, is down 39.13% over the past month and 53.55% year to date, yet the three year total shareholder return is...",
+            "published_at": "2026-10-23T03:17:05+00:00",
+            "url": "https://finnhub.io/api/news?id=ed4111f26c824e4ebee0346c4a339450519c83607f02c0f754fd9a71ef7cc2e1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile, Inc. (ASTS) Falls More Steeply Than Broader Market: What Investors Need to Know",
+            "summary": "In the latest trading session, AST SpaceMobile, Inc. (ASTS) closed at $38.77, marking a -5.21% move from the previous day.",
+            "published_at": "2026-10-22T21:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=30fe36a151b9108ee44e47fef9261ea06183947a38096361d3708c616c442344",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "If I Could Only Buy 1 Space Stock After the Rocket Lab Crash, It Would Be This One",
+            "summary": "Intuitive Machines is growing faster and trades at a much lower valuation.",
+            "published_at": "2026-10-22T17:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f954d74d5a704bf6aab528c77be7f12f370ed2063bca90e3b96c14f268ac42c3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX and AST SpaceMobile Sink 6%, Rocket Lab Falls 5% as Tech Selloff Hits High-Flying Space Stocks",
+            "summary": "High-flying tech stocks are sliding on a risk-off turn, and space names are falling hardest. SpaceX (NASDAQ:SPCX) stock is leading the drop just days after the company posted its first profitable quarter. Shares of SpaceX are down 6% to $150.23 Thursday morning, a decline that gives back much of the rally that followed SpaceX\u2019s results. [\u2026]",
+            "published_at": "2026-10-22T15:56:30+00:00",
+            "url": "https://finnhub.io/api/news?id=3585fc1514cd1317afac9d1b4764fa6cf2739fd78b449a1708d9a985ac768eff",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX Rallied, but These 6 Space Stocks Are Still Waiting for Liftoff",
+            "summary": "SpaceX surged after a blowout quarter and a blockbuster merger hint, yet six space stocks that were supposed to ride its coattails are all sitting on double-digit losses. What went wrong, and which one is closest to turning the corner?",
+            "published_at": "2026-10-22T13:20:15+00:00",
+            "url": "https://finnhub.io/api/news?id=8e68f72a2278b951e856ebbecc2ab7fc6282eea75c85f832c6f2eeb3c6821a69",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RKLB Is Among Nasdaq\u2019s Top 5 Losers So Far This Month, Yet Analysts See 90% Upside \u2014 Can Neutron Justify Its SpaceX Premium?",
+            "summary": "RKLB trades at 26.6x forward EV/sales, about 89% above SpaceX, while Redwire has the lowest valuation multiples.",
+            "published_at": "2026-10-22T07:01:52+00:00",
+            "url": "https://finnhub.io/api/news?id=4f5e53531702b6fd12aa424dba5a8ffdfe92e41b9d93ba4daeb1f892ae8f3f67",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 38.77,
+      "jev": null
+    },
+    {
+      "ticker": "APP",
+      "predicted_return": 0.0055005811162260046,
+      "open_price": 263.035,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.132468+00:00",
+        "articles": []
+      },
+      "prev_close": 264.28,
+      "jev": null
+    },
+    {
+      "ticker": "CELH",
+      "predicted_return": 0.005290527633433816,
+      "open_price": 28.125,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.132956+00:00",
+        "articles": [
+          {
+            "headline": "Celsius Holdings (CELH) Stock May Still Look Rich Following Three Brand Earnings Questions",
+            "summary": "Celsius Holdings has seen its share price fall sharply over the past year. That slide puts a spotlight on a simple question for you as an investor: Is the current valuation supported by the earnings power the business is generating today? The stock is down 54.0% over the past year, which puts extra weight on whether the present market value still lines up with what the company earns. Recent coverage has highlighted that revenue growth sits alongside pressure on earnings and margins, which...",
+            "published_at": "2026-10-22T13:16:02+00:00",
+            "url": "https://finnhub.io/api/news?id=be18395073c73b2410f8a7d3051c4e725c0398ef14fdbd34ce5c119a320d8326",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Celsius Holdings (CELH) Could Be 40% Undervalued On Earnings Watch",
+            "summary": "Investors are watching Celsius Holdings (CELH) ahead of its upcoming earnings release, after analysts flagged expectations for lower year-over-year profit even as full-year revenue estimates point to continued business expansion. Recent trading has been choppy for Celsius Holdings, with the share price falling 5.51% over the last day to US$28.31. This follows a 4.20% 7 day share price return and a modest 1.03% 30 day gain. However, the year to date share price return is down 40.71% and the 1...",
+            "published_at": "2026-10-22T11:13:15+00:00",
+            "url": "https://finnhub.io/api/news?id=08310862349eff20a5a734cf108270e56802a0a176344e8aec63b89deaca2843",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 28.36,
+      "jev": null
+    },
+    {
+      "ticker": "LVS",
+      "predicted_return": 0.005268482782811745,
+      "open_price": 36.29,
+      "snapshot_date": "2026-10-22",
+      "news_flag": "Surprised By Las Vegas Sands' Slide? What Investors Missed",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Surprised By Las Vegas Sands' Slide? What Investors Missed",
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-23T13:39:07.133415+00:00",
+        "articles": [
+          {
+            "headline": "Bear of the Day: Las Vegas Sands (LVS)",
+            "summary": "Missing earnings in two consecutive quarters by a nearly identical margin suggests further weakness ahead.",
+            "published_at": "2026-10-23T09:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a1df67ddd5f486df687829d1cf4a25fd592010185b8abd67df0937101156a202",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Las Vegas Sands Consensus Price Target Decreased by 11.74% to $53.27",
+            "summary": "",
+            "published_at": "2026-10-23T08:59:13+00:00",
+            "url": "https://finnhub.io/api/news?id=bbb39839d0bfa7a2eefef607126243e91a326021cd45a23f3e172a09b9cca2f8",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Dollar General and Las Vegas Sands have been highlighted as Zacks Bull and Bear of the Day",
+            "summary": "DG gains on strong earnings and raised guidance, while LVS struggles with earnings misses, falling margins and declining estimates.",
+            "published_at": "2026-10-23T05:58:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5eaf3ebaf968b9589d2bc7bb6342ef92015fb29a0233e40ce25ebb81f551bfd4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Surprised By Las Vegas Sands' Slide? What Investors Missed",
+            "summary": "If you only glanced at Las Vegas Sands headlines recently, the MGM Resorts buyout bid and Macau sector buzz might have sounded like cause for celebration. Holding Las Vegas Sands from the start of the year would have meant a 41.5% loss, including dividends. If you had put money to work on 1 January, that outcome is what you lived through. The key issue now is whether the current mix of margin pressure in Macau and expansion plans in Singapore justifies a fresh look at the risk. Narratives are...",
+            "published_at": "2026-10-22T18:13:34+00:00",
+            "url": "https://finnhub.io/api/news?id=88ef2715e7b5e59657391f05e36e08943f735095a5eceaed764795086e13cc8a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LVS Q3 Earnings & Revenues Miss on Soft Premium Gaming & Higher Costs",
+            "summary": "Las Vegas Sands' Q3 earnings and revenues miss estimates as soft premium play and higher costs squeeze profits, despite a stronger Macao mass gaming share.",
+            "published_at": "2026-10-22T14:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b7b3452c3c891b3515773347a236db1b5948b459dd19e373bc980b9bbbc9ea39",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "JP Morgan Maintains Overweight on Las Vegas Sands, Lowers Price Target to $50",
+            "summary": "JP Morgan  analyst Daniel Politzer   maintains Las Vegas Sands (NYSE:LVS) with a Overweight and lowers the price target from $54 to $50.",
+            "published_at": "2026-10-22T10:13:20+00:00",
+            "url": "https://finnhub.io/api/news?id=a312e379ac1673ed2f2e13a8b4321639cef68e3035c25ab81cbc30ea3b241f39",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stifel Maintains Buy on Las Vegas Sands, Lowers Price Target to $52",
+            "summary": "Stifel  analyst Steven Wieczynski   maintains Las Vegas Sands (NYSE:LVS) with a Buy and lowers the price target from $54 to $52.",
+            "published_at": "2026-10-22T08:56:11+00:00",
+            "url": "https://finnhub.io/api/news?id=f8d9ca709acf172556bb87f7624719d0239386421653c1ce19f776c7215624cf",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Mizuho Maintains Outperform on Las Vegas Sands, Lowers Price Target to $54",
+            "summary": "Mizuho  analyst Ben Chaiken   maintains Las Vegas Sands (NYSE:LVS) with a Outperform and lowers the price target from $61 to $54.",
+            "published_at": "2026-10-22T08:08:31+00:00",
+            "url": "https://finnhub.io/api/news?id=6b1f0cac0344c3a4fe02a699c067e15ad7913b4c910f74c2d7c21f10b679335b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "B of A Securities Maintains Neutral on Las Vegas Sands, Lowers Price Target to $45",
+            "summary": "B of A Securities  analyst Shaun Kelley   maintains Las Vegas Sands (NYSE:LVS) with a Neutral and lowers the price target from $50 to $45.",
+            "published_at": "2026-10-22T07:40:33+00:00",
+            "url": "https://finnhub.io/api/news?id=b48f2ad0e20f9572ac21f079bdd11aca3c4a90ef3927537decbd1f6ee8730ca4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Las Vegas Sands Corp. Reports Third Quarter 2026 Results",
+            "summary": "",
+            "published_at": "2026-10-22T04:58:21+00:00",
+            "url": "https://finnhub.io/api/news?id=ffa98ff0d22e0da1843c7197c43e566e282740f5dc9eacd6cc3914e3ec8ea9e6",
+            "source": "Fintel"
+          }
+        ]
+      },
+      "prev_close": 36.53,
+      "jev": null
+    },
+    {
+      "ticker": "MAT",
+      "predicted_return": 0.0051194753163239575,
+      "open_price": 16.72,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.134422+00:00",
+        "articles": [
+          {
+            "headline": "The Biggest Price Hike in 49 Years Just Hit a Christmas Staple \u2014 and Families Could Feel It This Holiday Season",
+            "summary": "Toy prices just shattered a record that stood for nearly half a century, and the timing lands squarely in the middle of holiday shopping season. Families building their Christmas budgets and the retailers competing for their dollars are now caught in the same uncomfortable squeeze.",
+            "published_at": "2026-10-22T14:35:10+00:00",
+            "url": "https://finnhub.io/api/news?id=aabdd78d6301cb95e43b10903984e88eacdd88e9662bbf84111fa45250bc50ba",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 16.94,
+      "jev": null
+    },
+    {
+      "ticker": "BWXT",
+      "predicted_return": 0.005077096287455972,
+      "open_price": 125.67,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:07.148249+00:00",
+        "articles": [
+          {
+            "headline": "Karman Holdings (KRMN) vs. LMT and KTOS: Can a Specialized Defense Supplier Become a Premium Aerospace Platform?",
+            "summary": "Is KRMN a good stock to buy? We came across a bullish thesis on Karman Holdings Inc. on Market Mavericks: Writes\u2019s Substack by Scott. In this article, we will summarize the bulls\u2019 thesis on KRMN. Karman Holdings Inc.\u2019s share was trading at $35.03 as of October 20th 2026. KRMN\u2019s trailing and forward P/E were 122.41 and 41.32 [\u2026]",
+            "published_at": "2026-10-22T20:47:16+00:00",
+            "url": "https://finnhub.io/api/news?id=ba9e5259261c9ee07c465a5476588e1557b0515384ac92de8b2bd9defa7c505f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BWXT Clarifies News Reports Regarding Potential Poland Investment",
+            "summary": "LYNCHBURG, Va., October 22, 2026--BWX Technologies, Inc. (NYSE: BWXT) issued the following statement clarifying recent news reports about a potential investment in Poland:",
+            "published_at": "2026-10-22T13:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=08bd018c89fdea109e03a982ac2ae44a3357cfa807a05043e3c058f259613b6e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BWX Technologies (NYSE:BWXT): Dividend Quality Passes the Screen, But Risks Warrant a Closer Look",
+            "summary": "BWXT passes a dividend quality screen with a low payout ratio and long payment history, but high leverage and falling margins warrant caution.",
+            "published_at": "2026-10-22T11:10:55+00:00",
+            "url": "https://finnhub.io/api/news?id=17791ef8021c0ca961ea72f2b1d8eca38cff2b917d582aeb2b8e6c422a7fdb63",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "BWXT Clarifies News Reports On Poland Investment; Says No Investment Decision Has Been Made",
+            "summary": "BWX Technologies, Inc. (NYSE:BWXT) issued the following statement clarifying recent news reports about a potential investment in Poland:While BWXT has been in discussions with government and industry in Poland regarding",
+            "published_at": "2026-10-22T09:41:28+00:00",
+            "url": "https://finnhub.io/api/news?id=c8493d65c4d1006910cfc3a1bab1291528b689a2ea55f9a4e83f2792726765f4",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 127.3,
+      "jev": null
+    },
+    {
+      "ticker": "NU",
+      "predicted_return": 0.005034138290995316,
+      "open_price": 14.695,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:11.497301+00:00",
+        "articles": [
+          {
+            "headline": "First BanCorp (FBP) Q3 Earnings Surpass Estimates",
+            "summary": "First BanCorp (FBP) delivered earnings and revenue surprises of +8.62% and -3.75%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-22T11:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=f8275e6c87a44d0f5de2be8116909a8fe0d08089f2affc02d56dee9cc9ec03a0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.73,
+      "jev": null
+    },
+    {
+      "ticker": "NAMS",
+      "predicted_return": 0.005014290336010783,
+      "open_price": 21.39,
+      "snapshot_date": "2026-10-22",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-23T13:39:12.519070+00:00",
+        "articles": []
+      },
+      "prev_close": 21.58,
+      "jev": null
+    }
+  ],
+  "scored_count": 1891,
+  "skipped": [
+    {
+      "ticker": "PG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UNP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WDC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NEM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VLO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMCSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NSC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NDAQ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBRE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HBAN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DXCM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PCG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VRSN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DGX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DOV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PHM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OMC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DOW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TSCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NVR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALLE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DECK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPOT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NBIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCNCA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SSNC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BPOP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ORI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FCFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "R",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BAH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COLB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KNSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "REXR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APPF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "POOL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TVTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MXL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBCI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ASB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABCB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ENVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BYD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RITM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SIGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BCPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FBP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ITGR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BFH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RHI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FIBK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TOWN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CURB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FHB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMBP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CUBI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MBIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HTH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SRCE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 10.971989010567787
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 8.441340177923735
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 7.538254018156419
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-22",
+    "model_trained_through": "2026-10-22",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  }
+}

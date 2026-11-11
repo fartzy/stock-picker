@@ -1,0 +1,17 @@
+{
+  "models": [
+    {
+      "model_type": "lightgbm",
+      "weight": 1.0,
+      "feature_count": 158
+    }
+  ],
+  "rank_models": [
+    {
+      "model_type": "lightgbm_rank",
+      "weight": 1.0,
+      "feature_count": 151
+    }
+  ],
+  "rank_new_feature_count": 19
+}

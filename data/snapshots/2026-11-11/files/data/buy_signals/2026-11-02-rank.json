@@ -1,0 +1,2338 @@
+{
+  "as_of": "2026-11-02",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "PGEN",
+      "predicted_return": 0.7382372468333269,
+      "open_price": 5.36,
+      "snapshot_date": "2026-10-30",
+      "news_flag": "Rival Inovio FDA approval of competing drug cratered PGEN",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Rival Inovio FDA approval of competing drug cratered PGEN",
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:36:05.083762+00:00",
+        "articles": [
+          {
+            "headline": "Premarket Movers Nov. 2, 2026: Gainers and Losers",
+            "summary": "Premarket movers for Nov. 2, 2026: CLRO and EVGO led gainers while KPTI and DRUG led decliners ahead of the US open.",
+            "published_at": "2026-11-02T13:31:03+00:00",
+            "url": "https://finnhub.io/api/news?id=9baf0498475894b14abeb32c78a7f8441cbac5517dd1c022c7f1a5b952aad495",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Kosmos Energy Posts Downbeat Q3 Results, Joins Once Upon A Farm And Other Big Stocks Moving Lower In Monday\u2019s Pre-Market Session",
+            "summary": "U.S. futures rose, but Kosmos Energy plunged 13.6% after missing Q3 earnings and sales estimates; other stocks also fell in premarket trading.",
+            "published_at": "2026-11-02T09:02:06+00:00",
+            "url": "https://finnhub.io/api/news?id=15429600db4bd9dbba5c122dd23057e86ed6cb4cacd2a28546e7b5cef649d103",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "PGEN Stock Crashes Premarket: Retail Sees Buyout Opening As Inovio Rival Crashes The Party Before Earnings",
+            "summary": "Stocktwits sentiment for PGEN hit a record 94/100 in \u2018extremely bullish\u2019 territory, with Wednesday\u2019s earnings approaching.",
+            "published_at": "2026-11-02T08:40:18+00:00",
+            "url": "https://finnhub.io/api/news?id=cba0a2bb064ff2f6c29336aa97c0ec98cab09b9daa27ec3834665d69c80e3272",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "12 Health Care Stocks Moving In Monday's Pre-Market Session",
+            "summary": "Gainers\n\nInovio Pharmaceuticals (NASDAQ:INO) shares increased by 232.0% to $2.0 during Monday&#39;s pre-market session. The company&#39;s market cap stands at $62.2 million. \nAngioDynamics (NASDAQ:ANGO) shares increased",
+            "published_at": "2026-11-02T08:05:36+00:00",
+            "url": "https://finnhub.io/api/news?id=3d9e43e0ee33f1a47d6946573d9846ed12d8efadae1d9413417000209e1c1b36",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Inovio Pharmaceuticals Shares Are Trading Higher By Over 230%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Inovio shares surged 230% premarket after FDA accelerated Voceryq approval; ClearOne and 22nd Century gained, while RedCloud fell 33.5%.",
+            "published_at": "2026-11-02T05:29:29+00:00",
+            "url": "https://finnhub.io/api/news?id=0e9e7da4ed44c81c1384785e9988c1b576c308efa14c74084b5d61993a1d3716",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "PGEN Stock Craters 27% After-Hours After Rival Inovio's Rare Disease Drug Receives FDA Approval",
+            "summary": "The FDA granted accelerated approval to Inovio Pharmaceuticals\u2019 (INO) Voceryq, a plasmid DNA-based immunotherapy for adults with recurrent respiratory papillomatosis.",
+            "published_at": "2026-10-30T22:24:20+00:00",
+            "url": "https://finnhub.io/api/news?id=ac9532a57cfa03d6ff86a788643676a91f664ee3733957cf8453fbec5687d420",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Postmarket Movers: After-Hours Gainers and Losers",
+            "summary": "After-hours movers: INOVIO jumped 283.0% and Glucotrack dropped 57.19%, among the largest postmarket gainers and losers.",
+            "published_at": "2026-10-30T22:00:28+00:00",
+            "url": "https://finnhub.io/api/news?id=749f04d26e5a201ae3219485ad4388e0dfe496b67cbf15517fc561c08d591fa8",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "12 Health Care Stocks Moving In Friday's After-Market Session",
+            "summary": "Gainers\n\nInovio Pharmaceuticals (NASDAQ:INO) stock moved upwards by 292.6% to $2.37 during Friday&#39;s after-market session. The market value of their outstanding shares is at $79.8 million. \nCapricor Therapeutics",
+            "published_at": "2026-10-30T17:05:59+00:00",
+            "url": "https://finnhub.io/api/news?id=095403a663a3582bac20a7eb63a910a9defea26571c8cdfcbe6791a912f113ca",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 6.94,
+      "jev": null
+    },
+    {
+      "ticker": "LITE",
+      "predicted_return": 0.7046689038317367,
+      "open_price": 802.55,
+      "snapshot_date": "2026-10-30",
+      "news_flag": "Lumentum Announces First Quarter of Fiscal Year 2027 Financial Results",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Lumentum Announces First Quarter of Fiscal Year 2027 Financial Results",
+        "article_count": 53,
+        "reviewed_count": 53,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:36:05.084033+00:00",
+        "articles": [
+          {
+            "headline": "Marvell Slides 3%, Lumentum Drops 6% on $115 Billion All-Stock Merger Deal; Coherent Climbs 2%",
+            "summary": "Marvell Technology (NASDAQ:MRVL) is acquiring Lumentum Holdings (NASDAQ:LITE). The all-stock agreement is reshaping the map of AI data center optics, and both companies are sliding as the market considers the price. Shares of Marvell trade at $190.43 in morning trading, down 3%. Lumentum stock is at $788.51, down 6%, an unusual reaction for a takeover [\u2026]",
+            "published_at": "2026-11-02T13:53:26+00:00",
+            "url": "https://finnhub.io/api/news?id=e8182ed48e431f44c442203bca9424f06d0174d7b421b1ee2dd155cc82f62cb4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Just Bet $115 Billion On AI's 'Once In A Generation' Opportunity. Should You Buy The Stock?",
+            "summary": "Marvell agreed to acquire optical-parts maker Lumentum for approximately $115 billion in an all-stock deal, with Lumentum shareholders receiving 4.5 Marvell shares per share (23.9% premium). Current Marvell shareholders will own about 67% of the combined company post-deal. Marvell stock fell over 20% since talks were reported, but the company projects $70-90 billion in revenue and $30+ EPS by fiscal 2031. The deal closes in H1 2028 and requires shareholder and regulatory approval.",
+            "published_at": "2026-11-02T13:46:52+00:00",
+            "url": "https://www.fool.com/investing/2026/11/02/marvell-just-bet-usd115-billion-on-ai-s-once-in-a-generation-opportunity-should-you-buy-the-stock/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell To Buy Lumentum For $115 Billion, Creating AI Connectivity Leader",
+            "summary": "Marvell Technology on Monday announced a deal to buy Lumentum in an all-stock transaction worth $115 billion.",
+            "published_at": "2026-11-02T13:42:54+00:00",
+            "url": "https://finnhub.io/api/news?id=221bff82deff195070becb19b03cac950e2726b1b94b02fe8e0fe3274e00239e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Premarket Movers Nov. 2, 2026: IDEXX and Fox Gain, Lumentum and T-Mobile Fall",
+            "summary": "IDEXX Laboratories and Fox Corp. led S&P 500 premarket gainers on Nov. 2, 2026, while Lumentum and T-Mobile led the decliners.",
+            "published_at": "2026-11-02T13:36:46+00:00",
+            "url": "https://finnhub.io/api/news?id=a735321edbdc2e86fd43a5e32feb00efbdf3249baf4931d8d352b9d161131edd",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "3 Penny Stocks With Revenue Growth Up To 72% To Watch",
+            "summary": "AI is pulling record amounts of money into chips, data centers, and the digital plumbing that keeps information flowing, as seen in Marvell\u2019s huge all stock deal for Lumentum. When big buyers hunt for capacity and components, smaller, financially sound businesses tied to similar spending can gain attention. This article highlights three lower priced, balance sheet focused stocks from our screener that fit that theme. The three stocks highlighted here offer a compelling starting point if you...",
+            "published_at": "2026-11-02T13:08:23+00:00",
+            "url": "https://finnhub.io/api/news?id=883d132d68010062222923d842b17370cc112b83a6f0e825d02ca20760ec21d3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Menlo Microsystems Appoints John B. Kennedy as Chief Financial Officer",
+            "summary": "Semiconductor finance veteran joins Menlo Micro as it expands commercialization of its Ideal Switch\u00ae technology across AI infrastructure and other high-growth markets John B. Kennedy | Chief Financial Officer, Menlo Microsystems John B. Kennedy has been appointed CFO of Menlo Microsystems, bringing over three decades of financial and business experience to support the commercialization of its Ideal Switch\u00ae technology. IRVINE, Calif., Nov. 02, 2026 (GLOBE NEWSWIRE) -- Menlo Microsystems (\u201cMenlo M",
+            "published_at": "2026-11-02T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=088d267c82775818bb2d1cbf1bf6d7f20875112efd6d2f0ecb15326ed9e4be42",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises As Oil Prices Dive; Apple Falls Ahead Of Earnings (Live Coverage)",
+            "summary": "The Dow Jones index rises Monday as oil prices dived below $100 a barrel. Apple stock falls ahead of earnings.",
+            "published_at": "2026-11-02T12:58:55+00:00",
+            "url": "https://finnhub.io/api/news?id=f947fdefabd2a60f923945733ed789006fee584a34e12e7cdb57cabb011177b3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell agrees $115 billion all-stock deal to buy Lumentum",
+            "summary": "Investing.com -- Marvell Technology agreed to buy Lumentum in an all-stock deal that values the optical components maker at an implied enterprise value of $115 billion, the companies said Monday.",
+            "published_at": "2026-11-02T12:49:36+00:00",
+            "url": "https://finnhub.io/api/news?id=b81e061790009d9a75231a733839d4b609f6e1aa388180fe5b56b2a725426148",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to purchase Lumentum for $115 billion as AI boom drives demand for connectivity",
+            "summary": "Marvell stock declined after the chip designer said it will purchase optical parts maker Lumentum in a $115 billion deal.",
+            "published_at": "2026-11-02T12:47:02+00:00",
+            "url": "https://finnhub.io/api/news?id=5a4724eae6e18aa761c86915ea6c029bcf561cdc2ae7b5c4e8b106dff73f97d7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to Buy Lumentum for $115 Billion in All-Stock AI Deal",
+            "summary": "Marvell Technology and Lumentum will merge in an all-stock deal valued at about $115 billion, including debt, combining two of the fastest-growing enablers of artificial intelligence.",
+            "published_at": "2026-11-02T12:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0dd6a9ad1015813d507e8a6d000c17c3bae614d1618475893936b40856430def",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Strikes $115B Deal To Acquire Lumentum: CEO Sees \u2018Once In A Generation\u2019 Opportunity In AI Optical Shift",
+            "summary": "Lumentum shareholders are set to receive 4.5 Marvell shares for each Lumentum share.",
+            "published_at": "2026-11-02T12:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fb632d9b2ea06edf97b4e8d6de405ef3c0808760bed157fdb321d47844ef19f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Breakfast News: We\u2019re Right There With You",
+            "summary": "The Nasdaq-100 fell nearly 5% on Friday, marking its third 10% correction this year, though it has nearly doubled over three years. The article advises investors to stay invested during market volatility through strategies like dollar-cost averaging and diversification. Key earnings this week include Apple, Shopify, AMD, and Berkshire Hathaway. Kiniksa Pharmaceuticals' heart drug Arcalyst is projected to become a blockbuster with $1B+ sales. Investors should focus on long-term plans rather than election-driven trading.",
+            "published_at": "2026-11-02T12:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/11/02/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell Plunges 13% on Lumentum Takeover Rumors: Make Your 3-5 Year Bet Right Now",
+            "summary": "Acquisition rumors sent Marvell tumbling hard in a single week, but the real question for long-term investors is whether the chaos around a potential Lumentum deal hides a rare buying opportunity or a costly distraction from Marvell's AI roadmap.",
+            "published_at": "2026-11-02T12:15:50+00:00",
+            "url": "https://finnhub.io/api/news?id=af7f6895c592d8394ac3ce750d8e61cdd43903a231b4db975925734c14accfbd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Reaches $115 Billion Deal for Lumentum Holdings",
+            "summary": "Marvell Technology Inc. has reached a deal to buy data center optics maker Lumentum Holdings Inc. at an enterprise value of $115 billion, one of the biggest tech tie-ups ever, in a race to capitalize on the artificial intelligence boom.",
+            "published_at": "2026-11-02T12:15:11+00:00",
+            "url": "https://finnhub.io/api/news?id=832e7d0cf39b83da9f03d6de5e186411dba500b69d2a5f93db257a52b47303c9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum: Fiscal Q1 Earnings Snapshot",
+            "summary": "(LITE) on Monday reported fiscal first-quarter earnings of $360.On a per-share basis, the San Jose, California-based company said it had net income of $3.",
+            "published_at": "2026-11-02T12:12:54+00:00",
+            "url": "https://finnhub.io/api/news?id=c3575cf1d0371e3eb1c852bbda2493786cb3a08b8eb8362f80b21d08a30dddc5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell and Lumentum to Combine, Creating a Category Leader in AI Connectivity",
+            "summary": "SANTA CLARA, Calif. & SAN JOSE, Calif., November 02, 2026--Marvell Technology, Inc. (NASDAQ: MRVL) and Lumentum (NASDAQ: LITE) today announced that they have entered into a definitive agreement for Marvell to acquire Lumentum in an all-stock transaction. Under the terms of the agreement, Lumentum stockholders will receive a fixed exchange ratio of 4.500 shares of Marvell common stock for each share of Lumentum common stock they own. The transaction has an implied enterprise value of $115 billion",
+            "published_at": "2026-11-02T12:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=881332764304c8f1f60c1cc95531f5db76a52ef81979e634ca921a1ccd1946d5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum Announces First Quarter of Fiscal Year 2027 Financial Results",
+            "summary": "SAN JOSE, Calif., November 02, 2026--Lumentum Holdings Inc. (\"Lumentum\" or the \"Company\") today reported results for its fiscal first quarter ended September 26, 2026.",
+            "published_at": "2026-11-02T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a18326400c58ea8db3f37991869480e20938516b55bec8677df2093d2fc8bb83",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to Buy Lumentum in $115 Billion All-Stock Deal",
+            "summary": "Marvell to acquire Lumentum in a $115B all-stock deal, targeting the growing $550B artificial intelligence connectivity market.",
+            "published_at": "2026-11-02T09:52:54+00:00",
+            "url": "https://finnhub.io/api/news?id=23d8090e760ff8865262860c9f38202fce23330418b247728a64c8db05e07e08",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Marvell Technology CEO Says Expect Combined Entity With Lumentum To Become One Of Top Five Largest AI Infrastructure Semiconductor Companies",
+            "summary": "Marvell CFO says expect transaction to accelerate revenue growth and be accretive to our non-gaap gross and operating margins, inclusive of the $1 billion-plus in run rate synergies that we primarily see from COGS;",
+            "published_at": "2026-11-02T09:42:09+00:00",
+            "url": "https://finnhub.io/api/news?id=baa4db92fbc60bff0491e3cccecf9980e84fab5e2222378905765a6c9c2cc481",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Lumentum Holdings Sees Q2 Adj EPS $5.90-$6.20 vs $5.03 Est; Sees Sales $1.575B-$1.625B vs $1.477B Est",
+            "summary": "Lumentum Holdings (NASDAQ:LITE) is looking for Q2 Adj EPS of $5.90-$6.20 vs $5.03 analyst estimate. sees sales of $1.575 billion-$1.625 billion vs $1.477 billion analyst estimate.",
+            "published_at": "2026-11-02T09:00:55+00:00",
+            "url": "https://finnhub.io/api/news?id=2514556838a23abf09956fca958e6069b3d1704745ab552c63a7b5e880f2b9c2",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stock Market Today: Intel\u2019s Worst Day in Four Decades Drags Chips and the Nasdaq to a Rough October Finish",
+            "summary": "Intel lost nearly 29% and dragged chip stocks lower as the Nasdaq had its worst day since June. Oil rose about 15% in October, Treasury yields fell, and Regeneron, FedEx Freight and the oil majors went the other way.",
+            "published_at": "2026-11-02T08:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0d242a5bdd68598220ecbb4487968bad8e58473bdcbfe5ae732396b4ffa34819",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Is Lumentum Stock a Buy Right Now as Marvell Considers Takeover?",
+            "summary": "Lumentum is experiencing increasing revenue growth as demand for its products accelerates, amid speculation that Marvell Technology may be considering a takeover of the company. The article examines whether Lumentum represents a good investment opportunity in this context.",
+            "published_at": "2026-11-02T08:41:01+00:00",
+            "url": "https://www.fool.com/investing/2026/11/02/is-lumentum-stock-a-buy-right-now-as-marvell-considers-takeover/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell Technology Confirms Will Acquire Lumentum For 4.5 MRVL Shares Per LITE Share In An All-Stock Deal Valuing LITE At $1,132/Share With An Implied EV Of $115B",
+            "summary": "Compelling Strategic and Financial RationaleThe combination is expected to deliver substantial strategic and financial benefits:Creates a category leader in AI connectivity: Combining Marvell&#39;s electrical and",
+            "published_at": "2026-11-02T08:10:12+00:00",
+            "url": "https://finnhub.io/api/news?id=2e02547ee2a561508e16334d86976629fce69c016e0f3ea4d495594e3718ae27",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Lumentum Holdings Q1 Adj. EPS $4.57 Beats $4.19 Estimate, Sales $1.263B Beat $1.249B Estimate",
+            "summary": "Lumentum Holdings (NASDAQ:LITE) reported quarterly earnings of $4.57 per share which beat the analyst consensus estimate of $4.19 by 9.07 percent. This is a 315.45 percent increase over earnings of $1.10 per share from",
+            "published_at": "2026-11-02T08:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=e6b0e63f4d4b748eb1b0e67c52f9d8f33d89791e17dd7dd69ec668a07e18d964",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Asian shares mostly advance but tech stocks remain volatile, while oil sinks 3.3%",
+            "summary": "HONG KONG (AP) \u2014 Asian shares were mostly higher Monday but technology stocks remained volatile, while oil prices fell more than 3%. futures edged higher after Wall Street fell Friday to its worst day since June as investors dumped technology- and artificial intelligence-related stocks.",
+            "published_at": "2026-11-02T05:29:25+00:00",
+            "url": "https://finnhub.io/api/news?id=b42c7fd63625cc0c6d0baa612b767991466d6985d6744df1bb851bd49a149a50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures Rise But Market Still Ails; Midterm Elections Ahead",
+            "summary": "Techs led another stock market sell-off. It's a time to be defensive. Apple, Palantir, jobs and midterm elections loom.",
+            "published_at": "2026-11-02T03:49:25+00:00",
+            "url": "https://finnhub.io/api/news?id=f8df907bb67ee69643e5f3973e0b2098392f7926381288265eac0c4b53f1803f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures Rise After Market Sell-Off; How Midterm Elections May Swing Stocks",
+            "summary": "Techs led another stock market sell-off. It's a time to be defensive. Apple, Palantir, jobs and midterm elections loom.",
+            "published_at": "2026-11-01T23:57:20+00:00",
+            "url": "https://finnhub.io/api/news?id=cd33dadb4d9f3c4752e0327e1dfeed8f7b5b893fd4079006e9f5a9eb8b73a1f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum Earnings Preview: The AI Boom Is Already Priced In",
+            "summary": "Why Lumentum looks overvalued: explore fair value risks, supply-driven margins, NVIDIA and OCS upside, and Marvell deal uncertainty.",
+            "published_at": "2026-11-01T11:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=44cb3cbacafe19fcb3f1b427b49a04c93032dae4785ed4920b7ecd656356c91d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Marvell Stock: Buy or Sell?",
+            "summary": "Marvell Technology stock fell over 10% on October 29, 2026, amid acquisition talks with Lumentum. The article evaluates whether investors should buy Marvell stock, considering factors like its valuation relative to record highs and future growth prospects through 2030.",
+            "published_at": "2026-11-01T09:02:02+00:00",
+            "url": "https://www.fool.com/investing/2026/11/01/marvell-stock-buy-or-sell/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Earnings Volatility Watch: 10 Stocks Are Set to Swing More Than 10% This Week",
+            "summary": "Ten stocks carry implied earnings moves above 10% next week, led by Moderna and AppLovin. Five are tech names hit in Friday&#39;s chip rout.",
+            "published_at": "2026-11-01T08:30:07+00:00",
+            "url": "https://finnhub.io/api/news?id=11580ea46adbde2a6243b452b62d658eeaae614850c1595b883ece0ea213f70f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Dow Jones Futures Loom After Stock Market Sell-Off; Apple, Palantir, Midterm Elections In Focus",
+            "summary": "Techs led another stock market sell-off. It's a time to be defensive. Apple, Palantir, jobs and midterm elections loom.",
+            "published_at": "2026-11-01T02:44:14+00:00",
+            "url": "https://finnhub.io/api/news?id=125e48825bd1f07d49eaa70961ebe0aab5f08a9db0ad3183a4907b8fa56974a2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum Is Up 11% in a Week. Will Marvell Pay \u201cClose to $100 Billion\u201d?",
+            "summary": "Key TakeawaysLumentum rose 11% in a week on an optics rebound and a Bloomberg report that Marvell Technology is in advanced talks to buy it. A deal reportedly paid in Marvell stock would tie any premium to Marvell\u2019s share price.",
+            "published_at": "2026-10-31T18:04:15+00:00",
+            "url": "https://finnhub.io/api/news?id=f5ca7ddf54214de92b35c22baa24864ec3b01f8d92b4063dfa4f2e141a2b0952",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum Jumped on Reports Marvell Is in Late-Stage Talks to Acquire the Company. LITE Stock Is a Buy No Matter What.",
+            "summary": "Lumentum jumped 15% in after-hours trading on October 28 after reports that Marvell is in late-stage talks to acquire the company, with a deal potentially possible as soon as early November.",
+            "published_at": "2026-10-31T14:34:56+00:00",
+            "url": "https://finnhub.io/api/news?id=de891f8b59f858068f969abf2d464c3a462aee7677f51d2d479fcdd28c7d3caf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Piper Sandler\u2019s $400 Target Says Marvell\u2019s Selloff Went Too Far",
+            "summary": "Key TakeawaysMarvell stock is down 41% from its June high after reports that it\u2019s in advanced talks to buy Lumentum, reportedly in an all-stock deal. Piper Sandler kept its Overweight rating and $400 target, 104% above the current price, and pointed to Lumentum\u2019s lasers as key to faster, lower-power AI networks.",
+            "published_at": "2026-10-31T14:24:30+00:00",
+            "url": "https://finnhub.io/api/news?id=ef71a4b3e0394793097b4c1ed1b370a47d361debabe4ac9f54c37827d67d027f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Sinks 14% in a Week on Lumentum Talks: Chipmakers Like It \u201cDon\u2019t Have a Choice\u201d",
+            "summary": "Key TakeawaysMarvell Technology fell 14% in the past week on reported Lumentum talks, then in a chip selloff after Intel\u2019s weak outlook. Lumentum\u2019s lasers would make Marvell a bigger Broadcom rival and give Coherent a competitor backed by Marvell\u2019s chips.",
+            "published_at": "2026-10-31T14:07:56+00:00",
+            "url": "https://finnhub.io/api/news?id=d24e99c282495f8443c811863b4c5d17e75bfdc67fc718bc7d172edff74db37b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum: Buy Before Earnings And A Potential Takeover (Rating Downgrade)",
+            "summary": "Lumentum is rated a Buy on the expectations margin expansion due to higher prices from sold-out capacity. Read more for an investing guidance in LITE.",
+            "published_at": "2026-10-31T12:16:11+00:00",
+            "url": "https://finnhub.io/api/news?id=4dfd0d58e1961aae83b1417cbc600c93a07e943b82302a36ec77a49dc6670185",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Benzinga Bulls and Bears: Carvana, Rivian, Amazon",
+            "summary": "Benzinga examined the prospects for many investors\u2019 favorite stocks over the last week \u2014 here\u2019s a look at some of our top stories.",
+            "published_at": "2026-10-31T08:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=67837fce3fc82425cbc8e512a3a46448ee4f7ce000f5b84c4a3e42cbc0136967",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Coherent Stock Fell 11% as Intel and Amazon Earnings Hit AI Hardware Stocks. Here\u2019s Where the Stock Could Go",
+            "summary": "Key Stats for Coherent StockCurrent Price: $210. 32Target Price (Mid): ~$794Street Target: ~$394Potential Total Return: ~278%Annualized IRR: ~33% / yearWhat Happened?Coherent (COHR:NYSE) fell 11.",
+            "published_at": "2026-10-31T07:15:12+00:00",
+            "url": "https://finnhub.io/api/news?id=c406ddf6b44b6ead86cb1d7597111211089282dcf6fe8995f84a3b7d63193e8c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Arista Networks And 2 More AI Infrastructure Stocks To Watch",
+            "summary": "When St. Louis Fed chief Alberto Musalem and Dallas Fed\u2019s Lorie Logan both pointed to more rate hikes ahead, the message was simple. Money is not cheap and capital will stay picky. That puts more focus on real infrastructure behind AI, like the switches, routers and server builders that keep model training running. This article walks through three picks from the AI hardware screener worth a closer look. The stocks covered below are just a sample. The full AI networking and servers screen...",
+            "published_at": "2026-10-31T05:15:02+00:00",
+            "url": "https://finnhub.io/api/news?id=53682e9a673225c3c85fc9c39730dfd2ebb7d5b79025a5a35d1e4cfaac098e34",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures: Stock Market Sells Off As Apple, Palantir, Midterm Elections Loom; What To Do",
+            "summary": "Techs led another stock market sell-off. It's a time to be defensive. Apple, Palantir, jobs and midterm elections loom.",
+            "published_at": "2026-10-30T20:51:56+00:00",
+            "url": "https://finnhub.io/api/news?id=0cef08ea889b2b7e946c4c2bede5dc95d1a4873376275e0c36a9e292b8615a57",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "8 Months Ago, A Major Wall Street Bank Said Buy Marvell. It\u2019s Up More Than 150%. Here\u2019s Where We See the Stock Going",
+            "summary": "BofA upgraded Marvell into a brutal slide and the stock went on a wild ride that has left investors wondering whether the latest pullback is another gift or the beginning of something worse.",
+            "published_at": "2026-10-30T20:17:36+00:00",
+            "url": "https://finnhub.io/api/news?id=b799c368b0dc4457243178034926a3994faa20f0ac10c05c40f539b82437f717",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell may buy its own laser supplier as investors pull back",
+            "summary": "Analysts say Marvell\u2019s reported talks make sense on paper. One number is giving its shareholders cold feet.",
+            "published_at": "2026-10-30T17:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f5178585465bd27f85e68654b05333e80b9d5f5fa68c85c2494ddef872b112c4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Applied Optoelectronics Plunges 15%, Coherent Tumbles 13% as Hyperscaler Spending Fears Hit AI Optics Stocks; Lumentum and Marvell Sink 10%",
+            "summary": "Google's cash burn just torched half a trillion dollars in market value, and the shockwave is now tearing through the optical suppliers that keep AI data centers running. Whether their sold-out order books can absorb the fallout is the question every trader is scrambling to answer.",
+            "published_at": "2026-10-30T16:57:26+00:00",
+            "url": "https://finnhub.io/api/news?id=853742c8081dcdf82ae36430fe967e33824508ee0106fc80121a2a26d47f5869",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Broadcom Falls 5% Despite DA Davidson Upgrade on Anthropic and OpenAI IPO Hopes; Arm and Qualcomm Sink 10%, Marvell Drops 8%",
+            "summary": "A bullish upgrade tied to Anthropic's upcoming IPO failed to protect Broadcom as a sector-wide chip selloff dragged AI semiconductor names sharply lower, raising fresh doubts about whether the AI spending boom can sustain its momentum.",
+            "published_at": "2026-10-30T14:56:49+00:00",
+            "url": "https://finnhub.io/api/news?id=6c7ffa73b65110965c367031c2786a861fa3b8672294fa7fa3f078fc993d68e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Marvell Stock Hit $310?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T14:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=1f6149749510a6adb7b1d12fc4fdfd7fc437805b8ad80c607d1e2e93a74d9009",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AXTI Q3 Earnings Beat on Record InP Sales and Margin Gains",
+            "summary": "AXT Inc. (AXTI) exceeded Q3 expectations with non-GAAP EPS of 41 cents versus 31 cents expected, and revenues jumped 162% year-over-year to $73.4 million. Record indium phosphide (InP) sales of $54.3 million were driven by AI data-center demand for high-speed optical components. The company's backlog surpassed $500 million, gross margins expanded to 56.1%, and management projects Q4 non-GAAP EPS of 57-59 cents with margins potentially exceeding 60%. AXT is aggressively expanding capacity, expecting to exit 2026 with 2.75-3x its year-end 2025 capacity.",
+            "published_at": "2026-10-30T14:12:00+00:00",
+            "url": "https://www.zacks.com/stock/news/3019890/axti-q3-earnings-beat-on-record-inp-sales-and-margin-gains?cid=CS-ZC-FT-analyst_blog%7Cearnings_article-3019890",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Is Marvell Technology (MRVL) Cheap After Its Lumentum Deal Talks Sent Shares Lower?",
+            "summary": "Marvell Technology (MRVL) is back in focus after reports it is in advanced talks to acquire data center optics specialist Lumentum in a potential all stock transaction closely tied to AI infrastructure demand. That backdrop helps explain the sharp move in Marvell Technology\u2019s share price, which fell about 13.2% in the latest session and is down roughly 17.4% over the past month, even though the 90 day share price return is positive and the year to date share price return of 144.3% sits...",
+            "published_at": "2026-10-30T14:10:38+00:00",
+            "url": "https://finnhub.io/api/news?id=3bdfa6f31c1f8eab5e27b7fefe8f31459b28243d200e0af5d834270972b2dcf8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Agents Show Up In The Numbers",
+            "summary": "Anthropic's S-1 reignited interest in AI this week, with investors discussing a $1.5\u00e2\u0080\u00932 trillion valuation. The megacaps that reported after it failed to impress. Read more here...",
+            "published_at": "2026-10-30T14:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5f42a7d0649941a747b2946a8c234e8eee78723d94c6a3f698013fd9a164b504",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Is There A Risk Hiding In Ciena Stock's Growth?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T13:42:04+00:00",
+            "url": "https://finnhub.io/api/news?id=789d376bb5d8ebd10618f49b90c16815aaae5612e569472ce90ca11d72d03250",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Black Friday Came Early for Chipmakers: Intel and 10 Other Stocks Are More Than 20% Off This Month",
+            "summary": "Intel and 10 other chip stocks, from Cerebras to Marvell, have lost more than 20% in October, yet 10 of the 11 remain up for 2026. SOXX is down 16.5%.",
+            "published_at": "2026-10-30T12:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=3ff4847199255c6615ac2b73efc97f60730b92ba6c23760e4148d49a5e983e5b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Marvell in advanced talks to buy Nvidia-backed Lumentum \u2013 report",
+            "summary": "The report said the discussions are private and the proposed deal could be announced as soon as next week.",
+            "published_at": "2026-10-30T11:12:02+00:00",
+            "url": "https://finnhub.io/api/news?id=29d468164ccbc994798daf836dd36039ac9e18777165b1f7c29d51a170f1c2eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Rumored to Buy Lumentum in Major Challenge to Broadcom: Counterpoint",
+            "summary": "Marvell and Lumentum stocks dropped premarket on buyout rumors as Marvell aims to secure critical AI laser fabs and tackle the shift toward co-packaged optics.",
+            "published_at": "2026-10-30T10:10:07+00:00",
+            "url": "https://finnhub.io/api/news?id=b8022f2c4515235f9ecf19e02482c0a9b6c76e7b5dbea37105499bb63c4f73a6",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Trump Administration Moves to Block Chinese Telecom Firms From Accessing US Phone Numbers Amid Robocall Threats: Report",
+            "summary": "Trump administration moves to block Chinese telecom firms from accessing U.S. phone numbers, citing national security and robocall risks.",
+            "published_at": "2026-10-30T07:22:59+00:00",
+            "url": "https://finnhub.io/api/news?id=d7c048f59ad0dbc1129a3fe821799bb5c09bf1406e002e2e76cabb9b16275453",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 840.7,
+      "jev": null
+    },
+    {
+      "ticker": "CBRS",
+      "predicted_return": 0.5726067475249771,
+      "open_price": 106.81,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:36:05.084731+00:00",
+        "articles": [
+          {
+            "headline": "ORCL Stock Has a Solid Base to Build on After Q1, Especially as Oracle Announces Key AI Partnerships",
+            "summary": "The deals were with various players in the AI supply chain.",
+            "published_at": "2026-10-31T14:27:57+00:00",
+            "url": "https://finnhub.io/api/news?id=30a71a7ce7452d0dc8247baddd1ba6b5eedf72a8f50c59dabff8319ff4501f44",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CoreWeave And 2 Other Top Growth Stocks With Insider Buying",
+            "summary": "When central banks signal that interest rates may need to rise further, as recent comments from Federal Reserve officials suggest, investors often reassess where real growth is coming from. Companies that are already expanding quickly and where insiders hold meaningful stakes can look especially interesting. This article highlights three such fast growing stocks with committed insider ownership, helping you focus on businesses where management and shareholders are clearly aligned. The three...",
+            "published_at": "2026-10-31T05:12:52+00:00",
+            "url": "https://finnhub.io/api/news?id=d2bb50dcc6a54b81e87a86322683521fb62abbd657a3d9f677aa1147f5503aa1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top 3 Founder Led Stocks With Revenue Growth Over 17% To Watch",
+            "summary": "When the world\u2019s largest crypto exchange can be hit by a multi billion dollar hack and still promise to plug the hole, one thing jumps out: investors are relying heavily on leadership they trust. That is the opening for backing founders who built their businesses and still steer them today. This article breaks down three such founder run stocks and why they deserve a closer look now. The three stocks highlighted here offer a compelling starting point if you want exposure to founder led...",
+            "published_at": "2026-10-30T19:08:48+00:00",
+            "url": "https://finnhub.io/api/news?id=a3ccd4db651163cc6b2b6f02c641dc8f116064d7941431a381728504f0d544b2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These 3 ETFs Doubled Investors' Money in October as AI Stocks Crashed",
+            "summary": "Three inverse ETFs surge up to 134% in October as AI infrastructure and quantum computing stocks tumbled. Here&#39;s what fueled their spectacular gains.",
+            "published_at": "2026-10-30T16:36:46+00:00",
+            "url": "https://finnhub.io/api/news?id=2bf1015306951d6b8f57f72d9206d7ed17ecebf5f87a6fa99dbfff9988b6ec91",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Cerebras Stock Dropped Today",
+            "summary": "Is Intel's guidance miss really bad news for Cerebras?",
+            "published_at": "2026-10-30T15:57:56+00:00",
+            "url": "https://finnhub.io/api/news?id=37015d2e0df27efea3091bdc4a8568149ae5009bd457e40c9af39e466f3fcb5b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Other Elon Musk ETF Responds as Tesla Tops $100",
+            "summary": "",
+            "published_at": "2026-10-30T14:11:03+00:00",
+            "url": "https://finnhub.io/api/news?id=e42b3627f12e6226392494f6e97ac3f5053bdc5406bd9a5873c25295a3fc84d4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Black Friday Came Early for Chipmakers: Intel and 10 Other Stocks Are More Than 20% Off This Month",
+            "summary": "Intel and 10 other chip stocks, from Cerebras to Marvell, have lost more than 20% in October, yet 10 of the 11 remain up for 2026. SOXX is down 16.5%.",
+            "published_at": "2026-10-30T12:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=3ff4847199255c6615ac2b73efc97f60730b92ba6c23760e4148d49a5e983e5b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Cerebras Fell After Culper Research Issued a Short Call. What This Means for CBRS Stock.",
+            "summary": "Cerebras stock fell following a report from Culper Research on Oct. 28, questioning the durability of its wafer-scale chips and alleging higher replacement costs.",
+            "published_at": "2026-10-30T11:30:03+00:00",
+            "url": "https://finnhub.io/api/news?id=0cd8811a88efd634f9de6a47e94f20c2871617b636663caf4460f2e1bcf25633",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 109.18,
+      "jev": null
+    },
+    {
+      "ticker": "RSI",
+      "predicted_return": 0.5344893593832403,
+      "open_price": 11.9,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:36:05.085014+00:00",
+        "articles": [
+          {
+            "headline": "5 insightful analyst questions from Rush Street Interactive\u2019s Q3 earnings call",
+            "summary": "Rush Street Interactive\u2019s third quarter results were shaped by continued growth in its online casino segment and ongoing strength in Latin America, but the company missed Wall Street\u2019s revenue expectations. Management highlighted that a measured pace of growth in the North American market, along with competitive intensity\u2014especially in Michigan\u2014led to industry-wide moderation. CEO Richard Schwartz credited the casino-first strategy and effective marketing in Latin America for record player engag",
+            "published_at": "2026-10-31T12:27:29+00:00",
+            "url": "https://finnhub.io/api/news?id=5ad5a6b8fe88838bc0893ae8cfd8b247cf734c49cdc651d39d29bf2156656da9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Rush Street Interactive (RSI) stock is falling today",
+            "summary": "Shares of online casino and sports betting company Rush Street Interactive (NYSE:RSI) fell 9.4% in the afternoon session after investors continued to bid down on the company's reported third-quarter earnings which missed revenue estimate targets. On the earnings call, the company reported third-quarter revenue of $385.9 million, up 39%, and adjusted EBITDA of $62.2 million, up 73%. Online casinos made up 75% of revenue and grew 32%. Online sports betting grew 70%. Latin America revenue grew 218%",
+            "published_at": "2026-10-31T08:27:29+00:00",
+            "url": "https://finnhub.io/api/news?id=cd82129684cf8cfbfda1edf34ca91de58229b3ee872543f47a57b058225800e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rush Street Interactive (RSI) Q3 Earnings: How Key Metrics Compare to Wall Street Estimates",
+            "summary": "The headline numbers for Rush Street Interactive (RSI) give insight into how the company performed in the quarter ended September 2026, but it may be worthwhile to compare some of its key metrics to Wall Street estimates and the year-ago actuals.",
+            "published_at": "2026-10-30T13:30:01+00:00",
+            "url": "https://finnhub.io/api/news?id=a95a954349e9b4ae284ffaf6fa3323ebbb6e0c951b1a9e59f16e07101d5e8d55",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Barclays Maintains Overweight on Rush Street Interactive, Lowers Price Target to $23",
+            "summary": "Barclays  analyst Brandt Montour   maintains Rush Street Interactive (NYSE:RSI) with a Overweight and lowers the price target from $24 to $23.",
+            "published_at": "2026-10-30T11:16:28+00:00",
+            "url": "https://finnhub.io/api/news?id=bd640f4ffb533109c1feae849a2c3b4afd5b0e0835000156dddb066c58b24169",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Rush Street Interactive (RSI) Stock Drops Despite Strong Q3 Earnings",
+            "summary": "Rush Street Interactive stock took a hit today. The shares closed at US$13.62, down almost 10% on the session, after investors absorbed fresh Q3 2026 earnings. That short term drop sits awkwardly against a report headlined by adjusted EBITDA of US$62.2m and a 16.1% margin in a fiercely competitive online casino and sports betting arena. For anyone looking beyond today\u2019s screen, the focus turns to profitability. The business delivered Q3 net income of US$28.7m on US$385.9m of revenue and runs...",
+            "published_at": "2026-10-30T10:10:23+00:00",
+            "url": "https://finnhub.io/api/news?id=cdca04bf7dce65f9eccfcec3566d64f32cb66db17cf91a99bd3b54130d1eddff",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 12.12,
+      "jev": null
+    },
+    {
+      "ticker": "PARR",
+      "predicted_return": 0.5190648123414646,
+      "open_price": 73.76,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:36:54.363659+00:00",
+        "articles": [
+          {
+            "headline": "3 Oil Stocks Retail Investors Are Watching As Brent Crude Nears $120",
+            "summary": "Oil markets are back in the spotlight as US\u2013Iran risks near the Strait of Hormuz, Brent crude near $120 and a fresh gas scare in Europe pull energy security back onto your screen. Price swings of this scale can punish some sectors while opening gaps for others. This article walks through 3 integrated majors from our screener that look most sensitive to these headlines and explains how that exposure could cut both ways for investors. The three stocks below are just a small sample from this...",
+            "published_at": "2026-10-31T00:18:17+00:00",
+            "url": "https://finnhub.io/api/news?id=616f0e10edea6c4358ea899b1685d5d277aaedca0f0c7397a35a4d4ac99446f2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Zacks.com featured highlights include G-III Apparel, HF Sinclair, Par Pacific, Genworth Financial and PBF Energy",
+            "summary": "Five stocks with low price-to-sales ratios stand out for their strong operating fundamentals, strategic initiatives and potential to create shareholder value.",
+            "published_at": "2026-10-30T09:58:00+00:00",
+            "url": "https://finnhub.io/api/news?id=031c2298050af871725a7a4f905c02482402e9c95a07a10215d9bd4288ed4f47",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 76.24,
+      "jev": null
+    },
+    {
+      "ticker": "PURR",
+      "predicted_return": 0.5181146712440617,
+      "open_price": 10.8,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:37:10.940590+00:00",
+        "articles": [
+          {
+            "headline": "Elon Musk Notes 'Interesting' Hyperliquid Deal After Druckenmiller Endorsement",
+            "summary": "Elon Musk called the Hyperliquid and TradeXYZ partnership \"interesting\" Thursday, reposting Stan Druckenmiller\u2019s comments and sending HYPE up as much as 17%. Why Musk\u2019s Repost Added Fresh Fuel to the Rally Musk posted a single word, \"interesting,\" on X while...",
+            "published_at": "2026-11-02T11:45:09+00:00",
+            "url": "https://finnhub.io/api/news?id=50841825eed340c62f8a7483b501736aa92bc933e2fa0fe30c0a80a48ddda85e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bitcoin, Hyperliquid, Zcash Make '2027 Crypto Playbook': Report",
+            "summary": "Bitcoin may have bottomed, with cycle patterns pointing to a 2027 bull run. Hyperliquid and Zcash emerge as altcoins to watch.",
+            "published_at": "2026-10-31T14:30:06+00:00",
+            "url": "https://finnhub.io/api/news?id=6f16a1295fbfdfc8339975b86fb66e919d365d2a62444e29b9b239ff30f515f6",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Reported Earlier, Twenty One Completes Business Combination With Cantor Equity Partners And Lists On NYSE Under \"XXI\" With Over 43,500 Bitcoin",
+            "summary": "",
+            "published_at": "2026-10-30T10:54:23+00:00",
+            "url": "https://finnhub.io/api/news?id=ee5b6dedb2c30a15e78bc2f876dfff46d591e1851ff5a4d5fa036e3698960524",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 11.01,
+      "jev": null
+    },
+    {
+      "ticker": "CIG-C",
+      "predicted_return": 0.5100053411934052,
+      "open_price": 2.96,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:36:54.358318+00:00",
+        "articles": []
+      },
+      "prev_close": 3.08,
+      "jev": null
+    },
+    {
+      "ticker": "AMBA",
+      "predicted_return": 0.5055450713594676,
+      "open_price": 61.83,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 63.12,
+      "jev": null
+    },
+    {
+      "ticker": "MRVL",
+      "predicted_return": 0.5045871085903225,
+      "open_price": 191.555,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 55,
+        "reviewed_count": 55,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:36:54.362373+00:00",
+        "articles": [
+          {
+            "headline": "Marvell Slides 3%, Lumentum Drops 6% on $115 Billion All-Stock Merger Deal; Coherent Climbs 2%",
+            "summary": "Marvell Technology (NASDAQ:MRVL) is acquiring Lumentum Holdings (NASDAQ:LITE). The all-stock agreement is reshaping the map of AI data center optics, and both companies are sliding as the market considers the price. Shares of Marvell trade at $190.43 in morning trading, down 3%. Lumentum stock is at $788.51, down 6%, an unusual reaction for a takeover [\u2026]",
+            "published_at": "2026-11-02T13:53:26+00:00",
+            "url": "https://finnhub.io/api/news?id=e8182ed48e431f44c442203bca9424f06d0174d7b421b1ee2dd155cc82f62cb4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Just Bet $115 Billion On AI's 'Once In A Generation' Opportunity. Should You Buy The Stock?",
+            "summary": "Marvell agreed to acquire optical-parts maker Lumentum for approximately $115 billion in an all-stock deal, with Lumentum shareholders receiving 4.5 Marvell shares per share (23.9% premium). Current Marvell shareholders will own about 67% of the combined company post-deal. Marvell stock fell over 20% since talks were reported, but the company projects $70-90 billion in revenue and $30+ EPS by fiscal 2031. The deal closes in H1 2028 and requires shareholder and regulatory approval.",
+            "published_at": "2026-11-02T13:46:52+00:00",
+            "url": "https://www.fool.com/investing/2026/11/02/marvell-just-bet-usd115-billion-on-ai-s-once-in-a-generation-opportunity-should-you-buy-the-stock/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell To Buy Lumentum For $115 Billion, Creating AI Connectivity Leader",
+            "summary": "Marvell Technology on Monday announced a deal to buy Lumentum in an all-stock transaction worth $115 billion.",
+            "published_at": "2026-11-02T13:42:54+00:00",
+            "url": "https://finnhub.io/api/news?id=221bff82deff195070becb19b03cac950e2726b1b94b02fe8e0fe3274e00239e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Premarket Movers Nov. 2, 2026: IDEXX and Fox Gain, Lumentum and T-Mobile Fall",
+            "summary": "IDEXX Laboratories and Fox Corp. led S&P 500 premarket gainers on Nov. 2, 2026, while Lumentum and T-Mobile led the decliners.",
+            "published_at": "2026-11-02T13:36:46+00:00",
+            "url": "https://finnhub.io/api/news?id=a735321edbdc2e86fd43a5e32feb00efbdf3249baf4931d8d352b9d161131edd",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Marvell Technology vs. SK Hynix: Which Tech Stock Is a Better Buy for 2027?",
+            "summary": "The article compares Marvell Technology and SK Hynix as investment options for 2027. Marvell provides data infrastructure and custom AI chips with strong growth visibility, targeting $12B in custom chip revenue by fiscal 2029 and $30 EPS by fiscal 2031. SK Hynix is a memory chip leader with impressive current financials but faces cyclical pricing pressures. The author recommends Marvell over SK Hynix due to more predictable revenue, less cyclical business model, and attractive valuation relative to long-term growth potential.",
+            "published_at": "2026-11-02T13:35:02+00:00",
+            "url": "https://www.fool.com/coverage/better-buy/2026/11/02/marvell-technology-vs-sk-hynix-which-tech-stock-is-a-better-buy-for-2027/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rises As Oil Prices Dive; Apple Falls Ahead Of Earnings (Live Coverage)",
+            "summary": "The Dow Jones index rises Monday as oil prices dived below $100 a barrel. Apple stock falls ahead of earnings.",
+            "published_at": "2026-11-02T13:34:02+00:00",
+            "url": "https://finnhub.io/api/news?id=f947fdefabd2a60f923945733ed789006fee584a34e12e7cdb57cabb011177b3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Penny Stocks With Revenue Growth Up To 72% To Watch",
+            "summary": "AI is pulling record amounts of money into chips, data centers, and the digital plumbing that keeps information flowing, as seen in Marvell\u2019s huge all stock deal for Lumentum. When big buyers hunt for capacity and components, smaller, financially sound businesses tied to similar spending can gain attention. This article highlights three lower priced, balance sheet focused stocks from our screener that fit that theme. The three stocks highlighted here offer a compelling starting point if you...",
+            "published_at": "2026-11-02T13:08:23+00:00",
+            "url": "https://finnhub.io/api/news?id=883d132d68010062222923d842b17370cc112b83a6f0e825d02ca20760ec21d3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell agrees $115 billion all-stock deal to buy Lumentum",
+            "summary": "Investing.com -- Marvell Technology agreed to buy Lumentum in an all-stock deal that values the optical components maker at an implied enterprise value of $115 billion, the companies said Monday.",
+            "published_at": "2026-11-02T12:49:36+00:00",
+            "url": "https://finnhub.io/api/news?id=b81e061790009d9a75231a733839d4b609f6e1aa388180fe5b56b2a725426148",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to purchase Lumentum for $115 billion as AI boom drives demand for connectivity",
+            "summary": "Marvell stock declined after the chip designer said it will purchase optical parts maker Lumentum in a $115 billion deal.",
+            "published_at": "2026-11-02T12:47:02+00:00",
+            "url": "https://finnhub.io/api/news?id=5a4724eae6e18aa761c86915ea6c029bcf561cdc2ae7b5c4e8b106dff73f97d7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to Buy Lumentum for $115 Billion in All-Stock AI Deal",
+            "summary": "Marvell Technology and Lumentum will merge in an all-stock deal valued at about $115 billion, including debt, combining two of the fastest-growing enablers of artificial intelligence.",
+            "published_at": "2026-11-02T12:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0dd6a9ad1015813d507e8a6d000c17c3bae614d1618475893936b40856430def",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Strikes $115B Deal To Acquire Lumentum: CEO Sees \u2018Once In A Generation\u2019 Opportunity In AI Optical Shift",
+            "summary": "Lumentum shareholders are set to receive 4.5 Marvell shares for each Lumentum share.",
+            "published_at": "2026-11-02T12:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fb632d9b2ea06edf97b4e8d6de405ef3c0808760bed157fdb321d47844ef19f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Breakfast News: We\u2019re Right There With You",
+            "summary": "The Nasdaq-100 fell nearly 5% on Friday, marking its third 10% correction this year, though it has nearly doubled over three years. The article advises investors to stay invested during market volatility through strategies like dollar-cost averaging and diversification. Key earnings this week include Apple, Shopify, AMD, and Berkshire Hathaway. Kiniksa Pharmaceuticals' heart drug Arcalyst is projected to become a blockbuster with $1B+ sales. Investors should focus on long-term plans rather than election-driven trading.",
+            "published_at": "2026-11-02T12:30:02+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/11/02/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell Plunges 13% on Lumentum Takeover Rumors: Make Your 3-5 Year Bet Right Now",
+            "summary": "Acquisition rumors sent Marvell tumbling hard in a single week, but the real question for long-term investors is whether the chaos around a potential Lumentum deal hides a rare buying opportunity or a costly distraction from Marvell's AI roadmap.",
+            "published_at": "2026-11-02T12:15:50+00:00",
+            "url": "https://finnhub.io/api/news?id=af7f6895c592d8394ac3ce750d8e61cdd43903a231b4db975925734c14accfbd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Reaches $115 Billion Deal for Lumentum Holdings",
+            "summary": "Marvell Technology Inc. has reached a deal to buy data center optics maker Lumentum Holdings Inc. at an enterprise value of $115 billion, one of the biggest tech tie-ups ever, in a race to capitalize on the artificial intelligence boom.",
+            "published_at": "2026-11-02T12:15:11+00:00",
+            "url": "https://finnhub.io/api/news?id=832e7d0cf39b83da9f03d6de5e186411dba500b69d2a5f93db257a52b47303c9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell and Lumentum to Combine, Creating a Category Leader in AI Connectivity",
+            "summary": "SANTA CLARA, Calif. & SAN JOSE, Calif., November 02, 2026--Marvell Technology, Inc. (NASDAQ: MRVL) and Lumentum (NASDAQ: LITE) today announced that they have entered into a definitive agreement for Marvell to acquire Lumentum in an all-stock transaction. Under the terms of the agreement, Lumentum stockholders will receive a fixed exchange ratio of 4.500 shares of Marvell common stock for each share of Lumentum common stock they own. The transaction has an implied enterprise value of $115 billion",
+            "published_at": "2026-11-02T12:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=881332764304c8f1f60c1cc95531f5db76a52ef81979e634ca921a1ccd1946d5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Stock Bounces Back From AI Selloff. Beware Buying the Dip.",
+            "summary": "There wasn\u2019t an obvious catalyst driving shares higher, but they were probably just benefiting from a broader market rebound.",
+            "published_at": "2026-11-02T11:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ff4c781f17e1656a2974d356666dcd7d14c6bb48bd6afdf6aa38beb69698f13b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Stock Bounces Back, but the Market Needs More as AI Fears Linger",
+            "summary": "There wasn\u2019t an obvious catalyst driving shares higher, but they were probably just benefiting from a broader market rebound.",
+            "published_at": "2026-11-02T10:08:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5b461aace7b9e66b821dc536b5bde07aef840d73e5105afdcfb4ca3732000529",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell to Buy Lumentum in $115 Billion All-Stock Deal",
+            "summary": "Marvell to acquire Lumentum in a $115B all-stock deal, targeting the growing $550B artificial intelligence connectivity market.",
+            "published_at": "2026-11-02T09:52:54+00:00",
+            "url": "https://finnhub.io/api/news?id=23d8090e760ff8865262860c9f38202fce23330418b247728a64c8db05e07e08",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Marvell Technology CEO Says Expect Combined Entity With Lumentum To Become One Of Top Five Largest AI Infrastructure Semiconductor Companies",
+            "summary": "Marvell CFO says expect transaction to accelerate revenue growth and be accretive to our non-gaap gross and operating margins, inclusive of the $1 billion-plus in run rate synergies that we primarily see from COGS;",
+            "published_at": "2026-11-02T09:42:09+00:00",
+            "url": "https://finnhub.io/api/news?id=baa4db92fbc60bff0491e3cccecf9980e84fab5e2222378905765a6c9c2cc481",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stock Market Today: Intel\u2019s Worst Day in Four Decades Drags Chips and the Nasdaq to a Rough October Finish",
+            "summary": "Intel lost nearly 29% and dragged chip stocks lower as the Nasdaq had its worst day since June. Oil rose about 15% in October, Treasury yields fell, and Regeneron, FedEx Freight and the oil majors went the other way.",
+            "published_at": "2026-11-02T08:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0d242a5bdd68598220ecbb4487968bad8e58473bdcbfe5ae732396b4ffa34819",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Is Lumentum Stock a Buy Right Now as Marvell Considers Takeover?",
+            "summary": "Lumentum is experiencing increasing revenue growth as demand for its products accelerates, amid speculation that Marvell Technology may be considering a takeover of the company. The article examines whether Lumentum represents a good investment opportunity in this context.",
+            "published_at": "2026-11-02T08:41:01+00:00",
+            "url": "https://www.fool.com/investing/2026/11/02/is-lumentum-stock-a-buy-right-now-as-marvell-considers-takeover/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Marvell Technology Confirms Will Acquire Lumentum For 4.5 MRVL Shares Per LITE Share In An All-Stock Deal Valuing LITE At $1,132/Share With An Implied EV Of $115B",
+            "summary": "Compelling Strategic and Financial RationaleThe combination is expected to deliver substantial strategic and financial benefits:Creates a category leader in AI connectivity: Combining Marvell&#39;s electrical and",
+            "published_at": "2026-11-02T08:10:12+00:00",
+            "url": "https://finnhub.io/api/news?id=2e02547ee2a561508e16334d86976629fce69c016e0f3ea4d495594e3718ae27",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Asian shares mostly advance but tech stocks remain volatile, while oil sinks 3.3%",
+            "summary": "HONG KONG (AP) \u2014 Asian shares were mostly higher Monday but technology stocks remained volatile, while oil prices fell more than 3%. futures edged higher after Wall Street fell Friday to its worst day since June as investors dumped technology- and artificial intelligence-related stocks.",
+            "published_at": "2026-11-02T05:29:25+00:00",
+            "url": "https://finnhub.io/api/news?id=b42c7fd63625cc0c6d0baa612b767991466d6985d6744df1bb851bd49a149a50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Stock: Buy or Sell?",
+            "summary": "Marvell Technology stock fell over 10% on October 29, 2026, amid acquisition talks with Lumentum. The article evaluates whether investors should buy Marvell stock, considering factors like its valuation relative to record highs and future growth prospects through 2030.",
+            "published_at": "2026-11-01T09:02:02+00:00",
+            "url": "https://www.fool.com/investing/2026/11/01/marvell-stock-buy-or-sell/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Earnings Volatility Watch: 10 Stocks Are Set to Swing More Than 10% This Week",
+            "summary": "Ten stocks carry implied earnings moves above 10% next week, led by Moderna and AppLovin. Five are tech names hit in Friday&#39;s chip rout.",
+            "published_at": "2026-11-01T08:30:07+00:00",
+            "url": "https://finnhub.io/api/news?id=11580ea46adbde2a6243b452b62d658eeaae614850c1595b883ece0ea213f70f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Lumentum Is Up 11% in a Week. Will Marvell Pay \u201cClose to $100 Billion\u201d?",
+            "summary": "Key TakeawaysLumentum rose 11% in a week on an optics rebound and a Bloomberg report that Marvell Technology is in advanced talks to buy it. A deal reportedly paid in Marvell stock would tie any premium to Marvell\u2019s share price.",
+            "published_at": "2026-10-31T18:04:15+00:00",
+            "url": "https://finnhub.io/api/news?id=f5ca7ddf54214de92b35c22baa24864ec3b01f8d92b4063dfa4f2e141a2b0952",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wall Street Is Getting More Interested in Credo. Here\u2019s My Price Prediction",
+            "summary": "Credo just posted triple-digit revenue growth and still trades at a steeper discount than its closest rivals, yet the stock has fallen nearly 20% in a single month. Something in this picture does not add up, and the answer points to a price target most analysts have not caught up to yet.",
+            "published_at": "2026-10-31T15:33:50+00:00",
+            "url": "https://finnhub.io/api/news?id=61a88af2acea16be66f786ec09fbcafe997896f7dc73405d438724dc97c45e01",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum Jumped on Reports Marvell Is in Late-Stage Talks to Acquire the Company. LITE Stock Is a Buy No Matter What.",
+            "summary": "Lumentum jumped 15% in after-hours trading on October 28 after reports that Marvell is in late-stage talks to acquire the company, with a deal potentially possible as soon as early November.",
+            "published_at": "2026-10-31T14:34:56+00:00",
+            "url": "https://finnhub.io/api/news?id=de891f8b59f858068f969abf2d464c3a462aee7677f51d2d479fcdd28c7d3caf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Prediction: This Under-the-Radar AI Stock Could Have a Big 2030 Ahead",
+            "summary": "Marvell Technology has quietly become one of the purest plays on AI data center buildout, and its CEO is calling the upside in coming years game-changing. But getting to $500 by 2030 demands three very specific things to break exactly right.",
+            "published_at": "2026-10-31T14:33:55+00:00",
+            "url": "https://finnhub.io/api/news?id=a8056ece0a0ef75d0864fd4035b017900bf748fe6cb5e5dcd30ab9c95db8ef25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Piper Sandler\u2019s $400 Target Says Marvell\u2019s Selloff Went Too Far",
+            "summary": "Key TakeawaysMarvell stock is down 41% from its June high after reports that it\u2019s in advanced talks to buy Lumentum, reportedly in an all-stock deal. Piper Sandler kept its Overweight rating and $400 target, 104% above the current price, and pointed to Lumentum\u2019s lasers as key to faster, lower-power AI networks.",
+            "published_at": "2026-10-31T14:24:30+00:00",
+            "url": "https://finnhub.io/api/news?id=ef71a4b3e0394793097b4c1ed1b370a47d361debabe4ac9f54c37827d67d027f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Sinks 14% in a Week on Lumentum Talks: Chipmakers Like It \u201cDon\u2019t Have a Choice\u201d",
+            "summary": "Key TakeawaysMarvell Technology fell 14% in the past week on reported Lumentum talks, then in a chip selloff after Intel\u2019s weak outlook. Lumentum\u2019s lasers would make Marvell a bigger Broadcom rival and give Coherent a competitor backed by Marvell\u2019s chips.",
+            "published_at": "2026-10-31T14:07:56+00:00",
+            "url": "https://finnhub.io/api/news?id=d24e99c282495f8443c811863b4c5d17e75bfdc67fc718bc7d172edff74db37b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Lumentum: Buy Before Earnings And A Potential Takeover (Rating Downgrade)",
+            "summary": "Lumentum is rated a Buy on the expectations margin expansion due to higher prices from sold-out capacity. Read more for an investing guidance in LITE.",
+            "published_at": "2026-10-31T12:16:11+00:00",
+            "url": "https://finnhub.io/api/news?id=4dfd0d58e1961aae83b1417cbc600c93a07e943b82302a36ec77a49dc6670185",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Benzinga Bulls and Bears: Carvana, Rivian, Amazon",
+            "summary": "Benzinga examined the prospects for many investors\u2019 favorite stocks over the last week \u2014 here\u2019s a look at some of our top stories.",
+            "published_at": "2026-10-31T08:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=67837fce3fc82425cbc8e512a3a46448ee4f7ce000f5b84c4a3e42cbc0136967",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Coherent Stock Fell 11% as Intel and Amazon Earnings Hit AI Hardware Stocks. Here\u2019s Where the Stock Could Go",
+            "summary": "Key Stats for Coherent StockCurrent Price: $210. 32Target Price (Mid): ~$794Street Target: ~$394Potential Total Return: ~278%Annualized IRR: ~33% / yearWhat Happened?Coherent (COHR:NYSE) fell 11.",
+            "published_at": "2026-10-31T07:15:12+00:00",
+            "url": "https://finnhub.io/api/news?id=c406ddf6b44b6ead86cb1d7597111211089282dcf6fe8995f84a3b7d63193e8c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "8 Months Ago, A Major Wall Street Bank Said Buy Marvell. It\u2019s Up More Than 150%. Here\u2019s Where We See the Stock Going",
+            "summary": "BofA upgraded Marvell into a brutal slide and the stock went on a wild ride that has left investors wondering whether the latest pullback is another gift or the beginning of something worse.",
+            "published_at": "2026-10-30T20:17:36+00:00",
+            "url": "https://finnhub.io/api/news?id=b799c368b0dc4457243178034926a3994faa20f0ac10c05c40f539b82437f717",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Tech Selloff Wipes Out $1 Trillion In Value",
+            "summary": "AI worries sting major indices. Intel clocks it worst day since 1974. Nvidia loses $5 trillion market cap",
+            "published_at": "2026-10-30T20:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f26129947c194af88d4ea11cedace9240c353d45db4d201162afae4d338f3b99",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Jim Cramer looks ahead to next week's market game plan",
+            "summary": "'Mad Money' host Jim Cramer looks ahead to next week's market moving moments.",
+            "published_at": "2026-10-30T19:39:19+00:00",
+            "url": "https://finnhub.io/api/news?id=c5afebf5894f431d8bfdba044b7d7047fc3d9ad8a482debdb77e2f38d159c2aa",
+            "source": "CNBC"
+          },
+          {
+            "headline": "S&P 500 Most-Active Stocks: Oct. 30, 2026",
+            "summary": "S&P 500 most-active stocks on Oct. 30, 2026 included Reddit and Marvell double-digit declines, while AT&T, Pfizer and Keurig Dr Pepper rose.",
+            "published_at": "2026-10-30T19:06:16+00:00",
+            "url": "https://finnhub.io/api/news?id=cc3041a9b2f9c2901eb49505eed2f9508d6b60d08adcc9bba455ebf19e7464d6",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Marvell may buy its own laser supplier as investors pull back",
+            "summary": "Analysts say Marvell\u2019s reported talks make sense on paper. One number is giving its shareholders cold feet.",
+            "published_at": "2026-10-30T17:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f5178585465bd27f85e68654b05333e80b9d5f5fa68c85c2494ddef872b112c4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 semiconductor stocks to keep an eye on and 1 we question",
+            "summary": "Semiconductors are the core infrastructure powering the Information Age. Still, they\u2019re subject to swings in the broader economy because customers often stockpile chips ahead of demand, and investors seem to believe that inventory levels are correcting - over the past six months, the industry has shed 4.5%. This drawdown is a far cry from the S&P 500\u2019s 7.5% ascent.",
+            "published_at": "2026-10-30T17:15:29+00:00",
+            "url": "https://finnhub.io/api/news?id=9f22ef619aa7b2e1a00b14804123cb46127af54cd4e74b1cd4dc55cac0fca688",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Applied Optoelectronics Plunges 15%, Coherent Tumbles 13% as Hyperscaler Spending Fears Hit AI Optics Stocks; Lumentum and Marvell Sink 10%",
+            "summary": "Google's cash burn just torched half a trillion dollars in market value, and the shockwave is now tearing through the optical suppliers that keep AI data centers running. Whether their sold-out order books can absorb the fallout is the question every trader is scrambling to answer.",
+            "published_at": "2026-10-30T16:57:26+00:00",
+            "url": "https://finnhub.io/api/news?id=853742c8081dcdf82ae36430fe967e33824508ee0106fc80121a2a26d47f5869",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should You Buy, Sell, or Hold ALAB Stock Before Q3 Earnings Release?",
+            "summary": "Astera Labs' Q3 earnings outlook looks promising on strong AI demand and Scorpio growth, but high valuation and margin pressures warrant caution.",
+            "published_at": "2026-10-30T16:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5940710a9145edf746ed67ac2bb622c706b0e3077efb4c86e8bcdb83239c2b9f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Broadcom Falls 5% Despite DA Davidson Upgrade on Anthropic and OpenAI IPO Hopes; Arm and Qualcomm Sink 10%, Marvell Drops 8%",
+            "summary": "A bullish upgrade tied to Anthropic's upcoming IPO failed to protect Broadcom as a sector-wide chip selloff dragged AI semiconductor names sharply lower, raising fresh doubts about whether the AI spending boom can sustain its momentum.",
+            "published_at": "2026-10-30T14:56:49+00:00",
+            "url": "https://finnhub.io/api/news?id=6c7ffa73b65110965c367031c2786a861fa3b8672294fa7fa3f078fc993d68e8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Marvell Stock Hit $310?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T14:35:25+00:00",
+            "url": "https://finnhub.io/api/news?id=1f6149749510a6adb7b1d12fc4fdfd7fc437805b8ad80c607d1e2e93a74d9009",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MRVL vs. SNDK: Which AI Infrastructure Stock is a Safer Bet?",
+            "summary": "Sandisk's surging enterprise SSD demand, expanding profitability and attractive valuation strengthen its AI infrastructure growth outlook compared with Marvell Technology.",
+            "published_at": "2026-10-30T14:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b753a4a2215dc6fd68cb548f7a0e3691c5ea37776c2d7d814a519a862c14776b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Other Elon Musk ETF Responds as Tesla Tops $100",
+            "summary": "",
+            "published_at": "2026-10-30T14:11:03+00:00",
+            "url": "https://finnhub.io/api/news?id=e42b3627f12e6226392494f6e97ac3f5053bdc5406bd9a5873c25295a3fc84d4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Is Marvell Technology (MRVL) Cheap After Its Lumentum Deal Talks Sent Shares Lower?",
+            "summary": "Marvell Technology (MRVL) is back in focus after reports it is in advanced talks to acquire data center optics specialist Lumentum in a potential all stock transaction closely tied to AI infrastructure demand. That backdrop helps explain the sharp move in Marvell Technology\u2019s share price, which fell about 13.2% in the latest session and is down roughly 17.4% over the past month, even though the 90 day share price return is positive and the year to date share price return of 144.3% sits...",
+            "published_at": "2026-10-30T14:10:38+00:00",
+            "url": "https://finnhub.io/api/news?id=3bdfa6f31c1f8eab5e27b7fefe8f31459b28243d200e0af5d834270972b2dcf8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Agents Show Up In The Numbers",
+            "summary": "Anthropic's S-1 reignited interest in AI this week, with investors discussing a $1.5\u00e2\u0080\u00932 trillion valuation. The megacaps that reported after it failed to impress. Read more here...",
+            "published_at": "2026-10-30T14:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5f42a7d0649941a747b2946a8c234e8eee78723d94c6a3f698013fd9a164b504",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Can You Make Money Off NVIDIA Stock Now?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T13:42:03+00:00",
+            "url": "https://finnhub.io/api/news?id=06451afffd96006349c30e51e8e8a049be657ceec31b3f9ed7082b9fc7eaa123",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Broadcom Stock Priced Right Against Its Peers?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T13:39:53+00:00",
+            "url": "https://finnhub.io/api/news?id=bfcfd231bc21bf3e0ad6a6c23f646c24fb894df2ebf7f25da82edf845c451f9c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "10 Information Technology Stocks With Whale Alerts In Today\u2019s Session",
+            "summary": "This whale alert can help traders discover the next big trading opportunities.\nWhales are entities with large sums of money and we track their transactions here at Benzinga on our options activity scanner.\nTraders often",
+            "published_at": "2026-10-30T13:35:10+00:00",
+            "url": "https://finnhub.io/api/news?id=844653e7348fabf501e0a4266f0c6dcf10e1956bed715282d392ffdd65e1cf1d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Black Friday Came Early for Chipmakers: Intel and 10 Other Stocks Are More Than 20% Off This Month",
+            "summary": "Intel and 10 other chip stocks, from Cerebras to Marvell, have lost more than 20% in October, yet 10 of the 11 remain up for 2026. SOXX is down 16.5%.",
+            "published_at": "2026-10-30T12:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=3ff4847199255c6615ac2b73efc97f60730b92ba6c23760e4148d49a5e983e5b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "What to Expect From Marvell Technology's Q3 2027 Earnings Report",
+            "summary": "Marvell Technology will release its third-quarter earnings soon, and analysts anticipate a double-digit bottom-line growth.",
+            "published_at": "2026-10-30T11:23:42+00:00",
+            "url": "https://finnhub.io/api/news?id=bba88fd85e630e516559af0765a0866b487b10692fce8601ccd0c0e30f001fdc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell in advanced talks to buy Nvidia-backed Lumentum \u2013 report",
+            "summary": "The report said the discussions are private and the proposed deal could be announced as soon as next week.",
+            "published_at": "2026-10-30T11:12:02+00:00",
+            "url": "https://finnhub.io/api/news?id=29d468164ccbc994798daf836dd36039ac9e18777165b1f7c29d51a170f1c2eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marvell Rumored to Buy Lumentum in Major Challenge to Broadcom: Counterpoint",
+            "summary": "Marvell and Lumentum stocks dropped premarket on buyout rumors as Marvell aims to secure critical AI laser fabs and tackle the shift toward co-packaged optics.",
+            "published_at": "2026-10-30T10:10:07+00:00",
+            "url": "https://finnhub.io/api/news?id=b8022f2c4515235f9ecf19e02482c0a9b6c76e7b5dbea37105499bb63c4f73a6",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 196.4,
+      "jev": null
+    },
+    {
+      "ticker": "PBLS",
+      "predicted_return": 0.4831217201290252,
+      "open_price": 28.13,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 28.32,
+      "jev": null
+    },
+    {
+      "ticker": "BWLP",
+      "predicted_return": 0.4785862990103098,
+      "open_price": 24.42,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:37:26.004905+00:00",
+        "articles": []
+      },
+      "prev_close": 25.01,
+      "jev": null
+    },
+    {
+      "ticker": "LBRT",
+      "predicted_return": 0.4705327907696518,
+      "open_price": 16.74,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:38:22.900011+00:00",
+        "articles": []
+      },
+      "prev_close": 16.88,
+      "jev": null
+    },
+    {
+      "ticker": "SIND",
+      "predicted_return": 0.4637534877755572,
+      "open_price": 11.57,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:38:22.900201+00:00",
+        "articles": [
+          {
+            "headline": "Sinda Ltd. Reports Third Quarter 2026 Results, Highlighting Continued Drilling Success and Notable Progress Toward the Caracol Exploration Decline",
+            "summary": "SAN MIGUEL DE ALLENDE, Mexico, November 02, 2026--Sinda Ltd. (NYSE: SIND) (\"Sinda\" or the \"Company\") today announced third quarter 2026 results and the filing of its Form 10-Q.",
+            "published_at": "2026-11-02T11:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f3d1956fed71bb1296f02db12b960af99fde046f0f2d859ce68e56ef6adcb357",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sinda Q3 EPS $(0.10) Misses $(0.07) Estimate",
+            "summary": "Sinda (NYSE:SIND) reported quarterly losses of $(0.10) per share which missed the analyst consensus estimate of $(0.07) by 42.86 percent. This is a 400 percent decrease over losses of $(0.02) per share from the same",
+            "published_at": "2026-11-02T07:47:32+00:00",
+            "url": "https://finnhub.io/api/news?id=32cdb61f41d6e6a6fd94a051460feffef4444389198147825047263a3b1e2443",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 11.69,
+      "jev": null
+    },
+    {
+      "ticker": "INVX",
+      "predicted_return": 0.44460533665099344,
+      "open_price": 27.02,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:36:54.358485+00:00",
+        "articles": [
+          {
+            "headline": "Is Innovex International (INVX) Undervalued After Q3 Earnings And New Revenue Guidance?",
+            "summary": "Q3 earnings reset the conversation around Innovex International Innovex International (INVX) put fresh numbers on the table with third quarter results, reporting higher sales but lower profit and earnings per share compared with the same period last year. The latest Q3 release and new fourth quarter revenue guidance landed alongside a sharp 1 day share price decline of 6.4%. Yet Innovex International still carries a year to date share price return of 23.27% and a 1 year total shareholder...",
+            "published_at": "2026-11-01T08:12:28+00:00",
+            "url": "https://finnhub.io/api/news?id=bceea32200847fbf8db5cebe106da12af7c3ab7cac553e873114381eae68cd66",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Innovex International (INVX) Secures More Than $30 Million Indonesia Subsea Contract",
+            "summary": "Innovex International (NYSE:INVX) reported strong Q3 2026 results on 30 October, citing profitable growth from technology and operations investments. The group secured a major subsea wellhead contract in Indonesia, extending its reach in international offshore projects. Further subsea work was awarded through the OneSubsea Alliance, adding new projects to Innovex International's order pipeline. The Q3 2026 performance and new subsea contracts only capture part of Innovex International's...",
+            "published_at": "2026-10-31T15:14:48+00:00",
+            "url": "https://finnhub.io/api/news?id=976ba7606dae78dd375608701c5e19eb232f41400c1e2657357b5058a9810da9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Innovex (INVX) Q3 2026 Earnings Call Transcript",
+            "summary": "Revenue hit $265 million with 21% EBITDA margins as subsea backlog surged.",
+            "published_at": "2026-10-30T19:00:31+00:00",
+            "url": "https://finnhub.io/api/news?id=be7164e92929f3eb4d175193e44252718b1e0f4bfc78c90b911e7615f420d89f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Innovex International, Inc. Q3 2026 Earnings Call Summary",
+            "summary": "Moby summary of Innovex International, Inc.'s Q3 2026 earnings call",
+            "published_at": "2026-10-30T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a75e692e1601f6bcee5e325ae2ef67947a444a8f27f42047018058729d2b7190",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Innovex International, Inc. 2026 Q3 - Results - Earnings Call Presentation",
+            "summary": "2026-10-30. The following slide deck was published by Innovex International, Inc.",
+            "published_at": "2026-10-30T12:29:49+00:00",
+            "url": "https://finnhub.io/api/news?id=5ac74f09bd059d6fbf7f294495b620f1e708dfc8feb4dcf2914d3eb7608eb683",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Innovex International, Inc. (INVX) Q3 2026 Earnings Call Transcript",
+            "summary": "Innovex International, Inc. (INVX) Q3 2026 Earnings Call October 30, 2026 9:00 AM EDTCompany ParticipantsJason DoanAdam Anderson - CEO & DirectorKendal...",
+            "published_at": "2026-10-30T12:28:39+00:00",
+            "url": "https://finnhub.io/api/news?id=7c94ea4f03e3f68115e81f564223fa97e7b498c6bbbe5a989fd6bbeb07c6bb86",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Innovex International Q3 2026 Earnings Call Transcript",
+            "summary": "Innovex International (NYSE:INVX) reported third-quarter financial results on Friday. The transcript from the company\u2019s third-quarter earnings call has been provided below.This transcript is brought to you by Benzinga",
+            "published_at": "2026-10-30T09:42:59+00:00",
+            "url": "https://finnhub.io/api/news?id=6e92d921747b97be389e2a0ba858588d20de4bc25147bbd996ce9e9b58b4001f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Pinterest Posts Downbeat Q3 Results, Joins Intel, Roblox, Twilio And Other Big Stocks Moving Lower In Friday\u2019s Pre-Market Session",
+            "summary": "U.S. futures fell as Pinterest missed Q3 estimates and cut guidance; Intel, ATEC, Reddit, Roblox and others slid sharply premarket.",
+            "published_at": "2026-10-30T08:04:08+00:00",
+            "url": "https://finnhub.io/api/news?id=3028872083341109e44fc4a7429b0146daf772cb0f684e27fceb4d67a28790bc",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 28.08,
+      "jev": null
+    },
+    {
+      "ticker": "TWLO",
+      "predicted_return": 0.4333640445213417,
+      "open_price": 203.69,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 33,
+        "reviewed_count": 33,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-02T14:37:36.732071+00:00",
+        "articles": [
+          {
+            "headline": "Stock Market Today: Intel\u2019s Worst Day in Four Decades Drags Chips and the Nasdaq to a Rough October Finish",
+            "summary": "Intel lost nearly 29% and dragged chip stocks lower as the Nasdaq had its worst day since June. Oil rose about 15% in October, Treasury yields fell, and Regeneron, FedEx Freight and the oil majors went the other way.",
+            "published_at": "2026-11-02T08:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0d242a5bdd68598220ecbb4487968bad8e58473bdcbfe5ae732396b4ffa34819",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "CPaaS Market Value to Exceed $50 Billion Globally by 2031, as Infobip, Twilio, and Sinch Identified as Market Leaders",
+            "summary": "Juniper Research CPaaS Competitor Leaderboard 2026 The infographic shows the top five CPaaS vendors in the Juniper Research Competitor Leaderboard 2026. BASINGSTOKE, United Kingdom, Nov. 02, 2026 (GLOBE NEWSWIRE) -- A new study by global tech strategists Juniper Research predicts that total CPaaS revenue will more than double over the next five years; growing from $21 billion in 2026. The report identified the rise in conversational AI and authentication use cases as key drivers of growth, with",
+            "published_at": "2026-11-02T07:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=83194dbc879edee80ebee06d7cc2547a166a95852cd206e9fadd29f1cf06f667",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is Twilio Stock Falling?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-11-02T01:23:18+00:00",
+            "url": "https://finnhub.io/api/news?id=7080935a8b86ee5aae98509460adc6b091d8941fceb343a48406fa05d2f22d0e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "TWLO Q3 deep dive: messaging deceleration and AI adoption shape outlook",
+            "summary": "Customer engagement platform Twilio (NYSE:TWLO) announced better-than-expected revenue in Q3 2026, with sales up 19.9% year on year to $1.56 billion. Guidance for next quarter\u2019s revenue was better than expected at $1.6 billion at the midpoint, 1.2% above analysts\u2019 estimates. Its non-GAAP profit of $1.65 per share was 12.4% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-10-31T22:59:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8081c65bc147918a91c73e5973299215f376d1afea98e91cf947d9045cc85f95",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio: 3 Key Takeaways for Long-Term Investors",
+            "summary": "Twilio reported record Q3 2026 quarterly revenue of $1.56 billion and free cash flow of $370 million, with adjusted operating profit up 39% year-over-year. The company raised its full-year organic growth target to 15% and projects 2027 organic revenue growth of at least 10%. Management highlighted AI voice adoption at under 1% penetration as a major growth opportunity, along with operational discipline driving margin expansion.",
+            "published_at": "2026-10-31T16:41:01+00:00",
+            "url": "https://www.fool.com/earnings/takeaways/2026/10/31/twilio-3-key-takeaways-for-long-term-investors/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Why Twilio (TWLO) stock is down today",
+            "summary": "Shares of customer engagement platform Twilio (NYSE:TWLO) fell 17.6% in the morning session after the company projected slower fourth-quarter organic revenue growth in its quarterly earnings report.",
+            "published_at": "2026-10-31T15:23:29+00:00",
+            "url": "https://finnhub.io/api/news?id=8c89a40e62c261983be2222ce26fdb8c8be52234366d02a2bae7e56a9c134ca6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio (TWLO) Stock Price Sinks As Q3 Earnings Raise Growth Doubts",
+            "summary": "Twilio shareholders woke up to a shock. The stock slumped about 15% to roughly US$205 in the first full trading session after Q3 2026 numbers hit, wiping away a chunk of recent gains in a single move. The headline print told a different story. Twilio reported about US$1.56b in quarterly revenue and record non GAAP operating income of US$326m, plus record free cash flow of US$370m. This marks a powerful shift for a business long judged on growth more than profitability. Short term traders...",
+            "published_at": "2026-10-31T12:09:36+00:00",
+            "url": "https://finnhub.io/api/news?id=15a838a80dc690d441034a714a7a6080bdb0cd95e19df3c77b284807b173f6c4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Benzinga Bulls and Bears: Carvana, Rivian, Amazon",
+            "summary": "Benzinga examined the prospects for many investors\u2019 favorite stocks over the last week \u2014 here\u2019s a look at some of our top stories.",
+            "published_at": "2026-10-31T08:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=67837fce3fc82425cbc8e512a3a46448ee4f7ce000f5b84c4a3e42cbc0136967",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "What Twilio (TWLO) Said on Its Q3 Earnings Call",
+            "summary": "Twilio (NYSE:TWLO) reported third-quarter revenue growth that exceeded its guidance range, citing broad-based demand across messaging, voice, software add-ons, self-service and independent software vendor customers. The company also raised its full-year outlook for revenue, operating income and free",
+            "published_at": "2026-10-31T06:14:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c1992eff9e78103f33121a9ca458616c88587067b2d77096eea36dd0431fab63",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio (TWLO) Stock Fair Value Edges Higher As AI Optimism Meets Valuation Caution",
+            "summary": "Twilio's modeled fair value has shifted from US$268.39 to US$274.44, indicating a slightly higher price target in recent research updates. This change comes alongside a mix of upbeat and cautious analyst commentary, with bulls focused on AI agent driven use cases and bears questioning how much of that story is already reflected in the stock after its recent index moves and rally. As you read on, you will see how to track these evolving views and what to watch as the Twilio narrative develops...",
+            "published_at": "2026-10-31T00:17:49+00:00",
+            "url": "https://finnhub.io/api/news?id=5072487f733ee8544bfeb9d6e0a9e0e13dc34e843f75d572cfcd61cdf50e7a28",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "JP Morgan Maintains Overweight on Twilio, Lowers Price Target to $300",
+            "summary": "JP Morgan  analyst Mark Murphy   maintains Twilio (NYSE:TWLO) with a Overweight and lowers the price target from $335 to $300.",
+            "published_at": "2026-10-30T20:10:52+00:00",
+            "url": "https://finnhub.io/api/news?id=b438845f1b18edc315bcf5e40d452619d94343f138eceeb09745ba78e7e4852a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Twilio (TWLO) Stock Dropped, So What Is Driving Attention Now?",
+            "summary": "Twilio (TWLO) just released a busy Q3 update, reporting revenue and earnings above expectations along with higher full year guidance and new Q4 targets that immediately put the stock under the microscope. Twilio\u2019s upbeat Q3 and raised 2026 outlook landed against a sharp reset in expectations, with the share price falling 4.7% on the day and down 16.8% over the past month, even after a 74.8% year to date share price return and a 114.3% one year total shareholder return that still point to...",
+            "published_at": "2026-10-30T20:07:48+00:00",
+            "url": "https://finnhub.io/api/news?id=2e4fb1dec1813c7ced98c32883b7795f236124b4c8507d95653d2d4fa4d4ab49",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Gainers and Losers in Today's US Session",
+            "summary": "S&P 500 top percentage movers in today's US session, led by FDXF gainer and INTC decliner, with gainers and losers ranked by latest prices.",
+            "published_at": "2026-10-30T20:06:04+00:00",
+            "url": "https://finnhub.io/api/news?id=a44171cddfb342446f40d46de2d93a46c7e83ee351259121874ff7dd3fb7086d",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Gainers and Losers in Today's Session",
+            "summary": "S&P 500 top movers for today's session include FDXF up 16.16% and INTC down 30.00%, with double-digit gains and losses across the index.",
+            "published_at": "2026-10-30T17:36:08+00:00",
+            "url": "https://finnhub.io/api/news?id=c7fdf0d093916eaabf7e3b5a1192bc4933eff6dc79e5caf546977cc4495f5410",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "TWLO Stock On Track To Post Worst Single-Day Performance In Over A Year, Drops To 3-Month Low: CEO Says Long-Term 'Tailwinds Are Intact'",
+            "summary": "In an interview with CNBC, CEO Khozema Shipchandler highlighted the demand for voice, email, and messaging infrastructure used by AI agents.",
+            "published_at": "2026-10-30T16:28:08+00:00",
+            "url": "https://finnhub.io/api/news?id=5f28016b05bad5b560293b201848cf20b3f4d846d458de2f5a54bb8f5778b06f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Gap Movers for October 30, 2026",
+            "summary": "S&P 500 gap movers on October 30, 2026 included FDXF, VLTO, GILD and INCY on the upside, while INTC, RDDT and TWLO were among the gap-down decliners.",
+            "published_at": "2026-10-30T15:36:32+00:00",
+            "url": "https://finnhub.io/api/news?id=ac8232d0cea4ab1e6508fb2301b0692c5743ff5b0256286bb22517e22aa2a1af",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Twilio (TWLO) Q3 2026 Earnings Call Transcript",
+            "summary": "Record free cash flow and raised guidance signal strong AI momentum.",
+            "published_at": "2026-10-30T14:44:20+00:00",
+            "url": "https://finnhub.io/api/news?id=86296ae3e5d58f570fef226a389343c0e1f06858a929d0a0cd307c98ff925581",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wells Fargo Maintains Overweight on Twilio, Lowers Price Target to $275",
+            "summary": "Wells Fargo  analyst Ryan Macwilliams   maintains Twilio (NYSE:TWLO) with a Overweight and lowers the price target from $300 to $275.",
+            "published_at": "2026-10-30T14:36:00+00:00",
+            "url": "https://finnhub.io/api/news?id=91c0d3b69c7a202bf7878717c0dcb7452fd8f20803cee08bc97887deb27bd17a",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Twilio shares fall 18% despite earnings beat as fourth-quarter growth outlook slows",
+            "summary": "Twilio Inc (NYSE:TWLO), the customer communications platform, reported third-quarter revenue of $1.56 billion, up 20% and ahead of the $1.52 billion analysts expected, but its shares fell 18% as slowing growth caused concern for investors. Adjusted earnings per share, which exclude certain...",
+            "published_at": "2026-10-30T14:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a88ee41c5f44f991cb7365d1cc9b09dd7d50606b14fd7a62b849d9d98fca8f29",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Trading Halt: Halt status updated at 8:55:00 AM ET: Quotation Resumption: News and Resumption Times",
+            "summary": "",
+            "published_at": "2026-10-30T14:15:38+00:00",
+            "url": "https://finnhub.io/api/news?id=83a6fc1b8761f53971e99515bab3ebe39a51264dd31d8db112bd3c86f8b8d5d5",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Twilio Sinks 17% on Slowing Q4 Growth Guide as Beat Turns \u201cMore Modest and More Normalized\u201d",
+            "summary": "Key TakeawaysTwilio shares fell 17% after a third-quarter beat and a raised 2026 outlook, as its fourth-quarter guide called for organic growth of 11%-12%, down from 16%. The guide and an early 2027 floor of 10% organic growth suggest this year\u2019s pickup is fading.",
+            "published_at": "2026-10-30T14:02:17+00:00",
+            "url": "https://finnhub.io/api/news?id=cae4fb0e6cf88bb8bd2a85c0a57cfb47202421bbd209318fbea792fa1abad4ed",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 Premarket Gainers and Losers on Oct. 30, 2026",
+            "summary": "S&P 500 premarket movers for Oct. 30, 2026, including MDLZ, REGN and CL among gainers, and INTC, RDDT and TWLO among decliners.",
+            "published_at": "2026-10-30T13:36:25+00:00",
+            "url": "https://finnhub.io/api/news?id=f22872d6e0272c8669e32fbda3463c3c58797c748cc6622ca28248a3310b49eb",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Twilio Q3 Earnings Beat Estimates on Strong Revenue Growth",
+            "summary": "TWLO's Q3 earnings beat estimates as strong messaging, voice and AI demand fuel 20% revenue growth, improve profitability and raise its 2026 outlook.",
+            "published_at": "2026-10-30T13:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d68f2da974fd545ab071fd9e0faf310feddea512c7f4759ac8041340ae556e21",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Trade Tracker: Joe Terranova stopped out of his Twilio position",
+            "summary": "Joe Terranova, senior managing director for Virtus Investment Partners, joins CNBC's \"Halftime Report\" to break down what happened to his Twilio trade.",
+            "published_at": "2026-10-30T12:36:01+00:00",
+            "url": "https://finnhub.io/api/news?id=fc8367ce4fc280ca54f8c4b9d1d29435fe85896feb1278491e330868d981dc3a",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Twilio Inc. Q3 2026 Earnings Call Summary",
+            "summary": "Moby summary of Twilio Inc.'s Q3 2026 earnings call",
+            "published_at": "2026-10-30T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=37868e73c40114b7b442a5b70e122caac82ec2f5baf8e65373f0de1cf7fdc0a6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio Stock Sinks as Slowing Growth Throws \u2018Cold Water\u2019 on Benefits From AI",
+            "summary": "Twilio\u2019s better-than-expected third-quarter earnings fail to win over Wall Street.",
+            "published_at": "2026-10-30T12:11:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4e673168cbee058e5570cda6e1126035a357c21750f364dc943271cfd182b8d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio CEO Khozema Shipchandler: The need for AI agent infrastructure will provide tailwinds for us",
+            "summary": "Twilio CEO Khozema Shipchandler joins 'Squawk on the Street' to discuss the company's latest earnings report, consumer AI agents, and more.",
+            "published_at": "2026-10-30T11:33:27+00:00",
+            "url": "https://finnhub.io/api/news?id=be1af7f6875a038f06d931f7203ea0fa5d21dc62b844ff2425a8dafc72483428",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Dow Jones Futures: Nasdaq Futures Plunge 2% On Amazon, Intel After Google, ServiceNow, Fortinet Dive",
+            "summary": "Amazon, Intel and Illumina were earnings losers overnight after Google, ServiceNow and Fortinet slammed techs. Much of the market is doing fine.",
+            "published_at": "2026-10-30T11:10:36+00:00",
+            "url": "https://finnhub.io/api/news?id=0fdf39e489331a1f170e179d499c839e0751206a22675c9e124cb900788002a8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio's Biggest Business Is Slowing, and That's a Problem for Its Growth Story",
+            "summary": "Twilio stock plunged 19% premarket despite Q3 beats, hit by slowing messaging growth and a soft Q4 organic revenue forecast.",
+            "published_at": "2026-10-30T08:32:22+00:00",
+            "url": "https://finnhub.io/api/news?id=977e04031e50943bec9cea22eeac33e9d8902b7a49797317202294d5cf9bca5c",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "12 Information Technology Stocks Moving In Friday's Pre-Market Session",
+            "summary": "Gainers\n\nHub Cyber Security (NASDAQ:HUBC) stock moved upwards by 23.4% to $0.17 during Friday&#39;s pre-market session. \nOneSpan (NASDAQ:OSPN) stock rose 21.13% to $24.41. The market value of their outstanding shares is",
+            "published_at": "2026-10-30T08:05:29+00:00",
+            "url": "https://finnhub.io/api/news?id=98ed0b105f69c722e06dadb3c92e9acf73bf5326e0e1a5cb21ce15c73e323fe8",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Pinterest Posts Downbeat Q3 Results, Joins Intel, Roblox, Twilio And Other Big Stocks Moving Lower In Friday\u2019s Pre-Market Session",
+            "summary": "U.S. futures fell as Pinterest missed Q3 estimates and cut guidance; Intel, ATEC, Reddit, Roblox and others slid sharply premarket.",
+            "published_at": "2026-10-30T08:04:08+00:00",
+            "url": "https://finnhub.io/api/news?id=3028872083341109e44fc4a7429b0146daf772cb0f684e27fceb4d67a28790bc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Needham Maintains Buy on Twilio, Lowers Price Target to $240",
+            "summary": "Needham  analyst Joshua Reilly   maintains Twilio (NYSE:TWLO) with a Buy and lowers the price target from $280 to $240.",
+            "published_at": "2026-10-30T07:29:04+00:00",
+            "url": "https://finnhub.io/api/news?id=11f9db2c9be883d64f247acdf882a34f14a709e23b1bdd886fa3133f5b0c862f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Civeo Shares Are Trading Higher By 20%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Civeo shares surged 19.9% after earnings beat estimates and FY2026 sales guidance rose; other premarket movers included SLGB, HUBC and ATEC.",
+            "published_at": "2026-10-30T05:03:03+00:00",
+            "url": "https://finnhub.io/api/news?id=50159ce484e9c92523911325867f26af8fe25df9abb92a7a12fa23f7fa6f45e5",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 205.03,
+      "jev": null
+    },
+    {
+      "ticker": "MAAS",
+      "predicted_return": 0.43029437372853463,
+      "open_price": 12.17,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 12.25,
+      "jev": null
+    },
+    {
+      "ticker": "CMBT",
+      "predicted_return": 0.42986016623487483,
+      "open_price": 17.93,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:36:54.367941+00:00",
+        "articles": []
+      },
+      "prev_close": 18.42,
+      "jev": null
+    },
+    {
+      "ticker": "TLK",
+      "predicted_return": 0.4091084052414295,
+      "open_price": 11.0,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 11.17,
+      "jev": null
+    },
+    {
+      "ticker": "FRO",
+      "predicted_return": 0.4045169031918201,
+      "open_price": 55.02,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:36:54.369110+00:00",
+        "articles": []
+      },
+      "prev_close": 56.9,
+      "jev": null
+    },
+    {
+      "ticker": "FICO",
+      "predicted_return": 0.4029233542453275,
+      "open_price": 704.65,
+      "snapshot_date": "2026-10-30",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-02T14:38:22.900404+00:00",
+        "articles": [
+          {
+            "headline": "He\u2019ll Add His Granddaughter as an Authorized User on His Credit Card. Her Credit Score Can Get a Boost, but Every Charge She Makes Is His to Pay",
+            "summary": "Adding a grandchild as an authorized user sounds like a simple gift, but every swipe of her card becomes his legal obligation, and one missed payment can leave marks on both of their credit reports.",
+            "published_at": "2026-10-31T18:08:05+00:00",
+            "url": "https://finnhub.io/api/news?id=e198b13f0f135faa0c5df22f5dd2422bfb66356d52ec2574fdad082e47b04c37",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which Gives You More High-Margin Software Growth, PTC Or Fair Isaac?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-10-30T12:59:18+00:00",
+            "url": "https://finnhub.io/api/news?id=2d11ddaee1d6a147cfc8b88c9b63b82e7173fd3ac2581509a95c59b5fb9387b6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fairway Home Mortgage, Movement Mortgage, Rate Join FICO\u00ae Preferred Program",
+            "summary": "BOZEMAN, Mont., October 30, 2026--FICO (NYSE: FICO), global analytics software leader, today announced that Fairway Home Mortgage, Movement Mortgage and Rate have enrolled in the FICO\u00ae Preferred Program and will continue to pull FICO\u00ae Scores across their mortgage lending operations.",
+            "published_at": "2026-10-30T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a8ec75d2a7b565042b2a36eeac5250d2aa676ae4a818aba40f380d93d5a845a8",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 711.23,
+      "jev": null
+    }
+  ],
+  "scored_count": 1861,
+  "skipped": [
+    {
+      "ticker": "AAPL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XOM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABBV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CVX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VRTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WMB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "REGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "D",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "O",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FANG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ETR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EXC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IDXX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PEG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBOE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FOXA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "L",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LYB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SBAC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AES",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRK-A",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SCCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CCJ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NVT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TSEM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LSCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VNOM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NBIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JAZZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RBC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRBG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BWXT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EQH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHKP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BMRN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BTSG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-A",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TEM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AEIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AXSM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALSN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KRYS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTCH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VOYA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LEA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RHP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CIFR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HNGE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OMF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MSA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "JAN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VNO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RIG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GTES",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TVTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TBBB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXNM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SXT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PIPR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SBRA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HESM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CRC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WAY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRGY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CBT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "IRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OTTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IDYA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DYN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OGN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRVL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USLM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ADEA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PPLI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NWL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BCC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LIFE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RNW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SUPN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VVX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CALX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HUBG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DRVN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VOYG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ICHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUPH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TILE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ALG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 24.72705970772543
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.028762818707046
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 4.707657216371933
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-30",
+    "model_trained_through": "2026-10-30",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

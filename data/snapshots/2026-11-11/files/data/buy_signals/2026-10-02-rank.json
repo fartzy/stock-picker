@@ -1,0 +1,1595 @@
+{
+  "as_of": "2026-10-02",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "FICO",
+      "predicted_return": 0.5834674986745553,
+      "open_price": 611.510009765625,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 21,
+        "reviewed_count": 21,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918135+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Stocktwits Wall Street Wrap: Analysts Turn Bullish On Sweetgreen, Target And Airbnb \u2013 Liquidia And FICO Face Downgrades",
+            "summary": "The changes reflect new views on restaurant demand, retail traffic, travel growth, drug risks and competition in financial data.",
+            "published_at": "2026-10-02T10:40:36+00:00",
+            "url": "https://finnhub.io/api/news?id=e651a0a7fe0766f91473db1c520cf4130c2a1a9d2bb6b9de54156e555e132353",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Accenture Silences the AI Skeptics, Nike Warns the Pain Isn't Over",
+            "summary": "Wall Street ended Thursday barely higher as yields eased from 24-year highs and Fed officials signaled patience. Accenture posted its best day ever, Synopsys landed AI chip deals, Mattel drew takeover interest and Nike cut its outlook after the close.",
+            "published_at": "2026-10-02T10:39:47+00:00",
+            "url": "https://finnhub.io/api/news?id=edfb258113299bc729c0988e637af84ee3891556c48037d1750b4142ecf69bd9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Why Is Equifax (EFX) Facing New Pressure In Mortgage Credit Scores?",
+            "summary": "Equifax (NYSE:EFX) faces fresh competition as Fannie Mae and Freddie Mac move to include VantageScore in mortgage underwriting in 2026. The Federal Housing Finance Agency is directing Fannie and Freddie to use a single pricing grid that applies to both VantageScore and FICO models. Major originators such as Rocket Mortgage are preparing to adopt the dual-score framework, reshaping demand for traditional mortgage credit reports. The shift to VantageScore alongside FICO could alter Equifax's...",
+            "published_at": "2026-10-02T09:08:53+00:00",
+            "url": "https://finnhub.io/api/news?id=769652adcb2aef30f2c11508a88b588830cc1f4940adab01c1c2f880220fd18d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wall Street Breakfast Podcast: No Sprint For Nike Yet",
+            "summary": "Nike\u00e2\u0080\u0099s China slump is getting harder to outrun. Moderna is joining the Nasdaq-100. The mortgage industry is bracing for a credit-reporting shake-up.",
+            "published_at": "2026-10-02T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=33105858c73d24ffa69d7314514aa04fa9df16d5b28f255dd608b8dc69a9abdd",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Massive News for FICO Stock Investors Sending Shares Crashing",
+            "summary": "Fair Isaac Corporation (FICO) is losing its dominant position in the home mortgage industry, a development long feared by investors. The stock experienced significant volatility, with shares crashing despite closing up 11.69% on September 29, 2026.",
+            "published_at": "2026-10-02T04:27:35+00:00",
+            "url": "https://www.fool.com/investing/2026/10/02/massive-news-for-fico-stock-investors-sending-shar/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "FICO stock tumbles on report of credit bureau requirement change",
+            "summary": "Investing.com -- Fair Isaac (NYSE) shares fell 7% after hours Thursday, while TransUnion (NYSE) dropped 6%, following a Bloomberg report that the Federal Housing Finance Agency plans to direct Fannie Mae and Freddie Mac to require lenders to pull credit data from two major credit reporting bureaus instead of three.",
+            "published_at": "2026-10-01T21:11:22+00:00",
+            "url": "https://finnhub.io/api/news?id=0466db443f5492721b879662810b9bf3126a5f616a046de2cbf95199b0aad871",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's after hours session",
+            "summary": "After the conclusion of the US market's regular session on Thursday, let's examine the after-hours session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-01T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f1be76bebeb50c43958c5a72ad6a0ad94184f239ae51aeb960ac6714e6d44b47",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "What's going on in today's session: S&P500 movers",
+            "summary": "Get insights into the S&P500 index performance on Thursday. Explore the top gainers and losers within the S&P500 index in today's session.",
+            "published_at": "2026-10-01T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=21e7c6c97b4fdc288ec01fde3118e7f17351046c80c29bdde18a9b184c48edba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fair Isaac stock continues to whipsaw, falling 8% in premarket trading",
+            "summary": "Stock in Fair Isaac Corp. rose 11% on Thursday.",
+            "published_at": "2026-10-01T17:53:47+00:00",
+            "url": "https://finnhub.io/api/news?id=8a8468542a03b40d6ab8402616f57005c9f1506f5215938d0cdffbf8ed996771",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fair Isaac stock pops 11% 2 days after rout, even as BofA cuts price target",
+            "summary": "Stock in Fair Isaac Corp. rose 11% on Thursday.",
+            "published_at": "2026-10-01T17:53:47+00:00",
+            "url": "https://finnhub.io/api/news?id=18f9f7d885da1784d714b9d5800243346a24520fb3fbb5937becadce232ddbb6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Fair Isaac Stock Is Surging After Its Worst Quarter on Record. Has the Stock Bottomed?",
+            "summary": "Fair Isaac  investors might be experiencing a bit of whiplash.  Fresh off the stock\u2019s worst quarterly performance on record, shares surged 12% to $661.40 on Thursday.  The only question for investors to ask is if shares of Fair Isaac, maker of the FICO score, have finally bottomed after falling more than 48% in September.",
+            "published_at": "2026-10-01T17:26:00+00:00",
+            "url": "https://finnhub.io/api/news?id=26bef2ec6d77d4e4f9727dc25fd794b69776afbb5defa0a7910abd2db73b44ae",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Thursday? Find out below.",
+            "summary": "Let's take a look at the S&P500 stocks that are experiencing unusual volume in today's session.",
+            "published_at": "2026-10-01T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5af166e348ebf43b177060b23d5ecef260704514d9e06d0ab120a3d153a247ba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Thursday?",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Thursday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-01T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=b20e08d06594043d73774dff90800dc69a3fc3d1ae58095ba1758b392220c4e2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Micron, Accenture, Google, IBM, Fair Isaac, Synopsys, and More Stocks That Explain Today\u2019s Market",
+            "summary": "FEATURE  Stocks fell Thursday as bond yields continued to rise after notching their largest quarterly gain since 1994.  Micron dropped 1.9% after the company posted a stellar fiscal fourth-quarter earnings report.",
+            "published_at": "2026-10-01T16:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=40f43c5bdd8cb0f0f971cfb34654a6ba67e41599411f4865bc4fac9de53682ca",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Reasons Investors Love Fair Isaac Corporation (FICO)",
+            "summary": "What a brutal six months it\u2019s been for Fair Isaac Corporation. The stock has dropped 44.3% and now trades at a new 52-week low of $591.41, rattling many shareholders. This was partly due to its softer quarterly results and might have investors contemplating their next move.",
+            "published_at": "2026-10-01T16:21:07+00:00",
+            "url": "https://finnhub.io/api/news?id=c7182cff638b7b0ee78cdbb018efe85ffee8b8ed2ba7b279e0273c9d484530d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bank of America Cut Its Fair Isaac Price Target in Half and the Stock Still Fell Below It",
+            "summary": "Bank of America slashed its Fair Isaac price target by half, yet the stock kept falling right through it. What regulators just changed about mortgage credit scoring may have permanently altered the case for owning FICO.",
+            "published_at": "2026-10-01T16:15:13+00:00",
+            "url": "https://finnhub.io/api/news?id=a1352b82bca49c77b689c81e14c91333a42a5cdab8c781e8fa2ee22aa0eb1623",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Fair Isaac Stock Is Surging After Its Worst Quarter on Record",
+            "summary": "Fair Isaac  investors would be forgiven if they felt like they had whiplash.  Fresh off the stock\u2019s worst quarterly performance on record, shares surged 9.5% to $648.12 on Thursday.  The only question for investors to ask is if shares of  Fair Isaac  maker of the FICO score, have finally bottomed after falling more than 48% in September.",
+            "published_at": "2026-10-01T15:44:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c81e983c17fff45a6e74b92e27842f8ad15133b0970fec3ab80087733cde0f30",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are gapping in today's session",
+            "summary": "Looking for the S&P500 stocks that are experiencing notable gaps on Thursday? Find out which stocks are gapping up and gapping down in the S&P500 index during today's session.",
+            "published_at": "2026-10-01T14:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=59a342f752939553f2e3d8e29e06764b348e36d80fb4ad00f938a1f983b96856",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "These S&P500 stocks that are showing activity before the opening bell on Thursday.",
+            "summary": "Get insights into the top gainers and losers in the S&P500 index of Thursday's pre-market session.",
+            "published_at": "2026-10-01T12:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=ace4b2f3f3fd668409306a2215d72dda895057955977573c5dc20756d2777d51",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Fair Isaac: 75% Decline Is Enough",
+            "summary": "Fair Isaac Corporation is, without a doubt, the most popular consumer credit score. Learn why FICO stock is a buy.",
+            "published_at": "2026-10-01T08:28:58+00:00",
+            "url": "https://finnhub.io/api/news?id=f6cf3fc292b6a3dab61069cc524c9cbf3882ab2cf4099e874c401ea16070832e",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 661.75
+    },
+    {
+      "ticker": "STX",
+      "predicted_return": 0.5498608195179662,
+      "open_price": 820.8699951171875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 12,
+        "reviewed_count": 12,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918569+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, Oil Prices Fall With Tesla, Jobs Report Due; Micron In Buy Area",
+            "summary": "Stock market rises slightly off key levels with Micron, Lumentum around buy points. Tesla deliveries, jobs report loom.",
+            "published_at": "2026-10-02T11:54:36+00:00",
+            "url": "https://finnhub.io/api/news?id=98089d435a6a58c165f54da2c6a15983c2ff03e62599bed7e71f2e496892842f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SanDisk (SNDK) vs. Seagate (STX): Which Storage Stock Is the Better Buy Right Now?",
+            "summary": "The AI trade is moving beyond GPUs. As AI models become more capable, they also generate, process, and retain massive amounts of data. That is creating a less glamorous but increasingly important question for data centers: where does all that data go? SanDisk Corporation (NASDAQ:SNDK) and Seagate Technology Holdings plc (NASDAQ:STX) offer two very different [\u2026]",
+            "published_at": "2026-10-02T02:59:05+00:00",
+            "url": "https://finnhub.io/api/news?id=783eb036d317298fb4814605b0f7db6791b5414dec30a7926712b156180392d6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Toshiba to double hard disk output capacity amid AI data centre demand - Nikkei",
+            "summary": "Investing.com-- Japanese technology group Toshiba (TYO:6588) plans to double production capacity for hard disk drives (HDDs) used in artificial intelligence data centres by fiscal 2027, as the AI boom drives demand for high-capacity storage, Nikkei reported on Friday.",
+            "published_at": "2026-10-02T02:33:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e947e4dd0eac5c1562f587d9fa503f3f4119d582e5dbadfd4dc726e83511b9ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did SanDisk Stock Jump?",
+            "summary": "SanDisk (SNDK) stock jumped 11.0% on Friday, September 18, 2026, its last trading day before joining the S&P 100. By the September 30 close of $1,739.89, the shares were about 3% below their September 18 close. SanDisk's last quarterly report came in early August, so the jump did not follow new results. So what drove it, and what does the price assume now.",
+            "published_at": "2026-10-02T00:01:58+00:00",
+            "url": "https://finnhub.io/api/news?id=256266dd661d1979a3c1a2ab118571b05853fee761e293f70f90d4fc843d1e2f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 of Wall Street\u2019s Favorite Stocks for Long-Term Investors and 1 We Find Risky",
+            "summary": "Wall Street has set ambitious price targets for the stocks in this article. While this suggests attractive upside potential, it\u2019s important to remain skeptical because analysts face institutional pressures that can sometimes lead to overly optimistic forecasts.",
+            "published_at": "2026-10-01T17:25:07+00:00",
+            "url": "https://finnhub.io/api/news?id=88c54aa87ebb55c6d1d5ad2c48d35140593141093cf86000fa13a95d58ebe948",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Needs Massive Storage. Seagate Is Ready",
+            "summary": "Seagate has already surged over 230% this year on the back of record margins and nearly sold-out capacity, but the real question now is whether the stock still has room to run or has simply gotten too far ahead of itself.",
+            "published_at": "2026-10-01T15:30:29+00:00",
+            "url": "https://finnhub.io/api/news?id=0cdb66a0a874d28ef5cae8b94079fdcfc7fb61adffa33d8d83475100402a76ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Slips 3% Despite Record Quarter and Above-Consensus Guidance; Western Digital Dips, SK Hynix Drifts",
+            "summary": "Micron just delivered the kind of quarter that should send a stock soaring, yet sellers showed up anyway. What the market's reaction reveals about where memory stocks go from here deserves a closer look.",
+            "published_at": "2026-10-01T14:16:36+00:00",
+            "url": "https://finnhub.io/api/news?id=4ad56350b2199d096019e555205b48d2ca3f6b1c85dcc52ab14f89ee11877352",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk Is Selling The Top Of Its Edge Business",
+            "summary": "Sandisk Corporation pivots from Edge/Consumer NAND to multi-year data center contracts to cut cycles. Click for more on the SNDK stock.",
+            "published_at": "2026-10-01T13:37:47+00:00",
+            "url": "https://finnhub.io/api/news?id=c25670361454c184fda831812684d41bc2c38ba6258fe680ec9ae73840723e43",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Memory\u2019s Valuation Gap: Cheap Pure Plays Face Earnings Test as Storage Peers Re-Rate",
+            "summary": "Memory upcycle: Micron, Sandisk trade at low forward P/E while Seagate, Western Digital re-rated. Key debate: durable earnings vs peak-cycle risk.",
+            "published_at": "2026-10-01T12:35:59+00:00",
+            "url": "https://finnhub.io/api/news?id=3f568b1eff095935d586073056928db9b76cea9fef264f4b2d785d1f749193b9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, S&P 500 Finds Key Support As Micron Earnings Crush Views; Oil Prices, Treasury Yields In Focus",
+            "summary": "Futures: The S&P 500 is trying to bounce off its 50-day line amid high oil prices and Treasury yields. Micron earnings easily beat.",
+            "published_at": "2026-10-01T11:53:17+00:00",
+            "url": "https://finnhub.io/api/news?id=b93e8f88558ad486df4a8905d374656b0c7d744546d6cba83f30821413876c8d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Q4: Nothing Negative Here",
+            "summary": "Micron Technology, Inc. reported strong fiscal Q4 results, handily beating estimates on the top and bottom lines. Learn more about MU stock here.",
+            "published_at": "2026-10-01T11:44:04+00:00",
+            "url": "https://finnhub.io/api/news?id=9c4adf43e2baa1d696afeb4a9905cb6f04c6e8978ba29eee75b70a5a1e32af4a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 945.5700073242188
+    },
+    {
+      "ticker": "WDC",
+      "predicted_return": 0.43470714035386726,
+      "open_price": 423.20001220703125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 16,
+        "reviewed_count": 16,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:00.918768+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, Oil Prices Fall With Tesla, Jobs Report Due; Micron In Buy Area",
+            "summary": "Stock market rises slightly off key levels with Micron, Lumentum around buy points. Tesla deliveries, jobs report loom.",
+            "published_at": "2026-10-02T11:54:36+00:00",
+            "url": "https://finnhub.io/api/news?id=98089d435a6a58c165f54da2c6a15983c2ff03e62599bed7e71f2e496892842f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Toshiba to double hard disk output capacity amid AI data centre demand - Nikkei",
+            "summary": "Investing.com-- Japanese technology group Toshiba (TYO:6588) plans to double production capacity for hard disk drives (HDDs) used in artificial intelligence data centres by fiscal 2027, as the AI boom drives demand for high-capacity storage, Nikkei reported on Friday.",
+            "published_at": "2026-10-02T02:33:35+00:00",
+            "url": "https://finnhub.io/api/news?id=e947e4dd0eac5c1562f587d9fa503f3f4119d582e5dbadfd4dc726e83511b9ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Micron Set Off An October Volatility Spike?",
+            "summary": "September switched gears from negative to positive very quickly. Once again, the positive market performance was driven by the technology sector.",
+            "published_at": "2026-10-02T00:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=37218a4580cdad1cc82ddd85f2e2e2b92e4d8527b7b3c276a86f8c6a03350e91",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Why Did SanDisk Stock Jump?",
+            "summary": "SanDisk (SNDK) stock jumped 11.0% on Friday, September 18, 2026, its last trading day before joining the S&P 100. By the September 30 close of $1,739.89, the shares were about 3% below their September 18 close. SanDisk's last quarterly report came in early August, so the jump did not follow new results. So what drove it, and what does the price assume now.",
+            "published_at": "2026-10-02T00:01:58+00:00",
+            "url": "https://finnhub.io/api/news?id=256266dd661d1979a3c1a2ab118571b05853fee761e293f70f90d4fc843d1e2f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Western Digital (WDC) Exceeds Market Returns: Some Facts to Consider",
+            "summary": "In the most recent trading session, Western Digital (WDC) closed at $462.56, indicating a +1.78% shift from the previous trading day.",
+            "published_at": "2026-10-01T21:00:07+00:00",
+            "url": "https://finnhub.io/api/news?id=b62e029b2ebbe35aa8ea500b1b4f000a2861329576d8ba505aa871eb2fbdc726",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Stocks With Accelerating Earnings Poised to Soar in October",
+            "summary": "Western Digital, PACCAR and Sprout Social show accelerating earnings growth, a trend that can precede stock price gains and signal stronger momentum.",
+            "published_at": "2026-10-01T18:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=cf3875cc170fc901d0a778f0a2d500e287203bef19197c270df1fbea454c6eec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI Needs Massive Storage. Seagate Is Ready",
+            "summary": "Seagate has already surged over 230% this year on the back of record margins and nearly sold-out capacity, but the real question now is whether the stock still has room to run or has simply gotten too far ahead of itself.",
+            "published_at": "2026-10-01T15:30:29+00:00",
+            "url": "https://finnhub.io/api/news?id=0cdb66a0a874d28ef5cae8b94079fdcfc7fb61adffa33d8d83475100402a76ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SMCI or WDC: Which Is the Better Value Stock Right Now?",
+            "summary": "SMCI vs. WDC: Which Stock Is the Better Value Option?",
+            "published_at": "2026-10-01T14:40:02+00:00",
+            "url": "https://finnhub.io/api/news?id=65a59140879dbbdfe4911bd56d8f6e25c1a6af75fe3aadf632a4a33d2a5ad8e6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Micron Slips 3% Despite Record Quarter and Above-Consensus Guidance; Western Digital Dips, SK Hynix Drifts",
+            "summary": "Micron just delivered the kind of quarter that should send a stock soaring, yet sellers showed up anyway. What the market's reaction reveals about where memory stocks go from here deserves a closer look.",
+            "published_at": "2026-10-01T14:16:36+00:00",
+            "url": "https://finnhub.io/api/news?id=4ad56350b2199d096019e555205b48d2ca3f6b1c85dcc52ab14f89ee11877352",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sandisk Is Selling The Top Of Its Edge Business",
+            "summary": "Sandisk Corporation pivots from Edge/Consumer NAND to multi-year data center contracts to cut cycles. Click for more on the SNDK stock.",
+            "published_at": "2026-10-01T13:37:47+00:00",
+            "url": "https://finnhub.io/api/news?id=c25670361454c184fda831812684d41bc2c38ba6258fe680ec9ae73840723e43",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Top 3 AI Stocks With Revenue Growth Over 20%",
+            "summary": "Bond yields are surging to levels not seen in decades, which makes borrowing more expensive for companies that depend on heavy spending. That shifts attention toward businesses already wired into the physical buildout of artificial intelligence, from power-hungry data centers to high-capacity fiber links. This piece explains why that could matter for your portfolio and highlights 3 stocks from a specialist AI infrastructure screener that may warrant a closer look. The three stocks in this...",
+            "published_at": "2026-10-01T13:10:10+00:00",
+            "url": "https://finnhub.io/api/news?id=a7a6e6dc30af41cc3f726f312bbd985699967a834a74fa679b96cc124906df45",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Play Sandisk Correctly As It Moves Sideways And Slightly Upward",
+            "summary": "Sandisk has surged over 600% this year on AI-driven storage demand and record margins, but the contracts protecting its downside may also be capping its ceiling. Whether this stock can push higher depends on one thing investors are watching very closely.",
+            "published_at": "2026-10-01T12:45:13+00:00",
+            "url": "https://finnhub.io/api/news?id=55e106427436339a38e2acb95116eb76a53512b53424c51ec0f109d444f9c6f7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Western Digital (WDC) is a Top Growth Stock for the Long-Term",
+            "summary": "Recent economic data shows PCE inflation came in softer than expected while Q2 GDP exceeded expectations. Market attention is now focused on the upcoming Friday employment report, which could significantly impact investment decisions and market direction.",
+            "published_at": "2026-10-01T12:45:04+00:00",
+            "url": "https://www.zacks.com/stock/news/2998867/why-western-digital-wdc-is-a-top-growth-stock-for-the-long-term?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_growth_score-2998867",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Memory\u2019s Valuation Gap: Cheap Pure Plays Face Earnings Test as Storage Peers Re-Rate",
+            "summary": "Memory upcycle: Micron, Sandisk trade at low forward P/E while Seagate, Western Digital re-rated. Key debate: durable earnings vs peak-cycle risk.",
+            "published_at": "2026-10-01T12:35:59+00:00",
+            "url": "https://finnhub.io/api/news?id=3f568b1eff095935d586073056928db9b76cea9fef264f4b2d785d1f749193b9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Micron Q4: Nothing Negative Here",
+            "summary": "Micron Technology, Inc. reported strong fiscal Q4 results, handily beating estimates on the top and bottom lines. Learn more about MU stock here.",
+            "published_at": "2026-10-01T11:44:04+00:00",
+            "url": "https://finnhub.io/api/news?id=9c4adf43e2baa1d696afeb4a9905cb6f04c6e8978ba29eee75b70a5a1e32af4a",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 462.55999755859375
+    },
+    {
+      "ticker": "TH",
+      "predicted_return": 0.42046463313509147,
+      "open_price": 19.149999618530273,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:00.919021+00:00",
+        "articles": [
+          {
+            "headline": "What's going on in today's after hours session",
+            "summary": "After the conclusion of the US market's regular session on Thursday, let's examine the after-hours session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-01T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f1be76bebeb50c43958c5a72ad6a0ad94184f239ae51aeb960ac6714e6d44b47",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 20.479999542236328
+    },
+    {
+      "ticker": "MOD",
+      "predicted_return": 0.31904484669495203,
+      "open_price": 182.72000122070312,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "corporate action: Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:26.054799+00:00",
+        "articles": [
+          {
+            "headline": "Modine Completes Spin-off and Combination of its Performance Technologies Business with Gentherm",
+            "summary": "Modine (NYSE: MOD) (\"Modine\" or the \"Company\") today announced the completion of the previously announced spin-off of its Performance Technologies business, which was held by Platinum SpinCo Inc. (\"SpinCo\"), and subsequent combination of SpinCo with Gentherm (NASDAQ: THRM) (\"Gentherm\") through a Reverse Morris Trust transaction.",
+            "published_at": "2026-10-01T20:38:00+00:00",
+            "url": "https://finnhub.io/api/news?id=79fdc6dcb7442387da6a1f3245231106ea63fea4fb93bc176989feb2ed20d00c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Gentherm Completes Combination with Modine\u2019s Performance Technologies Business",
+            "summary": "Combination Creates Global Market Leader of Thermal and Precision Flow Management Technologies Announces Appointment of Paul Mascarenas to its Board of Directors NOVI, Mich., Oct. 01, 2026 (GLOBE NEWSWIRE) -- Gentherm (NASDAQ:THRM) (the \u201cCompany\u201d or \u201cGentherm\u201d), a global market leader of thermal and precision flow management technologies, today announced it has completed the previously announced combination with Modine\u2019s Performance Technologies business (the \u201cBusiness\u201d). The transaction was fir",
+            "published_at": "2026-10-01T20:36:00+00:00",
+            "url": "https://finnhub.io/api/news?id=286baf1abe2f52c95713ab9cee6b74d0a5956d47be0f7241cf8046947c68d75e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 189.0
+    },
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.3080354484096727,
+      "open_price": 26.690000534057617,
+      "snapshot_date": "2026-10-01",
+      "news_flag": "Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Delaware court ruled Yutrepia infringes United Therapeutics patent, threatening PH-ILD indication",
+        "article_count": 14,
+        "reviewed_count": 14,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:35:00.919169+00:00",
+        "articles": [
+          {
+            "headline": "Liquidia Shares Tank On Patent Court Loss, Rivals May Just Be Getting Started",
+            "summary": "",
+            "published_at": "2026-10-02T08:27:35+00:00",
+            "url": "https://finnhub.io/api/news?id=031dfb027f7a995591589964d51bbf80564408a756ddde9ffafc9097937596e4",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Stocks making big moves yesterday: United Therapeutics, Moderna, Jabil, Concentrix, and FactSet",
+            "summary": "Check out the companies making headlines yesterday:",
+            "published_at": "2026-10-01T20:45:07+00:00",
+            "url": "https://finnhub.io/api/news?id=87f52e78ca0d8ccab73f60658fea15421ce2a674c7f5064cb48cbd8f1213d931",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LQDA Stock On Track For Worst Week Ever As Analysts Say The Yutrepia Patent Loss Clouds Its Path",
+            "summary": "U.S. District Judge Richard G. Andrews of the District of Delaware found on Wednesday that Liquidia induces infringement of claims 1 and 14 of United Therapeutics\u2019 U.S. Patent No. 11,826,327.",
+            "published_at": "2026-10-01T18:07:43+00:00",
+            "url": "https://finnhub.io/api/news?id=c7ecbd8eb8391ca24af187fbcf8c095e4952bea00b88b71a878fdb089e90323f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Stock Plunges 57% on UTHR Patent Litigation Setback",
+            "summary": "LQDA faces a major setback as a patent ruling threatens Yutrepia's PH-ILD indication and creates uncertainty around its commercial outlook.",
+            "published_at": "2026-10-01T16:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=444780a77d713c713f1062fae18e6b4c080e474175c5c32e50d2291833c6ac24",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Stock Extends Slide Following US Court Ruling in Patent Dispute",
+            "summary": "Shares of Liquidia Corp (NASDAQ:LQDA) are sliding Thursday morning, extending a sell-off triggered by an adverse federal court patent ruling in its ongoing legal dispute with rival United Therapeutics. Here\u2019s what investors need to know. Liquidia stock is feeling bearish pressure. Why is LQDA stock dropping? Federal District Court Patent Ruling The primary driver behind Thursday\u2019s weakness is a ruling issued Wednesday by the U.S. District Court for the District of Delaware in ongoing Hatch-Waxma",
+            "published_at": "2026-10-01T16:03:20+00:00",
+            "url": "https://finnhub.io/api/news?id=752a8632da3f30557dc9e27caa92d2215dd7061381dca509b47042ae8339bb30",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UTHR Prevails in LQDA's Yutrepia Patent Dispute, Stock Up Nearly 13%",
+            "summary": "United Therapeutics secures a key patent ruling against Liquidia, potentially limiting Yutrepia's PH-ILD use and reducing competition for its Tyvaso products.",
+            "published_at": "2026-10-01T15:16:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e8243a4834238d7c0f58d6a9cc64edde5a43d1efc7a3e8f6fb5f62b8a94a4916",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "United Therapeutics Won Its Patent War and Liquidia Collapsed",
+            "summary": "A single court ruling sent one pulmonary hypertension drugmaker soaring and left its rival fighting for survival, but the legal battle over Yutrepia's future is far from settled.",
+            "published_at": "2026-10-01T15:07:12+00:00",
+            "url": "https://finnhub.io/api/news?id=1821602305f2a49643beca558909c4755611b07584805c7328e6d6203eb465da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Liquidia Sinks Another 17% as BofA Cuts Target to $40 From $92 After Court Loss",
+            "summary": "Key TakeawaysLiquidia shares are down 14% after BofA cut its price target to $40 from $92, and BTIG and Raymond James both downgraded the stock. The drop follows Wednesday\u2019s roughly 57% crash, after a Delaware court ruled that Yutrepia infringes two claims of a United Therapeutics patent.",
+            "published_at": "2026-10-01T14:14:24+00:00",
+            "url": "https://finnhub.io/api/news?id=ac49b6f0a4eb365890450be980972bb290affb3794d484a0a30bf7527e2a5c15",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Exxon Mobil downgraded, BP upgraded: Wall Street's top analyst calls",
+            "summary": "Exxon Mobil downgraded, BP upgraded: Wall Street's top analyst calls",
+            "published_at": "2026-10-01T13:38:06+00:00",
+            "url": "https://finnhub.io/api/news?id=5d5953131721a88f722b7a6e427349b870531e20af1c034150db5bb9a35e2726",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "12 Health Care Stocks Moving In Thursday's Pre-Market Session",
+            "summary": "Gainers\n\nDataMEDS AI (NASDAQ:MEDS) stock moved upwards by 39.4% to $4.42 during Thursday&#39;s pre-market session. The company&#39;s market cap stands at $10.1 million. \nStablecoin Development (AMEX:SDEV) shares moved",
+            "published_at": "2026-10-01T08:05:51+00:00",
+            "url": "https://finnhub.io/api/news?id=622bf7afadfdf82ff21af8188a513205f0b1fc9b44187d15047a80ec12414b47",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Progress Software, Nft And Other Big Stocks Moving Lower In Thursday\u2019s Pre-Market Session",
+            "summary": "U.S. stock futures were mixed as Progress Software fell after results; Corteva, NFT, Vivakor and other stocks also dropped in premarket trading.",
+            "published_at": "2026-10-01T08:01:10+00:00",
+            "url": "https://finnhub.io/api/news?id=7b91a84a79015100f20d3d0f74f510fe1d3c6ba00af68cbe4aee888404b1e431",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "BTIG Downgrades Liquidia to Neutral",
+            "summary": "BTIG  analyst Julian Harrison   downgrades Liquidia (NASDAQ:LQDA) from Buy to Neutral.",
+            "published_at": "2026-10-01T06:01:29+00:00",
+            "url": "https://finnhub.io/api/news?id=8ab731de076c0eff95571af1e3222384b4ed004ddbca6cc37544f95777b65f0e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Needham Maintains Buy on Liquidia, Lowers Price Target to $72",
+            "summary": "Needham  analyst Serge Belanger   maintains Liquidia (NASDAQ:LQDA) with a Buy and lowers the price target from $110 to $72.",
+            "published_at": "2026-10-01T05:15:54+00:00",
+            "url": "https://finnhub.io/api/news?id=a3566b6f3dcaadedd0247daffa1c431b222378334c56afbc2eed20c10e2064fa",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Liquidia Stock Crashed 57% in a Day After a Delaware Court Ruling. An Appeal Could Decide Whether Shares Rebound.",
+            "summary": "Why Liquidia Stock Crashed 57% on Wednesday\u2019s Patent Ruling Against YutrepiaLiquidia (LQDA:NASDAQ) stock crashed 57% on Wednesday, September 30, after a Delaware court ruled that Yutrepia infringes two valid claims of United Therapeutics\u2019 \u2018327 patent. Those claims cover treating pulmonary hypertension with interstitial lung disease (PH-ILD) using inhaled treprostinil, and the court struck down the rest.",
+            "published_at": "2026-10-01T05:03:04+00:00",
+            "url": "https://finnhub.io/api/news?id=51bc32a3ecae26ef74d09847931438de79a23fbfa51d30dc42c74cf4a03591dd",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 28.030000686645508
+    },
+    {
+      "ticker": "DUOL",
+      "predicted_return": 0.3003389011581113,
+      "open_price": 146.0,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 146.67999267578125
+    },
+    {
+      "ticker": "SNDK",
+      "predicted_return": 0.29287184110624886,
+      "open_price": 1773.1199951171875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 1786.9100341796875
+    },
+    {
+      "ticker": "MEDP",
+      "predicted_return": 0.2912357965931019,
+      "open_price": 593.030029296875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 597.8400268554688
+    },
+    {
+      "ticker": "STDN",
+      "predicted_return": 0.279276281941274,
+      "open_price": 12.225000381469727,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 12.460000038146973
+    },
+    {
+      "ticker": "IOND",
+      "predicted_return": 0.27910139537403217,
+      "open_price": 82.7300033569336,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747009+00:00",
+        "articles": []
+      },
+      "prev_close": 83.04000091552734
+    },
+    {
+      "ticker": "MH",
+      "predicted_return": 0.27875793575053665,
+      "open_price": 12.954999923706055,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747063+00:00",
+        "articles": [
+          {
+            "headline": "McGraw Hill, Inc. Announces Further Deleveraging with Additional $50 Million of Debt Reduction",
+            "summary": "COLUMBUS, Ohio, October 01, 2026--McGraw Hill, Inc. (NYSE: MH) (\"McGraw Hill\" or the \"Company\") today announced that it has further strengthened its balance sheet with a $50 million prepayment of principal under its outstanding term loan facility (the \"Term Loan\").",
+            "published_at": "2026-10-01T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=68c73b0acc8fd86fa74c37181b7259a41f67ce1f4eda830a0d5bf0fb7e11c401",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 13.09000015258789
+    },
+    {
+      "ticker": "LNG",
+      "predicted_return": 0.277263639601462,
+      "open_price": 261.04119873046875,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 272.42999267578125
+    },
+    {
+      "ticker": "BBVA",
+      "predicted_return": 0.2736101470071836,
+      "open_price": 26.2810001373291,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747120+00:00",
+        "articles": [
+          {
+            "headline": "European Equities Traded in the US as American Depositary Receipts Fall Sharply in Thursday Trading",
+            "summary": "European equities traded in the US as American depositary receipts were falling sharply late Thursda",
+            "published_at": "2026-10-01T15:05:15+00:00",
+            "url": "https://finnhub.io/api/news?id=1b487ea1db9edd960dce135be8f487e6e70f503c3206a3b0d4e7d6c83b42787e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "TSIA recognizes Inbenta for innovation in AI Value Optimization",
+            "summary": "TSIA recognizes Inbenta Encore for cutting AI cost per interaction by 40%. For more than 20 years, over 1,000 organizations including BBVA, Deutsche Bank, Samsung, and FamilySearch have trusted Inbenta to deliver enterprise AI that works. Its flagship Encore platform serves financial services, healthcare, travel, and e-commerce with 98%+ accuracy, prevents hallucinations, full auditability, and 850+ integrations that eliminate vendor lock-in. DALLAS, Oct. 01, 2026 (GLOBE NEWSWIRE) -- Inbenta, an",
+            "published_at": "2026-10-01T14:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a1339b769aa126e787b154cad291e24e6bd1fb8ea45d9a6729439cc03a680319",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BBVA or CM: Which Is the Better Value Stock Right Now?",
+            "summary": "BBVA vs. CM: Which Stock Is the Better Value Option?",
+            "published_at": "2026-10-01T14:40:02+00:00",
+            "url": "https://finnhub.io/api/news?id=e584b29651681b99f5896eae83c7c1700a1c74311a3788125b8245cbadad6550",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should Value Investors Buy Banco Bilbao Viscaya Argentaria (BBVA) Stock?",
+            "summary": "Here at Zacks, our focus is on the proven Zacks Rank system, which emphasizes earnings estimates and estimate revisions to find great stocks. Nevertheless, we are always paying attention to the latest value, growth, and momentum trends to underscore strong picks.",
+            "published_at": "2026-10-01T12:40:02+00:00",
+            "url": "https://finnhub.io/api/news?id=1331441f0aaf55cae55955170455850fa3c42574f4fea8f22b7ee24328c0cb62",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top 25 Attractive Dividend Stocks For October 2026",
+            "summary": "The Top 25 stocks average a 3.38% dividend yield and appear ~31% undervalued by dividend yield theory. Read more on the list here.",
+            "published_at": "2026-10-01T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a18bb0839f70d1043459f9e146edff1a12e0e68b0821cfd57c078e1f3dd2e383",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 26.8700008392334
+    },
+    {
+      "ticker": "WAY",
+      "predicted_return": 0.2734739734188635,
+      "open_price": 25.270000457763672,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747247+00:00",
+        "articles": []
+      },
+      "prev_close": 25.375
+    },
+    {
+      "ticker": "PM",
+      "predicted_return": 0.27297656554874844,
+      "open_price": 186.77000427246094,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747337+00:00",
+        "articles": [
+          {
+            "headline": "5 High-Yield Dividends With Ex-Dates Days Away: Buy Before the Window Closes",
+            "summary": "Four dividend stocks from Philip Morris to JPMorgan Chase have ex-dates landing within days, and missing the cutoff means the payout goes to the seller. The clock is already running.",
+            "published_at": "2026-10-01T12:45:25+00:00",
+            "url": "https://finnhub.io/api/news?id=e1273e66c53cdbc9108c6bdb67d056d25e1b2fdfd55a80193cb3c97ccc0bfdc9",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 188.1699981689453
+    },
+    {
+      "ticker": "APP",
+      "predicted_return": 0.27292936482276836,
+      "open_price": 269.45001220703125,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 7,
+        "reviewed_count": 7,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747412+00:00",
+        "articles": [
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "AppLovin: The Market Is Likely Wrong",
+            "summary": "AppLovin's MAX mediation platform and Axon engine drive high EBITDA and FCF margins. Check out why APP stock is a buy.",
+            "published_at": "2026-10-02T09:09:34+00:00",
+            "url": "https://finnhub.io/api/news?id=e113c07ffac35e7416bfa1b0790250297e5acfdc6b9399f16802e51842b65113",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "AppLovin (APP) Sues Over Data Collection In MAX Ad Auctions",
+            "summary": "AppLovin (NasdaqGS:APP) has filed a lawsuit against Unity Technologies alleging unauthorized data collection during MAX ad auctions. The complaint focuses on Unity's use of bidding data from AppLovin's MAX platform, which the filing claims was gathered without proper consent. AppLovin argues that Unity's access to MAX auction information could affect how advertisers and publishers assess competing ad tech offerings. The lawsuit over Unity's alleged unauthorized data collection in MAX...",
+            "published_at": "2026-10-01T23:11:13+00:00",
+            "url": "https://finnhub.io/api/news?id=dabf71608c9c4c4c65e5160fb1c92d05734290df480f13bc553f529cd889da6a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AppLovin vs. The Trade Desk: Which Adtech Stock Is a Better Buy in 2026?",
+            "summary": "AppLovin missed Q2 estimates but maintains strong margins and an expanding AI advertising platform. The Trade Desk posted its slowest revenue growth in years with a weaker quarter expected ahead.",
+            "published_at": "2026-10-01T20:45:26+00:00",
+            "url": "https://finnhub.io/api/news?id=dd38d0d12794ea74d85694306092a9eb8ecb0dcad0876de3d35484962332105d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which S&P500 stocks are moving on Thursday?",
+            "summary": "Stay updated with the movements of the S&P500 index in the middle of the day on Thursday. Discover which stocks are leading as top gainers and losers in today's session.",
+            "published_at": "2026-10-01T16:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=b20e08d06594043d73774dff90800dc69a3fc3d1ae58095ba1758b392220c4e2",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "AppLovin Falls 3% as Wells Fargo Calls Pixel Install Spike a False Start; Trade Desk Sits Out the Selloff, Magnite Dips",
+            "summary": "A single research note is reopening the debate over how much real merchant traction sits behind AppLovin\u2018s (NASDAQ:APP) e-commerce push. AppLovin stock is down 3% to $281.31 this morning. Meanwhile, shares of The Trade Desk (NASDAQ:TTD) are up 0.2% to $12.20, sitting out the selling that has hit AppLovin stock. Magnite (NASDAQ:MGNI) shares are sliding [\u2026]",
+            "published_at": "2026-10-01T16:02:10+00:00",
+            "url": "https://finnhub.io/api/news?id=bb46114571ad25d27e0e31ede2e77855bc59ce5b8f7ae966eae345d07dacd229",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AppLovin: This Action Is An Opportunity For Another Trade",
+            "summary": "AppLovin has a really good setup fundamentally, and growth prospects are too attractive to ignore below $300. Learn more about APP stock here.",
+            "published_at": "2026-10-01T08:26:39+00:00",
+            "url": "https://finnhub.io/api/news?id=b0c4c8bc96da0e2ec5710028fc1bab59ee55ec8ea2544b0bf163a0b6c55ee002",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 281.2300109863281
+    },
+    {
+      "ticker": "FIGS",
+      "predicted_return": 0.27079682262785904,
+      "open_price": 14.039999961853027,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-02T13:36:09.747608+00:00",
+        "articles": [
+          {
+            "headline": "Can Better Store Traffic Support American Eagle's Sales Recovery?",
+            "summary": "AEO's Q2 improvement reflects stronger men's sales and denim demand, while traffic, conversion and inventory remain key focuses.",
+            "published_at": "2026-10-01T15:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3c1874ddc8590bc425dfd4b38a6144294ee40d6bf8230416ae89f6cc6133c0b3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ANF Adds 130 Store Experiences: Can Retail Expansion Fuel Growth?",
+            "summary": "Abercrombie & Fitch plans about 130 net new store experiences in FY26, blending openings, remodels and rightsizing to expand its physical retail footprint.",
+            "published_at": "2026-10-01T14:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=8eafdacedf2dd447a51bfc6593cf9794dd368dccec1412bfa30f3533f1f4ed3b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 14.100000381469727
+    },
+    {
+      "ticker": "MKC",
+      "predicted_return": 0.26802982028240185,
+      "open_price": 43.31999969482422,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 26,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-10-02T13:36:09.748129+00:00",
+        "articles": [
+          {
+            "headline": "McCormick (MKC) Reaffirms Outlook After Selloff But Is The Value Case Still Intact",
+            "summary": "McCormick (MKC) just reaffirmed its full year outlook, projecting net sales growth of 13% to 17% for fiscal 2026, after reporting mixed third quarter results and continuing integration work on recent deals. Recent trading tells a different story to the upbeat guidance. McCormick\u2019s share price has fallen 18.65% over the past 30 days and is down 34.39% year to date, while the 1 year total shareholder return has declined 33.08%. This suggests momentum has weakened as investors reassess execution...",
+            "published_at": "2026-10-02T11:11:13+00:00",
+            "url": "https://finnhub.io/api/news?id=ac01db2853b9272cc98d641882079b235ffcd4ba6bebc21ce4a98be2eaf7dd7b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick (MKC) Q3 2026 Earnings Call Transcript",
+            "summary": "Margin expansion offsets consumer headwinds as McCormick prepares for Unilever Foods deal.",
+            "published_at": "2026-10-02T02:28:53+00:00",
+            "url": "https://finnhub.io/api/news?id=708877260b05da9dcfb1a1d18d2e84fd4846e34c0bd87ede93171448527f6c84",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick & Company, Incorporated Q3 2026 Earnings Call Summary",
+            "summary": "Moby summary of McCormick & Company, Incorporated's Q3 2026 earnings call",
+            "published_at": "2026-10-01T20:54:47+00:00",
+            "url": "https://finnhub.io/api/news?id=3cdcb4a9bec73bbb9622f7aaeaa72196d23f1ca6c1f5ca8c3c4d46fb3d8c9590",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Weekly Losses Deepen As Small Caps Lag And Yields Edge Higher Into Earnings Gauntlet",
+            "summary": "Stocks closed out a choppy week on the back foot, with the Dow shedding nearly 2% and small caps underperforming as the Russell 2000 fell more than 1% on the week. The 10-year Treasury yield ticked up 6 basis points even as the VIX stayed contained near 17. Against that backdrop, a wave of earnings reports landed, giving traders fresh evidence on how margins and demand are holding up heading into the final quarter. Active Companies from around the markets with current developments this week incl",
+            "published_at": "2026-10-01T19:12:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b67c6715358043965aba87a32759ff3bafa7f0c22e52d410b5ef737486cd3844",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's session: S&P500 movers",
+            "summary": "Get insights into the S&P500 index performance on Thursday. Explore the top gainers and losers within the S&P500 index in today's session.",
+            "published_at": "2026-10-01T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=21e7c6c97b4fdc288ec01fde3118e7f17351046c80c29bdde18a9b184c48edba",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "McCormick quarterly profit beats as margins expand, Mexico deal adds to sales",
+            "summary": "McCormick & Company Inc (NYSE:MKC) beat estimates for third-quarter adjusted profit and sales on Thursday, helped by wider margins and the acquisition of McCormick de Mexico. The spice and flavor maker reported adjusted earnings of $0.86 per share, compared with estimates of $0.76 . Net...",
+            "published_at": "2026-10-01T15:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a3fcc1168ffb698710aa4ed2b982b5cf370d76b3356dc75c5edac85863e8f1e9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick & Company, Incorporated 2026 Q3 - Results - Earnings Call Presentation",
+            "summary": "2026-10-01. The following slide deck was published by McCormick & Company, Incorporated in conjunction with their 2026 Q3 earnings call.",
+            "published_at": "2026-10-01T15:00:52+00:00",
+            "url": "https://finnhub.io/api/news?id=be9044b238aee4ce022312832edf110dbc4446707fedb1aafda44e4f02432fa0",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "McCormick & Company, Incorporated Q3 Earnings Call Highlights",
+            "summary": "McCormick & Company, Incorporated (NYSE:MKC) reported third-quarter sales growth, margin expansion and higher adjusted operating income, supported by its McCormick de Mexico acquisition, productivity initiatives and organic gains across its consumer and flavor solutions businesses. Chairman, Pr",
+            "published_at": "2026-10-01T14:03:59+00:00",
+            "url": "https://finnhub.io/api/news?id=e3840e08a88813819c295f915644891405e1cb76c5affe1f051835e35e53893f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick Q3 2026 earnings beat on pricing gains",
+            "summary": "The spice maker's net sales rose 17% in the third quarter, with organic growth driven by price increases offsetting a volume dip",
+            "published_at": "2026-10-01T13:59:53+00:00",
+            "url": "https://finnhub.io/api/news?id=446aec4e288fb538af70a40b4f961ea25d15fdc1d61b0a1a22cb1449101175a1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MKC Q3 Earnings Beat Estimates on Margin Gains and Mexico Growth",
+            "summary": "McCormick's Q3 earnings beat estimates as Mexico acquisition gains, organic growth and margin expansion lift sales and profitability.",
+            "published_at": "2026-10-01T13:54:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef81e2b55ed7f85de48b001f128ff8cba5ee81afb769ab47748a0d3b5aa2fb30",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "MKC Stock Draws Investor Attention After Volatile Morning Following Upbeat Q3 -- Gross Profit Margin Expands By 190 Basis Points",
+            "summary": "McCormick reported Q3 net sales of $2.02 billion and adjusted EPS of $0.86, topping Fiscal AI estimates of $1.98 billion in revenue and $0.76 adjusted EPS.",
+            "published_at": "2026-10-01T13:09:25+00:00",
+            "url": "https://finnhub.io/api/news?id=a6acaceaf921c2e2fab8ac1c46022e4c9a077f96713f09ab92f06233cff79c0d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick & Company, Incorporated (MKC) Q3 2026 Earnings Call Transcript",
+            "summary": "McCormick & Company, Incorporated (MKC) Q3 2026 Earnings Call October 1, 2026 8:00 AM EDTCompany ParticipantsFaten Freiha - Vice President of Investor...",
+            "published_at": "2026-10-01T13:00:36+00:00",
+            "url": "https://finnhub.io/api/news?id=fbacd393afc720a392d749a4d134d2b6c245e10407e8632085e0b01c3d67f868",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "McCormick Shares Rise After Third-Quarter Earnings and Revenue Beat Estimates",
+            "summary": "McCormick & Company (NYSE:MKC) shares rose 4. 79% in premarket trading after the flavour company reported third-quarter earnings and revenue above analyst expectations and reaffirmed its full-year outlook.",
+            "published_at": "2026-10-01T12:37:40+00:00",
+            "url": "https://finnhub.io/api/news?id=cefd1436fdeac145ec4e32eedd3be21baccd2aa8e939024f4b00ac6e09d035fc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks that are showing activity before the opening bell on Thursday.",
+            "summary": "Get insights into the top gainers and losers in the S&P500 index of Thursday's pre-market session.",
+            "published_at": "2026-10-01T12:35:02+00:00",
+            "url": "https://finnhub.io/api/news?id=ace4b2f3f3fd668409306a2215d72dda895057955977573c5dc20756d2777d51",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "McCormick (MKC) Q3 Earnings: How Key Metrics Compare to Wall Street Estimates",
+            "summary": "While the top- and bottom-line numbers for McCormick (MKC) give a sense of how the business performed in the quarter ended August 2026, it could be worth looking at how some of its key metrics compare to Wall Street estimates and year-ago values.",
+            "published_at": "2026-10-01T12:30:02+00:00",
+            "url": "https://finnhub.io/api/news?id=239da4d478752a6635747184bac63d22bfd81561fbfed9a285192a6a3d74c27e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick (NYSE:MKC) Posts Better-Than-Expected Sales In Q3 2026",
+            "summary": "Food flavoring company McCormick (NYSE:MKC) announced better-than-expected revenue in Q3 2026, with sales up 17.4% year on year to $2.02 billion. Its non-GAAP profit of $0.86 per share was 13.8% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-10-01T11:38:01+00:00",
+            "url": "https://finnhub.io/api/news?id=8af4cc562551bc2ade37b80d491c6d15597761a036fb661e5e02bed360756ab0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick stock rises 5% on beating estimates as acquisition boosts sales",
+            "summary": "Investment.com -- On Thursday, McCormick & Company (NYSE:MKC) reported third-quarter results that exceeded analyst expectations while reaffirming its full-year outlook. Shares of the company rose 4.79% in pre-market tradig following the announcement.",
+            "published_at": "2026-10-01T11:19:47+00:00",
+            "url": "https://finnhub.io/api/news?id=221b307b34f6ac93a55f6588577f6f6bf0d9bb53e87c4c5681b9d1d10de365b4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick Q3 Review: I Don't Expect Anything Major To Change Before The Merger",
+            "summary": "McCormick & Company reported strong headline Q3 growth driven mainly by acquisitions, with organic growth lagging at just 1.9%. Read more on MKC stock here.",
+            "published_at": "2026-10-01T10:40:01+00:00",
+            "url": "https://finnhub.io/api/news?id=516767857577c0c129c8fde8dd37ac8c257c91f1e981aa2c490f88ed3aa14048",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "McCormick (MKC) Surpasses Q3 Earnings and Revenue Estimates",
+            "summary": "McCormick (MKC) delivered earnings and revenue surprises of +14.67% and +2.34%, respectively, for the quarter ended August 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-10-01T10:40:01+00:00",
+            "url": "https://finnhub.io/api/news?id=7d3703d2e9072bdc3e58ed718a1a732da83180828ce851853f11ba97eeb4c02a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCORMICK REPORTS SOLID THIRD QUARTER PERFORMANCE AND REAFFIRMS 2026 OUTLOOK",
+            "summary": "McCormick & Company, Incorporated (NYSE:MKC), a global leader in flavor, today reported financial results for the third quarter ended August 31, 2026 and reaffirmed its outlook for fiscal 2026.",
+            "published_at": "2026-10-01T10:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fdcb0d6bdc2f00ce8ae6124fea23eb6ece1e3df73d37665dba2ec3346f41bc5e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "McCormick & Co Q3 2026 Earnings Call Transcript",
+            "summary": "On Thursday, McCormick &amp; Co (NYSE:MKC) discussed third-quarter financial results during its earnings call. The full transcript is provided below.\nThis content is powered by Benzinga APIs. For comprehensive financial",
+            "published_at": "2026-10-01T09:14:42+00:00",
+            "url": "https://finnhub.io/api/news?id=0ce58a8ca86eb9775aab0a3112086e5af35b5ced7a2097d5925d97b9844c1e0f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "McCormick on Track to Build $20 Billion Mega-Flavor Powerhouse With Unilever Deal",
+            "summary": "McCormick (MKC) stock rose premarket after beating Q3 fiscal 2026 earnings expectations and reaffirming its full-year guidance.",
+            "published_at": "2026-10-01T09:08:19+00:00",
+            "url": "https://finnhub.io/api/news?id=63b4a846bf30b362834759c3656fcef73ed0504ee2bebbc8a64029cc4a35992e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stocks making the biggest moves premarket: Alphabet, Accenture, Rocket Lab, Micron and more",
+            "summary": "These are the stocks posting the largest moves in the premarket.",
+            "published_at": "2026-10-01T07:51:58+00:00",
+            "url": "https://finnhub.io/api/news?id=d4f8b0eae300ce0573ed6f48c4cde580e37d68157a40346e8342a58dd9aa43cc",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Earnings Scheduled For October 1, 2026",
+            "summary": "Companies Reporting Before The Bell\n\u2022 Accenture (NYSE:ACN) is estimated to report quarterly earnings at $3.18 per share on revenue of $18.03 billion. \n\u2022 McCormick &amp; Co (NYSE:MKC) is projected to report quarterly",
+            "published_at": "2026-10-01T07:11:06+00:00",
+            "url": "https://finnhub.io/api/news?id=10aa5d5860574a4a02689e03b30fe471bbba91399434b7b98d10f38a48a400f6",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "McCormick & Co Affirms FY2026 Adj EPS Guidance of $3.05-$3.13 vs $3.09 Est; Lowers FY2026 Sales Guidance from $7.730B-$8.003B to $7.729B-$8.003B vs $7.896B Est",
+            "summary": "McCormick &amp; Co (NYSE:MKC) affirms FY2026 Adj EPS guidance from $3.05-$3.13 to $3.05-$3.13 vs $3.09 analyst estimate. Lowers FY2026 sales outlook from $7.730 billion-$8.003 billion to $7.729 billion-$8.003 billion vs",
+            "published_at": "2026-10-01T06:31:50+00:00",
+            "url": "https://finnhub.io/api/news?id=f6440809bb0c1b4fd5d3d39ecc0887d1a59ae9aa4db17052205546e3ecd9fee1",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "McCormick & Co Q3 Adj. EPS $0.86 Beats $0.76 Estimate, Sales $2.025B Beat $1.977B Estimate",
+            "summary": "McCormick &amp; Co (NYSE:MKC) reported quarterly earnings of $0.86 per share which beat the analyst consensus estimate of $0.76 by 13.16 percent. This is a 1.18 percent increase over earnings of $0.85 per share from the",
+            "published_at": "2026-10-01T06:31:12+00:00",
+            "url": "https://finnhub.io/api/news?id=175d0f06ab80cd2470edd856ad925b56b23c933d1d28f745f7ee24e761d4f225",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 44.150001525878906
+    },
+    {
+      "ticker": "STLA",
+      "predicted_return": 0.26604800450744276,
+      "open_price": 4.494999885559082,
+      "snapshot_date": "2026-10-01",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-02T13:35:26.053098+00:00",
+        "articles": [
+          {
+            "headline": "Stellantis (BIT:STLAM) Stock Gets Fair Value Trim As Analysts Weigh Risks And Supports",
+            "summary": "Stellantis now sits on a slightly lower fair value estimate in this model, with the central price target moving from about \u20ac5.78 per share to about \u20ac5.61 per share. Analysts link this adjustment to a mix of potential supports for valuation and a long list of execution risks around product, inventories and regional performance that you need to weigh carefully. Read on to see what is driving this evolving narrative and how you can follow it as new data and opinions emerge. Stay updated as the...",
+            "published_at": "2026-10-02T05:10:00+00:00",
+            "url": "https://finnhub.io/api/news?id=16af57fbdcd7c3fea116c0dbb40e8d83bae7d8995d79284a84743248acda5e4c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis (BIT:STLAM) Has The Market Asking A Bigger Question",
+            "summary": "Stellantis (BIT:STLAM) just reported second quarter vehicle sales of 324,277 units, broadly in line with last year, while year to date deliveries reached 958,463 vehicles, slightly above the prior period. Stellantis shares trade at \u20ac3.8485 after a sharp reset, with the 30-day share price return down 17.09% and the year-to-date move down 60.39%, while the 1-year total shareholder return has fallen 56.35%. This suggests that recent sales resilience and product launches have not yet shifted...",
+            "published_at": "2026-10-01T22:06:42+00:00",
+            "url": "https://finnhub.io/api/news?id=de8d650937f940252d4b8b352aaa20c40bde301a77f70b01daf51ac3a6751a25",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today, Oct. 1: Stellantis Surges Off Record Low on Ram Pickup Sales Jump",
+            "summary": "On Oct. 1, 2026, the automaker's U.S. truck demand strength drove shares higher as investors eyed results from its turnaround plan.",
+            "published_at": "2026-10-01T21:38:16+00:00",
+            "url": "https://finnhub.io/api/news?id=46480b9fbb18d3f1d1f1059172b610b48d138155242ab968bc24cff39327e3d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis sales flat as Ram surges, Jeep struggles",
+            "summary": "Stellantis sales remained flat in the third quarter, ending a four-quarter streak of growth for the company.",
+            "published_at": "2026-10-01T19:02:02+00:00",
+            "url": "https://finnhub.io/api/news?id=4e8f9617127793af63bf2cc65751c9fe30c066d2fb6fe7765e7af911ff744143",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis Reports Q3 Sales",
+            "summary": "Stellantis Reports Q3 Sales",
+            "published_at": "2026-10-01T18:46:00+00:00",
+            "url": "https://finnhub.io/api/news?id=01b6f006068d81ce7c3e457dccea4557ed77b979e9345542059ce16ff748e5ce",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Is Stellantis (BIT:STLAM) Halting EV Production At Four French Plants?",
+            "summary": "Stellantis (BIT:STLAM) temporarily halted production at four French plants in October due to a shortage of EV batteries. The affected sites include key facilities that assemble electric models for the European market, disrupting planned output schedules. Union representatives in France have raised concerns about the impact of the stoppages on shift patterns and worker income security. The temporary production halt at four French EV plants is only one piece of the wider Stellantis story. Our...",
+            "published_at": "2026-10-01T16:10:09+00:00",
+            "url": "https://finnhub.io/api/news?id=b9c46e076e1ee69d125886dc5330b9814cc77edb74b77849eccce19766f3803f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Behind the Multibillion-Dollar Turnaround: 3 Catalysts Positioning This Stock to Race Ahead",
+            "summary": "There are three overlooked aspects to the early innings of Stellantis' global turnaround, but here's why the stock could race ahead in the near term.",
+            "published_at": "2026-10-01T14:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=469853b360fd4eaaceb8a89e7ea313da5bcfdc5f1a66247b0ba9e0ed7a3d0e50",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "myKaarma Earns Stellantis Mopar Service Gateway Certification, Expanding Connected Service Lane Capabilities",
+            "summary": "myKaarma, the leading customer interaction and payments platform for automotive dealerships, today announced it has earned certification as a Service Lane Technology (SLT) partner for Stellantis' Mopar Service Gateway (MSG). The certification connects myKaarma with MSG, bringing Stellantis service appointments and OEM vehicle data into the service process, expanding the information available to dealership teams.",
+            "published_at": "2026-10-01T12:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6eb065fecb114b76fcbaf4a872c95c3607ecbb5a17b410d76fc9b931496912a9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Key Reasons to Buy This Huge Turnaround Story That's Gaining Traction",
+            "summary": "After shedding roughly 75% of its value during the past three years, it might not take much improvement for Stellantis' stock price to pop.",
+            "published_at": "2026-10-01T09:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=30e0ef84e558b0bfe0bb0e07055147e8cc5ca735aceebb0e136e4175eca0a174",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stellantis to halt output at four French plants in October \u2013 report",
+            "summary": "A Stellantis representative told Bloomberg the Sochaux plant will shut from 23 to 30 October and Rennes from 22 to 30 October.",
+            "published_at": "2026-10-01T08:25:04+00:00",
+            "url": "https://finnhub.io/api/news?id=cd12c4665ee51ded195cfff9ec61e956fa833175b0c5d6a9eb13ae6003d4510e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 4.684999942779541
+    }
+  ],
+  "scored_count": 1933,
+  "skipped": [
+    {
+      "ticker": "ACN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NKE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WAT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AYI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NNI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BRC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FCN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BMI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "JOE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RGC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PLUG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLDX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EXG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AEHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MMS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AMR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CENT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HCI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DRVN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "EVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TIC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HMN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "STC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRC",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 27.20585340327401
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.161417881683732
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 7.399257649353707
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-01",
+    "model_trained_through": "2026-10-01",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-01, model trained through 2026-10-01 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

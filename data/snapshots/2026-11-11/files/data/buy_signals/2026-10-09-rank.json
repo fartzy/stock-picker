@@ -1,0 +1,769 @@
+{
+  "as_of": "2026-10-09",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "ALHC",
+      "predicted_return": 0.4333501826873378,
+      "open_price": 6.935,
+      "snapshot_date": "2026-10-08",
+      "news_flag": "CMS Medicare Advantage star ratings redraw bonuses, ALHC sinks",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "CMS Medicare Advantage star ratings redraw bonuses, ALHC sinks",
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-09T13:34:22.018309+00:00",
+        "articles": [
+          {
+            "headline": "These stocks are moving in today's pre-market session",
+            "summary": "The US market is yet to commence its session on Friday, but let's get a preview of the pre-market session and explore the top gainers and losers driving the early market movements.",
+            "published_at": "2026-10-09T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c970fbe5a697f3f44e82cb6e83e5c0608d464bfe6fed78f2fcb8568448e196fd",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "HUM Stock Soars, ALHC Sinks As CMS Star Ratings Redraw 2028 Bonuses",
+            "summary": "Humana\u2019s largest Medicare Advantage contract, covering more than 2 million members, rose from 3.5 stars to 4, putting it back above the bonus threshold.",
+            "published_at": "2026-10-09T00:05:38+00:00",
+            "url": "https://finnhub.io/api/news?id=716305727168b61661e4161443d113b0d4d16107d44cd4878f0a67e803ec9859",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Humana soars, Alignment Healthcare sinks on Medicare rating changes",
+            "summary": "Investing.com -- Shares of Humana surged 16.5% on Thursday, while rival Alignment Healthcare tumbled over 20%, after newly released Medicare Advantage Star Ratings revealed sharp reversals in ratings for the two insurers.",
+            "published_at": "2026-10-08T21:12:45+00:00",
+            "url": "https://finnhub.io/api/news?id=1dc6bd4533aecbae3a167ff1df54aacdf1ec6f8a67ddcca39974a85176310e54",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Alignment Healthcare Earns 4 Stars or Higher for Six of Seven Eligible Medicare Advantage Contracts in CMS 2027 Star Ratings",
+            "summary": "Three contracts achieve 4.5-Star ratings as Alignment remains focused on delivering high-quality, coordinated care for seniorsORANGE, Calif., Oct. 08, 2026 (GLOBE NEWSWIRE) -- Alignment Healthcare, Inc. (NASDAQ: ALHC) today announced strong results in the Centers for Medicare & Medicaid Services\u2019 (CMS) 2027 Medicare Advantage (MA) Star Ratings. Six of the company\u2019s seven MA contracts eligible for rating earned 4 Stars or higher, including three plans that achieved an overall 4.5-Star Rating. The",
+            "published_at": "2026-10-08T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=075b8da3017d1106ba6e1895db8edb60a73385510cf00533b795a6e9ce6365de",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's after hours session",
+            "summary": "Wondering what's happening in today's after-hours session? Stay tuned for the latest updates on stock movements.",
+            "published_at": "2026-10-08T21:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a8e2b08d61211646a2d92bbcc25db08a9a29b8e32ed0c3781887edf9d4fcf438",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 8.71
+    },
+    {
+      "ticker": "ASTS",
+      "predicted_return": 0.4229074855196641,
+      "open_price": 54.46,
+      "snapshot_date": "2026-10-08",
+      "news_flag": "Rocket Lab Fell Hard Over The Last 3 Months: Wall Street Pro Predicts It Doubles From Today",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Rocket Lab Fell Hard Over The Last 3 Months: Wall Street Pro Predicts It Doubles From Today",
+        "article_count": 17,
+        "reviewed_count": 17,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-09T13:34:22.019683+00:00",
+        "articles": [
+          {
+            "headline": "Why Are Nasdaq Futures Surging Premarket? SPCX, ASTS, AAPL, TMUS, VZ, NVDA, MU, LITE Stocks In Focus",
+            "summary": "On Stocktwits, retail sentiment toward SPY and QQQ has remained \u2018extremely bullish\u2019 this week.",
+            "published_at": "2026-10-09T08:38:57+00:00",
+            "url": "https://finnhub.io/api/news?id=5504b507413e1a9d7c270522973a489c5cd47b850ea6963230d7c505460e0693",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stocktwits Space Race Weekly: SPCX Flies Solo In Green \u2014 RKLB, ASTS, RDW And PL Fall Back To Earth",
+            "summary": "AST SpaceMobile completed a Telus network integration test and received U.S.-Japan recognition, but faced competitive pressure from SpaceX\u2019s spectrum deal.",
+            "published_at": "2026-10-09T06:22:06+00:00",
+            "url": "https://finnhub.io/api/news?id=f9c45ce3ff7f67fd62a79ec2d081680333a9e525280a035d99e48366eefca262",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Satellite Connectivity Stocks As Starlink Challenges Mobile Coverage",
+            "summary": "Starlink\u2019s push to blend satellites with low band spectrum has turned the idea of \u201ceverywhere coverage\u201d into a live debate for telecom investors. Cash that once quietly backed the usual wireless giants is now watching a new competitor step inside the house, not just circle from orbit. This piece walks through three stocks that are directly exposed to that news and how this shift could reshape their risk and reward profile for you. The stocks covered below are just a starter set, and the...",
+            "published_at": "2026-10-09T02:11:22+00:00",
+            "url": "https://finnhub.io/api/news?id=4c92ebd6b579edda592de6011111ada09d5427544670b99ead38d9d44ddf1745",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Dow Jones Futures Rise After AI Stocks Tumble On OpenAI News; SpaceX Move Slams Verizon, AT&T Late",
+            "summary": "AI stocks sold off on OpenAI but much of the market was fine. Apple flashed a buy signal. A SpaceX spectrum buy hit Verizon, AT&T and T-Mobile late.",
+            "published_at": "2026-10-09T01:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=d5030d0f7a70a6770c332c8f1d2243651649b0ae98673d8958422f073f5fd4c7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ASTS Stock Slides After-Hours As SpaceX Snags Grain Spectrum: Analyst Who Called The Deal Says \u2018Ligado Is Next\u2019",
+            "summary": "Satellite communications and spectrum consultant Tim Farrar flagged Viasat as the last available holder of a substantial block of global spectrum.",
+            "published_at": "2026-10-09T01:24:11+00:00",
+            "url": "https://finnhub.io/api/news?id=99b3c06b45932051407850ac05f5b411c0db732be471c75ad02a5698157ca412",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile (ASTS) Could Be 67% Undervalued On TELUS Integration Progress",
+            "summary": "AST SpaceMobile (ASTS) moved back into focus after the company and TELUS completed their first integration test connecting TELUS' terrestrial wireless network with AST SpaceMobile's satellite based system for direct smartphone to satellite service in Canada. AST SpaceMobile\u2019s integration progress with TELUS comes after a volatile run for the stock, with the share price falling 6.13% over the past day and 13.90% over the past month, contributing to a 31.80% decline in the year to date. Long...",
+            "published_at": "2026-10-09T00:22:00+00:00",
+            "url": "https://finnhub.io/api/news?id=37476632a2c9f5e1e5d6abfac1e216149d2eef190ce592377959837b411cb1da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX Buys Wireless Spectrum For Starlink; Verizon, AT&T, T-Mobile Tumble",
+            "summary": "Elon Musk's SpaceX will buy more wireless spectrum as its Starlink mobile service expands. Verizon, AT&T and T-Mobile shares tumbled late.",
+            "published_at": "2026-10-09T00:10:24+00:00",
+            "url": "https://finnhub.io/api/news?id=44d64454b3abafe22a41a18f79ec02559f9874fb6499bbc36e1f100e782a32f8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ROSEN, NATIONAL TRIAL COUNSEL, Encourages AST SpaceMobile, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - ASTS",
+            "summary": "Rosen Law Firm has filed securities class action lawsuits against AST SpaceMobile, GoDaddy, and Innventure, alleging that defendants made false and misleading statements regarding capital requirements, competitive positioning, and business prospects. Investors who purchased securities during specified class periods are encouraged to join the litigation before upcoming deadlines.",
+            "published_at": "2026-10-08T22:55:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/08/3377771/673/en/rosen-national-trial-counsel-encourages-ast-spacemobile-inc-investors-to-secure-counsel-before-important-deadline-in-securities-class-action-asts.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "T, TMUS, VZ Stocks Plunge After-Hours As SpaceX Buys 800 MHz Spectrum For Starlink Mobile",
+            "summary": "In an update posted Thursday, SpaceX said it had agreed to acquire up to 14 megahertz of paired spectrum in the 800 MHz band.",
+            "published_at": "2026-10-08T22:49:13+00:00",
+            "url": "https://finnhub.io/api/news?id=425c72fc7f5ca7b56fc79b3df04198964917eb246aa5aee6946e4521d7ba507a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GDDY IMPORTANT DEADLINE: ROSEN, NATIONAL INVESTOR COUNSEL, Encourages GoDaddy Inc. Investors to Secure Counsel Before Important October 20 Deadline in Securities Class Action \u2013 GDDY",
+            "summary": "Rosen Law Firm is notifying investors about securities class action lawsuits filed against GoDaddy Inc. and other companies. The GoDaddy lawsuit alleges the company made materially false statements about customer growth strategy and average order size, implementing promotions that contradicted public representations and led to decreased bookings. Investors who purchased stock during specified periods may be eligible for compensation, with an October 20, 2026 deadline to serve as lead plaintiff.",
+            "published_at": "2026-10-08T22:35:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/08/3377766/673/en/gddy-important-deadline-rosen-national-investor-counsel-encourages-godaddy-inc-investors-to-secure-counsel-before-important-october-20-deadline-in-securities-class-action-gddy.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "INV IMPORTANT DEADLINE: ROSEN, TRUSTED INVESTOR COUNSEL, Encourages Innventure, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - INV",
+            "summary": "Rosen Law Firm is notifying investors about multiple securities class action lawsuits. The primary case involves Innventure, Inc., where defendants allegedly made false statements about Accelsius Holdings' transformative deal with DarkNX and overstated revenue targets. The lead plaintiff deadline is October 27, 2026. Similar lawsuits are also being pursued against AST SpaceMobile, Inc. and GoDaddy Inc.",
+            "published_at": "2026-10-08T22:34:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/08/3377764/673/en/inv-important-deadline-rosen-trusted-investor-counsel-encourages-innventure-inc-investors-to-secure-counsel-before-important-deadline-in-securities-class-action-inv.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "ASTS, SPCX And NN Stocks Slide: Clear Street Calls FCC Meeting Agenda Mixed For AST SpaceMobile",
+            "summary": "Clear Street called the FCC\u2019s October 29 agenda a mixed signal for AST SpaceMobile, favoring its carrier partnerships while flagging a real but narrow auction risk, and kept its \u2018Buy\u2019 rating.",
+            "published_at": "2026-10-08T19:27:33+00:00",
+            "url": "https://finnhub.io/api/news?id=a5c9b06e1ffa59b3dec66caea402180bbb923b7309e41284e8d73a72c251c537",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Vodafone Targets \u00a31B Synergies as VodafoneThree Accelerates U.K. 5G Rollout",
+            "summary": "Vodafone Group (NASDAQ:VOD) outlined plans for its VodafoneThree U.K. business to expand 5G Standalone coverage, grow in consumer and business services, and increase annual cost and capital-expenditure synergies to \u00a31 billion by fiscal 2032. At an investor briefing in London, Vodafone executives sa",
+            "published_at": "2026-10-08T19:02:33+00:00",
+            "url": "https://finnhub.io/api/news?id=5e70f46c0f9a874a59a066f84db47ea4cbb256d411919977ed11bed8ca4613fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Rocket Lab Fell Hard Over The Last 3 Months: Wall Street Pro Predicts It Doubles From Today",
+            "summary": "Rocket Lab sits more than 50% below its 52-week high after a brutal stretch of dilution and missed earnings, yet one Wall Street analyst just reiterated a target that implies the stock doubles from here. The question is whether a single unflown rocket decides if that call looks prescient or reckless.",
+            "published_at": "2026-10-08T16:45:01+00:00",
+            "url": "https://finnhub.io/api/news?id=b8aafc70af9e26966a9a809b89435cdd157870fbab0162ebebef30fbc0ecc0d2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile Sinks 7% as Satellite Rival Clears Regulatory Hurdle; Rocket Lab Drops 4%, Planet Labs Falls 5%",
+            "summary": "A regulator just handed SpaceX permission to reach ordinary phones without touching a wireless carrier, and that single order is reshaping which space companies investors trust with their money.",
+            "published_at": "2026-10-08T16:43:31+00:00",
+            "url": "https://finnhub.io/api/news?id=f036c6be9c02f5c0b58dad1a69fa77d65b646c1ea7e8290548d1e508d9376ddc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AST SpaceMobile Got U.S.-Japan Backing. Wall Street Still Sees $3.2 Billion of Cash Burn Before 2029",
+            "summary": "Key Stats for AST SpaceMobile StockCurrent Price: $60. 65Target Price (Mid): ~$178Street Target (12-month mean): ~$78Potential Total Return: ~194%Annualized IRR: ~29% / yearWhat Happened?AST SpaceMobile (ASTS) rose more than 8% intraday on October 6, per Benzinga, after a U.",
+            "published_at": "2026-10-08T12:36:54+00:00",
+            "url": "https://finnhub.io/api/news?id=8528d5c4deba103e267d3573882f52640cdae8241d5fd6e570cb1b3f038f5a63",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "SpaceX Just Got Permission to Compete With AT&T and Verizon From Orbit",
+            "summary": "The FCC just handed SpaceX a path to reach your phone without asking AT&T or Verizon for permission, and the carriers are already scrambling to respond before the first satellite even launches.",
+            "published_at": "2026-10-08T11:15:43+00:00",
+            "url": "https://finnhub.io/api/news?id=4f236a92d1092a99b4540376a87aad2779e87be9d9020fcc98ec263d0cfb54d1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 56.93
+    },
+    {
+      "ticker": "RLAY",
+      "predicted_return": 0.31111561707994345,
+      "open_price": 17.01,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-09T13:34:22.020970+00:00",
+        "articles": [
+          {
+            "headline": "What Could Go Wrong With Recursion Pharmaceuticals Stock?",
+            "summary": "Recursion Pharmaceuticals (RXRX) held about $557 million in cash at the end of its second quarter of 2026. Investors should track this figure closely, as the drug developer continues to lose money. Its drug programs remain in clinical trials, and it had a net loss of about $0.5 billion over the last twelve months. So how quickly is Recursion spending that cash.",
+            "published_at": "2026-10-08T23:58:14+00:00",
+            "url": "https://finnhub.io/api/news?id=fc9907007d2ba20174771597a0283f4722d2ddef85391ff3a7e0242d220e5963",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Relay Therapeutics (RLAY) Stock Looks Fully Priced On Book Value",
+            "summary": "Relay Therapeutics has seen its share price move sharply over the past year, which puts a fresh spotlight on whether that performance lines up with the strength of its balance sheet. For anyone following Relay Therapeutics, the immediate question is how the current market price stacks up against the company\u2019s book value. Over the past 12 months, Relay Therapeutics has returned 193.8%, which puts substantial pressure on the question of whether the recent share price level is still grounded in...",
+            "published_at": "2026-10-08T06:12:18+00:00",
+            "url": "https://finnhub.io/api/news?id=992af2d85ca73d3edb9123a793fa726171d5f379af74c1a0eecbbb157537537e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 17.41
+    },
+    {
+      "ticker": "HPQ",
+      "predicted_return": 0.3098940507955875,
+      "open_price": 31.955,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-09T13:34:22.021293+00:00",
+        "articles": [
+          {
+            "headline": "Zacks Investment Ideas feature highlights: Microsoft, Dell, HP, Lenovo and Nvidia",
+            "summary": "Microsoft, Dell, HP, Lenovo and Nvidia have been highlighted in this Investment Ideas article.",
+            "published_at": "2026-10-09T04:45:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ec9f09abb94e6a97f6523f2a2d42ecba63078ce5c2b5c68342122fce508e6d32",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is HP (HPQ) Above Fair Value After A 47% Run?",
+            "summary": "HP Inc. has delivered a strong share price run this year, which naturally puts a spotlight on whether the cash it can generate over time really matches the current market tag. With the stock now trading well above where it started the year, the question for anyone looking at HP is how today\u2019s price lines up with the cash flows implied by a Discounted Cash Flow (DCF) view. HP is up 46.7% year to date, so a lot of future cash generation is already being referenced in the current valuation...",
+            "published_at": "2026-10-09T03:17:25+00:00",
+            "url": "https://finnhub.io/api/news?id=8dffcf8817841d3d302c2ee8f9accf3c6a1947cb50a9d5f78af094388a88ae23",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Microsoft Stock a Buy After Expanding Its Nvidia Partnership?",
+            "summary": "Microsoft's expanded Nvidia collaboration strengthens its AI growth prospects, but is a premium valuation keeping investors on the sidelines?",
+            "published_at": "2026-10-08T17:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=854cab280bc456d04d967204248b1413e559512ff7f2036152072aa03118caa8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Saitech Inc. at AI Infra Summit 2026: Connecting with the Future of AI Infrastructure",
+            "summary": "Saitech Inc. was proud to exhibit at AI Infra Summit 2026, connecting with partners, OEMs, vendors, customers, innovators, and technology professionals from across the rapidly growing AI infrastructure ecosystem.",
+            "published_at": "2026-10-08T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bf3ff27b719df85e84df13d3c9adeb93f4ecfd83a8e04a975329fef623a32756",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HP, Merck, and Seagate Just Paid Their Shareholders. Here\u2019s What Landed in Their Accounts.",
+            "summary": "On October 7, three companies with nothing in common sent cash to their shareholders, but the differences in what each paid, how fast each raised it, and what the stock price does to the math tell three very different income stories.",
+            "published_at": "2026-10-08T12:20:06+00:00",
+            "url": "https://finnhub.io/api/news?id=f1f16c634cdaf1264e52627dfa0f5d8fa07dbdbf74cb507775f98e87795a9933",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 32.44
+    },
+    {
+      "ticker": "BVC",
+      "predicted_return": 0.3070621048901135,
+      "open_price": 12.76,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-09T13:35:07.223753+00:00",
+        "articles": []
+      },
+      "prev_close": 12.925
+    },
+    {
+      "ticker": "PRGO",
+      "predicted_return": 0.2978473554726571,
+      "open_price": 14.24,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 14.5
+    },
+    {
+      "ticker": "GEO",
+      "predicted_return": 0.291897770259745,
+      "open_price": 30.5,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 30.96
+    },
+    {
+      "ticker": "CRGY",
+      "predicted_return": 0.2874267970177481,
+      "open_price": 12.92,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 13.01
+    },
+    {
+      "ticker": "UTHR",
+      "predicted_return": 0.28672761094735166,
+      "open_price": 528.92,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 532.78
+    },
+    {
+      "ticker": "LEN-B",
+      "predicted_return": 0.28347047816053367,
+      "open_price": 76.37,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 77.06
+    },
+    {
+      "ticker": "SWKS",
+      "predicted_return": 0.2784040523436594,
+      "open_price": 79.35,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 80.75
+    },
+    {
+      "ticker": "LFTO",
+      "predicted_return": 0.2772154390945945,
+      "open_price": 16.05,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 16.15
+    },
+    {
+      "ticker": "CAVA",
+      "predicted_return": 0.27662029748752454,
+      "open_price": 53.9,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 54.31
+    },
+    {
+      "ticker": "VZ",
+      "predicted_return": 0.27573851054038573,
+      "open_price": 42.83,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 46.35
+    },
+    {
+      "ticker": "RVMD",
+      "predicted_return": 0.27549474070399205,
+      "open_price": 186.01,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 188.12
+    },
+    {
+      "ticker": "GKOS",
+      "predicted_return": 0.2741176074157253,
+      "open_price": 160.06,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 161.29
+    },
+    {
+      "ticker": "KNF",
+      "predicted_return": 0.2675136916217666,
+      "open_price": 51.97,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 52.27
+    },
+    {
+      "ticker": "HMY",
+      "predicted_return": 0.266662497059581,
+      "open_price": 16.74,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 16.84
+    },
+    {
+      "ticker": "SAH",
+      "predicted_return": 0.2664873389480545,
+      "open_price": 61.19,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 61.51
+    },
+    {
+      "ticker": "KMX",
+      "predicted_return": 0.2635272307687445,
+      "open_price": 53.505,
+      "snapshot_date": "2026-10-08",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 53.79
+    }
+  ],
+  "scored_count": 1977,
+  "skipped": [
+    {
+      "ticker": "PEP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKC-V",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 29.26516292903359
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 12.12584604231792
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 6.764941125585279
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-08",
+    "model_trained_through": "2026-10-08",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-08, model trained through 2026-10-08 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

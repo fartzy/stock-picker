@@ -1,0 +1,1118 @@
+{
+  "as_of": "2026-11-11",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "CSQR",
+      "predicted_return": 0.30385957254642254,
+      "open_price": 18.15,
+      "snapshot_date": "2026-11-10",
+      "news_flag": "Q3 revenue beat and raised 2026 EBITDA outlook",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Q3 revenue beat and raised 2026 EBITDA outlook",
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:34:32.910881+00:00",
+        "articles": [
+          {
+            "headline": "The Demise of Data Center Stocks Has Been Greatly Exaggerated. These Earnings Show Why.",
+            "summary": "Shares or real estate firm Csquare, which rents out data center space, rose double digits on its third quarter earnings.",
+            "published_at": "2026-11-10T17:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ad648ad32985940740f657630b4c175f8d1fda1ad88f8514aafdd8f364d48908",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "US Gap-Up and Gap-Down Stocks: Nov. 10, 2026 Session",
+            "summary": "Nov. 10, 2026 US gap movers included SMX, AMIX, TTEC, MVST, IHRT and FF, with notable gap-up and gap-down session moves.",
+            "published_at": "2026-11-10T15:30:50+00:00",
+            "url": "https://finnhub.io/api/news?id=2d7c1e01bd35e1a0b4a6af964bd03e861666e64bfa845c83d1d905def1a0d45b",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Csquare Stock Surges as Data Center Demand Fuels Revenue Beat, Strong Bookings and Raised Profit Outlook",
+            "summary": "Csquare shares rise 15% after Q3 revenue beat estimates, bookings and EBITDA surge, and the company raises its 2026 adjusted EBITDA outlook.",
+            "published_at": "2026-11-10T14:20:06+00:00",
+            "url": "https://finnhub.io/api/news?id=04db7cf69ee5ebf40e3506d64b29914713d97ffcaca64d487154d9748067cebc",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "TD Cowen Maintains Buy on Csquare, Raises Price Target to $30",
+            "summary": "TD Cowen  analyst Michael Elias   maintains Csquare (NYSE:CSQR) with a Buy and raises the price target from $28 to $30.",
+            "published_at": "2026-11-10T12:48:55+00:00",
+            "url": "https://finnhub.io/api/news?id=e6c82bc347fa0e31f953976e480ba081913a6c3ba5504bea281abcaba9e07c7b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "AAON, Ziprecruiter, Rackspace Technology, Babcock & Wilcox And Other Big Stocks Moving Higher On Tuesday",
+            "summary": "U.S. stocks fell, but AAON surged 23% on strong earnings and raised guidance. ZipRecruiter, Securitize and Senseonics led other gainers.",
+            "published_at": "2026-11-10T11:01:19+00:00",
+            "url": "https://finnhub.io/api/news?id=8f58a04b9fa74e4807612bd54434f4d7e8076dc907a58b3205e43d07e5f60dc0",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Csquare (CSQR) Q3 2026 Earnings Call Transcript",
+            "summary": "Bookings rose as demand outpaced sellable power capacity.",
+            "published_at": "2026-11-10T06:33:16+00:00",
+            "url": "https://finnhub.io/api/news?id=30feff5aa8a7f60ed473cab2e1d9fbfbcc988ee4571cd057b6c2a5a83af758bc",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 17.52,
+      "jev": {
+        "news_skip": 0.75,
+        "buy_today": 0.62,
+        "hold_overnight": 0.56,
+        "model": "jev-1.14.0",
+        "tokens": 2648,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.341817+00:00",
+        "forecast_id": "d0dfe2b0-00d1-412c-b0a5-d975bb353a26",
+        "requested_at": "2026-11-11T14:36:05.963947+00:00",
+        "completed_at": "2026-11-11T14:36:06.341817+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "TWLO",
+      "predicted_return": 0.2871048886493368,
+      "open_price": 218.325,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:34:32.911665+00:00",
+        "articles": [
+          {
+            "headline": "S&P 500 Top Gainers and Losers for Today's Session",
+            "summary": "S&P 500 market movers for today's session: Charter Communications led gainers at 9.68%, while Carvana led losers at 6.32%.",
+            "published_at": "2026-11-10T20:06:07+00:00",
+            "url": "https://finnhub.io/api/news?id=6fce76dd7876e030d37b388ebacf02dc819d615b61dee883f327a61f69708576",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "S&P 500 Top Movers: Today's US Session Gainers and Losers",
+            "summary": "S&P 500 top movers for today's US session: Take-Two Interactive led gainers at 7.57%, while GE Vernova led decliners at 7.19%.",
+            "published_at": "2026-11-10T17:36:03+00:00",
+            "url": "https://finnhub.io/api/news?id=7298d9b65a4f1c1d8597bf187062a57b8ac62c13c137ce3889144a6764273edf",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Here's Why Twilio (TWLO) is a Strong Growth Stock",
+            "summary": "Twilio Inc. (TWLO) is highlighted as a potential growth investment opportunity with a #3 (Hold) Zacks Rank and a VGM Score of B. The company forecasts 24.7% year-over-year earnings growth for the current fiscal year, with nine analysts revising earnings estimates higher in the last 60 days. TWLO has an average earnings surprise of +12.4%, making it a consideration for growth-focused investors.",
+            "published_at": "2026-11-10T13:45:03+00:00",
+            "url": "https://www.zacks.com/stock/news/3027189/here-s-why-twilio-twlo-is-a-strong-growth-stock?cid=CS-ZC-FT-fundamental_analysis%7Czacks_education_growth_score-3027189",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Verint Appoints Abhi Sharma as Chief Product and Technology Officer",
+            "summary": "MELVILLE, N.Y., November 10, 2026--Verint\u00ae today announced the appointment of Abhi Sharma as chief product and technology officer (CPTO), a newly created role uniting product and technology under a single leader. Sharma brings decades of experience leading and scaling global technology organizations.",
+            "published_at": "2026-11-10T13:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c74cf2810071f5b4e1c43a361741c0a0477300d6c5fe72ec15507339cf6436d4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Breakfast News: Nvidia\u2019s Governance Moment",
+            "summary": "Nvidia faces governance concerns following CEO Jensen Huang's admission of an affair with a former executive at a Chinese customer company who allegedly gathered sensitive information for Chinese intelligence. While the board investigation found no evidence of compromised secrets and the core business remains unchanged, the incident raises succession planning concerns given Huang's centralized leadership structure since 1993. Washington scrutiny on China chip sales may tighten export rules. Separately, Twilio's new CEO Khozema Shipchandler has successfully executed a turnaround strategy focusing on AI investment, profitability, and reduced stock-based compensation, with shares nearly tripling since his January 2024 appointment.",
+            "published_at": "2026-11-10T12:30:03+00:00",
+            "url": "https://www.fool.com/investing/breakfast-news/2026/11/10/breakfast-news/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          }
+        ]
+      },
+      "prev_close": 214.21,
+      "jev": {
+        "news_skip": 0.16,
+        "buy_today": 0.47,
+        "hold_overnight": 0.52,
+        "model": "jev-1.14.0",
+        "tokens": 2695,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.270757+00:00",
+        "forecast_id": "edb49761-9734-4804-b598-2e777777eff4",
+        "requested_at": "2026-11-11T14:36:05.892756+00:00",
+        "completed_at": "2026-11-11T14:36:06.270757+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "QH",
+      "predicted_return": 0.28244966107062497,
+      "open_price": 3.05,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:34:32.912285+00:00",
+        "articles": []
+      },
+      "prev_close": 3.09,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.52,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1138,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.294577+00:00",
+        "forecast_id": "2a9e339a-a95b-4757-955b-987b5e9e3763",
+        "requested_at": "2026-11-11T14:36:05.893411+00:00",
+        "completed_at": "2026-11-11T14:36:06.294577+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "PRDO",
+      "predicted_return": 0.27776168669626294,
+      "open_price": 29.3,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:34:32.912436+00:00",
+        "articles": []
+      },
+      "prev_close": 28.87,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.47,
+        "hold_overnight": 0.51,
+        "model": "jev-1.14.0",
+        "tokens": 1138,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.303273+00:00",
+        "forecast_id": "7b186284-148f-4485-952c-788cd3f060e0",
+        "requested_at": "2026-11-11T14:36:05.759747+00:00",
+        "completed_at": "2026-11-11T14:36:06.303273+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "FROG",
+      "predicted_return": 0.2593210830069839,
+      "open_price": 108.5,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 103.55,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.37,
+        "hold_overnight": 0.51,
+        "model": "jev-1.14.0",
+        "tokens": 1099,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.297618+00:00",
+        "forecast_id": "1f1d6576-59a2-4498-ad8f-3d253340ab73",
+        "requested_at": "2026-11-11T14:36:05.948363+00:00",
+        "completed_at": "2026-11-11T14:36:06.297618+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "MPT",
+      "predicted_return": 0.2545542399128774,
+      "open_price": 1.85,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 1.82,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.37,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1094,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.306461+00:00",
+        "forecast_id": "5f4e89bd-ec35-432b-8195-b2d612c41f08",
+        "requested_at": "2026-11-11T14:36:05.965104+00:00",
+        "completed_at": "2026-11-11T14:36:06.306461+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "LUMN",
+      "predicted_return": 0.25220164971451997,
+      "open_price": 4.77,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 4.71,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.51,
+        "hold_overnight": 0.5,
+        "model": "jev-1.14.0",
+        "tokens": 1100,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.331791+00:00",
+        "forecast_id": "e13f7a1e-468a-4275-80cb-94ca16e6bd9e",
+        "requested_at": "2026-11-11T14:36:05.919309+00:00",
+        "completed_at": "2026-11-11T14:36:06.331791+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "ARWR",
+      "predicted_return": 0.24370615059516917,
+      "open_price": 49.65,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 49.0,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.31,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1103,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.285248+00:00",
+        "forecast_id": "1ceaaf67-499c-4269-ba8f-b6b83bb98ad9",
+        "requested_at": "2026-11-11T14:36:05.773091+00:00",
+        "completed_at": "2026-11-11T14:36:06.285248+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "TEAM",
+      "predicted_return": 0.2396877868378108,
+      "open_price": 151.48,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 148.6,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.34,
+        "hold_overnight": 0.48,
+        "model": "jev-1.14.0",
+        "tokens": 1105,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.598523+00:00",
+        "forecast_id": "de528de2-eb7c-4156-baee-1728510cb718",
+        "requested_at": "2026-11-11T14:36:06.302325+00:00",
+        "completed_at": "2026-11-11T14:36:06.598523+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "ZETA",
+      "predicted_return": 0.23908408613568896,
+      "open_price": 36.0,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 35.07,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.58,
+        "hold_overnight": 0.52,
+        "model": "jev-1.14.0",
+        "tokens": 1098,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.702654+00:00",
+        "forecast_id": "24a61a74-2758-497e-8ac1-fa3f748a827e",
+        "requested_at": "2026-11-11T14:36:06.316662+00:00",
+        "completed_at": "2026-11-11T14:36:06.702654+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "OKTA",
+      "predicted_return": 0.23660298593631027,
+      "open_price": 186.805,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 178.36,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.44,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1108,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.680003+00:00",
+        "forecast_id": "13fd88cb-28e8-48a5-b518-3905bb535eaf",
+        "requested_at": "2026-11-11T14:36:06.318241+00:00",
+        "completed_at": "2026-11-11T14:36:06.680003+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "WTTR",
+      "predicted_return": 0.23057419346972044,
+      "open_price": 15.78,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:35:52.810059+00:00",
+        "articles": []
+      },
+      "prev_close": 15.31,
+      "jev": {
+        "news_skip": 0.02,
+        "buy_today": 0.43,
+        "hold_overnight": 0.48,
+        "model": "jev-1.14.0",
+        "tokens": 1141,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.703184+00:00",
+        "forecast_id": "74c3e12f-ee9a-467b-a507-a6e58438ba3c",
+        "requested_at": "2026-11-11T14:36:06.321358+00:00",
+        "completed_at": "2026-11-11T14:36:06.703184+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "AKAM",
+      "predicted_return": 0.22039505522959757,
+      "open_price": 85.1,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:35:52.810284+00:00",
+        "articles": [
+          {
+            "headline": "Buy, Sell, or Hold? Wednesday\u2019s Top Upgrades and Downgrades: Akamai Technologies, Apple, BILL Holdings, Corning, Form Factor, Guidewire Software, NVIDIA, Riot Platforms, Toast, and More",
+            "summary": "Hot inflation data rattled Tuesday's close, and now one chip giant faces a Baird downgrade tied to concerns about its CEO. Which analyst calls, from Apple's upgrade to a steep Akamai cut, deserve your attention before the bell?",
+            "published_at": "2026-11-11T12:57:12+00:00",
+            "url": "https://finnhub.io/api/news?id=7cdf40837326d672aab7d0eada0eb35580bdf7937b88127cfefe5e202c35ae1b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nvidia To $200? Here Are 10 Top Analyst Forecasts For Wednesday",
+            "summary": "Analysts cut targets for AMBQ, TYRA, NVDA, HUBB and CAN; raised CARL and RIOT targets, while downgrading NVDA and RIOT.",
+            "published_at": "2026-11-11T10:10:08+00:00",
+            "url": "https://finnhub.io/api/news?id=3b8a921ecbfe9f49169c877397bc07e0e5c016579b5acedd7178a923d385d807",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "This Nvidia Analyst Is No Longer Bullish; Here Are Top 5 Downgrades For Wednesday",
+            "summary": "Analysts downgraded Life360, Akamai, Mid-America Apartment, Riot Platforms and Nvidia, with mixed price-target changes.",
+            "published_at": "2026-11-11T08:40:21+00:00",
+            "url": "https://finnhub.io/api/news?id=4064f7d4eba933ad4a2c60730296bcea231fc5dbad529f78309adc48155c8fc3",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "S&P 500 Top Gainers and Losers for Today's Session",
+            "summary": "S&P 500 market movers for today's session: Charter Communications led gainers at 9.68%, while Carvana led losers at 6.32%.",
+            "published_at": "2026-11-10T20:06:07+00:00",
+            "url": "https://finnhub.io/api/news?id=6fce76dd7876e030d37b388ebacf02dc819d615b61dee883f327a61f69708576",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "S&P 500 Most Active Stocks in Today's Session: SMCI, AT&T, Ford Lead Volume",
+            "summary": "S&P 500 most-active list led by Super Micro Computer, AT&T and Ford by volume; the ten stocks ranged from a 3.65% gain to a 3.81% decline.",
+            "published_at": "2026-11-10T19:06:05+00:00",
+            "url": "https://finnhub.io/api/news?id=f21ed546c52d7960595fde31e65328748e7d5dfb9b9a22e9d26f1190275c2277",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Regal Rexnord is 'Worth So Much More,' Don't Overlook Churchill Downs: Jim Cramer",
+            "summary": "Cramer favors Regal Rexnord and Churchill Downs, is cautious on Marvell, dismissive of Snap and unaware of Perimeter.",
+            "published_at": "2026-11-10T08:47:19+00:00",
+            "url": "https://finnhub.io/api/news?id=e957c5279b77c28aba151a9980d3dc8dc76334182bb951637b5d93e4c3d4bb7f",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 83.71,
+      "jev": {
+        "news_skip": 0.11,
+        "buy_today": 0.4,
+        "hold_overnight": 0.46,
+        "model": "jev-1.14.0",
+        "tokens": 2717,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.639898+00:00",
+        "forecast_id": "7584198c-1557-4e0f-a873-6aa429399a53",
+        "requested_at": "2026-11-11T14:36:06.325100+00:00",
+        "completed_at": "2026-11-11T14:36:06.639898+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "NESR",
+      "predicted_return": 0.21809183153734796,
+      "open_price": 21.32,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:35:52.810681+00:00",
+        "articles": [
+          {
+            "headline": "NESR Q3 Earnings Call Highlights Growth & Recovery Plans",
+            "summary": "National Energy targets $2B in 2026 revenues as regional expansion, Jafurah activity and new technologies support growth despite geopolitical disruptions.",
+            "published_at": "2026-11-10T18:42:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e42289328589a708a97245656cbc8863c0c827732151ed95d2229a62e4be38d4",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 20.38,
+      "jev": {
+        "news_skip": 0.42,
+        "buy_today": 0.49,
+        "hold_overnight": 0.5,
+        "model": "jev-1.14.0",
+        "tokens": 1367,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.620495+00:00",
+        "forecast_id": "f2ee1cba-c235-4de8-b78a-f396e5423785",
+        "requested_at": "2026-11-11T14:36:06.329752+00:00",
+        "completed_at": "2026-11-11T14:36:06.620495+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "LIFE",
+      "predicted_return": 0.21726110123437936,
+      "open_price": 36.91,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 36.02,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.43,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1104,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.730646+00:00",
+        "forecast_id": "ecd1dbf3-f6cf-4e47-b2cf-0e62a2e4e746",
+        "requested_at": "2026-11-11T14:36:06.340190+00:00",
+        "completed_at": "2026-11-11T14:36:06.730646+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "SEDG",
+      "predicted_return": 0.21647078801940273,
+      "open_price": 26.26,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 25.86,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.3,
+        "hold_overnight": 0.47,
+        "model": "jev-1.14.0",
+        "tokens": 1104,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.652457+00:00",
+        "forecast_id": "41a5091a-6b1a-41e7-9b22-f93f2b513c56",
+        "requested_at": "2026-11-11T14:36:06.349945+00:00",
+        "completed_at": "2026-11-11T14:36:06.652457+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "FRO",
+      "predicted_return": 0.21493649573949852,
+      "open_price": 45.19,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:35:52.810892+00:00",
+        "articles": []
+      },
+      "prev_close": 43.87,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.33,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1142,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.916780+00:00",
+        "forecast_id": "fb1765e0-67d5-4b27-af79-6587a12f286c",
+        "requested_at": "2026-11-11T14:36:06.623599+00:00",
+        "completed_at": "2026-11-11T14:36:06.916780+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "LKQ",
+      "predicted_return": 0.20347274521733616,
+      "open_price": 19.94,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-11T14:34:57.587426+00:00",
+        "articles": [
+          {
+            "headline": "Top 5 Activist Target Stocks for Spin-offs or Breakups",
+            "summary": "We just published the Top 10 Activist Target Stocks for Spin-offs or Breakups. You can find the top 5 stocks below. Activist investors have increasingly targeted companies with complex corporate structures, underperforming business divisions, or undervalued assets. The argument is that breaking up businesses or spinning off non-core operations could help unlock much-needed shareholder value. [\u2026]",
+            "published_at": "2026-11-10T18:58:13+00:00",
+            "url": "https://finnhub.io/api/news?id=cf1936646b69b639d997300457ab5ca579481df496497721a96a961edffc9e72",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 20.19,
+      "jev": {
+        "news_skip": 0.08,
+        "buy_today": 0.43,
+        "hold_overnight": 0.47,
+        "model": "jev-1.14.0",
+        "tokens": 1469,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.964941+00:00",
+        "forecast_id": "0f66fc81-b5fa-4826-b2cd-567552d95e23",
+        "requested_at": "2026-11-11T14:36:06.638344+00:00",
+        "completed_at": "2026-11-11T14:36:06.964941+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "ENTG",
+      "predicted_return": 0.20287792586223272,
+      "open_price": 146.83,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 138.57,
+      "jev": {
+        "news_skip": 0.04,
+        "buy_today": 0.3,
+        "hold_overnight": 0.49,
+        "model": "jev-1.14.0",
+        "tokens": 1107,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.957964+00:00",
+        "forecast_id": "491007bb-2434-4091-986f-f4ec4a98c1de",
+        "requested_at": "2026-11-11T14:36:06.648927+00:00",
+        "completed_at": "2026-11-11T14:36:06.957964+00:00",
+        "question_set_version": "morning_v1"
+      }
+    },
+    {
+      "ticker": "RCUS",
+      "predicted_return": 0.2002754094082877,
+      "open_price": 19.0,
+      "snapshot_date": "2026-11-10",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 18.67,
+      "jev": {
+        "news_skip": 0.03,
+        "buy_today": 0.37,
+        "hold_overnight": 0.52,
+        "model": "jev-1.14.0",
+        "tokens": 1104,
+        "issue": null,
+        "asked_at": "2026-11-11T14:36:06.955728+00:00",
+        "forecast_id": "7ab35cae-b2cc-45e1-b787-2b24b5caa946",
+        "requested_at": "2026-11-11T14:36:06.662849+00:00",
+        "completed_at": "2026-11-11T14:36:06.955728+00:00",
+        "question_set_version": "morning_v1"
+      }
+    }
+  ],
+  "scored_count": 1938,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TDG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CRWV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROKU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ONON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TTEK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SRRK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QBTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ENS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LQDA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ERAS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RGTI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRCY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TCBI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TNGX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LIF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BTDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATRO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "REZI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WIX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ECO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DGII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ETOR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RUM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STUB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AADX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COAG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLGO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EZPW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BRSL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 6.626624592869936
+    },
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 6.564187112929397
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 6.268556418855535
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-11-10",
+    "model_trained_through": "2026-11-10",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

@@ -1,0 +1,926 @@
+{
+  "schema_version": 1,
+  "trade_date": "2026-11-10",
+  "source": "Fidelity user-pasted confirmations and downloaded Activity & Orders HTML; one row per filled order",
+  "time_zone": "America/New_York",
+  "note": "Only executed shares are logged. Manual fee compares broker net amounts with gross execution amounts rounded to cents; sub-cent cash rounding is not a fee. Price improvement is informational and already reflected in execution prices.",
+  "orders": [
+    {
+      "order_number": "2FE06G57",
+      "ticker": "ARWR",
+      "symbol_description": "ARROWHEAD PHARMACEUTICALS INC COM",
+      "side": "sell",
+      "shares": 80.0,
+      "price": 48.305,
+      "executed_at": "2026-11-10T09:35:27-05:00",
+      "broker_net_amount": 3864.32,
+      "manual_fee": 0.08,
+      "total_price_improvement": 19.6,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:35:27-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:35:27-05:00",
+          "shares": 80.0,
+          "price": 48.305,
+          "broker_net_amount": 3864.32
+        }
+      ]
+    },
+    {
+      "order_number": "2FE07THM",
+      "ticker": "LUMN",
+      "symbol_description": "LUMEN TECHNOLOGIES INC COM",
+      "side": "buy",
+      "shares": 500.0,
+      "price": 4.385,
+      "executed_at": "2026-11-10T09:36:12-05:00",
+      "broker_net_amount": 2192.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:36:11-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:36:12-05:00",
+          "shares": 500.0,
+          "price": 4.385,
+          "broker_net_amount": 2192.5
+        }
+      ]
+    },
+    {
+      "order_number": "2FE00FV3",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 50.0,
+      "price": 73.655,
+      "executed_at": "2026-11-10T09:36:42-05:00",
+      "broker_net_amount": 3682.75,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:36:42-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:36:42-05:00",
+          "shares": 50.0,
+          "price": 73.655,
+          "broker_net_amount": 3682.75
+        }
+      ]
+    },
+    {
+      "order_number": "2FE015T5",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 73.115,
+      "executed_at": "2026-11-10T09:39:51-05:00",
+      "broker_net_amount": 731.15,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:39:51-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:39:51-05:00",
+          "shares": 10.0,
+          "price": 73.115,
+          "broker_net_amount": 731.15
+        }
+      ]
+    },
+    {
+      "order_number": "2FE05WWQ",
+      "ticker": "LUMN",
+      "symbol_description": "LUMEN TECHNOLOGIES INC COM",
+      "side": "buy",
+      "shares": 100.0,
+      "price": 4.48,
+      "executed_at": "2026-11-10T09:40:15-05:00",
+      "broker_net_amount": 448.0,
+      "manual_fee": 0.0,
+      "total_price_improvement": 0.5,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:40:14-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:40:15-05:00",
+          "shares": 100.0,
+          "price": 4.48,
+          "broker_net_amount": 448.0
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0794Z",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 73.72,
+      "executed_at": "2026-11-10T09:43:33-05:00",
+      "broker_net_amount": 1474.4,
+      "manual_fee": 0.0,
+      "total_price_improvement": 2.8,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:43:33-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:43:33-05:00",
+          "shares": 20.0,
+          "price": 73.72,
+          "broker_net_amount": 1474.4
+        }
+      ]
+    },
+    {
+      "order_number": "2FE03Y94",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 73.725,
+      "executed_at": "2026-11-10T09:44:03-05:00",
+      "broker_net_amount": 1474.5,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:44:02-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:44:03-05:00",
+          "shares": 20.0,
+          "price": 73.725,
+          "broker_net_amount": 1474.5
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0DB42",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 74.27,
+      "executed_at": "2026-11-10T09:53:01-05:00",
+      "broker_net_amount": 1485.4,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T09:53:01-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T09:53:01-05:00",
+          "shares": 20.0,
+          "price": 74.27,
+          "broker_net_amount": 1485.4
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0LL5M",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 75.965,
+      "executed_at": "2026-11-10T10:05:32-05:00",
+      "broker_net_amount": 1519.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T10:05:32-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T10:05:32-05:00",
+          "shares": 20.0,
+          "price": 75.965,
+          "broker_net_amount": 1519.3
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0T0HW",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 73.955,
+      "executed_at": "2026-11-10T10:37:06-05:00",
+      "broker_net_amount": 1479.1,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T10:37:05-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T10:37:06-05:00",
+          "shares": 20.0,
+          "price": 73.955,
+          "broker_net_amount": 1479.1
+        }
+      ],
+      "total_price_improvement": 0.9
+    },
+    {
+      "order_number": "2FE101YC",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 73.845,
+      "executed_at": "2026-11-10T10:37:45-05:00",
+      "broker_net_amount": 738.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T10:37:45-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T10:37:45-05:00",
+          "shares": 10.0,
+          "price": 73.845,
+          "broker_net_amount": 738.45
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0X5V3",
+      "ticker": "LUMN",
+      "symbol_description": "LUMEN TECHNOLOGIES INC COM",
+      "side": "sell",
+      "shares": 600.0,
+      "price": 4.755,
+      "executed_at": "2026-11-10T11:21:41-05:00",
+      "broker_net_amount": 2852.93,
+      "manual_fee": 0.07,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T11:21:41-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T11:21:41-05:00",
+          "shares": 374.0,
+          "price": 4.755,
+          "broker_net_amount": 1778.33
+        },
+        {
+          "executed_at": "2026-11-10T11:21:41-05:00",
+          "shares": 226.0,
+          "price": 4.755,
+          "broker_net_amount": 1074.6
+        }
+      ]
+    },
+    {
+      "order_number": "2FE0V59D",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 73.0,
+      "executed_at": "2026-11-10T11:22:01-05:00",
+      "broker_net_amount": 730.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T11:22:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T11:22:01-05:00",
+          "shares": 10.0,
+          "price": 73.0,
+          "broker_net_amount": 730.0
+        }
+      ],
+      "total_price_improvement": 0.4
+    },
+    {
+      "order_number": "2FE15JGL",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 20.0,
+      "price": 71.41,
+      "executed_at": "2026-11-10T11:55:01-05:00",
+      "broker_net_amount": 1428.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T11:55:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T11:55:01-05:00",
+          "shares": 20.0,
+          "price": 71.41,
+          "broker_net_amount": 1428.2
+        }
+      ],
+      "total_price_improvement": 1.6
+    },
+    {
+      "order_number": "2FE1B7MZ",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 71.265,
+      "executed_at": "2026-11-10T11:57:29-05:00",
+      "broker_net_amount": 712.65,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T11:57:28-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T11:57:29-05:00",
+          "shares": 10.0,
+          "price": 71.265,
+          "broker_net_amount": 712.65
+        }
+      ],
+      "total_price_improvement": 0.35
+    },
+    {
+      "order_number": "2FE1CL9X",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 71.12,
+      "executed_at": "2026-11-10T11:58:04-05:00",
+      "broker_net_amount": 711.2,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T11:58:03-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T11:58:04-05:00",
+          "shares": 10.0,
+          "price": 71.12,
+          "broker_net_amount": 711.2
+        }
+      ],
+      "total_price_improvement": 1.05
+    },
+    {
+      "order_number": "2FE19W8G",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 70.73,
+      "executed_at": "2026-11-10T12:33:45-05:00",
+      "broker_net_amount": 707.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T12:33:44-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T12:33:45-05:00",
+          "shares": 10.0,
+          "price": 70.73,
+          "broker_net_amount": 707.3
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1DK4D",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 70.83,
+      "executed_at": "2026-11-10T12:34:14-05:00",
+      "broker_net_amount": 708.3,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T12:34:14-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T12:34:14-05:00",
+          "shares": 10.0,
+          "price": 70.83,
+          "broker_net_amount": 708.3
+        }
+      ]
+    },
+    {
+      "order_number": "2FE13V4C",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 10.0,
+      "price": 70.77,
+      "executed_at": "2026-11-10T12:34:45-05:00",
+      "broker_net_amount": 707.7,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T12:34:45-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T12:34:45-05:00",
+          "shares": 10.0,
+          "price": 70.77,
+          "broker_net_amount": 707.7
+        }
+      ]
+    },
+    {
+      "order_number": "2FE157WQ",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 69.755,
+      "executed_at": "2026-11-10T12:42:24-05:00",
+      "broker_net_amount": 348.78,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T12:42:24-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T12:42:24-05:00",
+          "shares": 5.0,
+          "price": 69.755,
+          "broker_net_amount": 348.78
+        }
+      ],
+      "total_price_improvement": 0.23
+    },
+    {
+      "order_number": "2FE1DVPP",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 69.725,
+      "executed_at": "2026-11-10T13:09:53-05:00",
+      "broker_net_amount": 348.63,
+      "manual_fee": 0.0,
+      "total_price_improvement": 0.03,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T13:09:53-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T13:09:53-05:00",
+          "shares": 5.0,
+          "price": 69.725,
+          "broker_net_amount": 348.63
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1GBN2",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 69.69,
+      "executed_at": "2026-11-10T13:34:46-05:00",
+      "broker_net_amount": 348.45,
+      "manual_fee": 0.0,
+      "execution_lot_count": 2,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T13:34:45-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T13:34:46-05:00",
+          "shares": 4.0,
+          "price": 69.69,
+          "broker_net_amount": 278.76
+        },
+        {
+          "executed_at": "2026-11-10T13:34:46-05:00",
+          "shares": 1.0,
+          "price": 69.69,
+          "broker_net_amount": 69.69
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1PRFD",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 69.81,
+      "executed_at": "2026-11-10T13:40:00-05:00",
+      "broker_net_amount": 349.05,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T13:40:00-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T13:40:00-05:00",
+          "shares": 5.0,
+          "price": 69.81,
+          "broker_net_amount": 349.05
+        }
+      ],
+      "total_price_improvement": 0.05
+    },
+    {
+      "order_number": "2FE1MDZD",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 71.25,
+      "executed_at": "2026-11-10T14:13:21-05:00",
+      "broker_net_amount": 356.25,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T14:13:21-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T14:13:21-05:00",
+          "shares": 5.0,
+          "price": 71.25,
+          "broker_net_amount": 356.25
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1MF94",
+      "ticker": "TTMI",
+      "symbol_description": "TTM TECHNOLOGIES INC",
+      "side": "buy",
+      "shares": 5.0,
+      "price": 71.2,
+      "executed_at": "2026-11-10T14:14:13-05:00",
+      "broker_net_amount": 356.0,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T14:14:13-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T14:14:13-05:00",
+          "shares": 5.0,
+          "price": 71.2,
+          "broker_net_amount": 356.0
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1TBBJ",
+      "ticker": "WCC",
+      "symbol_description": "WESCO INTERNATIONAL INC",
+      "side": "buy",
+      "shares": 4.0,
+      "price": 315.29,
+      "executed_at": "2026-11-10T15:37:56-05:00",
+      "broker_net_amount": 1261.16,
+      "manual_fee": 0.0,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T15:37:56-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T15:37:56-05:00",
+          "shares": 4.0,
+          "price": 315.29,
+          "broker_net_amount": 1261.16
+        }
+      ]
+    },
+    {
+      "order_number": "2FE1YK0J",
+      "ticker": "WCC",
+      "symbol_description": "WESCO INTERNATIONAL INC",
+      "side": "sell",
+      "shares": 4.0,
+      "price": 316.545,
+      "executed_at": "2026-11-10T15:57:48-05:00",
+      "broker_net_amount": 1266.15,
+      "manual_fee": 0.03,
+      "execution_lot_count": 1,
+      "timestamp_source": "user-pasted broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T15:57:48-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T15:57:48-05:00",
+          "shares": 4.0,
+          "price": 316.545,
+          "broker_net_amount": 1266.15
+        }
+      ]
+    }
+  ],
+  "html_reconciliation": {
+    "source_path": "/Users/michael.artz/Downloads/Portfolio Activity & Orders.html",
+    "source_modified_at": "2026-11-10T11:37:29.936751-06:00",
+    "source_sha256": "a42a4a0e0142b0d49d4504df1b31385403524a2e4534c7118b271144a66e4ff2",
+    "filled_summary_rows": 10,
+    "matching_summary_rows": 10,
+    "expanded_order_details": 9,
+    "matching_expanded_order_details": 9,
+    "expanded_order_numbers": [
+      "2FE101YC",
+      "2FE0X5V3",
+      "2FE0V59D",
+      "2FE15JGL",
+      "2FE1B7MZ",
+      "2FE1CL9X",
+      "2FE19W8G",
+      "2FE1DK4D",
+      "2FE13V4C"
+    ],
+    "summary_only_order_numbers": [
+      "2FE0T0HW"
+    ],
+    "additional_fills_found": 6,
+    "previously_recorded_rows": 4,
+    "excluded_order_numbers": [],
+    "imported_order_numbers": [
+      "2FE15JGL",
+      "2FE1B7MZ",
+      "2FE1CL9X",
+      "2FE19W8G",
+      "2FE1DK4D",
+      "2FE13V4C"
+    ],
+    "note": "All ten visible filled-order summaries reconciled; nine have expanded execution details. Four orders were already recorded and six new TTMI buys were imported. The repeated pasted order was counted once, and the pasted 73.00 TTMI buy was already recorded. BETZ remains excluded. Exact execution timestamps are retained."
+  },
+  "html_reconciliation_history": [
+    {
+      "source_path": "/Users/michael.artz/Downloads/Portfolio Activity & Orders.html",
+      "source_modified_at": "2026-11-10T08:56:38.157783-06:00",
+      "source_sha256": "e79895aa14fa5d4303f7de807abc6b198cdcdb676ec349a99ad8bc25b05ce2b5",
+      "filled_summary_rows": 8,
+      "matching_summary_rows": 8,
+      "expanded_order_details": 7,
+      "matching_expanded_order_details": 7,
+      "expanded_order_numbers": [
+        "2FE07THM",
+        "2FE00FV3",
+        "2FE015T5",
+        "2FE05WWQ",
+        "2FE0794Z",
+        "2FE03Y94",
+        "2FE0DB42"
+      ],
+      "summary_only_order_numbers": [
+        "2FE06G57"
+      ],
+      "additional_fills_found": 0,
+      "note": "All eight filled-order summaries match recorded ticker, side, quantity, fill price, and broker net amount. Seven expanded confirmations also match order number, order timestamp, and execution lots. ARWR execution details remain sourced from the user-pasted confirmation. No duplicate fills were inserted from HTML."
+    },
+    {
+      "source_path": "/Users/michael.artz/Downloads/Portfolio Activity & Orders.html",
+      "source_modified_at": "2026-11-10T09:39:25.851522-06:00",
+      "source_sha256": "dde460555444139384b1da7a5ff27485c99c190862443cdba132d5ae2361117d",
+      "filled_summary_rows": 10,
+      "matching_summary_rows": 10,
+      "expanded_order_details": 10,
+      "matching_expanded_order_details": 10,
+      "expanded_order_numbers": [
+        "2FE00FV3",
+        "2FE015T5",
+        "2FE05WWQ",
+        "2FE0794Z",
+        "2FE03Y94",
+        "2FE0DB42",
+        "2FE0F5RC",
+        "2FE0LL5M",
+        "2FE0T0HW",
+        "2FE101YC"
+      ],
+      "summary_only_order_numbers": [],
+      "additional_fills_found": 4,
+      "previously_recorded_rows": 6,
+      "note": "All ten visible filled orders reconciled against expanded details. Six orders were already recorded; three new TTMI buys were imported. The BETZ sale is excluded at the user's request. Earlier ARWR and LUMN orders outside this HTML view remain recorded.",
+      "imported_order_numbers": [
+        "2FE0LL5M",
+        "2FE0T0HW",
+        "2FE101YC"
+      ],
+      "excluded_order_numbers": [
+        "2FE0F5RC"
+      ]
+    },
+    {
+      "source_path": "/Users/michael.artz/Downloads/Portfolio Activity & Orders.html",
+      "source_modified_at": "2026-11-10T10:22:42.839497-06:00",
+      "source_sha256": "70f27135b7842d8bf951c1589034b1b1ed41f06f9b52a2bebd95c1af82f60dd9",
+      "filled_summary_rows": 10,
+      "matching_summary_rows": 10,
+      "expanded_order_details": 6,
+      "matching_expanded_order_details": 6,
+      "expanded_order_numbers": [
+        "2FE0F5RC",
+        "2FE0LL5M",
+        "2FE0T0HW",
+        "2FE101YC",
+        "2FE0X5V3",
+        "2FE0V59D"
+      ],
+      "summary_only_order_numbers": [
+        "2FE0DB42",
+        "2FE03Y94",
+        "2FE0794Z",
+        "2FE05WWQ"
+      ],
+      "additional_fills_found": 2,
+      "previously_recorded_rows": 7,
+      "excluded_order_numbers": [
+        "2FE0F5RC"
+      ],
+      "imported_order_numbers": [
+        "2FE0X5V3",
+        "2FE0V59D"
+      ],
+      "note": "All ten visible filled-order summaries reconciled; six have expanded execution details. Seven orders were already recorded, two new orders were imported, and BETZ remains excluded at the user request. Exact execution timestamps and both LUMN sale lots are retained."
+    }
+  ],
+  "excluded_orders": [
+    {
+      "order_number": "2FE0F5RC",
+      "ticker": "BETZ",
+      "symbol_description": "LISTED FD TR ROUNDHILL SPORTS",
+      "side": "sell",
+      "shares": 100.0,
+      "price": 16.404884,
+      "executed_at": "2026-11-10T10:03:27-05:00",
+      "broker_net_amount": 1640.45,
+      "manual_fee": 0.04,
+      "execution_lot_count": 2,
+      "timestamp_source": "broker confirmation execution lot",
+      "market_session": "standard",
+      "order_type": "Market",
+      "order_date": "2026-11-10T10:03:26-05:00",
+      "time_in_force": "Day",
+      "trade_type": "Margin",
+      "conditions": "None",
+      "executions": [
+        {
+          "executed_at": "2026-11-10T10:03:27-05:00",
+          "shares": 6.0,
+          "price": 16.4814,
+          "broker_net_amount": 98.89
+        },
+        {
+          "executed_at": "2026-11-10T10:03:27-05:00",
+          "shares": 94.0,
+          "price": 16.4,
+          "broker_net_amount": 1541.56
+        }
+      ],
+      "exclusion_reason": "User requested ignoring BETZ; removed from the active trade log."
+    }
+  ],
+  "excluded_tickers": [
+    "BETZ"
+  ]
+}

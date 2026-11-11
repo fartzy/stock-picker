@@ -1,0 +1,91 @@
+{
+  "as_of": "2026-09-15",
+  "threshold": 0.005,
+  "scored_count": 1992,
+  "signals": [
+    {
+      "ticker": "RGC",
+      "predicted_return": 0.025746605768740778,
+      "open_price": 5.77,
+      "snapshot_date": "2026-09-14"
+    },
+    {
+      "ticker": "QH",
+      "predicted_return": 0.01767657981720989,
+      "open_price": 4.07,
+      "snapshot_date": "2026-09-11"
+    },
+    {
+      "ticker": "TDTH",
+      "predicted_return": 0.006758098753710623,
+      "open_price": 1.73,
+      "snapshot_date": "2026-09-14"
+    },
+    {
+      "ticker": "PL",
+      "predicted_return": 0.006191438747762694,
+      "open_price": 16.08,
+      "snapshot_date": "2026-09-14"
+    },
+    {
+      "ticker": "XNDU",
+      "predicted_return": 0.005525807423493611,
+      "open_price": 7.962,
+      "snapshot_date": "2026-09-14"
+    }
+  ],
+  "skipped": [
+    {
+      "ticker": "GIS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FPS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "spy_overnight_gap",
+      "importance": 19.58627025062312
+    },
+    {
+      "feature": "vix_close",
+      "importance": 16.54174906303389
+    },
+    {
+      "feature": "volatility_120d",
+      "importance": 8.806672630465899
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-09-14",
+    "model_trained_through": "2026-09-14",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-09-14, model trained through 2026-09-14 -- ready for this morning's opens."
+  }
+}

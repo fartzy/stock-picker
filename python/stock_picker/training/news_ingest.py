@@ -4,14 +4,20 @@ Morning skip still news-checks Fit + Rank 1-20 only. After that scan
 releases its lock, this walks every active ticker, rate-limited to the
 free-tier ceiling, and writes headline/summary plus the material
 classifier (Tfidf + event phrases, including insider sells) into
-NewsStore. Resume-safe: a ticker already marked ingested for `as_of`
-is skipped.
+NewsStore. Normal resume skips names already ingested for the date; explicit
+refresh and the post-close candidate pass recheck them. Immutable observation
+records preserve actual availability times and classifier versions.
 """
 
 from __future__ import annotations
 
+import argparse
+import hashlib
+import json
 import time
 from datetime import date, datetime, timedelta, timezone
+from importlib.metadata import version
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from stock_picker.ingestion.finnhub_client import (
@@ -21,8 +27,10 @@ from stock_picker.ingestion.finnhub_client import (
 )
 from stock_picker.log import get_logger
 from stock_picker.storage.news_store import NewsArticle, NewsStore
+from stock_picker.storage.paths import data_root
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.headline_sentiment import classify_article_text
+from stock_picker.training import headline_sentiment
 
 logger = get_logger(__name__)
 
@@ -49,7 +57,10 @@ def _published_at_iso(payload: dict) -> str | None:
         return None
     if seconds <= 0:
         return None
-    return datetime.fromtimestamp(seconds, tz=timezone.utc).astimezone(EASTERN).isoformat()
+    try:
+        return datetime.fromtimestamp(seconds, tz=timezone.utc).astimezone(EASTERN).isoformat()
+    except (OverflowError, OSError, ValueError):
+        return None
 
 
 def _article_id(payload: dict) -> str | None:
@@ -95,6 +106,7 @@ def ingest_universe_news(
     sleep_seconds: float = MIN_SECONDS_BETWEEN_CALLS,
     lookback_sessions: int = LOOKBACK_SESSIONS,
     now: datetime | None = None,
+    refresh: bool = False,
 ) -> dict[str, int]:
     """Rate-limited company-news for every active ticker.
 
@@ -110,9 +122,14 @@ def ingest_universe_news(
         logger.info("universe news ingest skipped -- no key or no tickers")
         return {"tickers": 0, "articles": 0, "skipped": 0}
     already = news_store.tickers_ingested(day.isoformat())
-    pending = [ticker for ticker in names if ticker not in already]
+    pending = list(dict.fromkeys(ticker for ticker in names if refresh or ticker not in already))
     start = lookback_start(day, lookback_sessions)
-    ingested_at = (now or datetime.now(EASTERN)).isoformat()
+    classifier_version = (
+        "headline-sha256:" + hashlib.sha256(Path(headline_sentiment.__file__).read_bytes()).hexdigest()
+        + ";sklearn:" + version("scikit-learn")
+    )
+    def observed_now() -> str:
+        return (now or datetime.now(EASTERN)).isoformat()
     n_tickers = 0
     n_articles = 0
     logger.info(
@@ -127,17 +144,25 @@ def ingest_universe_news(
             time.sleep(sleep_seconds)
         try:
             raw = fetch_one(ticker, start, day, api_key=key)
-        except Exception:
+        except Exception as exc:
             logger.exception("universe news fetch failed ticker=%s", ticker)
+            news_store.record_fetch(ticker, start.isoformat(), day.isoformat(), observed_now(),
+                                    None, [], classifier_version, "error", type(exc).__name__)
             continue
         if raw is None:
             logger.warning("universe news fetch failed ticker=%s", ticker)
+            news_store.record_fetch(ticker, start.isoformat(), day.isoformat(), observed_now(),
+                                    None, [], classifier_version, "unavailable")
             continue
         articles = [
             article
             for row in raw
             if (article := news_article_from_finnhub(ticker, row, day)) is not None
         ]
+        # Timestamp after fetching/classifying each ticker, not at batch start.
+        ingested_at = observed_now()
+        news_store.record_fetch(ticker, start.isoformat(), day.isoformat(), ingested_at,
+                                raw, articles, classifier_version)
         news_store.upsert(articles)
         news_store.mark_ingested(
             ticker, day.isoformat(), article_count=len(articles), ingested_at=ingested_at
@@ -165,7 +190,29 @@ def ingest_universe_news(
 
 
 def main() -> None:
-    ingest_universe_news()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--refresh", action="store_true", help="recheck already-ingested names")
+    parser.add_argument("--tickers", help="comma-separated ticker list; defaults to universe")
+    args = parser.parse_args()
+    names = [name.strip().upper() for name in args.tickers.split(",") if name.strip()] if args.tickers else None
+    ingest_universe_news(tickers=names, refresh=args.refresh)
+
+
+def refresh_candidate_news(as_of: date) -> dict[str, int]:
+    """Recheck saved morning candidates at the close, including already-ingested names."""
+    names = set()
+    for suffix in ("", "-rank"):
+        path = data_root() / "buy_signals" / f"{as_of.isoformat()}{suffix}.json"
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text())
+            if payload.get("as_of") != as_of.isoformat():
+                raise ValueError("candidate session mismatch")
+            names.update(row["ticker"] for row in payload.get("signals", [])[:20])
+        except (OSError, ValueError, KeyError, TypeError):
+            logger.exception("cannot read morning candidates from %s", path)
+    return ingest_universe_news(tickers=sorted(names), as_of=as_of, refresh=True)
 
 
 if __name__ == "__main__":

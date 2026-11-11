@@ -1,0 +1,578 @@
+{
+  "as_of": "2026-10-16",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.012016782841324812,
+      "open_price": 34.78,
+      "snapshot_date": "2026-10-15",
+      "news_flag": "Major YUTREPIA litigation settlement with United Therapeutics, ~$381M payments",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Major YUTREPIA litigation settlement with United Therapeutics, ~$381M payments",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:45.027037+00:00",
+        "articles": [
+          {
+            "headline": "Stocktwits Wall Street Wrap: Crocs, Liquidia Win Upgrades While SpaceX Competition And Grocery Woes Put AST SpaceMobile, Albertsons Under Pressure",
+            "summary": "Growth prospects, business challenges, legal changes, and rising competition from SpaceX shaped Wall Street activity this week.",
+            "published_at": "2026-10-16T09:26:14+00:00",
+            "url": "https://finnhub.io/api/news?id=42fea026f73eb918c474626dc939def4bbe37023f9de9fee4a3611f14c8f75af",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Liquidia (LQDA) Is Up 24.1% After Striking Costly Peace Deal On YUTREPIA Litigation",
+            "summary": "Liquidia recently reached a global settlement with United Therapeutics, resolving six lawsuits and allowing its YUTREPIA therapy for pulmonary arterial hypertension to remain on the market while agreeing to remove the pulmonary hypertension due to interstitial lung disease indication from the label and not pursue further appeals. The settlement, which involves net payments of about US$380.70 million through 2027, replaces prolonged legal uncertainty with clearer commercial visibility for...",
+            "published_at": "2026-10-16T01:12:48+00:00",
+            "url": "https://finnhub.io/api/news?id=608a5f1f07cbecfd3bfffd2c39b10b7aa7d5eceb635aff349a3427a5b62246da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HC Wainwright & Co. Maintains Buy on Liquidia, Raises Price Target to $65",
+            "summary": "HC Wainwright &amp; Co.  analyst Andrew S. Fein   maintains Liquidia (NASDAQ:LQDA) with a Buy and raises the price target from $58 to $65.",
+            "published_at": "2026-10-15T06:20:47+00:00",
+            "url": "https://finnhub.io/api/news?id=1a95ae349067db84547e98c4cc74a0da031c38c7b1bfe7e647a78dfd0b842c00",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 34.78
+    },
+    {
+      "ticker": "TLK",
+      "predicted_return": 0.008076559683923274,
+      "open_price": 10.86,
+      "snapshot_date": "2026-10-15",
+      "news_flag": "corporate action: Telekomunikasi Indonesia: A 'Buy' After Infrastructure Unit Spinoff And Q3 Preview",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Telekomunikasi Indonesia: A 'Buy' After Infrastructure Unit Spinoff And Q3 Preview",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:45.024238+00:00",
+        "articles": [
+          {
+            "headline": "These stocks that are showing activity before the opening bell on Friday.",
+            "summary": "Before the US market kicks off on Friday, let's examine the pre-market session and unveil the notable performers among the top gainers and losers.",
+            "published_at": "2026-10-16T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=05004c957e68226d6a4c70e976b2abeadb59fb9e3daf0bd2cc1dc44e0cbcc5b4",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Telekomunikasi Indonesia: A 'Buy' After Infrastructure Unit Spinoff And Q3 Preview",
+            "summary": "PT Telekomunikasi Indonesia Tbk remains a buy, following my evaluation of its recent corporate transaction and near-term prospects. Read more on TLK stock here.",
+            "published_at": "2026-10-16T07:27:31+00:00",
+            "url": "https://finnhub.io/api/news?id=1de2d9f8efb5ca3723a7ce93ed3e00a18143dc481d04ca080a68ee23dd80af55",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 12.78
+    },
+    {
+      "ticker": "CORT",
+      "predicted_return": 0.0065332630410697675,
+      "open_price": 113.17,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 8,
+        "reviewed_count": 8,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.346888+00:00",
+        "articles": [
+          {
+            "headline": "Buy 5 Top-Ranked Non-Tech Nasdaq Stocks to Maximize Q4 Gains",
+            "summary": "ROST, ROKU, APA, CORT and HALO are five non-tech Nasdaq stocks riding strong growth trends and rising earnings estimates, positioning them for potential gains in Q4.",
+            "published_at": "2026-10-16T08:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3d62b94c5842083a9d19d800d5a026a0821cf4cda5fbeeaf0ab93b4b459721d8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Low-Beta Defensive Stocks to Buy as Inflation Continues to Surge",
+            "summary": "As inflation surges on rising energy costs, CAH, UNH and CORT stand out as low-beta healthcare stocks with strong expected earnings growth and defensive appeal.",
+            "published_at": "2026-10-15T18:32:00+00:00",
+            "url": "https://finnhub.io/api/news?id=abb5ce5c48a5a67fcbbfc9d5515d0db9a0a3c0bf15d473facce8f6a61f2b43fe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Healthcare Stocks Are Hot When the AI Trade Runs Cold",
+            "summary": "Healthcare\u2014particularly equipment and services and pharmaceuticals\u2014offers investors diversification from AI, according to one report.",
+            "published_at": "2026-10-15T18:14:00+00:00",
+            "url": "https://finnhub.io/api/news?id=81b254992898a9e4132d7630e84ee5558946533c83c364e55f85fdf8c479a470",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "FDA Expands ImmunityBio's Anktiva Label in Bladder Cancer",
+            "summary": "IBRX wins expanded FDA approval for Anktiva plus BCG, covering all patients with BCG-unresponsive NMIBC and broadening its commercial opportunity.",
+            "published_at": "2026-10-15T15:56:00+00:00",
+            "url": "https://finnhub.io/api/news?id=78ac7c825a7885a0671ab5f12aeca46da511196da3ecfde796ef2315f33fbcef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here's Why You Should Add EYPT Stock to Your Portfolio Now",
+            "summary": "EyePoint's Duravyu faces a key LUCIA study data readout in late 2026, with results potentially paving the way for an NDA filing in 2027.",
+            "published_at": "2026-10-15T14:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=4d77f68f77e59b82a8c703f1974110be80dc420c7f7c8582396cf8b721a193ea",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RARE's Fayuvi Approval Spurs Second PRV Sale Worth $203M in a Week",
+            "summary": "Ultragenyx agrees to sell its Fayuvi-linked PRV for $203 million, marking its second voucher sale in one week and adding non-dilutive funding for rare-disease programs.",
+            "published_at": "2026-10-15T13:33:00+00:00",
+            "url": "https://finnhub.io/api/news?id=165e17addfd6c1d8685ef1c9be403f201c5fa5cf85e8b665326658487f48646a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Are Medical Stocks Lagging  Aspen Pharmacare (APNHY) This Year?",
+            "summary": "Here is how Aspen Pharmacare (APNHY) and Corcept Therapeutics (CORT) have performed compared to their sector so far this year.",
+            "published_at": "2026-10-15T12:40:02+00:00",
+            "url": "https://finnhub.io/api/news?id=4f054756d14586e904ecd15996913114f1a47ae3ec91c7190987a2198b60a08a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "1 Cash-Heavy Stock to Keep an Eye On and 2 We Question",
+            "summary": "Companies with more cash than debt can be financially resilient, but that doesn\u2019t mean they\u2019re all strong investments. Some lack leverage because they struggle to grow or generate consistent profits, making them unattractive borrowers.",
+            "published_at": "2026-10-15T09:28:27+00:00",
+            "url": "https://finnhub.io/api/news?id=09738ed33619a41b837df561cc1a5668a0bc143bab46f4390c58f941cbd30ae9",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 113.37
+    },
+    {
+      "ticker": "NTSK",
+      "predicted_return": 0.00633599828711742,
+      "open_price": 20.47,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.347325+00:00",
+        "articles": [
+          {
+            "headline": "Wells Fargo Maintains Overweight on Netskope, Raises Price Target to $22",
+            "summary": "Wells Fargo  analyst Richard Poland   maintains Netskope (NASDAQ:NTSK) with a Overweight and raises the price target from $17 to $22.",
+            "published_at": "2026-10-15T09:56:17+00:00",
+            "url": "https://finnhub.io/api/news?id=f4c6567d0b38cdbd5aca10a42979c8d89dc1ac9f62e4e749e4d4c2324e3fc43c",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "3 Cybersecurity Stocks With Market Caps Over $9 Billion",
+            "summary": "AI giant Anthropic reporting nearly $17b in quarterly revenue and turning profitable has put digital security back in the spotlight. Every new AI model and data center creates more points hackers might try to hit. That rising exposure is why investors are watching companies that guard data and networks. This article walks through three stocks from a cybersecurity-focused screener with stronger balance sheet health and sizeable market caps. The three cybersecurity stocks that follow are just a...",
+            "published_at": "2026-10-15T04:27:35+00:00",
+            "url": "https://finnhub.io/api/news?id=0a5349d9c80ea35de278a3636ccd70f586dff3683e3b7b626fcbb4399ba1fb0e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 20.45
+    },
+    {
+      "ticker": "GTLB",
+      "predicted_return": 0.006242390500295811,
+      "open_price": 56.18,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.347591+00:00",
+        "articles": []
+      },
+      "prev_close": 55.94
+    },
+    {
+      "ticker": "CLOV",
+      "predicted_return": 0.006133846832855456,
+      "open_price": 4.68,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.347785+00:00",
+        "articles": []
+      },
+      "prev_close": 4.68
+    },
+    {
+      "ticker": "DK",
+      "predicted_return": 0.006043962283850167,
+      "open_price": 77.83,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.347808+00:00",
+        "articles": [
+          {
+            "headline": "5 Value Stocks to Buy as Core Inflation Rises and Rate Hike Odds Climb",
+            "summary": "With core inflation picking up and further Fed rate hikes looming, HMC, MU, AVT, DK and PAGP emerge as value picks with strong earnings potential.",
+            "published_at": "2026-10-15T15:43:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5c6e6f311be42efc33b37c3368a182a73684e41e4b7da026b704ec517394c6e7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Marathon Petroleum: A Solid Hedge Vs. Diesel's Damage",
+            "summary": "Marathon Petroleum is rated a Hold as investors pay attention to near-term guidance given the ensuing diesel scarcity. Click to read more on the MPC stock.",
+            "published_at": "2026-10-15T15:37:44+00:00",
+            "url": "https://finnhub.io/api/news?id=7b6f2c9a67bf659f5a9382e0b18b0ffd8fb62e76316b8269ffd82dd2d3bf684a",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Marathon vs. Delek US: Which Refining Stock Is the Better Buy Now?",
+            "summary": "MPC and DK report stronger earnings as refining margins improve, but the latter's lower valuation and stronger earnings estimate revisions give it an edge.",
+            "published_at": "2026-10-15T15:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3c446048b6566079193a977d2e8382b780d5eed6a2f0f2d7f905780e981b9f36",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Goldman Sachs Maintains Buy on Delek US Holdings, Raises Price Target to $97",
+            "summary": "Goldman Sachs  analyst Alexa Petrick   maintains Delek US Holdings (NYSE:DK) with a Buy and raises the price target from $83 to $97.",
+            "published_at": "2026-10-15T07:21:31+00:00",
+            "url": "https://finnhub.io/api/news?id=11546e378016462a7b6b0dfa310e4bf6798a6ff0eeb550b8d90ff5ea22d8952e",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 76.88
+    },
+    {
+      "ticker": "CVI",
+      "predicted_return": 0.006029527400685142,
+      "open_price": 62.5,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.348254+00:00",
+        "articles": []
+      },
+      "prev_close": 61.68
+    },
+    {
+      "ticker": "CIG-C",
+      "predicted_return": 0.0059740473673573396,
+      "open_price": 3.39,
+      "snapshot_date": "2026-10-14",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.350952+00:00",
+        "articles": []
+      },
+      "prev_close": 3.49
+    },
+    {
+      "ticker": "RBRK",
+      "predicted_return": 0.0059552153071078875,
+      "open_price": 119.27,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.350973+00:00",
+        "articles": []
+      },
+      "prev_close": 118.62
+    },
+    {
+      "ticker": "ZETA",
+      "predicted_return": 0.005794396771002109,
+      "open_price": 35.15,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.352675+00:00",
+        "articles": []
+      },
+      "prev_close": 33.55
+    },
+    {
+      "ticker": "BSP",
+      "predicted_return": 0.005638352537368428,
+      "open_price": 54.86,
+      "snapshot_date": "2026-10-15",
+      "news_flag": "Berkshire $330M investment sent shares soaring",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Berkshire $330M investment sent shares soaring",
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.352696+00:00",
+        "articles": [
+          {
+            "headline": "Berkshire backs Bending Spoons, sending shares soaring",
+            "summary": "Bending Spoons on Wednesday secured a $330 million investment from existing shareholder Berkshire Hathaway.",
+            "published_at": "2026-10-15T15:57:07+00:00",
+            "url": "https://finnhub.io/api/news?id=c59f019257a8bede55248eb1506972db7be15186aae76ca9f53e7942bf6346e4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Poured Another $330M Into Bending Spoons \u2014 But It Paid a 40% Discount to Today's Market Price",
+            "summary": "Should you follow Berkshire Hathaway into BSP stock? Check this math first.",
+            "published_at": "2026-10-15T15:38:45+00:00",
+            "url": "https://finnhub.io/api/news?id=4ea38ef42290a37010e57084ce15b95f4dff4dcfdaacb56af0d51cd7aedb3168",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Berkshire Hathaway Just Bet Another $330 Million on One Stock. It Soared 41%",
+            "summary": "Berkshire Hathaway quietly agreed to pour hundreds of millions into a little-known Milan software company, and the market's reaction raises a sharp question about who actually wins when a giant endorses a stock it bought at a steep discount.",
+            "published_at": "2026-10-15T14:21:12+00:00",
+            "url": "https://finnhub.io/api/news?id=602a05e1b6551bd300b2d3ab95d3f8ae166e4a448d1797a257c1533138dfa7d9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Company News for Oct 15, 2026",
+            "summary": "Companies in The News Are: BSP, BRK.A, BAC, CRWV, PGR",
+            "published_at": "2026-10-15T12:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=72e319746651a29ba47a7ca6be1dbb724283a3253b6687f7b88ea16930e94a01",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The AI Selloff Is Bad but the Bond Market\u2019s Reaction Is Worse",
+            "summary": "The stock market is reeling from an AI selloff, worsened by fears over CoreWeave\u2019s debt, and more news to start your day.",
+            "published_at": "2026-10-15T11:47:00+00:00",
+            "url": "https://finnhub.io/api/news?id=293027ea78544cc6d834c6d68baef00e27910044a71df77f3cee2d68f28caf0f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 55.77
+    },
+    {
+      "ticker": "GRAL",
+      "predicted_return": 0.005579665576951877,
+      "open_price": 134.02,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.354615+00:00",
+        "articles": []
+      },
+      "prev_close": 135.46
+    },
+    {
+      "ticker": "KOD",
+      "predicted_return": 0.005029699926735119,
+      "open_price": 87.18,
+      "snapshot_date": "2026-10-15",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-16T13:34:57.356197+00:00",
+        "articles": []
+      },
+      "prev_close": 88.12
+    }
+  ],
+  "scored_count": 1985,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 10.556777088122752
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 9.287493187323518
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 7.086514764361404
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-15",
+    "model_trained_through": "2026-10-15",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-15, model trained through 2026-10-15 -- ready for this morning's opens."
+  }
+}

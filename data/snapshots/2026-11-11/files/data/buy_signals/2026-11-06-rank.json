@@ -1,0 +1,1976 @@
+{
+  "as_of": "2026-11-06",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "KOD",
+      "predicted_return": 0.39321026903777645,
+      "open_price": 92.83,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:35:13.637891+00:00",
+        "articles": []
+      },
+      "prev_close": 91.02,
+      "jev": null
+    },
+    {
+      "ticker": "SLF",
+      "predicted_return": 0.3379831702845919,
+      "open_price": 72.27,
+      "snapshot_date": "2026-11-05",
+      "news_flag": "Q3 showed $26.9B MFS net outflows; shares sank 10% with downgrades",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Q3 showed $26.9B MFS net outflows; shares sank 10% with downgrades",
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:35:13.638051+00:00",
+        "articles": [
+          {
+            "headline": "Sun Life (SLF) Q3 2026 Earnings Call Transcript",
+            "summary": "Sun Life's Canada, U.S. and Asia growth offset by reported profit drop.",
+            "published_at": "2026-11-05T22:01:40+00:00",
+            "url": "https://finnhub.io/api/news?id=3bc86a5c651b568f5a26808c5c955bd93d1de40055ad159ecd2c1ff347dfbc6a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sun Life Sinks 10% as MFS Outflows Spark Two Downgrades: \u201cA New Headwind Emerges\u201d",
+            "summary": "Key TakeawaysSun Life Financial fell 10% after its third-quarter report showed US$26. 9 billion of net outflows at MFS, and two brokers downgraded it.",
+            "published_at": "2026-11-05T21:29:06+00:00",
+            "url": "https://finnhub.io/api/news?id=e648887fae380bbfa6b60719578d86d3775f9ac58138fe0887868a51900b8f82",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sunlife wins two global awards for Client-focused digital and AI innovation",
+            "summary": "Thirteen million Canadians turn to Sunlife to protect their families, prioritize their health and build financial security. Sunlife is putting digital and AI to work across its business to make those experiences simpler, more connected and better supported by trusted advice. That enterprise-wide transformation has earned Sunlife two Global Insurance Innovation Awards from The Global Insurer: Best Digital Insurance Company in Canada and Best Mobile Insurance App in Canada.",
+            "published_at": "2026-11-05T17:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1e06a0c8759a705aa3f86af55961fee5b34532880a62c065270fa87971b36f7b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "AI in recruitment: The value of the human in the loop",
+            "summary": "ACCA\u2019s Global Talent Trends survey received over 11,000 responses from over 160 countries, and has highlighted concerns around AI in recruitment, with 69% of UK respondents having reservations about its use. Joe Pickard speaks to Jamie Lyon, global head of skills, sectors and technology at ACCA, to find out more The Accountant: How can accountancy\u2026",
+            "published_at": "2026-11-05T15:56:55+00:00",
+            "url": "https://finnhub.io/api/news?id=7bf02955cbe11033c64c367d5855c25e6499cf70ee256e315e46b723ad2d059b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sun Life Financial Inc. (SLF:CA) Q3 2026 Earnings Call Transcript",
+            "summary": "",
+            "published_at": "2026-11-05T15:04:42+00:00",
+            "url": "https://finnhub.io/api/news?id=75e6577823dcbc49a696445b46ce5778d5ede26d2be5e6fa73c56fc36de8bd94",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Sun Life Financial Inc. 2026 Q3 - Results - Earnings Call Presentation",
+            "summary": "2026-11-05. The following slide deck was published by Sun Life Financial Inc.",
+            "published_at": "2026-11-05T11:31:13+00:00",
+            "url": "https://finnhub.io/api/news?id=561ea131780593ec2ed6927a566c3a146833c361570fd2dfe1d9313fda980bc9",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 73.48,
+      "jev": null
+    },
+    {
+      "ticker": "ODFL",
+      "predicted_return": 0.3031325800102242,
+      "open_price": 167.55,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:35:13.638735+00:00",
+        "articles": [
+          {
+            "headline": "Is the Options Market Predicting a Spike in Old Dominion Freight Line Stock?",
+            "summary": "Investors need to pay close attention to ODFL stock based on the movements in the options market lately.",
+            "published_at": "2026-11-06T11:50:00+00:00",
+            "url": "https://finnhub.io/api/news?id=001fbd5b852879a0202103cf255d3b23ef510677e1fc81cab8b11aff9e7e341d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 170.56,
+      "jev": null
+    },
+    {
+      "ticker": "PK",
+      "predicted_return": 0.3007005585972747,
+      "open_price": 15.49,
+      "snapshot_date": "2026-11-05",
+      "news_flag": "strong Q3 beat, raised full-year guidance, and sale of 11 hotels",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "strong Q3 beat, raised full-year guidance, and sale of 11 hotels",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:35:13.639053+00:00",
+        "articles": [
+          {
+            "headline": "Park Hotels & Resorts Inc (PK) (Q3 2026) Earnings Call Highlights: RevPAR Jumps 8. ...",
+            "summary": "Park Hotels & Resorts Inc (PK) beat expectations with strong RevPAR and EBITDA growth, sold 11 of 19 non-core hotels, and signaled a favorable 2027 outlook despite refinancing headwinds.",
+            "published_at": "2026-11-06T01:19:11+00:00",
+            "url": "https://finnhub.io/api/news?id=a12801f3d616608e37252f53ea851365a438f0bb4ffe1ef7526887ed56d8cdaf",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Park Hotels & Resorts (PK) Q3 2026 Earnings Call Transcript",
+            "summary": "Full-year guidance rose as the reopened Royal Palm South Beach ramps up.",
+            "published_at": "2026-11-05T22:32:58+00:00",
+            "url": "https://finnhub.io/api/news?id=033d9a657f3b4d2cafb9507dfff68fe4dfc4afe7f60e8428c272366c9b169cff",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 15.55,
+      "jev": null
+    },
+    {
+      "ticker": "KMI",
+      "predicted_return": 0.2935232125029856,
+      "open_price": 30.13,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 30.19,
+      "jev": null
+    },
+    {
+      "ticker": "AXON",
+      "predicted_return": 0.2886293822954479,
+      "open_price": 337.0,
+      "snapshot_date": "2026-11-05",
+      "news_flag": "Axon Enterprise Sees Q4 Sales $990.000M-$1.010B vs $1.061B Est",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Axon Enterprise Sees Q4 Sales $990.000M-$1.010B vs $1.061B Est",
+        "article_count": 27,
+        "reviewed_count": 27,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-11-06T14:35:13.639506+00:00",
+        "articles": [
+          {
+            "headline": "S&P 500 Premarket Movers: Tech and Semiconductor Stocks Lead Gainers as AXON and ROL Fall",
+            "summary": "S&P 500 premarket movers: ABNB, LRCX, LITE, SNDK and COHR lead gainers; AXON, ROL, CHTR, MNST and J lead losers, with prices and performance details.",
+            "published_at": "2026-11-06T13:36:06+00:00",
+            "url": "https://finnhub.io/api/news?id=3ddd5756ebb49544a30f152edd7763c7482f382d299c3762604eac63883a5699",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Axon Stock Falls as Federal Drone Deployments Stall",
+            "summary": "Full-year growth guidance drops to about 30% after three federal Dedrone deployments were delayed",
+            "published_at": "2026-11-06T12:50:12+00:00",
+            "url": "https://finnhub.io/api/news?id=9b01c2045045695757574458e9b33cb3b58334db0b72bfa3e4ccd05ed9483cf2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DraftKings Posts Downbeat Q3 Results, Joins Atlassian, Natera And Other Big Stocks Moving Lower In Friday\u2019s Pre-Market Session",
+            "summary": "Stock futures mixed as DraftKings plunged 21% after earnings missed estimates and FY26 guidance was cut; several other stocks also fell premarket.",
+            "published_at": "2026-11-06T09:03:06+00:00",
+            "url": "https://finnhub.io/api/news?id=e405cfc8a0c96beb47ba5c6844abeedd9c119814a4e45cc3a5672d557969b2de",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Axon Enterprise Stock Slides Again Friday: What's Going On?",
+            "summary": "Axon (AXON) stock dropped premarket after missing Q3 earnings and lowering its 2026 revenue guidance amid drone deployment delays.",
+            "published_at": "2026-11-06T08:27:42+00:00",
+            "url": "https://finnhub.io/api/news?id=4a1ba6e105ee3d20b32fcee8e9cbd805b47a6ce90cccf0b2f683c800c703d87d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Needham Maintains Buy on Axon Enterprise, Lowers Price Target to $500",
+            "summary": "Needham  analyst Joshua Reilly   maintains Axon Enterprise (NASDAQ:AXON) with a Buy and lowers the price target from $750 to $500.",
+            "published_at": "2026-11-06T08:06:11+00:00",
+            "url": "https://finnhub.io/api/news?id=dece27cb3674f4693503e793bdd39731474c638e25ea7c9d9b071781010328a1",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "12 Industrials Stocks Moving In Friday's Pre-Market Session",
+            "summary": "Gainers\n\nTianci International (NASDAQ:CIIT) shares increased by 49.7% to $2.32 during Friday&#39;s pre-market session. The market value of their outstanding shares is at $1.8 million. As per the press release, Q4",
+            "published_at": "2026-11-06T08:05:29+00:00",
+            "url": "https://finnhub.io/api/news?id=7ffc5f9c83321a5e2642896eb2a79f9929bf19a41e127b9b7c6b7b6e6f38fa7e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nasdaq\u2019s 5.5% Wipeout And AI's Next Reality Check\u2014IRS' New Tax Brackets",
+            "summary": "AI stocks unravel as Cloudflare, Airbnb and the IRS deliver a very different set of numbers.",
+            "published_at": "2026-11-06T07:38:52+00:00",
+            "url": "https://finnhub.io/api/news?id=fb02a5c5efe94ed2e6893b6586f1cbb72ae5d4072bb6bdddc01c99bb5356ca48",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Axon Enterprise (AXON) Q3 2026 Earnings Call Transcript",
+            "summary": "A $1.2 billion Skydio stake and federal delays headline the quarter's strategy shifts.",
+            "published_at": "2026-11-06T07:31:14+00:00",
+            "url": "https://finnhub.io/api/news?id=b5f6b01c3419b8d91538cd518ffd9a0d5d30abf2facb4dcde7d88680cf41a4b1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Enterprise Inc (AXON) (Q3 2026) Earnings Call Highlights: AI Surpasses $100 Million ARR as ...",
+            "summary": "Axon Enterprise Inc (AXON) posted 28% revenue growth to $909 million and a $1.2 billion Skydio investment, though delayed federal drone deals and rising memory costs cloud the Q4 outlook.",
+            "published_at": "2026-11-06T05:23:47+00:00",
+            "url": "https://finnhub.io/api/news?id=b28b418f988c4bd521c2c56d5a2f3cb4163d8602053d29da1580ba8b82eed191",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Enterprise Q3 Earnings Call Highlights",
+            "summary": "Axon Enterprise (NASDAQ:AXON) reported 28% revenue growth in the third quarter, but removed three large federal counter-drone deployments from its near-term expectations as procurement and installation timelines became less certain. The public safety technology company also announced a $1.2 billion",
+            "published_at": "2026-11-06T01:14:35+00:00",
+            "url": "https://finnhub.io/api/news?id=6a753ca2924886f8d23a82af63ae3f9e295f450ad3e27c6817ab8877783e806c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "S&P 500 After-Hours Movers: ABNB and SNDK Gain, AXON and SOLV Fall",
+            "summary": "S&P 500 after-hours movers after today's U.S. session included ABNB up 10.68%, SNDK up 3.17%, AXON down 12.14% and SOLV down 7.03%.",
+            "published_at": "2026-11-05T22:06:16+00:00",
+            "url": "https://finnhub.io/api/news?id=c8baf959ed6ac7e6a8a6c13e13dd7b2a5e7d98ce47ba0c504559205276777cab",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Axon Enterprise, Inc. (AXON) Q3 2026 Earnings Call Transcript",
+            "summary": "",
+            "published_at": "2026-11-05T21:44:43+00:00",
+            "url": "https://finnhub.io/api/news?id=9dbe04b9601733c3c4785373bcb6a6911a1af042a49e710b99874e83fed85a1c",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Compared to Estimates, Axon (AXON) Q3 Earnings: A Look at Key Metrics",
+            "summary": "While the top- and bottom-line numbers for Axon (AXON) give a sense of how the business performed in the quarter ended September 2026, it could be worth looking at how some of its key metrics compare to Wall Street estimates and year-ago values.",
+            "published_at": "2026-11-05T21:30:01+00:00",
+            "url": "https://finnhub.io/api/news?id=86905ba4279a9ece079d3b5bfb3ba3afaabc6465082a2c3f2a9b327d872f4b75",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Enterprise (AXON) Q3 Earnings and Revenues Miss Estimates",
+            "summary": "Axon (AXON) delivered earnings and revenue surprises of -9.47% and -2.43%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-11-05T21:20:02+00:00",
+            "url": "https://finnhub.io/api/news?id=289b9bea39fd4514ff5fe3bb29a063a7a2c48a5e3651947e1d14599c94c3a1fe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon (NASDAQ:AXON) reports sales below analyst estimates in Q3 2026 earnings, stock drops 18.4%",
+            "summary": "Self-defense company AXON (NASDAQ:AXON) fell short of the market\u2019s revenue expectations in Q3 2026, but revenue rose 27.8% year on year to $908.6 million. Next quarter\u2019s revenue guidance of $1 billion underwhelmed, coming in 6.8% below analysts\u2019 consensus estimates. Its non-GAAP profit of $1.72 per share was 9% below analysts\u2019 consensus estimates.",
+            "published_at": "2026-11-05T21:15:50+00:00",
+            "url": "https://finnhub.io/api/news?id=9180b518ee6234e774e1808334ae4b709304cf01dc85e13e75b63e174b215ebe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon: Q3 Earnings Snapshot",
+            "summary": "(AXON) on Thursday reported third-quarter net income of $57 million, after reporting a loss in the same period a year earlier.The Scottsdale, Arizona-based company said it had profit of 68 cents per share.",
+            "published_at": "2026-11-05T21:11:48+00:00",
+            "url": "https://finnhub.io/api/news?id=5f3606e3d137b83b7f28d2beed3dc19fb48366bfce04a7aa298810e45f9dc58b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon reports record Q3 2026 revenue of $909 million, up 28% year over year",
+            "summary": "Axon reports record Q3 2026 revenue of $909 million, up 28% year over year",
+            "published_at": "2026-11-05T21:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5bd4c7bf9ef0b466f801e9759d05bc34a18dd5e387ade9f9b9d40acb72abe28b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Invests $1.2 Billion in Skydio to Build the Future of Drone as First Responder",
+            "summary": "Axon (Nasdaq: AXON), the global leader in public safety technology, today announced an additional $1.2 billion investment in Skydio. The agreement, which will add approximately 20% to Axon's fully diluted ownership in Skydio at a $5.2 billion pre-money valuation, builds on a partnership that is already bringing Skydio drones to public safety agencies across the U.S., marking a major expansion of Axon's Drone as First Responder (DFR) program.",
+            "published_at": "2026-11-05T21:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=a09943a33d744e4d7131a201536d5f022aac20183c5b572b4ed3d6608ae8ee7a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Enterprise Q3 2026 Earnings Call Transcript",
+            "summary": "Axon Enterprise (NASDAQ:AXON) reported third-quarter financial results on Thursday. The transcript from the company\u2019s third-quarter earnings call has been provided below.This transcript is brought to you by Benzinga",
+            "published_at": "2026-11-05T19:07:56+00:00",
+            "url": "https://finnhub.io/api/news?id=c52a6f1bfca320f0fa6eed8befe6796b1a8a4878ee3eb6530201589f983f66e3",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "AppLovin earnings analysis: questions answered and next catalysts",
+            "summary": "Investing.com -- AppLovin Corp (APP) reported Q3 on Nov 4, 2026, and the stock is up about 28% at $347.73 (as of Nov 5, 1:14 PM EST). That reaction is the reverse of the -20.02% and -22.42% moves after the Q2 and Q4 FY2025 prints. Even with the jump, the stock is still down about 49% YTD and well below its 52-week high of $738.01.",
+            "published_at": "2026-11-05T18:47:04+00:00",
+            "url": "https://finnhub.io/api/news?id=6871c06b8b7e798067a24dba0ba2b3cf549bbdada4909bfacffba7e8cd5c0629",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Axon Stock Falls on Q3 Miss, Guidance, Increases Investment in Drone Response Company Skydio",
+            "summary": "Axon reported Q3 results, updated guidance, and shared details of its increased investment in drone company Skydio.",
+            "published_at": "2026-11-05T18:40:28+00:00",
+            "url": "https://finnhub.io/api/news?id=b7a986e95ac6959a10d098cc11eb699e4bd0e058032f6f2d11184ea90eac7c2f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Motorola Solutions Flies Past Buy Point On Drone Power",
+            "summary": "The Silvus and D-Fend acquisitions have helped position Motorola as a drone technology leader.",
+            "published_at": "2026-11-05T17:52:37+00:00",
+            "url": "https://finnhub.io/api/news?id=9e2f8e9402cda530410b55ceb5ea264de03c4ea3981fc85f5f1310b31d504065",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "12 Industrials Stocks Moving In Thursday's After-Market Session",
+            "summary": "Gainers\n\nPlanet Image Intl (NASDAQ:YIBO) stock increased by 4.8% to $1.09 during Thursday&#39;s after-market session. The company&#39;s market cap stands at $65.1 million. \nEnergys Group (NASDAQ:ENGS) stock rose 4.41%",
+            "published_at": "2026-11-05T17:05:55+00:00",
+            "url": "https://finnhub.io/api/news?id=acb8f21ca8da70f236b79a41a20e2633fca040ab4b6f2b3d9440910731705c96",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Axon Enterprise Q3 Adj. EPS $1.72 Misses $1.88 Estimate, Sales $908.554M Miss $937.588M Estimate",
+            "summary": "Axon Enterprise (NASDAQ:AXON) reported quarterly earnings of $1.72 per share which missed the analyst consensus estimate of $1.88 by 8.51 percent. This is a 38.71 percent increase over earnings of $1.24 per share from",
+            "published_at": "2026-11-05T17:02:56+00:00",
+            "url": "https://finnhub.io/api/news?id=cf308eaf5a377f0412d23f6aacee16fc7c7dd990d47838a024e427ff9e5d4dd7",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Axon Enterprise Lowers FY2026 Sales Guidance from $3.670B-$3.725B to $3.610B-$3.630B vs $3.699B Est",
+            "summary": "Axon Enterprise (NASDAQ:AXON) lowers FY2026 sales outlook from $3.670 billion-$3.725 billion to $3.610 billion-$3.630 billion vs $3.699 billion estimate.",
+            "published_at": "2026-11-05T17:02:24+00:00",
+            "url": "https://finnhub.io/api/news?id=16ddeb02a399b777d2f8cab9a72e1fa5cde176ba5289d914396e96d421d2c493",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Axon Enterprise Sees Q4 Sales $990.000M-$1.010B vs $1.061B Est",
+            "summary": "Axon Enterprise (NASDAQ:AXON) sees Q4 sales of $990.000 million-$1.010 billion vs $1.061 billion analyst estimate.",
+            "published_at": "2026-11-05T17:02:03+00:00",
+            "url": "https://finnhub.io/api/news?id=3559d09ec1ff3d59ac1fc0afd77490c26d6b93f1b9b880603cd4621919f657b8",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Applovin Bounces Back Following Strong Quarterly Results: This Wall Street Desk Says 120% Gains Still to Come",
+            "summary": "A second-quarter stumble wiped out more than half of AppLovin's value, yet analysts keep their Buy ratings even as they slash targets. One cheap forward multiple and a buyback surge raise the question of whether the market is overreacting.",
+            "published_at": "2026-11-05T15:45:04+00:00",
+            "url": "https://finnhub.io/api/news?id=33a5a9662d1c3463b54ed0a5217b195526590f067d594777a09f1f65902ebba6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 382.56,
+      "jev": null
+    },
+    {
+      "ticker": "SEB",
+      "predicted_return": 0.2814943503464985,
+      "open_price": 3358.0,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:06.054572+00:00",
+        "articles": []
+      },
+      "prev_close": 3415.47,
+      "jev": null
+    },
+    {
+      "ticker": "GNW",
+      "predicted_return": 0.27566067265144745,
+      "open_price": 8.78,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 8.91,
+      "jev": null
+    },
+    {
+      "ticker": "CDNA",
+      "predicted_return": 0.2737670433445211,
+      "open_price": 77.875,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 76.33,
+      "jev": null
+    },
+    {
+      "ticker": "EQH",
+      "predicted_return": 0.2724089541890978,
+      "open_price": 52.25,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "not_checked",
+        "flag": null,
+        "article_count": null,
+        "reviewed_count": null,
+        "judge": null,
+        "sources": [],
+        "issues": [
+          "ticker_limit"
+        ],
+        "checked_at": null,
+        "articles": []
+      },
+      "prev_close": 52.91,
+      "jev": null
+    },
+    {
+      "ticker": "HCI",
+      "predicted_return": 0.26010714842004123,
+      "open_price": 188.34,
+      "snapshot_date": "2026-11-05",
+      "news_flag": "Q3 earnings showed sharp 27% profit growth",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Q3 earnings showed sharp 27% profit growth",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.118664+00:00",
+        "articles": [
+          {
+            "headline": "HCI Group (HCI) Q3 2026 Earnings Call Transcript",
+            "summary": "Operating leverage and a bigger investment portfolio drove a sharp profit rise.",
+            "published_at": "2026-11-05T20:15:38+00:00",
+            "url": "https://finnhub.io/api/news?id=d838c1fb505b144c38d587a2f85d5d14594bacd577046c4a4f7e98779a9fd9c7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Quality Small Cap Stocks To Watch In November 2026",
+            "summary": "Democrats winning control of Congress on an affordability agenda puts a spotlight on companies that quietly help consumers and businesses do more with less. While political debate focuses on big policy swings, smaller high quality businesses with solid balance sheets and durable business models can be overlooked. This article highlights three under the radar U.S. stocks from a quality focused small cap screener that may reward patient investors who get in before the crowd. The three stocks...",
+            "published_at": "2026-11-05T09:16:42+00:00",
+            "url": "https://finnhub.io/api/news?id=049f79a6634a967fff062348c07cc88bb2faa2861267e32be7a789778569c34c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "HCI Group Inc (HCI) (Q3 2026) Earnings Call Highlights: Strong Profit Growth and Balance Sheet ...",
+            "summary": "HCI Group Inc (HCI) posted 27% net income growth and $6.45 diluted EPS while flagging modest rate declines and a $15 million Hurricane Isaias net loss for Q4.",
+            "published_at": "2026-11-05T09:11:25+00:00",
+            "url": "https://finnhub.io/api/news?id=aa41b0cb23db0866e90a5aacdb36dcedc8c8496e7fd31d2c86e0f3141bf81377",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 192.03,
+      "jev": null
+    },
+    {
+      "ticker": "SPSC",
+      "predicted_return": 0.2519718485764807,
+      "open_price": 80.95,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.119552+00:00",
+        "articles": []
+      },
+      "prev_close": 82.575,
+      "jev": null
+    },
+    {
+      "ticker": "RTX",
+      "predicted_return": 0.2492689260121117,
+      "open_price": 189.29,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.119736+00:00",
+        "articles": [
+          {
+            "headline": "Defense Watch: Strong Q3 Earnings, New Military Contracts,\u00a0But Democrats\u2019 Sweep Poses Spending Hurdles",
+            "summary": "Curtiss-Wright, Leidos and BWX Technologies reported strong Q3 results this week, citing sharp growth in defense business.",
+            "published_at": "2026-11-06T12:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=da4e98194b4a180cc73f370e30e6572cf5272ec888a59a94cff567a65d8a9807",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RTX (RTX) Sees $39.0 Million in Net ETF Selling on Nov. 4",
+            "summary": "ETFs sold $39.0 million of RTX Corporation stock on Wednesday, Nov. 4.",
+            "published_at": "2026-11-06T11:03:08+00:00",
+            "url": "https://finnhub.io/api/news?id=081695c5802b26b178ca2dd1adb9a1c719c208a4355647083730a51c83ebe69f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Where Did RTX Stock's Gains Really Come From?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-11-06T04:31:57+00:00",
+            "url": "https://finnhub.io/api/news?id=e02c6e40b2bddeff588059febea3bdcf865cea4dbcbfb7b8b5a13602e5172766",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Lockheed Martin Stock Priced Right Against Its Peers?",
+            "summary": "For questions about this article or underlying research, email help@trefis.com.",
+            "published_at": "2026-11-06T01:51:12+00:00",
+            "url": "https://finnhub.io/api/news?id=70f8a123fcc835ba1253750a14ce766e36e53d7003e9f3bcb8db0d21dbacb18b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Defense Stocks Sank as Democrats Took Congress and the $1.5 Trillion Budget Looks Doomed",
+            "summary": "While the broader market rallied, defense contractors got hammered after the midterms flipped Congress. A massive spending request now hangs in limbo, and one number on Lockheed's chart may reveal whether Wall Street sees a ceiling or a floor.",
+            "published_at": "2026-11-05T18:48:45+00:00",
+            "url": "https://finnhub.io/api/news?id=48089c83aad45cc8c364f98592b843abfac8366a1f4568c462eff4eab2d72e98",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 191.88,
+      "jev": null
+    },
+    {
+      "ticker": "FHN",
+      "predicted_return": 0.24678065382408776,
+      "open_price": 23.0,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.120329+00:00",
+        "articles": [
+          {
+            "headline": "First Horizon Sees 4% Earnings Boost From $4.5 Billion Mortgage Sale",
+            "summary": "First Horizon (NYSE:FHN) expects its $4.5 billion mortgage portfolio sale to boost earnings and profitability in 2027, while giving the regional bank more flexibility to fund commercial and specialty lending, Chief Financial Officer Hope Dmuchowski said at an investor event. The transaction, which",
+            "published_at": "2026-11-06T03:14:52+00:00",
+            "url": "https://finnhub.io/api/news?id=1e4de648076ad0c6041ad1203351c8bf570357956738556d3f84f3da979bd0da",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "First Horizon Corporation (FHN) Presents at BancAnalysts Association of Boston Conference 2026 Transcript",
+            "summary": "First Horizon Corporation (FHN) BancAnalysts Association of Boston Conference 2026 November 5, 2026 2:55 PM ESTCompany ParticipantsHope Dmuchowski - Senior...",
+            "published_at": "2026-11-05T17:34:45+00:00",
+            "url": "https://finnhub.io/api/news?id=8c934156abdf31fa9d0db719eb425b3461229ce739a1f091b44216b08c051f04",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 23.12,
+      "jev": null
+    },
+    {
+      "ticker": "GME",
+      "predicted_return": 0.2459778296334108,
+      "open_price": 24.01,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.134133+00:00",
+        "articles": [
+          {
+            "headline": "GameStop (GME) Stock Moves -3.86%: What You Should Know",
+            "summary": "GameStop (GME) closed the most recent trading day at $24.17, moving 3.86% from the previous trading session.",
+            "published_at": "2026-11-05T21:45:04+00:00",
+            "url": "https://finnhub.io/api/news?id=d27bcea313918616035358b897ec9af9fd08a9cf290596d59a2eae5dae5a6a14",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Chewy vs. GameStop: Which Consumer Stock Is a Better Buy for 2027?",
+            "summary": "Chewy's subscription pet health push and GameStop's cash-rich pivot point investors in very different directions heading into 2027.",
+            "published_at": "2026-11-05T16:55:02+00:00",
+            "url": "https://finnhub.io/api/news?id=50b5eaf7826ac8b5c6f5bb1c1e0b3f22d39e16501eb840a99e02a14f9774e3f6",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 24.17,
+      "jev": null
+    },
+    {
+      "ticker": "CTVA",
+      "predicted_return": 0.2450736100803459,
+      "open_price": 11.9,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.138958+00:00",
+        "articles": [
+          {
+            "headline": "3 Agriculture Stocks to Watch as Food Inflation Keeps Supply Chains in Focus",
+            "summary": "Inflation fears are lingering, energy costs remain jumpy and food prices are still in focus, so attention is shifting to the less glamorous plumbing of the global food system. Supply of fertilizers, seeds, crop protection and cold storage does not grab headlines, yet these businesses can feel inflation, interest rates and tech selloffs in very direct ways. This article walks through three stocks exposed to those forces and explains how the recent news backdrop might matter for each. The...",
+            "published_at": "2026-11-06T13:16:21+00:00",
+            "url": "https://finnhub.io/api/news?id=015f2359e339a1872b021c5548769df0b4c915dc06219c07b05b7864845eaffa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Westrock Coffee Company (WEST) Reports Q3 Loss, Misses Revenue Estimates",
+            "summary": "Westrock Coffee Company (WEST) delivered earnings and revenue surprises of -100.00% and -2.06%, respectively, for the quarter ended September 2026. Do the numbers hold clues to what lies ahead for the stock?",
+            "published_at": "2026-11-06T00:00:06+00:00",
+            "url": "https://finnhub.io/api/news?id=3306a22991879c909b0a3b3ff4c148c268e50e77727edd9cfbc0d7d7b9a13101",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Corteva's Q3 Earnings on the Horizon: Key Insights for Investors",
+            "summary": "CTVA's Q3 2026 performance is likely to have benefited from premium seed demand, product innovation and cost efficiencies, but pricing pressure and farm economics pose challenges.",
+            "published_at": "2026-11-05T17:06:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bf0a378d99535819197d0daf1eac6e67dd4bcac1b3724fbb42a5beb82fa42f0e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 12.04,
+      "jev": null
+    },
+    {
+      "ticker": "TKC",
+      "predicted_return": 0.23810422816806484,
+      "open_price": 4.53,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.149013+00:00",
+        "articles": []
+      },
+      "prev_close": 4.6,
+      "jev": null
+    },
+    {
+      "ticker": "OTF",
+      "predicted_return": 0.23797696011739547,
+      "open_price": 9.36,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 5,
+        "reviewed_count": 5,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.149297+00:00",
+        "articles": [
+          {
+            "headline": "Blue Owl Technology Finance Corp (OTF) (Q3 2026) Earnings Call Highlights: NAV Rises 90 Basis ...",
+            "summary": "Blue Owl Technology Finance Corp (OTF) posted NAV per share of $16.62 and healthy credit quality, but expects to cover its base dividend only by mid-2027 amid slow software deal flow.",
+            "published_at": "2026-11-06T01:20:26+00:00",
+            "url": "https://finnhub.io/api/news?id=7932ad9e1a45b1b41b2c3ed45afc3bec4435f7778cd7ddb514c50ad543019c75",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Blue Owl Sees Gains as Election Results Limit AI Compute Supply",
+            "summary": "Blue Owl is telling investors that it expects to earn more on its digital infrastructure deals as capital becomes scarcer while warning that a Democratic sweep in the US midterm elections could make it harder to add computing capacity.",
+            "published_at": "2026-11-05T22:32:27+00:00",
+            "url": "https://finnhub.io/api/news?id=8779d4b97fb947a74b79460f3cef73ec6571f91648b34e812c7c9be2b0721c4b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Blue Owl Tech Finance (OTF) Q3 2026 Earnings Call Transcript",
+            "summary": "Software lending spreads widened sharply this year as deal activity repriced.",
+            "published_at": "2026-11-05T21:32:41+00:00",
+            "url": "https://finnhub.io/api/news?id=9e66d199799afec480551e6ac2adbbab289a70e8929418541b677ca7157a3751",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Blue Owl Technology Finance: Signifyd Is Small Next To The Defaults Priced In",
+            "summary": "Blue Owl Technology Finance trades at a steep 41% discount to NAV, reflecting market concerns over credit quality and dividend coverage. Click to read more.",
+            "published_at": "2026-11-05T17:09:17+00:00",
+            "url": "https://finnhub.io/api/news?id=57ba545423013b20d86880ddf33b423f7ebb79392afa394a8fcaedf66e54b2a3",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Blue Owl Technology Finance Corp. Q3 2026 Earnings Call Summary",
+            "summary": "Moby summary of Blue Owl Technology Finance Corp.'s Q3 2026 earnings call",
+            "published_at": "2026-11-05T13:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=836d0094e630750575d7b359d5d08099aa36051587b96c1053cb1da11d9fd00d",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 9.53,
+      "jev": null
+    },
+    {
+      "ticker": "ECHO",
+      "predicted_return": 0.23518905670680976,
+      "open_price": 92.54,
+      "snapshot_date": "2026-11-05",
+      "news_flag": "Reported SpaceX move to buy EchoStar's Boost Mobile unit",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "Reported SpaceX move to buy EchoStar's Boost Mobile unit",
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.150022+00:00",
+        "articles": [
+          {
+            "headline": "Elon Musk's SpaceX Wants to Take On AT&T, T-Mobile \u2014 But Both Carriers Could Cut Off Boost Mobile: Report",
+            "summary": "AT&amp;T and T-Mobile may cut Boost Mobile&#39;s network access if SpaceX buys it, complicating Musk&#39;s plans to disrupt the U.S. wireless market.",
+            "published_at": "2026-11-06T04:22:26+00:00",
+            "url": "https://finnhub.io/api/news?id=1a02213062e0c7013c0c1e6376ec99ecd5f6b082dda89504953d3ebcb1dc1f92",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "AT&T, T-Mobile Are Reportedly Ready To Boot Boost Mobile If SpaceX Buys It",
+            "summary": "Semafor\u2019s Rohan Goswami said that AT&T and T-Mobile have discussed removing Boost Mobile from their networks if SpaceX acquires the EchoStar unit, creating a potential obstacle to Elon Musk\u2019s push to become a major U.S. wireless carrier.",
+            "published_at": "2026-11-06T00:15:48+00:00",
+            "url": "https://finnhub.io/api/news?id=745ddb6699de382e23f18a99d5a56fa33fb38e25a86fbfddeb3dd3fd4e8fb1c1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The unanswered questions for Elon Musk as he sets out to take on Big Wireless",
+            "summary": "Elon Musk is moving ahead with plans to build a nationwide cellular network. Can he really do it, or is it just a ruse to bring the big telecom companies to the negotiating table?",
+            "published_at": "2026-11-05T14:00:05+00:00",
+            "url": "https://finnhub.io/api/news?id=fa2118418a24bc2c23d3c76d8dd0297d2592c9d8ebc09f750ac08fa26d908442",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Did Profit Rebound Just Shift EchoStar (ECHO) Stock Narrative?",
+            "summary": "EchoStar reported third quarter 2026 revenue of US$1,127.61 million and net income of US$2,782.25 million, reversing a large loss from the prior year period and lifting basic earnings per share from continuing operations to US$9.57. The business generated net income of US$11,097.74 million over the first nine months of 2026 despite lower revenue than a year earlier. This highlights how EchoStar\u2019s earnings profile can shift when one off items and capital holdings flow through the income...",
+            "published_at": "2026-11-05T13:13:37+00:00",
+            "url": "https://finnhub.io/api/news?id=e2ac8552d6db8c44551dd5f7f476c9f1153f8e9fce00e27bba133ff72f14e7a5",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 89.92,
+      "jev": null
+    },
+    {
+      "ticker": "MFG",
+      "predicted_return": 0.23261451689724968,
+      "open_price": 9.2,
+      "snapshot_date": "2026-11-05",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-11-06T14:36:28.150213+00:00",
+        "articles": []
+      },
+      "prev_close": 9.39,
+      "jev": null
+    }
+  ],
+  "scored_count": 1739,
+  "skipped": [
+    {
+      "ticker": "COP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ABNB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DUK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MNST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EOG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LITE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SPG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRGP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CAH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SRE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DVN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BDX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HUM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ROK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LYV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ED",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MCHP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KVUE",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KMB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IRM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ZTS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AEE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DTE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MTD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PPL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VRSK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TPR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GPN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VTRS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EVRG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CHTR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SOLV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "REG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WYNN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TAP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NET",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NTRA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TEAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AFRM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "USFD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FWONA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MTSI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IREN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "U",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IONQ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RGA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TIGO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LAMR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MAIR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NVMI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXRH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HALO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FNF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ELAN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DKNG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ARW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FROG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VSAT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FRHC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GMED",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WMS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OSCR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BSY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAOI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MSGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTRE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KTOS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WULF",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IBRX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LNC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TXG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COMP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OKLO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SARO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SYRE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PCTY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRMB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CELH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FLR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AUGO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAAS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LOAR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INGR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IBP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ESNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DNTH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LYFT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "G",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CORZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STWD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EPAM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TFX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FTDR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VIRT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MRX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PAGP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KRMN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACMR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NXST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MAIN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACIW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPHR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INSW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "OUT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HASI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MIDD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CNR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LFST",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CENX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "EWTX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CLMT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CELC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NSIT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BIPC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SMR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NNI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DOCS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TDS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DIOD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "STEP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MDU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GEO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LMND",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "INDV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MAT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BILL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ICUI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GPGI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "COLD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IOVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IRTC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATMU",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KTB",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SYNA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMLX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HHH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ACLS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APLE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LXP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLSE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FSK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LION",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FOUR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NMIH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AGO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KYIV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CPK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SHOO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATKR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TMDX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MBX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPEN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WRBY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IRON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BKV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DNOW",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SOUN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CARG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AMR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DXPE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "IMAX",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CALY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SPNT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SHAK",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AVPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NOG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BVC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALRM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GRND",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NTCT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRVA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "GRDN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TDC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AAP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "APPN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "DCO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VERA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SKWD",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "MH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LCII",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PAYO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PBH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FIVN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "HLIO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "LASR",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "KEEL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TRLV",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PLUS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAMP",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LPG",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "FIGS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "BOBS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PENN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PVLA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PTON",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UAA",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "RAPP",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "XRAY",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SRPT",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TILE",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "CTRI",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NWN",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "TIC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PRDO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PDFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "UTZ",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "SHO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "AGIO",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "VCEL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 23.806513975548846
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 11.925811082215606
+    },
+    {
+      "feature": "weather_nyc_tmax_yday",
+      "importance": 4.855833435556248
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-11-05",
+    "model_trained_through": "2026-11-05",
+    "ready_for_inference": true,
+    "detail": "Ready for this morning's opens."
+  },
+  "kind": "rank"
+}

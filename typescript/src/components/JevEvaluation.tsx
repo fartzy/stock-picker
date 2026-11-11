@@ -17,13 +17,20 @@ function Target({ target }: { target: JevTargetMetrics }) {
   </div>;
 }
 
-export default function JevEvaluation() {
+function EvaluationResults() {
   const [tick, setTick] = useState(0);
   const { data, error, loading } = useFetchData(fetchJevEvaluation, { deps: [tick], trackLoading: true });
   const [refreshed, setRefreshed] = useState<Evaluation | null>(null);
   const [busy, setBusy] = useState(false);
   const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [ledgerOpen, setLedgerOpen] = useState(false);
   const evaluation = refreshed ?? data;
+
+  function reload() {
+    setRefreshed(null);
+    setRefreshError(null);
+    setTick((value) => value + 1);
+  }
 
   async function refresh() {
     setBusy(true);
@@ -33,12 +40,12 @@ export default function JevEvaluation() {
     finally { setBusy(false); }
   }
 
-  return <section className="jev-evaluation">
-    <div className="section-title-row"><h3>Does Jev help?</h3><div className="jev-actions">
+  return <div>
+    <div className="section-title-row"><div className="jev-actions">
       <button className="btn-primary" type="button" onClick={() => void refresh()} disabled={busy}>{busy ? "Refreshing…" : "Refresh results"}</button>
     </div></div>
-    {(error || refreshError) && <p className="error" role="alert">{refreshError ?? error}</p>}
-    {loading && !evaluation && <p className="muted">Loading forecast history…</p>}
+    {(error || refreshError) && <p className="error" role="alert">{refreshError ?? error} <button type="button" onClick={reload}>Retry</button></p>}
+    {loading && !evaluation && <p className="muted">Loading…</p>}
     {evaluation && <>
       <p className="jev-status"><strong>{evaluation.counts.completed} completed</strong> · {evaluation.counts.pending} pending{evaluation.counts.unavailable > 0 && <> · {evaluation.counts.unavailable} unavailable</>}</p>
       {evaluation.counts.completed === 0 && <div className="jev-empty">
@@ -56,17 +63,25 @@ export default function JevEvaluation() {
           {cohort.comparisons.map((group) => <tr key={group.name}><td>{group.name}</td><td>{group.n}</td><td>{jevPercent(group.mean_net_return)}</td><td>{jevPercent(group.win_rate)}</td></tr>)}
         </tbody></table></div>
       </details>)}
-      <details className="jev-ledger"><summary>Forecasts ({evaluation.forecast_count})</summary>
-        <div className="jev-table-scroll"><table className="jev-evaluation-table"><thead><tr><th>Session</th><th>Ticker</th><th>List / question</th><th>Traded</th><th>Sample</th><th>Outcome</th><th>After costs</th></tr></thead><tbody>
+      <details className="jev-ledger" onToggle={(event) => setLedgerOpen(event.currentTarget.open)}><summary>Forecasts ({evaluation.forecast_count})</summary>
+        {ledgerOpen && <div className="jev-table-scroll"><table className="jev-evaluation-table"><thead><tr><th>Session</th><th>Ticker</th><th>List / question</th><th>Traded</th><th>Sample</th><th>Outcome</th><th>After costs</th></tr></thead><tbody>
           {[...evaluation.rows].reverse().map((row) => <tr key={row.forecast_id}><td>{row.session}</td><td>{row.ticker}</td><td>{row.kind} / {row.question_set_version}</td><td>{row.traded ? "Yes" : "No"}</td><td>{row.primary ? "Initial" : "Separate"}</td><td title={row.reason ?? undefined}>{row.status}{row.reason ? `: ${row.reason}` : ""}</td><td>{jevPercent(row.net_return)}</td></tr>)}
-        </tbody></table></div>
+        </tbody></table></div>}
       </details>
     </>}
     <details className="jev-details"><summary>Details</summary>
-      <p className="muted">Tracks all saved candidates, including stocks you never traded. Refresh checks the price API without requesting another Jev forecast.</p>
+      <p className="muted">Includes untraded picks. Refresh updates prices only.</p>
       {evaluation && <p className="muted">{evaluation.primary_count} initial forecasts · {evaluation.duplicate_count} reassessments excluded · {evaluation.legacy_count} records missing snapshots · {evaluation.failed_count} failed requests</p>}
-      <button className="section-title-action" type="button" onClick={() => { setRefreshed(null); setTick(tick + 1); }} disabled={busy || loading}>Reload history</button>
+      <button className="section-title-action" type="button" onClick={reload} disabled={busy || loading}>Reload history</button>
       {evaluation && <p className="muted jev-note">{evaluation.policy}</p>}
     </details>
-  </section>;
+  </div>;
+}
+
+export default function JevEvaluation() {
+  const [open, setOpen] = useState(false);
+  return <details className="jev-evaluation" onToggle={(event) => setOpen(event.currentTarget.open)}>
+    <summary>Jev results</summary>
+    {open && <EvaluationResults />}
+  </details>;
 }

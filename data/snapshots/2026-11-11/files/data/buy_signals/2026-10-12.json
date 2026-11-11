@@ -1,0 +1,156 @@
+{
+  "as_of": "2026-10-12",
+  "model_run_id": null,
+  "threshold": 0.005,
+  "signals": [
+    {
+      "ticker": "AXTI",
+      "predicted_return": 0.008579400925325309,
+      "open_price": 66.3,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:18.231582+00:00",
+        "articles": [
+          {
+            "headline": "AXT Stock Fell 10% in a Day Even as Analysts More Than Doubled Their 2027 Revenue Estimates. Here\u2019s Where the Stock Could Go",
+            "summary": "Key Stats for AXT StockCurrent Price: $71. 66Target Price (Mid): ~$396Street Target: ~$92Potential Total Return: ~452%Annualized IRR: ~39% / yearWhat Happened?AXT (AXTI) fell 10.",
+            "published_at": "2026-10-09T16:31:19+00:00",
+            "url": "https://finnhub.io/api/news?id=10f9d9a754a919ba75436cc9802c59e1b2f7d06400dfc79df240c37862fd7c7f",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 68.46
+    },
+    {
+      "ticker": "FRMI",
+      "predicted_return": 0.006287360907639397,
+      "open_price": 3.39,
+      "snapshot_date": "2026-10-09",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "no_news",
+        "flag": null,
+        "article_count": 0,
+        "reviewed_count": 0,
+        "judge": null,
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-12T13:34:18.231189+00:00",
+        "articles": []
+      },
+      "prev_close": 3.43
+    }
+  ],
+  "scored_count": 1980,
+  "skipped": [
+    {
+      "ticker": "WBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DAL",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "PSKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MOG-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CIG-C",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "weather_nyc_tmin_yday",
+      "importance": 10.174325612848312
+    },
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 8.696515243717467
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 8.528016056230564
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-09",
+    "model_trained_through": "2026-10-09",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-09, model trained through 2026-10-09 -- ready for this morning's opens."
+  }
+}

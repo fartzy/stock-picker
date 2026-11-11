@@ -1,0 +1,2604 @@
+{
+  "as_of": "2026-10-05",
+  "model_run_id": null,
+  "threshold": -Infinity,
+  "signals": [
+    {
+      "ticker": "LQDA",
+      "predicted_return": 0.37521634564132106,
+      "open_price": 28.06999969482422,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-05T13:36:12.334123+00:00",
+        "articles": [
+          {
+            "headline": "Stocktwits Wall Street Wrap: Analysts Turn Bullish On Sweetgreen, Target And Airbnb \u2013 Liquidia And FICO Face Downgrades",
+            "summary": "The changes reflect new views on restaurant demand, retail traffic, travel growth, drug risks and competition in financial data.",
+            "published_at": "2026-10-02T10:40:36+00:00",
+            "url": "https://finnhub.io/api/news?id=e651a0a7fe0766f91473db1c520cf4130c2a1a9d2bb6b9de54156e555e132353",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wells Fargo Downgrades Liquidia to Equal-Weight, Lowers Price Target to $30",
+            "summary": "Wells Fargo  analyst Benjamin Burnett   downgrades Liquidia (NASDAQ:LQDA) from Overweight to Equal-Weight and lowers the price target from $108 to $30.",
+            "published_at": "2026-10-02T10:27:40+00:00",
+            "url": "https://finnhub.io/api/news?id=2c4c50f8ff548e66a8924999cf28dd4d54d6b3158950478eddbde86a0639b8e9",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Liquidia Shares Tank On Patent Court Loss, Rivals May Just Be Getting Started",
+            "summary": "",
+            "published_at": "2026-10-02T08:27:35+00:00",
+            "url": "https://finnhub.io/api/news?id=031dfb027f7a995591589964d51bbf80564408a756ddde9ffafc9097937596e4",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "HC Wainwright & Co. Maintains Buy on Liquidia, Lowers Price Target to $58",
+            "summary": "HC Wainwright &amp; Co.  analyst Andrew S. Fein   maintains Liquidia (NASDAQ:LQDA) with a Buy and lowers the price target from $130 to $58.",
+            "published_at": "2026-10-02T06:37:57+00:00",
+            "url": "https://finnhub.io/api/news?id=395ad159829962c75d3d7e2518ea8647b84eabf87fdd188eb485811dcc49251a",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 28.6299991607666
+    },
+    {
+      "ticker": "BMY",
+      "predicted_return": 0.3491759043763273,
+      "open_price": 59.66999816894531,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 10,
+        "reviewed_count": 10,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:12.334790+00:00",
+        "articles": [
+          {
+            "headline": "3 Value Stocks We Steer Clear Of",
+            "summary": "Value stocks typically trade at discounts to the broader market, offering patient investors the opportunity to buy businesses when they\u2019re out of favor. The key risk, however, is that these stocks are usually cheap for a reason, and a low valuation can reflect underlying business challenges rather than a genuine bargain.",
+            "published_at": "2026-10-05T11:31:00+00:00",
+            "url": "https://finnhub.io/api/news?id=817fbff19a109e01a0b66c0c91a8f2da0d50bee0af0d803e874e2b66e5db399b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bristol Myers Squibb Deepens Commitment to Healthcare Professionals Through Champions in Care Movement",
+            "summary": "Second-Year Champions in Care Campaign Introduces $1 Million Community Grant Program for Medically Underserved CommunitiesPRINCETON, NJ / ACCESS Newswire / October 5, 2026 / Originally published by Bristol Myers SquibbBristol Myers Squibb (NYSE:BMY) recently announced the expansion of Champions in Care, the company's initiative honoring healthcare professionals (HCPs), first launched in 2025. Now in its second year, the campaign builds on its inaugural effort that celebrated HCPs across therapeu",
+            "published_at": "2026-10-05T11:29:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6aad506b9c6692e3a9776f45e1c94012135f5069290f7767df09b1e29f3f3012",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Pfizer\u2019s Turnaround Could Be Bigger Than Investors Think, Set For 20% Upside",
+            "summary": "Ten consecutive earnings beats and a shrinking COVID hangover have Wall Street split on whether Pfizer deserves a breakout or a ceiling, and the answer hinges on a single pipeline deal that could reshape the obesity drug race.",
+            "published_at": "2026-10-05T11:15:42+00:00",
+            "url": "https://finnhub.io/api/news?id=79e8a4a1c0aeae961e7785bb87893534635e3e9d7ea15bb2d19eaa65fabaa588",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BioNTech SE: Moving Past Covid",
+            "summary": "BioNTech pivots from Covid windfall to oncology with 33 trials and $19B cash; key pumitamig data post-2028. Click for more on BNTX stock.",
+            "published_at": "2026-10-04T09:44:11+00:00",
+            "url": "https://finnhub.io/api/news?id=0239c0fdaed29155b6cf30b792945e313c370a2fe0edfe251cd76905a7b7f109",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "AbbVie (ABBV) vs Bristol Myers (BMY): Which is a Better Stock to Buy?",
+            "summary": "AbbVie Inc. (NYSE:ABBV) closed at $262.82 on October 2, and Bristol Myers Squibb Company (NYSE:BMY) at $61.15. Both spent the last few years doing the same difficult thing. Replacing a drug that was about to lose its patent with something new, before the revenue disappeared. AbbVie is widely seen as having pulled it off and [\u2026]",
+            "published_at": "2026-10-04T02:46:29+00:00",
+            "url": "https://finnhub.io/api/news?id=acedf7ae2285dee254393203d1a2bcb489bd28de60e87f8af56da1e7e1c98e0a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bristol-Myers Squibb (NYSE:BMY) Dividend Quality: High Yield, Sustainability Concerns",
+            "summary": "BMY passes ChartMill\u2019s Best Dividend Stocks screen with a 4.58% yield, but payout sustainability and falling EPS warrant income-investor caution.",
+            "published_at": "2026-10-03T09:00:55+00:00",
+            "url": "https://finnhub.io/api/news?id=72573309fb635ce9ae722ac179f728b7ef0ba875a0fd0d38393a29a44bc802b0",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Bristol Myers Squibb Now Trades at Only 9.4X Forward Earnings -- Is This Value Stock a Buy?",
+            "summary": "Bristol Myers Squibb isn't a growth stock, but it may offer something to bargain hunters and dividend seekers.",
+            "published_at": "2026-10-03T07:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=08933cd77a66143ad37129ada1da7023c5cbc605081de34ceab65393070731df",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Agios' Growth Story Hinges on Mitapivat's Commercial Expansion",
+            "summary": "AGIO's mitapivat is driving growth as Aqvesme gains traction, while an SCD opportunity and pipeline setbacks increase its importance.",
+            "published_at": "2026-10-02T13:22:00+00:00",
+            "url": "https://finnhub.io/api/news?id=920c44275ae79e66ba1c8fd085ce26c3b5971f33c97aa21e115c82479e02a728",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Camzyos Growth Keep Driving BMY's Cardiovascular Portfolio?",
+            "summary": "Bristol Myers' Camzyos gains a broader FDA label and strong sales growth, while emerging competitors and pipeline setbacks shape its cardiovascular outlook.",
+            "published_at": "2026-10-02T12:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b3d3036097a4ba692409a8cae4694ed2309a40814a5045d592dd8e28ac411ba7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Has Pfizer's Story Changed?",
+            "summary": "Pfizer's revenue over the past twelve months was 0.2% lower than a year earlier. When sales are flat, look at what management leads with on earnings calls to see where it expects growth. Since early 2025, Pfizer's management has changed what it leads with. It used to lead with the work of absorbing a company it had bought. It now leads with drugs it has not launched. What was that deal.",
+            "published_at": "2026-10-02T10:27:20+00:00",
+            "url": "https://finnhub.io/api/news?id=67bda7f26ae04d0d3f35078b1e3e515457b65d707cb614ee0369159ab7b04c5e",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 61.150001525878906
+    },
+    {
+      "ticker": "NESR",
+      "predicted_return": 0.34694755206249445,
+      "open_price": 24.25,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:12.335181+00:00",
+        "articles": [
+          {
+            "headline": "Piper Sandler Maintains Overweight on National Energy Services, Lowers Price Target to $39",
+            "summary": "Piper Sandler  analyst Derek Podhaizer   maintains National Energy Services (NASDAQ:NESR) with a Overweight and lowers the price target from $40 to $39.",
+            "published_at": "2026-10-02T09:45:24+00:00",
+            "url": "https://finnhub.io/api/news?id=ad0ac7e573cdcab906b8a68e0760e34961799a5652f163b94f78a2c2cf666806",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "National Energy Services Reunited: Capturing Growth In The Middle East",
+            "summary": "National Energy Services Reunited is focused on oilfield services in the Middle East and North Africa, with a core presence in Saudi Arabia. See why NESR stock is a Buy.",
+            "published_at": "2026-10-02T07:30:24+00:00",
+            "url": "https://finnhub.io/api/news?id=dca8d663dea4efaa550b85385aa7f3c32725168ee6c4b324a64cc2dfb2c02144",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Top 3 Energy Stocks That May Rocket Higher This Quarter",
+            "summary": "Energy stocks Enbridge, NESR and WaterBridge are oversold, with RSI near or below 30, potentially offering undervalued buying opportunities.",
+            "published_at": "2026-10-02T05:58:50+00:00",
+            "url": "https://finnhub.io/api/news?id=f7b331068bfa3f914b1e166d7fc6a1e9bff1de90882bb51235691b464f519184",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 24.670000076293945
+    },
+    {
+      "ticker": "CTVA",
+      "predicted_return": 0.34633897977879285,
+      "open_price": 11.8100004196167,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "corporate action: Vylor has scarcity value, says Jim Cramer",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Vylor has scarcity value, says Jim Cramer",
+        "article_count": 14,
+        "reviewed_count": 14,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:12.335344+00:00",
+        "articles": [
+          {
+            "headline": "Benzinga Bulls and Bears: Alphabet, Micron, Nike",
+            "summary": "Benzinga examined the prospects for many investors\u2019 favorite stocks over the last week \u2014 here\u2019s a look at some of our top stories.",
+            "published_at": "2026-10-03T08:00:09+00:00",
+            "url": "https://finnhub.io/api/news?id=b301adb08f6739782553d10de0a5a721e5aa0f60e2845376e59ef852f1edaf54",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Vylor has scarcity value, says Jim Cramer",
+            "summary": "'Mad Money' host Jim Cramer talks the difference between Corteva and Vylor following the spin off.",
+            "published_at": "2026-10-02T19:22:03+00:00",
+            "url": "https://finnhub.io/api/news?id=ba06971ac1acec2f3f65dea81b963d16cdff36c1be7041c48b651c9aa3ee486e",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Corteva needs innovation and efficiency to overcome competition, says Jim Cramer",
+            "summary": "'Mad Money' host Jim Cramer talks the difference between Corteva and Vylor following the spin off.",
+            "published_at": "2026-10-02T19:20:55+00:00",
+            "url": "https://finnhub.io/api/news?id=9e49feb9bf2578964b701e9c2396cfcc693da4ae1b16edaf3802e97bfb345da2",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Stay informed with the top movers within the S&P500 index on Friday.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Friday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-02T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=ca861ffeeb0452b9b3ceee92fd62a06df36568a2f615f744bf4b4c309f941890",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Corteva Just Split in Two. Here\u2019s What Shareholders Own Now",
+            "summary": "Corteva shareholders woke up to what looked like an 83% crash, but the real story is what they now own across two tickers and a lawsuit that could unwind the entire split.",
+            "published_at": "2026-10-02T18:10:04+00:00",
+            "url": "https://finnhub.io/api/news?id=0ec1c40b9e4d51d243c8a08d403b679b2bdea02e9a3a9d2c77e0ed532f32acb0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are the most active in today's session",
+            "summary": "Explore the S&P500 index on Friday and find out which stocks are the most active in today's session. Stay updated with the stocks that are capturing market interest and driving market movements.",
+            "published_at": "2026-10-02T18:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=4f3a474aab8b20fad6b594cf065b688d4888cc556908714137d7bfa6cc6f9dcb",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Friday? Find out below.",
+            "summary": "In today's session, there are S&P500 stocks with remarkable trading volume. Explore the stocks exhibiting unusual volume in Friday's session.",
+            "published_at": "2026-10-02T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1cdbc3de56c672e70622fd5300d684b549496328a2dae31b1ee4c55aa0b5fd20",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Friday's session: top gainers and losers in the S&P500 index",
+            "summary": "Join us in exploring the top gainers and losers within the S&P500 index in the middle of the day on Friday as we examine the latest happenings in today's session.",
+            "published_at": "2026-10-02T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=dae9e38216af9caeb3c9abed3121741bfec571aa37cb57af005378a6860ef556",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Corteva Split Into 2 Companies and Wall Street Sees Big Upside in Both Stocks",
+            "summary": "Day-two trading in Corteva stock after the Vylor spinoff is calmer than day one.",
+            "published_at": "2026-10-02T15:01:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e71f7b4ea56c5d3c3389e9f792fd2952d06fa832d23ce9f630e79e7bafa1f86a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Does Corteva, Vylor Stand After Spin-off?",
+            "summary": "Corteva expects net sales to reach $8.4 billion-$8.7 billion by 2029, while Vylor targets $11.2 billion-$11.9 billion in revenue.",
+            "published_at": "2026-10-02T14:45:49+00:00",
+            "url": "https://finnhub.io/api/news?id=77cde2a26e00158cac1b910a1eca4ad6acd32a57027a0bde2a810e5495785d3b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Correction: Top Midday Decliners",
+            "summary": "(Corrects the first paragraph to indicate the federal court denied California's request to temporari",
+            "published_at": "2026-10-02T12:22:07+00:00",
+            "url": "https://finnhub.io/api/news?id=958fbbb490063be19dedb79a6b5d809366237b5fce1172f0d64a7b9ac58fcebd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Twilio To Join S&P 500 Index",
+            "summary": "Twilio stock will join the benchmark S&P 500 index before the open on Oct. 6, replacing Warner Bros. Discovery.",
+            "published_at": "2026-10-02T09:59:25+00:00",
+            "url": "https://finnhub.io/api/news?id=eab90e8a1a90a594c313b5bd453dcb55bc2f0107681411251c1018629c541b73",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: S&P 500, Dow Jones Futures Gain as September Jobs Report Misses Expectations\u2014 Nike, Synaptics, Corteva in Focus (UPDATED)",
+            "summary": "U.S. stock futures advanced on Friday, as the Dow Jones, S&amp;P 500 and Nasdaq 100 indices rose, following Thursday&#39;s higher close.",
+            "published_at": "2026-10-02T08:40:16+00:00",
+            "url": "https://finnhub.io/api/news?id=0726be4ba8d1b1ccbd5807b394a0d1854087bd90a67d1767ff72c7a4ea8fe515",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "US Stock Market Today: S&P 500 Futures Steady As Traders Weigh Global Factory Strength",
+            "summary": "The Morning Bull - US Market Morning Update Friday, Oct, 2 2026 US stock futures are mixed in early trade, with E-mini S&P 500 contracts roughly flat while Nasdaq-100 futures edge higher. Investors are weighing strong factory readings from Europe, where manufacturing scorecards like the Eurozone PMI sit above 50, against a steady build up in costs that hints at stubborn price pressures. Asia adds another layer, with South Korea\u2019s record export figure and solid manufacturing data supporting...",
+            "published_at": "2026-10-02T08:06:44+00:00",
+            "url": "https://finnhub.io/api/news?id=843b2721a529601a7c4268d35149a66a10c6507a51c83ee799573f9b268e88d3",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 11.914999961853027
+    },
+    {
+      "ticker": "CHRW",
+      "predicted_return": 0.3439329542911904,
+      "open_price": 140.01010131835938,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "CHRW agreed to acquire RXO for $5.8 billion",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "CHRW agreed to acquire RXO for $5.8 billion",
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:36.589848+00:00",
+        "articles": [
+          {
+            "headline": "RXO Stock Soars. C.H. Robinson Is Buying It for Implied Value of $5.8 Billion.",
+            "summary": "C.H. Robinson will acquire RXO in a deal with an implied value of $5.8 billion.",
+            "published_at": "2026-10-05T11:39:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ae00208a3fa0c6d0b36b7bc4ebad3152f882b39900e06d940610eb2b12a8d7c3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "C.H. Robinson Worldwide to Acquire RXO for $5.8 Billion; RXO Shares Surge Pre-Bell",
+            "summary": "C.H. Robinson Worldwide (CHRW) said Monday it has agreed to acquire RXO (RXO) in a cash-and-stock de",
+            "published_at": "2026-10-05T11:37:10+00:00",
+            "url": "https://finnhub.io/api/news?id=eb4473511c747923aff0dcec2a1e648ecaeafa68971b96bec5e8fe8928917bf4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "C.H. Robinson to Acquire RXO, Redefining the Future of Third-Party Logistics While Unlocking Significant Shareholder Value",
+            "summary": "EDEN PRAIRIE, Minn. & CHARLOTTE, N.C., October 05, 2026--C.H. Robinson to Acquire RXO, Redefining the Future of Third-Party Logistics While Unlocking Significant Shareholder Value",
+            "published_at": "2026-10-05T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=be17e83c64801d0a6a78757490e75d9d6441b0fdbbda715fc9a9bd2dc825a409",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 157.69000244140625
+    },
+    {
+      "ticker": "INSM",
+      "predicted_return": 0.338407418619588,
+      "open_price": 105.5,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:36.591091+00:00",
+        "articles": [
+          {
+            "headline": "Insmed Announces CFO Transition",
+            "summary": "Insmed Incorporated (Nasdaq: INSM), a people-first global biopharmaceutical company striving to deliver first- and best-in-class therapies to transform the lives of patients facing serious diseases, today announced that Sara Bonstein will step down as Chief Financial Officer (CFO). Ms. Bonstein will continue to serve as CFO until October 30, 2026, to ensure a smooth transition through the Company's reporting of its third-quarter 2026 financial results and she will participate in the earnings cal",
+            "published_at": "2026-10-05T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=36925e6371d3b107d9aaeeabb1825049cf0b05b350b6bbcf7609cff26d38aa1b",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 111.12999725341797
+    },
+    {
+      "ticker": "NKE",
+      "predicted_return": 0.32904873323649064,
+      "open_price": 33.459999084472656,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "Nike cuts FY2027 revenue outlook to high-single-digit decline",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Nike cuts FY2027 revenue outlook to high-single-digit decline",
+        "article_count": 142,
+        "reviewed_count": 20,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "review_truncated"
+        ],
+        "checked_at": "2026-10-05T13:36:36.599904+00:00",
+        "articles": [
+          {
+            "headline": "Social Buzz: Wallstreetbets Stocks Mixed Pre-Bell Monday; Vistra, Nike to Open Higher",
+            "summary": "The most-talked-about stocks in the Reddit subforum Wallstreetbets were mixed hours before Monday's",
+            "published_at": "2026-10-05T10:36:13+00:00",
+            "url": "https://finnhub.io/api/news?id=56adc0ab4aae71359155d60a946822c0b5c0a257de367511111c409d88e5d01d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NKE Stock Heads For Its Worst Year Ever: Nike\u2019s 45% Plunge Tests Investor Patience As China And Core Brands Weaken",
+            "summary": "Nike\u2019s weak China sales, struggling brands, and analyst downgrades are raising doubts about the company\u2019s turnaround.",
+            "published_at": "2026-10-05T08:37:42+00:00",
+            "url": "https://finnhub.io/api/news?id=db6d7ec587c44ce295b457905cde8a4079a23a9465afb5e976c4971d384bd136",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "A Soft Jobs Report Takes the Heat Off Rates, and Nvidia Closes In on $6 Trillion",
+            "summary": "Wall Street closed Friday higher after September payrolls came in far below forecasts, cutting the odds of an October rate hike. Nvidia hit a record intraday high, onsemi sweetened its Synaptics deal, storage names slumped and Tesla beat on deliveries.",
+            "published_at": "2026-10-05T07:27:48+00:00",
+            "url": "https://finnhub.io/api/news?id=7d9e5e396c8898c7050f63983a8921f960929cb810ab5c0bf558e790bc1a21bc",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Company News for Oct 5, 2026",
+            "summary": "Companies In The News Are:NKE,SYNA,NVDA,VEEV and ON",
+            "published_at": "2026-10-05T06:07:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c27297b3b47f723f6693f9e3837015d46c24a760b3fb50ca405eb5eb162ef4e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Is Buying Nike Stock Now a Brilliant Move or a Disaster Waiting to Happen? Here's the Answer and What to Do Next.",
+            "summary": "For those waiting for a Nike turnaround, it looks like there's more waiting ahead.",
+            "published_at": "2026-10-05T04:20:00+00:00",
+            "url": "https://finnhub.io/api/news?id=0e0bab392f6f95777b1f0c727f9a268e5846701f1ee42ec5f3f9d2fc96de472e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Did NKE, NIO, APP Stocks Tumble To 52-Week Lows Last Week?",
+            "summary": "Investors focused on Nike\u2019s turnaround struggles, Nio\u2019s EV competition and AppLovin\u2019s legal setback involving Unity.",
+            "published_at": "2026-10-05T03:55:34+00:00",
+            "url": "https://finnhub.io/api/news?id=f15b7178df328da57f01ae612f2cdb25cc5b510ffacf1b7bac220589f66c4893",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike: The Falling Knife Masterclass",
+            "summary": "Nike faces prolonged revenue and earnings declines, with management guiding high single-digit contraction through 2028. I rate NKE stock as a strong sell.",
+            "published_at": "2026-10-05T02:44:08+00:00",
+            "url": "https://finnhub.io/api/news?id=13fa35706568393015cef52ba1c66b00eb3145f472d7c8363bfb7cd8b9948ca1",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Nike's Earnings Are a Disaster. Run -- Don't Walk -- Away From This Stock.",
+            "summary": "Don't bank on a Nike comeback. Both its quarterly results and guidance were terrible.",
+            "published_at": "2026-10-04T23:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=c3163124592aaf7edfda2950ebe1ebe2afd14043d4cc5176959ba67366504c0e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 Top Picks With At Least 4% Dividend Yield",
+            "summary": "With long term interest rates climbing after the Federal Reserve\u2019s latest hike, cash and bonds feel less comfortable and many investors are hunting for income they believe can better handle inflation. That is where solid dividend payers yielding above 3% enter the picture, offering regular cashflow that does not depend on selling shares at the wrong time. This article highlights three dividend-focused stocks that fit that brief. The three dividend ideas in this article are only a small...",
+            "published_at": "2026-10-04T22:07:43+00:00",
+            "url": "https://finnhub.io/api/news?id=7c67b3e941421907d6b6a2d846d8ffbcd650db103d9b0e9bff01d321b1f10e89",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 things Nike's CEO wants customers to know",
+            "summary": "Nike is changing its strategy as rivals take aim at its business.",
+            "published_at": "2026-10-04T15:17:00+00:00",
+            "url": "https://finnhub.io/api/news?id=fee8e1e001018073323386b3e5d65d8a1bacb6d2581dab893290a4032c71eec6",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Be a Contrarian and Load Up on Nike Stock on the Dip as the Payoffs Get Attractive",
+            "summary": "Nike stock is slumping today after yet another disappointing earnings report. With the stock now falling towards $30 levels, it looks like a good contrarian buy for patient investors",
+            "published_at": "2026-10-04T12:23:28+00:00",
+            "url": "https://finnhub.io/api/news?id=212fa5b3021ad689677124a4989e1735263e491b2ec26f05a84bc7d2cb464b3a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NIKE (NKE) Cuts 2027 Revenue Outlook As Fair Value Stays Just Above The Stock",
+            "summary": "NIKE (NKE) just paired softer first quarter results with a warning that fiscal 2027 revenue is expected to decline in the high single digits, putting both recent performance and future demand assumptions under scrutiny. Investor reaction has been swift, with NIKE's share price falling 3.64% on the day of the update and leaving the stock down 11.80% over the past month and 46.48% year to date. The 1 year total shareholder return has declined 51.36%, reinforcing a picture of fading momentum and...",
+            "published_at": "2026-10-04T05:07:41+00:00",
+            "url": "https://finnhub.io/api/news?id=c58e820e7206bfa49c9e872cae3a28ec40347d1589ac1b3ea0b80c33f7072a42",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ford (F) Lost $7.4 Billion and Still Pays a 4.9% Dividend. How Long Can That Hold?",
+            "summary": "Ford Motor Company (NYSE:F) closed at $12.10 on October 2, having lost $7.4 billion over the past twelve months. A dividend is a promise a company makes when it is confident. Ford is still making that promise, at a yield near 5%, in a year it earned nothing at all. Boards do this when they [\u2026]",
+            "published_at": "2026-10-04T03:16:50+00:00",
+            "url": "https://finnhub.io/api/news?id=760c246a1a981bf897b518d0d7523486c65b877cec9a89b4a254201f74382fd3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Just Reworked Its Employee Stock Purchase Plan. A Retiree Can Report W-2 Income From the Shares That Social Security Doesn\u2019t Count as Wages",
+            "summary": "A retiree sells Nike shares and watches ordinary income land on his W-2, then braces for the Social Security earnings penalty he assumes is coming. What he finds in Box 3 tells a completely different story.",
+            "published_at": "2026-10-04T01:00:48+00:00",
+            "url": "https://finnhub.io/api/news?id=683acd753b42f485b7900b2952bde8745aba8417d56c414be51a5779d0a5f6b9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Analyst warns Nike's best quarter this year may be behind it",
+            "summary": "Nike\u2019s latest quarter topped estimates, and more layoffs are on the way. One analyst says the rest of the year looks even tougher.",
+            "published_at": "2026-10-03T16:26:56+00:00",
+            "url": "https://finnhub.io/api/news?id=f77ca1dfc9ab453d5696555d0b9eb62cc4905ebacefc602784fa0209c335ccfc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike\uc640 \ud611\ub825\ud558\ub294 Industrial Water Action Workshop: \ucc38\uac00 \uc2e0\uccad \uc811\uc218",
+            "summary": "Global Water Intelligence and Corporate Water Leaders, in partnership with Nike and Water Resilience Coalition, are hosting a 3-day Industrial Water Action Workshop in Jakarta from November 16-18, 2026. The event aims to convert water supply and pollution challenges in West Java's $190 billion industrial base into actionable investment opportunities, bringing together global brands, financial institutions, manufacturers, utilities, and government officials.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/ko/nike%EC%99%80-%ED%98%91%EB%A0%A5%ED%95%98%EB%8A%94-industrial-water-action-workshop-%EC%B0%B8%EA%B0%80-%EC%8B%A0%EC%B2%AD-%EC%A0%91%EC%88%98.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Industrial Water Action Workshop dengan kerjasama Nike: Permohonan Penyertaan Dibuka",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are organizing a 3-day Industrial Water Action Workshop in Jakarta from November 16-18, 2026, in partnership with Nike and the Water Resilience Coalition. The workshop aims to transform water supply and pollution challenges in West Java\u2014where over 4,000 factories discharge waste into rivers\u2014into concrete investment actions by bringing together global brands, financial institutions, local manufacturers, utilities, and government officials.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/ms/industrial-water-action-workshop-dengan-kerjasama-nike-permohonan-penyertaan-dibuka.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "\u8207 Nike \u5408\u4f5c\u7684\u5de5\u696d\u7528\u6c34\u884c\u52d5\u5de5\u4f5c\u574a\uff1a\u7533\u8acb\u53c3\u52a0",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are organizing a 3-day Industrial Water Action Workshop in Jakarta (November 16-18, 2026) in partnership with Nike and Water Resilience Coalition. The event aims to address critical water supply and pollution challenges in West Java's $190 billion industrial sector, where over 4,000 factories discharge wastewater into rivers. The workshop will bring together global brands, financial institutions, manufacturers, utilities, and governments to identify investable solutions and actionable next steps.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/zh-hant/%E8%88%87-nike-%E5%90%88%E4%BD%9C%E7%9A%84%E5%B7%A5%E6%A5%AD%E7%94%A8%E6%B0%B4%E8%A1%8C%E5%8B%95%E5%B7%A5%E4%BD%9C%E5%9D%8A-%E7%94%B3%E8%AB%8B%E5%8F%83%E5%8A%A0.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "\u30ca\u30a4\u30ad\u3068\u306e\u30d1\u30fc\u30c8\u30ca\u30fc\u30b7\u30c3\u30d7\u306b\u3088\u308b\u300c\u30a4\u30f3\u30c0\u30b9\u30c8\u30ea\u30a2\u30eb\u30fb\u30a6\u30a9\u30fc\u30bf\u30fc\u30fb\u30a2\u30af\u30b7\u30e7\u30f3\u30fb\u30ef\u30fc\u30af\u30b7\u30e7\u30c3\u30d7\u300d: \u53c2\u52a0\u7533\u8fbc\u53d7\u4ed8\u4e2d",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are organizing a 3-day Industrial Water Action Workshop in Jakarta (November 16-18, 2026) in partnership with Nike and the Water Resilience Coalition. The workshop aims to address critical water supply and pollution challenges in West Java's $190 billion industrial sector, bringing together international brands, financial institutions, manufacturers, utilities, and government officials to develop investable solutions.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/ja/%E3%83%8A%E3%82%A4%E3%82%AD%E3%81%A8%E3%81%AE%E3%83%91%E3%83%BC%E3%83%88%E3%83%8A%E3%83%BC%E3%82%B7%E3%83%83%E3%83%97%E3%81%AB%E3%82%88%E3%82%8B-%E3%82%A4%E3%83%B3%E3%83%80%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB-%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%BF%E3%83%BC-%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3-%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97-%E5%8F%82%E5%8A%A0%E7%94%B3%E8%BE%BC%E5%8F%97%E4%BB%98%E4%B8%AD.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "\u0e01\u0e32\u0e23\u0e1b\u0e23\u0e30\u0e0a\u0e38\u0e21\u0e40\u0e0a\u0e34\u0e07\u0e1b\u0e0f\u0e34\u0e1a\u0e31\u0e15\u0e34\u0e01\u0e32\u0e23\u0e14\u0e49\u0e32\u0e19\u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e19\u0e49\u0e33\u0e43\u0e19\u0e20\u0e32\u0e04\u0e2d\u0e38\u0e15\u0e2a\u0e32\u0e2b\u0e01\u0e23\u0e23\u0e21\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e1a Nike: \u0e2a\u0e21\u0e31\u0e04\u0e23\u0e40\u0e02\u0e49\u0e32\u0e23\u0e48\u0e27\u0e21",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are organizing a 3-day Industrial Water Action workshop in Jakarta (November 16-18, 2026) in partnership with Nike and Water Resilience Coalition. The event aims to transform water scarcity and pollution challenges in West Java's $190 billion industrial sector into actionable investments, bringing together global brands, financial institutions, local manufacturers, utilities, and government agencies.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/th/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%83%E0%B8%99%E0%B8%A0%E0%B8%B2%E0%B8%84%E0%B8%AD%E0%B8%B8%E0%B8%95%E0%B8%AA%E0%B8%B2%E0%B8%AB%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A3%E0%B9%88%E0%B8%A7%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%9A-nike-%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A3%E0%B9%88%E0%B8%A7%E0%B8%A1.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "\u4e0e Nike \u5408\u4f5c\u4e3e\u529e\u5de5\u4e1a\u7528\u6c34\u884c\u52a8\u7814\u8ba8\u4f1a\uff1a\u6b22\u8fce\u7533\u8bf7\u53c2\u4f1a",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are hosting a 3-day Industrial Water Action Workshop in Jakarta on November 16-18, 2026, in partnership with Nike and the Water Resilience Coalition. The event aims to bring together global industrial brands, financial institutions, manufacturers, utilities, and government agencies to develop investable solutions for West Java's severe water supply and pollution challenges, where over 4,000 factories discharge wastewater into rivers despite the region's $190 billion industrial output.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/zh-hans/%E4%B8%8E-nike-%E5%90%88%E4%BD%9C%E4%B8%BE%E5%8A%9E%E5%B7%A5%E4%B8%9A%E7%94%A8%E6%B0%B4%E8%A1%8C%E5%8A%A8%E7%A0%94%E8%AE%A8%E4%BC%9A-%E6%AC%A2%E8%BF%8E%E7%94%B3%E8%AF%B7%E5%8F%82%E4%BC%9A.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Industrial Water Action Workshop (Lokakarya Aksi Air Industri) yang bekerja sama dengan Nike, Buka Pendaftaran",
+            "summary": "Global Water Intelligence and Corporate Water Leaders are hosting a 3-day Industrial Water Action Workshop in Jakarta, Indonesia (November 16-18, 2026) in partnership with Nike and Water Resilience Coalition. The workshop aims to address water management challenges in West Java, which has a $190 billion industrial sector but faces serious water supply and pollution issues from over 4,000 factories. The event will bring together global brands, financial institutions, local producers, utilities, and government to develop actionable, fundable solutions.",
+            "published_at": "2026-10-03T14:12:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/03/3374104/0/id/industrial-water-action-workshop-lokakarya-aksi-air-industri-yang-bekerja-sama-dengan-nike-buka-pendaftaran.html",
+            "source": "GlobeNewswire Inc."
+          },
+          {
+            "headline": "Nike\u2019s Contrarian Strategy: Cut Volume, Restore Prestige",
+            "summary": "Nike is deliberately shrinking itself, slashing sales of its most iconic products and retreating from entire markets. Whether that painful gamble rebuilds the brand or just accelerates the decline is the question every shareholder now faces.",
+            "published_at": "2026-10-03T11:45:19+00:00",
+            "url": "https://finnhub.io/api/news?id=d86285eda9f809310e81a798553016f27216dd2af5d34d76afc1c622fc56e0eb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike: Turnaround Just Slipped Into FY2028",
+            "summary": "Nike still trades near 22x forward earnings while its recovery slips into FY2028, with Sportswear and China under pressure. Click for more on NKE's Sell rating.",
+            "published_at": "2026-10-03T09:08:58+00:00",
+            "url": "https://finnhub.io/api/news?id=8a47926026b26845079637014d8a03b0690db9c3582070e1883d2091d4d5a1dc",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Micron, Nike, Meta and More: 5 Stocks Investors Couldn't Stop Buzzing About This Week",
+            "summary": "Retail investors talked up five hot stocks during the week (Sept. 28 to Oct. 2) on X and Reddit&#39;s r/WallStreetBets: MU, NKE, META, AMD, GOOG.",
+            "published_at": "2026-10-03T08:30:20+00:00",
+            "url": "https://finnhub.io/api/news?id=4ad332166f4319c2fcf4c9006101bd1eff1553040404abe77f126421aed826ae",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Benzinga Bulls and Bears: Alphabet, Micron, Nike",
+            "summary": "Benzinga examined the prospects for many investors\u2019 favorite stocks over the last week \u2014 here\u2019s a look at some of our top stories.",
+            "published_at": "2026-10-03T08:00:09+00:00",
+            "url": "https://finnhub.io/api/news?id=b301adb08f6739782553d10de0a5a721e5aa0f60e2845376e59ef852f1edaf54",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Is Nike Stock Crashing, and Is It a Generational Buying Opportunity?",
+            "summary": "Nike stock has declined nearly 50% as the company reported disappointing fiscal 2027 guidance, indicating conditions will worsen before improving. The company is working to rebuild relationships with wholesalers. The article examines whether this represents a buying opportunity despite Wall Street downgrades.",
+            "published_at": "2026-10-03T05:26:11+00:00",
+            "url": "https://www.fool.com/investing/2026/10/03/why-is-nike-stock-crashing-and-is-it-a-generationa/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Nike vs. Starbucks: One Beaten-Down Icon Is Primed for an Explosive Rebound",
+            "summary": "One has a higher yield and lower valuation, but the other seems to have a safer path to a comeback.",
+            "published_at": "2026-10-02T23:00:02+00:00",
+            "url": "https://finnhub.io/api/news?id=18880f4a481b95bce152f0e7c2e8cbf2102be4f1d16b6d4f56669f1ef320ecfd",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How Caitlin Clark's Nike shoe sellout signals a massive women's sportswear boom",
+            "summary": "Left On Friday co-founders Laura Low Ah Kee and Shannon Savage discuss how product testing with pro athletes and the rapid sellout of Caitlin Clark's signature Nike (NKE) shoe demonstrate the explosive growth and opportunity in women's sportswear.",
+            "published_at": "2026-10-02T22:46:50+00:00",
+            "url": "https://finnhub.io/api/news?id=580f56b9dc7f8021f96d1314781cc4d63d5e019ee9e94ac0bb0f716781328fe3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Morgan Stanley's Nike Analyst on quarterly earnings",
+            "summary": "Morgan Stanley's Alex Straton sees Nike sales and earnings softening as the company deals with inventory gluts in North America and China. She speaks with Romaine Bostick on Bloomberg's \"The Close.\"",
+            "published_at": "2026-10-02T21:59:05+00:00",
+            "url": "https://finnhub.io/api/news?id=d0f4954dd8da95906142890fbd31b0e1c39ff939db8250215276839a5e29d027",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Nike (NKE) Shares Are Getting Obliterated Today",
+            "summary": "Shares of athletic apparel brand Nike (NYSE:NKE) fell 5.5% in the morning session after the company reported a 4% sales decline and issued weaker-than-expected full-year profit guidance.",
+            "published_at": "2026-10-02T21:50:03+00:00",
+            "url": "https://finnhub.io/api/news?id=365a57341503b498b2505bdd616659adb45b19943ba7df99df5530c8a9fd902b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Soft Labor Data Meets Solid Earnings: The Bullish Setup for the Market",
+            "summary": "Market participants reacted favorably to the soft labor data as it reduces the odds of an October rate hike, with continued strength in the earnings picture providing another reason to stay positive.",
+            "published_at": "2026-10-02T21:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=68b210bc008d3e0b5d96f149b89baaf6b1be76d575f63052b8802da5545147ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike\u2019s Asia-Pacific Plan: Shift Out of China, New Focus on Singapore Raises Doubt",
+            "summary": "Some see moving the Greater China team out of China to Singapore as a loss of the local relationship that's deemed just as important as the product.",
+            "published_at": "2026-10-02T20:59:44+00:00",
+            "url": "https://finnhub.io/api/news?id=50e0e34202060744984ca3f7a8ad9595dfefe4ad905bf62002f9375089824112",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Despite a Longer-Than-Expected Turnaround, Here\u2019s What\u2019s Working for Nike",
+            "summary": "Running, basketball, training, soccer and more are gaining traction at the company.",
+            "published_at": "2026-10-02T20:10:12+00:00",
+            "url": "https://finnhub.io/api/news?id=6d3bb3482c3e8c3a675c130d08e8d6499c8af2994c510882e746468bb2e06e2c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sector Update: Consumer Stocks Rise Late Afternoon",
+            "summary": "Consumer stocks were higher late Friday afternoon, with the State Street Consumer Staples Select Sec",
+            "published_at": "2026-10-02T19:44:35+00:00",
+            "url": "https://finnhub.io/api/news?id=a4702004580cc6220a29cfba381121aa2469195a6e4ff0849666e3f6346bc4b7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Friday's session: top gainers and losers in the dow jones index",
+            "summary": "Let's have a look at the top dow jones gainers and losers one hour before the close of the markets of today's session.",
+            "published_at": "2026-10-02T19:10:16+00:00",
+            "url": "https://finnhub.io/api/news?id=d3c7a24ec996d4e6f3ea43028242317d0d3e49cd31ec72a434e469e2479a6725",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Stay informed with the top movers within the S&P500 index on Friday.",
+            "summary": "Curious about the top performers within the S&P500 index one hour before the close of the markets on Friday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-02T19:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=ca861ffeeb0452b9b3ceee92fd62a06df36568a2f615f744bf4b4c309f941890",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Is Nike Actually Cheap, Or Just Waiting On Earnings?",
+            "summary": "Nike Inc. (NYSE:NKE) stands on a powerful balance sheet featuring $8.4 billion in cash and short-term investments, a net cash position, and gross margins of 42.8%, providing substantial liquidity to navigate macroeconomic cycles. However, as the brand faces an operational pivot between shrinking lifestyle revenues and accelerating performance categories, questions mount over whether Nike is [\u2026]",
+            "published_at": "2026-10-02T18:57:35+00:00",
+            "url": "https://finnhub.io/api/news?id=74f07383e7de7782c9785cfb5512e84c0b54fbcb3a464e6053b835308c57a48e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NKE Stock Layoffs: What to Know About the Latest Nike Job Cuts",
+            "summary": "Nike says job cuts will likely continue in 2027. Bernstein remains bullish on NKE shares despite the company\u2019s disappointing fiscal Q1 release.",
+            "published_at": "2026-10-02T18:34:21+00:00",
+            "url": "https://finnhub.io/api/news?id=7acaa76b59f1ede9a2ae7227178e389a3c9f678d57df4b6faba870cadf8ca014",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Investing.com\u2019s stocks of the week",
+            "summary": "Investing.com -- Corporate upheaval drove much of the week's action, with a surprise CEO departure and takeover interest in a household name resulting in sharp moves.",
+            "published_at": "2026-10-02T18:34:16+00:00",
+            "url": "https://finnhub.io/api/news?id=60b50aaf8b3d0a9a5f8ac56b16d6a122dc5d31251a03f48742f3bbce6a2fd1fa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike (NKE) vs Lululemon (LULU): Which is a Better Stock to Buy?",
+            "summary": "NIKE, Inc. (NYSE:NKE) reported first-quarter revenue of $11.21 billion on October 1, down 4%, and guided full-year revenue to fall by a high single-digit percentage. lululemon athletica inc. (NASDAQ:LULU) closed at $95.86 the same day, each having lost close to half its value over twelve months. READ ALSO: Nike (NKE): Wall Street Tests Whether the [\u2026]",
+            "published_at": "2026-10-02T18:14:17+00:00",
+            "url": "https://finnhub.io/api/news?id=9686d7e9f72d1fd2377eb07c9264a1d38e3d8240fe713e2d66dfc927fc741a69",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are the most active in today's session",
+            "summary": "Explore the S&P500 index on Friday and find out which stocks are the most active in today's session. Stay updated with the stocks that are capturing market interest and driving market movements.",
+            "published_at": "2026-10-02T18:05:01+00:00",
+            "url": "https://finnhub.io/api/news?id=4f3a474aab8b20fad6b594cf065b688d4888cc556908714137d7bfa6cc6f9dcb",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Nike Is Burning Cash to Pay a 5% Dividend. How Long Can It Last?",
+            "summary": "The sportswear giant has always been loyal to its annual dividend, even in rough patches\u2014like now. But investors are rightfully worried.",
+            "published_at": "2026-10-02T18:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=55689735986e3841e584b13321efbad532b76db33a5458fe1355623da70c2321",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "How To Earn $500 A Month From Nike Stock Ahead Of Q1 Earnings",
+            "summary": "Nike Inc. will release first-quarter earnings after the closing bell on Thursday, Oct. 1. With the recent buzz around the apparel company, some investors may be eyeing potential gains from its dividends. Currently, Nike has an annual dividend yield of...",
+            "published_at": "2026-10-02T18:00:21+00:00",
+            "url": "https://finnhub.io/api/news?id=11d09140b6ed76a5d8586c89044d79c254b4df9bedebe0076abea8ae96c0fa58",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Which stocks are most active on Friday?",
+            "summary": "Let's dive into the action on the US markets on Friday. Here are the most active stocks that are driving the market today.",
+            "published_at": "2026-10-02T18:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=482c6c2323c40f745ee79f3d3785baafba6a1c6b103806bf77adecc2d64c511c",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Curious about which S&P500 stocks are generating unusual volume on Friday? Find out below.",
+            "summary": "In today's session, there are S&P500 stocks with remarkable trading volume. Explore the stocks exhibiting unusual volume in Friday's session.",
+            "published_at": "2026-10-02T17:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=1cdbc3de56c672e70622fd5300d684b549496328a2dae31b1ee4c55aa0b5fd20",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Nike Just Reported Earnings. Here's What Investors Need to Know.",
+            "summary": "Nike's turnaround needs a turnaround.",
+            "published_at": "2026-10-02T17:02:55+00:00",
+            "url": "https://finnhub.io/api/news?id=a9b963bc647fb08490639664c4597b37f76cde44cbac3128a61b361140bdc969",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "After Years of Growth, Jordan Brand Is Now a Big Challenge for Nike \u2014 Here\u2019s Why",
+            "summary": "Jordan Brand revenue fell by mid-teens in the first quarter of fiscal 2027.",
+            "published_at": "2026-10-02T16:43:49+00:00",
+            "url": "https://finnhub.io/api/news?id=6185ef6fb10c68dd05433f51a1ffec8367a7418ee9a36c483f25820fe140c364",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "What's going on in today's session: dow jones movers",
+            "summary": "Curious about the top performers within the dow jones index in the middle of the day on Friday? Dive into the list of today's session's top gainers and losers for a comprehensive overview.",
+            "published_at": "2026-10-02T16:40:14+00:00",
+            "url": "https://finnhub.io/api/news?id=95613688eae498627faf1e9092765e34d9fd7c907f05ffb6d9f5ff73e0147392",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Friday's session: top gainers and losers in the S&P500 index",
+            "summary": "Join us in exploring the top gainers and losers within the S&P500 index in the middle of the day on Friday as we examine the latest happenings in today's session.",
+            "published_at": "2026-10-02T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=dae9e38216af9caeb3c9abed3121741bfec571aa37cb57af005378a6860ef556",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Nvidia, Tesla, Rivian, On Semi, Seagate, HPE, Nike, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Nvidia stock is on pace to close at a record high.",
+            "published_at": "2026-10-02T16:34:00+00:00",
+            "url": "https://finnhub.io/api/news?id=89fc5bd71e48aa5f457e0a54a6168616070721737593c149e7beff464aad3dfc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike's Worsening Slump Forces CEO to Rethink Turnaround",
+            "summary": "Nike Inc.\u00a0is cutting jobs and embarking on a sweeping overhaul of the business as results deteriorate and test Wall Street's patience with Chief Executive Officer\u00a0Elliott Hill. Bloomberg Intelligence, Senior US E-Commerce and Retail Analyst, Poonam Goyal discusses Nike's job cut decision and why sales have continued to slump.",
+            "published_at": "2026-10-02T16:19:27+00:00",
+            "url": "https://finnhub.io/api/news?id=871338606b6f4b81390a7ae9ba96d52adeb5891236ba6113909c7fc82843467c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike\u2019s Weak First Quarter Report Ripples Across Footwear Sector",
+            "summary": "Shares of most shoe brands and retailers fell during Friday morning's trading session after Nike's lackluster first quarter report on Thursday.",
+            "published_at": "2026-10-02T16:09:43+00:00",
+            "url": "https://finnhub.io/api/news?id=5afbc2b25bb8b926a71ca441597724ef34b012e45fa3cb674921a70e9e330293",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Slides on Job Cuts; Broadcom Gathers AI Chip Funding | Stock Movers",
+            "summary": "On this episode of Stock Movers: - Nike (NKE) shares continue their slide as it is cutting jobs and overhauling its business as results deteriorate, with a restructuring plan to save $2.5 billion over the next five years. The company expects a high-single-digit revenue decline this year, which is worse than the 2.4% drop projected by analysts, and shares of Nike fell as much as 9.7% in New York on Friday. - Broadcom (AVGO) shares are moving on news the company's Wall Street syndicate are starting to gather $60 billion of fresh AI chip financing to benefit Anthropic and other companies. - Fair Isaac Corp. (FICO) shares are rising after the company launched the FICO Mortgage Direct License Program, and Bill Pulte signaled he wasn't purposefully targeting the company, which may have contributed to the stock's rise on Thursday.",
+            "published_at": "2026-10-02T15:41:44+00:00",
+            "url": "https://finnhub.io/api/news?id=00786b6e877b7d7f5092d039f1903e8baad56d5a1b410c7d56f2a7efd032699e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Nasdaq Powers Up On U.S. Jobs Shortfall; Tesla Jumps, NetApp Extends Gains (Live Coverage)",
+            "summary": "Stock Market Today: The Dow Jones index rallies Friday after a surprise result from the U.S. jobs report. Tesla stock jumps on deliveries.",
+            "published_at": "2026-10-02T15:41:31+00:00",
+            "url": "https://finnhub.io/api/news?id=37ec08fa2e0cb385facc17b8dd1d4199e86ae880a80f5d065d072386e5d94e78",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Industrial Water Action Workshop in partnership with Nike: Apply to Attend",
+            "summary": "JAKARTA, Indonesia, Oct. 02, 2026 (GLOBE NEWSWIRE) -- Global Water Intelligence (GWI) and Corporate Water Leaders (CWL) will convene the Industrial Water Action Workshop from 16-18th November 2026 in Jakarta, Indonesia. In partnership with Nike and the Water Resilience Coalition, the workshop will bring together global industrial brands, financial institutions, local manufacturers, utilities and government to turn industrial water challenges in West Java into investable action. The programme con",
+            "published_at": "2026-10-02T15:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=092387625f87531ee401d9d4ff034d79af95fad8ef665f01dc048401628bf725",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "UBS Maintains Neutral on Nike, Lowers Price Target to $34",
+            "summary": "UBS  analyst Jay Sole   maintains Nike (NYSE:NKE) with a Neutral and lowers the price target from $42 to $34.",
+            "published_at": "2026-10-02T15:12:02+00:00",
+            "url": "https://finnhub.io/api/news?id=90961eb90630d3f1d304607f471024b9338df3e9fcebfb090b2afdb674188d5f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Robinhood unveils weekend trading, while Disney plans a third round of layoffs",
+            "summary": "Yahoo Finance Executive Editor Brian Sozzi takes a look at the biggest stories as the trading day kicks off, weighing in on Nike's (NKE) disappointing earnings results, Robinhood's (HOOD) newly launched weekend trading, and more.Sozzi also sits down with \"Dirty Jobs\" host and creator Mike Rowe for a conversation about artificial versus \"authentic\" intelligence, the skilled labor shortage, and more.",
+            "published_at": "2026-10-02T15:04:07+00:00",
+            "url": "https://finnhub.io/api/news?id=1212e093cd70a5e227d9440f73cb7e774cdd8beb7b681a9412b40ad90681e696",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Nike Stock Just Crashed",
+            "summary": "Nike's earnings weren't bad -- but Nike's guidance was awful.",
+            "published_at": "2026-10-02T15:01:12+00:00",
+            "url": "https://finnhub.io/api/news?id=19a792e2f3e189e7ba15f3f11feea80c3c55772559eecf28c797d39baccffb34",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Bear of the Day: Nike (NKE)",
+            "summary": "As OG athletic shoe dynasty continues to decline and fall, investors and analysts eject it from the game",
+            "published_at": "2026-10-02T14:58:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e19fe6d7a756721d99eb1b7e12cd87fd672223563bc19b023d28594d303b173a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Telsey Advisory Group Maintains Market Perform on Nike, Lowers Price Target to $35",
+            "summary": "Telsey Advisory Group  analyst Cristina Fernandez   maintains Nike (NYSE:NKE) with a Market Perform and lowers the price target from $44 to $35.",
+            "published_at": "2026-10-02T14:57:23+00:00",
+            "url": "https://finnhub.io/api/news?id=8a9383f69d8f447c8077b58d059c52e668a6d8770be9ff870212acc43843de72",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "4 ways Nike can save itself from declining sales",
+            "summary": "Yahoo Finance Executive Editor Brian Sozzi reacts to Nike's (NKE) disappointing fiscal first quarter results and CEO Elliott Hill's remarks on the company's earnings call, giving an outline of the four areas Nike must focus on the most to follow through on its turnaround plan.",
+            "published_at": "2026-10-02T14:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=91106cd7355e5c860e2c5377461590d66bc29b01ed201a0eb66606a5a46918cb",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Facing Another Reset as Weakness to Persist Into Fiscal 2028, BofA Says",
+            "summary": "Nike (NKE) is facing another reset, with weakness in Sportswear, Jordan Brand and Greater China expe",
+            "published_at": "2026-10-02T14:51:19+00:00",
+            "url": "https://finnhub.io/api/news?id=36cfbb7c372b51e0e9cec1efef96beb732a65859757c507f3409ca5fe8a258d0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Why Disney is planning yet another round of layoffs",
+            "summary": "Yahoo Finance Executive Editor and host of Sozzi Unleashed, Brian Sozzi, breaks down Disney's (DIS) latest cost-cutting push under CEO Josh D\u2019Amaro. With the company\u2019s third round of layoffs this year and a broader television restructuring now in the works, Sozzi examines Disney\u2019s familiar playbook of consolidating operations, cutting headcount, and streamlining the business as it looks to reshape the company for the streaming era.",
+            "published_at": "2026-10-02T14:40:00+00:00",
+            "url": "https://finnhub.io/api/news?id=bd68ebc3456ea16d9dc6964ac95b405eb9826be802a147d40f3b166f3692ab3c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "With Nike\u2019s Dividend Approaching 5%, Can Caitlin Clark Save The Company, Like Michael Jordan Did A Generation Ago?",
+            "summary": "Nike's stock has collapsed 75% over five years while its dividend yield climbs toward 5%, a combination that historically signals serious trouble. Now the company is betting a rookie signature shoe can do what Michael Jordan's line once did for a struggling giant.",
+            "published_at": "2026-10-02T14:35:12+00:00",
+            "url": "https://finnhub.io/api/news?id=68f3d116535a98e7e63fbe7f9690a8476ee58cc06c17bc783662d4ae6a8a10e2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These S&P500 stocks are gapping in today's session",
+            "summary": "Stay tuned for the market movements in the S&P500 index on Friday. Check out the gap up and gap down stocks in the S&P500 index during today's session.",
+            "published_at": "2026-10-02T14:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=aab9006d36a58b02b2253317f1a39f0abf20a3409f003a8d9a70e4e807671336",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "September saw gain of only 29K jobs, Nike turnaround put into question as sales slip",
+            "summary": "The 8:30 Hosts Julie Hyman, Pras Subramanian, and Jake Conley break down September's jobs report \u2014 which saw a gain of 29,000 non-farm payrolls against expectations of 90,000 \u2014 while also diving into an array of topics from Nike's (NKE) latest earnings results to Tesla's (TSLA) third-quarter EV delivery figures. Allianz chief economic adviser Mohamed El-Erian also joins the program to assess what September's labor data is signaling.",
+            "published_at": "2026-10-02T14:09:24+00:00",
+            "url": "https://finnhub.io/api/news?id=a7074bfdc1d071bdc3c4af676d73bb573f1fecd8d2ca8055ba7a6c562f1aa03f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nvidia, Tesla, Seagate, ON Semi, Strategy, HPE, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Nvidia stock is on pace to close at a record high.",
+            "published_at": "2026-10-02T14:09:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2aa308b7db9179e6d53e64a0e58f802e9617bfd9558a1cfabad41c0a05e34231",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today (Oct. 2, 2026): S&P 500 rises after key jobs report",
+            "summary": "Investors are weighing a weaker-than-expected jobs report for clues about the economy and the Federal Reserve\u2019s next move on interest rates.",
+            "published_at": "2026-10-02T13:54:16+00:00",
+            "url": "https://finnhub.io/api/news?id=32302776f1a86dbeee6d85f163cb3e7cd363f19aa5f0f91410cce6843e79c246",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Citigroup Maintains Neutral on Nike, Lowers Price Target to $32",
+            "summary": "Citigroup  analyst Paul Lejuez   maintains Nike (NYSE:NKE) with a Neutral and lowers the price target from $39 to $32.",
+            "published_at": "2026-10-02T13:53:05+00:00",
+            "url": "https://finnhub.io/api/news?id=0d2d36a37c4c5789f797f50142e4192f207b0243a770fec2e688820f85dec812",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Tech stocks jump after jobs report miss, Treasury yields ease: AlphaCheck",
+            "summary": "The stock market opened higher after the economy added just 29,000 jobs last month and unemployment ticked up to 4.2%.",
+            "published_at": "2026-10-02T13:49:16+00:00",
+            "url": "https://finnhub.io/api/news?id=8cba848c97728f0332d84ba88e43cc23d3a1072f899a53508bd6797d5059eafe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Will Never Recover",
+            "summary": "Starbucks (NASDAQ: SBUX) dumped its China operations in a deal it announced in April. It sold a majority interest to Boyu Capital, a local private equity firm. It got $4 billion, which is not much given the size of the opportunity. Starbucks used to talk a lot about its prospects in China. Walmart (NYSE: WMT) [\u2026]",
+            "published_at": "2026-10-02T13:49:06+00:00",
+            "url": "https://finnhub.io/api/news?id=3122df45ae0df5f9400eaeced37b0c47314e6917bb920aa8c49844fda8d2d610",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: Dow Rallies 300 Points On Jobs Report Surprise; Tesla Jumps On Deliveries (Live Coverage)",
+            "summary": "Stock Market Today: The Dow Jones index rallies Friday after a surprise result from the U.S. jobs report. Tesla stock jumps on deliveries.",
+            "published_at": "2026-10-02T13:47:55+00:00",
+            "url": "https://finnhub.io/api/news?id=608bcc606288bd92cb59bddf75d3d5751e9dfd1c62c73a634690460a079cd6aa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Airbnb upgraded, Zscaler downgraded: Wall Street's top analyst calls",
+            "summary": "Airbnb upgraded, Zscaler downgraded: Wall Street's top analyst calls",
+            "published_at": "2026-10-02T13:40:56+00:00",
+            "url": "https://finnhub.io/api/news?id=272e7a6098ebd7fbb6bf854362273b58af3a077e1518ddcdf442288e59af7132",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Q1 2027 earnings: job cuts, revenue outlook, China sales",
+            "summary": "The sportswear company's Pace restructuring plan will reorganize it into 3 geographic regions and is projected to deliver $2.5 billion in savings by 2031",
+            "published_at": "2026-10-02T13:37:25+00:00",
+            "url": "https://finnhub.io/api/news?id=910201c59786940041504b5eba146a7226b17a5f39f11d1a4755ccba120f0cc9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "8 Consumer Discretionary Stocks With Whale Alerts In Today\u2019s Session",
+            "summary": "This whale alert can help traders discover the next big trading opportunities.\nWhales are entities with large sums of money and we track their transactions here at Benzinga on our options activity scanner.\nTraders will",
+            "published_at": "2026-10-02T13:35:13+00:00",
+            "url": "https://finnhub.io/api/news?id=49fa91eda1158571beaaa697fc5ef27eba89f38d59812a9f245d3fc4c4921f5d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Morgan Stanley Maintains Underweight on Nike, Lowers Price Target to $27",
+            "summary": "Morgan Stanley  analyst Alex Straton   maintains Nike (NYSE:NKE) with a Underweight and lowers the price target from $31 to $27.",
+            "published_at": "2026-10-02T13:33:19+00:00",
+            "url": "https://finnhub.io/api/news?id=da371e86ed336a4c304eec02419323dabca21d7e125f4b3acb2b1887ac56d6ba",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike dips as shoemaker clears the deck for another turnaround",
+            "summary": "The 8:30 Hosts Julie Hyman, Pras Subramanian, and Jake Conley break down Nike's (NKE) latest turnaround efforts as the sportswear giant braces for its lowest annual sales since 2020. The company is also planning layoffs as it works to cut costs and reset the business",
+            "published_at": "2026-10-02T13:23:00+00:00",
+            "url": "https://finnhub.io/api/news?id=626d0b6cddea1183f18a4548d425b799447f3cd7bf327e544c503706e9f5d5c9",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Is Down About 80% From Its Peak and Just Told Investors Sales Will Fall Again",
+            "summary": "Nike's stock has collapsed from its highs, analysts still show a 30% upside gap, and management just guided earnings far below what Wall Street expected. The math behind those price targets tells a very different story.",
+            "published_at": "2026-10-02T13:15:43+00:00",
+            "url": "https://finnhub.io/api/news?id=91809070e4e9d4a0d234deee41b69a9fedded869f404ba62c1d8f2ebcb263838",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Goldman Sachs Maintains Neutral on Nike, Lowers Price Target to $30",
+            "summary": "Goldman Sachs  analyst Brooke Roach   maintains Nike (NYSE:NKE) with a Neutral and lowers the price target from $38 to $30.",
+            "published_at": "2026-10-02T13:13:48+00:00",
+            "url": "https://finnhub.io/api/news?id=1eb26ecf6a242f0ebdef60eb671328bdb6f95903a4a2995752fcf3bbbf322c6b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Is Everyone Ignoring Lululemon Stock's High Cash Yield?",
+            "summary": "Lululemon Athletica (LULU) stock is 77% below its two-year high. The cash Lululemon keeps after all spending is now 12.5% of its market value, against 4.6% for the median S&P 500 company. A cash yield that high means the market is underpaying, or expects the business to get smaller. What does the market see in Lululemon that makes it pay so little for this cash.",
+            "published_at": "2026-10-02T13:10:10+00:00",
+            "url": "https://finnhub.io/api/news?id=10e5434f45770e1c6638d02878d59d0d9cfad5d2fdb01328acb1afdd92ee1036",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Sinks 8% as Weak Outlook and Layoffs Follow Revenue Miss; Lululemon and On Holding Remain Flat",
+            "summary": "Nike is cratering on earnings while rivals Lululemon and On Holding barely flinch, raising a pointed question about whether the sportswear giant is fighting a problem unique to itself or simply the first to feel an industry-wide reckoning.",
+            "published_at": "2026-10-02T13:01:34+00:00",
+            "url": "https://finnhub.io/api/news?id=6f8be5b086583bf7a28fc94678999ae16d3fb50cfafda51b81c9001856dd5a01",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NKE Q1 Earnings Call Flags Deeper Reset Before Recovery",
+            "summary": "Nike reported fiscal Q1 2027 earnings with EPS beating expectations at $0.48 vs. $0.43 consensus, but revenues missed at $11.21B vs. $11.40B expected. The company projects FY2027 revenues to decline in the high single digits with adjusted EPS of $1.15-$1.35. While Performance categories showed strong growth, Sportswear and Jordan Brand faced significant headwinds, and Greater China revenues fell 26%. Nike is implementing a $2.5B cost-reduction program (Pace) and prioritizing marketplace health over near-term volume growth.",
+            "published_at": "2026-10-02T13:00:00+00:00",
+            "url": "https://www.zacks.com/stock/news/2999481/nke-q1-earnings-call-flags-deeper-reset-before-recovery?cid=CS-ZC-FT-analyst_blog_plus%7Cearnings_call_takeaways-2999481",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Stocks making the biggest moves midday: Tesla, Broadcom, Nike, ON Semiconductor & more",
+            "summary": "These are some of the stocks posting the largest moves midday.",
+            "published_at": "2026-10-02T12:56:21+00:00",
+            "url": "https://finnhub.io/api/news?id=1e3c4fa036b7d1e22994603e40bb11881b45684423f4f1ec396cf8baea8e813e",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Weak Jobs Report Lifts Nvidia, Nasdaq 100 to Record Highs: Stock Market Today",
+            "summary": "A weak September payrolls print pared bets on more Fed tightening, lifting both the Nasdaq 100 and Nvidia stock to record highs.",
+            "published_at": "2026-10-02T12:52:39+00:00",
+            "url": "https://finnhub.io/api/news?id=66f10db24c8b69fc95ec5d22056263115837637b4d5402efd3b84e0d25834953",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "NKE Stock Cracks Premarket: Analysts Slash Targets On Weak Outlook \u2013 Citi Calls Nike A \u2018Cost-Cutting\u2019 Story",
+            "summary": "The latest analyst notes point to a tougher Nike turnaround, with firms flagging weak sales trends, pressure across key categories and a more challenging earnings outlook.",
+            "published_at": "2026-10-02T12:49:23+00:00",
+            "url": "https://finnhub.io/api/news?id=12d371146bb2b480d1bcb36eda86de94ddccca5a636d74052a48d1eea497cc92",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Will Nike Ever Stop Falling? One Analyst is Sure That Buying Now Will Yield 100% Gains",
+            "summary": "Nike just slipped below its 52-week low while the broader market climbs, but one analyst sees a path to gains that would leave the rest of Wall Street stunned. The question is whether the turnaround math actually works.",
+            "published_at": "2026-10-02T12:45:51+00:00",
+            "url": "https://finnhub.io/api/news?id=bf02fcdfd84c8709d3b2230c4bca3de5c38cd75159c1df744a8c943ca67a7c27",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Top S&P500 movers in Friday's pre-market session",
+            "summary": "Before the opening bell on Friday, let's take a glimpse of the US markets and explore the S&P500 top gainers and losers in today's pre-market session.",
+            "published_at": "2026-10-02T12:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=d674fc0a6667a4bad40905abffa35b1f158852775d0f2c63316a7d2a5f493f83",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Nike Forecasts Full-Year Revenue Decline, Unveils Plan to Transform Operating Model",
+            "summary": "Nike (NKE) shares fell early Friday after the sportswear giant forecast a fiscal 2027 revenue declin",
+            "published_at": "2026-10-02T12:33:15+00:00",
+            "url": "https://finnhub.io/api/news?id=d978b82cb865aa3ab9599ad0144d5683ae9d40bf67ab5f877f9a98c8924df898",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Is Still Searching for Its Turnaround As Wall Street Sees Another Tough Year",
+            "summary": "Nike stock drops to a 52-week low after Q1 revenue missed estimates and the company issued a weak fiscal 2027 sales outlook.",
+            "published_at": "2026-10-02T12:22:26+00:00",
+            "url": "https://finnhub.io/api/news?id=ff1e02faf76ae84cf06b803a946984c64e1785b8bb66960c4b1289d802078e86",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike Stock Falls 9% as Soft Revenue Outlook and Restructuring Plan Overshadow Earnings Beat",
+            "summary": "Key Stats for Nike StockPre-Market Price change for Nike stock: -9%$NKE Stock Price as of Oct. 1: $3552-Week High: $75$NKE Stock Price Target: $46What Happened?Nike (NKE:NYSE) shares fell about 9% in extended trading on Thursday.",
+            "published_at": "2026-10-02T12:12:08+00:00",
+            "url": "https://finnhub.io/api/news?id=8d4cf4d493791dfcece4ba7308c74d08a81aec577d2e562c814d11ea599b9c85",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "JP Morgan Maintains Underweight on Nike, Lowers Price Target to $33",
+            "summary": "JP Morgan  analyst Matthew Boss   maintains Nike (NYSE:NKE) with a Underweight and lowers the price target from $40 to $33.",
+            "published_at": "2026-10-02T12:04:39+00:00",
+            "url": "https://finnhub.io/api/news?id=e3f728c0edcdd0ed991159b45be82425619fcf067a22c2661c6236b32d376801",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "5 Things to Know Before the Stock Market Opens on Friday",
+            "summary": "News of the day for Oct. 2, 2026",
+            "published_at": "2026-10-02T11:57:43+00:00",
+            "url": "https://finnhub.io/api/news?id=d8881a753901d2211337b57b4d1e38759906b9979e7e2c20f398546a2bfed3c2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "NIKE Q1 Earnings Beat on Margin Gain, Stock Falls on Revenue Miss",
+            "summary": "NKE beats fiscal Q1 earnings estimates as margin gains offset lower revenues, while weak Direct sales and China trends pressure growth.",
+            "published_at": "2026-10-02T11:57:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ef3f2fb486e83bed31127a6c4cd1317220fe23a867ff95ac38bee222aab704ef",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Markets Need the Jobs Report to Point to a Fed Hold",
+            "summary": "Everything you need to know about the jobs report, early market trading, Nike, and the other big stock movers Friday",
+            "published_at": "2026-10-02T11:39:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7c7df65fd5ac81a717c3a3321325463d517f0cdd27a9ec001de83fa8964ca142",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Premarket movers: Nike tumbles 10%, Synaptics jumps on $5.7B deal",
+            "summary": "Investing.com - U.S. stock index futures rose on Friday, as investors prepared for the release of key payrolls data that could offer fresh insight into the health of the economy and the outlook for interest rates.",
+            "published_at": "2026-10-02T11:37:56+00:00",
+            "url": "https://finnhub.io/api/news?id=4e6472d10db52475acfac6a3f9dbb6a9a23671d72899b2d51baf7c178e99b7e7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike's Recovery Visibility 'Limited' as Sportswear, Jordan Face Continued Pressure, China Weakness, Truist Says",
+            "summary": "Nike (NKE) investors should \"remain on the sidelines\" as visibility into a potential recovery is \"li",
+            "published_at": "2026-10-02T11:35:32+00:00",
+            "url": "https://finnhub.io/api/news?id=7c22bac7fe3ffbb0ad1aed06a0d2e8d858262e11cd3d4d371aae67af92840c73",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ON Semi, Synaptics, Nike, Strategy, Moderna, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Nike slumps after the retailer misses analysts\u2019 first-quarter earnings target and issues downbeat fiscal-year guidance.",
+            "published_at": "2026-10-02T11:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9248aa78a0af2da9f0912cef3c87c196e2d8f32066b75db33516976170895605",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Easing Bond Yields, Oil Prices Undergird Wall Street Pre-Bell; Asia Down, Europe Up",
+            "summary": "Wall Street futures pointed moderately higher pre-bell Friday as bond yields and oil prices eased, a",
+            "published_at": "2026-10-02T11:10:28+00:00",
+            "url": "https://finnhub.io/api/news?id=031e0cf980894403c7f40262be0b516960851181b45fcba591a0e18d7559565d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Truist Securities Maintains Hold on Nike, Lowers Price Target to $29",
+            "summary": "Truist Securities  analyst Joseph Civello   maintains Nike (NYSE:NKE) with a Hold and lowers the price target from $42 to $29.",
+            "published_at": "2026-10-02T10:58:10+00:00",
+            "url": "https://finnhub.io/api/news?id=bc9714dafac7b0961541d87e3d73f897045f09a4597da79be32e71e325eb92a0",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Here's why Williams Trading analyst Sam Poser downgraded Nike to hold",
+            "summary": "Sam Poser, senior research analyst at Williams Trading, joins 'Squawk on the Street' to discuss Nike's downtrend, the response from the rest of the sector, and more.",
+            "published_at": "2026-10-02T10:51:11+00:00",
+            "url": "https://finnhub.io/api/news?id=0064d3403c4b8ed9cb2f64207411c0916610e70c668dba576f23aa1a1dc41efb",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Accenture Silences the AI Skeptics, Nike Warns the Pain Isn't Over",
+            "summary": "Wall Street ended Thursday barely higher as yields eased from 24-year highs and Fed officials signaled patience. Accenture posted its best day ever, Synopsys landed AI chip deals, Mattel drew takeover interest and Nike cut its outlook after the close.",
+            "published_at": "2026-10-02T10:39:47+00:00",
+            "url": "https://finnhub.io/api/news?id=edfb258113299bc729c0988e637af84ee3891556c48037d1750b4142ecf69bd9",
+            "source": "ChartMill"
+          },
+          {
+            "headline": "Wells Fargo Maintains Equal-Weight on Nike, Lowers Price Target to $30",
+            "summary": "Wells Fargo  analyst Ike Boruchow   maintains Nike (NYSE:NKE) with a Equal-Weight and lowers the price target from $40 to $30.",
+            "published_at": "2026-10-02T10:34:14+00:00",
+            "url": "https://finnhub.io/api/news?id=8467ab90dfcdbb5603ecbb9fb7c0c26df3b0c8cadacb69e3667182e0df13f903",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike warning hits stocks prices of Lululemon, On, Under Armour, and Hoka maker Deckers Outdoor",
+            "summary": "Nike sends sportswear stocks lower.",
+            "published_at": "2026-10-02T10:31:49+00:00",
+            "url": "https://finnhub.io/api/news?id=6e4f254eea66863857e7361b790c6557af6052babf2e9bdf25a3f24d36409d4b",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike Shares Fall Nearly 9% After Revenue Miss and Fiscal 2027 Outlook",
+            "summary": "Nike (NYSE:NKE) shares fell nearly 9% in pre-market trading on Friday after the sportswear company reported fiscal first-quarter revenue below market expectations and forecast a high-single-digit revenue decline for fiscal 2027. Nike reported adjusted earnings of $0.",
+            "published_at": "2026-10-02T10:30:55+00:00",
+            "url": "https://finnhub.io/api/news?id=60c459bfdad60c44e878e6e170c141dc6ba8882a8148136b15fbed66ae53bfec",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Piper Sandler Maintains Neutral on Nike, Lowers Price Target to $28",
+            "summary": "Piper Sandler  analyst Anna Andreeva   maintains Nike (NYSE:NKE) with a Neutral and lowers the price target from $38 to $28.",
+            "published_at": "2026-10-02T10:09:54+00:00",
+            "url": "https://finnhub.io/api/news?id=0a367f5219db0bd477314c19a674779fb64c9d21e4f46c2dcca59c280b91ba5d",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Dow Jones Futures Rise, Oil Prices Fall With Tesla, Jobs Report Due; Micron In Buy Area",
+            "summary": "Stock market rises slightly off key levels with Micron, Lumentum around buy points. Tesla deliveries, jobs report loom.",
+            "published_at": "2026-10-02T09:55:27+00:00",
+            "url": "https://finnhub.io/api/news?id=98089d435a6a58c165f54da2c6a15983c2ff03e62599bed7e71f2e496892842f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike, ON Semi, Moderna, and More Stocks That Explain Today\u2019s Market",
+            "summary": "Nike slumps after the retailer misses analysts\u2019 first-quarter earnings target and issues downbeat full-year guidance.",
+            "published_at": "2026-10-02T09:51:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f08b5832d0ce0d643655c3688a93ed7e0e7d08cac40d0148895f3bb2f4d028bc",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "RBC Capital Reiterates Sector Perform on Nike, Maintains $40 Price Target",
+            "summary": "RBC Capital  analyst Piral Dadhania   reiterates Nike (NYSE:NKE) with a Sector Perform and maintains $40 price target.",
+            "published_at": "2026-10-02T09:36:16+00:00",
+            "url": "https://finnhub.io/api/news?id=111fd6b6481b1465cea2ac99d83408cd91efcfd1966ba13b2d6329a9f138c3f4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike shares tumble on weak guidance",
+            "summary": "CNBC's Carl Quintanilla and Jim Cramer discuss Nike's shares tumbling follow reports of low sales and the retailer's issuing of a weak guidance.",
+            "published_at": "2026-10-02T09:25:56+00:00",
+            "url": "https://finnhub.io/api/news?id=777ebb2cbaf12a5f795536824a3845e968470338b61d62c8418a8fc8c42665b4",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Evercore ISI Group Maintains In-Line on Nike, Lowers Price Target to $28",
+            "summary": "Evercore ISI Group  analyst Michael Binetti   maintains Nike (NYSE:NKE) with a In-Line and lowers the price target from $34 to $28.",
+            "published_at": "2026-10-02T09:19:22+00:00",
+            "url": "https://finnhub.io/api/news?id=81843304ca26e75586d4573369c4ec76a18bde7b21cc60d6cf6bf0d5bbc9a92e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike trims outlook on bleak Q1, launches efficiency program to slash costs",
+            "summary": "Nike has said it expects revenues to decline high single digits in fiscal 2027.",
+            "published_at": "2026-10-02T09:14:24+00:00",
+            "url": "https://finnhub.io/api/news?id=430c9f323dd447a0b67181c354573bb5fedbbc948347f470684183739210c61e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nike (NKE) Q1 2027 Earnings Call Transcript",
+            "summary": "Strategic reset underway as Nike scales performance portfolio amid Sportswear headwinds.",
+            "published_at": "2026-10-02T09:12:54+00:00",
+            "url": "https://finnhub.io/api/news?id=dcb99ffdc5a24054b4877584401d2c23772566b0fd8d19ed93cce8f772fb133f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "These Analysts Cut Their Forecasts On Nike Following Q1 Results",
+            "summary": "Nike beats Q1 EPS estimates but misses revenue; weak FY27 guidance sends shares down 8%, prompting analysts to cut price targets.",
+            "published_at": "2026-10-02T09:04:45+00:00",
+            "url": "https://finnhub.io/api/news?id=5cc59a9f0eb84d5f165b4c0ad5cac373ed7b938cef7d30a41397e71a8bb81c6b",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike stock misery continues after another dreadful quarter and outlook \u2014 Wall Street reacts",
+            "summary": "Nike is far from just doing it.",
+            "published_at": "2026-10-02T09:02:54+00:00",
+            "url": "https://finnhub.io/api/news?id=bdcf60be22b4305fd9d3433a2d1c1c1be02b4e59e1ce229d257c39c378f44a99",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Guggenheim Maintains Buy on Nike, Lowers Price Target to $50",
+            "summary": "Guggenheim  analyst Simeon Siegel   maintains Nike (NYSE:NKE) with a Buy and lowers the price target from $60 to $50.",
+            "published_at": "2026-10-02T09:02:11+00:00",
+            "url": "https://finnhub.io/api/news?id=5ff26b82f7be0b61d773884cf493a62dd7bed3bebaa7ef7e2739f2758a66571f",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Abbott To Rally Over 31%? Here Are 10 Top Analyst Forecasts For Friday",
+            "summary": "Analysts raised targets for ACN, SYNA, ATRC and MPC; cut targets for CSX, NKE, MKC and FHTX, with ATRC downgraded to Hold.",
+            "published_at": "2026-10-02T08:58:44+00:00",
+            "url": "https://finnhub.io/api/news?id=16e327d03a32162cae8184e28413795ff094eea04356279b248f305fdc26672e",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "StoneX Reiterates Hold on Niketo Hold",
+            "summary": "StoneX  analyst Zeyn Burak   reiterates Nike (NYSE:NKE) from Hold to Hold.",
+            "published_at": "2026-10-02T08:48:39+00:00",
+            "url": "https://finnhub.io/api/news?id=e9f56b5adc97581008a3162432ae13c546207da291ce02fd731e5896f5c1651c",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "NKE Stock Heads For A Weekly Loss: Morningstar Says Nike's Fresh Cost Cuts Signal A Longer Road To Recovery",
+            "summary": "Nike stock slides as Morningstar flags a prolonged turnaround, citing weak sales, Greater China challenges, and restructuring costs.",
+            "published_at": "2026-10-02T08:47:41+00:00",
+            "url": "https://finnhub.io/api/news?id=ca9cb798c05251c17c752120c540d1368a0d5e296600fa68e20c8918104188ba",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stock Market Today: S&P 500, Dow Jones Futures Gain as September Jobs Report Misses Expectations\u2014 Nike, Synaptics, Corteva in Focus (UPDATED)",
+            "summary": "U.S. stock futures advanced on Friday, as the Dow Jones, S&amp;P 500 and Nasdaq 100 indices rose, following Thursday&#39;s higher close.",
+            "published_at": "2026-10-02T08:40:16+00:00",
+            "url": "https://finnhub.io/api/news?id=0726be4ba8d1b1ccbd5807b394a0d1854087bd90a67d1767ff72c7a4ea8fe515",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Update: Nike Fiscal Q1 Earnings, Revenue Fall; Shares Drop Premarket",
+            "summary": "(Updates to include Pace initiative details in the seventh and eighth paragraphs, with the stock mov",
+            "published_at": "2026-10-02T08:39:19+00:00",
+            "url": "https://finnhub.io/api/news?id=c0712c525561946dcb743902b44e95a5bfc5d7a430077e6503d30c0d26043825",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Nasdaq, S&P 500, Dow Futures Rise Ahead Of Jobs Report: NKE, META, RKLB, MRNA, SLS, TSLA Stocks In Focus",
+            "summary": "On Stocktwits, retail sentiment toward SPY and QQQ remained \u2018bullish\u2019 ahead of jobs data.",
+            "published_at": "2026-10-02T08:31:41+00:00",
+            "url": "https://finnhub.io/api/news?id=b0433938a5153602f02557a4aa3ac9dba90df0c0707dfef81c5471331dcce542",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "New Strong Sell Stocks for October 2nd",
+            "summary": "JOUT, CLFD and NKE have been added to the Zacks Rank #5 (Strong Sell) List on October 2, 2026.",
+            "published_at": "2026-10-02T08:28:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b378e340afc9d89a7d8d7b860bd0d4115550a5524da467ffcb16f316eb3e405d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The jobs report, Nike's China conundrum, Burger King's franchise bet and more in Morning Squawk",
+            "summary": "Here are five key things investors need to know to start the trading day.",
+            "published_at": "2026-10-02T08:20:16+00:00",
+            "url": "https://finnhub.io/api/news?id=dcb0bb04e66258e6b934fca20b5978e2935b42a41d44b1f0645b983e1f2d9d22",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Needham Reiterates Hold on Niketo Hold",
+            "summary": "Needham  analyst Tom Nikic   reiterates Nike (NYSE:NKE) from Hold to Hold.",
+            "published_at": "2026-10-02T08:06:44+00:00",
+            "url": "https://finnhub.io/api/news?id=f4a60a08bb8df6f88adb4ba7d39baf5df6324f0a78672919686030e7462a2968",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "12 Consumer Discretionary Stocks Moving In Friday's Pre-Market Session",
+            "summary": "Gainers\n\nSono Gr (NASDAQ:SSM) shares rose 10.0% to $2.43 during Friday&#39;s pre-market session. The company&#39;s market cap stands at $3.2 million. \nZeta Network Group (NASDAQ:ZNB) shares increased by 7.54% to $1.14.",
+            "published_at": "2026-10-02T08:05:57+00:00",
+            "url": "https://finnhub.io/api/news?id=6fdfc1803592678120b2292d9c0cc8a931e5c8e2cea490b99aa584d1fe4571c2",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike Posts Mixed Q1 Results, Joins Mangoceuticals And Other Big Stocks Moving Lower In Friday\u2019s Pre-Market Session",
+            "summary": "U.S. stock futures rose, while Nike plunged 9.5% after missing revenue estimates. Roze AI, Mangoceuticals and other stocks also fell premarket.",
+            "published_at": "2026-10-02T08:02:07+00:00",
+            "url": "https://finnhub.io/api/news?id=0d399cd3953816c0727adaef68c6b6016d939561d88fd7186b5fbc794a48ad93",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Baird Maintains Neutral on Nike, Lowers Price Target to $36",
+            "summary": "Baird  analyst Jonathan Komp   maintains Nike (NYSE:NKE) with a Neutral and lowers the price target from $44 to $36.",
+            "published_at": "2026-10-02T07:57:41+00:00",
+            "url": "https://finnhub.io/api/news?id=66e04028b6e7370ad9c8ffb9ca39f6246b6b3305cb2f22a508b6675c02ae5758",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stocks making the biggest moves premarket: Nike, ON Semiconductor, Synaptics, Vylor & more",
+            "summary": "These are the stocks posting the largest moves premarket.",
+            "published_at": "2026-10-02T07:53:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9c1045edce364807b4d465edbb254352fbfd796247089562d01dcce7b6afb1f9",
+            "source": "CNBC"
+          },
+          {
+            "headline": "NKE Q3 Deep Dive: Deliberate Resets Weigh on Revenue as Nike Focuses on Long-Term Health",
+            "summary": "Athletic apparel brand Nike (NYSE:NKE) missed Wall Street\u2019s revenue expectations in calendar Q3 2026 (fiscal Q1 2027), with sales falling 4.3% year on year to $11.21 billion. Its non-GAAP profit of $0.48 per share was 10.5% above analysts\u2019 consensus estimates.",
+            "published_at": "2026-10-02T07:50:03+00:00",
+            "url": "https://finnhub.io/api/news?id=0f6b7073dbf3be8a8b0c9ec7219ff39def52c5708d6d6c259c0bff1d814e27d1",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Stifel Maintains Hold on Nike, Lowers Price Target to $36",
+            "summary": "Stifel  analyst Peter McGoldrick   maintains Nike (NYSE:NKE) with a Hold and lowers the price target from $40 to $36.",
+            "published_at": "2026-10-02T07:31:42+00:00",
+            "url": "https://finnhub.io/api/news?id=a5fa7949cf0b8523d8db4d979881809edee1bcc2670d79bf3e5e472dc80fccfe",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Guggenheim maintains its buy rating on Nike despite disappointing Q1 results",
+            "summary": "Simeon Siegel, senior analyst at Guggenheim Securities, joins \u2018Squawk Box' to discuss why his firm has maintained its buy rating on Nike despite disappointing Q1 results, his expectations for the company, and more.",
+            "published_at": "2026-10-02T07:17:23+00:00",
+            "url": "https://finnhub.io/api/news?id=7d8746054dfe0aa5054688b2cd2c0f2e85d170d52b360fef688e6c9f11ffd5eb",
+            "source": "CNBC"
+          },
+          {
+            "headline": "B of A Securities Maintains Underperform on Nike, Lowers Price Target to $24",
+            "summary": "B of A Securities  analyst Lorraine Hutchinson   maintains Nike (NYSE:NKE) with a Underperform and lowers the price target from $30 to $24.",
+            "published_at": "2026-10-02T07:08:13+00:00",
+            "url": "https://finnhub.io/api/news?id=56f5ae5c439bd70991461b05b37d320708a107e410aac3dc55d5c46e00839cbd",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Wall Street Breakfast Podcast: No Sprint For Nike Yet",
+            "summary": "Nike\u00e2\u0080\u0099s China slump is getting harder to outrun. Moderna is joining the Nasdaq-100. The mortgage industry is bracing for a credit-reporting shake-up.",
+            "published_at": "2026-10-02T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=33105858c73d24ffa69d7314514aa04fa9df16d5b28f255dd608b8dc69a9abdd",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Nike\u2019s Growth Problem is Bigger than One Bad Quarter",
+            "summary": "NIKE, Inc. (NYSE:NKE) is in a tough spot. The company is trying to get growth back on track under CEO Elliott Hill, who took over in late 2024, but the latest numbers show that turning things around is going to take time. Nike\u2019s fiscal 2027 first-quarter revenue fell 4% from a year earlier to $11.2 [\u2026]",
+            "published_at": "2026-10-02T06:59:59+00:00",
+            "url": "https://finnhub.io/api/news?id=e42b7ca93a3458dca5f5affde53f8990461d903b271d33e2523db196edef7c13",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "CFRA: Nike is doing good things, but the turnaround is taking a lot longer than expected",
+            "summary": "CFRA analyst Zachary Warring discusses Nike's disappointing Q1 results and outlook, and whether there are any green shoots pointing towards progress in the company's turnaround.",
+            "published_at": "2026-10-02T06:45:15+00:00",
+            "url": "https://finnhub.io/api/news?id=2c3999c8dd070c5de0395f2e2744a2c897856c0e4af7da85e43a0ff008c7646b",
+            "source": "CNBC"
+          },
+          {
+            "headline": "Nike: China Reset Overshadows North American Resilience; Reiterate Neutral",
+            "summary": "Nike faces significant headwinds, notably a 26% revenue decline in China, driving a neutral stance on the stock. Learn why NKE is rated hold.",
+            "published_at": "2026-10-02T06:43:26+00:00",
+            "url": "https://finnhub.io/api/news?id=bc2ccf7ddc9e78e855e22f0ea5d87896b2c8c88b2b57c8b8578638de2db1ed2d",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Nike\u2019s Turnaround Hits a Speed Bump on Disappointing Fiscal 2027 Guidance. Should Investors Run for the Exits?",
+            "summary": "The company didn't wow investors with its first earnings report of the current fiscal year.",
+            "published_at": "2026-10-02T06:28:37+00:00",
+            "url": "https://finnhub.io/api/news?id=9268b7574584495acd93baec705b4433ee4e955781d31246413df3bdec5d4f31",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BTIG Maintains Buy on Nike, Lowers Price Target to $50",
+            "summary": "BTIG  analyst Robert Drbul   maintains Nike (NYSE:NKE) with a Buy and lowers the price target from $55 to $50.",
+            "published_at": "2026-10-02T05:37:26+00:00",
+            "url": "https://finnhub.io/api/news?id=5e0aaf71252a0b7844f78dc9705cd649e0295a76e33858510232e376fd3f80c1",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Why Synaptics Shares Are Trading Higher By Over 14%; Here Are 20 Stocks Moving Premarket",
+            "summary": "Synaptics surged 14.5% after amending its $123/share cash buyout by onsemi; AMOD led gainers, while WCT fell 20.3% premarket.",
+            "published_at": "2026-10-02T04:39:38+00:00",
+            "url": "https://finnhub.io/api/news?id=c6f57af82cb5a86772b7755b2cd32dc6a55d3a415412f246512e7a7b630fe0ad",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike, Synaptics And 3 Stocks To Watch Heading Into Friday",
+            "summary": "Nike falls on weak revenue; Synaptics jumps on $123 ON deal; AsiaStrategy surges on tokenization pact; Mangoceuticals drops.",
+            "published_at": "2026-10-02T04:16:03+00:00",
+            "url": "https://finnhub.io/api/news?id=80eebecc20b73e3685f3c3092f41f338a5253af972377b06c0dc5ce304802ac8",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Nike Just Admitted Its China Problem Is About to Get Worse, With $230 Billion in Market Cap Already Gone \u2014 CEO Elliott Hill Warns the Pain Isn't Over",
+            "summary": "Nike erases $230B in market cap after a Q1 revenue miss. Management warns its Greater China sales will worsen amid a digital market reset.",
+            "published_at": "2026-10-02T04:08:13+00:00",
+            "url": "https://finnhub.io/api/news?id=3884f4fe12453783de5f081e6154ad667d1b7ca1bd9d221193978e140a1eb9fc",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 33.8849983215332
+    },
+    {
+      "ticker": "MRP",
+      "predicted_return": 0.3278657823032047,
+      "open_price": 23.075000762939453,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "corporate action: Lennar Stock Falls Following Hunterbrook Short Report On Millrose Transactions",
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": "corporate action: Lennar Stock Falls Following Hunterbrook Short Report On Millrose Transactions",
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "event_guard",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:36.605962+00:00",
+        "articles": [
+          {
+            "headline": "Lennar Stock Falls Following Hunterbrook Short Report On Millrose Transactions",
+            "summary": "Lennar is trading lower Friday after a short report alleged the company met quarterly targets by selling homes to its Millrose spinoff.",
+            "published_at": "2026-10-02T13:28:52+00:00",
+            "url": "https://finnhub.io/api/news?id=9c1655dd147d8dadb9788b99ae3fe0bcddced860dcfe36e65f6bc1a2d478fcbd",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Watching Lennar; Hunterbrook Media Issues Report Titled, \u201cLennar\u2019s Big New Customer Is Its Own Spinoff, Millrose\u201d; States Hunterbrook Capital Is Short $LEN; Short $MRP",
+            "summary": "https://hntrbrk.com/breaking-news/lennar-millrose",
+            "published_at": "2026-10-02T11:06:28+00:00",
+            "url": "https://finnhub.io/api/news?id=3f99319ccdd9a767acd210d05e30bc5efe90c7d9e5b99edbf289a50438a6fa39",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 24.6200008392334
+    },
+    {
+      "ticker": "AJG",
+      "predicted_return": 0.3221427153779536,
+      "open_price": 219.64999389648438,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:36.609169+00:00",
+        "articles": [
+          {
+            "headline": "2 Services Stocks Worth Your Attention and 1 That Underwhelm",
+            "summary": "Business services providers use their specialized expertise to help enterprises streamline operations and cut costs. Market leaders have certainly capitalized on outsourcing trends and digital transformation initiatives to boost sales, helping fuel a 22.5% gain for the industry over the past six months - 6.3 percentage points higher than the S&P 500.",
+            "published_at": "2026-10-02T10:14:03+00:00",
+            "url": "https://finnhub.io/api/news?id=55094086f95e19d11725d8458bffa6b130a605e0ea7504bec970d5ba8ca95ff1",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 226.1999969482422
+    },
+    {
+      "ticker": "UMC",
+      "predicted_return": 0.3182583144694387,
+      "open_price": 23.729999542236328,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 1,
+        "reviewed_count": 1,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:12.336130+00:00",
+        "articles": [
+          {
+            "headline": "Semiconductors Winners And Losers At The Start Of Q4 2026",
+            "summary": "Q2 2026 gave rise to the possibility of a blow-off top, and Q3 2026 strengthened that possibility. Check out the semiconductors' winners and losers here.",
+            "published_at": "2026-10-05T04:14:39+00:00",
+            "url": "https://finnhub.io/api/news?id=d7cdd47e7e15c5f64e4ec24ab20183fcacc9ffcbcbfefe646574e1ce084abd2f",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 26.274999618530273
+    },
+    {
+      "ticker": "RKT",
+      "predicted_return": 0.3160696462393798,
+      "open_price": 11.470000267028809,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:55.682906+00:00",
+        "articles": [
+          {
+            "headline": "3 Mortgage Stocks Retail Investors Are Watching As Treasury Yields Top 5.3%",
+            "summary": "Rising Treasury yields, with the 10-year now above 5.3%, are rattling mortgage markets and reshaping how capital is priced across housing and lending. Some businesses tied to mortgage origination and homebuilding could feel squeezed by higher funding costs, while others may find new pockets of opportunity as investors reprice risk. This article walks through three stocks from the screener that appear better positioned against this rate shock and explains what that might mean for your...",
+            "published_at": "2026-10-03T06:08:31+00:00",
+            "url": "https://finnhub.io/api/news?id=f80d0109dd9ebf3a6bffe9dbb4ef5bd61fff1ac5973b1641cf60b8c427a0c7c0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "10 Stocks Rally as Rate Hike Bets Collapse on Weak September Jobs",
+            "summary": "Entegris, Rocket and KLA led premarket gains after September payrolls rose just 29,000 vs. 90,000 expected, cutting bets on a Fed rate hike.",
+            "published_at": "2026-10-02T09:46:13+00:00",
+            "url": "https://finnhub.io/api/news?id=79997b2c0b4a3b14652ce556998de2f68fca13398ab5c636a47d2692b7e571e4",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "PennyMac Financial: A Laggard, Not A Bargain",
+            "summary": "PennyMac Financial Services, Inc. remains under pressure, with a 50% YTD decline driven by operational underperformance. Learn why PFSI stock is a hold.",
+            "published_at": "2026-10-02T06:53:36+00:00",
+            "url": "https://finnhub.io/api/news?id=d00b8d038ab87f9654dbfbd838599adae0ed590db23926b0b1ea58b6a575cbd3",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 11.704999923706055
+    },
+    {
+      "ticker": "OSK",
+      "predicted_return": 0.3128183857219001,
+      "open_price": 130.77000427246094,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": null,
+        "article_count": 6,
+        "reviewed_count": 6,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-05T13:36:55.683387+00:00",
+        "articles": [
+          {
+            "headline": "Oshkosh Defense Receives Follow-On Order from Morocco for HET A1 Tractors and Trailers",
+            "summary": "OSHKOSH, Wis., October 05, 2026--Oshkosh Defense, LLC, an Oshkosh Corporation (NYSE: OSK) business, announced today it has received a second Direct Commercial Sales (DCS) order from Optimum Vehicle Logistics, LLC (Milwaukee, WI) for the Royal Moroccan Armed Forces. The follow-on order includes 50 Heavy Equipment Transporter (HET) A1 tractors and 50 MN573 heavy-duty trailers designed and manufactured in partnership with Broshuis B.V. The order also includes associated parts, services, and trainin",
+            "published_at": "2026-10-05T10:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9d2c3b77067872ac334f16859312a35b0446d2f32cf7417d611aaf8a70dbff06",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Oshkosh Corporation Has Become Irresistible After Its Plunge Lower",
+            "summary": "Despite recent share underperformance, Oshkosh Corporation\u00e2\u0080\u0099s revenue growth and discounted valuation support a bullish stance. I rate OSK stock as a strong buy.",
+            "published_at": "2026-10-05T05:51:32+00:00",
+            "url": "https://finnhub.io/api/news?id=b89b09c72c6582ca66e261fa09489a5620cad38be34c316596e1b1d28b6675bf",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Oshkosh: Strong Buy Upgrade Despite Execution Challenges",
+            "summary": "Oshkosh upgraded to Strong Buy with an $180.56 target. Click for more on OSK stock.",
+            "published_at": "2026-10-04T11:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=620844a37fbdfae6b5872210a7862445819b70d428e69a69131b16014cf2504c",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Kongsberg Gruppen: Strong Buy As Demand Accelerates",
+            "summary": "Kongsberg Gruppen earns a Strong Buy, driven by robust missile, air defense, and counter-drone demand and a substantial contracted backlog. Read more on KBGGY.",
+            "published_at": "2026-10-03T05:48:09+00:00",
+            "url": "https://finnhub.io/api/news?id=8071f2af154c238d122dc638540e738fa7dd29de6ca0083046cabb661d431098",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "What Could Lift Caterpillar Stock?",
+            "summary": "Caterpillar (CAT) stock returned 75% over the past twelve months, against 16.0% for the S&P 500. The shares now cost 35.1 times the past year's profit, a ratio known as the P/E. The average P/E at the last twelve quarter-ends, leaving out readings above 100, was 22.0. With the P/E that far above its own average, where would any further gain come from.",
+            "published_at": "2026-10-02T09:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5a68e3771b59e7127cad0b55784d282537ff06ec5a6f0ee10b906e2b3ed621e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Global Unmanned Ground Vehicles (UGVs) Market Forecast, 2026-2031 | AI Autonomy, Defense Modernization, and Civilian Adoption Unlock Strategic Growth Opportunities",
+            "summary": "The global UGV market is projected to grow from $8.3 billion in 2026 to $13.1 billion by 2031, driven by military modernization, defense spending, and civilian adoption across agriculture, mining, and infrastructure sectors. AI-powered autonomous systems and advanced sensor technologies are key growth enablers, though battery life limitations remain a challenge. North America leads the market, supported by strong defense ecosystems and technology infrastructure.",
+            "published_at": "2026-10-02T08:56:00+00:00",
+            "url": "https://www.globenewswire.com/news-release/2026/10/02/3373592/28124/en/global-unmanned-ground-vehicles-ugvs-market-forecast-2026-2031-ai-autonomy-defense-modernization-and-civilian-adoption-unlock-strategic-growth-opportunities.html",
+            "source": "GlobeNewswire Inc."
+          }
+        ]
+      },
+      "prev_close": 133.88999938964844
+    },
+    {
+      "ticker": "BX",
+      "predicted_return": 0.3112247461456943,
+      "open_price": 110.19999694824219,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "'Blue Owl Again Caps Two BDCs After 39%, 17% Withdrawal Requests' - Bloomberg",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "'Blue Owl Again Caps Two BDCs After 39%, 17% Withdrawal Requests' - Bloomberg",
+        "article_count": 17,
+        "reviewed_count": 17,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-05T13:36:55.684006+00:00",
+        "articles": [
+          {
+            "headline": "Firmus plans to allocate half of IPO shares to existing holders, Bloomberg reports",
+            "summary": "Investing.com-- Firmus Grid plans to allocate about half of the shares in its initial public offering to existing shareholders, potentially allowing Nvidia (NASDAQ:NVDA) and Blackstone (NYSE:BX) to increase their stakes, Bloomberg News reported on Monday, citing people familiar with the matter.",
+            "published_at": "2026-10-05T04:21:36+00:00",
+            "url": "https://finnhub.io/api/news?id=2fe01754dd99fdaf721ad4d831e314e270e484404766be3ed09117116b22b79c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Broadcom\u2019s Massive $42 Billion Chip-Buying Deal with Anthropic Raises Circular Financing Worries",
+            "summary": "Broadcom just agreed to lend billions to the same AI lab it sells chips to, lease equipment to, and may soon own a stake in. That four-way entanglement raises a question shareholders cannot yet answer: whose demand is actually driving Broadcom's explosive revenue growth?",
+            "published_at": "2026-10-04T15:33:48+00:00",
+            "url": "https://finnhub.io/api/news?id=fa5a7e2ff4db3144d26d7401b8f1e3c66c64a9fe94fce1abfc45c0e57c65422d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Blackstone (BX) vs KKR (KKR): Which is a Better Stock to Buy?",
+            "summary": "Blackstone Inc. (NYSE:BX) closed at $111.75 on October 2 and KKR & Co. Inc. (NYSE:KKR) at $90.29. Blackstone has fallen 33.04% over twelve months and KKR 28.83%, while the wider market rose about 14%. Investors have sold them as one trade. They are no longer the same business, and the difference is larger than the [\u2026]",
+            "published_at": "2026-10-04T03:58:02+00:00",
+            "url": "https://finnhub.io/api/news?id=b8d1bba58981d18d7f18bb9e9760048f6db445326ae813e3ad871f9067eb81aa",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "4 Data Center REITs That Pay Dividends: Where AI Boom Meets Steady Income",
+            "summary": "The AI data center buildout is minting fortunes for a handful of companies, but almost none of them pay a dividend. Four REITs sit right at the intersection of that infrastructure boom and steady income, and their payout safety tells very different stories.",
+            "published_at": "2026-10-03T11:45:43+00:00",
+            "url": "https://finnhub.io/api/news?id=5e13a10df5a896c9c12cca00b373db31b82bc1f9df4cad10718f4788a18cb967",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "The Next Big Move In Interest Rates: How I'm Buying The Dividend Sell-Off",
+            "summary": "Dividend stocks face pressure from rising long-term rates. Read my list of dividend investment ideas here.",
+            "published_at": "2026-10-03T07:05:00+00:00",
+            "url": "https://finnhub.io/api/news?id=33f570c818116937830f826c28d3ae9440af78582be2b2ccd489b8ea75b383ef",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "September's Leaders And Laggards",
+            "summary": "Technology was the place to be among September\u00e2\u0080\u0099s biggest S&P 500 winners, accounting for 13 of the month\u00e2\u0080\u0099s 20 best-performing stocks.",
+            "published_at": "2026-10-03T00:30:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ad55939cdb4eaa81677d2b0c9d6df027c03f898b180fb8c90f7a228a85731309",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "Blue Owl Investors Seek to Pull 39% From $5B Tech Credit Fund",
+            "summary": "Blue Owl Capital (NYSE: OWL) has continued to see a large influx of redemptions across its private credit funds.",
+            "published_at": "2026-10-02T15:34:26+00:00",
+            "url": "https://finnhub.io/api/news?id=465cf2ad09465c9b3a87e2f8e050002c5e0afd710240219a42e67bf5eba52f43",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "TechCrunch Disrupt 2026: Blackstone\u2019s Jas Khaira on building the next generation of AI giants",
+            "summary": "Blackstone's Jas Khaira will take the Builders Stage at TechCrunch Disrupt 2026 on building next-gen AI. Register for your pass and get 50% off a second.",
+            "published_at": "2026-10-02T15:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b67df86a8dcf4e7d7db699181986a9356190bc17aa2e14c6979824d31369267e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Franklin Templeton's AUM Growth Keep Driving Earnings?",
+            "summary": "Franklin Templeton achieved record assets under management of $1.79 trillion in Q3 fiscal 2026, with $18.4 billion in long-term net inflows and 13.7% growth in investment management fees. The company is expanding its alternatives business and plans to acquire a majority stake in Stoneshield Capital to add $9 billion in AUM and strengthen European real estate and infrastructure capabilities.",
+            "published_at": "2026-10-02T15:00:00+00:00",
+            "url": "https://www.zacks.com/stock/news/2999605/can-franklin-templeton-s-aum-growth-keep-driving-earnings?cid=CS-ZC-FT-analyst_blog%7Ccompany_news_finance_sector-2999605",
+            "source": "Zacks Investment Research"
+          },
+          {
+            "headline": "Ares Management: The Growth Stock Disguised as an Income Play",
+            "summary": "Ares Management keeps raising its dividend and breaking fundraising records even as its stock slides 25% this year, which raises a question most investors in the company have not yet answered: what exactly are they holding?",
+            "published_at": "2026-10-02T14:45:14+00:00",
+            "url": "https://finnhub.io/api/news?id=158b088fad56d52b13f1570bc2f808be01a8c87e41fdeaf1d30d7127f3789e2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Broadcom Reportedly Lines Up $60B AI Chip Financing As Anthropic Expands Compute",
+            "summary": "According to Bloomberg, banks are preparing a syndication for a $42 billion senior-secured tranche as Broadcom seeks financing to help Anthropic and other AI companies access chips and infrastructure.",
+            "published_at": "2026-10-02T12:04:56+00:00",
+            "url": "https://finnhub.io/api/news?id=1639832a9b11776bfc8e5f3d443a02ee8a77fc2c73bdf4831e7ff9d2b1ed1d5d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Here\u2019s How Much You Would Have Made Owning Blackstone Stock In The Last 10 Years",
+            "summary": "Blackstone (NYSE:BX) has outperformed the market over the past 10 years by 2.84% on an annualized basis producing an average annual return of 16.39%. Currently, Blackstone has a market capitalization of $84.89 billion.",
+            "published_at": "2026-10-02T11:30:26+00:00",
+            "url": "https://finnhub.io/api/news?id=d9a7301a5e3c051aa683c5185abfee1a883cb7ec84341f095fd7cf275d03e0d1",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Blackstone Pours $1 Billion Into New Defense Tech Firm",
+            "summary": "Blackstone launches Falcata via a $1B deal combining TSC and ASEI to focus on next-generation missile defense interceptors. BX stock gains.",
+            "published_at": "2026-10-02T11:17:13+00:00",
+            "url": "https://finnhub.io/api/news?id=4a8a254195c6c18ce108a0f1f54c6d1ffa8b4004beb01513197c926ab4dcad23",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "'KKR, Blackstone Are Among Suitors for Windshield Repairer Cary' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-02/kkr-blackstone-are-among-suitors-for-windshield-repairer-cary",
+            "published_at": "2026-10-02T10:02:21+00:00",
+            "url": "https://finnhub.io/api/news?id=044dedd94c39d0cbfcc048efe17b98c5dd563f27335067a8dbfab275ed9a9ef0",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "'Blue Owl Again Caps Two BDCs After 39%, 17% Withdrawal Requests' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-02/blue-owl-again-caps-two-bdcs-after-39-17-withdrawal-requests",
+            "published_at": "2026-10-02T09:06:29+00:00",
+            "url": "https://finnhub.io/api/news?id=3165acd5dee273329bd9025215b0a299c600a9f6b332a89c1a9156926d349580",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Wells Fargo Initiates Coverage On Blackstone with Equal-Weight Rating, Announces Price Target of $122",
+            "summary": "Wells Fargo  analyst Daniel Welden   initiates coverage on Blackstone (NYSE:BX) with a Equal-Weight rating and announces Price Target of $122.",
+            "published_at": "2026-10-02T08:53:19+00:00",
+            "url": "https://finnhub.io/api/news?id=3ebb79643ad8e7936a841cfb0f651d615a4de6055db2ec76149b279e7b9381cf",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Broadcom Starts Amassing $60 Billion to Fund Chips for Anthropic",
+            "summary": "Broadcom Inc.\u2019s Wall Street syndicate are starting to gather $60 billion of fresh AI chip financing to benefit Anthropic PBC and other companies, according to people with knowledge of the matter.",
+            "published_at": "2026-10-02T04:12:33+00:00",
+            "url": "https://finnhub.io/api/news?id=bca5aea198252b809d0e7823934b553a0254d9a2b7fc4b98bf2c092b234b59ec",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 111.73999786376953
+    },
+    {
+      "ticker": "PCAR",
+      "predicted_return": 0.3097961741695666,
+      "open_price": 109.05000305175781,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:55.687878+00:00",
+        "articles": [
+          {
+            "headline": "Paccar: The Price Has Come Down Far Enough Now",
+            "summary": "PACCAR is rated Buy, leveraging sector rotation-driven weakness to enter a stable, cash-rich business at below-sector multiples. Click for more on PCAR stock.",
+            "published_at": "2026-10-04T06:01:56+00:00",
+            "url": "https://finnhub.io/api/news?id=41fb3c82ac50198802abea5a67823c006bb2c9baddd612a9c2de2ae58cfc5c35",
+            "source": "SeekingAlpha"
+          },
+          {
+            "headline": "What Could Lift Caterpillar Stock?",
+            "summary": "Caterpillar (CAT) stock returned 75% over the past twelve months, against 16.0% for the S&P 500. The shares now cost 35.1 times the past year's profit, a ratio known as the P/E. The average P/E at the last twelve quarter-ends, leaving out readings above 100, was 22.0. With the P/E that far above its own average, where would any further gain come from.",
+            "published_at": "2026-10-02T09:55:00+00:00",
+            "url": "https://finnhub.io/api/news?id=5a68e3771b59e7127cad0b55784d282537ff06ec5a6f0ee10b906e2b3ed621e5",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "2 Cash-Producing Stocks with Promising Prospects and 1 We Brush Off",
+            "summary": "Generating cash is essential for any business, but not all cash-rich companies are great investments. Some produce plenty of cash but fail to allocate it effectively, leading to missed opportunities.",
+            "published_at": "2026-10-02T09:42:03+00:00",
+            "url": "https://finnhub.io/api/news?id=168f9badca7040d68c74b634cf09d64a780542e9820e53c97d9382a9a8b775c0",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 109.7300033569336
+    },
+    {
+      "ticker": "ARES",
+      "predicted_return": 0.30360584447968064,
+      "open_price": 115.33000183105469,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 13,
+        "reviewed_count": 13,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:55.690644+00:00",
+        "articles": [
+          {
+            "headline": "Market Chatter: Ares Seeks Upfront Payment From BT as TalkTalk Nears Administration",
+            "summary": "Ares Management (ARES) is seeking a multi million pound upfront payment from BT Group in exchange fo",
+            "published_at": "2026-10-05T07:50:30+00:00",
+            "url": "https://finnhub.io/api/news?id=74b171cb2fe4eeea9f54037b060db7a507b68bc49511afc3ad826d795a4c9b45",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BT\u2019s TalkTalk swoop would damage Britain, Wall Street giant warns",
+            "summary": "Forcing through a BT takeover of TalkTalk would damage Britain\u2019s standing as a destination for international investment, the Government has been warned.",
+            "published_at": "2026-10-04T18:44:45+00:00",
+            "url": "https://finnhub.io/api/news?id=5fd01da4d39dc7a2712d91a86f0fd0e8ffb989e388875dca205489176a19c338",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "BT\u2019s TalkTalk swoop risks broadband monopoly, rival bidder warns",
+            "summary": "Ministers should block BT from acquiring rival TalkTalk to avoid creating a broadband monopoly in the UK, a rival bidder has warned.",
+            "published_at": "2026-10-03T16:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=b67035b5abb824b6e5e2e2f9299dd0646d432aab28042d9c545138a96ef8133f",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Wells Fargo Initiates Coverage of Ares Management at Overweight",
+            "summary": "",
+            "published_at": "2026-10-03T00:49:06+00:00",
+            "url": "https://finnhub.io/api/news?id=89ec6d87ecbf227a0295a4910714a9db1401574bb29636f0ae1635b49d01b59b",
+            "source": "Fintel"
+          },
+          {
+            "headline": "Ares Management Corporation Updates the Time of Its Earnings Conference Call for the Third Quarter Ending September 30, 2026",
+            "summary": "Ares Management Corporation announced today that it has updated the time it will hold its earnings webcast/conference call for the third quarter ending September 30, 2026 to 9:00am ET on Thursday, October 29, 2026. Ares Management Corporation will report its earnings for the third quarter ending September 30, 2026 earlier that morning, prior to the opening of the New York Stock Exchange.",
+            "published_at": "2026-10-02T20:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2bf2d5be92b70ad3f885a3e73feb95123d025b3613f14431b0b9f44835545cc2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Awayday Announces Strategic Investment from Warburg Pincus",
+            "summary": "Awayday (the \"Company\"), a leading vacation rental management company on a mission to perfect the vacation rental experience for owners and guests alike, today announced it has closed a significant investment from Warburg Pincus, the pioneer of global growth investing. The investment is being made by the Warburg Pincus Capital Solutions Founders Fund (\"WPCS FF\"). The Company's majority owners, an Ares Private Equity fund (\"Ares\") and LightBay Capital (\"LightBay\"), will remain the controlling sha",
+            "published_at": "2026-10-02T19:02:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e136d0bea20378e34ee886ae4e91d91181daf09181bb565f739603d3f5aa7826",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "TalkTalk lenders threaten to sue over potential BT takeover",
+            "summary": "TalkTalk\u2019s lenders are considering legal action if BT is given approval to mount a rescue deal for the struggling broadband business.",
+            "published_at": "2026-10-02T18:04:07+00:00",
+            "url": "https://finnhub.io/api/news?id=cc150d3c61b7efb891987d9c4d20469350ca6240eb5570be18e48f96e246aef2",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ares Management (ARES) Stock Looks Near Fair Value On Its 77% Five Year Run",
+            "summary": "Ares Management has seen its stock give back ground in recent months after a strong multi\u2011year climb. This puts a fresh spotlight on whether the current price lines up with the returns it earns on its capital. With investors weighing eye catching long term gains against a weaker year to date performance, the question now is how the business is actually putting its capital base to work. Over the past 5 years the stock has returned about 77%, which makes the sustainability and quality of Ares...",
+            "published_at": "2026-10-02T15:06:59+00:00",
+            "url": "https://finnhub.io/api/news?id=9a8cfa464183f9b9be2d1cce56d279e937713db39b54e4b7d05df058421b16c7",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Ares Management: The Growth Stock Disguised as an Income Play",
+            "summary": "Ares Management keeps raising its dividend and breaking fundraising records even as its stock slides 25% this year, which raises a question most investors in the company have not yet answered: what exactly are they holding?",
+            "published_at": "2026-10-02T14:45:14+00:00",
+            "url": "https://finnhub.io/api/news?id=158b088fad56d52b13f1570bc2f808be01a8c87e41fdeaf1d30d7127f3789e2a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Can Lazard's Asset Management Growth Power Its 2030 Revenue Goal?",
+            "summary": "LAZ's AUM reaches $285 billion as net inflows and strategic investments drive asset management growth. Can this help double revenue by 2030?",
+            "published_at": "2026-10-02T13:04:00+00:00",
+            "url": "https://finnhub.io/api/news?id=6240bff3376ccaf6a6974ac144752b9db1f5acaed9db16793d4dce91a697580a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "ARES CAPITAL CORPORATION SCHEDULES EARNINGS RELEASE FOR THE THIRD QUARTER ENDED SEPTEMBER 30, 2026",
+            "summary": "Ares Capital Corporation (\"Ares Capital\") (NASDAQ: ARCC) announced today that it will report earnings for the third quarter ended September 30, 2026 on Tuesday, October 27, 2026 prior to the opening of the Nasdaq Global Select Market. Ares Capital invites all interested persons to attend its webcast/conference call at 12:00 p.m. (Eastern Time) on the same day to discuss its third quarter ended September 30, 2026 financial results.",
+            "published_at": "2026-10-02T11:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=25b874ae16621520d9a68c1c6c5527933daa068e04fd501400906035b7d34387",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "'Blue Owl Again Caps Two BDCs After 39%, 17% Withdrawal Requests' - Bloomberg",
+            "summary": "https://www.bloomberg.com/news/articles/2026-10-02/blue-owl-again-caps-two-bdcs-after-39-17-withdrawal-requests",
+            "published_at": "2026-10-02T09:06:29+00:00",
+            "url": "https://finnhub.io/api/news?id=3165acd5dee273329bd9025215b0a299c600a9f6b332a89c1a9156926d349580",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Wells Fargo Initiates Coverage On Ares Management with Overweight Rating, Announces Price Target of $136",
+            "summary": "Wells Fargo  analyst Daniel Welden   initiates coverage on Ares Management (NYSE:ARES) with a Overweight rating and announces Price Target of $136.",
+            "published_at": "2026-10-02T08:50:03+00:00",
+            "url": "https://finnhub.io/api/news?id=0005547b42e67bfd53f02567069eb9d8fdccb56a7dd95826b215df3ecceb2fd2",
+            "source": "Benzinga"
+          }
+        ]
+      },
+      "prev_close": 117.58000183105469
+    },
+    {
+      "ticker": "NVO",
+      "predicted_return": 0.3018932728842554,
+      "open_price": 36.93000030517578,
+      "snapshot_date": "2026-10-02",
+      "news_flag": "Novo Nordisk Holds Its 2026 Outlook As FDA Review Of Its Blood Disorder Drug Runs Long",
+      "news_checked": false,
+      "news_check": {
+        "status": "degraded",
+        "flag": "Novo Nordisk Holds Its 2026 Outlook As FDA Review Of Its Blood Disorder Drug Runs Long",
+        "article_count": 18,
+        "reviewed_count": 18,
+        "judge": "classifier",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [
+          "llm_unavailable"
+        ],
+        "checked_at": "2026-10-05T13:36:55.696522+00:00",
+        "articles": [
+          {
+            "headline": "Here Are My Top 4 Stocks to Buy in October",
+            "summary": "The article recommends four stocks for October investment: Viking Therapeutics for its unique monthly-dose GLP-1 weight loss drug candidate in a market expected to reach $200 billion by 2030; Alphabet for its dominant position in cloud computing AI services with 82% YoY growth and gaining market share; SoFi Technologies for strong revenue growth (40% YoY) and customer expansion despite recent setbacks; and MercadoLibre for its Amazon-like growth trajectory in Latin America with 50% YoY revenue growth despite margin pressures from free shipping initiatives.",
+            "published_at": "2026-10-05T12:24:00+00:00",
+            "url": "https://www.fool.com/investing/2026/10/05/here-are-my-top-4-stocks-to-buy-in-october/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Better High-Yield Dividend Stock: Pfizer or Novo Nordisk?",
+            "summary": "Novo Nordisk covers its dividend, and Pfizer doesn't, but investors appear increasingly worried about Novo's future.",
+            "published_at": "2026-10-04T21:35:00+00:00",
+            "url": "https://finnhub.io/api/news?id=f05cbd0e70f3fe7b8bb214cdf07615812097ac6e7396c3fe3f63e14d210432e0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Anthropic Commits $100 Million Behind AI Talent Push, Plans to Train 10,000 Engineers by 2027 as IPO Looms",
+            "summary": "Anthropic launches a $100 million academy to train 10,000 AI engineers by 2027 as demand for AI talent surges.",
+            "published_at": "2026-10-03T04:50:48+00:00",
+            "url": "https://finnhub.io/api/news?id=c374d22ad662f2e9a86d87491250adbf117caf63ea48d8b1e5b8a0729a2eb431",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Stocktwits Biotech Dealmaker \u2014 Novartis, Sanofi And Novo Sign Week\u2019s Biggest Deals",
+            "summary": "Biotech companies this week spent on experimental therapies, including autoimmune drugs, next-generation obesity pills and cancer combinations.",
+            "published_at": "2026-10-03T00:13:35+00:00",
+            "url": "https://finnhub.io/api/news?id=91306fa3d9deb441f4497b6d7a76a19ba222c2b00e2a72e156a56807caad6a3e",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Better Pharmaceuticals ETF: VanEck's PPH vs. Invesco PJP",
+            "summary": "VanEck Pharmaceutical ETF (PPH) offers lower costs (0.36% expense ratio) and higher dividend yield (2%), making it better for long-term buy-and-hold investors. Invesco Pharmaceuticals ETF (PJP) delivered stronger 1-year returns (41% vs 31%) with more balanced U.S.-focused holdings, but charges higher fees (0.58%) and offers lower yield (0.9%).",
+            "published_at": "2026-10-03T00:13:28+00:00",
+            "url": "https://www.fool.com/coverage/etfs/2026/10/02/better-pharmaceuticals-etf-vaneck-s-pph-vs-invesco-pjp/?source=iedfolrf0000001",
+            "source": "The Motley Fool"
+          },
+          {
+            "headline": "Novo Nordisk Holds Its 2026 Outlook As FDA Review Of Its Blood Disorder Drug Runs Long",
+            "summary": "The FDA has told Novo that its review of the biologics license application is still underway and has not given a new date for a decision.",
+            "published_at": "2026-10-02T23:57:59+00:00",
+            "url": "https://finnhub.io/api/news?id=b5fd148ac47c3300e4a7dd7006413b5fe4fc7fad4abe8990d3e854b088ee15c0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Anthropic Is Spending $100M To Build The AI Workforce It Needs For Its Next Phase",
+            "summary": "The company plans to train 10,000 engineers from its business partners as it pushes Claude deeper into corporate operations.",
+            "published_at": "2026-10-02T23:36:22+00:00",
+            "url": "https://finnhub.io/api/news?id=7355569c00d72fdaf7b3b054666c7d8cdfbd78f67ac1bc21d9879f6f1dc62df8",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Novo provides update on the denecimig Biologics License Application (BLA) in the US",
+            "summary": "The US Food and Drug Administration (FDA) has informed Novo that the BLA review of denecimig for the treatment of haemophilia A is still ongoing. The FDA has not communicated a new timeline for regulatory action on the BLA The FDA has informed Novo that the ongoing facility remediation activities are the cause for extension of the Agency's review. The FDA has not identified any deficiencies related to the clinical efficacy or safety data submitted in the denecimig BLANovo is actively working wit",
+            "published_at": "2026-10-02T20:53:00+00:00",
+            "url": "https://finnhub.io/api/news?id=aee7d36f7157c0f998ec488226fb4e69cfa9a273c40e5a928ac5995d7d5e8bfe",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Novo Nordisk Strikes Nearly $4 Billion in 2 Deals. Here's What That Means for Investors",
+            "summary": "The company's search for its next wave of billion-dollar drugs continues.",
+            "published_at": "2026-10-02T20:21:01+00:00",
+            "url": "https://finnhub.io/api/news?id=b0aa3be549a1ebcdfddc8cb81fd4bf34d8f42fc9edc9319259536944c6cff914",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Novo Provides Update On The Denecimig Biologics License Application  In The US; The FDA Has Informed Novo That The BLA Review Of Denecimig For The Treatment Of Haemophilia A Is Still Ongoing; The FDA Has Not Communicated A New Timeline For Regulatory Action On The BLA",
+            "summary": "https://www.globenewswire.com/news-release/2026/10/02/3374048/0/en/novo-provides-update-on-the-denecimig-biologics-license-application-bla-in-the-us.html",
+            "published_at": "2026-10-02T17:12:30+00:00",
+            "url": "https://finnhub.io/api/news?id=b940a4a985154b67a62f51aeda9d0c87de3e884f4a15a03908ed91af1d790e27",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Novo Nordisk vs. Pfizer: Which Healthcare Stock Is a Better Buy in 2026?",
+            "summary": "Novo Nordisk boasts a 33% net margin and fortress balance sheet, while Pfizer trades cheaper but faces major patent cliffs through 2030.",
+            "published_at": "2026-10-02T16:35:01+00:00",
+            "url": "https://finnhub.io/api/news?id=99f2a0958840d23906a7c13cc2f1b25e3a1e4b5e4ffefc216102db8af91f8298",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DXCM Report Highlights CGM Growth Opportunity in Type 2 Diabetes Care",
+            "summary": "Dexcom sees room to expand CGM adoption as low awareness, reimbursement hurdles and rising GLP-1 use create new opportunities in Type 2 diabetes.",
+            "published_at": "2026-10-02T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ba7093e00631c7707b202bf2398be7f4422596333492cecab609d5b3e4179521",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Agios' Growth Story Hinges on Mitapivat's Commercial Expansion",
+            "summary": "AGIO's mitapivat is driving growth as Aqvesme gains traction, while an SCD opportunity and pipeline setbacks increase its importance.",
+            "published_at": "2026-10-02T13:22:00+00:00",
+            "url": "https://finnhub.io/api/news?id=920c44275ae79e66ba1c8fd085ce26c3b5971f33c97aa21e115c82479e02a728",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Regeneron Highlights Promising Ovarian Cancer, Muscle Preservation Trial Data",
+            "summary": "Regeneron reports positive trial data for ubamatamab in ovarian cancer and trevogrumab for muscle preservation during weight loss.",
+            "published_at": "2026-10-02T13:19:11+00:00",
+            "url": "https://finnhub.io/api/news?id=eb455a7439e0cfb867ce4e6f1a89b656a918ebdf13e5064bcc5cfee9b845e1f6",
+            "source": "Benzinga"
+          },
+          {
+            "headline": "Prediction: Eli Lilly Could Be the Next $2 Trillion Drugmaker",
+            "summary": "Eli Lilly just posted a 47.7% revenue surge while rivals like Novo Nordisk are watching earnings fall, and a fresh pipeline catalyst could push Lilly toward a valuation Wall Street has only seen from two companies in history.",
+            "published_at": "2026-10-02T13:00:32+00:00",
+            "url": "https://finnhub.io/api/news?id=3e9acb61c8beb0770b8746219d57ea06bd2a725b259e6bcf4015e587d2ae1091",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "3 drug targets pharma is betting on next",
+            "summary": "Companies including GSK, Merck, Roche and Sanofi are pushing new approaches in cancer and inflammatory diseases.",
+            "published_at": "2026-10-02T13:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=2a5c29225f07ae1a45e9b957034c8246a72fbbf9ad720fd1b005fdd62726d2e3",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "LLY Highlights New Efficacy Data From Foundayo and EloraTZP Studies",
+            "summary": "Eli Lilly's new data show Foundayo's cardiovascular safety and metabolic benefits, while EloraTZP delivers greater weight loss and A1C reduction in a mid-stage study.",
+            "published_at": "2026-10-02T12:15:00+00:00",
+            "url": "https://finnhub.io/api/news?id=9641574691c5539eae2b5ea205a7a42b296cec4030d2b667d6e5ab4cb6eb70ee",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "GLP-1s: Still Early In The Growth Story",
+            "summary": "The GLP-1 market continues to expand rapidly yet remains in the early stages of growth. The GLP-1 market is no longer simply a weight-loss story.",
+            "published_at": "2026-10-02T04:21:00+00:00",
+            "url": "https://finnhub.io/api/news?id=3d01e5fd3ce0a45e8a98cbb33ce9ed23e42e11c59ab96af4b45c37e6b106e207",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 37.29499816894531
+    },
+    {
+      "ticker": "CALM",
+      "predicted_return": 0.2985667165718838,
+      "open_price": 66.22000122070312,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 4,
+        "reviewed_count": 4,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:55.702747+00:00",
+        "articles": [
+          {
+            "headline": "Is Cal-Maine\u2019s (CALM) Egg Slump Already Priced Into the Stock?",
+            "summary": "As the largest producer and distributor of fresh shell eggs in the US, Cal-Maine Foods (NASDAQ:CALM) commands approximately 20% of the domestic market, backed by an unlevered, debt-free balance sheet holding $767.6 million in cash. Despite the inherent volatility of egg market cycles, the company\u2019s long-term trajectory focuses on structural margin expansion by steadily shifting [\u2026]",
+            "published_at": "2026-10-04T17:30:44+00:00",
+            "url": "https://finnhub.io/api/news?id=82c41692aba29073a5eb9cccf2cb69f42ed434361561e57df41defb962563110",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Should Cal-Maine\u2019s Q1 Loss, Dividend Pause and Shift Toward Specialty Eggs Require Action From CALM Investors?",
+            "summary": "In late September 2026, Cal-Maine Foods reported first-quarter fiscal 2027 results showing sales of US$539.61 million, down sharply from US$922.60 million a year earlier, and a net loss of US$58.62 million versus prior net income, as oversupplied egg markets and lower conventional pricing weighed on performance and led to a suspended dividend under its variable policy. At the same time, the company continued repurchasing shares under its existing authorization and moved to modernize its...",
+            "published_at": "2026-10-02T14:13:06+00:00",
+            "url": "https://finnhub.io/api/news?id=15f668c06be4b230b71b3ac78c48c13504c0b5a5f0ef3c3efd13088c07cbe75a",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cal-Maine Foods (CALM) Stock May Be Overvalued Despite Q1 Loss",
+            "summary": "Cal-Maine Foods has seen its share price fall in recent months after a strong multi\u2011year run, and the latest loss-making quarter has sharpened the focus on what investors are really paying for in terms of earnings today. With the stock around US$65.84, the immediate question is how that price lines up with the profit power the business is currently generating from its egg operations. Over the past 5 years, Cal-Maine Foods has delivered a share price gain of 142.0%. That performance now puts...",
+            "published_at": "2026-10-02T07:07:13+00:00",
+            "url": "https://finnhub.io/api/news?id=c08b3b2206cc1368d88009ef0976a3d079639d858bded9403be9c986cea5c3f0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Cal-Maine Foods (CALM) Dropped, So What Is Behind The Latest Attention?",
+            "summary": "Cal-Maine Foods (CALM) is back in focus after reporting a fiscal first quarter net loss of US$58.6 million on sales of US$539.6 million, as weaker conventional egg prices hit results. The weak quarter has quickly fed into sentiment around Cal-Maine Foods, with the share price sliding about 21% over the past three months and roughly 17% year to date, while the 1-year total shareholder return is down about 27% despite still very strong 3 and 5-year total returns. This suggests recent momentum...",
+            "published_at": "2026-10-02T04:24:09+00:00",
+            "url": "https://finnhub.io/api/news?id=679a49ea95497eebe9ea18a1e27be2eb8ce0aacc3a8cf003d64b710d15a93f60",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 66.72000122070312
+    },
+    {
+      "ticker": "DXCM",
+      "predicted_return": 0.29790888183554054,
+      "open_price": 84.75,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:36:55.706506+00:00",
+        "articles": [
+          {
+            "headline": "Why Medtronic\u2019s $4 Billion MiniMed Exchange Offer Is Losing Its Allure",
+            "summary": "The tax-free exchange offer allows Medtronic investors to swap their shares for MiniMed shares held by Medtronic in what Wall Street calls a split-off.",
+            "published_at": "2026-10-02T19:27:00+00:00",
+            "url": "https://finnhub.io/api/news?id=e0173b4c7ee26a0903ee9dd4e406e9e6fbbe0c3f2aed758ce432e74a02167ae4",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DXCM Report Highlights CGM Growth Opportunity in Type 2 Diabetes Care",
+            "summary": "Dexcom sees room to expand CGM adoption as low awareness, reimbursement hurdles and rising GLP-1 use create new opportunities in Type 2 diabetes.",
+            "published_at": "2026-10-02T14:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ba7093e00631c7707b202bf2398be7f4422596333492cecab609d5b3e4179521",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "DexCom (NASDAQ:DXCM): Strong Growth Paired With a High-Quality Technical Setup",
+            "summary": "DexCom shows strong growth, top-tier profitability, and a constructive chart setup, making it a standout pick for growth screens with defined technical levels.",
+            "published_at": "2026-10-02T11:00:34+00:00",
+            "url": "https://finnhub.io/api/news?id=2d7c434e61282f2fffbfc2970ddcb7e273aa17972453f373514bd9ea283a7008",
+            "source": "ChartMill"
+          }
+        ]
+      },
+      "prev_close": 85.37000274658203
+    },
+    {
+      "ticker": "PIPR",
+      "predicted_return": 0.2878535981446456,
+      "open_price": 64.87000274658203,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 3,
+        "reviewed_count": 3,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:37:00.956917+00:00",
+        "articles": [
+          {
+            "headline": "Piper Sandler (PIPR) Stock Sees Fair Value Cut As Perella Weinberg Deal Questions Grow",
+            "summary": "Piper Sandler Companies is back in focus after Street analysts reset the stock\u2019s price target to US$80, alongside a lower fair value estimate of US$83.88. The change comes as views split on whether the potential Perella Weinberg deal and recent execution trends can justify that updated target or leave better opportunities elsewhere in the sector. As you read on, you will see how this evolving narrative is taking shape and how to keep track of the key signals. Analyst Price Targets don't...",
+            "published_at": "2026-10-02T23:06:52+00:00",
+            "url": "https://finnhub.io/api/news?id=7b28f7486826403957ac5c6c7eca58dc55cd022e0fa047127a474d123bacc27d",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Piper Sandler Forecasts Google TPU Hardware Revenue to Reach $104 Billion by 2028",
+            "summary": "Piper Sandler has raised its forecasts for Alphabet (NASDAQ:GOOG), with analyst Thomas Champion estimating that Google\u2019s external tensor processing unit hardware business could generate $104 billion in revenue by 2028. The forecast follows Google\u2019s disclosure of external TPU hardware sales for the first time in its second-quarter 2026 results.",
+            "published_at": "2026-10-02T11:59:00+00:00",
+            "url": "https://finnhub.io/api/news?id=7ca65e1082ec80e4b8704c230809ee425443e9a50718ab483b6dbb623e35fe0c",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Piper Sandler Establishes Infrastructure Debt Advisory Team in London",
+            "summary": "LONDON, October 02, 2026--Piper Sandler Companies (NYSE: PIPR), a leading investment bank, announced that it is establishing a new infrastructure debt advisory team led by industry veteran, Stewart Robinson, who joins the firm in the London office. In addition, Hugo Muller and Anish Shah have been hired as directors. The team will be fully integrated into the energy, power and infrastructure group and focused on advising infrastructure companies on debt financing and capital raising transactions",
+            "published_at": "2026-10-02T08:00:00+00:00",
+            "url": "https://finnhub.io/api/news?id=ab9941beaf6f987cd1a27655a9bfe1b21c368c0f9d78481c0da003c0f2cf5325",
+            "source": "Yahoo"
+          }
+        ]
+      },
+      "prev_close": 65.29000091552734
+    },
+    {
+      "ticker": "SEZL",
+      "predicted_return": 0.28643640069478155,
+      "open_price": 106.5,
+      "snapshot_date": "2026-10-02",
+      "news_flag": null,
+      "news_checked": true,
+      "news_check": {
+        "status": "complete",
+        "flag": null,
+        "article_count": 2,
+        "reviewed_count": 2,
+        "judge": "grok",
+        "sources": [
+          "finnhub",
+          "polygon"
+        ],
+        "issues": [],
+        "checked_at": "2026-10-05T13:37:06.269076+00:00",
+        "articles": [
+          {
+            "headline": "1 Growth Stock Set to Flourish and 2 We Brush Off",
+            "summary": "Growth is oxygen. But when it evaporates, the consequences can be severe - ask anyone who bought Cisco in the Dot-Com Bubble or newer investors who lived through the 2020 to 2022 COVID cycle.",
+            "published_at": "2026-10-02T13:10:03+00:00",
+            "url": "https://finnhub.io/api/news?id=19eeb72a8c6b11fc486f1a29d7e9ae3de3263f9c66978aebe4342dffcacb77b0",
+            "source": "Yahoo"
+          },
+          {
+            "headline": "Sezzle: New Launches, High Returns, Above-Average Growth",
+            "summary": "Sezzle (SEZL) may be a compelling buy after a 45% pullback, with strong growth, new products and cheap valuation\u00e2\u0080\u0094see key metrics and act now.",
+            "published_at": "2026-10-02T07:45:21+00:00",
+            "url": "https://finnhub.io/api/news?id=995c35c7b41f6b105b1fe69d5b6242c68415a4afe9da0e340ccd11107dbcc608",
+            "source": "SeekingAlpha"
+          }
+        ]
+      },
+      "prev_close": 107.44000244140625
+    }
+  ],
+  "scored_count": 1920,
+  "skipped": [
+    {
+      "ticker": "EG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MKC",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "QH",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "WSO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BNT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DDS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BIO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "QRVO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TAP-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "VFS",
+      "reason": "earnings on or since the prior session -- news day, not a pattern day"
+    },
+    {
+      "ticker": "NJR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OGS",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GOLF",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GBTG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GNTX",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ESAB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PJT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SKY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KBR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "FULT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "LBTYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CVSA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OPLN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AZZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KFY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MDU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SEB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GEF-B",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AKO-A",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MHO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KEN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PRK",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SA",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SII",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NATL",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SXI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CBU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "KYIV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GPOR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CWT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CSAN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBRG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BWIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "TR",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ABM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ATAI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "SIND",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PTY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RNW",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HRMY",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PHIN",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BHC",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "BGSI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "WLYB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "AGM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "PAYO",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NTB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "NGVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "RVT",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DBD",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CCU",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "OFG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "HTH",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "MCRI",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "ALG",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CLM",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "DV",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "GENB",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "UTZ",
+      "reason": "no live quote available"
+    },
+    {
+      "ticker": "CHCO",
+      "reason": "no live quote available"
+    }
+  ],
+  "top_drivers": [
+    {
+      "feature": "cluster_overnight_gap",
+      "importance": 25.822711547346948
+    },
+    {
+      "feature": "overnight_gap",
+      "importance": 13.106553115174894
+    },
+    {
+      "feature": "weather_nyc_precip_yday",
+      "importance": 7.230975338458618
+    }
+  ],
+  "freshness": {
+    "feature_snapshot_date": "2026-10-02",
+    "model_trained_through": "2026-10-02",
+    "ready_for_inference": true,
+    "detail": "Features through 2026-10-02, model trained through 2026-10-02 -- ready for this morning's opens."
+  },
+  "kind": "rank"
+}

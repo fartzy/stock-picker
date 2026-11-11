@@ -1,0 +1,371 @@
+Custom Bars (OHLC) | Stocks REST API - Massive
+Massive
+Massive
+Changelog
+←
+Docs Home
+Quickstart
+Stocks
+Stocks Overview
+Tickers
+Aggregate Bars (OHLC)
+Custom Bars
+Daily Market Summary
+Daily Ticker Summary
+Previous Day Bar
+Snapshots
+Trades & Quotes
+Technical Indicators
+Market Operations
+Corporate Actions
+Fundamentals
+Filings & Disclosures
+News
+Options
+Futures
+Indices
+Forex
+Crypto
+Economy
+Alternative
+Partners
+Loading...
+Did you find this page helpful?
+Yes
+No
+Do you still need help with something?
+Knowledge Base
+Contact Support
+Massive
+Massive
+Changelog
+Custom Bars (OHLC)
+GET
+/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+Copy this page's markdown — spec, plan access, and sample. Paste into any chat.
+Copy for LLM
+View as Markdown
+Open the .md URL in a new tab — share, bookmark, or paste the URL into an AI tool.
+OpenAPI spec
+Open the full OpenAPI document in a new tab.
+Custom Bars (OHLC)
+GET
+/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+Copy this page's markdown — spec, plan access, and sample. Paste into any chat.
+Copy for LLM
+View as Markdown
+Open the .md URL in a new tab — share, bookmark, or paste the URL into an AI tool.
+OpenAPI spec
+Open the full OpenAPI document in a new tab.
+Retrieve aggregated historical OHLC (Open, High, Low, Close) and volume data for a specified stock ticker over a custom date range and time interval in Eastern Time (ET). Aggregates are constructed exclusively from qualifying trades that meet specific conditions. If no eligible trades occur within a given timeframe, no aggregate bar is produced, resulting in an empty interval that indicates a lack of trading activity during that period. Users can tailor their data by adjusting the multiplier and timespan parameters (e.g., a 5-minute bar), covering pre-market, regular market, and after-hours sessions. This flexibility supports a broad range of analytical and visualization needs.
+The
+from
+and
+to
+dates are inclusive. For example, a daily range from 2025-10-01 to 2025-10-03 returns a bar for each of the three days.
+Use Cases: Data visualization, technical analysis, backtesting strategies, market research.
+Individual Plans
+Business Plans
+Stocks Basic
+Free
+Stocks Starter
+$29/mo
+Stocks Developer
+$79/mo
+Stocks Advanced
+$199/mo
+Stocks Basic
+Free
+Stocks Starter
+$29/mo
+Stocks Developer
+$79/mo
+Stocks Advanced
+$199/mo
+Plan
+Access
+Included in all Stocks plans
+Individual Plans
+Business Plans
+Stocks Basic
+Free
+End-of-day
+Stocks Starter
+$29/mo
+15-minute delayed
+Stocks Developer
+$79/mo
+15-minute delayed
+Stocks Advanced
+$199/mo
+Real-time
+Stocks Basic
+Free
+End-of-day
+Stocks Starter
+$29/mo
+15-minute delayed
+Stocks Developer
+$79/mo
+15-minute delayed
+Stocks Advanced
+$199/mo
+Real-time
+Plan
+Recency
+End-of-day, 15-minute delayed, or real-time
+Individual Plans
+Business Plans
+Stocks Basic
+Free
+2 years
+Stocks Starter
+$29/mo
+5 years
+Stocks Developer
+$79/mo
+10 years
+Stocks Advanced
+$199/mo
+All history
+Stocks Basic
+Free
+2 years
+Stocks Starter
+$29/mo
+5 years
+Stocks Developer
+$79/mo
+10 years
+Stocks Advanced
+$199/mo
+All history
+Plan
+History
+Records date back to September 10, 2003
+Path Parameters
+Reset values
+stocksTicker
+string
+required
+Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+multiplier
+integer
+required
+The size of the timespan multiplier.
+timespan
+enum (string)
+required
+Select
+The size of the time window.
+from
+string
+required
+The start of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+to
+string
+required
+The end of the aggregate time window. Either a date with the format YYYY-MM-DD or a millisecond timestamp.
+Query Parameters
+adjusted
+boolean
+Select
+Whether or not the results are adjusted for splits. By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
+sort
+enum (string)
+Select
+Sort the results by timestamp. `asc` will return results in ascending order (oldest at the top), `desc` will return results in descending order (newest at the top).
+limit
+integer
+Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 5000. Read more about how limit is used to calculate aggregate results in our article on
+Aggregate Data API Improvements
+.
+Response Attributes
+ticker
+string
+The exchange symbol that this item is traded under.
+adjusted
+boolean
+Whether or not this response was adjusted for splits.
+queryCount
+integer
+The number of aggregates (minute or day) used to generate the response.
+request_id
+string
+A request id assigned by the server.
+resultsCount
+integer
+The total number of results for this request.
+status
+string
+The status of this request's response.
+results
+array (object)
+optional
+An array of results containing the requested data.
+Hide
+child attributes
+c
+number
+The close price for the symbol in the given time period.
+h
+number
+The highest price for the symbol in the given time period.
+l
+number
+The lowest price for the symbol in the given time period.
+n
+integer
+optional
+The number of transactions in the aggregate window.
+o
+number
+The open price for the symbol in the given time period.
+otc
+boolean
+optional
+Whether or not this aggregate is for an OTC ticker. This field will be left off if false.
+t
+integer
+The Unix millisecond timestamp for the start of the aggregate window.
+v
+number
+The trading volume of the symbol in the given time period.
+vw
+number
+optional
+The volume weighted average price.
+next_url
+string
+optional
+If present, this value can be used to fetch the next page of data.
+Code Examples
+Shell
+Python
+Go
+JavaScript
+Kotlin
+Shell
+Copied
+curl
+-X
+GET
+"https://api.massive.com/v2/aggs/ticker/AAPL/range/1/day/2026-10-12/2026-11-11?adjusted=true&sort=asc&limit=120&apiKey=YOUR_API_KEY"
+from massive import RESTClient client = RESTClient("YOUR_API_KEY") aggs = [] for a in client.list_aggs( "AAPL", 1, "day", "2026-10-12", "2026-11-11", adjusted="true", sort="asc", limit=120, ): aggs.append(a) print(aggs)
+package main import ( "context" "fmt" "log" "github.com/massive-com/client-go/v3/rest" "github.com/massive-com/client-go/v3/rest/gen" ) func main() { c := rest.NewWithOptions("YOUR_API_KEY", rest.WithTrace(false), rest.WithPagination(true), ) ctx := context.Background() params := &gen.GetStocksAggregatesParams{ Adjusted: rest.Ptr(true), Sort: "asc", Limit: rest.Ptr(120), } resp, err := c.GetStocksAggregatesWithResponse( ctx, "AAPL", 1, "day", "2026-10-12", "2026-11-11", params, ) if err != nil { log.Fatal(err) } if err := rest.CheckResponse(resp); err != nil { log.Fatal(err) } iter := rest.NewIteratorFromResponse(c, resp) for iter.Next() { item := iter.Item() fmt.Printf("%+v\n", item) } if err := iter.Err(); err != nil { log.Fatal(err) } }
+import { restClient } from '@massive.com/client-js'; const apiKey = "YOUR_API_KEY"; const rest = restClient(apiKey, 'https://api.massive.com'); async function example_getStocksAggregates() { try { const response = await rest.getStocksAggregates( { stocksTicker: "AAPL", multiplier: "1", timespan: "day", from: "2026-10-12", to: "2026-11-11", adjusted: "true", sort: "asc", limit: "120" } ); console.log('Response:', response); } catch (e) { console.error('An error happened:', e); } } example_getStocksAggregates();
+package com.massive.client import com.massive.client.apis.DefaultApi import com.massive.client.infrastructure.* import com.massive.client.models.* fun main() { ApiClient.apiKey["apiKey"] = "YOUR_API_KEY" val api = DefaultApi() try { val result = api.getStocksAggregates( stocksTicker = "AAPL", multiplier = "1", timespan = "day", from = "2026-10-12", to = "2026-11-11", adjusted = "true", sort = "asc", limit = "120" ) println(result) } catch (e: Exception) { println("Error calling getStocksAggregates: ${e.message}") e.printStackTrace() } }
+Query URL
+GET
+https://api.massive.com/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}?apiKey=YOUR_API_KEY
+Copied
+Run query unavailable
+Create account
+or
+sign in
+to Massive
+Run Query
+Scroll to see updated query response
+Response Object
+Sample Response
+Query Response
+Copied
+{
+"adjusted"
+:
+true
+,
+"next_url"
+:
+"https://api.massive.com/v2/aggs/ticker/AAPL/range/1/day/1578114000000/2020-01-10?cursor=bGltaXQ9MiZzb3J0PWFzYw"
+,
+"queryCount"
+:
+2
+,
+"request_id"
+:
+"6a7e466379af0a71039d60cc78e72282"
+,
+"results"
+: [
+{
+"c"
+:
+75.0875
+,
+"h"
+:
+75.15
+,
+"l"
+:
+73.7975
+,
+"n"
+:
+1
+,
+"o"
+:
+74.06
+,
+"t"
+:
+1577941200000
+,
+"v"
+:
+135647456
+,
+"vw"
+:
+74.6099
+},
+{
+"c"
+:
+74.3575
+,
+"h"
+:
+75.145
+,
+"l"
+:
+74.125
+,
+"n"
+:
+1
+,
+"o"
+:
+74.2875
+,
+"t"
+:
+1578027600000
+,
+"v"
+:
+146535512
+,
+"vw"
+:
+74.7026
+}
+],
+"resultsCount"
+:
+2
+,
+"status"
+:
+"OK"
+,
+"ticker"
+:
+"AAPL"
+}
+// Run a query to see a response
