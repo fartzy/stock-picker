@@ -20,6 +20,7 @@ from stock_picker.features.open_pattern_seasonality import (
     open_known_feature_row,
 )
 from stock_picker.features.registry import DEFAULT_TTL_DAYS, check_freshness
+from stock_picker.features.kronos import KRONOS_COLUMNS
 from stock_picker.training.dataset import GAP_COLUMN
 from stock_picker.training.ensemble import Ensemble, predict_ensemble
 
@@ -68,6 +69,11 @@ def build_inference_row(
 
     gap = compute_overnight_gap(today_open, yesterday_close)
     row = prior_day_features.copy()
+    # These belong to the target session. Per-model scoring fills the exact
+    # pinned forecast; yesterday's cached inputs never survive into today.
+    for column in KRONOS_COLUMNS:
+        if column in row.index:
+            row[column] = float("nan")
     row[GAP_COLUMN] = gap
     if spy_open is not None and spy_prev_close and spy_prev_close > 0 and "spy_overnight_gap" in row.index:
         row["spy_overnight_gap"] = (spy_open - spy_prev_close) / spy_prev_close

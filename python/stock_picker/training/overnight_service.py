@@ -222,7 +222,9 @@ def fetch_forecast_inputs(
                 f"stacked overnight forecast needs the prior XNYS feature snapshot "
                 f"{expected}; found {prepared.snapshot_date or 'none'}"
             )
-    return verified, current, prepared.row
+    from stock_picker.training.live_rows import with_live_model_context
+
+    return verified, current, with_live_model_context(prepared)
 
 
 def serve_overnight_forecast(

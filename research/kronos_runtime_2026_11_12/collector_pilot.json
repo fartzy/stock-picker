@@ -1,0 +1,33 @@
+{
+  "contract": {
+    "execution_fingerprint": "da7f49ffe7ac8e74363ba177cff10a81e390950aabafa8216c12ae5fa1b3c989",
+    "manifest_hash": "200aba791fb39bb6905f2e9ba95a3187543b660fa62a395bdc3e3ce1b391be80",
+    "feature_version": 1,
+    "price_basis": "price_store_ohlcv_as_stored"
+  },
+  "counts": {
+    "cached": 0,
+    "ok": 8,
+    "invalid_forecast": 1,
+    "missing_context": 3,
+    "worker_error": 0,
+    "invalid_request": 0
+  },
+  "stopped_at_limit": false,
+  "seconds": 3.08,
+  "coverage": {
+    "expected": 12,
+    "completed": 12,
+    "statuses": {
+      "ok": 8,
+      "invalid_forecast": 1,
+      "missing_context": 3
+    },
+    "ready": true,
+    "populated_sessions": 3,
+    "start": "2026-11-10",
+    "end": "2026-11-12",
+    "tickers": 4,
+    "sessions": 3
+  }
+}

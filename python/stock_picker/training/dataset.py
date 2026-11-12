@@ -19,12 +19,13 @@ from stock_picker.features.dip_context import DIP_CLOSE_KNOWN_COLUMNS, DIP_OPEN_
 from stock_picker.features.open_pattern_seasonality import OPEN_KNOWN_COLUMNS
 from stock_picker.features.structure import CLUSTER_GAP_COLUMN
 from stock_picker.features.weather import WEATHER_COLUMNS
+from stock_picker.features.kronos import CONTRACT_ATTR, KRONOS_COLUMNS, frame_contract
 
 LABEL_COLUMN = "label_day_session_return"
 GAP_COLUMN = "overnight_gap"
 OPEN_KNOWN_FEATURE_COLUMNS = frozenset(
     {GAP_COLUMN, "spy_overnight_gap", CLUSTER_GAP_COLUMN, *OPEN_KNOWN_COLUMNS,
-     *DIP_OPEN_KNOWN_COLUMNS, *WEATHER_COLUMNS}
+     *DIP_OPEN_KNOWN_COLUMNS, *WEATHER_COLUMNS, *KRONOS_COLUMNS}
 )
 
 
@@ -72,10 +73,17 @@ def build_pooled_dataset(
     model features (see training.model.FEATURE_COLUMNS).
     """
     frames = []
+    contracts = []
     for ticker, history in histories.items():
+        contracts.append(frame_contract(features_by_ticker[ticker], features_by_ticker[ticker].columns))
         frame = build_training_frame(history, features_by_ticker[ticker])
         frame = frame.reset_index(names="date")
         frame.insert(0, "ticker", ticker)
         frames.append(frame)
 
-    return pd.concat(frames, ignore_index=True)
+    if any(contract != contracts[0] for contract in contracts):
+        raise ValueError("pooled features mix Kronos contracts or missing provenance; rebuild features")
+    pooled = pd.concat(frames, ignore_index=True)
+    if contracts and contracts[0] is not None:
+        pooled.attrs[CONTRACT_ATTR] = contracts[0]
+    return pooled

@@ -141,11 +141,15 @@ def score_day_model_frame(
     """One train/serve scoring path using the actual saved morning estimators."""
     if open_known_rows.empty:
         raise ValueError("at least one open-known same-day row is required")
+    from stock_picker.training.live_rows import frame_for_saved_model
+
+    fit_rows = frame_for_saved_model(open_known_rows, fit)
+    rank_rows = frame_for_saved_model(open_known_rows, rank)
     estimators = getattr(fit, "stacked_svm_estimators", None) or {}
-    margins = score_stacked_svm(open_known_rows, estimators, SVM_OUTPUT_COLUMNS)
+    margins = score_stacked_svm(fit_rows, estimators, SVM_OUTPUT_COLUMNS)
     scored = pd.DataFrame({
-        DAY_OUTPUT_COLUMNS[0]: predict_ensemble(fit, open_known_rows),
-        DAY_OUTPUT_COLUMNS[1]: predict_ensemble(rank, open_known_rows),
+        DAY_OUTPUT_COLUMNS[0]: predict_ensemble(fit, fit_rows),
+        DAY_OUTPUT_COLUMNS[1]: predict_ensemble(rank, rank_rows),
         DAY_OUTPUT_COLUMNS[2]: margins["svr_oof_pred"].to_numpy(),
         DAY_OUTPUT_COLUMNS[3]: margins["svc_direction_margin"].to_numpy(),
     }, index=open_known_rows.index)

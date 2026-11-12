@@ -7,6 +7,8 @@ from datetime import date
 import pandas as pd
 
 from stock_picker.features.news import articles_by_ticker
+from stock_picker.features.kronos import ready_contract
+from stock_picker.storage.kronos_store import KronosStore
 from stock_picker.features.pipeline import build_features_for_universe
 from stock_picker.features.regime import VIX_TICKER
 from stock_picker.log import get_logger
@@ -90,6 +92,9 @@ def main() -> None:
     nyc_weather = read_nyc_weather()
 
     news_by_ticker = articles_by_ticker()
+    kronos_store = KronosStore()
+    kronos_contract, coverage = ready_contract(kronos_store, tickers, cutoff.isoformat())
+    logger.info("Kronos historical readiness %s", coverage)
     features_by_ticker = build_features_for_universe(
         histories,
         benchmark_history=benchmark_history,
@@ -99,6 +104,8 @@ def main() -> None:
         news_articles_by_ticker=news_by_ticker,
         nyc_weather=nyc_weather if not nyc_weather.empty else None,
         first_seen_by_ticker=first_seen_by_ticker,
+        kronos_store=kronos_store,
+        kronos_contract=kronos_contract,
     )
 
     feature_store = FeatureStore()

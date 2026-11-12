@@ -192,6 +192,7 @@ def run_morning_check(
         persist=False,
         news_fetcher=news_fetcher if which in ("fit", "both", "rank") else None,
         on_progress=_on_stage,
+        historical_replay=True,
     )
     return _snapshot("completed", rank_result, fit_result, completed_at=datetime.now().astimezone().isoformat())
 

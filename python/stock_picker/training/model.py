@@ -23,6 +23,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC, LinearSVR
 
 from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
+from stock_picker.features.kronos import frame_contract, validate_frame_contract
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.listwise import make_listfold_objective
 
@@ -166,6 +167,7 @@ class TrainedModel:
     model_type: str  # "lightgbm" | "random_forest" | "logistic_regression" | "neural_net" | "ridge"
     estimator: Any  # lgb.Booster or a fitted scikit-learn estimator
     feature_names: list[str] = field(default_factory=list)
+    kronos_contract: dict | None = None
 
 
 @dataclass
@@ -214,7 +216,7 @@ def train_lightgbm(
     merged = {**LIGHTGBM_DEFAULT_PARAMS, **(params or {})}
     rounds = int(merged.pop("num_boost_round", num_boost_round))
     booster = lgb.train(merged, dataset, num_boost_round=rounds)
-    return TrainedModel(model_type="lightgbm", estimator=booster, feature_names=columns)
+    return TrainedModel(model_type="lightgbm", estimator=booster, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_lightgbm_rank(
@@ -262,7 +264,7 @@ def train_lightgbm_rank(
     }
     rounds = int(merged.pop("num_boost_round", num_boost_round))
     booster = lgb.train(merged, dataset, num_boost_round=rounds)
-    return TrainedModel(model_type="lightgbm_rank", estimator=booster, feature_names=columns)
+    return TrainedModel(model_type="lightgbm_rank", estimator=booster, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_random_forest(
@@ -274,7 +276,7 @@ def train_random_forest(
     columns = feature_columns(train_frame, excluded_features, included_features)
     forest = RandomForestRegressor(**{**RANDOM_FOREST_DEFAULT_PARAMS, **(params or {})})
     forest.fit(train_frame[columns], train_frame[LABEL_COLUMN])
-    return TrainedModel(model_type="random_forest", estimator=forest, feature_names=columns)
+    return TrainedModel(model_type="random_forest", estimator=forest, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_logistic_regression(
@@ -317,7 +319,7 @@ def train_logistic_regression(
         ]
     )
     classifier.fit(train_frame[columns], direction)
-    return TrainedModel(model_type="logistic_regression", estimator=classifier, feature_names=columns)
+    return TrainedModel(model_type="logistic_regression", estimator=classifier, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_neural_net(
@@ -347,7 +349,7 @@ def train_neural_net(
         ]
     )
     regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
-    return TrainedModel(model_type="neural_net", estimator=regressor, feature_names=columns)
+    return TrainedModel(model_type="neural_net", estimator=regressor, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_ridge(
@@ -378,7 +380,7 @@ def train_ridge(
         ]
     )
     regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
-    return TrainedModel(model_type="ridge", estimator=regressor, feature_names=columns)
+    return TrainedModel(model_type="ridge", estimator=regressor, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_svr(
@@ -409,7 +411,7 @@ def train_svr(
         ]
     )
     regressor.fit(train_frame[columns], train_frame[LABEL_COLUMN])
-    return TrainedModel(model_type="svr", estimator=regressor, feature_names=columns)
+    return TrainedModel(model_type="svr", estimator=regressor, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def _fit_linear_svc(
@@ -429,7 +431,7 @@ def _fit_linear_svc(
         ]
     )
     classifier.fit(train_frame[columns], labels)
-    return TrainedModel(model_type=model_type, estimator=classifier, feature_names=columns)
+    return TrainedModel(model_type=model_type, estimator=classifier, feature_names=columns, kronos_contract=frame_contract(train_frame, columns))
 
 
 def train_svc_direction(
@@ -539,6 +541,7 @@ def decision_scores(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
     For LinearSVR this is the same number as predict(); stacking uses
     predict() for the return column and this helper for the SVC margins.
     """
+    validate_frame_contract(frame, trained.feature_names, getattr(trained, "kronos_contract", None))
     aligned = frame.reindex(columns=trained.feature_names)
     return np.asarray(trained.estimator.decision_function(aligned))
 
@@ -619,6 +622,7 @@ def predict(trained: TrainedModel, frame: pd.DataFrame) -> np.ndarray:
     # Live rows can miss a column the model was trained on (e.g. sector_relative
     # only fills for names with a sector label). Align and leave gaps as NaN --
     # LightGBM splits on missing; crashing the whole morning scan is worse.
+    validate_frame_contract(frame, trained.feature_names, getattr(trained, "kronos_contract", None))
     aligned = frame.reindex(columns=trained.feature_names)
     return np.asarray(trained.estimator.predict(aligned))
 

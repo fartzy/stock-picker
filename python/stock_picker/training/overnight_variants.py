@@ -83,12 +83,14 @@ def score_morning_variants(
     open_known_rows: pd.DataFrame, models: dict[str, Ensemble],
 ) -> pd.DataFrame:
     """Score exactly the named estimators embedded in the overnight artifact."""
+    from stock_picker.training.live_rows import frame_for_saved_model
+
     if set(models) != set(VARIANT_OUTPUT_COLUMNS) or any(
         models[column] is None for column in VARIANT_OUTPUT_COLUMNS
     ):
         raise ValueError("overnight artifact lacks its complete named morning variants")
     scores = pd.DataFrame({
-        variant.column: predict_ensemble(models[variant.column], open_known_rows)
+        variant.column: predict_ensemble(models[variant.column], frame_for_saved_model(open_known_rows, models[variant.column]))
         for variant in MORNING_VARIANTS
     }, index=open_known_rows.index)
     if not np.isfinite(scores.to_numpy(dtype=float)).all():

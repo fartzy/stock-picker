@@ -3,6 +3,8 @@ load("@rules_python//python:defs.bzl", "py_library")
 py_library(
     name = "storage",
     srcs = [
+        "kronos_store.py",
+
         "jev_outcome_store.py",
         "jev_forecast_store.py",
         "fee_store.py",
@@ -26,6 +28,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//tools/kronos:contract",
         "@pypi//exchange_calendars",
         "@pypi//pandas",
         "@pypi//pyarrow",  # keep: implicit pandas parquet backend, no direct import

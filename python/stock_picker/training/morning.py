@@ -178,6 +178,7 @@ def score_from_quotes(
     model_run_id: str | None = None,
     on_progress=None,
     jev_scorer=None,
+    historical_replay: bool = False,
 ):
     """Build open-known rows once, then Rank + Fit only predict.
 
@@ -194,6 +195,8 @@ def score_from_quotes(
     published picks after news (see `jev_shadow.py`). Only the live 8:30 run
     passes it, so replays and test runs spend no tokens.
     """
+    if historical_replay and persist:
+        raise ValueError("reconstructed replay cannot publish actual morning observations")
     t0 = time.perf_counter()
     freshness = pipeline_freshness()
     as_of = as_of or date.today()
@@ -255,6 +258,10 @@ def score_from_quotes(
         workers=SCORE_WORKERS,
         excluded_features=excluded_features,
     )
+    if historical_replay:
+        logger.info("Kronos mode=counterfactual_replay; reconstructed forecasts retain actual generation times")
+        for item in live_rows:
+            item.historical_replay = True
     scored = sum(1 for row in live_rows if row.row is not None)
     logger.info("live_rows %.1fs scored=%s skipped=%s", time.perf_counter() - t_rows, scored, len(live_rows) - scored)
 

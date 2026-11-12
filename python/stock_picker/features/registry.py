@@ -30,6 +30,7 @@ TICKER_ENTITY_NAME = "ticker"
 DEFAULT_TTL_DAYS = 2
 
 _SOURCES = {
+    "kronos": "Pinned local Kronos forecasts + observed target open",
     "cross_sectional": "PriceStore + SPY benchmark + universe peer returns",
     "breadth": "PriceStore + point-in-time UniverseStore membership",
     "trajectory": "PriceStore + past-only online path clusters + point-in-time membership",

@@ -11,6 +11,7 @@ by the article fields they consume.
 
 from __future__ import annotations
 
+from stock_picker.features.kronos import KRONOS_COLUMNS
 from stock_picker.features.news import NEWS_FEATURE_COLUMNS
 from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.training.ensemble import ensemble_feature_names
@@ -30,6 +31,8 @@ def _ensemble_inputs(model) -> list[str]:
 def model_inputs(fit=None, rank=None, overnight=None) -> list[dict]:
     """One entry per model: key, label, saved input names, and how many are model outputs."""
     fit_inputs = _ensemble_inputs(fit)
+    rank_inputs = _ensemble_inputs(rank)
+    outputs = {*STACKED_SVM_COLUMNS, *KRONOS_COLUMNS}
     overnight_inputs = list(overnight.feature_columns) if overnight is not None else list(STACKED_FEATURE_COLUMNS)
     return [
         {
@@ -37,14 +40,14 @@ def model_inputs(fit=None, rank=None, overnight=None) -> list[dict]:
             "label": "Fit",
             "saved": fit is not None,
             "features": fit_inputs,
-            "model_outputs": [name for name in fit_inputs if name in STACKED_SVM_COLUMNS],
+            "model_outputs": [name for name in fit_inputs if name in outputs],
         },
         {
             "key": "rank",
             "label": "Rank",
             "saved": rank is not None,
-            "features": _ensemble_inputs(rank),
-            "model_outputs": [],
+            "features": rank_inputs,
+            "model_outputs": [name for name in rank_inputs if name in outputs],
         },
         {
             "key": "overnight",
