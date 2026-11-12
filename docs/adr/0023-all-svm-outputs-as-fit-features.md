@@ -1,7 +1,7 @@
 # 0023: Keep all seven SVM outputs in the Fit feature landscape
 
 Date: 2026-10-04
-Status: Implemented
+Status: Implemented; Fit-only restriction superseded by [ADR 0029](0029-shared-svm-inputs-for-rank.md).
 
 ADR 0021 found no consistently winning seven-output configuration. ADR 0022
 nevertheless added `svc_direction_margin` as a removable LightGBM input. The

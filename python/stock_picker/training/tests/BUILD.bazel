@@ -360,9 +360,11 @@ py_pytest(
 
 py_pytest(
     name = "test_train",
+    size = "medium",
     srcs = ["test_train.py"],
     imports = ["../../.."],
     deps = [
+        "//python/stock_picker/storage",
         "//python/stock_picker/training",
         "@pypi//numpy",
         "@pypi//pandas",

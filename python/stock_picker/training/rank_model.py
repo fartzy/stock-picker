@@ -19,9 +19,10 @@ from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.model_store import ModelStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.universe_store import UniverseStore
-from stock_picker.training.ensemble import Ensemble, ModelSpec, train_ensemble
+from stock_picker.training.ensemble import Ensemble, ModelSpec
 from stock_picker.training.main import _load_pooled_dataset
 from stock_picker.training.splits import select_holdout_tickers
+from stock_picker.training.train import run_walk_forward
 
 RANK_MODEL_NAME = "day_session_return_rank"
 RANK_TOP_K = 20
@@ -62,6 +63,11 @@ def train_and_persist_rank_model(
     model_store: ModelStore | None = None,
     included_features: set[str] | None = None,
 ) -> Ensemble:
+    """Standalone Rank training; normal joint training shares Fit's SVM pass.
+
+    A standalone run must build its own chronological OOF outputs. Scoring
+    training rows with today's saved Fit SVMs would leak their labels.
+    """
     excluded = pruned_features()
     tickers = UniverseStore().active_tickers()
     holdout = select_holdout_tickers(tickers)
@@ -75,7 +81,12 @@ def train_and_persist_rank_model(
             weight=1.0,
         )
     ]
-    ensemble = train_ensemble(pooled, specs)
+    results = run_walk_forward(
+        pooled, specs=specs, stack_direction_margin=True, refit_on_all_data=True,
+    )
+    ensemble = results[-1].final_model
+    if ensemble is None:
+        raise RuntimeError("standalone Rank training requires a full-data refit")
     store = model_store or ModelStore()
     store.write(RANK_MODEL_NAME, ensemble)
     return ensemble

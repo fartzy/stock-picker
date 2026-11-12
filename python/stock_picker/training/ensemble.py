@@ -28,6 +28,8 @@ from stock_picker.training.model import (
 )
 from stock_picker.training.svm_stack import score_stacked_svm
 
+STACKED_SVM_CONSUMER_TYPES = frozenset({"lightgbm", RANK_MODEL_TYPE})
+
 
 @dataclass
 class ModelSpec:
@@ -42,10 +44,10 @@ class ModelSpec:
 class Ensemble:
     members: list[TrainedModel]
     weights: list[float]
-    # Kept in the same archive as the LightGBM member that consumes its
+    # Kept in the same archive as the Fit or Rank member that consumes its
     # margin. Old pickles do not have this field; scoring uses getattr.
     direction_svc: TrainedModel | None = None
-    # New archives carry whichever SVM outputs their LightGBM members use.
+    # New archives carry whichever SVM outputs their Fit or Rank members use.
     # Legacy archives only have direction_svc, handled during inference.
     stacked_svm_estimators: dict[str, TrainedModel] | None = None
 
@@ -53,13 +55,13 @@ class Ensemble:
 def train_ensemble(train_frame: pd.DataFrame, specs: list[ModelSpec]) -> Ensemble:
     for spec in specs:
         if (
-            spec.model_type != "lightgbm"
+            spec.model_type not in STACKED_SVM_CONSUMER_TYPES
             and set(STACKED_SVM_COLUMNS) & set(feature_columns(
                 train_frame, spec.excluded_features, spec.included_features
             ))
         ):
             raise ValueError(
-                "stacked SVM outputs are only supported for LightGBM members; "
+                "stacked SVM outputs are only supported for LightGBM members (Fit/Rank); "
                 f"{spec.model_type} would consume it"
             )
     members = [
@@ -79,16 +81,17 @@ def predict_ensemble(ensemble: Ensemble, frame: pd.DataFrame) -> np.ndarray:
     unsupported = [
         member.model_type
         for member in ensemble.members
-        if member.model_type != "lightgbm" and set(STACKED_SVM_COLUMNS) & set(member.feature_names)
+        if member.model_type not in STACKED_SVM_CONSUMER_TYPES
+        and set(STACKED_SVM_COLUMNS) & set(member.feature_names)
     ]
     if unsupported:
         raise ValueError(
-            "stacked SVM outputs are only supported for LightGBM members; "
+            "stacked SVM outputs are only supported for LightGBM members (Fit/Rank); "
             f"found {unsupported}"
         )
     needed = tuple(
         name for name in STACKED_SVM_COLUMNS
-        if any(member.model_type == "lightgbm" and name in member.feature_names
+        if any(member.model_type in STACKED_SVM_CONSUMER_TYPES and name in member.feature_names
                for member in ensemble.members)
     )
     if needed:

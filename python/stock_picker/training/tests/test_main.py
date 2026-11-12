@@ -99,7 +99,6 @@ def test_run_training_never_fits_svc_on_holdout_and_scores_raw_holdout(tmp_path,
     written = {}
     write_order = []
     fitted_tickers = []
-    rank_calls = []
     actual_fit = direction_stack.train_svc_direction
     actual_walk_forward = training_module.run_walk_forward
 
@@ -134,7 +133,7 @@ def test_run_training_never_fits_svc_on_holdout_and_scores_raw_holdout(tmp_path,
     monkeypatch.setattr("stock_picker.training.main.train_logistic_regression", lambda *_args, **_kwargs: object())
     monkeypatch.setattr(
         "stock_picker.training.rank_model.train_and_persist_rank_model",
-        lambda **kwargs: rank_calls.append(kwargs),
+        lambda **_kwargs: pytest.fail("joint training must reuse its existing SVM pass"),
     )
     monkeypatch.setattr(
         "stock_picker.training.main.sweep_thresholds",
@@ -155,14 +154,22 @@ def test_run_training_never_fits_svc_on_holdout_and_scores_raw_holdout(tmp_path,
     archived = written["day_session_return_example"]
     assert archived is written["day_session_return"]
     assert archived.direction_svc is not None
-    assert rank_calls == [{"included_features": None}]  # Rank remains a separate raw-feature path.
+    rank = written["day_session_return_rank"]
+    assert rank is written["day_session_return_rank_example"]
+    assert rank.direction_svc is archived.direction_svc
+    assert rank.members[0].model_type == "lightgbm_rank"
+    assert rank.members[0].feature_names == ["signal", DIRECTION_MARGIN_COLUMN]
+    assert [member.model_type for member in archived.members] == ["lightgbm"]
     assert write_order == [
         "day_session_return_logistic_diagnostic",
+        "day_session_return_rank_example",
+        "day_session_return_rank",
         "day_session_return_example",
         "day_session_return",
     ]
     raw_holdout = pooled[pooled["ticker"] == "HOLD"]
     assert len(predict_ensemble(archived, raw_holdout)) == len(raw_holdout)
+    assert len(predict_ensemble(rank, raw_holdout)) == len(raw_holdout)
 
 
 def _stub_fold_training(monkeypatch, holdout_tickers):
@@ -181,6 +188,7 @@ def _stub_fold_training(monkeypatch, holdout_tickers):
         fold=0,
         model=model,
         final_model=model,
+        final_rank_model=None,
         metrics=EvaluationMetrics(mae=0.01, directional_accuracy=0.5, n_test_rows=1),
         train_rows=1,
     )
@@ -237,17 +245,10 @@ def test_no_holdout_still_publishes_archive_before_latest(monkeypatch):
     ]
 
 
-def test_failed_rank_companion_does_not_publish_new_fit(monkeypatch):
+def test_missing_rank_companion_does_not_publish_new_fit(monkeypatch):
     stored, latest, write_order = _stub_fold_training(monkeypatch, set())
 
-    def fail_rank(**_kwargs):
-        raise RuntimeError("Rank failed")
-
-    monkeypatch.setattr(
-        "stock_picker.training.rank_model.train_and_persist_rank_model", fail_rank
-    )
-
-    with pytest.raises(RuntimeError, match="Rank failed"):
+    with pytest.raises(RuntimeError, match="full-data Rank companion refit"):
         run_training(
             model_specs=[ModelSpec("lightgbm"), ModelSpec("lightgbm_rank")],
             run_id="failed_rank",

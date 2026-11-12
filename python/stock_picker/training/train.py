@@ -15,9 +15,13 @@ import pandas as pd
 
 from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
 from stock_picker.storage.paths import data_root
+from stock_picker.training.backtest import rank_ic, simulate_top_k
+from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN, iter_direction_margin_folds
-from stock_picker.training.ensemble import Ensemble, ModelSpec, evaluate_ensemble, train_ensemble
-from stock_picker.training.model import EvaluationMetrics, fit_stacked_svm_estimators
+from stock_picker.training.ensemble import (
+    STACKED_SVM_CONSUMER_TYPES, Ensemble, ModelSpec, evaluate_ensemble, predict_ensemble, train_ensemble,
+)
+from stock_picker.training.model import RANK_MODEL_TYPE, EvaluationMetrics, TrainedModel, fit_stacked_svm_estimators
 from stock_picker.training.splits import walk_forward_splits
 from stock_picker.training.svm_stack import iter_stacked_svm_folds
 
@@ -29,14 +33,49 @@ DEFAULT_SPECS: list[ModelSpec] = [ModelSpec("lightgbm")]
 
 
 @dataclass
+class RankEvaluationMetrics:
+    """Relative-score diagnostics; a Rank score is never a return forecast."""
+
+    rank_ic: float
+    top1_avg_return: float
+    top5_avg_return: float
+    top20_avg_return: float
+    n_test_rows: int
+
+
+@dataclass
 class FoldResult:
     """One validation fold; the final entry may also carry the full-data refit."""
 
     fold: int
     model: Ensemble
-    metrics: EvaluationMetrics
+    metrics: EvaluationMetrics | RankEvaluationMetrics
     train_rows: int
     final_model: Ensemble | None = None
+    final_rank_model: Ensemble | None = None
+
+
+def _pair_stacked_estimators(ensemble: Ensemble, estimators: dict[str, TrainedModel]) -> None:
+    """Archive only the fitted source models this head actually consumes."""
+    needed = set(STACKED_SVM_COLUMNS) & {
+        name for member in ensemble.members for name in member.feature_names
+    }
+    ensemble.stacked_svm_estimators = {name: estimators[name] for name in needed} or None
+    ensemble.direction_svc = estimators.get(DIRECTION_MARGIN_COLUMN) if DIRECTION_MARGIN_COLUMN in needed else None
+
+
+def _evaluate_fold(ensemble: Ensemble, frame: pd.DataFrame) -> EvaluationMetrics | RankEvaluationMetrics:
+    if all(member.model_type == RANK_MODEL_TYPE for member in ensemble.members):
+        scores = pd.Series(predict_ensemble(ensemble, frame), index=frame.index)
+        actual, dates = frame[LABEL_COLUMN], frame["date"]
+        return RankEvaluationMetrics(
+            rank_ic=rank_ic(scores, actual, dates),
+            top1_avg_return=simulate_top_k(scores, actual, dates, k=1)["avg_return"],
+            top5_avg_return=simulate_top_k(scores, actual, dates, k=5)["avg_return"],
+            top20_avg_return=simulate_top_k(scores, actual, dates, k=20)["avg_return"],
+            n_test_rows=len(frame),
+        )
+    return evaluate_ensemble(ensemble, frame)
 
 
 def _configure_mlflow(tracking_dir: Path) -> None:
@@ -66,22 +105,30 @@ def run_walk_forward(
     tracking_dir: Path = DEFAULT_TRACKING_DIR,
     stack_direction_margin: bool = False,
     refit_on_all_data: bool = False,
+    rank_spec: ModelSpec | None = None,
 ) -> list[FoldResult]:
     """Train+evaluate an ensemble across chronological folds.
 
-    When ``stack_direction_margin`` is enabled and a LightGBM member selects
+    When ``stack_direction_margin`` is enabled and a Fit or Rank member selects
     SVM outputs, its training rows receive strictly earlier-date predictions.
     The paired estimators are fitted
     on the entire preceding outer training period, using *all unpruned raw*
     features even when LightGBM has a narrower positive selection. Other
     member families train on those same eligible rows but never see the margin.
+    ``rank_spec`` requests a separate final Rank head on that same OOF frame,
+    sharing the SVM fits without putting ranking scores in the return blend.
     """
     specs = specs if specs is not None else DEFAULT_SPECS
+    if not specs:
+        raise ValueError("walk-forward training requires at least one model spec")
+    if rank_spec is not None and (rank_spec.model_type != RANK_MODEL_TYPE or not refit_on_all_data):
+        raise ValueError("a companion Rank spec requires lightgbm_rank and a full-data refit")
+    consumer_specs = [*specs, *([rank_spec] if rank_spec is not None else [])]
     stacked_specs = [
         spec
-        for spec in specs
+        for spec in consumer_specs
         if stack_direction_margin
-        and spec.model_type == "lightgbm"
+        and spec.model_type in STACKED_SVM_CONSUMER_TYPES
         and any(
             name not in (spec.excluded_features or set())
             and (spec.included_features is None or name in spec.included_features)
@@ -96,7 +143,8 @@ def run_walk_forward(
             for spec in stacked_specs
         )
     )
-    # A run has one fitted estimator per output used by LightGBM members.
+    fit_uses_stack = any(spec in stacked_specs for spec in specs)
+    # A run has one fitted estimator per output used by Fit or Rank members.
     # Production passes a uniform pruned set to every spec; reject ambiguous
     # direct calls rather than choosing an arbitrary set of source inputs.
     source_exclusions = set(stacked_specs[0].excluded_features or ()) - set(STACKED_SVM_COLUMNS) if stacked_specs else set()
@@ -104,14 +152,14 @@ def run_walk_forward(
         (set(spec.excluded_features or ()) - set(STACKED_SVM_COLUMNS)) != source_exclusions
         for spec in stacked_specs[1:]
     ):
-        raise ValueError("stacked-SVM LightGBM members must share excluded features")
-    # The model-derived margin is a Fit/LightGBM input only. A shared
+        raise ValueError("stacked-SVM Fit/Rank members must share excluded features")
+    # The model-derived margin is a Fit/Rank input only. A shared
     # positive selection from the UI must not make Ridge or another member
     # consume it merely because it is present in the stacked frame.
     training_specs = [
         (
             spec
-            if spec.model_type == "lightgbm"
+            if spec.model_type in STACKED_SVM_CONSUMER_TYPES
             else replace(
                 spec,
                 excluded_features=set(spec.excluded_features or ()) | set(STACKED_SVM_COLUMNS),
@@ -157,14 +205,19 @@ def run_walk_forward(
     fold_results = []
     with mlflow.start_run(run_name="walk_forward"):
         _log_specs(specs, n_splits)
+        mlflow.log_param("companion_rank", rank_spec is not None)
         mlflow.log_param("stacked_svm_outputs", ",".join(selected_outputs))
 
         for fold, (base_train, stacked_train, test_frame, estimators) in enumerate(folds):
-            train_frame = stacked_train if estimators else base_train
+            # A raw-only return head keeps every training row even when the
+            # separate Rank head requested OOF inputs for its final fit.
+            train_frame = (
+                stacked_train if fit_uses_stack else
+                pooled_dataset[pooled_dataset["date"] < test_frame["date"].min()]
+            ) if estimators else base_train
             ensemble = train_ensemble(train_frame, training_specs)
-            ensemble.stacked_svm_estimators = estimators or None
-            ensemble.direction_svc = estimators.get(DIRECTION_MARGIN_COLUMN)
-            metrics = evaluate_ensemble(ensemble, test_frame)
+            _pair_stacked_estimators(ensemble, estimators)
+            metrics = _evaluate_fold(ensemble, test_frame)
 
             with mlflow.start_run(run_name=f"fold_{fold}", nested=True):
                 mlflow.log_param("fold", fold)
@@ -180,8 +233,8 @@ def run_walk_forward(
                 # The last fold already contains earlier-date OOF outputs for
                 # its training rows and for the final test block. Together
                 # they cover all eligible dates through the latest close.
-                final_frame = pd.concat([train_frame, test_frame])
-                if not final_frame.index.is_unique:
+                stacked_final_frame = pd.concat([stacked_train, test_frame])
+                if not stacked_final_frame.index.is_unique:
                     raise ValueError("full-data stacked refit requires unique OOF rows")
                 final_estimators = fit_stacked_svm_estimators(
                     pooled_dataset,
@@ -189,12 +242,17 @@ def run_walk_forward(
                     outputs=selected_outputs,
                 )
             else:
-                final_frame = pooled_dataset
+                stacked_final_frame = pooled_dataset
                 final_estimators = {}
+            final_frame = stacked_final_frame if fit_uses_stack else pooled_dataset
             final_model = train_ensemble(final_frame, training_specs)
-            final_model.stacked_svm_estimators = final_estimators or None
-            final_model.direction_svc = final_estimators.get(DIRECTION_MARGIN_COLUMN)
+            _pair_stacked_estimators(final_model, final_estimators)
             fold_results[-1].final_model = final_model
+            if rank_spec is not None:
+                rank_frame = stacked_final_frame if rank_spec in stacked_specs else pooled_dataset
+                final_rank = train_ensemble(rank_frame, [rank_spec])
+                _pair_stacked_estimators(final_rank, final_estimators)
+                fold_results[-1].final_rank_model = final_rank
             mlflow.log_param("final_refit_rows", len(final_frame))
             mlflow.log_param("final_refit_through", str(final_frame["date"].max()))
 

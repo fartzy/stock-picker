@@ -118,10 +118,9 @@ def run_training(
     is active it uses every unpruned raw feature, even if LightGBM has a
     narrow positive selection. `None` means every feature, subject to
     pruning only. At least one unpruned raw feature is required when using a
-    positive selection, because the standalone diagnostic and Rank models
-    cannot train on a model-derived margin alone.
+    positive selection, because the standalone diagnostic requires raw inputs.
 
-    `stack_direction_margin` enables selected SVM-derived Fit columns (the
+    `stack_direction_margin` enables selected SVM-derived Fit/Rank columns (the
     original name is retained for older callers). Research scripts
     that selected a winner using raw-feature folds pass False when
     materializing that winner so the archived model matches its comparison.
@@ -156,7 +155,7 @@ def run_training(
     ):
         raise ValueError(
             "positive feature selection must include at least one unpruned raw feature; "
-            "the direction SVC margin alone cannot train diagnostic or Rank models"
+            "SVM outputs alone cannot train the diagnostic model"
         )
     price_store = PriceStore()
     feature_store = FeatureStore()
@@ -198,11 +197,15 @@ def run_training(
                 "present in the training dataset"
             )
 
-    # Fit enables the derived features; raw-feature research
-    # winners explicitly opt out so materialization matches their search.
+    # Fit and Rank share chronological SVM outputs and their fitted sources.
+    # Raw-feature research winners opt out so materialization matches search.
+    rank_spec = ModelSpec(
+        "lightgbm_rank", excluded_features=excluded_features,
+        included_features=included_features,
+    ) if wants_rank else None
     fold_results = run_walk_forward(
         train_dataset, specs=specs, stack_direction_margin=stack_direction_margin,
-        refit_on_all_data=True,
+        refit_on_all_data=True, rank_spec=rank_spec,
     )
     for result in fold_results:
         logger.info("fold %s: %s", result.fold, result.metrics)
@@ -210,9 +213,11 @@ def run_training(
     final_ensemble = fold_results[-1].final_model
     if final_ensemble is None:
         raise RuntimeError("production training requires a full-data final refit")
+    final_rank = fold_results[-1].final_rank_model if wants_rank else None
+    if wants_rank and final_rank is None:
+        raise RuntimeError("production training requires a full-data Rank companion refit")
 
-    # Fit alone sees the model-derived margin, while all other members see
-    # raw features only. Include the saved SVC's raw inputs too, so the run
+    # Include the saved SVMs' raw inputs too, so the run
     # record describes everything the archived predictor requires to score.
     resolved_features = sorted(ensemble_feature_names(final_ensemble))
 
@@ -243,12 +248,6 @@ def run_training(
         # is pandas' own well-tested path for native Python types instead.
         threshold_sweep = json.loads(sweep.to_json(orient="records"))
 
-    if wants_rank:
-        from stock_picker.training.rank_model import train_and_persist_rank_model
-
-        logger.info("training ListFold rank model (parallel pickle, not blended into the return ensemble)")
-        train_and_persist_rank_model(included_features=included_features)
-
     summary = TrainingSummary(
         fold_metrics=fold_metrics,
         holdout_metrics=holdout_metrics,
@@ -264,6 +263,12 @@ def run_training(
     # model; write the run-specific archive before changing `latest`.
     model_store = ModelStore()
     model_store.write(DIAGNOSTIC_MODEL_NAME, diagnostic_model)
+    if final_rank is not None:
+        from stock_picker.training.rank_model import RANK_MODEL_NAME
+
+        if run_id:
+            model_store.write(f"{RANK_MODEL_NAME}_{run_id}", final_rank)
+        model_store.write(RANK_MODEL_NAME, final_rank)
     if run_id:
         model_store.write(f"{MODEL_NAME}_{run_id}", final_ensemble)
     model_store.write(MODEL_NAME, final_ensemble)
