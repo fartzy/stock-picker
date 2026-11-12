@@ -496,3 +496,10 @@ py_pytest(
     imports = ["../../.."],
     deps = ["//python/stock_picker/training", "//python/stock_picker/features", "//python/stock_picker/storage", "//python/stock_picker/ingestion", "//tools/kronos:contract", "@pypi//numpy", "@pypi//pandas", "@pypi//exchange_calendars"],
 )
+
+py_pytest(
+    name = "test_rank_input_experiment",
+    srcs = ["test_rank_input_experiment.py"],
+    imports = ["../../.."],
+    deps = ["//python/stock_picker/training", "//python/stock_picker/features", "@pypi//numpy", "@pypi//pandas", "@pypi//pyarrow"],
+)
