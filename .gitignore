@@ -35,3 +35,9 @@ data/models/importance_history/.lock
 
 # Rebuilt from hash-listed, versioned price/feature inputs; exceeds GitHub file limit.
 /research/feature_revisit_2026_11_11/panel.parquet
+
+# Reproducible external-model runtimes and downloaded weights are rebuilt locally.
+/.runtime/
+
+# Rebuildable forecast cache; compact provenance reports remain versioned.
+/data/kronos/

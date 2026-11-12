@@ -1,0 +1,10 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+# Only the pure contract enters the app. Torch and runtime loading stay isolated.
+py_library(
+    name = "contract",
+    srcs = ["contract.py"],
+    data = ["manifest.json"],
+    imports = ["../.."],
+    visibility = ["//visibility:public"],
+)

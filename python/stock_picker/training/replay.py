@@ -46,6 +46,7 @@ def replay_morning(
         earnings_fetcher=lambda *a, **k: set(),
         as_of=as_of,
         model_run_id=model_run_id,
+        historical_replay=True,
     )
     scan_id = uuid.uuid4().hex[:12]
     day = as_of.isoformat()

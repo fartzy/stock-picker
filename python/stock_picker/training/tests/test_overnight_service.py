@@ -103,10 +103,13 @@ def test_old_artifact_stays_ready_but_stacked_artifact_requires_all_pinned_varia
 
 
 def test_stacked_inputs_require_immediately_previous_exchange_snapshot(monkeypatch):
+    from stock_picker.training.live_rows import LiveRow
+
     # Tuesday follows the Labor Day closure, so Friday—not Monday—is prior.
     session = date(2026, 9, 8)
-    prepared = SimpleNamespace(
-        row=pd.DataFrame({"signal": [1.0]}), snapshot_date="2026-09-04",
+    prepared = LiveRow(
+        "AAA", row=pd.DataFrame({"signal": [1.0]}), snapshot_date="2026-09-04",
+        open_price=10., prev_close=9.5, as_of=session.isoformat(),
     )
     monkeypatch.setattr(overnight_service, "prepare_one", lambda *args, **kwargs: prepared)
 

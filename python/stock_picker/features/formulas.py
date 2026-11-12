@@ -8,6 +8,8 @@ through to the unknown placeholder below.
 
 from __future__ import annotations
 
+from stock_picker.features.kronos import KRONOS_COLUMNS
+
 import re
 from collections.abc import Callable
 
@@ -472,6 +474,8 @@ _pattern(r"^path_cluster_peer_return_1d$", lambda m: "mean(other same-cluster co
 def describe_computation(name: str) -> str:
     """Short pandas-expression formula for a feature column, or a flagged
     placeholder if no pattern matches."""
+    if name in KRONOS_COLUMNS:
+        return "(forecast / context_close) * prior_close / open - 1" if name != "kronos_range" else "((high - low) / context_close) * prior_close / open"
     if name in DIP_FEATURE_METADATA:
         return DIP_FEATURE_METADATA[name].computation
     for pattern, template in _PATTERNS:

@@ -114,9 +114,11 @@ def iter_stacked_svm_folds(
             raise ValueError("stacked SVM OOF rows must be a unique subset of training rows")
         baseline = train_frame.loc[historical.index]
         stacked_train = baseline.join(historical)
+        stacked_train.attrs = dict(baseline.attrs)
         estimators, test_columns = _fit_and_score(
             train_frame, test_frame, outputs, excluded_features
         )
         stacked_test = test_frame.join(test_columns)
+        stacked_test.attrs = dict(test_frame.attrs)
         yield StackedSvmFold(baseline, stacked_train, stacked_test, estimators)
         oof_blocks.append(test_columns)

@@ -29,6 +29,7 @@ from stock_picker.features import (
     volatility,
     volume,
 )
+from stock_picker.features.kronos import KRONOS_COLUMNS
 from stock_picker.features.descriptions import describe_feature
 from stock_picker.features.examples import feature_example
 from stock_picker.features.formulas import describe_computation
@@ -102,6 +103,7 @@ def list_feature_columns(sample_history: pd.DataFrame) -> dict[str, list[str]]:
     columns["structure"] = list(structure.STRUCTURE_COLUMNS)
     columns["trajectory"] = list(trajectory.PATH_COLUMNS)
     columns["weather"] = list(weather.WEATHER_COLUMNS)
+    columns["kronos"] = list(KRONOS_COLUMNS)
     return columns
 
 

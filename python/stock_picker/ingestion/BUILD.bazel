@@ -3,6 +3,9 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "ingestion",
     srcs = [
+        "kronos.py",
+        "kronos_client.py",
+
         "finnhub_client.py",
         "fundamentals.py",
         "history_policy.py",
@@ -20,6 +23,7 @@ py_library(
     imports = ["../.."],
     visibility = ["//visibility:public"],
     deps = [
+        "//tools/kronos:contract",
         "//python/stock_picker:log",
         "//python/stock_picker:parallel",
         "//python/stock_picker/storage",
@@ -92,4 +96,11 @@ py_binary(
         "//python/stock_picker/tickers",
         "@pypi//yfinance",
     ],
+)
+
+py_binary(
+    name = "kronos",
+    srcs = ["kronos.py"],
+    imports = ["../.."],
+    deps = [":ingestion"],
 )

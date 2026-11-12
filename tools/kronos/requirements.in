@@ -1,0 +1,10 @@
+# Inference-only dependencies; intentionally isolated from the app's environment.
+numpy==2.2.6
+pandas==2.2.2
+torch==2.15.0
+einops==0.8.1
+huggingface_hub==0.33.1
+safetensors==0.6.2
+tqdm==4.67.1
+pyarrow==26.0.1
+exchange_calendars==4.13.2

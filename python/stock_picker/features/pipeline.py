@@ -32,6 +32,8 @@ from stock_picker.features.volatility import build_volatility_features
 from stock_picker.features.structure import build_structure_features, merge_structure
 from stock_picker.features.volume import build_volume_features
 from stock_picker.storage.price_store import sanitize_price_history
+from stock_picker.features.kronos import CONTRACT_ATTR, historical_inputs
+from stock_picker.storage.kronos_store import KronosStore
 
 
 def build_features(
@@ -89,6 +91,8 @@ def build_features_for_universe(
     news_articles_by_ticker: dict | None = None,
     nyc_weather: pd.DataFrame | None = None,
     first_seen_by_ticker: dict[str, str] | None = None,
+    kronos_store: KronosStore | None = None,
+    kronos_contract: dict | None = None,
 ) -> dict[str, pd.DataFrame]:
     """Compute features for every ticker in `histories`, including the cross-sectional
     return-rank columns and pooled setup-seasonality average, both of which require
@@ -160,4 +164,11 @@ def build_features_for_universe(
             ticker: pd.concat([features, trajectory[ticker]], axis=1)
             for ticker, features in merged.items()
         }
+    if kronos_contract is not None:
+        if kronos_store is None:
+            raise ValueError("Kronos materialization requires its forecast store")
+        for ticker, features in merged.items():
+            inputs = historical_inputs(ticker, histories[ticker], kronos_store, kronos_contract)
+            merged[ticker] = pd.concat([features, inputs], axis=1)
+            merged[ticker].attrs[CONTRACT_ATTR] = dict(kronos_contract)
     return merged

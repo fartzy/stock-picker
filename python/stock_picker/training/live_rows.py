@@ -19,6 +19,8 @@ from stock_picker.storage.feature_store import FeatureStore
 from stock_picker.storage.price_store import PriceStore
 from stock_picker.storage.ticker_blacklist_store import blacklisted_tickers
 from stock_picker.training.inference import StaleFeatureSnapshotError, build_inference_row
+from stock_picker.features.kronos import CONTRACT_ATTR, KRONOS_COLUMNS, live_inputs, target_has_known_split
+from stock_picker.storage.kronos_store import KronosStore
 
 
 @dataclass
@@ -29,6 +31,10 @@ class LiveRow:
     prev_close: float | None = None
     snapshot_date: str | None = None
     row: pd.DataFrame | None = None
+    as_of: str | None = None
+    prior_history: pd.DataFrame | None = None
+    historical_replay: bool = False
+    known_target_split: bool = False
 
 
 def _index_dates(index: pd.Index) -> np.ndarray:
@@ -83,6 +89,7 @@ def prepare_one(
         prior_history = price_store.read(ticker)
     except FileNotFoundError:
         prior_history = None
+    known_target_split = target_has_known_split(prior_history, as_of.isoformat())
     if prior_history is not None and not prior_history.empty:
         prior_history = prior_history.iloc[_index_dates(prior_history.index) < as_of]
         if prior_history.empty:
@@ -107,7 +114,67 @@ def prepare_one(
         prev_close=float(prev_close) if prev_close is not None else None,
         snapshot_date=snapshot_date.isoformat(),
         row=row,
+        as_of=as_of.isoformat(),
+        prior_history=prior_history.tail(128) if prior_history is not None else None,
+        known_target_split=known_target_split,
     )
+
+
+def model_frame(rows: list[LiveRow], ensemble, store: KronosStore | None = None) -> pd.DataFrame:
+    """Share expensive base rows, materialize cheap K inputs for each saved head.
+
+    Its paired SVM may consume K even when the final head does not.
+    """
+    from stock_picker.training.ensemble import ensemble_kronos_contract
+
+    frame = pd.concat([item.row for item in rows], ignore_index=True)
+    contract = ensemble_kronos_contract(ensemble)
+    if contract is None:
+        return frame
+    cache = store if store is not None else KronosStore()
+    inputs = [live_inputs(item.ticker, item.as_of, item.open_price, item.prev_close,
+                          item.prior_history, cache, contract,
+                          allow_reconstructed=item.historical_replay,
+                          known_target_split=item.known_target_split) for item in rows]
+    for column in KRONOS_COLUMNS:
+        frame[column] = [values[column] for values in inputs]
+    frame.attrs[CONTRACT_ATTR] = contract
+    frame.attrs["kronos_usage"] = "counterfactual_replay" if any(item.historical_replay for item in rows) else "pre_open_observation"
+    return frame
+
+
+def with_live_model_context(item: LiveRow) -> pd.DataFrame:
+    """Carry one scenario's read-only price context to its pinned day-model heads.
+
+    This ephemeral metadata never enters historical feature snapshots. Use
+    plain containers so pandas can copy/compare attrs without DataFrame equality.
+    """
+    frame = item.row.copy()
+    history = item.prior_history
+    frame.attrs["kronos_live_context"] = {
+        "ticker": item.ticker, "as_of": item.as_of, "open_price": item.open_price,
+        "prev_close": item.prev_close,
+        "known_target_split": item.known_target_split,
+        "sessions": [day.isoformat() for day in _index_dates(history.index)] if history is not None else [],
+        "bars": history[["Open", "High", "Low", "Close", "Volume"]].to_dict("list") if history is not None else {},
+    }
+    return frame
+
+
+def frame_for_saved_model(frame: pd.DataFrame, ensemble) -> pd.DataFrame:
+    """Historical rows keep their pinned attrs; live scenarios resolve each head."""
+    context = frame.attrs.get("kronos_live_context")
+    if context is None:
+        return frame
+    if len(frame) != 1:
+        raise ValueError("live model context must describe exactly one scenario row")
+    history = pd.DataFrame(context["bars"], index=pd.DatetimeIndex(context["sessions"]))
+    item = LiveRow(context["ticker"], row=frame, as_of=context["as_of"],
+                   open_price=context["open_price"], prev_close=context["prev_close"], prior_history=history,
+                   known_target_split=context.get("known_target_split", False))
+    result = model_frame([item], ensemble)
+    result.index = frame.index
+    return result
 
 
 @dataclass

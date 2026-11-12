@@ -29,6 +29,14 @@ def run_nightly() -> int:
     try:
         logger.info("=== 1/7 refresh prices (Yahoo, then Finnhub leftover bars) ===")
         refresh_prices()
+        # The optional worker never prevents the existing pipeline from running.
+        # A bounded failure leaves K inputs unknown and retries on the next run.
+        try:
+            from stock_picker.ingestion.kronos import collect_daily
+
+            logger.info("Kronos daily collection %s", collect_daily(max_seconds=600))
+        except Exception:
+            logger.exception("Kronos collection unavailable; continuing nightly")
         logger.info("=== 2/7 add completed day to What if ===")
         paper_book_failed = False
         try:

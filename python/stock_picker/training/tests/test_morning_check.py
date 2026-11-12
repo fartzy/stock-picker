@@ -44,8 +44,10 @@ def test_both_uses_score_from_quotes(monkeypatch):
         as_of=None,
         model_run_id=None,
         on_progress=None,
+        historical_replay=False,
     ):
         called["persist"] = persist
+        called["historical_replay"] = historical_replay
         called["news"] = news_fetcher is not None
         rank = BuySignalResult(as_of="2026-09-19", threshold=0.0, scored_count=2, signals=[])
         fit = BuySignalResult(as_of="2026-09-19", threshold=0.005, scored_count=2, signals=[])
@@ -62,6 +64,7 @@ def test_both_uses_score_from_quotes(monkeypatch):
 
     result = mc.run_morning_check(which="both", news_fetcher=lambda t, d: {})
     assert called["persist"] is False
+    assert called["historical_replay"] is True
     assert [p.which for p in result.passes] == ["rank", "fit", "both"]
     assert result.n_quotes == 1
 

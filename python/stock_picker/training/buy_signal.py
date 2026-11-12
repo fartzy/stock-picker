@@ -26,7 +26,7 @@ from stock_picker.storage.training_config_store import TrainingConfigStore
 from stock_picker.storage.universe_store import UniverseStore
 from stock_picker.training.ensemble import Ensemble, ensemble_feature_names, predict_ensemble
 from stock_picker.training.importance import ensemble_importance
-from stock_picker.training.live_rows import LiveRow, prepare_live_rows
+from stock_picker.training.live_rows import LiveRow, model_frame, prepare_live_rows
 from stock_picker.training.main import MODEL_NAME
 from stock_picker.training.rank_model import RANK_MODEL_NAME, RANK_TOP_K
 
@@ -97,7 +97,7 @@ def _signals_from_live_rows(
         ready.append(item)
     if not ready:
         return [], skipped, 0
-    frame = pd.concat([item.row for item in ready], ignore_index=True)
+    frame = model_frame(ready, ensemble)
     predicted = predict_ensemble(ensemble, frame)
     signals: list[BuySignal] = []
     for item, predicted_return in zip(ready, predicted):

@@ -11,6 +11,8 @@ completeness test in test_examples.py.
 
 from __future__ import annotations
 
+from stock_picker.features.kronos import KRONOS_COLUMNS
+
 import re
 from collections.abc import Callable
 
@@ -581,6 +583,8 @@ _pattern(r"^path_cluster_peer_return_1d$", lambda m: "Other stocks in this clust
 def feature_example(name: str) -> str:
     """A short worked example for a feature column, or a flagged placeholder if
     no pattern matches."""
+    if name in KRONOS_COLUMNS:
+        return "Context close 100, prior close 100, open 100: forecast close 102 gives 2%." if name != "kronos_range" else "Forecast high 104, low 98 and open 100 gives a 6% range."
     if name in DIP_FEATURE_METADATA:
         return DIP_FEATURE_METADATA[name].example
     for pattern, template in _PATTERNS:

@@ -52,6 +52,22 @@ class Ensemble:
     stacked_svm_estimators: dict[str, TrainedModel] | None = None
 
 
+def ensemble_kronos_contract(ensemble: Ensemble) -> dict | None:
+    """Resolve all persisted consumers, including SVM source models in old heads."""
+    from stock_picker.features.kronos import KRONOS_COLUMNS
+
+    models = list(ensemble.members) + list((getattr(ensemble, "stacked_svm_estimators", None) or {}).values())
+    if getattr(ensemble, "direction_svc", None) is not None:
+        models.append(ensemble.direction_svc)
+    contracts = [getattr(model, "kronos_contract", None) for model in models
+                 if set(model.feature_names).intersection(KRONOS_COLUMNS)]
+    if not contracts:
+        return None
+    if contracts[0] is None or any(contract != contracts[0] for contract in contracts):
+        raise ValueError("saved ensemble has missing or inconsistent Kronos contracts")
+    return dict(contracts[0])
+
+
 def train_ensemble(train_frame: pd.DataFrame, specs: list[ModelSpec]) -> Ensemble:
     for spec in specs:
         if (
