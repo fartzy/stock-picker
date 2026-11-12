@@ -59,6 +59,7 @@ py_library(
         "profile_live_rows.py",
         "model_registry.py",
         "rank_model.py",
+        "rank_input_experiment.py",
         "recent_picks_demo.py",
         "replay.py",
         "restored_feature_search.py",
@@ -158,6 +159,13 @@ py_binary(
     srcs = ["feature_revisit.py"],
     imports = ["../.."],
     deps = [":training", "//python/stock_picker/features", "//python/stock_picker/storage", "@pypi//pyarrow"],
+)
+
+py_binary(
+    name = "rank_input_experiment",
+    srcs = ["rank_input_experiment.py"],
+    imports = ["../.."],
+    deps = [":training", "//python/stock_picker/features", "//python/stock_picker/ingestion", "//python/stock_picker/storage", "@pypi//numpy", "@pypi//pandas", "@pypi//pyarrow"],
 )
 
 py_binary(
