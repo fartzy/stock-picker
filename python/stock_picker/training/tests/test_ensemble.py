@@ -151,15 +151,18 @@ def test_direction_margin_is_recomputed_from_raw_frame_for_predict_and_evaluate(
     assert ensemble_feature_names(ensemble) == frozenset({"signal", DIRECTION_MARGIN_COLUMN})
 
 
-def test_multiple_saved_svm_outputs_are_recomputed_at_inference():
+@pytest.mark.parametrize("model_type", ["lightgbm", "lightgbm_rank"])
+def test_multiple_saved_svm_outputs_are_recomputed_at_inference(model_type):
     outputs = ("svr_oof_pred", "svc_gate_margin")
     source = _make_learnable_frame(400, seed=10)
-    fit_train = _make_learnable_frame(400, seed=11)
+    fit_train = _make_learnable_frame(400, seed=11).assign(
+        date=np.repeat(pd.bdate_range("2026-01-01", periods=40), 10)
+    )
     estimators = fit_stacked_svm_estimators(source, included_features={"signal"}, outputs=outputs)
     derived_train = score_stacked_svm(fit_train, estimators, outputs)
     stacked_train = fit_train.assign(**{name: derived_train[name] for name in outputs})
     ensemble = train_ensemble(stacked_train, [ModelSpec(
-        "lightgbm", params={"min_data_in_leaf": 10}, included_features={"signal", *outputs}
+        model_type, params={"min_data_in_leaf": 10}, included_features={"signal", *outputs}
     )])
     ensemble.stacked_svm_estimators = estimators
     raw = _make_learnable_frame(50, seed=12)
@@ -176,6 +179,17 @@ def test_multiple_saved_svm_outputs_are_recomputed_at_inference():
     del estimators["svc_gate_margin"]
     with pytest.raises(ValueError, match="fitted SVM is missing"):
         predict_ensemble(ensemble, raw)
+
+
+def test_legacy_raw_rank_archive_needs_no_svm_estimators():
+    frame = _make_learnable_frame(200, seed=15).assign(
+        date=np.repeat(pd.bdate_range("2026-01-01", periods=20), 10)
+    )
+    ensemble = train_ensemble(frame, [ModelSpec("lightgbm_rank", params={"min_data_in_leaf": 2})])
+    del ensemble.stacked_svm_estimators
+    del ensemble.direction_svc
+    restored = pickle.loads(pickle.dumps(ensemble))
+    assert np.allclose(predict_ensemble(restored, frame), predict(restored.members[0], frame))
 
 
 def test_direction_margin_requires_matching_estimator_and_raw_inputs():

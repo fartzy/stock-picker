@@ -1,13 +1,18 @@
+import pickle
+from types import SimpleNamespace
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from stock_picker.features.stacked_svm import STACKED_SVM_COLUMNS
+from stock_picker.storage.model_store import ModelStore
 from stock_picker.training.dataset import LABEL_COLUMN
 from stock_picker.training.direction_stack import DIRECTION_MARGIN_COLUMN
-from stock_picker.training.ensemble import ModelSpec
+from stock_picker.training.ensemble import ModelSpec, predict_ensemble
+from stock_picker.training.model import predict
 from stock_picker.training.splits import walk_forward_splits
-from stock_picker.training.train import run_walk_forward
+from stock_picker.training.train import RankEvaluationMetrics, run_walk_forward
 
 
 def _make_pooled_dataset(n_dates=20, n_tickers=10):
@@ -225,3 +230,157 @@ def test_research_winner_materialization_keeps_raw_comparison(monkeypatch):
         {"model_specs": specs, "stack_direction_margin": False},
         {"model_specs": specs, "stack_direction_margin": False},
     ]
+
+
+def test_rank_companion_reuses_all_seven_oof_columns_and_source_fits(tmp_path, monkeypatch):
+    from stock_picker.training import svm_stack
+    from stock_picker.training import train as training_module
+
+    pooled = _make_pooled_dataset(n_dates=30)
+    trained = []
+    folds = []
+    source_calls = []
+    actual_train = training_module.train_ensemble
+    actual_folds = training_module.iter_stacked_svm_folds
+    actual_source = training_module.fit_stacked_svm_estimators
+
+    def capture_train(frame, specs):
+        trained.append((specs[0].model_type, frame))
+        return actual_train(frame, specs)
+
+    def capture_folds(*args, **kwargs):
+        for fold in actual_folds(*args, **kwargs):
+            folds.append(fold)
+            yield fold
+
+    def capture_source(frame, **kwargs):
+        source_calls.append((frame.index.copy(), kwargs["outputs"]))
+        return actual_source(frame, **kwargs)
+
+    monkeypatch.setattr(training_module, "train_ensemble", capture_train)
+    monkeypatch.setattr(training_module, "iter_stacked_svm_folds", capture_folds)
+    monkeypatch.setattr(training_module, "fit_stacked_svm_estimators", capture_source)
+    monkeypatch.setattr(svm_stack, "fit_stacked_svm_estimators", capture_source)
+    results = run_walk_forward(
+        pooled, n_splits=3, tracking_dir=tmp_path,
+        specs=[ModelSpec("lightgbm", params={"min_data_in_leaf": 2, "num_boost_round": 5})],
+        rank_spec=ModelSpec("lightgbm_rank", params={"min_data_in_leaf": 2, "num_boost_round": 5}),
+        stack_direction_margin=True, refit_on_all_data=True,
+    )
+
+    # Three seed fits + three outer folds + one final SVM fit; no second pass for Rank.
+    assert len(source_calls) == 7
+    assert all(outputs == STACKED_SVM_COLUMNS for _, outputs in source_calls)
+    fit_frame, rank_frame = trained[-2][1], trained[-1][1]
+    assert fit_frame is rank_frame
+    expected_oof = pd.concat([folds[-1].stacked_train, folds[-1].stacked_test])
+    pd.testing.assert_frame_equal(rank_frame, expected_oof)
+    assert len(rank_frame) < len(pooled)
+    fit, rank = results[-1].final_model, results[-1].final_rank_model
+    assert [m.model_type for m in fit.members] == ["lightgbm"]
+    assert [m.model_type for m in rank.members] == ["lightgbm_rank"]
+    assert set(STACKED_SVM_COLUMNS).issubset(rank.members[0].feature_names)
+    assert all(rank.stacked_svm_estimators[name] is fit.stacked_svm_estimators[name]
+               for name in STACKED_SVM_COLUMNS)
+    raw = pooled.tail(20).copy()
+    manual = raw.join(svm_stack.score_stacked_svm(raw, rank.stacked_svm_estimators, STACKED_SVM_COLUMNS))
+    expected = predict(rank.members[0], manual)
+    restored = pickle.loads(pickle.dumps(rank))
+    assert np.allclose(predict_ensemble(restored, raw), expected)
+    assert np.allclose(predict_ensemble(restored, raw.assign(**dict.fromkeys(STACKED_SVM_COLUMNS, 999))), expected)
+
+
+@pytest.mark.parametrize("raw_head", ["lightgbm", "lightgbm_rank"])
+def test_raw_only_companion_head_keeps_full_rows_and_no_svm_artifacts(tmp_path, monkeypatch, raw_head):
+    from stock_picker.training import train as training_module
+
+    pooled = _make_pooled_dataset(n_dates=30)
+    trained = []
+    actual_train = training_module.train_ensemble
+
+    def capture(frame, specs):
+        trained.append((specs[0].model_type, frame))
+        return actual_train(frame, specs)
+
+    def spec(kind):
+        return ModelSpec(
+            kind, params={"min_data_in_leaf": 2, "num_boost_round": 5},
+            included_features={"signal"} if kind == raw_head else {"signal", DIRECTION_MARGIN_COLUMN},
+        )
+
+    monkeypatch.setattr(training_module, "train_ensemble", capture)
+    result = run_walk_forward(
+        pooled, n_splits=3, tracking_dir=tmp_path,
+        specs=[spec("lightgbm")], rank_spec=spec("lightgbm_rank"),
+        stack_direction_margin=True, refit_on_all_data=True,
+    )[-1]
+
+    raw_frame = next(frame for kind, frame in trained[-2:] if kind == raw_head)
+    pd.testing.assert_frame_equal(raw_frame, pooled)
+    heads = {"lightgbm": result.final_model, "lightgbm_rank": result.final_rank_model}
+    assert heads[raw_head].members[0].feature_names == ["signal"]
+    assert heads[raw_head].stacked_svm_estimators is None
+    assert heads[raw_head].direction_svc is None
+    stacked_head = heads["lightgbm_rank" if raw_head == "lightgbm" else "lightgbm"]
+    assert set(stacked_head.stacked_svm_estimators) == {DIRECTION_MARGIN_COLUMN}
+
+
+def test_shared_svm_sources_reject_different_raw_exclusions(tmp_path):
+    with pytest.raises(ValueError, match="share excluded features"):
+        run_walk_forward(
+            _make_pooled_dataset(), tracking_dir=tmp_path,
+            specs=[ModelSpec("lightgbm", excluded_features={"signal"})],
+            rank_spec=ModelSpec("lightgbm_rank"),
+            stack_direction_margin=True, refit_on_all_data=True,
+        )
+
+
+def test_standalone_rank_uses_chronological_stack_and_saves_paired_archive(monkeypatch, tmp_path):
+    from stock_picker.training import rank_model
+    from stock_picker.training import train as training_module
+
+    pooled = _make_pooled_dataset(n_dates=30)
+    calls = []
+    fold_metrics = []
+
+    def walk_forward(frame, **kwargs):
+        assert frame is pooled
+        calls.append(kwargs)
+        results = run_walk_forward(frame, n_splits=3, tracking_dir=tmp_path / "tracking", **kwargs)
+        fold_metrics.extend(result.metrics for result in results)
+        return results
+
+    monkeypatch.setattr(rank_model, "UniverseStore", lambda: SimpleNamespace(active_tickers=lambda: ["TRAIN", "HOLD"]))
+    monkeypatch.setattr(rank_model, "select_holdout_tickers", lambda _: {"HOLD"})
+    monkeypatch.setattr(rank_model, "PriceStore", lambda: object())
+    monkeypatch.setattr(rank_model, "FeatureStore", lambda: object())
+    monkeypatch.setattr(rank_model, "pruned_features", lambda: {"pruned"})
+
+    def load(tickers, *_):
+        assert tickers == ["TRAIN"]
+        return pooled
+
+    monkeypatch.setattr(rank_model, "_load_pooled_dataset", load)
+    monkeypatch.setattr(rank_model, "run_walk_forward", walk_forward)
+    monkeypatch.setattr(
+        training_module, "evaluate_ensemble",
+        lambda *_: pytest.fail("unitless Rank scores cannot have return MAE or sign accuracy"),
+    )
+    store = ModelStore(data_dir=tmp_path / "models")
+    result = rank_model.train_and_persist_rank_model(
+        model_store=store,
+        included_features={"signal", DIRECTION_MARGIN_COLUMN},
+    )
+    assert calls == [{
+        "specs": [ModelSpec("lightgbm_rank", excluded_features={"pruned"},
+                            included_features={"signal", DIRECTION_MARGIN_COLUMN})],
+        "stack_direction_margin": True, "refit_on_all_data": True,
+    }]
+    restored = store.read(rank_model.RANK_MODEL_NAME)
+    assert restored.members[0].feature_names == ["signal", DIRECTION_MARGIN_COLUMN]
+    assert set(restored.stacked_svm_estimators) == {DIRECTION_MARGIN_COLUMN}
+    assert all(isinstance(metrics, RankEvaluationMetrics) for metrics in fold_metrics)
+    assert all(not hasattr(metrics, "mae") and not hasattr(metrics, "directional_accuracy")
+               for metrics in fold_metrics)
+    raw = pooled.tail(20)
+    assert np.allclose(predict_ensemble(restored, raw), predict_ensemble(result, raw))

@@ -154,9 +154,9 @@ def model_derived_views() -> list[ModelDerivedFeatureView]:
         ModelDerivedFeatureView(
             name="stacked_svm",
             features=list(PRODUCTION_MODEL_DERIVED_COLUMNS),
-            source="Chronological out-of-fold LinearSVR/LinearSVC in Fit training; paired estimators at inference",
+            source="Shared chronological LinearSVR/LinearSVC outputs; paired estimators at inference",
             status="production_eligible",
-            description="Seven removable SVM summaries consumed by Fit LightGBM when unpruned. Saved estimators generate live values; these are not feature-parquet columns.",
+            description="Seven selectable SVM inputs for Fit and Rank. Saved estimators generate live values.",
         )
     ]
 

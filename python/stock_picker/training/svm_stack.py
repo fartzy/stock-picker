@@ -1,4 +1,4 @@
-"""Leakage-safe, chronological SVM outputs for LightGBM Fit training."""
+"""Leakage-safe, chronological SVM outputs shared by Fit and Rank training."""
 
 from __future__ import annotations
 

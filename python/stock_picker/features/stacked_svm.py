@@ -1,7 +1,7 @@
 """Metadata for model-derived SVM stacking outputs (ADRs 0021 and 0022).
 
 These values are produced by fitted training estimators, not by the feature
-pipeline or its persisted parquet snapshots. All seven are selectable Fit
+pipeline or its persisted parquet snapshots. All seven are selectable Fit/Rank
 inputs; pruning can disable any of them for the next trained model.
 """
 
