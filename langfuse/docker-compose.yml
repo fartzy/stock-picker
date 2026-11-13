@@ -73,6 +73,7 @@ services:
       CLICKHOUSE_PASSWORD: clickhouse
     volumes:
       - langfuse_clickhouse_data:/var/lib/clickhouse
+      - ./clickhouse-logging.xml:/etc/clickhouse-server/config.d/zz-logging.xml:ro
     ports:
       - 127.0.0.1:8123:8123
       - 127.0.0.1:9000:9000

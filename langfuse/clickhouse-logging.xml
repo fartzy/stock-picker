@@ -1,0 +1,38 @@
+<!--
+  Keep local ClickHouse from filling the disk with its own logs.
+
+  Langfuse data lives in the `default` database and is untouched by this file.
+  Without it, ClickHouse 24.8 grew ~2 GB of internal `system.*` log tables and
+  ~880 MB of text logs in two months while holding <1 MB of Langfuse traces
+  (found 2026-11-13).
+
+  Mounted into /etc/clickhouse-server/config.d/ by docker-compose.yml.
+-->
+<clickhouse>
+    <!-- Server text log: warnings only, capped at 3 x 50 MB. -->
+    <logger>
+        <level>warning</level>
+        <size>50M</size>
+        <count>3</count>
+    </logger>
+
+    <!-- High-volume internal tables nobody reads locally: disable entirely. -->
+    <text_log remove="1"/>
+    <trace_log remove="1"/>
+    <metric_log remove="1"/>
+    <asynchronous_metric_log remove="1"/>
+
+    <!-- Still useful for debugging slow Langfuse queries: keep one week. -->
+    <query_log>
+        <ttl>event_date + INTERVAL 7 DAY DELETE</ttl>
+    </query_log>
+    <processors_profile_log>
+        <ttl>event_date + INTERVAL 7 DAY DELETE</ttl>
+    </processors_profile_log>
+    <!-- opentelemetry_span_log is left at defaults: the stock config gives it an
+         explicit <engine>, and ClickHouse rejects a separate <ttl> alongside an
+         engine (Code 36 BAD_ARGUMENTS -> container crash-loops). It stays tiny. -->
+    <part_log>
+        <ttl>event_date + INTERVAL 7 DAY DELETE</ttl>
+    </part_log>
+</clickhouse>
