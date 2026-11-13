@@ -41,3 +41,4 @@ them as approximate. Records from 0018 on are written at decision time.
 | [0027](0027-jev-decision-time-forecasts.md) | 2026-11-09 | Preserve immutable Jev evidence; separate current-entry risk and near-close overnight assessments, then evaluate forward outcomes |
 | [0028](0028-intraday-entry-helper.md) | 2026-11-10 | Separate current-entry-to-close helper with shared as-of features, chronological calibration, primary Rank 1 evidence, and bounded live refresh |
 | [0029](0029-shared-svm-inputs-for-rank.md) | 2026-11-12 | Rank reuses Fit's seven chronological SVM inputs and saved estimators, with ordinary selection/pruning |
+| [0031](0031-langfuse-clickhouse-log-retention.md) | 2026-11-13 | Disable high-volume ClickHouse self-logging and keep 7-day query/part logs so local Langfuse stays small; Langfuse traces untouched |
