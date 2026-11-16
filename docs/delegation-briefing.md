@@ -120,6 +120,12 @@ only, same promotion bar as always. Also worth one candidate each:
 position-weighted ListFold (emphasize the top-20 steps), and NDCG@±k as an
 extra reported metric (paper Sec 4.3.2). Expect modest gains; time-box it.
 
+**P2 -- Langfuse SDK upgrade for the news judge.** Plan in
+`docs/langfuse-sdk-plan.md` (not started; owner must pick server v4 + SDK v5
+vs. stay on v3 + SDK v4 before Phase 1). Turns the flat `trace_news_judge`
+events into real generations, then outcome scores, versioned prompts, and
+datasets. Merge PR #304 (ADR 0031, ClickHouse log caps) first.
+
 **P3 (nice to have) -- root-cause gazelle.** Reproduce on clean main, bisect
 recent commits (suspects: `python/stock_picker/paper/__init__.py`, langfuse
 additions), fix, delete the manual-BUILD memory note and the trap above.
